@@ -13,11 +13,6 @@ const transformJsExpression = ({ text, ast, comments }) => {
   return postprocess(expressionRoot, { text });
 };
 
-const transformJsProgram = ({ text, ast, comments }) => {
-  ast.comments = comments;
-  return postprocess(ast, { text });
-};
-
 const prettierPlugins = new Map();
 const createPlugin = (mdxParserName, jsParserName, transform) => {
   if (!prettierPlugins.has(mdxParserName)) {
@@ -75,16 +70,4 @@ const printJsExpression = createPrint({
   transform: transformJsExpression,
 });
 
-const printJsProgram = createPrint({
-  jsParserName: "acorn",
-  getParseResult(program) {
-    if (process.env.NODE_ENV !== "production") {
-      assert.ok(program.isProgram);
-    }
-
-    return program.parseResult;
-  },
-  transform: transformJsProgram,
-});
-
-export { printJsExpression, printJsProgram };
+export { printJsExpression };

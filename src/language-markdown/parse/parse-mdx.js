@@ -11,6 +11,7 @@ import { math as mathSyntax } from "micromark-extension-math";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
 import parseFrontMatter from "../../main/front-matter/parse.js";
+import * as dummyAcorn from "../acorn/dummy-parser.js";
 import * as acorn from "../acorn/parser.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
@@ -23,8 +24,15 @@ let markdownParseOptions;
 function getMarkdownParseOptions() {
   const settings = {
     acorn,
-    acornOptions: { ecmaVersion: 2024, sourceType: "module" },
+    acornOptions: {
+      /** @type {2024} */ ecmaVersion: 2024,
+      /** @type {"module"} */ sourceType: "module",
+    },
     addResult: true,
+  };
+  const esmSettings = {
+    ...settings,
+    acorn: dummyAcorn,
   };
   return (markdownParseOptions ??= {
     extensions: [
@@ -33,7 +41,7 @@ function getMarkdownParseOptions() {
       // wikiLinkSyntax(),
       // liquidSyntax(),
       // overrideHtmlTextSyntax(),
-      mdxjsEsm(settings),
+      mdxjsEsm(esmSettings),
       mdxExpression(settings),
       mdxJsx(settings),
       mdxMd(),
