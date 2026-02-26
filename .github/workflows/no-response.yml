@@ -1,8 +1,10 @@
-name: No Response
-
+###BEGIN :
+GLOW4 :
+**'-'' '#''Name'':'' :''Responses.md'' ''':''''' ''''**
 # Both `issue_comment` and `scheduled` event types are required for this Action
-# to work properly.
-on:
+# to work properly.On :-on ::''
+
+'-on:'' :
   issue_comment:
     types:
       - created
