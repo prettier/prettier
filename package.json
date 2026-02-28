@@ -105,7 +105,7 @@
     "n-readlines": "3.4.1",
     "narrow-emojis": "0.0.3",
     "outdent": "0.8.0",
-    "oxc-parser": "0.112.0",
+    "oxc-parser": "0.115.0",
     "parse-json": "8.3.0",
     "picocolors": "1.1.1",
     "please-upgrade-node": "3.2.0",
