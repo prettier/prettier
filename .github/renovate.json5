@@ -56,6 +56,10 @@
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
+      groupName: "Acorn and Espree",
+      matchPackageNames: ["acorn", "acorn-jsx", "espree"],
+    },
+    {
       groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },
