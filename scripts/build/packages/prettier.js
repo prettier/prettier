@@ -477,40 +477,9 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: getPackageFile("espree"),
-        process(text) {
-          const lines = text.split("\n");
-
-          let lineIndex;
-
-          // Remove `eslint-visitor-keys`
-          lineIndex = lines.findIndex((line) =>
-            line.endsWith(' from "eslint-visitor-keys";'),
-          );
-          lines.splice(lineIndex, 1);
-
-          // Remove code after `// Public`
-          lineIndex = lines.indexOf("// Public") - 1;
-          lines.length = lineIndex;
-
-          // Save code after `// Parser`
-          lineIndex = lines.indexOf("// Parser") - 1;
-          const parserCodeLines = lines.slice(lineIndex);
-          lines.length = lineIndex;
-
-          // Remove code after `// Tokenizer`
-          lineIndex = lines.indexOf("// Tokenizer") - 1;
-          lines.length = lineIndex;
-
-          text = [...lines, ...parserCodeLines].join("\n");
-
-          return text;
-        },
-      },
-      {
         module: getPackageFile("espree/lib/espree.js"),
         process(text) {
-          // We are currently not using tokens
+          // We don't use tokens
           text = text.replace(
             'import TokenTranslator from "./token-translator.js";',
             "",
