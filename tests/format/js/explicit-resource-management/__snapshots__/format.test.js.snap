@@ -237,28 +237,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-expr-using.js format[acorn] 1`] = `
-"Unexpected token (2:14)
-  1 | async function f() {
-> 2 |   await using[x];
-    |              ^
-  3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
-  4 | }
-  5 |
-Cause: Unexpected token (2:13)"
-`;
-
-exports[`valid-await-expr-using.js format[espree] 1`] = `
-"Unexpected token [ (2:14)
-  1 | async function f() {
-> 2 |   await using[x];
-    |              ^
-  3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
-  4 | }
-  5 |
-Cause: Unexpected token ["
-`;
-
 exports[`valid-await-expr-using-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -276,26 +254,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-expr-using-in.js format[acorn] 1`] = `
-"Unexpected keyword 'in' (2:15)
-  1 | async function f() {
-> 2 |   await using in foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'in' (2:14)"
-`;
-
-exports[`valid-await-expr-using-in.js format[espree] 1`] = `
-"Unexpected keyword 'in' (2:15)
-  1 | async function f() {
-> 2 |   await using in foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'in'"
-`;
-
 exports[`valid-await-expr-using-instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -311,26 +269,6 @@ async function f() {
 }
 
 ================================================================================
-`;
-
-exports[`valid-await-expr-using-instanceof.js format[acorn] 1`] = `
-"Unexpected keyword 'instanceof' (2:15)
-  1 | async function f() {
-> 2 |   await using instanceof foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'instanceof' (2:14)"
-`;
-
-exports[`valid-await-expr-using-instanceof.js format[espree] 1`] = `
-"Unexpected keyword 'instanceof' (2:15)
-  1 | async function f() {
-> 2 |   await using instanceof foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'instanceof'"
 `;
 
 exports[`valid-await-using-asi-assignment.js format 1`] = `
@@ -674,6 +612,28 @@ async function f() {
 }
 
 ================================================================================
+`;
+
+exports[`valid-for-using-binding-of-of.js format[acorn] 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |
+Cause: Assigning to rvalue (2:7)"
+`;
+
+exports[`valid-for-using-binding-of-of.js format[espree] 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |
+Cause: Assigning to rvalue"
 `;
 
 exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
@@ -1029,26 +989,6 @@ for (using\`\`.foo in []);
 ================================================================================
 `;
 
-exports[`valid-using-as-identifier-for-in.js format[acorn] 1`] = `
-"Unexpected keyword 'in' (1:12)
-> 1 | for (using in []);
-    |            ^
-  2 | for (using.foo in []);
-  3 | for (using().foo in []);
-  4 | for (using\`\`.foo in []);
-Cause: Unexpected keyword 'in' (1:11)"
-`;
-
-exports[`valid-using-as-identifier-for-in.js format[espree] 1`] = `
-"Unexpected keyword 'in' (1:12)
-> 1 | for (using in []);
-    |            ^
-  2 | for (using.foo in []);
-  3 | for (using().foo in []);
-  4 | for (using\`\`.foo in []);
-Cause: Unexpected keyword 'in'"
-`;
-
 exports[`valid-using-as-identifier-for-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1094,22 +1034,6 @@ using in using instanceof using;
 using in using instanceof using;
 
 ================================================================================
-`;
-
-exports[`valid-using-as-identifier-in.js format[acorn] 1`] = `
-"Unexpected keyword 'in' (1:7)
-> 1 | using in using instanceof using;
-    |       ^
-  2 |
-Cause: Unexpected keyword 'in' (1:6)"
-`;
-
-exports[`valid-using-as-identifier-in.js format[espree] 1`] = `
-"Unexpected keyword 'in' (1:7)
-> 1 | using in using instanceof using;
-    |       ^
-  2 |
-Cause: Unexpected keyword 'in'"
 `;
 
 exports[`valid-using-binding-basic.js format 1`] = `
@@ -1213,22 +1137,6 @@ parsers: ["babel", "flow", "typescript"]
 }
 
 ================================================================================
-`;
-
-exports[`valid-using-binding-non-bmp.js format[acorn] 1`] = `
-"Unexpected token (1:9)
-> 1 | { using 𠮷 = foo(); }
-    |         ^
-  2 |
-Cause: Unexpected token (1:8)"
-`;
-
-exports[`valid-using-binding-non-bmp.js format[espree] 1`] = `
-"Unexpected token 𠮷 (1:9)
-> 1 | { using 𠮷 = foo(); }
-    |         ^
-  2 |
-Cause: Unexpected token 𠮷"
 `;
 
 exports[`valid-using-binding-non-bmp.js format[flow] 1`] = `
