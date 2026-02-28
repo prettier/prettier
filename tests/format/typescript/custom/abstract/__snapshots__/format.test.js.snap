@@ -75,3 +75,13 @@ exports[`abstractProperties.ts format[babel-ts] 1`] = `
   7 |     static abstract ['i'];
 Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
 `;
+
+exports[`abstractProperties.ts format[oxc-ts] 1`] = `
+"'private' modifier must precede 'abstract' modifier. (2:14)
+  1 | abstract class Foo {
+> 2 |     abstract private a: 1;
+    |              ^^^^^^^
+  3 |     private abstract b: 2;
+  4 |     static abstract c: 3;
+  5 |     abstract private ['g'];"
+`;

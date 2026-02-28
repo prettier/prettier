@@ -639,6 +639,17 @@ exports[`classAbstractMixedWithModifiers.ts format[babel-ts] 1`] = `
 Cause: 'static' modifier cannot be used with 'abstract' modifier. (12:13)"
 `;
 
+exports[`classAbstractMixedWithModifiers.ts format[oxc-ts] 1`] = `
+"'public' modifier must precede 'abstract' modifier. (8:14)
+   6 |     private abstract foo_d();
+   7 |     
+>  8 |     abstract public foo_bb();
+     |              ^^^^^^
+   9 |     abstract protected foo_cc();
+  10 |     abstract private foo_dd();
+  11 |     "
+`;
+
 exports[`classAbstractOverloads.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

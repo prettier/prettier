@@ -39,13 +39,6 @@ parsers: ["typescript"]
 ================================================================================
 `;
 
-exports[`3.ts format[oxc-ts] 1`] = `
-"Expected \`{\` but found \`<<\` (1:17)
-> 1 | (class extends f<<T>(v: T) => void> {});
-    |                 ^^
-  2 |"
-`;
-
 exports[`3.ts format[typescript] 1`] = `
 "',' expected. (1:17)
 > 1 | (class extends f<<T>(v: T) => void> {});
@@ -81,13 +74,6 @@ parsers: ["typescript"]
 <Component<<T>(v: T) => void> />;
 
 ================================================================================
-`;
-
-exports[`5.tsx format[oxc-ts] 1`] = `
-"Unexpected token (1:11)
-> 1 | <Component<<T>(v: T) => void> />
-    |           ^^
-  2 |"
 `;
 
 exports[`5.tsx format[typescript] 1`] = `
