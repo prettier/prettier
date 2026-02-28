@@ -170,6 +170,46 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
   });
 });
 
+test("API resolveConfig doesn’t apply editorconfig outside project when .git is a file", async () => {
+  const file = new URL(
+    "../cli/config/editorconfig/repo-root-git-file/file.js",
+    import.meta.url,
+  );
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.toMatchObject({
+    endOfLine: "auto",
+    semi: false,
+  });
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.not.toMatchObject({
+    useTabs: true,
+    tabWidth: 8,
+    printWidth: 100,
+  });
+});
+
+test("API resolveConfig doesn’t apply editorconfig outside project when .git is a directory", async () => {
+  const file = new URL(
+    "../cli/config/editorconfig/repo-root-git-dir/file.js",
+    import.meta.url,
+  );
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.toMatchObject({
+    endOfLine: "auto",
+    semi: false,
+  });
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.not.toMatchObject({
+    useTabs: true,
+    tabWidth: 8,
+    printWidth: 100,
+  });
+});
+
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrow();
 });
