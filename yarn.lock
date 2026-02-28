@@ -23,13 +23,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/code-frame@npm:8.0.0-rc.1"
+"@babel/code-frame@npm:8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/code-frame@npm:8.0.0-rc.2"
   dependencies:
-    "@babel/helper-validator-identifier": "npm:^8.0.0-rc.1"
+    "@babel/helper-validator-identifier": "npm:^8.0.0-rc.2"
     js-tokens: "npm:^10.0.0"
-  checksum: 10/a1a43ab10cfd6d6f2b2f4aa7b83a6c8765bd79733dff4885ece77068444e54a8c67f40a576eeac1ba0c389b47bf1497b48ab93594bd59686043177651f85308f
+  checksum: 10/99435f37f996c9b5d5e04c20146859387062260e4c5213c4c4eeab783c63756a5373a7a0459674f1f096864ddb263559316e3b55ea6f1bedc231bee560f2424e
   languageName: node
   linkType: hard
 
@@ -74,17 +74,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/generator@npm:8.0.0-rc.1"
+"@babel/generator@npm:8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/generator@npm:8.0.0-rc.2"
   dependencies:
-    "@babel/parser": "npm:^8.0.0-rc.1"
-    "@babel/types": "npm:^8.0.0-rc.1"
+    "@babel/parser": "npm:^8.0.0-rc.2"
+    "@babel/types": "npm:^8.0.0-rc.2"
     "@jridgewell/gen-mapping": "npm:^0.3.12"
     "@jridgewell/trace-mapping": "npm:^0.3.28"
     "@types/jsesc": "npm:^2.5.0"
     jsesc: "npm:^3.0.2"
-  checksum: 10/1949ed7a0731e2825b263b8095be9fba0ed6fc1bb4dc1c6ea9fa554cb6d34aed3f9bf72ff1ce343bc31dbe604ebb0138b98f4b77c496ae31e6576ef6a9c0dd20
+  checksum: 10/32793849fdd473e256cb88d194b91390880d0fdb4bffe07450c19483c8565613bcb79105f1508bceb5723bcd4ecbcf500044532ab2cb4a722f993b2a76e6dca9
   languageName: node
   linkType: hard
 
@@ -158,10 +158,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-string-parser@npm:^8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/helper-string-parser@npm:8.0.0-rc.1"
-  checksum: 10/9c7b34ecce6a1a03a3a2fbd2f09f46bb47a961f432ee2c279e120855c40258b1715cd1bf2ed27618c03ee13d4310356381ad123ec37648d2756c5594bd128682
+"@babel/helper-string-parser@npm:^8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/helper-string-parser@npm:8.0.0-rc.2"
+  checksum: 10/96bf61eb3f38dbab21fb87f0be53ac7d376185e45006e7b85b5ea0ce12b183dec780b71242129c77d0db48f5feb492c4e4dde422a91184e7189a1b599c479cae
   languageName: node
   linkType: hard
 
@@ -172,10 +172,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-validator-identifier@npm:^8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/helper-validator-identifier@npm:8.0.0-rc.1"
-  checksum: 10/75d6d5201c64fec916b539210b77f41585b3fc31f197c17a874e1ace818014080dba5909eb24f84daad451810f2e9b7f09a2b3f23978b9c9c9875ed63d3f83fb
+"@babel/helper-validator-identifier@npm:^8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/helper-validator-identifier@npm:8.0.0-rc.2"
+  checksum: 10/91c38b24ef9222a7730caeb1a7dad10808fe95c49ac2a8efbd313c6aee2e1a130fa906fbce6cefb76bc88d950386aacb230c3ff9cbbbe8ea2d304ef9756b8a86
   languageName: node
   linkType: hard
 
@@ -208,14 +208,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:8.0.0-rc.1, @babel/parser@npm:^8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/parser@npm:8.0.0-rc.1"
+"@babel/parser@npm:8.0.0-rc.2, @babel/parser@npm:^8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/parser@npm:8.0.0-rc.2"
   dependencies:
-    "@babel/types": "npm:^8.0.0-rc.1"
+    "@babel/types": "npm:^8.0.0-rc.2"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/d0c5baf877a0ee9e0b0626f21f22d4911405abf66504b102c7544aff8a0925e33d8841934ceb834f3d989f7992fffcaff7be8d433b5779ed1924e1692c182016
+  checksum: 10/a0488f9f5dc2a596e8d7b23a444f109ad83ccd38308bb58ee7ad2710140edf23e5ae25dda696922ae5fcb33203c7ca0e7541bbad9e7acb6fa04ffec48c807573
   languageName: node
   linkType: hard
 
@@ -450,13 +450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:8.0.0-rc.1, @babel/types@npm:^8.0.0-rc.1":
-  version: 8.0.0-rc.1
-  resolution: "@babel/types@npm:8.0.0-rc.1"
+"@babel/types@npm:8.0.0-rc.2, @babel/types@npm:^8.0.0-rc.2":
+  version: 8.0.0-rc.2
+  resolution: "@babel/types@npm:8.0.0-rc.2"
   dependencies:
-    "@babel/helper-string-parser": "npm:^8.0.0-rc.1"
-    "@babel/helper-validator-identifier": "npm:^8.0.0-rc.1"
-  checksum: 10/34def05264164b579c8648a9b44449b567a79c4f34b285353d1e225c0d012a2931747547f05781a41ce99806f43920e2ca6319bd628be09b44ae9dce77576ec3
+    "@babel/helper-string-parser": "npm:^8.0.0-rc.2"
+    "@babel/helper-validator-identifier": "npm:^8.0.0-rc.2"
+  checksum: 10/825368169a4f72a94e555dd31e61cb91619f140cf8a07894ae598a823d9e07a1e455ad57c828f0d09b04f71f59faaf1905ff054a01d83146cf2b62950b34261c
   languageName: node
   linkType: hard
 
@@ -8385,10 +8385,10 @@ __metadata:
   resolution: "prettier@workspace:."
   dependencies:
     "@angular/compiler": "npm:21.1.1"
-    "@babel/code-frame": "npm:8.0.0-rc.1"
-    "@babel/generator": "npm:8.0.0-rc.1"
-    "@babel/parser": "npm:8.0.0-rc.1"
-    "@babel/types": "npm:8.0.0-rc.1"
+    "@babel/code-frame": "npm:8.0.0-rc.2"
+    "@babel/generator": "npm:8.0.0-rc.2"
+    "@babel/parser": "npm:8.0.0-rc.2"
+    "@babel/types": "npm:8.0.0-rc.2"
     "@eslint/js": "npm:9.39.2"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.10.0"
