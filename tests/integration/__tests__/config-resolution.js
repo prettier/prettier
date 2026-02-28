@@ -1,6 +1,26 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
+
+beforeAll(async () => {
+  const gitFilePath = new URL(
+    "../cli/config/editorconfig/repo-root-git-file/.git",
+    import.meta.url,
+  );
+  await fs.rm(gitFilePath, { recursive: true, force: true });
+  await fs.writeFile(
+    gitFilePath,
+    "gitdir: ../../../../.git/worktrees/editorconfig-repo-root-git-file\n",
+  );
+
+  const gitDirPath = new URL(
+    "../cli/config/editorconfig/repo-root-git-dir/.git",
+    import.meta.url,
+  );
+  await fs.rm(gitDirPath, { recursive: true, force: true });
+  await fs.mkdir(gitDirPath, { recursive: true });
+});
 
 test("resolves configuration from external files and overrides by extname", async () => {
   await expect(

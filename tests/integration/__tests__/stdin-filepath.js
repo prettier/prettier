@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import { isCI } from "ci-info";
 import { outdent } from "outdent";
 
@@ -129,6 +130,18 @@ describe("don’t apply editorconfig outside project for stdin-filepath with non
 });
 
 describe("don’t apply editorconfig outside project for stdin-filepath when .git is a file", () => {
+  beforeAll(async () => {
+    const gitPath = new URL(
+      "../cli/config/editorconfig/repo-root-git-file/.git",
+      import.meta.url,
+    );
+    await fs.rm(gitPath, { recursive: true, force: true });
+    await fs.writeFile(
+      gitPath,
+      "gitdir: ../../../../.git/worktrees/editorconfig-repo-root-git-file\n",
+    );
+  });
+
   runCli(
     "cli",
     [
