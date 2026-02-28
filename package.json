@@ -122,7 +122,7 @@
     "sdbm": "3.0.0",
     "search-closest": "1.1.0",
     "smol-toml": "1.6.0",
-    "strip-ansi": "7.1.2",
+    "strip-ansi": "7.2.0",
     "to-fast-properties": "4.0.0",
     "trim-newlines": "5.0.0",
     "typescript": "5.9.3",
