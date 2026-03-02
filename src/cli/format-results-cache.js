@@ -43,10 +43,10 @@ class FormatResultsCache {
    * @param {string} cacheStrategy
    */
   constructor(cacheFileLocation, cacheStrategy) {
-    const useChecksum = cacheStrategy === "content";
+    const useCheckSum = cacheStrategy === "content";
     const fileEntryCacheOptions = {
-      useChecksum,
-      useModifiedTime: !useChecksum,
+      useCheckSum,
+      useModifiedTime: !useCheckSum,
       restrictAccessToCwd: false,
     };
 
