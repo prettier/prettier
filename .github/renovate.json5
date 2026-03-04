@@ -16,7 +16,7 @@
       matchDepTypes: ["devDependencies"],
     },
     {
-      groupName: "react",
+      groupName: "React",
       matchPackageNames: ["react", "react-dom", "@types/react"],
     },
     {
@@ -81,6 +81,7 @@
         "@codemirror/*",
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
+        "@catppuccin/codemirror",
       ],
     },
   ],
