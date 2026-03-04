@@ -177,7 +177,7 @@ function parseValue(value, options) {
     return { type: "value-unknown", value };
   }
 
-  let result = null;
+  let result;
 
   try {
     result = new PostcssValuesParser(value, { loose: true }).parse();

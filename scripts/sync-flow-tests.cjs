@@ -89,7 +89,7 @@ function run(argv) {
   }
 
   const syncDir = argv[0];
-  let skipped = [];
+  let skipped;
 
   try {
     skipped = syncTests(syncDir);

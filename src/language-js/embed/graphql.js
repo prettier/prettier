@@ -38,7 +38,7 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
       return null;
     }
 
-    let doc = null;
+    let doc;
 
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);

@@ -62,7 +62,9 @@ async function runYarn(args, options) {
   try {
     return await spawn("yarn", [...args], options);
   } catch (error) {
-    throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
+    throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`, {
+      cause: error,
+    });
   }
 }
 

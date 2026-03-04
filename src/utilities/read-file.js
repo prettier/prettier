@@ -17,7 +17,9 @@ async function readFile(file) {
       return;
     }
 
-    throw new Error(`Unable to read '${file}': ${error.message}`);
+    throw new Error(`Unable to read '${file}': ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
