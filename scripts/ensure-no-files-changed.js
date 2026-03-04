@@ -4,7 +4,7 @@ import spawn from "nano-spawn";
 
 async function getChangedFiles() {
   const { stdout } = await spawn("git", ["diff", "--name-only"]);
-  return stdout.split("\n");
+  return stdout ? stdout.split("\n") : [];
 }
 
 async function ensureNoFilesChanged() {
@@ -26,6 +26,8 @@ async function ensureNoFilesChanged() {
   } catch (error) {
     process.exitCode = error.exitCode;
   }
+
+  process.exitCode ||= 1;
 }
 
 await ensureNoFilesChanged();
