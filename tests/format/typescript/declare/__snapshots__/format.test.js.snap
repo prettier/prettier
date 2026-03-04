@@ -31,6 +31,17 @@ declare class D {
 ================================================================================
 `;
 
+exports[`declare_class_fields.ts format[oxc-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (4:19)
+  2 | class C extends B {declare p: 256 | 1000;}
+  3 | class D {
+> 4 |   declare field = "field";
+    |                   ^^^^^^^
+  5 | }
+  6 | declare class D {
+  7 |   field = "field";"
+`;
+
 exports[`declare_enum.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -125,6 +136,17 @@ declare module m {
 ================================================================================
 `;
 
+exports[`declare_module.ts format[oxc-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (3:13)
+  1 | declare module m {
+  2 |   class C {
+> 3 |     field = "field";
+    |             ^^^^^^^
+  4 |   }
+  5 | }
+  6 |"
+`;
+
 exports[`declare_namespace.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -144,6 +166,17 @@ declare namespace m {
 }
 
 ================================================================================
+`;
+
+exports[`declare_namespace.ts format[oxc-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (3:13)
+  1 | declare namespace m {
+  2 |   class C {
+> 3 |     field = "field";
+    |             ^^^^^^^
+  4 |   }
+  5 | }
+  6 |"
 `;
 
 exports[`declare_var.ts format 1`] = `

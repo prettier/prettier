@@ -671,7 +671,7 @@ Cause: [5:12-5:13]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`destructuring-private.js format[oxc] 1`] = `
-"Unexpected token (5:13)
+"Private identifier '#x' is not allowed in property names (5:13)
   3 |   constructor() {
   4 |     console.log(this.#x); // => 1
 > 5 |     const { #x: x } = this;
