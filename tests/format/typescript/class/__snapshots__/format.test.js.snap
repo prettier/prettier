@@ -136,6 +136,16 @@ class A {
 ================================================================================
 `;
 
+exports[`declare-readonly-field-initializer-w-annotation.ts format[oxc-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (2:34)
+  1 | class A {
+> 2 |   declare readonly bar: string = "test";
+    |                                  ^^^^^^
+  3 |   declare baz: string = "test";
+  4 | }
+  5 |"
+`;
+
 exports[`dunder.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
