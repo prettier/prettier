@@ -31,4 +31,4 @@ To apply autofix for Prettier from GitHub Actions, do the following:
              commit-message: "Apply Prettier format"
    ```
 
-For more information see [autofix.ci](https://autofix.ci/) website.
+For more information, see [autofix.ci](https://autofix.ci/) website.
