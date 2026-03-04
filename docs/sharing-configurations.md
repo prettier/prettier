@@ -12,7 +12,7 @@ This page explains how to create, publish and consume a shareable config.
 
 ## Creating a Shareable Config
 
-Sharable configs are just [npm packages](https://docs.npmjs.com/about-packages-and-modules#about-packages) that export a single [prettier config file](./configuration.md).
+Shareable configs are just [npm packages](https://docs.npmjs.com/about-packages-and-modules#about-packages) that export a single [prettier config file](./configuration.md).
 
 Before we start, make sure you have:
 
@@ -128,7 +128,7 @@ If you don’t want to use `package.json`, you can use any of the supported exte
 "@company/prettier-config"
 ```
 
-### Extending a Sharable Config
+### Extending a Shareable Config
 
 To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `prettier.config.mjs` file and export the modifications, e.g:
 
