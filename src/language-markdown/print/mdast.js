@@ -160,7 +160,7 @@ function printMdast(path, options, print) {
       return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
-      let contents = "";
+      let contents;
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
