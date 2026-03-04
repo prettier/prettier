@@ -1,7 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
-import { printJsExpression, printJsProgram } from "./acorn/printer.js";
+import { printJsExpression } from "./acorn/printer.js";
 import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
@@ -62,7 +62,12 @@ function embed(path, options) {
 
     // MDX
     case "mdxjsEsm":
-      return printJsProgram;
+      return async (textToDoc) =>
+        await textToDoc(node.value.trimEnd(), {
+          // TODO: Rename this option since it's not used in HTML
+          __onHtmlBindingRoot: validateImportExport,
+          parser: "babel",
+        });
 
     case "mdxFlowExpression":
       return async (textToDoc, print, path, options) => [
@@ -78,6 +83,25 @@ function embed(path, options) {
         await printJsExpression(textToDoc, print, path, options),
         "}",
       ];
+  }
+}
+
+function validateImportExport(ast, type) {
+  const {
+    program: { body },
+  } = ast;
+
+  // https://github.com/micromark/micromark-extension-mdxjs-esm/blob/3fdf3d3e597c707ac08ca94ba52d99d88f87ddfe/dev/lib/syntax.js#L18-L23
+  if (
+    !body.every(
+      (node) =>
+        node.type === "ExportAllDeclaration" ||
+        node.type === "ExportDefaultDeclaration" ||
+        node.type === "ExportNamedDeclaration" ||
+        node.type === "ImportDeclaration",
+    )
+  ) {
+    throw new Error(`Unexpected '${type}' in MDX.`);
   }
 }
 

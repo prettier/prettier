@@ -4,10 +4,14 @@ import { mdxFromMarkdown } from "mdast-util-mdx";
 import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
-import { mdxjs } from "micromark-extension-mdxjs";
+import { mdxExpression } from "micromark-extension-mdx-expression";
+import { mdxJsx } from "micromark-extension-mdx-jsx";
+import { mdxMd } from "micromark-extension-mdx-md";
+import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
 import parseFrontMatter from "../../main/front-matter/parse.js";
+import * as dummyAcorn from "../acorn/dummy-parser.js";
 import * as acorn from "../acorn/parser.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
@@ -18,6 +22,18 @@ import {
 
 let markdownParseOptions;
 function getMarkdownParseOptions() {
+  const settings = {
+    acorn,
+    acornOptions: {
+      /** @type {2024} */ ecmaVersion: 2024,
+      /** @type {"module"} */ sourceType: "module",
+    },
+    addResult: true,
+  };
+  const esmSettings = {
+    ...settings,
+    acorn: dummyAcorn,
+  };
   return (markdownParseOptions ??= {
     extensions: [
       gfmSyntax(),
@@ -25,7 +41,10 @@ function getMarkdownParseOptions() {
       // wikiLinkSyntax(),
       // liquidSyntax(),
       // overrideHtmlTextSyntax(),
-      mdxjs({ acorn }),
+      mdxjsEsm(esmSettings),
+      mdxExpression(settings),
+      mdxJsx(settings),
+      mdxMd(),
       comment,
     ],
     mdastExtensions: [

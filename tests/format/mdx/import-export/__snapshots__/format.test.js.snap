@@ -36,6 +36,20 @@ An <External>external</External> component and a <Local>local one</Local>.
 ================================================================================
 `;
 
+exports[`export-undefined.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export  {  foo}
+
+=====================================output=====================================
+export { foo };
+
+================================================================================
+`;
+
 exports[`like-import-declaration.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -83,6 +97,26 @@ printWidth: 80
 =====================================output=====================================
 - import is a word in lists
 - export is a word in lists, too!
+
+================================================================================
+`;
+
+exports[`no-specifier.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+import {           } from "foo";
+import "foo";
+
+=====================================output=====================================
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+import {} from "foo";
+import "foo";
 
 ================================================================================
 `;
