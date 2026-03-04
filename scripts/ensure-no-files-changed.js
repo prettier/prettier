@@ -24,7 +24,7 @@ async function ensureNoFilesChanged() {
   try {
     await spawn("git", ["diff", "--exit-code"], { stdio: "inherit" });
   } catch (error) {
-    process.exitCode = error.exitCode;
+    process.exitCode = error.exitCode || 1;
   }
 }
 
