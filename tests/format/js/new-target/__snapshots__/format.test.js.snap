@@ -13,14 +13,6 @@ const x = new.target;
 ================================================================================
 `;
 
-exports[`outside-functions.js format[acorn] 1`] = `
-"'new.target' can only be used in functions and class static block (1:11)
-> 1 | const x = new.target;
-    |           ^
-  2 |
-Cause: 'new.target' can only be used in functions and class static block (1:10)"
-`;
-
 exports[`outside-functions.js format[espree] 1`] = `
 "'new.target' can only be used in functions and class static block (1:11)
 > 1 | const x = new.target;
@@ -70,14 +62,6 @@ exports[`range.js format 1`] = `
     : }
     :
     : ================================================================================
-`;
-
-exports[`range.js format[acorn] 1`] = `
-"'new.target' can only be used in functions and class static block (2:1)
-  1 | const x =
-> 2 | new.target;
-    | ^
-Cause: 'new.target' can only be used in functions and class static block (2:0)"
 `;
 
 exports[`range.js format[espree] 1`] = `
