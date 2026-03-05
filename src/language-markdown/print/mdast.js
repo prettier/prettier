@@ -367,7 +367,8 @@ function printMdast(path, options, print) {
           ? [" ", join(" ", path.map(print, "attributes"))]
           : "";
       const isSelfClosing =
-        node.type === "mdxJsxTextElement" && node.children.length === 0;
+        node.children.length === 0 &&
+        options.originalText.startsWith("/>", node.position.end.offset - 2);
       if (isSelfClosing) {
         return ["<", name, attributes, " />"];
       }
