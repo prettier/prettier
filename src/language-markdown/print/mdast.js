@@ -354,11 +354,11 @@ function printMdast(path, options, print) {
       return [
         path.parent.type === "mdxJsxFlowElement" ? hardline : "",
         "{",
-        node.value,
+        node.value.trim(),
         "}",
       ];
     case "mdxTextExpression":
-      return ["{", node.value, "}"];
+      return ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const name = node.name ?? "";
