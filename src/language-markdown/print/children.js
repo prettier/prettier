@@ -83,12 +83,13 @@ function shouldPrePrintDoubleHardline(path, options) {
   }
 
   if (
-    (previous.type === "mdxJsxFlowElement" &&
-      node.type === "mdxJsxFlowElement") ||
-    (previous.type === "paragraph" && node.type === "mdxJsxFlowElement") ||
-    (previous.type === "mdxJsxFlowElement" && node.type === "paragraph")
+    isAdjacentSibling(
+      path,
+      ["mdxJsxFlowElement", "mdxFlowExpression"],
+      ["mdxJsxFlowElement", "mdxFlowExpression", "paragraph"],
+    )
   ) {
-    return previous.position.end.line + 1 !== node.position.start.line;
+    return previous.position.end.line + 1 < node.position.start.line;
   }
 
   const isSequence = previous.type === node.type;
@@ -161,6 +162,23 @@ function isPreviousNodeLooseListItem(path) {
     parent: path.parent,
     next: path.node,
   });
+}
+
+/**
+ * @param {AstPath} path
+ * @param {Array<string>} typesA
+ * @param {Array<string>} typesB
+ * @returns {boolean}
+ */
+function isAdjacentSibling(path, typesA, typesB) {
+  const { previous, node } = path;
+  if (typesA.includes(previous.type) && typesB.includes(node.type)) {
+    return true;
+  }
+  if (typesB.includes(previous.type) && typesA.includes(node.type)) {
+    return true;
+  }
+  return false;
 }
 
 export { printChildren };

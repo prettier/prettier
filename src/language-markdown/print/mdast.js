@@ -351,12 +351,6 @@ function printMdast(path, options, print) {
     case "mdxjsEsm":
       return node.value.trimEnd();
     case "mdxFlowExpression":
-      return [
-        path.parent.type === "mdxJsxFlowElement" ? hardline : "",
-        "{",
-        node.value.trim(),
-        "}",
-      ];
     case "mdxTextExpression":
       return ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
@@ -382,7 +376,7 @@ function printMdast(path, options, print) {
 
       return [
         open,
-        indent([hardline, path.map(print, "children")]),
+        indent([hardline, printChildren(path, options, print)]),
         hardline,
         close,
       ];
