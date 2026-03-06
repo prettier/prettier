@@ -21,6 +21,7 @@ const INLINE_NODE_TYPES = new Set([
   "break",
   "inlineMath",
   "mdxTextExpression",
+  "mdxJsxTextElement",
 ]);
 
 const INLINE_NODE_WRAPPER_TYPES = new Set([

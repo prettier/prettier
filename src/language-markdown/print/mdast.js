@@ -351,14 +351,8 @@ function printMdast(path, options, print) {
     case "mdxjsEsm":
       return node.value.trimEnd();
     case "mdxFlowExpression":
-      return [
-        path.parent.type === "mdxJsxFlowElement" ? hardline : "",
-        "{",
-        node.value,
-        "}",
-      ];
     case "mdxTextExpression":
-      return ["{", node.value, "}"];
+      return ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const name = node.name ?? "";
@@ -367,7 +361,8 @@ function printMdast(path, options, print) {
           ? [" ", join(" ", path.map(print, "attributes"))]
           : "";
       const isSelfClosing =
-        node.type === "mdxJsxTextElement" && node.children.length === 0;
+        node.children.length === 0 &&
+        options.originalText.startsWith("/>", node.position.end.offset - 2);
       if (isSelfClosing) {
         return ["<", name, attributes, " />"];
       }
@@ -381,7 +376,7 @@ function printMdast(path, options, print) {
 
       return [
         open,
-        indent([hardline, path.map(print, "children")]),
+        indent([hardline, printChildren(path, options, print)]),
         hardline,
         close,
       ];
