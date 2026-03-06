@@ -52,6 +52,15 @@ function prevOrNextWord(path) {
   return hasPrevOrNextWord;
 }
 
+function hasFakeWhitespaceAfterNextToken(path) {
+  const { siblings, index } = path;
+  if (!siblings || typeof index !== "number") {
+    return false;
+  }
+  const afterNext = siblings[index + 2];
+  return afterNext?.type === "whitespace" && afterNext.value === "";
+}
+
 function printMdast(path, options, print) {
   const { node } = path;
 
@@ -109,7 +118,10 @@ function printMdast(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
+        next &&
+        /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
+        // Avoid https://github.com/prettier/prettier/issues/18861
+        !hasFakeWhitespaceAfterNextToken(path)
           ? "never"
           : options.proseWrap;
 
