@@ -697,7 +697,7 @@ import { Foo, Bar } from "./Fixture"
   </div>
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 
 <Foo />
 test
@@ -752,7 +752,7 @@ import { Foo, Bar } from "./Fixture";
   </div>
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 
 <Foo />
 test
