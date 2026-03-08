@@ -12,9 +12,15 @@ function clean(original, cloned, parent) {
     delete cloned.value;
   }
 
-  if (original.type === "mdxjsEsm") {
+  if (
+    original.type === "mdxjsEsm" ||
+    original.type === "mdxFlowExpression" ||
+    original.type === "mdxTextExpression" ||
+    original.type === "mdxJsxAttributeValueExpression" ||
+    original.type === "mdxJsxAttribute"
+  ) {
     delete cloned.value;
-    delete cloned.data.estree;
+    delete cloned.data?.estree;
   }
 
   if (original.type === "list") {
