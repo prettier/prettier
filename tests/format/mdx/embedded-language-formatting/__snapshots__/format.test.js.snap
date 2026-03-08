@@ -20,10 +20,8 @@ LF: Line Feed, \\n
 # title
 
 <Parenthesis>
-
-CR: Carriage Return, \\r
-LF: Line Feed, \\n
-
+  CR: Carriage Return, \\r
+  LF: Line Feed, \\n
 </Parenthesis>
 
 ================================================================================
