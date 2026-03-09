@@ -1617,6 +1617,7 @@ exports[`visitor keys remark 1`] = `
   ],
   "break": [],
   "code": [],
+  "comment": [],
   "definition": [],
   "delete": [
     "children",
@@ -1624,8 +1625,6 @@ exports[`visitor keys remark 1`] = `
   "emphasis": [
     "children",
   ],
-  "esComment": [],
-  "export": [],
   "footnote": [
     "children",
   ],
@@ -1639,10 +1638,8 @@ exports[`visitor keys remark 1`] = `
   "html": [],
   "image": [],
   "imageReference": [],
-  "import": [],
   "inlineCode": [],
   "inlineMath": [],
-  "jsx": [],
   "link": [
     "children",
   ],
@@ -1657,6 +1654,21 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "math": [],
+  "mdxFlowExpression": [],
+  "mdxJsxAttribute": [
+    "value",
+  ],
+  "mdxJsxAttributeValueExpression": [],
+  "mdxJsxFlowElement": [
+    "attributes",
+    "children",
+  ],
+  "mdxJsxTextElement": [
+    "attributes",
+    "children",
+  ],
+  "mdxTextExpression": [],
+  "mdxjsEsm": [],
   "paragraph": [
     "children",
   ],
