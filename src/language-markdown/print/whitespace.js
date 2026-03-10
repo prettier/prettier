@@ -176,9 +176,17 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
  * @param {boolean} isLink
+ * @param {{parser: string}} options
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, isLink) {
+function isBreakable(path, value, proseWrap, isLink, options) {
+  if (options.parser === "mdx") {
+    const paragraph = path.findAncestor((node) => node.type === "paragraph");
+    if (paragraph?.hasMdxJsx) {
+      return true;
+    }
+  }
+
   if (
     proseWrap !== "always" ||
     path.hasAncestor(
