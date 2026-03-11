@@ -129,6 +129,14 @@ Hello, world!
 |---|---|
 | Text | <Hello>Text</Hello> |
 
+---
+
+<Hello attr={{   ab: 'cd'}} />
+
+---
+
+Hello, {  javascript .    expression }!
+
 =====================================output=====================================
 <Heading hi="there">
   Hello, world!
@@ -174,6 +182,14 @@ Hello, world!
 | Column 1 | Column 2            |
 | -------- | ------------------- |
 | Text     | <Hello>Text</Hello> |
+
+---
+
+<Hello attr={{   ab: 'cd'}} />
+
+---
+
+Hello, {javascript .    expression}!
 
 ================================================================================
 `;
