@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #17713 SVG text - interpolation content preserved - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+=====================================output=====================================
+<svg
+  ><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg
+>
+
+================================================================================
+`;
+
+exports[`snippet: #17713 SVG text many attrs - interpolation still inline - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+=====================================output=====================================
+<svg
+  ><text
+    fill="#fff"
+    alignment-baseline="middle"
+    text-anchor="middle"
+    x="10"
+    y="20"
+    >{{ value }}</text
+  ></svg
+>
+
+================================================================================
+`;
+
+exports[`snippet: #17713 SVG title - interpolation content preserved - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg><title>{{ title }}</title></svg>
+=====================================output=====================================
+<svg
+  ><title>{{ title }}</title></svg
+>
+
+================================================================================
+`;
