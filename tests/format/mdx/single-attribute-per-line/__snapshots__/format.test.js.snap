@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`single-attribute-per-line.mdx - {"singleAttributePerLine":true} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+singleAttributePerLine: true
+                                                                                | printWidth
+=====================================input======================================
+This is a <Text   attr1="value1" attr2="value2" client:load>element</Text>.
+
+This is a <TextElement   attr1="value1" attr2="value2" client:load/>.
+
+<FlowElement attr1="value1" attr2="value2" client:load>
+<FlowElement attr1="value1" attr2="value2" client:load/>
+</FlowElement>
+
+=====================================output=====================================
+This is a <Text attr1="value1" attr2="value2" client:load>element</Text>.
+
+This is a <TextElement attr1="value1" attr2="value2" client:load />.
+
+<FlowElement attr1="value1" attr2="value2" client:load>
+  <FlowElement attr1="value1" attr2="value2" client:load />
+</FlowElement>
+
+================================================================================
+`;
+
+exports[`single-attribute-per-line.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+This is a <Text   attr1="value1" attr2="value2" client:load>element</Text>.
+
+This is a <TextElement   attr1="value1" attr2="value2" client:load/>.
+
+<FlowElement attr1="value1" attr2="value2" client:load>
+<FlowElement attr1="value1" attr2="value2" client:load/>
+</FlowElement>
+
+=====================================output=====================================
+This is a <Text attr1="value1" attr2="value2" client:load>element</Text>.
+
+This is a <TextElement attr1="value1" attr2="value2" client:load />.
+
+<FlowElement attr1="value1" attr2="value2" client:load>
+  <FlowElement attr1="value1" attr2="value2" client:load />
+</FlowElement>
+
+================================================================================
+`;
