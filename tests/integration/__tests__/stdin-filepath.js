@@ -128,6 +128,25 @@ describe("don’t apply editorconfig outside project for stdin-filepath with non
   });
 });
 
+describe("don’t apply editorconfig outside project for stdin-filepath when .git is a file", () => {
+  runCli(
+    "cli",
+    [
+      "--stdin-filepath",
+      "config/editorconfig/repo-root-git-file/nonexistent/one/two/three.js",
+    ],
+    {
+      input: outdent`
+        function f() {
+          console.log("should be indented with 2 spaces");
+        }
+      `, // js
+    },
+  ).test({
+    status: 0,
+  });
+});
+
 describe("output file as-is if stdin-filepath matched patterns in ignore-path", () => {
   runCli("cli/stdin-ignore", ["--stdin-filepath", "ignore/example.js"], {
     input: "hello_world( );",
