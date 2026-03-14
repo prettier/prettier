@@ -1,5 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
-import escapeStringRegexp from "escape-string-regexp";
+import escapeStringRegexp from "tiny-escape";
 import {
   align,
   DOC_TYPE_STRING,

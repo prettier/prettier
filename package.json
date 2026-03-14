@@ -67,7 +67,7 @@
     "diff": "8.0.3",
     "editorconfig-without-wasm": "0.0.4",
     "emoji-regex": "10.6.0",
-    "escape-string-regexp": "5.0.0",
+    "tiny-escape": "^1.1.0",
     "espree": "11.1.1",
     "fast-glob": "3.3.3",
     "fast-json-stable-stringify": "2.1.0",

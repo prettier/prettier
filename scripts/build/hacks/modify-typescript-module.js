@@ -1,5 +1,5 @@
 import path from "node:path";
-import escapeStringRegexp from "escape-string-regexp";
+import escapeStringRegexp from "tiny-escape";
 import MagicString from "magic-string";
 import { outdent } from "outdent";
 import { PROJECT_ROOT, writeFile } from "../../utilities/index.js";

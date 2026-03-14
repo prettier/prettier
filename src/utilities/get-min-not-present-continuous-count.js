@@ -1,4 +1,4 @@
-import escapeStringRegexp from "escape-string-regexp";
+import escapeStringRegexp from "tiny-escape";
 
 /**
  * Calculates the minimum `n` (>= 1) where `searchString.repeat(n)` is not present in `text`.

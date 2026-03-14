@@ -1,4 +1,4 @@
-import escapeStringRegexp from "escape-string-regexp";
+import escapeStringRegexp from "tiny-escape";
 
 class WhitespaceUtilities {
   #whitespaceCharacters;
