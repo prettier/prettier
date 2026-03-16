@@ -620,11 +620,47 @@ function shouldUnquoteAttributeValue(node, options) {
   );
 }
 
+/**
+ * Split text into interpolation ranges using depth-aware matching.
+ * This correctly handles nested `{{...}}` patterns (e.g., inside strings).
+ * @param {string} text
+ * @returns {Array<{ start: number, end: number, content: string }>}
+ */
+function getInterpolationRanges(text) {
+  const ranges = [];
+  let depth = 0;
+  let start = -1;
+
+  for (let i = 0; i < text.length - 1; i++) {
+    if (text[i] === "{" && text[i + 1] === "{") {
+      if (depth === 0) {
+        start = i;
+      }
+      depth++;
+      i++; // skip next {
+    } else if (text[i] === "}" && text[i + 1] === "}") {
+      depth--;
+      if (depth === 0 && start !== -1) {
+        ranges.push({
+          start,
+          end: i + 2,
+          content: text.slice(start + 2, i),
+        });
+        start = -1;
+      }
+      i++; // skip next }
+    }
+  }
+
+  return ranges;
+}
+
 export {
   canHaveInterpolation,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
+  getInterpolationRanges,
   getLastDescendant,
   getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
