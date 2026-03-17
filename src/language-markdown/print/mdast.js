@@ -356,6 +356,7 @@ function printMdast(path, options, print) {
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const name = node.name ?? "";
+      // NOTE: we don't have good heuristic for singleAttributePerLine for mdxJsxTextElement yet.
       const inline = node.type === "mdxJsxTextElement";
       const attributes =
         node.attributes.length > 0
