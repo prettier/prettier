@@ -11,6 +11,7 @@ const packageTransforms = new Map([
   [
     transforms["method-replace-all"],
     [
+      "@babel/parser",
       "@prettier/cli",
       "@typescript-eslint/typescript-estree",
       "camelcase",

@@ -37,9 +37,6 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
-
-  // Babel, `decorators` are invalid
-  TSDeclareMethod: ["decorators"],
 };
 
 const excludeNodeTypes = [
