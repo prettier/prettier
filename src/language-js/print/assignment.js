@@ -29,6 +29,7 @@ import {
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 import { shouldHugUnionType } from "./union-type.js";
+import { isSimpleRhs } from "../utilities/is-simple-rhs.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -252,10 +253,11 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   }
   if (
     isStringLiteral(node) ||
-    path.call(
+    (path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
       ...propertiesForPath,
-    )
+    ) &&
+      !isSimpleRhs(rightNode))
   ) {
     return true;
   }

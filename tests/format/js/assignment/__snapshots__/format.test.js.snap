@@ -675,8 +675,9 @@ const {
 } = store[config.reduxStoreName]
 
 =====================================output=====================================
-const { imStore, showChat, customerServiceAccount } =
-  store[config.reduxStoreName];
+const { imStore, showChat, customerServiceAccount } = store[
+  config.reduxStoreName
+];
 
 ================================================================================
 `;
@@ -738,8 +739,8 @@ const pendingIndicatorz =
   shield.alarmGeneratorConfiguration.getPendingVersionColumnValues();
 
 =====================================output=====================================
-const pendingIndicators =
-  shield.alarmGeneratorConfiguration.getPendingVersionColumnValues;
+const pendingIndicators = shield.alarmGeneratorConfiguration
+  .getPendingVersionColumnValues;
 
 const pendingIndicatorz =
   shield.alarmGeneratorConfiguration.getPendingVersionColumnValues();
@@ -759,17 +760,14 @@ const {_id2} = data.createTestMessageWithAReallyLongName.someVeryLongProperty.th
 const {_id:id3} = data.createTestMessageWithAReallyLongName.someVeryLongProperty.thisIsAlsoALongProperty;
 
 =====================================output=====================================
-const _id1 =
-  data.createTestMessageWithAReallyLongName.someVeryLongProperty
-    .thisIsAlsoALongProperty._id;
+const _id1 = data.createTestMessageWithAReallyLongName.someVeryLongProperty
+  .thisIsAlsoALongProperty._id;
 
-const { _id2 } =
-  data.createTestMessageWithAReallyLongName.someVeryLongProperty
-    .thisIsAlsoALongProperty;
+const { _id2 } = data.createTestMessageWithAReallyLongName.someVeryLongProperty
+  .thisIsAlsoALongProperty;
 
-const { _id: id3 } =
-  data.createTestMessageWithAReallyLongName.someVeryLongProperty
-    .thisIsAlsoALongProperty;
+const { _id: id3 } = data.createTestMessageWithAReallyLongName
+  .someVeryLongProperty.thisIsAlsoALongProperty;
 
 ================================================================================
 `;
