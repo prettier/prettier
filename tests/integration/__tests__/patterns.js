@@ -80,3 +80,15 @@ describe("file names with special characters", () => {
     stdout: "[...with-square-and-dots-brackets].js",
   });
 });
+
+describe("brace expansion patterns don't fail on ENAMETOOLONG", () => {
+  runCli("cli/patterns-enametoolong", [
+    "{a.json,aa.json,aaaa.json,aaaaaaaa.json,aaaaaaaaaaaaaaaa.json,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json}",
+    "-l",
+  ]).test({
+    status: 0,
+    stdout: "",
+    stderr: "",
+    write: [],
+  });
+});

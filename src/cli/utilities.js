@@ -61,7 +61,7 @@ async function statSafe(filePath) {
     return await fs.stat(filePath);
   } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
-    if (error.code !== "ENOENT") {
+    if (!["ENOENT", "ENAMETOOLONG"].includes(error.code)) {
       throw error;
     }
   }
@@ -77,7 +77,7 @@ async function lstatSafe(filePath) {
     return await fs.lstat(filePath);
   } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
-    if (error.code !== "ENOENT") {
+    if (!["ENOENT", "ENAMETOOLONG"].includes(error.code)) {
       throw error;
     }
   }
