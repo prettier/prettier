@@ -170,6 +170,21 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
   });
 });
 
+test("API resolveConfig does not apply parent .editorconfig across a git worktree boundary", async () => {
+  const file = new URL(
+    "../cli/config/editorconfig/repo-root-worktree/file.js",
+    import.meta.url,
+  );
+  const expected = await prettier.resolveConfig(
+    new URL("../cli/config/editorconfig/repo-root/file.js", import.meta.url),
+    { editorconfig: true },
+  );
+
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.toStrictEqual(expected);
+});
+
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrow();
 });
