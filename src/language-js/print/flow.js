@@ -113,7 +113,6 @@ function printFlow(path, options, print, args) {
         print("id"),
         printSemicolon(options),
       ];
-
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportDeclaration(path, options, print);
