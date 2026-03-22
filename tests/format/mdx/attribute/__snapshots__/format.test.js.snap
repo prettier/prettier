@@ -15,9 +15,11 @@ color:     'red'}}></Foo>
 <Foo foo={{ color: "red" }}>
 
 </Foo>
-<Foo foo={{
-  color: "red",
-}}>
+<Foo
+  foo={{
+    color: "red",
+  }}
+>
 
 </Foo>
 <Foo foo={{ color: /** @type {'red'} */ ("red") }}>

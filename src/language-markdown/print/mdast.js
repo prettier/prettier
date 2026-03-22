@@ -356,30 +356,44 @@ function printMdast(path, options, print) {
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const name = node.name ?? "";
+      // NOTE: we don't have good heuristic for singleAttributePerLine for mdxJsxTextElement yet.
+      const inline = node.type === "mdxJsxTextElement";
       const attributes =
         node.attributes.length > 0
-          ? [" ", join(" ", path.map(print, "attributes"))]
+          ? [
+              indent([
+                inline ? " " : line,
+                join(
+                  inline
+                    ? " "
+                    : options.singleAttributePerLine
+                      ? hardline
+                      : line,
+                  path.map(print, "attributes"),
+                ),
+              ]),
+            ]
           : "";
       const isSelfClosing =
         node.children.length === 0 &&
         options.originalText.startsWith("/>", node.position.end.offset - 2);
       if (isSelfClosing) {
-        return ["<", name, attributes, " />"];
+        return group(["<", name, attributes, inline ? " " : line, "/>"]);
       }
 
-      const open = ["<", name, attributes, ">"];
+      const open = group(["<", name, attributes, inline ? "" : softline, ">"]);
       const close = ["</", name, ">"];
 
       if (node.type === "mdxJsxTextElement") {
-        return [open, path.map(print, "children"), close];
+        return group([open, path.map(print, "children"), close]);
       }
 
-      return [
+      return group([
         open,
         indent([hardline, printChildren(path, options, print)]),
         hardline,
         close,
-      ];
+      ]);
     }
 
     case "mdxJsxAttribute":
