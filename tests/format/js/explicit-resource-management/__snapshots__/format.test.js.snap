@@ -97,14 +97,17 @@ exports[`invalid-duplicate-using-bindings.js format[flow] 1`] = `
 `;
 
 exports[`invalid-duplicate-using-bindings.js format[hermes] 1`] = `
-"';' expected (2:8)
+"Identifier 'f' is already declared (2:19)
   1 | {
 > 2 |   using f = foo(), f = foo();
-    |        ^
+    |                   ^
   3 | }
   4 | {
   5 |   using g = foo();
-Cause: ';' expected (2:8)
+Cause: Identifier 'f' is already declared (2:19)
+  using f = foo(), f = foo();
+                   ^
+note: previous declaration (2:8)
   using f = foo(), f = foo();
         ^"
 `;
@@ -138,16 +141,6 @@ exports[`invalid-script-top-level-using-binding.js format[flow] 1`] = `
 > 1 | using x = bar();
     |       ^
   2 |"
-`;
-
-exports[`invalid-script-top-level-using-binding.js format[hermes] 1`] = `
-"';' expected (1:6)
-> 1 | using x = bar();
-    |      ^
-  2 |
-Cause: ';' expected (1:6)
-using x = bar();
-      ^"
 `;
 
 exports[`invalid-script-top-level-using-binding.js format[meriyah] 1`] = `
@@ -195,16 +188,17 @@ exports[`using-declarations.js format[flow] 1`] = `
 `;
 
 exports[`using-declarations.js format[hermes] 1`] = `
-"';' expected (2:16)
-  1 | {
-> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
-    |                ^
+"';' or 'in' expected inside 'for' (5:20)
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-Cause: ';' expected (2:16)
-  using /* 1 */ a = foo(), /* 2 */ b = foo()
-                ^"
+> 5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                    ^
+  6 |
+  7 | for(using /* 1 */ foo of bar());
+  8 |
+Cause: ';' or 'in' expected inside 'for' (5:20)
+for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+~~~~~~~~~~~~~~~~~~~~^"
 `;
 
 exports[`using-declarations.js format[meriyah] 1`] = `
@@ -254,6 +248,18 @@ async function f() {
 ================================================================================
 `;
 
+exports[`valid-await-expr-using-in.js format[hermes] 1`] = `
+"'identifier' expected in declaration (2:14)
+  1 | async function f() {
+> 2 |   await using in foo;
+    |              ^
+  3 | }
+  4 |
+Cause: 'identifier' expected in declaration (2:14)
+  await using in foo;
+  ~~~~~~~~~~~~^"
+`;
+
 exports[`valid-await-expr-using-instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -269,6 +275,18 @@ async function f() {
 }
 
 ================================================================================
+`;
+
+exports[`valid-await-expr-using-instanceof.js format[hermes] 1`] = `
+"'identifier' expected in declaration (2:14)
+  1 | async function f() {
+> 2 |   await using instanceof foo;
+    |              ^
+  3 | }
+  4 |
+Cause: 'identifier' expected in declaration (2:14)
+  await using instanceof foo;
+  ~~~~~~~~~~~~^"
 `;
 
 exports[`valid-await-using-asi-assignment.js format 1`] = `
@@ -316,18 +334,6 @@ exports[`valid-await-using-binding-basic.js format[flow] 1`] = `
   4 |"
 `;
 
-exports[`valid-await-using-binding-basic.js format[hermes] 1`] = `
-"';' expected (2:14)
-  1 | async function f() {
-> 2 |   await using basic = getReader();
-    |              ^
-  3 | }
-  4 |
-Cause: ';' expected (2:14)
-  await using basic = getReader();
-              ^"
-`;
-
 exports[`valid-await-using-binding-basic.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:15)
   1 | async function f() {
@@ -364,18 +370,6 @@ exports[`valid-await-using-binding-escaped.js format[flow] 1`] = `
   4 |"
 `;
 
-exports[`valid-await-using-binding-escaped.js format[hermes] 1`] = `
-"';' expected (2:14)
-  1 | async function f() {
-> 2 |   await using \\u0061b = c;
-    |              ^
-  3 | }
-  4 |
-Cause: ';' expected (2:14)
-  await using \\u0061b = c;
-              ^"
-`;
-
 exports[`valid-await-using-binding-escaped.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:15)
   1 | async function f() {
@@ -410,17 +404,6 @@ exports[`valid-await-using-binding-non-bmp.js format[flow] 1`] = `
     |               ^
   3 | }
   4 |"
-`;
-
-exports[`valid-await-using-binding-non-bmp.js format[hermes] 1`] = `
-"';' expected (2:14)
-  1 | async function f() {
-> 2 |   await using 𠮷 = foo();
-    |              ^
-  3 | }
-  4 |
-Cause: ';' expected (2:14)
-  await using 𠮷 = foo();"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js format[meriyah] 1`] = `
@@ -463,16 +446,11 @@ exports[`valid-await-using-binding-using.js format[flow] 1`] = `
 `;
 
 exports[`valid-await-using-binding-using.js format[hermes] 1`] = `
-"';' expected (2:14)
+"for-in/for-of variable declaration may not be initialized (0:-1)
   1 | async function f() {
-> 2 |   await using using = of;
-    |              ^
+  2 |   await using using = of;
   3 |   for (await using using of of);
-  4 | }
-  5 |
-Cause: ';' expected (2:14)
-  await using using = of;
-              ^"
+Cause: for-in/for-of variable declaration may not be initialized"
 `;
 
 exports[`valid-await-using-binding-using.js format[meriyah] 1`] = `
@@ -540,17 +518,17 @@ exports[`valid-await-using-comments.js format[flow] 1`] = `
 `;
 
 exports[`valid-await-using-comments.js format[hermes] 1`] = `
-"';' expected (3:27)
-  1 | async function f() {
-  2 | {
-> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
-    |                           ^
+"';' or 'in' expected inside 'for' (6:47)
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
-Cause: ';' expected (3:27)
-  /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
-                           ^"
+> 6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+    |                                               ^
+  7 | }
+  8 | {
+  9 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
+Cause: ';' or 'in' expected inside 'for' (6:47)
+  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
 
 exports[`valid-await-using-comments.js format[meriyah] 1`] = `
@@ -647,16 +625,11 @@ exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
 `;
 
 exports[`valid-for-using-binding-of-of.js format[hermes] 1`] = `
-"')' expected after 'for(... in/of ...' (2:25)
+"for-in/for-of variable declaration may not be initialized (0:-1)
   1 | async function f() {
-> 2 |   for (await using of of of);
-    |                         ^
+  2 |   for (await using of of of);
   3 |   for await (await using of of of);
-  4 | }
-  5 |
-Cause: ')' expected after 'for(... in/of ...' (2:25)
-  for (await using of of of);
-      ~~~~~~~~~~~~~~~~~~~^"
+Cause: for-in/for-of variable declaration may not be initialized"
 `;
 
 exports[`valid-for-using-binding-of-of.js format[meriyah] 1`] = `
@@ -697,15 +670,15 @@ exports[`valid-for-using-declaration.js format[flow] 1`] = `
 `;
 
 exports[`valid-for-using-declaration.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (2:19)
+"';' or 'in' expected inside 'for' (2:25)
   1 | async function f() {
 > 2 |   for (await using basic = reader();;);
-    |                   ^
+    |                         ^
   3 | }
   4 |
-Cause: ';' or 'in' expected inside 'for' (2:19)
+Cause: ';' or 'in' expected inside 'for' (2:25)
   for (await using basic = reader();;);
-  ~~~~~~~~~~~~~~~~~^"
+  ~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
 
 exports[`valid-for-using-declaration.js format[meriyah] 1`] = `
@@ -989,6 +962,14 @@ for (using\`\`.foo in []);
 ================================================================================
 `;
 
+exports[`valid-using-as-identifier-for-in.js format[hermes] 1`] = `
+"Failed to parse source (0:0)
+  1 | for (using in []);
+  2 | for (using.foo in []);
+  3 | for (using().foo in []);
+Cause: Failed to parse source"
+`;
+
 exports[`valid-using-as-identifier-for-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1036,6 +1017,16 @@ using in using instanceof using;
 ================================================================================
 `;
 
+exports[`valid-using-as-identifier-in.js format[hermes] 1`] = `
+"'identifier' expected in declaration (1:6)
+> 1 | using in using instanceof using;
+    |      ^
+  2 |
+Cause: 'identifier' expected in declaration (1:6)
+using in using instanceof using;
+~~~~~~^"
+`;
+
 exports[`valid-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1060,18 +1051,6 @@ exports[`valid-using-binding-basic.js format[flow] 1`] = `
     |         ^^^^^
   3 | }
   4 |"
-`;
-
-exports[`valid-using-binding-basic.js format[hermes] 1`] = `
-"';' expected (2:8)
-  1 | {
-> 2 |   using basic = getReader();
-    |        ^
-  3 | }
-  4 |
-Cause: ';' expected (2:8)
-  using basic = getReader();
-        ^"
 `;
 
 exports[`valid-using-binding-basic.js format[meriyah] 1`] = `
@@ -1106,16 +1085,6 @@ exports[`valid-using-binding-escaped.js format[flow] 1`] = `
   2 |"
 `;
 
-exports[`valid-using-binding-escaped.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | { using \\u0061b = c; }
-    |        ^
-  2 |
-Cause: ';' expected (1:8)
-{ using \\u0061b = c; }
-        ^"
-`;
-
 exports[`valid-using-binding-escaped.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:9)
 > 1 | { using \\u0061b = c; }
@@ -1144,15 +1113,6 @@ exports[`valid-using-binding-non-bmp.js format[flow] 1`] = `
 > 1 | { using 𠮷 = foo(); }
     |         ^
   2 |"
-`;
-
-exports[`valid-using-binding-non-bmp.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | { using 𠮷 = foo(); }
-    |        ^
-  2 |
-Cause: ';' expected (1:8)
-{ using 𠮷 = foo(); }"
 `;
 
 exports[`valid-using-binding-non-bmp.js format[meriyah] 1`] = `
@@ -1193,16 +1153,11 @@ exports[`valid-using-binding-using.js format[flow] 1`] = `
 `;
 
 exports[`valid-using-binding-using.js format[hermes] 1`] = `
-"';' expected (2:8)
+"for-in/for-of variable declaration may not be initialized (0:-1)
   1 | {
-> 2 |   using using = of;
-    |        ^
+  2 |   using using = of;
   3 |   for (using using of of);
-  4 | }
-  5 |
-Cause: ';' expected (2:8)
-  using using = of;
-        ^"
+Cause: for-in/for-of variable declaration may not be initialized"
 `;
 
 exports[`valid-using-binding-using.js format[meriyah] 1`] = `
