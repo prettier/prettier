@@ -32,6 +32,7 @@ const excludeVisitorKeys = {
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
   DeclareOpaqueType: ["impltype"],
 
+  // Flow node from Babel
   TupleTypeAnnotation: ["types"],
 };
 
