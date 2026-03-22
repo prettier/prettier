@@ -22,3 +22,49 @@ declare export const c: string;
 
 ================================================================================
 `;
+
+exports[`initializer.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare const s = 'foo';
+
+=====================================output=====================================
+declare const s = "foo";
+
+================================================================================
+`;
+
+exports[`initializer.js format[hermes] 1`] = `
+"expected type annotation on declared var (1:14)
+> 1 | declare const s = 'foo';
+    |              ^
+  2 |
+Cause: expected type annotation on declared var (1:14)
+declare const s = 'foo';
+              ^"
+`;
+
+exports[`multiple.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare const x: string, y: number;
+
+=====================================output=====================================
+declare const x: string, y: number;
+
+================================================================================
+`;
+
+exports[`multiple.js format[hermes] 1`] = `
+"';' expected (1:23)
+> 1 | declare const x: string, y: number;
+    |                       ^
+  2 |
+Cause: ';' expected (1:23)
+declare const x: string, y: number;
+                       ^"
+`;

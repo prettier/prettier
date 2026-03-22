@@ -37,17 +37,6 @@ exports[`decorator.js format[espree] 1`] = `
 Cause: Unexpected character '@'"
 `;
 
-exports[`decorator.js format[hermes] 1`] = `
-"unrecognized character '@' (2:0)
-  1 | // prettier-ignore
-> 2 | @decorator
-  3 | class A {}
-  4 |
-Cause: unrecognized character '@' (2:0)
-@decorator
-^"
-`;
-
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

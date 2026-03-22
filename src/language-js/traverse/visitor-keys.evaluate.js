@@ -25,15 +25,14 @@ const additionalVisitorKeys = {
   // Flow
   // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
   SatisfiesExpression: ["expression", "typeAnnotation"],
+
+  DeclareVariable: ["declarations"],
 };
 
 const excludeVisitorKeys = {
   // Not supported yet.
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
   DeclareOpaqueType: ["impltype"],
-
-  // Legacy properties
-  ImportDeclaration: ["assertions"],
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
