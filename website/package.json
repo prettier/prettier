@@ -47,13 +47,13 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@types/react": "19.2.14",
-    "@vitejs/plugin-vue": "6.0.4",
-    "@vitejs/plugin-vue-jsx": "5.1.4",
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vitejs/plugin-vue-jsx": "5.1.5",
     "concurrently": "9.2.1",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
     "vite": "8.0.1",
-    "yaml": "2.8.2"
+    "yaml": "2.8.3"
   },
   "browserslist": {
     "production": [
