@@ -493,9 +493,7 @@ function getNodeCssStyleDisplay(node, options) {
     if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
     } else {
-      // Fix for #17713: All SVG elements should respect htmlWhitespaceSensitivity: strict
-      // In strict mode, return inline for all SVG elements to preserve whitespace.
-      // This ensures content like <text>{{ value }}</text> isn't broken by newlines.
+      // SVG elements should respect htmlWhitespaceSensitivity: strict (#17713)
       if (options.htmlWhitespaceSensitivity === "strict") {
         return "inline";
       }
