@@ -56,6 +56,7 @@ import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printTypePredicate } from "./type-predicate.js";
 import { printTypeQuery } from "./type-query.js";
 import { printUnionType } from "./union-type.js";
+import { printVariableDeclaration } from "./variable-declaration.js";
 
 function printFlow(path, options, print, args) {
   const { node } = path;
@@ -98,24 +99,21 @@ function printFlow(path, options, print, args) {
       ];
     case "DeclareNamespace":
       return ["declare namespace ", print("id"), " ", print("body")];
-    case "DeclareVariable": {
-      const parts = [
+    case "DeclareVariable":
+      if (Array.isArray(node.declarations)) {
+        return printVariableDeclaration(path, options, print);
+      }
+
+      // TODO: Remove this part when hermes update AST
+      return [
         printDeclareToken(path),
         // TODO: Only use `node.kind` when babel update AST
         node.kind ?? "var",
         " ",
+        print("id"),
+        printSemicolon(options),
       ];
 
-      if (Array.isArray(node.declarations) && node.declarations.length === 1) {
-        parts.push(print(["declarations", 0]));
-      } else {
-        parts.push(print("id"));
-      }
-
-      parts.push(printSemicolon(options));
-
-      return parts;
-    }
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportDeclaration(path, options, print);

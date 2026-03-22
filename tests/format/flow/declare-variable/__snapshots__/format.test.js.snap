@@ -22,3 +22,26 @@ declare export const c: string;
 
 ================================================================================
 `;
+
+exports[`multiple.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare const x: string, y: number;
+
+=====================================output=====================================
+declare const x: string, y: number;
+
+================================================================================
+`;
+
+exports[`multiple.js format[hermes] 1`] = `
+"';' expected (1:23)
+> 1 | declare const x: string, y: number;
+    |                       ^
+  2 |
+Cause: ';' expected (1:23)
+declare const x: string, y: number;
+                       ^"
+`;
