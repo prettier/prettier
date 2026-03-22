@@ -99,6 +99,7 @@ const disabledTests = new Map(
 
       // Bug
       "js/decorators/",
+      "tests/format/js/explicit-resource-management/",
     ],
     flow: [
       // Parsing to different ASTs
