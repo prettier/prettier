@@ -98,7 +98,6 @@ const disabledTests = new Map(
       "flow/hook/comments-before-arrow.js",
 
       // Bug
-      "js/decorators/",
       "js/explicit-resource-management/",
     ],
     flow: [
