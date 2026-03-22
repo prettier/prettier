@@ -48,17 +48,6 @@ exports[`arguments.js - {"semi":false} format[flow] 1`] = `
   3 |"
 `;
 
-exports[`arguments.js - {"semi":false} format[hermes] 1`] = `
-"unrecognized character '@' (1:12)
-> 1 | console.log(@deco class Foo {})
-    |            ^
-  2 | console.log(@deco class {})
-  3 |
-Cause: unrecognized character '@' (1:12)
-console.log(@deco class Foo {})
-            ^"
-`;
-
 exports[`arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -104,17 +93,6 @@ exports[`arguments.js format[flow] 1`] = `
     |             ^
   2 | console.log(@deco class {})
   3 |"
-`;
-
-exports[`arguments.js format[hermes] 1`] = `
-"unrecognized character '@' (1:12)
-> 1 | console.log(@deco class Foo {})
-    |            ^
-  2 | console.log(@deco class {})
-  3 |
-Cause: unrecognized character '@' (1:12)
-console.log(@deco class Foo {})
-            ^"
 `;
 
 exports[`class-expression.js - {"semi":false} format 1`] = `
@@ -203,18 +181,6 @@ exports[`class-expression.js - {"semi":false} format[flow] 1`] = `
   4 | (@deco class Foo {});"
 `;
 
-exports[`class-expression.js - {"semi":false} format[hermes] 1`] = `
-"unrecognized character '@' (1:12)
-> 1 | const a1 = (@deco class Foo {});
-    |            ^
-  2 | const a2 = (@deco class {});
-  3 |
-  4 | (@deco class Foo {});
-Cause: unrecognized character '@' (1:12)
-const a1 = (@deco class Foo {});
-            ^"
-`;
-
 exports[`class-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -300,18 +266,6 @@ exports[`class-expression.js format[flow] 1`] = `
   4 | (@deco class Foo {});"
 `;
 
-exports[`class-expression.js format[hermes] 1`] = `
-"unrecognized character '@' (1:12)
-> 1 | const a1 = (@deco class Foo {});
-    |            ^
-  2 | const a2 = (@deco class {});
-  3 |
-  4 | (@deco class Foo {});
-Cause: unrecognized character '@' (1:12)
-const a1 = (@deco class Foo {});
-            ^"
-`;
-
 exports[`member-expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -358,17 +312,6 @@ exports[`member-expression.js - {"semi":false} format[flow] 1`] = `
     |  ^
   2 | (@deco class {}).name;
   3 |"
-`;
-
-exports[`member-expression.js - {"semi":false} format[hermes] 1`] = `
-"unrecognized character '@' (1:1)
-> 1 | (@deco class Foo {}).name;
-    | ^
-  2 | (@deco class {}).name;
-  3 |
-Cause: unrecognized character '@' (1:1)
-(@deco class Foo {}).name;
- ^"
 `;
 
 exports[`member-expression.js format 1`] = `
@@ -418,17 +361,6 @@ exports[`member-expression.js format[flow] 1`] = `
   3 |"
 `;
 
-exports[`member-expression.js format[hermes] 1`] = `
-"unrecognized character '@' (1:1)
-> 1 | (@deco class Foo {}).name;
-    | ^
-  2 | (@deco class {}).name;
-  3 |
-Cause: unrecognized character '@' (1:1)
-(@deco class Foo {}).name;
- ^"
-`;
-
 exports[`super-class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -437,7 +369,7 @@ semi: false
 =====================================input======================================
 class Foo extends (@deco class Foo {}){}
 
-class Foo extends (@deco class {}){}
+class Fo2 extends (@deco class {}){}
 
 =====================================output=====================================
 class Foo extends (
@@ -445,7 +377,7 @@ class Foo extends (
   class Foo {}
 ) {}
 
-class Foo extends (
+class Fo2 extends (
   @deco
   class {}
 ) {}
@@ -458,7 +390,7 @@ exports[`super-class.js - {"semi":false} format[acorn] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |
 Cause: Unexpected character '@' (1:19)"
 `;
@@ -468,7 +400,7 @@ exports[`super-class.js - {"semi":false} format[espree] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |
 Cause: Unexpected character '@'"
 `;
@@ -478,20 +410,8 @@ exports[`super-class.js - {"semi":false} format[flow] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |"
-`;
-
-exports[`super-class.js - {"semi":false} format[hermes] 1`] = `
-"unrecognized character '@' (1:19)
-> 1 | class Foo extends (@deco class Foo {}){}
-    |                   ^
-  2 |
-  3 | class Foo extends (@deco class {}){}
-  4 |
-Cause: unrecognized character '@' (1:19)
-class Foo extends (@deco class Foo {}){}
-                   ^"
 `;
 
 exports[`super-class.js format 1`] = `
@@ -501,7 +421,7 @@ parsers: ["babel", "flow", "typescript"]
 =====================================input======================================
 class Foo extends (@deco class Foo {}){}
 
-class Foo extends (@deco class {}){}
+class Fo2 extends (@deco class {}){}
 
 =====================================output=====================================
 class Foo extends (
@@ -509,7 +429,7 @@ class Foo extends (
   class Foo {}
 ) {}
 
-class Foo extends (
+class Fo2 extends (
   @deco
   class {}
 ) {}
@@ -522,7 +442,7 @@ exports[`super-class.js format[acorn] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |
 Cause: Unexpected character '@' (1:19)"
 `;
@@ -532,7 +452,7 @@ exports[`super-class.js format[espree] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |
 Cause: Unexpected character '@'"
 `;
@@ -542,18 +462,6 @@ exports[`super-class.js format[flow] 1`] = `
 > 1 | class Foo extends (@deco class Foo {}){}
     |                    ^
   2 |
-  3 | class Foo extends (@deco class {}){}
+  3 | class Fo2 extends (@deco class {}){}
   4 |"
-`;
-
-exports[`super-class.js format[hermes] 1`] = `
-"unrecognized character '@' (1:19)
-> 1 | class Foo extends (@deco class Foo {}){}
-    |                   ^
-  2 |
-  3 | class Foo extends (@deco class {}){}
-  4 |
-Cause: unrecognized character '@' (1:19)
-class Foo extends (@deco class Foo {}){}
-                   ^"
 `;
