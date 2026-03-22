@@ -96,3 +96,13 @@ exports[`static-import.js - {"bracketSpacing":false} format[babel-ts] 1`] = `
   2 |
 Cause: Missing semicolon. (1:29)"
 `;
+
+exports[`static-import.js - {"bracketSpacing":false} format[hermes] 1`] = `
+"';' expected (1:30)
+> 1 | import json from "./foo.json" assert { type: "json" };
+    |                              ^
+  2 |
+Cause: ';' expected (1:30)
+import json from "./foo.json" assert { type: "json" };
+                              ^"
+`;

@@ -634,15 +634,15 @@ exports[`discard-binding-for-await-using-binding.js format[flow] 1`] = `
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (2:18)
+"invalid expression (2:27)
   1 | async () => {
 > 2 |   for(await using void of []);
-    |                  ^
+    |                           ^
   3 | }
   4 |
-Cause: ';' or 'in' expected inside 'for' (2:18)
+Cause: invalid expression (2:27)
   for(await using void of []);
-  ~~~~~~~~~~~~~~~~^"
+                           ^"
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[meriyah] 1`] = `
@@ -882,15 +882,11 @@ exports[`discard-binding-for-using-binding.js format[flow] 1`] = `
 `;
 
 exports[`discard-binding-for-using-binding.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (2:12)
+"Failed to parse source (0:0)
   1 | {
-> 2 |   for(using void of []);
-    |            ^
+  2 |   for(using void of []);
   3 | }
-  4 |
-Cause: ';' or 'in' expected inside 'for' (2:12)
-  for(using void of []);
-  ~~~~~~~~~~^"
+Cause: Failed to parse source"
 `;
 
 exports[`discard-binding-for-using-binding.js format[meriyah] 1`] = `
@@ -1472,16 +1468,16 @@ exports[`using.js format[flow] 1`] = `
 `;
 
 exports[`using.js format[hermes] 1`] = `
-"';' expected (2:8)
+"'identifier' expected in declaration (2:8)
   1 | {
 > 2 |   using void = f();
     |        ^
   3 | }
   4 | async (void) => {
   5 |   await using void = f();
-Cause: ';' expected (2:8)
+Cause: 'identifier' expected in declaration (2:8)
   using void = f();
-        ^"
+  ~~~~~~^"
 `;
 
 exports[`using.js format[meriyah] 1`] = `
@@ -1645,7 +1641,7 @@ exports[`using-variable-declarator.js format[flow] 1`] = `
 `;
 
 exports[`using-variable-declarator.js format[hermes] 1`] = `
-"';' expected (3:8)
+"'identifier' expected in declaration (3:8)
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();
@@ -1653,9 +1649,9 @@ exports[`using-variable-declarator.js format[hermes] 1`] = `
   4 | }
   5 | {
   6 |   // using 2 declarators
-Cause: ';' expected (3:8)
+Cause: 'identifier' expected in declaration (3:8)
   using void = f();
-        ^"
+  ~~~~~~^"
 `;
 
 exports[`using-variable-declarator.js format[meriyah] 1`] = `
