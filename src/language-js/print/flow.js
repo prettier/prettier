@@ -98,15 +98,24 @@ function printFlow(path, options, print, args) {
       ];
     case "DeclareNamespace":
       return ["declare namespace ", print("id"), " ", print("body")];
-    case "DeclareVariable":
-      return [
+    case "DeclareVariable": {
+      const parts = [
         printDeclareToken(path),
         // TODO: Only use `node.kind` when babel update AST
         node.kind ?? "var",
         " ",
-        print("id"),
-        printSemicolon(options),
       ];
+
+      if (Array.isArray(node.declarations) && node.declarations.length === 1) {
+        parts.push(print(["declarations", 0]));
+      } else {
+        parts.push(print("id"));
+      }
+
+      parts.push(printSemicolon(options));
+
+      return parts;
+    }
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportDeclaration(path, options, print);
