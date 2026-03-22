@@ -52,7 +52,7 @@
     "concurrently": "9.2.1",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
-    "vite": "7.3.1",
+    "vite": "8.0.1",
     "yaml": "2.8.2"
   },
   "browserslist": {
