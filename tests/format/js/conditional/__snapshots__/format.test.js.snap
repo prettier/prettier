@@ -516,6 +516,139 @@ c */
 ================================================================================
 `;
 
+exports[`issue-18944.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+condition ? ifTrue
+: [
+      // Hello, world!
+  ];
+
+condition ? [
+      // Hello, world!
+  ]
+: ifFalse;
+
+condition ? ifTrue
+: {
+      // Hello, world!
+  };
+
+condition ? {
+    // Hello, world!
+  }
+: ifFalse;
+
+condition ? ifTrue
+: [
+      // Hello, world!
+    1,
+  ];
+
+=====================================output=====================================
+condition ? ifTrue : (
+  [
+    // Hello, world!
+  ]
+);
+
+condition ?
+  [
+    // Hello, world!
+  ]
+: ifFalse;
+
+condition ? ifTrue : (
+  {
+    // Hello, world!
+  }
+);
+
+condition ?
+  {
+    // Hello, world!
+  }
+: ifFalse;
+
+condition ? ifTrue : (
+  [
+    // Hello, world!
+    1,
+  ]
+);
+
+================================================================================
+`;
+
+exports[`issue-18944.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+condition ? ifTrue
+: [
+      // Hello, world!
+  ];
+
+condition ? [
+      // Hello, world!
+  ]
+: ifFalse;
+
+condition ? ifTrue
+: {
+      // Hello, world!
+  };
+
+condition ? {
+    // Hello, world!
+  }
+: ifFalse;
+
+condition ? ifTrue
+: [
+      // Hello, world!
+    1,
+  ];
+
+=====================================output=====================================
+condition
+  ? ifTrue
+  : [
+      // Hello, world!
+    ];
+
+condition
+  ? [
+      // Hello, world!
+    ]
+  : ifFalse;
+
+condition
+  ? ifTrue
+  : {
+      // Hello, world!
+    };
+
+condition
+  ? {
+      // Hello, world!
+    }
+  : ifFalse;
+
+condition
+  ? ifTrue
+  : [
+      // Hello, world!
+      1,
+    ];
+
+================================================================================
+`;
+
 exports[`new-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
