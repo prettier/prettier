@@ -194,7 +194,7 @@ function getTemplateLiteralExpressionIndent(path, options) {
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
 */
-function printTemplateExpression(path, options, print) {
+function printTemplateExpression(path, options, print) { 
   const { node, index } = path;
   let expressionDoc = print();
 
@@ -220,6 +220,14 @@ function printTemplateExpression(path, options, print) {
     // This case is rare, so we can pay the cost of re-rendering.
     if (renderedExpression.includes("\n")) {
       interpolationHasNewline = true;
+    } else if (
+      isBinaryish(node) &&
+      renderedExpression.length > options.printWidth
+    ) {
+      // A binary expression inside an HTML template attribute (e.g. Lit) that
+      // exceeds printWidth should break at ${ and } boundaries rather than
+      // breaking inline inside the attribute value.
+      interpolationHasNewline = true;
     } else {
       expressionDoc = renderedExpression;
     }
@@ -237,7 +245,14 @@ function printTemplateExpression(path, options, print) {
       isBinaryCastExpression(node) ||
       isBinaryish(node))
   ) {
-    expressionDoc = [indent([softline, expressionDoc]), softline];
+    expressionDoc = [indent([hardline, expressionDoc]), hardline];
+  }
+
+  // Se é uma expressão binária que vai quebrar, retornar imediatamente
+  // sem passar pelo addAlignmentToDoc (que adicionaria indentação errada
+  // no contexto de atributos HTML em Lit templates).
+  if (interpolationHasNewline && isBinaryish(node)) {
+    return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
   }
 
   // For a template literal of the following form:
@@ -327,3 +342,7 @@ export {
   printTemplateLiteral,
   uncookTemplateElementValue,
 };
+
+
+
+
