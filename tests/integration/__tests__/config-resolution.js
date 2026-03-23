@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
@@ -168,6 +169,38 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
     tabWidth: 8,
     printWidth: 100,
   });
+});
+
+test("API resolveConfig does not apply parent .editorconfig across a git worktree boundary", async () => {
+  const editorconfigDirectory = url.fileURLToPath(
+    new URL("../cli/config/editorconfig/", import.meta.url),
+  );
+  const worktreeDirectory = await fs.mkdtemp(
+    path.join(editorconfigDirectory, "repo-root-worktree-"),
+  );
+  const expected = await prettier.resolveConfig(
+    new URL("../cli/config/editorconfig/repo-root/file.js", import.meta.url),
+    { editorconfig: true },
+  );
+
+  try {
+    await fs.writeFile(
+      path.join(worktreeDirectory, ".git"),
+      "gitdir: ../.git/worktrees/repo-root-worktree\n",
+    );
+    const file = path.join(worktreeDirectory, "file.js");
+
+    await fs.writeFile(
+      file,
+      'function f() {\n  console.log("should have space width 2 despite ../.editorconfig specifying 8, because ./.git is a file");\n}\n',
+    );
+
+    await expect(
+      prettier.resolveConfig(file, { editorconfig: true }),
+    ).resolves.toStrictEqual(expected);
+  } finally {
+    await fs.rm(worktreeDirectory, { recursive: true, force: true });
+  }
 });
 
 test("API clearConfigCache", () => {

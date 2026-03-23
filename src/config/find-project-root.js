@@ -2,12 +2,24 @@
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
 import * as path from "node:path";
-import { DirectorySearcher } from "search-closest";
+import { DirectorySearcher, FileSearcher } from "search-closest";
 
 const DIRECTORIES = [".git", ".hg"];
+const FILES = [".git"];
 
 /** @type {DirectorySearcher} */
-let searcher;
+let directorySearcher;
+/** @type {FileSearcher} */
+let fileSearcher;
+
+function getDistance(startDirectory, result) {
+  if (!result) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  const relativePath = path.relative(path.dirname(result), startDirectory);
+  return relativePath === "" ? 0 : relativePath.split(path.sep).length;
+}
 
 /**
  * Find the directory contains a version control system directory
@@ -16,16 +28,31 @@ let searcher;
  * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory, options) {
-  searcher ??= new DirectorySearcher(DIRECTORIES, { allowSymlinks: false });
-  const directory = await searcher.search(startDirectory, {
-    cache: options.shouldCache,
+  directorySearcher ??= new DirectorySearcher(DIRECTORIES, {
+    allowSymlinks: false,
   });
+  fileSearcher ??= new FileSearcher(FILES, { allowSymlinks: false });
 
-  return directory ? path.dirname(directory) : undefined;
+  const [directory, file] = await Promise.all([
+    directorySearcher.search(startDirectory, {
+      cache: options.shouldCache,
+    }),
+    fileSearcher.search(startDirectory, {
+      cache: options.shouldCache,
+    }),
+  ]);
+
+  const root =
+    getDistance(startDirectory, file) < getDistance(startDirectory, directory)
+      ? file
+      : directory;
+
+  return root ? path.dirname(root) : undefined;
 }
 
 function clearFindProjectRootCache() {
-  searcher?.clearCache();
+  directorySearcher?.clearCache();
+  fileSearcher?.clearCache();
 }
 
 export { clearFindProjectRootCache, findProjectRoot };
