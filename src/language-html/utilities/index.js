@@ -493,11 +493,9 @@ function getNodeCssStyleDisplay(node, options) {
     if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
     } else {
-      // SVG elements should respect htmlWhitespaceSensitivity: strict (#17713)
-      if (options.htmlWhitespaceSensitivity === "strict") {
-        return "inline";
+      if (options.htmlWhitespaceSensitivity !== "strict") {
+        return node.name === "svg" ? "inline-block" : "block";
       }
-      return node.name === "svg" ? "inline-block" : "block";
     }
   }
 
