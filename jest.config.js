@@ -92,10 +92,10 @@ const config = {
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
-    "<rootDir>/tests/format/js/**/format.test.js",
-    // "<rootDir>/tests/integration/__tests__/**/*.js",
-    // "<rootDir>/tests/unit/**/*.js",
-    // "<rootDir>/tests/dts/unit/**/*.js",
+    "<rootDir>/tests/format/**/format.test.js",
+    "<rootDir>/tests/integration/__tests__/**/*.js",
+    "<rootDir>/tests/unit/**/*.js",
+    "<rootDir>/tests/dts/unit/**/*.js",
   ],
   testPathIgnorePatterns: testPathIgnorePatterns.map(
     (file) => `<rootDir>/${file}`,
