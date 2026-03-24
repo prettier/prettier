@@ -13,7 +13,7 @@ function preprocess(ast, options) {
   ast = markAlignedList(ast, options);
   ast = splitTextIntoSentences(ast);
   if (options.parser === "mdx") {
-    // For Pretitier's backward compatibility, we wrap paragraphs with MDX JSX elements regardless of proseWrap option.
+    // For Prettier's backward compatibility, we wrap paragraphs with MDX JSX elements regardless of proseWrap option.
     ast = markParagraphWithMdxJsx(ast);
   }
   return ast;
