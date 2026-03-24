@@ -8,6 +8,7 @@ import {
   line,
 } from "../../document/index.js";
 import {
+  canConvertFlowToBlock,
   hasEndComments,
   hasLeadingComments,
   hasMiddleComments,
@@ -33,12 +34,16 @@ function printMappingItem(path, options, print) {
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
-    if (node.type === "flowMappingItem" && parent.type === "flowMapping") {
+    if (
+      node.type === "flowMappingItem" &&
+      parent.type === "flowMapping" &&
+      (options.objectWrap === "collapse" ||
+        !canConvertFlowToBlock(parent))
+    ) {
       return printedKey;
     }
 
     if (
-      node.type === "mappingItem" &&
       isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
       !hasTrailingComment(key.content) &&
       parent.tag?.value !== "tag:yaml.org,2002:set"
@@ -106,16 +111,24 @@ function printMappingItem(path, options, print) {
   ) {
     implicitMappingValueParts.push(" ");
   } else if (
+    (isNode(value.content, ["mapping", "sequence"]) &&
+      value.content.tag === null &&
+      value.content.anchor === null) ||
+    (options.objectWrap !== "collapse" &&
+      isNode(value.content, ["flowMapping", "flowSequence"]) &&
+      canConvertFlowToBlock(value.content))
+  ) {
+    implicitMappingValueParts.push(
+      options.objectWrap === "collapse" ? line : hardline,
+    );
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
     (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
-      isInlineNode(value.content)) ||
-    (isNode(value.content, ["mapping", "sequence"]) &&
-      value.content.tag === null &&
-      value.content.anchor === null)
+      isInlineNode(value.content))
   ) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
