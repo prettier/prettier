@@ -182,7 +182,7 @@ function getFlowScalarLineContents(nodeType, content, options) {
       words.length > 0 &&
       !(
         // trailing backslash in quoteDouble should be preserved
-        (nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\"))
+        nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\")
       )
     ) {
       lines[lines.length - 1] = [...lines.at(-1), ...words];
@@ -302,6 +302,23 @@ function getBlockValueLineContents(
   }
 }
 
+/**
+ * Decide whether a flow collection should be rewritten in block form.
+ * Either the user wrote it across multiple lines, or compacting it to a
+ * single line would exceed the printWidth.
+ */
+function isFlowWorthConvertingToBlock(node, options) {
+  if (node.position.start.line !== node.position.end.line) {
+    return true;
+  }
+  if (!options) {
+    return false;
+  }
+  return (
+    node.position.end.offset - node.position.start.offset > options.printWidth
+  );
+}
+
 function isInlineNode(node) {
   /* c8 ignore next 3 */
   if (!node) {
@@ -321,7 +338,45 @@ function isInlineNode(node) {
   }
 }
 
+/**
+ * Check if a flow collection (flowMapping/flowSequence) can be safely
+ * converted to block format without changing the AST on reparse, and
+ * whether the flow representation is wide enough that block is preferable.
+ */
+function canConvertFlowToBlock(node, options) {
+  return (
+    node.children.length > 0 &&
+    isFlowWorthConvertingToBlock(node, options) &&
+    node.tag === null &&
+    node.anchor === null &&
+    // Comments attached to the flow collection itself (trailingComment/endComments)
+    // would re-attach to different nodes in the block form, changing the AST.
+    // flowMapping becomes block "mapping" which has neither field;
+    // flowSequence becomes block "sequence" whose trailing comments reattach
+    // to the containing mappingValue/sequenceItem instead of the sequence.
+    node.trailingComment === null &&
+    node.endComments.length === 0 &&
+    // A flowSequence can contain implicit complex entries (flowMappingItem) as
+    // direct children; block "sequence" only holds "sequenceItem", so the
+    // AST structure (not just type names) would differ.
+    (node.type !== "flowSequence" ||
+      node.children.every((child) => child.type === "flowSequenceItem")) &&
+    // Leading comments on the first flow child attach to the enclosing
+    // collection in block form, which changes the AST.
+    (node.children.length === 0 || !hasLeadingComments(node.children[0])) &&
+    // Plain scalar keys containing ":" are ambiguous once outside of flow braces.
+    (node.type !== "flowMapping" ||
+      node.children.every(
+        (child) =>
+          !isEmptyNode(child.value) ||
+          child.key.content?.type !== "plain" ||
+          !child.key.content.value.includes(":"),
+      ))
+  );
+}
+
 export {
+  canConvertFlowToBlock,
   defineShortcut,
   getBlockValueLineContents,
   getFlowScalarLineContents,

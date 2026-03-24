@@ -33,6 +33,26 @@ function massageAstNode(original, cloned /* , parent */) {
           .join("\n");
       }
       break;
+    // Multi-line flow collections are rewritten in block form, so flow and
+    // block variants must compare equal for AST-equivalence checks.
+    case "flowMapping":
+      cloned.type = "mapping";
+      delete cloned.trailingComment;
+      delete cloned.endComments;
+      break;
+    case "flowSequence":
+      cloned.type = "sequence";
+      delete cloned.trailingComment;
+      break;
+    case "flowMappingItem":
+      cloned.type = "mappingItem";
+      break;
+    case "flowSequenceItem":
+      cloned.type = "sequenceItem";
+      cloned.leadingComments = [];
+      cloned.trailingComment = null;
+      cloned.endComments = [];
+      break;
   }
 }
 massageAstNode.ignoredProperties = new Set(["position"]);

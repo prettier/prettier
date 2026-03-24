@@ -50,23 +50,15 @@ parsers: ["yaml"]
 {? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -80,23 +72,15 @@ tabWidth: 4
 {? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -109,23 +93,15 @@ parsers: ["yaml"]
 {? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -139,38 +115,24 @@ parsers: ["yaml"]
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -184,38 +146,24 @@ tabWidth: 4
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -228,38 +176,24 @@ parsers: ["yaml"]
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+: - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -273,23 +207,15 @@ parsers: ["yaml"]
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -303,23 +229,15 @@ tabWidth: 4
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -332,23 +250,15 @@ parsers: ["yaml"]
 {[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+? - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -362,26 +272,18 @@ parsers: ["yaml"]
 {a: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],b: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],c: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  a:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  b:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  c:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+a:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+b:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+c:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -395,26 +297,18 @@ tabWidth: 4
 {a: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],b: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],c: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-    a:
-        [
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-        ],
-    b:
-        [
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-        ],
-    c:
-        [
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-            longlonglonglonglonglonglonglonglonglonglong,
-        ],
-}
+a:
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
+b:
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
+c:
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
+    - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -427,26 +321,18 @@ parsers: ["yaml"]
 {a: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],b: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],c: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
-{
-  a:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  b:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  c:
-    [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
+a:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+b:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+c:
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
+  - longlonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -464,11 +350,9 @@ parsers: ["yaml"]
 }
 
 =====================================output=====================================
-{
-  ? 123
-  # comment
-  : 456,
-}
+? 123
+# comment
+: 456
 
 ================================================================================
 `;
@@ -486,11 +370,9 @@ tabWidth: 4
 }
 
 =====================================output=====================================
-{
-    ? 123
-    # comment
-    : 456,
-}
+? 123
+# comment
+: 456
 
 ================================================================================
 `;
@@ -507,11 +389,9 @@ parsers: ["yaml"]
 }
 
 =====================================output=====================================
-{
-  ? 123
-  # comment
-  : 456,
-}
+? 123
+# comment
+: 456
 
 ================================================================================
 `;
@@ -526,9 +406,7 @@ parsers: ["yaml"]
 }
 
 =====================================output=====================================
-{
-  123, # comment
-}
+? 123 # comment
 
 ================================================================================
 `;
@@ -543,9 +421,7 @@ tabWidth: 4
 }
 
 =====================================output=====================================
-{
-    123, # comment
-}
+? 123 # comment
 
 ================================================================================
 `;
@@ -559,9 +435,7 @@ parsers: ["yaml"]
 }
 
 =====================================output=====================================
-{
-  123, # comment
-}
+? 123 # comment
 
 ================================================================================
 `;
@@ -659,11 +533,8 @@ parsers: ["yaml"]
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 
 =====================================output=====================================
-{
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-
-  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb:
 
 ================================================================================
 `;
@@ -679,11 +550,8 @@ tabWidth: 4
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 
 =====================================output=====================================
-{
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-
-    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb:
 
 ================================================================================
 `;
@@ -698,11 +566,8 @@ parsers: ["yaml"]
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 
 =====================================output=====================================
-{
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-
-  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb:
 
 ================================================================================
 `;
@@ -718,7 +583,8 @@ parsers: ["yaml"]
 bbb }
 
 =====================================output=====================================
-{aaa, bbb}
+aaa:
+bbb:
 
 ================================================================================
 `;
@@ -734,7 +600,8 @@ tabWidth: 4
 bbb }
 
 =====================================output=====================================
-{ aaa, bbb }
+aaa:
+bbb:
 
 ================================================================================
 `;
@@ -749,7 +616,8 @@ parsers: ["yaml"]
 bbb }
 
 =====================================output=====================================
-{ aaa, bbb }
+aaa:
+bbb:
 
 ================================================================================
 `;
@@ -763,11 +631,9 @@ parsers: ["yaml"]
 {? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -781,11 +647,9 @@ tabWidth: 4
 {? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -798,11 +662,9 @@ parsers: ["yaml"]
 {? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -816,11 +678,9 @@ parsers: ["yaml"]
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -834,11 +694,9 @@ tabWidth: 4
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -851,11 +709,9 @@ parsers: ["yaml"]
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -869,11 +725,9 @@ parsers: ["yaml"]
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -887,11 +741,9 @@ tabWidth: 4
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -904,11 +756,9 @@ parsers: ["yaml"]
 {longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3}
 
 =====================================output=====================================
-{
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3,
-}
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2:
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3:
 
 ================================================================================
 `;
@@ -922,11 +772,9 @@ parsers: ["yaml"]
 {1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-  1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -940,11 +788,9 @@ tabWidth: 4
 {1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-    1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -957,11 +803,9 @@ parsers: ["yaml"]
 {1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
 
 =====================================output=====================================
-{
-  1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-}
+1: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+3: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -1082,12 +926,9 @@ c: 123
 }
 
 =====================================output=====================================
-{
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123,
-  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123,
-
-  c: 123,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123
+c: 123
 
 ================================================================================
 `;
@@ -1105,12 +946,9 @@ c: 123
 }
 
 =====================================output=====================================
-{
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123,
-    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123,
-
-    c: 123,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123
+c: 123
 
 ================================================================================
 `;
@@ -1127,12 +965,9 @@ c: 123
 }
 
 =====================================output=====================================
-{
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123,
-  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123,
-
-  c: 123,
-}
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123
+c: 123
 
 ================================================================================
 `;
@@ -1394,9 +1229,7 @@ x: 12345678901234567890123456789012345678901234567890123456789012345678901234567
 }
 
 =====================================output=====================================
-{
-  x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890,
-}
+x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 ================================================================================
 `;
@@ -1412,9 +1245,7 @@ x: 12345678901234567890123456789012345678901234567890123456789012345678901234567
 }
 
 =====================================output=====================================
-{
-    x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890,
-}
+x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 ================================================================================
 `;
@@ -1429,9 +1260,7 @@ x: 12345678901234567890123456789012345678901234567890123456789012345678901234567
 }
 
 =====================================output=====================================
-{
-  x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890,
-}
+x: 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 ================================================================================
 `;

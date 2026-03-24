@@ -8,6 +8,7 @@ import {
   line,
 } from "../../document/index.js";
 import {
+  canConvertFlowToBlock,
   hasEndComments,
   hasLeadingComments,
   hasMiddleComments,
@@ -31,14 +32,25 @@ function printMappingItem(path, options, print) {
 
   const printedKey = print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
+  const parentRendersAsBlock =
+    parent.type === "mapping" ||
+    (parent.type === "flowMapping" &&
+      canConvertFlowToBlock(parent, options) &&
+      options.objectWrap !== "collapse");
 
   if (isEmptyMappingValue) {
-    if (node.type === "flowMappingItem" && parent.type === "flowMapping") {
+    if (
+      node.type === "flowMappingItem" &&
+      parent.type === "flowMapping" &&
+      (options.objectWrap === "collapse" ||
+        !canConvertFlowToBlock(parent, options))
+    ) {
       return printedKey;
     }
 
     if (
-      node.type === "mappingItem" &&
+      // A bare `key:` inside a flow sequence would be invalid syntax.
+      parent.type !== "flowSequence" &&
       isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
       !hasTrailingComment(key.content) &&
       parent.tag?.value !== "tag:yaml.org,2002:set"
@@ -106,16 +118,24 @@ function printMappingItem(path, options, print) {
   ) {
     implicitMappingValueParts.push(" ");
   } else if (
+    (isNode(value.content, ["mapping", "sequence"]) &&
+      value.content.tag === null &&
+      value.content.anchor === null) ||
+    (options.objectWrap !== "collapse" &&
+      isNode(value.content, ["flowMapping", "flowSequence"]) &&
+      canConvertFlowToBlock(value.content, options))
+  ) {
+    implicitMappingValueParts.push(
+      options.objectWrap === "collapse" ? line : hardline,
+    );
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
-    (parent.type === "mapping" &&
+    (parentRendersAsBlock &&
       hasTrailingComment(key.content) &&
-      isInlineNode(value.content)) ||
-    (isNode(value.content, ["mapping", "sequence"]) &&
-      value.content.tag === null &&
-      value.content.anchor === null)
+      isInlineNode(value.content))
   ) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
@@ -136,8 +156,8 @@ function printMappingItem(path, options, print) {
     isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
     !hasLeadingComments(key.content) &&
     !hasMiddleComments(key.content) &&
-    !hasTrailingComment(key.content) &&
-    !hasEndComments(key)
+    !hasEndComments(key) &&
+    (!hasTrailingComment(key.content) || parentRendersAsBlock)
   ) {
     return conditionalGroup([[printedKey, implicitMappingValue]]);
   }
@@ -163,6 +183,13 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
       break;
     case "alias":
       return true;
+    case "flowMapping":
+    case "flowSequence":
+      return (
+        node.position.start.line === node.position.end.line &&
+        node.position.end.offset - node.position.start.offset <=
+          options.printWidth
+      );
 
     default:
       return false;

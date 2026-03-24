@@ -18,9 +18,7 @@ tabWidth: 4
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-? [
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-  ]
+? - aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ================================================================================
@@ -43,9 +41,7 @@ parsers: ["yaml"]
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-? [
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-  ]
+? - aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ================================================================================

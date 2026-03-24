@@ -2,6 +2,7 @@
 
 import {
   breakParent,
+  conditionalGroup,
   fill,
   group,
   hardline,
@@ -9,6 +10,7 @@ import {
   line,
   lineSuffix,
   replaceEndOfLine,
+  softline,
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -30,6 +32,7 @@ import {
 } from "./print/misc.js";
 import preprocess from "./print-preprocess.js";
 import {
+  canConvertFlowToBlock,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasEndComments,
@@ -319,8 +322,33 @@ function printNode(path, options, print) {
       return printBlock(path, options, print);
 
     case "mapping":
-    case "sequence":
+    case "sequence": {
+      const isMapping = node.type === "mapping";
+      if (options.objectWrap === "collapse" && node.children.length > 0) {
+        const open = isMapping ? "{" : "[";
+        const close = isMapping ? "}" : "]";
+        const bracketSpacing =
+          isMapping && options.bracketSpacing ? line : softline;
+        const flowItems = isMapping
+          ? path.map(print, "children")
+          : path.map(
+              ({ node: child }) => (child.content ? print("content") : ""),
+              "children",
+            );
+        const flowDoc = [
+          open,
+          alignWithSpaces(options.tabWidth, [
+            bracketSpacing,
+            join([",", line], flowItems),
+          ]),
+          bracketSpacing,
+          close,
+        ];
+        const blockDoc = join(hardline, path.map(print, "children"));
+        return conditionalGroup([flowDoc, blockDoc]);
+      }
       return join(hardline, path.map(print, "children"));
+    }
     case "sequenceItem":
       return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
@@ -331,15 +359,85 @@ function printNode(path, options, print) {
       return printMappingItem(path, options, print);
 
     case "flowMapping":
-      return printFlowMapping(path, options, print);
+      return printFlowOrBlockMapping(path, options, print);
     case "flowSequence":
-      return printFlowSequence(path, options, print);
+      return printFlowOrBlockSequence(path, options, print);
     case "flowSequenceItem":
       return print("content");
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "YAML");
   }
+}
+
+function printFlowOrBlockMapping(path, options, print) {
+  const { node } = path;
+  if (
+    !canConvertFlowToBlock(node, options) ||
+    !ancestorsAllowBlock(path, options)
+  ) {
+    return printFlowMapping(path, options, print);
+  }
+  const blockDoc = [
+    join(hardline, path.map(print, "children")),
+    hasEndComments(node)
+      ? [hardline, join(hardline, path.map(print, "endComments"))]
+      : "",
+  ];
+  if (options.objectWrap === "collapse") {
+    return conditionalGroup([printFlowMapping(path, options, print), blockDoc]);
+  }
+  return blockDoc;
+}
+
+function printFlowOrBlockSequence(path, options, print) {
+  const { node } = path;
+  if (
+    !canConvertFlowToBlock(node, options) ||
+    !ancestorsAllowBlock(path, options)
+  ) {
+    return printFlowSequence(path, options, print);
+  }
+  const blockDoc = [
+    join(
+      hardline,
+      path.map(() => ["- ", alignWithSpaces(2, print())], "children"),
+    ),
+    hasEndComments(node)
+      ? [hardline, join(hardline, path.map(print, "endComments"))]
+      : "",
+  ];
+  if (options.objectWrap === "collapse") {
+    return conditionalGroup([
+      printFlowSequence(path, options, print),
+      blockDoc,
+    ]);
+  }
+  return blockDoc;
+}
+
+/**
+ * A nested flow collection can only be rewritten in block form if every
+ * enclosing flow collection is also convertible. A block collection cannot
+ * appear inside a flow one.
+ */
+function ancestorsAllowBlock(path, options) {
+  for (let i = path.stack.length - 2; i >= 0; i--) {
+    const ancestor = path.stack[i];
+    if (!ancestor || typeof ancestor !== "object" || Array.isArray(ancestor)) {
+      continue;
+    }
+    if (ancestor.type === "mapping" || ancestor.type === "sequence") {
+      return true;
+    }
+    if (
+      (ancestor.type === "flowMapping" || ancestor.type === "flowSequence") &&
+      !canConvertFlowToBlock(ancestor, options)
+    ) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function shouldPrintDocumentBody(document) {
