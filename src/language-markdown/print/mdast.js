@@ -200,7 +200,7 @@ function printMdast(path, options, print) {
     case "image":
       return [
         "![",
-        printImageAlt(node, options),
+        printImageAlt(node),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -277,7 +277,7 @@ function printMdast(path, options, print) {
             : "",
       ];
     case "imageReference": {
-      const alt = printImageAlt(node, options);
+      const alt = printImageAlt(node);
 
       switch (node.referenceType) {
         case "full":
