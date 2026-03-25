@@ -37,8 +37,7 @@ function printMappingItem(path, options, print) {
     if (
       node.type === "flowMappingItem" &&
       parent.type === "flowMapping" &&
-      (options.objectWrap === "collapse" ||
-        !canConvertFlowToBlock(parent))
+      (options.objectWrap === "collapse" || !canConvertFlowToBlock(parent))
     ) {
       return printedKey;
     }

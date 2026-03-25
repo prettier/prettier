@@ -358,7 +358,7 @@ function printNode(path, options, print) {
     case "flowMappingItem":
       return printMappingItem(path, options, print);
 
-    case "flowMapping": {
+    case "flowMapping":
       if (canConvertFlowToBlock(node)) {
         const blockDoc = [
           join(hardline, path.map(print, "children")),
@@ -375,8 +375,8 @@ function printNode(path, options, print) {
         return blockDoc;
       }
       return printFlowMapping(path, options, print);
-    }
-    case "flowSequence": {
+
+    case "flowSequence":
       if (canConvertFlowToBlock(node)) {
         const blockDoc = [
           join(
@@ -396,7 +396,7 @@ function printNode(path, options, print) {
         return blockDoc;
       }
       return printFlowSequence(path, options, print);
-    }
+
     case "flowSequenceItem":
       return print("content");
     default:
