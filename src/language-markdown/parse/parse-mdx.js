@@ -14,11 +14,6 @@ import parseFrontMatter from "../../main/front-matter/parse.js";
 import * as dummyAcorn from "../acorn/dummy-parser.js";
 import * as acorn from "../acorn/parser.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
-import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
-import {
-  liquidFromMarkdown,
-  liquidSyntax,
-} from "./micromark/micromark-extension-liquid.js";
 
 let markdownParseOptions;
 function getMarkdownParseOptions() {
@@ -37,10 +32,8 @@ function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
     extensions: [
       gfmSyntax(),
-      // mathSyntax(),
-      // wikiLinkSyntax(),
-      // liquidSyntax(),
-      // overrideHtmlTextSyntax(),
+      mathSyntax(),
+      wikiLinkSyntax(),
       mdxjsEsm(esmSettings),
       mdxExpression(settings),
       mdxJsx(settings),
@@ -49,9 +42,8 @@ function getMarkdownParseOptions() {
     ],
     mdastExtensions: [
       gfmFromMarkdown(),
-      // mathFromMarkdown(),
-      // wikiLinkFromMarkdown(),
-      // liquidFromMarkdown(),
+      mathFromMarkdown(),
+      wikiLinkFromMarkdown(),
       mdxFromMarkdown(),
       commentFromMarkdown({ ast: true }),
     ],
