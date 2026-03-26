@@ -30,7 +30,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintDoubleHardline(path) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -63,7 +63,7 @@ const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
  * @param {AstPath} path
  * @returns {boolean}
  */
-function shouldPrePrintDoubleHardline(path, options) {
+function shouldPrePrintDoubleHardline(path) {
   const { node, previous, parent } = path;
 
   if (
@@ -127,16 +127,6 @@ function shouldPrePrintTripleHardline({ node, previous }) {
   const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
-}
-
-function isLooseListItemLegacy(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
 }
 
 function isLooseListItem({ node, parent, next }) {

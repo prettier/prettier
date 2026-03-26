@@ -21,7 +21,6 @@ import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
-  getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
@@ -29,12 +28,12 @@ import {
 } from "../utilities.js";
 import { printChildren } from "./children.js";
 import { printHeading } from "./heading.js";
-import { printList, printListLegacy } from "./list.js";
+import { printList } from "./list.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
 import { printWhitespace } from "./whitespace.js";
-import { printWord, printWordLegacy } from "./word.js";
+import { printWord } from "./word.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js";
