@@ -52,6 +52,12 @@ function expressionNeedsAsiProtection(path, options) {
     case "RegExpLiteral":
       return true;
 
+    // Conditional expressions formatted with experimental-ternaries can have
+    // parentheses around the test expression when it breaks, creating an ASI
+    // hazard: `let o = 1\n(cond) ? a : b` would call 1 as a function.
+    case "ConditionalExpression":
+      return true;
+
     case "ArrowFunctionExpression":
       if (!shouldPrintParamsWithoutParens(path, options)) {
         return true;
