@@ -6,7 +6,9 @@ import {
 } from "../../document/index.js";
 import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
-import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
+import isIndentableBlockComment, {
+  indentableLines,
+} from "../utilities/is-indentable-block-comment.js";
 
 /**
 @import {Doc} from "../../document/index.js"
@@ -40,21 +42,21 @@ function printComment(path, options) {
 @returns {Doc}
 */
 function printIndentableBlockComment(comment) {
-  const lines = comment.value.split("\n");
+  const lines = indentableLines(comment);
   const isJsdoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [
-    "/*",
+    "/",
     lines.map((line, index) => {
       if (index === 0) {
         return [line.trimEnd(), hardline];
       }
 
       if (index === lines.length - 1) {
-        return [" ", line.trimStart()];
+        return [" ", line];
       }
 
-      const trimmed = line.trim();
+      const trimmed = line.trimEnd();
       const content = [" ", trimmed];
       if (isJsdoc && trimmed !== "*" && line.endsWith("  ")) {
         return [content, "  ", markAsRoot(literalline)];
@@ -62,7 +64,7 @@ function printIndentableBlockComment(comment) {
 
       return [content, hardline];
     }),
-    "*/",
+    "/",
   ];
 }
 

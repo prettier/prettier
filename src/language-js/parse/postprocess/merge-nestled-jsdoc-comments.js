@@ -3,7 +3,10 @@ import {
   isBlockComment,
   isLineComment,
 } from "../../utilities/comment-types.js";
-import isIndentableBlockComment from "../../utilities/is-indentable-block-comment.js";
+import isIndentableBlockComment, {
+  indentableLines,
+  indentableLinesCache,
+} from "../../utilities/is-indentable-block-comment.js";
 
 function mergeNestledJsdocComments(comments) {
   if (comments.length < 2) {
@@ -23,6 +26,17 @@ function mergeNestledJsdocComments(comments) {
       comments.splice(i + 1, 1);
       comment.value += "*//*" + followingComment.value;
       comment.range = [locStart(comment), locEnd(followingComment)];
+
+      // updating indentableLinesCache
+      const commentLines = indentableLines(comment);
+      const followingCommentLines = indentableLines(followingComment);
+      commentLines.push(
+        commentLines.pop() + "//" + followingCommentLines.shift(),
+      );
+      indentableLinesCache.set(
+        comment,
+        commentLines.concat(followingCommentLines),
+      );
     }
 
     /* c8 ignore next 3 */
