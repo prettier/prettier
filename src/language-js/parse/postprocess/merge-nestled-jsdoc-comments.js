@@ -31,12 +31,10 @@ function mergeNestledJsdocComments(comments) {
       const commentLines = indentableLines(comment);
       const followingCommentLines = indentableLines(followingComment);
       commentLines.push(
-        commentLines.pop() + "//" + followingCommentLines.shift(),
+        `${commentLines.pop()}//${followingCommentLines.shift()}`,
+        ...followingCommentLines,
       );
-      indentableLinesCache.set(
-        comment,
-        commentLines.concat(followingCommentLines),
-      );
+      indentableLinesCache.set(comment, commentLines);
     }
 
     /* c8 ignore next 3 */
