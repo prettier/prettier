@@ -1,3 +1,4 @@
+import { printDocToString } from "../../document/index.js";
 import {
   printComments,
   printLeadingComments,
@@ -45,11 +46,30 @@ function shouldPrintSemicolon(path, options) {
   return true;
 }
 
-function printExpressionStatement(path, options, print) {
-  /** @type {Doc[]} */
-  const parts = [print("expression")];
+function shouldPrintLeadingSemicolonFromExpressionDoc(
+  path,
+  options,
+  expressionDoc,
+) {
+  return (
+    !options.semi &&
+    options.experimentalTernaries &&
+    path.node.expression.type === "ConditionalExpression" &&
+    printDocToString(expressionDoc, { ...options, endOfLine: "lf" }).formatted
+      .startsWith("(")
+  );
+}
 
-  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+function printExpressionStatement(path, options, print) {
+  const expressionDoc = print("expression");
+
+  /** @type {Doc[]} */
+  const parts = [expressionDoc];
+
+  if (
+    shouldExpressionStatementPrintLeadingSemicolon(path, options) ||
+    shouldPrintLeadingSemicolonFromExpressionDoc(path, options, expressionDoc)
+  ) {
     if (shouldExpressionStatementPrintOwnComments(path, options)) {
       const { node } = path;
       const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
