@@ -34,7 +34,9 @@ function isIndentableBlockCommentInternal(comment) {
   // back first.
   const lines = `*${comment.value}*`.split("\n");
 
-  if (lines.length === 1) return false;
+  if (lines.length === 1) {
+    return false;
+  }
 
   if (!indentableLinesCache.has(comment)) {
     indentableLinesCache.set(
