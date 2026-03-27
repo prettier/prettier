@@ -1,9 +1,8 @@
 import { isBlockComment } from "./comment-types.js";
 
-export const indentableLinesCache = new WeakMap();
+const indentableLinesCache = new WeakMap();
 
 export function indentableLines(comment) {
-  // This is just in case the cache was garbage collected.
   if (!indentableLinesCache.has(comment)) {
     indentableLinesCache.set(
       comment,
@@ -32,20 +31,11 @@ function isIndentableBlockCommentInternal(comment) {
   // we can fix the indentation of each line. The stars in the `/*` and
   // `*/` delimiters are not included in the comment value, so add them
   // back first.
-  const lines = `*${comment.value}*`.split("\n");
-
-  if (lines.length === 1) {
+  if (!comment.value.includes("\n")) {
     return false;
   }
 
-  if (!indentableLinesCache.has(comment)) {
-    indentableLinesCache.set(
-      comment,
-      lines.map((line) => line.trimStart()),
-    );
-  }
-
-  return indentableLinesCache.get(comment).every((line) => line[0] === "*");
+  return indentableLines(comment).every((line) => line[0] === "*");
 }
 
 const cache = new WeakMap();
