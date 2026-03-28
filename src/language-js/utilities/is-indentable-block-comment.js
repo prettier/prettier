@@ -39,7 +39,7 @@ function isIndentableBlockCommentInternal(comment) {
     return false;
   }
 
-  return getIndentableLines(comment).every((line) => line[0] === "*");
+  return getIndentableLines(comment).every((line) => line.startsWith("*"));
 }
 
 const cache = new WeakMap();
