@@ -2,7 +2,7 @@ import { isBlockComment } from "./comment-types.js";
 
 const indentableLinesCache = new WeakMap();
 
-export function indentableLines(comment) {
+export function getIndentableLines(comment) {
   if (!indentableLinesCache.has(comment)) {
     indentableLinesCache.set(
       comment,
@@ -11,6 +11,10 @@ export function indentableLines(comment) {
   }
 
   return indentableLinesCache.get(comment);
+}
+
+export function deleteIndentableLines(comment) {
+  indentableLinesCache.delete(comment);
 }
 
 function isIndentableBlockCommentInternal(comment) {
@@ -35,7 +39,7 @@ function isIndentableBlockCommentInternal(comment) {
     return false;
   }
 
-  return indentableLines(comment).every((line) => line[0] === "*");
+  return getIndentableLines(comment).every((line) => line[0] === "*");
 }
 
 const cache = new WeakMap();

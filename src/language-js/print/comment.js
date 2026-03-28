@@ -7,7 +7,7 @@ import {
 import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
 import isIndentableBlockComment, {
-  indentableLines,
+  getIndentableLines,
 } from "../utilities/is-indentable-block-comment.js";
 
 /**
@@ -42,7 +42,7 @@ function printComment(path, options) {
 @returns {Doc}
 */
 function printIndentableBlockComment(comment) {
-  const lines = indentableLines(comment);
+  const lines = getIndentableLines(comment);
   const isJsdoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [

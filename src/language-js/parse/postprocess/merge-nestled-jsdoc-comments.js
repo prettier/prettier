@@ -4,7 +4,7 @@ import {
   isLineComment,
 } from "../../utilities/comment-types.js";
 import isIndentableBlockComment, {
-  indentableLines,
+  deleteIndentableLines,
 } from "../../utilities/is-indentable-block-comment.js";
 
 function mergeNestledJsdocComments(comments) {
@@ -26,13 +26,8 @@ function mergeNestledJsdocComments(comments) {
       comment.value += "*//*" + followingComment.value;
       comment.range = [locStart(comment), locEnd(followingComment)];
 
-      // updating indentableLinesCache
-      const commentLines = indentableLines(comment);
-      const followingCommentLines = indentableLines(followingComment);
-      commentLines.push(
-        `${commentLines.pop()}//${followingCommentLines.shift()}`,
-        ...followingCommentLines,
-      );
+      // delete cache
+      deleteIndentableLines(comment);
     }
 
     /* c8 ignore next 3 */
