@@ -26,7 +26,9 @@ function getIndentableLinesInternal(comment) {
 
   for (let line of `*${comment.value}*`.split("\n")) {
     line = line.trimStart();
-    if (!line.startsWith("*")) return [];
+    if (!line.startsWith("*")) {
+      return [];
+    }
     trimmedLines.push(line);
   }
 
