@@ -221,7 +221,7 @@ function needsParentheses(path, options) {
         case "UpdateExpression":
           return true;
         case "UnaryExpression":
-          // `UnaryExpression` adds parentheses and indention when argument has comment
+          // `UnaryExpression` adds parentheses and indentation when argument has comment
           if (!hasComment(node)) {
             return true;
           }

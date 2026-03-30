@@ -85,7 +85,7 @@ function printBinaryishExpression(path, options, print) {
   //   ).call()
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
-    // `UnaryExpression` adds parentheses and indention when argument has comment
+    // `UnaryExpression` adds parentheses and indentation when argument has comment
     (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
   ) {

@@ -3,10 +3,10 @@ import { runBenchmark } from "./utilities.js";
 
 for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
   const maxLength = 10;
-  const seperator = "|";
+  const separator = "|";
   const strings = Array.from({ length: size }, () => "_");
   const expected = {
-    length: strings.join(seperator).length,
+    length: strings.join(separator).length,
     times: Math.floor(size / maxLength) - 1,
   };
 
@@ -23,13 +23,13 @@ for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
         for (let index = 0; index < strings.length; index++) {
           result.push(strings[index]);
           if (result.length > maxLength) {
-            result.splice(0, Number.POSITIVE_INFINITY, result.join(seperator));
+            result.splice(0, Number.POSITIVE_INFINITY, result.join(separator));
             assert.equal(result.length, 1);
             times++;
           }
         }
 
-        return { length: result.join(seperator).length, times };
+        return { length: result.join(separator).length, times };
       },
       "let reassign"() {
         let result = [];
@@ -38,13 +38,13 @@ for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
         for (let index = 0; index < strings.length; index++) {
           result.push(strings[index]);
           if (result.length > maxLength) {
-            result = [result.join(seperator)];
+            result = [result.join(separator)];
             assert.equal(result.length, 1);
             times++;
           }
         }
 
-        return { length: result.join(seperator).length, times };
+        return { length: result.join(separator).length, times };
       },
     },
   );

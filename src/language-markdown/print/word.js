@@ -123,7 +123,7 @@ function printWordLegacy(path) {
           ? `${text1}${underscore1}`
           : `${underscore2}${text2}`
         ).replaceAll("_", String.raw`\_`),
-    ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
+    ); // escape all `_` except concatenating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
   const isFirstSentence = (node, name, index) =>
     node.type === "sentence" && index === 0;
