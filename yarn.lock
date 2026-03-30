@@ -7357,7 +7357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-mdx-expression@npm:^3.0.0":
+"micromark-extension-mdx-expression@npm:3.0.1":
   version: 3.0.1
   resolution: "micromark-extension-mdx-expression@npm:3.0.1"
   dependencies:
@@ -7373,7 +7373,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-mdx-jsx@npm:^3.0.0":
+"micromark-extension-mdx-jsx@npm:3.0.2":
   version: 3.0.2
   resolution: "micromark-extension-mdx-jsx@npm:3.0.2"
   dependencies:
@@ -7391,7 +7391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-mdx-md@npm:^2.0.0":
+"micromark-extension-mdx-md@npm:2.0.0":
   version: 2.0.0
   resolution: "micromark-extension-mdx-md@npm:2.0.0"
   dependencies:
@@ -7400,7 +7400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-mdxjs-esm@npm:^3.0.0":
+"micromark-extension-mdxjs-esm@npm:3.0.0":
   version: 3.0.0
   resolution: "micromark-extension-mdxjs-esm@npm:3.0.0"
   dependencies:
@@ -8733,10 +8733,10 @@ __metadata:
     meriyah: "npm:7.0.0"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
-    micromark-extension-mdx-expression: "npm:^3.0.0"
-    micromark-extension-mdx-jsx: "npm:^3.0.0"
-    micromark-extension-mdx-md: "npm:^2.0.0"
-    micromark-extension-mdxjs-esm: "npm:^3.0.0"
+    micromark-extension-mdx-expression: "npm:3.0.1"
+    micromark-extension-mdx-jsx: "npm:3.0.2"
+    micromark-extension-mdx-md: "npm:2.0.0"
+    micromark-extension-mdxjs-esm: "npm:3.0.0"
     micromark-extension-wiki-link: "npm:0.0.4"
     micromark-factory-space: "npm:2.0.1"
     micromark-util-character: "npm:2.1.1"
@@ -8767,8 +8767,6 @@ __metadata:
     puppeteer: "npm:24.34.0"
     regexp-util: "npm:2.0.3"
     remark-comment: "npm:1.0.0"
-    remark-footnotes: "npm:2.0.0"
-    remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:3.0.0"
@@ -9035,20 +9033,6 @@ __metadata:
     micromark-util-character: "npm:^1.1.0"
     micromark-util-symbol: "npm:^1.0.1"
   checksum: 10/bb455a7a2ec88fe6927a5c585c2c61de9d2a178cec4f8ec9289a6549e07d835a026a0a8e29a27b125eedca04b3174cebd61d0cc30991b7d3d04b3a5bfc37fcd3
-  languageName: node
-  linkType: hard
-
-"remark-footnotes@npm:2.0.0":
-  version: 2.0.0
-  resolution: "remark-footnotes@npm:2.0.0"
-  checksum: 10/e0a58bfc780451332d70c494765fe26c214f483e7eabae8614bc99f4f4a8088f1b368688727dc8d9729577836bbfc967154e266373ee645a136edf5ed2049213
-  languageName: node
-  linkType: hard
-
-"remark-math@npm:3.0.1":
-  version: 3.0.1
-  resolution: "remark-math@npm:3.0.1"
-  checksum: 10/47f33ae100e78eda68b3d684283e274c1f4bb45be41c6472b17886bd70e02640bd96a852739c5384b499a1f36e4938fb46528dadd07f5daf9cdf46f966072c08
   languageName: node
   linkType: hard
 
