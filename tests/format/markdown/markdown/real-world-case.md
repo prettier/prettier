@@ -256,7 +256,7 @@ Note that `--write` cannot be used with `--debug-check`.
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
 when prettier attempts to look up a [configuration file](#configuration-file). In order to skip this, you may
-ask prettier to find the config file once, and re-use it later on.
+ask prettier to find the config file once, and reuse it later on.
 
 ```bash
 prettier --find-config-path ./my/file.js

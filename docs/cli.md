@@ -107,7 +107,7 @@ If you're worried that Prettier will change the correctness of your code, add `-
 
 ## `--find-config-path` and `--config`
 
-If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when Prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask Prettier to find the config file once, and re-use it later on.
+If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when Prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask Prettier to find the config file once, and reuse it later on.
 
 ```console
 $ prettier --find-config-path path/to/file.js
