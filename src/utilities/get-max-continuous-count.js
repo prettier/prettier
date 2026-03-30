@@ -7,7 +7,11 @@ import escapeStringRegexp from "escape-string-regexp";
  */
 function getMaxContinuousCount(text, searchString) {
   let results = text.matchAll(
-    new RegExp(`(?:${escapeStringRegexp(searchString)})+`, "g"),
+    // @ts-expect-error -- RegExp.escape is a proposal
+    new RegExp(
+      `(?:${(RegExp.escape ?? escapeStringRegexp)(searchString)})+`,
+      "g",
+    ),
   );
 
   // TODO: Use `Iterator#reduce` when we drop support for Node.js < 22

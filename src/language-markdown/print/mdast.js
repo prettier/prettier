@@ -505,7 +505,12 @@ function printUrl(url, dangerousCharOrChars = []) {
   ];
 
   return new RegExp(
-    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
+    dangerousChars
+      .map((x) =>
+        // @ts-expect-error -- RegExp.escape is a proposal
+        (RegExp.escape ?? escapeStringRegexp)(x),
+      )
+      .join("|"),
   ).test(url)
     ? `<${encodeUrl(url, "<>")}>`
     : url;

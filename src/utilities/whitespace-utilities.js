@@ -83,7 +83,8 @@ class WhitespaceUtilities {
   }
 
   split(text, captureWhitespace = false) {
-    const pattern = `[${escapeStringRegexp(
+    const pattern = `[${// @ts-expect-error -- RegExp.escape is a proposal
+    (RegExp.escape ?? escapeStringRegexp)(
       [...this.#whitespaceCharacters].join(""),
     )}]+`;
     const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern);

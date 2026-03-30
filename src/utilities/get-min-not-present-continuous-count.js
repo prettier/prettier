@@ -11,7 +11,11 @@ import escapeStringRegexp from "escape-string-regexp";
  */
 function getMinNotPresentContinuousCount(text, searchString) {
   const matches = text.match(
-    new RegExp(`(${escapeStringRegexp(searchString)})+`, "g"),
+    // @ts-expect-error -- RegExp.escape is a proposal
+    new RegExp(
+      `(${(RegExp.escape ?? escapeStringRegexp)(searchString)})+`,
+      "g",
+    ),
   );
 
   if (matches === null) {
