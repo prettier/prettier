@@ -321,7 +321,29 @@ function isInlineNode(node) {
   }
 }
 
+/**
+ * Check if a flow collection (flowMapping/flowSequence) can be safely
+ * converted to block format. Excludes cases with tags, anchors, or
+ * plain scalar keys containing ":" (which would be ambiguous in block).
+ */
+function canConvertFlowToBlock(node) {
+  return (
+    node.children.length > 0 &&
+    node.position.start.line !== node.position.end.line &&
+    node.tag === null &&
+    node.anchor === null &&
+    (node.type !== "flowMapping" ||
+      node.children.every(
+        (child) =>
+          !isEmptyNode(child.value) ||
+          child.key.content?.type !== "plain" ||
+          !child.key.content.value.includes(":"),
+      ))
+  );
+}
+
 export {
+  canConvertFlowToBlock,
   defineShortcut,
   getBlockValueLineContents,
   getFlowScalarLineContents,
