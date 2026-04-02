@@ -21,13 +21,16 @@ import {
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
 import { isSimpleExpressionByNodeCount } from "../utilities/is-simple-expression-by-node-count.js";
 import {
+  isArrayExpression,
   isBinaryCastExpression,
   isCallExpression,
   isChainElementWrapper,
   isConditionalType,
   isJsxElement,
   isMemberExpression,
+  isObjectExpression,
   isReturnOrThrowStatement,
+  isTupleType,
 } from "../utilities/node-types.js";
 import { printTernaryOld } from "./ternary-old.js";
 
@@ -284,7 +287,10 @@ function printTernary(path, options, print, args) {
   const consequentComments = [];
   if (
     !isConsequentTernary &&
-    hasComment(consequentNode, CommentCheckFlags.Dangling)
+    hasComment(consequentNode, CommentCheckFlags.Dangling) &&
+    !isArrayExpression(consequentNode) &&
+    !isObjectExpression(consequentNode) &&
+    !isTupleType(consequentNode)
   ) {
     path.call(() => {
       consequentComments.push(printDanglingComments(path, options), hardline);
@@ -298,7 +304,10 @@ function printTernary(path, options, print, args) {
   }
   if (
     !isAlternateTernary &&
-    hasComment(alternateNode, CommentCheckFlags.Dangling)
+    hasComment(alternateNode, CommentCheckFlags.Dangling) &&
+    !isArrayExpression(alternateNode) &&
+    !isObjectExpression(alternateNode) &&
+    !isTupleType(alternateNode)
   ) {
     path.call(() => {
       alternateComments.push(printDanglingComments(path, options));
