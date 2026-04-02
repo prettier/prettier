@@ -1,6 +1,6 @@
 import { isBlockComment } from "./comment-types.js";
 
-function isIndentableBlockCommentInternal(comment) {
+function getIndentableLinesInternal(comment) {
   /*
   In postprocess.js
   this only called when two comments are next to each other,
@@ -11,25 +11,46 @@ function isIndentableBlockCommentInternal(comment) {
   */
   /* c8 ignore next 3 */
   if (!isBlockComment(comment)) {
-    return false;
+    return [];
   }
 
   // If the comment has multiple lines and every line starts with a star
   // we can fix the indentation of each line. The stars in the `/*` and
   // `*/` delimiters are not included in the comment value, so add them
   // back first.
-  const lines = `*${comment.value}*`.split("\n");
-  return lines.length > 1 && lines.every((line) => line.trimStart()[0] === "*");
+  if (!comment.value.includes("\n")) {
+    return [];
+  }
+
+  const trimmedLines = [];
+
+  for (let line of `*${comment.value}*`.split("\n")) {
+    line = line.trimStart();
+    if (!line.startsWith("*")) {
+      return [];
+    }
+    trimmedLines.push(line);
+  }
+
+  return trimmedLines;
 }
 
 const cache = new WeakMap();
 
-function isIndentableBlockComment(comment) {
+export function getIndentableLines(comment) {
   if (!cache.has(comment)) {
-    cache.set(comment, isIndentableBlockCommentInternal(comment));
+    cache.set(comment, getIndentableLinesInternal(comment));
   }
 
   return cache.get(comment);
+}
+
+export function deleteIndentableLines(comment) {
+  cache.delete(comment);
+}
+
+function isIndentableBlockComment(comment) {
+  return getIndentableLines(comment).length > 0;
 }
 
 export default isIndentableBlockComment;

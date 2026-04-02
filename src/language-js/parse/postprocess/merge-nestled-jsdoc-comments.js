@@ -3,7 +3,9 @@ import {
   isBlockComment,
   isLineComment,
 } from "../../utilities/comment-types.js";
-import isIndentableBlockComment from "../../utilities/is-indentable-block-comment.js";
+import isIndentableBlockComment, {
+  deleteIndentableLines,
+} from "../../utilities/is-indentable-block-comment.js";
 
 function mergeNestledJsdocComments(comments) {
   if (comments.length < 2) {
@@ -23,6 +25,9 @@ function mergeNestledJsdocComments(comments) {
       comments.splice(i + 1, 1);
       comment.value += "*//*" + followingComment.value;
       comment.range = [locStart(comment), locEnd(followingComment)];
+
+      // delete cache
+      deleteIndentableLines(comment);
     }
 
     /* c8 ignore next 3 */
