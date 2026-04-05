@@ -426,6 +426,8 @@ or
 
 _First available in v1.8.2_
 
+This option applies to prose in Markdown, MDX, and YAML files.
+
 By default, Prettier will not change wrapping in markdown text since some services use a linebreak-sensitive renderer, e.g. GitHub comments and BitBucket. To have Prettier wrap prose to the print width, change this option to "always". If you want Prettier to force all prose blocks to be on a single line and rely on editor/viewer soft wrapping instead, you can use `"never"`.
 
 Valid options:
