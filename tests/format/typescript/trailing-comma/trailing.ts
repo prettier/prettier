@@ -1,3 +1,7 @@
+// Generic arrow function in .ts file should NOT have trailing comma
+const fn1 = <T>(something: string, list: T[]) => list;
+const fn2 = <T>(value: T) => value;
+
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
 > {

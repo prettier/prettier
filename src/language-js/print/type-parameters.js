@@ -27,9 +27,9 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  */
 
-// Keep comma if the file extension not `.ts` and
+// Keep comma if the file extension is `.tsx` or `.jsx` and
 // has one type parameter that isn't extend with any types.
-// Because, otherwise formatted result will be invalid as tsx.
+// Because, otherwise formatted result will be invalid as tsx/jsx.
 function shouldForceTrailingComma(path, options, paramsKey) {
   const { node } = path;
   return (
@@ -37,7 +37,7 @@ function shouldForceTrailingComma(path, options, paramsKey) {
     node.type.startsWith("TS") &&
     !node[paramsKey][0].constraint &&
     path.parent.type === "ArrowFunctionExpression" &&
-    !(options.filepath && /\.ts$/.test(options.filepath))
+    Boolean(options.filepath && /\.[jt]sx$/.test(options.filepath))
   );
 }
 
