@@ -45,6 +45,7 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       mdxFromMarkdown(),
+      // @ts-expect-error
       commentFromMarkdown({ ast: true }),
     ],
   });
