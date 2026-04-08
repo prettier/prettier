@@ -214,9 +214,9 @@ function printFlow(path, options, print, args) {
       return ["?", print("typeAnnotation")];
     case "Variance": {
       const varianceKinds = {
-        "plus": "+",
-        "minus": "-",
-        "readonly": "readonly ",
+        plus: "+",
+        minus: "-",
+        readonly: "readonly ",
       };
       const { kind } = node;
       assert.ok(kind in varianceKinds);
