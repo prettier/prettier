@@ -4,8 +4,7 @@ exports[`before-text.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- hello -->
 
@@ -23,8 +22,7 @@ exports[`before-text.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- hello -->
 
@@ -59,7 +57,7 @@ exports[`before-text.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!-- hello -->
 
@@ -76,8 +74,7 @@ printWidth: 1
 exports[`before-text.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- hello -->
 
@@ -95,8 +92,7 @@ exports[`bogus.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <? hello ?>
 <!- world ->
@@ -112,8 +108,7 @@ exports[`bogus.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <? hello ?>
 <!- world ->
@@ -144,7 +139,7 @@ exports[`bogus.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <? hello ?>
 <!- world ->
@@ -159,8 +154,7 @@ printWidth: 1
 exports[`bogus.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <? hello ?>
 <!- world ->
@@ -176,8 +170,7 @@ exports[`conditional.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -344,8 +337,7 @@ exports[`conditional.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -648,7 +640,7 @@ exports[`conditional.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -835,8 +827,7 @@ printWidth: 1
 exports[`conditional.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -988,8 +979,7 @@ exports[`for_debugging.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1035,8 +1025,7 @@ exports[`for_debugging.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1127,7 +1116,7 @@ exports[`for_debugging.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1172,8 +1161,7 @@ printWidth: 1
 exports[`for_debugging.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1219,8 +1207,7 @@ exports[`hidden.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1256,8 +1243,7 @@ exports[`hidden.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1328,7 +1314,7 @@ exports[`hidden.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1368,8 +1354,7 @@ printWidth: 1
 exports[`hidden.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1405,8 +1390,7 @@ exports[`surrounding-empty-line.html - {"htmlWhitespaceSensitivity":"ignore"} fo
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ul><!-- 123
 --><li>First</li><!-- 123
@@ -1555,8 +1539,7 @@ exports[`surrounding-empty-line.html - {"htmlWhitespaceSensitivity":"strict"} fo
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ul><!-- 123
 --><li>First</li><!-- 123
@@ -1830,7 +1813,7 @@ exports[`surrounding-empty-line.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <ul><!-- 123
 --><li>First</li><!-- 123
@@ -1981,8 +1964,7 @@ See console log:
 exports[`surrounding-empty-line.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ul><!-- 123
 --><li>First</li><!-- 123

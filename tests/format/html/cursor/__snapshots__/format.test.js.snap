@@ -4,8 +4,7 @@ exports[`cursor-0.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 354
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- At the time of adding this test, the cursor positioning we end up with
      here seems clearly wrong.
@@ -34,8 +33,7 @@ exports[`cursor-1.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 354
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- At the time of adding this test, the cursor positioning we end up with
      here seems clearly wrong.
@@ -76,8 +74,7 @@ exports[`cursor-2.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 48
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>bla bla
 
@@ -106,8 +103,7 @@ exports[`cursor-3.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 43
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>bla bla
 
@@ -136,8 +132,7 @@ exports[`cursor-4.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 399
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- At the time of adding this test, the cursor positioning we end up with
      here seems wrong, or at least suboptimal.
@@ -178,8 +173,7 @@ exports[`cursor-5.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 65
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>bla bla
 
@@ -208,8 +202,7 @@ exports[`cursor-6.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 660
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- At the time of adding this test, the cursor positioning we end up with
      here seems clearly wrong.
@@ -256,8 +249,7 @@ exports[`cursor-7.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 470
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- At the time of adding this test, the cursor positioning we end up with
      here seems clearly wrong.
@@ -300,8 +292,7 @@ exports[`cursor-8.html format 1`] = `
 ====================================options=====================================
 cursorOffset: 137
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>bla bla
 

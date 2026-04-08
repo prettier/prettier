@@ -1,8 +1,5 @@
 runFormatTest(import.meta, ["typescript"], {
   errors: {
-    "oxc-ts": [
-      // TODO: Ask typescript-eslint to throw
-      "constructor.ts",
-    ],
+    "oxc-ts": ["declare-readonly-field-initializer-w-annotation.ts"],
   },
 });

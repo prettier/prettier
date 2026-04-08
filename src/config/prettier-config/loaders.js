@@ -2,7 +2,7 @@ import { pathToFileURL } from "node:url";
 import json5 from "json5";
 import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
-import readFile from "../../utils/read-file.js";
+import readFile from "../../utilities/read-file.js";
 
 async function readJson(file) {
   const content = await readFile(file);
@@ -24,7 +24,7 @@ async function readBunPackageJson(file) {
     return await readJson(file);
   } catch (error) {
     // TODO: Add tests for this
-    // Bun supports comments and trialing comma in `package.json`
+    // Bun supports comments and trailing comma in `package.json`
     // And it can load via `import()`
     // https://bun.sh/blog/bun-v1.2#jsonc-support-in-package-json
     try {
@@ -57,9 +57,8 @@ async function loadYaml(file) {
   const content = await readFile(file);
 
   if (!parseYaml) {
-    ({ __parsePrettierYamlConfig: parseYaml } = await import(
-      "../../plugins/yaml.js"
-    ));
+    ({ __parsePrettierYamlConfig: parseYaml } =
+      await import("../../plugins/yaml.js"));
   }
 
   try {

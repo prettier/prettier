@@ -3,10 +3,9 @@
 exports[`real-world-case.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Prettier
 
@@ -788,7 +787,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 
 ### Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: https://json.schemastore.org/prettierrc.
+If you'd like a JSON schema to validate your configuration, one is available here: https://www.schemastore.org/prettierrc.
 
 ## Editor Integration
 
@@ -1830,7 +1829,7 @@ section.
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available
-here: https://json.schemastore.org/prettierrc.
+here: https://www.schemastore.org/prettierrc.
 
 ## Editor Integration
 
@@ -1976,9 +1975,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 exports[`real-world-case.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Prettier
 
@@ -2760,7 +2758,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 
 ### Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: https://json.schemastore.org/prettierrc.
+If you'd like a JSON schema to validate your configuration, one is available here: https://www.schemastore.org/prettierrc.
 
 ## Editor Integration
 
@@ -3802,7 +3800,7 @@ section.
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available
-here: https://json.schemastore.org/prettierrc.
+here: https://www.schemastore.org/prettierrc.
 
 ## Editor Integration
 
@@ -3948,10 +3946,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 exports[`test-case.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
@@ -4166,9 +4163,11 @@ This is a paragraph.
 
     This is a paragraph.
 
-# Header 1
+Header 1
+========
 
-## Header 2
+Header 2
+--------
 
     Header 1
     ========
@@ -4353,9 +4352,8 @@ This paragraph has some \`code\` in it.
 exports[`test-case.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
@@ -4570,9 +4568,11 @@ This is a paragraph.
 
     This is a paragraph.
 
-# Header 1
+Header 1
+========
 
-## Header 2
+Header 2
+--------
 
     Header 1
     ========

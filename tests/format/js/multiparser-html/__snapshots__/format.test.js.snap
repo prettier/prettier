@@ -4,8 +4,7 @@ exports[`html-template-literals.js - {"htmlWhitespaceSensitivity":"ignore"} form
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
   <script>
@@ -39,6 +38,18 @@ setFoo(
   </div>\`,
   secondArgument
 );
+
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
 
 =====================================output=====================================
 const nestedFun = /* HTML */ \`
@@ -88,14 +99,21 @@ setFoo(
   secondArgument,
 );
 
+// Attribute quotes
+a = /* HTML */ \`
+  <div double-quoted="\${foo}" single-quoted="\${foo}" unquoted=\${foo}></div>
+\`;
+a = /* HTML */ \`
+  <div style="\${foo}" style="\${foo}" style=\${foo}></div>
+\`;
+
 ================================================================================
 `;
 
 exports[`html-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
   <script>
@@ -129,6 +147,18 @@ setFoo(
   </div>\`,
   secondArgument
 );
+
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
 
 =====================================output=====================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
@@ -164,6 +194,14 @@ setFoo(
   secondArgument,
 );
 
+// Attribute quotes
+a = /* HTML */ \`<div
+  double-quoted="\${foo}"
+  single-quoted="\${foo}"
+  unquoted=\${foo}
+></div> \`;
+a = /* HTML */ \`<div style="\${foo}" style="\${foo}" style=\${foo}></div> \`;
+
 ================================================================================
 `;
 
@@ -171,8 +209,7 @@ exports[`issue-10691.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function include_photoswipe(
 	gallery_selector = ".my-gallery"
@@ -202,8 +239,7 @@ export default function include_photoswipe(gallery_selector = ".my-gallery") {
 exports[`issue-10691.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function include_photoswipe(
 	gallery_selector = ".my-gallery"
@@ -232,8 +268,7 @@ exports[`lit-html.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { LitElement, html } from '@polymer/lit-element';
 
@@ -479,8 +514,7 @@ html\`
 exports[`lit-html.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { LitElement, html } from '@polymer/lit-element';
 

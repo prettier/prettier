@@ -1,5 +1,8 @@
-import { fill, hardline } from "../../src/document/builders.js";
-import { stripTrailingHardline } from "../../src/document/utils.js";
+import {
+  fill,
+  hardline,
+  stripTrailingHardline,
+} from "../../src/document/index.js";
 
 test("Should not mutate doc", () => {
   {

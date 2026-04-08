@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `src/document/{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
+The core of the algorithm is implemented in `src/document/{printer,builders,utilities}/`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 ## Prettier's intermediate representation: `Doc`
 

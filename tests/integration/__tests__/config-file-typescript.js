@@ -7,7 +7,7 @@ const NODE_TS_SUPPORT_FLAGS = ["--experimental-strip-types"];
 const NODE_JS_MAJOR_VERSION = Number(process.versions.node.split(".")[0]);
 
 const getOutputTabWidth = (code) =>
-  code.match(/\n(?<indention>\s+)return/u).groups.indention.length;
+  code.match(/\n(?<indention>\s+)return/).groups.indention.length;
 const code = "function foo() {return bar}";
 
 const TAB_WIDTH_3_OUTPUT = outdent`
@@ -58,7 +58,7 @@ if (NODE_JS_MAJOR_VERSION < 22) {
       status: "non-zero",
       stdout: "",
       write: [],
-      stderr: expect.stringMatching(/Unknown file extension ".ts" for/u),
+      stderr: expect.stringMatching(/Unknown file extension ".ts" for/),
     });
 
     runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
@@ -68,7 +68,7 @@ if (NODE_JS_MAJOR_VERSION < 22) {
       status: "non-zero",
       stdout: "",
       write: [],
-      stderr: expect.stringMatching(/bad option: --experimental-strip-types/u),
+      stderr: expect.stringMatching(/bad option: --experimental-strip-types/),
     });
   });
 }

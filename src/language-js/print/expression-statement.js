@@ -1,27 +1,73 @@
 import {
+  printComments,
+  printLeadingComments,
+} from "../../main/comments/print.js";
+import {
+  isSingleHtmlEventHandlerExpressionStatement,
+  isSingleJsxExpressionStatementInMarkdown,
+  isSingleVueEventBindingExpressionStatement,
+  shouldExpressionStatementPrintLeadingSemicolon,
+} from "../semicolon/semicolon.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
+import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
+import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
   unwrapVueEventBindingTsNode,
-} from "../utils/vue-event-binding.js";
-import {
-  isSingleJsxExpressionStatementInMarkdown,
-  isSingleVueEventBindingExpressionStatement,
-} from "./semicolon.js";
+} from "../utilities/vue-event-binding.js";
 
-function printExpressionStatement(path, options, print) {
-  const parts = [print("expression")];
+/**
+@import {Doc} from "../../document/index.js"
+*/
 
+function shouldPrintSemicolon(path, options) {
   if (isSingleVueEventBindingExpressionStatement(path, options)) {
     const expression = unwrapVueEventBindingTsNode(path.node.expression);
-    if (
+    return (
       isVueEventBindingFunctionExpression(expression) ||
       isVueEventBindingMemberExpression(expression)
-    ) {
-      parts.push(";");
-    }
-  } else if (isSingleJsxExpressionStatementInMarkdown(path, options)) {
+    );
+  }
+
+  if (!options.semi) {
+    return false;
+  }
+
+  if (
     // Do not append semicolon after the only JSX element in a program
-  } else if (options.semi) {
+    isSingleJsxExpressionStatementInMarkdown(path, options) ||
+    // Do not append semicolon after the only HTML event binding expression in a program
+    isSingleHtmlEventHandlerExpressionStatement(path, options)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function printExpressionStatement(path, options, print) {
+  /** @type {Doc[]} */
+  const parts = [print("expression")];
+
+  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+    if (shouldExpressionStatementPrintOwnComments(path, options)) {
+      const { node } = path;
+      const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
+        -1,
+      );
+
+      // Print the type cast comment separately and print `;` before it
+      const typeCastCommentDoc = printLeadingComments(path, options, {
+        filter: (comment) => comment === typeCastComment,
+      });
+
+      return printComments(path, [";", typeCastCommentDoc, ...parts], options, {
+        filter: (comment) => comment !== typeCastComment,
+      });
+    }
+
+    parts.unshift(";");
+  } else if (shouldPrintSemicolon(path, options)) {
     parts.push(";");
   }
 

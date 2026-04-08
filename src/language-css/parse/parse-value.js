@@ -1,11 +1,12 @@
 import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
-import getFunctionArgumentsText from "../utils/get-function-arguments-text.js";
-import getValueRoot from "../utils/get-value-root.js";
-import hasSCSSInterpolation from "../utils/has-scss-interpolation.js";
-import hasStringOrFunction from "../utils/has-string-or-function.js";
-import isSCSSVariable from "../utils/is-scss-variable.js";
+import isObject from "../../utilities/is-object.js";
+import getFunctionArgumentsText from "../utilities/get-function-arguments-text.js";
+import getValueRoot from "../utilities/get-value-root.js";
+import hasSCSSInterpolation from "../utilities/has-scss-interpolation.js";
+import hasStringOrFunction from "../utilities/has-string-or-function.js";
+import isSCSSVariable from "../utilities/is-scss-variable.js";
 import parseSelector from "./parse-selector.js";
-import { addTypePrefix } from "./utils.js";
+import { addTypePrefix } from "./utilities.js";
 
 const isClosingParenthesis = (node) =>
   node.type === "paren" && node.value === ")";
@@ -156,7 +157,7 @@ function flattenGroups(node) {
 }
 
 function parseNestedValue(node, options) {
-  if (node && typeof node === "object") {
+  if (isObject(node)) {
     for (const key in node) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);
@@ -176,7 +177,7 @@ function parseValue(value, options) {
     return { type: "value-unknown", value };
   }
 
-  let result = null;
+  let result;
 
   try {
     result = new PostcssValuesParser(value, { loose: true }).parse();
@@ -191,7 +192,7 @@ function parseValue(value, options) {
 
   const parsedResult = parseNestedValue(result, options);
 
-  return addTypePrefix(parsedResult, "value-", /^selector-/u);
+  return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
 export default parseValue;

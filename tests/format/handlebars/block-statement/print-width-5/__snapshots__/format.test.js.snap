@@ -4,7 +4,7 @@ exports[`custom-else.hbs - {"printWidth":5} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 5
-     | printWidth
+     | printWidth: 5
 =====================================input======================================
 {{#when a}}
   1
@@ -55,7 +55,7 @@ exports[`if-else.hbs - {"printWidth":5} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 5
-     | printWidth
+     | printWidth: 5
 =====================================input======================================
 {{#if a}}
   1

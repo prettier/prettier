@@ -57,10 +57,17 @@ exports[`number file/dir  4`] = `
 
 exports[`number file/dir  5`] = `
 {
+  "stdout": "1e3",
+}
+`;
+
+exports[`number file/dir  6`] = `
+{
   "stdout": "1/file-in-dir-named-1.js
 2.2/file-in-dir-named-2.2.js
 3
-4.44",
+4.44
+1e3",
 }
 `;
 

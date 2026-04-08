@@ -1,28 +1,25 @@
-import { group, indent, line } from "../../document/builders.js";
-import { inheritLabel } from "../../document/utils.js";
-import printIgnored from "../../main/print-ignored.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import pathNeedsParens from "../needs-parens.js";
-import { createTypeCheckFunction } from "../utils/index.js";
-import isIgnored from "../utils/is-ignored.js";
+import { group, indent, inheritLabel, softline } from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import isIgnored from "../utilities/is-ignored.js";
+import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
+import { printIgnored } from "./ignored.js";
 import { printJsx } from "./jsx.js";
-import { shouldPrintLeadingSemicolon } from "./semicolon.js";
 import { printTypescript } from "./typescript.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printWithoutParentheses(path, options, print, args) {
-  if (isIgnored(path)) {
-    return printIgnored(path, options);
-  }
-
   for (const printer of [
     printAngular,
     printJsx,
@@ -65,39 +62,52 @@ function print(path, options, print, args) {
     options.__onHtmlBindingRoot?.(path.node, options);
   }
 
-  const doc = printWithoutParentheses(path, options, print, args);
+  const { node } = path;
+
+  let doc = isIgnored(path)
+    ? printIgnored(path, options)
+    : printWithoutParentheses(path, options, print, args);
   if (!doc) {
     return "";
   }
 
-  const { node } = path;
   if (shouldPrintDirectly(node)) {
     return doc;
   }
 
-  const hasDecorators = isNonEmptyArray(node.decorators);
-  const decoratorsDoc = printDecorators(path, options, print);
-  const isClassExpression = node.type === "ClassExpression";
-  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (hasDecorators && !isClassExpression) {
-    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
-  }
+  doc = printCommentsForFunction(path, options, doc);
 
-  const needsParens = pathNeedsParens(path, options);
-  const needsSemi = shouldPrintLeadingSemicolon(path, options);
+  const decoratorsDoc =
+    // `ClassExpression` prints own decorators
+    node.type !== "ClassExpression" && isNonEmptyArray(node.decorators)
+      ? printDecorators(path, options, print)
+      : "";
 
-  if (!decoratorsDoc && !needsParens && !needsSemi) {
+  const needsParens = needsParentheses(path, options);
+
+  if (!decoratorsDoc && !needsParens) {
     return doc;
   }
 
   return inheritLabel(doc, (doc) => [
-    needsSemi ? ";" : "",
     needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+    decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
 }
 
-export default print;
+function printCommentsForFunction(path, options, doc) {
+  const { node } = path;
+
+  if (
+    (hasComment(node, CommentCheckFlags.Leading) ||
+      hasComment(node, CommentCheckFlags.Trailing)) &&
+    isIifeCalleeOrTaggedTemplateExpressionTag(path)
+  ) {
+    return [indent([softline, printComments(path, doc, options)]), softline];
+  }
+
+  return doc;
+}
+
+export { print as printEstree };

@@ -3,8 +3,7 @@
 exports[`func_inside_attr.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <bar x={function (x): Array<string> {}} />
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`generic-component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const c1 = <MyComponent<number> data={12} />
 
@@ -39,8 +37,7 @@ const c3 = <MyComponent<number> attr="value" />;
 exports[`return_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fail = (): X => <x />;
 

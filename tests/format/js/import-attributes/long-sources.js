@@ -1,14 +1,41 @@
-import a10 from "./aaaaaaaaaa.json" with {
+import a11 from "./aaaaaaaaaa.json" with {
 type: "json" };
-import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-import a40 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-import a50 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-import a60 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-import a70 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with {
+import a12 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a13 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a14 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a15 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a16 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a17 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with {
 type: "json" };
-import a80
+import a18
 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+
+import a21 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+// comment
+type: "json"
+};
+import a22 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+type:
+// comment
+"json"
+};
+import a23 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+type:"json" // comment
+};
+
+
+import a31 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+/* comment */
+type: "json"
+};
+import a32 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+type:
+/* comment */
+"json"
+};
+import a33 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with{
+type:"json" /* comment */
+};
 
 import("./aaaaaaaaaa.json", {with: { type: "json" }})
 import("./aaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})

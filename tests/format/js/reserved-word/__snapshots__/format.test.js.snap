@@ -3,8 +3,7 @@
 exports[`interfaces.js format 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo.interface;
 interface.foo;
@@ -29,8 +28,7 @@ var interface = "foo";
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo.let;
 let.foo;
@@ -55,8 +53,7 @@ var let = "foo";
 exports[`yield.js format 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo.yield;
 yield.foo;

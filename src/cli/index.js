@@ -8,7 +8,7 @@ import mockable from "./mockable.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
 import printSupportInfo from "./print-support-info.js";
 import { createDetailedUsage, createUsage } from "./usage.js";
-import { printToScreen } from "./utils.js";
+import { printToScreen } from "./utilities.js";
 
 async function run(rawArguments = process.argv.slice(2)) {
   // Create a default level logger, so we can log errors during `logLevel` parsing

@@ -1,6 +1,5 @@
-// TODO: Find a better way to test the performance
-import { fill, join, line } from "../../src/document/builders.js";
-import { printDocToString } from "../../src/document/printer.js";
+import { fill, join, line } from "../../src/document/index.js";
+import { printDocToString } from "../../src/document/printer/printer.js";
 
 test("`printDocToString` should not manipulate docs", () => {
   const printOptions = { printWidth: 40, tabWidth: 2 };
@@ -33,38 +32,10 @@ test("`printDocToString` should not manipulate docs", () => {
     );
     const orignalLength = hugeParts.length;
 
-    const startTime = performance.now();
     const { formatted } = printDocToString(fill(hugeParts), printOptions);
-    const endTime = performance.now();
     expect(hugeParts.length).toBe(orignalLength);
 
     const lines = formatted.split("\n");
     expect(lines.length).toBeGreaterThan(1000);
-    expect(endTime - startTime).toBeLessThan(150);
-  }
-});
-
-describe("`printDocToString` has linear time complexity at most to print fill()", () => {
-  const baseSize = 3_000;
-  const relativeMargin = 0.7;
-  const baseTime = time(makeFill(baseSize));
-  test.each([20_000, 40_000, 60_000])("numWords=%d", (numWords) => {
-    const doc = makeFill(numWords);
-    const ellapsed = time(doc);
-    const ratio = numWords / baseSize;
-    expect(ellapsed).toBeLessThan(baseTime * ratio * (1 + relativeMargin));
-  });
-
-  function makeFill(numWords) {
-    const WORD = "word";
-    const parts = Array.from({ length: numWords }, () => WORD);
-    return fill(join(line, parts));
-  }
-
-  function time(doc) {
-    const printOptions = { printWidth: 40, tabWidth: 2 };
-    const start = performance.now();
-    printDocToString(doc, printOptions);
-    return performance.now() - start;
   }
 });

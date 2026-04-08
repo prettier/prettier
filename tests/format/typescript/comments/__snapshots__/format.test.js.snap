@@ -1,10 +1,78 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`10260.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type A = (
+    /** @deprecated */
+    () => void
+);
+type B = (
+	/** @deprecated */
+	new () => void
+);
+type C = (
+	/** @deprecated */
+	<T>() => void
+);
+type D = (
+	/** @deprecated */
+	new <T>() => void
+);
+
+type A2 = (
+    /** comment */
+    () => void
+);
+type B2 = (
+	/** comment */
+	new () => void
+);
+type C2 = (
+	/** comment */
+	<T>() => void
+);
+type D2 = (
+	/** comment */
+	new <T>() => void
+);
+
+=====================================output=====================================
+type A =
+  /** @deprecated */
+  () => void;
+type B =
+  /** @deprecated */
+  new () => void;
+type C =
+  /** @deprecated */
+  <T>() => void;
+type D =
+  /** @deprecated */
+  new <T>() => void;
+
+type A2 =
+  /** comment */
+  () => void;
+type B2 =
+  /** comment */
+  new () => void;
+type C2 =
+  /** comment */
+  <T>() => void;
+type D2 =
+  /** comment */
+  new <T>() => void;
+
+================================================================================
+`;
+
 exports[`11662.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo<a>
   // TEST
@@ -31,8 +99,7 @@ foo<a>
 exports[`15707.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const {
   foo,
@@ -153,8 +220,7 @@ const [
 exports[`16065.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   constructor(
@@ -187,8 +253,7 @@ class Foo {
 exports[`16065-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   // PropertyDefinition
@@ -250,11 +315,94 @@ class Foo {
 ================================================================================
 `;
 
+exports[`16121.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export type IntersectionType =
+  & FirstPart
+  // Presence of comment makes this non-idempotent
+  & {
+    an: string,
+    object: string,
+    type: string,
+  }
+
+
+export type IntersectionType =
+  & FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  & {
+    an: string,
+    object: string,
+    type: string,
+  }
+
+export type IntersectionType =
+  | FirstPart
+  // Presence of comment is not a problem
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+export type IntersectionType =
+  | FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+=====================================output=====================================
+export type IntersectionType = FirstPart &
+  // Presence of comment makes this non-idempotent
+  {
+    an: string;
+    object: string;
+    type: string;
+  };
+
+export type IntersectionType = FirstPart &
+  // Comment Line 1
+  // Comment Line 2
+  {
+    an: string;
+    object: string;
+    type: string;
+  };
+
+export type IntersectionType =
+  | FirstPart
+  // Presence of comment is not a problem
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+export type IntersectionType =
+  | FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+================================================================================
+`;
+
 exports[`16207.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   constructor(
@@ -279,8 +427,7 @@ class Foo {
 exports[`16889.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   @decorator
@@ -420,8 +567,7 @@ class A {
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class AbstractRule {
     /**
@@ -448,8 +594,7 @@ abstract class AbstractRule {
 exports[`abstract_methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class AbstractFoo {
   abstract method1(/* comment */ arg: string);
@@ -482,8 +627,7 @@ abstract class AbstractFoo {
 exports[`after_jsx_generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let comp = (
   <>
@@ -544,8 +688,7 @@ let comp = (
 exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function fn(
   currentRequest: {a: number},
@@ -567,8 +710,7 @@ declare function /* foo */ f(/* baz */ a /* taz */); /* bar */
 exports[`interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Foo {
   bar(
@@ -635,8 +777,7 @@ interface Foo {
 exports[`issues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Adding a comment stops the pretty printing process and everything is
 // squished in a single line afterward
@@ -713,8 +854,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 exports[`jsx.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var example1 = <div>
 	https://test
@@ -735,8 +875,7 @@ var example2 = <div>/*test*/</div>;
 exports[`location.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function x({
   x,
@@ -819,11 +958,10 @@ export type WrappedFormUtils = {
 ================================================================================
 `;
 
-exports[`mapped_types.ts format 1`] = `
+exports[`mapped-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {
   // commentA
@@ -872,6 +1010,35 @@ type MakeBrand<T extends string> = {
   [K in \`~brand~\${T}\`]: T;
 };
 
+type M1 = {
+  /* 11 */ /* 12 */ [b in B]: string
+}
+type M2= {
+  /* 21 */
+  /* 22 */ [b in B]: string
+}
+type M3= {
+  /* 23 */ /* 24 */
+  [b in B]: string
+}
+
+type M4  = {
+  /* a long long long long long long long long long long long long long long comment */ [b in B]: string
+}
+
+type M5  = {
+  /* Multi
+line */ [b in B]: string
+}
+
+type M6  = {
+  /* 61 */ [b in long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type]: string
+}
+
+type M7  = {
+  /* 71 */ [b in X]: long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type
+}
+
 =====================================output=====================================
 type A = {
   // commentA
@@ -879,8 +1046,7 @@ type A = {
 };
 
 type B = {
-  /* commentB */
-  [b in B]: string;
+  /* commentB */ [b in B]: string;
 };
 
 type C = {
@@ -903,7 +1069,7 @@ type G = {
   [g in G /* commentG */]: string;
 };
 
-type H = { [/* commentH */ h in H]: string };
+type H = { /* commentH */ [h in H]: string };
 
 type I = { [/* commentI */ i in I]: string };
 
@@ -921,14 +1087,54 @@ type MakeBrand<T extends string> = {
   [K in \`~brand~\${T}\`]: T;
 };
 
+type M1 = {
+  /* 11 */
+  /* 12 */ [b in B]: string;
+};
+type M2 = {
+  /* 21 */
+  /* 22 */ [b in B]: string;
+};
+type M3 = {
+  /* 23 */
+  /* 24 */
+  [b in B]: string;
+};
+
+type M4 = {
+  /* a long long long long long long long long long long long long long long comment */
+  [b in B]: string;
+};
+
+type M5 = {
+  /* Multi
+line */
+  [b in B]: string;
+};
+
+type M6 = {
+  /* 61 */ [
+    b in
+      | long_long_long_long_long_long_type
+      | long_long_long_long_long_long_type
+      | long_long_long_long_long_long_type
+  ]: string;
+};
+
+type M7 = {
+  /* 71 */ [b in X]:
+    | long_long_long_long_long_long_type
+    | long_long_long_long_long_long_type
+    | long_long_long_long_long_long_type;
+};
+
 ================================================================================
 `;
 
 exports[`method_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface foo1 {
   bar3/* foo */ (/* baz */) // bat
@@ -973,8 +1179,8 @@ abstract class Test {
 =====================================output=====================================
 interface foo1 {
   bar3 /* foo */(/* baz */); // bat
-  bar /* foo */ /* bar */?(/* baz */) /* bat */;
-  bar2 /* foo */(/* baz */) /* bat */;
+  bar /* foo */ /* bar */?(/* baz */); /* bat */
+  bar2 /* foo */(/* baz */); /* bat */
 }
 
 interface foo2 {
@@ -1017,8 +1223,7 @@ abstract class Test {
 exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class Point {
 /**
@@ -1127,8 +1332,7 @@ export class Point {
 exports[`ts-parameter-proerty.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   constructor(
@@ -1152,8 +1356,7 @@ class A {
 exports[`type_literals.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
@@ -1189,73 +1392,28 @@ type Props3 = {
 ================================================================================
 `;
 
-exports[`type-parameters.ts [oxc-ts] format 1`] = `
-"Type parameter list cannot be empty. (4:13)
-  2 | const a: T</* comment */> = 1;
-  3 | functionName</* comment */>();
-> 4 | function foo</* comment */>() {}
-    |             ^^^^^^^^^^^^^^^
-  5 | interface Foo {
-  6 |  </* comment */>(arg): any;
-  7 | }"
-`;
-
 exports[`type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
- </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
 functionName<
   A // comment
 >();
-const a: T<
-  // comment
-> = 1;
-functionName<
-  // comment
->();
-function foo<
-  // comment
->() {}
 interface Foo {
  <
   A// comment
  >(arg): any;
 }
-type T = <
-  // comment
->(arg) => any;
 
 =====================================output=====================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
-  </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
-functionName<A>(); // comment
-const a: T<
-  // comment
-> = 1;
 functionName<
-  // comment
+  A // comment
 >();
-function foo<
-  // comment
->() {}
 interface Foo {
   <
     A, // comment
@@ -1263,11 +1421,6 @@ interface Foo {
     arg,
   ): any;
 }
-type T = <
-  // comment
->(
-  arg,
-) => any;
 
 ================================================================================
 `;
@@ -1275,8 +1428,7 @@ type T = <
 exports[`types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (() => {
   // swallow error and fallback to using directory as path
@@ -1293,8 +1445,7 @@ printWidth: 80
 exports[`union.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type UploadState<E, EM, D>
   // The upload hasnt begun yet

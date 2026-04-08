@@ -1,17 +1,82 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
-import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
+import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
+
+/**
+@import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
+@typedef {{
+  type: "meta",
+  version: "stable" | "next",
+}} MetaMessage
+@typedef {{
+  type: "format",
+  code: string,
+  options: any,
+  settings: PlaygroundSettings,
+  version: "stable" | "next",
+}} FormatMessage
+*/
+
+const workerUrl = new URL(import.meta.url);
+const version =
+  workerUrl.searchParams.get("version") === "next" ? "next" : "stable";
+
+let prettierCache;
+let prettierPackageManifestCache;
+let prettierPluginDocExplorerCache;
+let pluginsCache;
+
+async function loadPrettier() {
+  if (!prettierCache) {
+    prettierCache = import(`./lib/${version}/prettier/standalone.mjs`);
+  }
+  return await prettierCache;
+}
+
+async function loadPrettierPackageManifest() {
+  if (!prettierPackageManifestCache) {
+    prettierPackageManifestCache = import(
+      `./lib/${version}/package-manifest.mjs`
+    ).then((m) => m.default);
+  }
+  return await prettierPackageManifestCache;
+}
+
+async function loadPrettierPluginDocExplorer() {
+  if (!prettierPluginDocExplorerCache) {
+    const prettier = await loadPrettier();
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    prettierPluginDocExplorerCache = createDocExplorerPlugin(
+      prettier,
+      prettierPackageManifest,
+      version,
+    );
+  }
+  return prettierPluginDocExplorerCache;
+}
+
+async function loadPlugins() {
+  if (!pluginsCache) {
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    const prettierPluginDocExplorer = await loadPrettierPluginDocExplorer();
+    pluginsCache = [
+      ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
+      prettierPluginDocExplorer,
+    ];
+  }
+  return pluginsCache;
+}
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
-    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
+    pluginLoadPromises.set(plugin, import(`./lib/${version}/${plugin.file}`));
   }
 
   try {
     return await pluginLoadPromises.get(plugin);
-  } catch {
-    throw new Error(`Load plugin '${plugin.file}' failed.`);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
 }
 
@@ -39,11 +104,6 @@ function createPlugin(pluginManifest) {
   return plugin;
 }
 
-const plugins = [
-  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
-  prettierPluginDocExplorer,
-];
-
 self.onmessage = async function (event) {
   self.postMessage({
     uid: event.data.uid,
@@ -51,21 +111,45 @@ self.onmessage = async function (event) {
   });
 };
 
+function serializeError(error) {
+  const serialized = {
+    name: error.name,
+    message: error.message,
+    ...error,
+  };
+
+  if (error.cause instanceof Error) {
+    serialized.cause = serializeError(error.cause);
+  }
+
+  return serialized;
+}
+
 function serializeAst(ast) {
   return JSON.stringify(
     ast,
-    (_, value) =>
-      value instanceof Error
-        ? { name: value.name, message: value.message, ...value }
-        : typeof value === "bigint"
-          ? `BigInt('${String(value)}')`
-          : typeof value === "symbol"
-            ? String(value)
-            : value,
+    (_, value) => {
+      if (value instanceof Error) {
+        return serializeError(value);
+      }
+
+      if (typeof value === "bigint") {
+        return `BigInt('${String(value)}')`;
+      }
+
+      if (typeof value === "symbol") {
+        return String(value);
+      }
+
+      return value;
+    },
     2,
   );
 }
 
+/**
+@param {MetaMessage | FormatMessage} message
+*/
 function handleMessage(message) {
   switch (message.type) {
     case "meta":
@@ -76,30 +160,32 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
+  const prettier = await loadPrettier();
+  const prettierPackageManifest = await loadPrettierPackageManifest();
+
+  const plugins = await loadPlugins();
   const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
     type: "meta",
     // eslint-disable-next-line unicorn/prefer-structured-clone
     supportInfo: JSON.parse(JSON.stringify(supportInfo)),
-    version: prettier.version,
+    version: prettierPackageManifest.version,
   };
 }
 
+/**
+@param {FormatMessage} message
+*/
 async function handleFormatMessage(message) {
-  const options = { ...message.options, plugins };
-
-  delete options.ast;
-  delete options.doc;
-  delete options.output2;
+  const prettier = await loadPrettier();
+  const plugins = await loadPlugins();
+  let { options, code, settings } = message;
+  options = { ...options, plugins };
 
   const isDocExplorer = options.parser === "doc-explorer";
 
-  const formatResult = await formatCode(
-    message.code,
-    options,
-    message.debug.rethrowEmbedErrors,
-  );
+  const formatResult = await formatCode(code, options, settings);
 
   const response = {
     formatted: formatResult.formatted,
@@ -113,12 +199,21 @@ async function handleFormatMessage(message) {
     },
   };
 
-  for (const key of ["ast", "preprocessedAst"]) {
-    if (!message.debug[key]) {
+  for (const { resultKey, settingsKey, preprocessForPrint } of [
+    {
+      resultKey: "ast",
+      settingsKey: "showAst",
+      preprocessForPrint: false,
+    },
+    {
+      resultKey: "preprocessedAst",
+      settingsKey: "showPreprocessedAst",
+      preprocessForPrint: true,
+    },
+  ]) {
+    if (!settings[settingsKey]) {
       continue;
     }
-
-    const preprocessForPrint = key === "preprocessedAst";
 
     if (isDocExplorer && preprocessForPrint) {
       continue;
@@ -127,7 +222,7 @@ async function handleFormatMessage(message) {
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(message.code, options, {
+      const parsed = await prettier.__debug.parse(code, options, {
         preprocessForPrint,
       });
       ast = serializeAst(parsed.ast);
@@ -143,39 +238,53 @@ async function handleFormatMessage(message) {
         ast = serializeAst(ast);
       }
     }
-    response.debug[key] = ast;
+    response.debug[resultKey] = ast;
   }
 
-  if (!isDocExplorer && message.debug.doc) {
-    try {
-      response.debug.doc = await prettier.__debug.formatDoc(
-        await prettier.__debug.printToDoc(message.code, options),
-        { plugins },
-      );
-    } catch {
-      response.debug.doc = "";
+  if (!isDocExplorer && settings.showDoc) {
+    if (formatResult.error) {
+      response.debug.doc = formatResult.formatted;
+    } else {
+      try {
+        response.debug.doc = await prettier.__debug.formatDoc(
+          await prettier.__debug.printToDoc(code, options),
+          { plugins },
+        );
+      } catch {
+        response.debug.doc = "";
+      }
     }
   }
 
-  if (!isDocExplorer && message.debug.comments) {
-    response.debug.comments = (
-      await formatCode(JSON.stringify(formatResult.comments || []), {
-        parser: "json",
-        plugins,
-      })
-    ).formatted;
+  if (!isDocExplorer && settings.showComments) {
+    if (formatResult.error) {
+      response.debug.comments = formatResult.formatted;
+    } else {
+      response.debug.comments = (
+        await formatCode(JSON.stringify(formatResult.comments || []), {
+          parser: "json",
+          plugins,
+        })
+      ).formatted;
+    }
   }
 
-  if (!isDocExplorer && message.debug.reformat) {
+  if (!isDocExplorer && settings.showSecondFormat) {
     response.debug.reformatted = (
-      await formatCode(response.formatted, options)
+      await formatCode(response.formatted, options, settings)
     ).formatted;
   }
 
   return response;
 }
 
-async function formatCode(text, options, rethrowEmbedErrors) {
+/**
+@param {string} text
+@param {any} options
+@param {PlaygroundSettings} settings
+*/
+async function formatCode(text, options, settings = {}) {
+  const prettier = await loadPrettier();
   if (options.parser === "doc-explorer") {
     options = {
       ...options,
@@ -186,7 +295,7 @@ async function formatCode(text, options, rethrowEmbedErrors) {
   }
 
   try {
-    self.PRETTIER_DEBUG = rethrowEmbedErrors;
+    self.PRETTIER_DEBUG = settings.rethrowEmbedErrors;
     return await prettier.formatWithCursor(text, options);
   } catch (error) {
     if (error.constructor?.name === "SyntaxError") {
@@ -195,21 +304,33 @@ async function formatCode(text, options, rethrowEmbedErrors) {
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: stringifyError(error), error: true };
+    return {
+      formatted: stringifyError(error),
+      error: true,
+    };
   } finally {
     self.PRETTIER_DEBUG = undefined;
   }
 }
 
 function stringifyError(error) {
-  const stringified = String(error);
-  if (typeof error.stack !== "string") {
-    return stringified;
+  const { stack, cause } = error;
+
+  let stringified = String(error);
+
+  if (typeof stack === "string") {
+    if (stack.includes(stringified)) {
+      // Chrome
+      stringified = stack;
+    } else {
+      // Firefox
+      stringified += "\n" + error.stack;
+    }
   }
-  if (error.stack.includes(stringified)) {
-    // Chrome
-    return error.stack;
+
+  if (cause instanceof Error) {
+    stringified += "\nCause: " + stringifyError(cause);
   }
-  // Firefox
-  return stringified + "\n" + error.stack;
+
+  return stringified;
 }

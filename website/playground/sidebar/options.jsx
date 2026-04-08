@@ -1,6 +1,7 @@
 import { Checkbox, NumberInput, Select } from "./inputs.jsx";
 
-function BooleanOption({ option, value, onChange }) {
+function BooleanOption({ option, value }, { emit }) {
+  const onChange = (option, value) => emit("change", option, value);
   function maybeInvert(value) {
     return option.inverted ? !value : value;
   }
@@ -13,8 +14,14 @@ function BooleanOption({ option, value, onChange }) {
     />
   );
 }
+BooleanOption.props = {
+  option: { type: Object, required: true },
+  value: { type: Boolean, required: true },
+};
+BooleanOption.emits = ["change"];
 
-function ChoiceOption({ option, value, onChange }) {
+function ChoiceOption({ option, value }, { emit }) {
+  const onChange = (option, val) => emit("change", option, val);
   return (
     <Select
       label={option.cliName}
@@ -25,8 +32,14 @@ function ChoiceOption({ option, value, onChange }) {
     />
   );
 }
+ChoiceOption.props = {
+  option: { type: Object, required: true },
+  value: { type: String, required: true },
+};
+ChoiceOption.emits = ["change"];
 
-function NumberOption({ option, value, onChange }) {
+function NumberOption({ option, value }, { emit }) {
+  const onChange = (option, val) => emit("change", option, val);
   return (
     <NumberInput
       label={option.cliName}
@@ -39,19 +52,31 @@ function NumberOption({ option, value, onChange }) {
     />
   );
 }
+NumberOption.props = {
+  option: { type: Object, required: true },
+  value: { type: Number, default: undefined },
+};
+NumberOption.emits = ["change"];
 
-export default function Option(props) {
+export default function Option(props, { emit }) {
+  const onChange = (option, value) => emit("change", option, value);
+
   switch (props.option.type) {
     case "boolean":
-      return <BooleanOption {...props} />;
+      return <BooleanOption {...props} onChange={onChange} />;
     case "int":
-      return <NumberOption {...props} />;
+      return <NumberOption {...props} onChange={onChange} />;
     case "choice":
-      return <ChoiceOption {...props} />;
+      return <ChoiceOption {...props} onChange={onChange} />;
     default:
       throw new Error("unsupported type");
   }
 }
+Option.props = {
+  option: { type: Object, required: true },
+  value: { type: [Boolean, String, Number], default: undefined },
+};
+Option.emits = ["change"];
 
 function getDescription(option) {
   const description = option.inverted

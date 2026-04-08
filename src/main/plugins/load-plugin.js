@@ -1,7 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { isUrl } from "url-or-path";
-import importFromDirectory from "../../utils/import-from-directory.js";
+import { isUrl, toPath } from "url-or-path";
+import importFromDirectory from "../../utilities/import-from-directory.js";
 
 /**
 @param {string | URL} name
@@ -26,14 +26,22 @@ async function importPlugin(name, cwd) {
   }
 }
 
+/**
+@param {string | URL} plugin
+@param {string} cwd
+*/
 async function loadPluginWithoutCache(plugin, cwd) {
   const module = await importPlugin(plugin, cwd);
-  return { name: plugin, ...(module.default ?? module) };
+  const implementation = module.default ?? module;
+  // TODO: Use plugin name when fixing #17260.
+  const name = isUrl(plugin) ? toPath(plugin) : plugin;
+  return { name, ...implementation };
 }
 
 const cache = new Map();
 function loadPlugin(plugin) {
   if (typeof plugin !== "string" && !(plugin instanceof URL)) {
+    // TODO: Add name when fixing #17260.
     return plugin;
   }
 

@@ -3,8 +3,7 @@
 exports[`lists.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   shortWithList(list: [1, 2, 3])

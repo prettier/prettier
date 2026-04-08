@@ -3,9 +3,8 @@
 exports[`escape.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hello \\* world _ ~~ ya
 
@@ -38,7 +37,7 @@ asd &amp; asd &#132; 123
 123&#98765432;123
 
 =====================================output=====================================
-hello \\* world \\_ ~~ ya
+hello \\* world _ ~~ ya
 
 escape & html < entity > foo
 
@@ -52,7 +51,7 @@ asd &amp; asd &#132; 123
 
 123*123*123
 
-123 _ 123 _ 123
+123 * 123 * 123
 
 ## 类的 prototype 属性和\\_\\_proto\\_\\_属性
 

@@ -3,9 +3,8 @@
 exports[`decorator-auto-accessor-like-property-name.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   accessor;

@@ -3,9 +3,8 @@
 exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -50,10 +49,9 @@ class D {
 exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -98,9 +96,8 @@ class D {
 exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -145,9 +142,8 @@ class D {
 exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -189,12 +185,84 @@ class D {
 ================================================================================
 `;
 
+exports[`enums.js - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  A = "a"
+};
+
+=====================================output=====================================
+enum E1 {
+  A = "a",
+}
+
+================================================================================
+`;
+
+exports[`enums.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  A = "a"
+};
+
+=====================================output=====================================
+enum E1 {
+  A = 'a',
+}
+
+================================================================================
+`;
+
+exports[`enums.js - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  A = "a"
+};
+
+=====================================output=====================================
+enum E1 {
+  A = "a",
+}
+
+================================================================================
+`;
+
+exports[`enums.js - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  A = "a"
+};
+
+=====================================output=====================================
+enum E1 {
+  A = "a",
+}
+
+================================================================================
+`;
+
 exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   a: "a"
@@ -413,10 +481,9 @@ Object.entries({
 exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   a: "a"
@@ -635,9 +702,8 @@ Object.entries({
 exports[`objects.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   a: "a"
@@ -856,9 +922,8 @@ Object.entries({
 exports[`objects.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   a: "a"
@@ -1074,12 +1139,244 @@ Object.entries({
 ================================================================================
 `;
 
+exports[`records.js - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static "method1"() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  42: 0,
+  "43": 1,
+  property1: 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static method1() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  property1: 2,
+  property2: 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static "method1"() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  '42': 0,
+  '43': 1,
+  'property1': 2,
+  'property2': 3,
+  'property-3': 4,
+}
+
+record R2 {
+  static '42'() {}
+  static '43'() {}
+  static 'method1'() {}
+  static 'method2'() {}
+  static 'method-3'() {}
+}
+
+r = R {
+  '42': 0,
+  '43': 1,
+  'property1': 2,
+  'property2': 3,
+  'property-3': 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static "method1"() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  "42": 0,
+  "43": 1,
+  "property1": 2,
+  "property2": 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static "42"() {}
+  static "43"() {}
+  static "method1"() {}
+  static "method2"() {}
+  static "method-3"() {}
+}
+
+r = R {
+  "42": 0,
+  "43": 1,
+  "property1": 2,
+  "property2": 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static "method1"() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+record R2 {
+  static 42() {}
+  static "43"() {}
+  static "method1"() {}
+  static method2() {}
+  static "method-3"() {}
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
 exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1108,10 +1405,9 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1140,9 +1436,8 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1171,9 +1466,8 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1202,9 +1496,8 @@ class Foo {
 exports[`with_numbers.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1243,10 +1536,9 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1285,9 +1577,8 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1326,9 +1617,8 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",

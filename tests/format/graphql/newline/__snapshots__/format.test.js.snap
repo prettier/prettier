@@ -3,8 +3,7 @@
 exports[`directive_decl.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 directive @dir(
   # comment
@@ -33,8 +32,7 @@ directive @dir(
 exports[`directives.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query MyQuery @directive(
   arg: 5
@@ -81,8 +79,7 @@ query MyQuery
 exports[`enum.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 enum State {
   # pending state
@@ -115,8 +112,7 @@ enum State {
 exports[`fields.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query MyFirstQuery {
   # comment
@@ -190,8 +186,7 @@ subscription MySubscription {
 exports[`input.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 input Params {
   # Id
@@ -217,8 +212,7 @@ input Params {
 exports[`interface.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Actor {
   # Id
@@ -246,8 +240,7 @@ interface Actor {
 exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Artist implements Node& Entity {
   # The ID of an object
@@ -301,8 +294,7 @@ type Artist implements Node & Entity {
 exports[`schema.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Schema
 schema {

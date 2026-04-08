@@ -5,7 +5,7 @@ import {
   getBlogPostInfo,
   getChangelogContent,
   waitForEnter,
-} from "../utils.js";
+} from "../utilities.js";
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
 export function getReleaseUrl(version, previousVersion) {
@@ -39,7 +39,7 @@ export default async function showInstructionsAfterNpmPublish({
   next,
 }) {
   if (next) {
-    console.log(`${styleText.green.bold(`Prettier ${version} published!`)}`);
+    console.log(`${styleText.green.bold`Prettier ${version} published!`}`);
     await waitForEnter();
     return;
   }
@@ -47,7 +47,7 @@ export default async function showInstructionsAfterNpmPublish({
   const releaseUrl = getReleaseUrl(version, previousVersion);
   console.log(
     outdent`
-      ${styleText.green.bold(`Prettier ${version} published!`)}
+      ${styleText.green.bold`Prettier ${version} published!`}
 
       ${styleText.yellow.bold("Some manual steps are necessary.")}
 

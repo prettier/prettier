@@ -3,8 +3,7 @@
 exports[`component-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 component MyComponent() {}
 
@@ -181,8 +180,7 @@ component MyComponent() /* Trailing comment */ {}
 exports[`component-type-annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = component();
 
@@ -317,11 +315,86 @@ function A(
 ================================================================================
 `;
 
+exports[`dangling-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+component C11(// 11
+) {}
+component C12(
+// 12
+) {}
+declare component C13(// 13
+)
+declare component C14(
+// 14
+)
+type T11 = component(//15
+);
+type T12 = component(
+//16
+);
+
+component C21(/* 21 */
+) {}
+component C22(
+/* 22*/
+) {}
+component C23(
+/* 23*/){}
+declare component C24(/* 24 */
+)
+declare component C25(
+/* 25*/
+)
+declare component C26(
+/* 26*/)
+type T21 = component(/* 27*/
+);
+type T22 = component(
+/* 28*/
+);
+type T23 = component(
+/* 29*/);
+
+=====================================output=====================================
+component C11(
+  // 11
+) {}
+component C12(
+  // 12
+) {}
+declare component C13(
+  // 13
+);
+declare component C14(
+  // 14
+);
+type T11 = component(
+  //15
+);
+type T12 = component(
+  //16
+);
+
+component C21(/* 21 */) {}
+component C22(/* 22*/) {}
+component C23(/* 23*/) {}
+declare component C24(/* 24 */);
+declare component C25(/* 25*/);
+declare component C26(/* 26*/);
+type T21 = component(/* 27*/);
+type T22 = component(/* 28*/);
+type T23 = component(/* 29*/);
+
+================================================================================
+`;
+
 exports[`declare-component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare component MyComponent();
 
@@ -337,11 +410,11 @@ declare component MyComponent(bar: string);
 
 declare component MyComponent(bar?: string);
 
-declare component MyComponent('data-bar': string);
+// declare component MyComponent('data-bar': string);
 
 declare component MyComponent(...restProps: $ReadOnly<{k: string}>);
 
-declare component MyComponent(...$ReadOnly<{k: string}>);
+// declare component MyComponent(...$ReadOnly<{k: string}>);
 
 declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>);
 
@@ -355,7 +428,11 @@ declare component MyComponent(
   bar: string, // Trailing comment
 
   // preceding comment
-  'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  dataBaz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+
+  // preceding comment
+  // 'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
   // Trailing comment
 );
 
@@ -368,6 +445,7 @@ declare component MyComponent(
   ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
   // Trailing comment
 ) renders SomeComponent;
+
 =====================================output=====================================
 declare component MyComponent();
 
@@ -387,11 +465,11 @@ declare component MyComponent(bar: string);
 
 declare component MyComponent(bar?: string);
 
-declare component MyComponent("data-bar": string);
+// declare component MyComponent('data-bar': string);
 
 declare component MyComponent(...restProps: $ReadOnly<{ k: string }>);
 
-declare component MyComponent(...$ReadOnly<{ k: string }>);
+// declare component MyComponent(...$ReadOnly<{k: string}>);
 
 declare component MyComponent(bar: string, baz: $ReadOnly<{ k: string }>);
 
@@ -409,10 +487,14 @@ declare component MyComponent(
   bar: string, // Trailing comment
 
   // preceding comment
-  "data-baz": $ReadOnly<{
+  dataBaz: $ReadOnly<{
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>,
+  // Trailing comment
+
+  // preceding comment
+  // 'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
   // Trailing comment
 );
 
@@ -433,4 +515,33 @@ declare component MyComponent(
 ) renders SomeComponent;
 
 ================================================================================
+`;
+
+exports[`implicit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "foo" {
+  component Button(label: string);
+}
+
+=====================================output=====================================
+declare module "foo" {
+  component Button(label: string);
+}
+
+================================================================================
+`;
+
+exports[`implicit.js format[hermes] 1`] = `
+"'{' expected in component declaration (2:33)
+  1 | declare module "foo" {
+> 2 |   component Button(label: string);
+    |                                 ^
+  3 | }
+  4 |
+Cause: '{' expected in component declaration (2:33)
+  component Button(label: string);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;

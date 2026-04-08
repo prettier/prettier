@@ -1,77 +1,23 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class-expression-decorator.js [acorn] format 1`] = `
-"Unexpected character '@' (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: Unexpected character '@' (3:2)"
-`;
-
-exports[`class-expression-decorator.js [espree] format 1`] = `
-"Unexpected character '@' (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: Unexpected character '@'"
-`;
-
-exports[`class-expression-decorator.js [flow] format 1`] = `
-"Unexpected token \`@\` (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |"
-`;
-
-exports[`class-expression-decorator.js [hermes] format 1`] = `
-"unrecognized character '@' (3:2)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |  ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: unrecognized character '@' (3:2)
-  @decorator
-  ^"
-`;
-
-exports[`class-expression-decorator.js format 1`] = `
+exports[`decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
-(
-  // prettier-ignore
-  @decorator
-  class {}
-);
+// prettier-ignore
+@decorator
+class A {}
 
 =====================================output=====================================
 // prettier-ignore
-(
-  @decorator
-  class {}
-);
+@decorator
+class A {}
 
 ================================================================================
 `;
 
-exports[`decorator.js [acorn] format 1`] = `
+exports[`decorator.js format[acorn] 1`] = `
 "Unexpected character '@' (2:1)
   1 | // prettier-ignore
 > 2 | @decorator
@@ -81,7 +27,7 @@ exports[`decorator.js [acorn] format 1`] = `
 Cause: Unexpected character '@' (2:0)"
 `;
 
-exports[`decorator.js [espree] format 1`] = `
+exports[`decorator.js format[espree] 1`] = `
 "Unexpected character '@' (2:1)
   1 | // prettier-ignore
 > 2 | @decorator
@@ -91,40 +37,10 @@ exports[`decorator.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
-exports[`decorator.js [hermes] format 1`] = `
-"unrecognized character '@' (2:0)
-  1 | // prettier-ignore
-> 2 | @decorator
-  3 | class A {}
-  4 |
-Cause: unrecognized character '@' (2:0)
-@decorator
-^"
-`;
-
-exports[`decorator.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// prettier-ignore
-@decorator
-class A {}
-
-=====================================output=====================================
-// prettier-ignore
-@decorator
-class A {}
-
-================================================================================
-`;
-
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   // prettier-ignore
@@ -248,61 +164,10 @@ const response = {
 ================================================================================
 `;
 
-exports[`ignore-2.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// #8736
-
-function HelloWorld() {
-  return (
-    <div
-      {...{} /*
-      // @ts-ignore */ /* prettier-ignore */}
-      invalidProp="HelloWorld"
-    >
-      test
-    </div>
-  );
-}
-
-a = <div {.../* prettier-ignore */b}/>
-a = <div {...b/* prettier-ignore */}/>
-a = <div {.../* prettier-ignore */{}}/>
-a = <div {...{/* prettier-ignore */}}/>
-a = <div {...{}/* prettier-ignore */}/>
-
-=====================================output=====================================
-// #8736
-
-function HelloWorld() {
-  return (
-    <div
-      {...{} /*
-      // @ts-ignore */ /* prettier-ignore */}
-      invalidProp="HelloWorld"
-    >
-      test
-    </div>
-  );
-}
-
-a = <div {.../* prettier-ignore */ b} />;
-a = <div {...b /* prettier-ignore */} />;
-a = <div {.../* prettier-ignore */ {}} />;
-a = <div {...{/* prettier-ignore */}} />;
-a = <div {...{} /* prettier-ignore */} />;
-
-================================================================================
-`;
-
 exports[`issue-9335.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class foo extends
   // prettier-ignore
@@ -319,8 +184,7 @@ class foo
 exports[`issue-9877.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function test() {
   return {
@@ -353,8 +217,7 @@ export default function test() {
 exports[`issue-10661.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 verylongidentifierthatwillwrap123123123123123(
   a.b
@@ -417,8 +280,7 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 exports[`issue-11077.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function HelloWorld(x) {
 
@@ -464,8 +326,7 @@ function HelloWorld(x) {
 exports[`issue-13737.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 oneArgument(
  // prettier-ignore
@@ -493,8 +354,7 @@ a =
 exports[`issue-14404.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function foo() {
 (
@@ -510,6 +370,34 @@ async function foo() {
   // b
   (await thing()).blah;
 }
+
+================================================================================
+`;
+
+exports[`issue-18303.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+let x =
+    1
+    +
+    1
+;
+// prettier-ignore
+let y =
+    1
+    +
+    1
+;
+
+=====================================output=====================================
+let x = 1 + 1;
+// prettier-ignore
+let y =
+    1
+    +
+    1;
 
 ================================================================================
 `;

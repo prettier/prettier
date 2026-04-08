@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
+      - "!renovate/**"
   pull_request:
 
 permissions:
@@ -21,11 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
+          node-version: "24"
           cache: "yarn"
 
       - name: Install Dependencies
@@ -67,10 +70,10 @@ jobs:
       - name: Dependency Review
         # Doesn't support push event https://github.com/actions/dependency-review-action/issues/826
         if: github.event_name == 'pull_request'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
 
       - name: Validate renovate config
-        run: npx --package renovate@latest --call renovate-config-validator
+        run: yarn dlx --package renovate@latest renovate-config-validator
 
       - name: Run yarn (/)
         run: |
@@ -78,31 +81,31 @@ jobs:
           yarn dedupe --check
 
       - name: Run yarn (/website)
+        working-directory: website
         run: |
           yarn
           yarn dedupe --check
-        working-directory: website
 
       - name: Run yarn (/scripts/release)
+        working-directory: scripts/release
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/release
 
       - name: Run yarn (/scripts/tools/bundle-test)
+        working-directory: scripts/tools/bundle-test
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/tools/bundle-test
 
       - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
 
       - name: Knip
         run: yarn lint:knip
 
-      - name: Check File Changes
-        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Ensure no files changed
+        run: node ./scripts/ensure-no-files-changed.js

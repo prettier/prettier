@@ -1,0 +1,5 @@
+@for (option of availableOwners?.(); track option) {
+  <mat-option [value]="option.id">
+    {{ option.name }}@{{ option.domain }}
+  </mat-option>
+}

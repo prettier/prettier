@@ -1,0 +1,10 @@
+# 12651
+steps:
+    ${{ if paremeters.option }}:
+        given: Chris
+    ${{ else }}:
+        given: Dave
+    ${{ if paremeters.option }}:
+        family: Dumars
+    ${{ else }}:
+        family: Brands

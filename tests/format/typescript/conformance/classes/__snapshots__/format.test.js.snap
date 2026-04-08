@@ -3,8 +3,7 @@
 exports[`abstract.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class AbstractSocket {
   createSocket?(): Promise<string>
@@ -21,8 +20,7 @@ abstract class AbstractSocket {
 exports[`classExpression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x = class C {
 }
@@ -50,8 +48,7 @@ var z = class C4 {};
 exports[`mixinAccessModifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @declaration: true
 
@@ -278,8 +275,7 @@ class C6 extends Mix(Public, Public2) {
 exports[`mixinClassesAnnotated.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @declaration: true
 
@@ -420,8 +416,7 @@ class Thing3 extends Thing2 {
 exports[`mixinClassesAnonymous.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Constructor<T> = new(...args: any[]) => T;
 
@@ -568,8 +563,7 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
 exports[`mixinClassesMembers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @declaration: true
 
@@ -780,8 +774,7 @@ class C3 extends Mixed3 {
 exports[`nestedClassDeclaration.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // nested classes are not allowed
 

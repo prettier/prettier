@@ -3,8 +3,7 @@
 exports[`inline_url.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .stringContentIsNotModifiedEvenIfInvalid {
   background: url('@images');

@@ -7,12 +7,12 @@ test("resolves configuration from external files and overrides by extname", asyn
     prettier.resolveConfig(
       new URL("../cli/config/external-overrides/file.js", import.meta.url),
     ),
-  ).resolves.toEqual({ tabWidth: 3, semi: false });
+  ).resolves.toStrictEqual({ tabWidth: 3, semi: false });
   await expect(
     prettier.resolveConfig(
       new URL("../cli/config/external-overrides/file.ts", import.meta.url),
     ),
-  ).resolves.toEqual({ tabWidth: 3, semi: true });
+  ).resolves.toStrictEqual({ tabWidth: 3, semi: true });
 });
 
 describe("accepts configuration from --config", () => {
@@ -90,7 +90,7 @@ describe("prints error message when no file found with --find-config-path", () =
 });
 
 test("API resolveConfig with no args", async () => {
-  await expect(prettier.resolveConfig()).resolves.toEqual({});
+  await expect(prettier.resolveConfig()).resolves.toStrictEqual({});
 });
 
 test("API resolveConfig with file arg", async () => {
@@ -225,7 +225,7 @@ test("API resolveConfig overrides excludeFiles", async () => {
 
 test("API resolveConfig removes $schema option", async () => {
   const file = new URL("../cli/config/$schema/index.js", import.meta.url);
-  await expect(prettier.resolveConfig(file)).resolves.toEqual({
+  await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
     tabWidth: 42,
   });
 });
@@ -252,7 +252,7 @@ test("API resolveConfig de-references to an external module", async () => {
         import.meta.url,
       ),
     ),
-  ).resolves.toEqual(config);
+  ).resolves.toStrictEqual(config);
   await expect(
     prettier.resolveConfig(
       new URL(
@@ -260,7 +260,7 @@ test("API resolveConfig de-references to an external module", async () => {
         import.meta.url,
       ),
     ),
-  ).resolves.toEqual(config);
+  ).resolves.toStrictEqual(config);
   await expect(
     prettier.resolveConfig(
       new URL(
@@ -268,7 +268,7 @@ test("API resolveConfig de-references to an external module", async () => {
         import.meta.url,
       ),
     ),
-  ).resolves.toEqual(config);
+  ).resolves.toStrictEqual(config);
 });
 
 test(".js config file", async () => {
@@ -292,7 +292,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 
-  const cjsError = /module is not defined in ES module scope/u;
+  const cjsError = /module is not defined in ES module scope/;
   for (const directoryName of [
     "cjs-prettier-config-js-in-type-module",
     "cjs-prettierrc-js-in-type-module",
@@ -301,7 +301,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
   }
 
-  const mjsError = /Unexpected token 'export'/u;
+  const mjsError = /Unexpected token 'export'/;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
     // Node.js v22.7 throws `MODULE_TYPELESS_PACKAGE_JSON` when `type` missed in package.json
@@ -371,7 +371,7 @@ test(".json5 config file", async () => {
 test(".json5 config file(invalid)", async () => {
   const parentDirectory = new URL("../cli/config/rc-json5/", import.meta.url);
   const file = new URL("./invalid/foo.js", parentDirectory);
-  const error = /JSON5: invalid end of input at 2:1/u;
+  const error = /JSON5: invalid end of input at 2:1/;
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
 
@@ -474,6 +474,6 @@ test("'config' option should accept `URL` and `string`", async () => {
   ]) {
     await expect(
       prettier.resolveConfig(file, { config: configFile }),
-    ).resolves.toEqual({ tabWidth: 7 });
+    ).resolves.toStrictEqual({ tabWidth: 7 });
   }
 });

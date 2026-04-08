@@ -1,17 +1,17 @@
-import Layout from "@theme/Layout";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Heading from "@theme/Heading";
-import Admonition from "@theme/Admonition";
-import styles from "./index.module.css";
-import clsx from "clsx";
 import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Admonition from "@theme/Admonition";
+import Heading from "@theme/Heading";
+import Layout from "@theme/Layout";
+import clsx from "clsx";
+import styles from "./index.module.css";
 
 export default function Users() {
   const { siteConfig } = useDocusaurusContext();
-  const users = siteConfig.customFields.users;
+  const { users } = siteConfig.customFields;
 
-  const showcase = users.map((user, i) => (
-    <div key={i} className={styles.logoItem}>
+  const showcase = users.map((user) => (
+    <div key={user.caption} className={styles.logoItem}>
       <Link to={user.infoLink}>
         <img src={user.image} title={user.caption} />
       </Link>

@@ -3,9 +3,8 @@
 exports[`argument-expansion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar1 = [1,2,3].reduce((carry, value) => {
   return [...carry, value];
@@ -66,8 +65,7 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 exports[`argument-expansion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar1 = [1,2,3].reduce((carry, value) => {
   return [...carry, value];
@@ -128,9 +126,8 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 exports[`assignment.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
@@ -184,8 +181,7 @@ this.intervalID = setInterval(() => {
 exports[`assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
@@ -239,9 +235,8 @@ this.intervalID = setInterval(() => {
 exports[`basic.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t1 = { a: 1 } satisfies I1;
 const t2 = { a: 1, b: 1 } satisfies I1;
@@ -312,8 +307,7 @@ var v = undefined satisfies 1
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t1 = { a: 1 } satisfies I1;
 const t2 = { a: 1, b: 1 } satisfies I1;
@@ -384,9 +378,8 @@ var v = undefined satisfies 1;
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t2 = {} /* comment */ satisfies {};
 const t3 = {} satisfies /* comment */ {};
@@ -403,8 +396,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t2 = {} /* comment */ satisfies {};
 const t3 = {} satisfies /* comment */ {};
@@ -421,9 +413,8 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 exports[`comments-unstable.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t1 = {
     prop1: 1,
@@ -447,8 +438,7 @@ Record<string, number>
 exports[`comments-unstable.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t1 = {
     prop1: 1,
@@ -472,9 +462,8 @@ Record<string, number>;
 exports[`export-default-as.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function log() {} satisfies typeof console.log)
 
@@ -487,8 +476,7 @@ export default (function log() {} satisfies typeof console.log)
 exports[`export-default-as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function log() {} satisfies typeof console.log)
 
@@ -501,9 +489,8 @@ export default (function log() {} satisfies typeof console.log);
 exports[`expression-statement.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 let type: 'foo' | 'bar' = 'foo';
@@ -589,8 +576,7 @@ function satisfiesChain() {
 exports[`expression-statement.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 let type: 'foo' | 'bar' = 'foo';
@@ -676,9 +662,8 @@ function satisfiesChain() {
 exports[`gt-lt.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x satisfies boolean <= y; // (x satisfies boolean) <= y;
 x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
@@ -693,8 +678,7 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 exports[`gt-lt.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x satisfies boolean <= y; // (x satisfies boolean) <= y;
 x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
@@ -709,9 +693,8 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 exports[`hug-args.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 window.postMessage(
     {
@@ -732,8 +715,7 @@ window.postMessage({
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 window.postMessage(
     {
@@ -754,9 +736,8 @@ window.postMessage({
 exports[`lhs.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a satisfies number) = 42;
 ({ a: (b satisfies any) = 2000 } = x);
@@ -782,8 +763,7 @@ semi: false
 exports[`lhs.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a satisfies number) = 42;
 ({ a: (b satisfies any) = 2000 } = x);
@@ -809,9 +789,8 @@ printWidth: 80
 exports[`nested-await-and-satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getAccountCount = async () =>
   (await
@@ -837,8 +816,7 @@ const getAccountCount = async () =>
 exports[`nested-await-and-satisfies.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getAccountCount = async () =>
   (await
@@ -864,9 +842,8 @@ const getAccountCount = async () =>
 exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref)
@@ -883,8 +860,7 @@ const el = ReactDOM.findDOMNode(ref)
 exports[`non-null.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref)
@@ -901,9 +877,8 @@ const el = ReactDOM.findDOMNode(ref);
 exports[`satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ({}) satisfies {};
 ({}) satisfies X;
@@ -958,8 +933,7 @@ foo as unknown satisfies Bar
 exports[`satisfies.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ({}) satisfies {};
 ({}) satisfies X;
@@ -1014,9 +988,8 @@ foo as unknown satisfies Bar;
 exports[`template-literal.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = \`\${(foo + bar) satisfies baz}\`;
 const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`;
@@ -1037,8 +1010,7 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 exports[`template-literal.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = \`\${(foo + bar) satisfies baz}\`;
 const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`;
@@ -1059,9 +1031,8 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 exports[`ternary.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
@@ -1162,8 +1133,7 @@ bifornCringerMoshedPerplexSawder =
 exports[`ternary.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
@@ -1264,9 +1234,8 @@ bifornCringerMoshedPerplexSawder =
 exports[`types-comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (() => {
   // swallow error and fallback to using directory as path
@@ -1283,8 +1252,7 @@ semi: false
 exports[`types-comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (() => {
   // swallow error and fallback to using directory as path

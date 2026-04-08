@@ -3,8 +3,7 @@
 exports[`class-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   TEMPLATE =
@@ -29,8 +28,7 @@ class X {
 exports[`misc.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class x {
   focus() // comment 1
@@ -41,7 +39,8 @@ class x {
 
 =====================================output=====================================
 class x {
-  focus() { // comment 1
+  focus() {
+    // comment 1
     // comment 2
   }
 }
@@ -52,8 +51,7 @@ class x {
 exports[`superclass.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A // comment 1
   // comment 2
@@ -95,6 +93,9 @@ class c extends d
 class C2  // comment
 extends Base
 {  foo(){} }
+
+(class A10 extends /* a */ /* prettier-ignore */B {});
+class A10 extends /* a */ /* prettier-ignore */B {}
 
 =====================================output=====================================
 class A // comment 1
@@ -140,6 +141,9 @@ class C2 // comment
 {
   foo() {}
 }
+
+(class A10 extends /* a */ /* prettier-ignore */ B {});
+class A10 extends /* a */ /* prettier-ignore */ B {}
 
 ================================================================================
 `;

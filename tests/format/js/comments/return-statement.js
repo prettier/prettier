@@ -105,6 +105,12 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a, b
   );
+  throw ( // Reason for a
+    a, b
+  );
+  return ( // Reason for a
+    a = 1
+  );
 }
 
 function taggedTemplate() {
@@ -132,7 +138,7 @@ function multilineBlockNextLine() {
   return (
     /**
     * @type {string}
-    */ 
+    */
     'result'
   )
 }
@@ -162,7 +168,7 @@ function singleLineBlockSameLine() {
 
 function singleLineBlockNextLine() {
   return (
-    /** Result below */ 
+    /** Result below */
     'result'
   )
 }

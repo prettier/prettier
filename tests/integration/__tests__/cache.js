@@ -57,6 +57,18 @@ describe("--cache option", () => {
   });
   afterAll(clean);
 
+  it("creates cache file with --cache", async () => {
+    await runCliWithoutGitignore(dir, ["--cache", "a.js"]);
+    await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
+  });
+
+  it("doesn't create cache directory without --cache", async () => {
+    await runCliWithoutGitignore(dir, ["a.js"]);
+    await expect(
+      fs.stat(path.join(dir, "node_modules/.cache")),
+    ).rejects.toHaveProperty("code", "ENOENT");
+  });
+
   it("throw error when cache-strategy is invalid", async () => {
     const { stderr } = await runCliWithoutGitignore(dir, [
       "--cache",
@@ -100,9 +112,9 @@ describe("--cache option", () => {
       "--cache-location",
       directoryNameAsCacheFile,
     ]);
-    expect(stderr.trim()).toEqual(
+    expect(stderr.trim()).toStrictEqual(
       expect.stringMatching(
-        /\[error\] Resolved --cache-location '.+' is a directory/u,
+        /\[error\] Resolved --cache-location '.+' is a directory/,
       ),
     );
   });
@@ -130,10 +142,10 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -144,10 +156,10 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -164,10 +176,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -178,11 +190,11 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -199,10 +211,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -214,11 +226,11 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -231,10 +243,10 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -247,10 +259,10 @@ describe("--cache option", () => {
         "all",
         "*.js",
       ]);
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -270,10 +282,10 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -306,10 +318,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(thirdStdout.split("\n")).toEqual(
+      expect(thirdStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -333,10 +345,10 @@ describe("--cache option", () => {
         '[error] Unable to write file "a.js":\n' +
           "[error] EACCES: permission denied. (mocked error)",
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -391,10 +403,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -402,10 +414,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -422,10 +434,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -436,11 +448,11 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -457,10 +469,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -472,10 +484,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -488,10 +500,10 @@ describe("--cache option", () => {
         "--write",
         "*.js",
       ]);
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -504,10 +516,10 @@ describe("--cache option", () => {
         "all",
         "*.js",
       ]);
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -527,10 +539,10 @@ describe("--cache option", () => {
         "content",
         "*.js",
       ]);
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -563,10 +575,10 @@ describe("--cache option", () => {
         dir,
         cliArguments,
       );
-      expect(thirdStdout.split("\n")).toEqual(
+      expect(thirdStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -590,10 +602,10 @@ describe("--cache option", () => {
         '[error] Unable to write file "a.js":\n' +
           "[error] EACCES: permission denied. (mocked error)",
       );
-      expect(firstStdout.split("\n")).toEqual(
+      expect(firstStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -640,8 +652,8 @@ describe("--cache option", () => {
         "a.js",
         "*.js",
       ]);
-      expect(stderr.trim()).toEqual(
-        expect.stringMatching(/\[error\] '.+' isn't a valid JSON file/u),
+      expect(stderr.trim()).toStrictEqual(
+        expect.stringMatching(/\[error\] '.+' isn't a valid JSON file/),
       );
     });
 
@@ -672,10 +684,10 @@ describe("--cache option", () => {
           dir,
           cliArguments,
         );
-        expect(firstStdout.split("\n")).toEqual(
+        expect(firstStdout.split("\n")).toStrictEqual(
           expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms$/u),
-            expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+            expect.stringMatching(/^a\.js .+ms$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
           ]),
         );
 
@@ -683,10 +695,10 @@ describe("--cache option", () => {
           dir,
           cliArguments,
         );
-        expect(secondStdout.split("\n")).toEqual(
+        expect(secondStdout.split("\n")).toStrictEqual(
           expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-            expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+            expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
           ]),
         );
       });

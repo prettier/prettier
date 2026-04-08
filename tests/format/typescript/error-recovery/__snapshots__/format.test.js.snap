@@ -1,238 +1,10 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`generic.ts [oxc-ts] format 1`] = `
-"Type parameter list cannot be empty. (5:12)
-  3 | new f2<>();
-  4 |
-> 5 | function f3<>() {}
-    |            ^^
-  6 |
-  7 | class f4 {
-  8 |     constructor<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Type parameter list cannot be empty. (5:12)
-  3 | new f2<>();
-  4 |
-> 5 | function f3<>() {}
-    |            ^^
-  6 |
-  7 | class f4 {
-  8 |     constructor<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"all"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
-
-exports[`generic.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Type parameter list cannot be empty. (5:12)
-  3 | new f2<>();
-  4 |
-> 5 | function f3<>() {}
-    |            ^^
-  6 |
-  7 | class f4 {
-  8 |     constructor<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"es5"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
-
-exports[`generic.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
-
-exports[`index-signature.ts [babel-ts] format 1`] = `
-"Unexpected token, expected "]" (4:13)
-  2 |
-  3 | type TwoParams = {
-> 4 |   [a: string, b: string]: string;
-    |             ^
-  5 | };
-  6 | type ThreeParams = {
-  7 |   [a: string, b: string, c: string]: string;
-Cause: Unexpected token, expected "]" (4:12)"
-`;
-
-exports[`index-signature.ts [oxc-ts] format 1`] = `
-"An index signature must have a type annotation. (1:12)
-> 1 | type A = { [key: string] };
-    |            ^^^^^^^^^^^^^
-  2 |
-  3 | type TwoParams = {
-  4 |   [a: string, b: string]: string;"
-`;
-
-exports[`index-signature.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
-"Unexpected token, expected "]" (4:13)
-  2 |
-  3 | type TwoParams = {
-> 4 |   [a: string, b: string]: string;
-    |             ^
-  5 | };
-  6 | type ThreeParams = {
-  7 |   [a: string, b: string, c: string]: string;
-Cause: Unexpected token, expected "]" (4:12)"
-`;
-
-exports[`index-signature.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"An index signature must have a type annotation. (1:12)
-> 1 | type A = { [key: string] };
-    |            ^^^^^^^^^^^^^
-  2 |
-  3 | type TwoParams = {
-  4 |   [a: string, b: string]: string;"
-`;
-
 exports[`index-signature.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -290,7 +62,7 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
-exports[`index-signature.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+exports[`index-signature.ts - {"trailingComma":"all"} format[babel-ts] 1`] = `
 "Unexpected token, expected "]" (4:13)
   2 |
   3 | type TwoParams = {
@@ -302,7 +74,7 @@ exports[`index-signature.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "]" (4:12)"
 `;
 
-exports[`index-signature.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
+exports[`index-signature.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 "An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
     |            ^^^^^^^^^^^^^
@@ -314,9 +86,8 @@ exports[`index-signature.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
 exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -372,13 +143,33 @@ type TooLongSingleParam = {
 };
 
 ================================================================================
+`;
+
+exports[`index-signature.ts - {"trailingComma":"es5"} format[babel-ts] 1`] = `
+"Unexpected token, expected "]" (4:13)
+  2 |
+  3 | type TwoParams = {
+> 4 |   [a: string, b: string]: string;
+    |             ^
+  5 | };
+  6 | type ThreeParams = {
+  7 |   [a: string, b: string, c: string]: string;
+Cause: Unexpected token, expected "]" (4:12)"
+`;
+
+exports[`index-signature.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
+"An index signature must have a type annotation. (1:12)
+> 1 | type A = { [key: string] };
+    |            ^^^^^^^^^^^^^
+  2 |
+  3 | type TwoParams = {
+  4 |   [a: string, b: string]: string;"
 `;
 
 exports[`index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -436,50 +227,32 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
-exports[`jsdoc_only_types.ts [babel-ts] format 1`] = `
-"Unexpected token (1:8)
-> 1 | let a: *;
-    |        ^
-  2 | function b(x: ?) {}
-  3 | let c: ?string;
-  4 | let d: string?;
-Cause: Unexpected token (1:7)"
+exports[`index-signature.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "]" (4:13)
+  2 |
+  3 | type TwoParams = {
+> 4 |   [a: string, b: string]: string;
+    |             ^
+  5 | };
+  6 | type ThreeParams = {
+  7 |   [a: string, b: string, c: string]: string;
+Cause: Unexpected token, expected "]" (4:12)"
 `;
 
-exports[`jsdoc_only_types.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:8)
-> 1 | let a: *;
-    |        ^
-  2 | function b(x: ?) {}
-  3 | let c: ?string;
-  4 | let d: string?;"
-`;
-
-exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
-"Unexpected token (1:8)
-> 1 | let a: *;
-    |        ^
-  2 | function b(x: ?) {}
-  3 | let c: ?string;
-  4 | let d: string?;
-Cause: Unexpected token (1:7)"
-`;
-
-exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Unexpected token (1:8)
-> 1 | let a: *;
-    |        ^
-  2 | function b(x: ?) {}
-  3 | let c: ?string;
-  4 | let d: string?;"
+exports[`index-signature.ts format[oxc-ts] 1`] = `
+"An index signature must have a type annotation. (1:12)
+> 1 | type A = { [key: string] };
+    |            ^^^^^^^^^^^^^
+  2 |
+  3 | type TwoParams = {
+  4 |   [a: string, b: string]: string;"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}
@@ -503,7 +276,7 @@ let h: !(string | number);
 ================================================================================
 `;
 
-exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[babel-ts] 1`] = `
 "Unexpected token (1:8)
 > 1 | let a: *;
     |        ^
@@ -513,7 +286,7 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
 Cause: Unexpected token (1:7)"
 `;
 
-exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 "Unexpected token (1:8)
 > 1 | let a: *;
     |        ^
@@ -525,9 +298,8 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
 exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}
@@ -551,11 +323,29 @@ let h: !(string | number);
 ================================================================================
 `;
 
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[babel-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
 exports[`jsdoc_only_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}
@@ -577,4 +367,23 @@ let g: string!;
 let h: !(string | number);
 
 ================================================================================
+`;
+
+exports[`jsdoc_only_types.ts format[babel-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`jsdoc_only_types.ts format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
 `;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`unclosed_tag.vue format 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div
+    | ^^^^
+> 2 |
+    | ^
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`unclosed_tag_in_template.vue format 1`] = `
+"Unexpected character "<" (4:1)
+  2 |   <p>Templates are formatted as well...
+  3 |     </
+> 4 | </template>
+    | ^
+  5 |
+Cause: Unexpected character "<""
+`;
+
+exports[`upper-case.html format 1`] = `
+"Void elements do not have end tags "Input" (8:21)
+   6 |   <div id="app">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^^^^^^^^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+Cause: Void elements do not have end tags "Input""
+`;

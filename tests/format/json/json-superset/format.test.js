@@ -56,11 +56,16 @@ runFormatTest(
       ...[...characters, LINE_FEED].map((character) => ({
         name: `json-stringify(\\${characterCode(character)})`,
         code: SINGLE_QUOTE + BACKSLASH + character + SINGLE_QUOTE,
-        output:
-          character === UNDERSCORE || character === SPACE
-            ? DOUBLE_QUOTE + character + DOUBLE_QUOTE + LINE_FEED
-            : DOUBLE_QUOTE + DOUBLE_QUOTE + LINE_FEED,
+        output: DOUBLE_QUOTE + BACKSLASH + character + DOUBLE_QUOTE + LINE_FEED,
       })),
+      ...[...characters, LINE_FEED].map((character) => {
+        const code = DOUBLE_QUOTE + BACKSLASH + character + DOUBLE_QUOTE;
+        return {
+          name: `json-stringify(\\${characterCode(character)})`,
+          code,
+          output: code + LINE_FEED,
+        };
+      }),
       ...characters.map((character) => ({
         name: `json-stringify(\\\\${characterCode(character)})`,
         code: SINGLE_QUOTE + BACKSLASH + BACKSLASH + character + SINGLE_QUOTE,

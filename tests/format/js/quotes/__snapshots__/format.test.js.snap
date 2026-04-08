@@ -3,9 +3,8 @@
 exports[`functions.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = () => "Foo bar";
 
@@ -26,8 +25,7 @@ function b(object, key) {
 exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = () => "Foo bar";
 
@@ -48,9 +46,8 @@ function b(object, key) {
 exports[`objects.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
  'a': true,
@@ -71,8 +68,7 @@ const obj = {
 exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
  'a': true,
@@ -93,9 +89,8 @@ const obj = {
 exports[`strings.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
@@ -306,8 +301,7 @@ singleQuote: true
 exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960

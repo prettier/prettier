@@ -2,8 +2,8 @@
 
 import fs from "node:fs";
 import { createRequire } from "node:module";
-import { load as parseYaml } from "js-yaml";
 import { themes as prismThemes } from "prism-react-renderer";
+import { parse as parseYaml } from "yaml";
 import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 
 const require = createRequire(import.meta.url);
@@ -56,7 +56,6 @@ const config = {
   ],
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -78,6 +77,8 @@ const config = {
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
+          lastVersion:
+            process.env.PULL_REQUEST === "true" ? "current" : undefined,
           versions: {
             current: {
               label: "next",
@@ -181,9 +182,20 @@ const config = {
                 to: "/docs/install",
               },
               {
-                html: /*html*/ `
-                  <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
-                    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" style="margin-top: 8px;" />
+                html: /* HTML */ `
+                  <a
+                    href="https://www.netlify.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Deploys by Netlify"
+                  >
+                    <img
+                      src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"
+                      alt="Deploys by Netlify"
+                      width="114"
+                      height="51"
+                      style="margin-top: 8px;"
+                    />
                   </a>
                 `,
               },
@@ -222,7 +234,7 @@ const config = {
                 href: `${GITHUB_URL}/issues`,
               },
               {
-                html: /*html*/ `
+                html: /* HTML */ `
                   <a
                     href="https://github.com/prettier/prettier"
                     target="_blank"
@@ -230,7 +242,11 @@ const config = {
                     aria-label="Star this project on GitHub"
                     class="footer__github-stars"
                   >
-                    <img src="https://img.shields.io/github/stars/prettier/prettier?style=social" loading="lazy" alt="Star this project on GitHub" />
+                    <img
+                      src="https://img.shields.io/github/stars/prettier/prettier?style=social"
+                      loading="lazy"
+                      alt="Star this project on GitHub"
+                    />
                   </a>
                 `,
               },
@@ -254,12 +270,21 @@ const config = {
           "vim",
           "scss",
           "less",
+          "flow",
         ],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
     },
+
   plugins: [llmsTxtPlugin],
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
+
   future: {
     experimental_faster: {
       swcJsLoader: true,

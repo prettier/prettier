@@ -3,8 +3,7 @@
 exports[`issue-10352-consistency.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface Store {
   getRecord(collectionName: string, documentPath: string): TaskEither<Error, Option<GenericRecord>>;
@@ -53,8 +52,7 @@ export function loadPlugin(
 exports[`method-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = {
   get(key: "foo"): \`
@@ -97,8 +95,7 @@ type Bar = {
 exports[`method-signature-with-wrapped-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type ReleaseToolConfig = {
   get(key: "changelog"): {
@@ -131,8 +128,7 @@ type ReleaseToolConfig2 = {
 exports[`semi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module 'foo' {
   function foo(namespace: string): void;
@@ -157,8 +153,7 @@ function pickCard(x: number): { suit: string; card: number };
 exports[`type_literal_optional_method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var v: { e?(): number };
 

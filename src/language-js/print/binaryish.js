@@ -1,36 +1,36 @@
 import {
   align,
+  cleanDoc,
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_LABEL,
+  getDocType,
   group,
   indent,
   indentIfBreak,
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import {
-  DOC_TYPE_ARRAY,
-  DOC_TYPE_FILL,
-  DOC_TYPE_GROUP,
-  DOC_TYPE_LABEL,
-} from "../../document/constants.js";
-import { cleanDoc, getDocType } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
-  CommentCheckFlags,
-  hasComment,
-  hasLeadingOwnLineComment,
   isArrayExpression,
   isBinaryish,
-  isCallExpression,
+  isCallOrNewExpression,
   isJsxElement,
   isMemberExpression,
   isObjectExpression,
-  isObjectProperty,
-  shouldFlatten,
-} from "../utils/index.js";
-import isTypeCastComment from "../utils/is-type-cast-comment.js";
+  isReturnOrThrowStatement,
+} from "../utilities/node-types.js";
+import { shouldFlatten } from "../utilities/should-flatten.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 let uid = 0;
 /*
@@ -84,8 +84,9 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (isCallExpression(parent) && parent.callee === node) ||
-    parent.type === "UnaryExpression" ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
+    // `UnaryExpression` adds parentheses and indention when argument has comment
+    (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
     return group([indent([softline, ...parts]), softline]);
@@ -94,8 +95,7 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    parent.type === "ReturnStatement" ||
-    parent.type === "ThrowStatement" ||
+    isReturnOrThrowStatement(parent) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
@@ -107,10 +107,11 @@ function printBinaryishExpression(path, options, print) {
     (node === parent.body && parent.type === "ArrowFunctionExpression") ||
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
-      grandparent.type !== "ReturnStatement" &&
-      grandparent.type !== "ThrowStatement" &&
-      !isCallExpression(grandparent)) ||
-    parent.type === "TemplateLiteral";
+      !isReturnOrThrowStatement(grandparent) &&
+      !isCallOrNewExpression(grandparent)) ||
+    parent.type === "TemplateLiteral" ||
+    (key === "argument" && parent.type === "UnaryExpression") ||
+    (key === "arguments" && isBooleanTypeCoercion(parent));
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -219,12 +220,13 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
+  // @ts-expect-error -- FIXME
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
-      (left) =>
+      () =>
         printBinaryishExpressions(
-          left,
+          path,
           options,
           print,
           /* isNested */ true,
@@ -237,19 +239,21 @@ function printBinaryishExpressions(
   }
 
   const shouldInline = shouldInlineLogicalExpression(node);
+  const rightNodeToCheckComments =
+    node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
-    (node.operator === "|>" ||
-      node.type === "NGPipeExpression" ||
+    (node.type === "NGPipeExpression" ||
+      node.operator === "|>" ||
       isVueFilterSequenceExpression(path, options)) &&
-    !hasLeadingOwnLineComment(options.originalText, node.right);
+    !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
   const hasTypeCastComment = hasComment(
-    node.right,
+    rightNodeToCheckComments,
     CommentCheckFlags.Leading,
     isTypeCastComment,
   );
   const commentBeforeOperator =
     !hasTypeCastComment &&
-    hasLeadingOwnLineComment(options.originalText, node.right);
+    hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
   const rightSuffix =
@@ -271,7 +275,7 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [
       operator,
-      hasLeadingOwnLineComment(options.originalText, node.right)
+      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
         ? indent([line, print("right"), rightSuffix])
         : [" ", print("right"), rightSuffix],
     ];
@@ -280,9 +284,9 @@ function printBinaryishExpressions(
       operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
-          (left) =>
+          () =>
             printBinaryishExpressions(
-              left,
+              path,
               options,
               print,
               /* isNested */ true,

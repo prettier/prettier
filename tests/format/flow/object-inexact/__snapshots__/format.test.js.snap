@@ -3,9 +3,8 @@
 exports[`comments.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -81,7 +80,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */
@@ -138,9 +140,8 @@ type Foo = {
 exports[`comments.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -216,7 +217,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */
@@ -273,9 +277,8 @@ type Foo = {
 exports[`comments.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -351,7 +354,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */
@@ -408,9 +414,8 @@ type Foo = {
 exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //@flow
 type T = {
@@ -521,9 +526,8 @@ type X = { ... };
 exports[`test.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //@flow
 type T = {
@@ -634,9 +638,8 @@ type X = { ... };
 exports[`test.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //@flow
 type T = {

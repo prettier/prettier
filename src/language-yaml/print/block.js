@@ -1,4 +1,4 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import {
   dedent,
@@ -9,12 +9,12 @@ import {
   line,
   literalline,
   markAsRoot,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   getBlockValueLineContents,
   hasIndicatorComment,
   isLastDescendantNode,
-} from "../utils.js";
+} from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
 
 function printBlock(path, options, print) {

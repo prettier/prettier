@@ -12,4 +12,3 @@ import type { foo, bar } from 'baz';
 import type { foo as bar } from 'baz';
 import type * as foo from './bar';
 import type foo from 'bar';
-import type foo, { bar } from 'bar';

@@ -8,7 +8,7 @@ let x: [A: string, ...B: number[]]
 
 type T = [foo: string, bar?: number];
 
-type T = [x?: A, y: B];
+type T = [x?: A, y?: B];
 
 type T = [x: A, ...B];
 

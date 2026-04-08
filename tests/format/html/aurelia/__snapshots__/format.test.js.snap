@@ -3,8 +3,7 @@
 exports[`basic.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <i class.bind="icon"></i>

@@ -4,8 +4,7 @@ exports[`angularjs.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -45,8 +44,7 @@ exports[`angularjs.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -86,7 +84,7 @@ exports[`angularjs.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -156,9 +154,8 @@ printWidth: 1
 exports[`angularjs.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -197,9 +194,8 @@ trailingComma: "es5"
 exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -239,8 +235,7 @@ exports[`attr-name.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -254,8 +249,7 @@ exports[`attr-name.component.html - {"htmlWhitespaceSensitivity":"ignore"} forma
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -269,7 +263,7 @@ exports[`attr-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -285,9 +279,8 @@ printWidth: 1
 exports[`attr-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -300,9 +293,8 @@ trailingComma: "es5"
 exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -316,8 +308,7 @@ exports[`attributes.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -468,7 +459,9 @@ printWidth: 80
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -480,7 +473,9 @@ printWidth: 80
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -595,8 +590,7 @@ exports[`attributes.component.html - {"htmlWhitespaceSensitivity":"ignore"} form
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -747,7 +741,9 @@ printWidth: 80
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -759,7 +755,9 @@ printWidth: 80
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -874,7 +872,7 @@ exports[`attributes.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -1083,9 +1081,7 @@ printWidth: 1
   [target]="
     1
   "
-  [target]="
-    'hello'
-  "
+  [target]="'hello'"
   [target]="
     a(
       1,
@@ -1322,9 +1318,7 @@ printWidth: 1
   [target]="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
-  [error]="
-    'We couldn\\\\\\'t find anything with that name.'
-  "
+  [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="
     form
       .controls
@@ -1500,9 +1494,8 @@ printWidth: 1
 exports[`attributes.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -1653,7 +1646,9 @@ trailingComma: "es5"
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -1665,7 +1660,9 @@ trailingComma: "es5"
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -1779,9 +1776,8 @@ trailingComma: "es5"
 exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -1932,7 +1928,9 @@ trailingComma: "none"
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -1944,7 +1942,9 @@ trailingComma: "none"
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -2059,8 +2059,7 @@ exports[`first-lf.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2152,8 +2151,7 @@ exports[`first-lf.component.html - {"htmlWhitespaceSensitivity":"ignore"} format
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2245,7 +2243,7 @@ exports[`first-lf.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2416,9 +2414,8 @@ printWidth: 1
 exports[`first-lf.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2509,9 +2506,8 @@ trailingComma: "es5"
 exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2603,8 +2599,7 @@ exports[`ignore-attribute.component.html - {"bracketSpacing":false} format 1`] =
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -2662,8 +2657,7 @@ exports[`ignore-attribute.component.html - {"htmlWhitespaceSensitivity":"ignore"
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -2721,7 +2715,7 @@ exports[`ignore-attribute.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -2814,9 +2808,8 @@ printWidth: 1
 exports[`ignore-attribute.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -2873,9 +2866,8 @@ trailingComma: "es5"
 exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -2933,8 +2925,7 @@ exports[`interpolation.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -3027,11 +3018,19 @@ printWidth: 80
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
@@ -3100,8 +3099,7 @@ exports[`interpolation.component.html - {"htmlWhitespaceSensitivity":"ignore"} f
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -3194,11 +3192,19 @@ printWidth: 80
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
@@ -3272,7 +3278,7 @@ exports[`interpolation.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -3645,9 +3651,8 @@ printWidth: 1
 exports[`interpolation.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -3740,11 +3745,19 @@ trailingComma: "es5"
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
@@ -3812,9 +3825,8 @@ trailingComma: "es5"
 exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -3907,11 +3919,19 @@ trailingComma: "none"
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
@@ -3980,8 +4000,7 @@ exports[`real-world.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -5507,8 +5526,7 @@ exports[`real-world.component.html - {"htmlWhitespaceSensitivity":"ignore"} form
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -7172,7 +7190,7 @@ exports[`real-world.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -10026,33 +10044,25 @@ bindon-ngModel
   "
 >
   <app-happy-hero
-    *ngSwitchCase="
-      'happy'
-    "
+    *ngSwitchCase="'happy'"
     [hero]="
       currentHero
     "
   ></app-happy-hero>
   <app-sad-hero
-    *ngSwitchCase="
-      'sad'
-    "
+    *ngSwitchCase="'sad'"
     [hero]="
       currentHero
     "
   ></app-sad-hero>
   <app-confused-hero
-    *ngSwitchCase="
-      'confused'
-    "
+    *ngSwitchCase="'confused'"
     [hero]="
       currentHero
     "
   ></app-confused-hero>
   <div
-    *ngSwitchCase="
-      'confused'
-    "
+    *ngSwitchCase="'confused'"
   >
     Are
     you
@@ -10594,9 +10604,8 @@ can be found in the LICENSE file at http://angular.io/license
 exports[`real-world.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -12121,9 +12130,8 @@ can be found in the LICENSE file at http://angular.io/license
 exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -13649,8 +13657,7 @@ exports[`tag-name.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Table></Table>
 
@@ -13664,8 +13671,7 @@ exports[`tag-name.component.html - {"htmlWhitespaceSensitivity":"ignore"} format
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Table></Table>
 
@@ -13679,7 +13685,7 @@ exports[`tag-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <Table></Table>
 
@@ -13692,9 +13698,8 @@ printWidth: 1
 exports[`tag-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Table></Table>
 
@@ -13707,9 +13712,8 @@ trailingComma: "es5"
 exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Table></Table>
 

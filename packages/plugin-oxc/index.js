@@ -1,5 +1,5 @@
 import * as oxcParsers from "../../src/language-js/parse/oxc.js";
-import * as estreePrinter from "../../src/language-js/printer.js";
+import { estree as estreePrinter } from "../../src/language-js/printers.js";
 
 const AST_FORMAT = "estree-oxc";
 

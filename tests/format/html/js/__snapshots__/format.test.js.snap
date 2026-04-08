@@ -3,8 +3,7 @@
 exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script></script>
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`js.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="text/javascript">
   var message = "Alert!";
@@ -85,8 +83,7 @@ printWidth: 80
 exports[`simple.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -131,8 +128,7 @@ printWidth: 80
 exports[`single-script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>alert('test');</script>
 <script>
@@ -153,8 +149,7 @@ printWidth: 80
 exports[`something-else.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="text/template">
  <div>
@@ -173,8 +168,7 @@ printWidth: 80
 exports[`template-literal.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -216,8 +210,7 @@ printWidth: 80
 exports[`typescript.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="application/x-typescript">
   class Student {

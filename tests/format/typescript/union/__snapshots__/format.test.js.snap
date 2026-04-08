@@ -1,32 +1,164 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts format 1`] = `
+exports[`5849.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
-type Foo = (
-  | "thing1" // Comment1
-  | "thing2" // Comment2
-)[]; // Final comment1
+export type TransformedSource = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
 
-type Foo = (
-  | "thing1" // Comment1
-  | "thing2" // Comment2
-) & Bar; // Final comment2
+export type TransformedSource2 = {
+  code: string,
+  map?: // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+  | {
+        version: number,
+        sources: string[],
+        names: string[],
+        sourceRoot?: string,
+        sourcesContent?: string[],
+        mappings: string,
+        file: string
+      }
+    | string
+    | null
+};
 
 =====================================output=====================================
-type Foo = (
-  | "thing1" // Comment1
-  | "thing2" // Comment2
-)[]; // Final comment1
+export type TransformedSource = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
 
-type Foo = (
-  | "thing1" // Comment1
-  | "thing2" // Comment2
-) &
-  Bar; // Final comment2
+export type TransformedSource2 = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
+
+================================================================================
+`;
+
+exports[`7725.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2
+    // comment
+}
+
+type T2 = (arg:
+  // comment
+  | T1
+  // comment
+  | T2
+  // comment
+) => void
+
+=====================================output=====================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2;
+  // comment
+};
+
+type T2 = (
+  arg:
+    // comment
+    | T1
+    // comment
+    | T2,
+  // comment
+) => void;
+
+================================================================================
+`;
+
+exports[`10599.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | 'NotDeployed'
+    | 'InDeployment'
+    | 'Running'
+    | 'DeploymentFailure'
+    | 'RunningAbnormal'
+    | 'Deleting'
+    | 'DeleteFailure'
+    | 'DeploymentSucceed'
+    | 'SystemError'
+    | 'Upgrading';
+  icon: string;
+  text: string;
+}
+
+=====================================output=====================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | "NotDeployed"
+    | "InDeployment"
+    | "Running"
+    | "DeploymentFailure"
+    | "RunningAbnormal"
+    | "Deleting"
+    | "DeleteFailure"
+    | "DeploymentSucceed"
+    | "SystemError"
+    | "Upgrading";
+  icon: string;
+  text: string;
+}
 
 ================================================================================
 `;
@@ -34,8 +166,7 @@ type Foo = (
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface RelayProps {
   articles: a | null,
@@ -130,7 +261,8 @@ interface RelayProps {
 type FooBar =
   | null // null
   | {
-      /** x **/ y: number;
+      /** x **/
+      y: number;
       z: string;
     } // this documents the first option
   | void; // this documents the second option
@@ -180,11 +312,36 @@ type T8 = number | ((arg: any) => void);
 ================================================================================
 `;
 
+exports[`trailing-comment.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {
+}
+
+=====================================output=====================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {};
+
+================================================================================
+`;
+
 exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export type A = (
@@ -338,8 +495,7 @@ type State = {
 );
 
 const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
-  | string
-  | undefined
+  string | undefined
 )[];
 
 const foo2: (
@@ -379,7 +535,7 @@ let a11: /*1*/ /*2*/ C;
 
 let aa1: /*1*/ /*2*/ C | D;
 let aa2: /*1*/ /*2*/ C | /*3*/ D;
-let aa3: /*1*/ /*2*/ C | /*3*/ D /*4*/;
+let aa3: /*1*/ /*2*/ C | /*3*/ D; /*4*/
 
 type A1 = C;
 type A2 = C;
@@ -414,8 +570,7 @@ type Ctor = (new () => X) | Y;
 exports[`with-type-params.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type GetChatsSagaEffects =
   | CallEffect

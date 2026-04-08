@@ -3,8 +3,7 @@
 exports[`as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -88,8 +87,7 @@ const value1 =
 const value2 =
   thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value3 = thisIsAReallyLongIdentifier as
-  | SomeInterface
-  | SomeOtherInterface;
+  SomeInterface | SomeOtherInterface;
 const value4 = thisIsAReallyLongIdentifier as {
   prop1: string,
   prop2: number,
@@ -122,8 +120,7 @@ x as any as T;
 exports[`as-const.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -162,8 +159,7 @@ export const LOG_LEVEL = {
 exports[`assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -216,8 +212,7 @@ this.intervalID = setInterval(() => {
 exports[`export_default_as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -234,8 +229,7 @@ export default (function log() {} as typeof console.log);
 exports[`long-identifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -279,8 +273,7 @@ averredBathersBoxroomBuggyNurl(
 exports[`nested-await-and-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -310,8 +303,7 @@ const getAccountCount = async () =>
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -335,25 +327,10 @@ function foo() {
 ================================================================================
 `;
 
-exports[`satisfies.js [hermes] format 1`] = `
-"';' expected (3:12)
-  1 | // @flow
-  2 |
-> 3 | const x = y satisfies T;
-    |            ^
-  4 |
-  5 | // demonstrating how "satisfies" expression can be practically used as expression statement.
-  6 | const _ = (type: 'foo' | 'bar') => {
-Cause: ';' expected (3:12)
-const x = y satisfies T;
-            ^"
-`;
-
 exports[`satisfies.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -441,24 +418,24 @@ function satisfiesChain() {
 ================================================================================
 `;
 
-exports[`ternary.js [hermes] format 1`] = `
-"invalid assignment left-hand side (3:0)
+exports[`satisfies.js format[hermes] 1`] = `
+"';' expected (3:12)
   1 | // @flow
   2 |
-> 3 | foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
-  4 |     ? baaaaaaaaaaaaaaaaaaaaar
-  5 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo;
-  6 |
-Cause: invalid assignment left-hand side (3:0)
-foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
-^~~"
+> 3 | const x = y satisfies T;
+    |            ^
+  4 |
+  5 | // demonstrating how "satisfies" expression can be practically used as expression statement.
+  6 | const _ = (type: 'foo' | 'bar') => {
+Cause: ';' expected (3:12)
+const x = y satisfies T;
+            ^"
 `;
 
 exports[`ternary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -558,4 +535,17 @@ bifornCringerMoshedPerplexSawder =
     : anodyneCondosMalateOverateRetinol) as AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
+`;
+
+exports[`ternary.js format[hermes] 1`] = `
+"invalid assignment left-hand side (3:0)
+  1 | // @flow
+  2 |
+> 3 | foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  4 |     ? baaaaaaaaaaaaaaaaaaaaar
+  5 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo;
+  6 |
+Cause: invalid assignment left-hand side (3:0)
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+^~~"
 `;

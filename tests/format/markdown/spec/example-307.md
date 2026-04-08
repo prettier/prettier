@@ -1,3 +1,0 @@
-``` f&ouml;&ouml;
-foo
-```

@@ -1,29 +1,26 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`outside-functions.js [acorn] format 1`] = `
-"'new.target' can only be used in functions and class static block (1:11)
-> 1 | const x = new.target;
-    |           ^
-  2 |
-Cause: 'new.target' can only be used in functions and class static block (1:10)"
+exports[`outside-functions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const x = new.target;
+
+=====================================output=====================================
+const x = new.target;
+
+================================================================================
 `;
 
-exports[`outside-functions.js [espree] format 1`] = `
-"'new.target' can only be used in functions and class static block (1:11)
-> 1 | const x = new.target;
-    |           ^
-  2 |
-Cause: 'new.target' can only be used in functions and class static block"
-`;
-
-exports[`outside-functions.js [flow] format 1`] = `
+exports[`outside-functions.js format[flow] 1`] = `
 "Unexpected token \`.\` (1:14)
 > 1 | const x = new.target;
     |              ^
   2 |"
 `;
 
-exports[`outside-functions.js [hermes] format 1`] = `
+exports[`outside-functions.js format[hermes] 1`] = `
 "'new.target' not in a function (1:10)
 > 1 | const x = new.target;
     |          ^
@@ -33,76 +30,13 @@ const x = new.target;
           ^~~~~~~~~~"
 `;
 
-exports[`outside-functions.js [meriyah] format 1`] = `
-"new.target only allowed within functions or static blocks (1:15)
-> 1 | const x = new.target;
-    |               ^^^^^^
-  2 |
-Cause: [1:14-1:20]: new.target only allowed within functions or static blocks"
-`;
-
-exports[`outside-functions.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const x = new.target;
-
-=====================================output=====================================
-const x = new.target;
-
-================================================================================
-`;
-
-exports[`range.js [acorn] format 1`] = `
-"'new.target' can only be used in functions and class static block (2:1)
-  1 | const x =
-> 2 | new.target;
-    | ^
-Cause: 'new.target' can only be used in functions and class static block (2:0)"
-`;
-
-exports[`range.js [espree] format 1`] = `
-"'new.target' can only be used in functions and class static block (2:1)
-  1 | const x =
-> 2 | new.target;
-    | ^
-Cause: 'new.target' can only be used in functions and class static block"
-`;
-
-exports[`range.js [flow] format 1`] = `
-"Unexpected token \`.\` (2:4)
-  1 | const x =
-> 2 | new.target;
-    |    ^"
-`;
-
-exports[`range.js [hermes] format 1`] = `
-"'new.target' not in a function (2:0)
-  1 | const x =
-> 2 | new.target;
-Cause: 'new.target' not in a function (2:0)
-new.target;
-^~~~~~~~~~"
-`;
-
-exports[`range.js [meriyah] format 1`] = `
-"new.target only allowed within functions or static blocks (2:5)
-  1 | const x =
-> 2 | new.target;
-    |     ^^^^^^
-Cause: [2:4-2:10]: new.target only allowed within functions or static blocks"
-`;
-
 exports[`range.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-rangeEnd: 52
-rangeStart: 38
-     |                                                                                | printWidth
-=====================================input======================================
+    : ====================================options=====================================
+    : parsers: ["babel", "flow", "typescript"]
+    : rangeEnd: 52
+    : rangeStart: 38
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | class A {
   2 |   constructor() {
 > 3 |     const x =
@@ -112,12 +46,28 @@ rangeStart: 38
   5 |   }
   6 | }
   7 |
-=====================================output=====================================
-class A {
-  constructor() {
-    const x = new.target;
-  }
-}
+    : =====================================output=====================================
+    : class A {
+    :   constructor() {
+    :     const x = new.target;
+    :   }
+    : }
+    :
+    : ================================================================================
+`;
 
-================================================================================
+exports[`range.js format[flow] 1`] = `
+"Unexpected token \`.\` (2:4)
+  1 | const x =
+> 2 | new.target;
+    |    ^"
+`;
+
+exports[`range.js format[hermes] 1`] = `
+"'new.target' not in a function (2:0)
+  1 | const x =
+> 2 | new.target;
+Cause: 'new.target' not in a function (2:0)
+new.target;
+^~~~~~~~~~"
 `;

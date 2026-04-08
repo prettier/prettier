@@ -4,45 +4,57 @@ import {
   conditionalGroup,
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   softline,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
-import { printDanglingComments } from "../../main/comments/print.js";
+  willBreak,
+} from "../../document/index.js";
 import {
-  CommentCheckFlags,
   getCallArguments,
   getCallArgumentSelector,
-  getFunctionParameters,
-  hasComment,
+  iterateCallArgumentsPath,
+} from "../utilities/call-arguments.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
+import { isFunctionCompositionArguments } from "../utilities/is-function-composition-arguments.js";
+import { isLongCurriedCallExpression } from "../utilities/is-long-curried-call-expression.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isSimpleCallArgument } from "../utilities/is-simple-call-argument.js";
+import { isSimpleType } from "../utilities/is-simple-type.js";
+import {
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isCallExpression,
   isCallLikeExpression,
-  isFunctionCompositionArgs,
   isJsxElement,
-  isLongCurriedCallExpression,
-  isNextLineEmpty,
   isObjectExpression,
-  isObjectProperty,
   isRegExpLiteral,
-  isSimpleCallArgument,
-  isSimpleType,
   isStringLiteral,
-  iterateCallArgumentsPath,
-  shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { isConciselyPrintedArray } from "./array.js";
+import {
+  printDanglingCommentsInList,
+  printTrailingComma,
+} from "./miscellaneous.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
+*/
 function printCallArguments(path, options, print) {
   const { node } = path;
 
   const args = getCallArguments(node);
+
   if (args.length === 0) {
-    return ["(", printDanglingComments(path, options), ")"];
+    return group(["(", printDanglingCommentsInList(path, options), ")"]);
   }
 
   const lastArgIndex = args.length - 1;
@@ -78,39 +90,26 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  const maybeTrailingComma =
+  const trailingComma =
     // Angular does not allow trailing comma
-    !options.parser.startsWith("__ng_") &&
+    path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
-    shouldPrintComma(options, "all")
-      ? ","
+    node.type !== "TSExternalModuleReference"
+      ? printTrailingComma(options, "all")
       : "";
-
-  // TODO: Don't break long `ImportExpression` too
-  // Don't break simple import with long module name
-  if (
-    node.type === "TSImportType" &&
-    args.length === 1 &&
-    ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
-      // TODO: Remove this when update Babel to v8
-      isStringLiteral(args[0])) &&
-    !hasComment(args[0])
-  ) {
-    return group(["(", ...printedArguments, ifBreak(maybeTrailingComma), ")"]);
-  }
 
   function allArgsBrokenOut() {
     return group(
-      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
+      ["(", indent([line, ...printedArguments]), trailingComma, line, ")"],
       { shouldBreak: true },
     );
   }
 
   if (
     anyArgEmptyLine ||
-    (path.parent.type !== "Decorator" && isFunctionCompositionArgs(args))
+    (path.parent.type !== "Decorator" && isFunctionCompositionArguments(args))
   ) {
     return allArgsBrokenOut();
   }
@@ -188,7 +187,7 @@ function printCallArguments(path, options, print) {
   const contents = [
     "(",
     indent([softline, ...printedArguments]),
-    ifBreak(maybeTrailingComma),
+    trailingComma,
     softline,
     ")",
   ];
@@ -204,42 +203,60 @@ function printCallArguments(path, options, print) {
 }
 
 function couldExpandArg(arg, arrowChainRecursion = false) {
-  return (
-    (isObjectExpression(arg) &&
-      (arg.properties.length > 0 || hasComment(arg))) ||
-    (isArrayExpression(arg) && (arg.elements.length > 0 || hasComment(arg))) ||
-    (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
+  if (
+    isObjectExpression(arg) &&
+    (arg.properties.length > 0 || hasComment(arg))
+  ) {
+    return true;
+  }
+
+  if (isArrayExpression(arg) && (arg.elements.length > 0 || hasComment(arg))) {
+    return true;
+  }
+
+  if (
+    (isBinaryCastExpression(arg) || arg.type === "TSTypeAssertion") &&
+    couldExpandArg(arg.expression)
+  ) {
+    return true;
+  }
+
+  if (
     arg.type === "FunctionExpression" ||
-    (arg.type === "ArrowFunctionExpression" &&
-      // we want to avoid breaking inside composite return types but not simple keywords
-      // https://github.com/prettier/prettier/issues/4070
-      // export class Thing implements OtherThing {
-      //   do: (type: Type) => Provider<Prop> = memoize(
-      //     (type: ObjectType): Provider<Opts> => {}
-      //   );
-      // }
-      // https://github.com/prettier/prettier/issues/6099
-      // app.get("/", (req, res): void => {
-      //   res.send("Hello World!");
-      // });
-      (!arg.returnType ||
-        !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
-        // https://github.com/prettier/prettier/issues/7542
-        isNonEmptyBlockStatement(arg.body)) &&
-      (arg.body.type === "BlockStatement" ||
-        (arg.body.type === "ArrowFunctionExpression" &&
-          couldExpandArg(arg.body, true)) ||
-        isObjectExpression(arg.body) ||
-        isArrayExpression(arg.body) ||
-        (!arrowChainRecursion &&
-          (isCallExpression(arg.body) ||
-            arg.body.type === "ConditionalExpression")) ||
-        isJsxElement(arg.body))) ||
     arg.type === "DoExpression" ||
     arg.type === "ModuleExpression"
-  );
+  ) {
+    return true;
+  }
+
+  if (arg.type === "ArrowFunctionExpression") {
+    const { body } = arg;
+
+    if (
+      body.type === "BlockStatement" ||
+      isJsxElement(body) ||
+      isObjectExpression(body) ||
+      isArrayExpression(body)
+    ) {
+      return true;
+    }
+
+    if (body.type === "ArrowFunctionExpression" && couldExpandArg(body, true)) {
+      return true;
+    }
+
+    if (!arrowChainRecursion) {
+      if (body.type === "ConditionalExpression") {
+        return true;
+      }
+
+      if (isCallExpression(stripChainElementWrappers(body))) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 function shouldExpandLastArg(args, argDocs, options) {
@@ -317,12 +334,15 @@ function isHopefullyShortCallArgument(node) {
         typeAnnotation = typeAnnotation.elementType;
       }
     }
+
     if (
       typeAnnotation.type === "GenericTypeAnnotation" ||
       typeAnnotation.type === "TSTypeReference"
     ) {
       const typeArguments =
-        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+        typeAnnotation.type === "GenericTypeAnnotation"
+          ? typeAnnotation.typeParameters
+          : typeAnnotation.typeArguments;
       if (typeArguments?.params.length === 1) {
         typeAnnotation = typeArguments.params[0];
       }
@@ -380,14 +400,6 @@ function isValidHookCallbackAndDepsFormat(args, baseIndex) {
     maybeArrowFunction.body.type === "BlockStatement" &&
     maybeDepsArray.type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
-  );
-}
-
-function isNonEmptyBlockStatement(node) {
-  return (
-    node.type === "BlockStatement" &&
-    (node.body.some((node) => node.type !== "EmptyStatement") ||
-      hasComment(node, CommentCheckFlags.Dangling))
   );
 }
 

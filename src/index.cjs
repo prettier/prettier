@@ -39,7 +39,7 @@ for (const name of debugApiFunctionNames) {
 prettier.__debug = debugApis;
 
 if (process.env.NODE_ENV === "production") {
-  prettier.util = require("./utils/public.js");
+  prettier.util = require("./utilities/public.js");
   prettier.doc = require("./document/public.js");
   prettier.version = require("./main/version.evaluate.js").default;
 } else {
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "production") {
     util: {
       get() {
         try {
-          return require("./utils/public.js");
+          return require("./utilities/public.js");
         } catch {
           // No op
         }

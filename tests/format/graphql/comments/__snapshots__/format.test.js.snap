@@ -3,8 +3,7 @@
 exports[`argument_comment.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 query (
@@ -25,11 +24,37 @@ query (
 ================================================================================
 `;
 
+exports[`dangling.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query {
+  search(filters: {
+    # TODO
+  }) {
+      id
+  }
+}
+
+=====================================output=====================================
+query {
+  search(
+    filters: {
+      # TODO
+    }
+  ) {
+    id
+  }
+}
+
+================================================================================
+`;
+
 exports[`fields.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query { 
   someField # Trailing comment
@@ -48,8 +73,7 @@ query {
 exports[`interfaces.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Type1
 implements
@@ -60,11 +84,13 @@ A & B &
  E {a: a}
 
 =====================================output=====================================
-type Type1 implements A & B &
-# comment 1
-C & D &
-# comment 2
-E {
+type Type1 implements A &
+  B &
+  # comment 1
+  C &
+  D &
+  # comment 2
+  E {
   a: a
 }
 
@@ -74,8 +100,7 @@ E {
 exports[`tokens.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # import "./claimsFragment.gql"
 

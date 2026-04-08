@@ -3,8 +3,7 @@
 exports[`multiple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static prop = 1
@@ -39,8 +38,7 @@ class Foo {
 exports[`nested.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo () {
   return class {
@@ -77,8 +75,7 @@ function foo() {
 exports[`static-blocks.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static #count = 0;

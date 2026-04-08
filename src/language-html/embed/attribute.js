@@ -1,57 +1,61 @@
-import { group } from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
-import printAngularAttribute from "./angular-attributes.js";
-import printClassNames from "./class-names.js";
-import printSrcset from "./srcset.js";
-import { printStyleAttribute } from "./style.js";
-import printVueAttribute from "./vue-attributes.js";
+import { group, mapDoc } from "../../document/index.js";
+import { shouldUnquoteAttributeValue } from "../utilities/index.js";
+import angularAttributePrinters from "./angular-attributes.js";
+import { isClassNames, printClassNames } from "./class-names.js";
+import { isEventHandler, printEventHandler } from "./event-handler.js";
+import {
+  isPermissionsPolicy,
+  printPermissionsPolicy,
+} from "./permissions-policy.js";
+import { isSrcset, printSrcset } from "./srcset.js";
+import { isStyle, printStyle } from "./style.js";
+import vueAttributePrinters from "./vue-attributes.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js"
+
+@typedef {(path, options) => boolean} AttributeValuePredicate
+@typedef {(textToDoc, print, path, options) => Promise<Doc>} AsyncAttributeValuePrint
+@typedef {(textToDoc, print, path, options) => Doc} SyncAttributeValuePrint
+@typedef {AsyncAttributeValuePrint | SyncAttributeValuePrint} AttributeValuePrint
+@typedef {{test: AttributeValuePredicate, print: AttributeValuePrint}} AttributeValuePrinter
+*/
+
+/** @type {AttributeValuePrinter[]} */
+const printers = [
+  { test: isSrcset, print: printSrcset },
+  { test: isStyle, print: printStyle },
+  { test: isEventHandler, print: printEventHandler },
+  { test: isClassNames, print: printClassNames },
+  { test: isPermissionsPolicy, print: printPermissionsPolicy },
+  ...vueAttributePrinters,
+  ...angularAttributePrinters,
+].map(({ test, print }) => ({
+  test,
+  print: createAttributePrinter(print),
+}));
 
 function printAttribute(path, options) {
   const { node } = path;
+  const { value } = node;
 
-  if (!node.value) {
+  if (!value) {
     return;
   }
 
-  if (
-    // lit-html: html`<my-element obj=${obj}></my-element>`
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(
-      options.originalText.slice(
-        node.valueSpan.start.offset,
-        node.valueSpan.end.offset,
-      ),
-    ) || // lwc: html`<my-element data-for={value}></my-element>`
-    (options.parser === "lwc" &&
-      node.value.startsWith("{") &&
-      node.value.endsWith("}"))
-  ) {
-    return [node.rawName, "=", node.value];
+  if (shouldUnquoteAttributeValue(node, options)) {
+    return [node.rawName, "=", value];
   }
 
-  for (const getValuePrinter of [
-    printSrcset,
-    printStyleAttribute,
-    printClassNames,
-    printVueAttribute,
-    printAngularAttribute,
-  ]) {
-    const printValue = getValuePrinter(path, options);
-    if (printValue) {
-      return printAttributeWithValuePrinter(printValue);
-    }
-  }
+  return printers.find(({ test }) => test(path, options))?.print;
 }
 
 /**
- * @param {(textToDoc, print, path, options) => Promise<Doc>} printValue
- * @returns {(textToDoc, print, path, options) => Promise<Doc>}
- */
-function printAttributeWithValuePrinter(printValue) {
+@param {AttributeValuePrint} printValue
+@returns {AsyncAttributeValuePrint}
+*/
+function createAttributePrinter(printValue) {
   return async (textToDoc, print, path, options) => {
     let valueDoc = await printValue(textToDoc, print, path, options);
 

@@ -3,9 +3,8 @@
 exports[`break.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var X = {
   perform: function<    
@@ -38,9 +37,8 @@ var X = {
 exports[`break.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var X = {
   perform: function<    
@@ -73,9 +71,8 @@ var X = {
 exports[`function-default-type-parameters.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo<T: any = number>(): any {}
 
@@ -88,9 +85,8 @@ function foo<T: any = number>(): any {}
 exports[`function-default-type-parameters.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo<T: any = number>(): any {}
 
@@ -103,9 +99,8 @@ function foo<T: any = number>(): any {}
 exports[`generic.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const identity = <T>(t: T): T => t;
 const a = 1;
@@ -120,9 +115,8 @@ const a = 1;
 exports[`generic.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const identity = <T>(t: T): T => t;
 const a = 1;
@@ -137,9 +131,8 @@ const a = 1;
 exports[`interface.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface A { 'C': string; }
 interface B { "D": boolean; }
@@ -158,9 +151,8 @@ interface B {
 exports[`interface.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface A { 'C': string; }
 interface B { "D": boolean; }
@@ -179,9 +171,8 @@ interface B {
 exports[`nullable.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function formatEntireFile(
   fileVersion: FileVersion,
@@ -210,9 +201,8 @@ function foo(): Promise<?boolean> {}
 exports[`nullable.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function formatEntireFile(
   fileVersion: FileVersion,
@@ -241,9 +231,8 @@ function foo(): Promise<?boolean> {}
 exports[`single-identifier.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
 
@@ -257,9 +246,8 @@ const longVariableName: Array<number> =
 exports[`single-identifier.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
 
@@ -273,9 +261,8 @@ const longVariableName: Array<number> =
 exports[`trailing.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type State = {
   errors: Immutable.Map<
@@ -300,9 +287,8 @@ type State = {
 exports[`trailing.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type State = {
   errors: Immutable.Map<
@@ -327,9 +313,8 @@ type State = {
 exports[`type.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
@@ -346,9 +331,8 @@ type H = { A: string, B: number };
 exports[`type.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
@@ -365,9 +349,8 @@ type H = { A: string, B: number };
 exports[`union.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
@@ -386,9 +369,8 @@ type Foo = Promise<
 exports[`union.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 

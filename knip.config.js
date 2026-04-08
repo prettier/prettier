@@ -1,33 +1,45 @@
-export default {
+import { isCI } from "ci-info";
+
+/** @import {KnipConfig} from "knip" */
+
+/** @type {KnipConfig} */
+const config = {
   workspaces: {
     ".": {
       entry: [
+        // Production plugin entries
         "src/plugins/*",
+        "packages/plugin-oxc/index.js",
+        "packages/plugin-hermes/index.js",
+
         "scripts/**",
+
         // We use `new Function()` to create `import()` in our `bin` file (bin/prettier.cjs)
         // so there is no actual use of the CLI files
         "src/cli/index.js",
         "src/experimental-cli/index.js",
-        "packages/plugin-oxc/index.js",
-        "packages/plugin-hermes/index.js",
+
+        // Tests
+        "tests/config/browser-prettier/**",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
-        "scripts/build/config.js",
-        "scripts/build/build-javascript-module.js",
+        "scripts/build/packages/*",
+        "scripts/build/builders/javascript-module.js",
         "scripts/tools/**",
         "src/experimental-cli/**",
+        "src/universal/*.browser.js",
       ],
-      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect", "buffer"],
-      ignoreBinaries: [
-        "test-coverage",
-        "renovate-config-validator",
-        "pkg-pr-new",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer", "base64-arraybuffer-es6"],
+      ignoreBinaries: ["test-coverage"],
     },
-    // TODO: Enable this after we fix https://github.com/prettier/prettier/issues/11409
     website: {
-      ignore: ["**/*"],
+      entry: [
+        "playground/**/*.{js,jsx}",
+        "src/pages/**/*.{js,jsx}",
+        "static/**/*.{js,mjs}",
+      ],
+      ignoreDependencies: ["@docusaurus/plugin-content-docs"],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
@@ -36,3 +48,15 @@ export default {
     },
   },
 };
+
+// Only check workspaces on CI, since they require extra install steps, see https://github.com/prettier/prettier/issues/16913
+if (!isCI) {
+  config.workspaces = Object.fromEntries(
+    Object.entries(config.workspaces).map(([workspace, settings]) => [
+      workspace,
+      workspace === "." ? settings : { ignore: ["**/*"] },
+    ]),
+  );
+}
+
+export default config;

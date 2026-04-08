@@ -3,8 +3,7 @@
 exports[`assignment.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -83,8 +82,7 @@ printWidth: 80
 exports[`basic-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts">
 let x = 1;
@@ -125,8 +123,7 @@ function log(...args) {
 exports[`function-expression-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts"></script>
 
@@ -161,8 +158,7 @@ printWidth: 80
 exports[`non-ascii-expression.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div @click="   我   " />
@@ -181,8 +177,7 @@ printWidth: 80
 exports[`non-ascii-expression-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts">
 const 我 = () => {}

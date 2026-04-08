@@ -3,9 +3,8 @@
 exports[`ignore.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 An ignore comment (HTML):
 
@@ -61,8 +60,7 @@ foo(
 exports[`ignore.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 An ignore comment (HTML):
 
@@ -118,9 +116,8 @@ foo(
 exports[`import-export.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import D from 'd'
 import {A,B,C}    from "hello-world"
@@ -205,8 +202,7 @@ export const b = 1
 exports[`import-export.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import D from 'd'
 import {A,B,C}    from "hello-world"
@@ -291,9 +287,8 @@ export const b = 1;
 exports[`inline-html.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This is an example of a component _being used in some italic markdown with some <Bolded />, 
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
@@ -320,8 +315,7 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 exports[`inline-html.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This is an example of a component _being used in some italic markdown with some <Bolded />, 
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
@@ -348,9 +342,8 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 exports[`issue-9503.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
@@ -364,8 +357,7 @@ opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-e
 exports[`issue-9503.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
@@ -379,9 +371,8 @@ opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-e
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Heading hi='there'>Hello, world!
 </Heading>
@@ -486,8 +477,7 @@ A {/* JS-style comment */} comment.
 exports[`jsx.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Heading hi='there'>Hello, world!
 </Heading>
@@ -592,9 +582,8 @@ A {/* JS-style comment */} comment.
 exports[`jsx-codeblock.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsx
 <div>foo</div>
@@ -621,8 +610,7 @@ const a = 1
 exports[`jsx-codeblock.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsx
 <div>foo</div>
@@ -649,9 +637,8 @@ const a = 1;
 exports[`levels.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import     {     Foo,  Bar } from     './Fixture'
 
@@ -705,8 +692,7 @@ test
 exports[`levels.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import     {     Foo,  Bar } from     './Fixture'
 
@@ -760,9 +746,8 @@ test
 exports[`mixed.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import     {     Baz } from     './Fixture'
 import { Buz  }   from './Fixture'
@@ -851,8 +836,7 @@ export default ({ children }) => <div>{children}</div>
 exports[`mixed.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import     {     Baz } from     './Fixture'
 import { Buz  }   from './Fixture'

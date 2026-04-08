@@ -61,7 +61,7 @@ describe("allow overriding flags", () => {
 });
 
 describe("number file/dir", () => {
-  const patterns = ["1", "2.2", "3", "4.44"];
+  const patterns = ["1", "2.2", "3", "4.44", "1e3"];
   for (const pattern of patterns) {
     runCli("cli/arg-parsing/number", [
       "--parser=babel",

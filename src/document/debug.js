@@ -12,7 +12,7 @@ import {
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_TRIM,
-} from "./constants.js";
+} from "./builders/index.js";
 
 function flattenDoc(doc) {
   if (!doc) {

@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.vue - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noformat -->
 <template>
@@ -33,8 +32,7 @@ exports[`with-noprettier-pragma.vue - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noprettier -->
 <template>
@@ -62,8 +60,7 @@ exports[`without-pragma.vue - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>This will be pre-compiled</div>

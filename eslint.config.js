@@ -1,6 +1,5 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
-import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
@@ -11,6 +10,7 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
@@ -35,15 +35,18 @@ website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
+vendors/**
 `
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
 
-export default [
+const configs = [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
+  eslintConfigNodeStyleText,
   {
     languageOptions: {
       globals: { ...globals.builtin, ...globals.node },
@@ -126,7 +129,10 @@ export default [
       "prefer-rest-params": "error",
       "prefer-spread": "error",
       "require-await": "error",
-      "require-unicode-regexp": "error",
+      // The `u` or `v` flag cause problems when dealing with non-ascii characters
+      // https://github.com/prettier/prettier/pull/18453
+      // https://github.com/prettier/prettier/pull/18455
+      "require-unicode-regexp": "off",
       "symbol-description": "error",
       yoda: [
         "error",
@@ -135,12 +141,19 @@ export default [
           exceptRange: true,
         },
       ],
+      "no-restricted-syntax": [
+        "error",
+        // Forbid `u` flag in regexp, kept for refactoring
+        // "Literal[regex.flags=/u/]",
+        // 'NewExpression[callee.name="RegExp"] > Literal.arguments:nth-child(2)[value=/u/]',
+      ],
 
       // Internal rules
       "prettier-internal-rules/jsx-identifier-case": "error",
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
       /* @stylistic/eslint-plugin */
       "@stylistic/quotes": [
@@ -150,6 +163,8 @@ export default [
           avoidEscape: true,
         },
       ],
+      "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -302,7 +317,12 @@ export default [
     },
   },
   {
-    files: ["scripts/**/*", "tests/config/install-prettier.js"],
+    files: [
+      "scripts/**/*",
+      "benchmarks/**",
+      "tests/config/install-prettier.js",
+      "tests/config/browser-prettier/**/*",
+    ],
     rules: {
       "no-console": "off",
     },
@@ -342,6 +362,7 @@ export default [
         },
       ],
       "jest/prefer-to-be": "error",
+      "jest/prefer-strict-equal": "error",
     },
   },
   {
@@ -391,9 +412,9 @@ export default [
     },
   },
   {
-    files: ["src/language-js/needs-parens.js"],
+    files: ["src/language-js/parentheses/**"],
     rules: {
-      "prettier-internal-rules/better-parent-property-check-in-needs-parens":
+      "prettier-internal-rules/better-parent-property-check-in-parentheses-check":
         "error",
     },
   },
@@ -425,16 +446,17 @@ export default [
       "prettier-internal-rules/no-node-comments": [
         "error",
         {
-          file: "src/language-js/utils/index.js",
+          file: "src/language-js/utilities/comments.js",
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
+        "src/language-js/parse/angular.js",
         "src/language-js/parse/babel.js",
         "src/language-js/parse/meriyah.js",
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
         "src/language-js/parse/oxc.js",
-        "src/language-js/parse/utils/wrap-babel-expression.js",
+        "src/language-js/parse/utilities/wrap-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
         "error",
@@ -446,8 +468,11 @@ export default [
     },
   },
   {
-    files: ["website/**/*"],
-    ...eslintPluginEslintReact.configs.recommended,
+    files: ["website/src/pages/**/*.jsx", "website/playground/**/*.jsx"],
+    rules: {
+      // Doesn't know JSX
+      "no-unused-vars": "off",
+    },
   },
   {
     files: ["website/**/*"],
@@ -457,11 +482,6 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
-      },
-    },
-    settings: {
-      "react-x": {
-        version: "18",
       },
     },
     rules: {
@@ -484,10 +504,21 @@ export default [
       "prefer-arrow-callback": "off",
     },
   },
-  // ESBuild doesn't support regular expressions with `u` flag
-  // https://github.com/evanw/esbuild/issues/4128
   {
-    files: ["scripts/build/esbuild-plugins/**/*"],
-    rules: { "require-unicode-regexp": "off" },
+    files: ["src/document/printer/printer.js"],
+    rules: {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        { replacements: { doc: false } },
+      ],
+    },
+  },
+  {
+    files: ["src/language-js/utilities/utilities.js"],
+    rules: {
+      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
+    },
   },
 ];
+
+export default configs;

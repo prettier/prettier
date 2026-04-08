@@ -3,9 +3,8 @@
 exports[`9734.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Markdown
 
@@ -115,9 +114,8 @@ undefined;
 exports[`jsx-comment.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsx
 const Foo = () => {
@@ -152,9 +150,8 @@ const Foo = () => {
 exports[`meta-in-code-block.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ## plain js block
 
@@ -211,9 +208,8 @@ console.log("hello world");
 exports[`trailing-comma.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ### Some heading
 

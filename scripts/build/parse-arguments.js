@@ -1,6 +1,6 @@
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { DIST_DIR } from "../utils/index.js";
+import { DIST_DIR } from "../utilities/index.js";
 
 const isUnique = (array) => new Set(array).size === array.length;
 
@@ -25,7 +25,9 @@ function parseArguments() {
   }
 
   const result = {
-    files: Array.isArray(values.file) ? new Set(values.file) : undefined,
+    files: Array.isArray(values.file)
+      ? new Set(values.file.map((file) => path.join(DIST_DIR, file)))
+      : undefined,
     playground: values.playground,
     printSize: values["print-size"],
     compareSize: values["compare-size"],

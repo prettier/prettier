@@ -3,8 +3,7 @@
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A extends {} {}
 
@@ -21,8 +20,7 @@ class C extends [] {}
 exports[`complex.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class loooooooooooooooooooong1 extends foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo()))))))) {}
 
@@ -69,8 +67,7 @@ class loooooooooooooooooooong3 extends class {
 exports[`extends.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // "ArrowFunctionExpression"
 class a1 extends (() => {}) {}

@@ -10,7 +10,7 @@ import picocolors from "picocolors";
 const isWindows = process.platform === "win32";
 // https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L71
 const escapeFile = isWindows
-  ? (file) => file.replace(/([()\][%!^"`<>&|;, *?])/gu, "^$1")
+  ? (file) => file.replace(/([()\][%!^"`<>&|;, *?])/g, "^$1")
   : (file) => file;
 // https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L66
 const escapeArgument = isWindows
@@ -18,8 +18,8 @@ const escapeArgument = isWindows
       escapeFile(
         escapeFile(
           `"${argument
-            .replace(/(\\*)"/gu, String.raw`$1$1\"`)
-            .replace(/(\\*)$/u, "$1$1")}"`,
+            .replace(/(\\*)"/g, String.raw`$1$1\"`)
+            .replace(/(\\*)$/, "$1$1")}"`,
         ),
       )
   : (argument) => argument;

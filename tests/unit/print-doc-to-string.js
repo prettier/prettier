@@ -1,5 +1,5 @@
-import { cursor, hardline } from "../../src/document/builders.js";
-import { printDocToString } from "../../src/document/printer.js";
+import { cursor, hardline } from "../../src/document/index.js";
+import { printDocToString } from "../../src/document/printer/printer.js";
 
 const options = { printWidth: 80, tabWidth: 2 };
 
@@ -22,7 +22,7 @@ test("Should properly trim with cursor", () => {
       ["123", cursor, "Prettier  \t", cursor, "\t \t", hardline],
       options,
     ),
-  ).toEqual({
+  ).toStrictEqual({
     formatted: "123Prettier\n",
     cursorNodeStart: 3,
     cursorNodeText: "Prettier",

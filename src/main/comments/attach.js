@@ -1,66 +1,41 @@
-import assert from "node:assert";
-import { getChildren } from "../../utils/ast-utils.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
+import * as assert from "#universal/assert";
+import hasNewline from "../../utilities/has-newline.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import getSortedChildNodes from "../utilities/get-sorted-child-nodes.js";
 import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
  */
 
 const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options) {
-  if (childNodesCache.has(node)) {
-    return childNodesCache.get(node);
-  }
-
-  const {
-    printer: {
-      getCommentChildNodes,
-      canAttachComment,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
-    locStart,
-    locEnd,
-  } = options;
-
-  if (!canAttachComment) {
-    return [];
-  }
-
-  const childNodes = (
-    getCommentChildNodes?.(node, options) ?? [
-      ...getChildren(node, {
-        getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
-      }),
-    ]
-  ).flatMap((node) =>
-    canAttachComment(node) ? [node] : getSortedChildNodes(node, options),
-  );
-  // Sort by `start` location first, then `end` location
-  childNodes.sort(
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
-  );
-
-  childNodesCache.set(node, childNodes);
-  return childNodes;
-}
 
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, options, enclosingNode) {
+function decorateComment(
+  node,
+  comment,
+  options,
+  enclosingNode,
+  ancestors = [],
+) {
   const { locStart, locEnd } = options;
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
-  const childNodes = getSortedChildNodes(node, options);
+  const childNodes = getSortedChildNodes(node, ancestors, {
+    cache: childNodesCache,
+    locStart,
+    locEnd,
+    getVisitorKeys: options.getVisitorKeys,
+    filter: options.printer.canAttachComment,
+    getChildren: options.printer.getCommentChildNodes,
+  });
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -75,7 +50,10 @@ function decorateComment(node, comment, options, enclosingNode) {
     // The comment is completely contained by this child node.
     if (start <= commentStart && commentEnd <= end) {
       // Abandon the binary search at this level.
-      return decorateComment(child, comment, options, child);
+      return decorateComment(child, comment, options, child, [
+        child,
+        ...ancestors,
+      ]);
     }
 
     if (end <= commentStart) {
@@ -143,10 +121,7 @@ function attachComments(ast, options) {
   const tiesToBreak = [];
   const {
     printer: {
-      experimentalFeatures: {
-        // TODO: Make this as default behavior
-        avoidAstMutation = false,
-      } = {},
+      features: { experimental_avoidAstMutation: avoidAstMutation },
       handleComments = {},
     },
     originalText: text,
@@ -164,7 +139,13 @@ function attachComments(ast, options) {
     options,
     ast,
     isLastComment: comments.length - 1 === index,
+    // TODO: Move placement here
+    placement: undefined,
   }));
+
+  // For easier debug, save these to comment even `avoidAstMutation`
+  const attachPropertiesToComment =
+    process.env.NODE_ENV !== "production" || !avoidAstMutation;
 
   for (const [index, context] of decoratedComments.entries()) {
     const {
@@ -178,18 +159,28 @@ function attachComments(ast, options) {
       isLastComment,
     } = context;
 
+    const placement = isOwnLineComment(text, options, decoratedComments, index)
+      ? "ownLine"
+      : isEndOfLineComment(text, options, decoratedComments, index)
+        ? "endOfLine"
+        : "remaining";
+
     let args;
     if (avoidAstMutation) {
+      context.placement = placement;
       args = [context];
     } else {
-      comment.enclosingNode = enclosingNode;
-      comment.precedingNode = precedingNode;
-      comment.followingNode = followingNode;
       args = [comment, text, options, ast, isLastComment];
     }
 
-    if (isOwnLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "ownLine";
+    if (attachPropertiesToComment) {
+      comment.placement = placement;
+      comment.enclosingNode = enclosingNode;
+      comment.precedingNode = precedingNode;
+      comment.followingNode = followingNode;
+    }
+
+    if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -206,8 +197,7 @@ function attachComments(ast, options) {
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "endOfLine";
+    } else if (placement === "endOfLine") {
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -224,7 +214,8 @@ function attachComments(ast, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      comment.placement = "remaining";
+      // Remaining
+      // eslint-disable-next-line no-lonely-if
       if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -257,7 +248,7 @@ function attachComments(ast, options) {
 
   breakTies(tiesToBreak, options);
 
-  if (!avoidAstMutation) {
+  if (attachPropertiesToComment) {
     for (const comment of comments) {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that
@@ -265,11 +256,12 @@ function attachComments(ast, options) {
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
+      delete comment.placement;
     }
   }
 }
 
-const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/u.test(text);
+const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/.test(text);
 function isOwnLineComment(text, options, decoratedComments, commentIndex) {
   const { comment, precedingNode } = decoratedComments[commentIndex];
   const { locStart, locEnd } = options;
@@ -350,7 +342,7 @@ function breakTies(tiesToBreak, options) {
 
     const gap = options.originalText.slice(options.locEnd(comment), gapEndPos);
 
-    if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/u.test(gap)) {
+    if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open
@@ -391,4 +383,8 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-export { attachComments, getSortedChildNodes };
+export {
+  attachComments,
+  // Shared with src/main/range.js, will remove later
+  childNodesCache,
+};

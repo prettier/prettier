@@ -4,13 +4,13 @@ import {
   indent,
   label,
   line,
-} from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
+  mapDoc,
+} from "../../document/index.js";
 import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
-import { hasLanguageComment, isAngularComponentTemplate } from "./utils.js";
+import { hasLanguageComment, isAngularComponentTemplate } from "./utilities.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
@@ -30,11 +30,11 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = printTemplateExpressions(path, options, print);
 
   const placeholderRegex = new RegExp(
     composePlaceholder(String.raw`(\d+)`),
-    "gu",
+    "g",
   );
   let topLevelCount = 0;
   const doc = await textToDoc(text, {
@@ -60,7 +60,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
             component = component.replaceAll(
-              /<\/(?=script\b)/giu,
+              /<\/(?=script\b)/gi,
               String.raw`<\/`,
             );
           }
@@ -76,8 +76,8 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     return parts;
   });
 
-  const leadingWhitespace = /^\s/u.test(text) ? " " : "";
-  const trailingWhitespace = /\s$/u.test(text) ? " " : "";
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
 
   const linebreak =
     options.htmlWhitespaceSensitivity === "ignore"
@@ -106,7 +106,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
  *     - html`...`
  *     - HTML comment block
  */
-function isHtml(path) {
+function isEmbedHtml(path) {
   return (
     hasLanguageComment(path, "HTML") ||
     path.match(
@@ -123,14 +123,9 @@ function isHtml(path) {
 const printEmbedHtml = printEmbedHtmlLike.bind(undefined, "html");
 const printEmbedAngular = printEmbedHtmlLike.bind(undefined, "angular");
 
-function printHtml(path /*, options*/) {
-  if (isHtml(path)) {
-    return printEmbedHtml;
-  }
-
-  if (isAngularComponentTemplate(path)) {
-    return printEmbedAngular;
-  }
-}
-
-export default printHtml;
+export {
+  isAngularComponentTemplate,
+  isEmbedHtml,
+  printEmbedAngular,
+  printEmbedHtml,
+};

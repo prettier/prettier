@@ -3,8 +3,7 @@
 exports[`assignment_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 this.size = this._origin = this._capacity = 0;
 
@@ -17,8 +16,7 @@ this.size = this._origin = this._capacity = 0;
 exports[`property-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   [this.resource = resource]: 1,
@@ -49,8 +47,7 @@ class A {
 exports[`property-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   resource: (this.resource = resource),

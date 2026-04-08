@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch (true) {
   case true:
@@ -139,8 +138,7 @@ switch (x) {
 exports[`comments2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch(1){default: // comment1
 }
@@ -199,8 +197,7 @@ switch (5) {
 exports[`empty_lines.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch (foo) {
   case "bar":
@@ -349,8 +346,7 @@ switch (a) {
 exports[`empty_statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch (error.code) {
 	case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
@@ -374,8 +370,7 @@ switch (error.code) {
 exports[`empty_switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch (1) { default:; }
 switch (1) {}
@@ -393,8 +388,7 @@ switch (1) {
 exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 switch (a) {
   case 3:

@@ -3,16 +3,19 @@
 exports[`case-and-space.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # \`linkReference\`
 
 [   See   \`AsyncGeneratorFunction\`   ][   See   \`AsyncGeneratorFunction\`   ]
+[   See   \`AsyncGeneratorFunction\` label   ][   See   \`AsyncGeneratorFunction\`   ]
+[   See   \`AsyncGeneratorFunction\`   ][]
 
 # \`imageReference\`
 
 ![   See   \`AsyncGeneratorFunction\`   ][   See   \`AsyncGeneratorFunction\`   ]
+![   See   \`AsyncGeneratorFunction\` alt   ][   See   \`AsyncGeneratorFunction\`   ]
+![   See   \`AsyncGeneratorFunction\`   ][]
 
 # \`definition\`
 
@@ -30,10 +33,14 @@ printWidth: 80
 # \`linkReference\`
 
 [ See \`AsyncGeneratorFunction\` ][ See \`AsyncGeneratorFunction\` ]
+[ See \`AsyncGeneratorFunction\` label ][ See \`AsyncGeneratorFunction\` ]
+[ See \`AsyncGeneratorFunction\` ][]
 
 # \`imageReference\`
 
 ![   See   \`AsyncGeneratorFunction\`   ][ See \`AsyncGeneratorFunction\` ]
+![   See   \`AsyncGeneratorFunction\` alt   ][ See \`AsyncGeneratorFunction\` ]
+![ See \`AsyncGeneratorFunction\` ][]
 
 # \`definition\`
 
@@ -53,8 +60,7 @@ printWidth: 80
 exports[`issue-3835.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1][Test Text](http://example.com)
 
@@ -67,8 +73,7 @@ printWidth: 80
 exports[`issue-7118.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - see[Link to Foo][master-LinkToFoo]
 

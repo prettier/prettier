@@ -1,30 +1,34 @@
 import {
+  canBreak,
+  cleanDoc,
   group,
   indent,
   indentIfBreak,
   line,
   lineSuffixBoundary,
-} from "../../document/builders.js";
-import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+  willBreak,
+} from "../../document/index.js";
+import getStringWidth from "../../utilities/get-string-width.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
 import {
-  createTypeCheckFunction,
-  getCallArguments,
-  hasLeadingOwnLineComment,
   isBinaryish,
   isBooleanLiteral,
   isCallExpression,
+  isChainElementWrapper,
   isIntersectionType,
-  isLoneShortArgument,
   isMemberExpression,
   isNumericLiteral,
-  isObjectProperty,
   isStringLiteral,
+  isTypeAlias,
   isUnionType,
-} from "../utils/index.js";
+} from "../utilities/node-types.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
+import { shouldHugUnionType } from "./union-type.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -133,6 +137,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 
   if (
     isHeadOfLongChain ||
+    (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
     hasLeadingOwnLineComment(options.originalText, rightNode)
   ) {
     return "break-after-operator";
@@ -143,9 +148,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     // do not put values on a separate line from the key in json
-    options.parser === "json5" ||
-    options.parser === "jsonc" ||
-    options.parser === "json"
+    path.root.type === "JsonRoot"
   ) {
     return "never-break-after-operator";
   }
@@ -301,10 +304,6 @@ function isComplexTypeAliasParams(node) {
   return false;
 }
 
-const isTypeAlias = createTypeCheckFunction([
-  "TSTypeAliasDeclaration",
-  "TypeAlias",
-]);
 function getTypeParametersFromTypeAlias(node) {
   if (isTypeAlias(node)) {
     return node.typeParameters?.params;
@@ -340,14 +339,17 @@ function isArrowFunctionVariableDeclarator(node) {
   );
 }
 
-const isTypeReference = createTypeCheckFunction([
-  "TSTypeReference",
-  "GenericTypeAnnotation",
-]);
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node)) {
-    return (node.typeArguments ?? node.typeParameters)?.params;
+  let typeArguments;
+  switch (node.type) {
+    case "GenericTypeAnnotation":
+      typeArguments = node.typeParameters;
+      break;
+    case "TSTypeReference":
+      typeArguments = node.typeArguments;
+      break;
   }
+  return typeArguments?.params;
 }
 
 /**
@@ -364,7 +366,7 @@ function isPoorlyBreakableMemberOrCallChain(
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+  if (isChainElementWrapper(node)) {
     return path.call(goDeeper, "expression");
   }
 
@@ -418,7 +420,7 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
 }
 
 function isCallExpressionWithComplexTypeArguments(node, print) {
-  const typeArgs = getTypeArgumentsFromCallExpression(node);
+  const typeArgs = node.typeArguments?.params;
   if (isNonEmptyArray(typeArgs)) {
     if (typeArgs.length > 1) {
       return true;
@@ -434,37 +436,27 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
         return true;
       }
     }
-    const typeArgsKeyName = node.typeParameters
-      ? "typeParameters"
-      : "typeArguments";
-    if (willBreak(print(typeArgsKeyName))) {
+    if (willBreak(print("typeArguments"))) {
       return true;
     }
   }
   return false;
 }
 
-function getTypeArgumentsFromCallExpression(node) {
-  return (node.typeParameters ?? node.typeArguments)?.params;
+function isGeneric(node) {
+  switch (node.type) {
+    case "FunctionTypeAnnotation":
+    case "GenericTypeAnnotation":
+    case "TSFunctionType":
+      return Boolean(node.typeParameters);
+    case "TSTypeReference":
+      return Boolean(node.typeArguments);
+    default:
+      return false;
+  }
 }
 
 function shouldBreakBeforeConditionalType(node) {
-  function isGeneric(subNode) {
-    switch (subNode.type) {
-      case "FunctionTypeAnnotation":
-      case "GenericTypeAnnotation":
-      case "TSFunctionType":
-        return Boolean(subNode.typeParameters);
-      case "TSTypeReference":
-        return Boolean(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          subNode.typeArguments ?? subNode.typeParameters,
-        );
-      default:
-        return false;
-    }
-  }
-
   return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 

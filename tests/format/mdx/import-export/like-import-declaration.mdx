@@ -1,0 +1,11 @@
+<!-- These are not `import`s -->
+
+import .meta.resolve (         foo)
+
+import .meta; export {} from "./foo"
+
+import .meta; import {} from "./foo"
+
+import ("./foo")
+
+import {} from   "./foo";            export {}

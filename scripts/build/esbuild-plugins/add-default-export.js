@@ -1,6 +1,6 @@
 import path from "node:path";
 
-const PLUGIN_NAMESPACE = "with-default-export";
+const PLUGIN_NAMESPACE = "add-default-export";
 export default function esbuildPluginAddDefaultExport() {
   return {
     name: "addDefaultExport",
@@ -30,10 +30,8 @@ export default function esbuildPluginAddDefaultExport() {
 
         return {
           contents: /* indent */ `
-            import * as namespace from ${source};
-
             export * from ${source};
-            export default namespace;
+            export * as default from ${source};
           `,
           resolveDir: path.dirname(file),
         };

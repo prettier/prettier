@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`event-attributes.html - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<button
+  onclick="[foo, bar].forEach((fn) => void fn())"
+></button>
+<button
+  onclick="[foo, bar].forEach((fn) => void fn()); alert(1)"
+></button>
+
+=====================================output=====================================
+<button onclick="[foo, bar].forEach((fn) => void fn())"></button>
+<button
+  onclick="
+    ;[foo, bar].forEach((fn) => void fn())
+    alert(1)
+  "
+></button>
+
+================================================================================
+`;

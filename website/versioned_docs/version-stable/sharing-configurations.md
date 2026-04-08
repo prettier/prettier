@@ -129,6 +129,7 @@ To _extend_ the configuration to overwrite some properties from the shared confi
 import usernamePrettierConfig from "@username/prettier-config";
 
 /**
+ * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {

@@ -3,9 +3,8 @@
 exports[`items.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 123
 - 456
@@ -22,8 +21,7 @@ tabWidth: 4
 exports[`items.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 123
 - 456
@@ -40,9 +38,8 @@ printWidth: 80
 exports[`middle-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!set # comment
 - 123
@@ -57,8 +54,7 @@ tabWidth: 4
 exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!set # comment
 - 123
@@ -73,9 +69,8 @@ printWidth: 80
 exports[`middle-comments.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!set # comment 1
 # comment 2
@@ -93,8 +88,7 @@ tabWidth: 4
 exports[`middle-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!set # comment 1
 # comment 2
@@ -112,9 +106,8 @@ printWidth: 80
 exports[`nested.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 1
 - - 2-1
@@ -135,8 +128,7 @@ tabWidth: 4
 exports[`nested.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 1
 - - 2-1
@@ -157,9 +149,8 @@ printWidth: 80
 exports[`null-item.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
 
@@ -172,8 +163,7 @@ tabWidth: 4
 exports[`null-item.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
 
@@ -186,9 +176,8 @@ printWidth: 80
 exports[`props.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- !!set &anchor
 - 123
@@ -206,8 +195,7 @@ tabWidth: 4
 exports[`props.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- !!set &anchor
 - 123
@@ -225,9 +213,8 @@ printWidth: 80
 exports[`props-in-map.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: !!set &anchor
 - 123
@@ -244,8 +231,7 @@ a: !!set &anchor
 exports[`props-in-map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: !!set &anchor
 - 123

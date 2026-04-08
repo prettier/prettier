@@ -3,8 +3,7 @@
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (true)
   if (true)
@@ -29,8 +28,7 @@ if (true)
 exports[`call2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const kochabCooieGameOnOboleUnweave = // ???
       rhubarbRhubarb(annularCooeedSplicesWalksWayWay);
@@ -45,8 +43,7 @@ const kochabCooieGameOnOboleUnweave = // ???
 exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 f1 = (
   a =
@@ -173,8 +170,7 @@ let f6 =
 exports[`identifier.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const kochabCooieGameOnOboleUnweave = // ???
       annularCooeedSplicesWalksWayWay;
@@ -199,8 +195,7 @@ const bifornCringerMoshedPerplexSawder = // !!!
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fnNumber =
   // Comment
@@ -295,8 +290,7 @@ var fnNumber =
 exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fnString =
   // Comment

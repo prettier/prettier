@@ -4,8 +4,7 @@ exports[`await-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 stopDirectory = await (useCache
   ? memoizedFindProjectRoot
@@ -23,8 +22,7 @@ stopDirectory = await (
 exports[`await-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 stopDirectory = await (useCache
   ? memoizedFindProjectRoot

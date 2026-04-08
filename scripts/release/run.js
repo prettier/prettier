@@ -1,7 +1,7 @@
 import semver from "semver";
 import parseArguments from "./parse-arguments.js";
 import * as steps from "./steps/index.js";
-import { logPromise, readJson } from "./utils.js";
+import { logPromise, readJson } from "./utilities.js";
 
 const params = parseArguments();
 const {
@@ -36,11 +36,6 @@ for (let step of [
     name: "Installing NPM dependencies",
     process: steps.installDependencies,
     skip: params.dry || params.skipDependenciesInstall || !params.manual,
-  },
-  {
-    name: "Linting files",
-    process: steps.lintFiles,
-    skip: params.dry,
   },
   {
     name: "Bumping version",

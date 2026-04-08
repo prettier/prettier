@@ -2,14 +2,13 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import findCacheDirectory from "find-cache-directory";
-import { isJson, statSafe } from "./utils.js";
+import { isJson, statSafe } from "./utilities.js";
 
 /**
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/sindresorhus/find-cache-directory
  */
 function findDefaultCacheFile() {
-  const cacheDir =
-    findCacheDirectory({ name: "prettier", create: true }) || os.tmpdir();
+  const cacheDir = findCacheDirectory({ name: "prettier" }) ?? os.tmpdir();
   const cacheFilePath = path.join(cacheDir, ".prettier-cache");
   return cacheFilePath;
 }

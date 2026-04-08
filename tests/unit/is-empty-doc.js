@@ -1,11 +1,12 @@
 import {
   breakParent,
+  cleanDoc,
   fill,
   group,
+  isEmptyDoc,
   line,
   lineSuffix,
-} from "../../src/document/builders.js";
-import { cleanDoc, isEmptyDoc } from "../../src/document/utils.js";
+} from "../../src/document/index.js";
 
 it.each([
   { name: "empty string", doc: "" },

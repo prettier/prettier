@@ -4,8 +4,7 @@ exports[`arrow_function_expression.ts - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (b?) => c;
 
@@ -19,8 +18,7 @@ exports[`arrow_function_expression.ts - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (b?) => c;
 
@@ -34,8 +32,7 @@ exports[`short_body.ts - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const initializeSnapshotState = (
   testFile: Path,
@@ -59,8 +56,7 @@ exports[`short_body.ts - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const initializeSnapshotState = (
   testFile: Path,
@@ -84,8 +80,7 @@ exports[`type_params.ts - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <T>(a) => { }
 
@@ -99,8 +94,7 @@ exports[`type_params.ts - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <T>(a) => { }
 

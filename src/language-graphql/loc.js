@@ -1,9 +1,4 @@
-function locStart(nodeOrToken) {
-  return nodeOrToken.loc.start;
-}
-
-function locEnd(nodeOrToken) {
-  return nodeOrToken.loc.end;
-}
+const locStart = (nodeOrToken) => nodeOrToken.loc.start;
+const locEnd = (nodeOrToken) => nodeOrToken.loc.end;
 
 export { locEnd, locStart };

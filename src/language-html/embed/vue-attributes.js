@@ -3,79 +3,82 @@ import {
   isVueScriptTag,
   isVueSfcBindingsAttribute,
   isVueSlotAttribute,
-} from "../utils/index.js";
-import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
+} from "../utilities/index.js";
+import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescript-script.js";
 import { printVueScriptGenericAttributeValue } from "./print-vue-script-generic-attribute-value.js";
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 import { printVueBindings } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js"
+@import {AttributeValuePrinter} from "./attribute.js"
+*/
 
-function printVueAttribute(path, options) {
-  if (options.parser !== "vue") {
-    return;
-  }
-  const { node } = path;
-  const attributeName = node.fullName;
-
-  if (attributeName === "v-for") {
-    return printVueVForDirective;
-  }
-
-  if (attributeName === "generic" && isVueScriptTag(node.parent, options)) {
-    return printVueScriptGenericAttributeValue;
-  }
-
-  const value = getUnescapedAttributeValue(node);
-  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
-
-  if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-    return (textToDoc) => printVueBindings(value, textToDoc, { parseWithTs });
-  }
-
-  /**
-   *     @click="jsStatement"
-   *     @click="jsExpression"
-   *     v-on:click="jsStatement"
-   *     v-on:click="jsExpression"
-   */
-  if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-    return (textToDoc) =>
-      printVueVOnDirective(value, textToDoc, { parseWithTs });
-  }
-
-  /**
-   *     :property="vueExpression"
-   *     .property="vueExpression"
-   *     v-bind:property="vueExpression"
-   */
-  if (
-    attributeName.startsWith(":") ||
-    attributeName.startsWith(".") ||
-    attributeName.startsWith("v-bind:")
-  ) {
-    return (textToDoc) =>
-      printVueVBindDirective(value, textToDoc, { parseWithTs });
-  }
-
-  /**
-   *     v-if="jsExpression"
-   */
-  if (attributeName.startsWith("v-")) {
-    return (textToDoc) => printExpression(value, textToDoc, { parseWithTs });
-  }
-}
+/** @type {AttributeValuePrinter[]} */
+const printers = /** @type {AttributeValuePrinter[]} */ ([
+  {
+    test: (path) => path.node.fullName === "v-for",
+    print: printVueVForDirective,
+  },
+  {
+    test: (path, options) =>
+      path.node.fullName === "generic" && isVueScriptTag(path.parent, options),
+    print: printVueScriptGenericAttributeValue,
+  },
+  {
+    test: ({ node }, options) =>
+      isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options),
+    print: printVueBindings,
+  },
+  {
+    /*
+    - `@click="jsStatement"`
+    - `@click="jsExpression"`
+    - `v-on:click="jsStatement"`
+    - `v-on:click="jsExpression"`
+    */
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return name.startsWith("@") || name.startsWith("v-on:");
+    },
+    print: printVueVOnDirective,
+  },
+  {
+    /*
+    - `:property="vueExpression"`
+    - `.property="vueExpression"`
+    - `v-bind:property="vueExpression"`
+    */
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return (
+        name.startsWith(":") ||
+        name.startsWith(".") ||
+        name.startsWith("v-bind:")
+      );
+    },
+    print: printVueVBindDirective,
+  },
+  {
+    /*
+    - `v-if="jsExpression"`
+    */
+    test: (path /* , options */) => path.node.fullName.startsWith("v-"),
+    print: printExpression,
+  },
+]).map(({ test, print }) => ({
+  test: (path, options) => options.parser === "vue" && test(path, options),
+  print,
+}));
 
 /**
  * @returns {Promise<Doc>}
  */
-async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
+async function printVueVOnDirective(textToDoc, print, path, options) {
   try {
-    return await printExpression(text, textToDoc, { parseWithTs });
+    return await printExpression(textToDoc, print, path, options);
   } catch (error) {
     // @ts-expect-error -- expected
     if (error.cause?.code !== "BABEL_PARSER_SYNTAX_ERROR") {
@@ -83,12 +86,15 @@ async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
     }
   }
 
+  const text = getUnescapedAttributeValue(path.node);
+  const parser = isVueSfcWithTypescriptScript(path, options)
+    ? "__vue_ts_event_binding"
+    : "__vue_event_binding";
+
   return formatAttributeValue(
     text,
     textToDoc,
-    {
-      parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding",
-    },
+    { parser },
     shouldHugJsExpression,
   );
 }
@@ -96,11 +102,16 @@ async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
 /**
  * @returns {Promise<Doc>}
  */
-function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
+function printVueVBindDirective(textToDoc, print, path, options) {
+  const text = getUnescapedAttributeValue(path.node);
+  const parser = isVueSfcWithTypescriptScript(path, options)
+    ? "__vue_ts_expression"
+    : "__vue_expression";
+
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser: parseWithTs ? "__vue_ts_expression" : "__vue_expression" },
+    { parser },
     shouldHugJsExpression,
   );
 }
@@ -108,13 +119,18 @@ function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
 /**
  * @returns {Promise<Doc>}
  */
-function printExpression(text, textToDoc, { parseWithTs }) {
+function printExpression(textToDoc, print, path, options) {
+  const text = getUnescapedAttributeValue(path.node);
+  const parser = isVueSfcWithTypescriptScript(path, options)
+    ? "__ts_expression"
+    : "__js_expression";
+
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser: parseWithTs ? "__ts_expression" : "__js_expression" },
+    { parser },
     shouldHugJsExpression,
   );
 }
 
-export default printVueAttribute;
+export default printers;

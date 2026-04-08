@@ -26,10 +26,3 @@ class Foo {
   constructor(private, public, static) {
   }
 }
-
-class F {
-    constructor(public []) {}
-}
-class G {
-    constructor(public {}) {}
-}

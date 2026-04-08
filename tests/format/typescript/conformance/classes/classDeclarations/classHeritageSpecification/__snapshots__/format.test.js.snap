@@ -3,8 +3,7 @@
 exports[`classAppearsToHaveMembersOfObject.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C { foo: string; }
 
@@ -31,8 +30,7 @@ var o2: {} = c;
 exports[`classExtendingClass.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     foo: string;
@@ -104,8 +102,7 @@ var r8 = D2.other(1);
 exports[`classExtendsItselfIndirectly.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C extends E { foo: string; } // error
 
@@ -149,8 +146,7 @@ class E2<T> extends D2<T> {
 exports[`classIsSubtypeOfBaseType.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Base<T> {
     foo: T;

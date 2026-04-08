@@ -1,17 +1,20 @@
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**
  * @returns {Promise<Doc>}
  */
-function printVueScriptGenericAttributeValue(textToDoc, print, path) {
-  const { node } = path;
-
-  const value = getUnescapedAttributeValue(node);
+function printVueScriptGenericAttributeValue(
+  textToDoc,
+  print,
+  path,
+  /* , options*/
+) {
+  const value = getUnescapedAttributeValue(path.node);
 
   return formatAttributeValue(
     `type T<${value}> = any`,

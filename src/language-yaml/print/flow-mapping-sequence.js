@@ -4,8 +4,8 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import { hasEndComments, isEmptyNode } from "../utils.js";
+} from "../../document/index.js";
+import { hasEndComments, isEmptyNode } from "../utilities.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
 function printFlowMapping(path, options, print) {

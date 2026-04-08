@@ -480,12 +480,18 @@ export interface Parser<T = any> {
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   preprocess?:
-    | ((text: string, options: ParserOptions<T>) => string)
+    | ((text: string, options: ParserOptions<T>) => string | Promise<string>)
     | undefined;
 }
 
 export interface Printer<T = any> {
   print(
+    path: AstPath<T>,
+    options: ParserOptions<T>,
+    print: (path: AstPath<T>) => Doc,
+    args?: unknown,
+  ): Doc;
+  printPrettierIgnored?(
     path: AstPath<T>,
     options: ParserOptions<T>,
     print: (path: AstPath<T>) => Doc,
@@ -520,7 +526,7 @@ export interface Printer<T = any> {
     | ((original: any, cloned: any, parent: any) => any)
     | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
-  canAttachComment?: ((node: T) => boolean) | undefined;
+  canAttachComment?: ((node: T, ancestors: T[]) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:
@@ -760,14 +766,14 @@ export interface BooleanSupportOption extends BaseSupportOption<"boolean"> {
   oppositeDescription?: string | undefined;
 }
 
-export interface BooleanArraySupportOption
-  extends BaseSupportOption<"boolean"> {
+export interface BooleanArraySupportOption extends BaseSupportOption<"boolean"> {
   default?: Array<{ value: boolean[] }> | undefined;
   array: true;
 }
 
-export interface ChoiceSupportOption<Value = any>
-  extends BaseSupportOption<"choice"> {
+export interface ChoiceSupportOption<
+  Value = any,
+> extends BaseSupportOption<"choice"> {
   default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
@@ -838,7 +844,7 @@ export function getSupportInfo(
  */
 export const version: string;
 
-// https://github.com/prettier/prettier/blob/next/src/utils/public.js
+// https://github.com/prettier/prettier/blob/main/src/utilities/public.js
 export namespace util {
   interface SkipOptions {
     backwards?: boolean | undefined;

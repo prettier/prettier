@@ -3,8 +3,7 @@
 exports[`accessor-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Point {
   private _x: number;
@@ -51,8 +50,7 @@ class Point {
 exports[`angular.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @Component({
   selector: 'toh-hero-button',
@@ -79,8 +77,7 @@ export class HeroButtonComponent {
 exports[`class-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @sealed
 class Greeter {
@@ -111,8 +108,7 @@ class Greeter {
 exports[`method-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Greeter {
   greeting: string;
@@ -145,8 +141,7 @@ class Greeter {
 exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
 	@deco x() {
@@ -173,8 +168,7 @@ class X {
 exports[`multiple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   @f()
@@ -195,8 +189,7 @@ class C {
 exports[`parameter-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Greeter {
   greeting: string;
@@ -241,8 +234,7 @@ class Greeter {
 exports[`property-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Greeter {
   @format("Hello, %s") greeting: string;
@@ -275,8 +267,7 @@ class Greeter {
 exports[`typeorm.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @Entity()
 export class Board {

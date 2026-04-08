@@ -1,4 +1,5 @@
-import snapshotDiff from "snapshot-diff";
+import { createTwoFilesPatch } from "diff";
+
 test("show external options with `--help`", async () => {
   const originalStdout = await runCli("plugins/options-string", ["--help"])
     .stdout;
@@ -6,7 +7,14 @@ test("show external options with `--help`", async () => {
     "--help",
     "--plugin=./plugin.cjs",
   ]).stdout;
-  expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
+  expect(
+    createTwoFilesPatch(
+      "Without plugin",
+      "With plugin",
+      originalStdout,
+      pluggedStdout,
+    ),
+  ).toMatchSnapshot();
 });
 
 describe("show detailed external option with `--help foo-string`", () => {
@@ -58,7 +66,7 @@ describe("Non exists plugin", () => {
     { input: "hello-world" },
   ).test({
     stdout: "",
-    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
     status: 1,
     write: [],
   });

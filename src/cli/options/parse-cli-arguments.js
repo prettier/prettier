@@ -1,5 +1,5 @@
 import camelCase from "camelcase";
-import { pick } from "../utils.js";
+import { pick } from "../utilities.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
 import minimist from "./minimist.js";
@@ -28,7 +28,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
         return [option.forwardToApi || camelCase(key), value];
       }),
     ),
-    _: normalized._?.map(String),
+    _: normalized._,
     get __raw() {
       return argv;
     },

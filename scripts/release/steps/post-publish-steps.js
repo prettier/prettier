@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import outdent from "outdent";
-import { fetchText, logPromise, writeFile } from "../utils.js";
+import { fetchText, logPromise, writeFile } from "../utilities.js";
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -10,7 +10,7 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 // Any optional or manual step can be warned in this script.
 
 async function checkSchema() {
-  const { generateSchema } = await import("../../utils/generate-schema.js");
+  const { generateSchema } = await import("../../utilities/generate-schema.js");
   const schema = await generateSchema();
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
@@ -27,9 +27,7 @@ async function checkSchema() {
   );
 
   return outdent`
-    ${styleText.bold.underline(
-      "The schema in {yellow SchemaStore",
-    )} needs an update.}
+    The schema in ${styleText.bold.yellow("SchemaStore")} needs an update.
     - Open ${styleText.cyan.underline(EDIT_URL)}
     - Open ${styleText.cyan.underline("/.tmp/schema/prettierrc.json")} file and copy the content
     - Paste it on GitHub interface
@@ -57,11 +55,9 @@ export default async function postPublishSteps({ dry, next }) {
 
   console.log(
     outdent`
-      ${styleText.yellow.bold(
-        `The following ${
-          steps.length === 1 ? "step is" : "steps are"
-        } optional.`,
-      )}
+      ${styleText.yellow.bold`The following ${
+        steps.length === 1 ? "step is" : "steps are"
+      } optional.`}
 
       ${steps.join("\n\n")}
     `,

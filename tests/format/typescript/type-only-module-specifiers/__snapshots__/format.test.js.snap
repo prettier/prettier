@@ -3,8 +3,7 @@
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { type A } from "foo";
 import { type B, C } from "foo";

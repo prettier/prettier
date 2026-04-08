@@ -5,7 +5,7 @@ import { isCI } from "ci-info";
 import { __internal as sharedWithCli } from "../index.js";
 import clearStreamText from "./utilities/clear-stream-text.js";
 
-const mockable = sharedWithCli.utils.createMockable({
+const mockable = sharedWithCli.utilities.createMockable({
   clearStreamText,
   getTimestamp: performance.now.bind(performance),
   isCI: () => isCI,

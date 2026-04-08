@@ -1,4 +1,4 @@
-import { runGit } from "../utils.js";
+import { runGit } from "../utilities.js";
 
 export default async function checkGitStatus({ next }) {
   const { stdout: status } = await runGit(["status", "--porcelain"]);

@@ -4,7 +4,7 @@ import {
   directoryIgnorerWithoutNodeModules,
 } from "./directory-ignorer.js";
 import { fastGlob } from "./prettier-internal.js";
-import { lstatSafe, normalizeToPosix } from "./utils.js";
+import { lstatSafe, normalizeToPosix } from "./utilities.js";
 
 /** @import {Context} from './context.js' */
 

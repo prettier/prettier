@@ -1,4 +1,4 @@
-import { hardline, line } from "../../document/builders.js";
+import { hardline, line } from "../../document/index.js";
 
 function printDescription(path, options, print) {
   const { node } = path;

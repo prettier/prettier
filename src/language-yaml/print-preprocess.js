@@ -1,4 +1,4 @@
-import { defineShortcut, mapNode } from "./utils.js";
+import { defineShortcut, mapNode } from "./utilities.js";
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);

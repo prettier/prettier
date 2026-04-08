@@ -15,27 +15,45 @@
     "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
-    "@docusaurus/core": "3.8.1",
-    "@docusaurus/preset-classic": "3.8.1",
-    "@mdx-js/react": "3.1.0",
+    "@catppuccin/codemirror": "1.0.3",
+    "@codemirror/autocomplete": "6.20.1",
+    "@codemirror/commands": "6.10.3",
+    "@codemirror/language": "6.12.2",
+    "@codemirror/language-data": "6.5.2",
+    "@codemirror/lint": "6.9.5",
+    "@codemirror/state": "6.6.0",
+    "@codemirror/view": "6.40.0",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@lezer/highlight": "1.2.3",
+    "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
+    "@xiechao/codemirror-lang-handlebars": "1.0.4",
+    "clipboard": "2.0.11",
     "clsx": "2.1.1",
-    "codemirror-graphql": "2.2.2",
+    "cm6-graphql": "0.2.1",
+    "github-buttons": "2.31.1",
+    "graphql": "16.13.2",
+    "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "react-markdown": "10.1.0",
-    "react-tweet": "3.2.2"
+    "react-tweet": "3.2.2",
+    "vue": "3.5.26"
   },
   "devDependencies": {
-    "@docusaurus/faster": "3.8.1",
-    "@docusaurus/module-type-aliases": "3.8.1",
-    "@docusaurus/types": "3.8.1",
-    "@types/js-yaml": "4.0.9",
-    "@vitejs/plugin-react": "5.0.2",
-    "concurrently": "9.2.0",
-    "js-yaml": "4.1.0",
-    "vite": "7.1.4"
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@types/react": "19.2.14",
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vitejs/plugin-vue-jsx": "5.1.5",
+    "concurrently": "9.2.1",
+    "package-dependencies-tree": "0.0.1",
+    "rollup-plugin-visualizer": "7.0.1",
+    "vite": "8.0.1",
+    "yaml": "2.8.3"
   },
   "browserslist": {
     "production": [
@@ -49,5 +67,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.12.0"
 }

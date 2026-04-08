@@ -1,33 +1,37 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   join,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { hasSameLoc, locEnd, locStart } from "../loc.js";
-import getRaw from "../utils/get-raw.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  isStringLiteral,
-  needsHardlineAfterDanglingComment,
-  shouldPrintComma,
-} from "../utils/index.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { locEnd, locStart } from "../location/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { isShorthandSpecifier } from "../utilities/is-shorthand-specifier.js";
+import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
+import { isStringLiteral } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
-import { printDeclareToken } from "./misc.js";
+import {
+  printDeclareToken,
+  printSemicolon,
+  printTrailingComma,
+} from "./miscellaneous.js";
+import { printObject } from "./object.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
+/*
+- `ImportDeclaration`
+*/
 function printImportDeclaration(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -38,7 +42,7 @@ function printImportDeclaration(path, options, print) {
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
     printImportAttributes(path, options, print),
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 
@@ -49,8 +53,8 @@ const isDefaultExport = (node) =>
 /*
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
-- `DeclareExportDeclaration`(flow)
 - `ExportAllDeclaration`
+- `DeclareExportDeclaration`(flow)
 - `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
@@ -117,11 +121,10 @@ const shouldOmitSemicolon = createTypeCheckFunction([
 ]);
 function printSemicolonAfterExportDeclaration(node, options) {
   if (
-    options.semi &&
-    (!node.declaration ||
-      (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration)))
+    !node.declaration ||
+    (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration))
   ) {
-    return ";";
+    return printSemicolon(options);
   }
 
   return "";
@@ -148,14 +151,11 @@ function printModuleSource(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [];
-  if (shouldPrintSpecifiers(node, options)) {
-    parts.push(" from");
-  }
-  parts.push(" ", print("source"));
-
-  return parts;
+  return [
+    shouldPrintSpecifiers(node, options) ? " from" : "",
+    " ",
+    print("source"),
+  ];
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -212,7 +212,7 @@ function printModuleSpecifiers(path, options, print) {
               options.bracketSpacing ? line : softline,
               join([",", line], groupedSpecifiers),
             ]),
-            ifBreak(shouldPrintComma(options) ? "," : ""),
+            printTrailingComma(options),
             options.bracketSpacing ? line : softline,
             "}",
           ]),
@@ -242,8 +242,7 @@ function shouldPrintSpecifiers(node, options) {
     return true;
   }
 
-  const text = getTextWithoutComments(
-    options,
+  const text = stripComments(options).slice(
     locStart(node),
     locStart(node.source),
   );
@@ -252,16 +251,12 @@ function shouldPrintSpecifiers(node, options) {
 }
 
 function getImportAttributesKeyword(node, options) {
-  // Babel parser add this property to indicate the keyword is `assert`
-  if (node.extra?.deprecatedAssertSyntax) {
-    return "assert";
-  }
-
-  const textBetweenSourceAndAttributes = getTextWithoutComments(
-    options,
-    locEnd(node.source),
-    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
-  ).trimStart();
+  const textBetweenSourceAndAttributes = stripComments(options)
+    .slice(
+      locEnd(node.source),
+      node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
+    )
+    .trimStart();
 
   if (textBetweenSourceAndAttributes.startsWith("assert")) {
     return "assert";
@@ -274,6 +269,34 @@ function getImportAttributesKeyword(node, options) {
   return isNonEmptyArray(node.attributes) ? "with" : undefined;
 }
 
+const isSingleTypeImportAttributes = (node) => {
+  const { attributes } = node;
+
+  if (attributes.length !== 1) {
+    return false;
+  }
+
+  const [attribute] = attributes;
+  const { type, key, value } = attribute;
+  return (
+    type === "ImportAttribute" &&
+    ((key.type === "Identifier" && key.name === "type") ||
+      (isStringLiteral(key) && key.value === "type")) &&
+    isStringLiteral(value) &&
+    !hasComment(attribute) &&
+    !hasComment(key) &&
+    !hasComment(value)
+  );
+};
+
+/*
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `DeclareExportDeclaration` (Flow)
+- `DeclareExportAllDeclaration` (Flow)
+*/
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
@@ -286,23 +309,12 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [` ${keyword} {`];
-
-  if (isNonEmptyArray(node.attributes)) {
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
-
-    parts.push(join(", ", path.map(print, "attributes")));
-
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
+  let attributesDoc = printObject(path, options, print);
+  if (isSingleTypeImportAttributes(node)) {
+    attributesDoc = removeLines(attributesDoc);
   }
-  parts.push("}");
 
-  return parts;
+  return [` ${keyword} `, attributesDoc];
 }
 
 function printModuleSpecifier(path, options, print) {
@@ -338,43 +350,6 @@ function printModuleSpecifier(path, options, print) {
     left && right ? " as " : "",
     right,
   ];
-}
-
-function isShorthandSpecifier(specifier) {
-  if (
-    specifier.type !== "ImportSpecifier" &&
-    specifier.type !== "ExportSpecifier"
-  ) {
-    return false;
-  }
-
-  const {
-    local,
-    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
-      importedOrExported,
-  } = specifier;
-
-  if (
-    local.type !== importedOrExported.type ||
-    !hasSameLoc(local, importedOrExported)
-  ) {
-    return false;
-  }
-
-  if (isStringLiteral(local)) {
-    return (
-      local.value === importedOrExported.value &&
-      getRaw(local) === getRaw(importedOrExported)
-    );
-  }
-
-  switch (local.type) {
-    case "Identifier":
-      return local.name === importedOrExported.name;
-    default:
-      /* c8 ignore next */
-      return false;
-  }
 }
 
 export {

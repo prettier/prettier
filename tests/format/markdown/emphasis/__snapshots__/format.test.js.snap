@@ -3,9 +3,8 @@
 exports[`asterisk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *123*
 
@@ -18,9 +17,8 @@ _123_
 exports[`complex.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 **Do you want to request a *feature* or report a *bug*?**
 
@@ -37,9 +35,8 @@ _bug_?
 exports[`special.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0*1*2
 
@@ -61,7 +58,7 @@ proseWrap: "always"
 
 !_1_2
 
-0_1_! <!-- remark-misparsing, should be formatted as \`0_1\\_!\` -->
+0_1_!
 
 !_1_!
 
@@ -69,9 +66,13 @@ proseWrap: "always"
 
 ！_1_2
 
-0_1_！ <!-- remark-misparsing, should be formatted as \`0_1\\_！\` -->
+0_1_！
 
 ！_1_！
+
+1***2***3
+
+1 ***2*** 3
 
 =====================================output=====================================
 0*1*2
@@ -92,19 +93,23 @@ proseWrap: "always"
 
 0_1_2
 
-!\\_1_2
+!_1_2
 
-0*1*! <!-- remark-misparsing, should be formatted as \`0_1\\_!\` -->
+0_1_!
 
 !_1_!
 
 0_1_2
 
-！\\_1_2
+！_1_2
 
-0*1*！ <!-- remark-misparsing, should be formatted as \`0_1\\_！\` -->
+0_1_！
 
 ！_1_！
+
+1***2***3
+
+1 _**2**_ 3
 
 ================================================================================
 `;
@@ -112,9 +117,8 @@ proseWrap: "always"
 exports[`underscore.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _123_
 

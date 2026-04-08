@@ -2,9 +2,8 @@
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { assert: { type: "json" } });
 
@@ -14,44 +13,10 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
-exports[`empty.js [acorn] format 1`] = `
-"Unexpected token (2:33)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" assert { }
-    |                                 ^
-  3 | export * as baz from "baz.json" assert { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: Unexpected token (2:32)"
-`;
-
-exports[`empty.js [espree] format 1`] = `
-"Unexpected token assert (2:33)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" assert { }
-    |                                 ^
-  3 | export * as baz from "baz.json" assert { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: Unexpected token assert"
-`;
-
-exports[`empty.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (2:33)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" assert { }
-    |                                 ^^^^^^
-  3 | export * as baz from "baz.json" assert { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: [2:32-2:38]: Unexpected token: 'identifier'"
-`;
-
 exports[`empty.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as foo from "foo.json"
 export * as bar from "bar.json" assert { }
@@ -72,41 +37,34 @@ import * as baz from "baz.json" /* comment */ assert {};
 ================================================================================
 `;
 
-exports[`keyword-detect.js [acorn] format 1`] = `
-"Unexpected token (1:33)
-> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-    |                                 ^
-  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
-  3 |
-  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: Unexpected token (1:32)"
+exports[`empty.js format[babel-ts] 1`] = `
+"Missing semicolon. (2:32)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" assert { }
+    |                                ^
+  3 | export * as baz from "baz.json" assert { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: Missing semicolon. (2:31)"
 `;
 
-exports[`keyword-detect.js [espree] format 1`] = `
-"Unexpected token assert (1:33)
-> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-    |                                 ^
-  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
-  3 |
-  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: Unexpected token assert"
-`;
-
-exports[`keyword-detect.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:33)
-> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-    |                                 ^^^^^^
-  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
-  3 |
-  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: [1:32-1:38]: Unexpected token: 'identifier'"
+exports[`empty.js format[hermes] 1`] = `
+"';' expected (2:32)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" assert { }
+    |                                ^
+  3 | export * as baz from "baz.json" assert { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: ';' expected (2:32)
+export * as bar from "bar.json" assert { }
+                                ^"
 `;
 
 exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "./test.json" /* with */ assert /* with */  { type: "json" }
 import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
@@ -126,35 +84,32 @@ export * from "./test.json" /* with */ /* with */ assert { type: "json" };
 ================================================================================
 `;
 
-exports[`multi-types.js [acorn] format 1`] = `
-"Unexpected token (1:31)
-> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
-    |                               ^
-  2 |
-Cause: Unexpected token (1:30)"
+exports[`keyword-detect.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:21)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                     ^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Missing semicolon. (1:20)"
 `;
 
-exports[`multi-types.js [espree] format 1`] = `
-"Unexpected token assert (1:31)
-> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
-    |                               ^
-  2 |
-Cause: Unexpected token assert"
-`;
-
-exports[`multi-types.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:31)
-> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
-    |                               ^^^^^^
-  2 |
-Cause: [1:30-1:36]: Unexpected token: 'identifier'"
+exports[`keyword-detect.js format[hermes] 1`] = `
+"';' expected (1:32)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                                ^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: ';' expected (1:32)
+import "./test.json" /* with */ assert /* with */  { type: "json" }
+                                ^"
 `;
 
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json", type: "bar" };
 
@@ -164,35 +119,28 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
 ================================================================================
 `;
 
-exports[`non-type.js [acorn] format 1`] = `
-"Unexpected token (1:28)
-> 1 | import foo from "foo.json" assert { lazy: "true" };
-    |                            ^
+exports[`multi-types.js format[babel-ts] 1`] = `
+"Unexpected token (1:58)
+> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
+    |                                                          ^
   2 |
-Cause: Unexpected token (1:27)"
+Cause: Unexpected token (1:57)"
 `;
 
-exports[`non-type.js [espree] format 1`] = `
-"Unexpected token assert (1:28)
-> 1 | import foo from "foo.json" assert { lazy: "true" };
-    |                            ^
+exports[`multi-types.js format[hermes] 1`] = `
+"';' expected (1:30)
+> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
+    |                              ^
   2 |
-Cause: Unexpected token assert"
-`;
-
-exports[`non-type.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:28)
-> 1 | import foo from "foo.json" assert { lazy: "true" };
-    |                            ^^^^^^
-  2 |
-Cause: [1:27-1:33]: Unexpected token: 'identifier'"
+Cause: ';' expected (1:30)
+import json from "./foo.json" assert { type: "json", type: "bar" };
+                              ^"
 `;
 
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import foo from "foo.json" assert { lazy: "true" };
 
@@ -202,11 +150,28 @@ import foo from "foo.json" assert { lazy: "true" };
 ================================================================================
 `;
 
+exports[`non-type.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:27)
+> 1 | import foo from "foo.json" assert { lazy: "true" };
+    |                           ^
+  2 |
+Cause: Missing semicolon. (1:26)"
+`;
+
+exports[`non-type.js format[hermes] 1`] = `
+"';' expected (1:27)
+> 1 | import foo from "foo.json" assert { lazy: "true" };
+    |                           ^
+  2 |
+Cause: ';' expected (1:27)
+import foo from "foo.json" assert { lazy: "true" };
+                           ^"
+`;
+
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "x"
 assert ({type: 'json'});
@@ -218,41 +183,10 @@ assert({ type: "json" });
 ================================================================================
 `;
 
-exports[`re-export.js [acorn] format 1`] = `
-"Unexpected token (1:44)
-> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                            ^
-  2 | export * from "foo.json" assert { type: "json" };
-  3 | export * as foo3 from "foo.json" assert { type: "json" };
-  4 |
-Cause: Unexpected token (1:43)"
-`;
-
-exports[`re-export.js [espree] format 1`] = `
-"Unexpected token assert (1:44)
-> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                            ^
-  2 | export * from "foo.json" assert { type: "json" };
-  3 | export * as foo3 from "foo.json" assert { type: "json" };
-  4 |
-Cause: Unexpected token assert"
-`;
-
-exports[`re-export.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:44)
-> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                            ^^^^^^
-  2 | export * from "foo.json" assert { type: "json" };
-  3 | export * as foo3 from "foo.json" assert { type: "json" };
-  4 |
-Cause: [1:43-1:49]: Unexpected token: 'identifier'"
-`;
-
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { default as foo2 } from "foo.json" assert { type: "json" };
 export * from "foo.json" assert { type: "json" };
@@ -266,35 +200,32 @@ export * as foo3 from "foo.json" assert { type: "json" };
 ================================================================================
 `;
 
-exports[`static-import.js [acorn] format 1`] = `
-"Unexpected token (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token (1:30)"
+exports[`re-export.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:43)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                           ^
+  2 | export * from "foo.json" assert { type: "json" };
+  3 | export * as foo3 from "foo.json" assert { type: "json" };
+  4 |
+Cause: Missing semicolon. (1:42)"
 `;
 
-exports[`static-import.js [espree] format 1`] = `
-"Unexpected token assert (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token assert"
-`;
-
-exports[`static-import.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^^^^^^
-  2 |
-Cause: [1:30-1:36]: Unexpected token: 'identifier'"
+exports[`re-export.js format[hermes] 1`] = `
+"';' expected (1:43)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                           ^
+  2 | export * from "foo.json" assert { type: "json" };
+  3 | export * as foo3 from "foo.json" assert { type: "json" };
+  4 |
+Cause: ';' expected (1:43)
+export { default as foo2 } from "foo.json" assert { type: "json" };
+                                           ^"
 `;
 
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json" };
 
@@ -304,35 +235,28 @@ import json from "./foo.json" assert { type: "json" };
 ================================================================================
 `;
 
-exports[`without-from.js [acorn] format 1`] = `
-"Unexpected token (1:14)
-> 1 | import "foo" assert { type: "json" }
-    |              ^
+exports[`static-import.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:30)
+> 1 | import json from "./foo.json" assert { type: "json" };
+    |                              ^
   2 |
-Cause: Unexpected token (1:13)"
+Cause: Missing semicolon. (1:29)"
 `;
 
-exports[`without-from.js [espree] format 1`] = `
-"Unexpected token assert (1:14)
-> 1 | import "foo" assert { type: "json" }
-    |              ^
+exports[`static-import.js format[hermes] 1`] = `
+"';' expected (1:30)
+> 1 | import json from "./foo.json" assert { type: "json" };
+    |                              ^
   2 |
-Cause: Unexpected token assert"
-`;
-
-exports[`without-from.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:14)
-> 1 | import "foo" assert { type: "json" }
-    |              ^^^^^^
-  2 |
-Cause: [1:13-1:19]: Unexpected token: 'identifier'"
+Cause: ';' expected (1:30)
+import json from "./foo.json" assert { type: "json" };
+                              ^"
 `;
 
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+parsers: ["oxc", "typescript", "hermes"]
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "foo" assert { type: "json" }
 
@@ -340,4 +264,22 @@ import "foo" assert { type: "json" }
 import "foo" assert { type: "json" };
 
 ================================================================================
+`;
+
+exports[`without-from.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:13)
+> 1 | import "foo" assert { type: "json" }
+    |             ^
+  2 |
+Cause: Missing semicolon. (1:12)"
+`;
+
+exports[`without-from.js format[hermes] 1`] = `
+"';' expected (1:13)
+> 1 | import "foo" assert { type: "json" }
+    |             ^
+  2 |
+Cause: ';' expected (1:13)
+import "foo" assert { type: "json" }
+             ^"
 `;

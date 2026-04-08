@@ -1,22 +1,29 @@
 import parseSrcset from "@prettier/parse-srcset";
-import { ifBreak, join, line } from "../../document/builders.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import { printExpand } from "./utils.js";
+import { ifBreak, join, line } from "../../document/index.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import { printExpand } from "./utilities.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/**
+@import {Doc} from "../../document/index.js"
+@import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"
+*/
 
-function printSrcset(path /*, options*/) {
-  if (
-    path.node.fullName === "srcset" &&
-    (path.parent.fullName === "img" || path.parent.fullName === "source")
-  ) {
-    return () => printSrcsetValue(getUnescapedAttributeValue(path.node));
-  }
-}
+/** @type {AttributeValuePredicate} */
+const isSrcset = (path /* , options*/) =>
+  path.node.fullName === "srcset" &&
+  (path.parent.fullName === "img" || path.parent.fullName === "source");
 
 const SRCSET_UNITS = { width: "w", height: "h", density: "x" };
 const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
-function printSrcsetValue(value) {
+
+/** @type {AttributeValuePrint} */
+function printSrcset(
+  textToDoc,
+  print,
+  path,
+  /* , options*/
+) {
+  const value = getUnescapedAttributeValue(path.node);
   const srcset = parseSrcset(value);
   const types = SRCSET_TYPES.filter((type) =>
     srcset.some((candidate) => Object.hasOwn(candidate, type)),
@@ -64,4 +71,4 @@ function printSrcsetValue(value) {
   );
 }
 
-export default printSrcset;
+export { isSrcset, printSrcset };

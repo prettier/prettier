@@ -22,7 +22,6 @@ describe("stdin", () => {
   });
 });
 
-// This is a failed test for #15188
 describe("square-brackets-and-dash", () => {
   runCli("cli/special-characters-in-path/square-brackets-and-dash", [
     "test",

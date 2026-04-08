@@ -1,7 +1,7 @@
 vjeux:
   name: Christopher Chedeau
   url: https://github.com/vjeux
-  image_url: https://github.com/vjeux.png
+  image_url: https://github.com/vjeux.png?size=58
   socials:
     x: vjeux
     github: vjeux
@@ -9,7 +9,7 @@ vjeux:
 suchipi:
   name: Lily Skye
   url: https://github.com/suchipi
-  image_url: https://github.com/suchipi.png
+  image_url: https://github.com/suchipi.png?size=58
   socials:
     x: suchipi
     github: suchipi
@@ -17,7 +17,7 @@ suchipi:
 azz:
   name: Lucas Azzola
   url: https://github.com/azz
-  image_url: https://github.com/azz.png
+  image_url: https://github.com/azz.png?size=58
   socials:
     x: lucasazzola
     github: suchipi
@@ -25,7 +25,7 @@ azz:
 duailibe:
   name: Lucas Duailibe
   url: https://github.com/duailibe
-  image_url: https://github.com/duailibe.png
+  image_url: https://github.com/duailibe.png?size=58
   socials:
     x: duailibe
     github: duailibe
@@ -33,7 +33,7 @@ duailibe:
 czosel:
   name: Christian Zosel
   url: https://github.com/czosel
-  image_url: https://github.com/czosel.png
+  image_url: https://github.com/czosel.png?size=58
   socials:
     x: chrzosel
     github: czosel
@@ -41,7 +41,7 @@ czosel:
 ikatyang:
   name: Ika
   url: https://github.com/ikatyang
-  image_url: https://github.com/ikatyang.png
+  image_url: https://github.com/ikatyang.png?size=58
   socials:
     x: ikatyang
     github: ikatyang
@@ -49,7 +49,7 @@ ikatyang:
 lydell:
   name: Simon Lydell
   url: https://github.com/lydell
-  image_url: https://github.com/lydell.png
+  image_url: https://github.com/lydell.png?size=58
   socials:
     x: SimonLydell
     github: lydell
@@ -57,7 +57,7 @@ lydell:
 thorn0:
   name: Georgii Dolzhykov
   url: https://github.com/thorn0
-  image_url: https://github.com/thorn0.png
+  image_url: https://github.com/thorn0.png?size=58
   socials:
     x: thorn0
     github: thorn0
@@ -65,7 +65,7 @@ thorn0:
 sosukesuzuki:
   name: Sosuke Suzuki
   url: https://github.com/sosukesuzuki
-  image_url: https://github.com/sosukesuzuki.png
+  image_url: https://github.com/sosukesuzuki.png?size=58
   socials:
     x: __sosukesuzuki
     github: sosukesuzuki
@@ -73,7 +73,7 @@ sosukesuzuki:
 kddnewton:
   name: Kevin Newton
   url: https://github.com/kddnewton
-  image_url: https://github.com/kddnewton.png
+  image_url: https://github.com/kddnewton.png?size=58
   socials:
     x: kddnewton
     github: kddnewton
@@ -81,7 +81,7 @@ kddnewton:
 rattrayalex:
   name: Alex Rattray
   url: https://github.com/rattrayalex
-  image_url: https://github.com/rattrayalex.png
+  image_url: https://github.com/rattrayalex.png?size=58
   socials:
     x: RattrayAlex
     github: rattrayalex
@@ -89,7 +89,14 @@ rattrayalex:
 fabiospampinato:
   name: Fabio Spampinato
   url: https://github.com/fabiospampinato
-  image_url: https://github.com/fabiospampinato.png
+  image_url: https://github.com/fabiospampinato.png?size=58
   socials:
     x: fabiospampinato
     github: fabiospampinato
+
+fisker:
+  name: Fisker Cheung
+  url: https://github.com/fisker
+  image_url: https://github.com/fisker.png?size=58
+  socials:
+    github: fisker

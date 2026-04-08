@@ -1,4 +1,4 @@
-import createMockable from "../utils/create-mockable.js";
+import createMockable from "../utilities/create-mockable.js";
 
 const mockable = createMockable({
   getPrettierConfigSearchStopDirectory: () => undefined,

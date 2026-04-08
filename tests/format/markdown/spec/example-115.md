@@ -1,3 +1,0 @@
- <div>
-  *hello*
-         <foo><a>

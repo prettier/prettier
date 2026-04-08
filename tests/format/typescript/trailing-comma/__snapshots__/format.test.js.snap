@@ -3,9 +3,8 @@
 exports[`arrow-functions.tsx - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const f1 = <T,>() => 1;
 const f2 = <
@@ -24,9 +23,8 @@ const f2 = <
 exports[`arrow-functions.tsx - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const f1 = <T,>() => 1;
 const f2 = <
@@ -45,9 +43,8 @@ const f2 = <
 exports[`arrow-functions.tsx - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const f1 = <T,>() => 1;
 const f2 = <
@@ -66,9 +63,8 @@ const f2 = <
 exports[`trailing.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
@@ -110,9 +106,8 @@ const {
 exports[`trailing.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
@@ -154,9 +149,8 @@ const {
 exports[`trailing.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
@@ -198,9 +192,8 @@ const {
 exports[`type-arguments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var bar: Bar<
   AAAAAAA,
@@ -241,9 +234,8 @@ const baz = new Array<
 exports[`type-arguments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var bar: Bar<
   AAAAAAA,
@@ -284,9 +276,8 @@ const baz = new Array<
 exports[`type-arguments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var bar: Bar<
   AAAAAAA,
@@ -327,9 +318,8 @@ const baz = new Array<
 exports[`type-parameters-vs-arguments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class FooClass<
 	A,
@@ -366,9 +356,8 @@ const instance = new FooClass<
 exports[`type-parameters-vs-arguments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class FooClass<
 	A,
@@ -405,9 +394,8 @@ const instance = new FooClass<
 exports[`type-parameters-vs-arguments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class FooClass<
 	A,

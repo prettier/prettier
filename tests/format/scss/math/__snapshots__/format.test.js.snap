@@ -3,9 +3,8 @@
 exports[`3945.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 .foo {
@@ -265,9 +264,8 @@ $colors: (
 exports[`3945.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 .foo {
@@ -520,6 +518,98 @@ $colors: (
 @function color($color, $tone: "base") {
   @return map-get(map-get($colors, $color), $tone);
 }
+
+================================================================================
+`;
+
+exports[`7419.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@include container($foo: 2);
+@include container($foo: 2 * ($bar));
+@include container($foo: 2 * ($bar + $baz));
+
+@include container($foo: 1, $bar: 2);
+
+@include container($foo: (
+  $bar,
+  $baz
+));
+
+@include container($foo: (
+  $bar + $baz,
+  $qux * 2
+));
+
+=====================================output=====================================
+@include container($foo: 2);
+@include container($foo: 2 * ($bar));
+@include container($foo: 2 * ($bar + $baz));
+
+@include container($foo: 1, $bar: 2);
+
+@include container(
+  $foo: (
+    $bar,
+    $baz,
+  )
+);
+
+@include container(
+  $foo: (
+    $bar + $baz,
+    $qux * 2,
+  )
+);
+
+================================================================================
+`;
+
+exports[`7419.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@include container($foo: 2);
+@include container($foo: 2 * ($bar));
+@include container($foo: 2 * ($bar + $baz));
+
+@include container($foo: 1, $bar: 2);
+
+@include container($foo: (
+  $bar,
+  $baz
+));
+
+@include container($foo: (
+  $bar + $baz,
+  $qux * 2
+));
+
+=====================================output=====================================
+@include container($foo: 2);
+@include container($foo: 2 * ($bar));
+@include container($foo: 2 * ($bar + $baz));
+
+@include container($foo: 1, $bar: 2);
+
+@include container(
+  $foo: (
+    $bar,
+    $baz
+  )
+);
+
+@include container(
+  $foo: (
+    $bar + $baz,
+    $qux * 2
+  )
+);
 
 ================================================================================
 `;

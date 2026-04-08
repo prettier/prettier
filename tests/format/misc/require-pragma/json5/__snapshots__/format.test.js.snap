@@ -3,9 +3,8 @@
 exports[`with-pragma.json5 - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @format */
 
@@ -22,9 +21,8 @@ requirePragma: true
 exports[`without-pragma.json5 - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {hello:       "world"}
 

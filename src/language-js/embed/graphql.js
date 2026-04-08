@@ -1,16 +1,16 @@
-import { hardline, indent, join } from "../../document/builders.js";
+import { hardline, indent, join } from "../../document/index.js";
 import {
   escapeTemplateCharacters,
   printTemplateExpressions,
 } from "../print/template-literal.js";
-import { hasLanguageComment } from "./utils.js";
+import { hasLanguageComment } from "./utilities.js";
 
-async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
+async function printEmbedGraphQL(textToDoc, print, path, options) {
   const { node } = path;
 
   const numQuasis = node.quasis.length;
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = printTemplateExpressions(path, options, print);
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {
@@ -21,7 +21,6 @@ async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
 
     const lines = text.split("\n");
     const numLines = lines.length;
-    const expressionDoc = expressionDocs[i];
 
     const startsWithBlankLine =
       numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
@@ -31,15 +30,15 @@ async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
       lines[numLines - 2].trim() === "";
 
     const commentsAndWhitespaceOnly = lines.every((line) =>
-      /^\s*(?:#[^\n\r]*)?$/u.test(line),
+      /^\s*(?:#[^\n\r]*)?$/.test(line),
     );
 
     // Bail out if an interpolation occurs within a comment.
-    if (!isLast && /#[^\n\r]*$/u.test(lines[numLines - 1])) {
+    if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
       return null;
     }
 
-    let doc = null;
+    let doc;
 
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
@@ -60,8 +59,8 @@ async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
       parts.push("");
     }
 
-    if (expressionDoc) {
-      parts.push(expressionDoc);
+    if (!isLast) {
+      parts.push(expressionDocs[i]);
     }
   }
 
@@ -105,7 +104,7 @@ function printGraphqlComments(lines) {
  * This intentionally excludes Relay Classic tags, as Prettier does not
  * support Relay Classic formatting.
  */
-function isGraphQL({ node, parent }) {
+function isEmbedGraphQL({ node, parent }) {
   return (
     hasLanguageComment({ node, parent }, "GraphQL") ||
     (parent &&
@@ -121,10 +120,4 @@ function isGraphQL({ node, parent }) {
   );
 }
 
-function printGraphql(path /*, options*/) {
-  if (isGraphQL(path)) {
-    return printEmbedGraphQL;
-  }
-}
-
-export default printGraphql;
+export { isEmbedGraphQL, printEmbedGraphQL };

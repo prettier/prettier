@@ -3,9 +3,8 @@
 exports[`class.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   method() {
@@ -36,8 +35,7 @@ class A {
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   method() {
@@ -68,9 +66,8 @@ class A {
 exports[`nested-functions.spec.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const c = () => {};
 
@@ -103,8 +100,7 @@ function a() {
 exports[`nested-functions.spec.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const c = () => {};
 

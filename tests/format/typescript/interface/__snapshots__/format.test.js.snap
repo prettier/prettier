@@ -3,9 +3,8 @@
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface ScreenObject {
 	// I make things weird.
@@ -24,8 +23,7 @@ interface ScreenObject {
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface ScreenObject {
 	// I make things weird.
@@ -44,9 +42,8 @@ interface ScreenObject {
 exports[`comments-generic.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface ReallyReallyLongName<
   TypeArgumentNumberOne,
@@ -81,35 +78,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -118,8 +115,7 @@ interface Foo<
 exports[`comments-generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface ReallyReallyLongName<
   TypeArgumentNumberOne,
@@ -154,35 +150,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -191,11 +187,12 @@ interface Foo<
 exports[`generic.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
 
 interface Foo<
@@ -205,8 +202,14 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+class Foo____<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -220,10 +223,11 @@ interface Foo<
 exports[`generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
 
 interface Foo<
@@ -233,8 +237,14 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+class Foo____<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -248,9 +258,8 @@ interface Foo<
 exports[`ignore.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Interface {
   // prettier-ignore
@@ -473,8 +482,7 @@ interface I {
 exports[`ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Interface {
   // prettier-ignore
@@ -697,15 +705,17 @@ interface I {
 exports[`long-extends.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface I extends A, B, C {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string;
 }
 
@@ -726,25 +736,28 @@ export interface I extends A, B, C {
   c: string
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string
@@ -756,14 +769,16 @@ export interface ThirdVeryLongAndBoringInterfaceName
 exports[`long-extends.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface I extends A, B, C {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string;
 }
 
@@ -784,25 +799,28 @@ export interface I extends A, B, C {
   c: string;
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string;
@@ -814,9 +832,8 @@ export interface ThirdVeryLongAndBoringInterfaceName
 exports[`pattern-parameters.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface B {
   foo([]?): void;
@@ -837,8 +854,7 @@ interface B {
 exports[`pattern-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface B {
   foo([]?): void;
@@ -859,9 +875,8 @@ interface B {
 exports[`separator.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module 'selenium-webdriver' {
   export const until: {
@@ -905,8 +920,7 @@ interface Test {
 exports[`separator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module 'selenium-webdriver' {
   export const until: {

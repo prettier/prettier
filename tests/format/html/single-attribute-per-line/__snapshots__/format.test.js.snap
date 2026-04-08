@@ -3,9 +3,8 @@
 exports[`single-attribute-per-line.html - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 singleAttributePerLine: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div data-a="1">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -74,8 +73,7 @@ singleAttributePerLine: true
 exports[`single-attribute-per-line.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div data-a="1">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.

@@ -3,9 +3,8 @@
 exports[`3719.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $sm-only: '(min-width: 768px) and (max-width: 991px)';
 $lg-and-up: '(min-width: 1200px)';
@@ -28,9 +27,8 @@ $lg-and-up: "(min-width: 1200px)";
 exports[`3719.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $sm-only: '(min-width: 768px) and (max-width: 991px)';
 $lg-and-up: '(min-width: 1200px)';
@@ -53,9 +51,8 @@ $lg-and-up: "(min-width: 1200px)";
 exports[`3943.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .class-#{$var} {
   #{$var}: #7b3d66;
@@ -264,9 +261,8 @@ $icons:
 exports[`3943.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .class-#{$var} {
   #{$var}: #7b3d66;
@@ -475,9 +471,8 @@ $icons:
 exports[`4294.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 a {
@@ -579,9 +574,8 @@ a {
 exports[`4294.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 a {
@@ -675,6 +669,88 @@ a {
       }
     }
   }
+}
+
+================================================================================
+`;
+
+exports[`4745.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+
+=====================================output=====================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+================================================================================
+`;
+
+exports[`4745.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+
+=====================================output=====================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
 }
 
 ================================================================================

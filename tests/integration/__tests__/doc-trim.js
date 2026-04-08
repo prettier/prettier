@@ -48,6 +48,6 @@ describe("trim", () => {
     const result = printDocToString(doc, { printWidth: 12, tabWidth: 2 });
 
     expect(result).toBeDefined();
-    expect(result.formatted).toEqual(expected);
+    expect(result.formatted).toBe(expected);
   });
 });

@@ -41,6 +41,6 @@ describe("--list-different works in CI just as in a non-TTY mode", () => {
   });
 
   test("Should be the same", async () => {
-    expect(await result0.stdout).toEqual(await result1.stdout);
+    expect(await result0.stdout).toBe(await result1.stdout);
   });
 });

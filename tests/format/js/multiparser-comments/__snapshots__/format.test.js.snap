@@ -3,8 +3,7 @@
 exports[`comment-inside.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #9274
 html\`
@@ -85,9 +84,9 @@ html\`\${
 }\`;
 html\`
   \${
-    foo
-    /* comment */
-  }
+  foo
+  /* comment */
+}
 \`;
 
 graphql\`
@@ -98,9 +97,9 @@ graphql\`
 \`;
 graphql\`
   \${
-    foo
-    /* comment */
-  }
+  foo
+  /* comment */
+}
 \`;
 
 css\`
@@ -111,9 +110,9 @@ css\`
 \`;
 css\`
   \${
-    foo
-    /* comment */
-  }
+  foo
+  /* comment */
+}
 \`;
 
 markdown\`\${
@@ -143,8 +142,7 @@ expr1 = html\`
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 graphql.experimental\`
   # required by createPaginationContainer
@@ -169,8 +167,7 @@ graphql.experimental\`
 exports[`tagged.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(html // oops
 \` <div><p>bar</p>foo</div> \`);

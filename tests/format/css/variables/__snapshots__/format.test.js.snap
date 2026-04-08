@@ -3,8 +3,7 @@
 exports[`apply-rule.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* http://tabatkins.github.io/specs/css-apply-rule/#defining */
 
@@ -77,8 +76,7 @@ printWidth: 80
 exports[`variables.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {
     --prop: 10px;

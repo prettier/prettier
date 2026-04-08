@@ -1,7 +1,9 @@
-function printIgnored(path, options) {
+import { commentsPropertyInOptions } from "../constants.js";
+
+function printIgnored(path, options, printPath, args) {
   const {
     originalText,
-    [Symbol.for("comments")]: comments,
+    [commentsPropertyInOptions]: comments,
     locStart,
     locEnd,
     [Symbol.for("printedComments")]: printedComments,
@@ -17,7 +19,11 @@ function printIgnored(path, options) {
     }
   }
 
-  return originalText.slice(start, end);
+  const { printPrettierIgnored } = options.printer;
+
+  return printPrettierIgnored
+    ? printPrettierIgnored(path, options, printPath, args)
+    : originalText.slice(start, end);
 }
 
 export default printIgnored;

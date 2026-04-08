@@ -1,4 +1,4 @@
-const { LZString } = window;
+import LZString from "lz-string";
 
 export function read() {
   const hash = document.location.hash.slice(1);
@@ -12,7 +12,7 @@ export function read() {
     : LZString.decompressFromEncodedURIComponent;
 
   try {
-    return JSON.parse(decode(hash));
+    return JSON.parse(decode(hash)) ?? {};
   } catch {
     return {};
   }

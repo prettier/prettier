@@ -58,15 +58,15 @@ For example:
 matrix(
   1, 0, 0,
   0, 1, 0,
-  0, 0, 1
-)
+  0, 0, 1,
+);
 
 // prettier-ignore
 matrix(
   1, 0, 0,
   0, 1, 0,
-  0, 0, 1
-)
+  0, 0, 1,
+);
 ```
 
 will be transformed to:
@@ -78,8 +78,8 @@ matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 matrix(
   1, 0, 0,
   0, 1, 0,
-  0, 0, 1
-)
+  0, 0, 1,
+);
 ```
 
 ## JSX

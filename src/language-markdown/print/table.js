@@ -4,9 +4,9 @@ import {
   hardlineWithoutBreakParent,
   ifBreak,
   join,
-} from "../../document/builders.js";
-import { printDocToString } from "../../document/printer.js";
-import getStringWidth from "../../utils/get-string-width.js";
+} from "../../document/index.js";
+import { printDocToString } from "../../document/printer/printer.js";
+import getStringWidth from "../../utilities/get-string-width.js";
 
 function printTable(path, options, print) {
   const { node } = path;
@@ -50,13 +50,20 @@ function printTable(path, options, print) {
   }
 
   function printAlign(isCompact) {
-    return columnMaxWidths.map((width, index) => {
-      const align = node.align[index];
-      const first = align === "center" || align === "left" ? ":" : "-";
-      const last = align === "center" || align === "right" ? ":" : "-";
-      const middle = isCompact ? "-" : "-".repeat(width - 2);
-      return `${first}${middle}${last}`;
-    });
+    return columnMaxWidths
+      .map((width, index) => {
+        if (options.parser !== "mdx" && index >= contents[0].length) {
+          // The header row must match the delimiter row in the number of cells. If not, a table will not be recognized
+          // https://github.github.com/gfm/#example-203
+          return null;
+        }
+        const align = node.align[index];
+        const first = align === "center" || align === "left" ? ":" : "-";
+        const last = align === "center" || align === "right" ? ":" : "-";
+        const middle = isCompact ? "-" : "-".repeat(width - 2);
+        return `${first}${middle}${last}`;
+      })
+      .filter((x) => x !== null);
   }
 
   function printRow(columns, isCompact) {

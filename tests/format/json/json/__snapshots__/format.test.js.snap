@@ -4,8 +4,7 @@ exports[`array.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -26,9 +25,8 @@ printWidth: 80
 exports[`array.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -49,9 +47,8 @@ trailingComma: "all"
 exports[`array.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -72,9 +69,8 @@ trailingComma: "all"
 exports[`array.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -95,9 +91,8 @@ trailingComma: "es5"
 exports[`array.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -118,8 +113,7 @@ trailingComma: "es5"
 exports[`array.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   [
@@ -162,8 +156,7 @@ exports[`boolean.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -176,9 +169,8 @@ true
 exports[`boolean.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -191,9 +183,8 @@ true
 exports[`boolean.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -206,9 +197,8 @@ true
 exports[`boolean.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -221,9 +211,8 @@ true
 exports[`boolean.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -236,8 +225,7 @@ true
 exports[`boolean.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 
@@ -251,8 +239,7 @@ exports[`json5.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -310,9 +297,8 @@ No \\\\n's!"
 exports[`json5.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -370,9 +356,8 @@ No \\\\n's!"
 exports[`json5.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -430,9 +415,8 @@ No \\\\n's!",
 exports[`json5.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -490,9 +474,8 @@ No \\\\n's!"
 exports[`json5.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -550,8 +533,7 @@ No \\\\n's!",
 exports[`json5.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {
@@ -594,15 +576,16 @@ No \\\\n's!",
   },
   {
     "//": "JSON5 numbers",
-    "hexadecimal": 912559,
-    "leadingDecimalPoint": 0.8675309,
-    "andTrailing": 8675309,
+    "hexadecimal": 0xdecaf,
+    "leadingDecimalPoint": .8675309,
+    "andTrailing": 8675309.,
     "positiveSign": 1
   },
   {
     "//": "JSON5 strings",
     "singleQuotes": "I can use \\"double quotes\\" here",
-    "lineBreaks": "Look, Mom! No \\\\n's!"
+    "lineBreaks": "Look, Mom! \\
+No \\\\n's!"
   }
 ]
 
@@ -613,8 +596,7 @@ exports[`json6.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -721,9 +703,8 @@ printWidth: 80
 exports[`json6.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -830,9 +811,8 @@ trailingComma: "all"
 exports[`json6.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -939,9 +919,8 @@ trailingComma: "all"
 exports[`json6.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -1048,9 +1027,8 @@ trailingComma: "es5"
 exports[`json6.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -1157,8 +1135,7 @@ trailingComma: "es5"
 exports[`json6.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 {'//': 'Keyword \`undefined\`',
@@ -1237,35 +1214,35 @@ printWidth: 80
   {
     "//": "String escapes ",
     "data": [
-      "\\u0000",
-      "ÿ",
-      "ÿ",
+      "\\0",
+      "\\xFF",
+      "\\u00FF",
       "🐉"
     ]
   },
   {
     "//": "Numbers",
     "data": [
-      83,
-      42,
-      100000,
-      123456,
-      3740122863,
-      83,
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xDeeD_Beef,
+      0123,
       -Infinity,
       -NaN,
       1,
       -1,
-      83,
-      42,
-      100000,
-      123456,
-      3740122863,
-      -83,
-      -42,
-      -100000,
-      -123456,
-      -3740122863
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xDeeD_Beef,
+      -0o123,
+      -0b101010,
+      -1e5,
+      -123_456,
+      -0xDeeD_Beef
     ]
   },
   {
@@ -1303,8 +1280,7 @@ exports[`key-value.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1325,9 +1301,8 @@ printWidth: 80
 exports[`key-value.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1348,9 +1323,8 @@ trailingComma: "all"
 exports[`key-value.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1371,9 +1345,8 @@ trailingComma: "all"
 exports[`key-value.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1394,9 +1367,8 @@ trailingComma: "es5"
 exports[`key-value.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1417,8 +1389,7 @@ trailingComma: "es5"
 exports[`key-value.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
@@ -1440,8 +1411,7 @@ exports[`multi-line.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1455,9 +1425,8 @@ printWidth: 80
 exports[`multi-line.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1471,9 +1440,8 @@ trailingComma: "all"
 exports[`multi-line.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1487,9 +1455,8 @@ trailingComma: "all"
 exports[`multi-line.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1503,9 +1470,8 @@ trailingComma: "es5"
 exports[`multi-line.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1519,8 +1485,7 @@ trailingComma: "es5"
 exports[`multi-line.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
@@ -1537,8 +1502,8 @@ printWidth: 80
       1,
       2,
       "3",
-      10000000000,
-      0.001
+      1e10,
+      1e-3
     ]
   }
 }
@@ -1550,8 +1515,7 @@ exports[`null.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1564,9 +1528,8 @@ null
 exports[`null.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1579,9 +1542,8 @@ null
 exports[`null.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1594,9 +1556,8 @@ null
 exports[`null.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1609,9 +1570,8 @@ null
 exports[`null.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1624,8 +1584,7 @@ null
 exports[`null.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 
@@ -1639,8 +1598,7 @@ exports[`number.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1653,9 +1611,8 @@ printWidth: 80
 exports[`number.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1668,9 +1625,8 @@ trailingComma: "all"
 exports[`number.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1683,9 +1639,8 @@ trailingComma: "all"
 exports[`number.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1698,9 +1653,8 @@ trailingComma: "es5"
 exports[`number.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1713,8 +1667,7 @@ trailingComma: "es5"
 exports[`number.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0
 
@@ -1728,8 +1681,7 @@ exports[`pass1.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -1858,9 +1810,8 @@ printWidth: 80
 exports[`pass1.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -1989,9 +1940,8 @@ trailingComma: "all"
 exports[`pass1.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -2120,9 +2070,8 @@ trailingComma: "all"
 exports[`pass1.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -2251,9 +2200,8 @@ trailingComma: "es5"
 exports[`pass1.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -2382,8 +2330,7 @@ trailingComma: "es5"
 exports[`pass1.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
     "JSON Test Pattern pass1",
@@ -2460,23 +2407,23 @@ printWidth: 80
   null,
   {
     "integer": 1234567890,
-    "real": -9876.54321,
-    "e": 1.23456789e-13,
-    "E": 1.23456789e+34,
-    "": 2.3456789012e+76,
+    "real": -9876.543210,
+    "e": 0.123456789e-12,
+    "E": 1.234567890E+34,
+    "": 23456789012E66,
     "zero": 0,
     "one": 1,
     "space": " ",
     "quote": "\\"",
     "backslash": "\\\\",
     "controls": "\\b\\f\\n\\r\\t",
-    "slash": "/ & /",
+    "slash": "/ & \\/",
     "alpha": "abcdefghijklmnopqrstuvwyz",
     "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
     "digit": "0123456789",
     "0123456789": "digit",
     "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    "hex": "ģ䕧覫췯ꯍ",
+    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
     "true": true,
     "false": false,
     "null": null,
@@ -2505,19 +2452,19 @@ printWidth: 80
       7
     ],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-    "quotes": "&#34; \\" %22 0x22 034 &#x22;",
-    "/\\\\\\"쫾몾ꮘﳞ볚\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+    "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
   },
   0.5,
   98.6,
   99.44,
   1066,
-  10,
-  1,
-  0.1,
-  1,
-  2,
-  2,
+  1e1,
+  0.1e1,
+  1e-1,
+  1e00,
+  2e+00,
+  2e-00,
   "rosebud"
 ]
 
@@ -2528,8 +2475,7 @@ exports[`positive-number.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2542,9 +2488,8 @@ printWidth: 80
 exports[`positive-number.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2557,9 +2502,8 @@ trailingComma: "all"
 exports[`positive-number.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2572,9 +2516,8 @@ trailingComma: "all"
 exports[`positive-number.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2587,9 +2530,8 @@ trailingComma: "es5"
 exports[`positive-number.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2602,8 +2544,7 @@ trailingComma: "es5"
 exports[`positive-number.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +123
 
@@ -2617,8 +2558,7 @@ exports[`propertyKey.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2677,9 +2617,8 @@ printWidth: 80
 exports[`propertyKey.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2738,9 +2677,8 @@ trailingComma: "all"
 exports[`propertyKey.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2799,9 +2737,8 @@ trailingComma: "all"
 exports[`propertyKey.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2860,9 +2797,8 @@ trailingComma: "es5"
 exports[`propertyKey.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2921,8 +2857,7 @@ trailingComma: "es5"
 exports[`propertyKey.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     a: '',
@@ -2956,23 +2891,23 @@ printWidth: 80
   "true": "",
   "string": "",
   "0": "",
-  "100": "",
-  "100": "",
-  "10": "",
-  "0.01": "",
-  "0.001": "",
-  "10": "",
-  "1": "",
-  "1": "",
+  1e2: "",
+  1.0e+2: "",
+  .10e+2: "",
+  1e-2: "",
+  .1e-2: "",
+  0.1e+2: "",
+  1.0: "",
+  1.00000: "",
+  .1: "",
+  .100000: "",
   "0.1": "",
-  "0.1": "",
-  "0.1": "",
-  "0.1": "",
-  "1e+30": "",
-  "1e-30": "",
-  "1e-30": "",
-  "Infinity": "",
-  "123": ""
+  0.100000: "",
+  999999999999999999999999999999: "",
+  .000000000000000000000000000001: "",
+  0.000000000000000000000000000001: "",
+  1e999999999999999999999999999999: "",
+  1_2_3: ""
 }
 
 ================================================================================
@@ -2982,8 +2917,7 @@ exports[`single-line.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -2996,9 +2930,8 @@ printWidth: 80
 exports[`single-line.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -3011,9 +2944,8 @@ trailingComma: "all"
 exports[`single-line.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -3026,9 +2958,8 @@ trailingComma: "all"
 exports[`single-line.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -3041,9 +2972,8 @@ trailingComma: "es5"
 exports[`single-line.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -3056,8 +2986,7 @@ trailingComma: "es5"
 exports[`single-line.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
@@ -3073,8 +3002,8 @@ printWidth: 80
       1,
       2,
       "3",
-      10000000000,
-      0.001
+      1e10,
+      1e-3
     ]
   }
 }
@@ -3086,8 +3015,7 @@ exports[`single-quote.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3100,9 +3028,8 @@ printWidth: 80
 exports[`single-quote.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3115,9 +3042,8 @@ trailingComma: "all"
 exports[`single-quote.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3130,9 +3056,8 @@ trailingComma: "all"
 exports[`single-quote.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3145,9 +3070,8 @@ trailingComma: "es5"
 exports[`single-quote.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3160,8 +3084,7 @@ trailingComma: "es5"
 exports[`single-quote.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'hello'
 
@@ -3175,8 +3098,7 @@ exports[`string.json - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["json"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 
@@ -3189,9 +3111,8 @@ printWidth: 80
 exports[`string.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 
@@ -3204,9 +3125,8 @@ trailingComma: "all"
 exports[`string.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 
@@ -3219,9 +3139,8 @@ trailingComma: "all"
 exports[`string.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 
@@ -3234,9 +3153,8 @@ trailingComma: "es5"
 exports[`string.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 
@@ -3249,8 +3167,7 @@ trailingComma: "es5"
 exports[`string.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "string"
 

@@ -1,53 +1,53 @@
-import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
+import { createApp, onMounted, reactive, toRaw, watch } from "vue";
+import { settings } from "./composables/playground-settings.js";
+import { worker } from "./composables/prettier-worker.js";
+import { setVersion, version } from "./composables/use-version.js";
+import Header from "./header.vue";
 import Playground from "./Playground.jsx";
-import { fixPrettierVersion } from "./util.js";
-import VersionLink from "./VersionLink.jsx";
-import WorkerApi from "./WorkerApi.js";
+import { formatVersion } from "./utilities.js";
 
-const {
-  React,
-  ReactDOM: { createRoot },
-} = window;
-
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = { loaded: false };
-    this.worker = new WorkerApi();
-  }
-
-  async componentDidMount() {
-    const { supportInfo, version } = await this.worker.getMetadata();
-
-    // eslint-disable-next-line @eslint-react/no-set-state-in-component-did-mount
-    this.setState({
-      loaded: true,
-      availableOptions: supportInfo.options.map(augmentOption),
-      version: fixPrettierVersion(version),
+const App = {
+  name: "App",
+  setup() {
+    const state = reactive({
+      loaded: false,
     });
-  }
 
-  render() {
-    const { loaded, availableOptions, version } = this.state;
+    const updateMetadata = async () => {
+      const { supportInfo, version: versionData } = await worker.getMetadata(
+        version.value,
+      );
 
-    if (!loaded) {
-      return "Loading...";
-    }
+      Object.assign(state, {
+        loaded: true,
+        availableOptions: supportInfo.options.map(augmentOption),
+        version: formatVersion(versionData),
+      });
+    };
 
-    return (
-      <>
-        <VersionLink version={version} />
-        <Playground
-          worker={this.worker}
-          availableOptions={availableOptions}
-          version={version}
-        />
-      </>
-    );
-  }
-}
+    watch(() => version.value, updateMetadata);
+
+    const render = () => {
+      const { loaded, availableOptions, version } = state;
+
+      if (!loaded) {
+        return "Loading...";
+      }
+
+      return (
+        <>
+          <Header version={version} />
+          <Playground availableOptions={availableOptions} version={version} />
+        </>
+      );
+    };
+
+    onMounted(() => updateMetadata());
+    return render;
+  },
+};
 
 function augmentOption(option) {
   if (option.type === "boolean" && option.default === true) {
@@ -57,11 +57,11 @@ function augmentOption(option) {
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
-    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 
   return option;
 }
 
 const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+const root = createApp(App);
+root.mount(container);

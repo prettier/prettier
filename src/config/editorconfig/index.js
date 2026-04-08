@@ -1,11 +1,18 @@
 import path from "node:path";
-import editorconfig from "editorconfig";
+import { parse as parseEditorconfig } from "editorconfig-without-wasm";
 import {
   clearFindProjectRootCache,
   findProjectRoot,
 } from "../find-project-root.js";
 import editorConfigToPrettier from "./editorconfig-to-prettier.js";
 
+/**
+@typedef {ReturnType<editorConfigToPrettier>} EditorConfig
+*/
+
+/**
+@type {Map<string, Promise<EditorConfig>>}
+*/
 const editorconfigCache = new Map();
 
 function clearEditorconfigCache() {
@@ -16,15 +23,15 @@ function clearEditorconfigCache() {
 async function loadEditorconfigInternal(file, { shouldCache }) {
   const directory = path.dirname(file);
   const root = await findProjectRoot(directory, { shouldCache });
-  const editorConfig = await editorconfig.parse(file, { root });
+  const editorConfig = await parseEditorconfig(file, { root });
   const config = editorConfigToPrettier(editorConfig);
   return config;
 }
 
 /**
- * @param {string} file
- * @param {{shouldCache?: boolean}} options
- */
+@param {string} file
+@param {{shouldCache?: boolean}} options
+*/
 function loadEditorconfig(file, { shouldCache }) {
   file = path.resolve(file);
 

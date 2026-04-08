@@ -3,8 +3,7 @@
 exports[`break.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
@@ -41,8 +40,7 @@ export default class AddAssetHtmlPlugin {
 exports[`decorated-function.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Counter = decorator("my-counter")(
   (props: { initialCount?: number; label?: string }) => {
@@ -169,8 +167,7 @@ const Counter = decorator("foo")(
 exports[`edge_case.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var listener = DOM.listen(
   introCard,
@@ -201,8 +198,7 @@ var listener = DOM.listen(
 exports[`forward-ref.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {

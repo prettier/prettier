@@ -1,4 +1,4 @@
-name: Bundler_Friendly
+name: Bundler Friendly
 
 on:
   schedule:
@@ -30,10 +30,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           cache: "yarn"
 
@@ -41,15 +41,15 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist
 
       - name: Install Dependencies
-        run: yarn install --immutable
         working-directory: scripts/tools/bundle-test
+        run: yarn install --immutable
 
       - name: Test
-        run: yarn test
         working-directory: scripts/tools/bundle-test
+        run: yarn test

@@ -1,4 +1,5 @@
 import massageAst from "../../src/main/massage-ast.js";
+import { normalizePrinter } from "../../src/main/parser-and-printer.js";
 
 test("massageAst", () => {
   const nonNodeObject = { foo: "foo" };
@@ -12,17 +13,17 @@ test("massageAst", () => {
   };
 
   const result = massageAst(ast, {
-    printer: {
+    printer: normalizePrinter({
       massageAstNode: Object.assign(() => {}, {
         ignoredProperties: new Set(["ignored"]),
       }),
       getVisitorKeys: () => ["nodeObject"],
-    },
+    }),
   });
 
   expect(result).not.toBe(ast);
   expect(result.ignored).toBeUndefined();
   expect(result.nonNodeObject).toBe(nonNodeObject);
   expect(result.nodeObject).not.toBe(nodeObject);
-  expect(result.nodeObject).toEqual(nodeObject);
+  expect(result.nodeObject).toStrictEqual(nodeObject);
 });

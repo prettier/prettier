@@ -16,3 +16,17 @@
      }
   `}
 </style>;
+
+// #5886
+<style jsx>{`
+  .class {
+    flex-direction: column${long_cond && long_cond && long_cond
+        ? "-reverse"
+        : ""};
+  }
+`}</style>;
+<style jsx>{`
+  .class {
+    flex-direction: column${long_cond && long_cond && long_cond? "-reverse": ""};
+  }
+`}</style>;

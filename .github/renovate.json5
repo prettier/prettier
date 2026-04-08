@@ -3,14 +3,21 @@
   dependencyDashboardApproval: true,
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
-  schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   packageRules: [
     {
-      groupName: "react",
-      matchPackageNames: ["react", "react-dom"],
+      groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
+    },
+    {
+      groupName: "devDependencies",
+      matchDepTypes: ["devDependencies"],
+    },
+    {
+      groupName: "React",
+      matchPackageNames: ["react", "react-dom", "@types/react"],
     },
     {
       groupName: "babel",
@@ -33,7 +40,6 @@
       matchPackageNames: [
         "eslint",
         "@eslint/*",
-        "@eslint-react/eslint-plugin",
         "@stylistic/eslint-plugin",
         "eslint-config-prettier",
         "eslint-plugin-compat",
@@ -46,8 +52,12 @@
       ],
     },
     {
-      groupName: "Angular Estree",
+      groupName: "Angular Estree parser",
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
+    },
+    {
+      groupName: "Acorn and Espree",
+      matchPackageNames: ["acorn", "acorn-jsx", "espree"],
     },
     {
       groupName: "Regex related dependencies",
@@ -58,36 +68,21 @@
       matchPackageNames: ["url-or-path", "search-closest"],
     },
     {
-      branchPrefix: "renovate/website/",
-      matchFileNames: ["website/package.json"],
-      labels: ["dependency:website"],
+      groupName: "Markdown dependencies",
+      matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
     },
     {
-      branchPrefix: "renovate/tools/",
-      matchFileNames: [
-        "scripts/release/package.json",
-        "scripts/tools/bundle-test/package.json",
-        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
-      ],
-      labels: ["dependency:tools"],
-    },
-    {
-      groupName: "GitHub Actions",
-      matchManagers: ["github-actions"],
-    },
-    // Forbid codemirror@6.65.7
-    // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
-    {
-      matchPackageNames: ["codemirror"],
-      allowedVersions: "!/^6\\.65\\.7$/",
-    },
-    {
-      matchPackageNames: ["react", "react-dom"],
-      allowedVersions: "^18.0.0",
-    },
-    {
-      groupName: "docusaurus",
+      groupName: "Docusaurus",
       matchPackageNames: ["@docusaurus/*"],
+    },
+    {
+      groupName: "CodeMirror",
+      matchPackageNames: [
+        "@codemirror/*",
+        "cm6-graphql",
+        "@xiechao/codemirror-lang-handlebars",
+        "@catppuccin/codemirror",
+      ],
     },
   ],
   ignoreDeps: [
@@ -95,5 +90,8 @@
     "collapse-white-space",
     // It will be updated by release script
     "prettier",
+    // Old versions are required to test
+    "node",
   ],
+  ignorePaths: ["tests/**", "packages/**"],
 }

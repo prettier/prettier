@@ -8,34 +8,54 @@
 ## Install
 
 ```bash
-yarn add --dev prettier @prettier/plugin-oxc
+yarn add --dev --exact prettier @prettier/plugin-oxc
 ```
 
 ## Usage
 
 Create or modify your [prettier configuration file](https://prettier.io/docs/en/configuration) to use the plugin:
 
-```yaml
-plugins:
-  - "@prettier/plugin-oxc"
+```js
+// prettier.config.mjs
+import * as prettierPluginOxc from "@prettier/plugin-oxc";
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  plugins: [prettierPluginOxc],
+};
+
+export default config;
 ```
 
-**Requires prettier >= 3.6**
+**Requires prettier>=3.6.0**
 
 Or config explicitly
 
-```yaml
-overrides:
-  - files:
-      - "**/*.{js,mjs,cjs,jsx}"
-    options:
-      plugins:
-        - "@prettier/plugin-oxc"
-      parser: oxc
-  - files:
-      - "**/*.{ts,mts,cts,tsx}"
-    options:
-      plugins:
-        - "@prettier/plugin-oxc"
-      parser: oxc-ts
+```js
+// prettier.config.mjs
+import * as prettierPluginOxc from "@prettier/plugin-oxc";
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  overrides: [
+    {
+      files: ["**/*.{js,mjs,cjs,jsx}"],
+      parser: "oxc",
+      plugins: [prettierPluginOxc],
+    },
+    {
+      files: ["**/*.{ts,mts,cts,tsx}"],
+      parser: "oxc-ts",
+      plugins: [prettierPluginOxc],
+    },
+  ],
+};
+
+export default config;
 ```

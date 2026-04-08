@@ -4,8 +4,7 @@ exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":false} format 1`]
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -39,8 +38,7 @@ exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":false} format 1
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow

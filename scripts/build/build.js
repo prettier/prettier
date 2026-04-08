@@ -3,15 +3,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
-import { DIST_DIR } from "../utils/index.js";
-import packageConfigs from "./config.js";
+import { DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
+import packageConfigs from "./packages/index.js";
 import parseArguments from "./parse-arguments.js";
-
-const { require } = createEsmUtils(import.meta);
 
 const statusConfig = [
   { color: "bgGreen", text: "DONE" },
@@ -47,20 +44,14 @@ const clear = () => {
 
 async function buildFile({ packageConfig, file, cliOptions, results }) {
   const { distDirectory } = packageConfig;
-  let displayName = file.output.file;
-  if (
-    (file.platform === "universal" && file.output.format !== "esm") ||
-    (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
-    file.kind === "types"
-  ) {
-    displayName = ` ${displayName}`;
-  }
+  const displayName = ` ${file.output}`;
+  const fileAbsolutePath = path.join(distDirectory, file.output);
 
   process.stdout.write(fitTerminal(displayName));
 
   if (
-    (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
-    (cliOptions.playground && !file.playground)
+    (cliOptions.playground && !file.playground) ||
+    (cliOptions.files && !cliOptions.files.has(fileAbsolutePath))
   ) {
     console.log(status.SKIPPED);
     return;
@@ -75,14 +66,12 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     throw error;
   }
 
-  result ??= {};
-
-  if (result.skipped) {
+  if (result?.skipped) {
     console.log(status.SKIPPED);
     return;
   }
 
-  const outputFile = cliOptions.saveAs ?? file.output.file;
+  const outputFile = cliOptions.saveAs ?? file.output;
 
   const sizeMessages = [];
   if (cliOptions.printSize) {
@@ -91,9 +80,12 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
   }
 
   if (cliOptions.compareSize) {
-    // TODO: Use `import.meta.resolve` when Node.js support
-    const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
+    const stablePrettierDirectory = path.join(
+      PROJECT_ROOT,
+      `node_modules/${packageConfig.packageName}/`,
+    );
     const stableVersionFile = path.join(stablePrettierDirectory, outputFile);
+
     let stableSize;
     try {
       ({ size: stableSize } = await fs.stat(stableVersionFile));
@@ -171,21 +163,22 @@ async function run() {
     }
 
     console.log(
-      styleText.inverse(
-        `[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
-      ),
+      styleText.blue`[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
     );
 
     const startTime = performance.now();
     const results = [];
-    for (const file of packageConfig.files) {
-      const result = await buildFile({
-        packageConfig,
-        file,
-        cliOptions,
-        results,
-      });
-      results.push(result);
+    for (const module of packageConfig.modules) {
+      console.log(styleText.gray(module.name));
+      for (const file of module.files) {
+        const result = await buildFile({
+          packageConfig,
+          file,
+          cliOptions,
+          results,
+        });
+        results.push(result);
+      }
     }
     console.log(
       `Build package '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,

@@ -1,3 +1,161 @@
+# 3.8.1
+
+[diff](https://github.com/prettier/prettier/compare/3.8.0...3.8.1)
+
+#### Include available `printers` in plugin type declarations ([#18706](https://github.com/prettier/prettier/pull/18706) by [@porada](https://github.com/porada))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+import * as prettierPluginEstree from "prettier/plugins/estree";
+
+// Prettier 3.8.0
+// Property 'printers' does not exist on type 'typeof import("prettier/plugins/estree")'. ts(2339)
+prettierPluginEstree.printers.estree; //=> any
+
+// Prettier 3.8.1
+prettierPluginEstree.printers.estree; //=> Printer
+prettierPluginEstree.printers["estree-json"]; //=> Printer
+```
+
+# 3.8.0
+
+[diff](https://github.com/prettier/prettier/compare/3.7.4...3.8.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2026/01/14/3.8.0)
+
+# 3.7.4
+
+[diff](https://github.com/prettier/prettier/compare/3.7.3...3.7.4)
+
+#### LWC: Avoid quote around interpolations ([#18383](https://github.com/prettier/prettier/pull/18383) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div foo={bar}>   </div>
+
+<!-- Prettier 3.7.3 (--embedded-language-formatting off) -->
+<div foo="{bar}"></div>
+
+<!-- Prettier 3.7.4 (--embedded-language-formatting off) -->
+<div foo={bar}></div>
+```
+
+#### TypeScript: Fix comment inside union type gets duplicated ([#18393](https://github.com/prettier/prettier/pull/18393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Foo = (/** comment */ a | b) | c;
+
+// Prettier 3.7.3
+type Foo = /** comment */ (/** comment */ a | b) | c;
+
+// Prettier 3.7.4
+type Foo = /** comment */ (a | b) | c;
+```
+
+#### TypeScript: Fix unstable comment print in union type comments ([#18395](https://github.com/prettier/prettier/pull/18395) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type X = (A | B) & (
+  // comment
+  A | B
+);
+
+// Prettier 3.7.3 (first format)
+type X = (A | B) &
+  (// comment
+  A | B);
+
+// Prettier 3.7.3 (second format)
+type X = (
+  | A
+  | B // comment
+) &
+  (A | B);
+
+// Prettier 3.7.4
+type X = (A | B) &
+  // comment
+  (A | B);
+```
+
+# 3.7.3
+
+[diff](https://github.com/prettier/prettier/compare/3.7.2...3.7.3)
+
+#### API: Fix `prettier.getFileInfo()` change that breaks VSCode extension ([#18375](https://github.com/prettier/prettier/pull/18375) by [@fisker](https://github.com/fisker))
+
+An internal refactor accidentally broke the VSCode extension plugin loading.
+
+# 3.7.2
+
+[diff](https://github.com/prettier/prettier/compare/3.7.1...3.7.2)
+
+#### JavaScript: Fix string print when switching quotes ([#18351](https://github.com/prettier/prettier/pull/18351) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+console.log("A descriptor\\'s .kind must be \"method\" or \"field\".")
+
+// Prettier 3.7.1
+console.log('A descriptor\\'s .kind must be "method" or "field".');
+
+// Prettier 3.7.2
+console.log('A descriptor\\\'s .kind must be "method" or "field".');
+```
+
+#### JavaScript: Preserve quote for embedded HTML attribute values ([#18352](https://github.com/prettier/prettier/pull/18352) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const html = /* HTML */ ` <div class="${styles.banner}"></div> `;
+
+// Prettier 3.7.1
+const html = /* HTML */ ` <div class=${styles.banner}></div> `;
+
+// Prettier 3.7.2
+const html = /* HTML */ ` <div class="${styles.banner}"></div> `;
+```
+
+#### TypeScript: Fix comment in empty type literal ([#18364](https://github.com/prettier/prettier/pull/18364) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+export type XXX = {
+  // tbd
+};
+
+// Prettier 3.7.1
+export type XXX = { // tbd };
+
+// Prettier 3.7.2
+export type XXX = {
+  // tbd
+};
+```
+
+# 3.7.1
+
+[diff](https://github.com/prettier/prettier/compare/3.7.0...3.7.1)
+
+#### API: Fix performance regression in doc printer ([#18342](https://github.com/prettier/prettier/pull/18342) by [@fisker](https://github.com/fisker))
+
+Prettier 3.7.0 can be very slow when formatting big files, the regression has been fixed.
+
+# 3.7.0
+
+[diff](https://github.com/prettier/prettier/compare/3.6.2...3.7.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/11/27/3.7.0)
+
 # 3.6.2
 
 [diff](https://github.com/prettier/prettier/compare/3.6.1...3.6.2)

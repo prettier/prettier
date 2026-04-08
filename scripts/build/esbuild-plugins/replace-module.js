@@ -159,7 +159,7 @@ function setupOnLoadListener(build, { concepts, replacements, processors }) {
 
     let text = original;
     for (const process of processFunctions) {
-      text = process(text, file);
+      text = await process(text, file);
     }
 
     // For files not JavaScript, we need add correct `loader` to the result,

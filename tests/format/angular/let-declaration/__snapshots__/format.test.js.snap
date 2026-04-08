@@ -3,8 +3,7 @@
 exports[`basic-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let    name   =      'Frodo';
 <h1>Dashboard for {{name}}</h1>
@@ -21,8 +20,7 @@ Hello, {{ name }}
 exports[`basic-02.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <input #name>
 
@@ -43,8 +41,7 @@ printWidth: 80
 exports[`basic-03.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let     topLevel    =   value;
 
@@ -85,8 +82,7 @@ printWidth: 80
 exports[`complex.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let  foo  =     a | b : c:d :e;
 @let    foo   =  a | pipe;
@@ -182,10 +178,13 @@ printWidth: 80
 exports[`valid-from-tokenizer-test.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
-<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+<!--
+from
+https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b
+https://github.com/angular/angular/commit/18a675081f945ed4d7f4c0ee83172ca1528e7b2e
+-->
 
 @let foo = 123 + 456;
 
@@ -216,7 +215,7 @@ foo = 123;
  789
  ;
 
-@block {@let foo = 123 + 456;}
+@defer {@let foo = 123 + 456;}
 
 @let foo = 'a; b';
 @let foo = "';'";
@@ -236,7 +235,11 @@ foo = 123;
 @let foo = fn({a: 1, b: [otherFn([{c: ";"}], 321, {d: [',']})]});
 
 =====================================output=====================================
-<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+<!--
+from
+https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b
+https://github.com/angular/angular/commit/18a675081f945ed4d7f4c0ee83172ca1528e7b2e
+-->
 
 @let foo = 123 + 456;
 
@@ -255,7 +258,7 @@ foo = 123;
 
 @let foo = 123 + 456 + 789;
 
-@block {
+@defer {
   @let foo = 123 + 456;
 }
 

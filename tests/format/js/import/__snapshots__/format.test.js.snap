@@ -4,8 +4,7 @@ exports[`brackets.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {
   runTaskForChanged,
@@ -38,8 +37,7 @@ import {fitsIn, oneLine} from ".";
 exports[`brackets.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {
   runTaskForChanged,
@@ -73,8 +71,7 @@ exports[`comments.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { a //comment1
 //comment2
@@ -177,8 +174,7 @@ import x, {
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { a //comment1
 //comment2
@@ -278,207 +274,11 @@ import x, {
 ================================================================================
 `;
 
-exports[`empty-import.js - {"bracketSpacing":false} format 1`] = `
-====================================options=====================================
-bracketSpacing: false
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import { } from '@types/googlemaps';
-import 'a';
-import /* comment */ 'a';
-import // comment
-'a';
-import { /* comment */ } from 'a';
-import /* comment */ {} from 'a';
-import {} /* comment */ from 'a';
-import {} from /* comment */ 'a';
-import /* comment */ {/* comment */} /* comment */ from /* comment */ 'a';
-import {
-  // comment
-} from 'a';
-import // comment
-{} from 'a';
-import {}
-// comment
-from 'a';
-import {} from
-// comment
-'a';
-import
-// comment
-{
-// comment
-}
-// comment
-from
-// comment
-'a';
-
-import // {} from
-'a';
-import {} from // comment ends with from
-'a';
-import {} from /* comment ends with from */ 'a';
-import {} from // comment not ends with from ___
-'a';
-import {} from /* comment not ends with from ___ */ 'a';
-
-import // comment ends with from
-'a';
-import /* comment ends with from */ 'a';
-import // comment not ends with from ___
-'a';
-import /* comment not ends with from ___ */ 'a';
-
-=====================================output=====================================
-import {} from "@types/googlemaps";
-import "a";
-import /* comment */ "a";
-import // comment
-"a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ /* comment */ /* comment */ /* comment */ "a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-// comment
-// comment
-// comment
-"a";
-
-import // {} from
-"a";
-import {} from // comment ends with from
-"a";
-import {} from /* comment ends with from */ "a";
-import {} from // comment not ends with from ___
-"a";
-import {} from /* comment not ends with from ___ */ "a";
-
-import // comment ends with from
-"a";
-import /* comment ends with from */ "a";
-import // comment not ends with from ___
-"a";
-import /* comment not ends with from ___ */ "a";
-
-================================================================================
-`;
-
-exports[`empty-import.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import { } from '@types/googlemaps';
-import 'a';
-import /* comment */ 'a';
-import // comment
-'a';
-import { /* comment */ } from 'a';
-import /* comment */ {} from 'a';
-import {} /* comment */ from 'a';
-import {} from /* comment */ 'a';
-import /* comment */ {/* comment */} /* comment */ from /* comment */ 'a';
-import {
-  // comment
-} from 'a';
-import // comment
-{} from 'a';
-import {}
-// comment
-from 'a';
-import {} from
-// comment
-'a';
-import
-// comment
-{
-// comment
-}
-// comment
-from
-// comment
-'a';
-
-import // {} from
-'a';
-import {} from // comment ends with from
-'a';
-import {} from /* comment ends with from */ 'a';
-import {} from // comment not ends with from ___
-'a';
-import {} from /* comment not ends with from ___ */ 'a';
-
-import // comment ends with from
-'a';
-import /* comment ends with from */ 'a';
-import // comment not ends with from ___
-'a';
-import /* comment not ends with from ___ */ 'a';
-
-=====================================output=====================================
-import {} from "@types/googlemaps";
-import "a";
-import /* comment */ "a";
-import // comment
-"a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ /* comment */ /* comment */ /* comment */ "a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-"a";
-import {} from // comment
-// comment
-// comment
-// comment
-"a";
-
-import // {} from
-"a";
-import {} from // comment ends with from
-"a";
-import {} from /* comment ends with from */ "a";
-import {} from // comment not ends with from ___
-"a";
-import {} from /* comment not ends with from ___ */ "a";
-
-import // comment ends with from
-"a";
-import /* comment ends with from */ "a";
-import // comment not ends with from ___
-"a";
-import /* comment not ends with from ___ */ "a";
-
-================================================================================
-`;
-
 exports[`inline.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
@@ -502,8 +302,7 @@ import {
 exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
@@ -528,8 +327,7 @@ exports[`long-line.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
@@ -542,8 +340,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 exports[`long-line.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
@@ -557,8 +354,7 @@ exports[`multiple_standalones.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import a, * as b from 'a';
 
@@ -571,8 +367,7 @@ import a, * as b from "a";
 exports[`multiple_standalones.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import a, * as b from 'a';
 
@@ -586,8 +381,7 @@ exports[`same-local-and-imported.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {a} from 'a';
 import {b as b} from 'b';
@@ -604,8 +398,7 @@ import {c as /* comment */ c} from "c";
 exports[`same-local-and-imported.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {a} from 'a';
 import {b as b} from 'b';

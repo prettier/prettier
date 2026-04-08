@@ -3,8 +3,7 @@
 exports[`parameterProperty.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   constructor(public arg: number = 10) {

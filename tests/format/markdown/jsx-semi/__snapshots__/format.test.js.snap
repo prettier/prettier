@@ -3,10 +3,9 @@
 exports[`semi.md - {"semi":false,"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsx
 <div>foo</div>
@@ -33,10 +32,9 @@ const a = 1
 exports[`semi.md - {"semi":true,"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 semi: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsx
 <div>foo</div>

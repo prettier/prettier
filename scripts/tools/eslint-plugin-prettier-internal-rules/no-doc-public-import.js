@@ -95,7 +95,7 @@ export default {
     fixable: "code",
   },
   create(context) {
-    const file = context.getPhysicalFilename();
+    const { physicalFilename: file } = context;
     if (ignored.has(file)) {
       return {};
     }

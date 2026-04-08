@@ -13,7 +13,7 @@ import {
   errors,
   picocolors,
 } from "./prettier-internal.js";
-import { normalizeToPosix, statSafe } from "./utils.js";
+import { normalizeToPosix, statSafe } from "./utilities.js";
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -48,7 +48,7 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
   }
 
   const isParseError = Boolean(error?.loc);
-  const isValidationError = /^Invalid \S+ value\./u.test(error?.message);
+  const isValidationError = /^Invalid \S+ value\./.test(error?.message);
 
   if (isParseError) {
     // `invalid.js: SyntaxError: Unexpected token (1:1)`.

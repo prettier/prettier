@@ -3,9 +3,8 @@
 exports[`0-indent-js.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 1
   - 2
@@ -32,7 +31,6 @@ proseWrap: "always"
 - 1
   - 2
     - 3
-
       \`\`\`js
       md\`
       # this is the root indent
@@ -57,9 +55,8 @@ proseWrap: "always"
 exports[`additional-space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1. Fork the repo and create your branch from \`master\`.
 
@@ -116,9 +113,8 @@ proseWrap: "always"
 exports[`backtick.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`\`\`\`\`\`\`\`
 
@@ -143,9 +139,8 @@ console.log("hello world!");
 exports[`format.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`js
 const foo      = 'bar'
@@ -168,9 +163,8 @@ console.log(213);
 exports[`indent.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
     Indented Code Block
     Indented Code Block
@@ -213,11 +207,11 @@ proseWrap: "always"
 
 <!-- prettier/prettier#3459 -->
 
-1.  Change to your home directory:
+1. Change to your home directory:
 
         cd
 
-2.  List the contents:
+2. List the contents:
 
         ls -l
 
@@ -227,9 +221,8 @@ proseWrap: "always"
 exports[`lang.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`js
 console.log("hello world");
@@ -246,9 +239,8 @@ console.log("hello world");
 exports[`leading-trailing-newlines.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`
 
@@ -273,9 +265,8 @@ proseWrap: "always"
 exports[`mdn-auth-api.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -351,9 +342,8 @@ const createCredentialDefaultArgs = {
 exports[`mdn-background-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -392,9 +382,8 @@ proseWrap: "always"
 exports[`mdn-background-2.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -421,9 +410,8 @@ background-image:
 exports[`mdn-background-3.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -469,9 +457,8 @@ width: 400px;
 exports[`mdn-background-4.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -511,9 +498,8 @@ background-position:
 exports[`mdn-background-5.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -545,9 +531,8 @@ proseWrap: "always"
 exports[`mdn-background-6.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -605,9 +590,8 @@ proseWrap: "always"
 exports[`mdn-background-7.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -685,9 +669,8 @@ rgb(255 255 0 / 50%) 120px,
 exports[`mdn-background-8.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -844,9 +827,8 @@ transparent 69px,
 exports[`mdn-background-9.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -883,9 +865,8 @@ div {
 exports[`mdn-filter-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -920,9 +901,8 @@ img + img {
 exports[`mdn-filter-2.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -951,9 +931,8 @@ border: 1px solid blue;
 exports[`mdn-font-face-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -993,9 +972,8 @@ font-style: normal;
 exports[`mdn-font-face-2.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -1029,9 +1007,8 @@ proseWrap: "always"
 exports[`mdn-grid-auto-columns.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -1063,9 +1040,8 @@ grid-auto-columns: 100px minmax(100px, auto) 10% 0.5fr fit-content(400px);
 exports[`mdn-import.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -1093,9 +1069,8 @@ supports((selector(h2 > p)) and (font-tech(color-COLRv1)));
 exports[`mdn-mask-image.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -1117,9 +1092,8 @@ mask-image:
 exports[`mdn-padding-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -1147,9 +1121,8 @@ body {
 exports[`mdn-padding-2.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -1181,9 +1154,8 @@ p {
 exports[`mdn-transform.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 \`\`\`css
@@ -1224,9 +1196,8 @@ proseWrap: "always"
 exports[`mdn-unicode-range.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -1280,9 +1251,8 @@ U+0152-0153, U+02BB-02BC, U+02C6,
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`
 hello world
@@ -1299,9 +1269,8 @@ hello world
 exports[`ts-trailing-comma.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`ts
 const test = <T,>(value: T) => {};
@@ -1326,9 +1295,8 @@ const test = <T>(value: T) => {};
 exports[`tsx-trailing-comma.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`tsx
 const test = <T,>(value: T) => {};

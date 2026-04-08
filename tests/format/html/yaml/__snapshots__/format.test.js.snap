@@ -3,22 +3,23 @@
 exports[`invalid.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
-    invalid:
-invalid:
+[
+    ! should NOT format !
+because: 
+this is INVALID yaml
 ---
-
-
 
 <html><head></head><body></body></html>
 
 =====================================output=====================================
 ---
-    invalid:
-invalid:
+[
+    ! should NOT format !
+because: 
+this is INVALID yaml
 ---
 
 <html>
@@ -32,8 +33,7 @@ invalid:
 exports[`yaml.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 hello:     world

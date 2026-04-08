@@ -7,19 +7,16 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import pathNeedsParens from "../needs-parens.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  hasLeadingOwnLineComment,
-  isNextLineEmpty,
-} from "../utils/index.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 
 /*
 - `MatchExpression` (Flow)
@@ -112,19 +109,12 @@ export function printMatchPattern(path, options, print) {
     }
     case "MatchBindingPattern":
       return [node.kind, " ", print("id")];
-    case "MatchObjectPattern": {
-      const properties = path.map(print, "properties");
-      if (node.rest) {
-        properties.push(print("rest"));
-      }
-      return group([
-        "{",
-        indent([softline, join([",", line], properties)]),
-        node.rest ? "" : ifBreak(","),
-        softline,
-        "}",
-      ]);
-    }
+    case "MatchObjectPattern":
+    case "MatchInstanceObjectPattern":
+      return printMatchObjectPattern(path, options, print);
+    case "MatchInstancePattern":
+      return group([print("targetConstructor"), " ", print("properties")]);
+
     case "MatchArrayPattern": {
       const elements = path.map(print, "elements");
       if (node.rest) {
@@ -151,6 +141,21 @@ export function printMatchPattern(path, options, print) {
       return parts;
     }
   }
+}
+
+function printMatchObjectPattern(path, options, print) {
+  const { node } = path;
+  const properties = path.map(print, "properties");
+  if (node.rest) {
+    properties.push(print("rest"));
+  }
+  return group([
+    "{",
+    indent([softline, join([",", line], properties)]),
+    node.rest ? "" : ifBreak(","),
+    softline,
+    "}",
+  ]);
 }
 
 const isSimpleMatchPattern = createTypeCheckFunction([
@@ -219,12 +224,12 @@ function printMatchOrPattern(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((patternPath) => {
+  const printed = path.map(() => {
     let printedPattern = print();
     if (!shouldHug) {
       printedPattern = align(2, printedPattern);
     }
-    return printComments(patternPath, printedPattern, options);
+    return printComments(path, printedPattern, options);
   }, "patterns");
 
   if (shouldHug) {
@@ -233,7 +238,7 @@ function printMatchOrPattern(path, options, print) {
 
   const code = [ifBreak(["| "]), join([line, "| "], printed)];
 
-  if (pathNeedsParens(path, options)) {
+  if (needsParentheses(path, options)) {
     return group([indent([ifBreak([softline]), code]), softline]);
   }
 

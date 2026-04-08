@@ -31,7 +31,7 @@ module.exports = {
         return Promise.resolve(
           JSON.stringify({
             ...ast,
-            print: ast.print?.replace(/\s+/gu, " ") ?? "",
+            print: ast.print?.replace(/\s+/g, " ") ?? "",
           }),
         );
       },

@@ -1,6 +1,17 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import createError from "../common/parser-create-error.js";
+import parseFrontMatter from "../main/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
+
+/**
+@import {AST, PreprocessOptions} from "@glimmer/syntax";
+@typedef {AST.SourcePosition & {offset: number}} SourcePosition
+@typedef {{start: SourcePosition, end: SourcePosition}} SourceLocation
+@typedef {Omit<AST.BaseNode, "type" | "loc"> & {
+  type: "FrontMatter",
+  loc: SourceLocation,
+}} GlimmerFrontMatter
+*/
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
@@ -15,7 +26,7 @@ function addBackslash(node) {
         childrenOrBody[i + 1].type === "MustacheStatement"
       ) {
         childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
-          /\\$/u,
+          /\\$/,
           "\\\\",
         );
       }
@@ -51,16 +62,18 @@ const glimmerPrettierParsePlugin = (/* options*/) => ({
   },
 });
 
-/** @type {import("@glimmer/syntax").PreprocessOptions} */
+/** @type {PreprocessOptions} */
 const glimmerParseOptions = {
   mode: "codemod",
   plugins: { ast: [glimmerPrettierParsePlugin] },
 };
 
-function parse(text /*, options */) {
+function parse(text) {
+  const { frontMatter, content: textToParse } = parseFrontMatter(text);
+
   let ast;
   try {
-    ast = parseGlimmer(text, glimmerParseOptions);
+    ast = parseGlimmer(textToParse, glimmerParseOptions);
   } catch (error) {
     const location = getErrorLocation(error);
 
@@ -72,6 +85,26 @@ function parse(text /*, options */) {
 
     /* c8 ignore next */
     throw error;
+  }
+
+  if (frontMatter) {
+    /** @type {GlimmerFrontMatter} */
+    const glimmerFrontMatter = {
+      ...frontMatter,
+      type: "FrontMatter",
+      loc: {
+        start: {
+          ...frontMatter.start,
+          offset: frontMatter.start.index,
+        },
+        end: {
+          ...frontMatter.end,
+          offset: frontMatter.end.index,
+        },
+      },
+    };
+    // @ts-expect-error -- not a real "Node"
+    ast.body.unshift(glimmerFrontMatter);
   }
 
   return ast;
@@ -93,8 +126,8 @@ function getErrorMessage(error) {
   */
   if (
     lines.length >= 4 &&
-    /^Parse error on line \d+:$/u.test(lines[0]) &&
-    /^-*\^$/u.test(lines.at(-2))
+    /^Parse error on line \d+:$/.test(lines[0]) &&
+    /^-*\^$/.test(lines.at(-2))
   ) {
     return lines.at(-1);
   }
@@ -114,8 +147,8 @@ function getErrorMessage(error) {
   */
   if (
     lines.length >= 4 &&
-    /:\s?$/u.test(lines[0]) &&
-    /^\(error occurred in '.*?' @ line \d+ : column \d+\)$/u.test(
+    /:\s?$/.test(lines[0]) &&
+    /^\(error occurred in '.*?' @ line \d+ : column \d+\)$/.test(
       lines.at(-1),
     ) &&
     lines[1] === "" &&

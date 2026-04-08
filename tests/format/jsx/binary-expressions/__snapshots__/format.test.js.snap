@@ -3,8 +3,7 @@
 exports[`relational-operators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (<div />) < 5;
 <div /> > 5;

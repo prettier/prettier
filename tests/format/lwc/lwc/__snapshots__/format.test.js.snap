@@ -3,9 +3,8 @@
 exports[`attributes.html - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div
@@ -41,9 +40,8 @@ semi: false
 exports[`attributes.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div
@@ -79,9 +77,8 @@ trailingComma: "es5"
 exports[`attributes.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div

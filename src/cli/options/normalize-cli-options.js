@@ -1,5 +1,5 @@
 import {
-  leven,
+  closetLevenshteinMatch,
   normalizeOptions,
   picocolors,
   vnopts,
@@ -31,7 +31,9 @@ class FlagSchema extends vnopts.ChoiceSchema {
       value.length > 0 &&
       !this.#flags.includes(value)
     ) {
-      const suggestion = this.#flags.find((flag) => leven(flag, value) < 3);
+      const suggestion = closetLevenshteinMatch(value, this.#flags, {
+        maxDistance: 3,
+      });
       if (suggestion) {
         utils.logger.warn(
           [

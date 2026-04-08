@@ -4,8 +4,7 @@ exports[`vue.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -111,8 +110,7 @@ exports[`vue.html - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -211,8 +209,7 @@ exports[`vue.vue - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -290,8 +287,7 @@ exports[`vue.vue - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>

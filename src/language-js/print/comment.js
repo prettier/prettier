@@ -1,12 +1,20 @@
-import { hardline, join } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
-import { locEnd, locStart } from "../loc.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import isIndentableBlockComment from "../utils/is-indentable-block-comment.js";
-import isLineComment from "../utils/is-line-comment.js";
+import {
+  hardline,
+  literalline,
+  markAsRoot,
+  replaceEndOfLine,
+} from "../../document/index.js";
+import { locEnd, locStart } from "../location/index.js";
+import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
+import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
 
-function printComment(commentPath, options) {
-  const comment = commentPath.node;
+/**
+@import {Doc} from "../../document/index.js"
+@import {Comment} from "../types/estree.js"
+*/
+
+function printComment(path, options) {
+  const comment = path.node;
 
   if (isLineComment(comment)) {
     // Supports `//`, `#!`, `<!--`, and `-->`
@@ -27,19 +35,33 @@ function printComment(commentPath, options) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
+/**
+@param {Comment} comment
+@returns {Doc}
+*/
 function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
+  const isJsdoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [
     "/*",
-    join(
-      hardline,
-      lines.map((line, index) =>
-        index === 0
-          ? line.trimEnd()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart()),
-      ),
-    ),
+    lines.map((line, index) => {
+      if (index === 0) {
+        return [line.trimEnd(), hardline];
+      }
+
+      if (index === lines.length - 1) {
+        return [" ", line.trimStart()];
+      }
+
+      const trimmed = line.trim();
+      const content = [" ", trimmed];
+      if (isJsdoc && trimmed !== "*" && line.endsWith("  ")) {
+        return [content, "  ", markAsRoot(literalline)];
+      }
+
+      return [content, hardline];
+    }),
     "*/",
   ];
 }

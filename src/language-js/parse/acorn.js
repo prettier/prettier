@@ -1,16 +1,19 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
   SOURCE_TYPE_MODULE,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
-/** @import {Options} from "acorn" */
+/**
+@import {Options} from "acorn"
+@import {SOURCE_TYPE_COMMONJS} from "./utilities/source-types.js"
+*/
 
 /** @type {Options} */
 const parseOptions = {
@@ -40,7 +43,7 @@ function createParseError(error) {
 
   const { line, column } = loc;
 
-  return createError(message.replace(/ \(\d+:\d+\)$/u, ""), {
+  return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
     loc: {
       start: { line, column: column + 1 },
     },
@@ -55,6 +58,10 @@ const getParser = () => {
   return parser;
 };
 
+/**
+@param {string} text
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS | undefined} sourceType
+*/
 function parseWithOptions(text, sourceType) {
   const parser = getParser();
 
@@ -81,7 +88,7 @@ function parse(text, options) {
 
   let ast;
   try {
-    ast = tryCombinations(combinations);
+    ast = tryCombinationsSync(combinations);
   } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
@@ -89,4 +96,4 @@ function parse(text, options) {
   return postprocess(ast, { text });
 }
 
-export const acorn = createParser(parse);
+export const acorn = /* @__PURE__ */ createParser(parse);

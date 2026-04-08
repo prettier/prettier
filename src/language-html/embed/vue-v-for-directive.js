@@ -1,10 +1,10 @@
-import { group } from "../../document/builders.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
-import { formatAttributeValue } from "./utils.js";
+import { group } from "../../document/index.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescript-script.js";
+import { formatAttributeValue } from "./utilities.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**
@@ -38,17 +38,16 @@ async function printVueVForDirective(textToDoc, print, path, options) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueVForDirective(value) {
-  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/su;
-  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/u;
-  const stripParensRE = /^\(|\)$/gu;
+  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
+  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
+  const stripParensRE = /^\(|\)$/g;
 
   const inMatch = value.match(forAliasRE);
   if (!inMatch) {
     return;
   }
 
-  const res = {};
-  res.for = inMatch[3].trim();
+  const res = { for: inMatch[3].trim() };
   if (!res.for) {
     return;
   }

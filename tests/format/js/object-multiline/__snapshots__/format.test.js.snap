@@ -4,8 +4,7 @@ exports[`multiline.js - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   name1: 'value1',
@@ -42,8 +41,7 @@ const e = { name1: "value1", name2: "value2" };
 exports[`multiline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = {
   name1: 'value1',

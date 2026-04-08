@@ -8,7 +8,7 @@ import {
   line,
   lineSuffix,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
@@ -37,12 +37,19 @@ import {
   isSCSSControlDirectiveNode,
   isSubtractionNode,
   isWordNode,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {(...args: *[]) => Doc} print
+ * @returns {Doc}
+ */
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
@@ -102,19 +109,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
         parts.push([parts.pop(), " "]);
       }
       continue;
-    }
-
-    // Align key after comment in SCSS map
-    if (
-      isColonNode(iNextNode) &&
-      iNode.type === "value-word" &&
-      parts.length > 2 &&
-      node.groups
-        .slice(0, i)
-        .every((group) => group.type === "value-comment") &&
-      !isInlineValueCommentNode(iPrevNode)
-    ) {
-      parts[parts.length - 2] = dedent(parts.at(-2));
     }
 
     // Ignore SCSS @forward wildcard suffix
@@ -191,9 +185,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNode.type === "value-atword" &&
       (iNode.value === "" ||
         /*
-            @var[ @notVarNested ][notVar]
-            ^^^^^
-            */
+        @var[ @notVarNested ][notVar]
+        ^^^^^
+        */
         iNode.value.endsWith("["))
     ) {
       continue;
@@ -210,6 +204,38 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
     if (iNode.value === "~") {
       continue;
+    }
+
+    // Less property/variable lookup
+    // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
+    if (options.parser === "less") {
+      // `var [@result]`
+      //      ^
+      if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
+        continue;
+      }
+
+      // `var[ @result]`
+      //     ^
+      // `@var [ @@foo ] [ bar ]`
+      //                 ^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "[" &&
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
+      ) {
+        continue;
+      }
+
+      // `@var [ @@foo ][ bar ]`
+      //               ^^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "][" &&
+        iNextNode?.type === "value-word"
+      ) {
+        continue;
+      }
     }
 
     // Ignore escape `\`
@@ -305,17 +331,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isColorAdjusterFuncNode(parentParentNode) &&
       !hasEmptyRawBefore(iNextNode);
 
-    const requireSpaceBeforeOperator =
-      iNextNextNode?.type === "value-func" ||
-      (iNextNextNode && isWordNode(iNextNextNode)) ||
-      iNode.type === "value-func" ||
-      isWordNode(iNode);
-    const requireSpaceAfterOperator =
-      iNextNode.type === "value-func" ||
-      isWordNode(iNextNode) ||
-      iPrevNode?.type === "value-func" ||
-      (iPrevNode && isWordNode(iPrevNode));
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -327,6 +342,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       parts.push([parts.pop(), " "]);
       continue;
     }
+
+    const requireSpaceBeforeOperator =
+      iNextNextNode?.type === "value-func" ||
+      (iNextNextNode && isWordNode(iNextNextNode)) ||
+      iNode.type === "value-func" ||
+      isWordNode(iNode);
+    const requireSpaceAfterOperator =
+      iNextNode.type === "value-func" ||
+      isWordNode(iNextNode) ||
+      iPrevNode?.type === "value-func" ||
+      (iPrevNode && isWordNode(iPrevNode));
 
     // Formatting `/`, `+`, `-` sign
     if (
@@ -409,6 +435,28 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Formatting `font` property
+    if (
+      declAncestorProp &&
+      (declAncestorProp === "font" || declAncestorProp.startsWith("--"))
+    ) {
+      if (
+        isDivisionNode(iNextNode) &&
+        hasEmptyRawBefore(iNextNode) &&
+        isPossibleFontSize(iNode)
+      ) {
+        continue;
+      }
+
+      if (
+        isDivisionNode(iNode) &&
+        hasEmptyRawBefore(iNode) &&
+        isPossibleFontSize(iPrevNode)
+      ) {
+        continue;
+      }
+    }
+
     // Add `space` before next math operation
     // Note: `grip` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
@@ -458,6 +506,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // align value after block comment
+    if (
+      !atRuleAncestorNode &&
+      iNode.type === "value-comment" &&
+      !iNode.inline &&
+      node.groups.slice(0, i).every((group) => group.type === "value-comment")
+    ) {
+      parts.push(dedent(line), "");
+      continue;
+    }
+
     // Be default all values go through `line`
     parts.push(line, "");
   }
@@ -483,6 +542,26 @@ function printCommaSeparatedValueGroup(path, options, print) {
   }
 
   return group(indent(fill(parts)));
+}
+
+function isPossibleFontSize(node) {
+  if (node?.type === "value-number") {
+    return true;
+  }
+
+  if (node?.type !== "value-func") {
+    return false;
+  }
+
+  const value = node.value.toLowerCase();
+  return (
+    value === "var" ||
+    value === "calc" ||
+    value === "min" ||
+    value === "max" ||
+    value === "clamp" ||
+    value.startsWith("--")
+  );
 }
 
 export default printCommaSeparatedValueGroup;

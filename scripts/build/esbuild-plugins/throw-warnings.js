@@ -71,7 +71,10 @@ const logOverride = Object.fromEntries(
 export default function esbuildPluginThrowWarnings({
   allowDynamicRequire,
   allowDynamicImport,
+  allowedWarnings,
 }) {
+  allowedWarnings = new Set(allowedWarnings);
+
   return {
     name: "throw-warnings",
     setup(build) {
@@ -87,6 +90,10 @@ export default function esbuildPluginThrowWarnings({
         }
 
         for (const warning of result.warnings) {
+          if (allowedWarnings.has(warning.id)) {
+            continue;
+          }
+
           if (
             allowDynamicRequire &&
             ["unsupported-require-call", "indirect-require"].includes(

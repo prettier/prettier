@@ -1,5 +1,5 @@
 import * as linguistLanguages from "linguist-languages";
-import createLanguage from "../utils/create-language.js";
+import createLanguage from "../utilities/create-language.js";
 
 const languages = [
   createLanguage(linguistLanguages.JavaScript, (data) => ({
@@ -66,7 +66,6 @@ const languages = [
     aceMode: "javascript",
     codemirrorMode: "jsx",
     codemirrorMimeType: "text/jsx",
-    color: undefined,
   })),
   createLanguage(linguistLanguages.TypeScript, () => ({
     parsers: ["typescript", "babel-ts"],

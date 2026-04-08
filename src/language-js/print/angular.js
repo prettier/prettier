@@ -1,11 +1,7 @@
-import { group, join, line } from "../../document/builders.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import {
-  createTypeCheckFunction,
-  getComments,
-  hasComment,
-  hasNode,
-} from "../utils/index.js";
+import { group, join, line } from "../../document/index.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { hasNode } from "../utilities/has-node.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
@@ -20,12 +16,7 @@ function printAngular(path, options, print) {
 
   switch (node.type) {
     case "NGRoot":
-      return [
-        print("node"),
-        hasComment(node.node)
-          ? " //" + getComments(node.node)[0].value.trimEnd()
-          : "",
-      ];
+      return print("node");
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "NGChainedExpression":
@@ -49,7 +40,7 @@ function printAngular(path, options, print) {
         "body",
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/iu.test(node.name)
+      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
         ? node.name
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":

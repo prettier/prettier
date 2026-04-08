@@ -3,8 +3,8 @@ import prettier from "../../config/prettier-entry.js";
 
 test("API resolveConfigFile", async () => {
   const result = await prettier.resolveConfigFile();
-  expect(result).toEqual(
-    url.fileURLToPath(new URL("../../../.prettierrc", import.meta.url)),
+  expect(result).toBe(
+    url.fileURLToPath(new URL("../../../prettier.config.js", import.meta.url)),
   );
 });
 
@@ -19,7 +19,7 @@ test("API resolveConfigFile accepts path or URL", async () => {
   const resultByPath = await prettier.resolveConfigFile(
     url.fileURLToPath(fileUrl),
   );
-  expect(resultByUrl).toEqual(expectedConfigFilePath);
-  expect(resultByUrlHref).toEqual(expectedConfigFilePath);
-  expect(resultByPath).toEqual(expectedConfigFilePath);
+  expect(resultByUrl).toBe(expectedConfigFilePath);
+  expect(resultByUrlHref).toBe(expectedConfigFilePath);
+  expect(resultByPath).toBe(expectedConfigFilePath);
 });

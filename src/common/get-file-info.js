@@ -1,7 +1,7 @@
 import { resolveConfig } from "../config/resolve-config.js";
 import { loadBuiltinPlugins, loadPlugins } from "../main/plugins/index.js";
-import { isIgnored } from "../utils/ignore.js";
-import inferParser from "../utils/infer-parser.js";
+import { isIgnored } from "../utilities/ignore.js";
+import inferParser from "../utilities/infer-parser.js";
 
 /**
  * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
@@ -55,6 +55,10 @@ async function getParser(file, options) {
   }
 
   let plugins = options.plugins ?? config?.plugins ?? [];
+
+  // We should wrap this function with `withPlugins` and use `options.plugins` directly instead of loading plugins here
+  // See #18375 #18081
+  // But somehow it breaks VSCode extension, see #18353
   plugins = (
     await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])
   ).flat();

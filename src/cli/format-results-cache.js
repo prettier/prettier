@@ -5,7 +5,7 @@ import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
-import { createHash } from "./utils.js";
+import { createHash } from "./utilities.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
@@ -36,7 +36,6 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 class FormatResultsCache {
-  #useChecksum;
   #fileEntryCache;
 
   /**
@@ -45,11 +44,16 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
+    const fileEntryCacheOptions = {
+      useChecksum,
+      useModifiedTime: !useChecksum,
+      restrictAccessToCwd: false,
+    };
 
     try {
       this.#fileEntryCache = fileEntryCache.createFromFile(
         /* filePath */ cacheFileLocation,
-        useChecksum,
+        fileEntryCacheOptions,
       );
     } catch {
       // https://github.com/prettier/prettier/issues/17092
@@ -60,12 +64,10 @@ class FormatResultsCache {
         // retry
         this.#fileEntryCache = fileEntryCache.createFromFile(
           /* filePath */ cacheFileLocation,
-          useChecksum,
+          fileEntryCacheOptions,
         );
       }
     }
-
-    this.#useChecksum = useChecksum;
   }
 
   /**
@@ -107,9 +109,7 @@ class FormatResultsCache {
   }
 
   #getFileDescriptor(filePath) {
-    return this.#fileEntryCache.getFileDescriptor(filePath, {
-      useModifiedTime: !this.#useChecksum,
-    });
+    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 

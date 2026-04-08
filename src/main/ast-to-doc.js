@@ -1,6 +1,8 @@
 import AstPath from "../common/ast-path.js";
-import { cursor } from "../document/builders.js";
-import { inheritLabel } from "../document/utils.js";
+import { commentsPropertyInOptions } from "../constants.js";
+import { cursor, inheritLabel } from "../document/index.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import isObject from "../utilities/is-object.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -83,8 +85,7 @@ async function printAstToDoc(ast, options) {
       return "";
     }
 
-    const shouldCache =
-      value && typeof value === "object" && args === undefined;
+    const shouldCache = isObject(value) && args === undefined;
 
     if (shouldCache && cache.has(value)) {
       return cache.get(value);
@@ -108,7 +109,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore?.(path)) {
-    doc = printIgnored(path, options);
+    doc = printIgnored(path, options, printPath, args);
   } else if (embeds.has(node)) {
     doc = embeds.get(node);
   } else {
@@ -131,8 +132,8 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   // UnionTypeAnnotation has to align the child without the comments
   if (
     printer.printComment &&
-    (!printer.willPrintOwnComments ||
-      !printer.willPrintOwnComments(path, options))
+    isNonEmptyArray(node.comments) &&
+    !printer.willPrintOwnComments?.(path, options)
   ) {
     // printComments will call the plugin print function and check for
     // comments to print
@@ -144,7 +145,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
-  options[Symbol.for("comments")] = comments;
+  options[commentsPropertyInOptions] = comments;
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 

@@ -1,4 +1,5 @@
-import snapshotDiff from "snapshot-diff";
+import { createTwoFilesPatch } from "diff";
+
 test("show external options with `--help`", async () => {
   const originalStdout = await runCli("plugins/options", ["--help"]).stdout;
   const pluggedStdout = await runCli("plugins/options", [
@@ -6,7 +7,14 @@ test("show external options with `--help`", async () => {
     "--plugin=./plugin.cjs",
   ]).stdout;
 
-  expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
+  expect(
+    createTwoFilesPatch(
+      "Without plugin",
+      "With plugin",
+      originalStdout,
+      pluggedStdout,
+    ),
+  ).toMatchSnapshot();
 });
 
 describe("show detailed external option with `--help foo-option`", () => {

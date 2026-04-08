@@ -3,9 +3,8 @@
 exports[`test.jsonc - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   "Object keys should always quoted!",
@@ -28,9 +27,8 @@ quoteProps: "as-needed"
 exports[`test.jsonc - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   "Object keys should always quoted!",
@@ -53,9 +51,8 @@ quoteProps: "consistent"
 exports[`test.jsonc - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   "Object keys should always quoted!",

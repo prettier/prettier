@@ -1,22 +1,25 @@
+import { commentsPropertyInOptions } from "../../constants.js";
 import {
   breakParent,
   hardline,
   indent,
+  inheritLabel,
   join,
   line,
   lineSuffix,
-} from "../../document/builders.js";
-import { inheritLabel } from "../../document/utils.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
-import { skipSpaces } from "../../utils/skip.js";
-import skipNewline from "../../utils/skip-newline.js";
+} from "../../document/index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isPreviousLineEmpty from "../../utilities/is-previous-line-empty.js";
+import { skipSpaces } from "../../utilities/skip.js";
+import skipNewline from "../../utilities/skip-newline.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc, HardLine, Line} from "../../document/index.js"
+@typedef {{
+  filter?: (comment) => boolean,
+}} CommentPrintOptions
+*/
 
 const returnTrue = () => true;
 
@@ -36,13 +39,15 @@ function printLeadingComment(path, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const lineBreak = hasNewline(originalText, locEnd(comment))
-      ? hasNewline(originalText, locStart(comment), {
-          backwards: true,
-        })
-        ? hardline
-        : line
-      : " ";
+    /** @type {HardLine | Line | " "} */
+    let lineBreak = " ";
+    if (hasNewline(originalText, locEnd(comment))) {
+      if (hasNewline(originalText, locStart(comment), { backwards: true })) {
+        lineBreak = hardline;
+      } else {
+        lineBreak = line;
+      }
+    }
 
     parts.push(lineBreak);
   } else {
@@ -109,10 +114,9 @@ function printTrailingComment(path, options, previousComment) {
 
 /**
  * @param {AstPath} path
- * @param {{
+ * @param {CommentPrintOptions & {
  *  indent?: boolean,
- *  marker?: symbol,
- *  filter?: (comment) => boolean,
+ *  marker?: symbol | string,
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
@@ -121,91 +125,138 @@ function printDanglingComments(
   options,
   danglingCommentsPrintOptions = {},
 ) {
-  const { node } = path;
-
-  if (!isNonEmptyArray(node?.comments)) {
-    return "";
-  }
-
   const {
     indent: shouldIndent = false,
     marker,
     filter = returnTrue,
   } = danglingCommentsPrintOptions;
+  const danglingComments = new Set(
+    path.node?.comments?.filter(
+      (comment) =>
+        !(
+          comment.leading ||
+          comment.trailing ||
+          comment.marker !== marker ||
+          !filter(comment)
+        ),
+    ),
+  );
 
-  const parts = [];
-  path.each(({ node: comment }) => {
-    if (
-      comment.leading ||
-      comment.trailing ||
-      comment.marker !== marker ||
-      !filter(comment)
-    ) {
-      return;
-    }
-
-    parts.push(printComment(path, options));
-  }, "comments");
-
-  if (parts.length === 0) {
+  if (danglingComments.size === 0) {
     return "";
   }
+
+  const parts = path
+    .map(
+      ({ node: comment }) =>
+        danglingComments.has(comment) ? printComment(path, options) : "",
+      "comments",
+    )
+    .filter(Boolean);
 
   const doc = join(hardline, parts);
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
-function printCommentsSeparately(path, options) {
-  const value = path.node;
-  if (!value) {
-    return {};
-  }
-
-  const ignored = options[Symbol.for("printedComments")];
-  const comments = (value.comments || []).filter(
-    (comment) => !ignored.has(comment),
+/**
+@param {AstPath} path
+@param {CommentPrintOptions} [printOptions]
+@returns {Doc}
+*/
+function printLeadingComments(path, options, printOptions) {
+  const printed = options[Symbol.for("printedComments")];
+  const filter = printOptions?.filter ?? returnTrue;
+  const leadingComments = new Set(
+    path.node?.comments?.filter(
+      (comment) => !printed?.has(comment) && comment.leading && filter(comment),
+    ),
   );
 
-  if (comments.length === 0) {
-    return { leading: "", trailing: "" };
+  if (leadingComments.size === 0) {
+    return "";
   }
 
-  const leadingParts = [];
-  const trailingParts = [];
+  return path
+    .map(
+      ({ node: comment }) =>
+        leadingComments.has(comment) ? printLeadingComment(path, options) : "",
+      "comments",
+    )
+    .filter(Boolean);
+}
+
+/**
+@param {AstPath} path
+@param {CommentPrintOptions} [printOptions]
+@returns {Doc}
+*/
+function printTrailingComments(path, options, printOptions) {
+  const comments = path.node?.comments;
+  const trailingComments = new Set(
+    comments?.filter((comment) => comment.trailing),
+  );
+  const printed = options[Symbol.for("printedComments")];
+  const filter = printOptions?.filter ?? returnTrue;
+  const commentsShouldPrint = new Set(
+    comments?.filter(
+      (comment) =>
+        trailingComments.has(comment) &&
+        !printed?.has(comment) &&
+        filter(comment),
+    ),
+  );
+
+  if (commentsShouldPrint.size === 0) {
+    return "";
+  }
+
+  const docs = [];
   let printedTrailingComment;
-  path.each(() => {
-    const comment = path.node;
-    if (ignored?.has(comment)) {
+  path.each(({ node: comment }) => {
+    if (!trailingComments.has(comment)) {
       return;
     }
 
-    const { leading, trailing } = comment;
-    if (leading) {
-      leadingParts.push(printLeadingComment(path, options));
-    } else if (trailing) {
-      printedTrailingComment = printTrailingComment(
-        path,
-        options,
-        printedTrailingComment,
-      );
-      trailingParts.push(printedTrailingComment.doc);
+    printedTrailingComment = printTrailingComment(
+      path,
+      options,
+      printedTrailingComment,
+    );
+
+    if (commentsShouldPrint.has(comment)) {
+      docs.push(printedTrailingComment.doc);
     }
   }, "comments");
 
-  return { leading: leadingParts, trailing: trailingParts };
+  return docs;
 }
 
-function printComments(path, doc, options) {
-  const { leading, trailing } = printCommentsSeparately(path, options);
-  if (!leading && !trailing) {
-    return doc;
-  }
-  return inheritLabel(doc, (doc) => [leading, doc, trailing]);
+/**
+@param {CommentPrintOptions} [printOptions]
+@returns {{leading: Doc, trailing: Doc}}
+*/
+function printCommentsSeparately(path, options, printOptions) {
+  return {
+    leading: printLeadingComments(path, options, printOptions),
+    trailing: printTrailingComments(path, options, printOptions),
+  };
+}
+
+/**
+@param {CommentPrintOptions} [printOptions]
+@returns {Doc}
+*/
+function printComments(path, doc, options, printOptions) {
+  const leading = printLeadingComments(path, options, printOptions);
+  const trailing = printTrailingComments(path, options, printOptions);
+  return leading || trailing
+    ? inheritLabel(doc, (doc) => [leading, doc, trailing])
+    : doc;
 }
 
 function ensureAllCommentsPrinted(options) {
   const {
-    [Symbol.for("comments")]: comments,
+    [commentsPropertyInOptions]: comments,
     [Symbol.for("printedComments")]: printedComments,
   } = options;
 
@@ -226,4 +277,5 @@ export {
   printComments,
   printCommentsSeparately,
   printDanglingComments,
+  printLeadingComments,
 };

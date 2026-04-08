@@ -4,8 +4,7 @@ exports[`17227.md format 1`] = `
 ====================================options=====================================
 cursorOffset: 1
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #<|> Angular note
 

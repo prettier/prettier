@@ -13,5 +13,5 @@ export const {
   fastGlob,
   createTwoFilesPatch,
   picocolors,
-  leven,
+  closetLevenshteinMatch,
 } = sharedWithCli;

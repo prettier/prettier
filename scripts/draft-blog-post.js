@@ -12,7 +12,7 @@ import {
   getEntries,
   printEntries,
   replaceVersions,
-} from "./utils/changelog.js";
+} from "./utilities/changelog.js";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
@@ -34,7 +34,7 @@ const nextVersion = `${semver.major(version)}.${semver.minor(
 const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
   blogDir,
-  `${new Date().toISOString().replace(/T.+/u, "")}-${nextVersion}.md`,
+  `${new Date().toISOString().replace(/T.+/, "")}-${nextVersion}.md`,
 );
 
 const categoriesByDir = new Map(

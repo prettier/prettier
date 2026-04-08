@@ -74,7 +74,7 @@ describe("log-level should not effect information print", () => {
       argv: ["--file-info", "any-js-file.js"],
       assertOptions: {
         stdout(value) {
-          expect(JSON.parse(value)).toEqual({
+          expect(JSON.parse(value)).toStrictEqual({
             ignored: false,
             inferredParser: "babel",
           });
@@ -128,6 +128,6 @@ async function runCliWithLogLevel(logLevel, patterns) {
       expect(stderr).toMatch(pattern);
     }
   } else {
-    expect(stderr).toMatch(/^\s*$/u);
+    expect(stderr).toMatch(/^\s*$/);
   }
 }

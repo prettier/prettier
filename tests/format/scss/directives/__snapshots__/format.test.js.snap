@@ -3,9 +3,8 @@
 exports[`3021.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @warn "Warn (#{$message}).";
 @warn  "Warn (#{$message}).";
@@ -43,9 +42,8 @@ trailingComma: "es5"
 exports[`3021.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @warn "Warn (#{$message}).";
 @warn  "Warn (#{$message}).";
@@ -83,9 +81,8 @@ trailingComma: "none"
 exports[`directives.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @qux .foo
 // .bar 
@@ -104,9 +101,8 @@ trailingComma: "es5"
 exports[`directives.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @qux .foo
 // .bar 

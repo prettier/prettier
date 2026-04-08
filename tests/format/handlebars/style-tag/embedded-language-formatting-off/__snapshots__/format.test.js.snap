@@ -4,8 +4,7 @@ exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 <div>
@@ -25,17 +24,16 @@ printWidth: 80
 
 =====================================output=====================================
 <div>
-  <style
-  >
-    .a {
+  <style>
+        .a {
 
 
 
-      color: red;
-    }
-              .b { color:     blue
+          color: red;
+        }
+                  .b { color:     blue
 
-};
+    };
   </style>
 </div>
 ================================================================================

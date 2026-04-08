@@ -3,8 +3,7 @@
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = {
   method(
@@ -27,8 +26,7 @@ type Foo = {
 exports[`consistent-breaking.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo1 {
   flowParseFunctionTypeParams(
@@ -84,8 +82,7 @@ type Foo2 = {
 exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = { method: () => void };
 type T2 = { method(): void };

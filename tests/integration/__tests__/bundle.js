@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { inspect } from "node:util";
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import prettier from "../../config/prettier-entry.js";
-import createSandBox from "../../config/utils/create-sandbox.cjs";
+import createSandBox from "../../config/utilities/create-sandbox.cjs";
 import { projectRoot } from "../env.js";
 
 const { require, importModule } = createEsmUtils(import.meta);
@@ -70,6 +71,122 @@ describe("standalone", () => {
       expect(esmOutput).toBe(umdOutput);
     });
   }
+
+  const printerVisitorKeysSettings = new Map([
+    [
+      "estree",
+      {
+        sharedVisitorKeys: true,
+        nodes: [
+          { type: "FunctionDeclaration" },
+          { type: "FunctionExpression" },
+        ],
+      },
+    ],
+    [
+      "estree-json",
+      {
+        sharedVisitorKeys: false,
+        nodes: [{ type: "StringLiteral" }, { type: "Identifier" }],
+      },
+    ],
+    [
+      "glimmer",
+      {
+        sharedVisitorKeys: false,
+        nodes: [
+          { type: "MustacheStatement" },
+          { type: "ElementModifierStatement" },
+        ],
+      },
+    ],
+    [
+      "graphql",
+      {
+        sharedVisitorKeys: false,
+        nodes: [
+          { kind: "ObjectTypeExtension" },
+          { kind: "InterfaceTypeExtension" },
+        ],
+      },
+    ],
+    [
+      "html",
+      {
+        sharedVisitorKeys: true,
+        nodes: [{ kind: "interpolation" }, { kind: "ieConditionalComment" }],
+      },
+    ],
+    [
+      "mdast",
+      {
+        sharedVisitorKeys: true,
+        nodes: [{ type: "table" }, { type: "tableCell" }],
+      },
+    ],
+    [
+      "postcss",
+      {
+        sharedVisitorKeys: true,
+        nodes: [{ type: "media-query-list" }, { type: "selector-pseudo" }],
+      },
+    ],
+    [
+      "yaml",
+      {
+        sharedVisitorKeys: true,
+        nodes: [{ type: "blockLiteral" }, { type: "quoteSingle" }],
+      },
+    ],
+  ]);
+
+  test("visitor keys with shared reference", () => {
+    for (const [name, printer] of esmPlugins.flatMap((plugin) =>
+      Object.entries(plugin.printers ?? {}),
+    )) {
+      test(name, () => {
+        try {
+          expect(printerVisitorKeysSettings.has(name)).toBe(true);
+        } catch {
+          throw new Error(`Missing settings for printer '${name}'.`);
+        }
+        const { getVisitorKeys } = printer;
+        expect(typeof getVisitorKeys).toBe("function");
+        const { sharedVisitorKeys, nodes } =
+          printerVisitorKeysSettings.get(name);
+        expect(
+          typeof sharedVisitorKeys === "boolean" &&
+            Array.isArray(nodes) &&
+            nodes.length > 1,
+        ).toBe(true);
+        const keys = nodes.map((node) => getVisitorKeys(node));
+
+        try {
+          expect(keys.every((keys) => Array.isArray(keys))).toBe(true);
+        } catch {
+          throw new Error(
+            `Missing visitor keys for '${name}' nodes: ${inspect(nodes)}.`,
+          );
+        }
+        const [firstNodeKeys, ...restNodeKeys] = keys;
+        if (sharedVisitorKeys) {
+          // Should be same reference
+          expect(restNodeKeys.every((keys) => keys === firstNodeKeys)).toBe(
+            true,
+          );
+        } else {
+          // Should be same, but not same reference
+          expect(
+            restNodeKeys.every(
+              (keys) =>
+                keys !== firstNodeKeys &&
+                JSON.stringify(keys) === JSON.stringify(firstNodeKeys),
+            ),
+          ).toBe(true);
+        }
+      });
+    }
+  });
 });
 
 test("global objects", async () => {
@@ -100,24 +217,24 @@ test("Commonjs version", () => {
     path.join(distDirectory, "index.cjs"),
   );
 
-  expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
+  expect(Object.keys(prettierCommonjsVersion).sort()).toStrictEqual(
     Object.keys(prettier)
       .filter((key) => key !== "default" && key !== "__internal")
       .sort(),
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.doc)).toStrictEqual(
     Object.keys(prettier.doc).filter((key) => key !== "default"),
   );
   expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.util)).toStrictEqual(
     Object.keys(prettier.util),
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toStrictEqual(
     Object.keys(prettier.__debug)
       .filter((key) => key !== "mockable")
       .sort(),

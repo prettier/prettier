@@ -1,6 +1,6 @@
-runFormatTest(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["oxc", "typescript", "hermes"], {
   errors: {
-    acorn: [
+    "babel-ts": [
       "empty.js",
       "multi-types.js",
       "static-import.js",
@@ -9,16 +9,7 @@ runFormatTest(import.meta, ["babel", "typescript"], {
       "non-type.js",
       "keyword-detect.js",
     ],
-    espree: [
-      "empty.js",
-      "multi-types.js",
-      "static-import.js",
-      "re-export.js",
-      "without-from.js",
-      "non-type.js",
-      "keyword-detect.js",
-    ],
-    meriyah: [
+    hermes: [
       "empty.js",
       "multi-types.js",
       "static-import.js",

@@ -142,8 +142,6 @@ singleQuote = true
 
 Overrides let you have different configuration for certain file extensions, folders and specific files.
 
-Prettier borrows ESLint’s [override format](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work).
-
 JSON:
 
 ```json
@@ -219,11 +217,17 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: [https://json.schemastore.org/prettierrc](https://json.schemastore.org/prettierrc).
+If you’d like a JSON schema to validate your configuration, one is available here: [https://www.schemastore.org/prettierrc.json](https://www.schemastore.org/prettierrc.json).
 
 ## EditorConfig
 
 If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+
+:::note
+
+Unlike the EditorConfig spec, the search for `.editorconfig` file will stop on the project root and won't proceed further.
+
+:::
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 

@@ -3,8 +3,7 @@
 exports[`async-iteration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 async function * a() {
@@ -34,8 +33,7 @@ class X {
 exports[`async-shorthand-method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ({
   async get() {},
@@ -54,8 +52,7 @@ printWidth: 80
 exports[`await-parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f1() { (await f()).length }
 async function g() {
@@ -98,8 +95,7 @@ async () => {
 exports[`conditional-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
@@ -136,8 +132,7 @@ async function f2() {
 exports[`exponentiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async () => (await 5) ** 6;
 
@@ -150,8 +145,7 @@ async () => (await 5) ** 6;
 exports[`inline-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
@@ -174,8 +168,7 @@ async function f() {
 exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getAccountCount = async () =>
   (await
@@ -201,8 +194,7 @@ const getAccountCount = async () =>
 exports[`nested2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
 await Promise.all(
@@ -226,8 +218,7 @@ async function f() {
 exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function *f(){ await (yield x); }
 
@@ -248,8 +239,7 @@ async function f2() {
 exports[`simple-nested-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   const a = await (await request()).json();

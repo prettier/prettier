@@ -218,6 +218,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
+    "display": "inline",
+    "tagName": "fencedframe",
+    "whiteSpace": "normal",
+  },
+  {
     "display": "block",
     "tagName": "fieldset",
     "whiteSpace": "normal",
@@ -255,6 +260,11 @@ exports[`htmlTagNames 1`] = `
   {
     "display": "inline",
     "tagName": "frameset",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "geolocation",
     "whiteSpace": "normal",
   },
   {

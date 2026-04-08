@@ -1,18 +1,41 @@
-import { group, indent, label, softline } from "../../document/builders.js";
 import {
-  getCallArguments,
+  group,
+  indent,
+  label,
+  lineSuffixBoundary,
+  softline,
+} from "../../document/index.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
+import {
   isCallExpression,
+  isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
-} from "../utils/index.js";
-import { printOptionalToken } from "./misc.js";
+} from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
+import { printOptionalToken } from "./miscellaneous.js";
 
-const isCallExpressionWithArguments = (node) => {
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
-    node = node.expression;
+const isCallExpressionWithArguments = (node) =>
+  isCallExpression(node) && getCallArguments(node).length > 0;
+
+function shouldInlineNewExpressionCallee(path) {
+  let { node: child, ancestors } = path;
+  for (const ancestor of ancestors) {
+    if (
+      !(
+        (isMemberExpression(ancestor) && ancestor.object === child) ||
+        (ancestor.type === "TSNonNullExpression" &&
+          ancestor.expression === child)
+      )
+    ) {
+      return ancestor.type === "NewExpression" && ancestor.callee === child;
+    }
+
+    child = ancestor;
   }
-  return isCallExpression(node) && getCallArguments(node).length > 0;
-};
+
+  return false;
+}
 
 function printMemberExpression(path, options, print) {
   const objectDoc = print("object");
@@ -23,27 +46,26 @@ function printMemberExpression(path, options, print) {
       !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
   );
   const firstNonChainElementWrapperParent = path.findAncestor(
-    (node) =>
-      !(node.type === "ChainExpression" || node.type === "TSNonNullExpression"),
+    (node) => !isChainElementWrapper(node),
   );
 
   const shouldInline =
-    (firstNonMemberParent &&
-      (firstNonMemberParent.type === "NewExpression" ||
-        firstNonMemberParent.type === "BindExpression" ||
-        (firstNonMemberParent.type === "AssignmentExpression" &&
-          firstNonMemberParent.left.type !== "Identifier"))) ||
+    firstNonMemberParent.type === "BindExpression" ||
+    (firstNonMemberParent.type === "AssignmentExpression" &&
+      firstNonMemberParent.left.type !== "Identifier") ||
+    shouldInlineNewExpressionCallee(path) ||
     node.computed ||
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&
       !isMemberExpression(firstNonChainElementWrapperParent)) ||
     ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
       firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(node.object) ||
+      (isCallExpressionWithArguments(stripChainElementWrappers(node.object)) ||
         objectDoc.label?.memberChain));
 
   return label(objectDoc.label, [
     objectDoc,
+    lineSuffixBoundary,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);
 }

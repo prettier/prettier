@@ -185,7 +185,7 @@ function runCli(dir, args = [], options = {}) {
         // If ignoreLineEndings is specified, \r is simply deleted instead
         if (name === "stdout" || name === "stderr") {
           value = result[name].replace(
-            /\r/gu,
+            /\r/g,
             options.ignoreLineEndings ? "" : "/*CR*/",
           );
         }
@@ -196,7 +196,7 @@ function runCli(dir, args = [], options = {}) {
           } else if (typeof testOptions[name] === "function") {
             testOptions[name](value);
           } else {
-            expect(value).toEqual(testOptions[name]);
+            expect(value).toStrictEqual(testOptions[name]);
           }
         } else {
           snapshot = snapshot ?? {};

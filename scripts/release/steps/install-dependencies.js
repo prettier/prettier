@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { runGit, runYarn } from "../utils.js";
+import { runGit, runYarn } from "../utilities.js";
 
 const PROJECT_ROOT = new URL("../../../", import.meta.url);
 

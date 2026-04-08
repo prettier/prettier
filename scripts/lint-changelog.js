@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
+import assert from "node:assert/strict";
 import fs from "node:fs";
 import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
-import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
+import remarkParse from "remark-parse";
+import unified from "unified";
+import { CHANGELOG_CATEGORIES } from "./utilities/changelog-categories.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
@@ -36,14 +39,14 @@ for (const file of [
   }
 }
 
-const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/u;
-const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/u;
+const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/;
+const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/;
 
 const template = fs.readFileSync(
   new URL(TEMPLATE_FILE, CHANGELOG_ROOT),
   "utf8",
 );
-const templateComments = template.match(/<!--.*?-->/gsu);
+const templateComments = template.match(/<!--.*?-->/gs);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
@@ -60,7 +63,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/u);
+    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
@@ -116,6 +119,9 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
     const [, title] = titleMatch;
+
+    validateTitle(displayPath, title);
+
     const categoryInTitle = title.split(":").shift().trim();
     if (
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
@@ -131,7 +137,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
 
-    if (/prettier master/iu.test(content)) {
+    if (/prettier master/i.test(content)) {
       showErrorMessage(
         `[${displayPath}]: Please use "main" instead of "master".`,
       );
@@ -151,4 +157,21 @@ function getCommentDescription(content, comment) {
   }
 
   return `template comment on line ${startLine}-${endLine}`;
+}
+
+// Forbid html in title
+// https://github.com/prettier/prettier/issues/17089
+function validateTitle(displayPath, title) {
+  const processor = unified().use(remarkParse);
+  const tree = processor.runSync(processor.parse(title));
+  assert.equal(tree.children.length, 1);
+  assert.equal(tree.children[0].type, "paragraph");
+  const { children } = tree.children[0];
+  for (const node of children) {
+    if (node.type === "html") {
+      showErrorMessage(
+        `[${displayPath}]: HTML "${node.value}" is restricted in title.`,
+      );
+    }
+  }
 }
