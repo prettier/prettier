@@ -87,7 +87,8 @@ function shouldPrePrintDoubleHardline(path, options) {
       isPreviousNodeLooseListItem(path) ||
       (node.type === "list" &&
         parent.type === "listItem" &&
-        previous.type === "code")
+        previous.type === "code" &&
+        previous.position.end.line + 1 < node.position.start.line)
     ) {
       return true;
     }
