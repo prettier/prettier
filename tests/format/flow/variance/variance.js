@@ -3,16 +3,16 @@ class Route {
 }
 
 class ReadonlyRoute {
-  static readonly param: T;
+    static   readonly   param: T;
 }
 
 type ReadonlyObj = {
-  readonly foo: string,
-  readonly [string]: unknown,
+    readonly   foo:   string,
+  readonly [string]:   unknown
 };
 
-type ReadonlyTuple = [readonly label: number];
+type ReadonlyTuple = [  readonly   label:   number  ];
 
 type ReadonlyInterface = interface {
-  readonly prop: string,
+      readonly   prop:   string
 };
