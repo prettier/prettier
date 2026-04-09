@@ -7,19 +7,19 @@ for (;;) break
 ;
 
 for (const f of []) continue
-// comment
+// comment3
 ;
 
 for (const f of []) break
-// comment
+// comment4
 ;
 
 for (const f in {}) continue
-// comment
+// comment5
 ;
 
 for (const f in {}) break
-// comment
+// comment6
 ;
 
 for(;;) continue // comment
@@ -67,19 +67,19 @@ for (;;) break
 ;
 
 for (const f of []) continue
-/* comment */
+/* comment 33 */
 ;
 
 for (const f of []) break
-/* comment */
+/* comment 34 */
 ;
 
 for (const f in {}) continue
-/* comment */
+/* comment 35 */
 ;
 
 for (const f in {}) break
-/* comment */
+/* comment 36 */
 ;
 
 label1: for (;;) continue label1 /* comment */

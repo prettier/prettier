@@ -3,8 +3,7 @@
 exports[`empty.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <style>
@@ -24,8 +23,7 @@ printWidth: 80
 exports[`invalid-css.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 <div>
@@ -54,8 +52,7 @@ printWidth: 80
 exports[`test.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -124,8 +121,7 @@ printWidth: 80
 exports[`with-lang-attribute.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <style lang="css">
@@ -152,8 +148,7 @@ printWidth: 80
 exports[`with-lang-attribute-2.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <style lang>
@@ -180,8 +175,7 @@ printWidth: 80
 exports[`with-lang-attribute-3.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
   <style lang="unknown">

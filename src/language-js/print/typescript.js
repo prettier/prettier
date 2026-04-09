@@ -2,9 +2,9 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import isTsKeywordType from "../utilities/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
+import { printBinaryCastExpression } from "./binary-cast-expression.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
-import { printBinaryCastExpression } from "./cast-expression.js";
 import {
   printClass,
   printClassBody,
@@ -12,11 +12,7 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
-import {
-  printEnumBody,
-  printEnumDeclaration,
-  printEnumMember,
-} from "./enum.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import { printFunctionType } from "./function-type.js";
 import { printIndexSignature } from "./index-signature.js";
@@ -24,15 +20,17 @@ import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printJSDocType } from "./js-doc-type.js";
+import { printKey } from "./key.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import { printMethodSignature } from "./method-signature.js";
 import {
   printOptionalToken,
+  printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
 import { printImportKind } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
-import { printPropertyKey } from "./property.js";
+import { printObject } from "./object.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -48,7 +46,7 @@ import { printTypePredicate } from "./type-predicate.js";
 import { printTypeQuery } from "./type-query.js";
 import { printUnionType } from "./union-type.js";
 
-function printTypescript(path, options, print) {
+function printTypescript(path, options, print, args) {
   const { node } = path;
 
   // TypeScript nodes always starts with `TS`
@@ -70,7 +68,7 @@ function printTypescript(path, options, print) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), options.semi ? ";" : ""];
+      return ["export = ", print("expression"), printSemicolon(options)];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -114,7 +112,7 @@ function printTypescript(path, options, print) {
     case "TSPropertySignature":
       return [
         node.readonly ? "readonly " : "",
-        printPropertyKey(path, options, print),
+        printKey(path, options, print),
         printOptionalToken(path),
         printTypeAnnotationProperty(path, print),
         printClassMemberSemicolon(path, options),
@@ -159,13 +157,13 @@ function printTypescript(path, options, print) {
       return printMethodSignature(path, options, print);
 
     case "TSNamespaceExportDeclaration":
-      return ["export as namespace ", print("id"), options.semi ? ";" : ""];
+      return ["export as namespace ", print("id"), printSemicolon(options)];
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print);
     case "TSEnumBody":
-      return printEnumBody(path, options, print);
+      return printObject(path, options, print);
     case "TSEnumMember":
-      return printEnumMember(path, print);
+      return printEnumMember(path, options, print);
 
     case "TSImportEqualsDeclaration":
       return [
@@ -174,7 +172,7 @@ function printTypescript(path, options, print) {
         print("id"),
         " = ",
         print("moduleReference"),
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "TSExternalModuleReference":
       return printCallExpression(path, options, print);
@@ -189,7 +187,7 @@ function printTypescript(path, options, print) {
     case "TSIntersectionType":
       return printIntersectionType(path, options, print);
     case "TSUnionType":
-      return printUnionType(path, options, print);
+      return printUnionType(path, options, print, args);
     case "TSFunctionType":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType":

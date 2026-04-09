@@ -4,7 +4,7 @@ exports[`long-type-parameters.ts - {"printWidth":109} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 109
-                                                                                                             | printWidth
+                                                                                            printWidth: 109 |
 =====================================input======================================
 // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
 export interface MarkDef<
@@ -46,7 +46,7 @@ exports[`long-type-parameters.ts - {"printWidth":110} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 110
-                                                                                                              | printWidth
+                                                                                             printWidth: 110 |
 =====================================input======================================
 // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
 export interface MarkDef<

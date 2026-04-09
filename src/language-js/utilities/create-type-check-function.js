@@ -10,7 +10,7 @@ import * as assert from "#universal/assert";
 */
 
 /**
-@template {NodeOrCommentTypes[]} InputNodeTypes
+@template {NodeOrCommentTypes[] | readonly NodeOrCommentTypes[]} InputNodeTypes
 @param {InputNodeTypes} typesArray
 */
 function createTypeCheckFunction(typesArray) {
@@ -31,4 +31,4 @@ function createTypeCheckFunction(typesArray) {
   return (node) => types.has(node?.type);
 }
 
-export default createTypeCheckFunction;
+export { createTypeCheckFunction };

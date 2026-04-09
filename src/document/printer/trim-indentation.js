@@ -2,7 +2,7 @@
 // characters are known to have performance issues.
 
 /**
-Get trailing trailing indention length
+Get trailing indentation length
 
 @param {string} text
 @returns {number}

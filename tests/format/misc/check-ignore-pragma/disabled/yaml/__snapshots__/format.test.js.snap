@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.yml - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # @noformat
 
@@ -23,8 +22,7 @@ exports[`with-noprettier-pragma.yml - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # @noprettier
 

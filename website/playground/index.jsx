@@ -1,25 +1,33 @@
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive } from "vue";
+import { createApp, onMounted, reactive, toRaw, watch } from "vue";
+import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
+import { setVersion, version } from "./composables/use-version.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
-import { fixPrettierVersion } from "./utilities.js";
+import { formatVersion } from "./utilities.js";
 
 const App = {
   name: "App",
   setup() {
-    const state = reactive({ loaded: false });
+    const state = reactive({
+      loaded: false,
+    });
 
-    const componentDidMount = async () => {
-      const { supportInfo, version } = await worker.getMetadata();
+    const updateMetadata = async () => {
+      const { supportInfo, version: versionData } = await worker.getMetadata(
+        version.value,
+      );
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(version),
+        version: formatVersion(versionData),
       });
     };
+
+    watch(() => version.value, updateMetadata);
 
     const render = () => {
       const { loaded, availableOptions, version } = state;
@@ -30,13 +38,13 @@ const App = {
 
       return (
         <>
-          <Header version={version}></Header>
+          <Header version={version} />
           <Playground availableOptions={availableOptions} version={version} />
         </>
       );
     };
 
-    onMounted(componentDidMount);
+    onMounted(() => updateMetadata());
     return render;
   },
 };

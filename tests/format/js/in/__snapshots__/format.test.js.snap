@@ -3,8 +3,7 @@
 exports[`arrow-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = () => [].includes(true) || "ontouchend" in document
 
@@ -21,8 +20,7 @@ const y = () => [] in x;
 exports[`arrow-function-invalid.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 () => [] in x
 

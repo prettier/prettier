@@ -5,7 +5,7 @@ function installBrowserSync() {
     "make-synchronized",
   );
   const { installBrowser } = makeSynchronized(
-    new URL("./browser/browser.js", import.meta.url),
+    new URL("./browser-prettier/browser.js", import.meta.url),
   );
 
   const browser = process.env.TEST_RUNTIME_BROWSER || "chrome";

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`min.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class Implementation {}
+module.exports.fun = (): Implementation => new Implementation;
+
+=====================================output=====================================
+class Implementation {}
+module.exports.fun = (): Implementation => new Implementation();
+
+================================================================================
+`;

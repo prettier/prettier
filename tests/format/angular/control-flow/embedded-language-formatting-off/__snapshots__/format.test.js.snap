@@ -4,8 +4,7 @@ exports[`if.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @if      (should.   not.    format) {  }
 @else if (should.   not.    format) {  }

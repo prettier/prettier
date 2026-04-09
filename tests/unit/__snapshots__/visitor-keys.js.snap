@@ -246,6 +246,7 @@ exports[`visitor keys estree 1`] = `
     "typeParameters",
   ],
   "DeclareVariable": [
+    "declarations",
     "id",
   ],
   "DeclaredPredicate": [
@@ -722,13 +723,6 @@ exports[`visitor keys estree 1`] = `
   "ParenthesizedExpression": [
     "expression",
   ],
-  "PipelineBareFunction": [
-    "callee",
-  ],
-  "PipelinePrimaryTopicReference": [],
-  "PipelineTopicExpression": [
-    "expression",
-  ],
   "Placeholder": [],
   "PrivateIdentifier": [],
   "PrivateName": [
@@ -883,7 +877,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSDeclareKeyword": [],
   "TSDeclareMethod": [
-    "decorators",
     "key",
     "params",
     "returnType",

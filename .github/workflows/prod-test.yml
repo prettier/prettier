@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
+      - "!renovate/**"
   pull_request:
 
 permissions:
@@ -37,7 +39,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist
@@ -119,26 +121,16 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist
 
       - name: Run Tests
-        if: matrix.node != '14'
         run: yarn test:production
 
-      - name: Run Tests (Node.js 14)
-        if: matrix.node == '14'
-        run: yarn test:production-node14
-
       - name: Run Format Tests (standalone)
-        if: matrix.node != '14'
         run: yarn test:production-standalone
-
-      - name: Run Format Tests (standalone, Node.js 14)
-        if: matrix.node == '14'
-        run: yarn test:production-standalone-node14
 
       - name: "`--debug-benchmark` flag"
         if: ${{ matrix.node != '14' && matrix.os != 'windows-latest' }}
@@ -157,10 +149,19 @@ jobs:
         browser:
           - "chrome"
           - "firefox"
+        include:
+          # It's slow on firefox
+          - os: "ubuntu-latest"
+            browser: "chrome"
+            FULL_TEST: true
+        exclude:
+          # Hangs https://github.com/prettier/prettier/pull/18716
+          - os: "windows-latest"
+            browser: "chrome"
     env:
-      FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
+      FULL_TEST: ${{ matrix.FULL_TEST }}
       TEST_RUNTIME_BROWSER: ${{ matrix.browser }}
-    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -186,7 +187,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist
@@ -210,7 +211,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Download Artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist
@@ -253,7 +254,7 @@ jobs:
           node-version: latest
 
       - name: Download Artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
         with:
           name: dist
           path: dist

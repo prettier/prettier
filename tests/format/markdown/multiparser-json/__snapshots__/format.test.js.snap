@@ -3,9 +3,8 @@
 exports[`invalid-json.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #10333 -->
 \`\`\`json
@@ -24,9 +23,8 @@ packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
 exports[`jsonc.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`jsonc
    // comment
@@ -49,9 +47,8 @@ trailingComma: "all"
 exports[`trailing_comma.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`json
 {

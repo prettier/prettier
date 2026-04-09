@@ -3,8 +3,7 @@
 exports[`document.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # prettier-ignore
 ---
@@ -28,8 +27,7 @@ aaaaa: bbbbb
 exports[`leading-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abc:     123
 # prettier-ignore
@@ -46,8 +44,7 @@ def:     456
 exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abc:  !!str #   hello
    123
@@ -68,8 +65,7 @@ def:  !!str #   hello
 exports[`trailing-comma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   # prettier-ignore
@@ -98,8 +94,7 @@ printWidth: 80
 exports[`trailing-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abc:     123 # hello
 # prettier-ignore

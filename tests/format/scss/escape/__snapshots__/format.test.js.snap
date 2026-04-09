@@ -3,9 +3,8 @@
 exports[`4149.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @media only screen and (max-width: 767px) {
   @include widths(2 3 4, \\@small);
@@ -26,9 +25,8 @@ $widths-breakpoint-separator: \\@small;
 exports[`4149.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @media only screen and (max-width: 767px) {
   @include widths(2 3 4, \\@small);

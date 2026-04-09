@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.css - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @noformat */
 
@@ -23,8 +22,7 @@ exports[`with-noprettier-pragma.css - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @noprettier */
 
@@ -42,8 +40,7 @@ exports[`with-noprettier-pragma-comments.css - {"checkIgnorePragma":true} format
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @noprettier -- reason to not format */
 
@@ -61,8 +58,7 @@ exports[`without-pragma.css - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .class {    display: none;    }
 

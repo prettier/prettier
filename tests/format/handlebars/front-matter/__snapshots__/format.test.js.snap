@@ -3,8 +3,7 @@
 exports[`close.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: An ancient philosophy...
@@ -36,8 +35,7 @@ keywords:
 exports[`empty.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -55,8 +53,7 @@ printWidth: 80
 exports[`empty-no-newline.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- ---
 
@@ -68,8 +65,7 @@ printWidth: 80
 exports[`explicit-language.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---yaml
 foo:    bar
@@ -98,8 +94,7 @@ data: { x:1, y:100000000 }
 exports[`invalid-yaml.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 first: Thing
@@ -121,8 +116,7 @@ first: Thing
 exports[`spaced.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: An ancient philosophy...
@@ -155,8 +149,7 @@ keywords:
 exports[`touching.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 name: Smith
@@ -178,8 +171,7 @@ name: Smith
 exports[`very-ugly-yaml.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 foo:        bar
@@ -224,8 +216,7 @@ long_text: >
 exports[`yaml-format.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: "Example Document"

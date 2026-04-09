@@ -1,12 +1,25 @@
 import * as assert from "#universal/assert";
-import { locEnd, locStart } from "../../loc.js";
-import createTypeCheckFunction from "../../utilities/create-type-check-function.js";
-import getRaw from "../../utilities/get-raw.js";
-import isBlockComment from "../../utilities/is-block-comment.js";
-import isLineComment from "../../utilities/is-line-comment.js";
-import isTypeCastComment from "../../utilities/is-type-cast-comment.js";
-import mergeNestledJsdocComments from "./merge-nestled-jsdoc-comments.js";
+import { commentsPropertyInOptions } from "../../../constants.js";
+import {
+  locEnd,
+  locEndWithFullText,
+  locStart,
+  shouldAddContentEnd,
+} from "../../location/index.js";
+import {
+  isBlockComment,
+  isLineComment,
+} from "../../utilities/comment-types.js";
+import { createTypeCheckFunction } from "../../utilities/create-type-check-function.js";
+import { getRaw } from "../../utilities/get-raw.js";
+import { isTypeCastComment } from "../../utilities/is-type-cast-comment.js";
+import { stripComments } from "../../utilities/strip-comments.js";
+import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
+
+/**
+@import {Node, Comment, NodeMap} from "../../types/estree.js"
+*/
 
 const isNodeWithRaw = createTypeCheckFunction([
   // Babel
@@ -30,16 +43,15 @@ const isNodeWithRaw = createTypeCheckFunction([
 ]);
 
 /**
- * @param {{
- *   text: string,
- *   parser?: string,
- *   oxcAstType?: string,
- * }} options
- */
+@param {{
+  text: string,
+  astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
+}} options
+*/
 function postprocess(ast, options) {
-  const { parser, text } = options;
+  const { text, astType } = options;
+  const isOxcTs = astType === "oxc-ts";
   const { comments } = ast;
-  const isOxcTs = parser === "oxc" && options.oxcAstType === "ts";
 
   mergeNestledJsdocComments(comments);
 
@@ -52,8 +64,10 @@ function postprocess(ast, options) {
     delete program.interpreter;
   }
 
-  if (isOxcTs && ast.hashbang) {
-    comments.unshift(ast.hashbang);
+  if (ast.hashbang) {
+    if (isOxcTs) {
+      comments.unshift(ast.hashbang);
+    }
     delete ast.hashbang;
   }
 
@@ -68,6 +82,8 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, {
     onEnter(node) {
+      setContentEnd(node, comments, text);
+
       switch (node.type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
@@ -122,10 +138,10 @@ function postprocess(ast, options) {
           // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
           // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
           if (
-            parser === "flow" ||
-            parser === "hermes" ||
-            parser === "espree" ||
-            parser === "typescript" ||
+            astType === "flow" ||
+            astType === "hermes" ||
+            astType === "espree" ||
+            astType === "typescript" ||
             isOxcTs
           ) {
             const start = locStart(node) + 1;
@@ -135,15 +151,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        // fix unexpected locEnd caused by --no-semi style
-        case "VariableDeclaration": {
-          const lastDeclaration = node.declarations.at(-1);
-          if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
-            node.range = [locStart(node), locEnd(lastDeclaration)];
-          }
-          break;
-        }
-
         // remove redundant TypeScript nodes
         case "TSParenthesizedType":
           return node.typeAnnotation;
@@ -151,7 +158,9 @@ function postprocess(ast, options) {
         // For hack-style pipeline
         case "TopicReference":
           ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-          break; // In Flow parser, it doesn't generate union/intersection types for single type
+          break;
+
+        // In Flow parser, it doesn't generate union/intersection types for single type
         case "TSUnionType":
         case "TSIntersectionType":
           if (node.types.length === 1) {
@@ -159,17 +168,17 @@ function postprocess(ast, options) {
           }
           break;
 
-        // https://github.com/facebook/hermes/issues/1712
-        case "ImportExpression":
-          if (parser === "hermes" && node.attributes && !node.options) {
-            node.options = node.attributes;
-          }
-          break;
-
         // babel-flow
         case "TupleTypeAnnotation":
           if (node.types && !node.elementTypes) {
             node.elementTypes = node.types;
+          }
+          break;
+
+        case "ImportDeclaration":
+          if (astType === "hermes" && node.assertions && !node.attributes) {
+            node.attributes = node.assertions;
+            delete node.assertions;
           }
           break;
       }
@@ -181,15 +190,6 @@ function postprocess(ast, options) {
           // We remove unneeded parens around same-operator LogicalExpressions
           if (isUnbalancedLogicalTree(node)) {
             return rebalanceLogicalTree(node);
-          }
-          break;
-
-        // https://github.com/babel/babel/issues/17506
-        // It's possible to have parenthesized `argument`, need do this in `onLeave`
-        case "TSImportType":
-          if (!node.source && node.argument.type === "TSLiteralType") {
-            node.source = node.argument.literal;
-            delete node.argument;
           }
           break;
       }
@@ -254,7 +254,10 @@ function assertComments(comments, text) {
       // Flow
       const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
       assert.equal("/*" + comment.value + closingMark, commentText);
+      return;
     }
+
+    throw new Error(`Unknown comment type '${comment.type}'.`);
   }
 }
 
@@ -266,6 +269,33 @@ function assertRaw(node, text) {
 
   const raw = node.type === "TemplateElement" ? node.value.raw : getRaw(node);
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
+}
+
+/**
+@param {Node} node
+@param {Comment[]} comments
+@param {string} originalText
+*/
+function setContentEnd(node, comments, originalText) {
+  if (!shouldAddContentEnd(node)) {
+    return;
+  }
+
+  let end = locEndWithFullText(node);
+  if (originalText[end - 1] !== ";") {
+    return;
+  }
+
+  const text = stripComments({
+    [commentsPropertyInOptions]: comments,
+    originalText,
+  });
+
+  end -= 1;
+  const textBeforeSemicolon = text.slice(locStart(node), end);
+  const cleaned = textBeforeSemicolon.trimEnd();
+
+  node.__contentEnd = end - (textBeforeSemicolon.length - cleaned.length);
 }
 
 export default postprocess;

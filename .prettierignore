@@ -1,4 +1,6 @@
-**/.yarn/*
+**/.yarn/**/*.*
+!/.yarn/plugins/plugin-prepare.cjs
+vendors/**
 
 # Ignore directories and files in 'tests/format'
 /tests/format/**/*.*

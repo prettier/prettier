@@ -1,5 +1,5 @@
 import { group, indent, line } from "../../document/index.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /*
 - `DeclareOpaqueType`(flow)
@@ -37,7 +37,7 @@ function printOpaqueType(path, options, print) {
     parts.push(" = ", print("impltype"));
   }
 
-  parts.push(options.semi ? ";" : "");
+  parts.push(printSemicolon(options));
 
   return parts;
 }

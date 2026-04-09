@@ -77,6 +77,8 @@ const config = {
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
+          lastVersion:
+            process.env.PULL_REQUEST === "true" ? "current" : undefined,
           versions: {
             current: {
               label: "next",
@@ -268,6 +270,7 @@ const config = {
           "vim",
           "scss",
           "less",
+          "flow",
         ],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

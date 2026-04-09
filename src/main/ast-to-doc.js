@@ -1,5 +1,7 @@
 import AstPath from "../common/ast-path.js";
+import { commentsPropertyInOptions } from "../constants.js";
 import { cursor, inheritLabel } from "../document/index.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import isObject from "../utilities/is-object.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
@@ -128,7 +130,11 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // We let JSXElement print its comments itself because it adds () around
   // UnionTypeAnnotation has to align the child without the comments
-  if (printer.printComment && !printer.willPrintOwnComments?.(path, options)) {
+  if (
+    printer.printComment &&
+    isNonEmptyArray(node.comments) &&
+    !printer.willPrintOwnComments?.(path, options)
+  ) {
     // printComments will call the plugin print function and check for
     // comments to print
     doc = printComments(path, doc, options);
@@ -139,7 +145,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
-  options[Symbol.for("comments")] = comments;
+  options[commentsPropertyInOptions] = comments;
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 

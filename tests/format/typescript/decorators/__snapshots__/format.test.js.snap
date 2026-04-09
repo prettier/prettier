@@ -1,51 +1,9 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`abstract-method.ts [babel-ts] format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class A {
-    @decorator()
-    abstract method(): Array<string>
-}
-
-=====================================output=====================================
-class A {
-  @decorator()
-  abstract method(): Array<string>;
-}
-
-================================================================================
-`;
-
-exports[`abstract-method.ts [oxc-ts] format 1`] = `
-"A decorator can only decorate a method implementation, not an overload. (2:5)
-  1 | class A {
-> 2 |     @decorator()
-    |     ^^^^^^^^^^^^
-  3 |     abstract method(): Array<string>
-  4 | }
-  5 |"
-`;
-
-exports[`abstract-method.ts [typescript] format 1`] = `
-"A decorator can only decorate a method implementation, not an overload. (2:5)
-  1 | class A {
-> 2 |     @decorator()
-    |     ^^^^^^^^^^^^
-  3 |     abstract method(): Array<string>
-  4 | }
-  5 |
-Cause: A decorator can only decorate a method implementation, not an overload."
-`;
-
 exports[`accessor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
     @foo()
@@ -70,8 +28,7 @@ class A {
 exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
     constructor(
@@ -107,8 +64,7 @@ class Foo {
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Something {
     @Annotateme()
@@ -129,8 +85,7 @@ class Something {
 exports[`decorator-type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @(bind as ClassDecorator)
 class Decorated {
@@ -155,8 +110,7 @@ class Decorated {}
 exports[`decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class TestTextFileService {
 	constructor(
@@ -305,8 +259,7 @@ class Class6 {
 exports[`decorators-comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 class Foo1 {
@@ -388,8 +341,7 @@ class Something2 {
 exports[`inline-decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 @d1
@@ -500,8 +452,7 @@ class MyContainerComponent {
 exports[`legacy.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   @decorator() class {},
@@ -538,8 +489,7 @@ class B {
 exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {observable} from "mobx";
 

@@ -3,9 +3,8 @@
 exports[`const.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const [a = ((let)[0] = 1)] = 2;
 
@@ -18,8 +17,7 @@ const [a = (let[0] = 1)] = 2
 exports[`const.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const [a = ((let)[0] = 1)] = 2;
 
@@ -32,9 +30,8 @@ const [a = (let[0] = 1)] = 2;
 exports[`let.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let.a = 1;
 
@@ -258,8 +255,7 @@ a[1] + (let[2] = 2)
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let.a = 1;
 

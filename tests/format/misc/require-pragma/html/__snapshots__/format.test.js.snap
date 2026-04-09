@@ -3,9 +3,8 @@
 exports[`with-pragma.html - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @prettier -->
 
@@ -23,9 +22,8 @@ requirePragma: true
 exports[`without-pragma.html - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
             >  666             </div>

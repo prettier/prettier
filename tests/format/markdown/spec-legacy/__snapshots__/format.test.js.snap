@@ -3,9 +3,8 @@
 exports[`commonmark-0.30-example-334.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \` \`
 \`  \`
@@ -19,9 +18,8 @@ proseWrap: "always"
 exports[`example-11.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- placeholder for continuous thematic breaks not being treated as yaml -->
 
@@ -44,9 +42,8 @@ ___
 exports[`example-15.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- placeholder for continuous thematic breaks not being treated as yaml -->
 
@@ -69,9 +66,8 @@ proseWrap: "always"
 exports[`example-46.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- placeholder for continuous thematic breaks not being treated as yaml -->
 
@@ -94,9 +90,8 @@ proseWrap: "always"
 exports[`example-215.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - one
 

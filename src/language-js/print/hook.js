@@ -1,10 +1,9 @@
 import { group } from "../../document/index.js";
-import { printReturnType } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -12,58 +11,15 @@ import { printDeclareToken } from "./miscellaneous.js";
  */
 
 /*
-- "HookDeclaration"
-*/
-function printHook(path, options, print) {
-  const { node } = path;
-
-  /** @type {Array<Doc>} */
-  const parts = ["hook"];
-  if (node.id) {
-    parts.push(" ", print("id"));
-  }
-
-  const parametersDoc = printFunctionParameters(
-    path,
-    options,
-    print,
-    /* shouldExpandArgument */ false,
-    /* shouldPrintTypeParameters*/ true,
-  );
-  const returnTypeDoc = printReturnType(path, print);
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc,
-  );
-
-  parts.push(
-    group([
-      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
-      returnTypeDoc,
-    ]),
-    node.body ? " " : "",
-    print("body"),
-  );
-
-  return parts;
-}
-
-/*
 - "DeclareHook"
 */
 function printDeclareHook(path, options, print) {
-  const { node } = path;
-
-  const parts = [printDeclareToken(path), "hook"];
-  if (node.id) {
-    parts.push(" ", print("id"));
-  }
-
-  if (options.semi) {
-    parts.push(";");
-  }
-
-  return parts;
+  return [
+    printDeclareToken(path),
+    "hook",
+    path.node.id ? [" ", print("id")] : "",
+    printSemicolon(options),
+  ];
 }
 
 /*
@@ -89,7 +45,7 @@ function printHookTypeAnnotation(path, options, print) {
     path,
     options,
     print,
-    /* shouldExpandArgument */ false,
+    /* shouldExpandParameters */ false,
     /* shouldPrintTypeParameters */ true,
   );
 
@@ -107,4 +63,4 @@ function printHookTypeAnnotation(path, options, print) {
   ]);
 }
 
-export { printDeclareHook, printHook, printHookTypeAnnotation };
+export { printDeclareHook, printHookTypeAnnotation };

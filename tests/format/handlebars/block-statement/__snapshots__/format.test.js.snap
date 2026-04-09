@@ -3,8 +3,7 @@
 exports[`block-statement.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
@@ -157,8 +156,7 @@ printWidth: 80
 exports[`custom-else.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <h1>
 {{#when isAtWork}}
@@ -489,8 +487,7 @@ printWidth: 80
 exports[`custome-if-else.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- foo-if -->
 {{#animated-if a}} a {{/animated-if}}
@@ -545,8 +542,7 @@ printWidth: 80
 exports[`each.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div id="comments">
   {{#each comments}}
@@ -568,8 +564,7 @@ printWidth: 80
 exports[`if-else.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <h1>
 {{#if isAtWork}}
@@ -793,8 +788,7 @@ printWidth: 80
 exports[`loop.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}

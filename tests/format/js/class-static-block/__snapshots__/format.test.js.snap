@@ -3,8 +3,7 @@
 exports[`class-static-block.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   static #x = 42;
@@ -71,8 +70,7 @@ class A2 {
 exports[`with-line-breaks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static

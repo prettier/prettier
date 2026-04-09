@@ -3,10 +3,9 @@
 exports[`additional-spacing.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Additional spacing    within the link should be preserved]]
 
@@ -19,9 +18,8 @@ singleQuote: true
 exports[`additional-spacing.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Additional spacing    within the link should be preserved]]
 
@@ -34,9 +32,8 @@ proseWrap: "always"
 exports[`additional-spacing.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Additional spacing    within the link should be preserved]]
 
@@ -49,9 +46,8 @@ proseWrap: "never"
 exports[`additional-spacing.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Additional spacing    within the link should be preserved]]
 
@@ -64,10 +60,9 @@ proseWrap: "preserve"
 exports[`end-of-line.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 If I have some markdown text, it should be wrapped properly at the character limit for markdown.
 However, if I have a link that overflows the end of line it should be [[wrapped as a single entity]] like this.
@@ -83,9 +78,8 @@ should be [[wrapped as a single entity]] like this.
 exports[`end-of-line.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 If I have some markdown text, it should be wrapped properly at the character limit for markdown.
 However, if I have a link that overflows the end of line it should be [[wrapped as a single entity]] like this.
@@ -101,9 +95,8 @@ should be [[wrapped as a single entity]] like this.
 exports[`end-of-line.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 If I have some markdown text, it should be wrapped properly at the character limit for markdown.
 However, if I have a link that overflows the end of line it should be [[wrapped as a single entity]] like this.
@@ -117,9 +110,8 @@ If I have some markdown text, it should be wrapped properly at the character lim
 exports[`end-of-line.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 If I have some markdown text, it should be wrapped properly at the character limit for markdown.
 However, if I have a link that overflows the end of line it should be [[wrapped as a single entity]] like this.
@@ -134,10 +126,9 @@ However, if I have a link that overflows the end of line it should be [[wrapped 
 exports[`exceeds-line-length.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Here is an incredibly long wiki-style link that overflows the standard wrap width for markdown]].
 
@@ -150,9 +141,8 @@ singleQuote: true
 exports[`exceeds-line-length.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Here is an incredibly long wiki-style link that overflows the standard wrap width for markdown]].
 
@@ -165,9 +155,8 @@ proseWrap: "always"
 exports[`exceeds-line-length.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Here is an incredibly long wiki-style link that overflows the standard wrap width for markdown]].
 
@@ -180,9 +169,8 @@ proseWrap: "never"
 exports[`exceeds-line-length.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[Here is an incredibly long wiki-style link that overflows the standard wrap width for markdown]].
 
@@ -195,10 +183,9 @@ proseWrap: "preserve"
 exports[`exceeds-line-length-in-prose.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
 
@@ -212,9 +199,8 @@ I have some markdown prose here, with a horrible run-on sentence that
 exports[`exceeds-line-length-in-prose.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
 
@@ -228,9 +214,8 @@ I have some markdown prose here, with a horrible run-on sentence that
 exports[`exceeds-line-length-in-prose.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
 
@@ -243,9 +228,8 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 exports[`exceeds-line-length-in-prose.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
 
@@ -258,10 +242,9 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 exports[`exceeds-line-length-in-prose-broken.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I
 continue it into an obscenely long wiki-style link thingy]].
@@ -276,9 +259,8 @@ continue it into an obscenely long wiki-style link thingy]].
 exports[`exceeds-line-length-in-prose-broken.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I
 continue it into an obscenely long wiki-style link thingy]].
@@ -293,9 +275,8 @@ continue it into an obscenely long wiki-style link thingy]].
 exports[`exceeds-line-length-in-prose-broken.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I
 continue it into an obscenely long wiki-style link thingy]].
@@ -310,9 +291,8 @@ continue it into an obscenely long wiki-style link thingy]].
 exports[`exceeds-line-length-in-prose-broken.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I
 continue it into an obscenely long wiki-style link thingy]].
@@ -327,10 +307,9 @@ continue it into an obscenely long wiki-style link thingy]].
 exports[`extra-brackets.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
 
@@ -345,9 +324,8 @@ A very long line of markdown with additional brackets as it wraps over the
 exports[`extra-brackets.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
 
@@ -362,9 +340,8 @@ A very long line of markdown with additional brackets as it wraps over the
 exports[`extra-brackets.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
 
@@ -378,9 +355,8 @@ A very long line of markdown with additional brackets as it wraps over the [[[en
 exports[`extra-brackets.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
 
@@ -394,10 +370,9 @@ A very long line of markdown with additional brackets as it wraps over the [[[en
 exports[`extra-brackets-leading.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
 
@@ -412,9 +387,8 @@ A very long line of markdown with additional brackets as it wraps over
 exports[`extra-brackets-leading.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
 
@@ -429,9 +403,8 @@ A very long line of markdown with additional brackets as it wraps over
 exports[`extra-brackets-leading.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
 
@@ -445,9 +418,8 @@ A very long line of markdown with additional brackets as it wraps over [[[the en
 exports[`extra-brackets-leading.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
 
@@ -461,10 +433,9 @@ A very long line of markdown with additional brackets as it wraps over [[[the en
 exports[`extra-brackets-trailing.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
 
@@ -479,9 +450,8 @@ A very long line of markdown with additional brackets as it wraps over
 exports[`extra-brackets-trailing.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
 
@@ -496,9 +466,8 @@ A very long line of markdown with additional brackets as it wraps over
 exports[`extra-brackets-trailing.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
 
@@ -512,9 +481,8 @@ A very long line of markdown with additional brackets as it wraps over [[the end
 exports[`extra-brackets-trailing.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
 
@@ -528,10 +496,9 @@ A very long line of markdown with additional brackets as it wraps over [[the end
 exports[`multi-line.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[a
 b]]
@@ -673,9 +640,8 @@ text]]
 exports[`multi-line.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[a
 b]]
@@ -817,9 +783,8 @@ text]]
 exports[`multi-line.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[a
 b]]
@@ -961,9 +926,8 @@ text]]
 exports[`multi-line.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[a
 b]]
@@ -1110,10 +1074,9 @@ text]]
 exports[`nested-link.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
 
@@ -1126,9 +1089,8 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 exports[`nested-link.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
 
@@ -1141,9 +1103,8 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 exports[`nested-link.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
 
@@ -1156,9 +1117,8 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 exports[`nested-link.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
 
@@ -1171,10 +1131,9 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[A simple wiki link on a single line]]
 
@@ -1187,9 +1146,8 @@ singleQuote: true
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[A simple wiki link on a single line]]
 
@@ -1202,9 +1160,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[A simple wiki link on a single line]]
 
@@ -1217,9 +1174,8 @@ proseWrap: "never"
 exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[A simple wiki link on a single line]]
 
@@ -1232,10 +1188,9 @@ proseWrap: "preserve"
 exports[`with-whitespace.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[ Here is a link with leading and trailing whitespace.    ]]
 
@@ -1248,9 +1203,8 @@ singleQuote: true
 exports[`with-whitespace.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[ Here is a link with leading and trailing whitespace.    ]]
 
@@ -1263,9 +1217,8 @@ proseWrap: "always"
 exports[`with-whitespace.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[ Here is a link with leading and trailing whitespace.    ]]
 
@@ -1278,9 +1231,8 @@ proseWrap: "never"
 exports[`with-whitespace.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[ Here is a link with leading and trailing whitespace.    ]]
 

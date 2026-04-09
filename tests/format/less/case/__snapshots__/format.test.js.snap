@@ -3,8 +3,7 @@
 exports[`15460.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .what {
   .make-modifier(@name, @filename) {
@@ -41,8 +40,7 @@ printWidth: 80
 exports[`case.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -363,8 +361,7 @@ TABLE {
 exports[`variable.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Do not change case of property name if inside a variable declaration
 

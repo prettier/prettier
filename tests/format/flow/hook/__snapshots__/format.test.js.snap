@@ -1,10 +1,146 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments-before-arrow.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+The following should format like \`ArrowFunctionExpression\`,
+but currently the AST shape are different, and it allows line break before \`=>\`
+
+This is valid
+
+\`\`\`
+type A1 = hook  () /*
+1 *\\/ => void
+\`\`\`
+
+while this is invalid
+
+\`\`\`
+a = () /*
+1 *\\/ => void
+\`\`\`
+*/
+type A1 = hook /* 11 */ () => void
+type A2 = hook () /* 12 */ => void
+type A3 = hook ()  => /* 13 */ void
+
+a = /* 21 */ () => {}
+a = () /* 22 */ => {}
+a = ()  => /* 23 */ {}
+
+=====================================output=====================================
+/*
+The following should format like \`ArrowFunctionExpression\`,
+but currently the AST shape are different, and it allows line break before \`=>\`
+
+This is valid
+
+\`\`\`
+type A1 = hook  () /*
+1 *\\/ => void
+\`\`\`
+
+while this is invalid
+
+\`\`\`
+a = () /*
+1 *\\/ => void
+\`\`\`
+*/
+type A1 = hook () => /* 11 */ void;
+type A2 = hook () => /* 12 */ void;
+type A3 = hook () => /* 13 */ void;
+
+a = /* 21 */ () => {};
+a = () /* 22 */ => {};
+a = () => /* 23 */ {};
+
+================================================================================
+`;
+
+exports[`dangling-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+hook C11(// 11
+) {}
+hook C12(
+// 12
+) {}
+declare hook H13(// 13
+): void
+declare hook H14(
+// 14
+): void
+type T11 = hook (//15
+) => void
+type T12 = hook(
+//16
+) => void
+
+hook C21(/* 21 */
+) {}
+hook C22(
+/* 22*/
+) {}
+hook C23(
+/* 23*/){}
+declare hook H24(/* 24 */
+): void
+declare hook H25(
+/* 25*/
+): void
+declare hook H26(
+/* 26*/): void
+type T21 = hook(/* 27*/
+) => void
+type T22 = hook(
+/* 28*/
+) => void
+type T23 = hook(
+/* 29*/) => void
+
+=====================================output=====================================
+hook C11(
+  // 11
+) {}
+hook C12(
+  // 12
+) {}
+declare hook H13(
+  // 13
+): void;
+declare hook H14(
+  // 14
+): void;
+type T11 = hook (
+  //15
+) => void;
+type T12 = hook (
+  //16
+) => void;
+
+hook C21(/* 21 */) {}
+hook C22(/* 22*/) {}
+hook C23(/* 23*/) {}
+declare hook H24(/* 24 */): void;
+declare hook H25(/* 25*/): void;
+declare hook H26(/* 26*/): void;
+type T21 = hook (/* 27*/) => void;
+type T22 = hook (/* 28*/) => void;
+type T23 = hook (/* 29*/) => void;
+
+================================================================================
+`;
+
 exports[`declare-hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare hook useFoo(): void;
 
@@ -128,8 +264,7 @@ SomeComponent;
 exports[`hook-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hook useFoo1() {}
 
@@ -206,8 +341,7 @@ hook useFoo14<
 exports[`hook-type-annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = hook () => void;
 

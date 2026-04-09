@@ -3,8 +3,7 @@
 exports[`conditional.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type FallbackFlags<F extends Flags | undefined> =
   Equals<NonNullableFlag<F>["flags"], {}>    extends   true
@@ -76,8 +75,7 @@ export type Intersect<U1 extends any, U2 extends any> = U1 extends unknown
 exports[`issue-9874.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type RequestNextDealAction = BaseAction<DealsActionTypes.REQUEST_NEXT_DEAL>;
 
@@ -91,8 +89,7 @@ export type RequestNextDealAction =
 exports[`issue-100857.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type FieldLayoutWith<
   T extends string,
@@ -184,8 +181,7 @@ type FieldLayoutWith<
 exports[`pattern-parameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type C = {
   foo([]?): void;

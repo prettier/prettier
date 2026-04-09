@@ -5,8 +5,14 @@ import {
   indent,
   softline,
 } from "../../document/index.js";
-import { isArrayExpression, isObjectExpression } from "../utilities/index.js";
+import {
+  isArrayExpression,
+  isObjectExpression,
+} from "../utilities/node-types.js";
 
+/*
+- `TSTypeAssertion` (TypeScript)
+*/
 function printTypeAssertion(path, options, print) {
   const { node } = path;
   const shouldBreakAfterCast = !(

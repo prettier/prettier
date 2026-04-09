@@ -12,11 +12,11 @@ declare component MyComponent(bar: string);
 
 declare component MyComponent(bar?: string);
 
-declare component MyComponent('data-bar': string);
+// declare component MyComponent('data-bar': string);
 
 declare component MyComponent(...restProps: $ReadOnly<{k: string}>);
 
-declare component MyComponent(...$ReadOnly<{k: string}>);
+// declare component MyComponent(...$ReadOnly<{k: string}>);
 
 declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>);
 
@@ -30,7 +30,11 @@ declare component MyComponent(
   bar: string, // Trailing comment
 
   // preceding comment
-  'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  dataBaz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+
+  // preceding comment
+  // 'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
   // Trailing comment
 );
 

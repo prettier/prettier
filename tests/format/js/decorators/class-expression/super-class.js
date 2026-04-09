@@ -1,3 +1,3 @@
 class Foo extends (@deco class Foo {}){}
 
-class Foo extends (@deco class {}){}
+class Fo2 extends (@deco class {}){}

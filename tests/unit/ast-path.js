@@ -55,7 +55,7 @@ describe("AstPath", () => {
     {
       const called = [];
       path.each(() => called.push(path.getValue()), "children");
-      expect(called).toEqual(ast.children);
+      expect(called).toStrictEqual(ast.children);
     }
 
     {
@@ -76,7 +76,9 @@ describe("AstPath", () => {
   test("AstPath#map()", () => {
     const path = new AstPath(ast);
 
-    expect(path.map(() => path.getValue(), "children")).toEqual(ast.children);
+    expect(path.map(() => path.getValue(), "children")).toStrictEqual(
+      ast.children,
+    );
 
     {
       let result;

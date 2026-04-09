@@ -3,8 +3,7 @@
 exports[`comment-tag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const query = /* GraphQL */\`
       {
@@ -54,8 +53,7 @@ const query = /* GraphQL */ \`
 exports[`definitions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 graphql\`
   fragment x on y {
@@ -84,8 +82,7 @@ graphql\`
 exports[`escape.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 gql\`
   "\\\`foo\\\` mutation payload."
@@ -178,8 +175,7 @@ gql\`
 exports[`expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
@@ -228,8 +224,7 @@ const veryLongVariableNameToMakeTheLineBreak = graphql(
 exports[`graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 graphql(schema, \`
 mutation     MarkReadNotificationMutation(
@@ -258,8 +253,7 @@ graphql(
 exports[`graphql-tag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import gql from "graphql-tag";
 
@@ -591,8 +585,7 @@ gql\`
 exports[`invalid.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // none of the embedded GraphQL should be formatted
 // for they have an invalid escape sequence
@@ -647,8 +640,7 @@ gql\`
 exports[`react-relay.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const { graphql } = require("react-relay");
 

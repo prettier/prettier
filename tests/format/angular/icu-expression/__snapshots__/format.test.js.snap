@@ -3,8 +3,7 @@
 exports[`basic-plural-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <span i18n>Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
 
@@ -24,8 +23,7 @@ printWidth: 80
 exports[`basic-plural-02.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { count, plural,
     =0 {{ sex, select,
@@ -55,8 +53,7 @@ printWidth: 80
 exports[`basic-plural-03.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <foo>
   <bar>{VAR_PLURAL, plural, =0 {zero} =1 {un} =2 {deux} other {<pc id="0" equivStart="START_BOLD_TEXT" equivEnd="CLOSE_BOLD_TEXT" type="fmt" dispStart="&lt;b&gt;" dispEnd="&lt;/b&gt;">beaucoup</pc>} }</bar>
@@ -105,8 +102,7 @@ printWidth: 80
 exports[`basic-plural-04.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <foo>
   <bar>{VAR_PLURAL, plural, =0 {Found no results} =1 {Found one result} other {Found <ph id="0" equiv="INTERPOLATION" disp="{{response.getItemsList().length}}"/> results} }</bar>
@@ -135,8 +131,7 @@ printWidth: 80
 exports[`basic-select-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
 
@@ -152,8 +147,7 @@ printWidth: 80
 exports[`basic-select-02.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ng-template>{gender, select, male {male} female {female} other {other}}</ng-template>
 <ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
@@ -172,8 +166,7 @@ printWidth: 80
 exports[`combination-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <span i18n>Updated: {minutes, plural,
     =0 {just now}
@@ -200,8 +193,7 @@ printWidth: 80
 exports[`issue-16914.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {active, select,
   true {

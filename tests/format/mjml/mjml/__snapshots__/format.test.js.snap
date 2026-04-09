@@ -3,8 +3,7 @@
 exports[`empty.mjml format 1`] = `
 ====================================options=====================================
 parsers: ["mjml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <mjml></mjml>
 =====================================output=====================================
@@ -16,8 +15,7 @@ printWidth: 80
 exports[`example.mjml format 1`] = `
 ====================================options=====================================
 parsers: ["mjml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- https://github.com/prettier/prettier/pull/17400#issuecomment-2829653054 -->
 
@@ -66,8 +64,7 @@ printWidth: 80
 exports[`head.mjml format 1`] = `
 ====================================options=====================================
 parsers: ["mjml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <mjml>
   <mj-head>

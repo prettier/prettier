@@ -3,8 +3,7 @@
 exports[`minustoken.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type MutableRequired<T> = { 
 -readonly [P in keyof T]-?:T[P] 
@@ -29,8 +28,7 @@ type ReadonlyPartial<T> = {
 exports[`question.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x: {
     [A in keyof B]?: any;
@@ -47,8 +45,7 @@ var x: {
 exports[`readonly.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x: {
     readonly [A in keyof B]: any;

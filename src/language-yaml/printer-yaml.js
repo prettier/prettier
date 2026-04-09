@@ -12,10 +12,10 @@ import {
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locStart } from "./loc.js";
+import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printBlock from "./print/block.js";
 import {
@@ -419,7 +419,7 @@ const printer = {
   preprocess,
   embed,
   print: genericPrint,
-  massageAstNode: clean,
+  massageAstNode,
   insertPragma,
   getVisitorKeys,
 };

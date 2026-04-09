@@ -3,8 +3,7 @@
 exports[`new-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface FooConstructor {
   new (
@@ -144,8 +143,7 @@ interface TimerConstructor {
 exports[`with-member-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
 new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();

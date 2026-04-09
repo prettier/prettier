@@ -3,8 +3,7 @@
 exports[`lookup.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .average(@x, @y) {
   @result: ((@x + @y) / 2);
@@ -37,8 +36,7 @@ div {
 exports[`lookup-1.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors */
 
@@ -85,8 +83,7 @@ The \`@config   [   option1]\` part should format as \`@config[option1]\`
 exports[`lookup-2.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors */
 

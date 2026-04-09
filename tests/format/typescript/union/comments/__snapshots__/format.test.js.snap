@@ -3,8 +3,7 @@
 exports[`18106.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface DirectiveArgumentNode1 extends ArrayExpression {
   elements: // dir, exp, arg, modifiers
@@ -51,7 +50,8 @@ type A3 = /* block comment
 
 =====================================output=====================================
 export interface DirectiveArgumentNode1 extends ArrayExpression {
-  elements: // dir, exp, arg, modifiers
+  elements:
+    // dir, exp, arg, modifiers
     | [string]
     | [string, ExpressionNode]
     | [string, ExpressionNode, ExpressionNode]
@@ -59,7 +59,8 @@ export interface DirectiveArgumentNode1 extends ArrayExpression {
 }
 
 export class DirectiveArgumentNode12 extends ArrayExpression {
-  elements: // dir, exp, arg, modifiers
+  elements:
+    // dir, exp, arg, modifiers
     | [string]
     | [string, ExpressionNode]
     | [string, ExpressionNode, ExpressionNode]
@@ -72,7 +73,8 @@ type A = // dir, exp, arg, modifiers
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
-const elements: // dir, exp, arg, modifiers
+const elements:
+  // dir, exp, arg, modifiers
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
@@ -99,8 +101,7 @@ type A3 =
 exports[`18379.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 =
   (
@@ -169,8 +170,7 @@ type A1 =
 exports[`18389.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 =     | /**
      * octahedralRhinocerosTransformer
@@ -195,22 +195,111 @@ type A4 =
 =====================================output=====================================
 type A1 =
   | /**
-   * octahedralRhinocerosTransformer
-   */
-  a
+     * octahedralRhinocerosTransformer
+     */
+    a
   | (b | c);
 
 type A2 =
   | /**
-   * hippopotamicKangarooMutator
-   */
-  (a | b)
+     * hippopotamicKangarooMutator
+     */
+    (a | b)
   | c;
 
 type A4 =
-  | (A | B) // comment 1
+  | (
+      | A
+      | B // comment 1
+    )
   // comment2
   | (A | B);
+
+================================================================================
+`;
+
+exports[`18787.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// TODO[@fisker]: comments not attached correctly after first element
+type A1 =
+  | /**
+   * 11
+   */
+  a
+  | b
+
+type A2 =
+  | /**
+   * 21
+   */ a
+  | b
+
+type A3 =
+  | // 31
+  a
+  |
+  b;
+
+type A4 =
+  |
+// 41
+/**
+   * 42
+   */
+  a
+  | b
+
+=====================================output=====================================
+// TODO[@fisker]: comments not attached correctly after first element
+type A1 =
+  | /**
+     * 11
+     */
+    a
+  | b;
+
+type A2 =
+  | /**
+     * 21
+     */ a
+  | b;
+
+type A3 =
+  | // 31
+    a
+  | b;
+
+type A4 =
+  | // 41
+    /**
+     * 42
+     */
+    a
+  | b;
+
+================================================================================
+`;
+
+exports[`mutiple.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type _Test =
+  // forcing the test onto a new line so it isn't covered by the expect error
+  // If there are any enum members that don't have a corresponding TSESTree.Node, then this line will error with "Type 'string | number | symbol' is not assignable to type 'string'."
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  TakesString<AllKeys> | void;
+
+=====================================output=====================================
+type _Test =
+  // forcing the test onto a new line so it isn't covered by the expect error
+  // If there are any enum members that don't have a corresponding TSESTree.Node, then this line will error with "Type 'string | number | symbol' is not assignable to type 'string'."
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  TakesString<AllKeys> | void;
 
 ================================================================================
 `;

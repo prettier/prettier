@@ -14,23 +14,24 @@ import {
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  isMemberExpression,
-} from "../utilities/index.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
+import { isNonEmptyClassBody } from "../utilities/class-members.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { isMemberExpression } from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
-import { printClassMemberDecorators } from "./decorators.js";
+import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
+import { printKey } from "./key.js";
 import {
   printAbstractToken,
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
+  printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -57,6 +58,21 @@ const isInterface = createTypeCheckFunction([
 - `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
+  const doc = printClassWithoutDecorators(path, options, print);
+
+  const { node } = path;
+  if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
+    const decoratorsDoc = printDecorators(path, options, print);
+    const needsParens = needsParentheses(path, options);
+    return needsParens
+      ? [indent([softline, decoratorsDoc, doc]), softline]
+      : [decoratorsDoc, doc];
+  }
+
+  return doc;
+}
+
+function printClassWithoutDecorators(path, options, print) {
   const { node } = path;
   const isPrintingInterface = isInterface(node);
   const isPrintingRecord = node.type === "RecordDeclaration";
@@ -145,16 +161,6 @@ function printClass(path, options, print) {
   return parts;
 }
 
-function isNonEmptyClassBody(node) {
-  return node.type === "ObjectTypeAnnotation"
-    ? ["properties", "indexers", "callProperties", "internalSlots"].some(
-        (property) => isNonEmptyArray(node[property]),
-      )
-    : node.type === "RecordDeclarationBody"
-      ? isNonEmptyArray(node.elements)
-      : isNonEmptyArray(node.body);
-}
-
 function hasMultipleHeritage(node) {
   let count = node.superClass ? 1 : 0;
   for (const listName of ["extends", "mixins", "implements"]) {
@@ -187,7 +193,10 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
       return false;
     }
 
-    return !node.superTypeArguments && isMemberExpression(node.superClass);
+    return (
+      !node.superTypeArguments &&
+      isMemberExpression(stripChainElementWrappers(node.superClass))
+    );
   }
 
   const heritage =
@@ -335,7 +344,7 @@ function printClassProperty(path, options, print) {
     parts.push("accessor ");
   }
   parts.push(
-    printPropertyKey(path, options, print),
+    printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
     printTypeAnnotationProperty(path, print),
@@ -354,7 +363,7 @@ function printClassProperty(path, options, print) {
       " =",
       isAbstractProperty ? undefined : "value",
     ),
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 

@@ -4,8 +4,7 @@ exports[`test.css format 1`] = `
 ====================================options=====================================
 cursorOffset: 19
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .blah {
   /* hloow <|> */

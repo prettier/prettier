@@ -1,17 +1,6 @@
+import { printKey } from "./key.js";
 import { printDeclareToken } from "./miscellaneous.js";
-import { printObject as printEnumMembers } from "./object.js";
-
-/*
-- `EnumBooleanBody`(flow)
-- `EnumNumberBody`(flow)
-- `EnumBigIntBody`(flow)
-- `EnumStringBody`(flow)
-- `EnumSymbolBody`(flow)
-- `TSEnumBody`(TypeScript)
-*/
-function printEnumBody(path, options, print) {
-  return printEnumMembers(path, options, print);
-}
+import { printObject } from "./object.js";
 
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
@@ -26,7 +15,7 @@ function printFlowEnumBody(path, options, print) {
           )
           .toLowerCase()} `
       : "",
-    printEnumBody(path, options, print),
+    printObject(path, options, print),
   ];
 }
 
@@ -38,32 +27,20 @@ function printFlowEnumBody(path, options, print) {
 - `EnumDefaultedMember`(flow)
 - `TSEnumMember`(TypeScript)
 */
-function printEnumMember(path, print) {
+function printEnumMember(path, options, print) {
   const { node } = path;
+  const isTsEnumMember = node.type === "TSEnumMember";
 
-  let idDoc = print("id");
-
-  if (node.computed) {
-    idDoc = ["[", idDoc, "]"];
-  }
-
-  let initializerDoc = "";
-
-  // `TSEnumMember`
-  if (node.initializer) {
-    initializerDoc = print("initializer");
-  }
-
-  // Flow
-  if (node.init) {
-    initializerDoc = print("init");
-  }
-
-  if (!initializerDoc) {
+  const idDoc = isTsEnumMember
+    ? printKey(path, options, print)
+    : // Flow only allow identifier
+      print("id");
+  const initializerProperty = isTsEnumMember ? "initializer" : "init";
+  if (!node[initializerProperty]) {
     return idDoc;
   }
 
-  return [idDoc, " = ", initializerDoc];
+  return [idDoc, " = ", print(initializerProperty)];
 }
 
 /*
@@ -83,9 +60,4 @@ function printEnumDeclaration(path, print) {
   ];
 }
 
-export {
-  printEnumBody,
-  printEnumDeclaration,
-  printEnumMember,
-  printFlowEnumBody,
-};
+export { printEnumDeclaration, printEnumMember, printFlowEnumBody };

@@ -1,20 +1,17 @@
 import * as assert from "#universal/assert";
 import { group } from "../../document/index.js";
-import {
-  CommentCheckFlags,
-  getCallArguments,
-  getFunctionParameters,
-  hasComment,
-  isCallExpression,
-  isMethod,
-} from "../utilities/index.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
+import { isMethod } from "../utilities/is-method.js";
+import { isCallExpression } from "../utilities/node-types.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./miscellaneous.js";
-import { printPropertyKey } from "./property.js";
+import { printKey } from "./key.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -34,8 +31,9 @@ const isMethodValue = ({ node, key, parent }) =>
     (parent.type === "Property" && isMethod(parent)));
 
 /*
-- "FunctionDeclaration"
-- "FunctionExpression"
+- `FunctionDeclaration`
+- `FunctionExpression`
+- `HookDeclaration` (Flow)
 - `TSDeclareFunction`(TypeScript)
 */
 function printFunction(path, options, print, args) {
@@ -45,12 +43,8 @@ function printFunction(path, options, print, args) {
 
   const { node } = path;
 
-  let shouldExpandArgument = false;
-  if (
-    (node.type === "FunctionDeclaration" ||
-      node.type === "FunctionExpression") &&
-    args?.expandLastArg
-  ) {
+  let shouldExpandParameters = false;
+  if (node.type === "FunctionExpression" && args?.expandLastArg) {
     const { parent } = path;
     if (
       isCallExpression(parent) &&
@@ -59,22 +53,15 @@ function printFunction(path, options, print, args) {
           (param) => param.type === "Identifier" && !param.typeAnnotation,
         ))
     ) {
-      shouldExpandArgument = true;
+      shouldExpandParameters = true;
     }
   }
-
-  const parts = [
-    printDeclareToken(path),
-    node.async ? "async " : "",
-    `function${node.generator ? "*" : ""} `,
-    node.id ? print("id") : "",
-  ];
 
   const parametersDoc = printFunctionParameters(
     path,
     options,
     print,
-    shouldExpandArgument,
+    shouldExpandParameters,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -82,24 +69,33 @@ function printFunction(path, options, print, args) {
     returnTypeDoc,
   );
 
-  parts.push(
+  const isFlowHookDeclaration = node.type === "HookDeclaration";
+  const keyword = isFlowHookDeclaration ? "hook" : "function";
+
+  return [
+    printDeclareToken(path),
+    node.async ? "async " : "",
+    keyword,
+    node.generator ? "*" : "",
+    " ",
+    node.id ? print("id") : "",
     print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    node.body ? " " : "",
-    print("body"),
-  );
-
-  if (options.semi && (node.declare || !node.body)) {
-    parts.push(";");
-  }
-
-  return parts;
+    node.body
+      ? [" ", print("body")]
+      : // The semicolon not always needed,
+        // but prevent block statement after been parsed as body
+        ";",
+  ];
 }
 
 /*
+- `FunctionDeclaration`
+- `FunctionExpression`
+- `TSDeclareFunction`(TypeScript)
 - `ObjectMethod`
 - `Property`
 - `ObjectProperty`
@@ -131,7 +127,7 @@ function printMethod(path, options, print) {
   }
 
   parts.push(
-    printPropertyKey(path, options, print),
+    printKey(path, options, print),
     node.optional ? "?" : "",
     node === value ? printMethodValue(path, options, print) : print("value"),
   );
@@ -139,6 +135,17 @@ function printMethod(path, options, print) {
   return parts;
 }
 
+/*
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+- `TSEmptyBodyFunctionExpression` (TypeScript)
+*/
 function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, options, print);
@@ -163,7 +170,7 @@ function printMethodValue(path, options, print) {
   if (node.body) {
     parts.push(" ", print("body"));
   } else {
-    parts.push(options.semi ? ";" : "");
+    parts.push(printSemicolon(options));
   }
 
   return parts;

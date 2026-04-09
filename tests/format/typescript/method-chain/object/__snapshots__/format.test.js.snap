@@ -4,8 +4,7 @@ exports[`issue-17239.ts - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 model = types
   .model({ something: mxSomething })
@@ -28,8 +27,7 @@ model = types
 exports[`issue-17239.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 model = types
   .model({ something: mxSomething })

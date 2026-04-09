@@ -7,29 +7,36 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import {
-  printComments,
-  printCommentsSeparately,
-} from "../../main/comments/print.js";
+import { printComments } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  hasLeadingOwnLineComment,
   isConditionalType,
   isTupleType,
-  isTypeAlias,
+  isTypeParameterInstantiation,
+} from "../utilities/node-types.js";
+import {
+  shouldHugUnionType,
   shouldUnionTypePrintOwnComments,
-} from "../utilities/index.js";
+} from "../utilities/union-type-print.js";
 
 /**
 @import {Doc} from "../../document/index.js";
 */
 
 // `TSUnionType` and `UnionTypeAnnotation`
-function printUnionType(path, options, print) {
+function printUnionType(path, options, print, args) {
   const { node } = path;
+
+  // {
+  //   a: string
+  // } | null | void
+  // should be inlined and not be printed in the multi-line variant
+  if (shouldHugUnionType(node)) {
+    return join(" | ", path.map(print, "types"));
+  }
+
   // single-line variation
   // A | B | C
 
@@ -38,117 +45,83 @@ function printUnionType(path, options, print) {
   // | B
   // | C
 
-  const { parent } = path;
-
-  // If there's a leading comment, the parent is doing the indentation
-  const shouldIndent =
-    parent.type !== "TypeParameterInstantiation" &&
-    (!isConditionalType(parent) || !options.experimentalTernaries) &&
-    parent.type !== "TSTypeParameterInstantiation" &&
-    parent.type !== "GenericTypeAnnotation" &&
-    parent.type !== "TSTypeReference" &&
-    parent.type !== "TSTypeAssertion" &&
-    !isTupleType(parent) &&
-    !(
-      parent.type === "FunctionTypeParam" &&
-      !parent.name &&
-      path.grandparent.this !== parent
-    ) &&
-    !(
-      (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
-      hasLeadingOwnLineComment(options.originalText, node)
-    ) &&
-    !(
-      isTypeAlias(parent) &&
-      hasComment(parent.id, CommentCheckFlags.Trailing | CommentCheckFlags.Line)
-    );
-
-  // {
-  //   a: string
-  // } | null | void
-  // should be inlined and not be printed in the multi-line variant
-  const shouldHug = shouldHugUnionType(node);
-
   // We want to align the children but without its comment, so it looks like
   // | child1
   // // comment
   // | child2
-  const printed = path.map(() => {
-    let printedType = print();
-    if (!shouldHug) {
-      printedType = align(2, printedType);
-    }
-
-    return printComments(path, printedType, options);
-  }, "types");
-
   /** @type {Doc} */
-  let leading = "";
-  /** @type {Doc} */
-  let trailing = "";
+  let printed = group(
+    path.map(({ isFirst }) => {
+      const bar = isFirst ? ifBreak("| ") : [line, "| "];
+      const typeDoc = print();
+      if (hasComment(path.node, CommentCheckFlags.Leading)) {
+        return [bar, align(2, printComments(path, typeDoc, options))];
+      }
+
+      return [bar, printComments(path, align(2, typeDoc), options)];
+    }, "types"),
+  );
+
   if (shouldUnionTypePrintOwnComments(path)) {
-    ({ leading, trailing } = printCommentsSeparately(path, options));
+    printed = printComments(path, printed, options);
   }
-
-  if (shouldHug) {
-    return [leading, join(" | ", printed), trailing];
-  }
-
-  const shouldAddStartLine =
-    shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
-
-  const mainParts = [
-    ifBreak([shouldAddStartLine ? line : "", "| "]),
-    join([line, "| "], printed),
-  ];
 
   if (needsParentheses(path, options)) {
-    return [leading, group([indent(mainParts), softline]), trailing];
+    return group([indent([softline, printed]), softline]);
   }
 
-  const parts = [leading, group(mainParts)];
-
-  if (isTupleType(parent) && parent.elementTypes.length > 1) {
-    return [
-      group([
-        indent([ifBreak(["(", softline]), parts]),
-        softline,
-        ifBreak(")"),
-      ]),
-      trailing,
-    ];
+  const { key, parent } = path;
+  if (
+    key === "elementTypes" &&
+    isTupleType(parent) &&
+    parent.elementTypes.length > 1
+  ) {
+    return group([
+      indent([ifBreak(["(", softline]), printed]),
+      softline,
+      ifBreak(")"),
+    ]);
   }
 
-  return [group(shouldIndent ? indent(parts) : parts), trailing];
+  // Already indent in parent
+  if (
+    args?.assignmentLayout === "break-after-operator" ||
+    !shouldIndentUnionType(path)
+  ) {
+    return printed;
+  }
+
+  return group(indent([softline, printed]));
 }
 
-const isVoidType = createTypeCheckFunction([
-  "VoidTypeAnnotation",
-  "TSVoidKeyword",
-  "NullLiteralTypeAnnotation",
-  "TSNullKeyword",
-]);
-
-const isObjectLikeType = createTypeCheckFunction([
-  "ObjectTypeAnnotation",
-  "TSTypeLiteral",
-  // This is a bit aggressive but captures Array<{x}>
-  "GenericTypeAnnotation",
-  "TSTypeReference",
-]);
-
-function shouldHugUnionType(node) {
-  const { types } = node;
-  if (types.some((node) => hasComment(node))) {
+function shouldIndentUnionType(path) {
+  const { key, parent } = path;
+  if (
+    (key === "typeAnnotation" && parent.type === "TSTypeAssertion") ||
+    (key === "elementTypes" && isTupleType(parent)) ||
+    ((key === "trueType" || key === "falseType") &&
+      isConditionalType(parent)) ||
+    (key === "params" && isTypeParameterInstantiation(parent))
+  ) {
     return false;
   }
 
-  const objectType = types.find((node) => isObjectLikeType(node));
-  if (!objectType) {
+  if (
+    path.match(
+      undefined,
+      (node, key) =>
+        key === "typeAnnotation" && node.type === "FunctionTypeParam",
+      (node, key) => key === "params" && node.type === "FunctionTypeAnnotation",
+      (node, key) =>
+        key === "value" &&
+        node.type === "ObjectTypeProperty" &&
+        isFlowObjectTypePropertyAFunction(node),
+    )
+  ) {
     return false;
   }
 
-  return types.every((node) => node === objectType || isVoidType(node));
+  return true;
 }
 
 export { printUnionType, shouldHugUnionType };

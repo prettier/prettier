@@ -3,9 +3,8 @@
 exports[`example-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {% include_relative _installations/tarball.md %}
 
@@ -39,8 +38,7 @@ where does it end }}
 exports[`example-1.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {% include_relative _installations/tarball.md %}
 
@@ -75,9 +73,8 @@ where does it end }}
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
@@ -92,8 +89,7 @@ Braces
 exports[`unbalanced-mismatched-braces.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
@@ -107,9 +103,8 @@ Braces {%  doesn't    match so   these   words should not   be   considered as *
 exports[`unbalanced-object-close-only.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -125,8 +120,7 @@ node_ }}
 exports[`unbalanced-object-close-only.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -141,9 +135,8 @@ Following brace doesn't open so these words should not be considered as _liquid 
 exports[`unbalanced-object-open-only.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -159,8 +152,7 @@ node_
 exports[`unbalanced-object-open-only.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -175,9 +167,8 @@ This brace {{ doesn't close so these words should not be considered as _liquid n
 exports[`unbalanced-template-close-only.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -193,8 +184,7 @@ node_ %}
 exports[`unbalanced-template-close-only.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -209,9 +199,8 @@ Following brace doesn't open so these words should not be considered as _liquid 
 exports[`unbalanced-template-open-only.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -227,8 +216,7 @@ node_
 exports[`unbalanced-template-open-only.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 

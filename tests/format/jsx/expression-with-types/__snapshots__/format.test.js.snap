@@ -4,9 +4,8 @@ exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`]
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "typescript"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Component
   onChange={(
@@ -60,9 +59,8 @@ exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] 
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "typescript"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Component
   onChange={(
@@ -116,9 +114,8 @@ exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] 
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "typescript"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Component
   onChange={(
@@ -172,9 +169,8 @@ exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] =
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "typescript"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Component
   onChange={(

@@ -3,8 +3,7 @@
 exports[`13018.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(_a).bar().leet();
 foo(-a).bar().leet();
@@ -31,8 +30,7 @@ foo(a--).bar().leet();
 exports[`18171.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 callExprssion(
   instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
@@ -71,8 +69,7 @@ new NewExpression(
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo.a().b().c([n, o])
 
@@ -89,8 +86,7 @@ foo.a().b().c({ n, o });
 exports[`assignment-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 document.querySelector("#output-abcdef").textContent = \`metaKey pressed? \${e.metaKey}\`;
 
@@ -109,8 +105,7 @@ document.querySelector("p").textContent =
 exports[`bracket_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   function b() {
@@ -140,8 +135,7 @@ function a() {
 exports[`bracket_0-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const thingamabobMetaAlias =
 path.scope.getProgramParent().path.get("body")[0].node;
@@ -157,8 +151,7 @@ const thingamabobMetaAlias = path.scope
 exports[`break-last-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default store => {
   return callApi(endpoint, schema).then(
@@ -283,8 +276,7 @@ it("should group messages with same created time", () => {
 exports[`break-last-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 SomeVeryLongUpperCaseConstant.someVeryLongCallExpression().some_very_long_member_expression
 weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
@@ -352,8 +344,7 @@ const {
 exports[`break-multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 object.foo().bar().baz();
 
@@ -374,8 +365,7 @@ foo().bar.baz();
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   return observableFromSubscribeFunction()
@@ -501,8 +491,7 @@ angular
 exports[`complex-args.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 client.execute(
   Post.selectAll()
@@ -521,8 +510,7 @@ client.execute(
 exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 nock(/test/)
   .matchHeader('Accept', 'application/json')
@@ -545,8 +533,7 @@ nock(/test/)
 exports[`computed-merge.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [].forEach(key => {
   data[key]('foo')
@@ -589,8 +576,7 @@ window.Data[key]("foo")
 exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a ? b : c).d();
 
@@ -654,8 +640,7 @@ object[
 exports[`cypress.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 cy.get('option:first')
   .should('be.selected')
@@ -676,8 +661,7 @@ cy.get(".ready").should("have.text", "FOO").should("have.css", "color", "#aaa");
 exports[`d3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 d3.select('body')
   .append('circle')
@@ -719,8 +703,7 @@ not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 exports[`first_long.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
@@ -798,8 +781,7 @@ function f() {
 exports[`fluent-configuration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 domain
     .concept('Page')
@@ -837,8 +819,7 @@ domain.concept(CONCEPT_NAME).val("title").vals();
 exports[`inline_merge.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Object.keys(
   availableLocales({
@@ -882,8 +863,7 @@ var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
 exports[`issue-3594.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fetched = fetch("/foo");
 fetched
@@ -908,8 +888,7 @@ let column = new Column(null, conn).table(data.table).json(data.column);
 exports[`issue-3621.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const palindrome = str => {
   const s = str.toLowerCase().replace(/[\\W_]/g, '');
@@ -942,8 +921,7 @@ expect(cells.at(4).render().text()).toBe("link text4");
 exports[`issue-4125.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // examples from https://github.com/prettier/prettier/issues/4125
 
@@ -1270,8 +1248,7 @@ var l = base
 exports[`issue-11298.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo1(/𠮟𠮟𠮟/).foo2(bar).foo3(baz);
 
@@ -1292,8 +1269,7 @@ foo1(/叱叱叱/)
 exports[`issue-17457.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 s.get(u)?.trigger({ triggerKind:   y.SignatureHelpTriggerKind.InvokeFooBarBaz123 });
 
@@ -1308,8 +1284,7 @@ s.get(u)?.trigger({
 exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const someLongVariableName = (idx(
   this.props,
@@ -1362,8 +1337,7 @@ const someLongVariableName = (
 exports[`multiple-members.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
@@ -1456,8 +1430,7 @@ wrapper
 exports[`object-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 of("test")
   .pipe(throwIfEmpty())
@@ -1498,8 +1471,7 @@ of("test")
 exports[`pr-7889.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Profile = view.with({ name: (state) => state.name }).as((props) => (
   <div>
@@ -1532,8 +1504,7 @@ const Profile2 = view.with({ name }).as((props) => (
 exports[`short-names.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const svgJsFiles = fs
   .readdirSync(svgDir)
@@ -1552,8 +1523,7 @@ const svgJsFiles = fs
 exports[`simple-args.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fieldsToSend = _(["id", extra]).without("transition").uniq();
 
@@ -1570,8 +1540,7 @@ console.log(values.filter(isValid).map(extractId).slice(-5, -1));
 exports[`square_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const version = someLongString
   .split('jest version =')
@@ -1600,8 +1569,7 @@ const component = find(".org-lclp-edit-copy-url-banner__link")[0]
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 method().then(x => x)
   ["abc"](x => x)
@@ -1625,8 +1593,7 @@ method()
 exports[`this.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const sel = this.connections
   .concat(this.activities.concat(this.operators))

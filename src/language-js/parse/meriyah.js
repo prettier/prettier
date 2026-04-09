@@ -99,7 +99,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "meriyah", text });
+  return postprocess(ast, { text, astType: "meriyah" });
 }
 
 export const meriyah = /* @__PURE__ */ createParser(parse);

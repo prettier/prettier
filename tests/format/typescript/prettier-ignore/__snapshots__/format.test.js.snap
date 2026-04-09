@@ -3,8 +3,7 @@
 exports[`issue-14238.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const foo = (
   // prettier-ignore
@@ -21,8 +20,7 @@ export const foo = // prettier-ignore
 exports[`issue-16927.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = {
     // prettier-ignore
@@ -41,8 +39,7 @@ type Foo = {
 exports[`mapped-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type a= {
     // prettier-ignore
@@ -127,12 +124,15 @@ type b = {
   };
 
 type c = {
-  [A in // prettier-ignore
-  B]: C | D;
+  [
+    A in // prettier-ignore
+    B
+  ]: C | D;
 };
 
 type d = {
-  [A in B]: // prettier-ignore
+  [A in B]:
+    // prettier-ignore
     C | D;
 };
 
@@ -144,12 +144,15 @@ type e = {
   };
 
 type f = {
-  [A in /* prettier-ignore */
-  B]: C | D;
+  [
+    A in /* prettier-ignore */
+    B
+  ]: C | D;
 };
 
 type g = {
-  [A in B]: /* prettier-ignore */
+  [A in B]:
+    /* prettier-ignore */
     C | D;
 };
 
@@ -180,8 +183,7 @@ type l = {
 exports[`prettier-ignore-nested-unions.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type a =
   // foo
@@ -242,8 +244,7 @@ export type b =
 exports[`prettier-ignore-parenthesized-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo =
   // prettier-ignore

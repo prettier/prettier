@@ -1,7 +1,7 @@
 import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
-import { editorState } from "./composables/editor-state.js";
+import { settings, togglers } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
 import generateDummyId from "./dummyId.js";
 import formatMarkdown from "./markdown.js";
@@ -162,7 +162,7 @@ function setup(props) {
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
     const { content, options } = state;
-    const { availableOptions, version } = props;
+    const { availableOptions } = props;
     const orderedOptions = orderOptions(availableOptions, [
       ...ENABLED_OPTIONS,
       "rangeStart",
@@ -176,7 +176,7 @@ function setup(props) {
       output: formatted,
       output2: reformatted,
       doc,
-      version,
+      version: props.version,
       url: window.location.href,
       options,
       cliOptions,
@@ -253,7 +253,7 @@ function setup(props) {
           return (
             <>
               <div class="editors-container">
-                <Sidebar visible={editorState.showSidebar}>
+                <Sidebar visible={settings.showSidebar}>
                   <SidebarOptions
                     categories={CATEGORIES_ORDER}
                     availableOptions={enabledOptions}
@@ -334,55 +334,55 @@ function setup(props) {
                   <SidebarCategory title="Debug">
                     <Checkbox
                       label="show input"
-                      checked={editorState.showInput}
-                      onChange={editorState.toggleInput}
+                      checked={settings.showInput}
+                      onChange={togglers.showInput}
                     />
                     <Checkbox
                       label="show AST"
-                      checked={editorState.showAst}
-                      onChange={editorState.toggleAst}
+                      checked={settings.showAst}
+                      onChange={togglers.showAst}
                     />
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show preprocessed AST"
-                        checked={editorState.showPreprocessedAst}
-                        onChange={editorState.togglePreprocessedAst}
+                        checked={settings.showPreprocessedAst}
+                        onChange={togglers.showPreprocessedAst}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show doc"
-                        checked={editorState.showDoc}
-                        onChange={editorState.toggleDoc}
+                        checked={settings.showDoc}
+                        onChange={togglers.showDoc}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show comments"
-                        checked={editorState.showComments}
-                        onChange={editorState.toggleComments}
+                        checked={settings.showComments}
+                        onChange={togglers.showComments}
                       />
                     )}
                     <Checkbox
                       label="show output"
-                      checked={editorState.showOutput}
-                      onChange={editorState.toggleOutput}
+                      checked={settings.showOutput}
+                      onChange={togglers.showOutput}
                     />
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show second format"
-                        checked={editorState.showSecondFormat}
-                        onChange={editorState.toggleSecondFormat}
+                        checked={settings.showSecondFormat}
+                        onChange={togglers.showSecondFormat}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="rethrow embed errors"
-                        checked={editorState.rethrowEmbedErrors}
-                        onChange={editorState.toggleEmbedErrors}
+                        checked={settings.rethrowEmbedErrors}
+                        onChange={togglers.rethrowEmbedErrors}
                       />
                     )}
-                    {editorState.showDoc && !isDocExplorer ? (
+                    {settings.showDoc && !isDocExplorer ? (
                       <ClipboardButton
                         copy={() => getMarkdown({ doc: debug.doc })}
                         disabled={!debug.doc}
@@ -396,8 +396,9 @@ function setup(props) {
                   </div>
                 </Sidebar>
                 <div class="editors">
-                  {editorState.showInput ? (
+                  {settings.showInput ? (
                     <InputPanel
+                      name="Input"
                       mode={getCodemirrorMode(options.parser)}
                       ruler={options.printWidth}
                       value={content}
@@ -414,32 +415,40 @@ function setup(props) {
                       foldGutter={options.parser === "doc-explorer"}
                     />
                   ) : null}
-                  {editorState.showAst ? (
+                  {settings.showAst ? (
                     <DebugPanel
+                      name="AST"
                       mode="JSON"
                       value={debug.ast || ""}
                       autoFold={getAstAutoFold(options.parser)}
                     />
                   ) : null}
-                  {editorState.showPreprocessedAst && !isDocExplorer ? (
+                  {settings.showPreprocessedAst && !isDocExplorer ? (
                     <DebugPanel
+                      name="Preprocessed AST"
                       mode="JSON"
                       value={debug.preprocessedAst || ""}
                       autoFold={getAstAutoFold(options.parser)}
                     />
                   ) : null}
-                  {editorState.showDoc && !isDocExplorer ? (
-                    <DebugPanel mode="JavaScript" value={debug.doc || ""} />
-                  ) : null}
-                  {editorState.showComments && !isDocExplorer ? (
+                  {settings.showDoc && !isDocExplorer ? (
                     <DebugPanel
+                      name="Doc"
+                      mode="JavaScript"
+                      value={debug.doc || ""}
+                    />
+                  ) : null}
+                  {settings.showComments && !isDocExplorer ? (
+                    <DebugPanel
+                      name="Comments"
                       mode="JSON"
                       value={debug.comments || ""}
                       autoFold={getAstAutoFold(options.parser)}
                     />
                   ) : null}
-                  {editorState.showOutput ? (
+                  {settings.showOutput ? (
                     <OutputPanel
+                      name="Output"
                       mode={getCodemirrorMode(options.parser)}
                       value={formatted}
                       ruler={options.printWidth}
@@ -451,8 +460,9 @@ function setup(props) {
                       }
                     />
                   ) : null}
-                  {editorState.showSecondFormat && !isDocExplorer ? (
+                  {settings.showSecondFormat && !isDocExplorer ? (
                     <OutputPanel
+                      name="Output (Second format)"
                       mode={getCodemirrorMode(options.parser)}
                       value={getSecondFormat(formatted, debug.reformatted)}
                       ruler={options.printWidth}
@@ -462,8 +472,8 @@ function setup(props) {
               </div>
               <div class="bottom-bar">
                 <div class="bottom-bar-buttons">
-                  <Button onClick={editorState.toggleSidebar}>
-                    {editorState.showSidebar ? "Hide" : "Show"} options
+                  <Button onClick={togglers.showSidebar}>
+                    {settings.showSidebar ? "Hide" : "Show"} options
                   </Button>
                   <Button onClick={clearContent}>Clear</Button>
                   <ClipboardButton
@@ -537,7 +547,7 @@ const Playground = {
   name: "Playground",
   props: {
     availableOptions: { type: Array, required: true },
-    version: { type: String, required: true },
+    version: { type: Object, required: true },
   },
   setup,
 };

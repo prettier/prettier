@@ -1,16 +1,24 @@
-import { group, indent, line, softline } from "../../document/index.js";
 import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  softline,
+} from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import {
   isCallExpression,
   isMemberExpression,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
+import { shouldPrintTrailingComma } from "../utilities/should-print-trailing-comma.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+@import {Comment} from "../types/estree.js"
+*/
 
 /**
  * @param {AstPath} path
@@ -65,22 +73,27 @@ const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareInterface",
 ]);
 
+const shouldPrintDeclareToken = (path) => {
+  const { node } = path;
+
+  if (isFlowDeclareNode(node)) {
+    return (
+      path.parent.type !== "DeclareExportDeclaration" &&
+      // @ts-expect-error -- hermes doesn't support yet
+      !node.implicitDeclare
+    );
+  }
+
+  // TypeScript
+  return node.declare;
+};
+
 /**
  * @param {AstPath} path
  * @returns {Doc}
  */
 function printDeclareToken(path) {
-  const { node } = path;
-
-  return (
-    // TypeScript
-    node.declare ||
-      // Flow
-      (isFlowDeclareNode(node) &&
-        path.parent.type !== "DeclareExportDeclaration")
-      ? "declare "
-      : ""
-  );
+  return shouldPrintDeclareToken(path) ? "declare " : "";
 }
 
 const isTsAbstractNode = createTypeCheckFunction([
@@ -95,18 +108,6 @@ const isTsAbstractNode = createTypeCheckFunction([
  */
 function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
-}
-
-function adjustClause(node, clause, forceSpace) {
-  if (node.type === "EmptyStatement") {
-    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
-  }
-
-  if (node.type === "BlockStatement" || forceSpace) {
-    return [" ", clause];
-  }
-
-  return indent([line, clause]);
 }
 
 function printTypeScriptAccessibilityToken(node) {
@@ -154,24 +155,61 @@ function shouldInlineCondition(node) {
   return node.type === "LogicalExpression";
 }
 
-function printIfOrWhileCondition(path, options, print) {
-  const conditionDoc = print("test");
+function printIfOrWhileConditionOrWithStatementObject(path, options, print) {
+  const { node } = path;
+  const property = node.type === "WithStatement" ? "object" : "test";
+  const conditionDoc = print(property);
 
-  if (shouldInlineCondition(path.node.test)) {
+  if (shouldInlineCondition(node[property])) {
     return conditionDoc;
   }
 
   return group([indent([softline, conditionDoc]), softline]);
 }
 
+/**
+@param {(comment: Comment) => boolean} [filter]
+@returns {Doc}
+*/
+function printDanglingCommentsInList(path, options, filter) {
+  const { node } = path;
+
+  return hasComment(node, CommentCheckFlags.Dangling, filter)
+    ? [
+        indent([softline, printDanglingComments(path, options, { filter })]),
+        hasComment(
+          node,
+          CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+          filter,
+        )
+          ? hardline
+          : softline,
+      ]
+    : "";
+}
+
+/**
+ * @param {("es5" | "all")} [level]
+ * @returns {Doc}
+ */
+function printTrailingComma(options, level = "es5") {
+  return shouldPrintTrailingComma(options, level) ? ifBreak(",") : "";
+}
+
+function printSemicolon(options) {
+  return options.semi ? ";" : "";
+}
+
 export {
-  adjustClause,
   printAbstractToken,
+  printDanglingCommentsInList,
   printDeclareToken,
   printDefiniteToken,
-  printIfOrWhileCondition as printDoWhileStatementCondition,
-  printIfOrWhileCondition as printIfStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printDoWhileStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printIfStatementCondition,
   printOptionalToken,
+  printSemicolon,
+  printTrailingComma,
   printTypeScriptAccessibilityToken,
-  printIfOrWhileCondition as printWhileStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printWhileStatementCondition,
 };

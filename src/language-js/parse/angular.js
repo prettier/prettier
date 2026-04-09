@@ -5,7 +5,7 @@ import {
   parseTemplateBindings,
 } from "angular-estree-parser";
 import createError from "../../common/parser-create-error.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import wrapExpression from "./utilities/wrap-expression.js";
 
 /**

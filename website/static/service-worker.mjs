@@ -1,17 +1,25 @@
 import "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js";
 
-import prettierPackageManifest from "./lib/package-manifest.mjs";
+import prettierPackageManifestNext from "./lib/next/package-manifest.mjs";
+import prettierPackageManifestStable from "./lib/stable/package-manifest.mjs";
 
 const { toolbox } = self;
-const packageFiles = [
-  prettierPackageManifest.prettier,
-  ...prettierPackageManifest.plugins,
-].map(({ file }) => `./lib/${file}`);
+
+function getPackageFiles(manifest) {
+  return [manifest.prettier, ...manifest.plugins].map(
+    ({ file }) => `./lib/${manifest.version.name}/${file}`,
+  );
+}
+
+const stableFiles = getPackageFiles(prettierPackageManifestStable);
+const nextFiles = getPackageFiles(prettierPackageManifestNext);
 
 toolbox.precache([
   // Scripts
-  "lib/package-manifest.mjs",
-  ...packageFiles,
+  "lib/stable/package-manifest.mjs",
+  ...stableFiles,
+  "lib/next/package-manifest.mjs",
+  ...nextFiles,
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // Images

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`main.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+(<fbt />: number);
+(<fbt />: string); // Error (the libdef in this test marks fbt as number)
+
+=====================================output=====================================
+// @flow
+
+(<fbt />: number);
+(<fbt />: string); // Error (the libdef in this test marks fbt as number)
+
+================================================================================
+`;

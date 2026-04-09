@@ -20,7 +20,7 @@ const config = {
         "src/experimental-cli/index.js",
 
         // Tests
-        "tests/config/browser/**",
+        "tests/config/browser-prettier/**",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
@@ -30,12 +30,7 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: [
-        "ts-expect",
-        "buffer",
-        "deno-path-from-file-url",
-        "base64-arraybuffer-es6",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer", "base64-arraybuffer-es6"],
       ignoreBinaries: ["test-coverage"],
     },
     website: {
@@ -44,10 +39,7 @@ const config = {
         "src/pages/**/*.{js,jsx}",
         "static/**/*.{js,mjs}",
       ],
-      ignoreDependencies: [
-        "@docusaurus/faster",
-        "@docusaurus/plugin-content-docs",
-      ],
+      ignoreDependencies: ["@docusaurus/plugin-content-docs"],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},

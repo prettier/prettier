@@ -3,8 +3,7 @@
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Error
 const a = (data/*: Object */) => {}
@@ -33,8 +32,7 @@ const run = (cmd: string): Promise<void> => {};
 exports[`cast.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a /* b */ /*: c */);
 (a /* b */   : c   );
@@ -61,8 +59,7 @@ printWidth: 80
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   x /*: string */;
@@ -83,8 +80,7 @@ class A {
 exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 
@@ -97,8 +93,7 @@ function foo<T>(bar: T[], baz: T): S {}
 exports[`functions2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f1(a /* b */ /*: c */){}
 function f2(a /* b */   : c   ){}
@@ -123,8 +118,7 @@ function f2(a: c /* b */) {}
 exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Component = branch/*::     <Props, ExternalProps> */(
   ({ src }) => !src,
@@ -157,8 +151,7 @@ foo<bar>();
 exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Foo {
   bar(
@@ -181,8 +174,7 @@ interface Foo {
 exports[`issues.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Adding a comment stops the pretty printing process and everything is
 // squished in a single line afterward
@@ -259,8 +251,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let foo /*: Groups<T> */;
 let bar /*: string */ = 'a';
@@ -275,8 +266,7 @@ let bar: string = "a";
 exports[`object_type_annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
@@ -315,8 +305,7 @@ type Props3 = {
 exports[`type_annotations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new (window.Request/*: Class<Request> */)("");
 
@@ -351,8 +340,7 @@ const x = (input: string): string => {};
 exports[`type_annotations-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo/*::<bar>*/(baz);
 class Foo {
@@ -370,8 +358,7 @@ class Foo {
 exports[`type_annotations-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import type { OneType } from './oneFile.js'
 /*::
@@ -396,8 +383,7 @@ type PropTypes = {|
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type UploadState<E, EM, D>
   // The upload hasnt begun yet

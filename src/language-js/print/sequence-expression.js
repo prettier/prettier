@@ -7,7 +7,7 @@ import {
   softline,
 } from "../../document/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { isReturnOrThrowStatement } from "../utilities/index.js";
+import { isReturnOrThrowStatement } from "../utilities/node-types.js";
 
 function shouldIndentSequenceExpression(path, options) {
   const { key, parent } = path;

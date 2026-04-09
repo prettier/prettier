@@ -3,8 +3,7 @@
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 = /* 4 */ (
   & A
@@ -20,8 +19,7 @@ type A1 = /* 4 */ (A & B)[];
 exports[`intersection-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = (number | string) & boolean;
 type B = ((number | string)) & boolean;
@@ -87,7 +85,7 @@ let b11: /*1*/ /*2*/ C;
 
 let bb1: /*1*/ /*2*/ C & D;
 let bb2: /*1*/ /*2*/ C & /*3*/ D;
-let bb3: /*1*/ /*2*/ C & /*3*/ D /*5*/;
+let bb3: /*1*/ /*2*/ C & /*3*/ D; /*5*/
 
 type B2 = C;
 type B3 = C;

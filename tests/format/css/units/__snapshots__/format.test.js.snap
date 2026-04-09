@@ -3,8 +3,7 @@
 exports[`values.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @value 4XLarge 28/36px;
 

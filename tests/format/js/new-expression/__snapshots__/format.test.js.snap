@@ -3,8 +3,7 @@
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new (factory())()
 new factory()()
@@ -23,8 +22,7 @@ new (factory())(factory());
 exports[`new_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new (memoize.Cache || MapCache)
 new (typeof this == "function" ? this : Dict())
@@ -53,8 +51,7 @@ new (a\`\`())();
 exports[`with-member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function functionName() {
   // indent to make the line break

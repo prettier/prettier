@@ -1,7 +1,5 @@
-import {
-  isBinaryCastExpression,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
+import { isBinaryCastExpression } from "../utilities/node-types.js";
+import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
 function shouldAddParenthesesToIdentifier(path) {
   const { node } = path;
@@ -34,9 +32,11 @@ function shouldAddParenthesesToIdentifier(path) {
   }
 
   // `for ((let.a) of []);`
+  // `for ((let.a) in []);`
   if (node.name === "let") {
     const expression = path.findAncestor(
-      (node) => node.type === "ForOfStatement",
+      (node) =>
+        node.type === "ForOfStatement" || node.type === "ForInStatement",
     )?.left;
     if (
       expression &&

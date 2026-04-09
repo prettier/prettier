@@ -7,15 +7,14 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
+import { isMethod } from "../utilities/is-method.js";
 import {
-  CommentCheckFlags,
-  hasComment,
   isArrayExpression,
   isLiteral,
-  isMeaningfulEmptyStatement,
-  isMethod,
   isObjectExpression,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -33,17 +32,19 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
+import { printDoWhileStatement } from "./do-while-statement.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printForStatement } from "./for-statement.js";
+import { printForXStatement } from "./for-x-statement.js";
 import { printFunction, printMethod } from "./function.js";
 import { printHtmlBinding } from "./html-binding.js";
 import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
-  adjustClause,
   printDefiniteToken,
   printOptionalToken,
+  printSemicolon,
 } from "./miscellaneous.js";
 import {
   printExportDeclaration,
@@ -67,10 +68,7 @@ import { printTernary } from "./ternary.js";
 import { printCatchClause, printTryStatement } from "./try-statement.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { printVariableDeclaration } from "./variable-declaration.js";
-import {
-  printDoWhileStatement,
-  printWhileStatement,
-} from "./while-statement.js";
+import { printWhileStatement } from "./while-statement.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -224,7 +222,7 @@ function printEstree(path, options, print, args) {
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), options.semi ? ";" : ""];
+      return [print("value"), printSemicolon(options)];
     case "UnaryExpression": {
       const parts = [node.operator];
 
@@ -254,43 +252,19 @@ function printEstree(path, options, print, args) {
       return printTernary(path, options, print, args);
     case "VariableDeclaration":
       return printVariableDeclaration(path, options, print);
-    case "WithStatement":
-      return group([
-        "with (",
-        print("object"),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
     case "IfStatement":
       return printIfStatement(path, options, print);
     case "ForStatement":
       return printForStatement(path, options, print);
+    case "WithStatement":
     case "WhileStatement":
       return printWhileStatement(path, options, print);
     case "DoWhileStatement":
       return printDoWhileStatement(path, options, print);
 
     case "ForInStatement":
-      return group([
-        "for (",
-        print("left"),
-        " in ",
-        print("right"),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
-
     case "ForOfStatement":
-      return group([
-        "for",
-        node.await ? " await" : "",
-        " (",
-        print("left"),
-        " of ",
-        print("right"),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
+      return printForXStatement(path, options, print);
 
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
@@ -299,7 +273,7 @@ function printEstree(path, options, print, args) {
       return [
         node.type === "BreakStatement" ? "break" : "continue",
         node.label ? [" ", print("label")] : "",
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "LabeledStatement":
       return [
@@ -311,14 +285,12 @@ function printEstree(path, options, print, args) {
       return printTryStatement(path, options, print);
     case "CatchClause":
       return printCatchClause(path, options, print);
-    // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return printSwitchStatement(path, options, print);
     case "SwitchCase":
       return printSwitchCase(path, options, print);
-    // JSX extensions below.
     case "DebuggerStatement":
-      return ["debugger", options.semi ? ";" : ""];
+      return ["debugger", printSemicolon(options)];
 
     case "ClassDeclaration":
     case "ClassExpression":

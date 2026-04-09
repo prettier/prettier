@@ -3,8 +3,7 @@
 exports[`block-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -21,8 +20,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`block-comment-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*                     @noflow */
 
@@ -39,8 +37,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`filename.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = {"1":bar} // "1" should quoted
 
@@ -53,8 +50,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`inline-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -71,8 +67,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`inline-comment-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //                     @noflow
 
@@ -89,8 +84,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`inline-comment-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //  another comment
 //                     @flow
@@ -109,8 +103,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`like-a-pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // by fisker@flow.prettier.com :)
 
@@ -127,8 +120,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`not-flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = {"1":bar} // "1" should unquoted
 
@@ -141,8 +133,7 @@ foo = { 1: bar }; // "1" should unquoted
 exports[`not-flow-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flowflow
 
@@ -159,8 +150,7 @@ foo = { 1: bar }; // "1" should unquoted
 exports[`not-flow-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = "  @flow "
 foo = {"1":bar} // "1" should unquoted
@@ -175,8 +165,7 @@ foo = { 1: bar }; // "1" should unquoted
 exports[`not-flow-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = "  // @flow "
 foo = {"1":bar} // "1" should unquoted
@@ -191,8 +180,7 @@ foo = { 1: bar }; // "1" should unquoted
 exports[`not-flow-5.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env @flow
 foo = {"1":bar} // "1" should unquoted
@@ -207,8 +195,7 @@ foo = { 1: bar }; // "1" should unquoted
 exports[`pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -229,8 +216,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`pragma-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  *                      @noflow
@@ -251,8 +237,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`pragma-react.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -287,8 +272,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`shebang-inline-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 //  another comment
@@ -309,8 +293,7 @@ foo = { "1": bar }; // "1" should quoted
 exports[`shebang-pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 /**

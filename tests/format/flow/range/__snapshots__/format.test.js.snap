@@ -1,13 +1,12 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`declare-export-declaration.js format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-printWidth: 80
-rangeEnd: 277
-rangeStart: 273
-     |                                                                                | printWidth
-=====================================input======================================
+    : ====================================options=====================================
+    : parsers: ["flow"]
+    : rangeEnd: 277
+    : rangeStart: 273
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>
   2 |   (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):
   3 |   (Component: Component) => React$ComponentType<$Diff<React$ElementConfig<Component>, {
@@ -18,37 +17,36 @@ rangeStart: 273
   7 |
   8 | declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
   9 |
-=====================================output=====================================
-declare export function graphql<
-  Props,
-  Variables,
-  Component: React$ComponentType<Props>,
->(
-  query: GQLDocument,
-  config?: Config<Props, QueryConfigOptions<Variables>>,
-): (Component: Component) => React$ComponentType<
-  $Diff<
-    React$ElementConfig<Component>,
-    {
-      data: Object | void,
-      mutate: Function | void,
-    },
-  >,
->;
-
-declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
-
-================================================================================
+    : =====================================output=====================================
+    : declare export function graphql<
+    :   Props,
+    :   Variables,
+    :   Component: React$ComponentType<Props>,
+    : >(
+    :   query: GQLDocument,
+    :   config?: Config<Props, QueryConfigOptions<Variables>>,
+    : ): (Component: Component) => React$ComponentType<
+    :   $Diff<
+    :     React$ElementConfig<Component>,
+    :     {
+    :       data: Object | void,
+    :       mutate: Function | void,
+    :     },
+    :   >,
+    : >;
+    :
+    : declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
+    :
+    : ================================================================================
 `;
 
 exports[`type-parameter-declaration.js format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-printWidth: 80
-rangeEnd: 48
-rangeStart: 39
-     |                                                                                | printWidth
-=====================================input======================================
+    : ====================================options=====================================
+    : parsers: ["flow"]
+    : rangeEnd: 48
+    : rangeStart: 39
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
 > 1 | declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>
     |                                        ^^^^^^^^^
   2 |   (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):
@@ -59,25 +57,25 @@ rangeStart: 39
   7 |
   8 | declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
   9 |
-=====================================output=====================================
-declare export function graphql<
-  Props,
-  Variables,
-  Component: React$ComponentType<Props>,
->(
-  query: GQLDocument,
-  config?: Config<Props, QueryConfigOptions<Variables>>,
-): (Component: Component) => React$ComponentType<
-  $Diff<
-    React$ElementConfig<Component>,
-    {
-      data: Object | void,
-      mutate: Function | void,
-    },
-  >,
->;
-
-declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
-
-================================================================================
+    : =====================================output=====================================
+    : declare export function graphql<
+    :   Props,
+    :   Variables,
+    :   Component: React$ComponentType<Props>,
+    : >(
+    :   query: GQLDocument,
+    :   config?: Config<Props, QueryConfigOptions<Variables>>,
+    : ): (Component: Component) => React$ComponentType<
+    :   $Diff<
+    :     React$ElementConfig<Component>,
+    :     {
+    :       data: Object | void,
+    :       mutate: Function | void,
+    :     },
+    :   >,
+    : >;
+    :
+    : declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" | "cache-only"
+    :
+    : ================================================================================
 `;

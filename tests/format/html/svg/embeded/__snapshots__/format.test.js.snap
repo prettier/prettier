@@ -4,8 +4,7 @@ exports[`svg.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -74,8 +73,7 @@ element.fillStyle = 'currentColor'
 exports[`svg.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -146,8 +144,7 @@ exports[`svg.svg - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <script>
@@ -200,8 +197,7 @@ element.fillStyle = 'currentColor'
 exports[`svg.svg format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <script>

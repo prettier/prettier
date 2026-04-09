@@ -3,8 +3,7 @@
 exports[`missing-comments.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`\`\`\`missing-comments
         This should not be replaced.

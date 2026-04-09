@@ -3,9 +3,8 @@
 exports[`sfc-blocks.vue - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 singleAttributePerLine: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts">
 console.log("hello")
@@ -77,8 +76,7 @@ p {
 exports[`sfc-blocks.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts">
 console.log("hello")
@@ -150,9 +148,8 @@ p {
 exports[`single-attribute-per-line.vue - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 singleAttributePerLine: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div data-a="1">
@@ -225,8 +222,7 @@ singleAttributePerLine: true
 exports[`single-attribute-per-line.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div data-a="1">

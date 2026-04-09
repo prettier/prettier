@@ -4,8 +4,7 @@ exports[`front-matter-with-noformat-pragma.md - {"checkIgnorePragma":false} form
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -31,8 +30,7 @@ exports[`front-matter-with-noprettier-pragma.md - {"checkIgnorePragma":false} fo
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -58,8 +56,7 @@ exports[`with-noformat-pragma.md - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noformat -->
 
@@ -77,8 +74,7 @@ exports[`with-noprettier-pragma.md - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noprettier -->
 

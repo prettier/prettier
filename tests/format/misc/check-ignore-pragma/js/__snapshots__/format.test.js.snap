@@ -4,8 +4,7 @@ exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":true} format 1`] 
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -45,8 +44,7 @@ exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":true} format 1`
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -86,8 +84,7 @@ exports[`module-with-noprettier-pragma-comments.js - {"checkIgnorePragma":true} 
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -127,8 +124,7 @@ exports[`module-without-pragma.js - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow

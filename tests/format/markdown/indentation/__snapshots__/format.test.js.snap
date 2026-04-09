@@ -3,10 +3,9 @@
 exports[`example.md - {"proseWrap":"always","useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - Top level list item 1 
 - Top level list item 2

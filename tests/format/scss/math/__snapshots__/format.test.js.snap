@@ -3,9 +3,8 @@
 exports[`3945.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 .foo {
@@ -265,9 +264,8 @@ $colors: (
 exports[`3945.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 .foo {
@@ -527,9 +525,8 @@ $colors: (
 exports[`7419.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @include container($foo: 2);
 @include container($foo: 2 * ($bar));
@@ -574,9 +571,8 @@ trailingComma: "es5"
 exports[`7419.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @include container($foo: 2);
 @include container($foo: 2 * ($bar));

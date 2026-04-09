@@ -9,16 +9,18 @@ import {
   line,
   lineSuffix,
   lineSuffixBoundary,
+  literallineWithoutBreakParent,
   removeLines,
+  replaceEndOfLine,
   softline,
 } from "../document/index.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import printString from "../utilities/print-string.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
+import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
 import {
@@ -409,9 +411,12 @@ function genericPrint(path, options, print) {
         node.attribute.trim(),
         node.operator ?? "",
         node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options,
+          ? replaceEndOfLine(
+              quoteAttributeValue(
+                adjustStrings(node.value.trim(), options),
+                options,
+              ),
+              literallineWithoutBreakParent,
             )
           : "",
         node.insensitive ? " i" : "",
@@ -590,7 +595,7 @@ const printer = {
   print: genericPrint,
   embed,
   insertPragma,
-  massageAstNode: clean,
+  massageAstNode,
   getVisitorKeys,
 };
 

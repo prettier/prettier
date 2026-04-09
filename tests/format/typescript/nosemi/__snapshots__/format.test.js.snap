@@ -1,11 +1,49 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`functions.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare function a():void;
+
+{
+  foo()
+}
+
+
+declare function b():void;
+
+[foo()]
+
+
+for(;;) function c();
+{}
+
+=====================================output=====================================
+declare function a(): void;
+
+{
+  foo()
+}
+
+declare function b(): void;
+
+;[foo()]
+
+for (;;) function c();
+{
+}
+
+================================================================================
+`;
+
 exports[`index-signature.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class LocalStorage implements Storage {
   [index: number]: string;
@@ -24,9 +62,8 @@ class LocalStorage implements Storage {
 exports[`interface.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Inline { x: string }
 
@@ -55,12 +92,53 @@ interface InlineMultiple {
 ================================================================================
 `;
 
+exports[`module-declaration.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "foo";
+
+{
+  foo()
+}
+
+declare module "bar" {};
+
+{
+  foo()
+}
+
+declare module "baz";
+
+[foo()]
+
+=====================================output=====================================
+declare module "foo";
+
+{
+  foo()
+}
+
+declare module "bar" {}
+
+{
+  foo()
+}
+
+declare module "baz";
+
+;[foo()]
+
+================================================================================
+`;
+
 exports[`type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {disabled?: boolean, error?: string}
 

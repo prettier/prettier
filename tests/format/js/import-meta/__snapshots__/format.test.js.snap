@@ -3,8 +3,7 @@
 exports[`import_meta.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = import.meta;
 const url = import.meta.url;

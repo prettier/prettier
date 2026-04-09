@@ -3,9 +3,8 @@
 exports[`snippet: example-83.md (4.4 Indented code blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Foo
     bar
@@ -19,9 +18,8 @@ Foo bar
 exports[`snippet: example-87.md (4.4 Indented code blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
     
@@ -37,9 +35,8 @@ proseWrap: "always"
 exports[`snippet: example-198.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | foo | bar |
 | --- | --- |
@@ -56,9 +53,8 @@ proseWrap: "always"
 exports[`snippet: example-199.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | defghi |
 :-: | -----------:
@@ -75,9 +71,8 @@ bar | baz
 exports[`snippet: example-200.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | f\\|oo  |
 | ------ |
@@ -96,9 +91,8 @@ proseWrap: "always"
 exports[`snippet: example-201.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def |
 | --- | --- |
@@ -118,9 +112,8 @@ proseWrap: "always"
 exports[`snippet: example-202.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def |
 | --- | --- |
@@ -143,9 +136,8 @@ bar
 exports[`snippet: example-203.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def |
 | --- |
@@ -160,9 +152,8 @@ proseWrap: "always"
 exports[`snippet: example-204.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def |
 | --- | --- |
@@ -181,9 +172,8 @@ proseWrap: "always"
 exports[`snippet: example-205.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def |
 | --- | --- |
@@ -198,9 +188,8 @@ proseWrap: "always"
 exports[`snippet: example-279.md (5.3 Task list items (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [ ] foo
 - [x] bar
@@ -215,9 +204,8 @@ proseWrap: "always"
 exports[`snippet: example-280.md (5.3 Task list items (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [x] foo
   - [ ] bar
@@ -236,9 +224,8 @@ proseWrap: "always"
 exports[`snippet: example-316.md (6.1 Backslash escapes) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://example.com?find=\\*>
 
@@ -251,9 +238,8 @@ proseWrap: "always"
 exports[`snippet: example-355.md (6.3 Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`<http://foo.bar.\`baz>\`
 
@@ -266,9 +252,8 @@ proseWrap: "always"
 exports[`snippet: example-356.md (6.3 Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://foo.bar.\`baz>\`
 
@@ -281,9 +266,8 @@ proseWrap: "always"
 exports[`snippet: example-489.md (6.4 Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 **a<http://foo.bar/?q=**>
 
@@ -296,9 +280,8 @@ proseWrap: "always"
 exports[`snippet: example-490.md (6.4 Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 __a<http://foo.bar/?q=__>
 
@@ -311,9 +294,8 @@ __a<http://foo.bar/?q=__>
 exports[`snippet: example-491.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ~~Hi~~ Hello, ~there~ world!
 
@@ -326,9 +308,8 @@ proseWrap: "always"
 exports[`snippet: example-492.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This ~~has a
 
@@ -345,9 +326,8 @@ new paragraph~~.
 exports[`snippet: example-493.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This will ~~~not~~~ strike.
 
@@ -360,9 +340,8 @@ This will ~~~not~~~ strike.
 exports[`snippet: example-510.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](#fragment)
 
@@ -383,9 +362,8 @@ proseWrap: "always"
 exports[`snippet: example-535.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo<http://example.com/?search=](uri)>
 
@@ -398,9 +376,8 @@ proseWrap: "always"
 exports[`snippet: example-547.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo<http://example.com/?search=][ref]>
 
@@ -417,9 +394,8 @@ proseWrap: "always"
 exports[`snippet: example-604.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://foo.bar.baz/test?q=hello&id=22&boolean>
 
@@ -432,9 +408,8 @@ proseWrap: "always"
 exports[`snippet: example-609.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://../>
 
@@ -447,9 +422,8 @@ proseWrap: "always"
 exports[`snippet: example-611.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://foo.bar/baz bim>
 
@@ -462,9 +436,8 @@ proseWrap: "always"
 exports[`snippet: example-612.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://example.com/\\[\\>
 
@@ -477,9 +450,8 @@ proseWrap: "always"
 exports[`snippet: example-617.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 < http://foo.bar >
 
@@ -492,9 +464,8 @@ proseWrap: "always"
 exports[`snippet: example-620.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://example.com
 
@@ -507,9 +478,8 @@ http://example.com
 exports[`snippet: example-622.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 www.commonmark.org
 
@@ -522,9 +492,8 @@ www.commonmark.org
 exports[`snippet: example-623.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Visit www.commonmark.org/help for more information.
 
@@ -537,9 +506,8 @@ Visit www.commonmark.org/help for more information.
 exports[`snippet: example-624.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Visit www.commonmark.org.
 
@@ -556,9 +524,8 @@ Visit www.commonmark.org/a.b.
 exports[`snippet: example-625.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 www.google.com/search?q=Markup+(business)
 
@@ -583,9 +550,8 @@ www.google.com/search?q=Markup+(business)))
 exports[`snippet: example-626.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 www.google.com/search?q=(business))+ok
 
@@ -598,9 +564,8 @@ www.google.com/search?q=(business))+ok
 exports[`snippet: example-627.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 www.google.com/search?q=commonmark&hl=en
 
@@ -617,9 +582,8 @@ www.google.com/search?q=commonmark&hl;
 exports[`snippet: example-628.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 www.commonmark.org/he<lp
 
@@ -632,9 +596,8 @@ www.commonmark.org/he<lp
 exports[`snippet: example-629.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://commonmark.org
 
@@ -651,9 +614,8 @@ http://commonmark.org
 exports[`snippet: example-630.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo@bar.baz
 
@@ -666,9 +628,8 @@ foo@bar.baz
 exports[`snippet: example-631.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.
 
@@ -681,9 +642,8 @@ hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.
 exports[`snippet: example-632.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a.b-c_d@a.b
 
@@ -708,9 +668,8 @@ a.b-c_d@a.b_
 exports[`snippet: example-633.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 mailto:foo@bar.baz
 
@@ -751,9 +710,8 @@ xmpp:foo@bar.baz.
 exports[`snippet: example-634.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 xmpp:foo@bar.baz/txt
 
@@ -774,9 +732,8 @@ xmpp:foo@bar.baz/txt@bin.com
 exports[`snippet: example-635.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 xmpp:foo@bar.baz/txt/bin
 
@@ -789,9 +746,8 @@ xmpp:foo@bar.baz/txt/bin
 exports[`snippet: example-648.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo <!-- this is a
 comment - with hyphen -->
@@ -806,9 +762,8 @@ comment - with hyphen -->
 exports[`snippet: example-649.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo <!-- not a comment -- two hyphens -->
 
@@ -821,9 +776,8 @@ foo <!-- not a comment -- two hyphens -->
 exports[`snippet: example-650.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo <!--> foo -->
 
@@ -840,9 +794,8 @@ foo <!-- foo--->
 exports[`snippet: example-657.md (6.11 Disallowed Raw HTML (extension)) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <strong> <title> <style> <em>
 

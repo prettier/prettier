@@ -2,12 +2,6 @@ import * as assert from "#universal/assert";
 import { childNodesCache } from "./comments/attach.js";
 import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
-const isJsonParser = ({ parser }) =>
-  parser === "json" ||
-  parser === "json5" ||
-  parser === "jsonc" ||
-  parser === "json-stringify";
-
 function findCommonAncestor(startNodeAndAncestors, endNodeAndAncestors) {
   endNodeAndAncestors = new Set(endNodeAndAncestors);
   return startNodeAndAncestors.find(
@@ -71,8 +65,9 @@ function findNodeAtOffset(
   predicate,
   ancestors = [],
   type,
+  locFunctions,
 ) {
-  const { locStart, locEnd } = options;
+  const { locStart, locEnd } = locFunctions;
   const start = locStart(node);
   const end = locEnd(node);
 
@@ -103,6 +98,7 @@ function findNodeAtOffset(
       predicate,
       nodeAndAncestors,
       type,
+      locFunctions,
     );
     if (childAndAncestors) {
       return childAndAncestors;
@@ -197,7 +193,7 @@ function isSourceElement(opts, node, parentNode) {
 @returns {[number, number]}
 */
 function calculateRange(text, opts, ast) {
-  let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
+  let { rangeStart: start, rangeEnd: end } = opts;
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
@@ -212,6 +208,8 @@ function calculateRange(text, opts, ast) {
     }
   }
 
+  const locFunctions =
+    opts.printer.features?.experimental_locForRangeFormat ?? opts;
   const startNodeAndAncestors = findNodeAtOffset(
     ast,
     start,
@@ -219,6 +217,7 @@ function calculateRange(text, opts, ast) {
     (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
     "rangeStart",
+    locFunctions,
   );
   if (!startNodeAndAncestors) {
     return;
@@ -235,6 +234,7 @@ function calculateRange(text, opts, ast) {
           (node) => isSourceElement(opts, node),
           [],
           "rangeEnd",
+          locFunctions,
         );
   if (!endNodeAndAncestors) {
     return;
@@ -242,7 +242,7 @@ function calculateRange(text, opts, ast) {
 
   let startNode;
   let endNode;
-  if (isJsonParser(opts)) {
+  if (ast.type === "JsonRoot") {
     const commonAncestor = findCommonAncestor(
       startNodeAndAncestors,
       endNodeAndAncestors,
@@ -257,6 +257,7 @@ function calculateRange(text, opts, ast) {
     );
   }
 
+  const { locStart, locEnd } = locFunctions;
   return [
     Math.min(locStart(startNode), locStart(endNode)),
     Math.max(locEnd(startNode), locEnd(endNode)),

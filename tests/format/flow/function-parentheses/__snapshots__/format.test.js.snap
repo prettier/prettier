@@ -4,8 +4,7 @@ exports[`single.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const selectorByPath:
   Path
@@ -28,9 +27,8 @@ const selectorByPath: Path => SomethingSelector<
 exports[`single.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const selectorByPath:
   Path
@@ -53,9 +51,8 @@ const selectorByPath: (Path) => SomethingSelector<
 exports[`single.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const selectorByPath:
   Path
@@ -79,8 +76,7 @@ exports[`test.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Banana = {
   eat: string => boolean,
@@ -215,9 +211,8 @@ type T8 = ??(() => A) | B;
 exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Banana = {
   eat: string => boolean,
@@ -352,9 +347,8 @@ type T8 = ??(() => A) | B;
 exports[`test.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Banana = {
   eat: string => boolean,

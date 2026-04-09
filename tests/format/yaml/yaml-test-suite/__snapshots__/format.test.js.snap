@@ -3,8 +3,7 @@
 exports[`snippet: 2AUY.yaml - Tags in Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  - !!str a
  - b
@@ -23,8 +22,7 @@ printWidth: 80
 exports[`snippet: 2EBW.yaml - Allowed characters in keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a!"#$%&'()*+,-./09:;<=>?@AZ[\\]^_\`az{|}~: safe
 ?foo: safe question mark
@@ -45,8 +43,7 @@ this is#not: a comment
 exports[`snippet: 2G84-3.yaml - Literal modifers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |1-
 =====================================output=====================================
@@ -59,8 +56,7 @@ printWidth: 80
 exports[`snippet: 2G84-4.yaml - Literal modifers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |1+
 =====================================output=====================================
@@ -72,8 +68,7 @@ printWidth: 80
 exports[`snippet: 2JQS.yaml - Block Mapping with Missing Keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 : a
 : b
@@ -88,8 +83,7 @@ printWidth: 80
 exports[`snippet: 2LFX.yaml - Spec Example 6.13. Reserved Directives [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %FOO  bar baz # Should be ignored
               # with a warning.
@@ -108,8 +102,7 @@ printWidth: 80
 exports[`snippet: 2SXE.yaml - Anchors With Colon in Name format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &a: key: &a value
 foo:
@@ -125,8 +118,7 @@ foo: *a:
 exports[`snippet: 2XXW.yaml - Spec Example 2.25. Unordered Sets format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Sets are represented as a
 # Mapping where each key is
@@ -152,8 +144,7 @@ printWidth: 80
 exports[`snippet: 3ALJ.yaml - Block Sequence in Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - - s1_i1
   - s1_i2
@@ -170,8 +161,7 @@ printWidth: 80
 exports[`snippet: 3GZX.yaml - Spec Example 7.1. Alias Nodes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 First occurrence: &anchor Foo
 Second occurrence: *anchor
@@ -190,8 +180,7 @@ Reuse anchor: *anchor
 exports[`snippet: 3MYT.yaml - Plain Scalar looking like key, comment, anchor and tag format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 k:#foo
@@ -208,8 +197,7 @@ k:#foo
 exports[`snippet: 3R3P.yaml - Single block sequence with anchor format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &sequence
 - a
@@ -224,8 +212,7 @@ printWidth: 80
 exports[`snippet: 3RLN.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "1 leading
     \\ttab"
@@ -240,8 +227,7 @@ printWidth: 80
 exports[`snippet: 3RLN-2.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "2 leading
     \\	tab"
@@ -256,8 +242,7 @@ printWidth: 80
 exports[`snippet: 3RLN-3.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "3 leading
     	tab"
@@ -272,8 +257,7 @@ tab"
 exports[`snippet: 3RLN-4.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "4 leading
     \\t  tab"
@@ -288,8 +272,7 @@ printWidth: 80
 exports[`snippet: 3RLN-5.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "5 leading
     \\	  tab"
@@ -304,8 +287,7 @@ printWidth: 80
 exports[`snippet: 3RLN-6.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "6 leading
     	  tab"
@@ -320,8 +302,7 @@ tab"
 exports[`snippet: 3UYS.yaml - Escaped slash in double quotes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 escaped slash: "a\\/b"
 
@@ -334,8 +315,7 @@ escaped slash: "a\\/b"
 exports[`snippet: 4ABK.yaml - Flow Mapping Separate Values format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
 unquoted : "separate",
@@ -352,8 +332,7 @@ omitted value:,
 exports[`snippet: 4CQQ.yaml - Spec Example 2.18. Multi-line Flow Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 plain:
   This unquoted scalar
@@ -375,8 +354,7 @@ quoted: "So does this
 exports[`snippet: 4FJ6.yaml - Nested implicit complex keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 [
@@ -393,8 +371,7 @@ printWidth: 80
 exports[`snippet: 4GC6.yaml - Spec Example 7.7. Single Quoted Characters format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'here''s to "quotes"'
 
@@ -407,8 +384,7 @@ printWidth: 80
 exports[`snippet: 4MUZ.yaml - Flow mapping colon on line after key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"foo"
 : "bar"}
@@ -422,8 +398,7 @@ printWidth: 80
 exports[`snippet: 4MUZ-2.yaml - Flow mapping colon on line after key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"foo"
 : bar}
@@ -437,8 +412,7 @@ printWidth: 80
 exports[`snippet: 4MUZ-3.yaml - Flow mapping colon on line after key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {foo
 : bar}
@@ -452,8 +426,7 @@ printWidth: 80
 exports[`snippet: 4Q9F.yaml - Folded Block Scalar [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >
  ab
@@ -481,8 +454,7 @@ printWidth: 80
 exports[`snippet: 4QFQ.yaml - Spec Example 8.2. Block Indentation Indicator [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |
  detected
@@ -513,8 +485,7 @@ printWidth: 80
 exports[`snippet: 4RWC.yaml - Trailing spaces after flow collection format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   [1, 2, 3]  
   
@@ -527,8 +498,7 @@ printWidth: 80
 exports[`snippet: 4UYU.yaml - Colon in Double Quoted String format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "foo: bar\\": baz"
 
@@ -541,8 +511,7 @@ printWidth: 80
 exports[`snippet: 4V8U.yaml - Plain scalar with backslashes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 plain\\value\\with\\backslashes
@@ -557,8 +526,7 @@ plain\\value\\with\\backslashes
 exports[`snippet: 4WA9.yaml - Literal scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - aaa: |2
     xxx
@@ -577,8 +545,7 @@ printWidth: 80
 exports[`snippet: 4ZYM.yaml - Spec Example 6.4. Line Prefixes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 plain: text
   lines
@@ -603,8 +570,7 @@ block: |
 exports[`snippet: 5BVJ.yaml - Spec Example 5.7. Block Scalar Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 literal: |
   some
@@ -627,8 +593,7 @@ folded: >
 exports[`snippet: 5C5M.yaml - Spec Example 7.15. Flow Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - { one : two , three: four , }
 - {five: six,seven : eight}
@@ -643,8 +608,7 @@ printWidth: 80
 exports[`snippet: 5GBF.yaml - Spec Example 6.5. Empty Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Folding:
   "Empty line
@@ -668,8 +632,7 @@ Chomping: |
 exports[`snippet: 5KJE.yaml - Spec Example 7.13. Flow Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [ one, two, ]
 - [three ,four]
@@ -684,8 +647,7 @@ printWidth: 80
 exports[`snippet: 5MUD.yaml - Colon and adjacent value on next line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 { "foo"
@@ -701,8 +663,7 @@ printWidth: 80
 exports[`snippet: 5NYZ.yaml - Spec Example 6.9. Separated Comment format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 key:    # Comment
   value
@@ -717,8 +678,7 @@ key: # Comment
 exports[`snippet: 5T43.yaml - Colon at the beginning of adjacent flow scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - { "key":value }
 - { "key"::value }
@@ -733,8 +693,7 @@ printWidth: 80
 exports[`snippet: 5TYM.yaml - Spec Example 6.21. Local Tag Prefix format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !m! !my-
 --- # Bulb here
@@ -759,8 +718,7 @@ printWidth: 80
 exports[`snippet: 5WE3.yaml - Spec Example 8.17. Explicit Block Mapping Entries format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? explicit key # Empty value
 ? |
@@ -781,8 +739,7 @@ printWidth: 80
 exports[`snippet: 6BCT.yaml - Spec Example 6.3. Separation Spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo:	 bar
 - - baz
@@ -799,8 +756,7 @@ printWidth: 80
 exports[`snippet: 6BFJ.yaml - Mapping, key and flow sequence item anchors format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 &mapping
@@ -817,8 +773,7 @@ printWidth: 80
 exports[`snippet: 6CA3.yaml - Tab indented top flow format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 	[
 	]
@@ -832,8 +787,7 @@ printWidth: 80
 exports[`snippet: 6CK3.yaml - Spec Example 6.26. Tag Shorthands format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !e! tag:example.com,2000:app/
 ---
@@ -854,8 +808,7 @@ printWidth: 80
 exports[`snippet: 6FWR.yaml - Block Scalar Keep format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |+
  ab
@@ -876,8 +829,7 @@ printWidth: 80
 exports[`snippet: 6H3V.yaml - Backslashes in singlequotes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'foo: bar\\': baz'
 
@@ -890,8 +842,7 @@ printWidth: 80
 exports[`snippet: 6HB6.yaml - Spec Example 6.1. Indentation Spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   # Leading comment line spaces are
    # neither content nor indentation.
@@ -927,8 +878,7 @@ Not indented:
 exports[`snippet: 6JQW.yaml - Spec Example 2.13. In literals, newlines are preserved format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # ASCII Art
 --- |
@@ -948,8 +898,7 @@ printWidth: 80
 exports[`snippet: 6JWB.yaml - Tags for Block Objects format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: !!seq
   - !!str a
@@ -968,8 +917,7 @@ foo: !!seq
 exports[`snippet: 6KGN.yaml - Anchor for empty node format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a: &anchor
@@ -986,8 +934,7 @@ b: *anchor
 exports[`snippet: 6LVF.yaml - Spec Example 6.13. Reserved Directives format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %FOO  bar baz # Should be ignored
               # with a warning.
@@ -1005,8 +952,7 @@ printWidth: 80
 exports[`snippet: 6M2F.yaml - Aliases in Explicit Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? &a a
 : &b b
@@ -1022,8 +968,7 @@ printWidth: 80
 exports[`snippet: 6PBE.yaml - Zero-indented sequences in explicit mapping keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ?
@@ -1046,8 +991,7 @@ printWidth: 80
 exports[`snippet: 6SLA.yaml - Allowed characters in quoted mapping key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "foo\\nbar:baz\\tx \\\\$%^&*()x": 23
 'x\\ny:z\\tx $%^&*()x': 24
@@ -1062,8 +1006,7 @@ printWidth: 80
 exports[`snippet: 6VJK.yaml - Spec Example 2.15. Folded newlines are preserved for "more indented" and blank lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >
  Sammy Sosa completed another
@@ -1090,8 +1033,7 @@ printWidth: 80
 exports[`snippet: 6WLZ.yaml - Spec Example 6.18. Primary Tag Handle [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Private
 ---
@@ -1118,8 +1060,7 @@ printWidth: 80
 exports[`snippet: 6WPF.yaml - Spec Example 6.8. Flow Folding [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 "
@@ -1146,8 +1087,7 @@ baz
 exports[`snippet: 6XDY.yaml - Two document start markers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -1162,8 +1102,7 @@ printWidth: 80
 exports[`snippet: 6ZKB.yaml - Spec Example 9.6. Stream format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Document
 ---
@@ -1188,8 +1127,7 @@ matches %: 20
 exports[`snippet: 7A4E.yaml - Spec Example 7.6. Double Quoted Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 " 1st non-empty
 
@@ -1208,8 +1146,7 @@ printWidth: 80
 exports[`snippet: 7BMT.yaml - Node and Mapping Key Anchors [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 top1: &node1
@@ -1248,8 +1185,7 @@ top7: &val7 seven
 exports[`snippet: 7BUB.yaml - Spec Example 2.10. Node for “Sammy Sosa” appears twice in this document format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 hr:
@@ -1276,8 +1212,7 @@ rbi:
 exports[`snippet: 7FWL.yaml - Spec Example 6.24. Verbatim Tags format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !<tag:yaml.org,2002:str> foo :
   !<!bar> baz
@@ -1291,8 +1226,7 @@ printWidth: 80
 exports[`snippet: 7T8X.yaml - Spec Example 8.10. Folded Lines - 8.13. Final Empty Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >
 
@@ -1335,8 +1269,7 @@ printWidth: 80
 exports[`snippet: 7TMG.yaml - Comment in flow sequence before comma format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 [ word1
@@ -1357,8 +1290,7 @@ printWidth: 80
 exports[`snippet: 7W2P.yaml - Block Mapping with Missing Values format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? a
 ? b
@@ -1375,8 +1307,7 @@ c:
 exports[`snippet: 7Z25.yaml - Bare document after document end marker format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 scalar1
@@ -1395,8 +1326,7 @@ key: value
 exports[`snippet: 7ZZ5.yaml - Empty flow collections format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 nested sequences:
@@ -1419,8 +1349,7 @@ key2: {}
 exports[`snippet: 8CWC.yaml - Plain mapping key ending with colon format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 key ends with two colons::: value
@@ -1435,8 +1364,7 @@ key ends with two colons::: value
 exports[`snippet: 8G76.yaml - Spec Example 6.10. Comment Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   # Comment
    
@@ -1452,8 +1380,7 @@ printWidth: 80
 exports[`snippet: 8KB6.yaml - Multiline plain flow mapping key without value format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - { single line, a: b}
@@ -1475,8 +1402,7 @@ printWidth: 80
 exports[`snippet: 8MK2.yaml - Explicit Non-Specific Tag format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ! a
 
@@ -1489,8 +1415,7 @@ printWidth: 80
 exports[`snippet: 8QBE.yaml - Block Sequence in Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 key:
  - item1
@@ -1507,8 +1432,7 @@ key:
 exports[`snippet: 8UDB.yaml - Spec Example 7.14. Flow Sequence Entries format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 "double
@@ -1537,8 +1461,7 @@ single: pair,
 exports[`snippet: 8XYN.yaml - Anchor with unicode character format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - &😁 unicode anchor
@@ -1553,8 +1476,7 @@ printWidth: 80
 exports[`snippet: 9BXH.yaml - Multiline doublequoted flow mapping key without value format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - { "single line", a: b}
@@ -1576,8 +1498,7 @@ printWidth: 80
 exports[`snippet: 9DXL.yaml - Spec Example 9.6. Stream [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Mapping: Document
 ---
@@ -1602,8 +1523,7 @@ matches %: 20
 exports[`snippet: 9FMG.yaml - Multi-level Mapping Indent format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a:
   b:
@@ -1626,8 +1546,7 @@ h: i
 exports[`snippet: 9J7A.yaml - Simple Mapping Indent format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo:
   bar: baz
@@ -1642,8 +1561,7 @@ foo:
 exports[`snippet: 9KAX.yaml - Various combinations of tags and anchors format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 &a1
@@ -1700,8 +1618,7 @@ a6: 1
 exports[`snippet: 9MMW.yaml - Single Pair Implicit Entries format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [ YAML : separate ]
 - [ "JSON like":adjacent ]
@@ -1718,8 +1635,7 @@ printWidth: 80
 exports[`snippet: 9MQT.yaml - Scalar doc with '...' in content format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- "a
 ...x
@@ -1737,8 +1653,7 @@ b"
 exports[`snippet: 9SA2.yaml - Multiline double quoted flow mapping key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - { "single line": value}
@@ -1758,8 +1673,7 @@ printWidth: 80
 exports[`snippet: 9SHH.yaml - Spec Example 5.8. Quoted Scalar Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 single: 'text'
 double: "text"
@@ -1774,8 +1688,7 @@ double: "text"
 exports[`snippet: 9TFX.yaml - Spec Example 7.6. Double Quoted Lines [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 " 1st non-empty
@@ -1796,8 +1709,7 @@ printWidth: 80
 exports[`snippet: 9U5K.yaml - Spec Example 2.12. Compact Nested Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 # Products purchased
@@ -1824,8 +1736,7 @@ printWidth: 80
 exports[`snippet: 9WXW.yaml - Spec Example 6.18. Primary Tag Handle format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Private
 !foo "bar"
@@ -1850,8 +1761,7 @@ printWidth: 80
 exports[`snippet: 9YRD.yaml - Multiline Scalar at Top Level format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a
 b  
@@ -1874,8 +1784,7 @@ e
 exports[`snippet: 26DV.yaml - Whitespace around colon in mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "top1" : 
   "key1" : &alias1 scalar1
@@ -1909,8 +1818,7 @@ top6:
 exports[`snippet: 27NA.yaml - Spec Example 5.9. Directive Indicator format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.2
 --- text
@@ -1926,8 +1834,7 @@ text
 exports[`snippet: 33X3.yaml - Three explicit integers in a block sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - !!int 1
@@ -1946,8 +1853,7 @@ printWidth: 80
 exports[`snippet: 35KP.yaml - Tags for Root Objects format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- !!map
 ? a
@@ -1975,8 +1881,7 @@ e
 exports[`snippet: 36F6.yaml - Multiline plain scalar with empty line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 plain: a
@@ -1997,8 +1902,7 @@ plain: a
 exports[`snippet: 52DL.yaml - Explicit Non-Specific Tag [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ! a
@@ -2013,8 +1917,7 @@ printWidth: 80
 exports[`snippet: 54T7.yaml - Flow Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {foo: you, bar: far}
 
@@ -2027,8 +1930,7 @@ printWidth: 80
 exports[`snippet: 57H4.yaml - Spec Example 8.22. Block Collection Nodes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 sequence: !!seq
 - entry
@@ -2051,8 +1953,7 @@ mapping: !!map
 exports[`snippet: 58MP.yaml - Flow mapping edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {x: :x}
 
@@ -2065,8 +1966,7 @@ printWidth: 80
 exports[`snippet: 65WH.yaml - Single Entry Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 
@@ -2079,8 +1979,7 @@ printWidth: 80
 exports[`snippet: 74H7.yaml - Tags in Implicit Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str a: b
 c: !!int 42
@@ -2101,8 +2000,7 @@ g: h
 exports[`snippet: 82AN.yaml - Three dashes and content without space format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---word1
 word2
@@ -2117,8 +2015,7 @@ word2
 exports[`snippet: 87E4.yaml - Spec Example 7.8. Single Quoted Implicit Keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'implicit block key' : [
   'implicit flow key' : value,
@@ -2133,8 +2030,7 @@ printWidth: 80
 exports[`snippet: 93JH.yaml - Block Mappings in Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  - key: value
    key2: value2
@@ -2152,8 +2048,7 @@ printWidth: 80
 exports[`snippet: 93WF.yaml - Spec Example 6.6. Line Folding [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >-
   trimmed
@@ -2179,8 +2074,7 @@ printWidth: 80
 exports[`snippet: 96L6.yaml - Spec Example 2.14. In the folded scalars, newlines become spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >
   Mark McGwire's
@@ -2200,8 +2094,7 @@ printWidth: 80
 exports[`snippet: 96NN.yaml - Leading tab content in literals format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: |-
  	bar
@@ -2216,8 +2109,7 @@ foo: |-
 exports[`snippet: 96NN-2.yaml - Leading tab content in literals format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: |-
  	bar
@@ -2231,8 +2123,7 @@ foo: |-
 exports[`snippet: 98YD.yaml - Spec Example 5.5. Comment Indicator format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Comment only.
 
@@ -2245,8 +2136,7 @@ printWidth: 80
 exports[`snippet: 229Q.yaml - Spec Example 2.4. Sequence of Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
   name: Mark McGwire
@@ -2271,8 +2161,7 @@ printWidth: 80
 exports[`snippet: 565N.yaml - Construct Binary format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 canonical: !!binary "\\
  R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5\\
@@ -2306,8 +2195,7 @@ description: The binary value above is a tiny arrow encoded as a gif image.
 exports[`snippet: 652Z.yaml - Question mark at start of flow key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { ?foo: bar,
 bar: 42
@@ -2322,8 +2210,7 @@ bar: 42
 exports[`snippet: 735Y.yaml - Spec Example 8.20. Block Node Types format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
   "flow in block"
@@ -2345,8 +2232,7 @@ printWidth: 80
 exports[`snippet: 753E.yaml - Block Scalar Strip [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |-
  ab
@@ -2366,8 +2252,7 @@ printWidth: 80
 exports[`snippet: A2M4.yaml - Spec Example 6.2. Indentation Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? a
 : -	b
@@ -2386,8 +2271,7 @@ a:
 exports[`snippet: A6F9.yaml - Spec Example 8.4. Chomping Final Line Break format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 strip: |-
   text
@@ -2410,8 +2294,7 @@ keep: |+
 exports[`snippet: A984.yaml - Multiline Scalar in Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: b
  c
@@ -2431,8 +2314,7 @@ d: e
 exports[`snippet: AB8U.yaml - Sequence entry that looks like two with wrong indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - single multiline
  - sequence entry
@@ -2447,8 +2329,7 @@ printWidth: 80
 exports[`snippet: AVM7.yaml - Empty Stream format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 =====================================output=====================================
@@ -2459,8 +2340,7 @@ printWidth: 80
 exports[`snippet: AZ63.yaml - Sequence With Same Indentation as Parent Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 one:
 - 2
@@ -2479,8 +2359,7 @@ four: 5
 exports[`snippet: AZW3.yaml - Lookahead test cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - bla"keks: foo
 - bla]keks: foo
@@ -2495,8 +2374,7 @@ printWidth: 80
 exports[`snippet: B3HG.yaml - Spec Example 8.9. Folded Scalar [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >
  folded
@@ -2516,8 +2394,7 @@ printWidth: 80
 exports[`snippet: BEC7.yaml - Spec Example 6.14. “YAML” directive format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.3 # Attempt parsing
           # with a warning
@@ -2536,8 +2413,7 @@ printWidth: 80
 exports[`snippet: BU8L.yaml - Node Anchor and Tag on Seperate Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 key: &anchor
  !!map
@@ -2553,8 +2429,7 @@ key: !!map &anchor
 exports[`snippet: C2DT.yaml - Spec Example 7.18. Flow Mapping Adjacent Values format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
 "adjacent":value,
@@ -2571,8 +2446,7 @@ printWidth: 80
 exports[`snippet: C4HZ.yaml - Spec Example 2.24. Global Tags format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG ! tag:clarkevans.com,2002:
 --- !shape
@@ -2612,8 +2486,7 @@ printWidth: 80
 exports[`snippet: CC74.yaml - Spec Example 6.20. Tag Handles format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !e! tag:example.com,2000:app/
 ---
@@ -2630,8 +2503,7 @@ printWidth: 80
 exports[`snippet: CFD4.yaml - Empty implicit key in single pair flow sequences format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [ : empty key ]
 - [: another empty key]
@@ -2646,8 +2518,7 @@ printWidth: 80
 exports[`snippet: CN3R.yaml - Various location of anchors in flow sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &flowseq [
  a: b,
@@ -2665,8 +2536,7 @@ printWidth: 80
 exports[`snippet: CPZ3.yaml - Doublequoted scalar starting with a tab format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 tab: "\\tstring"
@@ -2681,8 +2551,7 @@ tab: "\\tstring"
 exports[`snippet: CT4Q.yaml - Spec Example 7.20. Single Pair Explicit Entry format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 ? foo
@@ -2700,8 +2569,7 @@ printWidth: 80
 exports[`snippet: CUP7.yaml - Spec Example 5.6. Node Property Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 anchored: !local &anchor value
 alias: *anchor
@@ -2716,8 +2584,7 @@ alias: *anchor
 exports[`snippet: D9TU.yaml - Single Pair Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: bar
 
@@ -2730,8 +2597,7 @@ foo: bar
 exports[`snippet: D83L.yaml - Block scalar indicator order format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |2-
   explicit indent and chomp
@@ -2750,8 +2616,7 @@ printWidth: 80
 exports[`snippet: D88J.yaml - Flow Sequence in Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: [b, c]
 
@@ -2764,8 +2629,7 @@ a: [b, c]
 exports[`snippet: DBG4.yaml - Spec Example 7.10. Plain Characters format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Outside flow collection:
 - ::vector
@@ -2796,8 +2660,7 @@ printWidth: 80
 exports[`snippet: DC7X.yaml - Various trailing tabs format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: b	
 seq:	
@@ -2816,8 +2679,7 @@ c: d #X
 exports[`snippet: DE56.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "1 trailing\\t
     tab"
@@ -2832,8 +2694,7 @@ tab"
 exports[`snippet: DE56-2.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "2 trailing\\t  
     tab"
@@ -2848,8 +2709,7 @@ tab"
 exports[`snippet: DE56-5.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "5 trailing	
     tab"
@@ -2864,8 +2724,7 @@ tab"
 exports[`snippet: DE56-6.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "6 trailing	  
     tab"
@@ -2880,8 +2739,7 @@ tab"
 exports[`snippet: DFF7.yaml - Spec Example 7.16. Flow Mapping Entries format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
 ? explicit: entry,
@@ -2898,8 +2756,7 @@ implicit: entry,
 exports[`snippet: DHP8.yaml - Flow Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo, bar, 42]
 
@@ -2912,8 +2769,7 @@ printWidth: 80
 exports[`snippet: DK3J.yaml - Zero indented block scalar with line that looks like a comment format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >
 line1
@@ -2933,8 +2789,7 @@ line3
 exports[`snippet: DK95-3.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: "bar
   	baz"
@@ -2949,8 +2804,7 @@ foo: "bar
 exports[`snippet: DK95-4.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  	
 foo: 1
@@ -2964,8 +2818,7 @@ foo: 1
 exports[`snippet: DK95-5.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: 1
 	
@@ -2982,8 +2835,7 @@ bar: 2
 exports[`snippet: DK95-6.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: 1
  	
@@ -3000,8 +2852,7 @@ bar: 2
 exports[`snippet: DK95-8.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.2
 	
@@ -3017,8 +2868,7 @@ printWidth: 80
 exports[`snippet: DK95-9.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: "bar
  	 	 baz 	 	 "
@@ -3033,8 +2883,7 @@ foo: "bar
 exports[`snippet: DWX9.yaml - Spec Example 8.8. Literal Content format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 |
  
@@ -3063,8 +2912,7 @@ printWidth: 80
 exports[`snippet: E76Z.yaml - Aliases in Implicit Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &a a: &b b
 *b : *a
@@ -3079,8 +2927,7 @@ printWidth: 80
 exports[`snippet: EHF6.yaml - Tags for Flow Objects format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!map {
   k: !!seq
@@ -3096,8 +2943,7 @@ printWidth: 80
 exports[`snippet: EX5H.yaml - Multiline Scalar at Top Level [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a
@@ -3122,8 +2968,7 @@ e
 exports[`snippet: EXG3.yaml - Three dashes and content without space [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---word1
@@ -3140,8 +2985,7 @@ word2
 exports[`snippet: F2C7.yaml - Anchors and Tags format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  - &a !!str a
  - !!int 2
@@ -3160,8 +3004,7 @@ printWidth: 80
 exports[`snippet: F3CP.yaml - Nested flow collections on one line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 { a: [b, c, { d: [e, f] } ] }
@@ -3176,8 +3019,7 @@ printWidth: 80
 exports[`snippet: F6MC.yaml - More indented lines at the beginning of folded block scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a: >2
@@ -3206,8 +3048,7 @@ b: >2
 exports[`snippet: F8F9.yaml - Spec Example 8.5. Chomping Trailing Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  # Strip
   # Comments:
@@ -3255,8 +3096,7 @@ keep: |+
 exports[`snippet: FBC9.yaml - Allowed characters in plain scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 safe: a!"#$%&'()*+,-./09:;<=>?@AZ[\\]^_\`az{|}~
      !"#$%&'()*+,-./09:;<=>?@AZ[\\]^_\`az{|}~
@@ -3277,8 +3117,7 @@ safe dash: -foo
 exports[`snippet: FH7J.yaml - Tags on Empty Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - !!str
 -
@@ -3298,8 +3137,7 @@ printWidth: 80
 exports[`snippet: FP8R.yaml - Zero indented block scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- >
 line1
@@ -3319,8 +3157,7 @@ line3
 exports[`snippet: FQ7F.yaml - Spec Example 2.1. Sequence of Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - Mark McGwire
 - Sammy Sosa
@@ -3337,8 +3174,7 @@ printWidth: 80
 exports[`snippet: FRK4.yaml - Spec Example 7.3. Completely Empty Flow Nodes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   ? foo :,
@@ -3354,8 +3190,7 @@ printWidth: 80
 exports[`snippet: FTA2.yaml - Single block sequence with anchor and explicit document start format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- &sequence
 - a
@@ -3371,8 +3206,7 @@ printWidth: 80
 exports[`snippet: FUP4.yaml - Flow Sequence in Flow Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [a, [b, c]]
 
@@ -3385,8 +3219,7 @@ printWidth: 80
 exports[`snippet: G4RS.yaml - Spec Example 2.17. Quoted Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 unicode: "Sosa did fine.\\u263A"
 control: "\\b1998\\t1999\\t2000\\n"
@@ -3411,8 +3244,7 @@ tie-fighter: '|\\-*-/|'
 exports[`snippet: G992.yaml - Spec Example 8.9. Folded Scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >
  folded
@@ -3431,8 +3263,7 @@ printWidth: 80
 exports[`snippet: GH63.yaml - Mixed Block Mapping (explicit to implicit) format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? a
 : 1.3
@@ -3448,8 +3279,7 @@ fifteen: d
 exports[`snippet: H2RW.yaml - Blank lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: 1
 
@@ -3484,8 +3314,7 @@ text: |
 exports[`snippet: H3Z8.yaml - Literal unicode format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 wanted: love ♥ and peace ☮
@@ -3500,8 +3329,7 @@ wanted: love ♥ and peace ☮
 exports[`snippet: HM87.yaml - Scalars in flow start with syntax char format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [:x]
 
@@ -3514,8 +3342,7 @@ printWidth: 80
 exports[`snippet: HM87-2.yaml - Scalars in flow start with syntax char format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [?x]
 
@@ -3528,8 +3355,7 @@ printWidth: 80
 exports[`snippet: HMK4.yaml - Spec Example 2.16. Indentation determines scope format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 name: Mark McGwire
 accomplishment: >
@@ -3554,8 +3380,7 @@ stats: |
 exports[`snippet: HMQ5.yaml - Spec Example 6.23. Node Properties format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str &a1 "foo":
   !!str bar
@@ -3571,8 +3396,7 @@ printWidth: 80
 exports[`snippet: HS5T.yaml - Spec Example 7.12. Plain Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1st non-empty
 
@@ -3591,8 +3415,7 @@ printWidth: 80
 exports[`snippet: HWV9.yaml - Document-end marker format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ...
 
@@ -3606,8 +3429,7 @@ printWidth: 80
 exports[`snippet: J3BT.yaml - Spec Example 5.12. Tabs and Spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Tabs and spaces
 quoted: "Quoted 	"
@@ -3630,8 +3452,7 @@ block: |
 exports[`snippet: J5UC.yaml - Multiple Pair Block Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: blue
 bar: arrr
@@ -3648,8 +3469,7 @@ baz: jazz
 exports[`snippet: J7PZ.yaml - Spec Example 2.26. Ordered Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # The !!omap tag is one of the optional types
 # introduced for YAML 1.1. In 1.2, it is not
@@ -3683,8 +3503,7 @@ printWidth: 80
 exports[`snippet: J7VC.yaml - Empty Lines Between Mapping Elements format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 one: 2
 
@@ -3702,8 +3521,7 @@ three: 4
 exports[`snippet: J9HZ.yaml - Spec Example 2.9. Single Document with Two Comments format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 hr: # 1998 hr ranking
@@ -3730,8 +3548,7 @@ rbi:
 exports[`snippet: JEF9.yaml - Trailing whitespace in streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |+
 
@@ -3748,8 +3565,7 @@ printWidth: 80
 exports[`snippet: JHB9.yaml - Spec Example 2.7. Two Documents in a Stream format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Ranking of 1998 home runs
 ---
@@ -3780,8 +3596,7 @@ printWidth: 80
 exports[`snippet: JQ4R.yaml - Spec Example 8.14. Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 block sequence:
   - one
@@ -3798,8 +3613,7 @@ block sequence:
 exports[`snippet: JR7V.yaml - Question marks in scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - a?string
 - another ? string
@@ -3826,8 +3640,7 @@ printWidth: 80
 exports[`snippet: JS2J.yaml - Spec Example 6.29. Node Anchors format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 First occurrence: &anchor Value
 Second occurrence: *anchor
@@ -3842,8 +3655,7 @@ Second occurrence: *anchor
 exports[`snippet: JTV5.yaml - Block Mapping with Multiline Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? a
   true
@@ -3866,8 +3678,7 @@ printWidth: 80
 exports[`snippet: K3WX.yaml - Colon and adjacent value after comment on next line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 { "foo" # comment
@@ -3884,8 +3695,7 @@ printWidth: 80
 exports[`snippet: K4SU.yaml - Multiple Entry Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 - bar
@@ -3902,8 +3712,7 @@ printWidth: 80
 exports[`snippet: K54U.yaml - Tab after document header format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---	scalar
 
@@ -3917,8 +3726,7 @@ scalar
 exports[`snippet: K527.yaml - Spec Example 6.6. Line Folding format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >-
   trimmed
@@ -3943,8 +3751,7 @@ printWidth: 80
 exports[`snippet: K858.yaml - Spec Example 8.6. Empty Scalar Chomping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 strip: >-
 
@@ -3967,8 +3774,7 @@ keep: |+
 exports[`snippet: KH5V.yaml - Inline tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "1 inline\\ttab"
 
@@ -3981,8 +3787,7 @@ printWidth: 80
 exports[`snippet: KH5V-2.yaml - Inline tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "2 inline\\	tab"
 
@@ -3995,8 +3800,7 @@ printWidth: 80
 exports[`snippet: KH5V-3.yaml - Inline tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "3 inline	tab"
 
@@ -4009,8 +3813,7 @@ printWidth: 80
 exports[`snippet: KK5P.yaml - Various combinations of explicit block mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 complex1:
   ? - a
@@ -4052,8 +3855,7 @@ complex5:
 exports[`snippet: KMK3.yaml - Block Submapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo:
   bar: 1
@@ -4070,8 +3872,7 @@ baz: 2
 exports[`snippet: KSS4.yaml - Scalars on --- line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- "quoted
 string"
@@ -4090,8 +3891,7 @@ string"
 exports[`snippet: L9U5.yaml - Spec Example 7.11. Plain Implicit Keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 implicit block key : [
   implicit flow key : value,
@@ -4106,8 +3906,7 @@ implicit block key: [implicit flow key: value]
 exports[`snippet: L24T.yaml - Trailing line of spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: |
   x
@@ -4123,8 +3922,7 @@ foo: |
 exports[`snippet: L24T-2.yaml - Trailing line of spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: |
   x
@@ -4139,8 +3937,7 @@ foo: |
 exports[`snippet: L94M.yaml - Tags in Explicit Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? !!str a
 : !!int 47
@@ -4157,8 +3954,7 @@ c: !!str d
 exports[`snippet: L383.yaml - Two scalar docs with trailing comments format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- foo  # comment
 --- foo  # comment
@@ -4175,8 +3971,7 @@ foo # comment
 exports[`snippet: LE5A.yaml - Spec Example 7.24. Flow Nodes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - !!str "a"
 - 'b'
@@ -4197,8 +3992,7 @@ printWidth: 80
 exports[`snippet: LP6E.yaml - Whitespace After Scalars in Flow format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [a, b , c ]
 - { "a"  : b
@@ -4218,8 +4012,7 @@ printWidth: 80
 exports[`snippet: LQZ7.yaml - Spec Example 7.4. Double Quoted Implicit Keys format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "implicit block key" : [
   "implicit flow key" : value,
@@ -4234,8 +4027,7 @@ printWidth: 80
 exports[`snippet: LX3P.yaml - Implicit Flow Mapping Key on one line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [flow]: block
 
@@ -4248,8 +4040,7 @@ printWidth: 80
 exports[`snippet: M2N8.yaml - Question mark edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - ? : x
 
@@ -4262,8 +4053,7 @@ printWidth: 80
 exports[`snippet: M2N8-2.yaml - Question mark edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? []: x
 
@@ -4276,8 +4066,7 @@ printWidth: 80
 exports[`snippet: M5C3.yaml - Spec Example 8.21. Block Scalar Nodes format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 literal: |2
   value
@@ -4298,8 +4087,7 @@ folded: !foo >1
 exports[`snippet: M5DY.yaml - Spec Example 2.11. Mapping between Sequences format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? - Detroit Tigers
   - Chicago cubs
@@ -4324,8 +4112,7 @@ printWidth: 80
 exports[`snippet: M6YH.yaml - Block sequence indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |
  x
@@ -4346,8 +4133,7 @@ printWidth: 80
 exports[`snippet: M7A3.yaml - Spec Example 9.3. Bare Documents format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Bare
 document
@@ -4372,8 +4158,7 @@ document
 exports[`snippet: M7NX.yaml - Nested flow collections format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 {
@@ -4394,8 +4179,7 @@ printWidth: 80
 exports[`snippet: M9B4.yaml - Spec Example 8.7. Literal Scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 |
  literal
@@ -4414,8 +4198,7 @@ printWidth: 80
 exports[`snippet: M29M.yaml - Literal Block Scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: |
  ab
@@ -4440,8 +4223,7 @@ a: |
 exports[`snippet: MJS9.yaml - Spec Example 6.7. Block Folding format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >
   foo 
@@ -4464,8 +4246,7 @@ printWidth: 80
 exports[`snippet: MUS6-3.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML  1.1
 ---
@@ -4480,8 +4261,7 @@ printWidth: 80
 exports[`snippet: MUS6-4.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 	 1.1
 ---
@@ -4496,8 +4276,7 @@ printWidth: 80
 exports[`snippet: MUS6-5.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.1  # comment
 ---
@@ -4512,8 +4291,7 @@ printWidth: 80
 exports[`snippet: MUS6-6.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAM 1.1
 ---
@@ -4528,8 +4306,7 @@ printWidth: 80
 exports[`snippet: MUS6-7.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAMLL 1.1
 ---
@@ -4544,8 +4321,7 @@ printWidth: 80
 exports[`snippet: MXS3.yaml - Flow Mapping in Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - {a: b}
 
@@ -4558,8 +4334,7 @@ printWidth: 80
 exports[`snippet: MYW6.yaml - Block Scalar Strip format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 |-
  ab
@@ -4578,8 +4353,7 @@ printWidth: 80
 exports[`snippet: MZX3.yaml - Non-Specific Tags on Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - plain
 - "double quoted"
@@ -4602,8 +4376,7 @@ printWidth: 80
 exports[`snippet: NAT4.yaml - Various empty or newline only quoted strings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a: '
@@ -4660,8 +4433,7 @@ h: "
 exports[`snippet: NB6Z.yaml - Multiline plain value with tabs on empty lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 key:
   value
@@ -4681,8 +4453,7 @@ key: value
 exports[`snippet: NHX8.yaml - Empty Lines at End of Document format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 :
 
@@ -4697,8 +4468,7 @@ printWidth: 80
 exports[`snippet: NJ66.yaml - Multiline plain flow mapping key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - { single line: value}
@@ -4718,8 +4488,7 @@ printWidth: 80
 exports[`snippet: NKF9.yaml - Empty keys in block and flow mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 key: value
@@ -4754,8 +4523,7 @@ key: value
 exports[`snippet: NP9H.yaml - Spec Example 7.5. Double Quoted Line Breaks format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "folded 
 to a space,	
@@ -4776,8 +4544,7 @@ to a line feed, or 	\\
 exports[`snippet: P2AD.yaml - Spec Example 8.1. Block Scalar Header format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - | # Empty header↓
  literal
@@ -4806,8 +4573,7 @@ printWidth: 80
 exports[`snippet: P76L.yaml - Spec Example 6.19. Secondary Tag Handle format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !! tag:example.com,2000:app/
 ---
@@ -4824,8 +4590,7 @@ printWidth: 80
 exports[`snippet: P94K.yaml - Spec Example 6.11. Multi-Line Comments format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 key:    # Comment
         # lines
@@ -4844,8 +4609,7 @@ key: # Comment
 exports[`snippet: PBJ2.yaml - Spec Example 2.3. Mapping Scalars to Sequences format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 american:
   - Boston Red Sox
@@ -4872,8 +4636,7 @@ national:
 exports[`snippet: PRH3.yaml - Spec Example 7.9. Single Quoted Lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ' 1st non-empty
 
@@ -4892,8 +4655,7 @@ printWidth: 80
 exports[`snippet: PUW8.yaml - Document start on last line format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a: b
@@ -4910,8 +4672,7 @@ a: b
 exports[`snippet: PW8X.yaml - Anchors on Empty Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - &a
 - a
@@ -4941,8 +4702,7 @@ printWidth: 80
 exports[`snippet: Q5MG.yaml - Tab at beginning of line followed by a flow mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 	{}
 
@@ -4955,8 +4715,7 @@ printWidth: 80
 exports[`snippet: Q8AD.yaml - Spec Example 7.5. Double Quoted Line Breaks [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 "folded 
@@ -4979,8 +4738,7 @@ to a line feed, or 	\\
 exports[`snippet: Q9WF.yaml - Spec Example 6.12. Separation Spaces format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { first: Sammy, last: Sosa }:
 # Statistics:
@@ -5003,8 +4761,7 @@ printWidth: 80
 exports[`snippet: Q88A.yaml - Spec Example 7.23. Flow Content format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [ a, b ]
 - { a: b }
@@ -5025,8 +4782,7 @@ printWidth: 80
 exports[`snippet: QF4Y.yaml - Spec Example 7.19. Single Pair Flow Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
 foo: bar
@@ -5041,8 +4797,7 @@ foo: bar
 exports[`snippet: QT73.yaml - Comment and document-end marker format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # comment
 ...
@@ -5057,8 +4812,7 @@ printWidth: 80
 exports[`snippet: R4YG.yaml - Spec Example 8.2. Block Indentation Indicator format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |
  detected
@@ -5091,8 +4845,7 @@ printWidth: 80
 exports[`snippet: R52L.yaml - Nested flow mapping sequence and mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 { top1: [item1, {key2: value2}, item3], top2: value2 }
@@ -5107,8 +4860,7 @@ printWidth: 80
 exports[`snippet: RLU9.yaml - Sequence Indent format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo:
 - 42
@@ -5127,8 +4879,7 @@ bar:
 exports[`snippet: RR7F.yaml - Mixed Block Mapping (implicit to explicit) format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: 4.2
 ? d
@@ -5144,8 +4895,7 @@ d: 23
 exports[`snippet: RTP8.yaml - Spec Example 9.2. Document Markers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.2
 ---
@@ -5164,8 +4914,7 @@ Document
 exports[`snippet: RZP5.yaml - Various Trailing Comments [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: "double
   quotes" # lala
@@ -5206,8 +4955,7 @@ block: > # lala
 exports[`snippet: RZT7.yaml - Spec Example 2.28. Log File format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 Time: 2001-11-23 15:01:42 -5
@@ -5267,8 +5015,7 @@ Stack:
 exports[`snippet: S3PD.yaml - Spec Example 8.18. Implicit Block Mapping Entries format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 plain key: in-line value
 : # Both empty
@@ -5287,8 +5034,7 @@ plain key: in-line value
 exports[`snippet: S4JQ.yaml - Spec Example 6.28. Non-Specific Tags format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Assuming conventional resolution:
 - "12"
@@ -5307,8 +5053,7 @@ printWidth: 80
 exports[`snippet: S4T7.yaml - Document with footer format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaa: bbb
 ...
@@ -5323,8 +5068,7 @@ aaa: bbb
 exports[`snippet: S7BG.yaml - Colon followed by comma format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 - :,
@@ -5339,8 +5083,7 @@ printWidth: 80
 exports[`snippet: S9E8.yaml - Spec Example 5.3. Block Structure Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 sequence:
 - one
@@ -5364,8 +5107,7 @@ mapping:
 exports[`snippet: SBG9.yaml - Flow Sequence in Flow Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {a: [b, c], [d, e]: f}
 
@@ -5378,8 +5120,7 @@ printWidth: 80
 exports[`snippet: SKE5.yaml - Anchor before zero indented sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 seq:
@@ -5399,8 +5140,7 @@ seq: &anchor
 exports[`snippet: SM9W.yaml - Single character streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
 =====================================output=====================================
@@ -5412,8 +5152,7 @@ printWidth: 80
 exports[`snippet: SM9W-2.yaml - Single character streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 :
 =====================================output=====================================
@@ -5425,8 +5164,7 @@ printWidth: 80
 exports[`snippet: SSW6.yaml - Spec Example 7.7. Single Quoted Characters [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 'here''s to "quotes"'
@@ -5441,8 +5179,7 @@ printWidth: 80
 exports[`snippet: SYW4.yaml - Spec Example 2.2. Mapping Scalars to Scalars format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hr:  65    # Home runs
 avg: 0.278 # Batting average
@@ -5459,8 +5196,7 @@ rbi: 147 # Runs Batted In
 exports[`snippet: T4YY.yaml - Spec Example 7.9. Single Quoted Lines [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ' 1st non-empty
@@ -5481,8 +5217,7 @@ printWidth: 80
 exports[`snippet: T5N4.yaml - Spec Example 8.7. Literal Scalar [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |
  literal
@@ -5502,8 +5237,7 @@ printWidth: 80
 exports[`snippet: T26H.yaml - Spec Example 8.8. Literal Content [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- |
  
@@ -5533,8 +5267,7 @@ printWidth: 80
 exports[`snippet: TE2A.yaml - Spec Example 8.16. Block Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 block mapping:
  key: value
@@ -5549,8 +5282,7 @@ block mapping:
 exports[`snippet: TL85.yaml - Spec Example 6.8. Flow Folding format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "
   foo 
@@ -5575,8 +5307,7 @@ baz
 exports[`snippet: TS54.yaml - Folded Block Scalar format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >
  ab
@@ -5603,8 +5334,7 @@ printWidth: 80
 exports[`snippet: U3C3.yaml - Spec Example 6.16. “TAG” directive format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !yaml! tag:yaml.org,2002:
 ---
@@ -5621,8 +5351,7 @@ printWidth: 80
 exports[`snippet: U3XV.yaml - Node and Mapping Key Anchors format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 top1: &node1
@@ -5663,8 +5392,7 @@ top7: &val7 seven
 exports[`snippet: U9NS.yaml - Spec Example 2.8. Play by Play Feed from a Game format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 time: 20:03:20
@@ -5695,8 +5423,7 @@ action: grand slam
 exports[`snippet: UDM2.yaml - Plain URL in flow mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - { url: http://example.org }
 
@@ -5709,8 +5436,7 @@ printWidth: 80
 exports[`snippet: UDR7.yaml - Spec Example 5.4. Flow Collection Indicators format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 sequence: [ one, two, ]
 mapping: { sky: blue, sea: green }
@@ -5725,8 +5451,7 @@ mapping: { sky: blue, sea: green }
 exports[`snippet: UGM3.yaml - Spec Example 2.27. Invoice format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 --- !<tag:clarkevans.com,2002:invoice>
 invoice: 34843
@@ -5795,8 +5520,7 @@ comments: Late afternoon is best.
 exports[`snippet: UKK6.yaml - Syntax character edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - :
 
@@ -5809,8 +5533,7 @@ printWidth: 80
 exports[`snippet: UKK6-2.yaml - Syntax character edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ::
 
@@ -5823,8 +5546,7 @@ printWidth: 80
 exports[`snippet: UKK6-3.yaml - Syntax character edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !
 
@@ -5837,8 +5559,7 @@ printWidth: 80
 exports[`snippet: UT92.yaml - Spec Example 9.4. Explicit Documents format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 { matches
@@ -5864,8 +5585,7 @@ printWidth: 80
 exports[`snippet: UV7Q.yaml - Legal tab after indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x:
  - x
@@ -5882,8 +5602,7 @@ x:
 exports[`snippet: V9D5.yaml - Spec Example 8.19. Compact Block Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - sun: yellow
 - ? earth: blue
@@ -5900,8 +5619,7 @@ printWidth: 80
 exports[`snippet: V55R.yaml - Aliases in Block Sequence format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - &a a
 - &b b
@@ -5920,8 +5638,7 @@ printWidth: 80
 exports[`snippet: VJP3-2.yaml - Flow collections over many lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 k: {
  k
@@ -5938,8 +5655,7 @@ k: { k: v }
 exports[`snippet: W4TN.yaml - Spec Example 9.5. Directives Documents format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %YAML 1.2
 --- |
@@ -5967,8 +5683,7 @@ printWidth: 80
 exports[`snippet: W5VH.yaml - Allowed characters in alias format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: &:@*!$"<foo>: scalar a
 b: *:@*!$"<foo>:
@@ -5983,8 +5698,7 @@ b: *:@*!$"<foo>:
 exports[`snippet: W42U.yaml - Spec Example 8.15. Block Sequence Entry Types format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - # Empty
 - |
@@ -6007,8 +5721,7 @@ printWidth: 80
 exports[`snippet: WZ62.yaml - Spec Example 7.2. Empty Content format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   foo : !!str,
@@ -6024,8 +5737,7 @@ printWidth: 80
 exports[`snippet: X8DW.yaml - Explicit key and value seperated by comment format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ? key
@@ -6044,8 +5756,7 @@ printWidth: 80
 exports[`snippet: X38W.yaml - Aliases in Flow Objects format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { &a [a, &b b]: *b, *a : [c, *b, d]}
 
@@ -6058,8 +5769,7 @@ printWidth: 80
 exports[`snippet: XLQ9.yaml - Multiline scalar that looks like a YAML directive format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 scalar
@@ -6076,8 +5786,7 @@ scalar
 exports[`snippet: XV9V.yaml - Spec Example 6.5. Empty Lines [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Folding:
   "Empty line
@@ -6101,8 +5810,7 @@ Chomping: |
 exports[`snippet: XW4D.yaml - Various Trailing Comments format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: "double
   quotes" # lala
@@ -6144,8 +5852,7 @@ block: > # lala
 exports[`snippet: Y2GN.yaml - Anchor with colon in the middle format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 key: &an:chor value
@@ -6160,8 +5867,7 @@ key: &an:chor value
 exports[`snippet: Y79Y-2.yaml - Tabs in various contexts format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: |
  	
@@ -6178,8 +5884,7 @@ bar: 1
 exports[`snippet: Y79Y-11.yaml - Tabs in various contexts format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -	-1
 
@@ -6192,8 +5897,7 @@ printWidth: 80
 exports[`snippet: YD5X.yaml - Spec Example 2.5. Sequence of Sequences format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - [name        , hr, avg  ]
 - [Mark McGwire, 65, 0.278]
@@ -6210,8 +5914,7 @@ printWidth: 80
 exports[`snippet: Z9M4.yaml - Spec Example 6.22. Global Tag Prefix format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 %TAG !e! tag:example.com,2000:app/
 ---
@@ -6228,8 +5931,7 @@ printWidth: 80
 exports[`snippet: Z67P.yaml - Spec Example 8.21. Block Scalar Nodes [1.3] format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 literal: |2
   value
@@ -6248,8 +5950,7 @@ folded: !foo >1
 exports[`snippet: ZF4X.yaml - Spec Example 2.6. Mapping of Mappings format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Mark McGwire: {hr: 65, avg: 0.278}
 Sammy Sosa: {
@@ -6267,8 +5968,7 @@ Sammy Sosa: { hr: 63, avg: 0.288 }
 exports[`snippet: ZH7C.yaml - Anchors in Mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &a a: b
 c: &d d
@@ -6283,8 +5983,7 @@ c: &d d
 exports[`snippet: ZK9H.yaml - Nested top level flow mapping format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { key: [[[
   value
@@ -6300,8 +5999,7 @@ printWidth: 80
 exports[`snippet: ZWK4.yaml - Key with anchor after missing explicit mapping value format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 a: 1

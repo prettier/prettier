@@ -3,8 +3,7 @@
 exports[`attribute-value-hugging.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #17729 -->
 <div

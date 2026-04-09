@@ -3,8 +3,7 @@
 exports[`comments-after-callee.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (foo /* comment */)()
 a = new (A /* comment */)()
@@ -19,8 +18,7 @@ a = new A /* comment */();
 exports[`params-trail-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function Foo(
   bar

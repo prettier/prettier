@@ -3,8 +3,7 @@
 exports[`18406.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new (require("./webpack/plugins/next-trace-entrypoints-plugin")
   .TraceEntryPointsPlugin as P)({
@@ -49,8 +48,7 @@ new (
 exports[`array-and-object.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)[receiverType];
 
@@ -69,8 +67,7 @@ testObjLiteral = <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
 exports[`as-const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let x = '123' as const;
 
@@ -91,8 +88,7 @@ let x = "123" as const;
 exports[`assert-and-assign.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a as number) = 42;
 ({ a: (b as any) = 2000 } = x);
@@ -106,8 +102,7 @@ printWidth: 80
 exports[`generic-cast.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/prettier/prettier/issues/4171
 function y() {
@@ -359,8 +354,7 @@ function x() {
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 postMessage(
   <IActionMessage>{
@@ -409,8 +403,7 @@ postMessages(<IActionMessage[]>[
 exports[`parenthesis.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});

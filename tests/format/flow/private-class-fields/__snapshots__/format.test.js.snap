@@ -3,9 +3,8 @@
 exports[`quotes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo
 {

@@ -3,8 +3,7 @@
 exports[`11526.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = {
   bar: // test
@@ -14,7 +13,8 @@ type Foo = {
 
 =====================================output=====================================
 type Foo = {
-  bar: // test
+  bar:
+    // test
     | { loooooooooooooooooongPropName1: string }
     | { loooooooooooooooooongPropName2: string },
 };

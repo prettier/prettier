@@ -5,20 +5,18 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
 import {
-  getCallArguments,
   isCallExpression,
+  isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
-const isCallExpressionWithArguments = (node) => {
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
-    node = node.expression;
-  }
-  return isCallExpression(node) && getCallArguments(node).length > 0;
-};
+const isCallExpressionWithArguments = (node) =>
+  isCallExpression(node) && getCallArguments(node).length > 0;
 
 function shouldInlineNewExpressionCallee(path) {
   let { node: child, ancestors } = path;
@@ -48,8 +46,7 @@ function printMemberExpression(path, options, print) {
       !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
   );
   const firstNonChainElementWrapperParent = path.findAncestor(
-    (node) =>
-      !(node.type === "ChainExpression" || node.type === "TSNonNullExpression"),
+    (node) => !isChainElementWrapper(node),
   );
 
   const shouldInline =
@@ -63,7 +60,7 @@ function printMemberExpression(path, options, print) {
       !isMemberExpression(firstNonChainElementWrapperParent)) ||
     ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
       firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(node.object) ||
+      (isCallExpressionWithArguments(stripChainElementWrappers(node.object)) ||
         objectDoc.label?.memberChain));
 
   return label(objectDoc.label, [

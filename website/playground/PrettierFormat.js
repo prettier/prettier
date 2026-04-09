@@ -1,6 +1,7 @@
 import { onMounted, reactive, toRaw, watch } from "vue";
-import { editorState } from "./composables/editor-state.js";
+import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
+import { version } from "./composables/use-version.js";
 
 function setup(props, { slots }) {
   const state = reactive({ formatted: "", debug: {} });
@@ -10,23 +11,12 @@ function setup(props, { slots }) {
   };
 
   const format = async () => {
-    const {
-      showAst: ast,
-      showPreprocessedAst: preprocessedAst,
-      showDoc: doc,
-      showComments: comments,
-      showSecondFormat: reformat,
-      rethrowEmbedErrors,
-    } = editorState;
-
-    const result = await worker.format(props.code, toRaw(props.options), {
-      ast,
-      preprocessedAst,
-      doc,
-      comments,
-      reformat,
-      rethrowEmbedErrors,
-    });
+    const result = await worker.format(
+      props.code,
+      toRaw(props.options),
+      toRaw(settings),
+      version.value,
+    );
 
     Object.assign(state, result);
   };
@@ -34,22 +24,30 @@ function setup(props, { slots }) {
   const render = () => slots.default(state);
 
   onMounted(componentDidMount);
-  watch(
-    () => [
-      props.code,
-      props.options,
-      editorState.showAst,
-      editorState.showPreprocessedAst,
-      editorState.showDoc,
-      editorState.showComments,
-      editorState.reformat,
-      editorState.rethrowEmbedErrors,
-    ],
-    () => {
-      format();
-    },
-    { deep: true },
-  );
+  watch(() => props.code, format);
+  watch(() => props.options, format, { deep: true });
+  watch(() => version.value, format);
+
+  // Should not trigger format when these changes
+  const ignoredKeys = new Set(["showSidebar", "showInput"]);
+  for (const key of Object.keys(settings).filter(
+    (key) => !ignoredKeys.has(key),
+  )) {
+    watch(
+      () => settings[key],
+      (newValue, oldValue) => {
+        // Always triggers format
+        if (key === "rethrowEmbedErrors" && newValue !== oldValue) {
+          return format();
+        }
+        // Only if set to true
+        if (newValue) {
+          return format();
+        }
+      },
+    );
+  }
+
   return render;
 }
 

@@ -3,8 +3,7 @@
 exports[`maybe_return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function getScaledData({x}): ?{foo: number} {}
 
@@ -17,8 +16,7 @@ function getScaledData({ x }): ?{ foo: number } {}
 exports[`prettier-ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {
   // prettier-ignore

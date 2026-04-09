@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 require(
 // 1
@@ -45,8 +44,7 @@ call(
 exports[`long-module-name.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 require.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
@@ -64,8 +62,7 @@ require.resolve
 exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const { one, two, three, four, five, six, seven, eight, nine, ten } = require('./my-utils');
 const { one1, two1, three1, four1, five1, six1, seven1, eight1, nine1, ten1, eleven1 } = require('./my-utils');

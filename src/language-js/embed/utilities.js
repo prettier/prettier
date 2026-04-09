@@ -1,18 +1,15 @@
-import {
-  CommentCheckFlags,
-  hasComment,
-  isArrayExpression,
-  isObjectProperty,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isArrayExpression } from "../utilities/node-types.js";
 
 const angularComponentObjectExpressionPredicates = [
-  (node, name) => node.type === "ObjectExpression" && name === "properties",
+  (node, name) => name === "properties" && node.type === "ObjectExpression",
   (node, name) =>
+    name === "arguments" &&
     node.type === "CallExpression" &&
     node.callee.type === "Identifier" &&
-    node.callee.name === "Component" &&
-    name === "arguments",
-  (node, name) => node.type === "Decorator" && name === "expression",
+    node.callee.name === "Component",
+  (node, name) => name === "expression" && node.type === "Decorator",
 ];
 
 /**

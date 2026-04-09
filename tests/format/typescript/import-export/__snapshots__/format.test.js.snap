@@ -3,8 +3,7 @@
 exports[`empty-import.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import type { } from '@types/googlemaps';
 import 'a';
@@ -100,8 +99,7 @@ import /* comment not ends with from ___ */ "a";
 exports[`type-modifier.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type { SomeThing };
 export type { A as B };

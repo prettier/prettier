@@ -30,20 +30,20 @@ const getUnformattedFiles = async (args) => {
 };
 
 test("custom ignore path", async () => {
-  expect(await getUnformattedFiles(["--ignore-path", ".customignore"])).toEqual(
-    ["ignored-by-gitignore.js", "ignored-by-prettierignore.js"],
-  );
+  expect(
+    await getUnformattedFiles(["--ignore-path", ".customignore"]),
+  ).toStrictEqual(["ignored-by-gitignore.js", "ignored-by-prettierignore.js"]);
 });
 
 test("ignore files by .prettierignore and .gitignore by default", async () => {
   expect(
     await getUnformattedFiles(["--ignore-path", ".non-exists-ignore-file"]),
-  ).toEqual([
+  ).toStrictEqual([
     "ignored-by-customignore.js",
     "ignored-by-gitignore.js",
     "ignored-by-prettierignore.js",
   ]);
-  expect(await getUnformattedFiles([])).toEqual([]);
+  expect(await getUnformattedFiles([])).toStrictEqual([]);
 });
 
 describe("ignore file when using --debug-check", () => {
@@ -72,5 +72,5 @@ test("multiple `--ignore-path`", async () => {
       "--ignore-path",
       ".non-exists-ignore-file",
     ]),
-  ).toEqual(["ignored-by-gitignore.js"]);
+  ).toStrictEqual(["ignored-by-gitignore.js"]);
 });

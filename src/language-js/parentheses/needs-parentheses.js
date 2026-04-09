@@ -1,30 +1,28 @@
-import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
+import { getPrecedence } from "../utilities/get-precedence.js";
+import { isBitwiseOperator } from "../utilities/is-bitwise-operator.js";
+import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
 import {
-  createTypeCheckFunction,
-  getFunctionParameters,
-  getLeftSidePathName,
-  getPrecedence,
-  hasComment,
-  hasNakedLeftSide,
-  hasNode,
   isArrayExpression,
   isBinaryCastExpression,
-  isBitwiseOperator,
   isCallExpression,
+  isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
-  isNullishCoalescing,
   isNumericLiteral,
   isObjectExpression,
-  isObjectProperty,
   isReturnOrThrowStatement,
   isUnionType,
-  shouldFlatten,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
-import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+} from "../utilities/node-types.js";
+import { shouldFlatten } from "../utilities/should-flatten.js";
+import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
+import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
+import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -97,105 +95,13 @@ function needsParentheses(path, options) {
     }
   }
 
-  switch (parent.type) {
-    case "ReturnStatement":
-    case "ThrowStatement":
-      if (willReturnOrThrowStatementBreak(path, options)) {
-        return false;
-      }
-      break;
-
-    case "ParenthesizedExpression":
-      return false;
-    case "ClassDeclaration":
-    case "ClassExpression":
-      // Add parens around the extends clause of a class. It is needed for almost
-      // all expressions.
-      if (
-        key === "superClass" &&
-        (node.type === "ArrowFunctionExpression" ||
-          node.type === "AssignmentExpression" ||
-          node.type === "AwaitExpression" ||
-          node.type === "BinaryExpression" ||
-          node.type === "ConditionalExpression" ||
-          node.type === "LogicalExpression" ||
-          node.type === "NewExpression" ||
-          node.type === "ObjectExpression" ||
-          node.type === "SequenceExpression" ||
-          node.type === "TaggedTemplateExpression" ||
-          node.type === "UnaryExpression" ||
-          node.type === "UpdateExpression" ||
-          node.type === "YieldExpression" ||
-          node.type === "TSNonNullExpression" ||
-          (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
-      ) {
-        return true;
-      }
-      break;
-
-    case "ExportDefaultDeclaration":
-      return (
-        // `export default function` or `export default class` can't be followed by
-        // anything after. So an expression like `export default (function(){}).toString()`
-        // needs to be followed by a parentheses
-        shouldWrapFunctionForExportDefault(path, options) ||
-        // `export default (foo, bar)` also needs parentheses
-        node.type === "SequenceExpression"
-      );
-
-    case "Decorator":
-      if (
-        key === "expression" &&
-        !canDecoratorExpressionUnparenthesized(node)
-      ) {
-        return true;
-      }
-      break;
-
-    case "TypeAnnotation":
-      if (
-        path.match(
-          undefined,
-          undefined,
-          (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression",
-        ) &&
-        includesFunctionTypeInObjectType(node)
-      ) {
-        return true;
-      }
-      break;
-
-    // A user typing `!foo instanceof Bar` probably intended
-    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
-    // really happening
-    case "BinaryExpression":
-      if (
-        key === "left" &&
-        (parent.operator === "in" || parent.operator === "instanceof") &&
-        node.type === "UnaryExpression"
-      ) {
-        return true;
-      }
-      break;
-
-    case "VariableDeclarator":
-      // Legacy syntax
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_for-in_initializer
-      // `for (var a = 1 in b);`
-      if (
-        key === "init" &&
-        path.match(
-          undefined,
-          undefined,
-          (node, key) =>
-            key === "declarations" && node.type === "VariableDeclaration",
-          (node, key) => key === "left" && node.type === "ForInStatement",
-        )
-      ) {
-        return true;
-      }
-      break;
+  const parentCheckResult = parentNeedsParentheses(
+    path,
+    options,
+    needsParentheses,
+  );
+  if (typeof parentCheckResult === "boolean") {
+    return parentCheckResult;
   }
 
   switch (node.type) {
@@ -232,6 +138,17 @@ function needsParentheses(path, options) {
           return key === "callee";
 
         case "BinaryExpression":
+          // A user typing `!foo instanceof Bar` probably intended
+          // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+          // really happening
+          if (
+            key === "left" &&
+            node.type === "UnaryExpression" &&
+            (parent.operator === "in" || parent.operator === "instanceof")
+          ) {
+            return true;
+          }
+
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
@@ -457,6 +374,22 @@ function needsParentheses(path, options) {
         return true;
       }
 
+      // `const foo = <Foo extends (Bar extends Baz ? A : B)>() => true;`
+      //                            ^^^^^^^^^^^^^^^^^^^^^^^
+      if (
+        (key === "constraint" &&
+          node.type === "TSConditionalType" &&
+          parent.type === "TSTypeParameter") ||
+        (key === "typeAnnotation" &&
+          node.type === "ConditionalTypeAnnotation" &&
+          parent.type === "TypeAnnotation" &&
+          path.grandparent.type === "TypeParameter" &&
+          path.grandparent.bound === parent &&
+          path.grandparent.usesExtendsBound)
+      ) {
+        return true;
+      }
+
       if (key === "checkType" && isConditionalType(parent)) {
         return true;
       }
@@ -530,6 +463,7 @@ function needsParentheses(path, options) {
       );
     // Same as `TSTypeQuery`, but for Flow syntax
     case "TypeofTypeAnnotation":
+    case "KeyofTypeAnnotation":
       return (
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
@@ -554,12 +488,31 @@ function needsParentheses(path, options) {
       );
     case "InferTypeAnnotation":
     case "NullableTypeAnnotation":
-      return (
+      if (
         parent.type === "ArrayTypeAnnotation" ||
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
-      );
+      ) {
+        return true;
+      }
+
+      // If the return type is a nullable arrow function, then we need a paren
+      // otherwise the inner => can be assumed to be for the outer one.
+      if (
+        node.type === "NullableTypeAnnotation" &&
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression",
+        )
+      ) {
+        return true;
+      }
+
+      break;
 
     case "ComponentTypeAnnotation":
     case "FunctionTypeAnnotation": {
@@ -620,7 +573,7 @@ function needsParentheses(path, options) {
         (key === "extendsType" &&
           parent.type === "ConditionalTypeAnnotation" &&
           node.returnType?.type === "InferTypeAnnotation" &&
-          node.returnType?.typeParameter.bound) ||
+          node.returnType.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
@@ -771,6 +724,8 @@ function needsParentheses(path, options) {
           return key === "callee";
         case "TaggedTemplateExpression":
           return true; // This is basically a kind of IIFE.
+        case "ExportDefaultDeclaration":
+          return key === "declaration";
         default:
           return false;
       }
@@ -817,20 +772,23 @@ function needsParentheses(path, options) {
       switch (parent.type) {
         case "NewExpression":
           return key === "callee";
+        case "ExportDefaultDeclaration":
+          return key === "declaration";
         default:
           return false;
       }
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
-    case "CallExpression":
-    case "MemberExpression":
+    case "ChainExpression":
+    case "TSNonNullExpression":
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
 
     // fallthrough
+    case "CallExpression":
+    case "MemberExpression":
     case "TaggedTemplateExpression":
-    case "TSNonNullExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -839,7 +797,6 @@ function needsParentheses(path, options) {
         while (object) {
           switch (object.type) {
             case "CallExpression":
-            case "OptionalCallExpression":
               return true;
             case "MemberExpression":
             case "OptionalMemberExpression":
@@ -897,7 +854,6 @@ function needsParentheses(path, options) {
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
-          parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
           parent.type !== "JsExpressionRoot" &&
@@ -906,7 +862,7 @@ function needsParentheses(path, options) {
           parent.type !== "JSXExpressionContainer" &&
           parent.type !== "JSXFragment" &&
           parent.type !== "LogicalExpression" &&
-          !isCallExpression(parent) &&
+          !isCallOrNewExpression(parent) &&
           !isObjectProperty(parent) &&
           !isReturnOrThrowStatement(parent) &&
           parent.type !== "TypeCastExpression" &&
@@ -999,15 +955,6 @@ function isPathInForStatementInitializer(path) {
   return false;
 }
 
-function includesFunctionTypeInObjectType(node) {
-  return hasNode(
-    node,
-    (node) =>
-      node.type === "ObjectTypeAnnotation" &&
-      hasNode(node, (node) => node.type === "FunctionTypeAnnotation"),
-  );
-}
-
 function endsWithRightBracket(node) {
   return isObjectExpression(node);
 }
@@ -1041,251 +988,11 @@ function isFollowedByRightBracket(path) {
       }
       break;
     case "UnaryExpression":
-      if (parent.prefix) {
-        return path.callParent(isFollowedByRightBracket);
+      if (parent.prefix && path.callParent(isFollowedByRightBracket)) {
+        return true;
       }
       break;
   }
-  return false;
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function shouldWrapFunctionForExportDefault(path, options) {
-  const { node, parent } = path;
-
-  if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
-    return (
-      parent.type === "ExportDefaultDeclaration" ||
-      // in some cases the function is already wrapped
-      // (e.g. `export default (function() {})();`)
-      // in this case we don't need to add extra parens
-      !needsParentheses(path, options)
-    );
-  }
-
-  if (
-    !hasNakedLeftSide(node) ||
-    (parent.type !== "ExportDefaultDeclaration" &&
-      needsParentheses(path, options))
-  ) {
-    return false;
-  }
-
-  return path.call(
-    () => shouldWrapFunctionForExportDefault(path, options),
-    ...getLeftSidePathName(node),
-  );
-}
-
-/*
-Matches following cases:
-
-```js
-(a?.b).c;
-(a?.()).b;
-(a?.b!).c;
-(a?.()!).b;
-(a?.b)!.c;
-(a?.())!.b;
-
-(a?.b)();
-(a?.())();
-
-new (a?.b)();
-new (a?.())();
-
-(a?.b)``;
-(a?.())``;
-```
-*/
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function shouldAddParenthesesToChainElement(path) {
-  if (
-    // ESTree
-    path.match(
-      undefined,
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // Babel
-    path.match(
-      (node) =>
-        node.type === "OptionalCallExpression" ||
-        node.type === "OptionalMemberExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // Babel-ts
-    // (a?.b)!``;
-    // (a?.b!)``;
-    path.match(
-      (node) =>
-        node.type === "OptionalCallExpression" ||
-        node.type === "OptionalMemberExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // case (a?.b)!``; in Typescript
-    path.match(
-      undefined,
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // case (a?.b!)``; in Typescript
-    path.match(
-      undefined,
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    )
-  ) {
-    return true;
-  }
-
-  if (
-    path.match(
-      (node) =>
-        node.type === "OptionalMemberExpression" ||
-        node.type === "OptionalCallExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" &&
-          (node.type === "CallExpression" || node.type === "NewExpression")),
-    ) ||
-    path.match(
-      (node) =>
-        node.type === "OptionalMemberExpression" ||
-        node.type === "OptionalCallExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" && node.type === "CallExpression"),
-    )
-  ) {
-    return true;
-  }
-
-  // ESTree, same logic as babel
-  if (
-    path.match(
-      (node) =>
-        node.type === "CallExpression" || node.type === "MemberExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-    ) &&
-    (path.match(
-      undefined,
-      undefined,
-      (node, name) =>
-        (name === "callee" &&
-          ((node.type === "CallExpression" && !node.optional) ||
-            node.type === "NewExpression")) ||
-        (name === "object" &&
-          node.type === "MemberExpression" &&
-          !node.optional),
-    ) ||
-      path.match(
-        undefined,
-        undefined,
-        (node, name) =>
-          name === "expression" && node.type === "TSNonNullExpression",
-        (node, name) =>
-          (name === "object" && node.type === "MemberExpression") ||
-          (name === "callee" && node.type === "CallExpression"),
-      ))
-  ) {
-    return true;
-  }
-
-  // Babel treat `(a?.b!).c` and `(a?.b)!.c` the same, https://github.com/babel/babel/discussions/15077
-  // Use this to align with babel
-  if (
-    path.match(
-      (node) =>
-        node.type === "CallExpression" || node.type === "MemberExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" && node.type === "CallExpression"),
-    )
-  ) {
-    return true;
-  }
-
-  // This function only handle cases above
-  return false;
-}
-
-function isDecoratorMemberExpression(node) {
-  if (node.type === "Identifier") {
-    return true;
-  }
-
-  if (isMemberExpression(node)) {
-    return (
-      !node.computed &&
-      !node.optional &&
-      node.property.type === "Identifier" &&
-      isDecoratorMemberExpression(node.object)
-    );
-  }
-
-  return false;
-}
-
-// Based on babel implementation
-// https://github.com/nicolo-ribaudo/babel/blob/c4b88a4e5005364255f7e964fe324cf7bfdfb019/packages/babel-generator/src/node/index.ts#L111
-function canDecoratorExpressionUnparenthesized(node) {
-  if (node.type === "ChainExpression") {
-    node = node.expression;
-  }
-
-  return (
-    isDecoratorMemberExpression(node) ||
-    (isCallExpression(node) &&
-      !node.optional &&
-      isDecoratorMemberExpression(node.callee))
-  );
-}
-
-function willReturnOrThrowStatementBreak(path, options) {
-  const { key, parent } = path;
-  if (!(key === "argument" && isReturnOrThrowStatement(parent))) {
-    return false;
-  }
-
-  /*
-  When `ReturnStatement` or `ThrowStatement` breaks, parentheses will be added around it's argument.
-  So don't need add parentheses again.
-  But we can't know how the argument printed, so only matches cases that will break for sure
-  */
-
-  const { node } = path;
-
-  if (
-    (node.type === "SequenceExpression" ||
-      node.type === "AssignmentExpression") &&
-    returnArgumentHasLeadingComment(node, options)
-  ) {
-    return true;
-  }
-
   return false;
 }
 

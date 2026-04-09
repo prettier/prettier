@@ -3,8 +3,7 @@
 exports[`case-and-space.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # \`linkReference\`
 
@@ -61,8 +60,7 @@ printWidth: 80
 exports[`issue-3835.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1][Test Text](http://example.com)
 
@@ -75,8 +73,7 @@ printWidth: 80
 exports[`issue-7118.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - see[Link to Foo][master-LinkToFoo]
 

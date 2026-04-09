@@ -1,7 +1,9 @@
+import { commentsPropertyInOptions } from "../constants.js";
+
 function printIgnored(path, options, printPath, args) {
   const {
     originalText,
-    [Symbol.for("comments")]: comments,
+    [commentsPropertyInOptions]: comments,
     locStart,
     locEnd,
     [Symbol.for("printedComments")]: printedComments,

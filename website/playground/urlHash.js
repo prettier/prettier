@@ -12,7 +12,7 @@ export function read() {
     : LZString.decompressFromEncodedURIComponent;
 
   try {
-    return JSON.parse(decode(hash));
+    return JSON.parse(decode(hash)) ?? {};
   } catch {
     return {};
   }

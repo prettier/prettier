@@ -14,22 +14,21 @@ import {
   softline,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
-  CommentCheckFlags,
-  hasComment,
-  hasLeadingOwnLineComment,
   isArrayExpression,
   isBinaryish,
-  isBooleanTypeCoercion,
-  isCallExpression,
+  isCallOrNewExpression,
   isJsxElement,
   isMemberExpression,
   isObjectExpression,
-  isObjectProperty,
   isReturnOrThrowStatement,
-  shouldFlatten,
-} from "../utilities/index.js";
-import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+} from "../utilities/node-types.js";
+import { shouldFlatten } from "../utilities/should-flatten.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
@@ -85,8 +84,7 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (key === "callee" &&
-      (isCallExpression(parent) || parent.type === "NewExpression")) ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
     // `UnaryExpression` adds parentheses and indention when argument has comment
     (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
@@ -110,8 +108,7 @@ function printBinaryishExpression(path, options, print) {
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
       !isReturnOrThrowStatement(grandparent) &&
-      !isCallExpression(grandparent) &&
-      grandparent.type !== "NewExpression") ||
+      !isCallOrNewExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
     (key === "argument" && parent.type === "UnaryExpression") ||
     (key === "arguments" && isBooleanTypeCoercion(parent));

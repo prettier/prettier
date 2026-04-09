@@ -3,8 +3,7 @@
 exports[`anonymous.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const f1 = function* () {
   yield 0;
@@ -55,8 +54,7 @@ const f3 = function* () {};
 exports[`async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/meriyah/meriyah/commit/f21882c312284572ac6d7e7630c4a677d6caed92
 
@@ -97,8 +95,7 @@ const f = async function* (source, block, opts) {
 exports[`function-name-starts-with-get.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/meriyah/meriyah/issues/164
 

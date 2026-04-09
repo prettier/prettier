@@ -3,8 +3,7 @@
 exports[`elastic-header.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- https://github.com/vuejs/vue/blob/dev/examples/elastic-header/index.html -->
 <!DOCTYPE html>
@@ -243,8 +242,7 @@ printWidth: 80
 exports[`hello-world.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- Hello World example from https://github.com/vuejs/vuejs.org/blob/master/src/v2/examples/vue-20-hello-world/index.html -->
 <!DOCTYPE html>
@@ -299,8 +297,7 @@ printWidth: 80
 exports[`upper-case-2.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- issue #8162 -->
 
@@ -334,8 +331,7 @@ printWidth: 80
 exports[`upper-case-html-tag.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!doctype html><HTML></HTML>
 
@@ -349,8 +345,7 @@ printWidth: 80
 exports[`upper-case-html-tag-2.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html><HTML>
   <body>
@@ -380,8 +375,7 @@ new Vue({el: '#app'})
 exports[`upper-case-html-tag-3.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <HTML><head></head><body></body></HTML>
 
@@ -397,8 +391,7 @@ printWidth: 80
 exports[`upper-case-html-tag-4.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <hTml>
     <body>
@@ -427,8 +420,7 @@ printWidth: 80
 exports[`void-element.html format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <img>
 

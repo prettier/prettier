@@ -3,8 +3,7 @@
 exports[`keywords.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module Y4 {
     enum Color { Blue, Red }
@@ -74,8 +73,7 @@ module YYY4 {
 exports[`keywords-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/babel/babel/pull/12356
 
@@ -141,8 +139,7 @@ class Foo {
 exports[`module.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module Y3 {
   module Module {

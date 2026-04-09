@@ -1,21 +1,16 @@
 import indexToPosition from "index-to-position";
-import { parse as oxcParse } from "oxc-parser";
+import { parseSync as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinations } from "../../utilities/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
-  SOURCE_TYPE_COMMONJS,
-  SOURCE_TYPE_SCRIPT,
+  SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
 
-/** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
-/** @typedef {Omit<ParserOptionsWithoutExperimentalRawTransfer, "sourceType"> & {
-  sourceType?: ParserOptionsWithoutExperimentalRawTransfer["sourceType"] | "commonjs",
-  experimentalRawTransfer?: boolean,
-}} ParserOptions */
+/** @import {ParserOptions} from "oxc-parser" */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -45,20 +40,12 @@ function createParseError(error, { text }) {
 @param {string} filepath
 @param {string} text
 @param {ParserOptions} options
-@returns {Promise<ParseResult>}
 */
-async function parseWithOptions(filepath, text, options) {
-  let { sourceType } = options;
-  // https://github.com/oxc-project/oxc/issues/16200
-  if (sourceType === SOURCE_TYPE_COMMONJS) {
-    sourceType = SOURCE_TYPE_SCRIPT;
-  }
-
-  const result = await oxcParse(filepath, text, {
+function parseWithOptions(filepath, text, options) {
+  const result = oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
-    sourceType,
   });
 
   const { errors } = result;
@@ -77,23 +64,36 @@ async function parseWithOptions(filepath, text, options) {
   return result;
 }
 
-async function parseJs(text, options) {
-  const filepath = options?.filepath;
+function parseJs(text, options) {
+  let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
-  const { program: ast, comments } = await parseWithOptions(
-    typeof filepath === "string" ? filepath : "prettier.jsx",
-    text,
-    {
-      sourceType,
-      lang: "jsx",
-    },
+  if (typeof filepath !== "string") {
+    filepath = "prettier.tsx";
+  }
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).map(
+    (sourceType) => () =>
+      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
   );
+
+  let result;
+  try {
+    result = tryCombinationsSync(combinations);
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [error],
+  }) {
+    throw error;
+  }
+
+  const { program: ast, comments } = result;
 
   // @ts-expect-error -- expected
   ast.comments = comments;
 
-  return postprocess(ast, { text, parser: "oxc" });
+  return postprocess(ast, { text, astType: "oxc-js" });
 }
 
 /**
@@ -116,8 +116,9 @@ function getLanguageCombinations(text, options) {
   return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
 }
 
-async function parseTs(text, options) {
+function parseTs(text, options) {
   let filepath = options?.filepath;
+
   const sourceType = getSourceType(filepath);
   const languageCombinations = getLanguageCombinations(text, options);
 
@@ -125,18 +126,18 @@ async function parseTs(text, options) {
     filepath = "prettier.tsx";
   }
 
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).flatMap((sourceType) =>
+    languageCombinations.map(
+      (lang) => () =>
+        parseWithOptions(filepath, text, { astType: "ts", sourceType, lang }),
+    ),
+  );
+
   let result;
   try {
-    result = await tryCombinations(
-      languageCombinations.map(
-        (language) => () =>
-          parseWithOptions(filepath, text, {
-            sourceType,
-            astType: "ts",
-            lang: language,
-          }),
-      ),
-    );
+    result = tryCombinationsSync(combinations);
   } catch ({
     // @ts-expect-error -- expected
     errors: [error],
@@ -148,7 +149,7 @@ async function parseTs(text, options) {
 
   // @ts-expect-error -- expected
   ast.comments = comments;
-  return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
+  return postprocess(ast, { text, astType: "oxc-ts" });
 }
 
 const oxc = /* @__PURE__ */ createParser(parseJs);

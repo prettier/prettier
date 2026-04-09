@@ -35,6 +35,7 @@ website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
+vendors/**
 `
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
@@ -320,7 +321,7 @@ const configs = [
       "scripts/**/*",
       "benchmarks/**",
       "tests/config/install-prettier.js",
-      "tests/config/browser/**/*",
+      "tests/config/browser-prettier/**/*",
     ],
     rules: {
       "no-console": "off",
@@ -361,6 +362,7 @@ const configs = [
         },
       ],
       "jest/prefer-to-be": "error",
+      "jest/prefer-strict-equal": "error",
     },
   },
   {
@@ -410,9 +412,9 @@ const configs = [
     },
   },
   {
-    files: ["src/language-js/needs-parens.js"],
+    files: ["src/language-js/parentheses/**"],
     rules: {
-      "prettier-internal-rules/better-parent-property-check-in-needs-parens":
+      "prettier-internal-rules/better-parent-property-check-in-parentheses-check":
         "error",
     },
   },
@@ -444,7 +446,7 @@ const configs = [
       "prettier-internal-rules/no-node-comments": [
         "error",
         {
-          file: "src/language-js/utilities/index.js",
+          file: "src/language-js/utilities/comments.js",
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
@@ -509,6 +511,12 @@ const configs = [
         "error",
         { replacements: { doc: false } },
       ],
+    },
+  },
+  {
+    files: ["src/language-js/utilities/utilities.js"],
+    rules: {
+      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
     },
   },
 ];

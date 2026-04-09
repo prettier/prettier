@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.md - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/* @noformat */}
 
@@ -23,8 +22,7 @@ exports[`with-noprettier-pragma.md - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/* @noprettier */}
 

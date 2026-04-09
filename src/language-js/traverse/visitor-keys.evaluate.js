@@ -25,6 +25,8 @@ const additionalVisitorKeys = {
   // Flow
   // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
   SatisfiesExpression: ["expression", "typeAnnotation"],
+
+  DeclareVariable: ["declarations"],
 };
 
 const excludeVisitorKeys = {
@@ -32,22 +34,11 @@ const excludeVisitorKeys = {
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
   DeclareOpaqueType: ["impltype"],
 
-  // Legacy properties
-  ExportAllDeclaration: ["assertions"],
-  ImportDeclaration: ["assertions"],
-
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
-
-  // https://github.com/babel/babel/issues/17506
-  TSImportType: ["argument"],
 };
 
-// https://github.com/babel/babel/issues/17524
 const excludeNodeTypes = [
-  // Babel will remove in v8
-  // https://github.com/babel/babel/pull/17242
-  "TupleExpression",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
 

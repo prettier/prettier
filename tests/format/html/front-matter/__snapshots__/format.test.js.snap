@@ -3,8 +3,7 @@
 exports[`custom-parser.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---mycustomparser
   
@@ -32,8 +31,7 @@ slug: home
 exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -53,8 +51,7 @@ printWidth: 80
 exports[`empty2.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -75,8 +72,7 @@ printWidth: 80
 exports[`issue-9042.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 layout: foo
@@ -98,8 +94,7 @@ Test <a href="https://prettier.io">abc</a>.
 exports[`issue-9042-no-empty-line.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 layout: foo
@@ -120,8 +115,7 @@ Test <a href="https://prettier.io">abc</a>.
 exports[`unicode.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: "ABC 漢字 🇯🇵"

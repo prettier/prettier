@@ -25,8 +25,7 @@ const baseParseOptions = {
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",
-  // TODO: Use new properties when update printer
-  suppressDeprecatedPropertyWarnings: true,
+  suppressDeprecatedPropertyWarnings: process.env.NODE_ENV === "production",
 };
 
 function createParseError(error) {
@@ -103,7 +102,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "typescript", text });
+  return postprocess(ast, { text, astType: "typescript" });
 }
 
 export const typescript = /* @__PURE__ */ createParser(parse);

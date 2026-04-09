@@ -3,8 +3,7 @@
 exports[`declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 record Empty {}
 
@@ -197,8 +196,7 @@ record Looooooooooooooooooooooooooooooong
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const empty = R {};
 

@@ -3,8 +3,7 @@
 exports[`empty-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { } from '@types/googlemaps';
 import 'a';
@@ -100,8 +99,7 @@ import /* comment not ends with from ___ */ "a";
 exports[`empty-import-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {} from /* 😄😄😄😄 */ /* 😄😄😄😄 */'a';
 //     ^^^^^^^ SHOLUL print \`from\`

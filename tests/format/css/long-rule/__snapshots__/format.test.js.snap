@@ -3,8 +3,7 @@
 exports[`long_rule.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .nuclide-resize-sensitive-container-sensor,
 .nuclide-resize-sensitive-container-expand,

@@ -3,8 +3,7 @@
 exports[`templateStringWithEmbeddedTypeAssertionOnAdditionES6.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿// @target: ES6
 var x = \`abc\${ <any>(10 + 10) }def\`;

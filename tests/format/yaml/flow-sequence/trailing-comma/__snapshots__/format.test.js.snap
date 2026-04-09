@@ -3,9 +3,8 @@
 exports[`flow-sequence.yml - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 failing:
   [
@@ -51,9 +50,8 @@ does not suffice: >
 exports[`flow-sequence.yml - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 failing:
   [
@@ -99,9 +97,8 @@ does not suffice: >
 exports[`flow-sequence.yml - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 failing:
   [
@@ -147,8 +144,7 @@ does not suffice: >
 exports[`flow-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 failing:
   [

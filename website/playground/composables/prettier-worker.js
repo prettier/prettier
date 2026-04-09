@@ -1,10 +1,21 @@
+/**
+@import {PlaygroundSettings} from "./playground-settings.js"
+@import {FormatMessage, MetaMessage} from "../../static/worker.mjs"
+*/
 class WorkerApi {
-  #worker = new Worker("/worker.mjs", { type: "module" });
+  #workers = {};
   #counter = 0;
   #handlers = {};
 
-  constructor() {
-    const worker = this.#worker;
+  #initWorker(version) {
+    if (this.#workers[version]) {
+      return this.#workers[version];
+    }
+
+    const worker = new Worker(`/worker.mjs?version=${version}`, {
+      type: "module",
+    });
+    this.#workers[version] = worker;
     const handlers = this.#handlers;
 
     worker.addEventListener("message", (event) => {
@@ -23,23 +34,38 @@ class WorkerApi {
         resolve(message);
       }
     });
+
+    return worker;
   }
 
   #postMessage(message) {
+    const worker = this.#initWorker(message.version);
     const uid = ++this.#counter;
-    const worker = this.#worker;
     return new Promise((resolve, reject) => {
       this.#handlers[uid] = [resolve, reject];
       worker.postMessage({ uid, message });
     });
   }
 
-  getMetadata() {
-    return this.#postMessage({ type: "meta" });
+  /**
+   * @param {MetaMessage["version"]} version
+   */
+  getMetadata(version) {
+    /** @type {MetaMessage} */
+    const message = { type: "meta", version };
+    return this.#postMessage(message);
   }
 
-  format(code, options, debug = {}) {
-    return this.#postMessage({ type: "format", code, options, debug });
+  /**
+   * @param {FormatMessage["code"]} code
+   * @param {FormatMessage["options"]} options
+   * @param {FormatMessage["settings"]} settings
+   * @param {FormatMessage["version"]} version
+   */
+  format(code, options, settings, version) {
+    /** @type {FormatMessage} */
+    const message = { type: "format", version, code, options, settings };
+    return this.#postMessage(message);
   }
 }
 

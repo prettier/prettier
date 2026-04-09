@@ -3,8 +3,7 @@
 exports[`override-modifier.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class MyClass extends BaseClass {
   override show() {}
@@ -31,8 +30,7 @@ class MyClass extends BaseClass {
 exports[`parameter-property.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class D extends B {
   constructor(override foo: string) {

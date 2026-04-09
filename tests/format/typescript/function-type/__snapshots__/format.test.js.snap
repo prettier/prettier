@@ -3,8 +3,7 @@
 exports[`consistent.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // TSFunctionType
 type A = (
@@ -65,8 +64,7 @@ type X = {
 exports[`single-parameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type X = (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
 type Y = new (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
@@ -86,8 +84,7 @@ type Y = new (options: {
 exports[`type-annotation.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo = (): () => void => (): void => null;
 const bar = (): (() => void) => (): void => null;

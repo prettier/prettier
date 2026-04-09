@@ -8,7 +8,7 @@ import { modifyTypescriptModule } from "./build/hacks/modify-typescript-module.j
 import UNUSED_SPECIFIERS from "./build/hacks/typescript-unused-specifiers.js";
 
 async function getRemovedSpecifiers(code, exports) {
-  let errors = [];
+  let errors;
   try {
     await esbuild.transformSync(code, { loader: "js" });
     return;

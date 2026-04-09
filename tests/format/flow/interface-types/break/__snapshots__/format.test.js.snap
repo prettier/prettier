@@ -3,9 +3,8 @@
 exports[`break.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface Environment1 extends GenericEnvironment<
   SomeType,
@@ -237,9 +236,8 @@ export class ExtendsLongOneWithGenerics____ extends Bar<
 exports[`break.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface Environment1 extends GenericEnvironment<
   SomeType,
@@ -471,9 +469,8 @@ export class ExtendsLongOneWithGenerics____ extends Bar<
 exports[`break.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface Environment1 extends GenericEnvironment<
   SomeType,

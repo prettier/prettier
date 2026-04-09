@@ -3,9 +3,8 @@
 exports[`align.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 |a|b|c|
 |:--|:-:|--:|
@@ -22,9 +21,8 @@ proseWrap: "always"
 exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def | ghi |
 | --- | --- | --- |
@@ -41,9 +39,8 @@ proseWrap: "always"
 exports[`emoji.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | abc | def | ghi |
 | --- | --- | --- |
@@ -60,9 +57,8 @@ proseWrap: "always"
 exports[`empty.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Foo | Bar
 --- | ---
@@ -81,9 +77,8 @@ Y   |
 exports[`escape.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | a | b | c |
 |:--|:-:|--:|
@@ -118,9 +113,8 @@ proseWrap: "always"
 exports[`html.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -137,9 +131,8 @@ Default | CLI Override | API Override
 exports[`issue-15572.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 |     |     |
 | :-: | :-: |
@@ -159,9 +152,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | Title A | Title B | Title C |
 |---|---|---|
@@ -178,9 +170,8 @@ proseWrap: "always"
 exports[`table.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - min-table
 

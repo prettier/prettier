@@ -3,9 +3,8 @@
 exports[`import-type.ts - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // ref: https://github.com/Microsoft/TypeScript/pull/22592
 
@@ -46,8 +45,7 @@ type X = A<import('B').C<any>>;
 exports[`import-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // ref: https://github.com/Microsoft/TypeScript/pull/22592
 

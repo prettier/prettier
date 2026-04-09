@@ -3,8 +3,7 @@
 exports[`bitwise-or-operator.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -44,8 +43,7 @@ printWidth: 80
 exports[`parenthesized.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <span>{{(a||          b)}} {{z&&(a&&b)}}</span>
@@ -62,8 +60,7 @@ printWidth: 80
 exports[`template.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <root>

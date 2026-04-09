@@ -75,6 +75,16 @@ const mainModule = {
           find: "export default lib;",
           replacement: "export default { parse };",
         },
+        {
+          module: require.resolve("@babel/code-frame"),
+          process(text) {
+            text = text.replace(
+              "from 'node:util'",
+              `from ${JSON.stringify(path.join(dirname, "../shims/node-util.js"))}`,
+            );
+            return text;
+          },
+        },
       ],
       addDefaultExport: true,
       reuseDocModule: true,
@@ -85,58 +95,6 @@ const mainModule = {
       input: "src/standalone.js",
       umdVariableName: "prettier",
       replaceModule: [
-        {
-          module: require.resolve("@babel/code-frame"),
-          process(text) {
-            text = text.replaceAll(
-              "var picocolors = require('picocolors');",
-              "",
-            );
-            text = text.replaceAll("var jsTokens = require('js-tokens');", "");
-            text = text.replaceAll(
-              "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
-              "",
-            );
-
-            text = text.replaceAll(
-              /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gs,
-              "",
-            );
-
-            text = text.replaceAll(
-              /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gs,
-              "function highlight(text) {return text}",
-            );
-
-            text = text.replaceAll(
-              /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gs,
-              outdent`
-                function getDefs() {
-                  return new Proxy({}, {get: () => (text) => text})
-                }
-              `,
-            );
-
-            text = text.replaceAll(
-              "const defsOn = buildDefs(picocolors.createColors(true));",
-              "",
-            );
-            text = text.replaceAll(
-              "const defsOff = buildDefs(picocolors.createColors(false));",
-              "",
-            );
-
-            text = text.replaceAll(
-              "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
-              "const shouldHighlight = false;",
-            );
-
-            text = text.replaceAll("exports.default = index;", "");
-            text = text.replaceAll("exports.highlight = highlight;", "");
-
-            return text;
-          },
-        },
         // Smaller size
         {
           module: getPackageFile("picocolors/picocolors.browser.js"),
@@ -285,10 +243,26 @@ const pluginFiles = [
             /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
           ).groups;
 
-          return text
+          text = text
             .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
             .replaceAll('require("fs")', "{}")
             .replaceAll('require("constants")', "{}");
+
+          const { globalThisVariableName } = text.match(
+            /\(function\((?<globalThisVariableName>[\p{ID_Start}$][\p{ID_Continue}$]*)\)\{"use strict";/u,
+          ).groups;
+
+          // flow-parser adds a global error handler cause the error stack been huge
+          // https://github.com/facebook/flow/issues/9299
+          // NOTE: Can't reproduce in flow-parser@0.298.0, but the code still there
+          // NOTE2: This is not tested
+          text = text.replaceAll(`${globalThisVariableName}.process`, "({})");
+          text = text.replaceAll(
+            `${globalThisVariableName}.addEventListener`,
+            "(() =>{})",
+          );
+
+          return text;
         },
       },
     ],
@@ -503,40 +477,9 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: getPackageFile("espree"),
-        process(text) {
-          const lines = text.split("\n");
-
-          let lineIndex;
-
-          // Remove `eslint-visitor-keys`
-          lineIndex = lines.findIndex((line) =>
-            line.endsWith(' from "eslint-visitor-keys";'),
-          );
-          lines.splice(lineIndex, 1);
-
-          // Remove code after `// Public`
-          lineIndex = lines.indexOf("// Public") - 1;
-          lines.length = lineIndex;
-
-          // Save code after `// Parser`
-          lineIndex = lines.indexOf("// Parser") - 1;
-          const parserCodeLines = lines.slice(lineIndex);
-          lines.length = lineIndex;
-
-          // Remove code after `// Tokenizer`
-          lineIndex = lines.indexOf("// Tokenizer") - 1;
-          lines.length = lineIndex;
-
-          text = [...lines, ...parserCodeLines].join("\n");
-
-          return text;
-        },
-      },
-      {
         module: getPackageFile("espree/lib/espree.js"),
         process(text) {
-          // We are currently not using tokens
+          // We don't use tokens
           text = text.replace(
             'import TokenTranslator from "./token-translator.js";',
             "",

@@ -1,5 +1,4 @@
 export const SOURCE_TYPE_MODULE = /** @type {const} */ ("module");
-export const SOURCE_TYPE_SCRIPT = /** @type {const} */ ("script");
 export const SOURCE_TYPE_COMMONJS = /** @type {const} */ ("commonjs");
 
 /** @type {readonly [SOURCE_TYPE_MODULE, SOURCE_TYPE_COMMONJS]} */

@@ -60,6 +60,6 @@ describe("cleanDoc", () => {
   ])("%s", (_, doc, expected) => {
     const result = cleanDoc(doc);
 
-    expect(result).toEqual(expected);
+    expect(result).toStrictEqual(expected);
   });
 });

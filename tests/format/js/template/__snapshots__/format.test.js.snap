@@ -3,8 +3,7 @@
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 () => a\`
 	a
@@ -29,8 +28,7 @@ printWidth: 80
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 insertRule(\`*, *:before, *:after {
   box-sizing: inherit;
@@ -65,8 +63,7 @@ new Error(formatErrorMessage\`
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
@@ -104,8 +101,7 @@ g
 exports[`faulty-locations.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var o = {
   [\`key\`]: () => {
@@ -144,8 +140,7 @@ var x = {
 exports[`graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module.exports = Relay.createContainer(
   // ...
@@ -190,8 +185,7 @@ module.exports = Relay.createContainer(
 exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo = () => {
   {
@@ -243,8 +237,7 @@ line n + n
 exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(
@@ -314,8 +307,7 @@ editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 exports[`parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // "ArrowFunctionExpression"
 (() => {})\`\`;

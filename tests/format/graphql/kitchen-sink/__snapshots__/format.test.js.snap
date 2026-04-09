@@ -3,8 +3,7 @@
 exports[`kitchen-sink.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Copyright (c) 2015-present, Facebook, Inc.
 #
@@ -136,8 +135,7 @@ fragment frag on Friend {
 exports[`kitchen-sink-2.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/blob/b6a04a7357d6e7b6c37e3f060825dab8f6e1659d/src/__testUtils__/kitchenSinkQuery.ts
 "Query description"
@@ -297,8 +295,7 @@ query {
 exports[`schema-kitchen-sink.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Copyright (c) 2015-present, Facebook, Inc.
 #

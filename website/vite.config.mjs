@@ -43,6 +43,11 @@ export default defineConfig({
     outDir: OUT_DIRECTORY,
     minify: IS_CI,
   },
+  define: {
+    "import.meta.env.VITE_IS_PR": JSON.stringify(
+      process.env.PULL_REQUEST === "true",
+    ),
+  },
 });
 
 function buildCdnAlias() {

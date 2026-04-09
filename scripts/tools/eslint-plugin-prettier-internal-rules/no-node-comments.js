@@ -50,7 +50,7 @@ export default {
     },
   },
   create(context) {
-    const fileName = context.getFilename();
+    const { physicalFilename: fileName } = context;
     const ignored = new Map(
       context.options.map((option) => {
         if (typeof option === "string") {

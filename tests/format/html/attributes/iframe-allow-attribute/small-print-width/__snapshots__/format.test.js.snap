@@ -4,7 +4,7 @@ exports[`allow-attribute.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <iframe allow="camera 'self'; microphone 'self'"></iframe>
 <iframe allow="camera ; microphone"></iframe>

@@ -3,9 +3,8 @@
 exports[`arguments.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <GlimmerComponent
   class="medium"
@@ -37,9 +36,8 @@ singleQuote: false
 exports[`arguments.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <GlimmerComponent
   class="medium"
@@ -71,9 +69,8 @@ singleQuote: true
 exports[`attributes.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div title='My title'></div>
 <div title="My title"></div>
@@ -133,9 +130,8 @@ singleQuote: false
 exports[`attributes.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div title='My title'></div>
 <div title="My title"></div>
@@ -195,9 +191,8 @@ singleQuote: true
 exports[`string-literals.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{"abc"}}
 {{'abc'}}
@@ -219,9 +214,8 @@ singleQuote: false
 exports[`string-literals.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{"abc"}}
 {{'abc'}}

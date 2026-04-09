@@ -4,8 +4,7 @@ exports[`custom-block-lang.vue - {"embeddedLanguageFormatting":"off"} format 1`]
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">
 hello,
@@ -24,8 +23,7 @@ world!
 exports[`custom-block-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">
 hello,
@@ -45,8 +43,7 @@ exports[`inline.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">hello, world!</custom>
 
@@ -59,8 +56,7 @@ printWidth: 80
 exports[`inline.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">hello, world!</custom>
 
@@ -76,8 +72,7 @@ exports[`script-lang.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="uppercase-rocks">
 hello,
@@ -96,8 +91,7 @@ world!
 exports[`script-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="uppercase-rocks">
 hello,
@@ -117,8 +111,7 @@ exports[`style-lang.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style lang="uppercase-rocks">
 /* Should be uppercased */
@@ -139,8 +132,7 @@ world!
 exports[`style-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style lang="uppercase-rocks">
 /* Should be uppercased */
@@ -162,8 +154,7 @@ exports[`template-lang.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="uppercase-rocks">
 hello,
@@ -182,8 +173,7 @@ world!
 exports[`template-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="uppercase-rocks">
 hello,
@@ -203,8 +193,7 @@ exports[`whitspace.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">
   hello,
@@ -223,8 +212,7 @@ printWidth: 80
 exports[`whitspace.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="uppercase-rocks">
   hello,
@@ -244,8 +232,7 @@ exports[`with-src.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
 <style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>
@@ -313,8 +300,7 @@ PrEtTiEr
 exports[`with-src.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
 <style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>

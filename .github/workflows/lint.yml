@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
+      - "!renovate/**"
   pull_request:
 
 permissions:
@@ -105,5 +107,5 @@ jobs:
       - name: Knip
         run: yarn lint:knip
 
-      - name: Check File Changes
-        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Ensure no files changed
+        run: node ./scripts/ensure-no-files-changed.js

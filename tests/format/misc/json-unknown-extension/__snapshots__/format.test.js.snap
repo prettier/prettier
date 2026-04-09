@@ -3,9 +3,8 @@
 exports[`trailingComma.notjson - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   "k1": "v1",
@@ -26,9 +25,8 @@ trailingComma: "all"
 exports[`trailingComma.notjson - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   "k1": "v1",
@@ -49,9 +47,8 @@ trailingComma: "all"
 exports[`trailingComma.notjson - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   "k1": "v1",
@@ -72,9 +69,8 @@ trailingComma: "es5"
 exports[`trailingComma.notjson - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   "k1": "v1",
@@ -95,8 +91,7 @@ trailingComma: "es5"
 exports[`trailingComma.notjson format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   "k1": "v1",

@@ -22,7 +22,7 @@ test("Should properly trim with cursor", () => {
       ["123", cursor, "Prettier  \t", cursor, "\t \t", hardline],
       options,
     ),
-  ).toEqual({
+  ).toStrictEqual({
     formatted: "123Prettier\n",
     cursorNodeStart: 3,
     cursorNodeText: "Prettier",

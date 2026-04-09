@@ -3,8 +3,7 @@
 exports[`attribute.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div {...a}/>;
 
@@ -73,31 +72,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`child.js [acorn] format 1`] = `
-"Unexpected token (1:7)
-> 1 | <div>{...a}</div>;
-    |       ^
-  2 |
-  3 | <div>{...a /* comment */}</div>;
-  4 |
-Cause: Unexpected token (1:6)"
-`;
-
-exports[`child.js [espree] format 1`] = `
-"Unexpected token ... (1:7)
-> 1 | <div>{...a}</div>;
-    |       ^
-  2 |
-  3 | <div>{...a /* comment */}</div>;
-  4 |
-Cause: Unexpected token ..."
-`;
-
 exports[`child.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>{...a}</div>;
 
@@ -156,4 +134,24 @@ printWidth: 80
 </div>;
 
 ================================================================================
+`;
+
+exports[`child.js format[acorn] 1`] = `
+"Unexpected token (1:7)
+> 1 | <div>{...a}</div>;
+    |       ^
+  2 |
+  3 | <div>{...a /* comment */}</div>;
+  4 |
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`child.js format[espree] 1`] = `
+"Unexpected token ... (1:7)
+> 1 | <div>{...a}</div>;
+    |       ^
+  2 |
+  3 | <div>{...a /* comment */}</div>;
+  4 |
+Cause: Unexpected token ..."
 `;

@@ -3,9 +3,8 @@
 exports[`event-attributes.html - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <button
   onclick="[foo, bar].forEach((fn) => void fn())"

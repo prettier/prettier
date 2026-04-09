@@ -14,10 +14,10 @@ import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
+import { massageAstNode } from "./massage-ast/index.js";
 import {
   hasPrettierIgnore,
   isVoidElement,
@@ -848,7 +848,7 @@ const printer = {
     },
   },
   print,
-  massageAstNode: clean,
+  massageAstNode,
   hasPrettierIgnore,
   getVisitorKeys,
   embed,

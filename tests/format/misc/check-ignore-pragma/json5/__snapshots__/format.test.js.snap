@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.json5 - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["json5"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @noformat */
 
@@ -23,8 +22,7 @@ exports[`with-noprettier-pragma.json5 - {"checkIgnorePragma":true} format 1`] = 
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["json5"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @noprettier */
 
@@ -42,8 +40,7 @@ exports[`without-pragma.json5 - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["json5"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {hello:       "world"}
 

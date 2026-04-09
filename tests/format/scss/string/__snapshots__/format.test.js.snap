@@ -3,9 +3,8 @@
 exports[`string-concatanation.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a {
   background-image: url($test-path + $test-path);
@@ -30,9 +29,8 @@ a {
 exports[`string-concatanation.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a {
   background-image: url($test-path + $test-path);

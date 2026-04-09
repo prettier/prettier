@@ -3,9 +3,8 @@
 exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -50,10 +49,9 @@ class D {
 exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -98,9 +96,8 @@ class D {
 exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -145,9 +142,8 @@ class D {
 exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   a = "a"
@@ -192,9 +188,8 @@ class D {
 exports[`numeric-separator.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
 
@@ -216,10 +211,9 @@ a = {
 exports[`numeric-separator.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
 
@@ -241,9 +235,8 @@ a = {
 exports[`numeric-separator.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
 
@@ -265,9 +258,8 @@ a = {
 exports[`numeric-separator.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
 
@@ -289,9 +281,8 @@ a = {
 exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   a: "a"
@@ -506,10 +497,9 @@ a = {
 exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   a: "a"
@@ -724,9 +714,8 @@ a = {
 exports[`objects.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   a: "a"
@@ -941,9 +930,8 @@ a = {
 exports[`objects.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {
   a: "a"
@@ -1158,9 +1146,8 @@ a = {
 exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1189,10 +1176,9 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1221,9 +1207,8 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1252,9 +1237,8 @@ class Foo {
 exports[`with_member_expressions.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj = {
   foo: "",
@@ -1283,9 +1267,8 @@ class Foo {
 exports[`with_numbers.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1324,10 +1307,9 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1366,9 +1348,8 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",
@@ -1407,9 +1388,8 @@ obj = {
 exports[`with_numbers.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 obj = {
   foo: "",

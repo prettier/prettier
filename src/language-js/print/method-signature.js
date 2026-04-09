@@ -4,12 +4,16 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printKey } from "./key.js";
 import {
   printOptionalToken,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
+/*
+- `TSMethodSignature` (TypeScript)
+*/
 function printMethodSignature(path, options, print) {
   const { node } = path;
   const parts = [];
@@ -17,9 +21,7 @@ function printMethodSignature(path, options, print) {
   parts.push(
     printTypeScriptAccessibilityToken(node),
     kind,
-    node.computed ? "[" : "",
-    print("key"),
-    node.computed ? "]" : "",
+    printKey(path, options, print),
     printOptionalToken(path),
   );
 
@@ -27,7 +29,7 @@ function printMethodSignature(path, options, print) {
     path,
     options,
     print,
-    /* shouldExpandArgument */ false,
+    /* shouldExpandParameters */ false,
     /* shouldPrintTypeParameters */ true,
   );
 

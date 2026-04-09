@@ -1,26 +1,16 @@
-import {
-  group,
-  indent,
-  inheritLabel,
-  line,
-  softline,
-} from "../../document/index.js";
+import { group, indent, inheritLabel, softline } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  isIifeCalleeOrTaggedTemplateExpressionTag,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
+import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
+import { printIgnored } from "./ignored.js";
 import { printJsx } from "./jsx.js";
 import { printTypescript } from "./typescript.js";
 
@@ -75,7 +65,7 @@ function print(path, options, print, args) {
   const { node } = path;
 
   let doc = isIgnored(path)
-    ? options.originalText.slice(locStart(node), locEnd(node))
+    ? printIgnored(path, options)
     : printWithoutParentheses(path, options, print, args);
   if (!doc) {
     return "";
@@ -87,27 +77,21 @@ function print(path, options, print, args) {
 
   doc = printCommentsForFunction(path, options, doc);
 
-  const hasDecorators = isNonEmptyArray(node.decorators);
-  const decoratorsDoc = printDecorators(path, options, print);
-  const isClassExpression = node.type === "ClassExpression";
-  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (hasDecorators && !isClassExpression) {
-    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
-  }
+  const decoratorsDoc =
+    // `ClassExpression` prints own decorators
+    node.type !== "ClassExpression" && isNonEmptyArray(node.decorators)
+      ? printDecorators(path, options, print)
+      : "";
 
   const needsParens = needsParentheses(path, options);
-  const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
-  if (!decoratorsDoc && !needsParens && !needsSemi) {
+  if (!decoratorsDoc && !needsParens) {
     return doc;
   }
 
   return inheritLabel(doc, (doc) => [
-    needsSemi ? ";" : "",
     needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+    decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
 }

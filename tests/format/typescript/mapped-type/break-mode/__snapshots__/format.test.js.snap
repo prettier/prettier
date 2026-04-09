@@ -3,8 +3,7 @@
 exports[`break-mode.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 = { readonly [A in B]: T}
 type A2 = {
@@ -74,8 +73,7 @@ type D3 = {
 exports[`issue-10571.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   return obj as {[K in any]: any;

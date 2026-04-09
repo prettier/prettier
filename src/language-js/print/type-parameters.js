@@ -1,7 +1,6 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   indentIfBreak,
   join,
@@ -10,15 +9,14 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  getFunctionParameters,
-  hasComment,
-  isObjectType,
-  isTestCall,
-  shouldPrintComma,
-} from "../utilities/index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd } from "../location/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
+import { isObjectType } from "../utilities/node-types.js";
+import { isTestCall } from "../utilities/test-libraries.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTrailingComma } from "./miscellaneous.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,
@@ -44,17 +42,26 @@ function shouldForceTrailingComma(path, options, paramsKey) {
 }
 
 /**
- * @param {AstPath} path
- */
+@param {AstPath} path
+
+- `GenericTypeAnnotation` (Flow)
+- `TypeParameterDeclaration` (Flow)
+- `TypeParameterInstantiation` (Flow)
+- `TSTypeParameterDeclaration` (TypeScript)
+- `TSTypeParameterInstantiation` (TypeScript)
+- `TSImportType` (TypeScript)
+- `TSTypeReference` (TypeScript)
+*/
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
+  const parameters = node[paramsKey];
 
-  if (!node[paramsKey]) {
+  if (!parameters) {
     return "";
   }
 
   // for TypeParameterDeclaration typeParameters is a single node
-  if (!Array.isArray(node[paramsKey])) {
+  if (!Array.isArray(parameters)) {
     return print(paramsKey);
   }
 
@@ -70,12 +77,21 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    node[paramsKey].length === 0 ||
+    parameters.length === 0 ||
     (!isArrowFunctionVariable &&
       (isParameterInTestCall ||
-        (node[paramsKey].length === 1 &&
-          (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-            shouldHugType(node[paramsKey][0])))));
+        (parameters.length === 1 &&
+          (parameters[0].type === "NullableTypeAnnotation" ||
+            shouldHugType(parameters[0])))) &&
+      !parameters.some(
+        (node) =>
+          hasComment(node, CommentCheckFlags.Line) ||
+          // This condition base on existing one in class-body.js
+          // It is not really correct, but we don't have a way to check how comments are printed
+          hasComment(node, CommentCheckFlags.Last, (comment) =>
+            hasNewline(options.originalText, locEnd(comment)),
+          ),
+      ));
 
   if (shouldInline) {
     return [
@@ -91,9 +107,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       ? ""
       : shouldForceTrailingComma(path, options, paramsKey)
         ? ","
-        : shouldPrintComma(options)
-          ? ifBreak(",")
-          : "";
+        : printTrailingComma(options);
 
   return group([
     "<",

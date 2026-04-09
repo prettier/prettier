@@ -10,17 +10,17 @@ function printLiteral(path, options /* , print*/) {
   const { node } = path;
 
   switch (node.type) {
-    case "RegExpLiteral": // Babel 6 Literal split
+    case "RegExpLiteral": // Babel
       return printRegex(node);
-    case "BigIntLiteral":
+    case "BigIntLiteral": // Babel
       return printBigInt(node.extra.raw);
-    case "NumericLiteral": // Babel 6 Literal split
+    case "NumericLiteral": // Babel
       return printNumber(node.extra.raw);
-    case "StringLiteral": // Babel 6 Literal split
+    case "StringLiteral": // Babel
       return replaceEndOfLine(printString(node.extra.raw, options));
-    case "NullLiteral": // Babel 6 Literal split
+    case "NullLiteral": // Babel
       return "null";
-    case "BooleanLiteral": // Babel 6 Literal split
+    case "BooleanLiteral": // Babel
       return String(node.value);
     case "DirectiveLiteral":
       return printDirective(node.extra.raw, options);

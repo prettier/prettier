@@ -3,8 +3,7 @@
 exports[`abstract-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   abstract foo();
@@ -37,8 +36,7 @@ abstract class Bar {
 exports[`constructor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {constructor(override a: number) {}}
 class D {constructor(private a: number) {}}
@@ -82,8 +80,7 @@ class A {
 exports[`declare-field.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   declare private readonly name: string;
@@ -102,8 +99,7 @@ class A {
 exports[`declare-readonly-field-initializer.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   declare readonly bar = "test";
@@ -124,8 +120,7 @@ class A {
 exports[`declare-readonly-field-initializer-w-annotation.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   declare readonly bar: string = "test";
@@ -141,11 +136,20 @@ class A {
 ================================================================================
 `;
 
+exports[`declare-readonly-field-initializer-w-annotation.ts format[oxc-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (2:34)
+  1 | class A {
+> 2 |   declare readonly bar: string = "test";
+    |                                  ^^^^^^
+  3 |   declare baz: string = "test";
+  4 | }
+  5 |"
+`;
+
 exports[`dunder.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class F<__T> {}
 
@@ -158,30 +162,33 @@ class F<__T> {}
 exports[`empty-method-body.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #9324
 
 class foo1 {
-  bar() /* bat */;
+  bar() /* 11 */;
+  bar2/* 12 */() ;
 }
 
 // #9367
 class Test {
-  foo (/* 2 */) /* 3 */;
+  foo (/* 21 */) /* 22 */;
+  foo2 /* 31 */ (/* 32 */) ;
 }
 
 =====================================output=====================================
 // #9324
 
 class foo1 {
-  bar /* bat */();
+  bar(); /* 11 */
+  bar2 /* 12 */();
 }
 
 // #9367
 class Test {
-  foo /* 3 */(/* 2 */);
+  foo(/* 21 */); /* 22 */
+  foo2 /* 31 */(/* 32 */);
 }
 
 ================================================================================
@@ -190,8 +197,7 @@ class Test {
 exports[`extends_implements.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
 
@@ -357,8 +363,7 @@ class ImplementsInterfaceClassWithComments1<
 exports[`generics.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A<T> implements Map<T> {}
 
@@ -379,8 +384,7 @@ interface AudioBufferList {
 exports[`issue-16723.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class JiraCreatePixFraudDetectionGateway
   implements Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
@@ -464,8 +468,7 @@ export class JiraCreatePixFraudDetectionGateway
 exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
     optionalMethod?() {}
@@ -498,8 +501,7 @@ export class Check {
 exports[`optional.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   private foo? = undefined;
@@ -526,8 +528,7 @@ class A {
 exports[`parameter-properties.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class MyClass {
   constructor(protected x: number, private y: string) {
@@ -585,8 +586,7 @@ class OneParameterProperty {
 exports[`quoted-property.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class User {
     "username": string;
@@ -603,8 +603,7 @@ class User {
 exports[`standard_private_fields.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Square {
     #sideLength: number;

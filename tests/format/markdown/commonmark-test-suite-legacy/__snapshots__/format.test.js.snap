@@ -3,9 +3,8 @@
 exports[`snippet: 0.13/example-170.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 
@@ -45,9 +44,8 @@ proseWrap: "always"
 exports[`snippet: 0.13/example-195.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -
 
@@ -60,9 +58,8 @@ proseWrap: "always"
 exports[`snippet: 0.15/example-46.md (Setext headers) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Foo
      ---
@@ -76,9 +73,8 @@ Foo ---
 exports[`snippet: 0.15/example-449.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo\`]: /url
 
@@ -95,9 +91,8 @@ proseWrap: "always"
 exports[`snippet: 0.15/example-521.md (Hard line breaks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo
 
@@ -110,9 +105,8 @@ foo
 exports[`snippet: 0.15/example-523.md (Hard line breaks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ### foo
 
@@ -125,9 +119,8 @@ proseWrap: "always"
 exports[`snippet: 0.17/example-384.md (Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 **a<http://foo.bar?q=**>
 
@@ -140,9 +133,8 @@ proseWrap: "always"
 exports[`snippet: 0.17/example-385.md (Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 __a<http://foo.bar?q=__>
 
@@ -155,9 +147,8 @@ __a<http://foo.bar?q=__>
 exports[`snippet: 0.17/example-421.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo<http://example.com?search=](uri)>
 
@@ -170,9 +161,8 @@ proseWrap: "always"
 exports[`snippet: 0.17/example-433.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo<http://example.com?search=][ref]>
 
@@ -189,9 +179,8 @@ proseWrap: "always"
 exports[`snippet: 0.17/example-483.md (Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <http://foo.bar.baz?q=hello&id=22&boolean>
 
@@ -204,9 +193,8 @@ proseWrap: "always"
 exports[`snippet: 0.18/example-281.md (Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "aa"_"bb"_"cc"
 
@@ -219,9 +207,8 @@ proseWrap: "always"
 exports[`snippet: 0.19/example-25.md (ATX headers) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #5 bolt
 
@@ -234,9 +221,8 @@ proseWrap: "always"
 exports[`snippet: 0.19/example-242.md (Entities) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &#35; &#1234; &#992; &#98765432;
 
@@ -249,9 +235,8 @@ proseWrap: "always"
 exports[`snippet: 0.20/example-103.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- Foo
 bar
@@ -268,9 +253,8 @@ bar
 exports[`snippet: 0.20/example-104.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <?php
   echo '>';
@@ -287,9 +271,8 @@ proseWrap: "always"
 exports[`snippet: 0.20/example-105.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <![CDATA[
 function matchwo(a,b)
@@ -326,9 +309,8 @@ else
 exports[`snippet: 0.20/example-244.md (Entities) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &nbsp; &amp; &copy; &AElig; &Dcaron; &frac34; &HilbertSpace; &DifferentialD; &ClockwiseContourIntegral;
 
@@ -342,9 +324,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-29.md (ATX headers) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #5 bolt
 
@@ -361,9 +342,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-73.md (Indented code blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # Header
     foo
@@ -390,9 +370,8 @@ Header
 exports[`snippet: 0.22/example-275.md (Backslash escapes) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \\*not emphasized*
 \\<br/> not a tag
@@ -413,9 +392,8 @@ list \\* not a list \\# not a header \\[foo]: /url "not a reference"
 exports[`snippet: 0.22/example-289.md (Entities) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &nbsp &x; &#; &#x; &ThisIsWayTooLongToBeAnEntityIsntIt; &hi?;
 
@@ -428,9 +406,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-455.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](#fragment)
 
@@ -451,9 +428,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-531.md (Images) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ![foo] [bar]
 
@@ -470,9 +446,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-532.md (Images) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ![foo] [bar]
 
@@ -489,9 +464,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-563.md (Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <responsive-image src="foo.jpg" />
 
@@ -512,9 +486,8 @@ foo
 exports[`snippet: 0.22/example-569.md (Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 </a>
 </foo >
@@ -529,9 +502,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-577.md (Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <a href="&ouml;">
 
@@ -544,9 +516,8 @@ proseWrap: "always"
 exports[`snippet: 0.22/example-578.md (Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <a href="\\*">
 
@@ -559,9 +530,8 @@ proseWrap: "always"
 exports[`snippet: 0.23/example-58.md (Setext headings) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Foo
 Bar
@@ -584,9 +554,8 @@ Foo Bar
 exports[`snippet: 0.23/example-292.md (Entity and numeric character references) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &nbsp &x; &#; &#x;
 &ThisIsWayTooLongToBeAnEntityIsntIt; &hi?;
@@ -600,9 +569,8 @@ proseWrap: "always"
 exports[`snippet: 0.23/example-301.md (Entity and numeric character references) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <a href="f&ouml;f&ouml;"/>
 
@@ -615,9 +583,8 @@ proseWrap: "always"
 exports[`snippet: 0.23/example-558.md (Autolinks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <heck://bing.bong>
 
@@ -630,9 +597,8 @@ proseWrap: "always"
 exports[`snippet: 0.24/example-5.md (Tabs) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >	foo	bar
 
@@ -645,9 +611,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-33.md (ATX headings) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #	foo
 
@@ -660,9 +625,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-134.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <pre language="haskell"><code>
 import Text.HTML.TagSoup
@@ -685,9 +649,8 @@ main = print $ parseTags tags
 exports[`snippet: 0.25/example-135.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="text/javascript">
 // JavaScript example
@@ -708,9 +671,8 @@ document.getElementById("demo").innerHTML = "Hello JavaScript!";
 exports[`snippet: 0.25/example-136.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style
   type="text/css">
@@ -733,9 +695,8 @@ p {color:blue;}
 exports[`snippet: 0.25/example-143.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- Foo
 
@@ -754,9 +715,8 @@ bar
 exports[`snippet: 0.25/example-144.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <?php
 
@@ -777,9 +737,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-146.md (HTML blocks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <![CDATA[
 function matchwo(a,b)
@@ -814,9 +773,8 @@ function matchwo(a,b)
 exports[`snippet: 0.25/example-222.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 
@@ -873,9 +831,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-224.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - Foo
 
@@ -896,9 +853,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-253.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
   - bar
@@ -915,9 +871,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-254.md (List items) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
  - bar
@@ -934,9 +889,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-265.md (Lists) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 
@@ -957,9 +911,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-267.md (Lists) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo
 - bar
@@ -981,9 +934,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-268.md (Lists) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -   foo
 
@@ -1009,9 +961,8 @@ proseWrap: "always"
 exports[`snippet: 0.25/example-441.md (Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 **foo*bar**
 
@@ -1024,9 +975,8 @@ proseWrap: "always"
 exports[`snippet: 0.27/example-465.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link]((foo)and(bar))
 
@@ -1039,9 +989,8 @@ proseWrap: "always"
 exports[`snippet: 0.27/example-467.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](foo(and\\(bar\\)))
 
@@ -1054,9 +1003,8 @@ proseWrap: "always"
 exports[`snippet: 0.27/example-468.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](<foo(and(bar))>)
 
@@ -1069,9 +1017,8 @@ proseWrap: "always"
 exports[`snippet: 0.27/example-561.md (Images) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \\!\\[foo]
 
@@ -1088,9 +1035,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-162.md (Link reference definitions) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [Foo bar]:
 <my%20url>
@@ -1109,9 +1055,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-273.md (Lists) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - a
  - b
@@ -1139,9 +1084,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-291.md (Backslash escapes) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \\*not emphasized*
 \\<br/> not a tag
@@ -1162,9 +1106,8 @@ list \\* not a list \\# not a heading \\[foo]: /url "not a reference"
 exports[`snippet: 0.28/example-303.md (Entity and numeric character references) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &#35; &#1234; &#992; &#98765432; &#0;
 
@@ -1177,9 +1120,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-305.md (Entity and numeric character references) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &nbsp &x; &#; &#x;
 &ThisIsNotDefined; &hi?;
@@ -1193,9 +1135,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-315.md (Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\` foo \` bar  \`\`
 
@@ -1208,9 +1149,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-318.md (Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`foo   bar
   baz\`
@@ -1224,9 +1164,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-319.md (Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`a  b\`
 
@@ -1239,9 +1178,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-320.md (Code spans) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`foo \`\` bar\`
 
@@ -1254,9 +1192,8 @@ proseWrap: "always"
 exports[`snippet: 0.28/example-592.md (Raw HTML) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 < a><
 foo><bar/ >
@@ -1270,9 +1207,8 @@ foo><bar/ >
 exports[`snippet: 0.29/example-314.md (Entity and numeric character references) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 &nbsp &x; &#; &#x;
 &#987654321;
@@ -1288,9 +1224,8 @@ proseWrap: "always"
 exports[`snippet: 0.29/example-531.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo *bar][ref]
 
@@ -1307,9 +1242,8 @@ proseWrap: "always"
 exports[`snippet: 0.29/example-536.md (Links) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [Толпой][Толпой] is a Russian word.
 
@@ -1326,9 +1260,8 @@ proseWrap: "always"
 exports[`snippet: 0.29/example-637.md (Hard line breaks) - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`code 
 span\`

@@ -3,8 +3,7 @@
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   return (
@@ -61,8 +60,7 @@ function f() {
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   return /* a */;
@@ -88,6 +86,9 @@ function x() {
   return func2
       //comment
       .bar();
+  return func2
+      //comment
+      ?.bar();
 }
 
 function f() {
@@ -95,6 +96,11 @@ function f() {
     foo
       // comment
       .bar()
+  );
+  return (
+    foo
+      // comment
+      ?.bar()
   );
 }
 
@@ -104,11 +110,16 @@ fn(function f() {
       // comment
       .bar()
   );
+  return (
+    foo
+      // comment
+      ?.bar()
+  );
 });
 
 =====================================output=====================================
 function f() {
-  return /* a */;
+  return; /* a */
 }
 
 function f() {
@@ -116,8 +127,8 @@ function f() {
 }
 
 function f() {
-  return // a
-  /* b */;
+  return; // a
+  /* b */
 }
 
 function f() {
@@ -131,6 +142,11 @@ function x() {
       //comment
       .bar()
   );
+  return (
+    func2
+      //comment
+      ?.bar()
+  );
 }
 
 function f() {
@@ -139,6 +155,11 @@ function f() {
       // comment
       .bar()
   );
+  return (
+    foo
+      // comment
+      ?.bar()
+  );
 }
 
 fn(function f() {
@@ -146,6 +167,11 @@ fn(function f() {
     foo
       // comment
       .bar()
+  );
+  return (
+    foo
+      // comment
+      ?.bar()
   );
 });
 

@@ -3,9 +3,8 @@
 exports[`attributes.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div
@@ -369,9 +368,8 @@ semi: false
 exports[`attributes.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div
@@ -735,9 +733,8 @@ trailingComma: "es5"
 exports[`attributes.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div
@@ -1101,9 +1098,8 @@ trailingComma: "none"
 exports[`board_card.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 import './issue_card_inner';
@@ -1267,9 +1263,8 @@ export default {
 exports[`board_card.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 import './issue_card_inner';
@@ -1433,9 +1428,8 @@ export default {
 exports[`board_card.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 import './issue_card_inner';
@@ -1599,9 +1593,8 @@ export default {
 exports[`case-sensitive-tags.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 	<Input></Input>
@@ -1618,9 +1611,8 @@ semi: false
 exports[`case-sensitive-tags.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 	<Input></Input>
@@ -1637,9 +1629,8 @@ trailingComma: "es5"
 exports[`case-sensitive-tags.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 	<Input></Input>
@@ -1656,9 +1647,8 @@ trailingComma: "none"
 exports[`custom-block.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n>
   en:
@@ -1686,9 +1676,8 @@ semi: false
 exports[`custom-block.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n>
   en:
@@ -1716,9 +1705,8 @@ trailingComma: "es5"
 exports[`custom-block.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n>
   en:
@@ -1746,9 +1734,8 @@ trailingComma: "none"
 exports[`expression-binding.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -1794,9 +1781,8 @@ semi: false
 exports[`expression-binding.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -1842,9 +1828,8 @@ trailingComma: "es5"
 exports[`expression-binding.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -1890,9 +1875,8 @@ trailingComma: "none"
 exports[`expression-binding-ts.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -1936,9 +1920,8 @@ semi: false
 exports[`expression-binding-ts.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -1982,9 +1965,8 @@ trailingComma: "es5"
 exports[`expression-binding-ts.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- #7396 -->
 <template>
@@ -2028,9 +2010,8 @@ trailingComma: "none"
 exports[`filter.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
@@ -2086,9 +2067,8 @@ semi: false
 exports[`filter.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
@@ -2144,9 +2124,8 @@ trailingComma: "es5"
 exports[`filter.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
@@ -2202,9 +2181,8 @@ trailingComma: "none"
 exports[`interpolations.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
@@ -2333,9 +2311,8 @@ x => {
 exports[`interpolations.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
@@ -2464,9 +2441,8 @@ x => {
 exports[`interpolations.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
@@ -2595,9 +2571,8 @@ x => {
 exports[`multiple-template1.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2618,9 +2593,8 @@ cloned.
 exports[`multiple-template1.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2641,9 +2615,8 @@ cloned.
 exports[`multiple-template1.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2664,9 +2637,8 @@ cloned.
 exports[`multiple-template2.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2687,9 +2659,8 @@ semi: false
 exports[`multiple-template2.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2710,9 +2681,8 @@ trailingComma: "es5"
 exports[`multiple-template2.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template></template>
 <template lang=unknown>
@@ -2733,9 +2703,8 @@ trailingComma: "none"
 exports[`nested-template.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -2764,9 +2733,8 @@ semi: false
 exports[`nested-template.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -2795,9 +2763,8 @@ trailingComma: "es5"
 exports[`nested-template.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div>
@@ -2826,9 +2793,8 @@ trailingComma: "none"
 exports[`one-line-template1.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><p>foo</p><div>foo</div></template>
 
@@ -2844,9 +2810,8 @@ semi: false
 exports[`one-line-template1.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><p>foo</p><div>foo</div></template>
 
@@ -2862,9 +2827,8 @@ trailingComma: "es5"
 exports[`one-line-template1.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><p>foo</p><div>foo</div></template>
 
@@ -2880,9 +2844,8 @@ trailingComma: "none"
 exports[`one-line-template2.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><div><p>foo</p><div>bar</div></div></template>
 
@@ -2900,9 +2863,8 @@ semi: false
 exports[`one-line-template2.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><div><p>foo</p><div>bar</div></div></template>
 
@@ -2920,9 +2882,8 @@ trailingComma: "es5"
 exports[`one-line-template2.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template><div><p>foo</p><div>bar</div></div></template>
 
@@ -2940,9 +2901,8 @@ trailingComma: "none"
 exports[`pre-child.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
@@ -3046,9 +3006,8 @@ semi: false
 exports[`pre-child.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
@@ -3152,9 +3111,8 @@ trailingComma: "es5"
 exports[`pre-child.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
@@ -3258,9 +3216,8 @@ trailingComma: "none"
 exports[`script_src.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
@@ -3275,9 +3232,8 @@ semi: false
 exports[`script_src.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
@@ -3292,9 +3248,8 @@ trailingComma: "es5"
 exports[`script_src.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
@@ -3309,9 +3264,8 @@ trailingComma: "none"
 exports[`self_closing.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div />
@@ -3364,9 +3318,8 @@ foo()
 exports[`self_closing.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div />
@@ -3419,9 +3372,8 @@ foo();
 exports[`self_closing.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div />
@@ -3474,9 +3426,8 @@ foo();
 exports[`self_closing_style.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <span :class="$style.root"><slot /></span>
@@ -3497,9 +3448,8 @@ semi: false
 exports[`self_closing_style.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <span :class="$style.root"><slot /></span>
@@ -3520,9 +3470,8 @@ trailingComma: "es5"
 exports[`self_closing_style.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <span :class="$style.root"><slot /></span>
@@ -3543,9 +3492,8 @@ trailingComma: "none"
 exports[`slot-ts.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="ts"></script>
 <template>
@@ -3582,9 +3530,8 @@ semi: false
 exports[`slot-ts.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="ts"></script>
 <template>
@@ -3621,9 +3568,8 @@ trailingComma: "es5"
 exports[`slot-ts.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="ts"></script>
 <template>
@@ -3660,9 +3606,8 @@ trailingComma: "none"
 exports[`style.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -3767,9 +3712,8 @@ semi: false
 exports[`style.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -3874,9 +3818,8 @@ trailingComma: "es5"
 exports[`style.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -3981,9 +3924,8 @@ trailingComma: "none"
 exports[`tag-name.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <Table></Table>
@@ -4000,9 +3942,8 @@ semi: false
 exports[`tag-name.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <Table></Table>
@@ -4019,9 +3960,8 @@ trailingComma: "es5"
 exports[`tag-name.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <Table></Table>
@@ -4038,9 +3978,8 @@ trailingComma: "none"
 exports[`template.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
@@ -4102,9 +4041,8 @@ semi: false
 exports[`template.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
@@ -4166,9 +4104,8 @@ trailingComma: "es5"
 exports[`template.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
@@ -4230,9 +4167,8 @@ trailingComma: "none"
 exports[`template-dom.html - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html><html>
   <body>
@@ -4262,9 +4198,8 @@ new Vue({el: '#app'})
 exports[`template-dom.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html><html>
   <body>
@@ -4294,9 +4229,8 @@ new Vue({el: '#app'})
 exports[`template-dom.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html><html>
   <body>
@@ -4326,9 +4260,8 @@ new Vue({el: '#app'})
 exports[`template-lang.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="pug">
   .test
@@ -4407,9 +4340,8 @@ semi: false
 exports[`template-lang.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="pug">
   .test
@@ -4488,9 +4420,8 @@ trailingComma: "es5"
 exports[`template-lang.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template lang="pug">
   .test
@@ -4569,9 +4500,8 @@ trailingComma: "none"
 exports[`test.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -4601,9 +4531,8 @@ semi: false
 exports[`test.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -4633,9 +4562,8 @@ trailingComma: "es5"
 exports[`test.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
 </script>
@@ -4665,9 +4593,8 @@ trailingComma: "none"
 exports[`v-if.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <root>
@@ -4776,9 +4703,8 @@ long_long_long_long_long_long_long_condition_4
 exports[`v-if.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <root>
@@ -4887,9 +4813,8 @@ long_long_long_long_long_long_long_condition_4
 exports[`v-if.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <root>

@@ -5,8 +5,7 @@ exports[`jsx.js - {"jsxBracketSameLine":false,"bracketSameLine":true} format 1`]
 bracketSameLine: true
 jsxBracketSameLine: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
@@ -37,8 +36,7 @@ exports[`jsx.js - {"jsxBracketSameLine":false} format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
@@ -71,8 +69,7 @@ exports[`jsx.js - {"jsxBracketSameLine":true,"bracketSameLine":false} format 1`]
 bracketSameLine: false
 jsxBracketSameLine: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
@@ -103,8 +100,7 @@ exports[`jsx.js - {"jsxBracketSameLine":true} format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}

@@ -4,7 +4,7 @@ exports[`test.html - {"printWidth":20} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 20
-                    | printWidth
+    printWidth: 20 |
 =====================================input======================================
 @for (long expression;long expression;long expression;long expression;long expression;long expression;long expression;long expression;) {
 

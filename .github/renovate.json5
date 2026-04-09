@@ -16,8 +16,8 @@
       matchDepTypes: ["devDependencies"],
     },
     {
-      groupName: "react",
-      matchPackageNames: ["react", "react-dom"],
+      groupName: "React",
+      matchPackageNames: ["react", "react-dom", "@types/react"],
     },
     {
       groupName: "babel",
@@ -56,6 +56,10 @@
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
+      groupName: "Acorn and Espree",
+      matchPackageNames: ["acorn", "acorn-jsx", "espree"],
+    },
+    {
       groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },
@@ -77,6 +81,7 @@
         "@codemirror/*",
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
+        "@catppuccin/codemirror",
       ],
     },
   ],

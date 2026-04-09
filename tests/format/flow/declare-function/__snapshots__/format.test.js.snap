@@ -3,8 +3,7 @@
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(): void;
 export { foo };
@@ -14,4 +13,33 @@ declare function foo(): void;
 export { foo };
 
 ================================================================================
+`;
+
+exports[`implicit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "foo" {
+  function greet(name: string): string;
+}
+
+=====================================output=====================================
+declare module "foo" {
+  function greet(name: string): string;
+}
+
+================================================================================
+`;
+
+exports[`implicit.js format[hermes] 1`] = `
+"'{' expected in function declaration (2:38)
+  1 | declare module "foo" {
+> 2 |   function greet(name: string): string;
+    |                                      ^
+  3 | }
+  4 |
+Cause: '{' expected in function declaration (2:38)
+  function greet(name: string): string;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;

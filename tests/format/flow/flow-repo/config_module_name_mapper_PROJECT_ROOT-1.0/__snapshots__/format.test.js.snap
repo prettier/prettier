@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`main.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+import {test} from 'testmodule';
+
+var a: number = test;
+var b: string = test; // Error: number ~> string
+
+=====================================output=====================================
+// @flow
+
+import { test } from "testmodule";
+
+var a: number = test;
+var b: string = test; // Error: number ~> string
+
+================================================================================
+`;

@@ -1,11 +1,352 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`enums.ts - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  a = "a"
+};
+
+enum E2 {
+  'b' = "b"
+};
+
+enum E3 {
+  c1 = "c1",
+  'c2' = "c2"
+};
+
+enum E4 {
+  d1 = "d1",
+  'd-2' = "d2"
+};
+
+=====================================output=====================================
+enum E1 {
+  a = "a",
+}
+
+enum E2 {
+  b = "b",
+}
+
+enum E3 {
+  c1 = "c1",
+  c2 = "c2",
+}
+
+enum E4 {
+  d1 = "d1",
+  "d-2" = "d2",
+}
+
+================================================================================
+`;
+
+exports[`enums.ts - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  a = "a"
+};
+
+enum E2 {
+  'b' = "b"
+};
+
+enum E3 {
+  c1 = "c1",
+  'c2' = "c2"
+};
+
+enum E4 {
+  d1 = "d1",
+  'd-2' = "d2"
+};
+
+=====================================output=====================================
+enum E1 {
+  a = "a",
+}
+
+enum E2 {
+  b = "b",
+}
+
+enum E3 {
+  c1 = "c1",
+  c2 = "c2",
+}
+
+enum E4 {
+  "d1" = "d1",
+  "d-2" = "d2",
+}
+
+================================================================================
+`;
+
+exports[`enums.ts - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E1 {
+  a = "a"
+};
+
+enum E2 {
+  'b' = "b"
+};
+
+enum E3 {
+  c1 = "c1",
+  'c2' = "c2"
+};
+
+enum E4 {
+  d1 = "d1",
+  'd-2' = "d2"
+};
+
+=====================================output=====================================
+enum E1 {
+  a = "a",
+}
+
+enum E2 {
+  "b" = "b",
+}
+
+enum E3 {
+  c1 = "c1",
+  "c2" = "c2",
+}
+
+enum E4 {
+  d1 = "d1",
+  "d-2" = "d2",
+}
+
+================================================================================
+`;
+
+exports[`interfaces.ts - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface I1 {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+interface I1 {
+  method(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  property: string;
+  property2: string;
+  "property-3": string;
+}
+
+================================================================================
+`;
+
+exports[`interfaces.ts - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface I1 {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+interface I1 {
+  "method"(): string;
+  "method2"(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  "property": string;
+  "property2": string;
+  "property-3": string;
+}
+
+================================================================================
+`;
+
+exports[`interfaces.ts - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface I1 {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+interface I1 {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+interface I2 {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+================================================================================
+`;
+
+exports[`type-literal.ts - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T1 = {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+type T2 = {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+type T1 = {
+  method(): string;
+  method2(): string;
+  "method-3"(): string;
+};
+
+type T2 = {
+  property: string;
+  property2: string;
+  "property-3": string;
+};
+
+================================================================================
+`;
+
+exports[`type-literal.ts - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T1 = {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+type T2 = {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+type T1 = {
+  "method"(): string;
+  "method2"(): string;
+  "method-3"(): string;
+};
+
+type T2 = {
+  "property": string;
+  "property2": string;
+  "property-3": string;
+};
+
+================================================================================
+`;
+
+exports[`type-literal.ts - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T1 = {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+}
+
+type T2 = {
+  "property": string;
+  property2: string;
+  "property-3": string;
+}
+
+=====================================output=====================================
+type T1 = {
+  "method"(): string;
+  method2(): string;
+  "method-3"(): string;
+};
+
+type T2 = {
+  "property": string;
+  property2: string;
+  "property-3": string;
+};
+
+================================================================================
+`;
+
 exports[`types.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;
@@ -34,9 +375,8 @@ type U = {
 exports[`types.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;
@@ -65,9 +405,8 @@ type U = {
 exports[`types.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;

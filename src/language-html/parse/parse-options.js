@@ -1,12 +1,12 @@
 import { TagContentType } from "angular-html-parser";
 
 /**
-@import {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
+@import {HtmlParseOptions} from "angular-html-parser"
 @typedef {{filepath?: string}} Options
 */
 
 /**
-@typedef {AngularHtmlParserParseOptions & {
+@typedef {HtmlParseOptions & {
   name: 'html' | 'angular' | 'vue' | 'lwc' | 'mjml';
   normalizeTagName?: boolean;
   normalizeAttributeName?: boolean;
@@ -42,7 +42,7 @@ function normalizeParseOptions(rawParseOptions) {
 
 /**
 @param {ParseOptions} parseOptions
-@returns {AngularHtmlParserParseOptions}
+@returns {HtmlParseOptions}
 */
 function toAngularHtmlParserParseOptions(parseOptions) {
   const {

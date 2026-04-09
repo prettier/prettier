@@ -1,11 +1,15 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd, locStart } from "../location/index.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
+import { isPreviousLineEmpty } from "../utilities/is-previous-line-empty.js";
+import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
 import {
-  CommentCheckFlags,
-  hasComment,
-  needsHardlineAfterDanglingComment,
-} from "../utilities/index.js";
-import { adjustClause, printIfStatementCondition } from "./miscellaneous.js";
+  printIfStatementAlternate,
+  printIfStatementConsequent,
+} from "./clause.js";
+import { printIfStatementCondition } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -14,44 +18,59 @@ import { adjustClause, printIfStatementCondition } from "./miscellaneous.js";
 
 function printIfStatement(path, options, print) {
   const { node } = path;
-  const consequent = adjustClause(node.consequent, print("consequent"));
   const opening = group([
     "if (",
     printIfStatementCondition(path, options, print),
     ")",
-    consequent,
+    printIfStatementConsequent(path, options, print),
   ]);
-  /** @type{Doc[]} */
+
+  if (!node.alternate) {
+    return opening;
+  }
+
+  const { consequent } = node;
+  const isConsequentBlockStatement = consequent.type === "BlockStatement";
+
+  /** @type {Doc[]} */
   const parts = [opening];
+  let needSpace = isConsequentBlockStatement;
+  if (!isConsequentBlockStatement) {
+    parts.push(hardline);
+    needSpace = false;
+  }
 
-  if (node.alternate) {
-    const commentOnOwnLine =
-      hasComment(
-        node.consequent,
-        CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-      ) || needsHardlineAfterDanglingComment(node);
-    const elseOnSameLine =
-      node.consequent.type === "BlockStatement" && !commentOnOwnLine;
-    parts.push(elseOnSameLine ? " " : hardline);
+  const danglingComments = getComments(node, CommentCheckFlags.Dangling);
+  if (danglingComments.length > 0) {
+    const [firstComment] = danglingComments;
 
-    if (hasComment(node, CommentCheckFlags.Dangling)) {
-      parts.push(
-        printDanglingComments(path, options),
-        commentOnOwnLine ? hardline : " ",
-      );
+    if (isPreviousLineEmpty(firstComment, options)) {
+      parts.push(isConsequentBlockStatement ? [hardline, hardline] : hardline);
+    } else if (
+      hasNewline(options.originalText, locStart(firstComment), {
+        backwards: true,
+      })
+    ) {
+      parts.push(isConsequentBlockStatement ? hardline : "");
+    } else {
+      parts.push(" ");
     }
 
     parts.push(
-      "else",
-      group(
-        adjustClause(
-          node.alternate,
-          print("alternate"),
-          node.alternate.type === "IfStatement",
-        ),
-      ),
+      printDanglingComments(path, options),
+      needsHardlineAfterDanglingComment(node) ||
+        hasNewline(options.originalText, locEnd(danglingComments.at(-1)))
+        ? hardline
+        : " ",
     );
+    needSpace = false;
   }
+
+  parts.push(
+    needSpace ? " " : "",
+    "else",
+    group(printIfStatementAlternate(path, options, print)),
+  );
 
   return parts;
 }

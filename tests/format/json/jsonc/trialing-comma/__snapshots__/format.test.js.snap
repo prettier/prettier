@@ -3,9 +3,8 @@
 exports[`test.jsonc - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   ["omit-if-short"],
@@ -49,9 +48,8 @@ trailingComma: "all"
 exports[`test.jsonc - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   ["omit-if-short"],
@@ -95,9 +93,8 @@ trailingComma: "es5"
 exports[`test.jsonc - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   ["omit-if-short"],

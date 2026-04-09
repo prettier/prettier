@@ -1,20 +1,8 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
-
-const builderNames = new Set(Object.keys(prettier.doc.builders));
-
 const parserName = "doc-explorer";
 const languageName = "Doc explorer";
 const astFormat = parserName;
 
 const expressionParserName = "__js_expression";
-async function getJsExpressionParser() {
-  const plugin = prettierPackageManifest.plugins.find((plugin) =>
-    plugin.parsers?.includes(expressionParserName),
-  );
-  const pluginModule = await import(`./lib/${plugin.file}`);
-  return pluginModule.parsers[expressionParserName];
-}
 
 // `Symbol.for('description')`
 function isSymbol(node) {
@@ -32,7 +20,7 @@ function isSymbol(node) {
   );
 }
 
-function validateNode(node) {
+function validateNode(node, builderNames) {
   if (!node?.type) {
     return;
   }
@@ -54,7 +42,7 @@ function validateNode(node) {
         continue;
       }
 
-      validateNode(value);
+      validateNode(value, builderNames);
     }
     return;
   }
@@ -67,44 +55,61 @@ function validateNode(node) {
     const children = Array.isArray(value) ? value : [value];
 
     for (const child of children) {
-      validateNode(child);
+      validateNode(child, builderNames);
     }
   }
 }
 
-let expressionParser;
-async function validateDoc(text) {
-  expressionParser ??= await getJsExpressionParser();
+export function createDocExplorerPlugin(
+  prettier,
+  prettierPackageManifest,
+  version,
+) {
+  const builderNames = new Set(Object.keys(prettier.doc.builders));
 
-  const ast = expressionParser.parse(text);
-  if (ast.type !== "JsExpressionRoot") {
-    throw new Error("Invalid doc");
+  async function getJsExpressionParser() {
+    const plugin = prettierPackageManifest.plugins.find((plugin) =>
+      plugin.parsers?.includes(expressionParserName),
+    );
+    const pluginModule = await import(`./lib/${version}/${plugin.file}`);
+    return pluginModule.parsers[expressionParserName];
   }
 
-  validateNode(ast.node);
+  let expressionParser;
+  async function validateDoc(text) {
+    expressionParser ??= await getJsExpressionParser();
+
+    const ast = expressionParser.parse(text);
+    if (ast.type !== "JsExpressionRoot") {
+      throw new Error("Invalid doc");
+    }
+
+    validateNode(ast.node, builderNames);
+  }
+
+  async function parse(text) {
+    await validateDoc(text);
+
+    const value = new Function(
+      `{ ${Object.keys(prettier.doc.builders)} }`,
+      `const result = (${text || "''"}\n); return result;`,
+    )(prettier.doc.builders);
+
+    return { value };
+  }
+
+  return {
+    parsers: {
+      [parserName]: {
+        parse,
+        astFormat,
+      },
+    },
+    printers: {
+      [astFormat]: {
+        print: ({ node }) => node.value,
+      },
+    },
+    languages: [{ name: languageName, parsers: [parserName] }],
+  };
 }
-
-async function parse(text) {
-  await validateDoc(text);
-
-  const value = new Function(
-    `{ ${Object.keys(prettier.doc.builders)} }`,
-    `const result = (${text || "''"}\n); return result;`,
-  )(prettier.doc.builders);
-
-  return { value };
-}
-
-export const parsers = {
-  [parserName]: {
-    parse,
-    astFormat,
-  },
-};
-export const printers = {
-  [astFormat]: {
-    print: ({ node }) => node.value,
-  },
-};
-
-export const languages = [{ name: languageName, parsers: [parserName] }];

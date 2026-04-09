@@ -3,9 +3,8 @@
 exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
@@ -23,9 +22,8 @@ proseWrap: "always"
 exports[`cjk.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
@@ -42,9 +40,8 @@ proseWrap: "never"
 exports[`collapsed.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello][]
 
@@ -57,9 +54,8 @@ proseWrap: "always"
 exports[`collapsed.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello][]
 
@@ -72,9 +68,8 @@ proseWrap: "never"
 exports[`definition.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
@@ -106,9 +101,8 @@ proseWrap: "always"
 exports[`definition.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
@@ -134,9 +128,8 @@ proseWrap: "never"
 exports[`full.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello][world]
 
@@ -149,9 +142,8 @@ proseWrap: "always"
 exports[`full.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello][world]
 
@@ -164,9 +156,8 @@ proseWrap: "never"
 exports[`shortcut.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello]
 
@@ -179,9 +170,8 @@ proseWrap: "always"
 exports[`shortcut.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello]
 
@@ -194,9 +184,8 @@ proseWrap: "never"
 exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [ref]: https://example.com (bar)
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
@@ -276,9 +265,8 @@ proseWrap: "always"
 exports[`title.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [ref]: https://example.com (bar)
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
@@ -356,9 +344,8 @@ proseWrap: "never"
 exports[`wrap.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
 
@@ -373,9 +360,8 @@ released).
 exports[`wrap.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
 

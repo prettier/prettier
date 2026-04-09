@@ -4,9 +4,8 @@ exports[`issue-13817.js - {"arrowParens":"avoid","trailingComma":"all"} format 1
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: xxxxxxxxxxxxxxxxxxxxxx<> =
   arg => null;

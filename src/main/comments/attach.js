@@ -139,7 +139,13 @@ function attachComments(ast, options) {
     options,
     ast,
     isLastComment: comments.length - 1 === index,
+    // TODO: Move placement here
+    placement: undefined,
   }));
+
+  // For easier debug, save these to comment even `avoidAstMutation`
+  const attachPropertiesToComment =
+    process.env.NODE_ENV !== "production" || !avoidAstMutation;
 
   for (const [index, context] of decoratedComments.entries()) {
     const {
@@ -153,18 +159,28 @@ function attachComments(ast, options) {
       isLastComment,
     } = context;
 
+    const placement = isOwnLineComment(text, options, decoratedComments, index)
+      ? "ownLine"
+      : isEndOfLineComment(text, options, decoratedComments, index)
+        ? "endOfLine"
+        : "remaining";
+
     let args;
     if (avoidAstMutation) {
+      context.placement = placement;
       args = [context];
     } else {
-      comment.enclosingNode = enclosingNode;
-      comment.precedingNode = precedingNode;
-      comment.followingNode = followingNode;
       args = [comment, text, options, ast, isLastComment];
     }
 
-    if (isOwnLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "ownLine";
+    if (attachPropertiesToComment) {
+      comment.placement = placement;
+      comment.enclosingNode = enclosingNode;
+      comment.precedingNode = precedingNode;
+      comment.followingNode = followingNode;
+    }
+
+    if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -181,8 +197,7 @@ function attachComments(ast, options) {
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "endOfLine";
+    } else if (placement === "endOfLine") {
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -199,7 +214,8 @@ function attachComments(ast, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      comment.placement = "remaining";
+      // Remaining
+      // eslint-disable-next-line no-lonely-if
       if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -232,7 +248,7 @@ function attachComments(ast, options) {
 
   breakTies(tiesToBreak, options);
 
-  if (!avoidAstMutation) {
+  if (attachPropertiesToComment) {
     for (const comment of comments) {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that
@@ -240,6 +256,7 @@ function attachComments(ast, options) {
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
+      delete comment.placement;
     }
   }
 }

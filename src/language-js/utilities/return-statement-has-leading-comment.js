@@ -1,13 +1,9 @@
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
-import {
-  CommentCheckFlags,
-  getLeftSide,
-  hasComment,
-  hasLeadingOwnLineComment,
-  hasNakedLeftSide,
-  isJsxElement,
-} from "./index.js";
+import { locEnd, locStart } from "../location/index.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { CommentCheckFlags, hasComment } from "./comments.js";
+import { getLeftSide, hasNakedLeftSide } from "./left-side.js";
+import { isJsxElement } from "./node-types.js";
 
 // This recurses the return argument, looking for the first token
 // (the leftmost leaf node) and, if it (or its parents) has any

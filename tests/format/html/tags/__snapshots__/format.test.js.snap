@@ -4,8 +4,7 @@ exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`]
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
@@ -19,8 +18,7 @@ exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"strict"} format 1`]
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
@@ -47,7 +45,7 @@ exports[`case-sensitive.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
@@ -64,8 +62,7 @@ printWidth: 1
 exports[`case-sensitive.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
@@ -79,8 +76,7 @@ exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"ignore"} format 1
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
     aaaaaaaaaa
@@ -125,8 +121,7 @@ exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"strict"} format 1
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
     aaaaaaaaaa
@@ -203,7 +198,7 @@ exports[`closing-at-start.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div>
     aaaaaaaaaa
@@ -244,8 +239,7 @@ printWidth: 1
 exports[`closing-at-start.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
     aaaaaaaaaa
@@ -287,8 +281,7 @@ exports[`custom-element.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`]
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <app-foo></app-foo>
 <app-bar></app-bar>
@@ -304,8 +297,7 @@ exports[`custom-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`]
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <app-foo></app-foo>
 <app-bar></app-bar>
@@ -336,7 +328,7 @@ exports[`custom-element.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <app-foo></app-foo>
 <app-bar></app-bar>
@@ -351,8 +343,7 @@ printWidth: 1
 exports[`custom-element.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <app-foo></app-foo>
 <app-bar></app-bar>
@@ -368,8 +359,7 @@ exports[`marquee.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <marquee>This text will scroll from right to left</marquee>
 
@@ -406,8 +396,7 @@ exports[`marquee.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <marquee>This text will scroll from right to left</marquee>
 
@@ -474,7 +463,7 @@ exports[`marquee.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <marquee>This text will scroll from right to left</marquee>
 
@@ -539,8 +528,7 @@ printWidth: 1
 exports[`marquee.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <marquee>This text will scroll from right to left</marquee>
 
@@ -577,8 +565,7 @@ exports[`menu.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <menu>
   <li><button onclick="copy()">Copy</button></li>
@@ -600,8 +587,7 @@ exports[`menu.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <menu>
   <li><button onclick="copy()">Copy</button></li>
@@ -644,7 +630,7 @@ exports[`menu.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <menu>
   <li><button onclick="copy()">Copy</button></li>
@@ -689,8 +675,7 @@ printWidth: 1
 exports[`menu.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <menu>
   <li><button onclick="copy()">Copy</button></li>
@@ -712,8 +697,7 @@ exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p
   >Want to write us a letter? Use our<a
@@ -783,8 +767,7 @@ exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"strict"} format 1`
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p
   >Want to write us a letter? Use our<a
@@ -904,7 +887,7 @@ exports[`openging-at-end.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <p
   >Want to write us a letter? Use our<a
@@ -1003,8 +986,7 @@ printWidth: 1
 exports[`openging-at-end.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p
   >Want to write us a letter? Use our<a
@@ -1067,8 +1049,7 @@ exports[`option.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
 <input list=colors>
@@ -1096,8 +1077,7 @@ exports[`option.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
 <input list=colors>
@@ -1148,7 +1128,7 @@ exports[`option.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
 <input list=colors>
@@ -1195,8 +1175,7 @@ printWidth: 1
 exports[`option.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
 <input list=colors>
@@ -1224,8 +1203,7 @@ exports[`pre.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1449,8 +1427,7 @@ exports[`pre.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1887,7 +1864,7 @@ exports[`pre.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
@@ -2134,8 +2111,7 @@ ___________________________
 exports[`pre.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
@@ -2359,8 +2335,7 @@ exports[`seach.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -2420,8 +2395,7 @@ exports[`seach.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -2540,7 +2514,7 @@ exports[`seach.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -2633,8 +2607,7 @@ printWidth: 1
 exports[`seach.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -2694,8 +2667,7 @@ exports[`tags.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <br/>
 <br />
@@ -3056,8 +3028,7 @@ exports[`tags.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <br/>
 <br />
@@ -3640,7 +3611,7 @@ exports[`tags.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <br/>
 <br />
@@ -4191,8 +4162,7 @@ printWidth: 1
 exports[`tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <br/>
 <br />
@@ -4526,8 +4496,7 @@ exports[`tags2.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
@@ -4591,8 +4560,7 @@ exports[`tags2.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
@@ -4701,7 +4669,7 @@ exports[`tags2.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
@@ -4804,8 +4772,7 @@ printWidth: 1
 exports[`tags2.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
@@ -4868,8 +4835,7 @@ exports[`textarea.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <div>
@@ -4941,8 +4907,7 @@ exports[`textarea.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <div>
@@ -5085,7 +5050,7 @@ exports[`textarea.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <div>
   <div>
@@ -5164,8 +5129,7 @@ lorem ipsum</textarea
 exports[`textarea.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <div>
@@ -5237,8 +5201,7 @@ exports[`unsupported.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <center></center>
 
@@ -5252,8 +5215,7 @@ exports[`unsupported.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = 
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <center></center>
 
@@ -5280,7 +5242,7 @@ exports[`unsupported.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 <center></center>
 
@@ -5293,8 +5255,7 @@ printWidth: 1
 exports[`unsupported.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <center></center>
 

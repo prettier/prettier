@@ -1,9 +1,29 @@
-export function fixPrettierVersion(version) {
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
-  if (match) {
-    return `pr-${match[1]}`;
+export function formatVersion(version) {
+  if (version.name === "stable") {
+    return {
+      text: `v${version.version}`,
+      title: `Prettier v${version.version}`,
+      link: `https://github.com/prettier/prettier/releases/tag/${version.version}`,
+    };
   }
-  return version;
+
+  if (version.name === "next" && version.pr) {
+    return {
+      text: `PR #${version.pr}`,
+      title: `Prettier #${version.pr}`,
+      link: `https://github.com/prettier/prettier/pull/${version.pr}`,
+    };
+  }
+
+  const commit = version.gitTree?.commit;
+
+  return {
+    text: commit ?? "uncommitted changes",
+    title: `Prettier (${commit ?? "uncommitted"})`,
+    link: commit
+      ? `https://github.com/prettier/prettier/commit/${commit}`
+      : "https://github.com/prettier/prettier/",
+  };
 }
 
 export function getDefaults(availableOptions, optionNames) {

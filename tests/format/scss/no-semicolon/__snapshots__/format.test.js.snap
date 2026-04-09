@@ -3,8 +3,7 @@
 exports[`include.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @mixin foo() {
   a {
@@ -29,8 +28,7 @@ printWidth: 80
 exports[`include-2.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @mixin foo() {
   a {
@@ -55,8 +53,7 @@ printWidth: 80
 exports[`url.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @import ur
   l(//fonts.googleapis.com/css?family=Open+Sans:400,400italic);

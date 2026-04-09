@@ -3,8 +3,7 @@
 exports[`comments.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // This comment won't be included in the CSS. 
 //This comment won't be included in the CSS.
@@ -39,8 +38,7 @@ printWidth: 80
 exports[`function-each.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // http://lesscss.org/functions/#list-functions-each
 
@@ -86,8 +84,7 @@ a: b;
 exports[`issue-11483--never-append-anything.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @variable: {
   field: something;
@@ -104,8 +101,7 @@ printWidth: 80
 exports[`less.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
@@ -3459,8 +3455,7 @@ margin: 0 @spacing-medium 0 -(@spacing-xxlarge + @spacing-medium);
 exports[`quotes-in-comments.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Animation   
 // '

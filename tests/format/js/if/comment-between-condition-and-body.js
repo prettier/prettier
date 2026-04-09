@@ -1,33 +1,33 @@
-if (1) { // foo may not exist
+if (1) { // 11
   doThing(foo);
 }
-if (1){}else { // foo may not exist
+if (1){}else { // 12
   doThing(foo);
 }
 
 if (2)
-// foo may not exist
+// 21
 {
   doThing(foo);
 }
 if (2){}else
-// foo may not exist
+// 22
 {
   doThing(foo);
 }
 
-if (3)// foo may not exist
+if (3)// 31
 {
   doThing(foo);
 }
-if (3){}else// foo may not exist
+if (3){}else// 32
 {
   doThing(foo);
 }
 
-if (4)/* foo may not exist */{
+if (4)/* 41 */{
   doThing(foo);
 }
-if (4){}else/* foo may not exist */{
+if (4){}else/* 42 */{
   doThing(foo);
 }

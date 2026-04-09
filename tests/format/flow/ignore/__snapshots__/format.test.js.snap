@@ -3,8 +3,7 @@
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   // Incorrectly indented on purpose
@@ -38,8 +37,7 @@ function a() {
 exports[`type-cast-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 transform(
   // prettier-ignore

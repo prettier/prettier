@@ -3,8 +3,7 @@
 exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style></style>
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`less.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style type="text/less">
   @nice-blue: #5B83AD;
@@ -63,8 +61,7 @@ printWidth: 80
 exports[`mj-style.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <mjml>
 
@@ -85,8 +82,7 @@ printWidth: 80
 exports[`postcss.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style type="text/css">
   body { background: navy; color: yellow; }
@@ -117,8 +113,7 @@ printWidth: 80
 exports[`scss.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style type="text/x-scss">
   $font-stack:    Helvetica, sans-serif;
@@ -193,8 +188,7 @@ printWidth: 80
 exports[`simple.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -240,8 +234,7 @@ printWidth: 80
 exports[`single-style.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <style>a { color: red; }</style>
 <style>

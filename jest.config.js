@@ -51,7 +51,7 @@ if (TEST_RUNTIME === "browser") {
   testPathIgnorePatterns.push(
     "tests/format/misc/front-matter/with-plugins/format.test.js",
     "tests/format/misc/plugins/embed-async-printer/format.test.js",
-    "tests/format/misc/errors/broken-plugin/format.test.js",
+    "tests/format/misc/_errors_/broken-plugin/format.test.js",
     "tests/format/vue/with-plugins/format.test.js",
     "tests/format/misc/plugins/async-printer/format.test.js",
     "tests/format/handlebars/front-matter/toml/format.test.js",

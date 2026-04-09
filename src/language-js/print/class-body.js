@@ -9,16 +9,17 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
+import { iterateClassMembersPath } from "../utilities/class-members.js";
 import {
   CommentCheckFlags,
-  createTypeCheckFunction,
   getComments,
   hasComment,
-  isNextLineEmpty,
-  shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
+import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
 - `ClassBody`
@@ -40,7 +41,7 @@ function printClassBody(path, options, print) {
     isFlowTypeAnnotation && node.exact ? ["{|", "|}"] : "{}";
   let firstMember;
 
-  iterateClassMembers(path, ({ node, next, isLast }) => {
+  iterateClassMembersPath(path, ({ node, next, isLast }) => {
     firstMember ??= node;
     parts.push(print());
 
@@ -49,8 +50,8 @@ function printClassBody(path, options, print) {
 
       if (parent.inexact || !isLast) {
         parts.push(",");
-      } else if (shouldPrintComma(options)) {
-        parts.push(ifBreak(","));
+      } else {
+        parts.push(printTrailingComma(options));
       }
     }
 
@@ -172,64 +173,13 @@ function isClassBody(path) {
   );
 }
 
-function iterateClassMembers(path, iteratee) {
-  const { node } = path;
-  if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
-    path.each(iteratee, "body");
-    return;
-  }
-
-  if (node.type === "TSTypeLiteral") {
-    path.each(iteratee, "members");
-    return;
-  }
-
-  if (node.type === "RecordDeclarationBody") {
-    path.each(iteratee, "elements");
-    return;
-  }
-
-  if (node.type === "ObjectTypeAnnotation") {
-    // Unfortunately, things grouped together in the ast can be
-    // interleaved in the source code. So we need to reorder them before
-    // printing them.
-    const children = [
-      "properties",
-      "indexers",
-      "callProperties",
-      "internalSlots",
-    ]
-      .flatMap((field) =>
-        path.map(
-          ({ node, index }) => ({
-            node,
-            loc: locStart(node),
-            selector: [field, index],
-          }),
-          field,
-        ),
-      )
-      .sort((a, b) => a.loc - b.loc);
-
-    for (const [index, { node, selector }] of children.entries()) {
-      path.call(
-        () =>
-          iteratee({
-            node,
-            next: children[index + 1]?.node,
-            isLast: index === children.length - 1,
-          }),
-        ...selector,
-      );
-    }
-  }
-}
-
 function printClassMemberSemicolon(path, options) {
   const { parent } = path;
 
   if (path.callParent(isClassBody)) {
-    return options.semi || parent.type === "ObjectTypeAnnotation" ? ";" : "";
+    return parent.type === "ObjectTypeAnnotation"
+      ? ";"
+      : printSemicolon(options);
   }
 
   if (parent.type === "TSTypeLiteral") {

@@ -4,8 +4,7 @@ exports[`front-matter-with-noformat-pragma.md - {"checkIgnorePragma":true} forma
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -31,8 +30,7 @@ exports[`front-matter-with-noprettier-pragma.md - {"checkIgnorePragma":true} for
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -60,8 +58,7 @@ exports[`with-noformat-pragma.md - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noformat -->
 
@@ -81,8 +78,7 @@ exports[`with-noprettier-pragma.md - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noprettier -->
 
@@ -102,8 +98,7 @@ exports[`without-pragma.md - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I     will      format   !!
 

@@ -3,9 +3,8 @@
 exports[`4635.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 @mixin placeholder {
@@ -37,9 +36,8 @@ trailingComma: "es5"
 exports[`4635.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 @mixin placeholder {
@@ -71,9 +69,8 @@ trailingComma: "none"
 exports[`5208.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Ignore escape "\\" in SCSS mixins
 @mixin margin-bottom-1\\/3 {
@@ -100,9 +97,8 @@ label {
 exports[`5208.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Ignore escape "\\" in SCSS mixins
 @mixin margin-bottom-1\\/3 {
@@ -129,9 +125,8 @@ label {
 exports[`5636.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {
   @include transition(min-height ($spacer/2) ease-in-out);
@@ -156,9 +151,8 @@ trailingComma: "es5"
 exports[`5636.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {
   @include transition(min-height ($spacer/2) ease-in-out);

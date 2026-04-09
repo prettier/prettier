@@ -13,7 +13,7 @@ test("traverse", () => {
       visited.push(doc);
     });
 
-    expect(visited).toEqual([doc, doc[0], doc[0][0], doc[0][1]]);
+    expect(visited).toStrictEqual([doc, doc[0], doc[0][0], doc[0][1]]);
   }
 
   {
@@ -24,7 +24,7 @@ test("traverse", () => {
     });
 
     // Should skip children
-    expect(visited).toEqual([doc]);
+    expect(visited).toStrictEqual([doc]);
   }
 
   {
@@ -37,7 +37,7 @@ test("traverse", () => {
     });
 
     // Still visiting siblings
-    expect(visited).toEqual([doc, doc[0], doc[0][0], doc[0][1]]);
+    expect(visited).toStrictEqual([doc, doc[0], doc[0][0], doc[0][1]]);
   }
 
   {
@@ -50,7 +50,7 @@ test("traverse", () => {
     });
 
     // Should stop visiting siblings when found
-    expect(visited).toEqual([doc, doc[0], doc[0][0]]);
+    expect(visited).toStrictEqual([doc, doc[0], doc[0][0]]);
   }
 });
 

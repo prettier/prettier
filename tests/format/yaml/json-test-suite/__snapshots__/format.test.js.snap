@@ -3,8 +3,7 @@
 exports[`snippet: i_number_double_huge_neg_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123.456e-789]
 =====================================output=====================================
@@ -16,8 +15,7 @@ printWidth: 80
 exports[`snippet: i_number_huge_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [0.4e00669999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999969999999006]
 =====================================output=====================================
@@ -31,8 +29,7 @@ printWidth: 80
 exports[`snippet: i_number_neg_int_huge_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-1e+9999]
 =====================================output=====================================
@@ -44,8 +41,7 @@ printWidth: 80
 exports[`snippet: i_number_pos_double_huge_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1.5e+9999]
 =====================================output=====================================
@@ -57,8 +53,7 @@ printWidth: 80
 exports[`snippet: i_number_real_neg_overflow.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-123123e100000]
 =====================================output=====================================
@@ -70,8 +65,7 @@ printWidth: 80
 exports[`snippet: i_number_real_pos_overflow.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123123e100000]
 =====================================output=====================================
@@ -83,8 +77,7 @@ printWidth: 80
 exports[`snippet: i_number_real_underflow.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123e-10000000]
 =====================================output=====================================
@@ -96,8 +89,7 @@ printWidth: 80
 exports[`snippet: i_number_too_big_neg_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-123123123123123123123123123123]
 =====================================output=====================================
@@ -109,8 +101,7 @@ printWidth: 80
 exports[`snippet: i_number_too_big_pos_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [100000000000000000000]
 =====================================output=====================================
@@ -122,8 +113,7 @@ printWidth: 80
 exports[`snippet: i_number_very_big_negative_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-237462374673276894279832749832423479823246327846]
 =====================================output=====================================
@@ -135,8 +125,7 @@ printWidth: 80
 exports[`snippet: i_object_key_lone_2nd_surrogate.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"\\uDFAA":0}
 =====================================output=====================================
@@ -148,8 +137,7 @@ printWidth: 80
 exports[`snippet: i_string_1st_surrogate_but_2nd_missing.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDADA"]
 =====================================output=====================================
@@ -161,8 +149,7 @@ printWidth: 80
 exports[`snippet: i_string_1st_valid_surrogate_2nd_invalid.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD888\\u1234"]
 =====================================output=====================================
@@ -174,8 +161,7 @@ printWidth: 80
 exports[`snippet: i_string_UTF-8_invalid_sequence.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["日ш�"]
 =====================================output=====================================
@@ -187,8 +173,7 @@ printWidth: 80
 exports[`snippet: i_string_UTF-16LE_with_BOM.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ��[ " � " ] 
 =====================================output=====================================
@@ -200,8 +185,7 @@ printWidth: 80
 exports[`snippet: i_string_UTF8_surrogate_U+D800.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["���"]
 =====================================output=====================================
@@ -213,8 +197,7 @@ printWidth: 80
 exports[`snippet: i_string_incomplete_surrogate_and_escape_valid.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD800\\n"]
 =====================================output=====================================
@@ -226,8 +209,7 @@ printWidth: 80
 exports[`snippet: i_string_incomplete_surrogate_pair.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDd1ea"]
 =====================================output=====================================
@@ -239,8 +221,7 @@ printWidth: 80
 exports[`snippet: i_string_incomplete_surrogates_escape_valid.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD800\\uD800\\n"]
 =====================================output=====================================
@@ -252,8 +233,7 @@ printWidth: 80
 exports[`snippet: i_string_invalid_lonely_surrogate.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\ud800"]
 =====================================output=====================================
@@ -265,8 +245,7 @@ printWidth: 80
 exports[`snippet: i_string_invalid_surrogate.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\ud800abc"]
 =====================================output=====================================
@@ -278,8 +257,7 @@ printWidth: 80
 exports[`snippet: i_string_invalid_utf-8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["�"]
 =====================================output=====================================
@@ -291,8 +269,7 @@ printWidth: 80
 exports[`snippet: i_string_inverted_surrogates_U+1D11E.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDd1e\\uD834"]
 =====================================output=====================================
@@ -304,8 +281,7 @@ printWidth: 80
 exports[`snippet: i_string_iso_latin_1.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["�"]
 =====================================output=====================================
@@ -317,8 +293,7 @@ printWidth: 80
 exports[`snippet: i_string_lone_second_surrogate.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDFAA"]
 =====================================output=====================================
@@ -330,8 +305,7 @@ printWidth: 80
 exports[`snippet: i_string_lone_utf8_continuation_byte.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["�"]
 =====================================output=====================================
@@ -343,8 +317,7 @@ printWidth: 80
 exports[`snippet: i_string_not_in_unicode_range.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["����"]
 =====================================output=====================================
@@ -356,8 +329,7 @@ printWidth: 80
 exports[`snippet: i_string_overlong_sequence_2_bytes.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["��"]
 =====================================output=====================================
@@ -369,8 +341,7 @@ printWidth: 80
 exports[`snippet: i_string_overlong_sequence_6_bytes.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["������"]
 =====================================output=====================================
@@ -382,8 +353,7 @@ printWidth: 80
 exports[`snippet: i_string_overlong_sequence_6_bytes_null.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["������"]
 =====================================output=====================================
@@ -395,8 +365,7 @@ printWidth: 80
 exports[`snippet: i_string_truncated-utf-8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["��"]
 =====================================output=====================================
@@ -408,8 +377,7 @@ printWidth: 80
 exports[`snippet: i_string_utf16BE_no_BOM.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  [ " � " ]
 =====================================output=====================================
@@ -421,8 +389,7 @@ printWidth: 80
 exports[`snippet: i_structure_UTF-8_BOM_empty_object.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿{}
 =====================================output=====================================
@@ -434,8 +401,7 @@ printWidth: 80
 exports[`snippet: number_-9223372036854775808.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-9223372036854775808]
 
@@ -448,8 +414,7 @@ printWidth: 80
 exports[`snippet: number_-9223372036854775809.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-9223372036854775809]
 
@@ -462,8 +427,7 @@ printWidth: 80
 exports[`snippet: number_1.0.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1.0]
 
@@ -476,8 +440,7 @@ printWidth: 80
 exports[`snippet: number_1.000000000000000005.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1.000000000000000005]
 
@@ -490,8 +453,7 @@ printWidth: 80
 exports[`snippet: number_1e-999.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1E-999]
 
@@ -504,8 +466,7 @@ printWidth: 80
 exports[`snippet: number_1e6.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1E6]
 
@@ -518,8 +479,7 @@ printWidth: 80
 exports[`snippet: number_1000000000000000.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1000000000000000]
 
@@ -532,8 +492,7 @@ printWidth: 80
 exports[`snippet: number_9223372036854775807.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [9223372036854775807]
 
@@ -546,8 +505,7 @@ printWidth: 80
 exports[`snippet: number_9223372036854775808.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [9223372036854775808]
 
@@ -560,8 +518,7 @@ printWidth: 80
 exports[`snippet: number_10000000000000000999.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [10000000000000000999]
 
@@ -574,8 +531,7 @@ printWidth: 80
 exports[`snippet: object_key_nfc_nfd.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"é":"NFC","é":"NFD"}
 =====================================output=====================================
@@ -587,8 +543,7 @@ printWidth: 80
 exports[`snippet: object_key_nfd_nfc.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"é":"NFD","é":"NFC"}
 =====================================output=====================================
@@ -600,8 +555,7 @@ printWidth: 80
 exports[`snippet: object_same_key_different_values.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":1,"a":2}
 =====================================output=====================================
@@ -613,8 +567,7 @@ printWidth: 80
 exports[`snippet: object_same_key_same_value.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":1,"a":1}
 =====================================output=====================================
@@ -626,8 +579,7 @@ printWidth: 80
 exports[`snippet: object_same_key_unclear_values.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":0, "a":-0}
 
@@ -640,8 +592,7 @@ printWidth: 80
 exports[`snippet: string_1_escaped_invalid_codepoint.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD800"]
 =====================================output=====================================
@@ -653,8 +604,7 @@ printWidth: 80
 exports[`snippet: string_1_invalid_codepoint.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["���"]
 =====================================output=====================================
@@ -666,8 +616,7 @@ printWidth: 80
 exports[`snippet: string_2_escaped_invalid_codepoints.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD800\\uD800"]
 =====================================output=====================================
@@ -679,8 +628,7 @@ printWidth: 80
 exports[`snippet: string_2_invalid_codepoints.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["������"]
 =====================================output=====================================
@@ -692,8 +640,7 @@ printWidth: 80
 exports[`snippet: string_3_escaped_invalid_codepoints.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD800\\uD800\\uD800"]
 =====================================output=====================================
@@ -705,8 +652,7 @@ printWidth: 80
 exports[`snippet: string_3_invalid_codepoints.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["���������"]
 =====================================output=====================================
@@ -718,8 +664,7 @@ printWidth: 80
 exports[`snippet: string_with_escaped_NULL.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["A\\u0000B"]
 =====================================output=====================================
@@ -731,8 +676,7 @@ printWidth: 80
 exports[`snippet: y_array_arraysWithSpaces.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [[]   ]
 =====================================output=====================================
@@ -744,8 +688,7 @@ printWidth: 80
 exports[`snippet: y_array_empty.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 []
 =====================================output=====================================
@@ -757,8 +700,7 @@ printWidth: 80
 exports[`snippet: y_array_empty-string.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [""]
 =====================================output=====================================
@@ -770,8 +712,7 @@ printWidth: 80
 exports[`snippet: y_array_ending_with_newline.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["a"]
 =====================================output=====================================
@@ -783,8 +724,7 @@ printWidth: 80
 exports[`snippet: y_array_false.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [false]
 =====================================output=====================================
@@ -796,8 +736,7 @@ printWidth: 80
 exports[`snippet: y_array_heterogeneous.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [null, 1, "1", {}]
 =====================================output=====================================
@@ -809,8 +748,7 @@ printWidth: 80
 exports[`snippet: y_array_null.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [null]
 =====================================output=====================================
@@ -822,8 +760,7 @@ printWidth: 80
 exports[`snippet: y_array_with_1_and_newline.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1
 ]
@@ -836,8 +773,7 @@ printWidth: 80
 exports[`snippet: y_array_with_leading_space.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  [1]
 =====================================output=====================================
@@ -849,8 +785,7 @@ printWidth: 80
 exports[`snippet: y_array_with_several_null.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1,null,null,null,2]
 =====================================output=====================================
@@ -862,8 +797,7 @@ printWidth: 80
 exports[`snippet: y_array_with_trailing_space.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [2] 
 =====================================output=====================================
@@ -875,8 +809,7 @@ printWidth: 80
 exports[`snippet: y_number.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123e65]
 =====================================output=====================================
@@ -888,8 +821,7 @@ printWidth: 80
 exports[`snippet: y_number_0e+1.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [0e+1]
 =====================================output=====================================
@@ -901,8 +833,7 @@ printWidth: 80
 exports[`snippet: y_number_0e1.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [0e1]
 =====================================output=====================================
@@ -914,8 +845,7 @@ printWidth: 80
 exports[`snippet: y_number_after_space.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [ 4]
 =====================================output=====================================
@@ -927,8 +857,7 @@ printWidth: 80
 exports[`snippet: y_number_double_close_to_zero.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-0.000000000000000000000000000000000000000000000000000000000000000000000000000001]
 
@@ -943,8 +872,7 @@ printWidth: 80
 exports[`snippet: y_number_int_with_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [20e1]
 =====================================output=====================================
@@ -956,8 +884,7 @@ printWidth: 80
 exports[`snippet: y_number_minus_zero.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-0]
 =====================================output=====================================
@@ -969,8 +896,7 @@ printWidth: 80
 exports[`snippet: y_number_negative_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-123]
 =====================================output=====================================
@@ -982,8 +908,7 @@ printWidth: 80
 exports[`snippet: y_number_negative_one.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-1]
 =====================================output=====================================
@@ -995,8 +920,7 @@ printWidth: 80
 exports[`snippet: y_number_negative_zero.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [-0]
 =====================================output=====================================
@@ -1008,8 +932,7 @@ printWidth: 80
 exports[`snippet: y_number_real_capital_e.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1E22]
 =====================================output=====================================
@@ -1021,8 +944,7 @@ printWidth: 80
 exports[`snippet: y_number_real_capital_e_neg_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1E-2]
 =====================================output=====================================
@@ -1034,8 +956,7 @@ printWidth: 80
 exports[`snippet: y_number_real_capital_e_pos_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1E+2]
 =====================================output=====================================
@@ -1047,8 +968,7 @@ printWidth: 80
 exports[`snippet: y_number_real_exponent.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123e45]
 =====================================output=====================================
@@ -1060,8 +980,7 @@ printWidth: 80
 exports[`snippet: y_number_real_fraction_exponent.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123.456e78]
 =====================================output=====================================
@@ -1073,8 +992,7 @@ printWidth: 80
 exports[`snippet: y_number_real_neg_exp.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1e-2]
 =====================================output=====================================
@@ -1086,8 +1004,7 @@ printWidth: 80
 exports[`snippet: y_number_real_pos_exponent.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [1e+2]
 =====================================output=====================================
@@ -1099,8 +1016,7 @@ printWidth: 80
 exports[`snippet: y_number_simple_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123]
 =====================================output=====================================
@@ -1112,8 +1028,7 @@ printWidth: 80
 exports[`snippet: y_number_simple_real.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [123.456789]
 =====================================output=====================================
@@ -1125,8 +1040,7 @@ printWidth: 80
 exports[`snippet: y_object.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"asd":"sdf", "dfg":"fgh"}
 =====================================output=====================================
@@ -1138,8 +1052,7 @@ printWidth: 80
 exports[`snippet: y_object_basic.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"asd":"sdf"}
 =====================================output=====================================
@@ -1151,8 +1064,7 @@ printWidth: 80
 exports[`snippet: y_object_duplicated_key.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":"b","a":"c"}
 =====================================output=====================================
@@ -1164,8 +1076,7 @@ printWidth: 80
 exports[`snippet: y_object_duplicated_key_and_value.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":"b","a":"b"}
 =====================================output=====================================
@@ -1177,8 +1088,7 @@ printWidth: 80
 exports[`snippet: y_object_empty.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {}
 =====================================output=====================================
@@ -1190,8 +1100,7 @@ printWidth: 80
 exports[`snippet: y_object_empty_key.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"":0}
 =====================================output=====================================
@@ -1203,8 +1112,7 @@ printWidth: 80
 exports[`snippet: y_object_escaped_null_in_key.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"foo\\u0000bar": 42}
 =====================================output=====================================
@@ -1216,8 +1124,7 @@ printWidth: 80
 exports[`snippet: y_object_extreme_numbers.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { "min": -1.0e+28, "max": 1.0e+28 }
 =====================================output=====================================
@@ -1229,8 +1136,7 @@ printWidth: 80
 exports[`snippet: y_object_long_strings.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"x":[{"id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}], "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
 =====================================output=====================================
@@ -1245,8 +1151,7 @@ printWidth: 80
 exports[`snippet: y_object_simple.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"a":[]}
 =====================================output=====================================
@@ -1258,8 +1163,7 @@ printWidth: 80
 exports[`snippet: y_object_string_unicode.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"title":"\\u041f\\u043e\\u043b\\u0442\\u043e\\u0440\\u0430 \\u0417\\u0435\\u043c\\u043b\\u0435\\u043a\\u043e\\u043f\\u0430" }
 =====================================output=====================================
@@ -1273,8 +1177,7 @@ printWidth: 80
 exports[`snippet: y_object_with_newlines.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
 "a": "b"
@@ -1288,8 +1191,7 @@ printWidth: 80
 exports[`snippet: y_string_1_2_3_bytes_UTF-8_sequences.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0060\\u012a\\u12AB"]
 =====================================output=====================================
@@ -1301,8 +1203,7 @@ printWidth: 80
 exports[`snippet: y_string_accepted_surrogate_pair.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD801\\udc37"]
 =====================================output=====================================
@@ -1314,8 +1215,7 @@ printWidth: 80
 exports[`snippet: y_string_accepted_surrogate_pairs.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\ud83d\\ude39\\ud83d\\udc8d"]
 =====================================output=====================================
@@ -1327,8 +1227,7 @@ printWidth: 80
 exports[`snippet: y_string_allowed_escapes.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\"\\\\\\/\\b\\f\\n\\r\\t"]
 =====================================output=====================================
@@ -1340,8 +1239,7 @@ printWidth: 80
 exports[`snippet: y_string_backslash_and_u_escaped_zero.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\\\u0000"]
 =====================================output=====================================
@@ -1353,8 +1251,7 @@ printWidth: 80
 exports[`snippet: y_string_backslash_doublequotes.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\""]
 =====================================output=====================================
@@ -1366,8 +1263,7 @@ printWidth: 80
 exports[`snippet: y_string_comments.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["a/*b*/c/*d//e"]
 =====================================output=====================================
@@ -1379,8 +1275,7 @@ printWidth: 80
 exports[`snippet: y_string_double_escape_a.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\\\a"]
 =====================================output=====================================
@@ -1392,8 +1287,7 @@ printWidth: 80
 exports[`snippet: y_string_double_escape_n.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\\\n"]
 =====================================output=====================================
@@ -1405,8 +1299,7 @@ printWidth: 80
 exports[`snippet: y_string_escaped_control_character.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0012"]
 =====================================output=====================================
@@ -1418,8 +1311,7 @@ printWidth: 80
 exports[`snippet: y_string_escaped_noncharacter.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uFFFF"]
 =====================================output=====================================
@@ -1431,8 +1323,7 @@ printWidth: 80
 exports[`snippet: y_string_in_array.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["asd"]
 =====================================output=====================================
@@ -1444,8 +1335,7 @@ printWidth: 80
 exports[`snippet: y_string_in_array_with_leading_space.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [ "asd"]
 =====================================output=====================================
@@ -1457,8 +1347,7 @@ printWidth: 80
 exports[`snippet: y_string_last_surrogates_1_and_2.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDBFF\\uDFFF"]
 =====================================output=====================================
@@ -1470,8 +1359,7 @@ printWidth: 80
 exports[`snippet: y_string_nbsp_uescaped.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["new\\u00A0line"]
 =====================================output=====================================
@@ -1483,8 +1371,7 @@ printWidth: 80
 exports[`snippet: y_string_nonCharacterInUTF-8_U+10FFFF.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["􏿿"]
 =====================================output=====================================
@@ -1496,8 +1383,7 @@ printWidth: 80
 exports[`snippet: y_string_nonCharacterInUTF-8_U+FFFF.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["￿"]
 =====================================output=====================================
@@ -1509,8 +1395,7 @@ printWidth: 80
 exports[`snippet: y_string_null_escape.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0000"]
 =====================================output=====================================
@@ -1522,8 +1407,7 @@ printWidth: 80
 exports[`snippet: y_string_one-byte-utf-8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u002c"]
 =====================================output=====================================
@@ -1535,8 +1419,7 @@ printWidth: 80
 exports[`snippet: y_string_pi.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["π"]
 =====================================output=====================================
@@ -1548,8 +1431,7 @@ printWidth: 80
 exports[`snippet: y_string_reservedCharacterInUTF-8_U+1BFFF.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["𛿿"]
 =====================================output=====================================
@@ -1561,8 +1443,7 @@ printWidth: 80
 exports[`snippet: y_string_simple_ascii.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["asd "]
 =====================================output=====================================
@@ -1574,8 +1455,7 @@ printWidth: 80
 exports[`snippet: y_string_space.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 " "
 =====================================output=====================================
@@ -1587,8 +1467,7 @@ printWidth: 80
 exports[`snippet: y_string_surrogates_U+1D11E_MUSICAL_SYMBOL_G_CLEF.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD834\\uDd1e"]
 =====================================output=====================================
@@ -1600,8 +1479,7 @@ printWidth: 80
 exports[`snippet: y_string_three-byte-utf-8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0821"]
 =====================================output=====================================
@@ -1613,8 +1491,7 @@ printWidth: 80
 exports[`snippet: y_string_two-byte-utf-8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0123"]
 =====================================output=====================================
@@ -1626,8 +1503,7 @@ printWidth: 80
 exports[`snippet: y_string_u+2028_line_sep.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [" "]
 =====================================output=====================================
@@ -1639,8 +1515,7 @@ printWidth: 80
 exports[`snippet: y_string_u+2029_par_sep.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [" "]
 =====================================output=====================================
@@ -1652,8 +1527,7 @@ printWidth: 80
 exports[`snippet: y_string_uEscape.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0061\\u30af\\u30EA\\u30b9"]
 =====================================output=====================================
@@ -1665,8 +1539,7 @@ printWidth: 80
 exports[`snippet: y_string_uescaped_newline.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["new\\u000Aline"]
 =====================================output=====================================
@@ -1678,8 +1551,7 @@ printWidth: 80
 exports[`snippet: y_string_unescaped_char_delete.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [""]
 =====================================output=====================================
@@ -1691,8 +1563,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uA66D"]
 =====================================output=====================================
@@ -1704,8 +1575,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_2.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["⍂㈴⍂"]
 =====================================output=====================================
@@ -1717,8 +1587,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+1FFFE_nonchar.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uD83F\\uDFFE"]
 =====================================output=====================================
@@ -1730,8 +1599,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+10FFFE_nonchar.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uDBFF\\uDFFE"]
 =====================================output=====================================
@@ -1743,8 +1611,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+200B_ZERO_WIDTH_SPACE.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u200B"]
 =====================================output=====================================
@@ -1756,8 +1623,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+2064_invisible_plus.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u2064"]
 =====================================output=====================================
@@ -1769,8 +1635,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+FDD0_nonchar.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uFDD0"]
 =====================================output=====================================
@@ -1782,8 +1647,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_U+FFFE_nonchar.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\uFFFE"]
 =====================================output=====================================
@@ -1795,8 +1659,7 @@ printWidth: 80
 exports[`snippet: y_string_unicode_escaped_double_quote.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u0022"]
 =====================================output=====================================
@@ -1808,8 +1671,7 @@ printWidth: 80
 exports[`snippet: y_string_unicodeEscapedBackslash.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["\\u005C"]
 =====================================output=====================================
@@ -1821,8 +1683,7 @@ printWidth: 80
 exports[`snippet: y_string_utf8.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["€𝄞"]
 =====================================output=====================================
@@ -1834,8 +1695,7 @@ printWidth: 80
 exports[`snippet: y_string_with_del_character.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["aa"]
 =====================================output=====================================
@@ -1847,8 +1707,7 @@ printWidth: 80
 exports[`snippet: y_structure_lonely_false.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 false
 =====================================output=====================================
@@ -1860,8 +1719,7 @@ false
 exports[`snippet: y_structure_lonely_int.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 42
 =====================================output=====================================
@@ -1873,8 +1731,7 @@ printWidth: 80
 exports[`snippet: y_structure_lonely_negative_real.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -0.1
 =====================================output=====================================
@@ -1886,8 +1743,7 @@ printWidth: 80
 exports[`snippet: y_structure_lonely_null.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 null
 =====================================output=====================================
@@ -1899,8 +1755,7 @@ null
 exports[`snippet: y_structure_lonely_string.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "asd"
 =====================================output=====================================
@@ -1912,8 +1767,7 @@ printWidth: 80
 exports[`snippet: y_structure_lonely_true.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 true
 =====================================output=====================================
@@ -1925,8 +1779,7 @@ true
 exports[`snippet: y_structure_string_empty.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ""
 =====================================output=====================================
@@ -1938,8 +1791,7 @@ printWidth: 80
 exports[`snippet: y_structure_trailing_newline.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ["a"]
 
@@ -1952,8 +1804,7 @@ printWidth: 80
 exports[`snippet: y_structure_true_in_array.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [true]
 =====================================output=====================================
@@ -1965,8 +1816,7 @@ printWidth: 80
 exports[`snippet: y_structure_whitespace_array.json format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
  [] 
 =====================================output=====================================

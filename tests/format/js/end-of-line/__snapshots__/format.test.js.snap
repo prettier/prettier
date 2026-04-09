@@ -4,8 +4,7 @@ exports[`example.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>
@@ -23,8 +22,7 @@ exports[`example.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>
@@ -42,8 +40,7 @@ exports[`example.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>

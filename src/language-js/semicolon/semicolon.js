@@ -3,12 +3,18 @@ import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
-  isJsxElement,
-} from "../utilities/index.js";
+} from "../utilities/left-side.js";
+import { isJsxElement } from "../utilities/node-types.js";
 
-function shouldPrintLeadingSemicolon(path, options) {
+function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
+  if (options.semi) {
+    return false;
+  }
+
+  const { node } = path;
+
   if (
-    options.semi ||
+    node.type !== "ExpressionStatement" ||
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
     isSingleVueEventBindingExpressionStatement(path, options) ||
     isSingleHtmlEventHandlerExpressionStatement(path, options)
@@ -16,9 +22,8 @@ function shouldPrintLeadingSemicolon(path, options) {
     return false;
   }
 
-  const { node, key, parent } = path;
+  const { key, parent } = path;
   if (
-    node.type === "ExpressionStatement" &&
     // `Program.directives` don't need leading semicolon
     ((key === "body" &&
       (parent.type === "Program" ||
@@ -26,7 +31,7 @@ function shouldPrintLeadingSemicolon(path, options) {
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
       (key === "consequent" && parent.type === "SwitchCase")) &&
-    path.call(() => expressionNeedsASIProtection(path, options), "expression")
+    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
   ) {
     return true;
   }
@@ -34,17 +39,19 @@ function shouldPrintLeadingSemicolon(path, options) {
   return false;
 }
 
-function expressionNeedsASIProtection(path, options) {
+function expressionNeedsAsiProtection(path, options) {
   const { node } = path;
   switch (node.type) {
     case "ParenthesizedExpression":
     case "TypeCastExpression":
+    case "TSTypeAssertion":
     case "ArrayExpression":
     case "ArrayPattern":
     case "TemplateLiteral":
     case "TemplateElement":
     case "RegExpLiteral":
       return true;
+
     case "ArrowFunctionExpression":
       if (!shouldPrintParamsWithoutParens(path, options)) {
         return true;
@@ -85,7 +92,7 @@ function expressionNeedsASIProtection(path, options) {
   }
 
   return path.call(
-    () => expressionNeedsASIProtection(path, options),
+    () => expressionNeedsAsiProtection(path, options),
     ...getLeftSidePathName(node),
   );
 }
@@ -124,5 +131,5 @@ export {
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
-  shouldPrintLeadingSemicolon,
+  shouldExpressionStatementPrintLeadingSemicolon,
 };

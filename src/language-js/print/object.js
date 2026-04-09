@@ -2,7 +2,6 @@ import * as assert from "#universal/assert";
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   softline,
@@ -11,19 +10,22 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { locEnd, locStart } from "../location/index.js";
 import {
   CommentCheckFlags,
-  createTypeCheckFunction,
   getComments,
   hasComment,
-  isNextLineEmpty,
-  isObjectType,
-  shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isObjectType } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
-import { printOptionalToken } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printOptionalToken,
+  printTrailingComma,
+} from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */
@@ -134,14 +136,9 @@ function printObject(path, options, print) {
 
   let content;
   if (parts.length === 0) {
-    if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return ["{}", printTypeAnnotationProperty(path, print)];
-    }
-
     content = group([
       "{",
-      printDanglingComments(path, options, { indent: true }),
-      softline,
+      printDanglingCommentsInList(path, options),
       "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
@@ -151,7 +148,7 @@ function printObject(path, options, print) {
     content = [
       "{",
       indent([spacing, ...parts]),
-      ifBreak(canHaveTrailingSeparator && shouldPrintComma(options) ? "," : ""),
+      canHaveTrailingSeparator ? printTrailingComma(options) : "",
       spacing,
       "}",
       printOptionalToken(path),
@@ -199,17 +196,18 @@ function printObject(path, options, print) {
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
   const text = options.originalText;
-  let openingBraceIndex = locStart(node);
   const firstPropertyStart = locStart(firstProperty);
 
+  let openingBraceIndex = locStart(node);
   if (isPrintingImportAttributes(node)) {
-    const start = locStart(node);
-    const textBeforeAttributes = getTextWithoutComments(
-      options,
-      start,
+    openingBraceIndex = stripComments(options).lastIndexOf(
+      "{",
       firstPropertyStart,
     );
-    openingBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+    /* c8 ignore next 3 */
+    if (process.env.NODE_ENV !== "production") {
+      assert.ok(openingBraceIndex !== -1);
+    }
   }
 
   /* c8 ignore next 3 */

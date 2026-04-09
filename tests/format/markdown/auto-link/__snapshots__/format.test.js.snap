@@ -3,8 +3,7 @@
 exports[`snippet: * http://www.example.com:80/*a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a *
 =====================================output=====================================
@@ -16,8 +15,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a _
 =====================================output=====================================
@@ -29,8 +27,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a* *
 =====================================output=====================================
@@ -42,8 +39,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a* _
 =====================================output=====================================
@@ -55,8 +51,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*
 =====================================output=====================================
@@ -68,8 +63,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a** * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a** *
 =====================================output=====================================
@@ -81,8 +75,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a** _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a** _
 =====================================output=====================================
@@ -94,8 +87,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a**
 =====================================output=====================================
@@ -107,8 +99,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a***
 =====================================output=====================================
@@ -120,8 +111,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a**_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a**_
 =====================================output=====================================
@@ -133,8 +123,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/ *
 =====================================output=====================================
@@ -146,8 +135,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/ _
 =====================================output=====================================
@@ -159,8 +147,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/* *
 =====================================output=====================================
@@ -172,8 +159,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/* _
 =====================================output=====================================
@@ -185,8 +171,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/*
 =====================================output=====================================
@@ -198,8 +183,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/**
 =====================================output=====================================
@@ -211,8 +195,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/*_
 =====================================output=====================================
@@ -224,8 +207,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*/_
 =====================================output=====================================
@@ -237,8 +219,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*_
 =====================================output=====================================
@@ -250,8 +231,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*b *
 =====================================output=====================================
@@ -263,8 +243,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*b _
 =====================================output=====================================
@@ -276,8 +255,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*b*
 =====================================output=====================================
@@ -289,8 +267,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a*b_
 =====================================output=====================================
@@ -302,8 +279,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/*a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/*a_
 =====================================output=====================================
@@ -315,8 +291,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a *
 =====================================output=====================================
@@ -328,8 +303,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a _
 =====================================output=====================================
@@ -341,8 +315,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a* *
 =====================================output=====================================
@@ -354,8 +327,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a* _
 =====================================output=====================================
@@ -367,8 +339,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*
 =====================================output=====================================
@@ -380,8 +351,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a**
 =====================================output=====================================
@@ -393,8 +363,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*/ *
 =====================================output=====================================
@@ -406,8 +375,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*/ _
 =====================================output=====================================
@@ -419,8 +387,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*/*
 =====================================output=====================================
@@ -432,8 +399,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*/_
 =====================================output=====================================
@@ -445,8 +411,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*_
 =====================================output=====================================
@@ -458,8 +423,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*b *
 =====================================output=====================================
@@ -471,8 +435,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*b _
 =====================================output=====================================
@@ -484,8 +447,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*b*
 =====================================output=====================================
@@ -497,8 +459,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a*b_
 =====================================output=====================================
@@ -510,8 +471,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_ *
 =====================================output=====================================
@@ -523,8 +483,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_ _
 =====================================output=====================================
@@ -536,8 +495,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_
 =====================================output=====================================
@@ -549,8 +507,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_* *
 =====================================output=====================================
@@ -562,8 +519,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_* _
 =====================================output=====================================
@@ -575,8 +531,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_*
 =====================================output=====================================
@@ -588,8 +543,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_**
 =====================================output=====================================
@@ -601,8 +555,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_*_
 =====================================output=====================================
@@ -614,8 +567,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/ *
 =====================================output=====================================
@@ -627,8 +579,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/ _
 =====================================output=====================================
@@ -640,8 +591,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/* *
 =====================================output=====================================
@@ -653,8 +603,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/* _
 =====================================output=====================================
@@ -666,8 +615,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/*
 =====================================output=====================================
@@ -679,8 +627,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/**
 =====================================output=====================================
@@ -692,8 +639,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/*_
 =====================================output=====================================
@@ -705,8 +651,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/_ *
 =====================================output=====================================
@@ -718,8 +663,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/_ _
 =====================================output=====================================
@@ -731,8 +675,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/_
 =====================================output=====================================
@@ -744,8 +687,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/_*
 =====================================output=====================================
@@ -757,8 +699,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_/__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_/__
 =====================================output=====================================
@@ -770,8 +711,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a__ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a__ *
 =====================================output=====================================
@@ -783,8 +723,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a__ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a__ _
 =====================================output=====================================
@@ -796,8 +735,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a__
 =====================================output=====================================
@@ -809,8 +747,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a__* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a__*
 =====================================output=====================================
@@ -822,8 +759,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a___ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a___
 =====================================output=====================================
@@ -835,8 +771,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_b *
 =====================================output=====================================
@@ -848,8 +783,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_b _
 =====================================output=====================================
@@ -861,8 +795,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_b*
 =====================================output=====================================
@@ -874,8 +807,7 @@ printWidth: 80
 exports[`snippet: * http://www.example.com:80/_a_b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 * http://www.example.com:80/_a_b_
 =====================================output=====================================
@@ -887,8 +819,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a *
 =====================================output=====================================
@@ -900,8 +831,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a _
 =====================================output=====================================
@@ -913,8 +843,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a* *
 =====================================output=====================================
@@ -926,8 +855,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a* _
 =====================================output=====================================
@@ -939,8 +867,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*
 =====================================output=====================================
@@ -952,8 +879,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a** * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a** *
 =====================================output=====================================
@@ -965,8 +891,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a** _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a** _
 =====================================output=====================================
@@ -978,8 +903,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a**
 =====================================output=====================================
@@ -991,8 +915,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a***
 =====================================output=====================================
@@ -1004,8 +927,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a**_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a**_
 =====================================output=====================================
@@ -1017,8 +939,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/ *
 =====================================output=====================================
@@ -1030,8 +951,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/ _
 =====================================output=====================================
@@ -1043,8 +963,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/* *
 =====================================output=====================================
@@ -1056,8 +975,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/* _
 =====================================output=====================================
@@ -1069,8 +987,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/*
 =====================================output=====================================
@@ -1082,8 +999,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/**
 =====================================output=====================================
@@ -1095,8 +1011,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/*_
 =====================================output=====================================
@@ -1108,8 +1023,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*/_
 =====================================output=====================================
@@ -1121,8 +1035,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*_
 =====================================output=====================================
@@ -1134,8 +1047,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*b *
 =====================================output=====================================
@@ -1147,8 +1059,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*b _
 =====================================output=====================================
@@ -1160,8 +1071,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*b*
 =====================================output=====================================
@@ -1173,8 +1083,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a*b_
 =====================================output=====================================
@@ -1186,8 +1095,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/*a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/*a_
 =====================================output=====================================
@@ -1199,8 +1107,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a *
 =====================================output=====================================
@@ -1212,8 +1119,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a _
 =====================================output=====================================
@@ -1225,8 +1131,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a* *
 =====================================output=====================================
@@ -1238,8 +1143,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a* _
 =====================================output=====================================
@@ -1251,8 +1155,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*
 =====================================output=====================================
@@ -1264,8 +1167,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a**
 =====================================output=====================================
@@ -1277,8 +1179,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*/ *
 =====================================output=====================================
@@ -1290,8 +1191,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*/ _
 =====================================output=====================================
@@ -1303,8 +1203,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*/*
 =====================================output=====================================
@@ -1316,8 +1215,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*/_
 =====================================output=====================================
@@ -1329,8 +1227,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*_
 =====================================output=====================================
@@ -1342,8 +1239,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*b *
 =====================================output=====================================
@@ -1355,8 +1251,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*b _
 =====================================output=====================================
@@ -1368,8 +1263,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*b*
 =====================================output=====================================
@@ -1381,8 +1275,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a*b_
 =====================================output=====================================
@@ -1394,8 +1287,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_ *
 =====================================output=====================================
@@ -1407,8 +1299,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_ _
 =====================================output=====================================
@@ -1420,8 +1311,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_
 =====================================output=====================================
@@ -1433,8 +1323,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_* *
 =====================================output=====================================
@@ -1446,8 +1335,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_* _
 =====================================output=====================================
@@ -1459,8 +1347,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_*
 =====================================output=====================================
@@ -1472,8 +1359,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_**
 =====================================output=====================================
@@ -1485,8 +1371,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_*_
 =====================================output=====================================
@@ -1498,8 +1383,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/ *
 =====================================output=====================================
@@ -1511,8 +1395,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/ _
 =====================================output=====================================
@@ -1524,8 +1407,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/* *
 =====================================output=====================================
@@ -1537,8 +1419,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/* _
 =====================================output=====================================
@@ -1550,8 +1431,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/*
 =====================================output=====================================
@@ -1563,8 +1443,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/**
 =====================================output=====================================
@@ -1576,8 +1455,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/*_
 =====================================output=====================================
@@ -1589,8 +1467,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/_ *
 =====================================output=====================================
@@ -1602,8 +1479,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/_ _
 =====================================output=====================================
@@ -1615,8 +1491,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/_
 =====================================output=====================================
@@ -1628,8 +1503,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/_*
 =====================================output=====================================
@@ -1641,8 +1515,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_/__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_/__
 =====================================output=====================================
@@ -1654,8 +1527,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a__ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a__ *
 =====================================output=====================================
@@ -1667,8 +1539,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a__ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a__ _
 =====================================output=====================================
@@ -1680,8 +1551,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a__
 =====================================output=====================================
@@ -1693,8 +1563,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a__* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a__*
 =====================================output=====================================
@@ -1706,8 +1575,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a___ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a___
 =====================================output=====================================
@@ -1719,8 +1587,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_b *
 =====================================output=====================================
@@ -1732,8 +1599,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_b _
 =====================================output=====================================
@@ -1745,8 +1611,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_b*
 =====================================output=====================================
@@ -1758,8 +1623,7 @@ printWidth: 80
 exports[`snippet: *http://www.example.com:80/_a_b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 *http://www.example.com:80/_a_b_
 =====================================output=====================================
@@ -1771,8 +1635,7 @@ printWidth: 80
 exports[`snippet: _ http://www.example.com:80/*a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a *
 =====================================output=====================================
@@ -1784,8 +1647,7 @@ _ http://www.example.com:80/*a *
 exports[`snippet: _ http://www.example.com:80/*a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a _
 =====================================output=====================================
@@ -1797,8 +1659,7 @@ _ http://www.example.com:80/*a _
 exports[`snippet: _ http://www.example.com:80/*a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a* *
 =====================================output=====================================
@@ -1810,8 +1671,7 @@ _ http://www.example.com:80/*a* *
 exports[`snippet: _ http://www.example.com:80/*a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a* _
 =====================================output=====================================
@@ -1823,8 +1683,7 @@ _ http://www.example.com:80/*a* _
 exports[`snippet: _ http://www.example.com:80/*a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*
 =====================================output=====================================
@@ -1836,8 +1695,7 @@ _ http://www.example.com:80/*a*
 exports[`snippet: _ http://www.example.com:80/*a** * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a** *
 =====================================output=====================================
@@ -1849,8 +1707,7 @@ _ http://www.example.com:80/*a** *
 exports[`snippet: _ http://www.example.com:80/*a** _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a** _
 =====================================output=====================================
@@ -1862,8 +1719,7 @@ _ http://www.example.com:80/*a** _
 exports[`snippet: _ http://www.example.com:80/*a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a**
 =====================================output=====================================
@@ -1875,8 +1731,7 @@ _ http://www.example.com:80/*a**
 exports[`snippet: _ http://www.example.com:80/*a*** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a***
 =====================================output=====================================
@@ -1888,8 +1743,7 @@ _ http://www.example.com:80/*a***
 exports[`snippet: _ http://www.example.com:80/*a**_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a**_
 =====================================output=====================================
@@ -1901,8 +1755,7 @@ _ http://www.example.com:80/*a**_
 exports[`snippet: _ http://www.example.com:80/*a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/ *
 =====================================output=====================================
@@ -1914,8 +1767,7 @@ _ http://www.example.com:80/*a*/ *
 exports[`snippet: _ http://www.example.com:80/*a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/ _
 =====================================output=====================================
@@ -1927,8 +1779,7 @@ _ http://www.example.com:80/*a*/ _
 exports[`snippet: _ http://www.example.com:80/*a*/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/* *
 =====================================output=====================================
@@ -1940,8 +1791,7 @@ _ http://www.example.com:80/*a*/* *
 exports[`snippet: _ http://www.example.com:80/*a*/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/* _
 =====================================output=====================================
@@ -1953,8 +1803,7 @@ _ http://www.example.com:80/*a*/* _
 exports[`snippet: _ http://www.example.com:80/*a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/*
 =====================================output=====================================
@@ -1966,8 +1815,7 @@ _ http://www.example.com:80/*a*/*
 exports[`snippet: _ http://www.example.com:80/*a*/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/**
 =====================================output=====================================
@@ -1979,8 +1827,7 @@ _ http://www.example.com:80/*a*/**
 exports[`snippet: _ http://www.example.com:80/*a*/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/*_
 =====================================output=====================================
@@ -1992,8 +1839,7 @@ _ http://www.example.com:80/*a*/*_
 exports[`snippet: _ http://www.example.com:80/*a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*/_
 =====================================output=====================================
@@ -2005,8 +1851,7 @@ _ http://www.example.com:80/*a*/_
 exports[`snippet: _ http://www.example.com:80/*a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*_
 =====================================output=====================================
@@ -2018,8 +1863,7 @@ _ http://www.example.com:80/*a*_
 exports[`snippet: _ http://www.example.com:80/*a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*b *
 =====================================output=====================================
@@ -2031,8 +1875,7 @@ _ http://www.example.com:80/*a*b *
 exports[`snippet: _ http://www.example.com:80/*a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*b _
 =====================================output=====================================
@@ -2044,8 +1887,7 @@ _ http://www.example.com:80/*a*b _
 exports[`snippet: _ http://www.example.com:80/*a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*b*
 =====================================output=====================================
@@ -2057,8 +1899,7 @@ _ http://www.example.com:80/*a*b*
 exports[`snippet: _ http://www.example.com:80/*a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a*b_
 =====================================output=====================================
@@ -2070,8 +1911,7 @@ _ http://www.example.com:80/*a*b_
 exports[`snippet: _ http://www.example.com:80/*a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/*a_
 =====================================output=====================================
@@ -2083,8 +1923,7 @@ _ http://www.example.com:80/*a_
 exports[`snippet: _ http://www.example.com:80/_a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a *
 =====================================output=====================================
@@ -2096,8 +1935,7 @@ _ http://www.example.com:80/_a *
 exports[`snippet: _ http://www.example.com:80/_a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a _
 =====================================output=====================================
@@ -2109,8 +1947,7 @@ _ http://www.example.com:80/_a _
 exports[`snippet: _ http://www.example.com:80/_a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a* *
 =====================================output=====================================
@@ -2122,8 +1959,7 @@ _ http://www.example.com:80/_a* *
 exports[`snippet: _ http://www.example.com:80/_a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a* _
 =====================================output=====================================
@@ -2135,8 +1971,7 @@ _ http://www.example.com:80/_a* _
 exports[`snippet: _ http://www.example.com:80/_a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*
 =====================================output=====================================
@@ -2148,8 +1983,7 @@ _ http://www.example.com:80/_a*
 exports[`snippet: _ http://www.example.com:80/_a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a**
 =====================================output=====================================
@@ -2161,8 +1995,7 @@ _ http://www.example.com:80/_a**
 exports[`snippet: _ http://www.example.com:80/_a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*/ *
 =====================================output=====================================
@@ -2174,8 +2007,7 @@ _ http://www.example.com:80/_a*/ *
 exports[`snippet: _ http://www.example.com:80/_a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*/ _
 =====================================output=====================================
@@ -2187,8 +2019,7 @@ _ http://www.example.com:80/_a*/ _
 exports[`snippet: _ http://www.example.com:80/_a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*/*
 =====================================output=====================================
@@ -2200,8 +2031,7 @@ _ http://www.example.com:80/_a*/*
 exports[`snippet: _ http://www.example.com:80/_a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*/_
 =====================================output=====================================
@@ -2213,8 +2043,7 @@ _ http://www.example.com:80/_a*/_
 exports[`snippet: _ http://www.example.com:80/_a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*_
 =====================================output=====================================
@@ -2226,8 +2055,7 @@ _ http://www.example.com:80/_a*_
 exports[`snippet: _ http://www.example.com:80/_a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*b *
 =====================================output=====================================
@@ -2239,8 +2067,7 @@ _ http://www.example.com:80/_a*b *
 exports[`snippet: _ http://www.example.com:80/_a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*b _
 =====================================output=====================================
@@ -2252,8 +2079,7 @@ _ http://www.example.com:80/_a*b _
 exports[`snippet: _ http://www.example.com:80/_a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*b*
 =====================================output=====================================
@@ -2265,8 +2091,7 @@ _ http://www.example.com:80/_a*b*
 exports[`snippet: _ http://www.example.com:80/_a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a*b_
 =====================================output=====================================
@@ -2278,8 +2103,7 @@ _ http://www.example.com:80/_a*b_
 exports[`snippet: _ http://www.example.com:80/_a_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_ *
 =====================================output=====================================
@@ -2291,8 +2115,7 @@ _ http://www.example.com:80/_a_ *
 exports[`snippet: _ http://www.example.com:80/_a_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_ _
 =====================================output=====================================
@@ -2304,8 +2127,7 @@ _ http://www.example.com:80/_a_ _
 exports[`snippet: _ http://www.example.com:80/_a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_
 =====================================output=====================================
@@ -2317,8 +2139,7 @@ _ http://www.example.com:80/_a_
 exports[`snippet: _ http://www.example.com:80/_a_* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_* *
 =====================================output=====================================
@@ -2330,8 +2151,7 @@ _ http://www.example.com:80/_a_* *
 exports[`snippet: _ http://www.example.com:80/_a_* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_* _
 =====================================output=====================================
@@ -2343,8 +2163,7 @@ _ http://www.example.com:80/_a_* _
 exports[`snippet: _ http://www.example.com:80/_a_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_*
 =====================================output=====================================
@@ -2356,8 +2175,7 @@ _ http://www.example.com:80/_a_*
 exports[`snippet: _ http://www.example.com:80/_a_** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_**
 =====================================output=====================================
@@ -2369,8 +2187,7 @@ _ http://www.example.com:80/_a_**
 exports[`snippet: _ http://www.example.com:80/_a_*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_*_
 =====================================output=====================================
@@ -2382,8 +2199,7 @@ _ http://www.example.com:80/_a_*_
 exports[`snippet: _ http://www.example.com:80/_a_/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/ *
 =====================================output=====================================
@@ -2395,8 +2211,7 @@ _ http://www.example.com:80/_a_/ *
 exports[`snippet: _ http://www.example.com:80/_a_/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/ _
 =====================================output=====================================
@@ -2408,8 +2223,7 @@ _ http://www.example.com:80/_a_/ _
 exports[`snippet: _ http://www.example.com:80/_a_/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/* *
 =====================================output=====================================
@@ -2421,8 +2235,7 @@ _ http://www.example.com:80/_a_/* *
 exports[`snippet: _ http://www.example.com:80/_a_/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/* _
 =====================================output=====================================
@@ -2434,8 +2247,7 @@ _ http://www.example.com:80/_a_/* _
 exports[`snippet: _ http://www.example.com:80/_a_/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/*
 =====================================output=====================================
@@ -2447,8 +2259,7 @@ _ http://www.example.com:80/_a_/*
 exports[`snippet: _ http://www.example.com:80/_a_/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/**
 =====================================output=====================================
@@ -2460,8 +2271,7 @@ _ http://www.example.com:80/_a_/**
 exports[`snippet: _ http://www.example.com:80/_a_/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/*_
 =====================================output=====================================
@@ -2473,8 +2283,7 @@ _ http://www.example.com:80/_a_/*_
 exports[`snippet: _ http://www.example.com:80/_a_/_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/_ *
 =====================================output=====================================
@@ -2486,8 +2295,7 @@ _ http://www.example.com:80/_a_/_ *
 exports[`snippet: _ http://www.example.com:80/_a_/_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/_ _
 =====================================output=====================================
@@ -2499,8 +2307,7 @@ _ http://www.example.com:80/_a_/_ _
 exports[`snippet: _ http://www.example.com:80/_a_/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/_
 =====================================output=====================================
@@ -2512,8 +2319,7 @@ _ http://www.example.com:80/_a_/_
 exports[`snippet: _ http://www.example.com:80/_a_/_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/_*
 =====================================output=====================================
@@ -2525,8 +2331,7 @@ _ http://www.example.com:80/_a_/_*
 exports[`snippet: _ http://www.example.com:80/_a_/__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_/__
 =====================================output=====================================
@@ -2538,8 +2343,7 @@ _ http://www.example.com:80/_a_/__
 exports[`snippet: _ http://www.example.com:80/_a__ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a__ *
 =====================================output=====================================
@@ -2551,8 +2355,7 @@ _ http://www.example.com:80/_a__ *
 exports[`snippet: _ http://www.example.com:80/_a__ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a__ _
 =====================================output=====================================
@@ -2564,8 +2367,7 @@ _ http://www.example.com:80/_a__ _
 exports[`snippet: _ http://www.example.com:80/_a__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a__
 =====================================output=====================================
@@ -2577,8 +2379,7 @@ _ http://www.example.com:80/_a__
 exports[`snippet: _ http://www.example.com:80/_a__* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a__*
 =====================================output=====================================
@@ -2590,8 +2391,7 @@ _ http://www.example.com:80/_a__*
 exports[`snippet: _ http://www.example.com:80/_a___ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a___
 =====================================output=====================================
@@ -2603,8 +2403,7 @@ _ http://www.example.com:80/_a___
 exports[`snippet: _ http://www.example.com:80/_a_b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_b *
 =====================================output=====================================
@@ -2616,8 +2415,7 @@ _ http://www.example.com:80/_a_b *
 exports[`snippet: _ http://www.example.com:80/_a_b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_b _
 =====================================output=====================================
@@ -2629,8 +2427,7 @@ _ http://www.example.com:80/_a_b _
 exports[`snippet: _ http://www.example.com:80/_a_b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_b*
 =====================================output=====================================
@@ -2642,8 +2439,7 @@ _ http://www.example.com:80/_a_b*
 exports[`snippet: _ http://www.example.com:80/_a_b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _ http://www.example.com:80/_a_b_
 =====================================output=====================================
@@ -2655,8 +2451,7 @@ _ http://www.example.com:80/_a_b_
 exports[`snippet: _http://www.example.com:80/*a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a *
 =====================================output=====================================
@@ -2668,8 +2463,7 @@ _http://www.example.com:80/*a *
 exports[`snippet: _http://www.example.com:80/*a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a _
 =====================================output=====================================
@@ -2681,8 +2475,7 @@ _http://www.example.com:80/*a _
 exports[`snippet: _http://www.example.com:80/*a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a* *
 =====================================output=====================================
@@ -2694,8 +2487,7 @@ _http://www.example.com:80/*a* *
 exports[`snippet: _http://www.example.com:80/*a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a* _
 =====================================output=====================================
@@ -2707,8 +2499,7 @@ _http://www.example.com:80/*a* _
 exports[`snippet: _http://www.example.com:80/*a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*
 =====================================output=====================================
@@ -2720,8 +2511,7 @@ _http://www.example.com:80/*a*
 exports[`snippet: _http://www.example.com:80/*a** * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a** *
 =====================================output=====================================
@@ -2733,8 +2523,7 @@ _http://www.example.com:80/*a** *
 exports[`snippet: _http://www.example.com:80/*a** _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a** _
 =====================================output=====================================
@@ -2746,8 +2535,7 @@ _http://www.example.com:80/*a** _
 exports[`snippet: _http://www.example.com:80/*a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a**
 =====================================output=====================================
@@ -2759,8 +2547,7 @@ _http://www.example.com:80/*a**
 exports[`snippet: _http://www.example.com:80/*a*** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a***
 =====================================output=====================================
@@ -2772,8 +2559,7 @@ _http://www.example.com:80/*a***
 exports[`snippet: _http://www.example.com:80/*a**_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a**_
 =====================================output=====================================
@@ -2785,8 +2571,7 @@ _http://www.example.com:80/*a**_
 exports[`snippet: _http://www.example.com:80/*a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/ *
 =====================================output=====================================
@@ -2798,8 +2583,7 @@ _http://www.example.com:80/*a*/ *
 exports[`snippet: _http://www.example.com:80/*a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/ _
 =====================================output=====================================
@@ -2811,8 +2595,7 @@ _http://www.example.com:80/*a*/ _
 exports[`snippet: _http://www.example.com:80/*a*/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/* *
 =====================================output=====================================
@@ -2824,8 +2607,7 @@ _http://www.example.com:80/*a*/* *
 exports[`snippet: _http://www.example.com:80/*a*/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/* _
 =====================================output=====================================
@@ -2837,8 +2619,7 @@ _http://www.example.com:80/*a*/* _
 exports[`snippet: _http://www.example.com:80/*a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/*
 =====================================output=====================================
@@ -2850,8 +2631,7 @@ _http://www.example.com:80/*a*/*
 exports[`snippet: _http://www.example.com:80/*a*/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/**
 =====================================output=====================================
@@ -2863,8 +2643,7 @@ _http://www.example.com:80/*a*/**
 exports[`snippet: _http://www.example.com:80/*a*/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/*_
 =====================================output=====================================
@@ -2876,8 +2655,7 @@ _http://www.example.com:80/*a*/*_
 exports[`snippet: _http://www.example.com:80/*a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*/_
 =====================================output=====================================
@@ -2889,8 +2667,7 @@ _http://www.example.com:80/*a*/_
 exports[`snippet: _http://www.example.com:80/*a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*_
 =====================================output=====================================
@@ -2902,8 +2679,7 @@ _http://www.example.com:80/*a*_
 exports[`snippet: _http://www.example.com:80/*a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*b *
 =====================================output=====================================
@@ -2915,8 +2691,7 @@ _http://www.example.com:80/*a*b *
 exports[`snippet: _http://www.example.com:80/*a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*b _
 =====================================output=====================================
@@ -2928,8 +2703,7 @@ _http://www.example.com:80/*a*b _
 exports[`snippet: _http://www.example.com:80/*a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*b*
 =====================================output=====================================
@@ -2941,8 +2715,7 @@ _http://www.example.com:80/*a*b*
 exports[`snippet: _http://www.example.com:80/*a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a*b_
 =====================================output=====================================
@@ -2954,8 +2727,7 @@ _http://www.example.com:80/*a*b_
 exports[`snippet: _http://www.example.com:80/*a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/*a_
 =====================================output=====================================
@@ -2967,8 +2739,7 @@ _http://www.example.com:80/*a_
 exports[`snippet: _http://www.example.com:80/_a * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a *
 =====================================output=====================================
@@ -2980,8 +2751,7 @@ _http://www.example.com:80/_a *
 exports[`snippet: _http://www.example.com:80/_a _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a _
 =====================================output=====================================
@@ -2993,8 +2763,7 @@ _http://www.example.com:80/_a _
 exports[`snippet: _http://www.example.com:80/_a* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a* *
 =====================================output=====================================
@@ -3006,8 +2775,7 @@ _http://www.example.com:80/_a* *
 exports[`snippet: _http://www.example.com:80/_a* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a* _
 =====================================output=====================================
@@ -3019,8 +2787,7 @@ _http://www.example.com:80/_a* _
 exports[`snippet: _http://www.example.com:80/_a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*
 =====================================output=====================================
@@ -3032,8 +2799,7 @@ _http://www.example.com:80/_a*
 exports[`snippet: _http://www.example.com:80/_a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a**
 =====================================output=====================================
@@ -3045,8 +2811,7 @@ _http://www.example.com:80/_a**
 exports[`snippet: _http://www.example.com:80/_a*/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*/ *
 =====================================output=====================================
@@ -3058,8 +2823,7 @@ _http://www.example.com:80/_a*/ *
 exports[`snippet: _http://www.example.com:80/_a*/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*/ _
 =====================================output=====================================
@@ -3071,8 +2835,7 @@ _http://www.example.com:80/_a*/ _
 exports[`snippet: _http://www.example.com:80/_a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*/*
 =====================================output=====================================
@@ -3084,8 +2847,7 @@ _http://www.example.com:80/_a*/*
 exports[`snippet: _http://www.example.com:80/_a*/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*/_
 =====================================output=====================================
@@ -3097,8 +2859,7 @@ _http://www.example.com:80/_a*/_
 exports[`snippet: _http://www.example.com:80/_a*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*_
 =====================================output=====================================
@@ -3110,8 +2871,7 @@ _http://www.example.com:80/_a*_
 exports[`snippet: _http://www.example.com:80/_a*b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*b *
 =====================================output=====================================
@@ -3123,8 +2883,7 @@ _http://www.example.com:80/_a*b *
 exports[`snippet: _http://www.example.com:80/_a*b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*b _
 =====================================output=====================================
@@ -3136,8 +2895,7 @@ _http://www.example.com:80/_a*b _
 exports[`snippet: _http://www.example.com:80/_a*b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*b*
 =====================================output=====================================
@@ -3149,8 +2907,7 @@ _http://www.example.com:80/_a*b*
 exports[`snippet: _http://www.example.com:80/_a*b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a*b_
 =====================================output=====================================
@@ -3162,8 +2919,7 @@ _http://www.example.com:80/_a*b_
 exports[`snippet: _http://www.example.com:80/_a_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_ *
 =====================================output=====================================
@@ -3175,8 +2931,7 @@ _http://www.example.com:80/_a_ *
 exports[`snippet: _http://www.example.com:80/_a_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_ _
 =====================================output=====================================
@@ -3188,8 +2943,7 @@ _http://www.example.com:80/_a_ _
 exports[`snippet: _http://www.example.com:80/_a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_
 =====================================output=====================================
@@ -3201,8 +2955,7 @@ _http://www.example.com:80/_a_
 exports[`snippet: _http://www.example.com:80/_a_* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_* *
 =====================================output=====================================
@@ -3214,8 +2967,7 @@ _http://www.example.com:80/_a_* *
 exports[`snippet: _http://www.example.com:80/_a_* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_* _
 =====================================output=====================================
@@ -3227,8 +2979,7 @@ _http://www.example.com:80/_a_* _
 exports[`snippet: _http://www.example.com:80/_a_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_*
 =====================================output=====================================
@@ -3240,8 +2991,7 @@ _http://www.example.com:80/_a_*
 exports[`snippet: _http://www.example.com:80/_a_** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_**
 =====================================output=====================================
@@ -3253,8 +3003,7 @@ _http://www.example.com:80/_a_**
 exports[`snippet: _http://www.example.com:80/_a_*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_*_
 =====================================output=====================================
@@ -3266,8 +3015,7 @@ _http://www.example.com:80/_a_*_
 exports[`snippet: _http://www.example.com:80/_a_/ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/ *
 =====================================output=====================================
@@ -3279,8 +3027,7 @@ _http://www.example.com:80/_a_/ *
 exports[`snippet: _http://www.example.com:80/_a_/ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/ _
 =====================================output=====================================
@@ -3292,8 +3039,7 @@ _http://www.example.com:80/_a_/ _
 exports[`snippet: _http://www.example.com:80/_a_/* * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/* *
 =====================================output=====================================
@@ -3305,8 +3051,7 @@ _http://www.example.com:80/_a_/* *
 exports[`snippet: _http://www.example.com:80/_a_/* _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/* _
 =====================================output=====================================
@@ -3318,8 +3063,7 @@ _http://www.example.com:80/_a_/* _
 exports[`snippet: _http://www.example.com:80/_a_/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/*
 =====================================output=====================================
@@ -3331,8 +3075,7 @@ _http://www.example.com:80/_a_/*
 exports[`snippet: _http://www.example.com:80/_a_/** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/**
 =====================================output=====================================
@@ -3344,8 +3087,7 @@ _http://www.example.com:80/_a_/**
 exports[`snippet: _http://www.example.com:80/_a_/*_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/*_
 =====================================output=====================================
@@ -3357,8 +3099,7 @@ _http://www.example.com:80/_a_/*_
 exports[`snippet: _http://www.example.com:80/_a_/_ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/_ *
 =====================================output=====================================
@@ -3370,8 +3111,7 @@ _http://www.example.com:80/_a_/_ *
 exports[`snippet: _http://www.example.com:80/_a_/_ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/_ _
 =====================================output=====================================
@@ -3383,8 +3123,7 @@ _http://www.example.com:80/_a_/_ _
 exports[`snippet: _http://www.example.com:80/_a_/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/_
 =====================================output=====================================
@@ -3396,8 +3135,7 @@ _http://www.example.com:80/_a_/_
 exports[`snippet: _http://www.example.com:80/_a_/_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/_*
 =====================================output=====================================
@@ -3409,8 +3147,7 @@ _http://www.example.com:80/_a_/_*
 exports[`snippet: _http://www.example.com:80/_a_/__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_/__
 =====================================output=====================================
@@ -3422,8 +3159,7 @@ _http://www.example.com:80/_a_/__
 exports[`snippet: _http://www.example.com:80/_a__ * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a__ *
 =====================================output=====================================
@@ -3435,8 +3171,7 @@ _http://www.example.com:80/_a__ *
 exports[`snippet: _http://www.example.com:80/_a__ _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a__ _
 =====================================output=====================================
@@ -3448,8 +3183,7 @@ _http://www.example.com:80/_a__ _
 exports[`snippet: _http://www.example.com:80/_a__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a__
 =====================================output=====================================
@@ -3461,8 +3195,7 @@ _http://www.example.com:80/_a__
 exports[`snippet: _http://www.example.com:80/_a__* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a__*
 =====================================output=====================================
@@ -3474,8 +3207,7 @@ _http://www.example.com:80/_a__*
 exports[`snippet: _http://www.example.com:80/_a___ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a___
 =====================================output=====================================
@@ -3487,8 +3219,7 @@ _http://www.example.com:80/_a___
 exports[`snippet: _http://www.example.com:80/_a_b * format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_b *
 =====================================output=====================================
@@ -3500,8 +3231,7 @@ _http://www.example.com:80/_a_b *
 exports[`snippet: _http://www.example.com:80/_a_b _ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_b _
 =====================================output=====================================
@@ -3513,8 +3243,7 @@ _http://www.example.com:80/_a_b _
 exports[`snippet: _http://www.example.com:80/_a_b* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_b*
 =====================================output=====================================
@@ -3526,8 +3255,7 @@ _http://www.example.com:80/_a_b*
 exports[`snippet: _http://www.example.com:80/_a_b_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 _http://www.example.com:80/_a_b_
 =====================================output=====================================
@@ -3539,8 +3267,7 @@ _http://www.example.com:80/_a_b_
 exports[`snippet: http://www.example.com:80/*a format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a
 =====================================output=====================================
@@ -3552,8 +3279,7 @@ http://www.example.com:80/*a
 exports[`snippet: http://www.example.com:80/*a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a*
 =====================================output=====================================
@@ -3565,8 +3291,7 @@ http://www.example.com:80/*a*
 exports[`snippet: http://www.example.com:80/*a** format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a**
 =====================================output=====================================
@@ -3578,8 +3303,7 @@ http://www.example.com:80/*a**
 exports[`snippet: http://www.example.com:80/*a*/ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a*/
 =====================================output=====================================
@@ -3591,8 +3315,7 @@ http://www.example.com:80/*a*/
 exports[`snippet: http://www.example.com:80/*a*/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a*/*
 =====================================output=====================================
@@ -3604,8 +3327,7 @@ http://www.example.com:80/*a*/*
 exports[`snippet: http://www.example.com:80/*a*b format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/*a*b
 =====================================output=====================================
@@ -3617,8 +3339,7 @@ http://www.example.com:80/*a*b
 exports[`snippet: http://www.example.com:80/_a format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a
 =====================================output=====================================
@@ -3630,8 +3351,7 @@ http://www.example.com:80/_a
 exports[`snippet: http://www.example.com:80/_a* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a*
 =====================================output=====================================
@@ -3643,8 +3363,7 @@ http://www.example.com:80/_a*
 exports[`snippet: http://www.example.com:80/_a*/ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a*/
 =====================================output=====================================
@@ -3656,8 +3375,7 @@ http://www.example.com:80/_a*/
 exports[`snippet: http://www.example.com:80/_a*b format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a*b
 =====================================output=====================================
@@ -3669,8 +3387,7 @@ http://www.example.com:80/_a*b
 exports[`snippet: http://www.example.com:80/_a_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_
 =====================================output=====================================
@@ -3682,8 +3399,7 @@ http://www.example.com:80/_a_
 exports[`snippet: http://www.example.com:80/_a_* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_*
 =====================================output=====================================
@@ -3695,8 +3411,7 @@ http://www.example.com:80/_a_*
 exports[`snippet: http://www.example.com:80/_a_/ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_/
 =====================================output=====================================
@@ -3708,8 +3423,7 @@ http://www.example.com:80/_a_/
 exports[`snippet: http://www.example.com:80/_a_/* format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_/*
 =====================================output=====================================
@@ -3721,8 +3435,7 @@ http://www.example.com:80/_a_/*
 exports[`snippet: http://www.example.com:80/_a_/_ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_/_
 =====================================output=====================================
@@ -3734,8 +3447,7 @@ http://www.example.com:80/_a_/_
 exports[`snippet: http://www.example.com:80/_a__ format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a__
 =====================================output=====================================
@@ -3747,8 +3459,7 @@ http://www.example.com:80/_a__
 exports[`snippet: http://www.example.com:80/_a_b format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 http://www.example.com:80/_a_b
 =====================================output=====================================

@@ -1,7 +1,7 @@
 import type { ESTree as MeriyahESTree } from "meriyah";
 import type * as Babel from "@babel/types";
 import type { NGTree } from "angular-estree-parser";
-import type * as TSESTree from "./typescript-estree.ts";
+import type * as TSESTree from "./typescript-estree.js";
 import type * as FlowESTree from "./flow-estree.js";
 import type * as Babel from "./babel.js";
 
@@ -12,6 +12,7 @@ type PrettierNodeAdditionalProperties = {
   };
   comments?: Comment[];
   prettierIgnore?: boolean;
+  __contentEnd?: number;
 };
 
 type PrettierCommentAdditionalProperties = {
@@ -29,6 +30,7 @@ type FlowAdditionalNode = {
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
 export type Comment = (
+  | Babel.InterpreterDirective
   | Babel.Comment
   | TSESTree.Comment
   | MeriyahESTree.Comment
@@ -41,7 +43,7 @@ type _Node =
   | PrettierNode
   | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
   | TSESTree.Node
-  | Exclude<NGTree.NGNode, Babel.Node>
+  | Exclude<NGTree.NGAst, Babel.Node>
   | FlowESTree.ESNode
   | FlowAdditionalNode;
 
@@ -61,3 +63,23 @@ type ExtendNode<Input> = Input extends _Node
   : Input extends readonly any[]
     ? ExtendNode<Input[number]>[]
     : Input;
+
+export type NumericLiteral =
+  | NodeMap["NumericLiteral"]
+  | (NodeMap["Literal"] & { value: number });
+
+export type StringLiteral =
+  | NodeMap["StringLiteral"]
+  | (NodeMap["Literal"] & { value: string });
+
+export type RegExpLiteral =
+  | NodeMap["RegExpLiteral"]
+  | (NodeMap["Literal"] & { regexp: { pattern: string; flags: string } });
+
+export type BigIntLiteral =
+  | NodeMap["BigIntLiteral"]
+  | (NodeMap["Literal"] & { bigint: string });
+
+export type BooleanLiteral =
+  | NodeMap["BigIntLiteral"]
+  | (NodeMap["BooleanLiteral"] & { value: boolean });

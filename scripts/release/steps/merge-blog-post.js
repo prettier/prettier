@@ -21,5 +21,5 @@ export default async function mergeBlogPost({
   );
 
   await waitForEnter();
-  await runGit(["pull", repo]);
+  await runGit(["pull", "--repo", repo]);
 }

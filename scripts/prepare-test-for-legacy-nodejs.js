@@ -85,7 +85,7 @@ const jestDependencies = [
   "pretty-format",
 ];
 
-let content = JSON.stringify(
+const content = JSON.stringify(
   {
     ...packageJson,
     resolutions: {
@@ -98,9 +98,5 @@ let content = JSON.stringify(
   undefined,
   2,
 );
-
-if (process.platform === "win32") {
-  content = content.replace("$PWD/", new URL("../", import.meta.url).href);
-}
 
 fs.writeFileSync(packageJsonFile, content);

@@ -3,9 +3,8 @@
 exports[`asi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo;
 // prettier-ignore
@@ -14,7 +13,7 @@ foo;
 =====================================output=====================================
 foo
 // prettier-ignore
-;[1].map();
+;[1].map()
 
 ================================================================================
 `;
@@ -22,8 +21,7 @@ foo
 exports[`asi.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo;
 // prettier-ignore
@@ -37,12 +35,124 @@ foo;
 ================================================================================
 `;
 
+exports[`class-expression-decorator.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // prettier-ignore
+  @decorator
+  class {}
+);
+
+=====================================output=====================================
+;// prettier-ignore
+(
+  @decorator
+  class {}
+)
+
+================================================================================
+`;
+
+exports[`class-expression-decorator.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@' (3:2)"
+`;
+
+exports[`class-expression-decorator.js - {"semi":false} format[espree] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`class-expression-decorator.js - {"semi":false} format[flow] 1`] = `
+"Unexpected token \`@\` (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
+exports[`class-expression-decorator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // prettier-ignore
+  @decorator
+  class {}
+);
+
+=====================================output=====================================
+// prettier-ignore
+(
+  @decorator
+  class {}
+);
+
+================================================================================
+`;
+
+exports[`class-expression-decorator.js format[acorn] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@' (3:2)"
+`;
+
+exports[`class-expression-decorator.js format[espree] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`class-expression-decorator.js format[flow] 1`] = `
+"Unexpected token \`@\` (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
 exports[`directive.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 'use strict';
@@ -56,12 +166,12 @@ function foo() {
 
 =====================================output=====================================
 // prettier-ignore
-'use strict';
+'use strict'
 ;[].forEach()
 
 function foo() {
   // prettier-ignore
-  'use strict';
+  'use strict'
   ;[].forEach()
 }
 
@@ -71,8 +181,7 @@ function foo() {
 exports[`directive.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 'use strict';
@@ -94,6 +203,41 @@ function foo() {
   'use strict';
   [].forEach();
 }
+
+================================================================================
+`;
+
+exports[`head-ignored.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // prettier-ignore
+[]
+).forEach()
+
+=====================================output=====================================
+;// prettier-ignore
+[].forEach()
+
+================================================================================
+`;
+
+exports[`head-ignored.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // prettier-ignore
+[]
+).forEach()
+
+=====================================output=====================================
+// prettier-ignore
+[].forEach();
 
 ================================================================================
 `;

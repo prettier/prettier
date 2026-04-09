@@ -20,37 +20,27 @@ import {
 } from "../../main/comments/print.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import WhitespaceUtilities from "../../utilities/whitespace-utilities.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import getRaw from "../utilities/get-raw.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { getRaw } from "../utilities/get-raw.js";
+import { isMeaningfulJsxText } from "../utilities/is-meaningful-jsx-text.js";
+import { jsxWhitespace } from "../utilities/jsx-whitespace.js";
 import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  hasNodeIgnoreComment,
   isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
   isObjectExpression,
   isStringLiteral,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";
 @import {Node, NodeMap} from "../types/estree.js";
 @import {Doc} from "../../document/index.js";
 */
-
-/*
-Only the following are treated as whitespace inside JSX.
-
-- U+0020 SPACE
-- U+000A LF
-- U+000D CR
-- U+0009 TAB
-*/
-const jsxWhitespace = new WhitespaceUtilities(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -587,9 +577,7 @@ function printJsxExpressionContainer(path, options, print) {
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
             node.argument.type === "JSXElement")) ||
-        isCallExpression(node) ||
-        (node.type === "ChainExpression" &&
-          isCallExpression(node.expression)) ||
+        isCallExpression(stripChainElementWrappers(node)) ||
         node.type === "FunctionExpression" ||
         node.type === "TemplateLiteral" ||
         node.type === "TaggedTemplateExpression" ||
@@ -854,20 +842,6 @@ function isEmptyJsxElement(node) {
   return child.type === "JSXText" && !isMeaningfulJsxText(child);
 }
 
-// Meaningful if it contains non-whitespace characters,
-// or it contains whitespace without a new line.
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMeaningfulJsxText(node) {
-  return (
-    node.type === "JSXText" &&
-    (jsxWhitespace.hasNonWhitespaceCharacter(getRaw(node)) ||
-      !/\n/.test(getRaw(node)))
-  );
-}
-
 // Detect an expression node representing `{" "}`
 function isJsxWhitespaceExpression(node) {
   return (
@@ -878,33 +852,4 @@ function isJsxWhitespaceExpression(node) {
   );
 }
 
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function hasJsxIgnoreComment(path) {
-  const { node, parent } = path;
-  if (!isJsxElement(node) || !isJsxElement(parent)) {
-    return false;
-  }
-
-  // Lookup the previous sibling, ignoring any empty JSXText elements
-  const { index, siblings } = path;
-  let prevSibling;
-  for (let i = index; i > 0; i--) {
-    const candidate = siblings[i - 1];
-    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
-      continue;
-    }
-    prevSibling = candidate;
-    break;
-  }
-
-  return (
-    prevSibling?.type === "JSXExpressionContainer" &&
-    prevSibling.expression.type === "JSXEmptyExpression" &&
-    hasNodeIgnoreComment(prevSibling.expression)
-  );
-}
-
-export { hasJsxIgnoreComment, printJsx };
+export { printJsx };

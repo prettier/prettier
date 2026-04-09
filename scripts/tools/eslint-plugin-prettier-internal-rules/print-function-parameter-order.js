@@ -10,7 +10,7 @@ export default {
     },
   },
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
 
     return {
       ":function[params.length>=3]"(node) {

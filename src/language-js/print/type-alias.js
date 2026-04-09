@@ -1,5 +1,5 @@
 import { printAssignment } from "./assignment.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /*
 - `DeclareTypeAlias`(flow)
@@ -19,7 +19,7 @@ function printTypeAlias(path, options, print) {
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
     printAssignment(path, options, print, parts, " =", rightPropertyName),
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 

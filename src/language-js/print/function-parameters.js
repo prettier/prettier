@@ -2,40 +2,71 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   removeLines,
   softline,
   willBreak,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
+import { hasComment } from "../utilities/comments.js";
 import {
   getFunctionParameters,
-  hasComment,
   hasRestParameter,
+  iterateFunctionParametersPath,
+} from "../utilities/function-parameters.js";
+import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isSimpleType } from "../utilities/is-simple-type.js";
+import { isTypeAnnotationAFunction } from "../utilities/is-type-annotation-a-function.js";
+import {
   isArrayExpression,
-  isFlowObjectTypePropertyAFunction,
-  isNextLineEmpty,
   isObjectExpression,
   isObjectType,
-  isSimpleType,
-  isTestCall,
-  isTypeAnnotationAFunction,
-  iterateFunctionParametersPath,
-  shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
+import { isTestCall } from "../utilities/test-libraries.js";
+import {
+  printDanglingCommentsInList,
+  printTrailingComma,
+} from "./miscellaneous.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
+// `ArrowFunctionExpression` has other dangling comments
+const functionParameterDanglingCommentFilter = (comment) =>
+  comment.mark !== "commentBeforeArrow";
+
+/*
+- `ArrowFunctionExpression`
+- `FunctionDeclaration`
+- `FunctionExpression`
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `TSDeclareFunction`(TypeScript)
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+- `TSEmptyBodyFunctionExpression` (TypeScript)
+- `TSMethodSignature` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+- `HookDeclaration` (Flow)
+- `HookTypeAnnotation` (Flow)
+- `ComponentDeclaration` (Flow)
+- `DeclareComponent` (Flow)
+- `ComponentTypeAnnotation` (Flow)
+*/
 function printFunctionParameters(
   path,
   options,
   print,
-  shouldExpandArgument,
+  shouldExpandParameters,
   shouldPrintTypeParameters,
 ) {
   const functionNode = path.node;
@@ -49,13 +80,11 @@ function printFunctionParameters(
     return [
       typeParametersDoc,
       "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
+      printDanglingCommentsInList(
+        path,
+        options,
+        functionParameterDanglingCommentFilter,
+      ),
       ")",
     ];
   }
@@ -93,7 +122,7 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (shouldExpandArgument && !isDecoratedFunction(path)) {
+  if (shouldExpandParameters && !isDecoratedFunction(path)) {
     if (willBreak(typeParametersDoc) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
@@ -156,11 +185,7 @@ function printFunctionParameters(
     typeParametersDoc,
     "(",
     indent([softline, ...printed]),
-    ifBreak(
-      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
-        ? ","
-        : "",
-    ),
+    !hasRestParameter(functionNode) ? printTrailingComma(options, "all") : "",
     softline,
     ")",
   ];

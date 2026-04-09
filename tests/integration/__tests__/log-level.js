@@ -74,7 +74,7 @@ describe("log-level should not effect information print", () => {
       argv: ["--file-info", "any-js-file.js"],
       assertOptions: {
         stdout(value) {
-          expect(JSON.parse(value)).toEqual({
+          expect(JSON.parse(value)).toStrictEqual({
             ignored: false,
             inferredParser: "babel",
           });
