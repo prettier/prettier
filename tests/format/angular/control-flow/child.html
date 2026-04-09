@@ -1,2 +1,25 @@
 <span>@if (test) {text}</span>
 <div>@if (test) {text}</div>
+
+<span>Foo@if(true) {bar}</span>baz
+
+<span>@if (cond) {text} @else {other}</span>
+
+<span>@if (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongCondition) {bar}</span>
+
+<span>@switch (color) { @case ("red") {red} @case ("blue") {blue} @default {other}}</span>
+<div>@switch (color) { @case ("red") {red} @case ("blue") {blue} @default {other}}</div>
+
+<span>@for (item of items; track item) {{{item}}} @empty {none}</span>
+<div>@for (item of items; track item) {{{item}}} @empty {none}</div>
+
+<span>@defer (on viewport) {<heavy-cmp />} @placeholder {loading...}</span>
+<div>@defer (on viewport) {<heavy-cmp />} @placeholder {loading...}</div>
+
+<span>@if (a) {@if (b) {nested}}</span>
+
+<span>You have {{ count }} item@if (count !== 1) { <span>s</span> }.</span>
+
+<span class="cu-billing-ai__column__title">{{ column.title }}@if (column.graySuffix) {<span class="gray-suffix">{{ column.graySuffix }}</span>}</span>
+
+<p [id]="labelId" class="field-label">{{ label }}@if (isRequired) {<span class="required">*</span>}</p>
