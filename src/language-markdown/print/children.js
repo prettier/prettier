@@ -71,7 +71,8 @@ function shouldPrePrintDoubleHardline(path, options) {
       isLooseListItemLegacy(previous, options) ||
       (node.type === "list" &&
         parent.type === "listItem" &&
-        previous.type === "code")
+        previous.type === "code" &&
+        previous.position.end.line + 1 < node.position.start.line)
     ) {
       return true;
     }
