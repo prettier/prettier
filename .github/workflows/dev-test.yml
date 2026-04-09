@@ -71,7 +71,7 @@ jobs:
         run: yarn c8 yarn test
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
         if: ${{ matrix.ENABLE_CODE_COVERAGE && github.repository == 'prettier/prettier' }}
         with:
           fail_ci_if_error: true
