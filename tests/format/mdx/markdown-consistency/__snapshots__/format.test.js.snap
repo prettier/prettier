@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`extensions.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx", "markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# Math
+
+$$$
+  \\alpha
+$$$
+
+---
+
+# Wiki Link
+
+This is a [[Wiki *Link*]]
+
+=====================================output=====================================
+# Math
+
+$$
+  \\alpha
+$$
+
+---
+
+# Wiki Link
+
+This is a [[Wiki *Link*]]
+
+================================================================================
+`;

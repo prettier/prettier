@@ -135,85 +135,6 @@ function requiredIndent(path) {
   );
 }
 
-/**
- * @param {AstPath} path
- * @param {*} options
- * @param {() => Doc} print
- * @return {Doc}
- */
-function printListLegacy(path, options, print) {
-  const { node } = path;
-  const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
-
-  const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
-    node,
-    options,
-  );
-
-  return printChildren(path, options, print, {
-    processor() {
-      const prefix = getPrefix();
-      const { node: childNode } = path;
-
-      if (
-        childNode.children.length === 2 &&
-        childNode.children[1].type === "html" &&
-        childNode.children[0].position.start.column !==
-          childNode.children[1].position.start.column
-      ) {
-        return [prefix, printListItemLegacy(path, options, print, prefix)];
-      }
-
-      return [
-        prefix,
-        align(
-          " ".repeat(prefix.length),
-          printListItemLegacy(path, options, print, prefix),
-        ),
-      ];
-
-      function getPrefix() {
-        const rawPrefix = node.ordered
-          ? (path.isFirst
-              ? node.start
-              : isGitDiffFriendlyOrderedList
-                ? 1
-                : node.start + path.index) +
-            (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-          : nthSiblingIndex % 2 === 0
-            ? "- "
-            : "* ";
-
-        return (node.isAligned ||
-          /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
-          node.ordered
-          ? alignListPrefix(rawPrefix, options)
-          : rawPrefix;
-      }
-    },
-  });
-}
-
-function printListItemLegacy(path, options, print, listPrefix) {
-  const { node } = path;
-  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-  return [
-    prefix,
-    printChildren(path, options, print, {
-      processor({ node, isFirst }) {
-        if (isFirst && node.type !== "list") {
-          return align(" ".repeat(prefix.length), print());
-        }
-
-        const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
-        );
-        return [alignment, align(alignment, print())];
-      },
-    }),
-  ];
-}
-
 function alignListPrefix(prefix, options) {
   const additionalSpaces = getAdditionalSpaces();
   return (
@@ -233,4 +154,4 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(value, max));
 }
 
-export { printList, printListLegacy };
+export { printList };

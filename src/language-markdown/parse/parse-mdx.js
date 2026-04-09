@@ -1,42 +1,78 @@
-import footnotes from "remark-footnotes";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import unified from "unified";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import frontMatter from "./unified-plugins/front-matter.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { mathFromMarkdown } from "mdast-util-math";
+import { mdxFromMarkdown } from "mdast-util-mdx";
+import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
+import { gfm as gfmSyntax } from "micromark-extension-gfm";
+import { math as mathSyntax } from "micromark-extension-math";
+import { mdxExpression } from "micromark-extension-mdx-expression";
+import { mdxJsx } from "micromark-extension-mdx-jsx";
+import { mdxMd } from "micromark-extension-mdx-md";
+import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
+import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
+import { comment, commentFromMarkdown } from "remark-comment";
+import parseFrontMatter from "../../main/front-matter/parse.js";
+import * as dummyAcorn from "../acorn/dummy-parser.js";
+import * as acorn from "../acorn/parser.js";
+import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 
-/**
- * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
- *
- * 1. restore unescaped character (Text)
- * 2. merge continuous Texts
- * 3. replace whitespaces in InlineCode#value with one whitespace
- *    reference: http://spec.commonmark.org/0.25/#example-605
- * 4. split Text into Sentence
- *
- * interface Word { value: string }
- * interface Whitespace { value: string }
- * interface Sentence { children: Array<Word | Whitespace> }
- * interface InlineCode { children: Array<Sentence> }
- */
+let markdownParseOptions;
+function getMarkdownParseOptions() {
+  const settings = {
+    acorn,
+    acornOptions: {
+      /** @type {2024} */ ecmaVersion: 2024,
+      /** @type {"module"} */ sourceType: "module",
+    },
+    addResult: true,
+  };
+  const esmSettings = {
+    ...settings,
+    acorn: dummyAcorn,
+  };
+  return (markdownParseOptions ??= {
+    extensions: [
+      gfmSyntax(),
+      mathSyntax(),
+      wikiLinkSyntax(),
+      mdxjsEsm(esmSettings),
+      mdxExpression(settings),
+      mdxJsx(settings),
+      mdxMd(),
+      comment,
+    ],
+    mdastExtensions: [
+      gfmFromMarkdown(),
+      mathFromMarkdown(),
+      wikiLinkFromMarkdown(),
+      mdxFromMarkdown(),
+      // @ts-expect-error
+      commentFromMarkdown({ ast: true }),
+    ],
+  });
+}
 
 function parseMdx(text) {
-  const processor = unified()
-    .use(remarkParse, {
-      commonmark: true,
-      blocks: [BLOCKS_REGEX],
-    })
-    .use(footnotes)
-    .use(frontMatter)
-    .use(remarkMath)
-    .use(esSyntax)
-    .use(liquid)
-    .use(htmlToJsx)
-    .use(wikiLink);
-  return processor.run(processor.parse(text));
+  const { frontMatter, content } = parseFrontMatter(text);
+  const ast = fromMarkdown(content, getMarkdownParseOptions());
+
+  if (frontMatter) {
+    const [start, end] = [frontMatter.start, frontMatter.end].map(
+      ({ line, column, index }) => ({
+        line,
+        column: column + 1,
+        offset: index,
+      }),
+    );
+
+    ast.children.unshift({
+      ...frontMatter,
+      // @ts-expect-error -- Expected
+      type: "frontMatter",
+      position: { start, end },
+    });
+  }
+
+  return ast;
 }
 
 export { parseMdx };

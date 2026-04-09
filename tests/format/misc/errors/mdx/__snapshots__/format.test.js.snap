@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: Invalid attribute [mdx] format 1`] = `
+"Could not parse expression with acorn
+Cause: Unexpected token"
+`;
