@@ -52,7 +52,7 @@ parsers: ["angular"]
 ================================================================================
 `;
 
-exports[`chid.html format 1`] = `
+exports[`child.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
                                                       printWidth: 80 (default) |
