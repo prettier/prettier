@@ -242,84 +242,83 @@ function printDocToString(doc, options) {
         position -= result.trim();
         break;
 
-      case DOC_TYPE_GROUP:
-        {
+      case DOC_TYPE_GROUP: {
+        /** @type {Command} */
+        const command = (function printGroup() {
+          if (mode === MODE_FLAT && !shouldRemeasure) {
+            return {
+              indent,
+              mode: doc.break ? MODE_BREAK : MODE_FLAT,
+              doc: doc.contents,
+            };
+          }
+
+          shouldRemeasure = false;
+          const remainingWidth = width - position;
+          const hasLineSuffix = lineSuffix.length > 0;
+
           /** @type {Command} */
-          const command = (function printGroup() {
-            if (mode === MODE_FLAT && !shouldRemeasure) {
-              return {
-                indent,
-                mode: doc.break ? MODE_BREAK : MODE_FLAT,
-                doc: doc.contents,
-              };
-            }
+          const flatCommand = { indent, mode: MODE_FLAT, doc: doc.contents };
+          if (
+            !doc.break &&
+            fits(
+              flatCommand,
+              commands,
+              remainingWidth,
+              hasLineSuffix,
+              groupModeMap,
+            )
+          ) {
+            return flatCommand;
+          }
 
-            shouldRemeasure = false;
-            const remainingWidth = width - position;
-            const hasLineSuffix = lineSuffix.length > 0;
+          if (!doc.expandedStates) {
+            return { indent, mode: MODE_BREAK, doc: doc.contents };
+          }
 
-            /** @type {Command} */
-            const flatCommand = { indent, mode: MODE_FLAT, doc: doc.contents };
-            if (
-              !doc.break &&
-              fits(
-                flatCommand,
-                commands,
-                remainingWidth,
-                hasLineSuffix,
-                groupModeMap,
-              )
+          if (!doc.break) {
+            // Expanded states are a rare case where a document
+            // can manually provide multiple representations of
+            // itself. It provides an array of documents
+            // going from the least expanded (most flattened)
+            // representation first to the most expanded. If a
+            // group has these, we need to manually go through
+            // these states and find the first one that fits.
+            for (
+              let index = 1;
+              index < doc.expandedStates.length - 1;
+              index++
             ) {
-              return flatCommand;
-            }
-
-            if (!doc.expandedStates) {
-              return { indent, mode: MODE_BREAK, doc: doc.contents };
-            }
-
-            if (!doc.break) {
-              // Expanded states are a rare case where a document
-              // can manually provide multiple representations of
-              // itself. It provides an array of documents
-              // going from the least expanded (most flattened)
-              // representation first to the most expanded. If a
-              // group has these, we need to manually go through
-              // these states and find the first one that fits.
-              for (
-                let index = 1;
-                index < doc.expandedStates.length - 1;
-                index++
+              /** @type {Command} */
+              const flatCommand = {
+                indent,
+                mode: MODE_FLAT,
+                doc: doc.expandedStates[index],
+              };
+              if (
+                fits(
+                  flatCommand,
+                  commands,
+                  remainingWidth,
+                  hasLineSuffix,
+                  groupModeMap,
+                )
               ) {
-                /** @type {Command} */
-                const flatCommand = {
-                  indent,
-                  mode: MODE_FLAT,
-                  doc: doc.expandedStates[index],
-                };
-                if (
-                  fits(
-                    flatCommand,
-                    commands,
-                    remainingWidth,
-                    hasLineSuffix,
-                    groupModeMap,
-                  )
-                ) {
-                  return flatCommand;
-                }
+                return flatCommand;
               }
             }
-
-            return { indent, mode: MODE_BREAK, doc: doc.expandedStates.at(-1) };
-          })();
-
-          commands.push(command);
-
-          if (doc.id) {
-            groupModeMap[doc.id] = command.mode;
           }
+
+          return { indent, mode: MODE_BREAK, doc: doc.expandedStates.at(-1) };
+        })();
+
+        commands.push(command);
+
+        if (doc.id) {
+          groupModeMap[doc.id] = command.mode;
         }
         break;
+      }
       // Fills each line with as much code as possible before moving to a new
       // line with the same indentation.
       //
