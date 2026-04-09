@@ -213,9 +213,14 @@ function printFlow(path, options, print, args) {
     case "NullableTypeAnnotation":
       return ["?", print("typeAnnotation")];
     case "Variance": {
+      const varianceKinds = {
+        "plus": "+",
+        "minus": "-",
+        "readonly": "readonly ",
+      };
       const { kind } = node;
-      assert.ok(kind === "plus" || kind === "minus");
-      return kind === "plus" ? "+" : "-";
+      assert.ok(kind in varianceKinds);
+      return varianceKinds[kind];
     }
     case "KeyofTypeAnnotation":
       return ["keyof ", print("argument")];
