@@ -148,7 +148,7 @@
     "c8": "11.0.0",
     "commonmark-test-suite": "0.1.0",
     "cross-env": "10.1.0",
-    "cspell": "9.7.0",
+    "cspell": "10.0.0",
     "enquirer": "2.4.1",
     "esbuild": "0.27.4",
     "esbuild-visualizer": "0.7.0",
