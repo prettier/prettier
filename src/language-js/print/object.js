@@ -40,6 +40,7 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 ]);
 
 const isPrintingFlowEnumBody = createTypeCheckFunction([
+  "EnumBody",
   "EnumBooleanBody",
   "EnumNumberBody",
   "EnumBigIntBody",
@@ -54,11 +55,11 @@ const isPrintingFlowEnumBody = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
-- `EnumBooleanBody` (Flow)
-- `EnumNumberBody` (Flow)
-- `EnumBigIntBody` (Flow)
-- `EnumStringBody` (Flow)
-- `EnumSymbolBody` (Flow)
+- `EnumBooleanBody` (Flow, removed)
+- `EnumNumberBody` (Flow, removed)
+- `EnumBigIntBody` (Flow, removed)
+- `EnumStringBody` (Flow, removed)
+- `EnumSymbolBody` (Flow, removed)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
 - `TSEnumDeclaration`(TypeScript)

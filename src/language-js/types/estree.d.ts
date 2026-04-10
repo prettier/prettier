@@ -21,11 +21,15 @@ type PrettierCommentAdditionalProperties = {
   leading?: boolean;
 };
 
-type FlowAdditionalNode = {
-  type: "SatisfiesExpression";
-  expression: FlowESTree.Expression;
-  typeAnnotation: FlowESTree.TypeAnnotationType;
-};
+type FlowAdditionalNode =
+  | {
+      type: "SatisfiesExpression";
+      expression: FlowESTree.Expression;
+      typeAnnotation: FlowESTree.TypeAnnotationType;
+    }
+  | ({
+      type: "EnumBody";
+    } & Omit<FlowESTree.EnumDeclaration["body"], "type">);
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
