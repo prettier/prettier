@@ -55,6 +55,7 @@ const isPrintingFlowEnumBody = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
+- `EnumBody` (Flow)
 - `EnumBooleanBody` (Flow, removed)
 - `EnumNumberBody` (Flow, removed)
 - `EnumBigIntBody` (Flow, removed)
