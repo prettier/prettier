@@ -23,3 +23,55 @@
 <span class="cu-billing-ai__column__title">{{ column.title }}@if (column.graySuffix) {<span class="gray-suffix">{{ column.graySuffix }}</span>}</span>
 
 <p [id]="labelId" class="field-label">{{ label }}@if (isRequired) {<span class="required">*</span>}</p>
+
+<span>@if(foo) {<foo />} @else {}</span>
+
+<span>@if(foo) {} @else { <bar /> }</span>
+
+<custom-element>@if (cond) { <span>text</span> } @else {}</custom-element>
+
+<span>{{ item }}@if (!last) {, }</span>
+
+foo@if(condition){bar}
+
+foo @if(condition){bar}
+
+<div>@if(condition){bar}</div>
+
+<span>@if(condition){bar}</span>
+
+@if(condition){<span>bar</span>}
+
+@if(condition){<span>bar</span>bam}
+
+@if(condition){bar}bam
+
+@if(condition){bar}<span>bam</span>
+
+@if(condition){bar}<div>bam</div>
+
+<div>foo@if (true){bar}bam</div>
+
+foo @if(condition){bar}bam
+
+foo@if(condition){bar} bam
+
+<a class="logo" href="/">
+  @if (branding) {
+    <ng-container [ngTemplateOutlet]="customLogo"></ng-container>
+  } @else {
+    <ng-container [ngTemplateOutlet]="defaultLogo"></ng-container>
+  }
+</a>
+
+@if (cond) {
+  {{ listItem.label }}
+} @else {
+  {{ other.label }}
+}
+
+<span>Foo@if (true) {bar}@else {baz}</span>
+
+<span>Foo@if (true) {bar} @else {baz}</span>
+
+<div>Foo@if (true) {bar}@else {baz}</div>baz

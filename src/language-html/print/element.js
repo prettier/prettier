@@ -59,9 +59,13 @@ function printElement(path, options, print) {
    *     >
    */
   const shouldHugContent =
-    node.children.length === 1 &&
-    (node.firstChild.kind === "interpolation" ||
-      node.firstChild.kind === "angularIcuExpression") &&
+    node.children.length > 0 &&
+    ((node.children.length === 1 &&
+      (node.firstChild.kind === "interpolation" ||
+        node.firstChild.kind === "angularIcuExpression")) ||
+      node.children.every(
+        (child) => child.kind === "angularControlFlowBlock",
+      )) &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&
