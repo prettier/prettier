@@ -317,6 +317,7 @@ function printDocToString(doc, options) {
         if (doc.id) {
           groupModeMap[doc.id] = command.mode;
         }
+
         break;
       }
       // Fills each line with as much code as possible before moving to a new
