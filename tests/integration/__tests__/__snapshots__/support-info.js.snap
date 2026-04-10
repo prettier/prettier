@@ -705,6 +705,7 @@ exports[`CLI --support-info  1`] = `
     },
     {
       "aceMode": "tsx",
+      "aliases": ["typescriptreact"],
       "codemirrorMimeType": "text/typescript-jsx",
       "codemirrorMode": "jsx",
       "extensions": [".tsx"],
