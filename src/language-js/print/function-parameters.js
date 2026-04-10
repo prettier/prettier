@@ -157,7 +157,10 @@ function printFunctionParameters(
     "(",
     indent([softline, ...printed]),
     ifBreak(
-      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
+      !hasRestParameter(functionNode) &&
+        shouldPrintComma(options, "all") &&
+        // Angular does not allow trailing comma
+        path.root.type !== "NGRoot"
         ? ","
         : "",
     ),
