@@ -181,18 +181,6 @@ function postprocess(ast, options) {
             delete node.assertions;
           }
           break;
-
-        // https://github.com/facebook/hermes/issues/1945
-        case "Decorator":
-          if (
-            astType === "hermes" &&
-            !node.range &&
-            typeof node.loc.rangeStart === "number" &&
-            typeof node.loc.rangeEnd === "number"
-          ) {
-            node.range = [node.loc.rangeStart, node.loc.rangeEnd];
-          }
-          break;
       }
     },
     onLeave(node) {
