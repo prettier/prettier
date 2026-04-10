@@ -4,7 +4,10 @@ import { printObject } from "./object.js";
 
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
-  return [node.explicitType ?? "", printObject(path, options, print)];
+  return [
+    node.explicitType ? `of ${node.explicitType} ` : "",
+    printObject(path, options, print),
+  ];
 }
 
 function printLegacyFlowEnumBody(path, options, print) {
