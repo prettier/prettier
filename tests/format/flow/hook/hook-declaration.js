@@ -10,7 +10,8 @@ hook useFoo5<T>() {}
 
 hook useFoo6(...foo) {}
 
-hook useFoo7(...rest?: Foo) {}
+// `?` not allowed since flow-parser@0.307.0
+// hook useFoo7(...rest?: Foo) {}
 
 hook useFoo8(foo, ...bar) {}
 
