@@ -42,7 +42,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "21.2.4",
+    "@angular/compiler": "21.2.8",
     "@babel/code-frame": "8.0.0-rc.3",
     "@babel/parser": "8.0.0-rc.3",
     "@babel/types": "8.0.0-rc.3",
@@ -55,7 +55,7 @@
     "@typescript-eslint/visitor-keys": "8.58.1",
     "acorn": "8.16.0",
     "acorn-jsx": "5.3.2",
-    "angular-estree-parser": "15.3.0",
+    "angular-estree-parser": "15.4.3",
     "angular-html-parser": "10.5.0",
     "camelcase": "9.0.0",
     "ci-info": "4.4.0",

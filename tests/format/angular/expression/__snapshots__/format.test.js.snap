@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`arrow-function.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@let fn = (a, b) =>   componentValue + a + b;
+One: {{fn(0, 1)}}
+
+@if (true) {
+  Two: {{fn(1, 1)}}
+
+  <button (click)="   componentValue = fn(2, 1)"></button>
+  <button (click)="   componentValue => fn(2, 1)"></button>
+}
+
+
+{{[(a) =>    a +    1][0](1000)}}
+{{[(a   ) => a + 1 +   componentProp][0](1000)}}
+
+
+@let a = 1;
+
+@if (true) {
+  @let b = 2;
+
+  @if (true) {
+    @let c = 3;
+    {{(() =>    a + b + c)()}}
+  }
+}
+
+=====================================output=====================================
+@let fn = (a, b) => componentValue + a + b; One: {{ fn(0, 1) }}
+
+@if (true) {
+  Two: {{ fn(1, 1) }}
+
+  <button (click)="componentValue = fn(2, 1)"></button>
+  <button (click)="(componentValue) => fn(2, 1)"></button>
+}
+
+{{ [(a) => a + 1][0](1000) }}
+{{ [(a) => a + 1 + componentProp][0](1000) }}
+
+@let a = 1;
+
+@if (true) {
+  @let b = 2;
+
+  @if (true) {
+    @let c = 3;
+    {{ (() => a + b + c)() }}
+  }
+}
+
+================================================================================
+`;
+
 exports[`exponentiation-operators.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
@@ -27,6 +85,22 @@ parsers: ["angular"]
 
 =====================================output=====================================
 {{ a in b }}
+
+================================================================================
+`;
+
+exports[`instanceof-operator.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{
+
+  ( (a instanceof  (b)))
+}}
+
+=====================================output=====================================
+{{ a instanceof b }}
 
 ================================================================================
 `;
