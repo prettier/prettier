@@ -24,6 +24,7 @@ import {
   printEnumDeclaration,
   printEnumMember,
   printFlowEnumBody,
+  printLegacyFlowEnumBody,
 } from "./enum.js";
 import { printFunction } from "./function.js";
 import { printFunctionType } from "./function-type.js";
@@ -165,12 +166,15 @@ function printFlow(path, options, print, args) {
     case "EnumDeclaration":
       return printEnumDeclaration(path, print);
 
+    case "EnumBody":
+      return printFlowEnumBody(path, options, print);
+
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printFlowEnumBody(path, options, print);
+      return printLegacyFlowEnumBody(path, options, print);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":

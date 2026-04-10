@@ -275,6 +275,9 @@ exports[`visitor keys estree 1`] = `
     "id",
     "init",
   ],
+  "EnumBody": [
+    "members",
+  ],
   "EnumBooleanBody": [
     "members",
   ],
