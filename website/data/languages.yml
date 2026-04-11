@@ -29,6 +29,7 @@
   variants:
     - "[CommonMark](https://commonmark.org/)"
     - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
+    - "[Embedded code blocks](/docs/options#embedded-language-formatting) in supported languages"
     - "[MDX v1](https://mdxjs.com/)"
 - name: GraphQL
   nameLink: https://graphql.org
