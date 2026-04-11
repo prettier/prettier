@@ -218,8 +218,8 @@ function printFlow(path, options, print, args) {
       return ["?", print("typeAnnotation")];
     case "Variance": {
       const { kind } = node;
-      assert.ok(kind === "plus" || kind === "minus");
-      return kind === "plus" ? "+" : "-";
+      assert.ok(kind === "plus" || kind === "minus" || kind === "readonly");
+      return kind === "plus" ? "+" : kind === "minus" ? "-" : `${kind} `;
     }
     case "KeyofTypeAnnotation":
       return ["keyof ", print("argument")];
