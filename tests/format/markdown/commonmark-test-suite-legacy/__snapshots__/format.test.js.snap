@@ -818,6 +818,7 @@ proseWrap: "always"
   \`\`\`
 
 - baz
+
   - \`\`\`
     foo
 

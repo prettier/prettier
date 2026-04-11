@@ -71,7 +71,18 @@ function shouldPrePrintDoubleHardline(path, options) {
       isLooseListItemLegacy(previous, options) ||
       (node.type === "list" &&
         parent.type === "listItem" &&
-        previous.type === "code")
+        previous.type === "code" &&
+        previous.position.end.line + 1 < node.position.start.line)
+    ) {
+      return true;
+    }
+
+    // Preserve blank line before nested list within listItem (issue #17746)
+    if (
+      node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "paragraph" &&
+      previous.position.end.line + 1 < node.position.start.line
     ) {
       return true;
     }
@@ -87,7 +98,18 @@ function shouldPrePrintDoubleHardline(path, options) {
       isPreviousNodeLooseListItem(path) ||
       (node.type === "list" &&
         parent.type === "listItem" &&
-        previous.type === "code")
+        previous.type === "code" &&
+        previous.position.end.line + 1 < node.position.start.line)
+    ) {
+      return true;
+    }
+
+    // Preserve blank line before nested list within listItem (issue #17746)
+    if (
+      node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "paragraph" &&
+      previous.position.end.line + 1 < node.position.start.line
     ) {
       return true;
     }
