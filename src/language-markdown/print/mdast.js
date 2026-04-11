@@ -151,6 +151,16 @@ function printMdast(path, options, print) {
     case "delete":
       return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
+      // For multiline code spans in `proseWrap: "preserve"`, `node.value`
+      // doesn't retain enough source-level detail to safely reconstruct the
+      // original markdown. Container indentation can contribute semantic spaces
+      // to the parsed value, so recomputing fences and padding from `node.value`
+      // can change the code span on repeated formats. Preserve the original
+      // valid source instead of reserializing it below.
+      if (options.proseWrap === "preserve" && node.value.includes("\n")) {
+        return options.originalText.slice(locStart(node), locEnd(node));
+      }
+
       let code =
         options.proseWrap === "preserve"
           ? node.value
