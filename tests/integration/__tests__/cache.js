@@ -492,6 +492,35 @@ describe("--cache option", () => {
       );
     });
 
+    it("re-formats when content changes but file size stays the same", async () => {
+      const cliArguments = [
+        "--cache",
+        "--cache-strategy",
+        "content",
+        "--write",
+        "*.js",
+      ];
+
+      // First run — populates cache
+      await runCliWithoutGitignore(dir, cliArguments);
+
+      // Replace with different content of the same byte length
+      const sameSizeContent = contentA.replace(
+        'console.log("this is a.js")',
+        'console.log("that is a.js")',
+      );
+      await fs.writeFile(path.join(dir, "a.js"), sameSizeContent);
+
+      // Second run — must detect the content change
+      const { stdout } = await runCliWithoutGitignore(dir, cliArguments);
+      expect(stdout.split("\n")).toStrictEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
+        ]),
+      );
+    });
+
     it("re-formats when options has been updated.", async () => {
       const { stdout: firstStdout } = await runCliWithoutGitignore(dir, [
         "--cache",
