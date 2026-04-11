@@ -489,7 +489,11 @@ export interface Printer<T = any> {
     path: AstPath<T>,
     options: ParserOptions<T>,
     print: (
-      selector?: string | number | Array<string | number> | AstPath<T>,
+      selector?:
+        | string
+        | number
+        | Array<string | number>
+        | AstPath<T | undefined | null>,
       args?: unknown,
     ) => Doc,
     args?: unknown,
@@ -498,7 +502,11 @@ export interface Printer<T = any> {
     path: AstPath<T>,
     options: ParserOptions<T>,
     print: (
-      selector?: string | number | Array<string | number> | AstPath<T>,
+      selector?:
+        | string
+        | number
+        | Array<string | number>
+        | AstPath<T | undefined | null>,
       args?: unknown,
     ) => Doc,
     args?: unknown,
