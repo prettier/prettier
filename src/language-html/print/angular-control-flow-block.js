@@ -14,8 +14,18 @@ function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const docs = [];
 
+  const keepInline = isTextOnlyInlineBlock(node, options);
+
   if (isPreviousBlockUnClosed(path)) {
-    docs.push("} ");
+    if (previousBlockSelfClosed(path, options)) {
+      // Previous block already closed its }, just add a space before @
+      // for readability (safe since } and @ are template syntax, not content).
+      if (!node.hasLeadingSpaces) {
+        docs.push(" ");
+      }
+    } else {
+      docs.push("} ");
+    }
   }
 
   docs.push("@", node.name);
@@ -32,20 +42,73 @@ function printAngularControlFlowBlock(path, options, print) {
   if (!isSwitchFallthroughCase(node)) {
     docs.push(" {");
 
-    const shouldPrintCloseBracket = shouldCloseBlock(node);
     if (node.children.length > 0) {
-      node.firstChild.hasLeadingSpaces = true;
-      node.lastChild.hasTrailingSpaces = true;
-      docs.push(indent([hardline, printChildren(path, options, print)]));
-      if (shouldPrintCloseBracket) {
-        docs.push(hardline, "}");
+      if (keepInline) {
+        const leadingSpace = node.firstChild.hasLeadingSpaces ? " " : "";
+        const trailingSpace = node.lastChild.hasTrailingSpaces ? " " : "";
+        docs.push(
+          leadingSpace,
+          printChildren(path, options, print),
+          trailingSpace,
+          "}",
+        );
+      } else {
+        node.firstChild.hasLeadingSpaces = true;
+        node.lastChild.hasTrailingSpaces = true;
+        docs.push(indent([hardline, printChildren(path, options, print)]));
+        if (shouldCloseBlock(node)) {
+          docs.push(hardline, "}");
+        }
       }
-    } else if (shouldPrintCloseBracket) {
+    } else if (shouldCloseBlock(node)) {
       docs.push("}");
     }
   }
 
-  return group(docs, { shouldBreak: true });
+  return keepInline ? group(docs) : group(docs, { shouldBreak: true });
+}
+
+/**
+ * Check if a block should keep its body on a single line.
+ *
+ * True when all children are text/interpolation — with Angular's
+ * preserveWhitespaces: false (the default), whitespace around elements
+ * inside { } is stripped, so breaking is safe for element content.
+ * But for text-only content, adding line breaks would introduce
+ * visible whitespace.
+ *
+ * Returns false when:
+ * - htmlWhitespaceSensitivity is "ignore" (whitespace doesn't matter)
+ * - The original had line breaks inside { } (developer intent)
+ * - The block contains HTML elements (Angular strips whitespace)
+ * - The block has no children
+ */
+function isTextOnlyInlineBlock(node, options) {
+  if (
+    options.htmlWhitespaceSensitivity === "ignore" ||
+    node.children.length === 0
+  ) {
+    return false;
+  }
+  const hasInternalLineBreak =
+    node.firstChild.hasLeadingSpaces &&
+    node.startSourceSpan.end.line < node.firstChild.sourceSpan.start.line;
+  return (
+    !hasInternalLineBreak &&
+    node.children.every(
+      (child) => child.kind === "text" || child.kind === "interpolation",
+    )
+  );
+}
+
+/**
+ * Check if the previous block in a chain already closed its own bracket
+ * during printing (which happens when it kept its body inline).
+ * e.g. in `<span>@if (cond) {text} @else {other}</span>`, the @if block
+ * self-closes its `}`, so @else should not print `} ` again.
+ */
+function previousBlockSelfClosed(path, options) {
+  return path.previous ? isTextOnlyInlineBlock(path.previous, options) : false;
 }
 
 function shouldCloseBlock(node) {
@@ -88,4 +151,27 @@ function printAngularControlFlowBlockParameters(path, options, print) {
   ];
 }
 
-export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };
+/**
+ * Check if a break between two nodes (in document order) should be
+ * suppressed because it would introduce whitespace between a control
+ * flow block and adjacent text/interpolation that had no original space.
+ */
+function isAdjacentAngularControlFlowBlockAndText(firstNode, secondNode) {
+  if (secondNode.hasLeadingSpaces) {
+    return false;
+  }
+  const isInlineContent = (node) =>
+    node.kind === "text" || node.kind === "interpolation";
+  return (
+    (firstNode.kind === "angularControlFlowBlock" &&
+      isInlineContent(secondNode)) ||
+    (secondNode.kind === "angularControlFlowBlock" &&
+      isInlineContent(firstNode))
+  );
+}
+
+export {
+  isAdjacentAngularControlFlowBlockAndText,
+  printAngularControlFlowBlock,
+  printAngularControlFlowBlockParameters,
+};

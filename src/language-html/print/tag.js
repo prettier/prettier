@@ -133,7 +133,8 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
   return (
     node.prev &&
     node.prev.kind !== "docType" &&
-    node.kind !== "angularControlFlowBlock" &&
+    node?.kind !== "angularControlFlowBlock" &&
+    node.prev?.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -149,8 +150,10 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     >
    */
   return (
+    node?.kind !== "angularControlFlowBlock" &&
     node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
+    node.lastChild?.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
     !isPreLikeNode(node)
   );
@@ -172,6 +175,8 @@ function needsToBorrowParentClosingTagStartMarker(node) {
     !node.next &&
     !node.hasTrailingSpaces &&
     node.isTrailingSpaceSensitive &&
+    node?.kind !== "angularControlFlowBlock" &&
+    node.parent?.kind !== "angularControlFlowBlock" &&
     isTextLikeNode(getLastDescendant(node))
   );
 }
@@ -185,6 +190,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
   return (
     node.next &&
     !isTextLikeNode(node.next) &&
+    node.next?.kind !== "angularControlFlowBlock" &&
     isTextLikeNode(node) &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
@@ -215,7 +221,13 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
    *       ><a
    *       ^
    */
-  return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
+  return (
+    !node.prev &&
+    node.isLeadingSpaceSensitive &&
+    !node.hasLeadingSpaces &&
+    node?.kind !== "angularControlFlowBlock" &&
+    node.parent?.kind !== "angularControlFlowBlock"
+  );
 }
 
 function printAttributes(path, options, print) {
