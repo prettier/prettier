@@ -28,6 +28,7 @@
   name: Visual Studio
   content: |
     [`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)
+    [`PrettierX64`](https://github.com/KennethScott/PrettierX64)
 - image: /images/editors/editor_vscode.svg
   name: VS Code
   content: |

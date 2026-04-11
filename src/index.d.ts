@@ -488,13 +488,19 @@ export interface Printer<T = any> {
   print(
     path: AstPath<T>,
     options: ParserOptions<T>,
-    print: (path: AstPath<T>) => Doc,
+    print: (
+      selector?: string | number | Array<string | number> | AstPath<T>,
+      args?: unknown,
+    ) => Doc,
     args?: unknown,
   ): Doc;
   printPrettierIgnored?(
     path: AstPath<T>,
     options: ParserOptions<T>,
-    print: (path: AstPath<T>) => Doc,
+    print: (
+      selector?: string | number | Array<string | number> | AstPath<T>,
+      args?: unknown,
+    ) => Doc,
     args?: unknown,
   ): Doc;
   embed?:
@@ -506,6 +512,7 @@ export interface Printer<T = any> {
             textToDoc: (text: string, options: Options) => Promise<Doc>,
             print: (
               selector?: string | number | Array<string | number> | AstPath,
+              args?: unknown,
             ) => Doc,
             path: AstPath,
             options: Options,

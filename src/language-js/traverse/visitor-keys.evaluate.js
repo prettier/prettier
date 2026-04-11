@@ -26,6 +26,9 @@ const additionalVisitorKeys = {
   // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
   SatisfiesExpression: ["expression", "typeAnnotation"],
 
+  // https://github.com/facebook/flow/commit/9c815177852e5695c02306c86830a865223c9fb5
+  EnumBody: ["members"],
+
   DeclareVariable: ["declarations"],
 };
 

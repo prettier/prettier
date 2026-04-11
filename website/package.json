@@ -23,7 +23,7 @@
     "@codemirror/lint": "6.9.5",
     "@codemirror/state": "6.6.0",
     "@codemirror/view": "6.40.0",
-    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/preset-classic": "3.10.0",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
@@ -42,17 +42,17 @@
     "vue": "3.5.26"
   },
   "devDependencies": {
-    "@docusaurus/core": "3.9.2",
-    "@docusaurus/faster": "3.9.2",
-    "@docusaurus/module-type-aliases": "3.9.2",
-    "@docusaurus/types": "3.9.2",
+    "@docusaurus/core": "3.10.0",
+    "@docusaurus/faster": "3.10.0",
+    "@docusaurus/module-type-aliases": "3.10.0",
+    "@docusaurus/types": "3.10.0",
     "@types/react": "19.2.14",
     "@vitejs/plugin-vue": "6.0.5",
     "@vitejs/plugin-vue-jsx": "5.1.5",
     "concurrently": "9.2.1",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
-    "vite": "8.0.1",
+    "vite": "8.0.8",
     "yaml": "2.8.3"
   },
   "browserslist": {
@@ -67,5 +67,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.13.0"
 }
