@@ -28,12 +28,12 @@ does not suffice: >
 
 =====================================output=====================================
 failing:
-  {
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma IS added here",
-  }
+  "object-does-not-fit-within-print-width": "------"
+  "TEST": "comma IS added here"
 
-expected: { "object-fits-within-print-width": "", "TEST": "comma NOT here" }
+expected:
+  "object-fits-within-print-width": ""
+  "TEST": "comma NOT here"
 
 ---
 does not suffice: >
@@ -73,12 +73,12 @@ does not suffice: >
 
 =====================================output=====================================
 failing:
-  {
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma IS added here",
-  }
+  "object-does-not-fit-within-print-width": "------"
+  "TEST": "comma IS added here"
 
-expected: { "object-fits-within-print-width": "", "TEST": "comma NOT here" }
+expected:
+  "object-fits-within-print-width": ""
+  "TEST": "comma NOT here"
 
 ---
 does not suffice: >
@@ -118,12 +118,12 @@ does not suffice: >
 
 =====================================output=====================================
 failing:
-  {
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma IS added here"
-  }
+  "object-does-not-fit-within-print-width": "------"
+  "TEST": "comma IS added here"
 
-expected: { "object-fits-within-print-width": "", "TEST": "comma NOT here" }
+expected:
+  "object-fits-within-print-width": ""
+  "TEST": "comma NOT here"
 
 ---
 does not suffice: >
@@ -162,12 +162,12 @@ does not suffice: >
 
 =====================================output=====================================
 failing:
-  {
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma IS added here",
-  }
+  "object-does-not-fit-within-print-width": "------"
+  "TEST": "comma IS added here"
 
-expected: { "object-fits-within-print-width": "", "TEST": "comma NOT here" }
+expected:
+  "object-fits-within-print-width": ""
+  "TEST": "comma NOT here"
 
 ---
 does not suffice: >

@@ -65,10 +65,8 @@ overrides: {
 # comment
 printWidth: 100
 overrides:
-  {
-    "files": [".prettierrc", "prettierrc.json"],
-    "options": { "parser": "json" },
-  }
+  "files": [".prettierrc", "prettierrc.json"]
+  "options": { "parser": "json" }
 
 ================================================================================
 `;

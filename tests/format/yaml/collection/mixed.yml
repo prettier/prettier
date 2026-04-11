@@ -1,0 +1,23 @@
+block_mapping:
+  a: 1
+  b: 2
+flow_mapping: {a: 1, b: 2}
+block_sequence:
+  - 1
+  - 2
+flow_sequence: [1, 2]
+---
+nested:
+  flow_in_block: {x: [1, 2, 3]}
+---
+- {name: Alice, age: 30}
+- {name: Bob, age: 25}
+---
+long_block_mapping:
+  somewhat_long_key_alpha: somewhat_long_value_alpha
+  somewhat_long_key_bravo: somewhat_long_value_bravo
+---
+empty_flow_mapping: {}
+empty_flow_sequence: []
+empty_block_mapping:
+empty_block_sequence:

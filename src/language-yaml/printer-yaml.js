@@ -2,6 +2,7 @@
 
 import {
   breakParent,
+  conditionalGroup,
   fill,
   group,
   hardline,
@@ -9,6 +10,7 @@ import {
   line,
   lineSuffix,
   replaceEndOfLine,
+  softline,
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -30,6 +32,7 @@ import {
 } from "./print/misc.js";
 import preprocess from "./print-preprocess.js";
 import {
+  canConvertFlowToBlock,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasEndComments,
@@ -319,8 +322,33 @@ function printNode(path, options, print) {
       return printBlock(path, options, print);
 
     case "mapping":
-    case "sequence":
+    case "sequence": {
+      const isMapping = node.type === "mapping";
+      if (options.objectWrap === "collapse" && node.children.length > 0) {
+        const open = isMapping ? "{" : "[";
+        const close = isMapping ? "}" : "]";
+        const bracketSpacing =
+          isMapping && options.bracketSpacing ? line : softline;
+        const flowItems = isMapping
+          ? path.map(print, "children")
+          : path.map(
+              ({ node: child }) => (child.content ? print("content") : ""),
+              "children",
+            );
+        const flowDoc = [
+          open,
+          alignWithSpaces(options.tabWidth, [
+            bracketSpacing,
+            join([",", line], flowItems),
+          ]),
+          bracketSpacing,
+          close,
+        ];
+        const blockDoc = join(hardline, path.map(print, "children"));
+        return conditionalGroup([flowDoc, blockDoc]);
+      }
       return join(hardline, path.map(print, "children"));
+    }
     case "sequenceItem":
       return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
@@ -331,9 +359,44 @@ function printNode(path, options, print) {
       return printMappingItem(path, options, print);
 
     case "flowMapping":
+      if (canConvertFlowToBlock(node)) {
+        const blockDoc = [
+          join(hardline, path.map(print, "children")),
+          hasEndComments(node)
+            ? [hardline, join(hardline, path.map(print, "endComments"))]
+            : "",
+        ];
+        if (options.objectWrap === "collapse") {
+          return conditionalGroup([
+            printFlowMapping(path, options, print),
+            blockDoc,
+          ]);
+        }
+        return blockDoc;
+      }
       return printFlowMapping(path, options, print);
+
     case "flowSequence":
+      if (canConvertFlowToBlock(node)) {
+        const blockDoc = [
+          join(
+            hardline,
+            path.map(() => ["- ", alignWithSpaces(2, print())], "children"),
+          ),
+          hasEndComments(node)
+            ? [hardline, join(hardline, path.map(print, "endComments"))]
+            : "",
+        ];
+        if (options.objectWrap === "collapse") {
+          return conditionalGroup([
+            printFlowSequence(path, options, print),
+            blockDoc,
+          ]);
+        }
+        return blockDoc;
+      }
       return printFlowSequence(path, options, print);
+
     case "flowSequenceItem":
       return print("content");
     default:

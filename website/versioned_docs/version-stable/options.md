@@ -175,6 +175,8 @@ Configure how Prettier wraps object literals when they could fit on one line or 
 
 By default, Prettier formats objects as multi-line if there is a newline prior to the first property. Authors can use this heuristic to contextually improve readability, though it has some downsides. See [Multi-line objects](rationale.md#multi-line-objects).
 
+This also affects YAML collections (mappings and sequences).
+
 Valid options:
 
 - `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
