@@ -96,9 +96,6 @@ const disabledTests = new Map(
 
       // Different result
       "flow/hook/comments-before-arrow.js",
-
-      // Bug
-      "js/explicit-resource-management/",
     ],
     flow: [
       // Parsing to different ASTs
