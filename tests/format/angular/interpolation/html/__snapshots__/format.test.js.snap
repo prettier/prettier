@@ -16,6 +16,22 @@ parsers: ["angular"]
 ================================================================================
 `;
 
+exports[`18939.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ "{{num_of_selected_files}} / {{num_of_total_files}} files selected" | translate: {num_of_selected_files: 20, num_of_total_files: 30} }}
+
+=====================================output=====================================
+{{
+  "{{num_of_selected_files}} / {{num_of_total_files}} files selected"
+    | translate: { num_of_selected_files: 20, num_of_total_files: 30 }
+}}
+
+================================================================================
+`;
+
 exports[`block.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]

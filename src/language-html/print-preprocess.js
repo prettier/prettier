@@ -2,6 +2,7 @@ import { ParseSourceSpan } from "angular-html-parser";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import {
   canHaveInterpolation,
+  getInterpolationRanges,
   getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -187,7 +188,6 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /\{\{(.+?)\}\}/s;
   ast.walk((node) => {
     if (!canHaveInterpolation(node, options)) {
       return;
@@ -198,39 +198,43 @@ function extractInterpolation(ast, options) {
         continue;
       }
 
-      let startSourceSpan = child.sourceSpan.start;
-      let endSourceSpan;
-      const components = child.value.split(interpolationRegex);
-      for (
-        let i = 0;
-        i < components.length;
-        i++, startSourceSpan = endSourceSpan
-      ) {
-        const value = components[i];
+      const text = child.value;
+      const ranges = getInterpolationRanges(text);
 
-        if (i % 2 === 0) {
-          endSourceSpan = startSourceSpan.moveBy(value.length);
-          if (value.length > 0) {
+      if (ranges.length === 0) {
+        continue;
+      }
+
+      let lastEnd = 0;
+      let startSourceSpan = child.sourceSpan.start;
+
+      for (const range of ranges) {
+        // Insert text before this interpolation
+        if (range.start > lastEnd) {
+          const textBefore = text.slice(lastEnd, range.start);
+          const endSourceSpan = startSourceSpan.moveBy(textBefore.length);
+          if (textBefore.length > 0) {
             node.insertChildBefore(child, {
               kind: "text",
-              value,
+              value: textBefore,
               sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
             });
           }
-          continue;
+          startSourceSpan = endSourceSpan;
         }
 
-        endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
+        // Insert the interpolation
+        const endSourceSpan = startSourceSpan.moveBy(range.content.length + 4); // `{{` + `}}`
         node.insertChildBefore(child, {
           kind: "interpolation",
           sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
-            value.length === 0
+            range.content.length === 0
               ? []
               : [
                   {
                     kind: "text",
-                    value,
+                    value: range.content,
                     sourceSpan: new ParseSourceSpan(
                       startSourceSpan.moveBy(2),
                       endSourceSpan.moveBy(-2),
@@ -238,6 +242,24 @@ function extractInterpolation(ast, options) {
                   },
                 ],
         });
+
+        lastEnd = range.end;
+        startSourceSpan = endSourceSpan;
+      }
+
+      // Insert remaining text after last interpolation
+      if (lastEnd < text.length) {
+        const textAfter = text.slice(lastEnd);
+        if (textAfter.length > 0) {
+          node.insertChildBefore(child, {
+            kind: "text",
+            value: textAfter,
+            sourceSpan: new ParseSourceSpan(
+              startSourceSpan,
+              child.sourceSpan.end,
+            ),
+          });
+        }
       }
 
       node.removeChild(child);
