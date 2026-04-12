@@ -53,4 +53,4 @@ function isIndentableBlockComment(comment) {
   return getIndentableLines(comment).length > 0;
 }
 
-export default isIndentableBlockComment;
+export { isIndentableBlockComment };
