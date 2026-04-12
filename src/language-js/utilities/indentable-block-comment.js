@@ -1,6 +1,6 @@
 import { isBlockComment } from "./comment-types.js";
 
-function getIndentableLinesInternal(comment) {
+function getIndentableLinesBlockCommentInternal(comment) {
   /*
   In postprocess.js
   this only called when two comments are next to each other,
@@ -26,9 +26,11 @@ function getIndentableLinesInternal(comment) {
 
   for (let line of `*${comment.value}*`.split("\n")) {
     line = line.trimStart();
+
     if (!line.startsWith("*")) {
       return [];
     }
+
     trimmedLines.push(line);
   }
 
@@ -37,20 +39,24 @@ function getIndentableLinesInternal(comment) {
 
 const cache = new WeakMap();
 
-export function getIndentableLines(comment) {
+function getIndentableBlockCommentLines(comment) {
   if (!cache.has(comment)) {
-    cache.set(comment, getIndentableLinesInternal(comment));
+    cache.set(comment, getIndentableLinesBlockCommentInternal(comment));
   }
 
   return cache.get(comment);
 }
 
-export function deleteIndentableLines(comment) {
+function deleteIndentableBlockCommentLines(comment) {
   cache.delete(comment);
 }
 
 function isIndentableBlockComment(comment) {
-  return getIndentableLines(comment).length > 0;
+  return getIndentableBlockCommentLines(comment).length > 0;
 }
 
-export { isIndentableBlockComment };
+export {
+  deleteIndentableBlockCommentLines,
+  getIndentableBlockCommentLines,
+  isIndentableBlockComment,
+};

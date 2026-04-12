@@ -4,7 +4,7 @@ import {
   isLineComment,
 } from "../../utilities/comment-types.js";
 import {
-  deleteIndentableLines,
+  deleteIndentableBlockCommentLines,
   isIndentableBlockComment,
 } from "../../utilities/indentable-block-comment.js";
 
@@ -28,7 +28,7 @@ function mergeNestledJsdocComments(comments) {
       comment.range = [locStart(comment), locEnd(followingComment)];
 
       // delete cache
-      deleteIndentableLines(comment);
+      deleteIndentableBlockCommentLines(comment);
     }
 
     /* c8 ignore next 3 */
