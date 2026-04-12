@@ -5,7 +5,7 @@ import {
 } from "../../utilities/comment-types.js";
 import isIndentableBlockComment, {
   deleteIndentableLines,
-} from "../../utilities/is-indentable-block-comment.js";
+} from "../../utilities/indentable-block-comment.js";
 
 function mergeNestledJsdocComments(comments) {
   if (comments.length < 2) {

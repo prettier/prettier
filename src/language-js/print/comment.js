@@ -8,7 +8,7 @@ import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
 import isIndentableBlockComment, {
   getIndentableLines,
-} from "../utilities/is-indentable-block-comment.js";
+} from "../utilities/indentable-block-comment.js";
 
 /**
 @import {Doc} from "../../document/index.js"
