@@ -323,7 +323,11 @@ function shouldPrintSemicolonAfterInterfaceProperty(
 
   switch (nextNode.type) {
     case "TSCallSignatureDeclaration":
-      return true;
+      // A semicolon is only needed when the call signature has type parameters
+      // (e.g. `<T>(): T`), to prevent the previous line's ending from being
+      // ambiguously parsed as a comparison operator (e.g. `X<T>`).
+      // Non-generic call signatures (e.g. `(): T`) do not create ambiguity.
+      return nextNode.typeParameters != null;
   }
 
   return false;
