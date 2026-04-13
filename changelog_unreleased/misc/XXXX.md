@@ -1,0 +1,5 @@
+#### Update `oxc-parser` in `@prettier/plugin-oxc` (#XXXX by @porada)
+
+Updated `@prettier/plugin-oxc` to `0.1.4`.
+
+The plugin now depends on `oxc-parser@0.125.0` (updated from `0.99.0`), resolving unmet peer dependency issues introduced in the transitive `@napi-rs/wasm-runtime@1.1.2`.
