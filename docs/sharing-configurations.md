@@ -180,7 +180,7 @@ export default config;
     "access": "public"
   },
 +  "dependencies": {
-+    "@prettier/plugin-oxc": "0.1.2"
++    "@prettier/plugin-oxc": "0.1.4"
 +  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
