@@ -64,3 +64,13 @@ component MyComponent(
 ) {}
 
 component MyComponent() /* Trailing comment */ {}
+
+async component MyAsyncComponent() {}
+
+async component MyAsyncComponent() renders SomeComponent {}
+
+async component MyAsyncComponent(bar: string, baz: number) {
+  return <OtherComponent />;
+}
+
+export async component MyExportedAsyncComponent() {}

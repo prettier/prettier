@@ -28,3 +28,11 @@ hook useFoo13(foo: Array<Foooooooooooooooooooooooooooooooooooooooooooooooooooooo
 hook useFoo14<
   T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
 >(): any {};
+
+async hook useAsyncFoo1() {}
+
+export async hook useAsyncFoo2() {}
+
+async hook useAsyncFoo3(): string {}
+
+async hook useAsyncFoo4(foo: Foo, ...bar: Bar) {}
