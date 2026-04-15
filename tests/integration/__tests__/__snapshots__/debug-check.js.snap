@@ -43,8 +43,8 @@ exports[`show diff for 2+ error files with --debug-check  1`] = `
   "stderr": "[error] a.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
 [error] ===================================================================
-[error] --- 	
-[error] +++ 	
+[error] --- 
+[error] +++ 
 [error] @@ -1,2 +1,4 @@
 [error]  hello
 [error]  hello
@@ -54,8 +54,8 @@ exports[`show diff for 2+ error files with --debug-check  1`] = `
 [error] b.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
 [error] ===================================================================
-[error] --- 	
-[error] +++ 	
+[error] --- 
+[error] +++ 
 [error] @@ -1,2 +1,4 @@
 [error]  world
 [error]  world
