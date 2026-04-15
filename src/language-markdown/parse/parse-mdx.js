@@ -10,6 +10,7 @@ import { mdxMd } from "micromark-extension-mdx-md";
 import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
+import createError from "../../common/parser-create-error.js";
 import parseFrontMatter from "../../main/front-matter/parse.js";
 import * as dummyAcorn from "../acorn/dummy-parser.js";
 import * as acorn from "../acorn/parser.js";
@@ -51,9 +52,37 @@ function getMarkdownParseOptions() {
   });
 }
 
+function createParseError(error) {
+  /* c8 ignore next 9 */
+  if (
+    !(
+      typeof error?.line === "number" &&
+      typeof error?.column === "number" &&
+      typeof error?.reason === "string"
+    )
+  ) {
+    return error;
+  }
+
+  const { line, column, reason } = error;
+
+  return createError(reason, {
+    loc: {
+      start: { line, column },
+    },
+    cause: error,
+  });
+}
+
 function parseMdx(text) {
   const { frontMatter, content } = parseFrontMatter(text);
-  const ast = fromMarkdown(content, getMarkdownParseOptions());
+  let ast;
+
+  try {
+    ast = fromMarkdown(content, getMarkdownParseOptions());
+  } catch (error) {
+    throw createParseError(error);
+  }
 
   if (frontMatter) {
     const [start, end] = [frontMatter.start, frontMatter.end].map(
