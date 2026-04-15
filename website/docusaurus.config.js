@@ -255,8 +255,8 @@ const config = {
         ],
       },
       algolia: {
-        appId: "OHFQ1H5TQS",
-        apiKey: "ecfff8a35d82ecff7e911d57d7be8510",
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
         indexName: "prettier",
       },
       prism: {
