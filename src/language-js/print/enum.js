@@ -5,6 +5,14 @@ import { printObject } from "./object.js";
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
   return [
+    node.explicitType ? `of ${node.explicitType} ` : "",
+    printObject(path, options, print),
+  ];
+}
+
+function printLegacyFlowEnumBody(path, options, print) {
+  const { node } = path;
+  return [
     node.type === "EnumSymbolBody" || node.explicitType
       ? `of ${node.type
           .slice(
@@ -60,4 +68,9 @@ function printEnumDeclaration(path, print) {
   ];
 }
 
-export { printEnumDeclaration, printEnumMember, printFlowEnumBody };
+export {
+  printEnumDeclaration,
+  printEnumMember,
+  printFlowEnumBody,
+  printLegacyFlowEnumBody,
+};

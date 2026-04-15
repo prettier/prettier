@@ -1,3 +1,69 @@
+# 3.8.3
+
+[diff](https://github.com/prettier/prettier/compare/3.8.2...3.8.3)
+
+#### SCSS: Prevent trailing comma in `if()` function ([#18471](https://github.com/prettier/prettier/pull/18471) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+$value: if(sass(false): 1; else: -1);
+
+// Prettier 3.8.2
+$value: if(
+  sass(false): 1; else: -1,
+);
+
+// Prettier 3.8.3
+$value: if(sass(false): 1; else: -1);
+```
+
+# 3.8.2
+
+[diff](https://github.com/prettier/prettier/compare/3.8.1...3.8.2)
+
+#### Angular: Support Angular v21.2 ([#18722](https://github.com/prettier/prettier/pull/18722), [#19034](https://github.com/prettier/prettier/pull/19034) by [@fisker](https://github.com/fisker))
+
+Exhaustive typechecking with `@default never;`
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+@switch (foo) {
+  @case (1) {}
+  @default never;
+}
+
+<!-- Prettier 3.8.1 -->
+SyntaxError: Incomplete block "default never". If you meant to write the @ character, you should use the "&#64;" HTML entity instead. (3:3)
+
+<!-- Prettier 3.8.2 -->
+@switch (foo) {
+  @case (1) {}
+  @default never;
+}
+```
+
+`arrow function` and `instanceof` expressions.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+@let fn = (a) =>        a?    1:2;
+
+{{ fn ( a         instanceof b)}}
+
+<!-- Prettier 3.8.1 -->
+@let fn = (a) =>        a?    1:2;
+
+{{ fn ( a         instanceof b)}}
+
+<!-- Prettier 3.8.2 -->
+@let fn = (a) => (a ? 1 : 2);
+
+{{ fn(a instanceof b) }}
+```
+
 # 3.8.1
 
 [diff](https://github.com/prettier/prettier/compare/3.8.0...3.8.1)

@@ -20,6 +20,11 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push("@", node.name);
 
+  if (isSwitchExhaustiveCheck(node)) {
+    docs.push(";");
+    return docs;
+  }
+
   if (node.parameters) {
     docs.push(" (", group(print("parameters")), ")");
   }
@@ -53,6 +58,10 @@ function shouldCloseBlock(node) {
 const isSwitchCaseBlock = (node) =>
   node?.kind === "angularControlFlowBlock" &&
   (node.name === "case" || node.name === "default");
+
+const isSwitchExhaustiveCheck = (node) =>
+  node?.kind === "angularControlFlowBlock" && node.name === "default never";
+
 // https://github.com/angular/angular/commit/0ad3adc7c6d4094f1e3432a3f2e3bdc9862cb4fa#diff-77a6f285c6ea13d6644ef635e7495e71134d1141af2650cb9ae5631ff1f38bf2R263
 // https://github.com/prettier/prettier/issues/18563#issuecomment-3728354491
 function isSwitchFallthroughCase(node) {

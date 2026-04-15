@@ -10,7 +10,8 @@ hook useFoo5<T>() {}
 
 hook useFoo6(...foo) {}
 
-hook useFoo7(...rest?: Foo) {}
+// `?` not allowed since flow-parser@0.307.0
+// hook useFoo7(...rest?: Foo) {}
 
 hook useFoo8(foo, ...bar) {}
 
@@ -27,3 +28,11 @@ hook useFoo13(foo: Array<Foooooooooooooooooooooooooooooooooooooooooooooooooooooo
 hook useFoo14<
   T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
 >(): any {};
+
+async hook useAsyncFoo1() {}
+
+export async hook useAsyncFoo2() {}
+
+async hook useAsyncFoo3(): string {}
+
+async hook useAsyncFoo4(foo: Foo, ...bar: Bar) {}

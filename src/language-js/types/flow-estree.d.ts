@@ -431,6 +431,7 @@ export interface ComponentParameter extends BaseNode {
 
 export interface ComponentDeclaration extends BaseNode {
   type: "ComponentDeclaration";
+  async: boolean;
   body: BlockStatement;
   id: Identifier;
   params: ReadonlyArray<ComponentParameterAndRestElement>;
@@ -440,6 +441,7 @@ export interface ComponentDeclaration extends BaseNode {
 
 export interface HookDeclaration extends BaseNode {
   type: "HookDeclaration";
+  async: boolean;
   id: Identifier;
   body: BlockStatement;
   params: ReadonlyArray<FunctionParameter>;
@@ -1200,7 +1202,7 @@ export type TypeAnnotationType =
 
 export interface Variance extends BaseNode {
   type: "Variance";
-  kind: "plus" | "minus";
+  kind: "plus" | "minus" | "readonly";
 }
 
 interface BaseTypeAlias extends BaseNode {

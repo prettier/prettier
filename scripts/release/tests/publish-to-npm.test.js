@@ -24,7 +24,7 @@ describe("publish-to-npm", () => {
         getExpectedReleaseUrl({
           tag: "2.3.1",
           title: "2.3.1",
-          body: "🔗 [Changelog](https://github.com/prettier/prettier/blob/main/CHANGELOG.md#231)",
+          body: "🔗 [Changelog](https://github.com/prettier/prettier/blob/2.3.1/CHANGELOG.md#231)",
         }),
       );
     });
