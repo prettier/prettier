@@ -3,9 +3,8 @@
 exports[`single-attribute-per-line.mdx - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
 singleAttributePerLine: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This is a <Text   attr1="value1" attr2="value2" client:load>element</Text>.
 
@@ -38,8 +37,7 @@ This is a <TextElement attr1="value1" attr2="value2" client:load />.
 exports[`single-attribute-per-line.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This is a <Text   attr1="value1" attr2="value2" client:load>element</Text>.
 

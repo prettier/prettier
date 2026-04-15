@@ -38,8 +38,7 @@ An <External>external</External> component and a <Local>local one</Local>.
 exports[`export-undefined.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export  {  foo}
 
@@ -101,8 +100,7 @@ parsers: ["mdx"]
 exports[`no-specifier.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 

@@ -3,8 +3,7 @@
 exports[`attribute.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Foo foo={{color:     'red'}}></Foo>
 <Foo foo={{
