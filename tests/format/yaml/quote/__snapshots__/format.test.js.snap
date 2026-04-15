@@ -348,6 +348,8 @@ proseWrap: "always"
 - '\\n123'
 - "\\n123"
 - "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 =====================================output=====================================
 - "123"
@@ -358,7 +360,9 @@ proseWrap: "always"
 - '""'
 - '\\n123'
 - "\\n123"
-- '''a"b'
+- "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 ================================================================================
 `;
@@ -378,6 +382,8 @@ proseWrap: "never"
 - '\\n123'
 - "\\n123"
 - "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 =====================================output=====================================
 - "123"
@@ -388,7 +394,9 @@ proseWrap: "never"
 - '""'
 - '\\n123'
 - "\\n123"
-- '''a"b'
+- "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 ================================================================================
 `;
@@ -408,6 +416,8 @@ singleQuote: true
 - '\\n123'
 - "\\n123"
 - "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 =====================================output=====================================
 - '123'
@@ -419,6 +429,8 @@ singleQuote: true
 - '\\n123'
 - "\\n123"
 - '''a"b'
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 ================================================================================
 `;
@@ -437,6 +449,8 @@ parsers: ["yaml"]
 - '\\n123'
 - "\\n123"
 - "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 =====================================output=====================================
 - "123"
@@ -447,7 +461,9 @@ parsers: ["yaml"]
 - '""'
 - '\\n123'
 - "\\n123"
-- '''a"b'
+- "'a\\"b"
+- "'foo' 'bar' 'baz' \\"qux\\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\\"baz\\"]'"
 
 ================================================================================
 `;

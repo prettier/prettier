@@ -10,6 +10,11 @@ import {
   lineSuffix,
   replaceEndOfLine,
 } from "../document/index.js";
+import {
+  DOUBLE_QUOTE,
+  getPreferredQuote,
+  SINGLE_QUOTE,
+} from "../utilities/get-preferred-quote.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import embed from "./embed.js";
@@ -256,9 +261,6 @@ function printNode(path, options, print) {
       );
     case "quoteDouble":
     case "quoteSingle": {
-      const singleQuote = "'";
-      const doubleQuote = '"';
-
       const raw = options.originalText.slice(
         node.position.start.offset + 1,
         node.position.end.offset - 1,
@@ -271,7 +273,7 @@ function printNode(path, options, print) {
         // only quoteDouble can use escape chars
         // and quoteSingle do not need to escape backslashes
         const originalQuote =
-          node.type === "quoteDouble" ? doubleQuote : singleQuote;
+          node.type === "quoteDouble" ? DOUBLE_QUOTE : SINGLE_QUOTE;
         return [
           originalQuote,
           printFlowScalarContent(node.type, raw, options),
@@ -279,40 +281,31 @@ function printNode(path, options, print) {
         ];
       }
 
-      if (raw.includes(doubleQuote)) {
-        return [
-          singleQuote,
-          printFlowScalarContent(
-            node.type,
-            node.type === "quoteDouble"
-              ? raw
-                  // double quote needs to be escaped by backslash in quoteDouble
-                  .replaceAll(String.raw`\"`, doubleQuote)
-                  .replaceAll("'", singleQuote.repeat(2))
-              : raw,
-            options,
-          ),
-          singleQuote,
-        ];
-      }
+      const quote = getPreferredQuote(node.value, options.singleQuote);
+      const content =
+        quote === SINGLE_QUOTE
+          ? node.type === "quoteDouble"
+            ? raw
+                // double quote needs to be escaped by backslash in quoteDouble
+                .replaceAll(String.raw`\"`, DOUBLE_QUOTE)
+                .replaceAll(SINGLE_QUOTE, SINGLE_QUOTE.repeat(2))
+            : raw
+          : node.type === "quoteSingle"
+            ? // single quote needs to be escaped by 2 single quotes in quoteSingle
+              raw
+                .replaceAll(SINGLE_QUOTE.repeat(2), SINGLE_QUOTE)
+                .replaceAll(DOUBLE_QUOTE, String.raw`\"`)
+            : raw;
 
-      if (raw.includes(singleQuote)) {
-        return [
-          doubleQuote,
-          printFlowScalarContent(
-            node.type,
-            node.type === "quoteSingle"
-              ? // single quote needs to be escaped by 2 single quotes in quoteSingle
-                raw.replaceAll("''", singleQuote)
-              : raw,
-            options,
-          ),
-          doubleQuote,
-        ];
-      }
-
-      const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return [quote, printFlowScalarContent(node.type, raw, options), quote];
+      return [
+        quote,
+        printFlowScalarContent(
+          quote === SINGLE_QUOTE ? "quoteSingle" : "quoteDouble",
+          content,
+          options,
+        ),
+        quote,
+      ];
     }
     case "blockFolded":
     case "blockLiteral":

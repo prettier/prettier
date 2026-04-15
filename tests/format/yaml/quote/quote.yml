@@ -7,3 +7,5 @@
 - '\n123'
 - "\n123"
 - "'a\"b"
+- "'foo' 'bar' 'baz' \"qux\""
+- "curl POST 'https://example.com' -H 'Foo: Bar' --data-raw '[\"baz\"]'"
