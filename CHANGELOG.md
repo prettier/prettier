@@ -1,3 +1,23 @@
+# 3.8.3
+
+[diff](https://github.com/prettier/prettier/compare/3.8.2...3.8.3)
+
+#### SCSS: Prevent trailing comma in `if()` function ([#18471](https://github.com/prettier/prettier/pull/18471) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+$value: if(sass(false): 1; else: -1);
+
+// Prettier 3.8.2
+$value: if(
+  sass(false): 1; else: -1,
+);
+
+// Prettier 3.8.3
+$value: if(sass(false): 1; else: -1);
+```
+
 # 3.8.2
 
 [diff](https://github.com/prettier/prettier/compare/3.8.1...3.8.2)
