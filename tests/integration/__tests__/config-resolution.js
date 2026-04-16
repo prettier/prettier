@@ -477,3 +477,14 @@ test("'config' option should accept `URL` and `string`", async () => {
     ).resolves.toStrictEqual({ tabWidth: 7 });
   }
 });
+
+test(".js config file with defineConfig from prettier/config", async () => {
+  const file = new URL(
+    "../cli/config/define-config/prettier.config.js",
+    import.meta.url,
+  );
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
+    trailingComma: "all",
+    singleQuote: true,
+  });
+});

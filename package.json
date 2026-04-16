@@ -28,6 +28,11 @@
       "require": "./src/index.cjs",
       "default": "./src/index.js"
     },
+    "./config": {
+      "types": "./src/config.d.ts",
+      "import": "./src/config.js",
+      "require": "./src/config.cjs"
+    },
     "./standalone": "./src/standalone.js",
     "./plugins/*": "./src/plugins/*.js",
     "./*": "./*"
