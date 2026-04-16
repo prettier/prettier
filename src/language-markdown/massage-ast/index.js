@@ -8,14 +8,19 @@ const ignoredProperties = new Set([
 ]);
 function massageAstNode(original, cloned, parent) {
   // for codeblock
+  if (original.type === "code" || original.type === "yaml") {
+    delete cloned.value;
+  }
+
   if (
-    original.type === "code" ||
-    original.type === "yaml" ||
-    original.type === "import" ||
-    original.type === "export" ||
-    original.type === "jsx"
+    original.type === "mdxjsEsm" ||
+    original.type === "mdxFlowExpression" ||
+    original.type === "mdxTextExpression" ||
+    original.type === "mdxJsxAttributeValueExpression" ||
+    original.type === "mdxJsxAttribute"
   ) {
     delete cloned.value;
+    delete cloned.data?.estree;
   }
 
   if (original.type === "list") {
