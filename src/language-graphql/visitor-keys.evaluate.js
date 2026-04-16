@@ -1,16 +1,20 @@
 import { QueryDocumentKeys as graphqlVisitorKeys } from "graphql/language/ast.mjs";
+import {
+  generateReferenceSharedVisitorKeys,
+  removeNodeTypes,
+} from "../utilities/visitor-keys.js";
 
-const visitorKeys = { ...graphqlVisitorKeys };
+let visitorKeys = { ...graphqlVisitorKeys };
 
 // Unable to produce https://github.com/prettier/prettier/issues/18212#issuecomment-3506234429
-for (const kind of [
+visitorKeys = removeNodeTypes(visitorKeys, [
   "ArgumentCoordinate",
   "DirectiveArgumentCoordinate",
   "DirectiveCoordinate",
   "MemberCoordinate",
   "TypeCoordinate",
-]) {
-  delete visitorKeys[kind];
-}
+]);
+
+visitorKeys = generateReferenceSharedVisitorKeys(visitorKeys);
 
 export default visitorKeys;
