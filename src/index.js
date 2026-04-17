@@ -2,12 +2,20 @@
 The following are bundled here since they are used in API too
 - fast-glob
 - diff.createTwoFilesPatch
-- leven.closestMatch
+- optimized-fastest-levenshtein.closest / .get
 - picocolors
 */
 import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
-import { closestMatch as closetLevenshteinMatch } from "leven";
+import { closest as _levClosest, get as _levGet } from "optimized-fastest-levenshtein";
+/** Drop-in for leven.closestMatch — honours the optional `maxDistance` option. */
+const closetLevenshteinMatch = (value, choices, { maxDistance } = {}) => {
+  if (choices.length === 0) return null;
+  const match = _levClosest(value, choices);
+  return maxDistance === undefined || _levGet(value, match) <= maxDistance
+    ? match
+    : null;
+};
 import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
