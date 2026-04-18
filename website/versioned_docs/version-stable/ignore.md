@@ -49,7 +49,10 @@ if [`--with-node-modules` CLI option](cli.md#--with-node-modules) provided
 
 ## JavaScript
 
-A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
+A JavaScript comment of `// prettier-ignore` excludes a node from formatting:
+
+- On its own line, it applies to the next node in the abstract syntax tree.
+- At the end of a line, it applies to the preceding node on that line.
 
 For example:
 
@@ -67,6 +70,13 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
+
+doSomething(
+  1,
+  2,
+  3
+)
+doSomething(  1,  2,  3  ); // prettier-ignore
 ```
 
 will be transformed to:
@@ -80,6 +90,9 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
+
+doSomething(1, 2, 3);
+doSomething(  1,  2,  3  ); // prettier-ignore
 ```
 
 ## JSX
