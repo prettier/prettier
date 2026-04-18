@@ -493,7 +493,9 @@ function getNodeCssStyleDisplay(node, options) {
     if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
     } else {
-      return node.name === "svg" ? "inline-block" : "block";
+      if (options.htmlWhitespaceSensitivity !== "strict") {
+        return node.name === "svg" ? "inline-block" : "block";
+      }
     }
   }
 
