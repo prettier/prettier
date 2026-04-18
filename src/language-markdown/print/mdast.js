@@ -45,10 +45,12 @@ function prevOrNextWord(path) {
   const hasPrevOrNextWord =
     (previous?.type === "sentence" &&
       previous.children.at(-1)?.type === "word" &&
-      !previous.children.at(-1).hasTrailingPunctuation) ||
+      !previous.children.at(-1).hasTrailingPunctuation &&
+      !/\s$/u.test(previous.children.at(-1).value)) ||
     (next?.type === "sentence" &&
       next.children[0]?.type === "word" &&
-      !next.children[0].hasLeadingPunctuation);
+      !next.children[0].hasLeadingPunctuation &&
+      !/^\s/u.test(next.children[0].value));
   return hasPrevOrNextWord;
 }
 
