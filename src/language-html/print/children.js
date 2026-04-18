@@ -17,6 +17,7 @@ import {
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
 } from "../utilities/index.js";
+import { isAdjacentAngularControlFlowBlockAndText } from "./angular-control-flow-block.js";
 import {
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
@@ -196,13 +197,27 @@ function printChildren(path, options, print) {
     const trailingParts = [];
     const nextParts = [];
 
-    const prevBetweenLine = childNode.prev
+    let prevBetweenLine = childNode.prev
       ? printBetweenLine(childNode.prev, childNode)
       : "";
+    if (
+      (prevBetweenLine === softline || prevBetweenLine === line) &&
+      options.htmlWhitespaceSensitivity !== "ignore" &&
+      isAdjacentAngularControlFlowBlockAndText(childNode.prev, childNode)
+    ) {
+      prevBetweenLine = "";
+    }
 
-    const nextBetweenLine = childNode.next
+    let nextBetweenLine = childNode.next
       ? printBetweenLine(childNode, childNode.next)
       : "";
+    if (
+      (nextBetweenLine === softline || nextBetweenLine === line) &&
+      options.htmlWhitespaceSensitivity !== "ignore" &&
+      isAdjacentAngularControlFlowBlockAndText(childNode, childNode.next)
+    ) {
+      nextBetweenLine = "";
+    }
 
     if (prevBetweenLine) {
       if (forceNextEmptyLine(childNode.prev)) {
