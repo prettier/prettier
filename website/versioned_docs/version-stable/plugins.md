@@ -77,6 +77,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte) by [**@sveltejs**](https://github.com/sveltejs)
 - [`prettier-plugin-toml`](https://github.com/un-ts/prettier/tree/master/packages/toml) by [**@JounQin**](https://github.com/JounQin) and [**@so1ve**](https://github.com/so1ve)
 - [`prettier-plugin-xquery`](https://github.com/drrataplan/prettier-plugin-xquery) by [**@DrRataplan**](https://github.com/drrataplan)
+- [`prettier-plugin-yaml`](https://github.com/porada/prettier-plugin-yaml) by [**@porada**](https://github.com/porada)
 
 ## Developing Plugins
 
