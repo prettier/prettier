@@ -165,7 +165,7 @@ And being able to run Prettier from the command line is still a good fallback, a
 
 ## ESLint (and other linters)
 
-If you use ESLint, install [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier#installation) to make ESLint and Prettier play nice with each other. It turns off all ESLint rules that are unnecessary or might conflict with Prettier. There’s a similar config for Stylelint: [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
+If you use ESLint, recent versions of ESLint and popular plugins typically don't conflict with Prettier anymore. However, if your config enables formatting rules, install [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier#installation) to turn off all ESLint rules that are unnecessary or might conflict with Prettier. There’s a similar config for Stylelint: [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
 
 (See [Prettier vs. Linters](comparison.md) to learn more about formatting vs linting, [Integrating with Linters](integrating-with-linters.md) for more in-depth information on configuring your linters, and [Related projects](related-projects.md) for even more integration possibilities, if needed.)
 
