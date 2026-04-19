@@ -5,6 +5,7 @@ import {
   indent,
   line,
   softline,
+  willBreak,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
@@ -193,7 +194,13 @@ function printObject(path, options, print) {
     return content;
   }
 
-  return group(content, { shouldBreak });
+  return group(content, {
+    shouldBreak:
+      shouldBreak ||
+      (node.type !== "ObjectPattern" &&
+        options.objectWrap === "collapse" &&
+        willBreak(content)),
+  });
 }
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
