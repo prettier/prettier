@@ -90,18 +90,10 @@ function shouldPrePrintDoubleHardline(path, options) {
       isPreviousNodeLooseListItem(path) ||
       (node.type === "list" &&
         parent.type === "listItem" &&
-        previous.type === "code" &&
+        (previous.type === "code" ||
+           // Preserve blank line before nested list within listItem (issue #17746)
+           previous.type === "paragraph") &&
         previous.position.end.line + 1 < node.position.start.line)
-    ) {
-      return true;
-    }
-
-    // Preserve blank line before nested list within listItem (issue #17746)
-    if (
-      node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "paragraph" &&
-      previous.position.end.line + 1 < node.position.start.line
     ) {
       return true;
     }
