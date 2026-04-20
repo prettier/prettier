@@ -182,7 +182,7 @@ function getFlowScalarLineContents(nodeType, content, options) {
       words.length > 0 &&
       !(
         // trailing backslash in quoteDouble should be preserved
-        nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\")
+        (nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\"))
       )
     ) {
       lines[lines.length - 1] = [...lines.at(-1), ...words];
