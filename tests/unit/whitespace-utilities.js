@@ -115,3 +115,16 @@ describe("split", () => {
     });
   }
 });
+
+describe("dedentString", () => {
+  for (const [string, expected] of [
+    ["foo\n  bar", "foo\n  bar"],
+    ["  foo\n    bar", "foo\n  bar"],
+    ["\n    foo\n      bar\n    ", "\nfoo\n  bar\n"],
+    ["    \n  foo\n    bar\n    ", "  \nfoo\n  bar\n  "],
+  ]) {
+    it(JSON.stringify(string), () => {
+      expect(utils.dedentString(string)).toBe(expected);
+    });
+  }
+});
