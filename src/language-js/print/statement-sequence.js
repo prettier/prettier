@@ -1,4 +1,5 @@
 import { hardline } from "../../document/index.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 
 /**
@@ -32,7 +33,15 @@ function printStatementSequence(path, options, print, property) {
     if (node !== lastStatement) {
       parts.push(hardline);
 
-      if (isNextLineEmpty(node, options)) {
+      if (
+        isNextLineEmpty(
+          getComments(
+            node,
+            CommentCheckFlags.Trailing | CommentCheckFlags.Last,
+          )[0] ?? node,
+          options,
+        )
+      ) {
         parts.push(hardline);
       }
     }
