@@ -247,9 +247,10 @@ function printJsxElementInternal(path, options, print) {
   // When there is no text (just tags and expressions) we use `group`
   // to output each on a separate line.
   /** @type {Doc} */
-  let content = containsText
-    ? fill(multilineChildren)
-    : group(multilineChildren, { shouldBreak: true });
+  let content =
+    containsText || isMdxBlock
+      ? fill(multilineChildren)
+      : group(multilineChildren, { shouldBreak: true });
 
   /*
   `printJsxChildren` won't call `print` on `JSXText`, so when the cursorNode,
