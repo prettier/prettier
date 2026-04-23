@@ -705,8 +705,7 @@ proseWrap: "never"
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</
-ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -720,8 +719,7 @@ semi: false
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</
-ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -734,8 +732,7 @@ parsers: ["mdx"]
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</
-ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -1908,9 +1905,7 @@ SomeElement>長い長い長い長い長い長い長い長い長い長い長い�
 =====================================output=====================================
 export const SomeElement = ({ children }) => <span>{children}</span>;
 
-<SomeElement attr1 attr2 attr3 attr4 attr5
->長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
-SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
 
 ---
 
@@ -1969,15 +1964,11 @@ SomeElement>長い長い長い長い長い長い長い長い長い長い長い�
 =====================================output=====================================
 export const SomeElement = ({ children }) => <span>{children}</span>;
 
-<SomeElement attr1 attr2 attr3 attr4 attr5
->長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
-SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
 
 ---
 
-<div
->long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense</
-div>
+<div>long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense</div>
 
 ---
 
@@ -2028,9 +2019,7 @@ SomeElement>長い長い長い長い長い長い長い長い長い長い長い�
 =====================================output=====================================
 export const SomeElement = ({ children }) => <span>{children}</span>
 
-<SomeElement attr1 attr2 attr3 attr4 attr5
->長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
-SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
 
 ---
 
@@ -2094,9 +2083,7 @@ SomeElement>長い長い長い長い長い長い長い長い長い長い長い�
 =====================================output=====================================
 export const SomeElement = ({ children }) => <span>{children}</span>;
 
-<SomeElement attr1 attr2 attr3 attr4 attr5
->長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
-SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
 
 ---
 
