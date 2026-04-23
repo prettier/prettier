@@ -392,8 +392,8 @@ function printMdast(path, options, print) {
         return group(["<", name, attributes, inline ? " " : line, "/>"]);
       }
 
-      const open = group(["<", name, attributes, inline ? "" : softline, ">"]);
-      const close = ["</", name, ">"];
+      const open = group(["<", name, attributes, softline, ">"]);
+      const close = group(["</", softline, name, ">"]);
 
       if (node.type === "mdxJsxTextElement") {
         return group([open, path.map(print, "children"), close]);
