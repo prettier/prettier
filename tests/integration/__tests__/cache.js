@@ -362,6 +362,45 @@ describe("--cache option", () => {
       expect(secondStdout).toBe("a.js");
     });
 
+    it("doesn't cache files that fail to format due to syntax errors", async () => {
+      await runCliWithoutGitignore(dir, [
+        "--cache",
+        "--write",
+        "--cache-strategy",
+        "metadata",
+        "a.js",
+      ]);
+
+      // Overwrite with content that has a syntax error
+      await fs.writeFile(path.join(dir, "a.js"), "const a = 1;\n}\n");
+
+      // Running with --check should report the syntax error
+      const { stderr: secondStderr, status: secondStatus } =
+        await runCliWithoutGitignore(dir, [
+          "--cache",
+          "--check",
+          "--cache-strategy",
+          "metadata",
+          "a.js",
+        ]);
+      expect(secondStatus).toBe(2);
+      expect(secondStderr).toStrictEqual(
+        expect.stringContaining("SyntaxError"),
+      );
+
+      // Running with --check again should also report the syntax error
+      const { stderr: thirdStderr, status: thirdStatus } =
+        await runCliWithoutGitignore(dir, [
+          "--cache",
+          "--check",
+          "--cache-strategy",
+          "metadata",
+          "a.js",
+        ]);
+      expect(thirdStatus).toBe(2);
+      expect(thirdStderr).toStrictEqual(expect.stringContaining("SyntaxError"));
+    });
+
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runCliWithoutGitignore(dir, [
         "--cache",
@@ -646,6 +685,45 @@ describe("--cache option", () => {
         "*.js",
       ]);
       expect(secondStdout).toBe("a.js");
+    });
+
+    it("doesn't cache files that fail to format due to syntax errors", async () => {
+      await runCliWithoutGitignore(dir, [
+        "--cache",
+        "--write",
+        "--cache-strategy",
+        "content",
+        "a.js",
+      ]);
+
+      // Overwrite with content that has a syntax error
+      await fs.writeFile(path.join(dir, "a.js"), "const a = 1;\n}\n");
+
+      // Running with --check should report the syntax error
+      const { stderr: secondStderr, status: secondStatus } =
+        await runCliWithoutGitignore(dir, [
+          "--cache",
+          "--check",
+          "--cache-strategy",
+          "content",
+          "a.js",
+        ]);
+      expect(secondStatus).toBe(2);
+      expect(secondStderr).toStrictEqual(
+        expect.stringContaining("SyntaxError"),
+      );
+
+      // Running with --check again should also report the syntax error
+      const { stderr: thirdStderr, status: thirdStatus } =
+        await runCliWithoutGitignore(dir, [
+          "--cache",
+          "--check",
+          "--cache-strategy",
+          "content",
+          "a.js",
+        ]);
+      expect(thirdStatus).toBe(2);
+      expect(thirdStderr).toStrictEqual(expect.stringContaining("SyntaxError"));
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
