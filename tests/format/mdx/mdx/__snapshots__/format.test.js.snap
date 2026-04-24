@@ -1,5 +1,119 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`ignore.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+=====================================output=====================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne(),
+);
+\`\`\`
+
+================================================================================
+`;
+
+exports[`ignore.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+=====================================output=====================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne(),
+);
+\`\`\`
+
+================================================================================
+`;
+
 exports[`ignore.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -109,6 +223,178 @@ foo(
   isThereSeriouslyAnotherOne(),
 );
 \`\`\`
+
+================================================================================
+`;
+
+exports[`import-export.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import D from 'd'
+import {A,B,C}    from "hello-world"
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+import D from 'd'
+
+
+import {A,B,C}    from "hello-world"
+
+
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+export const meta = {
+authors: [fred, sue],
+layout: Layout
+}
+
+export default () =>
+  <Doc     components={{
+        h1: ui.Heading,
+         p:    ui.Text,
+      code:     ui.Code
+         }}
+      />
+
+---
+
+export const a = 1;
+export const b = 1;
+
+=====================================output=====================================
+import D from "d";
+import { A, B, C } from "hello-world";
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+import D from "d";
+
+import { A, B, C } from "hello-world";
+
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+export const meta = {
+  authors: [fred, sue],
+  layout: Layout,
+};
+
+export default () => (
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code,
+    }}
+  />
+);
+
+---
+
+export const a = 1;
+export const b = 1;
+
+================================================================================
+`;
+
+exports[`import-export.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import D from 'd'
+import {A,B,C}    from "hello-world"
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+import D from 'd'
+
+
+import {A,B,C}    from "hello-world"
+
+
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+export const meta = {
+authors: [fred, sue],
+layout: Layout
+}
+
+export default () =>
+  <Doc     components={{
+        h1: ui.Heading,
+         p:    ui.Text,
+      code:     ui.Code
+         }}
+      />
+
+---
+
+export const a = 1;
+export const b = 1;
+
+=====================================output=====================================
+import D from "d";
+import { A, B, C } from "hello-world";
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+import D from "d";
+
+import { A, B, C } from "hello-world";
+
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+export const meta = {
+  authors: [fred, sue],
+  layout: Layout,
+};
+
+export default () => (
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code,
+    }}
+  />
+);
+
+---
+
+export const a = 1;
+export const b = 1;
 
 ================================================================================
 `;
@@ -284,6 +570,62 @@ export const b = 1;
 ================================================================================
 `;
 
+exports[`inline-html.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, 
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+| Column 1 | Column 2 |
+| -- | -- |
+| **\`Row 1 Code\`** | Some text. |
+| **<code>Row 2 Code</code>** | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+=====================================output=====================================
+This is an example of a component _being used in some italic markdown with some
+<Bolded />, and as you can see_ once you close the italics, it will break
+incorrectly when prettier formats it.
+
+| Column 1                                | Column 2   |
+| --------------------------------------- | ---------- |
+| **\`Row 1 Code\`**                        | Some text. |
+| **<code>Row 2 Code</code>**             | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+================================================================================
+`;
+
+exports[`inline-html.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, 
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+| Column 1 | Column 2 |
+| -- | -- |
+| **\`Row 1 Code\`** | Some text. |
+| **<code>Row 2 Code</code>** | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+=====================================output=====================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+| Column 1                                | Column 2   |
+| --------------------------------------- | ---------- |
+| **\`Row 1 Code\`**                        | Some text. |
+| **<code>Row 2 Code</code>**             | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+================================================================================
+`;
+
 exports[`inline-html.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -339,6 +681,35 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 ================================================================================
 `;
 
+exports[`issue-9503.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+=====================================output=====================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
+opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+================================================================================
+`;
+
+exports[`issue-9503.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+=====================================output=====================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+================================================================================
+`;
+
 exports[`issue-9503.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -348,8 +719,7 @@ semi: false
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -362,8 +732,227 @@ parsers: ["mdx"]
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+================================================================================
+`;
+
+exports[`jsx.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Heading hi='there'>Hello, world!</Heading>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>
+123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+123
+<Hello>
+    test   <World />   test
+</Hello>
+234
+
+---
+
+<>
+    test   <World        />   test
+</>
+123
+
+---
+
+| Column 1 | Column 2 |
+|---|---|
+| Text | <Hello>Text</Hello> |
+
+---
+
+A {/* JS-style comment */} comment.
+
+{
+  /* Another JS-style comment */
+}
+
+=====================================output=====================================
+<Heading hi="there">Hello, world!</Heading>
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+<Hello>
+  test <World /> test
+</Hello>
+123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+123
+<Hello>
+  test <World /> test
+</Hello>
+234
+
+---
+
+<>
+  test <World /> test
+</>
+123
+
+---
+
+| Column 1 | Column 2            |
+| -------- | ------------------- |
+| Text     | <Hello>Text</Hello> |
+
+---
+
+A {/* JS-style comment */} comment.
+
+{/* Another JS-style comment */}
+
+================================================================================
+`;
+
+exports[`jsx.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Heading hi='there'>Hello, world!</Heading>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>
+123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+123
+<Hello>
+    test   <World />   test
+</Hello>
+234
+
+---
+
+<>
+    test   <World        />   test
+</>
+123
+
+---
+
+| Column 1 | Column 2 |
+|---|---|
+| Text | <Hello>Text</Hello> |
+
+---
+
+A {/* JS-style comment */} comment.
+
+{
+  /* Another JS-style comment */
+}
+
+=====================================output=====================================
+<Heading hi="there">Hello, world!</Heading>
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+<Hello>
+  test <World /> test
+</Hello>
+123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+123
+<Hello>
+  test <World /> test
+</Hello>
+234
+
+---
+
+<>
+  test <World /> test
+</>
+123
+
+---
+
+| Column 1 | Column 2            |
+| -------- | ------------------- |
+| Text     | <Hello>Text</Hello> |
+
+---
+
+A {/* JS-style comment */} comment.
+
+{/* Another JS-style comment */}
 
 ================================================================================
 `;
@@ -587,6 +1176,62 @@ A {/* JS-style comment */} comment.
 ================================================================================
 `;
 
+exports[`jsx-codeblock.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+=====================================output=====================================
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+================================================================================
+`;
+
+exports[`jsx-codeblock.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+=====================================output=====================================
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+================================================================================
+`;
+
 exports[`jsx-codeblock.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -638,6 +1283,116 @@ const a = 1;
 const a = 1;
 <div>foo</div>;
 \`\`\`
+
+================================================================================
+`;
+
+exports[`levels.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture";
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item {" "} </li>
+  <li />
+</ul>
+
+================================================================================
+`;
+
+exports[`levels.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture";
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item {" "} </li>
+  <li />
+</ul>
 
 ================================================================================
 `;
@@ -747,6 +1502,186 @@ test
   <li>item {" "} </li>
   <li />
 </ul>
+
+================================================================================
+`;
+
+exports[`mixed.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import     {     Baz } from     './Fixture'
+import { Buz  }   from './Fixture'
+
+export  const   foo    = {
+  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+     'fred',
+           'sally'
+    ]
+}
+
+# Hello,    world!
+
+
+ I'm an awesome   paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = 'test'
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test  | Table   |
+|    :---     | :----  |
+|   Col1  | Col2    |
+
+export   default     ({children   }) => < div>{    children}</div>
+
+=====================================output=====================================
+import { Baz } from "./Fixture";
+import { Buz } from "./Fixture";
+
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+  authors: ["fred", "sally"],
+};
+
+# Hello, world!
+
+I'm an awesome paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg="red">
+  <Bar>hi </Bar>
+  {hello}
+  {/* another comment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = "test";
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
+export default ({ children }) => <div>{children}</div>;
+
+================================================================================
+`;
+
+exports[`mixed.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import     {     Baz } from     './Fixture'
+import { Buz  }   from './Fixture'
+
+export  const   foo    = {
+  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+     'fred',
+           'sally'
+    ]
+}
+
+# Hello,    world!
+
+
+ I'm an awesome   paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = 'test'
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test  | Table   |
+|    :---     | :----  |
+|   Col1  | Col2    |
+
+export   default     ({children   }) => < div>{    children}</div>
+
+=====================================output=====================================
+import { Baz } from "./Fixture";
+import { Buz } from "./Fixture";
+
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+  authors: ["fred", "sally"],
+};
+
+# Hello, world!
+
+I'm an awesome paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg="red">
+  <Bar>hi </Bar>
+  {hello}
+  {/* another comment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = "test";
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
+export default ({ children }) => <div>{children}</div>;
 
 ================================================================================
 `;
@@ -926,6 +1861,249 @@ npm i -g foo
 | Col1 | Col2  |
 
 export default ({ children }) => <div>{children}</div>;
+
+================================================================================
+`;
+
+exports[`wrap.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long long long long long long long long
+long long long long long long long long long long long long long long long long
+long long long long long long long long long sentense</div>
+
+---
+
+<div>
+  long long long long long long long long long long long long long long long
+  long long long long long long long long long long long long long long long
+  long long long long long long long long long long sentense
+</div>
+
+================================================================================
+`;
+
+exports[`wrap.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense</div>
+
+---
+
+<div>
+  long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense
+</div>
+
+================================================================================
+`;
+
+exports[`wrap.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  sentense
+</div>
+
+================================================================================
+`;
+
+exports[`wrap.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  sentense
+</div>
 
 ================================================================================
 `;

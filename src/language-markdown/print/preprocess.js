@@ -8,10 +8,6 @@ function preprocess(ast, options) {
   ast = markOriginalImageAndLinkAlt(ast, options);
   ast = markAlignedList(ast, options);
   ast = splitTextIntoSentences(ast);
-  if (options.parser === "mdx") {
-    // For Prettier's backward compatibility, we wrap paragraphs with MDX JSX elements regardless of proseWrap option.
-    ast = markParagraphWithMdxJsx(ast);
-  }
   return ast;
 }
 
@@ -381,18 +377,6 @@ function markAlignedList(ast, options) {
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
-}
-
-function markParagraphWithMdxJsx(ast) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "paragraph") {
-      return node;
-    }
-    if (node.children.some((child) => child.type === "mdxJsxTextElement")) {
-      node.hasMdxJsx = true;
-    }
-    return node;
-  });
 }
 
 export default preprocess;
