@@ -58,8 +58,17 @@ function genericPrint(path, options, print) {
       return printAngularControlFlowBlock(path, options, print);
     case "angularControlFlowBlockParameters":
       return printAngularControlFlowBlockParameters(path, options, print);
-    case "angularControlFlowBlockParameter":
-      return htmlWhitespace.trim(node.expression);
+    case "angularControlFlowBlockParameter": {
+      const expression = htmlWhitespace.trim(node.expression);
+      // Normalize spaces around '=' in let clauses — handles the case where
+      // parseTemplateBindings fails on the whole parameters block (e.g. when a
+      // let clause contains multiple comma-separated bindings like
+      // "let i=$index, f=$first") and each parameter falls back to raw text.
+      if (/^let\s/.test(expression)) {
+        return expression.replace(/\s*=\s*/g, " = ");
+      }
+      return expression;
+    }
 
     case "angularLetDeclaration":
       // print like "break-after-operator" layout assignment in estree printer
