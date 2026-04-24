@@ -380,6 +380,9 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
+      // invalidate cache on format error
+      formatResultsCache?.removeFormatResultsCache(filename);
+
       const errorIsIgnored = handleError(
         context,
         fileNameToDisplay,
