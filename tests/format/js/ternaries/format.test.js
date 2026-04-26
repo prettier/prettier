@@ -22,3 +22,9 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   useTabs: true,
   tabWidth: 4,
 });
+runFormatTest(import.meta, ["babel"], {
+  experimentalTernaries: true,
+  semi: false,
+  tabWidth: 4,
+  filepath: "no-semi.js",
+});
