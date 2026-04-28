@@ -16,3 +16,10 @@ type ReadonlyTuple = [  readonly   label:   number  ];
 type ReadonlyInterface = interface {
       readonly   prop:   string
 };
+
+type ReadonlyReservedWords = {
+  readonly   with:   string,
+  readonly   default?:   string,
+  readonly   enum:   number,
+  readonly   new:   boolean,
+};
