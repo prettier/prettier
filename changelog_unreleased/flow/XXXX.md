@@ -1,0 +1,13 @@
+#### Add support for `writeonly` variance modifier (#XXXX by @marcoww6)
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T = {writeonly foo: string};
+
+// Prettier stable
+// SyntaxError
+
+// Prettier main
+type T = { writeonly foo: string };
+```
