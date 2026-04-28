@@ -2,7 +2,7 @@
 
 exports[`writeonly.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 type WriteonlyObj = {
@@ -27,4 +27,14 @@ type WriteonlyReservedWords = {
 };
 
 ================================================================================
+`;
+
+exports[`writeonly.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`:\` (2:17)
+  1 | type WriteonlyObj = {
+> 2 |     writeonly   foo:   string,
+    |                 ^^^
+  3 |   writeonly [string]:   unknown
+  4 | };
+  5 |"
 `;

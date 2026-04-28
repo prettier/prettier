@@ -2,7 +2,7 @@
 
 exports[`in-out-variance.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 type Contravariant<  in   T  > = T;

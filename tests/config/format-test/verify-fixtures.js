@@ -24,7 +24,7 @@ const categoryParsers = new Map([
   [
     "flow",
     {
-      parsers: ["flow", "babel-flow", "hermes"],
+      parsers: ["flow", "babel-flow"],
       verifyParsers: [
         "flow",
         "babel-flow",
