@@ -222,7 +222,9 @@ function printFlow(path, options, print, args) {
         kind === "plus" ||
           kind === "minus" ||
           kind === "readonly" ||
-          kind === "writeonly",
+          kind === "writeonly" ||
+          kind === "in" ||
+          kind === "out",
       );
       return kind === "plus" ? "+" : kind === "minus" ? "-" : `${kind} `;
     }
