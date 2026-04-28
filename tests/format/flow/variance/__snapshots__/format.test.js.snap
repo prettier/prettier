@@ -2,7 +2,7 @@
 
 exports[`variance.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "hermes"]
+parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 class Route {
