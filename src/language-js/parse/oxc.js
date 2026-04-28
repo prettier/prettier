@@ -36,6 +36,17 @@ function createParseError(error, { text }) {
   });
 }
 
+function isAllowedParseError(error) {
+  return (
+    error.message ===
+      "A 'return' statement can only be used within a function body." ||
+    // TypeScript accepts empty type parameter and type argument lists.
+    error.message === "Type parameter list cannot be empty." ||
+    error.message === "Type argument list cannot be empty." ||
+    /^Identifier `.*` has already been declared$/.test(error.message)
+  );
+}
+
 /**
 @param {string} filepath
 @param {string} text
@@ -50,12 +61,7 @@ function parseWithOptions(filepath, text, options) {
 
   const { errors } = result;
   for (const error of errors) {
-    if (
-      error.severity === "Error" &&
-      (error.message ===
-        "A 'return' statement can only be used within a function body." ||
-        /^Identifier `.*` has already been declared$/.test(error.message))
-    ) {
+    if (error.severity === "Error" && isAllowedParseError(error)) {
       continue;
     }
     throw createParseError(error, { text });

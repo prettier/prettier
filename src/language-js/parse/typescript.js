@@ -28,6 +28,13 @@ const baseParseOptions = {
   suppressDeprecatedPropertyWarnings: process.env.NODE_ENV === "production",
 };
 
+function isEmptyTypeParametersOrArgumentsError(error) {
+  return (
+    error?.message === "Type parameter list cannot be empty." ||
+    error?.message === "Type argument list cannot be empty."
+  );
+}
+
 function createParseError(error) {
   const { message, location } = error;
 
@@ -92,14 +99,31 @@ function parse(text, options) {
         (parseOptions) => () => parseTypeScript(textToParse, parseOptions),
       ),
     );
-  } catch ({
-    // @ts-expect-error -- expected
-    errors: [
+  } catch (/** @type {any} */ { errors }) {
+    const [
       // Suppose our guess is correct, throw the first error
       error,
-    ],
-  }) {
-    throw createParseError(error);
+    ] = errors;
+
+    if (isEmptyTypeParametersOrArgumentsError(error)) {
+      // TypeScript accepts empty type parameter and type argument lists, but
+      // typescript-estree rejects them unless invalid-AST checks are disabled.
+      try {
+        ast = tryCombinationsSync(
+          parseOptionsCombinations.map(
+            (parseOptions) => () =>
+              parseTypeScript(textToParse, {
+                ...parseOptions,
+                allowInvalidAST: true,
+              }),
+          ),
+        );
+      } catch (/** @type {any} */ { errors: [error] }) {
+        throw createParseError(error);
+      }
+    } else {
+      throw createParseError(error);
+    }
   }
 
   return postprocess(ast, { text, astType: "typescript" });

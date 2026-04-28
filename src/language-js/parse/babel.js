@@ -223,6 +223,10 @@ const allowedReasonCodesArray = [
   ```
   */
   "DeclarationMissingInitializer",
+
+  // TypeScript accepts empty type parameter and type argument lists.
+  "EmptyTypeParameters",
+  "EmptyTypeArguments",
 ];
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 
