@@ -2,7 +2,7 @@
 
 exports[`variance.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 class Route {
@@ -24,6 +24,13 @@ type ReadonlyInterface = interface {
       readonly   prop:   string
 };
 
+type ReadonlyReservedWords = {
+  readonly   with:   string,
+  readonly   default?:   string,
+  readonly   enum:   number,
+  readonly   new:   boolean,
+};
+
 =====================================output=====================================
 class Route {
   static +param: T;
@@ -42,6 +49,13 @@ type ReadonlyTuple = [readonly label: number];
 
 type ReadonlyInterface = interface {
   readonly prop: string,
+};
+
+type ReadonlyReservedWords = {
+  readonly with: string,
+  readonly default?: string,
+  readonly enum: number,
+  readonly new: boolean,
 };
 
 ================================================================================
