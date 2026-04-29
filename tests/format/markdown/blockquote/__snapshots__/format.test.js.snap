@@ -167,6 +167,85 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
+exports[`gfm-alert.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> [!TIP]
+> Keep the alert marker on its own line so GitHub renders this blockquote as an alert.
+
+> [!IMPORTANT]
+> Alert content can still wrap when the text is long enough to exceed the configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content on the same line.
+
+=====================================output=====================================
+> [!TIP]
+> Keep the alert marker on its own line so GitHub renders this blockquote as an
+> alert.
+
+> [!IMPORTANT]
+> Alert content can still wrap when the text is long enough to exceed the
+> configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content
+> on the same line.
+
+================================================================================
+`;
+
+exports[`gfm-alert.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> [!TIP]
+> Keep the alert marker on its own line so GitHub renders this blockquote as an alert.
+
+> [!IMPORTANT]
+> Alert content can still wrap when the text is long enough to exceed the configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content on the same line.
+
+=====================================output=====================================
+> [!TIP] Keep the alert marker on its own line so GitHub renders this blockquote as an alert.
+
+> [!IMPORTANT] Alert content can still wrap when the text is long enough to exceed the configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content on the same line.
+
+================================================================================
+`;
+
+exports[`gfm-alert.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> [!TIP]
+> Keep the alert marker on its own line so GitHub renders this blockquote as an alert.
+
+> [!IMPORTANT]
+> Alert content can still wrap when the text is long enough to exceed the configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content on the same line.
+
+=====================================output=====================================
+> [!TIP]
+> Keep the alert marker on its own line so GitHub renders this blockquote as an alert.
+
+> [!IMPORTANT]
+> Alert content can still wrap when the text is long enough to exceed the configured print width for prose wrapping.
+
+> [!TIP] This is not an alert header because the marker is followed by content on the same line.
+
+================================================================================
+`;
+
 exports[`ignore-code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -817,7 +896,8 @@ proseWrap: "always"
 > proseWrap to \`never\`
 
 =====================================output=====================================
-> [!NOTE] \`DOOM\`
+> [!NOTE]
+> \`DOOM\`
 
 > _b_
 >
