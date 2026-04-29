@@ -42,7 +42,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "21.2.9",
+    "@angular/compiler": "21.2.10",
     "@babel/code-frame": "8.0.0-rc.3",
     "@babel/parser": "8.0.0-rc.3",
     "@babel/types": "8.0.0-rc.3",
@@ -105,11 +105,11 @@
     "n-readlines": "3.4.1",
     "narrow-emojis": "0.0.3",
     "outdent": "0.8.0",
-    "oxc-parser": "0.127.0",
+    "oxc-parser": "0.128.0",
     "parse-json": "8.3.0",
     "picocolors": "1.1.1",
     "please-upgrade-node": "3.2.0",
-    "postcss": "8.5.10",
+    "postcss": "8.5.12",
     "postcss-less": "6.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.9",
