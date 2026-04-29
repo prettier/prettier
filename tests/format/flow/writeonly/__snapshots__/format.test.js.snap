@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`writeonly.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type WriteonlyObj = {
+    writeonly   foo:   string,
+  writeonly [string]:   unknown
+};
+
+type WriteonlyReservedWords = {
+  writeonly   with:   string,
+  writeonly   default?:   string,
+};
+
+=====================================output=====================================
+type WriteonlyObj = {
+  writeonly foo: string,
+  writeonly [string]: unknown,
+};
+
+type WriteonlyReservedWords = {
+  writeonly with: string,
+  writeonly default?: string,
+};
+
+================================================================================
+`;

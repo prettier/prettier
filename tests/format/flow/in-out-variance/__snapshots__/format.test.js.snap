@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`in-out-variance.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Contravariant<  in   T  > = T;
+
+type Covariant<  out   T  > = T;
+
+type Mixed<  in   T,   out   U  > = T;
+
+type InNamedIn<  in   in  > = void;
+
+type OutNamedOut<  out   out  > = void;
+
+type InWithBound<  in   T:   number  > = T;
+
+type OutWithDefault<  out   T  =   string  > = T;
+
+=====================================output=====================================
+type Contravariant<in T> = T;
+
+type Covariant<out T> = T;
+
+type Mixed<in T, out U> = T;
+
+type InNamedIn<in in> = void;
+
+type OutNamedOut<out out> = void;
+
+type InWithBound<in T: number> = T;
+
+type OutWithDefault<out T = string> = T;
+
+================================================================================
+`;
