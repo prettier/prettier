@@ -445,14 +445,6 @@ exports[`valid-await-using-binding-using.js format[flow] 1`] = `
   5 |"
 `;
 
-exports[`valid-await-using-binding-using.js format[hermes] 1`] = `
-"for-in/for-of variable declaration may not be initialized (0:-1)
-  1 | async function f() {
-  2 |   await using using = of;
-  3 |   for (await using using of of);
-Cause: for-in/for-of variable declaration may not be initialized"
-`;
-
 exports[`valid-await-using-binding-using.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:15)
   1 | async function f() {
@@ -622,14 +614,6 @@ exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
   3 |   for await (await using of of of);
   4 | }
   5 |"
-`;
-
-exports[`valid-for-using-binding-of-of.js format[hermes] 1`] = `
-"for-in/for-of variable declaration may not be initialized (0:-1)
-  1 | async function f() {
-  2 |   for (await using of of of);
-  3 |   for await (await using of of of);
-Cause: for-in/for-of variable declaration may not be initialized"
 `;
 
 exports[`valid-for-using-binding-of-of.js format[meriyah] 1`] = `
@@ -1150,14 +1134,6 @@ exports[`valid-using-binding-using.js format[flow] 1`] = `
   3 |   for (using using of of);
   4 | }
   5 |"
-`;
-
-exports[`valid-using-binding-using.js format[hermes] 1`] = `
-"for-in/for-of variable declaration may not be initialized (0:-1)
-  1 | {
-  2 |   using using = of;
-  3 |   for (using using of of);
-Cause: for-in/for-of variable declaration may not be initialized"
 `;
 
 exports[`valid-using-binding-using.js format[meriyah] 1`] = `

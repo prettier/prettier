@@ -32,12 +32,9 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "valid-for-using-binding-escaped-of-of.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-using-as-identifier-for-await-of.js",
-      "valid-using-binding-using.js",
 
-      "valid-await-using-binding-using.js",
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
-      "valid-for-using-binding-of-of.js",
       "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
       "valid-using-as-identifier-in.js",
