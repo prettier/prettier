@@ -17,19 +17,23 @@ printWidth: 1
     camera 'self';
     microphone 'self';
   "
-></iframe>
+>
+</iframe>
 <iframe
   allow="
     camera;
     microphone;
   "
-></iframe>
+>
+</iframe>
 <iframe
   allow=""
-></iframe>
+>
+</iframe>
 <iframe
   allow=""
-></iframe>
+>
+</iframe>
 
 ================================================================================
 `;

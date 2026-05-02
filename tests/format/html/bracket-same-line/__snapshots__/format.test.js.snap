@@ -23,7 +23,8 @@ text
 </div>
 <div
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
-></div>
+>
+</div>
 <div class="a">text</div>
 <div class="a">text</div>
 
@@ -51,7 +52,8 @@ text
   text
 </div>
 <div
-  long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"></div>
+  long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
+</div>
 <div class="a">text</div>
 <div class="a">text</div>
 
@@ -164,7 +166,8 @@ text
 </span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
-></span>
+>
+</span>
 <span class="a">text</span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
@@ -209,7 +212,8 @@ text
   text
 </span>
 <span
-  long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"></span>
+  long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
+</span>
 <span class="a">text</span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">

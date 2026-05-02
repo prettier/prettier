@@ -46,7 +46,8 @@ parsers: ["angular"]
   "
   [shortTemplate]="\`1
 2\`"
-></div>
+>
+</div>
 <div
   *foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
   *foo1="
@@ -64,7 +65,8 @@ parsers: ["angular"]
   "
   *shortTemplate="\`1
 2\`"
-></div>
+>
+</div>
 
 ================================================================================
 `;

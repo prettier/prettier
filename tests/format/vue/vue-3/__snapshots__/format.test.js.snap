@@ -40,11 +40,8 @@ extends string &
 =====================================output=====================================
 <script setup lang="ts" generic="T"></script>
 
-<script
-  setup
-  lang="ts"
-  generic="T extends Type1 & Type2 & (Type3 | Type4), U"
-></script>
+<script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U">
+</script>
 
 <script
   setup
@@ -53,7 +50,8 @@ extends string &
     T extends Type1 & Type2 & (Type3 | Type4),
     U extends string | number | boolean
   "
-></script>
+>
+</script>
 
 <script
   setup
@@ -80,7 +78,8 @@ extends string &
     >,
     C
   "
-></script>
+>
+</script>
 
 <script
   setup
@@ -95,7 +94,8 @@ extends string &
     U extends number, // comment 3
     /** comment 4 */ C extends MyType
   "
-></script>
+>
+</script>
 
 <template>
   <!-- should not format it here -->
@@ -103,7 +103,8 @@ extends string &
     setup
     lang="ts"
     generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"
-  ></not-script>
+  >
+  </not-script>
 </template>
 
 ================================================================================
@@ -143,7 +144,8 @@ parsers: ["vue"]
       a: { b },
     },
   }"
-></script>
+>
+</script>
 
 <!-- Not script -->
 <custom setup="     {row   }">Not A script</custom>
@@ -196,7 +198,8 @@ parsers: ["vue"]
       a: { b },
     },
   }"
-></style>
+>
+</style>
 
 <!-- Not style -->
 <custom vars="     {row   }">Not A style</custom>

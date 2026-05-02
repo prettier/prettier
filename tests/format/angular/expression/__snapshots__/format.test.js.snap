@@ -130,7 +130,8 @@ foo:1, ...bar   }"></div>
     foo: 1,
     ...bar,
   }"
-></div>
+>
+</div>
 
 {{ foo(a, ...b) }}
 

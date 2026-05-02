@@ -199,7 +199,8 @@ a = /* HTML */ \`<div
   double-quoted="\${foo}"
   single-quoted="\${foo}"
   unquoted=\${foo}
-></div> \`;
+>
+</div> \`;
 a = /* HTML */ \`<div style="\${foo}" style="\${foo}" style=\${foo}></div> \`;
 
 ================================================================================
@@ -480,7 +481,8 @@ html\`
     style="
  \${foo}
 "
-  ></div>
+  >
+  </div>
 \`;
 html\`
   <div style=\${foo}></div>
@@ -490,7 +492,8 @@ html\`
   <div
     style="   color : red;
             display    :inline "
-  ></div>
+  >
+  </div>
 \`;
 
 html\`
@@ -498,14 +501,16 @@ html\`
     style="   color : red;
 \${foo}
             display    :inline "
-  ></div>
+  >
+  </div>
 \`;
 html\`
   <div
     style="   color : red;
 \${foo}:\${bar};
             display    :inline "
-  ></div>
+  >
+  </div>
 \`;
 
 ================================================================================
@@ -694,25 +699,29 @@ html\`
     style="
  \${foo}
 "
-  ></div>
+  >
+  </div>
 \`;
 html\` <div style=\${foo}></div> \`;
 
 html\`<div
   style="   color : red;
             display    :inline "
-></div>\`;
+>
+</div>\`;
 
 html\`<div
   style="   color : red;
 \${foo}
             display    :inline "
-></div>\`;
+>
+</div>\`;
 html\`<div
   style="   color : red;
 \${foo}:\${bar};
             display    :inline "
-></div>\`;
+>
+</div>\`;
 
 ================================================================================
 `;

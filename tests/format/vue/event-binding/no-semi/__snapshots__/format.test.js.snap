@@ -18,7 +18,8 @@ semi: false
   <foo-bar
     @click="[foo, bar].forEach((fn) => void fn())"
     @loaded="(map = $event) && initMap()"
-  ></foo-bar>
+  >
+  </foo-bar>
 </template>
 
 ================================================================================

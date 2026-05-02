@@ -334,8 +334,10 @@ printWidth: 1
 <app-bar></app-bar>
 
 =====================================output=====================================
-<app-foo></app-foo>
-<app-bar></app-bar>
+<app-foo>
+</app-foo>
+<app-bar>
+</app-bar>
 
 ================================================================================
 `;
@@ -2078,7 +2080,8 @@ ___________________________
     </div>
   </div>
 </div>
-<pre></pre>
+<pre>
+</pre>
 
 <pre><code #foo></code></pre>
 
@@ -2596,7 +2599,8 @@ printWidth: 1
         </form>
       </search>
 
-      <search></search>
+      <search>
+      </search>
     </header>
   </body>
 </html>
@@ -2946,7 +2950,8 @@ parsers: ["html"]
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label>
+>
+</label>
 |
 <span></span>
 <br />
@@ -3276,7 +3281,8 @@ parsers: ["html"]
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label>
+>
+</label>
 |
 <span></span>
 <br />
@@ -3923,11 +3929,14 @@ printWidth: 1
   </div>
 </div>
 <div>
-  <div></div>
+  <div>
+  </div>
 </div>
 <div>
-  <div></div>
-  <div></div>
+  <div>
+  </div>
+  <div>
+  </div>
 </div>
 <div>
   <div>
@@ -3995,7 +4004,8 @@ printWidth: 1
 <p>
   x<span
     a="b"
-  ></span>
+  >
+  </span>
 </p>
 <p>
   x<meta
@@ -4005,13 +4015,16 @@ printWidth: 1
 <p>
   x<meta />
 </p>
-<span></span>
+<span>
+</span>
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label>
+>
+</label>
 |
-<span></span>
+<span>
+</span>
 <br />
 <button
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -4046,7 +4059,8 @@ printWidth: 1
 <p>
   "<span
     [innerHTML]="title"
-  ></span
+  >
+  </span
   >"
   is
   the
@@ -4060,21 +4074,30 @@ printWidth: 1
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
 </li>
 <div>
-  <app-nav></app-nav>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <app-nav>
+  </app-nav>
+  <router-outlet>
+  </router-outlet>
+  <app-footer>
+  </app-footer>
 
   <app-nav
     [input]="something"
-  ></app-nav>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  >
+  </app-nav>
+  <router-outlet>
+  </router-outlet>
+  <app-footer>
+  </app-footer>
 
-  <app-primary-navigation></app-primary-navigation>
-  <router-outlet></router-outlet>
+  <app-primary-navigation>
+  </app-primary-navigation>
+  <router-outlet>
+  </router-outlet>
   <app-footer
     [input]="something"
-  ></app-footer>
+  >
+  </app-footer>
 </div>
 <x:root
   ><span
@@ -4127,7 +4150,8 @@ printWidth: 1
 
 <!-- #5810 -->
 <table>
-  <tr></tr>
+  <tr>
+  </tr>
 </table>
 <div>
   Should
@@ -4424,7 +4448,8 @@ parsers: ["html"]
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label>
+>
+</label>
 |
 <span></span>
 <br />
@@ -4600,14 +4625,8 @@ parsers: ["html"]
 >
 
 <div
-  >before<meter
-    min="0"
-    max="1"
-    low=".4"
-    high=".7"
-    optimum=".5"
-    value=".2"
-  ></meter
+  >before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2">
+  </meter
   >after</div
 >
 
@@ -4754,7 +4773,8 @@ printWidth: 1
     high=".7"
     optimum=".5"
     value=".2"
-  ></meter
+  >
+  </meter
   >after
 </div>
 
@@ -4762,7 +4782,8 @@ printWidth: 1
   before<progress
     value=".5"
     max="1"
-  ></progress
+  >
+  </progress
   >after
 </div>
 
@@ -4815,14 +4836,8 @@ parsers: ["html"]
 </div>
 
 <div>
-  before<meter
-    min="0"
-    max="1"
-    low=".4"
-    high=".7"
-    optimum=".5"
-    value=".2"
-  ></meter
+  before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2">
+  </meter
   >after
 </div>
 
@@ -5115,7 +5130,8 @@ printWidth: 1
     </div>
   </div>
 </div>
-<textarea></textarea>
+<textarea>
+</textarea>
 
 <div>
   <textarea>
@@ -5247,7 +5263,8 @@ printWidth: 1
 <center></center>
 
 =====================================output=====================================
-<center></center>
+<center>
+</center>
 
 ================================================================================
 `;

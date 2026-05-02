@@ -359,7 +359,8 @@ semi: false
         bar: { baz },
       },
     }"
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -724,7 +725,8 @@ trailingComma: "es5"
         bar: { baz },
       },
     }"
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -1089,7 +1091,8 @@ trailingComma: "none"
         bar: { baz }
       }
     }"
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -2040,7 +2043,8 @@ semi: false
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="allowed"
     :class="
@@ -2049,7 +2053,8 @@ semi: false
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="not-allowed"
     v-if="
@@ -2058,7 +2063,8 @@ semi: false
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
     "
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -2097,7 +2103,8 @@ trailingComma: "es5"
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="allowed"
     :class="
@@ -2106,7 +2113,8 @@ trailingComma: "es5"
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="not-allowed"
     v-if="
@@ -2115,7 +2123,8 @@ trailingComma: "es5"
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
     "
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -2154,7 +2163,8 @@ trailingComma: "none"
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="allowed"
     :class="
@@ -2163,7 +2173,8 @@ trailingComma: "none"
         | anotherPipeLongJustForFun
         | pipeTheThird
     "
-  ></div>
+  >
+  </div>
   <div
     class="not-allowed"
     v-if="
@@ -2172,7 +2183,8 @@ trailingComma: "none"
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
     "
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================
@@ -3224,7 +3236,8 @@ semi: false
 
 =====================================output=====================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js">
+</script>
 
 ================================================================================
 `;
@@ -3240,7 +3253,8 @@ trailingComma: "es5"
 
 =====================================output=====================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js">
+</script>
 
 ================================================================================
 `;
@@ -3256,7 +3270,8 @@ trailingComma: "none"
 
 =====================================output=====================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js">
+</script>
 
 ================================================================================
 `;
@@ -4643,7 +4658,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <and
       v-if="
         long_long_long_long_long_long_long_condition_1 &&
@@ -4653,7 +4669,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4663,7 +4680,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4673,7 +4691,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4683,7 +4702,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
       "
-    ></mixed>
+    >
+    </mixed>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4693,7 +4713,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></mixed>
+    >
+    </mixed>
   </root>
 </template>
 
@@ -4753,7 +4774,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <and
       v-if="
         long_long_long_long_long_long_long_condition_1 &&
@@ -4763,7 +4785,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4773,7 +4796,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4783,7 +4807,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4793,7 +4818,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
       "
-    ></mixed>
+    >
+    </mixed>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4803,7 +4829,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></mixed>
+    >
+    </mixed>
   </root>
 </template>
 
@@ -4863,7 +4890,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <and
       v-if="
         long_long_long_long_long_long_long_condition_1 &&
@@ -4873,7 +4901,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
       "
-    ></and>
+    >
+    </and>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4883,7 +4912,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <or
       v-if="
         long_long_long_long_long_long_long_condition_1 ||
@@ -4893,7 +4923,8 @@ long_long_long_long_long_long_long_condition_4
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></or>
+    >
+    </or>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4903,7 +4934,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
       "
-    ></mixed>
+    >
+    </mixed>
     <mixed
       v-if="
         (long_long_long_long_long_long_long_condition_1 &&
@@ -4913,7 +4945,8 @@ long_long_long_long_long_long_long_condition_4
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
       "
-    ></mixed>
+    >
+    </mixed>
   </root>
 </template>
 
