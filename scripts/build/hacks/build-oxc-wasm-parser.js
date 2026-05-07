@@ -41,13 +41,32 @@ async function install(version) {
 
 const wasmUrlPattern =
   /var __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
-async function inlineWasmBinary(directory) {
+async function buildEntry(directory) {
   const packageDirectory = new URL(
     "./node_modules/@oxc-parser/binding-wasm32-wasi/",
     directory,
   );
   const entryFile = new URL("./browser-bundle.js", packageDirectory);
   let text = await fs.readFile(entryFile, "utf8");
+
+  // Remove useless `visitorKeys`
+  const moduleMark = "\n// src-js/generated/visit/keys.js";
+  const moduleIndex = text.indexOf(moduleMark);
+  if (moduleIndex === -1) {
+    throw new Error("Unexpected source");
+  }
+  const nextModuleIndex = text.indexOf(
+    "\n// src-js/",
+    moduleIndex + moduleMark.length,
+  );
+  if (nextModuleIndex === -1) {
+    throw new Error("Unexpected source");
+  }
+
+  text =
+    text.slice(0, moduleIndex) +
+    "\nvar keys_default;\n" +
+    text.slice(nextModuleIndex);
 
   const { wasmFile } = text.match(wasmUrlPattern).groups;
 
@@ -93,7 +112,7 @@ async function buildOxcWasmParser() {
     await fs.rename(installDirectory, directory);
   }
 
-  return await inlineWasmBinary(directory);
+  return await buildEntry(directory);
 }
 
 export default buildOxcWasmParser;
