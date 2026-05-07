@@ -5244,10 +5244,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.311.0":
-  version: 0.311.0
-  resolution: "flow-parser@npm:0.311.0"
-  checksum: 10/12130e7447ce00b4eeb570df1ea9407b8311e1c9dbd9c83c82ed26b98d359d517119eae5e8bff86bcd9a41e7ac43797376305356c06133cee6a1d81ef1b34ba9
+"flow-parser@npm:0.312.0":
+  version: 0.312.0
+  resolution: "flow-parser@npm:0.312.0"
+  checksum: 10/b6a7224a48ff456b18e49c1a5eba560a60bd754e014312096764b9d5394776119cc7bc9fe5f2fa19b0f87a9162683daad93f4c846a89c302733f80d7db3b9fcb
   languageName: node
   linkType: hard
 
@@ -5590,19 +5590,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.36.0":
-  version: 0.36.0
-  resolution: "hermes-estree@npm:0.36.0"
-  checksum: 10/76f3fec9700a8ccb299cf53be22cd9038caf3bfba711370dd24f276444c1ed3c38c27fedd3097f6d9cccaa4dfaa4d02de0f8f02e208ab3fb00c97f8845b8aac5
+"hermes-estree@npm:0.36.1":
+  version: 0.36.1
+  resolution: "hermes-estree@npm:0.36.1"
+  checksum: 10/8860c65f3ab1094c44df5008fa70e07a3d37a9c83cfa28535fcf5315f40f581c483c621560f276a1d0f4181ab76dbd11ccc1f8f420748947642e06e49e2875e7
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.36.0":
-  version: 0.36.0
-  resolution: "hermes-parser@npm:0.36.0"
+"hermes-parser@npm:0.36.1":
+  version: 0.36.1
+  resolution: "hermes-parser@npm:0.36.1"
   dependencies:
-    hermes-estree: "npm:0.36.0"
-  checksum: 10/81150c00bd8da17187f421a75e6e427187465386681427024f3dc51de996c44cee18fb062d95254028aa1f4ffcdbe7cbdeda50e6edece5c378c9f909067f5bae
+    hermes-estree: "npm:0.36.1"
+  checksum: 10/fd87da5b8f0ba1106a2b613a25540b6f23a98ee7dda5bbf88f5df78120ff0e90a8c0f26226b99460c1e3b25e697bbe9910a1abaa21f08e2466cf4de716cbb457
   languageName: node
   linkType: hard
 
@@ -8645,14 +8645,14 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:11.1.2"
     find-cache-directory: "npm:6.0.0"
-    flow-parser: "npm:0.311.0"
+    flow-parser: "npm:0.312.0"
     get-east-asian-width: "npm:1.4.0"
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"
     gfm-test-suite: "npm:0.0.2"
     globals: "npm:17.4.0"
     graphql: "npm:16.13.2"
-    hermes-parser: "npm:0.36.0"
+    hermes-parser: "npm:0.36.1"
     html-element-attributes: "npm:3.5.0"
     html-ua-styles: "npm:0.3.1"
     ignore: "npm:7.0.5"
