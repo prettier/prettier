@@ -169,6 +169,18 @@ class D<T> {
 ================================================================================
 `;
 
+exports[`constructorOverloadsWithDefaultValues.ts format[babel-ts] 1`] = `
+"A parameter initializer is only allowed in a function or constructor implementation. (3:17)
+  1 | class C {
+  2 |     foo: string;
+> 3 |     constructor(x = 1);
+    |                 ^
+  4 |     constructor() {
+  5 |     }
+  6 | }
+Cause: A parameter initializer is only allowed in a function or constructor implementation. (3:16)"
+`;
+
 exports[`constructorOverloadsWithOptionalParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
