@@ -50,7 +50,7 @@ async function buildEntry(directory) {
   let text = await fs.readFile(entryFile, "utf8");
 
   // Remove useless `visitorKeys`
-  const moduleMark = "\n// src-js/generated/visit/keys.js";
+  const moduleMark = "\n// src-js/generated/visit/keys.js\n";
   const moduleIndex = text.indexOf(moduleMark);
   if (moduleIndex === -1) {
     throw new Error("Unexpected source");
@@ -63,10 +63,12 @@ async function buildEntry(directory) {
     throw new Error("Unexpected source");
   }
 
-  text =
-    text.slice(0, moduleIndex) +
-    "\nvar keys_default;\n" +
-    text.slice(nextModuleIndex);
+  text = outdent`
+    ${text.slice(0, moduleIndex + moduleMark.length)}
+    var keys_default;
+
+    ${text.slice(nextModuleIndex)}
+  `;
 
   const { wasmFile } = text.match(wasmUrlPattern).groups;
 
