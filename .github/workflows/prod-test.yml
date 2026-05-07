@@ -97,6 +97,7 @@ jobs:
       - name: Install yarn@3
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
         run: |
+          yarn config unset approvedGitRepositories
           yarn set version 3
           yarn config set httpRetry 10
           cat .yarnrc.yml
