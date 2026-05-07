@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 format[babel] 1`] = `
-"Unexpected token (1:8)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import();
-    |        ^
-Cause: Unexpected token (1:7)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #0 format[babel-flow] 1`] = `
-"Unexpected token (1:8)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import();
-    |        ^
-Cause: Unexpected token (1:7)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #0 format[babel-ts] 1`] = `
-"Unexpected token (1:8)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import();
-    |        ^
-Cause: Unexpected token (1:7)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #0 format[flow] 1`] = `
@@ -42,24 +42,24 @@ Cause: Dynamic import requires exactly one or two arguments."
 `;
 
 exports[`snippet: #1 format[babel] 1`] = `
-"Unexpected token (1:21)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import(/* comment */);
-    |                     ^
-Cause: Unexpected token (1:20)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #1 format[babel-flow] 1`] = `
-"Unexpected token (1:21)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import(/* comment */);
-    |                     ^
-Cause: Unexpected token (1:20)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #1 format[babel-ts] 1`] = `
-"Unexpected token (1:21)
+"\`import()\` requires exactly one or two arguments. (1:1)
 > 1 | import(/* comment */);
-    |                     ^
-Cause: Unexpected token (1:20)"
+    | ^
+Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 `;
 
 exports[`snippet: #1 format[flow] 1`] = `
@@ -83,24 +83,24 @@ Cause: Dynamic import requires exactly one or two arguments."
 `;
 
 exports[`snippet: #2 format[babel] 1`] = `
-"Cannot use new with import(...). (1:5)
+"Cannot use new with import(). (1:5)
 > 1 | new import('./a.mjs');
     |     ^
-Cause: Cannot use new with import(...). (1:4)"
+Cause: Cannot use new with import(). (1:4)"
 `;
 
 exports[`snippet: #2 format[babel-flow] 1`] = `
-"Cannot use new with import(...). (1:5)
+"Cannot use new with import(). (1:5)
 > 1 | new import('./a.mjs');
     |     ^
-Cause: Cannot use new with import(...). (1:4)"
+Cause: Cannot use new with import(). (1:4)"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
-"Cannot use new with import(...). (1:5)
+"Cannot use new with import(). (1:5)
 > 1 | new import('./a.mjs');
     |     ^
-Cause: Cannot use new with import(...). (1:4)"
+Cause: Cannot use new with import(). (1:4)"
 `;
 
 exports[`snippet: #2 format[flow] 1`] = `
@@ -124,24 +124,24 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #3 format[babel] 1`] = `
-"Unexpected token (1:12)
+"\`import()\` requires exactly one or two arguments. (1:5)
 > 1 | new import();
-    |            ^
-Cause: Unexpected token (1:11)"
+    |     ^
+Cause: \`import()\` requires exactly one or two arguments. (1:4)"
 `;
 
 exports[`snippet: #3 format[babel-flow] 1`] = `
-"Unexpected token (1:12)
+"\`import()\` requires exactly one or two arguments. (1:5)
 > 1 | new import();
-    |            ^
-Cause: Unexpected token (1:11)"
+    |     ^
+Cause: \`import()\` requires exactly one or two arguments. (1:4)"
 `;
 
 exports[`snippet: #3 format[babel-ts] 1`] = `
-"Unexpected token (1:12)
+"\`import()\` requires exactly one or two arguments. (1:5)
 > 1 | new import();
-    |            ^
-Cause: Unexpected token (1:11)"
+    |     ^
+Cause: \`import()\` requires exactly one or two arguments. (1:4)"
 `;
 
 exports[`snippet: #3 format[flow] 1`] = `
