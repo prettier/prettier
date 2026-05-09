@@ -2663,6 +2663,191 @@ parsers: ["html"]
 ================================================================================
 `;
 
+exports[`svg.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+=====================================output=====================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg>
+  <text
+    fill="#fff"
+    alignment-baseline="middle"
+    text-anchor="middle"
+    x="10"
+    y="20"
+  >
+    {{ value }}
+  </text>
+</svg>
+
+<svg><title>{{ title }}</title></svg>
+
+================================================================================
+`;
+
+exports[`svg.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+=====================================output=====================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg
+  ><text
+    fill="#fff"
+    alignment-baseline="middle"
+    text-anchor="middle"
+    x="10"
+    y="20"
+    >{{ value }}</text
+  ></svg
+>
+
+<svg><title>{{ title }}</title></svg>
+
+================================================================================
+`;
+
+exports[`svg.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+=====================================output=====================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+================================================================================
+`;
+
+exports[`svg.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+=====================================output=====================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg>
+  <text
+    fill="#fff"
+    x="10"
+    y="20"
+  >
+    {{
+    area.position
+    }}
+  </text>
+</svg>
+
+<svg>
+  <text
+    fill="#fff"
+    alignment-baseline="middle"
+    text-anchor="middle"
+    x="10"
+    y="20"
+  >
+    {{
+    value
+    }}
+  </text>
+</svg>
+
+<svg>
+  <title>
+    {{
+    title
+    }}
+  </title>
+</svg>
+
+================================================================================
+`;
+
+exports[`svg.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg><text fill="#fff" alignment-baseline="middle" text-anchor="middle" x="10" y="20">{{ value }}</text></svg>
+
+<svg><title>{{ title }}</title></svg>
+
+=====================================output=====================================
+<!-- Issue #17713: SVG elements should respect htmlWhitespaceSensitivity: strict -->
+
+<svg><text fill="#fff" x="10" y="20">{{ area.position }}</text></svg>
+
+<svg>
+  <text
+    fill="#fff"
+    alignment-baseline="middle"
+    text-anchor="middle"
+    x="10"
+    y="20"
+  >
+    {{ value }}
+  </text>
+</svg>
+
+<svg><title>{{ title }}</title></svg>
+
+================================================================================
+`;
+
 exports[`tags.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
