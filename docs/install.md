@@ -165,7 +165,7 @@ And being able to run Prettier from the command line is still a good fallback, a
 
 ## ESLint (and other linters)
 
-If you use ESLint, install [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier#installation) to make ESLint and Prettier play nice with each other. It turns off all ESLint rules that are unnecessary or might conflict with Prettier. There’s a similar config for Stylelint: [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
+If you use recent versions of ESLint and popular plugins, their recommended rules usually don’t conflict with Prettier. If you use an older config or one that enables formatting rules, install [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier#installation) to turn off all ESLint rules that are unnecessary or might conflict with Prettier. There’s a similar config for Stylelint: [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
 
 (See [Prettier vs. Linters](comparison.md) to learn more about formatting vs linting, [Integrating with Linters](integrating-with-linters.md) for more in-depth information on configuring your linters, and [Related projects](related-projects.md) for even more integration possibilities, if needed.)
 
@@ -249,5 +249,5 @@ To summarize, we have learned to:
 - Add a `.prettierignore` to let your editor know which files _not_ to touch, as well as for being able to run `prettier --write .` to format the entire project (without mangling files you don’t want, or choking on generated files).
 - Run `prettier --check .` in CI to make sure that your project stays formatted.
 - Run Prettier from your editor for the best experience.
-- Use [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) to make Prettier and ESLint play nice together.
+- Use [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) if your ESLint config enables formatting rules that conflict with Prettier.
 - Set up a pre-commit hook to make sure that every commit is formatted.
