@@ -127,7 +127,7 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 ## `--ignore-path`
 
 Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.\
-Multiple values are accepted.
+Multiple values are accepted by providing multiple `--ignore-path` options: `prettier --ignore-path=myignores --ignore-path=my-ignores2`. Specifying an `--ignore-path` overrides the default rather than adding to it, so to add a new ignore file while keeping `./.gitignore` and `./.prettierignore` as well, specify `prettier --ignore-path=.gitignore --ignore-path=.prettierignore --ignore-path=myignores`.
 
 ## `--list-different`
 
