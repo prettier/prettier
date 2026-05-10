@@ -52,6 +52,14 @@ function expressionNeedsAsiProtection(path, options) {
     case "RegExpLiteral":
       return true;
 
+    case "ConditionalExpression":
+      // With experimentalTernaries, the test is wrapped in `ifBreak("(")` at
+      // the document level, so the output starts with `(` when it breaks.
+      if (options.experimentalTernaries) {
+        return true;
+      }
+      break;
+
     case "ArrowFunctionExpression":
       if (!shouldPrintParamsWithoutParens(path, options)) {
         return true;
