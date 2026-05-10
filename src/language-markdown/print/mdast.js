@@ -261,7 +261,7 @@ function printMdast(path, options, print) {
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
-        value,
+        isHtmlComment ? dedentHtmlComment(value) : value,
         isHtmlComment ? hardline : markAsRoot(literalline),
       );
     }
@@ -554,6 +554,42 @@ function printImageAlt(node, options) {
   }
 
   return node.alt || "";
+}
+
+/**
+ * Strip common leading whitespace from lines after the first in an HTML comment.
+ * This prevents indentation from growing endlessly when the comment is inside
+ * a list, since the printer's own alignment handles the base indentation.
+ * @param {string} value
+ * @returns {string}
+ */
+function dedentHtmlComment(value) {
+  const lines = value.split("\n");
+  if (lines.length <= 1) {
+    return value;
+  }
+
+  // Find minimum indentation of non-empty lines after the first
+  let minIndent = Number.POSITIVE_INFINITY;
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+    // Skip empty or whitespace-only lines for the purpose of finding min indent
+    if (line.trim().length === 0) {
+      continue;
+    }
+    const indent = line.match(/^ */)[0].length;
+    minIndent = Math.min(minIndent, indent);
+  }
+
+  if (minIndent === 0 || minIndent === Number.POSITIVE_INFINITY) {
+    return value;
+  }
+
+  // Strip the common indentation from all lines after the first
+  return [
+    lines[0],
+    ...lines.slice(1).map((line) => line.slice(minIndent)),
+  ].join("\n");
 }
 
 export { printMdast };
