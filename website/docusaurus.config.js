@@ -277,7 +277,7 @@ const config = {
       },
     },
 
-  plugins: [llmsTxtPlugin],
+  plugins: [llmsTxtPlugin, "docusaurus-plugin-copy-page-button"],
 
   markdown: {
     hooks: {
