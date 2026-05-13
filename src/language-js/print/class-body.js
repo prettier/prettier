@@ -323,7 +323,7 @@ function shouldPrintSemicolonAfterInterfaceProperty(
 
   switch (nextNode.type) {
     case "TSCallSignatureDeclaration":
-      return true;
+      return node.typeAnnotation?.typeAnnotation.type !== "TSFunctionType";
   }
 
   return false;
