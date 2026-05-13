@@ -185,3 +185,37 @@ type H3 = { foo: X; <T>(): T }
 
 ================================================================================
 `;
+
+exports[`18858.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export interface MyInterface {
+  someMethod: (a: number) => Promise<number>
+  anotherMethod: (a: string) => Promise<string>
+  (a: string): Promise<string>
+}
+
+type MyType = {
+  someMethod: (a: number) => Promise<number>
+  anotherMethod: (a: string) => Promise<string>
+  (a: string): Promise<string>
+}
+
+=====================================output=====================================
+export interface MyInterface {
+  someMethod: (a: number) => Promise<number>
+  anotherMethod: (a: string) => Promise<string>
+  (a: string): Promise<string>
+}
+
+type MyType = {
+  someMethod: (a: number) => Promise<number>
+  anotherMethod: (a: string) => Promise<string>
+  (a: string): Promise<string>
+}
+
+================================================================================
+`;
