@@ -82,6 +82,32 @@ async component MyAsyncComponent(bar: string, baz: number) {
 
 export async component MyExportedAsyncComponent() {}
 
+async component MyAsyncComponentWithAwait() {
+  const   data   =   await   fetchData();
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithAwaitAndParams(bar:   string,   baz:   number) {
+  const   data   =   await   fetchData(bar,   baz);
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithAwaitAndRenders(bar: string) renders SomeComponent {
+  const   data   =   await   fetchData(bar);
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithMultipleAwaits() {
+  const   data   =   await   fetchData();
+  const   processed   =   await   processData(data);
+  return <OtherComponent data={processed} />;
+}
+
+async component MyAsyncComponentWithLongAwait() {
+  const data = await fetchSomeReallllllllllllllllllllllllllllllllllllllyLongFunctionName(argumentOne, argumentTwo, argumentThree);
+  return <OtherComponent data={data} />;
+}
+
 =====================================output=====================================
 component MyComponent() {}
 
@@ -193,6 +219,39 @@ async component MyAsyncComponent(bar: string, baz: number) {
 }
 
 export async component MyExportedAsyncComponent() {}
+
+async component MyAsyncComponentWithAwait() {
+  const data = await fetchData();
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithAwaitAndParams(bar: string, baz: number) {
+  const data = await fetchData(bar, baz);
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithAwaitAndRenders(
+  bar: string,
+) renders SomeComponent {
+  const data = await fetchData(bar);
+  return <OtherComponent data={data} />;
+}
+
+async component MyAsyncComponentWithMultipleAwaits() {
+  const data = await fetchData();
+  const processed = await processData(data);
+  return <OtherComponent data={processed} />;
+}
+
+async component MyAsyncComponentWithLongAwait() {
+  const data =
+    await fetchSomeReallllllllllllllllllllllllllllllllllllllyLongFunctionName(
+      argumentOne,
+      argumentTwo,
+      argumentThree,
+    );
+  return <OtherComponent data={data} />;
+}
 
 ================================================================================
 `;
