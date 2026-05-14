@@ -15,7 +15,13 @@ function printAngularControlFlowBlock(path, options, print) {
   const docs = [];
 
   if (isPreviousBlockUnClosed(path)) {
-    docs.push("} ");
+    if (previousBlockSelfClosed(path, options)) {
+      // Previous block already closed its }, add space for readability.
+      // Always add since the between-line separator is suppressed for chains.
+      docs.push(" ");
+    } else {
+      docs.push("} ");
+    }
   }
 
   docs.push("@", node.name);
@@ -29,23 +35,69 @@ function printAngularControlFlowBlock(path, options, print) {
     docs.push(" (", group(print("parameters")), ")");
   }
 
+  // Keep the block body inline when all children are text/interpolation.
+  // With Angular's preserveWhitespaces: false (the default), whitespace
+  // around elements inside { } is stripped, so breaking is safe for
+  // element content. But for text-only content, adding line breaks
+  // introduces visible whitespace.
+  const hasLeadingWhitespace =
+    node.children.length > 0 && node.firstChild.hasLeadingSpaces;
+  const keepInline =
+    options.htmlWhitespaceSensitivity !== "ignore" &&
+    !hasLeadingWhitespace &&
+    node.children.length > 0 &&
+    node.children.every(
+      (child) => child.kind === "text" || child.kind === "interpolation",
+    );
+
   if (!isSwitchFallthroughCase(node)) {
     docs.push(" {");
 
-    const shouldPrintCloseBracket = shouldCloseBlock(node);
     if (node.children.length > 0) {
-      node.firstChild.hasLeadingSpaces = true;
-      node.lastChild.hasTrailingSpaces = true;
-      docs.push(indent([hardline, printChildren(path, options, print)]));
-      if (shouldPrintCloseBracket) {
-        docs.push(hardline, "}");
+      if (keepInline) {
+        const leadingSpace = node.firstChild.hasLeadingSpaces ? " " : "";
+        const trailingSpace = node.lastChild.hasTrailingSpaces ? " " : "";
+        docs.push(
+          leadingSpace,
+          printChildren(path, options, print),
+          trailingSpace,
+          "}",
+        );
+      } else {
+        node.firstChild.hasLeadingSpaces = true;
+        node.lastChild.hasTrailingSpaces = true;
+        docs.push(indent([hardline, printChildren(path, options, print)]));
+        if (shouldCloseBlock(node)) {
+          docs.push(hardline, "}");
+        }
       }
-    } else if (shouldPrintCloseBracket) {
+    } else if (shouldCloseBlock(node)) {
       docs.push("}");
     }
   }
 
   return group(docs, { shouldBreak: true });
+}
+
+/**
+ * Check if the previous block in a chain already closed its own bracket
+ * during printing (which happens when it kept its body inline).
+ */
+function previousBlockSelfClosed(path, options) {
+  const prev = path.previous;
+  if (
+    !prev ||
+    options.htmlWhitespaceSensitivity === "ignore" ||
+    prev.children.length === 0
+  ) {
+    return false;
+  }
+  return (
+    !prev.firstChild.hasLeadingSpaces &&
+    prev.children.every(
+      (child) => child.kind === "text" || child.kind === "interpolation",
+    )
+  );
 }
 
 function shouldCloseBlock(node) {
@@ -88,4 +140,46 @@ function printAngularControlFlowBlockParameters(path, options, print) {
   ];
 }
 
-export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };
+/**
+ * Check if a break between two nodes (in document order) should be
+ * suppressed because it would introduce whitespace between a control
+ * flow block and adjacent text/interpolation that had no original space.
+ * Also suppresses breaks between chained blocks (e.g. @if/@else) when
+ * the first block self-closed with text-only content.
+ */
+function isAdjacentAngularControlFlowBlockAndText(firstNode, secondNode) {
+  const isInlineContent = (node) =>
+    node.kind === "text" || node.kind === "interpolation";
+  const isCfBlock = (node) => node.kind === "angularControlFlowBlock";
+
+  // Suppress breaks between chained blocks when the first self-closed
+  // (text-only, no internal whitespace). The space is handled by the
+  // block printer. Switch fallthroughs are excluded (not in settings).
+  if (
+    isCfBlock(firstNode) &&
+    isCfBlock(secondNode) &&
+    firstNode.children.length > 0 &&
+    !firstNode.firstChild.hasLeadingSpaces &&
+    !firstNode.lastChild.hasTrailingSpaces &&
+    firstNode.children.every(isInlineContent) &&
+    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(firstNode.name)?.has(
+      secondNode.name,
+    )
+  ) {
+    return true;
+  }
+
+  if (secondNode.hasLeadingSpaces) {
+    return false;
+  }
+  return (
+    (isCfBlock(firstNode) && isInlineContent(secondNode)) ||
+    (isCfBlock(secondNode) && isInlineContent(firstNode))
+  );
+}
+
+export {
+  isAdjacentAngularControlFlowBlockAndText,
+  printAngularControlFlowBlock,
+  printAngularControlFlowBlockParameters,
+};

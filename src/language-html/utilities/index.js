@@ -150,7 +150,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatter(node) || node.kind === "angularControlFlowBlock") {
+    if (isFrontMatter(node)) {
       return false;
     }
 
@@ -193,7 +193,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatter(node) || node.kind === "angularControlFlowBlock") {
+  if (isFrontMatter(node)) {
     return false;
   }
 
@@ -257,7 +257,11 @@ function forceBreakContent(node) {
     (node.kind === "element" &&
       node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
-        node.children.some((child) => hasNonTextChild(child)))) ||
+        node.children.some(
+          (child) =>
+            child.kind !== "angularControlFlowBlock" &&
+            hasNonTextChild(child),
+        ))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
       node.firstChild.kind !== "text" &&
