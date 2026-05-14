@@ -64,7 +64,21 @@ function printJsxElementInternal(path, options, print) {
   const { node } = path;
 
   if (node.type === "JSXElement" && isEmptyJsxElement(node)) {
-    return [print("openingElement"), print("closingElement")];
+    // Convert empty element like `<Foo></Foo>` into self-closing `<Foo />`.
+    // Temporarily mark the opening element as selfClosing and remove the
+    // closingElement so that `print("openingElement")` prints a
+    // self-closing tag. Restore original nodes after printing.
+    const opening = node.openingElement;
+    const originalSelfClosing = opening && opening.selfClosing;
+    const originalClosingElement = node.closingElement;
+    try {
+      if (opening) opening.selfClosing = true;
+      node.closingElement = null;
+      return print("openingElement");
+    } finally {
+      if (opening) opening.selfClosing = originalSelfClosing;
+      node.closingElement = originalClosingElement;
+    }
   }
 
   const openingLines =
