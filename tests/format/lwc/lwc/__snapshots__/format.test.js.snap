@@ -27,7 +27,8 @@ semi: false
     data-for={value.toString()}
     data-for={value()}
     class="test"
-  ></div>
+  >
+  </div>
 </template>
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
@@ -64,7 +65,8 @@ trailingComma: "es5"
     data-for={value.toString()}
     data-for={value()}
     class="test"
-  ></div>
+  >
+  </div>
 </template>
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
@@ -101,7 +103,8 @@ trailingComma: "none"
     data-for={value.toString()}
     data-for={value()}
     class="test"
-  ></div>
+  >
+  </div>
 </template>
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>

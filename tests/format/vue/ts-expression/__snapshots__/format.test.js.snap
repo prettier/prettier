@@ -148,7 +148,8 @@ parsers: ["vue"]
           | anotherPipeLongJustForFun
           | pipeTheThird
       "
-    ></div>
+    >
+    </div>
     <div
       class="allowed"
       :class="
@@ -157,7 +158,8 @@ parsers: ["vue"]
           | anotherPipeLongJustForFun
           | pipeTheThird
       "
-    ></div>
+    >
+    </div>
     <div
       class="not-allowed"
       v-if="
@@ -166,7 +168,8 @@ parsers: ["vue"]
           anotherBitwiseOrLongJustForFun |
           bitwiseOrTheThird
       "
-    ></div>
+    >
+    </div>
   </div>
 </template>
 

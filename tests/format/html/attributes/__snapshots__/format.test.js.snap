@@ -117,14 +117,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
   data-columns="3"
   data-index-number="12314"
   data-parent="cars"
-></article>
-<article
-  id="electriccars"
-  data-columns="3"
-  data-index-number="12314"
-  data-parent="cars"
 >
-  ...
 </article>
 <article
   id="electriccars"
@@ -139,13 +132,23 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
   data-columns="3"
   data-index-number="12314"
   data-parent="cars"
-></article>
+>
+  ...
+</article>
 <article
   id="electriccars"
   data-columns="3"
   data-index-number="12314"
   data-parent="cars"
-></article>
+>
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+</article>
 <X> </X>
 <X a="1"> </X>
 <X a="1" b="2"> </X>
@@ -260,7 +263,8 @@ parsers: ["html"]
   >
     <div
       class="a-bem-block__element a-bem-block__element--with-modifer also-another-block__element"
-    ></div>
+    >
+    </div>
   </div>
 </div>
 
@@ -330,7 +334,8 @@ parsers: ["html"]
 =====================================output=====================================
 <my-tag
   class="md:foo-bg md:foo-color md:foo--sub-bg md:foo--sub-color xl:foo xl:prefix2 --prefix2--something-else unrelated_class_to_fill_80_chars"
-></my-tag>
+>
+</my-tag>
 
 ================================================================================
 `;
@@ -347,11 +352,13 @@ parsers: ["html"]
 =====================================output=====================================
 <my-tag
   class="__prefix1__foo __prefix1__bar __prefix2__foo prefix2 prefix2--something --prefix2--something-else"
-></my-tag>
+>
+</my-tag>
 
 <my-tag
   class="--prefix1--foo --prefix1--bar --prefix2--foo prefix2 prefix2__something __prefix2__something_else"
-></my-tag>
+>
+</my-tag>
 
 ================================================================================
 `;
@@ -494,7 +501,8 @@ parsers: ["html"]
 <div
   aria-hidden="true"
   class="border rounded-1 flex-shrink-0 bg-gray px-1 loooooooooooooooooooooooong"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -659,7 +667,8 @@ parsers: ["html"]
   smart-quotes='123 " 456'
   smart-quotes="123 ' 456"
   smart-quotes="123 '&quot; 456"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -848,7 +857,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
     border-radius: 8px;
     transition: transform 0.2s ease-out;
   "
-></div>
+>
+</div>
 
 <div
   style="
@@ -859,7 +869,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
       transparent
     );
   "
-></div>
+>
+</div>
 
 <div style="color: red; display: inline"></div>
 
@@ -869,7 +880,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
 
     display: inline;
   "
-></div>
+>
+</div>
 
 <div
   attribute-1
@@ -892,7 +904,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
   attribute-5
   attribute-6
   attribute-7
-></div>
+>
+</div>
 
 <div style="{{ ...styles }}"></div>
 

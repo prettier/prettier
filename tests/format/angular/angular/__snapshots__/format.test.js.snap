@@ -137,7 +137,8 @@ printWidth: 1
         .html
     "
     ng-bind-html="$ctrl.error.message"
-  ></div>
+  >
+  </div>
   <div
     ng-if="
       !$ctrl
@@ -145,7 +146,8 @@ printWidth: 1
         .html
     "
     ng-bind="$ctrl.error.message"
-  ></div>
+  >
+  </div>
 </div>
 
 ================================================================================
@@ -271,7 +273,8 @@ printWidth: 1
 <div
   someDirective
   itemType="x"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -581,7 +584,8 @@ parsers: ["angular"]
   i18n="
     some meaning|Some very long internationalization description text exceeding
     the configured print width@@customIdWithDescription"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -863,7 +867,8 @@ parsers: ["angular"]
   i18n="
     some meaning|Some very long internationalization description text exceeding
     the configured print width@@customIdWithDescription"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -1486,7 +1491,8 @@ printWidth: 1
     configured
     print
     width@@customIdWithDescription"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -1768,7 +1774,8 @@ trailingComma: "es5"
   i18n="
     some meaning|Some very long internationalization description text exceeding
     the configured print width@@customIdWithDescription"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2050,7 +2057,8 @@ trailingComma: "none"
   i18n="
     some meaning|Some very long internationalization description text exceeding
     the configured print width@@customIdWithDescription"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2630,25 +2638,29 @@ parsers: ["angular"]
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target="a | b: c : d : e"
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c:d :e "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2688,25 +2700,29 @@ parsers: ["angular"]
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target="a | b: c : d : e"
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c:d :e "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2764,13 +2780,15 @@ printWidth: 1
         : d
         : e
   "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c:d :e "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="
@@ -2788,7 +2806,8 @@ printWidth: 1
         : e
   "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="
@@ -2800,7 +2819,8 @@ printWidth: 1
   "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2840,25 +2860,29 @@ trailingComma: "es5"
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target="a | b: c : d : e"
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c:d :e "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -2898,25 +2922,29 @@ trailingComma: "none"
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target="a | b: c : d : e"
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c:d :e "
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]="a | b: c : d : e"
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c : d : e"
   [(target)]=" a | b : c:d :e "
   bind-target=" a | b : c:d :e "
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -5053,10 +5081,8 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <!-- binding to a nested component -->
-<app-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-hero-detail>
+<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-hero-detail>
 <br />
 
 <app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
@@ -5335,10 +5361,8 @@ bindon-ngModel
 <div [ngSwitch]="currentHero.emotion">
   <app-happy-hero *ngSwitchCase="'happy'" [hero]="currentHero"></app-happy-hero>
   <app-sad-hero *ngSwitchCase="'sad'" [hero]="currentHero"></app-sad-hero>
-  <app-confused-hero
-    *ngSwitchCase="'confused'"
-    [hero]="currentHero"
-  ></app-confused-hero>
+  <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero">
+  </app-confused-hero>
   <div *ngSwitchCase="'confused'">
     Are you as confused as {{ currentHero.name }}?
   </div>
@@ -5362,11 +5386,8 @@ bindon-ngModel
 <button (click)="callFax(fax.value)">Fax</button>
 
 <!-- btn refers to the button element; show its disabled state -->
-<button
-  #btn
-  disabled
-  [innerHTML]="'disabled by attribute: ' + btn.disabled"
-></button>
+<button #btn disabled [innerHTML]="'disabled by attribute: ' + btn.disabled">
+</button>
 
 <h4>Example Form</h4>
 <app-hero-form [hero]="currentHero"></app-hero-form>
@@ -6647,16 +6668,12 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <!-- binding to a nested component -->
-<app-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-hero-detail>
+<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-hero-detail>
 <br />
 
-<app-big-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-big-hero-detail>
+<app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-big-hero-detail>
 
 <div class="parent-div" (click)="onClickMe($event)" clickable>
   Click me
@@ -6984,10 +7001,8 @@ bindon-ngModel
 <div [ngSwitch]="currentHero.emotion">
   <app-happy-hero *ngSwitchCase="'happy'" [hero]="currentHero"></app-happy-hero>
   <app-sad-hero *ngSwitchCase="'sad'" [hero]="currentHero"></app-sad-hero>
-  <app-confused-hero
-    *ngSwitchCase="'confused'"
-    [hero]="currentHero"
-  ></app-confused-hero>
+  <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero">
+  </app-confused-hero>
   <div *ngSwitchCase="'confused'">
     Are you as confused as {{ currentHero.name }}?
   </div>
@@ -7011,11 +7026,8 @@ bindon-ngModel
 <button (click)="callFax(fax.value)">Fax</button>
 
 <!-- btn refers to the button element; show its disabled state -->
-<button
-  #btn
-  disabled
-  [innerHTML]="'disabled by attribute: ' + btn.disabled"
-></button>
+<button #btn disabled [innerHTML]="'disabled by attribute: ' + btn.disabled">
+</button>
 
 <h4>Example Form</h4>
 <app-hero-form [hero]="currentHero"></app-hero-form>
@@ -7029,10 +7041,8 @@ bindon-ngModel
 <img [src]="iconUrl" />
 <button (click)="onSave()">Save</button>
 
-<app-hero-detail
-  [hero]="currentHero"
-  (deleteRequest)="deleteHero($event)"
-></app-hero-detail>
+<app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
+</app-hero-detail>
 
 <div (myClick)="clickMessage2 = $event" clickable>myClick2</div>
 {{ clickMessage2 }}
@@ -7916,7 +7926,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a
   id="toc"
-></a>
+>
+</a>
 <h1>
   Template
   Syntax
@@ -8379,7 +8390,8 @@ can be found in the LICENSE file at http://angular.io/license
     Model
   </div>
   <!-- Wow! A new element! -->
-  <app-hero-detail></app-hero-detail>
+  <app-hero-detail>
+  </app-hero-detail>
 </div>
 <br /><br />
 
@@ -8405,13 +8417,15 @@ can be found in the LICENSE file at http://angular.io/license
     [hero]="
       currentHero
     "
-  ></app-hero-detail>
+  >
+  </app-hero-detail>
   <div
     [ngClass]="{
       special:
         isSpecial,
     }"
-  ></div>
+  >
+  </div>
 </div>
 <br /><br />
 
@@ -8426,7 +8440,8 @@ can be found in the LICENSE file at http://angular.io/license
   (deleteRequest)="
     deleteHero()
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 <div
   (myClick)="
     clicked =
@@ -8649,7 +8664,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hero]="
     currentHero
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 <img
   bind-src="
     heroImageUrl
@@ -8665,14 +8681,16 @@ can be found in the LICENSE file at http://angular.io/license
 >
   <app-hero-detail
     hero="currentHero"
-  ></app-hero-detail>
+  >
+  </app-hero-detail>
 </div>
 <app-hero-detail
   prefix="You are my"
   [hero]="
     currentHero
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 
 <p>
   <img
@@ -8720,7 +8738,8 @@ can be found in the LICENSE file at http://angular.io/license
     [innerHTML]="
       title
     "
-  ></span
+  >
+  </span
   >"
   is
   the
@@ -8754,7 +8773,8 @@ can be found in the LICENSE file at http://angular.io/license
     [innerHTML]="
       evilTitle
     "
-  ></span
+  >
+  </span
   >"
   is
   the
@@ -9049,7 +9069,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hero]="
     currentHero
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 <br />
 
 <app-big-hero-detail
@@ -9142,7 +9163,8 @@ can be found in the LICENSE file at http://angular.io/license
     [(size)]="
       fontSizePx
     "
-  ></app-sizer>
+  >
+  </app-sizer>
   <div
     [style.font-size.px]="
       fontSizePx
@@ -9177,7 +9199,8 @@ can be found in the LICENSE file at http://angular.io/license
       fontSizePx =
         $event
     "
-  ></app-sizer>
+  >
+  </app-sizer>
 </div>
 
 <a
@@ -9548,7 +9571,8 @@ bindon-ngModel
   *ngIf="
     isActive
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 
 <div
   *ngIf="
@@ -9604,7 +9628,8 @@ bindon-ngModel
     isActive
   "
 >
-  <app-hero-detail></app-hero-detail>
+  <app-hero-detail>
+  </app-hero-detail>
 </ng-template>
 
 <!-- isSpecial is true -->
@@ -9632,7 +9657,8 @@ bindon-ngModel
   [class.hidden]="
     isSpecial
   "
-></app-hero-detail>
+>
+</app-hero-detail>
 
 <div
   [style.display]="
@@ -9698,7 +9724,8 @@ bindon-ngModel
     [hero]="
       hero
     "
-  ></app-hero-detail>
+  >
+  </app-hero-detail>
 </div>
 
 <a
@@ -10048,19 +10075,22 @@ bindon-ngModel
     [hero]="
       currentHero
     "
-  ></app-happy-hero>
+  >
+  </app-happy-hero>
   <app-sad-hero
     *ngSwitchCase="'sad'"
     [hero]="
       currentHero
     "
-  ></app-sad-hero>
+  >
+  </app-sad-hero>
   <app-confused-hero
     *ngSwitchCase="'confused'"
     [hero]="
       currentHero
     "
-  ></app-confused-hero>
+  >
+  </app-confused-hero>
   <div
     *ngSwitchCase="'confused'"
   >
@@ -10078,7 +10108,8 @@ bindon-ngModel
     [hero]="
       currentHero
     "
-  ></app-unknown-hero>
+  >
+  </app-unknown-hero>
 </div>
 
 <a
@@ -10137,7 +10168,8 @@ bindon-ngModel
     'disabled by attribute: ' +
     btn.disabled
   "
-></button>
+>
+</button>
 
 <h4>
   Example
@@ -10147,7 +10179,8 @@ bindon-ngModel
   [hero]="
     currentHero
   "
-></app-hero-form>
+>
+</app-hero-form>
 
 <a
   class="to-toc"
@@ -11658,10 +11691,8 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <!-- binding to a nested component -->
-<app-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-hero-detail>
+<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-hero-detail>
 <br />
 
 <app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
@@ -11940,10 +11971,8 @@ bindon-ngModel
 <div [ngSwitch]="currentHero.emotion">
   <app-happy-hero *ngSwitchCase="'happy'" [hero]="currentHero"></app-happy-hero>
   <app-sad-hero *ngSwitchCase="'sad'" [hero]="currentHero"></app-sad-hero>
-  <app-confused-hero
-    *ngSwitchCase="'confused'"
-    [hero]="currentHero"
-  ></app-confused-hero>
+  <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero">
+  </app-confused-hero>
   <div *ngSwitchCase="'confused'">
     Are you as confused as {{ currentHero.name }}?
   </div>
@@ -11967,11 +11996,8 @@ bindon-ngModel
 <button (click)="callFax(fax.value)">Fax</button>
 
 <!-- btn refers to the button element; show its disabled state -->
-<button
-  #btn
-  disabled
-  [innerHTML]="'disabled by attribute: ' + btn.disabled"
-></button>
+<button #btn disabled [innerHTML]="'disabled by attribute: ' + btn.disabled">
+</button>
 
 <h4>Example Form</h4>
 <app-hero-form [hero]="currentHero"></app-hero-form>
@@ -13184,10 +13210,8 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <!-- binding to a nested component -->
-<app-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-hero-detail>
+<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-hero-detail>
 <br />
 
 <app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
@@ -13466,10 +13490,8 @@ bindon-ngModel
 <div [ngSwitch]="currentHero.emotion">
   <app-happy-hero *ngSwitchCase="'happy'" [hero]="currentHero"></app-happy-hero>
   <app-sad-hero *ngSwitchCase="'sad'" [hero]="currentHero"></app-sad-hero>
-  <app-confused-hero
-    *ngSwitchCase="'confused'"
-    [hero]="currentHero"
-  ></app-confused-hero>
+  <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero">
+  </app-confused-hero>
   <div *ngSwitchCase="'confused'">
     Are you as confused as {{ currentHero.name }}?
   </div>
@@ -13493,11 +13515,8 @@ bindon-ngModel
 <button (click)="callFax(fax.value)">Fax</button>
 
 <!-- btn refers to the button element; show its disabled state -->
-<button
-  #btn
-  disabled
-  [innerHTML]="'disabled by attribute: ' + btn.disabled"
-></button>
+<button #btn disabled [innerHTML]="'disabled by attribute: ' + btn.disabled">
+</button>
 
 <h4>Example Form</h4>
 <app-hero-form [hero]="currentHero"></app-hero-form>
@@ -13690,7 +13709,8 @@ printWidth: 1
 <Table></Table>
 
 =====================================output=====================================
-<Table></Table>
+<Table>
+</Table>
 
 ================================================================================
 `;

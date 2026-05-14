@@ -66,7 +66,8 @@ v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettie
       ],
       index
     ) of longLongLongLongLongLongLongLongList"
-  ></div>
+  >
+  </div>
 </template>
 
 ================================================================================

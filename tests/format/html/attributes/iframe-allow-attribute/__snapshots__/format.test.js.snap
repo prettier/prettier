@@ -56,23 +56,27 @@ ambient-light-sensor 'self'
     camera https://very-long-subdomain.very-long-domain-name.example.com https://another-very-long-subdomain.another-very-long-domain.example.org;
     microphone https://extremely-long-subdomain-name.extremely-long-domain-name.example.net;
   "
-></iframe>
+>
+</iframe>
 <iframe
   allow="
     camera https://sub-domain.example.com:8080/path?query=value#fragment;
     microphone 'self';
   "
-></iframe>
+>
+</iframe>
 <iframe
   allow="
     camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com;
   "
-></iframe>
+>
+</iframe>
 
 <!-- Uppper case -->
 <iframe
   allow="CAMERA 'self'; MICROPHONE 'none'; GEOlocation https://example.com"
-></iframe>
+>
+</iframe>
 <iframe allow="CAMERA 'self'; UNKOWN-DIRECTIVE"></iframe>
 
 <!-- Duplicated -->
@@ -88,7 +92,8 @@ ambient-light-sensor 'self'
         camera 'self';
 ambient-light-sensor 'self'
 "
-></a>
+>
+</a>
 
 ================================================================================
 `;

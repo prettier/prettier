@@ -64,7 +64,8 @@ text
           :click="
             long_long_long_long_long_long_long_long_long_long_long_long_long_long_value
           "
-        ></div>
+        >
+        </div>
         <span
           :click="
             long_long_long_long_long_long_long_long_long_long_long_long_long_long_value
@@ -76,7 +77,8 @@ text
           :long_long_attribute="
             long_long_long_long_long_long_long_long_long_long_long_value
           "
-        ></span>
+        >
+        </span>
         <img
           :long_long_attribute="
             long_long_long_long_long_long_long_long_long_long_long_value
@@ -168,7 +170,8 @@ text
         <div
           :click="
             long_long_long_long_long_long_long_long_long_long_long_long_long_long_value
-          "></div>
+          ">
+        </div>
         <span
           :click="
             long_long_long_long_long_long_long_long_long_long_long_long_long_long_value
@@ -178,7 +181,8 @@ text
         <span
           :long_long_attribute="
             long_long_long_long_long_long_long_long_long_long_long_value
-          "></span>
+          ">
+        </span>
         <img
           :long_long_attribute="
             long_long_long_long_long_long_long_long_long_long_long_value
@@ -249,7 +253,8 @@ text
       v-on:long_long_attribute="
         long_long_long_long_long_long_long_long_long_long_long_value
       "
-    ></div>
+    >
+    </div>
     <span
       long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
     >
@@ -257,7 +262,8 @@ text
     </span>
     <span
       long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
-    ></span>
+    >
+    </span>
     <img
       long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
     />
@@ -325,13 +331,15 @@ text
     <div
       v-on:long_long_attribute="
         long_long_long_long_long_long_long_long_long_long_long_value
-      "></div>
+      ">
+    </div>
     <span
       long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
       text
     </span>
     <span
-      long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"></span>
+      long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
+    </span>
     <img
       long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value" />
     <div class="a">text</div>

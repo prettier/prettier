@@ -33,7 +33,8 @@ class={data}>   </div>
   escaped-in-single-quote="'&quot;"
   escaped-in-double-quote="'&quot;"
   style="width:                         100px;"
-></div>
+>
+</div>
 
 ================================================================================
 `;
@@ -70,7 +71,8 @@ class={data}>   </div>
   escaped-in-single-quote="'&quot;"
   escaped-in-double-quote="'&quot;"
   style="width: 100px"
-></div>
+>
+</div>
 
 ================================================================================
 `;
