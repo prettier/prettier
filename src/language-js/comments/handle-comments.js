@@ -21,6 +21,7 @@ import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isArrayType,
   isBinaryCastExpression,
+  isCallExpression,
   isCallLikeExpression,
   isCallOrNewExpression,
   isConditionalType,
@@ -191,13 +192,31 @@ function handleMemberExpressionComments({
 }) {
   if (
     isMemberExpression(enclosingNode) &&
-    followingNode?.type === "Identifier"
+    followingNode === enclosingNode.object &&
+    isCallExpression(followingNode)
+  ) {
+    addLeadingComment(getLeftMostNodeInMemberCallChain(followingNode), comment);
+    return true;
+  }
+
+  if (
+    isMemberExpression(enclosingNode) &&
+    followingNode?.type === "Identifier" &&
+    followingNode !== enclosingNode.object
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
 
   return false;
+}
+
+function getLeftMostNodeInMemberCallChain(node) {
+  while (isCallExpression(node) || isMemberExpression(node)) {
+    node = isCallExpression(node) ? node.callee : node.object;
+  }
+
+  return node;
 }
 
 function handleNestedConditionalExpressionComments({
