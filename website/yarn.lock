@@ -7044,13 +7044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-copy-page-button@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "docusaurus-plugin-copy-page-button@npm:0.4.2"
+"docusaurus-plugin-copy-page-button@npm:0.4.3":
+  version: 0.4.3
+  resolution: "docusaurus-plugin-copy-page-button@npm:0.4.3"
   peerDependencies:
     "@docusaurus/core": ^3.0.0
     react: ^18.0.0 || ^19.0.0
-  checksum: 10/e591ff132932e4e2ba028f8b221309a6146d618c005c3fd985e3dffe6f435468d6b88d3ac91f717e46762524451ffc8cef75e1fd6de7ea4692488a3123ebc08b
+  checksum: 10/4b87e5e0fd4cc4b11643e7799c60e976dfbee13c223b50f739ba1ee58037c13c57df762edcdbe2227ea3aa66ce893a78158d09fcc4681aa5571c88ff1201c79c
   languageName: node
   linkType: hard
 
@@ -12854,7 +12854,7 @@ __metadata:
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:9.2.1"
-    docusaurus-plugin-copy-page-button: "npm:^0.4.2"
+    docusaurus-plugin-copy-page-button: "npm:0.4.3"
     github-buttons: "npm:2.31.1"
     graphql: "npm:16.13.2"
     lz-string: "npm:1.5.0"
