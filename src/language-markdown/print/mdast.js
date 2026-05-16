@@ -1,5 +1,4 @@
 import collapseWhiteSpace from "collapse-white-space";
-import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
   DOC_TYPE_STRING,
@@ -201,7 +200,7 @@ function printMdast(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            printUrl(node.url, ")"),
+            node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
             printTitle(node.title, options),
             ")",
           ];
@@ -216,7 +215,7 @@ function printMdast(path, options, print) {
         "![",
         printImageAlt(node, options),
         "](",
-        printUrl(node.url, ")"),
+        node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
         printTitle(node.title, options),
         ")",
       ];
@@ -484,30 +483,19 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-const encodeUrl = (url, characters) => {
-  for (const character of characters) {
-    url = url.replaceAll(character, encodeURIComponent(character));
-  }
-  return url;
-};
-
 /**
  * @param {string} url
- * @param {string[] | string} [dangerousCharOrChars]
  * @returns {string}
  */
-function printUrl(url, dangerousCharOrChars = []) {
-  const dangerousChars = [
-    " ",
-    ...(Array.isArray(dangerousCharOrChars)
-      ? dangerousCharOrChars
-      : [dangerousCharOrChars]),
-  ];
-
-  return new RegExp(
-    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
-  ).test(url)
-    ? `<${encodeUrl(url, "<>")}>`
+function printUrl(url) {
+  // Backslash followed by ASCII punctuation would be misinterpreted as an
+  // escape sequence, so must itself be escaped.
+  url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+  // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
+  // initial <, unless wrapped in <> with any inner < or > escaped.
+  // eslint-disable-next-line no-control-regex
+  return /[\x00-\x1f ()]|^</.test(url)
+    ? `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`
     : url;
 }
 
