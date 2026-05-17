@@ -142,4 +142,9 @@ export const isTypeParameterInstantiation = createTypeCheckFunction([
   "TypeParameterInstantiation",
 ]);
 
+export const isFunctionType = createTypeCheckFunction([
+  "TSFunctionType",
+  "FunctionTypeAnnotation",
+]);
+
 export * from "./literal.js";

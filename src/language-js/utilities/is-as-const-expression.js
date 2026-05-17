@@ -14,4 +14,9 @@ const isTsAsConstExpression = (node) =>
   node.typeAnnotation.typeName.type === "Identifier" &&
   node.typeAnnotation.typeName.name === "const";
 
-export { isTsAsConstExpression };
+const isFlowAsConstExpression = (node) => node.type === "AsConstExpression";
+
+const isAsConstExpression = (node) =>
+  isTsAsConstExpression(node) || isFlowAsConstExpression(node);
+
+export { isAsConstExpression, isFlowAsConstExpression, isTsAsConstExpression };

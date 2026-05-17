@@ -12,6 +12,7 @@ import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isGenericType } from "../utilities/is-generic-type.js";
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
 import {
@@ -443,21 +444,8 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
   return false;
 }
 
-function isGeneric(node) {
-  switch (node.type) {
-    case "FunctionTypeAnnotation":
-    case "GenericTypeAnnotation":
-    case "TSFunctionType":
-      return Boolean(node.typeParameters);
-    case "TSTypeReference":
-      return Boolean(node.typeArguments);
-    default:
-      return false;
-  }
-}
-
 function shouldBreakBeforeConditionalType(node) {
-  return isGeneric(node.checkType) || isGeneric(node.extendsType);
+  return isGenericType(node.checkType) || isGenericType(node.extendsType);
 }
 
 export {

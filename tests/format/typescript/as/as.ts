@@ -35,6 +35,16 @@ const value2 = thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReally
 const value3 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
 const value4 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
 const value5 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
+const value6 = [
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
+] as SomeType;
+averredBathersBoxroomBuggyNurl = {
+  anodyneCondosMalateOverateRetinol: annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
+};
 
 const iter1 = createIterator(this.controller, child, this.tag as SyncFunctionComponent);
 const iter2 = createIterator(self.controller, child, self.tag as SyncFunctionComponent);

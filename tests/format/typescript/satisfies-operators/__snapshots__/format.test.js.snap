@@ -410,7 +410,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
-exports[`comments-unstable.ts - {"semi":false} format 1`] = `
+exports[`comments-2.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 semi: false
@@ -435,7 +435,7 @@ Record<string, number>
 ================================================================================
 `;
 
-exports[`comments-unstable.ts format 1`] = `
+exports[`comments-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -1118,14 +1118,16 @@ bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay)
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay)
 
 ================================================================================
 `;
@@ -1219,14 +1221,16 @@ bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
 `;
