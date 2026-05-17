@@ -9,10 +9,23 @@ const files = [
   (file) =>
     new URL(`../cli/ignore-path/ignore-path-test/${file}`, import.meta.url),
 );
+const ignoredDirectory = new URL(
+  "../cli/ignore-path/ignore-path-test/ignored-directory/",
+  import.meta.url,
+);
 const clean = () =>
-  Promise.all(files.map((file) => fs.rm(file, { force: true })));
-const setup = () =>
-  Promise.all(files.map((file) => fs.writeFile(file, "   a+   b")));
+  Promise.all([
+    ...files.map((file) => fs.rm(file, { force: true })),
+    fs.rm(ignoredDirectory, { force: true, recursive: true }),
+  ]);
+const setup = async () => {
+  await Promise.all(files.map((file) => fs.writeFile(file, "   a+   b")));
+  await fs.mkdir(new URL("nested/", ignoredDirectory), { recursive: true });
+  await fs.writeFile(
+    new URL("nested/unformatted.js", ignoredDirectory),
+    "   a+   b",
+  );
+};
 
 beforeAll(async () => {
   await clean();
@@ -32,7 +45,11 @@ const getUnformattedFiles = async (args) => {
 test("custom ignore path", async () => {
   expect(
     await getUnformattedFiles(["--ignore-path", ".customignore"]),
-  ).toStrictEqual(["ignored-by-gitignore.js", "ignored-by-prettierignore.js"]);
+  ).toStrictEqual([
+    "ignored-by-gitignore.js",
+    "ignored-by-prettierignore.js",
+    "ignored-directory/nested/unformatted.js",
+  ]);
 });
 
 test("ignore files by .prettierignore and .gitignore by default", async () => {
@@ -42,8 +59,22 @@ test("ignore files by .prettierignore and .gitignore by default", async () => {
     "ignored-by-customignore.js",
     "ignored-by-gitignore.js",
     "ignored-by-prettierignore.js",
+    "ignored-directory/nested/unformatted.js",
   ]);
   expect(await getUnformattedFiles([])).toStrictEqual([]);
+});
+
+runCli(
+  "cli/ignore-path/ignore-path-test/",
+  ["ignored-directory/**/*.js", "-l"],
+  {
+    title: "ignored directory-only matches do not report unmatched pattern",
+  },
+).test({
+  status: 0,
+  stderr: "",
+  stdout: "",
+  write: [],
 });
 
 describe("ignore file when using --debug-check", () => {

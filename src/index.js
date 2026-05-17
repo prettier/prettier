@@ -31,7 +31,10 @@ import {
   normalizeOptionSettings,
 } from "./main/support.js";
 import createMockable from "./utilities/create-mockable.js";
-import { createIsIgnoredFunction } from "./utilities/ignore.js";
+import {
+  createFastGlobIgnorePatterns,
+  createIsIgnoredFunction,
+} from "./utilities/ignore.js";
 import inferParserWithoutPlugins from "./utilities/infer-parser.js";
 import omit from "./utilities/object-omit.js";
 
@@ -94,6 +97,7 @@ const inferParser = withPlugins((file, options) =>
 const sharedWithCli = {
   errors,
   optionCategories,
+  createFastGlobIgnorePatterns,
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,
