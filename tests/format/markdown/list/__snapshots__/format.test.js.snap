@@ -1175,9 +1175,14 @@ tabWidth: 0
 
     top level indented code block
 
+---
+
+ -    one
+
+     two
+
 =====================================output=====================================
 -    foo
-
 
     top level indented code block
 
@@ -1191,7 +1196,6 @@ tabWidth: 0
 
    -    foo
 
-
        top level indented code block
 
 ---
@@ -1203,7 +1207,6 @@ tabWidth: 0
 ---
 
 1.    foo
-
 
      top level indented code block
 
@@ -1217,7 +1220,6 @@ tabWidth: 0
 
    1.    foo
 
-
         top level indented code block
 
 ---
@@ -1229,7 +1231,6 @@ tabWidth: 0
 ---
 
 -    [ ] foo
-
 
     top level indented code block
 
@@ -1243,7 +1244,6 @@ tabWidth: 0
 
  -    item 1
  -    item 2
-
 
      top level indented code block
 
@@ -1261,7 +1261,6 @@ tabWidth: 0
      - item 1-1
      - item 1-2
 
-
     top level indented code block
 
 ---
@@ -1270,7 +1269,6 @@ tabWidth: 0
         - item 1-1
         - item 1-2
    -    item 2
-
 
        top level indented code block
 
@@ -1289,7 +1287,6 @@ tabWidth: 0
      2. item 1-2
 2.   item 1
 
-
     top level indented code block
 
 ---
@@ -1300,7 +1297,6 @@ tabWidth: 0
 
      text
 
-
     top level indented code block
 
 ---
@@ -1309,11 +1305,15 @@ tabWidth: 0
      -    item 1-1
      -    item 1-2
 
-
          indented code block
 
-
     top level indented code block
+
+---
+
+ -    one
+
+     two
 
 ================================================================================
 `;
@@ -1453,9 +1453,14 @@ tabWidth: 4
 
     top level indented code block
 
+---
+
+ -    one
+
+     two
+
 =====================================output=====================================
 -    foo
-
 
     top level indented code block
 
@@ -1469,7 +1474,6 @@ tabWidth: 4
 
    -    foo
 
-
        top level indented code block
 
 ---
@@ -1481,7 +1485,6 @@ tabWidth: 4
 ---
 
 1.    foo
-
 
      top level indented code block
 
@@ -1495,7 +1498,6 @@ tabWidth: 4
 
    1.    foo
 
-
         top level indented code block
 
 ---
@@ -1507,7 +1509,6 @@ tabWidth: 4
 ---
 
 -    [ ] foo
-
 
     top level indented code block
 
@@ -1521,7 +1522,6 @@ tabWidth: 4
 
  -    item 1
  -    item 2
-
 
      top level indented code block
 
@@ -1539,7 +1539,6 @@ tabWidth: 4
      - item 1-1
      - item 1-2
 
-
     top level indented code block
 
 ---
@@ -1548,7 +1547,6 @@ tabWidth: 4
         - item 1-1
         - item 1-2
    -    item 2
-
 
        top level indented code block
 
@@ -1567,7 +1565,6 @@ tabWidth: 4
      2. item 1-2
 2.   item 1
 
-
     top level indented code block
 
 ---
@@ -1578,7 +1575,6 @@ tabWidth: 4
 
      text
 
-
     top level indented code block
 
 ---
@@ -1587,11 +1583,15 @@ tabWidth: 4
      -    item 1-1
      -    item 1-2
 
-
          indented code block
 
-
     top level indented code block
+
+---
+
+ -    one
+
+     two
 
 ================================================================================
 `;
@@ -1731,9 +1731,14 @@ tabWidth: 999
 
     top level indented code block
 
+---
+
+ -    one
+
+     two
+
 =====================================output=====================================
 -    foo
-
 
     top level indented code block
 
@@ -1747,7 +1752,6 @@ tabWidth: 999
 
    -    foo
 
-
        top level indented code block
 
 ---
@@ -1759,7 +1763,6 @@ tabWidth: 999
 ---
 
 1.    foo
-
 
      top level indented code block
 
@@ -1773,7 +1776,6 @@ tabWidth: 999
 
    1.    foo
 
-
         top level indented code block
 
 ---
@@ -1785,7 +1787,6 @@ tabWidth: 999
 ---
 
 -    [ ] foo
-
 
     top level indented code block
 
@@ -1799,7 +1800,6 @@ tabWidth: 999
 
  -    item 1
  -    item 2
-
 
      top level indented code block
 
@@ -1817,7 +1817,6 @@ tabWidth: 999
         - item 1-1
         - item 1-2
 
-
     top level indented code block
 
 ---
@@ -1826,7 +1825,6 @@ tabWidth: 999
            - item 1-1
            - item 1-2
    -    item 2
-
 
        top level indented code block
 
@@ -1845,7 +1843,6 @@ tabWidth: 999
         2. item 1-2
 2.   item 1
 
-
     top level indented code block
 
 ---
@@ -1856,7 +1853,6 @@ tabWidth: 999
 
         text
 
-
     top level indented code block
 
 ---
@@ -1865,11 +1861,15 @@ tabWidth: 999
         -    item 1-1
         -    item 1-2
 
-
          indented code block
 
-
     top level indented code block
+
+---
+
+ -    one
+
+     two
 
 ================================================================================
 `;
@@ -2008,9 +2008,14 @@ proseWrap: "always"
 
     top level indented code block
 
+---
+
+ -    one
+
+     two
+
 =====================================output=====================================
 -    foo
-
 
     top level indented code block
 
@@ -2024,7 +2029,6 @@ proseWrap: "always"
 
    -    foo
 
-
        top level indented code block
 
 ---
@@ -2036,7 +2040,6 @@ proseWrap: "always"
 ---
 
 1.    foo
-
 
      top level indented code block
 
@@ -2050,7 +2053,6 @@ proseWrap: "always"
 
    1.    foo
 
-
         top level indented code block
 
 ---
@@ -2062,7 +2064,6 @@ proseWrap: "always"
 ---
 
 -    [ ] foo
-
 
     top level indented code block
 
@@ -2076,7 +2077,6 @@ proseWrap: "always"
 
  -    item 1
  -    item 2
-
 
      top level indented code block
 
@@ -2094,7 +2094,6 @@ proseWrap: "always"
      - item 1-1
      - item 1-2
 
-
     top level indented code block
 
 ---
@@ -2103,7 +2102,6 @@ proseWrap: "always"
         - item 1-1
         - item 1-2
    -    item 2
-
 
        top level indented code block
 
@@ -2122,7 +2120,6 @@ proseWrap: "always"
      2. item 1-2
 2.   item 1
 
-
     top level indented code block
 
 ---
@@ -2133,7 +2130,6 @@ proseWrap: "always"
 
      text
 
-
     top level indented code block
 
 ---
@@ -2142,11 +2138,15 @@ proseWrap: "always"
      -    item 1-1
      -    item 1-2
 
-
          indented code block
 
-
     top level indented code block
+
+---
+
+ -    one
+
+     two
 
 ================================================================================
 `;

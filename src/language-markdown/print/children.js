@@ -29,14 +29,7 @@ function printChildren(path, options, print, events = {}) {
       if (parts.length > 0 && shouldPrePrintHardline(path)) {
         parts.push(hardline);
 
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
+        if (shouldPrePrintDoubleHardline(path, options)) {
           parts.push(hardline);
         }
       }
@@ -129,13 +122,6 @@ function shouldPrePrintDoubleHardline(path, options) {
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
   );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function isLooseListItemLegacy(node, options) {
