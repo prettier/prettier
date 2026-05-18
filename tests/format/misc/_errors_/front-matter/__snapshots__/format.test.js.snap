@@ -49,6 +49,7 @@ Front Matter content
 Front Matter content
 ---] (1:0)
 > 1 | ---
+    |                       ^
   2 | Front Matter content
   3 | ---
 Cause: Parser Error: Unexpected end of expression: ---
@@ -170,7 +171,7 @@ exports[`snippet: Should not support front matter format[flow] 1`] = `
 > 1 | ---
     |   ^
 > 2 | Front Matter content
-    | ^^^^^^
+    | ^^^^^
   3 | ---"
 `;
 

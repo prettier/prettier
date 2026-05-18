@@ -7,11 +7,11 @@ exports[`block-scalar-with-spaces-only.yml format 1`] = `
 > 2 |  
     | ^
 > 3 |   
-    | ^
+    | ^^
 > 4 |    
-    | ^
+    | ^^^
 > 5 |  # comment
-    | ^
+    | ^^^^^^^^^^
 > 6 |
     | ^
 Cause: Block scalars with more-indented leading empty lines must use an explicit indentation indicator"
