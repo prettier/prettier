@@ -45,10 +45,8 @@ function handleParseError(error, text) {
     );
     error.message += "\n" + codeFrame;
     error.codeFrame = codeFrame;
-    throw error;
   }
 
-  /* c8 ignore next */
   throw error;
 }
 
