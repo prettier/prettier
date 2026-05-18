@@ -13,4 +13,10 @@ for (const kind of [
   delete visitorKeys[kind];
 }
 
+// Not supported yet
+visitorKeys.DirectiveDefinition = visitorKeys.DirectiveDefinition.filter(
+  (key) => key !== "directives",
+);
+delete visitorKeys.DirectiveExtension;
+
 export default visitorKeys;
