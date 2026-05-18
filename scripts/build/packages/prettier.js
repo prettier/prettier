@@ -70,6 +70,13 @@ const mainModule = {
           }),
           path: require.resolve("@babel/code-frame"),
         },
+        // `parse-json` uses old version of `@babel/code-frame`
+        // Remove this when `parse-json` supports @babel/code-frame v8
+        {
+          module: require.resolve("parse-json"),
+          find: "{oneBased: true}",
+          replacement: "{oneBasedLine: true}",
+        },
         {
           module: getPackageFile("json5/dist/index.mjs"),
           find: "export default lib;",
