@@ -166,7 +166,7 @@ function getErrorLocation(error) {
   const { location, hash } = error;
   if (location) {
     const { start, end } = location;
-  return {
+    return {
       start: { line: start.line, column: start.column + 1 },
       end:
         typeof end.line === "number"
