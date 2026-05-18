@@ -182,7 +182,7 @@
     "prettier": "3.8.3",
     "pretty-bytes": "7.1.0",
     "pretty-ms": "9.3.0",
-    "puppeteer": "24.40.0",
+    "puppeteer": "25.0.4",
     "rollup-plugin-license": "3.7.1",
     "semver": "7.7.4",
     "serialize-javascript": "7.0.5",
