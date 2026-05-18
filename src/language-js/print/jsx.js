@@ -19,7 +19,9 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
+import skipNewline from "../../utilities/skip-newline.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
@@ -565,6 +567,34 @@ function printJsxAttribute(path, options, print) {
   return parts;
 }
 
+function isNextJsxAttributeOnEmptyLine(text, previousAttribute, nextAttribute) {
+  let index = locEnd(previousAttribute);
+  const end = locStart(nextAttribute);
+  let newlineCount = 0;
+
+  while (index < end) {
+    if (text.charAt(index) === " " || text.charAt(index) === "\t") {
+      index++;
+      continue;
+    }
+
+    const nextIndex = skipNewline(text, index);
+    if (nextIndex !== false && nextIndex !== index) {
+      newlineCount++;
+      if (newlineCount > 1) {
+        return true;
+      }
+
+      index = nextIndex;
+      continue;
+    }
+
+    return false;
+  }
+
+  return false;
+}
+
 function printJsxExpressionContainer(path, options, print) {
   const { node } = path;
 
@@ -652,7 +682,23 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       print("name"),
       print("typeArguments"),
-      indent(path.map(() => [attributeLine, print()], "attributes")),
+      indent(
+        path.map(
+          ({ isFirst, previous, node: attribute }) => [
+            isFirst
+              ? attributeLine
+              : isNextJsxAttributeOnEmptyLine(
+                    options.originalText,
+                    previous,
+                    attribute,
+                  )
+                ? [hardline, hardline]
+                : attributeLine,
+            print(),
+          ],
+          "attributes",
+        ),
+      ),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak },

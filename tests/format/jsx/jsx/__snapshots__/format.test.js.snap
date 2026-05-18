@@ -4988,21 +4988,29 @@ singleQuote: false
 <div
   single="foo"
   single2={"foo"}
+
   double="bar"
   double2={"bar"}
+
   singleDouble='"'
   singleDouble2={'"'}
+
   doubleSingle="'"
   doubleSingle2={"'"}
+
   singleEscaped={"'"}
   singleEscaped2="'"
+
   doubleEscaped={'"'}
   doubleEscaped2='"'
+
   singleBothEscaped={"'\\""}
   singleBothEscaped2="'&quot;"
+
   singleBoth="' &quot;"
   singleBoth2={"' \\""}
   singleBoth3="' ' &quot;"
+
   doubleBoth="&quot; '"
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; ' '"
@@ -5077,21 +5085,29 @@ singleQuote: false
 <div
   single='foo'
   single2={"foo"}
+
   double='bar'
   double2={"bar"}
+
   singleDouble='"'
   singleDouble2={'"'}
+
   doubleSingle="'"
   doubleSingle2={"'"}
+
   singleEscaped={"'"}
   singleEscaped2="'"
+
   doubleEscaped={'"'}
   doubleEscaped2='"'
+
   singleBothEscaped={"'\\""}
   singleBothEscaped2='&apos;"'
+
   singleBoth='&apos; "'
   singleBoth2={"' \\""}
   singleBoth3="' ' &quot;"
+
   doubleBoth='" &apos;'
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; ' '"
@@ -5166,21 +5182,29 @@ singleQuote: true
 <div
   single="foo"
   single2={'foo'}
+
   double="bar"
   double2={'bar'}
+
   singleDouble='"'
   singleDouble2={'"'}
+
   doubleSingle="'"
   doubleSingle2={"'"}
+
   singleEscaped={"'"}
   singleEscaped2="'"
+
   doubleEscaped={'"'}
   doubleEscaped2='"'
+
   singleBothEscaped={'\\'"'}
   singleBothEscaped2="'&quot;"
+
   singleBoth="' &quot;"
   singleBoth2={'\\' "'}
   singleBoth3="' ' &quot;"
+
   doubleBoth="&quot; '"
   doubleBoth2={'" \\''}
   doubleBoth3="&quot; ' '"
@@ -5255,21 +5279,29 @@ singleQuote: true
 <div
   single='foo'
   single2={'foo'}
+
   double='bar'
   double2={'bar'}
+
   singleDouble='"'
   singleDouble2={'"'}
+
   doubleSingle="'"
   doubleSingle2={"'"}
+
   singleEscaped={"'"}
   singleEscaped2="'"
+
   doubleEscaped={'"'}
   doubleEscaped2='"'
+
   singleBothEscaped={'\\'"'}
   singleBothEscaped2='&apos;"'
+
   singleBoth='&apos; "'
   singleBoth2={'\\' "'}
   singleBoth3="' ' &quot;"
+
   doubleBoth='" &apos;'
   doubleBoth2={'" \\''}
   doubleBoth3="&quot; ' '"
