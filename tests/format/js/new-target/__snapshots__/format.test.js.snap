@@ -21,9 +21,9 @@ exports[`outside-functions.js format[flow] 1`] = `
 `;
 
 exports[`outside-functions.js format[hermes] 1`] = `
-"'new.target' not in a function (1:10)
+"'new.target' not in a function (1:11)
 > 1 | const x = new.target;
-    |          ^
+    |           ^
   2 |
 Cause: 'new.target' not in a function (1:10)
 const x = new.target;
@@ -64,9 +64,10 @@ exports[`range.js format[flow] 1`] = `
 `;
 
 exports[`range.js format[hermes] 1`] = `
-"'new.target' not in a function (2:0)
+"'new.target' not in a function (2:1)
   1 | const x =
 > 2 | new.target;
+    | ^
 Cause: 'new.target' not in a function (2:0)
 new.target;
 ^~~~~~~~~~"

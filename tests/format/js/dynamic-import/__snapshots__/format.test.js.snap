@@ -68,9 +68,9 @@ exports[`import-phase.js format[flow] 1`] = `
 `;
 
 exports[`import-phase.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:7)
+"'meta' expected in member expression (1:8)
 > 1 | import.source(\`data:text/javascript,
-    |       ^
+    |        ^
   2 |     console.log("RUN");
   3 | \`)
   4 |
@@ -127,9 +127,9 @@ exports[`template-literal.js format[flow] 1`] = `
 `;
 
 exports[`template-literal.js format[hermes] 1`] = `
-"unexpected token after assignment expression (1:19)
+"unexpected token after assignment expression (1:20)
 > 1 | module   =   await import(\`data:text/javascript,
-    |                   ^
+    |                    ^
   2 |     console.log("RUN");
   3 | \`);
   4 |
