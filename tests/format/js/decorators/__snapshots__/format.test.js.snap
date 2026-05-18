@@ -78,11 +78,11 @@ exports[`classes.js format[flow] 1`] = `
 `;
 
 exports[`classes.js format[hermes] 1`] = `
-"'class' expected in class (3:6)
+"'class' expected in class (3:7)
   1 | @deco class Foo {}
   2 |
 > 3 | @deco export class Bar {}
-    |      ^
+    |       ^
   4 |
   5 | @deco export default class Baz {}
   6 |
@@ -196,10 +196,11 @@ Cause: Unexpected character '@'"
 `;
 
 exports[`comments.js format[hermes] 1`] = `
-"'class' expected in class (24:0)
+"'class' expected in class (24:1)
   22 |   ],
   23 | })
 > 24 | export class AppModule {}
+     | ^
   25 |
   26 | // A
   27 | @Foo()
@@ -483,10 +484,11 @@ Cause: Unexpected character '@'"
 `;
 
 exports[`mixed.js format[hermes] 1`] = `
-"'class' expected in class (4:0)
+"'class' expected in class (4:1)
   2 |
   3 | @foo
 > 4 | export default class MyComponent {
+    | ^
   5 |   @task
   6 |   *foo() {
   7 |   }
@@ -826,9 +828,10 @@ Cause: Unexpected character '@'"
 `;
 
 exports[`redux.js format[hermes] 1`] = `
-"'class' expected in class (2:0)
+"'class' expected in class (2:1)
   1 | @connect(mapStateToProps, mapDispatchToProps)
 > 2 | export class MyApp extends React.Component {}
+    | ^
   3 |
   4 | @connect(state => ({ todos: state.todos }))
   5 | export class Home extends React.Component {}

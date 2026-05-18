@@ -80,10 +80,10 @@ await(0);
 `;
 
 exports[`await-keywords.js format[hermes] 1`] = `
-"'await' not in an async function (2:6)
+"'await' not in an async function (2:7)
   1 | export class C1 {
 > 2 |   p = await (0);
-    |      ^
+    |       ^
   3 | }
   4 |
   5 | await (0);

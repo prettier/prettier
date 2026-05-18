@@ -30,11 +30,11 @@ export { ComponentNamespace };
 `;
 
 exports[`component_namespace.js format[hermes] 1`] = `
-"'{' expected in component declaration (4:48)
+"'{' expected in component declaration (4:49)
   2 | declare namespace ComponentNamespace {
   3 |   // Ambient component declarations with simple types
 > 4 |   component Card(title: string, content: string);
-    |                                                ^
+    |                                                 ^
   5 |
   6 |   component Modal(isOpen: boolean, onClose: () => void);
   7 | }
@@ -75,11 +75,11 @@ declare export { Button, Input };
 `;
 
 exports[`components.js.flow format[hermes] 1`] = `
-"'{' expected in component declaration (5:42)
+"'{' expected in component declaration (5:43)
   3 |
   4 | // Ambient components without body - these should be allowed
 > 5 | component Button(props: { label: string });
-    |                                          ^
+    |                                           ^
   6 |
   7 | component Input(value: string, onChange: (string) => void);
   8 |
@@ -122,11 +122,11 @@ export { ImplicitFunctions };
 `;
 
 exports[`implicit_functions.js format[hermes] 1`] = `
-"'{' expected in function declaration (4:38)
+"'{' expected in function declaration (4:39)
   2 | declare namespace ImplicitFunctions {
   3 |   // Simple implicit declare functions
 > 4 |   function greet(name: string): string;
-    |                                      ^
+    |                                       ^
   5 |   function add(a: number, b: number): number;
   6 |
   7 |   // Explicit declare function still works
@@ -193,11 +193,11 @@ export { MyNamespace };
 `;
 
 exports[`namespace.js format[hermes] 1`] = `
-"missing initializer in const declaration (4:8)
+"missing initializer in const declaration (4:9)
   2 | declare namespace MyNamespace {
   3 |   // Implicit ambient variables (without 'declare' keyword)
 > 4 |   const value: number;
-    |        ^
+    |         ^
   5 |   let mutableValue: string;
   6 |
   7 |   // Implicit ambient functions (without 'declare' keyword)
@@ -621,11 +621,11 @@ declare export { foo, bar, baz, genericVal, ambient, regular, withBoth };
 `;
 
 exports[`variables.js.flow format[hermes] 1`] = `
-"missing initializer in const declaration (5:6)
+"missing initializer in const declaration (5:7)
   3 |
   4 | // Implicit ambient declarations (without 'declare' keyword)
 > 5 | const foo: string;
-    |      ^
+    |       ^
   6 | let bar: number;
   7 | var baz: boolean;
   8 |
