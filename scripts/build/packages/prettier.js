@@ -70,6 +70,22 @@ const mainModule = {
           }),
           path: require.resolve("@babel/code-frame"),
         },
+        // `parse-json` uses old version of `@babel/code-frame`
+        // Remove this when `parse-json` supports @babel/code-frame v8
+        {
+          module: require.resolve("parse-json"),
+          process(text) {
+            text = text.replace(
+              "return {line: Number(line), column: Number(column)}",
+              "return {line: Number(line), column: Number(column) - 1}",
+            );
+            text = text.replace(
+              "return indexToPosition(string, Number(index), {oneBased: true});",
+              "return indexToPosition(string, Number(index), {oneBasedLine: true});",
+            );
+            return text;
+          },
+        },
         {
           module: getPackageFile("json5/dist/index.mjs"),
           find: "export default lib;",
