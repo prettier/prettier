@@ -290,9 +290,18 @@ function genericPrint(path, options, print) {
               ")",
             ])
           : "",
+        printDirectives(path, print, node),
         node.repeatable ? " repeatable" : "",
         " on ",
         ...join(" | ", path.map(print, "locations")),
+      ];
+
+    case "DirectiveExtension":
+      return [
+        "extend directive ",
+        "@",
+        print("name"),
+        printDirectives(path, print, node),
       ];
 
     case "EnumTypeExtension":
