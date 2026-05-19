@@ -35,12 +35,11 @@ jobs:
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "26"
+            # Doesn't work on Node.js v26 https://github.com/bcoe/c8/issues/592
+            node: "24"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
           # Versions not tested on linux
-          - os: "ubuntu-latest"
-            node: "24"
           - os: "ubuntu-latest"
             node: "22"
     env:
