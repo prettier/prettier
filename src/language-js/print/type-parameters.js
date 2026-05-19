@@ -161,7 +161,7 @@ function printTypeParameter(path, options, print) {
   if (node.bound) {
     if (node.usesExtendsBound) {
       parts.push(" extends ");
-    } else if (node.bound.type !== "TypeAnnotation") {
+    } else {
       parts.push(": ");
     }
 
