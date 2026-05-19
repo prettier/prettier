@@ -42,3 +42,30 @@ directive @a(as: String = 1) on QUERY
 
 ================================================================================
 `;
+
+exports[`directives-on-directive-definitions.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+directive @a @b on QUERY
+directive @a(x: Int)   @b @c on QUERY
+directive @a @b repeatable on QUERY
+directive @a(x: Int) @b repeatable on QUERY | MUTATION
+directive @a @b(reason: "deprecated") on QUERY
+
+extend directive @a @b
+extend directive @a @b @c
+
+=====================================output=====================================
+directive @a @b on QUERY
+directive @a(x: Int) @b @c on QUERY
+directive @a @b repeatable on QUERY
+directive @a(x: Int) @b repeatable on QUERY | MUTATION
+directive @a @b(reason: "deprecated") on QUERY
+
+extend directive @a @b
+extend directive @a @b @c
+
+================================================================================
+`;
