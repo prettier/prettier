@@ -1,4 +1,4 @@
-import { QueryDocumentKeys as graphqlVisitorKeys } from "graphql/language/ast.mjs";
+import { QueryDocumentKeys as graphqlVisitorKeys } from "graphql/language/ast";
 
 const visitorKeys = { ...graphqlVisitorKeys };
 
