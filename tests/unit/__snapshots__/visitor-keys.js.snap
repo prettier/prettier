@@ -1580,7 +1580,9 @@ exports[`visitor keys postcss 1`] = `
   "selector-tag": [],
   "selector-universal": [],
   "selector-unknown": [],
-  "value-atword": [],
+  "value-atword": [
+    "group",
+  ],
   "value-colon": [],
   "value-comma": [],
   "value-comma_group": [

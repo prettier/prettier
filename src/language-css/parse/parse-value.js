@@ -44,14 +44,15 @@ function parseValueNode(valueNode, options) {
     }
 
     if (node.type === "func" && node.value === "selector") {
-      node.group.groups = [
-        parseSelector(
-          getValueRoot(valueNode).text.slice(
-            node.group.open.sourceIndex + 1,
-            node.group.close.sourceIndex,
-          ),
-        ),
-      ];
+      const selector = getValueRoot(valueNode).text.slice(
+        node.group.open.sourceIndex + 1,
+        node.group.close.sourceIndex,
+      );
+      const parsedSelector = parseSelector(selector);
+      parsedSelector.sourceIndex = node.group.open.sourceIndex + 1;
+      parsedSelector.raws ??= {};
+      parsedSelector.raws.selector = selector;
+      node.group.groups = [parsedSelector];
     }
 
     if (node.type === "func" && node.value === "url") {
