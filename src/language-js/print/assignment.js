@@ -11,9 +11,12 @@ import {
 import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isIndentableBlockComment } from "../utilities/indentable-block-comment.js";
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isBinaryish,
   isBooleanLiteral,
@@ -138,7 +141,8 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isHeadOfLongChain ||
     (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
-    hasLeadingOwnLineComment(options.originalText, rightNode)
+    hasLeadingOwnLineComment(options.originalText, rightNode) ||
+    hasLeadingMultilineTypeCastComment(rightNode)
   ) {
     return "break-after-operator";
   }
@@ -287,6 +291,15 @@ function isAssignment(node) {
 
 function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
+}
+
+function hasLeadingMultilineTypeCastComment(node) {
+  return hasComment(
+    node,
+    CommentCheckFlags.Leading,
+    (comment) =>
+      isTypeCastComment(comment) && isIndentableBlockComment(comment),
+  );
 }
 
 function isComplexTypeAliasParams(node) {
