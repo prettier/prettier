@@ -1,8 +1,15 @@
 import { group, indent, inheritLabel, softline } from "../../document/index.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
@@ -84,6 +91,22 @@ function print(path, options, print, args) {
       : "";
 
   const needsParens = needsParentheses(path, options);
+  const shouldPrintCommentsInsideParens =
+    needsParens && shouldPrintOwnCommentsInsideParens(path);
+
+  if (shouldPrintCommentsInsideParens) {
+    const { leading, trailing } = printCommentsSeparately(path, options);
+    doc = leading
+      ? [indent([softline, leading, doc]), softline, trailing]
+      : [doc, trailing];
+    const printedComments = options[Symbol.for("printedComments")];
+    for (const comment of getComments(
+      node,
+      (comment) => comment.leading || comment.trailing,
+    )) {
+      printedComments.add(comment);
+    }
+  }
 
   if (!decoratorsDoc && !needsParens) {
     return doc;
@@ -94,6 +117,21 @@ function print(path, options, print, args) {
     decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
+}
+
+function shouldPrintOwnCommentsInsideParens(path) {
+  const { key, node, parent } = path;
+
+  if (
+    node.type === "SequenceExpression" &&
+    key === "body" &&
+    parent.type === "ArrowFunctionExpression" &&
+    hasComment(node, CommentCheckFlags.Trailing)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function printCommentsForFunction(path, options, doc) {

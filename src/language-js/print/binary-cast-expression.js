@@ -1,4 +1,10 @@
 import { group, indent, softline } from "../../document/index.js";
+import { printLeadingComments } from "../../main/comments/print.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
@@ -24,7 +30,18 @@ function printBinaryCastExpression(path, options, print) {
     (key === "callee" && isCallOrNewExpression(parent)) ||
     (key === "object" && isMemberExpression(parent))
   ) {
-    return group([indent([softline, ...parts]), softline]);
+    const leadingComments = hasComment(node, CommentCheckFlags.Leading)
+      ? printLeadingComments(path, options)
+      : "";
+
+    if (leadingComments) {
+      const printedComments = options[Symbol.for("printedComments")];
+      for (const comment of getComments(node, CommentCheckFlags.Leading)) {
+        printedComments.add(comment);
+      }
+    }
+
+    return group([indent([softline, leadingComments, ...parts]), softline]);
   }
 
   return parts;

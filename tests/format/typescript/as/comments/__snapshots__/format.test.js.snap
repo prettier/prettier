@@ -158,3 +158,24 @@ Cause: ';' expected (7:2)
 1 satisfies /*
   ^"
 `;
+
+exports[`18926.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const value = () =>
+  (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    (foo.bar()) as Foo
+  ).baz;
+
+=====================================output=====================================
+const value = () =>
+  (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    foo.bar() as Foo
+  ).baz;
+
+================================================================================
+`;
