@@ -1,11 +1,15 @@
 import {
   addAlignmentToDoc,
   align,
+  breakParent,
   conditionalGroup,
+  cursor,
   dedent,
   dedentToRoot,
   fill,
   group,
+  hardline,
+  hardlineWithoutBreakParent,
   ifBreak,
   indent,
   indentIfBreak,
@@ -13,8 +17,12 @@ import {
   join,
   label,
   line,
+  lineSuffixBoundary,
   lineSuffix,
+  literalline,
+  literallineWithoutBreakParent,
   markAsRoot,
+  softline,
   trim,
 } from "../../src/document/index.js";
 
@@ -111,6 +119,23 @@ describe("doc builders", () => {
   test("Valid usage", () => {
     for (const doc of valid) {
       expect(doc).toBeDefined();
+    }
+  });
+
+  test("builtin docs are frozen", () => {
+    for (const doc of [
+      breakParent,
+      cursor,
+      hardline,
+      hardlineWithoutBreakParent,
+      line,
+      lineSuffixBoundary,
+      literalline,
+      literallineWithoutBreakParent,
+      softline,
+      trim,
+    ]) {
+      expect(Object.isFrozen(doc)).toBe(true);
     }
   });
 });

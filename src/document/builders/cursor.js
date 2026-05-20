@@ -5,6 +5,6 @@ import { DOC_TYPE_CURSOR } from "./types.js";
 */
 
 /** @type {Cursor} */
-const cursor = { type: DOC_TYPE_CURSOR };
+const cursor = Object.freeze({ type: DOC_TYPE_CURSOR });
 
 export { cursor };
