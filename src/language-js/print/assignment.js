@@ -16,7 +16,6 @@ import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comm
 import { isIndentableBlockComment } from "../utilities/indentable-block-comment.js";
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
-import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isBinaryish,
   isBooleanLiteral,
@@ -142,7 +141,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     isHeadOfLongChain ||
     (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
     hasLeadingOwnLineComment(options.originalText, rightNode) ||
-    hasLeadingMultilineTypeCastComment(rightNode)
+    hasComment(rightNode, CommentCheckFlags.Leading, isIndentableBlockComment)
   ) {
     return "break-after-operator";
   }
@@ -291,15 +290,6 @@ function isAssignment(node) {
 
 function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
-}
-
-function hasLeadingMultilineTypeCastComment(node) {
-  return hasComment(
-    node,
-    CommentCheckFlags.Leading,
-    (comment) =>
-      isTypeCastComment(comment) && isIndentableBlockComment(comment),
-  );
 }
 
 function isComplexTypeAliasParams(node) {
