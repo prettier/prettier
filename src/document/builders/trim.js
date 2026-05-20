@@ -5,6 +5,6 @@ import { DOC_TYPE_TRIM } from "./types.js";
 */
 
 /** @typedef {Trim} */
-const trim = { type: DOC_TYPE_TRIM };
+const trim = Object.freeze({ type: DOC_TYPE_TRIM });
 
 export { trim };
