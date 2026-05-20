@@ -173,13 +173,14 @@ const style = /** @type {{
   ...margins,
 });
 
-const style2 = /**
- * @type {{
- *   width: number,
- * }}
- */ ({
-  width,
-});
+const style2 =
+  /**
+   * @type {{
+   *   width: number,
+   * }}
+   */ ({
+    width,
+  });
 
 ================================================================================
 `;
