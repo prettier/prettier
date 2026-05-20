@@ -1,4 +1,7 @@
 for (;;) {}
+for (initialize;;) {}
+for (; condition;) {}
+for (;; increases) {}
 for (var i = 0; i < 10; ++i) {}
 
 for (;;) 0;
