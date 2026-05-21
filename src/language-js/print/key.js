@@ -148,6 +148,43 @@ function hasSiblingsRequireQuoted(path, options) {
   return needQuoteKeysCache.get(parent);
 }
 
+function isSimpleNumberStringKey(node) {
+  const key = getKey(node);
+  return isStringLiteral(key) && isSimpleNumber(key.value);
+}
+
+const simpleNumberKeyGroupRequiresQuotesCache = new WeakMap();
+function hasSimpleNumberKeyGroupRequireQuotes(path, options) {
+  const { parent } = path;
+
+  if (!isSimpleNumberStringKey(path.node)) {
+    return false;
+  }
+
+  if (!simpleNumberKeyGroupRequiresQuotesCache.has(parent)) {
+    let hasOnlySimpleNumberStringKeys = true;
+    let hasKeyRequiringQuotes = false;
+
+    for (const sibling of path.siblings) {
+      if (isComputedKey(sibling) || !isSimpleNumberStringKey(sibling)) {
+        hasOnlySimpleNumberStringKeys = false;
+        break;
+      }
+
+      if (!isKeySafeToUnquote(sibling, options)) {
+        hasKeyRequiringQuotes = true;
+      }
+    }
+
+    simpleNumberKeyGroupRequiresQuotesCache.set(
+      parent,
+      hasOnlySimpleNumberStringKeys && hasKeyRequiringQuotes,
+    );
+  }
+
+  return simpleNumberKeyGroupRequiresQuotesCache.get(parent);
+}
+
 function shouldQuoteKey(path, options) {
   return (
     (options.parser === "json" ||
@@ -163,6 +200,7 @@ function shouldUnquoteKey(path, options) {
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" &&
         !hasSiblingsRequireQuoted(path, options))) &&
+    !hasSimpleNumberKeyGroupRequireQuotes(path, options) &&
     isKeySafeToUnquote(path.node, options)
   );
 }
