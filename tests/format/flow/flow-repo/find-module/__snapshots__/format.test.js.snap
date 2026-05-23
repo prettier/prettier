@@ -33,11 +33,11 @@ import x from "./req";
 `;
 
 exports[`test.js format[hermes] 1`] = `
-"Identifier 'x' is already declared (4:7)
+"Identifier 'x' is already declared (4:8)
   2 | (x: string);
   3 |
 > 4 | import x from './req';
-    |       ^
+    |        ^
   5 |
 Cause: Identifier 'x' is already declared (4:7)
 import x from './req';

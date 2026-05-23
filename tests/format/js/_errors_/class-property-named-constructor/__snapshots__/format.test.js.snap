@@ -45,10 +45,10 @@ exports[`snippet: #0 format[flow] 1`] = `
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
-"invalid class property name (2:2)
+"invalid class property name (2:3)
   1 | class Foo {
 > 2 |   constructor
-    |  ^
+    |   ^
   3 | }
 Cause: invalid class property name (2:2)
   constructor
@@ -134,10 +134,10 @@ exports[`snippet: #1 format[flow] 1`] = `
 `;
 
 exports[`snippet: #1 format[hermes] 1`] = `
-"invalid class property name (2:2)
+"invalid class property name (2:3)
   1 | class Foo {
 > 2 |   'constructor'
-    |  ^
+    |   ^
   3 | }
 Cause: invalid class property name (2:2)
   'constructor'
@@ -223,10 +223,10 @@ exports[`snippet: #2 format[flow] 1`] = `
 `;
 
 exports[`snippet: #2 format[hermes] 1`] = `
-"invalid class property name (2:2)
+"invalid class property name (2:3)
   1 | class Foo {
 > 2 |   'constructor'
-    |  ^
+    |   ^
   3 | }
 Cause: invalid class property name (2:2)
   'constructor'
@@ -312,10 +312,10 @@ exports[`snippet: #3 format[flow] 1`] = `
 `;
 
 exports[`snippet: #3 format[hermes] 1`] = `
-"';' expected after class property (2:11)
+"';' expected after class property (2:12)
   1 | class Foo {
 > 2 |   accessor 'constructor'
-    |           ^
+    |            ^
   3 | }
 Cause: ';' expected after class property (2:11)
   accessor 'constructor'
@@ -401,10 +401,10 @@ exports[`snippet: #4 format[flow] 1`] = `
 `;
 
 exports[`snippet: #4 format[hermes] 1`] = `
-"';' expected after class property (2:11)
+"';' expected after class property (2:12)
   1 | class Foo {
 > 2 |   accessor 'constructor'
-    |           ^
+    |            ^
   3 | }
 Cause: ';' expected after class property (2:11)
   accessor 'constructor'
@@ -490,10 +490,10 @@ exports[`snippet: #5 format[flow] 1`] = `
 `;
 
 exports[`snippet: #5 format[hermes] 1`] = `
-"';' expected after class property (2:11)
+"';' expected after class property (2:12)
   1 | class Foo {
 > 2 |   accessor constructor
-    |           ^
+    |            ^
   3 | }
 Cause: ';' expected after class property (2:11)
   accessor constructor

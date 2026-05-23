@@ -380,12 +380,10 @@ function needsParentheses(path, options) {
         (key === "constraint" &&
           node.type === "TSConditionalType" &&
           parent.type === "TSTypeParameter") ||
-        (key === "typeAnnotation" &&
+        (key === "bound" &&
           node.type === "ConditionalTypeAnnotation" &&
-          parent.type === "TypeAnnotation" &&
-          path.grandparent.type === "TypeParameter" &&
-          path.grandparent.bound === parent &&
-          path.grandparent.usesExtendsBound)
+          parent.type === "TypeParameter" &&
+          parent.usesExtendsBound)
       ) {
         return true;
       }

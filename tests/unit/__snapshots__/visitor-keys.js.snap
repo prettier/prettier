@@ -1294,7 +1294,12 @@ exports[`visitor keys graphql 1`] = `
   "DirectiveDefinition": [
     "arguments",
     "description",
+    "directives",
     "locations",
+    "name",
+  ],
+  "DirectiveExtension": [
+    "directives",
     "name",
   ],
   "Document": [

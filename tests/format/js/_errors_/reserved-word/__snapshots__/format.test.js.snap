@@ -41,9 +41,9 @@ exports[`snippet: #0 format[flow] 2`] = `
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
-"expected declaration in export (1:7)
+"expected declaration in export (1:8)
 > 1 | export asyn\\u{63} from "async";
-    |       ^
+    |        ^
 Cause: expected declaration in export (1:7)
 export asyn\\u{63} from "async";
        ^~~~~~~~~~"

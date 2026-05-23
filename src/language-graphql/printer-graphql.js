@@ -38,7 +38,7 @@ function genericPrint(path, options, print) {
           ? " "
           : "",
         printVariableDefinitions(path, print),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         !hasOperation && !hasName ? "" : " ",
         print("selectionSet"),
       ];
@@ -51,7 +51,7 @@ function genericPrint(path, options, print) {
         printVariableDefinitions(path, print),
         " on ",
         print("typeCondition"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " ",
         print("selectionSet"),
       ];
@@ -85,7 +85,7 @@ function genericPrint(path, options, print) {
               ")",
             ])
           : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         node.selectionSet ? " " : "",
         print("selectionSet"),
       ]);
@@ -196,7 +196,7 @@ function genericPrint(path, options, print) {
         ": ",
         print("type"),
         node.defaultValue ? [" = ", print("defaultValue")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "ObjectTypeExtension":
@@ -230,7 +230,7 @@ function genericPrint(path, options, print) {
         );
       }
 
-      parts.push(printDirectives(path, print, node));
+      parts.push(printDirectives(path, print));
 
       if (node.fields.length > 0) {
         parts.push([
@@ -267,7 +267,7 @@ function genericPrint(path, options, print) {
           : "",
         ": ",
         print("type"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "DirectiveDefinition":
@@ -290,9 +290,17 @@ function genericPrint(path, options, print) {
               ")",
             ])
           : "",
+        printDirectives(path, print),
         node.repeatable ? " repeatable" : "",
         " on ",
         ...join(" | ", path.map(print, "locations")),
+      ];
+
+    case "DirectiveExtension":
+      return [
+        "extend directive @",
+        print("name"),
+        printDirectives(path, print),
       ];
 
     case "EnumTypeExtension":
@@ -302,7 +310,7 @@ function genericPrint(path, options, print) {
         node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
         print("name"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         node.values.length > 0
           ? [
               " {",
@@ -320,7 +328,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "InputValueDefinition":
@@ -330,13 +338,13 @@ function genericPrint(path, options, print) {
         ": ",
         print("type"),
         node.defaultValue ? [" = ", print("defaultValue")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "SchemaExtension":
       return [
         "extend schema",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         ...(node.operationTypes.length > 0
           ? [
               " {",
@@ -357,7 +365,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         "schema",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " {",
         node.operationTypes.length > 0
           ? indent([
@@ -376,13 +384,13 @@ function genericPrint(path, options, print) {
       return [node.operation, ": ", print("type")];
 
     case "FragmentSpread":
-      return ["...", print("name"), printDirectives(path, print, node)];
+      return ["...", print("name"), printDirectives(path, print)];
 
     case "InlineFragment":
       return [
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " ",
         print("selectionSet"),
       ];
@@ -395,7 +403,7 @@ function genericPrint(path, options, print) {
           node.kind === "UnionTypeExtension" ? "extend " : "",
           "union ",
           print("name"),
-          printDirectives(path, print, node),
+          printDirectives(path, print),
           node.types.length > 0
             ? [
                 " =",
@@ -416,7 +424,7 @@ function genericPrint(path, options, print) {
         node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
         print("name"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "NonNullType":
@@ -431,7 +439,9 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printDirectives(path, print, node) {
+function printDirectives(path, print) {
+  const { node } = path;
+
   if (node.directives.length === 0) {
     return "";
   }

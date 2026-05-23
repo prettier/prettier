@@ -40,7 +40,7 @@ async function install(version) {
 }
 
 const wasmUrlPattern =
-  /var __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
+  /const __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
 async function buildEntry(directory) {
   const packageDirectory = new URL(
     "./node_modules/@oxc-parser/binding-wasm32-wasi/",
@@ -50,24 +50,24 @@ async function buildEntry(directory) {
   let text = await fs.readFile(entryFile, "utf8");
 
   // Remove useless `visitorKeys`
-  const moduleMark = "\n// src-js/generated/visit/keys.js\n";
-  const moduleIndex = text.indexOf(moduleMark);
-  if (moduleIndex === -1) {
+  const moduleStartMark = "\n//#region src-js/generated/visit/keys.js\n";
+  const moduleEndMark = "\n//#endregion\n";
+  const moduleStart = text.indexOf(moduleStartMark);
+  if (moduleStart === -1) {
     throw new Error("Unexpected source");
   }
-  const nextModuleIndex = text.indexOf(
-    "\n// src-js/",
-    moduleIndex + moduleMark.length,
+  const moduleEnd = text.indexOf(
+    moduleEndMark,
+    moduleStart + moduleStartMark.length,
   );
-  if (nextModuleIndex === -1) {
+  if (moduleEnd === -1) {
     throw new Error("Unexpected source");
   }
 
   text = outdent`
-    ${text.slice(0, moduleIndex + moduleMark.length)}
+    ${text.slice(0, moduleStart + moduleStartMark.length)}
     var keys_default;
-
-    ${text.slice(nextModuleIndex)}
+    ${text.slice(moduleEnd)}
   `;
 
   const { wasmFile } = text.match(wasmUrlPattern).groups;
