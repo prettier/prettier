@@ -1,6 +1,4 @@
 function createError(message, options) {
-  // TODO: Use `Error.prototype.cause` when we drop support for Node.js<18.7.0
-
   // Construct an error similar to the ones thrown by Babel.
   const error = new SyntaxError(
     message +
@@ -9,6 +7,7 @@ function createError(message, options) {
       ":" +
       options.loc.start.column +
       ")",
+    { cause: options.cause },
   );
 
   return Object.assign(error, options);
