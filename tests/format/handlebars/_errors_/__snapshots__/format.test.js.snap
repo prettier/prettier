@@ -13,7 +13,7 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 `;
 
 exports[`invalid-2.hbs format 1`] = `
-"Unclosed element \`@name\` (3:0)
+"Unclosed element \`@name\` (3:1)
   1 | <a>
   2 |
 > 3 | <{@name>
@@ -42,7 +42,7 @@ Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDE
 `;
 
 exports[`snippet: IMG format 1`] = `
-"Unclosed element \`IMG\` (1:0)
+"Unclosed element \`IMG\` (1:1)
 > 1 | <IMG>
     | ^^^^^
 Cause: Unclosed element \`IMG\`: 
@@ -55,7 +55,7 @@ Cause: Unclosed element \`IMG\`:
 `;
 
 exports[`snippet: INPUT format 1`] = `
-"Unclosed element \`INPUT\` (1:0)
+"Unclosed element \`INPUT\` (1:1)
 > 1 | <INPUT>
     | ^^^^^^^
 Cause: Unclosed element \`INPUT\`: 
@@ -68,9 +68,9 @@ Cause: Unclosed element \`INPUT\`:
 `;
 
 exports[`snippet: area format 1`] = `
-"<area> elements do not need end tags. You should remove it (1:6)
+"<area> elements do not need end tags. You should remove it (1:7)
 > 1 | <area></area>
-    |      ^^^^^^^
+    |       ^^^^^^^
 Cause: <area> elements do not need end tags. You should remove it: 
 
 |
@@ -81,9 +81,9 @@ Cause: <area> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: base format 1`] = `
-"<base> elements do not need end tags. You should remove it (1:6)
+"<base> elements do not need end tags. You should remove it (1:7)
 > 1 | <base></base>
-    |      ^^^^^^^
+    |       ^^^^^^^
 Cause: <base> elements do not need end tags. You should remove it: 
 
 |
@@ -94,7 +94,7 @@ Cause: <base> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: basefont format 1`] = `
-"Unclosed element \`basefont\` (1:0)
+"Unclosed element \`basefont\` (1:1)
 > 1 | <basefont>
     | ^^^^^^^^^^
 Cause: Unclosed element \`basefont\`: 
@@ -107,7 +107,7 @@ Cause: Unclosed element \`basefont\`:
 `;
 
 exports[`snippet: bgsound format 1`] = `
-"Unclosed element \`bgsound\` (1:0)
+"Unclosed element \`bgsound\` (1:1)
 > 1 | <bgsound>
     | ^^^^^^^^^
 Cause: Unclosed element \`bgsound\`: 
@@ -120,9 +120,9 @@ Cause: Unclosed element \`bgsound\`:
 `;
 
 exports[`snippet: br format 1`] = `
-"<br> elements do not need end tags. You should remove it (1:4)
+"<br> elements do not need end tags. You should remove it (1:5)
 > 1 | <br></br>
-    |    ^^^^^
+    |     ^^^^^
 Cause: <br> elements do not need end tags. You should remove it: 
 
 |
@@ -133,9 +133,9 @@ Cause: <br> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: col format 1`] = `
-"<col> elements do not need end tags. You should remove it (1:5)
+"<col> elements do not need end tags. You should remove it (1:6)
 > 1 | <col></col>
-    |     ^^^^^^
+    |      ^^^^^^
 Cause: <col> elements do not need end tags. You should remove it: 
 
 |
@@ -146,9 +146,9 @@ Cause: <col> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: command format 1`] = `
-"<command> elements do not need end tags. You should remove it (1:9)
+"<command> elements do not need end tags. You should remove it (1:10)
 > 1 | <command></command>
-    |         ^^^^^^^^^^
+    |          ^^^^^^^^^^
 Cause: <command> elements do not need end tags. You should remove it: 
 
 |
@@ -159,7 +159,7 @@ Cause: <command> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: div format 1`] = `
-"Unclosed element \`div\` (1:0)
+"Unclosed element \`div\` (1:1)
 > 1 | <div>
     | ^^^^^
 Cause: Unclosed element \`div\`: 
@@ -172,9 +172,9 @@ Cause: Unclosed element \`div\`:
 `;
 
 exports[`snippet: embed format 1`] = `
-"<embed> elements do not need end tags. You should remove it (1:7)
+"<embed> elements do not need end tags. You should remove it (1:8)
 > 1 | <embed></embed>
-    |       ^^^^^^^^
+    |        ^^^^^^^^
 Cause: <embed> elements do not need end tags. You should remove it: 
 
 |
@@ -185,7 +185,7 @@ Cause: <embed> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: frame format 1`] = `
-"Unclosed element \`frame\` (1:0)
+"Unclosed element \`frame\` (1:1)
 > 1 | <frame>
     | ^^^^^^^
 Cause: Unclosed element \`frame\`: 
@@ -198,9 +198,9 @@ Cause: Unclosed element \`frame\`:
 `;
 
 exports[`snippet: hr format 1`] = `
-"<hr> elements do not need end tags. You should remove it (1:4)
+"<hr> elements do not need end tags. You should remove it (1:5)
 > 1 | <hr></hr>
-    |    ^^^^^
+    |     ^^^^^
 Cause: <hr> elements do not need end tags. You should remove it: 
 
 |
@@ -211,7 +211,7 @@ Cause: <hr> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: imG format 1`] = `
-"Unclosed element \`imG\` (1:0)
+"Unclosed element \`imG\` (1:1)
 > 1 | <imG>
     | ^^^^^
 Cause: Unclosed element \`imG\`: 
@@ -224,7 +224,7 @@ Cause: Unclosed element \`imG\`:
 `;
 
 exports[`snippet: image format 1`] = `
-"Unclosed element \`image\` (1:0)
+"Unclosed element \`image\` (1:1)
 > 1 | <image>
     | ^^^^^^^
 Cause: Unclosed element \`image\`: 
@@ -237,9 +237,9 @@ Cause: Unclosed element \`image\`:
 `;
 
 exports[`snippet: img format 1`] = `
-"<img> elements do not need end tags. You should remove it (1:5)
+"<img> elements do not need end tags. You should remove it (1:6)
 > 1 | <img></img>
-    |     ^^^^^^
+    |      ^^^^^^
 Cause: <img> elements do not need end tags. You should remove it: 
 
 |
@@ -250,9 +250,9 @@ Cause: <img> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: input format 1`] = `
-"<input> elements do not need end tags. You should remove it (1:7)
+"<input> elements do not need end tags. You should remove it (1:8)
 > 1 | <input></input>
-    |       ^^^^^^^^
+    |        ^^^^^^^^
 Cause: <input> elements do not need end tags. You should remove it: 
 
 |
@@ -263,7 +263,7 @@ Cause: <input> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: isindex format 1`] = `
-"Unclosed element \`isindex\` (1:0)
+"Unclosed element \`isindex\` (1:1)
 > 1 | <isindex>
     | ^^^^^^^^^
 Cause: Unclosed element \`isindex\`: 
@@ -276,9 +276,9 @@ Cause: Unclosed element \`isindex\`:
 `;
 
 exports[`snippet: keygen format 1`] = `
-"<keygen> elements do not need end tags. You should remove it (1:8)
+"<keygen> elements do not need end tags. You should remove it (1:9)
 > 1 | <keygen></keygen>
-    |        ^^^^^^^^^
+    |         ^^^^^^^^^
 Cause: <keygen> elements do not need end tags. You should remove it: 
 
 |
@@ -289,7 +289,7 @@ Cause: <keygen> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: lINk format 1`] = `
-"Unclosed element \`lINk\` (1:0)
+"Unclosed element \`lINk\` (1:1)
 > 1 | <lINk>
     | ^^^^^^
 Cause: Unclosed element \`lINk\`: 
@@ -302,9 +302,9 @@ Cause: Unclosed element \`lINk\`:
 `;
 
 exports[`snippet: link format 1`] = `
-"<link> elements do not need end tags. You should remove it (1:6)
+"<link> elements do not need end tags. You should remove it (1:7)
 > 1 | <link></link>
-    |      ^^^^^^^
+    |       ^^^^^^^
 Cause: <link> elements do not need end tags. You should remove it: 
 
 |
@@ -315,7 +315,7 @@ Cause: <link> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: menuitem format 1`] = `
-"Unclosed element \`menuitem\` (1:0)
+"Unclosed element \`menuitem\` (1:1)
 > 1 | <menuitem>
     | ^^^^^^^^^^
 Cause: Unclosed element \`menuitem\`: 
@@ -328,9 +328,9 @@ Cause: Unclosed element \`menuitem\`:
 `;
 
 exports[`snippet: meta format 1`] = `
-"<meta> elements do not need end tags. You should remove it (1:6)
+"<meta> elements do not need end tags. You should remove it (1:7)
 > 1 | <meta></meta>
-    |      ^^^^^^^
+    |       ^^^^^^^
 Cause: <meta> elements do not need end tags. You should remove it: 
 
 |
@@ -341,7 +341,7 @@ Cause: <meta> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: nextid format 1`] = `
-"Unclosed element \`nextid\` (1:0)
+"Unclosed element \`nextid\` (1:1)
 > 1 | <nextid>
     | ^^^^^^^^
 Cause: Unclosed element \`nextid\`: 
@@ -354,9 +354,9 @@ Cause: Unclosed element \`nextid\`:
 `;
 
 exports[`snippet: param format 1`] = `
-"<param> elements do not need end tags. You should remove it (1:7)
+"<param> elements do not need end tags. You should remove it (1:8)
 > 1 | <param></param>
-    |       ^^^^^^^^
+    |        ^^^^^^^^
 Cause: <param> elements do not need end tags. You should remove it: 
 
 |
@@ -367,9 +367,9 @@ Cause: <param> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: source format 1`] = `
-"<source> elements do not need end tags. You should remove it (1:8)
+"<source> elements do not need end tags. You should remove it (1:9)
 > 1 | <source></source>
-    |        ^^^^^^^^^
+    |         ^^^^^^^^^
 Cause: <source> elements do not need end tags. You should remove it: 
 
 |
@@ -380,9 +380,9 @@ Cause: <source> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: track format 1`] = `
-"<track> elements do not need end tags. You should remove it (1:7)
+"<track> elements do not need end tags. You should remove it (1:8)
 > 1 | <track></track>
-    |       ^^^^^^^^
+    |        ^^^^^^^^
 Cause: <track> elements do not need end tags. You should remove it: 
 
 |
@@ -393,9 +393,9 @@ Cause: <track> elements do not need end tags. You should remove it:
 `;
 
 exports[`snippet: wbr format 1`] = `
-"<wbr> elements do not need end tags. You should remove it (1:5)
+"<wbr> elements do not need end tags. You should remove it (1:6)
 > 1 | <wbr></wbr>
-    |     ^^^^^^
+    |      ^^^^^^
 Cause: <wbr> elements do not need end tags. You should remove it: 
 
 |

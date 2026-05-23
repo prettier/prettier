@@ -25,7 +25,7 @@ function createParseError(error) {
 
   return createError(message, {
     loc: {
-      start: { line: line + 1, column },
+      start: { line: line + 1, column: Math.max(column, 1) },
     },
     cause: error,
   });

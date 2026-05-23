@@ -1309,6 +1309,13 @@ ___________________________
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
+<!-- #15982 -->
+<div>
+<pre>
+  Content
+</pre>
+</div>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1421,6 +1428,13 @@ ___________________________
 <pre><DIV></DIV></pre>
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
+
+<!-- #15982 -->
+<div>
+  <pre>
+  Content
+</pre>
+</div>
 
 ================================================================================
 `;
@@ -1533,6 +1547,13 @@ ___________________________
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
+<!-- #15982 -->
+<div>
+<pre>
+  Content
+</pre>
+</div>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1646,6 +1667,13 @@ ___________________________
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
+<!-- #15982 -->
+<div>
+  <pre>
+  Content
+</pre>
+</div>
+
 ================================================================================
 `;
 
@@ -1756,6 +1784,13 @@ ___________________________
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
+<!-- #15982 -->
+<div>
+<pre>
+  Content
+</pre>
+</div>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1858,6 +1893,13 @@ ___________________________
 <pre><DIV></DIV></pre>
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
+
+<!-- #15982 -->
+<div>
+  <pre>
+  Content
+</pre>
+</div>
 
 ================================================================================
 `;
@@ -1970,6 +2012,13 @@ ___________________________
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
+<!-- #15982 -->
+<div>
+<pre>
+  Content
+</pre>
+</div>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -2009,8 +2058,7 @@ ___________________________
 
 </pre>
 <pre>
-     Foo     Bar     </pre
->
+     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
@@ -2018,8 +2066,7 @@ ___________________________
 Foo     Bar
 </pre>
 <pre>
-     Foo     Bar</pre
->
+     Foo     Bar</pre>
 <figure
   role="img"
   aria-labelledby="cow-caption"
@@ -2107,6 +2154,13 @@ ___________________________
 <pre><DIV></DIV></pre>
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
+
+<!-- #15982 -->
+<div>
+  <pre>
+  Content
+</pre>
+</div>
 
 ================================================================================
 `;
@@ -2217,6 +2271,13 @@ ___________________________
 <PRE><DIV></DIV></PRE>
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
+
+<!-- #15982 -->
+<div>
+<pre>
+  Content
+</pre>
+</div>
 
 =====================================output=====================================
 <pre>
@@ -2330,6 +2391,13 @@ ___________________________
 <pre><DIV></DIV></pre>
 <pre><br/>long long long text long long long text long long long text long long long text <br></pre>
 <pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
+
+<!-- #15982 -->
+<div>
+  <pre>
+  Content
+</pre>
+</div>
 
 ================================================================================
 `;
@@ -5135,8 +5203,7 @@ printWidth: 1
 
 <div>
   <textarea>
-lorem ipsum</textarea
-  >
+lorem ipsum</textarea>
 </div>
 
 ================================================================================

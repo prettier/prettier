@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "webpack": "5.106.0"
+    "webpack": "5.106.2"
   },
   "scripts": {
     "test": "node ./index.js"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.14.1"
 }

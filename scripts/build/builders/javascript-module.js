@@ -73,15 +73,14 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
 
         text = lines.slice(startMarkLine + 1, endMarkLine - 2).join("\n");
 
-        text = text
-          .replace(
-            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            String.raw`const line = "\n"`,
-          )
-          .replace(
-            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            String.raw`const line = "\n"`,
-          );
+        text = text.replace(
+          "const line = (0, _detectNewline().default)(docblock) ?? _nodeOs().EOL;",
+          String.raw`const line = "\n"`,
+        );
+        text = text.replace(
+          "const line = (0, _detectNewline().default)(comments) ?? _nodeOs().EOL;",
+          String.raw`const line = "\n"`,
+        );
 
         text += "\n\n" + `export {${exports.join(", ")}};`;
 

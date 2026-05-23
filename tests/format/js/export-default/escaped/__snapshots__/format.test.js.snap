@@ -38,10 +38,10 @@ exports[`default-escaped.js format[flow] 1`] = `
 `;
 
 exports[`default-escaped.js format[hermes] 1`] = `
-"expected declaration in export (2:7)
+"expected declaration in export (2:8)
   1 | // export asyn\\u{63} from "async";
 > 2 | export n\\u{63} from "async";
-    |       ^
+    |        ^
 Cause: expected declaration in export (2:7)
 export n\\u{63} from "async";
        ^~~~~~~"

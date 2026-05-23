@@ -28,13 +28,25 @@ function handleParseError(error, text) {
   const { loc } = error;
 
   if (loc) {
-    const codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    // We use 1-based column, but `@babel/code-frame` uses 0-based column
+    // https://github.com/babel/babel/pull/17849
+    let { start, end } = loc;
+    if (start) {
+      start = { line: start.line, column: start.column - 1 };
+    }
+    if (end) {
+      end = { line: end.line, column: end.column - 1 };
+    }
+
+    const codeFrame = codeFrameColumns(
+      text,
+      { start, end },
+      { highlightCode: true },
+    );
     error.message += "\n" + codeFrame;
     error.codeFrame = codeFrame;
-    throw error;
   }
 
-  /* c8 ignore next */
   throw error;
 }
 
