@@ -60,21 +60,22 @@ exports[`show external options with \`--help\` 1`] = `
 "===================================================================
 --- Without plugin
 +++ With plugin
-@@ -28,17 +28,19 @@
+@@ -28,8 +28,10 @@
                             Where to print operators when binary expressions wrap lines.
                             Defaults to end.
    --no-experimental-ternaries
                             Default behavior of ternaries; keep question marks on the same line as the consequent.
 +  --foo-option <bar|baz>   foo description
 +                           Defaults to bar.
+   --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+                            Defaults to false.
    --html-whitespace-sensitivity <css|strict|ignore>
                             How to handle whitespaces in HTML.
-                            Defaults to css.
-   --jsx-single-quote       Use single quotes in JSX.
-                            Defaults to false.
-   --object-wrap <preserve|collapse>
-                            How to wrap object literals.
+@@ -41,9 +43,9 @@
                             Defaults to preserve.
+   --offset-ternary-expressions
+                            Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).
+                            Defaults to false.
 -  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
 +  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
                             Which parser to use.

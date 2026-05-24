@@ -153,6 +153,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": undefined,
       "type": "path",
     },
+    "generatorStarSpacing": {
+      "default": false,
+      "type": "boolean",
+    },
     "htmlWhitespaceSensitivity": {
       "choices": [
         "css",
@@ -177,6 +181,10 @@ exports[`API getSupportInfo() 1`] = `
       ],
       "default": "preserve",
       "type": "choice",
+    },
+    "offsetTernaryExpressions": {
+      "default": false,
+      "type": "boolean",
     },
     "parser": {
       "choices": [
@@ -301,6 +309,10 @@ exports[`API getSupportInfo() 1`] = `
       "type": "boolean",
     },
     "vueIndentScriptAndStyle": {
+      "default": false,
+      "type": "boolean",
+    },
+    "yieldStarSpacing": {
       "default": false,
       "type": "boolean",
     },
@@ -922,6 +934,14 @@ exports[`CLI --support-info  1`] = `
       "type": "path"
     },
     {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+      "name": "generatorStarSpacing",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
       "category": "HTML",
       "choices": [
         {
@@ -976,6 +996,14 @@ exports[`CLI --support-info  1`] = `
       "name": "objectWrap",
       "pluginDefaults": {},
       "type": "choice"
+    },
+    {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).",
+      "name": "offsetTernaryExpressions",
+      "pluginDefaults": {},
+      "type": "boolean"
     },
     {
       "category": "Global",
@@ -1167,6 +1195,14 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Indent script and style tags in Vue files.",
       "name": "vueIndentScriptAndStyle",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+      "name": "yieldStarSpacing",
       "pluginDefaults": {},
       "type": "boolean"
     }

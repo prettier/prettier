@@ -254,6 +254,18 @@ exports[`show detailed usage with --help find-config-path  1`] = `
 }
 `;
 
+exports[`show detailed usage with --help generator-star-spacing  1`] = `
+{
+  "stderr": "",
+  "stdout": "--generator-star-spacing
+
+  Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+
+Default: false",
+  "write": [],
+}
+`;
+
 exports[`show detailed usage with --help help  1`] = `
 {
   "stderr": "",
@@ -443,6 +455,18 @@ Valid options:
   collapse   Fit to a single line when possible.
 
 Default: preserve",
+  "write": [],
+}
+`;
+
+exports[`show detailed usage with --help offset-ternary-expressions  1`] = `
+{
+  "stderr": "",
+  "stdout": "--offset-ternary-expressions
+
+  Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).
+
+Default: false",
   "write": [],
 }
 `;
@@ -731,6 +755,18 @@ exports[`show detailed usage with --help write  1`] = `
   "stdout": "-w, --write
 
   Edit files in-place. (Beware!)",
+  "write": [],
+}
+`;
+
+exports[`show detailed usage with --help yield-star-spacing  1`] = `
+{
+  "stderr": "",
+  "stdout": "--yield-star-spacing
+
+  Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
+
+Default: false",
   "write": [],
 }
 `;

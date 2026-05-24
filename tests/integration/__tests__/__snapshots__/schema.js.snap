@@ -122,6 +122,11 @@ exports[`schema 1`] = `
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
+        "generatorStarSpacing": {
+          "default": false,
+          "description": "Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+          "type": "boolean",
+        },
         "htmlWhitespaceSensitivity": {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",
@@ -173,6 +178,11 @@ exports[`schema 1`] = `
               ],
             },
           ],
+        },
+        "offsetTernaryExpressions": {
+          "default": false,
+          "description": "Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).",
+          "type": "boolean",
         },
         "parser": {
           "anyOf": [
@@ -469,6 +479,11 @@ The range will extend backwards to the start of the first line containing the se
         "vueIndentScriptAndStyle": {
           "default": false,
           "description": "Indent script and style tags in Vue files.",
+          "type": "boolean",
+        },
+        "yieldStarSpacing": {
+          "default": false,
+          "description": "Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)",
           "type": "boolean",
         },
       },
