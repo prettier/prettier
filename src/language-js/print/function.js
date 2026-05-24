@@ -76,13 +76,19 @@ function printFunction(path, options, print, args) {
     printDeclareToken(path),
     node.async ? "async " : "",
     keyword,
-    node.generator ? "*" : "",
+    node.generator
+      ? // [prettierx]
+        options.generatorStarSpacing
+        ? " *"
+        : "*"
+      : "",
     " ",
     node.id ? print("id") : "",
     print("typeParameters"),
     group([
       // [prettierx]
-      (node.id || node.typeParameters) && options.spaceBeforeFunctionParen
+      (node.id || node.typeParameters) &&
+      (options.spaceBeforeFunctionParen || options.generatorStarSpacing)
         ? " "
         : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
@@ -128,6 +134,10 @@ function printMethod(path, options, print) {
   // A `getter`/`setter` can't be a generator, but it's recoverable
   if (value.generator) {
     parts.push("*");
+    // [prettierx]
+    if (options.generatorStarSpacing) {
+      parts.push(" ");
+    }
   }
 
   parts.push(

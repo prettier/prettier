@@ -110,6 +110,13 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
+  generatorStarSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+  },
   spaceBeforeFunctionParen: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
