@@ -161,7 +161,7 @@ function printEstree(path, options, print, args) {
           node.delegate
             ? // [prettierx]
               options.yieldStarSpacing
-              ? "* "
+              ? " *"
               : "*"
             : ""
         }`,
