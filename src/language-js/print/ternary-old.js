@@ -302,14 +302,14 @@ function printTernaryOld(path, options, print) {
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
       // [prettierx]
-      !options.offsetTernaryExpressions
-        ? printBranch(consequentNodePropertyName)
-        : print(consequentNodePropertyName),
+      options.offsetTernaryExpressions
+        ? print(consequentNodePropertyName)
+        : printBranch(consequentNodePropertyName),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
       // [prettierx]
-      options.offsetTernaryExpressions || alternateNode.type === node.type
+      options.offsetTernaryExpressions
         ? print(alternateNodePropertyName)
         : printBranch(alternateNodePropertyName),
     ];
