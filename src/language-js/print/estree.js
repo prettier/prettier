@@ -157,7 +157,14 @@ function printEstree(path, options, print, args) {
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
       return [
-        `yield${node.delegate ? "*" : ""}`,
+        `yield${
+          node.delegate
+            ? // [prettierx]
+              options.yieldStarSpacing
+              ? "* "
+              : "*"
+            : ""
+        }`,
         node.argument ? [" ", print("argument")] : "",
       ];
     case "AwaitExpression":
