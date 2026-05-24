@@ -274,6 +274,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
+    "spaceBeforeFunctionParen": {
+      "default": false,
+      "type": "boolean",
+    },
     "tabWidth": {
       "default": 2,
       "range": {
@@ -1111,6 +1115,14 @@ exports[`CLI --support-info  1`] = `
       "default": false,
       "description": "Use single quotes instead of double quotes.",
       "name": "singleQuote",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+      "name": "spaceBeforeFunctionParen",
       "pluginDefaults": {},
       "type": "boolean"
     },

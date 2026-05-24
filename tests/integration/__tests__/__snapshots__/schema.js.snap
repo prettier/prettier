@@ -427,6 +427,11 @@ The range will extend backwards to the start of the first line containing the se
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "spaceBeforeFunctionParen": {
+          "default": false,
+          "description": "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+          "type": "boolean",
+        },
         "tabWidth": {
           "default": 2,
           "description": "Number of spaces per indentation level.",

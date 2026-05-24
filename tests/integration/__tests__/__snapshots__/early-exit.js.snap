@@ -82,6 +82,9 @@ Format options:
                            Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
   --trailing-comma <all|es5|none>
@@ -257,6 +260,9 @@ Format options:
                            Enforce single attribute per line in HTML, Vue and JSX.
                            Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
+                           Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
