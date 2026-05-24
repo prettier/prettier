@@ -1,3 +1,4 @@
+import { locEnd } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
@@ -5,6 +6,32 @@ import {
   hasNakedLeftSide,
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
+
+function isShellShebangDirective(path, options) {
+  const { node, parent } = path;
+
+  if (
+    !options.originalText.startsWith("#!") ||
+    parent.type !== "Program" ||
+    path.index !== 0 ||
+    !(
+      (path.key === "directives" && node.type === "Directive") ||
+      (path.key === "body" &&
+        node.type === "ExpressionStatement" &&
+        typeof node.directive === "string")
+    )
+  ) {
+    return false;
+  }
+
+  const directiveEnd = locEnd(node);
+  const lineEnd = options.originalText.indexOf("\n", directiveEnd);
+
+  return (
+    lineEnd !== -1 &&
+    /^\s*\/\/;/.test(options.originalText.slice(directiveEnd, lineEnd))
+  );
+}
 
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   if (options.semi) {
@@ -128,6 +155,7 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
 }
 
 export {
+  isShellShebangDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,

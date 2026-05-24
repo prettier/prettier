@@ -3,6 +3,7 @@ import {
   printLeadingComments,
 } from "../../main/comments/print.js";
 import {
+  isShellShebangDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
@@ -34,6 +35,7 @@ function shouldPrintSemicolon(path, options) {
   }
 
   if (
+    isShellShebangDirective(path, options) ||
     // Do not append semicolon after the only JSX element in a program
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
     // Do not append semicolon after the only HTML event binding expression in a program
