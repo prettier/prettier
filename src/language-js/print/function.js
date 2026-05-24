@@ -81,6 +81,10 @@ function printFunction(path, options, print, args) {
     node.id ? print("id") : "",
     print("typeParameters"),
     group([
+      // [prettierx]
+      (node.id || node.typeParameters) && options.spaceBeforeFunctionParen
+        ? " "
+        : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
@@ -158,6 +162,8 @@ function printMethodValue(path, options, print) {
   const parts = [
     print("typeParameters"),
     group([
+      // [prettierx]
+      options.spaceBeforeFunctionParen ? " " : "",
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
         : shouldGroupParameters
