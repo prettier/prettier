@@ -11,7 +11,7 @@ a=> a;
 
 // "block-spacing": [ "error", "always" ],
 
-function foo() {return true;}
+function foo1() {return true;}
 if (foo) { bar = 0;}
 function baz() {let i = 0;
   return i;
@@ -19,7 +19,7 @@ function baz() {let i = 0;
 
 // "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],
 
-function foo()
+function foo2()
 {
   return true;
 }
@@ -51,7 +51,7 @@ var arr = [1 , 2];
 var obj = {"foo": "bar" ,"baz": "qur"};
 foo(a ,b);
 new Foo(a ,b);
-function foo(a ,b){}
+function foo3(a ,b){}
 a ,b
 
 // "eol-last": "error",
@@ -65,10 +65,10 @@ fn
 
 // "generator-star-spacing": [ "error", { "before": true, "after": true } ],
 
-function* generator() {}
+function* generator1() {}
 var anonymous = function* () {};
 var shorthand = { * generator() {} };
-function *generator() {}
+function *generator2() {}
 var anonymous = function *() {};
 var shorthand = { *generator() {} };
 
@@ -143,7 +143,7 @@ var obj = {'foo': 'bar'
 var obj = {
   'foo':'bar'};
 var {x} = y;
-import {foo } from 'bar';
+import {foo4 } from 'bar';
 
 // "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],
 
@@ -163,7 +163,7 @@ const obj3 = {
     8
   ]
 };
-const a = "antidisestablishmentarianistically";
+const a2 = "antidisestablishmentarianistically";
 const b = "yugoslavyalılaştırabildiklerimizdenmişsiniz";
 const obj4 = {a, b};
 const domain = process.argv[4];
@@ -215,7 +215,7 @@ switch (a) {
 
 fn(... args)
 function fn(... args) { console.log(args); }
-let { x, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };
+let { x1, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };
 let n = { x, y, ... z };
 
 // "semi-spacing": [ "error", { "before": false, "after": true } ],
@@ -233,7 +233,7 @@ if (a){
     b();
 }
 
-function a(){}
+function a1(){}
 
 for (;;){
     b();
@@ -241,13 +241,13 @@ for (;;){
 
 try {} catch(a){}
 
-class Foo{
+class Foo5{
   constructor(){}
 }
 
 // "space-before-function-paren": [ "error", "always" ],
 
-function foo() {
+function foo6() {
     // ...
 }
 
@@ -259,7 +259,7 @@ var bar = function foo() {
     // ...
 };
 
-class Foo {
+class Foo7 {
     constructor() {
         // ...
     }
@@ -288,9 +288,9 @@ a+b
 a+ b
 a +b
 a?b:c
-const a={b:1};
+const a3={b:1};
 var {a=0}=bar;
-function foo(a=0) { }
+function foo8(a=0) { }
 
 // "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],
 
@@ -340,13 +340,13 @@ var abc;
 // "yield-star-spacing": [ "error", "both" ]
 
 
-function *generator() {
+function *generator3() {
   yield *other();
 }
-function* generator() {
+function* generator4() {
   yield* other();
 }
-function*generator() {
+function*generator5() {
   yield*other();
 }
 

@@ -16,7 +16,7 @@ yieldStarSpacing: true
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // Needs to be at the top but belongs to object-curly-spacing<LF>
-import { foo } from 'bar'<LF>
+import { foo1 } from 'bar'<LF>
 <LF>
 // Needs to be at the top but belongs to indent rule<LF>
 import {<LF>
@@ -34,7 +34,7 @@ a => a<LF>
 }<LF>
 <LF>
 // "block-spacing": [ "error", "always" ],<LF>
-function foo () {<LF>
+function foo2 () {<LF>
   return true<LF>
 }<LF>
 if (foo) {<LF>
@@ -42,7 +42,7 @@ if (foo) {<LF>
 }<LF>
 <LF>
 // "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
-function foo () {<LF>
+function foo3 () {<LF>
   return true<LF>
 }<LF>
 if (foo) {<LF>
@@ -67,7 +67,7 @@ var arr = [1, , 3]<LF>
 var obj = { foo: 'bar', baz: 'qur' }<LF>
 foo(a, b)<LF>
 new Foo(a, b)<LF>
-function foo (a, b) {}<LF>
+function foo4 (a, b) {}<LF>
 a, b<LF>
 <LF>
 // "eol-last": "error",<LF>
@@ -77,7 +77,7 @@ a, b<LF>
 fn()<LF>
 <LF>
 // "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
-function * generator () {}<LF>
+function * generator1 () {}<LF>
 var anonymous = function * () {}<LF>
 var shorthand = { * generator () {} }<LF>
 class Example {<LF>
@@ -113,10 +113,10 @@ switch (a) {<LF>
 var aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
   bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
   bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
-let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
-  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
-  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
-const a = 1<LF>
+let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh1,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh2,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh3<LF>
+const a1 = 1<LF>
 const b = 2<LF>
 const c = 3<LF>
 ;(function () {<LF>
@@ -127,7 +127,7 @@ const c = 3<LF>
 if (y) {<LF>
   console.log('foo')<LF>
 }<LF>
-function foo (<LF>
+function foo5 (<LF>
   barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
   bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
   quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
@@ -195,7 +195,7 @@ var obj = {<LF>
 var { x } = y<LF>
 <LF>
 // "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
-const obj = { foo: 'foo', bar: 'bar' }<LF>
+const obj1 = { foo: 'foo', bar: 'bar' }<LF>
 const obj2 = {<LF>
   foo: 'foo',<LF>
   bar: 'bar',<LF>
@@ -230,7 +230,7 @@ fn(...args)<LF>
 function fn (...args) {<LF>
   console.log(args)<LF>
 }<LF>
-let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let { x1, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
 let n = { x, y, ...z }<LF>
 <LF>
 // "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
@@ -245,7 +245,7 @@ if (a) {<LF>
 } else {<LF>
   c()<LF>
 }<LF>
-function a () {}<LF>
+function a3 () {}<LF>
 for (;;) {<LF>
   b()<LF>
 }<LF>
@@ -253,7 +253,7 @@ try {<LF>
 } catch (a) {}<LF>
 <LF>
 // "space-before-function-paren": [ "error", "always" ],<LF>
-function foo () {<LF>
+function foo8 () {<LF>
   // ...<LF>
 }<LF>
 <LF>
@@ -301,9 +301,9 @@ var foo = (1 + 2) * 3<LF>
 a + b<LF>
 a + b<LF>
 a ? b : c<LF>
-const a = { b: 1 }<LF>
+const a2 = { b: 1 }<LF>
 var { a = 0 } = bar<LF>
-function foo (a = 0) {}<LF>
+function foo6 (a = 0) {}<LF>
 <LF>
 // "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
 delete foo.bar<LF>
@@ -351,7 +351,7 @@ func\`Hello world\`<LF>
 var abc<LF>
 <LF>
 // "yield-star-spacing": [ "error", "both" ]<LF>
-function * generator () {<LF>
+function * generator2 () {<LF>
   yield * other()<LF>
 }<LF>
 <LF>
@@ -360,7 +360,7 @@ function * generator () {<LF>
 
 =====================================output=====================================
 // Needs to be at the top but belongs to object-curly-spacing<LF>
-import { foo } from 'bar'<LF>
+import { foo1 } from 'bar'<LF>
 <LF>
 // Needs to be at the top but belongs to indent rule<LF>
 import {<LF>
@@ -378,7 +378,7 @@ a => a<LF>
 }<LF>
 <LF>
 // "block-spacing": [ "error", "always" ],<LF>
-function foo () {<LF>
+function foo2 () {<LF>
   return true<LF>
 }<LF>
 if (foo) {<LF>
@@ -386,7 +386,7 @@ if (foo) {<LF>
 }<LF>
 <LF>
 // "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
-function foo () {<LF>
+function foo3 () {<LF>
   return true<LF>
 }<LF>
 if (foo) {<LF>
@@ -411,7 +411,7 @@ var arr = [1, , 3]<LF>
 var obj = { foo: 'bar', baz: 'qur' }<LF>
 foo(a, b)<LF>
 new Foo(a, b)<LF>
-function foo (a, b) {}<LF>
+function foo4 (a, b) {}<LF>
 ;(a, b)<LF>
 <LF>
 // "eol-last": "error",<LF>
@@ -421,7 +421,7 @@ function foo (a, b) {}<LF>
 fn()<LF>
 <LF>
 // "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
-function * generator () {}<LF>
+function * generator1 () {}<LF>
 var anonymous = function * () {}<LF>
 var shorthand = { * generator () {} }<LF>
 class Example {<LF>
@@ -457,10 +457,10 @@ switch (a) {<LF>
 var aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
   bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
   bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
-let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
-  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
-  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
-const a = 1<LF>
+let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh1,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh2,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfh3<LF>
+const a1 = 1<LF>
 const b = 2<LF>
 const c = 3<LF>
 ;(function () {<LF>
@@ -471,7 +471,7 @@ const c = 3<LF>
 if (y) {<LF>
   console.log('foo')<LF>
 }<LF>
-function foo (<LF>
+function foo5 (<LF>
   barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
   bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
   quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
@@ -539,7 +539,7 @@ var obj = {<LF>
 var { x } = y<LF>
 <LF>
 // "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
-const obj = { foo: 'foo', bar: 'bar' }<LF>
+const obj1 = { foo: 'foo', bar: 'bar' }<LF>
 const obj2 = {<LF>
   foo: 'foo',<LF>
   bar: 'bar',<LF>
@@ -574,7 +574,7 @@ fn(...args)<LF>
 function fn (...args) {<LF>
   console.log(args)<LF>
 }<LF>
-let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let { x1, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
 let n = { x, y, ...z }<LF>
 <LF>
 // "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
@@ -589,7 +589,7 @@ if (a) {<LF>
 } else {<LF>
   c()<LF>
 }<LF>
-function a () {}<LF>
+function a3 () {}<LF>
 for (;;) {<LF>
   b()<LF>
 }<LF>
@@ -597,7 +597,7 @@ try {<LF>
 } catch (a) {}<LF>
 <LF>
 // "space-before-function-paren": [ "error", "always" ],<LF>
-function foo () {<LF>
+function foo8 () {<LF>
   // ...<LF>
 }<LF>
 <LF>
@@ -645,9 +645,9 @@ var foo = (1 + 2) * 3<LF>
 a + b<LF>
 a + b<LF>
 a ? b : c<LF>
-const a = { b: 1 }<LF>
+const a2 = { b: 1 }<LF>
 var { a = 0 } = bar<LF>
-function foo (a = 0) {}<LF>
+function foo6 (a = 0) {}<LF>
 <LF>
 // "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
 delete foo.bar<LF>
@@ -695,7 +695,7 @@ func\`Hello world\`<LF>
 var abc<LF>
 <LF>
 // "yield-star-spacing": [ "error", "both" ]<LF>
-function * generator () {<LF>
+function * generator2 () {<LF>
   yield * other()<LF>
 }<LF>
 <LF>
@@ -1084,7 +1084,7 @@ a=> a;<LF>
 <LF>
 // "block-spacing": [ "error", "always" ],<LF>
 <LF>
-function foo() {return true;}<LF>
+function foo1() {return true;}<LF>
 if (foo) { bar = 0;}<LF>
 function baz() {let i = 0;<LF>
   return i;<LF>
@@ -1092,7 +1092,7 @@ function baz() {let i = 0;<LF>
 <LF>
 // "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
 <LF>
-function foo()<LF>
+function foo2()<LF>
 {<LF>
   return true;<LF>
 }<LF>
@@ -1124,7 +1124,7 @@ var arr = [1 , 2];<LF>
 var obj = {"foo": "bar" ,"baz": "qur"};<LF>
 foo(a ,b);<LF>
 new Foo(a ,b);<LF>
-function foo(a ,b){}<LF>
+function foo3(a ,b){}<LF>
 a ,b<LF>
 <LF>
 // "eol-last": "error",<LF>
@@ -1138,10 +1138,10 @@ fn<LF>
 <LF>
 // "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
 <LF>
-function* generator() {}<LF>
+function* generator1() {}<LF>
 var anonymous = function* () {};<LF>
 var shorthand = { * generator() {} };<LF>
-function *generator() {}<LF>
+function *generator2() {}<LF>
 var anonymous = function *() {};<LF>
 var shorthand = { *generator() {} };<LF>
 <LF>
@@ -1216,7 +1216,7 @@ var obj = {'foo': 'bar'<LF>
 var obj = {<LF>
   'foo':'bar'};<LF>
 var {x} = y;<LF>
-import {foo } from 'bar';<LF>
+import {foo4 } from 'bar';<LF>
 <LF>
 // "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
 <LF>
@@ -1236,7 +1236,7 @@ const obj3 = {<LF>
     8<LF>
   ]<LF>
 };<LF>
-const a = "antidisestablishmentarianistically";<LF>
+const a2 = "antidisestablishmentarianistically";<LF>
 const b = "yugoslavyalılaştırabildiklerimizdenmişsiniz";<LF>
 const obj4 = {a, b};<LF>
 const domain = process.argv[4];<LF>
@@ -1288,7 +1288,7 @@ switch (a) {<LF>
 <LF>
 fn(... args)<LF>
 function fn(... args) { console.log(args); }<LF>
-let { x, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };<LF>
+let { x1, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };<LF>
 let n = { x, y, ... z };<LF>
 <LF>
 // "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
@@ -1306,7 +1306,7 @@ if (a){<LF>
     b();<LF>
 }<LF>
 <LF>
-function a(){}<LF>
+function a1(){}<LF>
 <LF>
 for (;;){<LF>
     b();<LF>
@@ -1314,13 +1314,13 @@ for (;;){<LF>
 <LF>
 try {} catch(a){}<LF>
 <LF>
-class Foo{<LF>
+class Foo5{<LF>
   constructor(){}<LF>
 }<LF>
 <LF>
 // "space-before-function-paren": [ "error", "always" ],<LF>
 <LF>
-function foo() {<LF>
+function foo6() {<LF>
     // ...<LF>
 }<LF>
 <LF>
@@ -1332,7 +1332,7 @@ var bar = function foo() {<LF>
     // ...<LF>
 };<LF>
 <LF>
-class Foo {<LF>
+class Foo7 {<LF>
     constructor() {<LF>
         // ...<LF>
     }<LF>
@@ -1361,9 +1361,9 @@ a+b<LF>
 a+ b<LF>
 a +b<LF>
 a?b:c<LF>
-const a={b:1};<LF>
+const a3={b:1};<LF>
 var {a=0}=bar;<LF>
-function foo(a=0) { }<LF>
+function foo8(a=0) { }<LF>
 <LF>
 // "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
 <LF>
@@ -1413,13 +1413,13 @@ var abc;<LF>
 // "yield-star-spacing": [ "error", "both" ]<LF>
 <LF>
 <LF>
-function *generator() {<LF>
+function *generator3() {<LF>
   yield *other();<LF>
 }<LF>
-function* generator() {<LF>
+function* generator4() {<LF>
   yield* other();<LF>
 }<LF>
-function*generator() {<LF>
+function*generator5() {<LF>
   yield*other();<LF>
 }<LF>
 <LF>
@@ -1471,7 +1471,7 @@ a => a<LF>
 <LF>
 // "block-spacing": [ "error", "always" ],<LF>
 <LF>
-function foo () {<LF>
+function foo1 () {<LF>
   return true<LF>
 }<LF>
 if (foo) {<LF>
@@ -1484,7 +1484,7 @@ function baz () {<LF>
 <LF>
 // "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
 <LF>
-function foo () {<LF>
+function foo2 () {<LF>
   return true<LF>
 }<LF>
 <LF>
@@ -1512,7 +1512,7 @@ var arr = [1, 2]<LF>
 var obj = { foo: 'bar', baz: 'qur' }<LF>
 foo(a, b)<LF>
 new Foo(a, b)<LF>
-function foo (a, b) {}<LF>
+function foo3 (a, b) {}<LF>
 ;(a, b)<LF>
 <LF>
 // "eol-last": "error",<LF>
@@ -1525,10 +1525,10 @@ fn()<LF>
 <LF>
 // "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
 <LF>
-function * generator () {}<LF>
+function * generator1 () {}<LF>
 var anonymous = function * () {}<LF>
 var shorthand = { * generator () {} }<LF>
-function * generator () {}<LF>
+function * generator2 () {}<LF>
 var anonymous = function * () {}<LF>
 var shorthand = { * generator () {} }<LF>
 <LF>
@@ -1601,7 +1601,7 @@ var obj = {<LF>
   foo: 'bar'<LF>
 }<LF>
 var { x } = y<LF>
-import { foo } from 'bar'<LF>
+import { foo4 } from 'bar'<LF>
 <LF>
 // "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
 <LF>
@@ -1620,7 +1620,7 @@ const obj3 = {<LF>
   [process.argv[3] ? 'foo' : 'bar']: 0,<LF>
   baz: [1, 2, 4, 8]<LF>
 }<LF>
-const a = 'antidisestablishmentarianistically'<LF>
+const a2 = 'antidisestablishmentarianistically'<LF>
 const b = 'yugoslavyalılaştırabildiklerimizdenmişsiniz'<LF>
 const obj4 = { a, b }<LF>
 const domain = process.argv[4]<LF>
@@ -1662,7 +1662,7 @@ fn(...args)<LF>
 function fn (...args) {<LF>
   console.log(args)<LF>
 }<LF>
-let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let { x1, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
 let n = { x, y, ...z }<LF>
 <LF>
 // "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
@@ -1683,7 +1683,7 @@ if (a) {<LF>
   b()<LF>
 }<LF>
 <LF>
-function a () {}<LF>
+function a1 () {}<LF>
 <LF>
 for (;;) {<LF>
   b()<LF>
@@ -1692,13 +1692,13 @@ for (;;) {<LF>
 try {<LF>
 } catch (a) {}<LF>
 <LF>
-class Foo {<LF>
+class Foo5 {<LF>
   constructor () {}<LF>
 }<LF>
 <LF>
 // "space-before-function-paren": [ "error", "always" ],<LF>
 <LF>
-function foo () {<LF>
+function foo6 () {<LF>
   // ...<LF>
 }<LF>
 <LF>
@@ -1710,7 +1710,7 @@ var bar = function foo () {<LF>
   // ...<LF>
 }<LF>
 <LF>
-class Foo {<LF>
+class Foo7 {<LF>
   constructor () {<LF>
     // ...<LF>
   }<LF>
@@ -1741,9 +1741,9 @@ a + b<LF>
 a + b<LF>
 a + b<LF>
 a ? b : c<LF>
-const a = { b: 1 }<LF>
+const a3 = { b: 1 }<LF>
 var { a = 0 } = bar<LF>
-function foo (a = 0) {}<LF>
+function foo8 (a = 0) {}<LF>
 <LF>
 // "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
 <LF>
@@ -1792,13 +1792,13 @@ var abc<LF>
 <LF>
 // "yield-star-spacing": [ "error", "both" ]<LF>
 <LF>
-function * generator () {<LF>
+function * generator3 () {<LF>
   yield * other()<LF>
 }<LF>
-function * generator () {<LF>
+function * generator4 () {<LF>
   yield * other()<LF>
 }<LF>
-function * generator () {<LF>
+function * generator5 () {<LF>
   yield * other()<LF>
 }<LF>
 <LF>
