@@ -1,3 +1,30 @@
+# Fork of Prettier
+
+This is a fork of Prettier to support StandardJS. As the years pass, [prettier-standard](https://github.com/sheerun/prettier-standard) and [prettierx](https://github.com/brody2consult/prettierx) get increasingly out of date, my formatters are unable to format new JavaScript/TypeScript syntax features like import attributes.
+
+The goal of this fork is to port the following four new config options from prettierx:
+
+- `generatorStarSpacing`
+- `spaceBeforeFunctionParen`
+- `offsetTernaryExpressions`
+- `yieldStarSpacing`
+
+With those extra options, the following config should satisfy most of StandardJS's formatting rules.
+
+```yaml
+arrowParens: avoid
+generatorStarSpacing: true
+spaceBeforeFunctionParen: true
+singleQuote: true
+jsxSingleQuote: true
+semi: false
+offsetTernaryExpressions: true
+yieldStarSpacing: true
+trailingComma: none
+```
+
+---
+
 [![Prettier Banner](https://unpkg.com/prettier-logo@1.0.3/images/prettier-banner-light.svg)](https://prettier.io)
 
 <h2 align="center">Opinionated Code Formatter</h2>
