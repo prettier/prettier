@@ -110,6 +110,14 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
+  // [prettierx]
+  offsetTernaryExpressions: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      'Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).',
+  },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",

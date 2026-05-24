@@ -301,21 +301,33 @@ function printTernaryOld(path, options, print) {
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      printBranch(consequentNodePropertyName),
+      // [prettierx]
+      !options.offsetTernaryExpressions
+        ? printBranch(consequentNodePropertyName)
+        : print(consequentNodePropertyName),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
-      printBranch(alternateNodePropertyName),
+      // [prettierx]
+      options.offsetTernaryExpressions || alternateNode.type === node.type
+        ? print(alternateNodePropertyName)
+        : printBranch(alternateNodePropertyName),
     ];
     parts.push(
       parent.type !== node.type ||
         parent[alternateNodePropertyName] === node ||
         isParentTest
         ? part
-        : options.useTabs
+        : // [prettierx]
+          options.useTabs || options.offsetTernaryExpressions
           ? dedent(indent(part))
           : align(Math.max(0, options.tabWidth - 2), part),
     );
+
+    // [prettierx]
+    if (options.offsetTernaryExpressions) {
+      forceNoIndent = false;
+    }
   }
 
   const maybeGroup = (doc) =>
