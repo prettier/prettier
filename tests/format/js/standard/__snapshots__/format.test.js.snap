@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`correct.js - {"endOfLine":"lf","yieldStarSpacing":true,"generatorStarSpacing":true,"offsetTernaryExpressions":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"none","arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
@@ -7,14 +7,13 @@ endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
-printWidth: 80
+parsers: ["babel", "flow", "typescript"]
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
 trailingComma: "none"
 yieldStarSpacing: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Needs to be at the top but belongs to object-curly-spacing<LF>
 import { foo } from 'bar'<LF>
@@ -413,7 +412,7 @@ var obj = { foo: 'bar', baz: 'qur' }<LF>
 foo(a, b)<LF>
 new Foo(a, b)<LF>
 function foo (a, b) {}<LF>
-a, b<LF>
+;(a, b)<LF>
 <LF>
 // "eol-last": "error",<LF>
 // cannot be tested here, but true (Unix-style new lines)<LF>
@@ -684,7 +683,10 @@ This comment has a newline<LF>
 <LF>
 // "template-curly-spacing": [ "error", "never" ],<LF>
 ;\`hello, \${people.name}!\`<LF>
-;\`hello, \${people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for.prettier}!\`<LF>
+;\`hello, \${<LF>
+  people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for<LF>
+    .prettier<LF>
+}!\`<LF>
 <LF>
 // "template-tag-spacing": [ "error", "never" ],<LF>
 func\`Hello world\`<LF>
@@ -710,14 +712,13 @@ endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
-printWidth: 80
+parsers: ["babel", "flow", "typescript"]
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
 trailingComma: "none"
 yieldStarSpacing: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
   no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
@@ -978,6 +979,7 @@ debug<LF>
     ? 'partially visible'<LF>
     : 'hidden'<LF>
   : null<LF>
+<LF>
 a =><LF>
   a<LF>
     ? () => {<LF>
@@ -1061,14 +1063,13 @@ endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
-printWidth: 80
+parsers: ["babel", "flow", "typescript"]
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
 trailingComma: "none"
 yieldStarSpacing: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // "arrow-spacing": ["error", { "before": true, "after": true }]<LF>
 <LF>
@@ -1512,7 +1513,7 @@ var obj = { foo: 'bar', baz: 'qur' }<LF>
 foo(a, b)<LF>
 new Foo(a, b)<LF>
 function foo (a, b) {}<LF>
-a, b<LF>
+;(a, b)<LF>
 <LF>
 // "eol-last": "error",<LF>
 // cannot be tested here, but true (Unix-style new lines)<LF>
@@ -1843,14 +1844,13 @@ endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
-printWidth: 80
+parsers: ["babel", "flow", "typescript"]
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
 trailingComma: "none"
 yieldStarSpacing: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
   no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
