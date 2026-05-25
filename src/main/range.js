@@ -125,6 +125,76 @@ function isJsSourceElement(type, parentType) {
   );
 }
 
+// Nodes that create a new `yield` binding scope. A YieldExpression below such
+// a node is bound by it. Arrow functions are intentionally excluded — they are
+// transparent to the surrounding generator's yield context.
+const jsYieldScopeTypes = new Set([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "ObjectMethod",
+  "ClassMethod",
+  "ClassPrivateMethod",
+  "TSDeclareFunction",
+]);
+
+// A slice of source text is reparsed standalone during range formatting. If
+// the slice contains a YieldExpression whose binding generator function is
+// outside the slice, the parser will fall back to treating `yield` as an
+// identifier (e.g. `yield [1, 2]` becomes `yield[(1, 2)]`). Detect that case
+// so the predicate can climb to a wider source element that does include the
+// enclosing generator. See https://github.com/prettier/prettier/issues/16167.
+function jsRangeLeaksYield(root, opts) {
+  if (jsYieldScopeTypes.has(root.type)) {
+    return false;
+  }
+
+  const stack = [root];
+  while (stack.length > 0) {
+    const node = stack.pop();
+    if (!node || typeof node !== "object") {
+      continue;
+    }
+    if (Array.isArray(node)) {
+      for (const child of node) {
+        stack.push(child);
+      }
+      continue;
+    }
+    if (typeof node.type !== "string") {
+      continue;
+    }
+    if (node !== root && jsYieldScopeTypes.has(node.type)) {
+      continue;
+    }
+    if (node.type === "YieldExpression") {
+      return true;
+    }
+    for (const key of opts.getVisitorKeys(node)) {
+      stack.push(node[key]);
+    }
+  }
+  return false;
+}
+
+function isJsParser(parser) {
+  switch (parser) {
+    case "flow":
+    case "hermes":
+    case "babel":
+    case "babel-flow":
+    case "babel-ts":
+    case "typescript":
+    case "acorn":
+    case "espree":
+    case "meriyah":
+    case "oxc":
+    case "oxc-ts":
+    case "__babel_estree":
+      return true;
+  }
+  return false;
+}
+
 const jsonSourceElements = new Set([
   "JsonRoot",
   "ObjectExpression",
@@ -210,11 +280,14 @@ function calculateRange(text, opts, ast) {
 
   const locFunctions =
     opts.printer.features?.experimental_locForRangeFormat ?? opts;
+  const isJs = isJsParser(opts.parser);
+  const isSafeRangeRoot = (node) => !isJs || !jsRangeLeaksYield(node, opts);
   const startNodeAndAncestors = findNodeAtOffset(
     ast,
     start,
     opts,
-    (node, parentNode) => isSourceElement(opts, node, parentNode),
+    (node, parentNode) =>
+      isSourceElement(opts, node, parentNode) && isSafeRangeRoot(node),
     [],
     "rangeStart",
     locFunctions,
@@ -231,7 +304,7 @@ function calculateRange(text, opts, ast) {
           ast,
           end,
           opts,
-          (node) => isSourceElement(opts, node),
+          (node) => isSourceElement(opts, node) && isSafeRangeRoot(node),
           [],
           "rangeEnd",
           locFunctions,
