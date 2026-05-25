@@ -532,7 +532,10 @@ function handleLastFunctionParameterComments({
     return true;
   }
 
-  // Real functions and TypeScript function type definitions
+  // Real functions and TypeScript function type definitions.
+  // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
+  // wrappers around it (`TSAbstractMethodDefinition`, and `MethodDefinition`
+  // in `declare class` / overload position) become the enclosing node.
   if (
     (precedingNode?.type === "Identifier" ||
       precedingNode?.type === "AssignmentPattern" ||
@@ -540,7 +543,8 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
-    isRealFunctionLikeNode(enclosingNode) &&
+    (isRealFunctionLikeNode(enclosingNode) ||
+      enclosingNode?.value?.type === "TSEmptyBodyFunctionExpression") &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
