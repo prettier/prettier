@@ -22,6 +22,69 @@ import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
+function extractTrailingScssDirective(value, directive, options) {
+  if (!value.includes(directive)) {
+    return null;
+  }
+
+  const parsedValue = parseValue(value, options);
+  if (parsedValue.type === "value-unknown") {
+    return;
+  }
+
+  const topLevelGroup = parsedValue.group?.group;
+  const topLevelNodes = topLevelGroup?.groups ?? [topLevelGroup].filter(Boolean);
+
+  if (topLevelNodes.length === 0) {
+    return null;
+  }
+
+  const lastNonCommentIndex = topLevelNodes.findLastIndex(
+    (node) => node.type !== "value-comment",
+  );
+  const directiveNode = topLevelNodes[lastNonCommentIndex];
+
+  if (
+    directiveNode?.type !== "value-word" ||
+    directiveNode.value !== directive ||
+    !topLevelNodes
+      .slice(lastNonCommentIndex + 1)
+      .every((node) => node.type === "value-comment")
+  ) {
+    return null;
+  }
+
+  const startIndex = directiveNode.sourceIndex - directiveNode.raws.before.length;
+  const raw = value.slice(startIndex);
+
+  return {
+    raw,
+    value: value.slice(0, startIndex),
+  };
+}
+
+function extractTrailingScssDirectiveWithFallback(
+  value,
+  directive,
+  regex,
+  options,
+) {
+  const parsedDirective = extractTrailingScssDirective(value, directive, options);
+  if (parsedDirective !== undefined) {
+    return parsedDirective;
+  }
+
+  const match = value.match(regex);
+  if (!match) {
+    return null;
+  }
+
+  return {
+    raw: match[0],
+    value: value.slice(0, match.index),
+  };
+}
+
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
     delete node.parent;
@@ -163,25 +226,37 @@ function parseNestedCSS(node, options) {
     }
 
     if (value.trim().length > 0) {
-      const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+      const defaultSCSSDirective =
+        extractTrailingScssDirectiveWithFallback(
+          value,
+          "!default",
+          DEFAULT_SCSS_DIRECTIVE,
+          options,
+        );
 
-      if (defaultSCSSDirectiveIndex) {
-        value = value.slice(0, defaultSCSSDirectiveIndex.index);
+      if (defaultSCSSDirective) {
+        value = defaultSCSSDirective.value;
         node.scssDefault = true;
 
-        if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+        if (defaultSCSSDirective.raw.trim() !== "!default") {
+          node.raws.scssDefault = defaultSCSSDirective.raw;
         }
       }
 
-      const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+      const globalSCSSDirective =
+        extractTrailingScssDirectiveWithFallback(
+          value,
+          "!global",
+          GLOBAL_SCSS_DIRECTIVE,
+          options,
+        );
 
-      if (globalSCSSDirectiveIndex) {
-        value = value.slice(0, globalSCSSDirectiveIndex.index);
+      if (globalSCSSDirective) {
+        value = globalSCSSDirective.value;
         node.scssGlobal = true;
 
-        if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+        if (globalSCSSDirective.raw.trim() !== "!global") {
+          node.raws.scssGlobal = globalSCSSDirective.raw;
         }
       }
 
