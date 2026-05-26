@@ -261,6 +261,17 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
+  // A parenthesized scalar (i.e. `$key: (value)`) isn't a single-item list.
+  if (
+    node.type === "value-paren_group" &&
+    node.open &&
+    node.close &&
+    node.groups.length === 1 &&
+    node.groups[0].type !== "value-comma_group"
+  ) {
+    return false;
+  }
+
   const parentNode = path.parent;
 
   // Don't treat SCSS if function arguments as maps (`if(sass(condition): value; else: value)`)
