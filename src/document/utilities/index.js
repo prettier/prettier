@@ -266,11 +266,18 @@ function stripTrailingHardline(doc) {
 
 function cleanDocFn(doc) {
   switch (getDocType(doc)) {
-    case DOC_TYPE_FILL:
-      if (doc.parts.every((part) => part === "")) {
+    case DOC_TYPE_FILL: {
+      const { parts } = doc;
+
+      if (parts.every((part) => part === "")) {
         return "";
       }
+      if (parts.length === 1) {
+        return parts[0];
+      }
+
       break;
+    }
     case DOC_TYPE_GROUP:
       if (!doc.contents && !doc.id && !doc.break && !doc.expandedStates) {
         return "";
