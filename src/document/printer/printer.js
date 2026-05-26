@@ -20,6 +20,7 @@ import {
   indent as indentDoc,
 } from "../builders/index.js";
 import { getDocType, propagateBreaks } from "../utilities/index.js";
+import { cleanDoc } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 import PrintResult from "./print-result.js";
@@ -177,6 +178,9 @@ function fits(
 @returns
 */
 function printDocToString(doc, options) {
+  // For test
+  doc = cleanDoc(doc);
+
   /** @type GroupModeMap */
   const groupModeMap = Object.create(null);
 
