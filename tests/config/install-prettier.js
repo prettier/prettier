@@ -93,7 +93,7 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) => {
-    const { status, stderr } = spawn(client, args, {
+    const { status, stdout, stderr } = spawn(client, args, {
       cwd: temporaryDirectory,
       encoding: "utf8",
     });
@@ -104,6 +104,7 @@ function installPrettier(packageDirectory) {
 
     throw new Error(outdent`
       Failed to execute ${picocolors.gray([client, ...args].join(" "))}
+      ${stdout}
       ${stderr}
     `);
   };
