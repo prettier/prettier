@@ -117,12 +117,13 @@ function installPrettier(packageDirectory) {
       runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
-      // Keep `--engine-strict` so dev-package tests fail fast on engine mismatch
+      // fails engine mismatch
       runNpmClient(["add", packed, "--engine-strict"]);
       break;
     case "yarn":
       // yarn fails when engine requirement not compatible by default
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
+      runNpmClient(["config", "set", "npmMinimalAgeGate", "0"]);
       runNpmClient(["add", `prettier@file:${packed}`]);
     // No default
   }
