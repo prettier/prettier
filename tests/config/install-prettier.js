@@ -93,25 +93,20 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) => {
-    const result = spawn(client, args, {
+    const { status, stdout, stderr } = spawn(client, args, {
       cwd: temporaryDirectory,
       encoding: "utf8",
     });
 
-    if (result.status !== 0) {
-      const output = [result.stdout, result.stderr]
-        .filter(Boolean)
-        .join("\n")
-        .trim();
-      const message = [
-        `Failed to install Prettier with ${client}.`,
-        `Command: ${[client, ...args].join(" ")}`,
-      ];
-      if (output) {
-        message.push(`Output:\n${output}`);
-      }
-      throw new Error(message.join("\n"));
+    if (status === 0) {
+      return;
     }
+
+    throw new Error(outdent`
+      Failed to execute ${picocolors.gray([client, ...args].join(" "))}
+      ${stdout}
+      ${stderr}
+    `);
   };
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
