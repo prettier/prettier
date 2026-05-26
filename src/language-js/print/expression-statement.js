@@ -50,8 +50,10 @@ function shouldPrintSemicolon(path, options) {
 function printExpressionStatement(path, options, print) {
   /** @type {Doc[]} */
   const parts = [print("expression")];
+  const shouldPrintLeadingSemicolon =
+    shouldExpressionStatementPrintLeadingSemicolon(path, options);
 
-  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+  if (shouldPrintLeadingSemicolon) {
     if (shouldExpressionStatementPrintOwnComments(path, options)) {
       const { node } = path;
       const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
@@ -63,13 +65,25 @@ function printExpressionStatement(path, options, print) {
         filter: (comment) => comment === typeCastComment,
       });
 
-      return printComments(path, [";", typeCastCommentDoc, ...parts], options, {
-        filter: (comment) => comment !== typeCastComment,
-      });
+      return printComments(
+        path,
+        [
+          ";",
+          typeCastCommentDoc,
+          ...parts,
+          shouldPrintSemicolon(path, options) ? ";" : "",
+        ],
+        options,
+        {
+          filter: (comment) => comment !== typeCastComment,
+        },
+      );
     }
 
     parts.unshift(";");
-  } else if (shouldPrintSemicolon(path, options)) {
+  }
+
+  if (shouldPrintSemicolon(path, options)) {
     parts.push(";");
   }
 

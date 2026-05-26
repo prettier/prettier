@@ -20,6 +20,30 @@ const ten = 10;`,
 const ten = 10;
 `,
       },
+      {
+        name: "Shell trampoline shebang before array expression",
+        code: `#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+
+;[].forEach();`,
+        output: `#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+
+;[].forEach();
+`,
+      },
+      {
+        name: "Shell trampoline shebang before parenthesized call",
+        code: `#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+
+;(() => console.log(1))();`,
+        output: `#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+
+;(() => console.log(1))();
+`,
+      },
     ],
   },
   ["babel", "flow", "typescript"],

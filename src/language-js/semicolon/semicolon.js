@@ -7,23 +7,14 @@ import {
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
 
-function isShellShebangDirective(path, options) {
-  const { node, parent } = path;
+function isDirectiveNode(node) {
+  return (
+    node.type === "Directive" ||
+    (node.type === "ExpressionStatement" && typeof node.directive === "string")
+  );
+}
 
-  if (
-    !options.originalText.startsWith("#!") ||
-    parent.type !== "Program" ||
-    path.index !== 0 ||
-    !(
-      (path.key === "directives" && node.type === "Directive") ||
-      (path.key === "body" &&
-        node.type === "ExpressionStatement" &&
-        typeof node.directive === "string")
-    )
-  ) {
-    return false;
-  }
-
+function hasShellShebangDirectiveComment(node, options) {
   const directiveEnd = locEnd(node);
   const lineEnd = options.originalText.indexOf("\n", directiveEnd);
 
@@ -33,8 +24,47 @@ function isShellShebangDirective(path, options) {
   );
 }
 
+function isShellShebangDirective(path, options) {
+  const { node, parent } = path;
+
+  if (
+    !options.originalText.startsWith("#!") ||
+    parent.type !== "Program" ||
+    path.index !== 0 ||
+    !(
+      (path.key === "directives" || path.key === "body") &&
+      isDirectiveNode(node)
+    )
+  ) {
+    return false;
+  }
+
+  return hasShellShebangDirectiveComment(node, options);
+}
+
+function isAfterShellShebangDirective(path, options) {
+  if (
+    !options.originalText.startsWith("#!") ||
+    path.key !== "body" ||
+    path.parent.type !== "Program"
+  ) {
+    return false;
+  }
+
+  const previousNode =
+    path.index === 0
+      ? path.parent.directives?.at(-1)
+      : path.parent.body[path.index - 1];
+
+  return (
+    previousNode &&
+    isDirectiveNode(previousNode) &&
+    hasShellShebangDirectiveComment(previousNode, options)
+  );
+}
+
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
-  if (options.semi) {
+  if (options.semi && !isAfterShellShebangDirective(path, options)) {
     return false;
   }
 
