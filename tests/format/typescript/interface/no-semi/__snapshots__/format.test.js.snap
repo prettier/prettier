@@ -220,6 +220,15 @@ type T2 ={
   ():string
 }
 
+interface I3 {
+  prop: Foo;
+  <string>():string
+}
+type T3 ={
+  prop: Foo;
+  <string>():string
+}
+
 =====================================output=====================================
 export interface MyInterface {
   someMethod: (a: number) => Promise<number>
@@ -247,6 +256,15 @@ interface I2 {
 type T2 = {
   prop;
   (): string
+}
+
+interface I3 {
+  prop: Foo
+  <string>(): string
+}
+type T3 = {
+  prop: Foo
+  <string>(): string
 }
 
 ================================================================================

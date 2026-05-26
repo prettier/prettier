@@ -25,3 +25,12 @@ type T2 ={
   prop;
   ():string
 }
+
+interface I3 {
+  prop: Foo;
+  <string>():string
+}
+type T3 ={
+  prop: Foo;
+  <string>():string
+}
