@@ -122,7 +122,7 @@ function installPrettier(packageDirectory) {
       runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
-      // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
+      // Keep `--engine-strict` so dev-package tests fail fast on engine mismatch
       runNpmClient(["add", packed, "--engine-strict"]);
       break;
     case "yarn":
