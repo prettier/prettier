@@ -1,16 +1,20 @@
-import prettier from "../../config/prettier-entry.js";
-const docBuilders = prettier.doc.builders;
-const docUtils = prettier.doc.utils;
-
-const { cleanDoc } = docUtils;
-const { group, align, indent, lineSuffix, ifBreak, fill } = docBuilders;
+import {
+  align,
+  cleanDoc,
+  fill,
+  group,
+  ifBreak,
+  indent,
+  line,
+  lineSuffix,
+} from "../../../src/document/index.js";
 
 describe("cleanDoc", () => {
   test.each([
     [
       "fill",
-      [fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])],
-      ["1", fill(["2", "3"])],
+      [fill([""]), fill([]), fill(["1"]), fill(["2", line, "3"])],
+      [fill(["1"]), fill(["2", line, "3"])],
     ],
     ["nested group", group(group("_")), group("_")],
     [
@@ -56,6 +60,6 @@ describe("cleanDoc", () => {
   ])("%s", (_, doc, expected) => {
     const result = cleanDoc(doc);
 
-    expect(result).toEqual(expected);
+    expect(result).toStrictEqual(expected);
   });
 });
