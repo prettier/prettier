@@ -93,19 +93,21 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) => {
-    const { status, stdout, stderr } = spawn(client, args, {
+    const result = spawn(client, args, {
       cwd: temporaryDirectory,
       encoding: "utf8",
     });
 
-    if (status === 0) {
-      return;
+    if (result.status === 0) {
+      return result;
     }
+
+    const { stdout, stderr } = result;
+    const output = [stdout, stderr].filter(Boolean).join("\n");
 
     throw new Error(outdent`
       Failed to execute ${picocolors.gray([client, ...args].join(" "))}
-      ${stdout}
-      ${stderr}
+      ${output}
     `);
   };
 
@@ -120,11 +122,18 @@ function installPrettier(packageDirectory) {
       // fails engine mismatch
       runNpmClient(["add", packed, "--engine-strict"]);
       break;
-    case "yarn":
-      // yarn fails when engine requirement not compatible by default
-      runNpmClient(["config", "set", "npmMinimalAgeGate", "0"]);
+    case "yarn": {
+      // Yarn currently doesn't fail on engine requirement
+      // https://github.com/yarnpkg/berry/issues/1177
+      const { stdout } = runNpmClient(["--version"]);
+      if (!/^3\./.test(stdout)) {
+        runNpmClient(["config", "set", "npmMinimalAgeGate", "0"]);
+      }
+
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
       runNpmClient(["add", `prettier@file:${packed}`]);
+      break;
+    }
     // No default
   }
 
