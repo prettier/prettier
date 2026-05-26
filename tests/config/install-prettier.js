@@ -122,8 +122,8 @@ function installPrettier(packageDirectory) {
       break;
     case "yarn":
       // yarn fails when engine requirement not compatible by default
-      runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
       runNpmClient(["config", "set", "npmMinimalAgeGate", "0"]);
+      runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
       runNpmClient(["add", `prettier@file:${packed}`]);
     // No default
   }
