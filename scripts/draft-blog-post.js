@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
 import semver from "semver";
 import {
@@ -13,8 +13,8 @@ import {
   replaceVersions,
 } from "./utilities/changelog.js";
 
-const { __dirname, require } = createEsmUtils(import.meta);
-const blogDir = path.join(__dirname, "../website/blog");
+const require = createRequire(import.meta.url);
+const blogDir = path.join(import.meta.dirname, "../website/blog");
 const introTemplateFile = new URL(
   "BLOG_POST_INTRO_TEMPLATE.md",
   changelogUnreleasedDirectory,
