@@ -3707,7 +3707,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^14.0.0, commander@npm:^14.0.3":
+"commander@npm:^14.0.3":
   version: 14.0.3
   resolution: "commander@npm:14.0.3"
   checksum: 10/dfa9ebe2a433d277de5cb0252d23b10a543d245d892db858d23b516336a835c50fd4f52bee4cd13c705cc8acb6f03dc632c73dd806f7d06d3353eb09953dd17a
@@ -4107,17 +4107,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"editorconfig-without-wasm@npm:0.0.4":
-  version: 0.0.4
-  resolution: "editorconfig-without-wasm@npm:0.0.4"
+"editorconfig-without-wasm@npm:0.0.6":
+  version: 0.0.6
+  resolution: "editorconfig-without-wasm@npm:0.0.6"
   dependencies:
-    commander: "npm:^14.0.0"
-    ini-simple-parser: "npm:^1.0.1"
+    commander: "npm:^14.0.3"
     minimatch: "npm:10.0.1"
-    semver: "npm:^7.7.2"
+    semver: "npm:^7.7.4"
   bin:
     editorconfig: bin/editorconfig
-  checksum: 10/ee2dbe40e330ff8cef6a8136dd2dd831e4f1524e2313f7e0856194a38a6bde1b576f7fe0ce4d644281eef154b5cfbe1e63db0b6e7786b273935b43f19f252e2f
+  checksum: 10/7b0f0af23ece8adba294a6e59c83f35a7627e7227e72390fd66744687c129d76d39e3560591e91b2c9aae43181a2ab0840bd28cfb334488f10b41390ba795b9b
   languageName: node
   linkType: hard
 
@@ -8123,7 +8122,7 @@ __metadata:
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.6"
     diff: "npm:9.0.0"
-    editorconfig-without-wasm: "npm:0.0.4"
+    editorconfig-without-wasm: "npm:0.0.6"
     emoji-regex: "npm:10.6.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.28.0"
