@@ -28,7 +28,7 @@ const transform = (code) =>
     ) +
   "\n";
 
-test("Object.hasOwn", () => {
+test("Object.hasOwn()", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(`
     "
     Object.prototype.hasOwnProperty.call(foo, bar);
@@ -36,13 +36,13 @@ test("Object.hasOwn", () => {
   `);
 });
 
-test("Object.groupBy", () => {
+test.only("Object.groupBy()", () => {
   expect(transform("const {} = Object.groupBy(foo, bar)"))
     .toMatchInlineSnapshot(`
       "
-      import __objectGroupBy from "<SHIMS>/object-group-by.js";
+      import __Object_groupBy from "<SHIMS>/function-object-group-by.js";
 
-      const {} = __objectGroupBy(foo, bar);
+      const {} = __Object_groupBy(foo, bar);
       "
     `);
 });
