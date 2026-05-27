@@ -9,4 +9,3 @@ abstract class AbstractFoo {
     arg: string
   );
 }
-

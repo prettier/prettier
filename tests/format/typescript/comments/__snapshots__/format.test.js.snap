@@ -608,7 +608,6 @@ abstract class AbstractFoo {
   );
 }
 
-
 =====================================output=====================================
 abstract class AbstractFoo {
   abstract method1(/* comment */ arg: string);
@@ -1350,7 +1349,7 @@ export class Point {
         * One
  * Two
    * Three
-* Four
+* Four 
    */
   mismatchedIndentation() {}
 
