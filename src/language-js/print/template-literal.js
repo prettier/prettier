@@ -12,6 +12,7 @@ import {
   softline,
 } from "../../document/index.js";
 import getIndentSize from "../../utilities/get-indent-size.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../location/index.js";
@@ -173,21 +174,25 @@ function printJestEachTemplateLiteral(path, options, print) {
 const templateLiteralIndentCache = new WeakMap();
 function getTemplateLiteralExpressionIndent(path, options) {
   const { parent: templateLiteral, index } = path;
-  if (!templateLiteralIndentCache.has(templateLiteral)) {
-    const { tabWidth } = options;
-    let previousQuasiIndentSize = 0;
-    const sizes = templateLiteral.quasis.map((quasi) => {
-      const text = quasi.value.raw;
-      const indentSize = text.includes("\n")
-        ? getIndentSize(text, tabWidth)
-        : previousQuasiIndentSize;
-      previousQuasiIndentSize = indentSize;
-      return { indentSize, previousQuasiText: text };
-    });
-    templateLiteralIndentCache.set(templateLiteral, sizes);
-  }
+  const sizes = getOrInsertComputed(
+    templateLiteralIndentCache,
+    templateLiteral,
+    (templateLiteral) => {
+      const { tabWidth } = options;
+      let previousQuasiIndentSize = 0;
+      const sizes = templateLiteral.quasis.map((quasi) => {
+        const text = quasi.value.raw;
+        const indentSize = text.includes("\n")
+          ? getIndentSize(text, tabWidth)
+          : previousQuasiIndentSize;
+        previousQuasiIndentSize = indentSize;
+        return { indentSize, previousQuasiText: text };
+      });
+      return sizes;
+    },
+  );
 
-  return templateLiteralIndentCache.get(templateLiteral)[index];
+  return sizes[index];
 }
 
 /*
