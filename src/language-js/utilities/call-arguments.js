@@ -13,31 +13,30 @@
 } CallLikeNode
 */
 
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+
 const callArgumentsCache = new WeakMap();
 
 /**
 @param {CallLikeNode} node
 */
 function getCallArguments(node) {
-  if (callArgumentsCache.has(node)) {
-    return callArgumentsCache.get(node);
-  }
+  return getOrInsertComputed(callArgumentsCache, node, () => {
+    let args;
+    if (node.type === "ImportExpression" || node.type === "TSImportType") {
+      args = [node.source];
 
-  let args;
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    args = [node.source];
-
-    if (node.options) {
-      args.push(node.options);
+      if (node.options) {
+        args.push(node.options);
+      }
+    } else if (node.type === "TSExternalModuleReference") {
+      args = [node.expression];
+    } else {
+      args = node.arguments;
     }
-  } else if (node.type === "TSExternalModuleReference") {
-    args = [node.expression];
-  } else {
-    args = node.arguments;
-  }
 
-  callArgumentsCache.set(node, args);
-  return args;
+    return args;
+  });
 }
 
 function iterateCallArgumentsPath(path, iteratee) {

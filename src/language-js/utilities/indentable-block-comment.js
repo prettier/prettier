@@ -1,3 +1,4 @@
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { isBlockComment } from "./comment-types.js";
 
 function getIndentableLinesBlockCommentInternal(comment) {
@@ -40,11 +41,7 @@ function getIndentableLinesBlockCommentInternal(comment) {
 const cache = new WeakMap();
 
 function getIndentableBlockCommentLines(comment) {
-  if (!cache.has(comment)) {
-    cache.set(comment, getIndentableLinesBlockCommentInternal(comment));
-  }
-
-  return cache.get(comment);
+  return getOrInsertComputed(cache, comment, getIndentableBlockCommentLines);
 }
 
 function deleteIndentableBlockCommentLines(comment) {

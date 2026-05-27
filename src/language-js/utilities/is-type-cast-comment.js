@@ -1,3 +1,4 @@
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { isBlockComment } from "./comment-types.js";
 
 /**
@@ -11,19 +12,17 @@ const cache = new WeakMap();
  * @returns {boolean}
  */
 function isTypeCastComment(comment) {
-  if (!cache.has(comment)) {
-    cache.set(
-      comment,
+  return getOrInsertComputed(
+    cache,
+    comment,
+    (comment) =>
       isBlockComment(comment) &&
-        comment.value[0] === "*" &&
-        // TypeScript expects the type to be enclosed in curly brackets, however
-        // Closure Compiler accepts types in parens and even without any delimiters at all.
-        // That's why we just search for "@type" and "@satisfies".
-        /@(?:type|satisfies)\b/.test(comment.value),
-    );
-  }
-
-  return cache.get(comment);
+      comment.value[0] === "*" &&
+      // TypeScript expects the type to be enclosed in curly brackets, however
+      // Closure Compiler accepts types in parens and even without any delimiters at all.
+      // That's why we just search for "@type" and "@satisfies".
+      /@(?:type|satisfies)\b/.test(comment.value),
+  );
 }
 
 export { isTypeCastComment };

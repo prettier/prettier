@@ -1,20 +1,20 @@
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+
 const functionParametersCache = new WeakMap();
 function getFunctionParameters(node) {
-  if (functionParametersCache.has(node)) {
-    return functionParametersCache.get(node);
-  }
-  const parameters = [];
-  if (node.this) {
-    parameters.push(node.this);
-  }
+  return getOrInsertComputed(functionParametersCache, node, () => {
+    const parameters = [];
+    if (node.this) {
+      parameters.push(node.this);
+    }
 
-  parameters.push(...node.params);
+    parameters.push(...node.params);
 
-  if (node.rest) {
-    parameters.push(node.rest);
-  }
-  functionParametersCache.set(node, parameters);
-  return parameters;
+    if (node.rest) {
+      parameters.push(node.rest);
+    }
+    return parameters;
+  });
 }
 
 function iterateFunctionParametersPath(path, iteratee) {
