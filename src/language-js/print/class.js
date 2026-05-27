@@ -13,6 +13,7 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
@@ -221,15 +222,9 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
 
 const shouldPrintClassInGroupModeCache = new WeakMap();
 function shouldPrintClassInGroupMode(path) {
-  const { node } = path;
-  if (!shouldPrintClassInGroupModeCache.has(node)) {
-    shouldPrintClassInGroupModeCache.set(
-      node,
-      shouldPrintClassInGroupModeWithoutCache(path),
-    );
-  }
-
-  return shouldPrintClassInGroupModeCache.get(node);
+  return getOrInsertComputed(shouldPrintClassInGroupModeCache, path.node, () =>
+    shouldPrintClassInGroupModeWithoutCache(path),
+  );
 }
 
 function printHeritageClauses(path, options, print, listName) {
