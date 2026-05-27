@@ -36,6 +36,17 @@ test("Object.hasOwn", () => {
   `);
 });
 
+test("Object.groupBy", () => {
+  expect(transform("const {} = Object.groupBy(foo, bar)"))
+    .toMatchInlineSnapshot(`
+      "
+      import __objectGroupBy from "<SHIMS>/object-group-by.js";
+
+      const {} = __objectGroupBy(foo, bar);
+      "
+    `);
+});
+
 test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "

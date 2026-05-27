@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { outdent } from "outdent";
 import { createIdentifier, isIdentifier } from "./utilities.js";
 
@@ -6,9 +7,8 @@ import { createIdentifier, isIdentifier } from "./utilities.js";
 */
 
 const functionName = "__objectGroupBy";
-const functionImplementationPath = new URL(
-  "../../shims/object-group-by.js",
-  import.meta.url,
+const functionImplementationPath = fileURLToPath(
+  new URL("../../shims/object-group-by.js", import.meta.url),
 );
 
 const transformObjectHasOwnCall = {
