@@ -106,7 +106,7 @@ function installPrettier(packageDirectory) {
     const output = [stdout, stderr].filter(Boolean).join("\n");
 
     throw new Error(outdent`
-      Failed to execute ${picocolors.underline([client, ...args].join(" "))}.
+      Failed to execute ${picocolors.blue([client, ...args].join(" "))}.
       ${output}
     `);
   };
