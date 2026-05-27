@@ -170,7 +170,7 @@ for(using /* 1 */ foo of bar());
     /* 2 */ b = foo();
 }
 
-for (using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ;);
 
 for (using /* 1 */ foo of bar());
 
@@ -638,7 +638,7 @@ async function f() {
 
 =====================================output=====================================
 async function f() {
-  for (await using basic = reader();;);
+  for (await using basic = reader(); ;);
 }
 
 ================================================================================

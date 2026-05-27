@@ -98,7 +98,7 @@ function try_scope_finally() {
 function for_scope() {
   let a = "";
   let b = "";
-  for (let a;;) {
+  for (let a; ;) {
     a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
