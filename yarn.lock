@@ -4049,10 +4049,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deno-path-from-file-url@npm:0.0.6":
-  version: 0.0.6
-  resolution: "deno-path-from-file-url@npm:0.0.6"
-  checksum: 10/3f95c8d90a64c33be813758d05e4affc840a069cc2ec380f8d569b09a9ff4dfc1478609f396c52bbe1a23bc6c2127fe783f5712847446a8c656ef7b63ed25e70
+"deno-path-from-file-url@npm:0.0.7":
+  version: 0.0.7
+  resolution: "deno-path-from-file-url@npm:0.0.7"
+  checksum: 10/5ac10c660e78301f508e839d541c7d7c5b100d1bf4d4f73cb3e0fbc92eb106d6928a000d11041694dfecdce72ee21ddbab59acaa891d47519e440eaafedccd04
   languageName: node
   linkType: hard
 
@@ -8120,7 +8120,7 @@ __metadata:
     cspell: "npm:10.0.0"
     css-units-list: "npm:2.1.0"
     dashify: "npm:2.0.0"
-    deno-path-from-file-url: "npm:0.0.6"
+    deno-path-from-file-url: "npm:0.0.7"
     diff: "npm:9.0.0"
     editorconfig-without-wasm: "npm:0.0.6"
     emoji-regex: "npm:10.6.0"
