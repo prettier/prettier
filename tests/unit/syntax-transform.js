@@ -31,12 +31,14 @@ const transform = (code) =>
 test("Object.hasOwn()", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(`
     "
-    Object.prototype.hasOwnProperty.call(foo, bar);
+    import __Object_hasOwn from "<SHIMS>/function-object-has-own.js";
+
+    __Object_hasOwn(foo, bar);
     "
   `);
 });
 
-test.only("Object.groupBy()", () => {
+test("Object.groupBy()", () => {
   expect(transform("const {} = Object.groupBy(foo, bar)"))
     .toMatchInlineSnapshot(`
       "
@@ -272,6 +274,7 @@ test("All", () => {
     `),
   ).toMatchInlineSnapshot(`
     "
+    import __Object_hasOwn from "<SHIMS>/function-object-has-own.js";
     import __replaceAll from "<SHIMS>/method-replace-all.js";
     import __at from "<SHIMS>/method-at.js";
     import __findLast from "<SHIMS>/method-find-last.js";
@@ -284,7 +287,7 @@ test("All", () => {
       align,
       line
     } = __doc_builders;
-    if (Object.prototype.hasOwnProperty.call(foo, bar)) {
+    if (__Object_hasOwn(foo, bar)) {
       const a = __replaceAll(/* OPTIONAL_OBJECT: true */1, __at(/* OPTIONAL_OBJECT: true */1, foo, -1), /bar/, ""),
         b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true),
         c = __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);

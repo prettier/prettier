@@ -8,7 +8,7 @@ import { createIdentifier, isIdentifier } from "./utilities.js";
  * @param {import("@babel/types").Node} node
  * @returns {boolean}
  */
-function isFunctionCall(node, { name, argumentsLength }) {
+function isFunctionCall(node, { function: name, argumentsLength }) {
   const [objectName, methodName] = name.split(".");
 
   return (
@@ -52,7 +52,7 @@ function createFunctionCallTransform({ function: name, argumentsLength }) {
   return {
     shouldSkip: (text, file) =>
       !text.includes(`${name}(`) || file === functionImplementationPath,
-    test: (node) => isFunctionCall(node, { name, argumentsLength }),
+    test: (node) => isFunctionCall(node, { function: name, argumentsLength }),
     transform: (node) => transformFunctionCall(node, functionName),
     inject: outdent`
       import ${functionName} from ${JSON.stringify(functionImplementationPath)};
