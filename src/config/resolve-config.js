@@ -1,7 +1,6 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import { toPath } from "url-or-path";
-import partition from "../utilities/partition.js";
 import {
   clearEditorconfigCache,
   loadEditorconfig as loadEditorconfigForFile,
@@ -133,8 +132,9 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
-  const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
-    pattern.includes("/"),
+  const { withSlashes, withoutSlashes } = Object.groupBy(
+    patternList,
+    (pattern) => (pattern.includes("/") ? "withSlashes" : "withoutSlashes"),
   );
 
   return (
