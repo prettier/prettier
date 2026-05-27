@@ -132,7 +132,7 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
-  const { withSlashes, withoutSlashes } = Object.groupBy(
+  const { withSlashes = [], withoutSlashes = [] } = Object.groupBy(
     patternList,
     (pattern) => (pattern.includes("/") ? "withSlashes" : "withoutSlashes"),
   );
