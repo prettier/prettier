@@ -5,7 +5,6 @@ import { parseArgs } from "node:util";
 import semver from "semver";
 import {
   categories,
-  changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
   getEntries,
   printEntries,
@@ -15,7 +14,7 @@ import {
 const { previousVersion, newVersion } = parseArguments();
 
 const entries = changelogUnreleasedDirs.flatMap((dir) => {
-  const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
+  const dirPath = path.join(dir.path, dir.name);
   const { title } = categories.find((category) => category.dir === dir.name);
 
   return getEntries(dirPath).map((entry) => {

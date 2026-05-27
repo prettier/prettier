@@ -7,7 +7,7 @@ import fg from "fast-glob";
 import semver from "semver";
 import {
   categories,
-  changelogUnreleasedDirPath,
+  changelogUnreleasedDirectory,
   changelogUnreleasedDirs,
   getEntries,
   printEntries,
@@ -16,11 +16,11 @@ import {
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
-const introTemplateFile = path.join(
-  changelogUnreleasedDirPath,
+const introTemplateFile = new URL(
   "BLOG_POST_INTRO_TEMPLATE.md",
+  changelogUnreleasedDirectory,
 );
-const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
+const introFile = new URL("blog-post-intro.md", changelogUnreleasedDirectory);
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
@@ -42,7 +42,7 @@ const categoriesByDir = new Map(
 );
 
 for (const dir of changelogUnreleasedDirs) {
-  const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
+  const dirPath = path.join(dir.path, dir.name);
   const category = categoriesByDir.get(dir.name);
 
   if (!category) {
