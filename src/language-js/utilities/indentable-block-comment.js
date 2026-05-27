@@ -1,7 +1,7 @@
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { isBlockComment } from "./comment-types.js";
 
-function getIndentableLinesBlockCommentInternal(comment) {
+function getIndentableBlockCommentLinesInternal(comment) {
   /*
   In postprocess.js
   this only called when two comments are next to each other,
@@ -39,9 +39,12 @@ function getIndentableLinesBlockCommentInternal(comment) {
 }
 
 const cache = new WeakMap();
-
 function getIndentableBlockCommentLines(comment) {
-  return getOrInsertComputed(cache, comment, getIndentableBlockCommentLines);
+  return getOrInsertComputed(
+    cache,
+    comment,
+    getIndentableBlockCommentLinesInternal,
+  );
 }
 
 function deleteIndentableBlockCommentLines(comment) {
