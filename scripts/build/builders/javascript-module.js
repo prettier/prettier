@@ -1,8 +1,8 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
-import createEsmUtils from "esm-utils";
 import projectPackageJson from "../../../package.json" with { type: "json" };
 import {
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
@@ -20,7 +20,7 @@ import esbuildPluginVisualizer from "../esbuild-plugins/visualizer.js";
 import transform from "../transform/index.js";
 import { getPackageFile } from "../utilities.js";
 
-const { require, resolve: importMetaResolve } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 
 const universalTarget = browserslistToEsbuild(projectPackageJson.browserslist);
 const getRelativePath = (from, to) => {
@@ -44,7 +44,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
     We already replaced line end to `\n` before calling it
     */
     {
-      module: url.fileURLToPath(importMetaResolve("jest-docblock")),
+      module: url.fileURLToPath(import.meta.resolve("jest-docblock")),
       path: require.resolve("jest-docblock"),
     },
     {
