@@ -8,7 +8,6 @@ import semver from "semver";
 import {
   categories,
   changelogUnreleasedDirectory,
-  changelogUnreleasedDirs,
   getEntries,
   printEntries,
   replaceVersions,
@@ -41,12 +40,18 @@ const categoriesByDir = new Map(
   categories.map((category) => [category.dir, category]),
 );
 
-for (const dir of changelogUnreleasedDirs) {
-  const dirPath = path.join(dir.path, dir.name);
-  const category = categoriesByDir.get(dir.name);
+for (const entry of fs.readdirSync(changelogUnreleasedDirectory, {
+  withFileTypes: true,
+})) {
+  if (!entry.isDirectory()) {
+    continue;
+  }
+
+  const dirPath = path.join(entry.path, entry.name);
+  const category = categoriesByDir.get(entry.name);
 
   if (!category) {
-    throw new Error("Unknown category: " + dir.name);
+    throw new Error("Unknown category: " + entry.name);
   }
 
   category.entries = getEntries(dirPath, { useFriendlyHeadingId: true });

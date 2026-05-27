@@ -32,12 +32,6 @@ export const categories = [
 
 export const CHANGELOG_CATEGORIES = categories.map(({ dir }) => dir);
 
-export const changelogUnreleasedDirs = fs
-  .readdirSync(changelogUnreleasedDirectory, {
-    withFileTypes: true,
-  })
-  .filter((entry) => entry.isDirectory());
-
 export function getEntries(dirPath, options) {
   const fileNames = fs
     .readdirSync(dirPath)
