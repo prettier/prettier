@@ -7,8 +7,7 @@ import fg from "fast-glob";
 import semver from "semver";
 import {
   categories,
-  changelogUnreleasedDirPath,
-  changelogUnreleasedDirs,
+  changelogUnreleasedDirectory,
   getEntries,
   printEntries,
   replaceVersions,
@@ -16,11 +15,11 @@ import {
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
-const introTemplateFile = path.join(
-  changelogUnreleasedDirPath,
+const introTemplateFile = new URL(
   "BLOG_POST_INTRO_TEMPLATE.md",
+  changelogUnreleasedDirectory,
 );
-const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
+const introFile = new URL("blog-post-intro.md", changelogUnreleasedDirectory);
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
@@ -41,12 +40,18 @@ const categoriesByDir = new Map(
   categories.map((category) => [category.dir, category]),
 );
 
-for (const dir of changelogUnreleasedDirs) {
-  const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
-  const category = categoriesByDir.get(dir.name);
+for (const entry of fs.readdirSync(changelogUnreleasedDirectory, {
+  withFileTypes: true,
+})) {
+  if (!entry.isDirectory()) {
+    continue;
+  }
+
+  const dirPath = path.join(entry.path, entry.name);
+  const category = categoriesByDir.get(entry.name);
 
   if (!category) {
-    throw new Error("Unknown category: " + dir.name);
+    throw new Error("Unknown category: " + entry.name);
   }
 
   category.entries = getEntries(dirPath, { useFriendlyHeadingId: true });
