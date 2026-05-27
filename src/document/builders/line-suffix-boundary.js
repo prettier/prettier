@@ -5,8 +5,6 @@ import { DOC_TYPE_LINE_SUFFIX_BOUNDARY } from "./types.js";
 */
 
 /** @typedef {LineSuffixBoundary} */
-const lineSuffixBoundary = Object.freeze({
-  type: DOC_TYPE_LINE_SUFFIX_BOUNDARY,
-});
+const lineSuffixBoundary = { type: DOC_TYPE_LINE_SUFFIX_BOUNDARY };
 
 export { lineSuffixBoundary };

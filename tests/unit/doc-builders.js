@@ -1,15 +1,11 @@
 import {
   addAlignmentToDoc,
   align,
-  breakParent,
   conditionalGroup,
-  cursor,
   dedent,
   dedentToRoot,
   fill,
   group,
-  hardline,
-  hardlineWithoutBreakParent,
   ifBreak,
   indent,
   indentIfBreak,
@@ -18,13 +14,10 @@ import {
   label,
   line,
   lineSuffix,
-  lineSuffixBoundary,
-  literalline,
-  literallineWithoutBreakParent,
   markAsRoot,
-  softline,
   trim,
 } from "../../src/document/index.js";
+import { builders as publicBuilders } from "../../src/document/public.js";
 
 const invalidDoc = { type: "invalid-type" };
 const validDoc = "string";
@@ -122,7 +115,20 @@ describe("doc builders", () => {
     }
   });
 
-  test("builtin docs are frozen", () => {
+  test("public builtin docs are frozen", () => {
+    const {
+      breakParent,
+      cursor,
+      hardline,
+      hardlineWithoutBreakParent,
+      line,
+      lineSuffixBoundary,
+      literalline,
+      literallineWithoutBreakParent,
+      softline,
+      trim,
+    } = publicBuilders;
+
     for (const doc of [
       breakParent,
       cursor,
@@ -137,5 +143,11 @@ describe("doc builders", () => {
     ]) {
       expect(Object.isFrozen(doc)).toBe(true);
     }
+
+    expect(hardline).toStrictEqual([hardlineWithoutBreakParent, breakParent]);
+    expect(literalline).toStrictEqual([
+      literallineWithoutBreakParent,
+      breakParent,
+    ]);
   });
 });
