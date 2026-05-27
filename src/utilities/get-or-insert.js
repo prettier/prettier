@@ -12,7 +12,7 @@ function getOrInsert(map, key, defaultValue) {
     map.set(key, defaultValue);
   }
 
-  return defaultValue;
+  return map.get(key);
 }
 
 export { getOrInsert, getOrInsertComputed };

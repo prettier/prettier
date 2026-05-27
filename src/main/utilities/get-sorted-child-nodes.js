@@ -1,40 +1,36 @@
 import { getChildren } from "../../utilities/ast.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 
 function getSortedChildNodes(node, ancestors, options) {
-  const { cache: childNodesCache } = options;
+  return getOrInsertComputed(options.cache, node, (node) => {
+    const { filter } = options;
 
-  if (childNodesCache.has(node)) {
-    return childNodesCache.get(node);
-  }
+    if (!filter) {
+      return [];
+    }
 
-  const { filter } = options;
+    let childAncestors;
+    const childNodes = (
+      options.getChildren?.(node, options) ?? [
+        ...getChildren(node, { getVisitorKeys: options.getVisitorKeys }),
+      ]
+    ).flatMap((child) => {
+      childAncestors ??= [node, ...ancestors];
+      return filter(child, childAncestors)
+        ? [child]
+        : getSortedChildNodes(child, childAncestors, options);
+    });
 
-  if (!filter) {
-    return [];
-  }
+    const { locStart, locEnd } = options;
 
-  let childAncestors;
-  const childNodes = (
-    options.getChildren?.(node, options) ?? [
-      ...getChildren(node, { getVisitorKeys: options.getVisitorKeys }),
-    ]
-  ).flatMap((child) => {
-    childAncestors ??= [node, ...ancestors];
-    return filter(child, childAncestors)
-      ? [child]
-      : getSortedChildNodes(child, childAncestors, options);
+    // Sort by `start` location first, then `end` location
+    childNodes.sort(
+      (nodeA, nodeB) =>
+        locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
+    );
+
+    return childNodes;
   });
-
-  const { locStart, locEnd } = options;
-
-  // Sort by `start` location first, then `end` location
-  childNodes.sort(
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
-  );
-
-  childNodesCache.set(node, childNodes);
-  return childNodes;
 }
 
 export default getSortedChildNodes;
