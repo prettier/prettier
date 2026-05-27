@@ -75,6 +75,82 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
   return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
 }
 
+const globCharacters = /[*?[\]{}()]/u;
+
+function isCommentOrBlank(line) {
+  const trimmed = line.trim();
+  return trimmed.length === 0 || trimmed.startsWith("#");
+}
+
+function isNegatedPattern(line) {
+  return line.trimStart().startsWith("!");
+}
+
+function normalizeIgnorePatternForGlob(line, ignoreFile) {
+  let pattern = line.trim();
+
+  if (
+    !pattern ||
+    pattern.startsWith("#") ||
+    pattern.startsWith("!") ||
+    pattern.includes("\\") ||
+    globCharacters.test(pattern)
+  ) {
+    return [];
+  }
+
+  const directoryOnly = pattern.endsWith("/");
+  pattern = pattern.replaceAll(/\/+$/gu, "").replaceAll(/^\/+/gu, "");
+
+  if (!pattern || pattern === ".") {
+    return [];
+  }
+
+  const ignoreFilePath = toPath(ignoreFile);
+  const ignoreFileDirectory = ignoreFilePath
+    ? slash(path.relative(process.cwd(), path.dirname(ignoreFilePath)))
+    : "";
+  const hasSlash = pattern.includes("/");
+  const basenamePattern = ignoreFileDirectory
+    ? path.join(ignoreFileDirectory, "**", pattern)
+    : path.join("**", pattern);
+  const globPattern = slash(
+    hasSlash ? path.join(ignoreFileDirectory, pattern) : basenamePattern,
+  );
+
+  return directoryOnly
+    ? [`${globPattern}/**`]
+    : [globPattern, `${globPattern}/**`];
+}
+
+async function createFastGlobIgnorePatterns(ignoreFiles) {
+  const patterns = [];
+
+  for (const ignoreFile of ignoreFiles ?? []) {
+    if (!ignoreFile) {
+      continue;
+    }
+
+    const content = await readFile(ignoreFile);
+    if (!content) {
+      continue;
+    }
+
+    const lines = content.split(/\r?\n/u);
+    if (
+      lines.some((line) => !isCommentOrBlank(line) && isNegatedPattern(line))
+    ) {
+      continue;
+    }
+
+    for (const line of lines) {
+      patterns.push(...normalizeIgnorePatternForGlob(line, ignoreFile));
+    }
+  }
+
+  return patterns;
+}
+
 /**
  * @param {string | URL} file
  * @param {{ignorePath: string[], withNodeModules?: boolean}} options
@@ -86,4 +162,4 @@ async function isIgnored(file, options) {
   return isIgnored(file);
 }
 
-export { createIsIgnoredFunction, isIgnored };
+export { createFastGlobIgnorePatterns, createIsIgnoredFunction, isIgnored };

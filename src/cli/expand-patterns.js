@@ -3,7 +3,7 @@ import {
   directoryIgnorerWithNodeModules,
   directoryIgnorerWithoutNodeModules,
 } from "./directory-ignorer.js";
-import { fastGlob } from "./prettier-internal.js";
+import { createFastGlobIgnorePatterns, fastGlob } from "./prettier-internal.js";
 import { lstatSafe, normalizeToPosix } from "./utilities.js";
 
 /** @import {Context} from './context.js' */
@@ -15,12 +15,19 @@ async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
 
-  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
-    context,
-  )) {
+  for await (const {
+    filePath,
+    ignoreUnknown,
+    error,
+    ignored,
+  } of expandPatternsInternal(context)) {
     noResults = false;
     if (error) {
       yield { error };
+      continue;
+    }
+
+    if (ignored) {
       continue;
     }
 
@@ -51,10 +58,23 @@ async function* expandPatternsInternal(context) {
     context.argv.withNodeModules === true
       ? directoryIgnorerWithoutNodeModules
       : directoryIgnorerWithNodeModules;
+  const shouldPruneIgnoredFiles =
+    context.argv.debugCheck ||
+    context.argv.write ||
+    context.argv.check ||
+    context.argv.listDifferent;
+  const ignoreFilePatterns = shouldPruneIgnoredFiles
+    ? await createFastGlobIgnorePatterns(context.argv.ignorePath)
+    : [];
+  const baseIgnorePatterns = [...directoryIgnorer.ignorePatterns];
   const globOptions = {
     dot: true,
-    ignore: [...directoryIgnorer.ignorePatterns],
+    ignore: [...baseIgnorePatterns, ...ignoreFilePatterns],
     followSymbolicLinks: false,
+  };
+  const fallbackGlobOptions = {
+    ...globOptions,
+    ignore: [...baseIgnorePatterns],
   };
   const cwd = process.cwd();
 
@@ -103,7 +123,9 @@ async function* expandPatternsInternal(context) {
       }
     } else if (pattern[0] === "!") {
       // convert negative patterns to `ignore` entries
-      globOptions.ignore.push(fixWindowsSlashes(pattern.slice(1)));
+      const ignorePattern = fixWindowsSlashes(pattern.slice(1));
+      globOptions.ignore.push(ignorePattern);
+      fallbackGlobOptions.ignore.push(ignorePattern);
     } else {
       entries.push({
         type: "glob",
@@ -127,6 +149,14 @@ async function* expandPatternsInternal(context) {
     }
 
     if (result.length === 0) {
+      if (
+        ignoreFilePatterns.length > 0 &&
+        (await fastGlob(glob, fallbackGlobOptions)).length > 0
+      ) {
+        yield { ignored: true };
+        continue;
+      }
+
       if (context.argv.errorOnUnmatchedPattern !== false) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
