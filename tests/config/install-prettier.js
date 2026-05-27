@@ -106,7 +106,7 @@ function installPrettier(packageDirectory) {
     const output = [stdout, stderr].filter(Boolean).join("\n");
 
     throw new Error(outdent`
-      Failed to execute ${picocolors.gray([client, ...args].join(" "))}
+      Failed to execute ${picocolors.underline([client, ...args].join(" "))}.
       ${output}
     `);
   };
@@ -143,10 +143,10 @@ function installPrettier(packageDirectory) {
     picocolors.green(
       outdent`
         Prettier installed
-          at   ${picocolors.inverse(temporaryDirectory)}
+            at ${picocolors.inverse(temporaryDirectory)}
           from ${picocolors.inverse(packageDirectory)}
           with ${picocolors.inverse(client)}
-          in   ${picocolors.inverse(`${performance.now() - start}ms`)}.
+            in ${picocolors.inverse(`${performance.now() - start}ms`)}.
       `,
     ),
   );
