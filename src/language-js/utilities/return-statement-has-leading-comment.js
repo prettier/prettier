@@ -41,7 +41,7 @@ function returnArgumentHasLeadingCommentWithoutCache(node, options) {
 
 const cache = new WeakMap();
 function returnArgumentHasLeadingComment(node, options) {
-  return getOrInsertComputed(cache, node, () =>
+  return getOrInsertComputed(cache, node, (node) =>
     returnArgumentHasLeadingCommentWithoutCache(node, options),
   );
 }

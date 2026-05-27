@@ -15,7 +15,7 @@ const nodeVersion = process.version;
  * @returns {string}
  */
 function getHashOfOptions(options) {
-  return getOrInsertComputed(optionsHashCache, options, () =>
+  return getOrInsertComputed(optionsHashCache, options, (options) =>
     createHash(`${prettierVersion}_${nodeVersion}_${stringify(options)}`),
   );
 }

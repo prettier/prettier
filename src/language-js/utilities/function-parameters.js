@@ -2,7 +2,7 @@ import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 
 const functionParametersCache = new WeakMap();
 function getFunctionParameters(node) {
-  return getOrInsertComputed(functionParametersCache, node, () => {
+  return getOrInsertComputed(functionParametersCache, node, (node) => {
     const parameters = [];
     if (node.this) {
       parameters.push(node.this);

@@ -21,7 +21,7 @@ const callArgumentsCache = new WeakMap();
 @param {CallLikeNode} node
 */
 function getCallArguments(node) {
-  return getOrInsertComputed(callArgumentsCache, node, () => {
+  return getOrInsertComputed(callArgumentsCache, node, (node) => {
     let args;
     if (node.type === "ImportExpression" || node.type === "TSImportType") {
       args = [node.source];
