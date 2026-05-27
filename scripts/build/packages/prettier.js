@@ -826,6 +826,4 @@ packageConfig.modules.push(
   }),
 );
 
-console.log(packageConfig);
-
 export default packageConfig;
