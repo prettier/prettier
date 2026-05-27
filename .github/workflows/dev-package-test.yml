@@ -30,7 +30,7 @@ jobs:
           - "ubuntu-latest"
         node:
           # Minimal version for development
-          - "20"
+          - "22"
         NPM_CLIENT:
           - "yarn"
           - "npm"
