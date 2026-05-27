@@ -533,12 +533,6 @@ function handleLastFunctionParameterComments({
   }
 
   // Real functions and TypeScript function type definitions.
-  // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
-  // the comment walker bubbles up to its wrapper. Three wrappers occur:
-  // `TSAbstractMethodDefinition` (always), and `MethodDefinition` in
-  // `declare class` or overload position. A plain `MethodDefinition` with
-  // a body is a normal method and must not match here, so the
-  // `MethodDefinition` branch checks `value.type` to skip it.
   if (
     (precedingNode?.type === "Identifier" ||
       precedingNode?.type === "AssignmentPattern" ||
@@ -547,9 +541,15 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
     (isRealFunctionLikeNode(enclosingNode) ||
-      enclosingNode?.type === "TSAbstractMethodDefinition" ||
-      (enclosingNode?.type === "MethodDefinition" &&
-        enclosingNode.value?.type === "TSEmptyBodyFunctionExpression")) &&
+      // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
+      // the comment walker bubbles up to its wrapper. Three wrappers occur:
+      // `TSAbstractMethodDefinition` (always), and `MethodDefinition` in
+      // `declare class` or overload position. A plain `MethodDefinition` with
+      // a body is a normal method and must not match here, so the
+      // `MethodDefinition` branch checks `value.type` to skip it.
+      ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
+        enclosingNode?.type === "MethodDefinition") &&
+        enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
