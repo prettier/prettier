@@ -30,6 +30,8 @@ export const categories = [
   { dir: "misc", title: "Miscellaneous" },
 ];
 
+export const CHANGELOG_CATEGORIES = categories.map(({ dir }) => dir);
+
 export const changelogUnreleasedDirs = fs
   .readdirSync(changelogUnreleasedDirectory, {
     withFileTypes: true,
