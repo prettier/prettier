@@ -10,11 +10,7 @@ function getOrInsertComputed(map, key, callback) {
 }
 
 function getOrInsert(map, key, defaultValue) {
-  if (!map.has(key)) {
-    map.set(key, defaultValue);
-  }
-
-  return map.get(key);
+  return getOrInsertComputed(map, key, () => defaultValue);
 }
 
 export { getOrInsert, getOrInsertComputed };
