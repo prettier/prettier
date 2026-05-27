@@ -77,6 +77,7 @@ async function initPrinter(plugin, astFormat) {
   return normalizePrinter(printer);
 }
 
+const PRINTER_NORMALIZED_MARK = Symbol("PRINTER_NORMALIZED_MARK");
 function normalizePrinterWithoutCache(printer) {
   /* c8 ignore next 6 */
   if (process.env.NODE_ENV !== "production") {
@@ -171,7 +172,6 @@ function normalizePrinterWithoutCache(printer) {
 }
 
 const normalizedPrinters = new WeakMap();
-const PRINTER_NORMALIZED_MARK = Symbol("PRINTER_NORMALIZED_MARK");
 function normalizePrinter(printer) {
   return getOrInsertComputed(
     normalizedPrinters,

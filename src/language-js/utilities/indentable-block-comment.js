@@ -39,6 +39,7 @@ function getIndentableBlockCommentLinesInternal(comment) {
 }
 
 const cache = new WeakMap();
+
 function getIndentableBlockCommentLines(comment) {
   return getOrInsertComputed(
     cache,
