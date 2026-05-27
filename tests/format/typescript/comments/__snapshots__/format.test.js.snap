@@ -664,6 +664,51 @@ abstract class AbstractBar {
 ================================================================================
 `;
 
+exports[`abstract-methods.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// #18478
+
+declare class DeclareCls {
+  method(
+    param1: number,
+    // trailing line after last param
+  ): void;
+}
+
+class Overload {
+  method(
+    param1: number,
+    // trailing line on first overload
+  ): void;
+  method(param1: string): void;
+  method(param1: number | string): void {}
+}
+
+=====================================output=====================================
+// #18478
+
+declare class DeclareCls {
+  method(
+    param1: number,
+    // trailing line after last param
+  ): void;
+}
+
+class Overload {
+  method(
+    param1: number,
+    // trailing line on first overload
+  ): void;
+  method(param1: string): void;
+  method(param1: number | string): void {}
+}
+
+================================================================================
+`;
+
 exports[`after_jsx_generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -1306,31 +1351,13 @@ export class Point {
         * One
  * Two
    * Three
-* Four 
+* Four
    */
   mismatchedIndentation() {}
 
   inline /* foo*/ (/* bar */) /* baz */ {}
 
   noBody(/* comment */ arg);
-}
-
-// #18478
-declare class DeclareCls {
-  method(
-    param1: number,
-    // trailing line after last param
-  ): void;
-}
-
-// #18478
-class Overload {
-  method(
-    param1: number,
-    // trailing line on first overload
-  ): void;
-  method(param1: string): void;
-  method(param1: number | string): void {}
 }
 
 =====================================output=====================================
@@ -1382,24 +1409,6 @@ export class Point {
   inline /* foo*/(/* bar */) /* baz */ {}
 
   noBody(/* comment */ arg);
-}
-
-// #18478
-declare class DeclareCls {
-  method(
-    param1: number,
-    // trailing line after last param
-  ): void;
-}
-
-// #18478
-class Overload {
-  method(
-    param1: number,
-    // trailing line on first overload
-  ): void;
-  method(param1: string): void;
-  method(param1: number | string): void {}
 }
 
 ================================================================================
