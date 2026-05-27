@@ -33,7 +33,7 @@ const categoryParsers = new Map([
         "hermes",
         "babel",
       ],
-      extensions: [".js", ".cjs", ".mjs", ".unknown"],
+      extensions: [".js", ".cjs", ".mjs", ".flow", ".unknown"],
     },
   ],
   [
