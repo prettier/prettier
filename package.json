@@ -166,7 +166,7 @@
     "gfm-test-suite": "0.0.2",
     "globals": "17.6.0",
     "jest": "30.4.2",
-    "jest-light-runner": "0.7.11",
+    "jest-light-runner": "0.7.12",
     "jest-snapshot-serializer-ansi": "2.2.1",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
