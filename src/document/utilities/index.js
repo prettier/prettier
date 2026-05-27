@@ -1,4 +1,5 @@
 import { trimNewlinesEnd } from "trim-newlines";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -42,12 +43,7 @@ function mapDoc(doc, cb) {
   return rec(doc);
 
   function rec(doc) {
-    if (mapped.has(doc)) {
-      return mapped.get(doc);
-    }
-    const result = process(doc);
-    mapped.set(doc, result);
-    return result;
+    return getOrInsertComputed(mapped, doc, process);
   }
 
   function process(doc) {
