@@ -1,3 +1,4 @@
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../location/index.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
@@ -40,11 +41,9 @@ function returnArgumentHasLeadingCommentWithoutCache(node, options) {
 
 const cache = new WeakMap();
 function returnArgumentHasLeadingComment(node, options) {
-  if (!cache.has(node)) {
-    cache.set(node, returnArgumentHasLeadingCommentWithoutCache(node, options));
-  }
-
-  return cache.get(node);
+  return getOrInsertComputed(cache, node, () =>
+    returnArgumentHasLeadingCommentWithoutCache(node, options),
+  );
 }
 
 export { returnArgumentHasLeadingComment };
