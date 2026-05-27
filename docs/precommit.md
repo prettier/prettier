@@ -194,16 +194,6 @@ pre-commit:
   jobs:
     - name: prettier
       run: npx prettier --ignore-unknown --write {staged_files}
-      glob:
-        - "*.js"
-        - "*.ts"
-        - "*.jsx"
-        - "*.tsx"
-        - "*.json"
-        - "*.css"
-        - "*.md"
-        - "*.yml"
-        - "*.yaml"
       stage_fixed: true
 ```
 
