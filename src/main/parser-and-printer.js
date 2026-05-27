@@ -77,101 +77,107 @@ async function initPrinter(plugin, astFormat) {
   return normalizePrinter(printer);
 }
 
+function normalizePrinterWithoutCache(printer) {
+  /* c8 ignore next 6 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(
+      !printer[PRINTER_NORMALIZED_MARK],
+      "Unexpected printer normalization",
+    );
+  }
+
+  let {
+    features,
+    getVisitorKeys,
+    embed: originalEmbed,
+    massageAstNode: originalCleanFunction,
+    print: originalPrint,
+    ...printerRestProperties
+  } = printer;
+
+  features = normalizePrinterFeatures(features);
+  const frontMatterSupport = features.experimental_frontMatterSupport;
+
+  getVisitorKeys = createGetVisitorKeysFunction(
+    getVisitorKeys,
+    /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
+      frontMatterSupport.embed ||
+      frontMatterSupport.print,
+  );
+
+  let massageAstNode = originalCleanFunction;
+  if (originalCleanFunction && frontMatterSupport.massageAstNode) {
+    massageAstNode = new Proxy(originalCleanFunction, {
+      apply(target, thisArgument, argumentsList) {
+        cleanFrontMatter(...argumentsList);
+        return Reflect.apply(target, thisArgument, argumentsList);
+      },
+    });
+  }
+
+  let embed = originalEmbed;
+  if (originalEmbed) {
+    let embedGetVisitorKeys;
+    embed = new Proxy(originalEmbed, {
+      get(target, property, receiver) {
+        if (property === "getVisitorKeys") {
+          embedGetVisitorKeys ??= originalEmbed.getVisitorKeys
+            ? createGetVisitorKeysFunction(
+                originalEmbed.getVisitorKeys,
+                /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
+                  frontMatterSupport.embed,
+              )
+            : getVisitorKeys;
+          return embedGetVisitorKeys;
+        }
+
+        return Reflect.get(target, property, receiver);
+      },
+      apply: (target, thisArgument, argumentsList) =>
+        frontMatterSupport.embed && isEmbedFrontMatter(...argumentsList)
+          ? printEmbedFrontMatter
+          : Reflect.apply(target, thisArgument, argumentsList),
+    });
+  }
+
+  let print = originalPrint;
+  if (frontMatterSupport.print) {
+    print = new Proxy(originalPrint, {
+      apply(target, thisArgument, argumentsList) {
+        const [path] = argumentsList;
+        if (isFrontMatter(path.node)) {
+          return printFrontMatter(path);
+        }
+        return Reflect.apply(target, thisArgument, argumentsList);
+      },
+    });
+  }
+
+  const normalizedPrinter = {
+    features,
+    getVisitorKeys,
+    embed,
+    massageAstNode,
+    print,
+    ...printerRestProperties,
+  };
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    normalizedPrinter[PRINTER_NORMALIZED_MARK] = true;
+  }
+
+  return normalizedPrinter;
+}
+
 const normalizedPrinters = new WeakMap();
 const PRINTER_NORMALIZED_MARK = Symbol("PRINTER_NORMALIZED_MARK");
 function normalizePrinter(printer) {
-  return getOrInsertComputed(normalizedPrinters, printer, (printer) => {
-    /* c8 ignore next 6 */
-    if (process.env.NODE_ENV !== "production") {
-      assert.ok(
-        !printer[PRINTER_NORMALIZED_MARK],
-        "Unexpected printer normalization",
-      );
-    }
-
-    let {
-      features,
-      getVisitorKeys,
-      embed: originalEmbed,
-      massageAstNode: originalCleanFunction,
-      print: originalPrint,
-      ...printerRestProperties
-    } = printer;
-
-    features = normalizePrinterFeatures(features);
-    const frontMatterSupport = features.experimental_frontMatterSupport;
-
-    getVisitorKeys = createGetVisitorKeysFunction(
-      getVisitorKeys,
-      /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
-        frontMatterSupport.embed ||
-        frontMatterSupport.print,
-    );
-
-    let massageAstNode = originalCleanFunction;
-    if (originalCleanFunction && frontMatterSupport.massageAstNode) {
-      massageAstNode = new Proxy(originalCleanFunction, {
-        apply(target, thisArgument, argumentsList) {
-          cleanFrontMatter(...argumentsList);
-          return Reflect.apply(target, thisArgument, argumentsList);
-        },
-      });
-    }
-
-    let embed = originalEmbed;
-    if (originalEmbed) {
-      let embedGetVisitorKeys;
-      embed = new Proxy(originalEmbed, {
-        get(target, property, receiver) {
-          if (property === "getVisitorKeys") {
-            embedGetVisitorKeys ??= originalEmbed.getVisitorKeys
-              ? createGetVisitorKeysFunction(
-                  originalEmbed.getVisitorKeys,
-                  /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
-                    frontMatterSupport.embed,
-                )
-              : getVisitorKeys;
-            return embedGetVisitorKeys;
-          }
-
-          return Reflect.get(target, property, receiver);
-        },
-        apply: (target, thisArgument, argumentsList) =>
-          frontMatterSupport.embed && isEmbedFrontMatter(...argumentsList)
-            ? printEmbedFrontMatter
-            : Reflect.apply(target, thisArgument, argumentsList),
-      });
-    }
-
-    let print = originalPrint;
-    if (frontMatterSupport.print) {
-      print = new Proxy(originalPrint, {
-        apply(target, thisArgument, argumentsList) {
-          const [path] = argumentsList;
-          if (isFrontMatter(path.node)) {
-            return printFrontMatter(path);
-          }
-          return Reflect.apply(target, thisArgument, argumentsList);
-        },
-      });
-    }
-
-    const normalizedPrinter = {
-      features,
-      getVisitorKeys,
-      embed,
-      massageAstNode,
-      print,
-      ...printerRestProperties,
-    };
-
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production") {
-      normalizedPrinter[PRINTER_NORMALIZED_MARK] = true;
-    }
-
-    return normalizedPrinter;
-  });
+  return getOrInsertComputed(
+    normalizedPrinters,
+    printer,
+    normalizePrinterWithoutCache,
+  );
 }
 
 const PRINTER_FRONT_MATTER_SUPPORT_FEATURES = ["clean", "embed", "print"];

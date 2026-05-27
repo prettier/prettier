@@ -20,23 +20,32 @@ const callArgumentsCache = new WeakMap();
 /**
 @param {CallLikeNode} node
 */
-function getCallArguments(node) {
-  return getOrInsertComputed(callArgumentsCache, node, (node) => {
-    let args;
-    if (node.type === "ImportExpression" || node.type === "TSImportType") {
-      args = [node.source];
+function getCallArgumentsWithoutCache(node) {
+  let args;
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    args = [node.source];
 
-      if (node.options) {
-        args.push(node.options);
-      }
-    } else if (node.type === "TSExternalModuleReference") {
-      args = [node.expression];
-    } else {
-      args = node.arguments;
+    if (node.options) {
+      args.push(node.options);
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    args = [node.expression];
+  } else {
+    args = node.arguments;
+  }
 
-    return args;
-  });
+  return args;
+}
+
+/**
+@param {CallLikeNode} node
+*/
+function getCallArguments(node) {
+  return getOrInsertComputed(
+    callArgumentsCache,
+    node,
+    getCallArgumentsWithoutCache,
+  );
 }
 
 function iterateCallArgumentsPath(path, iteratee) {
