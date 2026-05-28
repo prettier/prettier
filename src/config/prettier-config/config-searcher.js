@@ -6,12 +6,34 @@ import {
 
 /**
 @import {SearcherOptions} from 'search-closest'
+
+@typedef {string | {name: string, filter: SearcherOptions['filter']}} SearchTarget
 */
 
-// Align with docs, docs/configuration.md
-const CONFIG_FILE_NAMES = [
-  "package.json",
-  "package.yaml",
+// Please keep this order sync with docs, docs/configuration.md
+
+/** @type {SearchTarget[]} */
+const CONFIG_FILES = [
+  {
+    name: "package.json",
+    async filter({ path: file }) {
+      try {
+        return Boolean(await loadConfigFromPackageJson(file));
+      } catch {
+        return false;
+      }
+    },
+  },
+  {
+    name: "package.yaml",
+    async filter({ path: file }) {
+      try {
+        return Boolean(await loadConfigFromPackageYaml(file));
+      } catch {
+        return false;
+      }
+    },
+  },
 
   ".prettierrc",
 
@@ -38,29 +60,8 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.toml",
 ];
 
-/** @type {SearcherOptions["filter"]} */
-async function filter({ name, path: file }) {
-  if (name === "package.json") {
-    try {
-      return Boolean(await loadConfigFromPackageJson(file));
-    } catch {
-      return false;
-    }
-  }
-
-  if (name === "package.yaml") {
-    try {
-      return Boolean(await loadConfigFromPackageYaml(file));
-    } catch {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 function getSearcher(stopDirectory) {
-  return new FileSearcher(CONFIG_FILE_NAMES, { filter, stopDirectory });
+  return new FileSearcher(CONFIG_FILES, { stopDirectory });
 }
 
 export default getSearcher;
