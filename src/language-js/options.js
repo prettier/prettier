@@ -69,6 +69,29 @@ const options = {
     default: false,
     description: "Use single quotes in JSX.",
   },
+  jsxWrapParens: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "always",
+    description:
+      "How to wrap multiline JSX in parentheses where they are not syntactically required.",
+    choices: [
+      {
+        value: "always",
+        description: "Always wrap multiline JSX in parentheses.",
+      },
+      {
+        value: "never",
+        description:
+          "Never add parentheses around multiline JSX where they are not required.",
+      },
+      {
+        value: "preserve",
+        description:
+          "Keep parentheses around multiline JSX only if the original code had them.",
+      },
+    ],
+  },
   quoteProps: {
     category: CATEGORY_JAVASCRIPT,
     type: "choice",

@@ -170,6 +170,15 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
+    "jsxWrapParens": {
+      "choices": [
+        "always",
+        "never",
+        "preserve",
+      ],
+      "default": "always",
+      "type": "choice",
+    },
     "objectWrap": {
       "choices": [
         "preserve",
@@ -954,6 +963,28 @@ exports[`CLI --support-info  1`] = `
       "name": "jsxSingleQuote",
       "pluginDefaults": {},
       "type": "boolean"
+    },
+    {
+      "category": "JavaScript",
+      "choices": [
+        {
+          "description": "Always wrap multiline JSX in parentheses.",
+          "value": "always"
+        },
+        {
+          "description": "Never add parentheses around multiline JSX where they are not required.",
+          "value": "never"
+        },
+        {
+          "description": "Keep parentheses around multiline JSX only if the original code had them.",
+          "value": "preserve"
+        }
+      ],
+      "default": "always",
+      "description": "How to wrap multiline JSX in parentheses where they are not syntactically required.",
+      "name": "jsxWrapParens",
+      "pluginDefaults": {},
+      "type": "choice"
     },
     {
       "category": "Common",

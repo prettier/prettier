@@ -138,6 +138,37 @@ Use single quotes instead of double quotes in JSX.
 | ------- | -------------------- | ------------------------ |
 | `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
+## JSX Wrap Parens
+
+Control whether multiline JSX is wrapped in parentheses in positions where the parentheses are not syntactically required (for example, after `return`/`throw`, in arrow function bodies, and in assignments). The wrapping parentheses add an extra level of indentation:
+
+<!-- prettier-ignore -->
+```jsx
+// "always"
+return (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// "never"
+return <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+```
+
+Valid options:
+
+- `"always"` - Always wrap multiline JSX in parentheses.
+- `"never"` - Never add parentheses around multiline JSX where they are not required.
+- `"preserve"` - Keep parentheses around multiline JSX only if the original code had them.
+
+| Default    | CLI Override                                                      | API Override                                                     |
+| ---------- | ----------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `"always"` | <code>--jsx-wrap-parens \<always&#124;never&#124;preserve></code> | <code>jsxWrapParens: "\<always&#124;never&#124;preserve>"</code> |
+
 ## Trailing Commas
 
 _Default value changed from `es5` to `all` in v3.0.0_

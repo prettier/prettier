@@ -63,6 +63,9 @@ Format options:
                            Defaults to css.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
+  --jsx-wrap-parens <always|never|preserve>
+                           How to wrap multiline JSX in parentheses where they are not syntactically required.
+                           Defaults to always.
   --object-wrap <preserve|collapse>
                            How to wrap object literals.
                            Defaults to preserve.
@@ -239,6 +242,9 @@ Format options:
                            Defaults to css.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
+  --jsx-wrap-parens <always|never|preserve>
+                           How to wrap multiline JSX in parentheses where they are not syntactically required.
+                           Defaults to always.
   --object-wrap <preserve|collapse>
                            How to wrap object literals.
                            Defaults to preserve.

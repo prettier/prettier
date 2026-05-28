@@ -333,6 +333,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   jsxSingleQuote: boolean;
   /**
+   * How to wrap multiline JSX in parentheses where they are not required.
+   * @default "always"
+   */
+  jsxWrapParens: "always" | "never" | "preserve";
+  /**
    * Print trailing commas wherever possible.
    * @default "all"
    */

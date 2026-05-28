@@ -18,8 +18,12 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { skipWhitespace } from "../../utilities/skip.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
@@ -484,15 +488,73 @@ const isNoWrapParent = createTypeCheckFunction([
   "JsExpressionRoot",
   "MatchExpressionCase",
 ]);
+
+// Detect whether the JSX node was wrapped in parentheses in the original
+// source, parser-independently (some parsers, e.g. `typescript` and `flow`,
+// don't retain `node.extra.parenthesized`). Requires a `(` immediately before
+// and a matching `)` immediately after the node so that parentheses around an
+// enclosing expression (e.g. `(<a /> && <b />)`) aren't misattributed to an
+// operand.
+function isParenthesizedInOriginalText(node, options) {
+  const { originalText } = options;
+  const precedingCharIndex = skipWhitespace(originalText, locStart(node) - 1, {
+    backwards: true,
+  });
+  return (
+    precedingCharIndex !== false &&
+    originalText[precedingCharIndex] === "(" &&
+    getNextNonSpaceNonCommentCharacter(originalText, locEnd(node)) === ")"
+  );
+}
+
+// Stripping the optional parens around the element is unsafe when it carries
+// certain comments:
+//   - A leading comment: a `//` can't share a line with the `<` open tag, so
+//     unwrapping would force ASI after `return` and change semantics.
+//   - A trailing block comment on the element's own line (no newline before
+//     it): it prints inline, before the statement's semicolon, and would hop
+//     to after the semicolon on the next pass — i.e. not idempotent. Trailing
+//     line comments and own-line comments print as line suffixes (past the
+//     semicolon) and unwrap cleanly.
+function elementHasParenForcingComment(node, options) {
+  return (
+    hasComment(node, CommentCheckFlags.Leading) ||
+    hasComment(
+      node,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Block,
+      (comment) =>
+        !hasNewline(options.originalText, locStart(comment), {
+          backwards: true,
+        }),
+    )
+  );
+}
+
 function maybeWrapJsxElementInParens(path, elem, options) {
-  const { parent } = path;
+  const { node, parent } = path;
 
   if (isNoWrapParent(parent)) {
     return elem;
   }
 
-  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = needsParentheses(path, options);
+  const { jsxWrapParens } = options;
+
+  // Optional parens only; never suppress syntactically required parens, and
+  // keep them when a comment makes unwrapping unsafe (see helper above).
+  // "never" always skips the wrapping; "preserve" skips it unless the source
+  // had parens around this element.
+  if (
+    !needsParens &&
+    !elementHasParenForcingComment(node, options) &&
+    (jsxWrapParens === "never" ||
+      (jsxWrapParens === "preserve" &&
+        !isParenthesizedInOriginalText(node, options)))
+  ) {
+    return elem;
+  }
+
+  const shouldBreak = shouldBreakJsxElement(path);
 
   return group(
     [

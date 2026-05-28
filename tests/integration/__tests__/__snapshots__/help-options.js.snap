@@ -330,6 +330,24 @@ Default: false",
 }
 `;
 
+exports[`show detailed usage with --help jsx-wrap-parens  1`] = `
+{
+  "stderr": "",
+  "stdout": "--jsx-wrap-parens <always|never|preserve>
+
+  How to wrap multiline JSX in parentheses where they are not syntactically required.
+
+Valid options:
+
+  always     Always wrap multiline JSX in parentheses.
+  never      Never add parentheses around multiline JSX where they are not required.
+  preserve   Keep parentheses around multiline JSX only if the original code had them.
+
+Default: always",
+  "write": [],
+}
+`;
+
 exports[`show detailed usage with --help list-different  1`] = `
 {
   "stderr": "",

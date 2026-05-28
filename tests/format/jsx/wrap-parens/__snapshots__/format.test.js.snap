@@ -1,0 +1,865 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js - {"jsxWrapParens":"never"} format 1`] = `
+====================================options=====================================
+jsxWrapParens: "never"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return (
+    <>
+      <A />
+    </> // trailing
+  );
+}
+
+function trailingOwnLineBlockComment() {
+  return (
+    <>
+      <A />
+    </>
+    /* trailing */
+  );
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return (
+    <div
+      // attr
+      className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    >
+      <A />
+    </div>
+  );
+}
+
+function childComment() {
+  return (
+    <>
+      {/* child */}
+      <A />
+    </>
+  );
+}
+
+=====================================output=====================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return <>
+    <A />
+  </>; // trailing
+}
+
+function trailingOwnLineBlockComment() {
+  return <>
+    <A />
+  </>;
+  /* trailing */
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return <div
+    // attr
+    className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  >
+    <A />
+  </div>;
+}
+
+function childComment() {
+  return <>
+    {/* child */}
+    <A />
+  </>;
+}
+
+================================================================================
+`;
+
+exports[`comments.js - {"jsxWrapParens":"preserve"} format 1`] = `
+====================================options=====================================
+jsxWrapParens: "preserve"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return (
+    <>
+      <A />
+    </> // trailing
+  );
+}
+
+function trailingOwnLineBlockComment() {
+  return (
+    <>
+      <A />
+    </>
+    /* trailing */
+  );
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return (
+    <div
+      // attr
+      className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    >
+      <A />
+    </div>
+  );
+}
+
+function childComment() {
+  return (
+    <>
+      {/* child */}
+      <A />
+    </>
+  );
+}
+
+=====================================output=====================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return (
+    <>
+      <A />
+    </> // trailing
+  );
+}
+
+function trailingOwnLineBlockComment() {
+  return (
+    <>
+      <A />
+    </>
+    /* trailing */
+  );
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return (
+    <div
+      // attr
+      className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    >
+      <A />
+    </div>
+  );
+}
+
+function childComment() {
+  return (
+    <>
+      {/* child */}
+      <A />
+    </>
+  );
+}
+
+================================================================================
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return (
+    <>
+      <A />
+    </> // trailing
+  );
+}
+
+function trailingOwnLineBlockComment() {
+  return (
+    <>
+      <A />
+    </>
+    /* trailing */
+  );
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return (
+    <div
+      // attr
+      className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    >
+      <A />
+    </div>
+  );
+}
+
+function childComment() {
+  return (
+    <>
+      {/* child */}
+      <A />
+    </>
+  );
+}
+
+=====================================output=====================================
+// A leading comment keeps the wrapping parens even under "never"/"preserve":
+// a \`//\` can't share a line with the \`<\` open tag, so unwrapping would force
+// ASI after \`return\` and change semantics.
+
+function leadingLineComment() {
+  return (
+    // leading
+    <>
+      <A />
+    </>
+  );
+}
+
+function leadingBlockComment() {
+  return (
+    /* leading */
+    <>
+      <A />
+    </>
+  );
+}
+
+// A trailing block comment on the element's own line prints inline (before the
+// statement's semicolon), so the parens are kept to stay idempotent.
+function trailingSameLineBlockComment() {
+  return (
+    <>
+      <A />
+    </> /* trailing */
+  );
+}
+
+// Trailing line comments and own-line comments print as line suffixes (past
+// the semicolon) and unwrap cleanly.
+function trailingLineComment() {
+  return (
+    <>
+      <A />
+    </> // trailing
+  );
+}
+
+function trailingOwnLineBlockComment() {
+  return (
+    <>
+      <A />
+    </>
+    /* trailing */
+  );
+}
+
+// Comments inside the tag (attributes, names, values) or in the children attach
+// to descendant nodes, so they don't block stripping the optional parens.
+function attributeComment() {
+  return (
+    <div
+      // attr
+      className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    >
+      <A />
+    </div>
+  );
+}
+
+function childComment() {
+  return (
+    <>
+      {/* child */}
+      <A />
+    </>
+  );
+}
+
+================================================================================
+`;
+
+exports[`wrap-parens.js - {"jsxWrapParens":"never"} format 1`] = `
+====================================options=====================================
+jsxWrapParens: "never"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function bareReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function parenReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function bareReturnElement() {
+  return <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+function throwJsx() {
+  throw <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+const bareArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const bareAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+=====================================output=====================================
+function bareReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function parenReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function bareReturnElement() {
+  return <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+function throwJsx() {
+  throw <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+const bareArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const bareAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+================================================================================
+`;
+
+exports[`wrap-parens.js - {"jsxWrapParens":"preserve"} format 1`] = `
+====================================options=====================================
+jsxWrapParens: "preserve"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function bareReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function parenReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function bareReturnElement() {
+  return <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+function throwJsx() {
+  throw <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+const bareArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const bareAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+=====================================output=====================================
+function bareReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function parenReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function bareReturnElement() {
+  return <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+function throwJsx() {
+  throw <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+const bareArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const bareAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+================================================================================
+`;
+
+exports[`wrap-parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function bareReturn() {
+  return <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>;
+}
+
+function parenReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function bareReturnElement() {
+  return <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+function throwJsx() {
+  throw <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>;
+}
+
+const bareArrow = () => <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const bareAssign = <>
+  <SomeElement />
+  <SomeOtherElement />
+</>;
+
+const parenAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+=====================================output=====================================
+function bareReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function parenReturn() {
+  return (
+    <>
+      <SomeElement />
+      <SomeOtherElement />
+    </>
+  );
+}
+
+function bareReturnElement() {
+  return (
+    <div>
+      <SomeElement />
+      <SomeOtherElement />
+    </div>
+  );
+}
+
+function throwJsx() {
+  throw (
+    <div>
+      <SomeElement />
+      <SomeOtherElement />
+    </div>
+  );
+}
+
+const bareArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const parenArrow = () => (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const bareAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+const parenAssign = (
+  <>
+    <SomeElement />
+    <SomeOtherElement />
+  </>
+);
+
+// Parens are syntactically required here and must be kept regardless of option.
+const mapped = (
+  <div>
+    <SomeElement />
+    <SomeOtherElement />
+  </div>
+).map((x) => x);
+
+================================================================================
+`;
