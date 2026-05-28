@@ -49,7 +49,7 @@
     "@types/react": "19.2.15",
     "@vitejs/plugin-vue": "6.0.7",
     "@vitejs/plugin-vue-jsx": "5.1.5",
-    "concurrently": "9.2.1",
+    "concurrently": "10.0.0",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
     "vite": "8.0.14",
