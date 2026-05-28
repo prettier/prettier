@@ -120,7 +120,7 @@
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
     "sdbm": "3.0.0",
-    "search-closest": "1.3.0",
+    "search-closest": "2.0.0",
     "smol-toml": "1.6.1",
     "strip-ansi": "7.2.0",
     "to-fast-properties": "4.0.0",
