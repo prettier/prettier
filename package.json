@@ -42,7 +42,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "21.2.14",
+    "@angular/compiler": "21.2.15",
     "@babel/code-frame": "8.0.0-rc.6",
     "@babel/parser": "8.0.0-rc.6",
     "@babel/types": "8.0.0-rc.6",
