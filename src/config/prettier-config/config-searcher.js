@@ -5,7 +5,7 @@ import {
 } from "./loaders.js";
 
 /**
-@import {SearcherOptions} from 'search-closest'
+@import {SearcherOptions} from 'search-closest/searcher.js'
 */
 
 // Align with docs, docs/configuration.md

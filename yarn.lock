@@ -4890,12 +4890,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-in-directory@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "find-in-directory@npm:3.0.0"
+"find-in-directory@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "find-in-directory@npm:3.2.0"
   dependencies:
     url-or-path: "npm:2.6.1"
-  checksum: 10/6af5a95639db23288a57b7b4a54ac83d54f01e378475ba6a2665ebf68d01f29af0aca2acedb2fae70e00f12fb2c5604f1711c72ee62d7f042fbe999e2e746af8
+  checksum: 10/39b5309e0137af1c69d730e8a711cd96aef7856e93bc3fdec6ce7d1b62d0051413b7dc2e781332d1a494f7c847d3fe798e0540fa7b009b7d8e0f121972bb2842
   languageName: node
   linkType: hard
 
@@ -5769,12 +5769,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iterate-directory-up@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "iterate-directory-up@npm:1.4.0"
+"iterate-directory-up@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "iterate-directory-up@npm:1.5.1"
   dependencies:
     url-or-path: "npm:^2.6.1"
-  checksum: 10/1af9e03f67cfddaf7a82e5588ecb3ff46c3067ad70ce745fde6e6b97e633cde4ebbf7c57f5639d548ddb9f7b480dada9fd836f3136cff8276a6d67b2fcb3fa67
+  checksum: 10/a14be15cce92a9d91de792fd050857daff7fbaf83253e4462f05b5155545743a0e0ff7f533a8b5b9b8f9ab98a293d7ab8e77a959f4e26426a2ec2bb7cf95cbd0
   languageName: node
   linkType: hard
 
@@ -8203,7 +8203,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.7.1"
     sdbm: "npm:3.0.0"
-    search-closest: "npm:1.1.0"
+    search-closest: "npm:1.3.0"
     semver: "npm:7.8.1"
     serialize-javascript: "npm:7.0.5"
     smol-toml: "npm:1.6.1"
@@ -8549,13 +8549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"search-closest@npm:1.1.0":
-  version: 1.1.0
-  resolution: "search-closest@npm:1.1.0"
+"search-closest@npm:1.3.0":
+  version: 1.3.0
+  resolution: "search-closest@npm:1.3.0"
   dependencies:
-    find-in-directory: "npm:^3.0.0"
-    iterate-directory-up: "npm:^1.4.0"
-  checksum: 10/41d2118be5dab2715efeb8150fbd1f0e400dfe1f37e882a159f9dfa1d95ffcbf1937019a77f32f68679d52f19efd4a46625f8c361fd03488bec5f85abe9fc9da
+    find-in-directory: "npm:^3.2.0"
+    iterate-directory-up: "npm:^1.5.1"
+  checksum: 10/dcd61bed36350544e9402b667e0294258f5bd1dffc370e442add8d089d2f6d5f55a414c5d3c6339a744dc1cd89e4f220d3087bbc255708caf0e6d797c93d2a58
   languageName: node
   linkType: hard
 
