@@ -4890,12 +4890,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-in-directory@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "find-in-directory@npm:4.0.1"
+"find-in-directory@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "find-in-directory@npm:5.0.1"
   dependencies:
     url-or-path: "npm:2.6.1"
-  checksum: 10/3f545080b7fbc7f34241cdc08a448cec95454e629efcafd5b4ccd209a5f7f2339c34c7ab0eeef00f53387ac5a761a2746234af88522b8bbde3bd440576d3ad1c
+  checksum: 10/c727ee9175b78a60075d7e3e8b4d823a0ffc14a4804f7634a8b3f5c6990f0efa4a44ddbb837b39d944ff28b3064f65b3ee9658c6339b769d4d3b2dd925b64382
   languageName: node
   linkType: hard
 
@@ -8203,7 +8203,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.7.1"
     sdbm: "npm:3.0.0"
-    search-closest: "npm:2.0.0"
+    search-closest: "npm:3.0.0"
     semver: "npm:7.8.1"
     serialize-javascript: "npm:7.0.5"
     smol-toml: "npm:1.6.1"
@@ -8549,13 +8549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"search-closest@npm:2.0.0":
-  version: 2.0.0
-  resolution: "search-closest@npm:2.0.0"
+"search-closest@npm:3.0.0":
+  version: 3.0.0
+  resolution: "search-closest@npm:3.0.0"
   dependencies:
-    find-in-directory: "npm:^4.0.1"
+    find-in-directory: "npm:^5.0.0"
     iterate-directory-up: "npm:^1.5.1"
-  checksum: 10/40489c89210b1fa1ec505c4fa066fc61a04f79ce7320558c0e656a822cf84fd9e3102a4d4a2be2c2977f944e6171b4f061d30f59c063c22b7f8d871ad8471ae1
+  checksum: 10/9ee847347fd296606e8815808e84e19f280b758535766a57f1e5888abc1d74de6c78741a34bd18b289f3afb8b51e9cd3861db860b83512492b4882a60aef5e62
   languageName: node
   linkType: hard
 
