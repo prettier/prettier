@@ -1,5 +1,6 @@
 import path from "node:path";
 import mockable from "../../common/mockable.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import getConfigSearcher from "./config-searcher.js";
 import loadConfig from "./load-config.js";
 
@@ -37,13 +38,10 @@ function loadPrettierConfig(configFile, { shouldCache }) {
 function getSearchFunction(stopDirectory) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
 
-  if (!searchCache.has(stopDirectory)) {
+  return getOrInsertComputed(searchCache, stopDirectory, (stopDirectory) => {
     const searcher = getConfigSearcher(stopDirectory);
-    const searchFunction = searcher.search.bind(searcher);
-    searchCache.set(stopDirectory, searchFunction);
-  }
-
-  return searchCache.get(stopDirectory);
+    return searcher.search.bind(searcher);
+  });
 }
 
 /**

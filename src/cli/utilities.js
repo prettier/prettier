@@ -106,7 +106,7 @@ const normalizeToPosix =
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
 
-export const { omit } = sharedWithCli.utilities;
+export const { omit, getOrInsertComputed } = sharedWithCli.utilities;
 export {
   createHash,
   groupBy,

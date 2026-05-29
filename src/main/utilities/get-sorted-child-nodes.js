@@ -1,12 +1,7 @@
 import { getChildren } from "../../utilities/ast.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 
-function getSortedChildNodes(node, ancestors, options) {
-  const { cache: childNodesCache } = options;
-
-  if (childNodesCache.has(node)) {
-    return childNodesCache.get(node);
-  }
-
+function getSortedChildNodesWithoutCache(node, ancestors, options) {
   const { filter } = options;
 
   if (!filter) {
@@ -33,8 +28,13 @@ function getSortedChildNodes(node, ancestors, options) {
       locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
   );
 
-  childNodesCache.set(node, childNodes);
   return childNodes;
+}
+
+function getSortedChildNodes(node, ancestors, options) {
+  return getOrInsertComputed(options.cache, node, (node) =>
+    getSortedChildNodesWithoutCache(node, ancestors, options),
+  );
 }
 
 export default getSortedChildNodes;

@@ -223,9 +223,6 @@ const allowedReasonCodesArray = [
   ```
   */
   "DeclarationMissingInitializer",
-
-  // https://github.com/babel/babel/pull/17949
-  "DecoratorAbstractMethod",
 ];
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 

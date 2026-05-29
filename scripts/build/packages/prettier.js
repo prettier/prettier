@@ -1,6 +1,6 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 import { DIST_DIR, PROJECT_ROOT } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
@@ -15,13 +15,9 @@ import {
 } from "./config-helpers.js";
 import { generatePackageJson } from "./prettier-package-json.js";
 
-const {
-  require,
-  dirname,
-  resolve: importMetaResolve,
-} = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 const resolveEsmModulePath = (specifier) =>
-  url.fileURLToPath(importMetaResolve(specifier));
+  url.fileURLToPath(import.meta.resolve(specifier));
 
 const extensions = {
   esm: ".mjs",
@@ -73,7 +69,7 @@ const mainModule = {
         // `parse-json` uses old version of `@babel/code-frame`
         // Remove this when `parse-json` supports @babel/code-frame v8
         {
-          module: require.resolve("parse-json"),
+          module: resolveEsmModulePath("parse-json"),
           process(text) {
             text = text.replace(
               "return {line: Number(line), column: Number(column)}",
@@ -92,11 +88,11 @@ const mainModule = {
           replacement: "export default { parse };",
         },
         {
-          module: require.resolve("@babel/code-frame"),
+          module: resolveEsmModulePath("@babel/code-frame"),
           process(text) {
             text = text.replace(
               "from 'node:util'",
-              `from ${JSON.stringify(path.join(dirname, "../shims/node-util.js"))}`,
+              `from ${JSON.stringify(path.join(import.meta.dirname, "../shims/node-util.js"))}`,
             );
             return text;
           },
@@ -114,7 +110,7 @@ const mainModule = {
         // Smaller size
         {
           module: getPackageFile("picocolors/picocolors.browser.js"),
-          path: path.join(dirname, "../shims/colors.js"),
+          path: path.join(import.meta.dirname, "../shims/colors.js"),
         },
       ],
     }),
@@ -440,7 +436,7 @@ const pluginFiles = [
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile("debug/src/browser.js"),
-        path: path.join(dirname, "../shims/debug.js"),
+        path: path.join(import.meta.dirname, "../shims/debug.js"),
       },
       {
         module: require.resolve("ts-api-utils"),

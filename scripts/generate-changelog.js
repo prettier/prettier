@@ -12,7 +12,7 @@
 import fs from "node:fs/promises";
 import enquirer from "enquirer";
 import openEditor from "open-editor";
-import { CHANGELOG_CATEGORIES } from "./utilities/changelog-categories.js";
+import { CHANGELOG_CATEGORIES } from "./utilities/changelog.js";
 
 const prNumberPrompt = new enquirer.NumberPrompt({
   message: "Input your Pull Request number:",
