@@ -127,6 +127,10 @@ function genericPrint(path, options, print) {
         ),
         printClosingTagSuffix(node, options),
       ];
+    case "angularAttributeComment":
+      return replaceEndOfLine(
+        options.originalText.slice(locStart(node), locEnd(node)),
+      );
 
     case "attribute": {
       if (node.value === null) {

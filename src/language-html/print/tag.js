@@ -263,12 +263,20 @@ function printAttributes(path, options, print) {
     options.singleAttributePerLine &&
     node.attrs.length > 1 &&
     !isVueSfcBlock(node, options);
-  const attributeLine = shouldPrintAttributePerLine ? hardline : line;
+  const hasAngularAttributeComment = node.attrs.some(
+    (attr) => attr.kind === "angularAttributeComment",
+  );
+  const attributeLine =
+    shouldPrintAttributePerLine || hasAngularAttributeComment ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [
     indent([
-      forceNotToBreakAttrContent ? " " : line,
+      forceNotToBreakAttrContent
+        ? " "
+        : hasAngularAttributeComment
+          ? hardline
+          : line,
       join(attributeLine, printedAttributes),
     ]),
   ];
@@ -295,7 +303,7 @@ function printAttributes(path, options, print) {
     parts.push(node.isSelfClosing ? " " : "");
   } else {
     parts.push(
-      options.bracketSameLine
+      options.bracketSameLine && !hasAngularAttributeComment
         ? node.isSelfClosing
           ? " "
           : ""

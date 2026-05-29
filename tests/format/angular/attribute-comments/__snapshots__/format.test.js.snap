@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div
+  // comment 0
+  /* comment 1 */
+  attr1="value1"
+  /*
+     comment 2
+     spanning multiple lines
+  */
+  attr2="value2"
+></div>
+
+<span
+  // comment without attributes
+></span>
+
+=====================================output=====================================
+<div
+  // comment 0
+  /* comment 1 */
+  attr1="value1"
+  /*
+     comment 2
+     spanning multiple lines
+  */
+  attr2="value2"
+></div>
+
+<span
+  // comment without attributes
+></span>
+
+================================================================================
+`;

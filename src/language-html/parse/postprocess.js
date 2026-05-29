@@ -37,6 +37,9 @@ class Visitor extends RecursiveVisitor {
 
 function postprocess(rawAst, frontMatter, parseOptions, parseSubHtml) {
   visitAll(new Visitor(), rawAst.children, { parseOptions });
+  if (parseOptions.name === "angular") {
+    addAngularAttributeComments(rawAst);
+  }
 
   if (frontMatter) {
     rawAst.children.unshift(frontMatter);
@@ -116,6 +119,81 @@ function normalizeAngularIcuExpression(node) {
   if (node.kind === "expansionCase") {
     node.kind = "angularIcuCase";
   }
+}
+
+function getLocationAtOffset(node, offset) {
+  return node.sourceSpan.start.moveBy(offset - node.sourceSpan.start.offset);
+}
+
+function getOpeningTagContentEndOffset(node) {
+  return node.startSourceSpan.end.offset - (node.isSelfClosing ? 2 : 1);
+}
+
+function getAngularAttributeCommentsInRange(node, startOffset, endOffset) {
+  const text = node.sourceSpan.start.file.content.slice(startOffset, endOffset);
+  const comments = [];
+  const commentPattern = /\/\/[^\r\n]*|\/\*.*?\*\//gsu;
+
+  for (const match of text.matchAll(commentPattern)) {
+    const startOffsetOfComment = startOffset + match.index;
+    const endOffsetOfComment = startOffsetOfComment + match[0].length;
+
+    comments.push({
+      kind: "angularAttributeComment",
+      value: match[0],
+      sourceSpan: new ParseSourceSpan(
+        getLocationAtOffset(node, startOffsetOfComment),
+        getLocationAtOffset(node, endOffsetOfComment),
+      ),
+    });
+  }
+
+  return comments;
+}
+
+function addAngularAttributeComments(node) {
+  for (const child of node.children ?? []) {
+    addAngularAttributeComments(child);
+  }
+
+  if (node.kind !== "element" || !node.startSourceSpan) {
+    return;
+  }
+
+  const attrs = [...node.attrs].sort(
+    (left, right) =>
+      left.sourceSpan.start.offset - right.sourceSpan.start.offset,
+  );
+  const comments = [];
+  let previousOffset = node.nameSpan.end.offset;
+
+  for (const attr of attrs) {
+    comments.push(
+      ...getAngularAttributeCommentsInRange(
+        node,
+        previousOffset,
+        attr.sourceSpan.start.offset,
+      ),
+    );
+    previousOffset = attr.sourceSpan.end.offset;
+  }
+
+  comments.push(
+    ...getAngularAttributeCommentsInRange(
+      node,
+      previousOffset,
+      getOpeningTagContentEndOffset(node),
+    ),
+  );
+
+  if (comments.length === 0) {
+    return;
+  }
+
+  node.attrs = [...node.attrs, ...comments].sort(
+    (left, right) =>
+      left.sourceSpan.start.offset - right.sourceSpan.start.offset,
+  );
 }
 
 function lowerCaseIf(text, fn) {

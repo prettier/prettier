@@ -11,6 +11,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   docType: [],
   comment: [],
   attribute: [],
+  angularAttributeComment: [],
   cdata: [],
   angularControlFlowBlock: ["children", "parameters"],
   angularControlFlowBlockParameters: ["children"],

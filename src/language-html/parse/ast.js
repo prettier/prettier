@@ -190,7 +190,9 @@ class Node {
   get attrMap() {
     return Object.fromEntries(
       // @ts-expect-error
-      this.attrs.map((attr) => [attr.fullName, attr.value]),
+      this.attrs
+        .filter((attr) => attr.kind === "attribute")
+        .map((attr) => [attr.fullName, attr.value]),
     );
   }
 }
