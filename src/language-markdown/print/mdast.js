@@ -47,11 +47,13 @@ function prevOrNextWord(path) {
       previous.children.at(-1)?.type === "word" &&
       !previous.children.at(-1).hasTrailingPunctuation &&
       // https://spec.commonmark.org/0.31.2/#unicode-whitespace-character
-      !/[\p{Zs}\t\n\f\r]$/u.test(previous.children.at(-1).value)) ||
+      !/[\p{Space_Separator}\t\n\f\r]$/u.test(
+        previous.children.at(-1).value,
+      )) ||
     (next?.type === "sentence" &&
       next.children[0]?.type === "word" &&
       !next.children[0].hasLeadingPunctuation &&
-      !/^[\p{Zs}\t\n\f\r]/u.test(next.children[0].value));
+      !/^[\p{Space_Separator}\t\n\f\r]/u.test(next.children[0].value));
   return hasPrevOrNextWord;
 }
 
