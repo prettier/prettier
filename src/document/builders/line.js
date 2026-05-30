@@ -18,21 +18,21 @@ import { DOC_TYPE_LINE } from "./types.js";
 */
 
 /** @type {Line} */
-const line = { type: DOC_TYPE_LINE };
+const line = Object.freeze({ type: DOC_TYPE_LINE });
 /** @type {SoftLine} */
-const softline = { type: DOC_TYPE_LINE, soft: true };
+const softline = Object.freeze({ type: DOC_TYPE_LINE, soft: true });
 /** @type {HardlineWithoutBreakParent} */
-const hardlineWithoutBreakParent = { type: DOC_TYPE_LINE, hard: true };
+const hardlineWithoutBreakParent = Object.freeze({ type: DOC_TYPE_LINE, hard: true });
 /** @type {HardLine} */
-const hardline = [hardlineWithoutBreakParent, breakParent];
+const hardline = Object.freeze([hardlineWithoutBreakParent, breakParent]);
 /** @type {LiterallineWithoutBreakParent} */
-const literallineWithoutBreakParent = {
+const literallineWithoutBreakParent = Object.freeze({
   type: DOC_TYPE_LINE,
   hard: true,
   literal: true,
-};
+});
 /** @type {Literalline} */
-const literalline = [literallineWithoutBreakParent, breakParent];
+const literalline = Object.freeze([literallineWithoutBreakParent, breakParent]);
 
 export {
   hardline,

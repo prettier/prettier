@@ -1,16 +1,25 @@
 import prettier from "../../config/prettier-entry.js";
+import commonOptions from "../../../src/common/common-options.evaluate.js";
+import coreOptions from "../../../src/main/core-options.evaluate.js";
+
 const {
-  join,
-  hardline,
-  literalline,
-  group,
-  fill,
-  line,
-  lineSuffix,
+  align,
   breakParent,
+  cursor,
+  fill,
+  group,
+  hardline,
+  hardlineWithoutBreakParent,
   ifBreak,
   indent,
-  align,
+  join,
+  line,
+  lineSuffix,
+  lineSuffixBoundary,
+  literalline,
+  literallineWithoutBreakParent,
+  softline,
+  trim,
 } = prettier.doc.builders;
 
 describe("doc builders", () => {
@@ -72,5 +81,25 @@ describe("doc builders", () => {
     ],
   ])("%s", (_, doc, expected) => {
     expect(doc).toStrictEqual(expected);
+  });
+
+  test.each([
+    ["breakParent", breakParent],
+    ["cursor", cursor],
+    ["hardline", hardline],
+    ["hardlineWithoutBreakParent", hardlineWithoutBreakParent],
+    ["line", line],
+    ["lineSuffixBoundary", lineSuffixBoundary],
+    ["literalline", literalline],
+    ["literallineWithoutBreakParent", literallineWithoutBreakParent],
+    ["softline", softline],
+    ["trim", trim],
+  ])("freezes built-in %s docs", (_, doc) => {
+    expect(Object.isFrozen(doc)).toBe(true);
+  });
+
+  test("freezes built-in options maps", () => {
+    expect(Object.isFrozen(coreOptions)).toBe(true);
+    expect(Object.isFrozen(commonOptions)).toBe(true);
   });
 });
