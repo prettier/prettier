@@ -28,7 +28,7 @@ describe("ignores node_modules by default for file list", () => {
     "regular-module.js",
     "-l",
   ]).test({
-    status: 1,
+    status: 2,
   });
 });
 

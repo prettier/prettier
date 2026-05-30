@@ -33,7 +33,8 @@ regular-module.js",
 
 exports[`ignores node_modules by default for file list  1`] = `
 {
-  "stderr": "",
+  "stderr": "[error] Explicitly specified pattern "node_modules/node-module.js" is ignored. Use the \`--with-node-modules\` flag to format files inside the \`node_modules\` directory.
+[error] Explicitly specified pattern "nested/node_modules/node-module.js" is ignored. Use the \`--with-node-modules\` flag to format files inside the \`node_modules\` directory.",
   "stdout": "not_node_modules/file.js
 regular-module.js",
   "write": [],

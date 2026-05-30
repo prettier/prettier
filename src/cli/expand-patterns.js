@@ -65,6 +65,23 @@ async function* expandPatternsInternal(context) {
     const absolutePath = path.resolve(pattern);
 
     if (directoryIgnorer.shouldIgnore(absolutePath)) {
+      if (context.argv.errorOnUnmatchedPattern !== false) {
+        const isInNodeModules = path
+          .relative(cwd, absolutePath)
+          .split(path.sep)
+          .includes("node_modules");
+        yield {
+          error:
+            `Explicitly specified pattern "${pattern}" is ignored.` +
+            (isInNodeModules && context.argv.withNodeModules !== true
+              ? " Use the `--with-node-modules` flag to format files inside the `node_modules` directory."
+              : ""),
+        };
+      } else {
+        context.logger.debug(
+          `Skipping pattern "${pattern}", as it is inside an ignored directory.`,
+        );
+      }
       continue;
     }
 
