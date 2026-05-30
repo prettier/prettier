@@ -206,6 +206,19 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
     ? vnopts.ArraySchema.create({
         ...(isCLI ? { preprocess: (v) => (Array.isArray(v) ? v : [v]) } : {}),
         ...handlers,
+        // An unset option (`undefined`) should be ignored so its default can be
+        // applied, just like non-array options. `ArraySchema` otherwise treats
+        // `undefined` as an invalid value and its `forward`/`redirect`/
+        // `deprecated` handlers iterate over the value, throwing on `undefined`.
+        // Guard each handler so `undefined` passes through untouched.
+        validate: (value, schema, utils) =>
+          value === undefined || schema.validate(value, utils),
+        forward: (value, schema, utils) =>
+          value === undefined ? undefined : schema.forward(value, utils),
+        redirect: (value, schema, utils) =>
+          value === undefined ? undefined : schema.redirect(value, utils),
+        deprecated: (value, schema, utils) =>
+          value === undefined ? false : schema.deprecated(value, utils),
         // @ts-expect-error
         valueSchema: SchemaConstructor.create(parameters),
       })
