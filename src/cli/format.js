@@ -94,9 +94,10 @@ async function listDifferent(context, input, options, filename) {
     }
   } catch (error) {
     context.logger.error(error.message);
+    return { error: true };
   }
 
-  return true;
+  return { error: false };
 }
 
 async function format(context, input, opt) {
@@ -249,7 +250,27 @@ async function formatStdin(context) {
       filepath: absoluteFilepath,
     };
 
-    if (await listDifferent(context, input, options, "(stdin)")) {
+    if (context.argv.check || context.argv.listDifferent) {
+      if (context.argv.check) {
+        context.logger.log("Checking formatting...");
+      }
+
+      const { error } = await listDifferent(context, input, options, "(stdin)");
+
+      // `listDifferent` sets `process.exitCode` to 1 when the input isn't
+      // already formatted. For `--check`, print the same summary as when
+      // checking files so the output isn't just a bare `(stdin)`. Skip the
+      // summary when an error (e.g. no inferable parser) was already reported.
+      if (context.argv.check && !error) {
+        if (process.exitCode === 1) {
+          context.logger.warn(
+            "Code style issues found in the above file. Run Prettier with --write to fix.",
+          );
+        } else {
+          context.logger.log("All matched files use Prettier code style!");
+        }
+      }
+
       return;
     }
 

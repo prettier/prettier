@@ -18,7 +18,7 @@ describe("stdin no path and no parser", () => {
       input: "foo",
     }).test({
       status: 0,
-      stdout: "",
+      stdout: "Checking formatting...",
       write: [],
     });
   });
@@ -50,7 +50,7 @@ describe("stdin with unknown path and no parser", () => {
       input: "foo",
     }).test({
       status: 0,
-      stdout: "",
+      stdout: "Checking formatting...",
       write: [],
     });
   });

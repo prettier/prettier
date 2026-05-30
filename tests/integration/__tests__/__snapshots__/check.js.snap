@@ -28,6 +28,12 @@ exports[`--checks works in CI just as in a non-TTY mode  2`] = `
 }
 `;
 
+exports[`checks already-formatted stdin with --check  1`] = `
+{
+  "write": [],
+}
+`;
+
 exports[`checks stdin with --check  1`] = `
 {
   "write": [],

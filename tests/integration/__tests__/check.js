@@ -2,8 +2,9 @@ describe("checks stdin with --check", () => {
   runCli("cli/with-shebang", ["--check", "--parser", "babel"], {
     input: "0",
   }).test({
-    stdout: "(stdin)",
-    stderr: "",
+    stdout: "Checking formatting...\n(stdin)",
+    stderr:
+      "[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
     status: "non-zero",
   });
 });
@@ -12,9 +13,21 @@ describe("checks stdin with -c (alias for --check)", () => {
   runCli("cli/with-shebang", ["-c", "--parser", "babel"], {
     input: "0",
   }).test({
-    stdout: "(stdin)",
-    stderr: "",
+    stdout: "Checking formatting...\n(stdin)",
+    stderr:
+      "[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
     status: "non-zero",
+  });
+});
+
+describe("checks already-formatted stdin with --check", () => {
+  runCli("cli/with-shebang", ["--check", "--parser", "babel"], {
+    input: "0;\n",
+  }).test({
+    stdout:
+      "Checking formatting...\nAll matched files use Prettier code style!",
+    stderr: "",
+    status: 0,
   });
 });
 
