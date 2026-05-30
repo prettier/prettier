@@ -118,6 +118,20 @@ function parseValueNode(valueNode, options) {
         continue;
       }
 
+      // A line comment that follows the comma on the same line is a trailing
+      // comment of the value before the comma, not a leading comment of the
+      // next value. Keep it in the current group so it isn't re-associated
+      // with the following entry (e.g. in a SCSS map). See #19047.
+      const nextNode = nodes[i + 1];
+      if (
+        nextNode?.type === "comment" &&
+        nextNode.inline &&
+        nextNode.source?.start?.line === node.source?.end?.line
+      ) {
+        commaGroup.groups.push(nextNode);
+        ++i;
+      }
+
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],

@@ -192,8 +192,7 @@ $z-indexes: (
 $z-indexes: (
   header: 1035,
   header: 1035,
-  overlay: 1202,
-  // TODO
+  overlay: 1202, // TODO
   header: 1035,
   header: 1035,
 );
@@ -243,8 +242,7 @@ $z-indexes: (
 $z-indexes: (
   header: 1035,
   header: 1035,
-  overlay: 1202,
-  // TODO
+  overlay: 1202, // TODO
   header: 1035,
   header: 1035
 );
@@ -301,8 +299,7 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
-  // Comment
+  "foo": 1, // Comment
   "bar": 2, // Comment
 );
 
@@ -322,8 +319,7 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
-  // Comment
+  "foo": 1, // Comment
   "bar": 2 // Comment
 );
 

@@ -471,10 +471,8 @@ parsers: ["less"]
   #cccccc; // and round it out with C
 
 @test-comma-separated:
-  #aaaaaa,
-  // Start with A
-  #bbbbbb,
-  // then some B
+  #aaaaaa, // Start with A
+  #bbbbbb, // then some B
   #cccccc; // and round it out with C
 
 ================================================================================
