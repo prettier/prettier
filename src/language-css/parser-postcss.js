@@ -22,6 +22,77 @@ import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
+// Detect a trailing SCSS declaration flag (`!default` / `!global`) while
+// ignoring occurrences inside strings or function arguments (e.g.
+// `$a: "!default"` or `$b: unquote("!default")`). A genuine flag is parsed as
+// a top-level `value-word` node whose value matches the directive, optionally
+// followed only by comments.
+//
+// When the value cannot be parsed structurally, falls back to a regex match
+// to preserve the previous behavior. Returns `{ raw, value }` when a flag is
+// found, otherwise `null`.
+function matchTrailingSCSSDirective(value, directive, regex, options) {
+  if (!value.includes(directive)) {
+    return null;
+  }
+
+  const parsed = parseValue(value, options);
+
+  if (parsed.type !== "value-unknown") {
+    const topLevelGroup = parsed.group?.group;
+    if (!topLevelGroup) {
+      return null;
+    }
+
+    // The trailing flag (if any) is the final space-separated word of the
+    // value. For a plain value (e.g. `12px !default`) the words are the groups
+    // of the top-level node. For a comma-separated value (e.g.
+    // `$x, $y !default`) the flag lives in the *last* comma item, which is
+    // itself a group of words.
+    let scope = topLevelGroup;
+    const { groups } = scope;
+    if (groups?.length > 0) {
+      const lastGroup = groups.at(-1);
+      if (lastGroup?.groups) {
+        scope = lastGroup;
+      }
+    }
+
+    const candidateNodes = scope.groups ?? [scope];
+
+    const lastNonCommentIndex = candidateNodes.findLastIndex(
+      (node) => node.type !== "value-comment",
+    );
+    const directiveNode = candidateNodes[lastNonCommentIndex];
+
+    if (
+      directiveNode?.type !== "value-word" ||
+      directiveNode.value !== directive
+    ) {
+      return null;
+    }
+
+    const startIndex =
+      directiveNode.sourceIndex - (directiveNode.raws?.before?.length ?? 0);
+
+    return {
+      raw: value.slice(startIndex),
+      value: value.slice(0, startIndex),
+    };
+  }
+
+  // Could not parse the value structurally; fall back to the regex.
+  const match = value.match(regex);
+  if (!match) {
+    return null;
+  }
+
+  return {
+    raw: match[0],
+    value: value.slice(0, match.index),
+  };
+}
+
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
     delete node.parent;
@@ -163,25 +234,35 @@ function parseNestedCSS(node, options) {
     }
 
     if (value.trim().length > 0) {
-      const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+      const defaultSCSSDirective = matchTrailingSCSSDirective(
+        value,
+        "!default",
+        DEFAULT_SCSS_DIRECTIVE,
+        options,
+      );
 
-      if (defaultSCSSDirectiveIndex) {
-        value = value.slice(0, defaultSCSSDirectiveIndex.index);
+      if (defaultSCSSDirective) {
+        value = defaultSCSSDirective.value;
         node.scssDefault = true;
 
-        if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+        if (defaultSCSSDirective.raw.trim() !== "!default") {
+          node.raws.scssDefault = defaultSCSSDirective.raw;
         }
       }
 
-      const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+      const globalSCSSDirective = matchTrailingSCSSDirective(
+        value,
+        "!global",
+        GLOBAL_SCSS_DIRECTIVE,
+        options,
+      );
 
-      if (globalSCSSDirectiveIndex) {
-        value = value.slice(0, globalSCSSDirectiveIndex.index);
+      if (globalSCSSDirective) {
+        value = globalSCSSDirective.value;
         node.scssGlobal = true;
 
-        if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+        if (globalSCSSDirective.raw.trim() !== "!global") {
+          node.raws.scssGlobal = globalSCSSDirective.raw;
         }
       }
 

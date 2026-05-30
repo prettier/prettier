@@ -83,3 +83,51 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 
 ================================================================================
 `;
+
+exports[`19203.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "!default" !default;
+$e: "x!global" !global;
+$f: map-get($map, "!default") !default;
+
+=====================================output=====================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "!default" !default;
+$e: "x!global" !global;
+$f: map-get($map, "!default") !default;
+
+================================================================================
+`;
+
+exports[`19203.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "!default" !default;
+$e: "x!global" !global;
+$f: map-get($map, "!default") !default;
+
+=====================================output=====================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "!default" !default;
+$e: "x!global" !global;
+$f: map-get($map, "!default") !default;
+
+================================================================================
+`;

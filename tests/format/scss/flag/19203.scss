@@ -1,0 +1,6 @@
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "!default" !default;
+$e: "x!global" !global;
+$f: map-get($map, "!default") !default;
