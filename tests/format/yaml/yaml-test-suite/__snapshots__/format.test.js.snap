@@ -3579,8 +3579,7 @@ parsers: ["yaml"]
 exports[`snippet: JEF9-3.yaml - Trailing whitespace in streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - |+
    
@@ -4085,8 +4084,7 @@ folded: !foo >1
 exports[`snippet: M5DY.yaml - Spec Example 2.11. Mapping between Sequences format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ? - Detroit Tigers
   - Chicago cubs
