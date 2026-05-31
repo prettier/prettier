@@ -73,7 +73,7 @@ If the list includes `babel`, and the current directory is inside `tests/format/
 
 In addition to Prettier's formatting options, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
-The implementation of `runFormatTest` can be found in [`tests/config/run-format-test.js`](tests/config/run-format-test.js).
+The implementation of `runFormatTest` can be found in [`tests/config/format-test/run-format-test.js`](tests/config/format-test/run-format-test.js).
 
 `tests/format/flow/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.cjs ../flow/tests/`.
 
