@@ -32,6 +32,30 @@ _bug_?
 ================================================================================
 `;
 
+exports[`nbsp.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- _REPORTED_ — message received;
+- _NEEDSINFO_ — additional info needed;
+
+foo _bar_ baz
+
+foo _bar_ baz
+
+=====================================output=====================================
+- _REPORTED_ — message received;
+- _NEEDSINFO_ — additional info needed;
+
+foo _bar_ baz
+
+foo _bar_ baz
+
+================================================================================
+`;
+
 exports[`special.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
