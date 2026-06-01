@@ -782,7 +782,7 @@ const pluginFiles = [
         process(text) {
           text = text.replace(
             "this.code = error.code;",
-            "this.cause ??= error;this.code = error.code;",
+            "this.cause ??= error; this.code = error.code;",
           );
           return text;
         },
