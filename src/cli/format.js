@@ -392,6 +392,11 @@ async function formatFiles(context) {
         numberOfFilesWithError += 1;
       }
 
+      // Invalidate cache entry when format fails (e.g. parse error),
+      // otherwise the file-entry-cache may still consider this file
+      // as unchanged on the next run, causing it to be cached as valid.
+      formatResultsCache?.removeFormatResultsCache(filename);
+
       continue;
     }
 
