@@ -8219,7 +8219,7 @@ __metadata:
     url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.3"
     wcwidth.js: "npm:2.0.0"
-    yaml: "npm:2.8.2"
+    yaml: "npm:2.9.0"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.1.0"
   bin:
@@ -9867,16 +9867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.8.2":
-  version: 2.8.2
-  resolution: "yaml@npm:2.8.2"
-  bin:
-    yaml: bin.mjs
-  checksum: 10/4eab0074da6bc5a5bffd25b9b359cf7061b771b95d1b3b571852098380db3b1b8f96e0f1f354b56cc7216aa97cea25163377ccbc33a2e9ce00316fe8d02f4539
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.8.2, yaml@npm:^2.8.3, yaml@npm:^2.9.0":
+"yaml@npm:2.9.0, yaml@npm:^2.8.2, yaml@npm:^2.8.3, yaml@npm:^2.9.0":
   version: 2.9.0
   resolution: "yaml@npm:2.9.0"
   bin:
