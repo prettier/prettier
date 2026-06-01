@@ -19,8 +19,8 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default)\s?$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global)\s?$/;
 
 // Detect a trailing SCSS declaration flag (`!default` / `!global`) while
 // ignoring occurrences inside strings or function arguments (e.g.
