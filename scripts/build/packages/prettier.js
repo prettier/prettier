@@ -776,6 +776,17 @@ const pluginFiles = [
           return text;
         },
       },
+      // `Error#cause` for Node.js v14
+      {
+        module: getPackageFile("yaml-unist-parser/dist/yaml-syntax-error.mjs"),
+        process(text) {
+          text = text.replace(
+            "this.code = error.code;",
+            "this.cause ??= error;this.code = error.code;",
+          );
+          return text;
+        },
+      },
     ],
   },
 ];
