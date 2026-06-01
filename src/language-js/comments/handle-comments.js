@@ -113,6 +113,7 @@ function handleEndOfLineComment(context) {
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
     handleArrowBodySequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -136,6 +137,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleArrowBodySequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -1093,6 +1095,29 @@ function handleArrowBodySequenceExpressionTrailingComment({
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode.expressions.at(-1), comment);
+    return true;
+  }
+  return false;
+}
+
+// Same bubbling pattern as the `SequenceExpression` case above, but for an
+// `AssignmentExpression` arrow body. Re-attach to the right-hand side so the
+// comment stays inside the parens.
+function handleArrowBodyAssignmentExpressionTrailingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  text,
+}) {
+  if (
+    !followingNode &&
+    enclosingNode?.type === "ArrowFunctionExpression" &&
+    precedingNode?.type === "AssignmentExpression" &&
+    enclosingNode.body === precedingNode &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode.right, comment);
     return true;
   }
   return false;
