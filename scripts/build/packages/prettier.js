@@ -770,7 +770,7 @@ const pluginFiles = [
         process(text) {
           // We don't care about content of `binary`
           text = text.replace(
-            'onError("This environment does not support reading binary tags; either Buffer or atob is required");',
+            "onError('This environment does not support reading binary tags; either Buffer or atob is required');",
             "",
           );
           return text;
