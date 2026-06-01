@@ -105,6 +105,10 @@ const disabledTests = new Map(
       "js/import/long-module-name/import-defer.js",
       "js/import/long-module-name/import-source.js",
     ],
+    yaml: [
+      // Bug: https://github.com/eemeli/yaml/issues/646
+      "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",
+    ],
   }).map(([parser, tests]) => [
     parser,
     new Set(tests.map((file) => path.join(FORMAT_TEST_DIRECTORY, file))),
