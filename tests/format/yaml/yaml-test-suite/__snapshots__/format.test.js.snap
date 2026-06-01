@@ -4081,31 +4081,6 @@ folded: !foo >1
 ================================================================================
 `;
 
-exports[`snippet: M5DY.yaml - Spec Example 2.11. Mapping between Sequences format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-? - Detroit Tigers
-  - Chicago cubs
-:
-  - 2001-07-23
-
-? [ New York Yankees,
-    Atlanta Braves ]
-: [ 2001-07-02, 2001-08-12,
-    2001-08-14 ]
-
-=====================================output=====================================
-? - Detroit Tigers
-  - Chicago cubs
-: - 2001-07-23
-
-[New York Yankees, Atlanta Braves]: [2001-07-02, 2001-08-12, 2001-08-14]
-
-================================================================================
-`;
-
 exports[`snippet: M6YH.yaml - Block sequence indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]

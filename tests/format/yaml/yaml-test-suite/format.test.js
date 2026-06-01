@@ -7,6 +7,8 @@ const SKIP = new Set([
   "2JQS.yaml",
   "9MMA.yaml",
   "SF5V.yaml",
+  // Bug: https://github.com/eemeli/yaml/issues/646
+  "M5DY.yaml",
 ]);
 
 // https://github.com/prettier/prettier/issues/18302
