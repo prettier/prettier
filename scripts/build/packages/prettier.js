@@ -762,7 +762,33 @@ const pluginFiles = [
     ],
   },
   "src/plugins/html.js",
-  "src/plugins/yaml.js",
+  {
+    input: "src/plugins/yaml.js",
+    replaceModule: [
+      {
+        module: getPackageFile("yaml/browser/dist/schema/yaml-1.1/binary.js"),
+        process(text) {
+          // We don't care about content of `binary`
+          text = text.replace(
+            "onError('This environment does not support reading binary tags; either Buffer or atob is required');",
+            "",
+          );
+          return text;
+        },
+      },
+      // `Error#cause` for Node.js v14
+      {
+        module: getPackageFile("yaml-unist-parser/dist/yaml-syntax-error.mjs"),
+        process(text) {
+          text = text.replace(
+            "this.code = error.code;",
+            "this.cause ??= error; this.code = error.code;",
+          );
+          return text;
+        },
+      },
+    ],
+  },
 ];
 
 function createPluginModule(file) {
