@@ -1091,12 +1091,11 @@ function handleParenthesizedSequenceExpressionTrailingComment({
   if (
     followingNode ||
     !enclosingNode ||
-    precedingNode?.type !== "SequenceExpression" ||
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")"
+    precedingNode?.type !== "SequenceExpression"
   ) {
     return false;
   }
-  if (
+  if (!(
     (enclosingNode.type === "ArrowFunctionExpression" &&
       enclosingNode.body === precedingNode) ||
     (enclosingNode.type === "VariableDeclarator" &&
@@ -1107,11 +1106,16 @@ function handleParenthesizedSequenceExpressionTrailingComment({
       enclosingNode.argument === precedingNode) ||
     (enclosingNode.type === "AssignmentExpression" &&
       enclosingNode.right === precedingNode)
-  ) {
-    addTrailingComment(precedingNode.expressions.at(-1), comment);
-    return true;
+  )) {
+    return false;
   }
-  return false;
+  // `getNextNonSpaceNonCommentCharacter` is relatively expensive, so check it
+  // last, only once the cheap node checks above have matched.
+  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")") {
+    return false;
+  }
+  addTrailingComment(precedingNode.expressions.at(-1), comment);
+  return true;
 }
 
 const isRealFunctionLikeNode = createTypeCheckFunction([
