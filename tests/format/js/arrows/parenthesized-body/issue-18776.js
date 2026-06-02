@@ -1,4 +1,4 @@
-() => (a, b, c /* abc */);
+fn = () => (a, b, c /* abc */);
 
 let multilineCase = (someParameter) => (
   someVeryLongExpressionName,
