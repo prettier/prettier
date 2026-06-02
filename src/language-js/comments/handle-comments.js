@@ -113,6 +113,7 @@ function handleEndOfLineComment(context) {
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
     handleArrowBodySequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -136,6 +137,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleArrowBodySequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -1073,11 +1075,6 @@ function handleArrowExpressionComments({
   return false;
 }
 
-// A trailing comment inside the parentheses around a `SequenceExpression`
-// arrow body would otherwise attach to the `SequenceExpression` itself.
-// The AST node does not include those parentheses, so the comment then
-// prints outside them and drifts further on each reformat (#18776, #14702).
-// Re-attach to the last sequence element so it stays inside the parens.
 function handleArrowBodySequenceExpressionTrailingComment({
   comment,
   enclosingNode,
@@ -1093,6 +1090,26 @@ function handleArrowBodySequenceExpressionTrailingComment({
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode.expressions.at(-1), comment);
+    return true;
+  }
+  return false;
+}
+
+function handleArrowBodyAssignmentExpressionTrailingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  text,
+}) {
+  if (
+    !followingNode &&
+    enclosingNode?.type === "ArrowFunctionExpression" &&
+    precedingNode?.type === "AssignmentExpression" &&
+    enclosingNode.body === precedingNode &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode.right, comment);
     return true;
   }
   return false;
