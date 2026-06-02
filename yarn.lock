@@ -5322,10 +5322,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:17.0.0-beta.1":
-  version: 17.0.0-beta.1
-  resolution: "graphql@npm:17.0.0-beta.1"
-  checksum: 10/a3b0353125f4f3da52ca359190a8f615e8762463a4db17bebe89537c97ea50fafd288f6867a61779b7360a58951d7d4f4ade8d194eed2980bdaf5e512be2b14a
+"graphql@npm:17.0.0-rc.0":
+  version: 17.0.0-rc.0
+  resolution: "graphql@npm:17.0.0-rc.0"
+  checksum: 10/cb23267a03f556ded9072f4307b445aa82239753d46bd33749be7527db29bd9e956937ed0eda0f949e8443108a8673903ff6626ce7e0ce9d835d7cfb0cb992bc
   languageName: node
   linkType: hard
 
@@ -8223,7 +8223,7 @@ __metadata:
     get-stdin: "npm:9.0.0"
     gfm-test-suite: "npm:0.0.2"
     globals: "npm:17.6.0"
-    graphql: "npm:17.0.0-beta.1"
+    graphql: "npm:17.0.0-rc.0"
     hermes-parser: "npm:0.36.1"
     html-element-attributes: "npm:3.5.0"
     html-ua-styles: "npm:0.3.1"
