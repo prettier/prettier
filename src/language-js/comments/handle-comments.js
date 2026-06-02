@@ -1073,14 +1073,6 @@ function handleArrowExpressionComments({
   return false;
 }
 
-// A trailing comment inside the parentheses around a `SequenceExpression` or
-// an `AssignmentExpression` would otherwise attach to that expression. Those
-// parentheses are not represented in the AST, so the comment then prints
-// outside them and drifts past the closing `)` (and the `;`) on each reformat
-// (#18776, #14702, #19261). Re-attach it to the inner node so it stays inside
-// the parens. This only applies where Prettier reconstructs the wrapping
-// parens around a top-level expression, not e.g. a `for` update or a call
-// argument, whose parens belong to the enclosing construct.
 function handleParenthesizedExpressionTrailingComment({
   comment,
   enclosingNode,
@@ -1088,38 +1080,34 @@ function handleParenthesizedExpressionTrailingComment({
   followingNode,
   text,
 }) {
-  const isSequence = precedingNode?.type === "SequenceExpression";
-  const isAssignment = precedingNode?.type === "AssignmentExpression";
-  if (
-    !followingNode &&
-    enclosingNode &&
-    (isSequence || isAssignment) &&
-    // Contexts where Prettier reconstructs the wrapping parentheses around the
-    // inner expression. A parenthesized `AssignmentExpression` keeps its parens
-    // only in some of these (`(a = b);` and `x = (a = b)` drop them), so the
-    // expression-statement and assignment-right contexts are sequence-only.
-    ((enclosingNode.type === "ArrowFunctionExpression" &&
-      enclosingNode.body === precedingNode) ||
-      (enclosingNode.type === "VariableDeclarator" &&
-        enclosingNode.init === precedingNode) ||
-      (enclosingNode.type === "ReturnStatement" &&
-        enclosingNode.argument === precedingNode) ||
-      (isSequence &&
-        enclosingNode.type === "ExpressionStatement" &&
-        enclosingNode.expression === precedingNode) ||
-      (isSequence &&
-        enclosingNode.type === "AssignmentExpression" &&
-        enclosingNode.right === precedingNode)) &&
-    // `getNextNonSpaceNonCommentCharacter` is relatively expensive, so keep it
-    // last, after the cheap node checks have matched.
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-  ) {
-    addTrailingComment(
-      isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
-      comment,
-    );
-    return true;
+  if (!followingNode && enclosingNode) {
+    const isSequence = precedingNode?.type === "SequenceExpression";
+    const isAssignment = precedingNode?.type === "AssignmentExpression";
+
+    if (
+      (isSequence || isAssignment) &&
+      ((enclosingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.body === precedingNode) ||
+        (enclosingNode.type === "VariableDeclarator" &&
+          enclosingNode.init === precedingNode) ||
+        (enclosingNode.type === "ReturnStatement" &&
+          enclosingNode.argument === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "ExpressionStatement" &&
+          enclosingNode.expression === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "AssignmentExpression" &&
+          enclosingNode.right === precedingNode)) &&
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    ) {
+      addTrailingComment(
+        isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
+        comment,
+      );
+      return true;
+    }
   }
+
   return false;
 }
 
