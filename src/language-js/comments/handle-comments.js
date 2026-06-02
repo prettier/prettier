@@ -113,6 +113,7 @@ function handleEndOfLineComment(context) {
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
     handleParenthesizedSequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -136,6 +137,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedSequenceExpressionTrailingComment,
+    handleArrowBodyAssignmentExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -1107,6 +1109,26 @@ function handleParenthesizedSequenceExpressionTrailingComment({
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode.expressions.at(-1), comment);
+    return true;
+  }
+  return false;
+}
+
+function handleArrowBodyAssignmentExpressionTrailingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  text,
+}) {
+  if (
+    !followingNode &&
+    enclosingNode?.type === "ArrowFunctionExpression" &&
+    precedingNode?.type === "AssignmentExpression" &&
+    enclosingNode.body === precedingNode &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode.right, comment);
     return true;
   }
   return false;
