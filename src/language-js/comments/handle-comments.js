@@ -1075,11 +1075,6 @@ function handleArrowExpressionComments({
   return false;
 }
 
-// A trailing comment inside the parentheses around a `SequenceExpression`
-// arrow body would otherwise attach to the `SequenceExpression` itself.
-// The AST node does not include those parentheses, so the comment then
-// prints outside them and drifts further on each reformat (#18776, #14702).
-// Re-attach to the last sequence element so it stays inside the parens.
 function handleArrowBodySequenceExpressionTrailingComment({
   comment,
   enclosingNode,
@@ -1100,9 +1095,6 @@ function handleArrowBodySequenceExpressionTrailingComment({
   return false;
 }
 
-// Same bubbling pattern as the `SequenceExpression` case above, but for an
-// `AssignmentExpression` arrow body. Re-attach to the right-hand side so the
-// comment stays inside the parens.
 function handleArrowBodyAssignmentExpressionTrailingComment({
   comment,
   enclosingNode,
