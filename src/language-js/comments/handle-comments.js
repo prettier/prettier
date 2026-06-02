@@ -1093,6 +1093,9 @@ function handleParenthesizedExpressionTrailingComment({
         (enclosingNode.type === "ReturnStatement" &&
           enclosingNode.argument === precedingNode) ||
         (isSequence &&
+          enclosingNode.type === "ExpressionStatement" &&
+          enclosingNode.expression === precedingNode) ||
+        (isSequence &&
           enclosingNode.type === "AssignmentExpression" &&
           enclosingNode.right === precedingNode)) &&
       getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
