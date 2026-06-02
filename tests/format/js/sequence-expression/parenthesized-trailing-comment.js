@@ -11,5 +11,3 @@ function f() {
   return (a, b, c /* comment */);
   return (a = c /* comment */);
 }
-
-

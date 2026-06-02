@@ -146,8 +146,6 @@ function f() {
   return (a = c /* comment */);
 }
 
-
-
 =====================================output=====================================
 const x1 = (a, b, c /* comment */);
 const x2 = (a = c /* comment */);
