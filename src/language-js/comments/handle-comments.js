@@ -112,8 +112,7 @@ function handleEndOfLineComment(context) {
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
-    handleParenthesizedSequenceExpressionTrailingComment,
-    handleArrowBodyAssignmentExpressionTrailingComment,
+    handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -136,8 +135,7 @@ function handleRemainingComment(context) {
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
-    handleParenthesizedSequenceExpressionTrailingComment,
-    handleArrowBodyAssignmentExpressionTrailingComment,
+    handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -1075,60 +1073,51 @@ function handleArrowExpressionComments({
   return false;
 }
 
-// A trailing comment inside the parentheses around a `SequenceExpression`
-// would otherwise attach to the `SequenceExpression` itself. Those
+// A trailing comment inside the parentheses around a `SequenceExpression` or
+// an `AssignmentExpression` would otherwise attach to that expression. Those
 // parentheses are not represented in the AST, so the comment then prints
-// outside them and drifts past the closing `)` (and the `;`) on each
-// reformat (#18776, #14702). Re-attach it to the last sequence element so it
-// stays inside the parens. This only applies where Prettier reconstructs the
-// wrapping parens around a top-level sequence, not e.g. a `for` update or a
-// call argument, whose parens belong to the enclosing construct.
-function handleParenthesizedSequenceExpressionTrailingComment({
+// outside them and drifts past the closing `)` (and the `;`) on each reformat
+// (#18776, #14702, #19261). Re-attach it to the inner node so it stays inside
+// the parens. This only applies where Prettier reconstructs the wrapping
+// parens around a top-level expression, not e.g. a `for` update or a call
+// argument, whose parens belong to the enclosing construct.
+function handleParenthesizedExpressionTrailingComment({
   comment,
   enclosingNode,
   precedingNode,
   followingNode,
   text,
 }) {
+  const isSequence = precedingNode?.type === "SequenceExpression";
+  const isAssignment = precedingNode?.type === "AssignmentExpression";
   if (
     !followingNode &&
     enclosingNode &&
-    precedingNode?.type === "SequenceExpression" &&
+    (isSequence || isAssignment) &&
+    // Contexts where Prettier reconstructs the wrapping parentheses around the
+    // inner expression. A parenthesized `AssignmentExpression` keeps its parens
+    // only in some of these (`(a = b);` and `x = (a = b)` drop them), so the
+    // expression-statement and assignment-right contexts are sequence-only.
     ((enclosingNode.type === "ArrowFunctionExpression" &&
       enclosingNode.body === precedingNode) ||
       (enclosingNode.type === "VariableDeclarator" &&
         enclosingNode.init === precedingNode) ||
-      (enclosingNode.type === "ExpressionStatement" &&
-        enclosingNode.expression === precedingNode) ||
       (enclosingNode.type === "ReturnStatement" &&
         enclosingNode.argument === precedingNode) ||
-      (enclosingNode.type === "AssignmentExpression" &&
+      (isSequence &&
+        enclosingNode.type === "ExpressionStatement" &&
+        enclosingNode.expression === precedingNode) ||
+      (isSequence &&
+        enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode)) &&
     // `getNextNonSpaceNonCommentCharacter` is relatively expensive, so keep it
     // last, after the cheap node checks have matched.
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
-    addTrailingComment(precedingNode.expressions.at(-1), comment);
-    return true;
-  }
-  return false;
-}
-
-function handleArrowBodyAssignmentExpressionTrailingComment({
-  comment,
-  enclosingNode,
-  precedingNode,
-  followingNode,
-  text,
-}) {
-  if (
-    !followingNode &&
-    enclosingNode?.type === "ArrowFunctionExpression" &&
-    precedingNode?.type === "AssignmentExpression" &&
-    enclosingNode.body === precedingNode &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-  ) {
-    addTrailingComment(precedingNode.right, comment);
+    addTrailingComment(
+      isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
+      comment,
+    );
     return true;
   }
   return false;
