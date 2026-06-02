@@ -6,6 +6,7 @@ parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 fn = () => (a, b, c /* abc */);
+fn = () => (a, b, c) /* abc */;
 
 let multilineCase = (someParameter) => (
   someVeryLongExpressionName,
@@ -15,6 +16,7 @@ let multilineCase = (someParameter) => (
 
 =====================================output=====================================
 fn = () => (a, b, c /* abc */);
+fn = () => (a, b, c); /* abc */
 
 let multilineCase = (someParameter) => (
   someVeryLongExpressionName,

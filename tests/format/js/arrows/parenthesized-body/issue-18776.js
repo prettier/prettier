@@ -1,7 +1,14 @@
 fn = () => (a, b, c /* abc */);
+fn = () => (a, b, c) /* abc */;
 
-let multilineCase = (someParameter) => (
+multilineCase = (someParameter) => (
   someVeryLongExpressionName,
   anotherVeryLongExpressionName,
   yetAnotherVeryLongExpressionName /* abc */
 );
+
+multilineCase = (someParameter) => (
+  someVeryLongExpressionName,
+  anotherVeryLongExpressionName,
+  yetAnotherVeryLongExpressionName
+)/* abc */;
