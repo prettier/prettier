@@ -32,7 +32,7 @@
     "clsx": "2.1.1",
     "cm6-graphql": "0.2.1",
     "github-buttons": "2.32.0",
-    "graphql": "16.14.0",
+    "graphql": "16.14.1",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
     "react": "19.2.6",
@@ -67,5 +67,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.15.0"
+  "packageManager": "yarn@4.16.0"
 }
