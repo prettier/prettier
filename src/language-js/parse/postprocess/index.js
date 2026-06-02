@@ -82,8 +82,6 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, {
     onEnter(node) {
-      setContentEnd(node, comments, text);
-
       switch (node.type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
@@ -192,6 +190,8 @@ function postprocess(ast, options) {
       }
     },
     onLeave(node) {
+      setContentEnd(node, comments, text);
+
       switch (node.type) {
         // Children can be parenthesized, need do this in `onLeave`
         case "LogicalExpression":

@@ -1,5 +1,3 @@
-// TODO: Enable tests in parenthesized-trailing-comment.js when they are stable
-
-(a = c /* comment */);
+// TODO: Enable test in parenthesized-trailing-comment.js when it's stable
 
 assigned = (a = c /* comment */);
