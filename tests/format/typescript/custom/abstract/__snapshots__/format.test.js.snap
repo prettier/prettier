@@ -77,7 +77,7 @@ Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
 `;
 
 exports[`abstractProperties.ts format[oxc-ts] 1`] = `
-"'private' modifier must precede 'abstract' modifier. (2:14)
+"'private' modifier cannot be used with 'abstract' modifier. (2:14)
   1 | abstract class Foo {
 > 2 |     abstract private a: 1;
     |              ^^^^^^^
