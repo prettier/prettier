@@ -146,11 +146,11 @@ Add or remove file extensions to suit your project. Note that regardless of whic
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 5. [lefthook](https://lefthook.dev/)
+## Option 5. [Lefthook](https://lefthook.dev/)
 
 **Use Case:** A fast, polyglot Git hooks manager with built-in parallelization. Useful if you want a single tool that can run Prettier alongside hooks for other languages in the same repo.
 
-Install lefthook:
+Install Lefthook:
 
 <Tabs groupId="package-manager">
 <TabItem value="npm">
@@ -228,7 +228,7 @@ bunx lefthook install
 </TabItem>
 </Tabs>
 
-Re-run `lefthook install` whenever you change `lefthook.yml`. Read more at the [lefthook](https://lefthook.dev/) website.
+Re-run `lefthook install` whenever you change `lefthook.yml`. Read more at the [Lefthook](https://lefthook.dev/) website.
 
 ## Option 6. Shell script
 
