@@ -56,3 +56,37 @@ parsers: ["babel", "flow", "typescript"]
 
 ================================================================================
 `;
+
+exports[`snippet: Multiline shebang shell shim format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+================================================================================
+`;
+
+exports[`snippet: Multiline shebang shell shim with ASI protection format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;(() => console.log(1))();
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;(() => console.log(1))();
+
+================================================================================
+`;

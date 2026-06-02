@@ -3,6 +3,7 @@ import {
   printLeadingComments,
 } from "../../main/comments/print.js";
 import {
+  isMultilineShebangShellShim,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
@@ -33,6 +34,10 @@ function shouldPrintSemicolon(path, options) {
     return false;
   }
 
+  if (isMultilineShebangShellShim(path, options)) {
+    return false;
+  }
+
   if (
     // Do not append semicolon after the only JSX element in a program
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
@@ -49,7 +54,10 @@ function printExpressionStatement(path, options, print) {
   /** @type {Doc[]} */
   const parts = [print("expression")];
 
-  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+  const shouldPrintLeadingSemicolon =
+    shouldExpressionStatementPrintLeadingSemicolon(path, options);
+
+  if (shouldPrintLeadingSemicolon) {
     if (shouldExpressionStatementPrintOwnComments(path, options)) {
       const { node } = path;
       const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
@@ -67,6 +75,9 @@ function printExpressionStatement(path, options, print) {
     }
 
     parts.unshift(";");
+    if (options.semi) {
+      parts.push(";");
+    }
   } else if (shouldPrintSemicolon(path, options)) {
     parts.push(";");
   }

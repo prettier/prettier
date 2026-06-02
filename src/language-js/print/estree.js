@@ -7,6 +7,7 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { isMultilineShebangShellShim } from "../semicolon/semicolon.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
@@ -222,7 +223,12 @@ function printEstree(path, options, print, args) {
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), printSemicolon(options)];
+      return [
+        print("value"),
+        isMultilineShebangShellShim(path, options)
+          ? ""
+          : printSemicolon(options),
+      ];
     case "UnaryExpression": {
       const parts = [node.operator];
 

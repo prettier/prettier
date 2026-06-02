@@ -1,3 +1,4 @@
+import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
@@ -7,7 +8,10 @@ import {
 import { isJsxElement } from "../utilities/node-types.js";
 
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
-  if (options.semi) {
+  if (
+    options.semi &&
+    !isExpressionStatementAfterMultilineShebangShellShim(path, options)
+  ) {
     return false;
   }
 
@@ -37,6 +41,67 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   }
 
   return false;
+}
+
+function isMultilineShebangShellShim(path, options) {
+  const { node, parent } = path;
+
+  if (
+    parent?.type !== "Program" ||
+    !options.originalText.startsWith("#!") ||
+    !isColonDirectiveLikeNode(node)
+  ) {
+    return false;
+  }
+
+  const firstLineEnd = options.originalText.indexOf("\n");
+  if (firstLineEnd === -1 || locStart(node) !== firstLineEnd + 1) {
+    return false;
+  }
+
+  const contentEnd = node.__contentEnd ?? locEnd(node.value ?? node.expression);
+  const endOfLine = options.originalText.indexOf("\n", contentEnd);
+  const lineRest = options.originalText.slice(
+    contentEnd,
+    endOfLine === -1 ? undefined : endOfLine,
+  );
+
+  return /^\s*\/\/\s*;/.test(lineRest);
+}
+
+function isColonDirectiveLikeNode(node) {
+  return (
+    (node.type === "Directive" && node.value?.value === ":") ||
+    (node.type === "ExpressionStatement" &&
+      node.directive === ":" &&
+      node.expression.value === ":")
+  );
+}
+
+function isExpressionStatementAfterMultilineShebangShellShim(path, options) {
+  if (
+    path.node.type !== "ExpressionStatement" ||
+    path.parent?.type !== "Program"
+  ) {
+    return false;
+  }
+
+  const previousStatement = path.previous;
+  if (previousStatement) {
+    return isMultilineShebangShellShim(
+      { node: previousStatement, parent: path.parent },
+      options,
+    );
+  }
+
+  const previousDirective = path.parent.directives?.at(-1);
+  return (
+    previousDirective &&
+    isMultilineShebangShellShim(
+      { node: previousDirective, parent: path.parent },
+      options,
+    )
+  );
 }
 
 function expressionNeedsAsiProtection(path, options) {
@@ -128,6 +193,7 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
 }
 
 export {
+  isMultilineShebangShellShim,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
