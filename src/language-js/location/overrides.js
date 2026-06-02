@@ -63,7 +63,8 @@ const shouldIgnoredNodePrintSemicolon = (node) => {
     type === "BreakStatement" ||
     type === "ContinueStatement" ||
     type === "DebuggerStatement" ||
-    type === "VariableDeclaration"
+    type === "VariableDeclaration" ||
+    type === "ExpressionStatement"
   ) {
     return true;
   }
