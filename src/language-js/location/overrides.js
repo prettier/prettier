@@ -27,7 +27,6 @@ const overrideBreakOrContinueEnd =
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 
 const nodeTypesWithContentEnd = /** @type {const} */ ([
-  "ExpressionStatement",
   "Directive",
   "ImportDeclaration",
   "ExportDefaultDeclaration",
@@ -46,6 +45,8 @@ const overrides =
     ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
     // @ts-expect-error -- ignore
     ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
+    // @ts-expect-error -- ignore
+    ["ExpressionStatement", (node) => locEnd(node.expression)],
     ...nodeTypesWithContentEnd.map((type) => [type, getContentEnd]),
   ]);
 
@@ -62,7 +63,8 @@ const shouldIgnoredNodePrintSemicolon = (node) => {
     type === "BreakStatement" ||
     type === "ContinueStatement" ||
     type === "DebuggerStatement" ||
-    type === "VariableDeclaration"
+    type === "VariableDeclaration" ||
+    type === "ExpressionStatement"
   ) {
     return true;
   }
