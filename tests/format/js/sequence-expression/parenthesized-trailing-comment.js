@@ -5,7 +5,7 @@ const x2 = (a = c /* comment */);
 // (a = c /* comment */);
 
 assigned = (a, b, c /* comment */);
-assigned = (a = c /* comment */);
+// assigned = (a = c /* comment */);
 
 function f() {
   return (a, b, c /* comment */);

@@ -139,7 +139,7 @@ const x2 = (a = c /* comment */);
 // (a = c /* comment */);
 
 assigned = (a, b, c /* comment */);
-assigned = (a = c /* comment */);
+// assigned = (a = c /* comment */);
 
 function f() {
   return (a, b, c /* comment */);
@@ -154,12 +154,33 @@ const x2 = (a = c /* comment */);
 // (a = c /* comment */);
 
 assigned = (a, b, c /* comment */);
-assigned = a = c /* comment */;
+// assigned = (a = c /* comment */);
 
 function f() {
   return (a, b, c /* comment */);
   return (a = c /* comment */);
 }
+
+================================================================================
+`;
+
+exports[`parenthesized-trailing-comment-unstable.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// TODO: Enable tests in parenthesized-trailing-comment.js when they are stable
+
+(a = c /* comment */);
+
+assigned = (a = c /* comment */);
+
+=====================================output=====================================
+// TODO: Enable tests in parenthesized-trailing-comment.js when they are stable
+
+a = c /* comment */;
+
+assigned = a = c /* comment */;
 
 ================================================================================
 `;
