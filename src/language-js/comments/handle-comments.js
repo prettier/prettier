@@ -1089,33 +1089,27 @@ function handleParenthesizedSequenceExpressionTrailingComment({
   text,
 }) {
   if (
-    followingNode ||
-    !enclosingNode ||
-    precedingNode?.type !== "SequenceExpression"
-  ) {
-    return false;
-  }
-  if (!(
-    (enclosingNode.type === "ArrowFunctionExpression" &&
+    !followingNode &&
+    enclosingNode &&
+    precedingNode?.type === "SequenceExpression" &&
+    ((enclosingNode.type === "ArrowFunctionExpression" &&
       enclosingNode.body === precedingNode) ||
-    (enclosingNode.type === "VariableDeclarator" &&
-      enclosingNode.init === precedingNode) ||
-    (enclosingNode.type === "ExpressionStatement" &&
-      enclosingNode.expression === precedingNode) ||
-    (enclosingNode.type === "ReturnStatement" &&
-      enclosingNode.argument === precedingNode) ||
-    (enclosingNode.type === "AssignmentExpression" &&
-      enclosingNode.right === precedingNode)
-  )) {
-    return false;
+      (enclosingNode.type === "VariableDeclarator" &&
+        enclosingNode.init === precedingNode) ||
+      (enclosingNode.type === "ExpressionStatement" &&
+        enclosingNode.expression === precedingNode) ||
+      (enclosingNode.type === "ReturnStatement" &&
+        enclosingNode.argument === precedingNode) ||
+      (enclosingNode.type === "AssignmentExpression" &&
+        enclosingNode.right === precedingNode)) &&
+    // `getNextNonSpaceNonCommentCharacter` is relatively expensive, so keep it
+    // last, after the cheap node checks have matched.
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode.expressions.at(-1), comment);
+    return true;
   }
-  // `getNextNonSpaceNonCommentCharacter` is relatively expensive, so check it
-  // last, only once the cheap node checks above have matched.
-  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")") {
-    return false;
-  }
-  addTrailingComment(precedingNode.expressions.at(-1), comment);
-  return true;
+  return false;
 }
 
 const isRealFunctionLikeNode = createTypeCheckFunction([
