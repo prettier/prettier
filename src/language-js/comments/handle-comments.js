@@ -112,8 +112,7 @@ function handleEndOfLineComment(context) {
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
-    handleArrowBodySequenceExpressionTrailingComment,
-    handleArrowBodyAssignmentExpressionTrailingComment,
+    handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -136,8 +135,7 @@ function handleRemainingComment(context) {
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
-    handleArrowBodySequenceExpressionTrailingComment,
-    handleArrowBodyAssignmentExpressionTrailingComment,
+    handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -1075,43 +1073,41 @@ function handleArrowExpressionComments({
   return false;
 }
 
-function handleArrowBodySequenceExpressionTrailingComment({
+function handleParenthesizedExpressionTrailingComment({
   comment,
   enclosingNode,
   precedingNode,
   followingNode,
   text,
 }) {
-  if (
-    !followingNode &&
-    enclosingNode?.type === "ArrowFunctionExpression" &&
-    precedingNode?.type === "SequenceExpression" &&
-    enclosingNode.body === precedingNode &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-  ) {
-    addTrailingComment(precedingNode.expressions.at(-1), comment);
-    return true;
-  }
-  return false;
-}
+  if (!followingNode && enclosingNode) {
+    const isSequence = precedingNode?.type === "SequenceExpression";
+    const isAssignment = precedingNode?.type === "AssignmentExpression";
 
-function handleArrowBodyAssignmentExpressionTrailingComment({
-  comment,
-  enclosingNode,
-  precedingNode,
-  followingNode,
-  text,
-}) {
-  if (
-    !followingNode &&
-    enclosingNode?.type === "ArrowFunctionExpression" &&
-    precedingNode?.type === "AssignmentExpression" &&
-    enclosingNode.body === precedingNode &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-  ) {
-    addTrailingComment(precedingNode.right, comment);
-    return true;
+    if (
+      (isSequence || isAssignment) &&
+      ((enclosingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.body === precedingNode) ||
+        (enclosingNode.type === "VariableDeclarator" &&
+          enclosingNode.init === precedingNode) ||
+        (enclosingNode.type === "ReturnStatement" &&
+          enclosingNode.argument === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "ExpressionStatement" &&
+          enclosingNode.expression === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "AssignmentExpression" &&
+          enclosingNode.right === precedingNode)) &&
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    ) {
+      addTrailingComment(
+        isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
+        comment,
+      );
+      return true;
+    }
   }
+
   return false;
 }
 
