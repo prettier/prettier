@@ -1106,6 +1106,20 @@ function handleParenthesizedExpressionTrailingComment({
       );
       return true;
     }
+
+    // When Prettier strips the redundant parentheses around a top-level
+    // `AssignmentExpression`, no `)` is left to keep the comment inside, so
+    // attach it to the statement — matching the stable output where the
+    // comment trails the `;` (#19271).
+    if (
+      isAssignment &&
+      enclosingNode.type === "ExpressionStatement" &&
+      enclosingNode.expression === precedingNode &&
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    ) {
+      addTrailingComment(enclosingNode, comment);
+      return true;
+    }
   }
 
   return false;
