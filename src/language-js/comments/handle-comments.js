@@ -1084,32 +1084,33 @@ function handleParenthesizedExpressionTrailingComment({
     const isSequence = precedingNode?.type === "SequenceExpression";
     const isAssignment = precedingNode?.type === "AssignmentExpression";
 
-    if (
-      (isSequence || isAssignment) &&
-      ((enclosingNode.type === "ArrowFunctionExpression" &&
-        enclosingNode.body === precedingNode) ||
-        (enclosingNode.type === "VariableDeclarator" &&
-          enclosingNode.init === precedingNode) ||
-        (enclosingNode.type === "ReturnStatement" &&
-          enclosingNode.argument === precedingNode) ||
-        (isSequence &&
-          enclosingNode.type === "AssignmentExpression" &&
-          enclosingNode.right === precedingNode)) &&
-      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-    ) {
-      addTrailingComment(
-        isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
-        comment,
-      );
-      return true;
-    }
+    if (isSequence || isAssignment) {
+      if (
+        ((enclosingNode.type === "ArrowFunctionExpression" &&
+          enclosingNode.body === precedingNode) ||
+          (enclosingNode.type === "VariableDeclarator" &&
+            enclosingNode.init === precedingNode) ||
+          (enclosingNode.type === "ReturnStatement" &&
+            enclosingNode.argument === precedingNode) ||
+          (isSequence &&
+            enclosingNode.type === "AssignmentExpression" &&
+            enclosingNode.right === precedingNode)) &&
+        getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+      ) {
+        addTrailingComment(
+          isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
+          comment,
+        );
+        return true;
+      }
 
-    if (
-      enclosingNode.type === "ExpressionStatement" &&
-      enclosingNode.expression === precedingNode
-    ) {
-      addTrailingComment(enclosingNode, comment);
-      return true;
+      if (
+        enclosingNode.type === "ExpressionStatement" &&
+        enclosingNode.expression === precedingNode
+      ) {
+        addTrailingComment(enclosingNode, comment);
+        return true;
+      }
     }
   }
 
