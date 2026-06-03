@@ -1078,7 +1078,6 @@ function handleParenthesizedExpressionTrailingComment({
   enclosingNode,
   precedingNode,
   followingNode,
-  text,
 }) {
   if (!followingNode && enclosingNode) {
     if (
@@ -1102,8 +1101,7 @@ function handleParenthesizedExpressionTrailingComment({
           enclosingNode.argument === precedingNode) ||
         (isSequence &&
           enclosingNode.type === "AssignmentExpression" &&
-          enclosingNode.right === precedingNode)) &&
-      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+          enclosingNode.right === precedingNode))
     ) {
       addTrailingComment(
         isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
