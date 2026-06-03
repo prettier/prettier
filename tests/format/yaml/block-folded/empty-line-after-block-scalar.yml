@@ -1,0 +1,6 @@
+foo: >
+  a
+  b
+bar: baz
+
+qux: quux

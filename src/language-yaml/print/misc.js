@@ -12,8 +12,8 @@ function printNextEmptyLine(path, originalText) {
     () => new Set(),
   );
 
-  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
-    isNextEmptyLinePrintedSet.add(node.position.end.line);
+  if (!isNextEmptyLinePrintedSet.has(node.position.end.offset)) {
+    isNextEmptyLinePrintedSet.add(node.position.end.offset);
     if (
       isNextLineEmpty(node, originalText) &&
       !shouldPrintEndComments(path.parent)
