@@ -20,6 +20,13 @@ const x2 = (a = c /* comment */);
 ({a} = c /* comment */
 );
 
+(foo() /* comment */);
+(foo()
+/* comment */
+);
+(foo() /* comment */
+);
+
 assigned = (a, b, c /* comment */);
 // assigned = (a = c /* comment */);
 
