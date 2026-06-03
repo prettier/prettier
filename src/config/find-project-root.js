@@ -2,15 +2,15 @@
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
 import * as path from "node:path";
-import { DirectorySearcher, FileSearcher } from "search-closest";
+import { Searcher } from "search-closest";
 
 const DIRECTORIES = [".git", ".hg"];
 const FILES = [
   ".git", // Git can be a file when the repository is a submodule or a working tree
 ];
 
-/** @type {Array<DirectorySearcher|FileSearcher>} */
-let searchers;
+/** @type {Searcher} */
+let searcher;
 
 /**
  * Find the directory contains a version control system directory
@@ -19,41 +19,24 @@ let searchers;
  * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory, options) {
-  searchers ??= [
-    new DirectorySearcher(DIRECTORIES, { allowSymlinks: false }),
-    new FileSearcher(FILES, { allowSymlinks: false }),
-  ];
-
-  const searchResults = await Promise.all(
-    searchers.map((searcher) =>
-      searcher.search(startDirectory, {
-        cache: options.shouldCache,
-      }),
-    ),
-  );
-
-  const closest = searchResults.reduce((acc, candidate) => {
-    if (typeof candidate !== "string") {
-      return acc;
-    }
-
-    if (typeof acc !== "string") {
-      return candidate;
-    }
-
-    return path.relative(candidate, startDirectory).length <
-      path.relative(acc, startDirectory).length
-      ? candidate
-      : acc;
+  searcher ??= new Searcher(DIRECTORIES.concat(FILES), {
+    filter: ({ name, stats }) => {
+      if (stats.isDirectory()) {
+        return DIRECTORIES.includes(name);
+      }
+      return FILES.includes(name);
+    },
   });
 
-  return closest ? path.dirname(closest) : undefined;
+  const anchor = await searcher.search(startDirectory, {
+    cache: options.shouldCache,
+  });
+
+  return anchor ? path.dirname(anchor) : undefined;
 }
 
 function clearFindProjectRootCache() {
-  for (const searcher of searchers ?? []) {
-    searcher.clearCache();
-  }
+  searcher.clearCache();
 }
 
 export { clearFindProjectRootCache, findProjectRoot };
