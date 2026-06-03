@@ -1,5 +1,6 @@
 import isEs5IdentifierName from "is-es5-identifier-name";
 import { printComments } from "../../main/comments/print.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
@@ -132,20 +133,15 @@ function isKeySafeToUnquote(node, options) {
 
 const needQuoteKeysCache = new WeakMap();
 function hasSiblingsRequireQuoted(path, options) {
-  const { parent } = path;
-
-  if (!needQuoteKeysCache.has(parent)) {
-    const hasStringKey = path.siblings.some((sibling) => {
+  return getOrInsertComputed(needQuoteKeysCache, path.parent, () =>
+    path.siblings.some((sibling) => {
       if (isComputedKey(sibling)) {
         return false;
       }
       const key = getKey(sibling);
       return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
-    });
-    needQuoteKeysCache.set(parent, hasStringKey);
-  }
-
-  return needQuoteKeysCache.get(parent);
+    }),
+  );
 }
 
 function shouldQuoteKey(path, options) {

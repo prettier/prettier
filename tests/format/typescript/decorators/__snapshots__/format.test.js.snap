@@ -292,12 +292,6 @@ class Something {
     readonly property: Array<string>
 }
 
-class Something2 {
-    @foo()
-    // comment
-    abstract property: Array<string>
-}
-
 =====================================output=====================================
 class Foo1 {
   @foo
@@ -327,12 +321,6 @@ class Something {
   @foo()
   // comment
   readonly property: Array<string>;
-}
-
-class Something2 {
-  @foo()
-  // comment
-  abstract property: Array<string>;
 }
 
 ================================================================================

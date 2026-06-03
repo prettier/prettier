@@ -112,6 +112,7 @@ function handleEndOfLineComment(context) {
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
+    handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -134,6 +135,7 @@ function handleRemainingComment(context) {
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
+    handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
@@ -540,7 +542,16 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
-    isRealFunctionLikeNode(enclosingNode) &&
+    (isRealFunctionLikeNode(enclosingNode) ||
+      // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
+      // the comment walker bubbles up to its wrapper. Three wrappers occur:
+      // `TSAbstractMethodDefinition` (always), and `MethodDefinition` in
+      // `declare class` or overload position. A plain `MethodDefinition` with
+      // a body is a normal method and must not match here, so the
+      // `MethodDefinition` branch checks `value.type` to skip it.
+      ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
+        enclosingNode?.type === "MethodDefinition") &&
+        enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -1057,6 +1068,44 @@ function handleArrowExpressionComments({
   if (!isBeforeArrow) {
     addBlockOrNotComment(followingNode, comment);
     return true;
+  }
+
+  return false;
+}
+
+function handleParenthesizedExpressionTrailingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  text,
+}) {
+  if (!followingNode && enclosingNode) {
+    const isSequence = precedingNode?.type === "SequenceExpression";
+    const isAssignment = precedingNode?.type === "AssignmentExpression";
+
+    if (
+      (isSequence || isAssignment) &&
+      ((enclosingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.body === precedingNode) ||
+        (enclosingNode.type === "VariableDeclarator" &&
+          enclosingNode.init === precedingNode) ||
+        (enclosingNode.type === "ReturnStatement" &&
+          enclosingNode.argument === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "ExpressionStatement" &&
+          enclosingNode.expression === precedingNode) ||
+        (isSequence &&
+          enclosingNode.type === "AssignmentExpression" &&
+          enclosingNode.right === precedingNode)) &&
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    ) {
+      addTrailingComment(
+        isSequence ? precedingNode.expressions.at(-1) : precedingNode.right,
+        comment,
+      );
+      return true;
+    }
   }
 
   return false;

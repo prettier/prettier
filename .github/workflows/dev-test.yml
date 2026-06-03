@@ -31,7 +31,7 @@ jobs:
           # Latest version
           - "26"
           # Minimal version for development
-          - "20"
+          - "22"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
@@ -39,9 +39,10 @@ jobs:
             node: "24"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
-          # Versions not tested on linux
-          - os: "ubuntu-latest"
-            node: "22"
+          # Versions between "Latest version" and "Minimal version for development"
+          # that not tested on linux
+          # - os: "ubuntu-latest"
+          #   node: "22"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}

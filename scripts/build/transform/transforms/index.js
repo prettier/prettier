@@ -14,5 +14,7 @@ export { default as "method-to-reversed" } from "./transform-method-to-reversed.
 export { default as "method-is-well-formed" } from "./transform-method-is-well-formed.js";
 // Node.js 16.9.0
 export { default as "object-has-own" } from "./transform-object-has-own.js";
+// Node.js 22
+export { default as "object-group-by" } from "./transform-object-group-by.js";
 // For performance
 export { default as "string-raw" } from "./transform-string-raw.js";

@@ -1,17 +1,16 @@
 import { align, softline } from "../../document/index.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utilities.js";
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const { node, root } = path;
 
-  let isNextEmptyLinePrintedSet;
-  if (printedEmptyLineCache.has(root)) {
-    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
-  } else {
-    isNextEmptyLinePrintedSet = new Set();
-    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
-  }
+  const isNextEmptyLinePrintedSet = getOrInsertComputed(
+    printedEmptyLineCache,
+    root,
+    () => new Set(),
+  );
 
   if (!isNextEmptyLinePrintedSet.has(node.position.end.offset)) {
     isNextEmptyLinePrintedSet.add(node.position.end.offset);

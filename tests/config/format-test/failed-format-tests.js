@@ -33,7 +33,7 @@ const unstableTests = new Map(
     "typescript/call/callee-comments.ts",
     "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
-    "js/arrows/issue-14702.js",
+    "js/sequence-expression/parenthesized-trailing-comment-unstable.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -105,6 +105,10 @@ const disabledTests = new Map(
       // https://github.com/typescript-eslint/typescript-eslint/issues/11389
       "js/import/long-module-name/import-defer.js",
       "js/import/long-module-name/import-source.js",
+    ],
+    yaml: [
+      // Bug: https://github.com/eemeli/yaml/issues/646
+      "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",
     ],
   }).map(([parser, tests]) => [
     parser,

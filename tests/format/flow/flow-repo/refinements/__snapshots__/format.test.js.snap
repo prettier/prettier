@@ -744,7 +744,7 @@ function def_assign_within_try(b: boolean, obj: Obj) {
 }
 
 function def_assign_within_for(b: boolean, obj: Obj) {
-  for (; b; ) {
+  for (; b;) {
     obj.p = 10; // (obj.p : number)
     var x: number = obj.p; // ok by def assign
   }
