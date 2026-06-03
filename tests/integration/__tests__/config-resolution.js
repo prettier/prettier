@@ -200,10 +200,7 @@ describe("API resolveConfig doesn’t apply editorconfig outside project when .g
 
     beforeAll(async () => {
       await fs.rm(gitFilePath, { recursive: true, force: true });
-      await fs.writeFile(
-        gitFilePath,
-        "gitdir: ../../../../.git/worktrees/editorconfig-repo-root-git\n",
-      );
+      await fs.writeFile(gitFilePath, "");
     });
 
     afterAll(async () => {

@@ -19,8 +19,8 @@ let searcher;
  * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory, options) {
-  searcher ??= new Searcher(DIRECTORIES.concat(FILES), {
-    filter: ({ name, stats }) => {
+  searcher ??= new Searcher([...DIRECTORIES, ...FILES], {
+    filter({ name, stats }) {
       if (stats.isDirectory()) {
         return DIRECTORIES.includes(name);
       }
