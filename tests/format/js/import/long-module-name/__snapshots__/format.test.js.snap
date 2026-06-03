@@ -51,9 +51,9 @@ exports[`import-defer.js format[flow] 1`] = `
 `;
 
 exports[`import-defer.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:7)
+"'meta' expected in member expression (1:8)
 > 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-    |       ^
+    |        ^
   2 | import.defer(
   3 |   // Comment
   4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
@@ -150,9 +150,9 @@ exports[`import-source.js format[flow] 1`] = `
 `;
 
 exports[`import-source.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:7)
+"'meta' expected in member expression (1:8)
 > 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-    |       ^
+    |        ^
   2 | import.source(
   3 |   // Comment
   4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"

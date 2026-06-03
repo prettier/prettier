@@ -92,8 +92,24 @@ function installPrettier(packageDirectory) {
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  const runNpmClient = (args) =>
-    spawn(client, args, { cwd: temporaryDirectory });
+  const runNpmClient = (args) => {
+    const result = spawn(client, args, {
+      cwd: temporaryDirectory,
+      encoding: "utf8",
+    });
+
+    if (result.status === 0) {
+      return result;
+    }
+
+    const { stdout, stderr } = result;
+    const output = [stdout, stderr].filter(Boolean).join("\n");
+
+    throw new Error(outdent`
+      Failed to execute ${picocolors.blue([client, ...args].join(" "))}.
+      ${output}
+    `);
+  };
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
@@ -103,13 +119,21 @@ function installPrettier(packageDirectory) {
       runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
-      // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
+      // fails engine mismatch
       runNpmClient(["add", packed, "--engine-strict"]);
       break;
-    case "yarn":
-      // yarn fails when engine requirement not compatible by default
+    case "yarn": {
+      // Yarn currently doesn't fail on engine requirement
+      // https://github.com/yarnpkg/berry/issues/1177
+      const { stdout } = runNpmClient(["--version"]);
+      if (!/^3\./.test(stdout)) {
+        runNpmClient(["config", "set", "npmMinimalAgeGate", "0"]);
+      }
+
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
       runNpmClient(["add", `prettier@file:${packed}`]);
+      break;
+    }
     // No default
   }
 
@@ -119,10 +143,10 @@ function installPrettier(packageDirectory) {
     picocolors.green(
       outdent`
         Prettier installed
-          at   ${picocolors.inverse(temporaryDirectory)}
+            at ${picocolors.inverse(temporaryDirectory)}
           from ${picocolors.inverse(packageDirectory)}
           with ${picocolors.inverse(client)}
-          in   ${picocolors.inverse(`${performance.now() - start}ms`)}.
+            in ${picocolors.inverse(`${performance.now() - start}ms`)}.
       `,
     ),
   );

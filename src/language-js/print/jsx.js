@@ -25,6 +25,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getRaw } from "../utilities/get-raw.js";
 import { isMeaningfulJsxText } from "../utilities/is-meaningful-jsx-text.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { jsxWhitespace } from "../utilities/jsx-whitespace.js";
 import {
   isArrayExpression,
@@ -652,7 +653,19 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       print("name"),
       print("typeArguments"),
-      indent(path.map(() => [attributeLine, print()], "attributes")),
+      indent(
+        path.map(
+          ({ isFirst, previous }) => [
+            isFirst
+              ? attributeLine
+              : isNextLineEmpty(previous, options)
+                ? [hardline, hardline]
+                : attributeLine,
+            print(),
+          ],
+          "attributes",
+        ),
+      ),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak },

@@ -577,7 +577,7 @@ function do_while_post_init(b) {
 
 // local use of annotated var in for is ok
 function for_scoped_init(b) {
-  for (; b; ) {
+  for (; b;) {
     var x: number = 0;
     var y: number = x;
   }
@@ -586,14 +586,14 @@ function for_scoped_init(b) {
 // ...but use before for gives undefined
 function for_pre_init(b) {
   var y: number = x; // error
-  for (; b; ) {
+  for (; b;) {
     var x: number = 0;
   }
 }
 
 // ...and after
 function for_post_init(b) {
-  for (; b; ) {
+  for (; b;) {
     var x: number = 0;
   }
   var y: number = x; // error

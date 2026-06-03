@@ -47,8 +47,9 @@ exports[`snippet: Should not support front matter format[__ng_directive] 1`] = `
 Front Matter content
 --- at the end of the expression [---
 Front Matter content
----] (1:0)
+---] (1:1)
 > 1 | ---
+    | ^
   2 | Front Matter content
   3 | ---
 Cause: Parser Error: Unexpected end of expression: ---
@@ -170,7 +171,7 @@ exports[`snippet: Should not support front matter format[flow] 1`] = `
 > 1 | ---
     |   ^
 > 2 | Front Matter content
-    | ^^^^^^
+    | ^^^^^
   3 | ---"
 `;
 

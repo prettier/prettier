@@ -12,6 +12,7 @@ import {
 import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
+  isPreLikeNode,
   isScriptLikeTag,
   isVueCustomBlock,
   shouldPreserveContent,
@@ -19,6 +20,7 @@ import {
 import { printChildren } from "./children.js";
 import {
   needsToBorrowLastChildClosingTagEndMarker,
+  needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
   printClosingTagSuffix,
@@ -122,6 +124,12 @@ function printElement(path, options, print) {
       ) {
         return " ";
       }
+      return "";
+    }
+    if (
+      isPreLikeNode(node) &&
+      needsToBorrowParentClosingTagStartMarker(node.lastChild)
+    ) {
       return "";
     }
     if (shouldHugContent) {

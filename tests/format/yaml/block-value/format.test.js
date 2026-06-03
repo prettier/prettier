@@ -1,5 +1,5 @@
 const blockStyles = ["|", ">", "|+", "|-", ">+", ">-"];
-const trailingSpace = ["", "  ", "\t"];
+const trailingSpace = ["", "   ", "  \t"];
 const newlines = ["", "\n", "\n\n", "\n\n\n"];
 
 const snippets = blockStyles.flatMap((blockStyle) =>

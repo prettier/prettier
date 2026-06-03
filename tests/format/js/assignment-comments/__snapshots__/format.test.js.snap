@@ -192,6 +192,33 @@ const bifornCringerMoshedPerplexSawder = // !!!
 ================================================================================
 `;
 
+exports[`indentable-block-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+fnString = /**
+ * multi-line
+ */ value;
+
+var fnString = /**
+ * multi-line
+ */ value;
+
+=====================================output=====================================
+fnString =
+  /**
+   * multi-line
+   */ value;
+
+var fnString =
+  /**
+   * multi-line
+   */ value;
+
+================================================================================
+`;
+
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

@@ -14,9 +14,9 @@ const foo: string;
 `;
 
 exports[`ambient.js.flow format[hermes] 1`] = `
-"missing initializer in const declaration (1:6)
+"missing initializer in const declaration (1:7)
 > 1 | const foo: string;
-    |      ^
+    |       ^
   2 |
 Cause: missing initializer in const declaration (1:6)
 const foo: string;
@@ -36,9 +36,9 @@ const foo: string;
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
-"missing initializer in const declaration (1:6)
+"missing initializer in const declaration (1:7)
 > 1 | const foo: string;
-    |      ^
+    |       ^
 Cause: missing initializer in const declaration (1:6)
 const foo: string;
       ^~~~~~~~~~~"

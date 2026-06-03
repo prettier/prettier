@@ -31,9 +31,9 @@ Cause: Unexpected token ]"
 `;
 
 exports[`invalid-array-expression.js format[hermes] 1`] = `
-"invalid expression (1:8)
+"invalid expression (1:9)
 > 1 | ([[[void], x, ], y]);
-    |        ^
+    |         ^
   2 |
   3 | ([[[x], void, ], y]);
   4 |
@@ -105,9 +105,9 @@ Cause: Unexpected token ="
 `;
 
 exports[`invalid-assignment-expression.js format[hermes] 1`] = `
-"invalid expression (1:5)
+"invalid expression (1:6)
 > 1 | void = 0;
-    |     ^
+    |      ^
   2 |
 Cause: invalid expression (1:5)
 void = 0;
@@ -169,9 +169,9 @@ Cause: Unexpected token ]"
 `;
 
 exports[`invalid-assignment-for.js format[hermes] 1`] = `
-"invalid expression (1:14)
+"invalid expression (1:15)
 > 1 | for (void of []);
-    |              ^
+    |               ^
   2 |
 Cause: invalid expression (1:14)
 for (void of []);
@@ -245,11 +245,11 @@ Cause: Unexpected keyword 'void'"
 `;
 
 exports[`invalid-assignment-pattern.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:13)
+"identifier, '{' or '[' expected in binding pattern (3:14)
   1 | {
   2 |   // function parameter
 > 3 |   function f(void = 0) {}
-    |             ^
+    |              ^
   4 | }
   5 | {
   6 |   // arrow function parameter
@@ -335,9 +335,9 @@ Cause: Unexpected token ,"
 `;
 
 exports[`invalid-async-call-argument.js format[hermes] 1`] = `
-"invalid expression (1:10)
+"invalid expression (1:11)
 > 1 | async(void, x);
-    |          ^
+    |           ^
   2 |
   3 | async(x, void);
   4 |
@@ -409,9 +409,9 @@ Cause: Unexpected keyword 'void'"
 `;
 
 exports[`invalid-catch-parameter.js format[hermes] 1`] = `
-"'identifier' expected inside catch list (1:14)
+"'identifier' expected inside catch list (1:15)
 > 1 | try {} catch (void) {}
-    |              ^
+    |               ^
   2 |
 Cause: 'identifier' expected inside catch list (1:14)
 try {} catch (void) {}
@@ -473,9 +473,9 @@ Cause: Unexpected token =>"
 `;
 
 exports[`invalid-lone-arrow-function-parameter.js format[hermes] 1`] = `
-"invalid expression (1:5)
+"invalid expression (1:6)
 > 1 | void => {}
-    |     ^
+    |      ^
   2 |
 Cause: invalid expression (1:5)
 void => {}
@@ -537,9 +537,9 @@ Cause: Unexpected token void"
 `;
 
 exports[`invalid-lone-async-arrow-function-parameter.js format[hermes] 1`] = `
-"';' expected (1:6)
+"';' expected (1:7)
 > 1 | async void => {}
-    |      ^
+    |       ^
   2 |
 Cause: ';' expected (1:6)
 async void => {}
@@ -607,9 +607,9 @@ Cause: Unexpected token }"
 `;
 
 exports[`invalid-object-expression.js format[hermes] 1`] = `
-"invalid expression (1:21)
+"invalid expression (1:22)
 > 1 | ({ p: { p: { p: void }, x, }, y});
-    |                     ^
+    |                      ^
   2 |
   3 | ({ p: { x: { x }, p: void, }, y});
   4 |
@@ -681,9 +681,9 @@ Cause: Unexpected token )"
 `;
 
 exports[`invalid-parenthesized-assignment.js format[hermes] 1`] = `
-"invalid expression (1:6)
+"invalid expression (1:7)
 > 1 | [(void)] = [];
-    |      ^
+    |       ^
   2 |
 Cause: invalid expression (1:6)
 [(void)] = [];
@@ -745,9 +745,9 @@ Cause: Unexpected token ("
 `;
 
 exports[`invalid-parenthesized-binding.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:9)
+"identifier, '{' or '[' expected in binding pattern (1:10)
 > 1 | const [, (void), ] = value;
-    |         ^
+    |          ^
   2 |
 Cause: identifier, '{' or '[' expected in binding pattern (1:9)
 const [, (void), ] = value;
@@ -818,10 +818,10 @@ Cause: Unexpected keyword 'void'"
 `;
 
 exports[`invalid-rest-element-array-pattern.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (2:11)
+"identifier, '{' or '[' expected in binding pattern (2:12)
   1 | {
 > 2 |   var [ ...void ] = [];
-    |           ^
+    |            ^
   3 | }
   4 | {
   5 |   for (var [...void] of [[]]);
@@ -897,9 +897,9 @@ Cause: Unexpected token ]"
 `;
 
 exports[`invalid-rest-element-array-pattern-for-lhs.js format[hermes] 1`] = `
-"invalid expression (1:15)
+"invalid expression (1:16)
 > 1 | for ([ ...void ] of []);
-    |               ^
+    |                ^
   2 |
 Cause: invalid expression (1:15)
 for ([ ...void ] of []);
@@ -961,9 +961,9 @@ Cause: Unexpected token ]"
 `;
 
 exports[`invalid-rest-element-array-pattern-lhs.js format[hermes] 1`] = `
-"invalid expression (1:11)
+"invalid expression (1:12)
 > 1 | ([ ...void ] = []);
-    |           ^
+    |            ^
   2 |
 Cause: invalid expression (1:11)
 ([ ...void ] = []);
@@ -1034,10 +1034,10 @@ Cause: Unexpected keyword 'void'"
 `;
 
 exports[`invalid-rest-element-object-pattern.js format[hermes] 1`] = `
-"identifier expected after '...' in object pattern (2:11)
+"identifier expected after '...' in object pattern (2:12)
   1 | {
 > 2 |   var { ...void } = {};
-    |           ^
+    |            ^
   3 | }
   4 | {
   5 |   for (var { ...void } of [{}]);
@@ -1113,9 +1113,9 @@ Cause: Unexpected token }"
 `;
 
 exports[`invalid-rest-element-object-pattern-for-lhs.js format[hermes] 1`] = `
-"invalid expression (1:15)
+"invalid expression (1:16)
 > 1 | for ({ ...void } of []);
-    |               ^
+    |                ^
   2 |
 Cause: invalid expression (1:15)
 for ({ ...void } of []);
@@ -1177,9 +1177,9 @@ Cause: Unexpected token }"
 `;
 
 exports[`invalid-rest-element-object-pattern-lhs.js format[hermes] 1`] = `
-"invalid expression (1:11)
+"invalid expression (1:12)
 > 1 | ({ ...void } = {});
-    |           ^
+    |            ^
   2 |
 Cause: invalid expression (1:11)
 ({ ...void } = {});
@@ -1247,9 +1247,9 @@ Cause: Unexpected token ,"
 `;
 
 exports[`invalid-sequence-expression.js format[hermes] 1`] = `
-"invalid expression (1:5)
+"invalid expression (1:6)
 > 1 | (void, x);
-    |     ^
+    |      ^
   2 |
   3 | (x, void);
   4 |
@@ -1330,10 +1330,10 @@ Cause: Unexpected keyword 'void'"
 `;
 
 exports[`invalid-variable-declarator.js format[hermes] 1`] = `
-"'identifier' expected in declaration (2:6)
+"'identifier' expected in declaration (2:7)
   1 | {
 > 2 |   var void = f();
-    |      ^
+    |       ^
   3 | }
   4 | {
   5 |   let void = f(), void = g();

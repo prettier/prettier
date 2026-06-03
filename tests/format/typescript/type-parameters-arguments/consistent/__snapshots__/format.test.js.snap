@@ -98,9 +98,9 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 exports[`template-literal-types.ts format[flow] 1`] = `"Missing visitor keys for 'TemplateLiteralTypeAnnotation'."`;
 
 exports[`template-literal-types.ts format[hermes] 1`] = `
-"unexpected token in type annotation (1:83)
+"unexpected token in type annotation (1:84)
 > 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-    |                                                                                   ^
+    |                                                                                    ^
   2 |
 Cause: unexpected token in type annotation (1:83)
 const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;

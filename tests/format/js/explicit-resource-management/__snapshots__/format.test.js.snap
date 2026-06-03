@@ -21,9 +21,9 @@ exports[`for-await-using-of-comments.js format[flow] 1`] = `
 `;
 
 exports[`for-await-using-of-comments.js format[hermes] 1`] = `
-"'(' expected after 'for' (1:18)
+"'(' expected after 'for' (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
-    |                  ^
+    |                   ^
   2 |
 Cause: '(' expected after 'for' (1:18)
 /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
@@ -97,10 +97,10 @@ exports[`invalid-duplicate-using-bindings.js format[flow] 1`] = `
 `;
 
 exports[`invalid-duplicate-using-bindings.js format[hermes] 1`] = `
-"Identifier 'f' is already declared (2:19)
+"Identifier 'f' is already declared (2:20)
   1 | {
 > 2 |   using f = foo(), f = foo();
-    |                   ^
+    |                    ^
   3 | }
   4 | {
   5 |   using g = foo();
@@ -170,7 +170,7 @@ for(using /* 1 */ foo of bar());
     /* 2 */ b = foo();
 }
 
-for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
+for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ;);
 
 for (using /* 1 */ foo of bar());
 
@@ -188,11 +188,11 @@ exports[`using-declarations.js format[flow] 1`] = `
 `;
 
 exports[`using-declarations.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (5:20)
+"';' or 'in' expected inside 'for' (5:21)
   3 | }
   4 |
 > 5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                    ^
+    |                     ^
   6 |
   7 | for(using /* 1 */ foo of bar());
   8 |
@@ -249,10 +249,10 @@ async function f() {
 `;
 
 exports[`valid-await-expr-using-in.js format[hermes] 1`] = `
-"'identifier' expected in declaration (2:14)
+"'identifier' expected in declaration (2:15)
   1 | async function f() {
 > 2 |   await using in foo;
-    |              ^
+    |               ^
   3 | }
   4 |
 Cause: 'identifier' expected in declaration (2:14)
@@ -278,10 +278,10 @@ async function f() {
 `;
 
 exports[`valid-await-expr-using-instanceof.js format[hermes] 1`] = `
-"'identifier' expected in declaration (2:14)
+"'identifier' expected in declaration (2:15)
   1 | async function f() {
 > 2 |   await using instanceof foo;
-    |              ^
+    |               ^
   3 | }
   4 |
 Cause: 'identifier' expected in declaration (2:14)
@@ -510,11 +510,11 @@ exports[`valid-await-using-comments.js format[flow] 1`] = `
 `;
 
 exports[`valid-await-using-comments.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (6:47)
+"';' or 'in' expected inside 'for' (6:48)
   4 | }
   5 | {
 > 6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
-    |                                               ^
+    |                                                ^
   7 | }
   8 | {
   9 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
@@ -638,7 +638,7 @@ async function f() {
 
 =====================================output=====================================
 async function f() {
-  for (await using basic = reader(); ; );
+  for (await using basic = reader(); ;);
 }
 
 ================================================================================
@@ -654,10 +654,10 @@ exports[`valid-for-using-declaration.js format[flow] 1`] = `
 `;
 
 exports[`valid-for-using-declaration.js format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (2:25)
+"';' or 'in' expected inside 'for' (2:26)
   1 | async function f() {
 > 2 |   for (await using basic = reader();;);
-    |                         ^
+    |                          ^
   3 | }
   4 |
 Cause: ';' or 'in' expected inside 'for' (2:25)
@@ -722,9 +722,9 @@ exports[`valid-module-block-top-level-await-using-binding.js format[flow] 1`] = 
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js format[hermes] 1`] = `
-"';' expected (1:17)
+"';' expected (1:18)
 > 1 | const m = module {
-    |                 ^
+    |                  ^
   2 |   await using foo = bar();
   3 | }
   4 |
@@ -818,9 +818,9 @@ exports[`valid-module-block-top-level-using-binding.js format[flow] 1`] = `
 `;
 
 exports[`valid-module-block-top-level-using-binding.js format[hermes] 1`] = `
-"';' expected (1:7)
+"';' expected (1:8)
 > 1 | module {
-    |       ^
+    |        ^
   2 |   using foo = bar();
   3 | }
   4 |
@@ -918,9 +918,9 @@ exports[`valid-using-as-identifier-for-await-of.js format[flow] 1`] = `
 `;
 
 exports[`valid-using-as-identifier-for-await-of.js format[hermes] 1`] = `
-"'(' expected after 'for' (1:4)
+"'(' expected after 'for' (1:5)
 > 1 | for await (using of of);
-    |    ^
+    |     ^
   2 |
 Cause: '(' expected after 'for' (1:4)
 for await (using of of);
@@ -947,7 +947,7 @@ for (using\`\`.foo in []);
 `;
 
 exports[`valid-using-as-identifier-for-in.js format[hermes] 1`] = `
-"Failed to parse source (0:0)
+"Failed to parse source (0:1)
   1 | for (using in []);
   2 | for (using.foo in []);
   3 | for (using().foo in []);
@@ -964,7 +964,7 @@ for (
   reader = getReader(););
 
 =====================================output=====================================
-for (using; (reader = getReader()); );
+for (using; (reader = getReader()););
 
 ================================================================================
 `;
@@ -1002,9 +1002,9 @@ using in using instanceof using;
 `;
 
 exports[`valid-using-as-identifier-in.js format[hermes] 1`] = `
-"'identifier' expected in declaration (1:6)
+"'identifier' expected in declaration (1:7)
 > 1 | using in using instanceof using;
-    |      ^
+    |       ^
   2 |
 Cause: 'identifier' expected in declaration (1:6)
 using in using instanceof using;

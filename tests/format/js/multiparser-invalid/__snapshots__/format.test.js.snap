@@ -107,11 +107,11 @@ exports[`text.js format[flow] 1`] = `
 `;
 
 exports[`text.js format[hermes] 1`] = `
-"untagged template literal contains invalid escape sequence (6:16)
+"untagged template literal contains invalid escape sequence (6:17)
   4 | foo = markdown\`\\u{prettier}\\u{0065}\`;
   5 | foo = css\`\\u{prettier}\\u{0065}\`;
 > 6 | foo = /* HTML */\`\\u{prettier}\\u{0065}\`;
-    |                ^
+    |                 ^
   7 | foo = /* GraphQL */\`\\u{prettier}\\u{0065}\`;
   8 |
   9 | foo = foo\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;

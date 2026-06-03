@@ -1,10 +1,4 @@
-import {
-  group,
-  ifBreak,
-  indent,
-  line,
-  softline,
-} from "../../document/index.js";
+import { group, indent, line, softline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import { printForXStatementBody } from "./clause.js";
 
@@ -34,7 +28,7 @@ function printForStatement(path, options, print) {
           line,
           print("test"),
           ";",
-          node.update ? [line, print("update")] : ifBreak("", line),
+          node.update ? [line, print("update")] : "",
         ]),
         softline,
       ]),

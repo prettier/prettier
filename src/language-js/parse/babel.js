@@ -208,7 +208,6 @@ const allowedReasonCodesArray = [
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
   "PatternIsOptional",
-  "DeclareClassFieldHasInitializer",
 
   "VarRedeclaration",
   "InvalidPrivateFieldResolution",

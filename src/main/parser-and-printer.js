@@ -1,5 +1,6 @@
 import * as assert from "#universal/assert";
 import { ConfigError } from "../common/errors.js";
+import { getOrInsertComputed } from "../utilities/get-or-insert.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import {
   cleanFrontMatter,
@@ -76,13 +77,8 @@ async function initPrinter(plugin, astFormat) {
   return normalizePrinter(printer);
 }
 
-const normalizedPrinters = new WeakMap();
 const PRINTER_NORMALIZED_MARK = Symbol("PRINTER_NORMALIZED_MARK");
-function normalizePrinter(printer) {
-  if (normalizedPrinters.has(printer)) {
-    return normalizedPrinters.get(printer);
-  }
-
+function normalizePrinterWithoutCache(printer) {
   /* c8 ignore next 6 */
   if (process.env.NODE_ENV !== "production") {
     assert.ok(
@@ -172,8 +168,16 @@ function normalizePrinter(printer) {
     normalizedPrinter[PRINTER_NORMALIZED_MARK] = true;
   }
 
-  normalizedPrinters.set(printer, normalizedPrinter);
   return normalizedPrinter;
+}
+
+const normalizedPrinters = new WeakMap();
+function normalizePrinter(printer) {
+  return getOrInsertComputed(
+    normalizedPrinters,
+    printer,
+    normalizePrinterWithoutCache,
+  );
 }
 
 const PRINTER_FRONT_MATTER_SUPPORT_FEATURES = ["clean", "embed", "print"];

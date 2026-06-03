@@ -137,11 +137,11 @@ let tests = [
 `;
 
 exports[`update.js format[hermes] 1`] = `
-"invalid operand in update operation (31:4)
+"invalid operand in update operation (31:5)
   29 |   function() {
   30 |     const y = 123;
 > 31 |     y++; // error, can't update const
-     |    ^
+     |     ^
   32 |     y--; // error, can't update const
   33 |   },
   34 |
