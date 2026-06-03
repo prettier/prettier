@@ -36,7 +36,7 @@ async function findProjectRoot(startDirectory, options) {
 }
 
 function clearFindProjectRootCache() {
-  searcher.clearCache();
+  searcher?.clearCache();
 }
 
 export { clearFindProjectRootCache, findProjectRoot };
