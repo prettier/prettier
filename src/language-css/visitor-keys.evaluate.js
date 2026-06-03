@@ -42,7 +42,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   "value-colon": [],
   "value-comma": [],
   "value-string": [],
-  "value-atword": ["group"],
+  "value-atword": [],
   "value-unicode-range": [],
   "value-unknown": [],
 });

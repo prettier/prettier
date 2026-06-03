@@ -207,12 +207,6 @@ function massageAstNode(original, cloned, parent) {
     return {
       type: "value-atword",
       value: original.groups.map((node) => node.value).join(""),
-      group: {
-        open: null,
-        close: null,
-        groups: [],
-        type: "value-paren_group",
-      },
     };
   }
 }

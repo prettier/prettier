@@ -163,7 +163,9 @@ function parseNestedValue(node, options) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);
         if (key === "nodes") {
-          node.group = flattenGroups(parseValueNode(node, options));
+          if (!(node.type === "atword" && node.nodes.length === 0)) {
+            node.group = flattenGroups(parseValueNode(node, options));
+          }
           delete node[key];
         }
       }
