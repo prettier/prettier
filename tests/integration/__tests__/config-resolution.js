@@ -3,25 +3,6 @@ import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
 
-beforeAll(async () => {
-  const gitFilePath = new URL(
-    "../cli/config/editorconfig/repo-root-git-file/.git",
-    import.meta.url,
-  );
-  await fs.rm(gitFilePath, { recursive: true, force: true });
-  await fs.writeFile(
-    gitFilePath,
-    "gitdir: ../../../../.git/worktrees/editorconfig-repo-root-git-file\n",
-  );
-
-  const gitDirPath = new URL(
-    "../cli/config/editorconfig/repo-root-git-dir/.git",
-    import.meta.url,
-  );
-  await fs.rm(gitDirPath, { recursive: true, force: true });
-  await fs.mkdir(gitDirPath, { recursive: true });
-});
-
 test("resolves configuration from external files and overrides by extname", async () => {
   await expect(
     prettier.resolveConfig(
@@ -190,43 +171,68 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
   });
 });
 
-test("API resolveConfig doesn’t apply editorconfig outside project when .git is a file", async () => {
-  const file = new URL(
-    "../cli/config/editorconfig/repo-root-git-file/file.js",
-    import.meta.url,
-  );
-  await expect(
-    prettier.resolveConfig(file, { editorconfig: true }),
-  ).resolves.toMatchObject({
-    endOfLine: "auto",
-    semi: false,
-  });
-  await expect(
-    prettier.resolveConfig(file, { editorconfig: true }),
-  ).resolves.not.toMatchObject({
-    useTabs: true,
-    tabWidth: 8,
-    printWidth: 100,
-  });
-});
+describe("API resolveConfig doesn’t apply editorconfig outside project when .git is present", () => {
+  async function run() {
+    const file = new URL(
+      "../cli/config/editorconfig/repo-root-git/file.js",
+      import.meta.url,
+    );
+    await expect(
+      prettier.resolveConfig(file, { editorconfig: true }),
+    ).resolves.toMatchObject({
+      endOfLine: "auto",
+      semi: false,
+    });
+    await expect(
+      prettier.resolveConfig(file, { editorconfig: true }),
+    ).resolves.not.toMatchObject({
+      useTabs: true,
+      tabWidth: 8,
+      printWidth: 100,
+    });
+  }
 
-test("API resolveConfig doesn’t apply editorconfig outside project when .git is a directory", async () => {
-  const file = new URL(
-    "../cli/config/editorconfig/repo-root-git-dir/file.js",
-    import.meta.url,
-  );
-  await expect(
-    prettier.resolveConfig(file, { editorconfig: true }),
-  ).resolves.toMatchObject({
-    endOfLine: "auto",
-    semi: false,
+  describe("when .git is a file", () => {
+    const gitFilePath = new URL(
+      "../cli/config/editorconfig/repo-root-git/.git",
+      import.meta.url,
+    );
+
+    beforeAll(async () => {
+      await fs.rm(gitFilePath, { recursive: true, force: true });
+      await fs.writeFile(
+        gitFilePath,
+        "gitdir: ../../../../.git/worktrees/editorconfig-repo-root-git\n",
+      );
+    });
+
+    afterAll(async () => {
+      await fs.rm(gitFilePath, { recursive: true, force: true });
+    });
+
+    test("API resolveConfig doesn’t apply editorconfig outside project when .git is a file", async () => {
+      await run();
+    });
   });
-  await expect(
-    prettier.resolveConfig(file, { editorconfig: true }),
-  ).resolves.not.toMatchObject({
-    useTabs: true,
-    tabWidth: 8,
-    printWidth: 100,
+
+  describe("when .git is a directory", () => {
+    const gitDirPath = new URL(
+      "../cli/config/editorconfig/repo-root-git/.git",
+      import.meta.url,
+    );
+
+    beforeAll(async () => {
+      await fs.rm(gitDirPath, { recursive: true, force: true });
+      await fs.mkdir(gitDirPath, { recursive: true });
+    });
+
+    afterAll(async () => {
+      await fs.rm(gitDirPath, { recursive: true, force: true });
+    });
+
+    test("API resolveConfig doesn’t apply editorconfig outside project when .git is a directory", async () => {
+      await run();
+    });
   });
 });
 
