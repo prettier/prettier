@@ -4,9 +4,11 @@
 import * as path from "node:path";
 import { Searcher } from "search-closest";
 
-const DIRECTORIES = [".git", ".hg"];
-const FILES = [
-  ".git", // Git can be a file when the repository is a submodule or a working tree
+/** @type {({name: string, type: "directory"} | string)[]} */
+const MARKERS = [
+  // Git can be a file when the repository is a submodule or a working tree
+  ".git",
+  { name: ".hg", type: "directory" },
 ];
 
 /** @type {Searcher} */
@@ -19,20 +21,13 @@ let searcher;
  * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory, options) {
-  searcher ??= new Searcher([...DIRECTORIES, ...FILES], {
-    filter({ name, stats }) {
-      if (stats.isDirectory()) {
-        return DIRECTORIES.includes(name);
-      }
-      return FILES.includes(name);
-    },
-  });
+  searcher ??= new Searcher(MARKERS, { allowSymlinks: false });
 
-  const anchor = await searcher.search(startDirectory, {
+  const marker = await searcher.search(startDirectory, {
     cache: options.shouldCache,
   });
 
-  return anchor ? path.dirname(anchor) : undefined;
+  return marker ? path.dirname(marker) : undefined;
 }
 
 function clearFindProjectRootCache() {
