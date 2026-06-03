@@ -4,10 +4,19 @@ const x2 = (a = c /* comment */);
 (a, b, c /* comment */);
 (a, b, c /* comment */
 );
+(a, b, c
+/* comment */
+);
 (a = c /* comment */);
 (a = c /* comment */
 );
+(a = c
+/* comment */
+);
 ({a} = c /* comment */);
+({a} = c
+/* comment */
+);
 ({a} = c /* comment */
 );
 
