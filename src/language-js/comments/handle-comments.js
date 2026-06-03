@@ -1081,6 +1081,14 @@ function handleParenthesizedExpressionTrailingComment({
   text,
 }) {
   if (!followingNode && enclosingNode) {
+    if (
+      enclosingNode.type === "ExpressionStatement" &&
+      enclosingNode.expression === precedingNode
+    ) {
+      addTrailingComment(enclosingNode, comment);
+      return true;
+    }
+
     const isSequence = precedingNode?.type === "SequenceExpression";
     const isAssignment = precedingNode?.type === "AssignmentExpression";
 
@@ -1092,9 +1100,6 @@ function handleParenthesizedExpressionTrailingComment({
           enclosingNode.init === precedingNode) ||
         (enclosingNode.type === "ReturnStatement" &&
           enclosingNode.argument === precedingNode) ||
-        (isSequence &&
-          enclosingNode.type === "ExpressionStatement" &&
-          enclosingNode.expression === precedingNode) ||
         (isSequence &&
           enclosingNode.type === "AssignmentExpression" &&
           enclosingNode.right === precedingNode)) &&
