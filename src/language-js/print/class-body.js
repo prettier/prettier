@@ -101,7 +101,7 @@ function printClassBody(path, options, print) {
 
   if (isObjectType) {
     const shouldBreak =
-      hasDanglingComments ||
+      hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line) ||
       (options.objectWrap === "preserve" &&
         firstMember &&
         hasNewlineInRange(
