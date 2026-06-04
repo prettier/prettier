@@ -86,8 +86,6 @@ function calculateNodeLoc(node, text, rootOffset, isRootOfText) {
     node.source ??= {};
     node.source.startOffset = rootOffset;
     node.source.endOffset = rootOffset + text.length;
-    node.source.start ??= indexToLineColumn(0, text);
-    node.source.end ??= indexToLineColumn(text.length, text);
   } else if (
     typeof node.source?.startOffset === "number" &&
     typeof node.source?.endOffset === "number"
