@@ -612,7 +612,7 @@ exports[`CLI --support-info  1`] = `
     },
     {
       "aceMode": "html",
-      "aliases": ["xhtml"],
+      "aliases": ["LWC", "lwc"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
       "extensions": [],
