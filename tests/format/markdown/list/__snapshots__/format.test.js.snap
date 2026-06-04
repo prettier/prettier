@@ -1232,6 +1232,7 @@ tabWidth: 0
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
+
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1270,6 +1271,7 @@ tabWidth: 0
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
+
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1311,6 +1313,7 @@ tabWidth: 0
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
+
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1447,6 +1450,7 @@ tabWidth: 4
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
+
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1485,6 +1489,7 @@ tabWidth: 4
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
+
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1526,6 +1531,7 @@ tabWidth: 4
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
+
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1662,6 +1668,7 @@ tabWidth: 999
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
+
      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1700,6 +1707,7 @@ tabWidth: 999
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
+
       - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1741,6 +1749,7 @@ tabWidth: 999
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b b
+
              - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a a
 
@@ -1876,6 +1885,7 @@ proseWrap: "always"
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
+
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1914,6 +1924,7 @@ proseWrap: "always"
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
+
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1955,6 +1966,7 @@ proseWrap: "always"
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
+
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -2339,6 +2351,7 @@ tabWidth: 0
    2. List
 
 1. Some text, and code block below, with newline after code block
+
    1. Another
    2. List
 
@@ -2397,6 +2410,7 @@ tabWidth: 4
     2. List
 
 1. Some text, and code block below, with newline after code block
+
     1. Another
     2. List
 
@@ -2455,6 +2469,7 @@ tabWidth: 999
       2. List
 
 1. Some text, and code block below, with newline after code block
+
       1. Another
       2. List
 
@@ -2512,6 +2527,7 @@ proseWrap: "always"
    2. List
 
 1. Some text, and code block below, with newline after code block
+
    1. Another
    2. List
 
@@ -2522,6 +2538,505 @@ proseWrap: "always"
 
    1. Another
    2. List
+
+================================================================================
+`;
+
+exports[`issue-17746.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+=====================================output=====================================
+- a
+
+  - b
+
+- c
+
+  - d
+
+================================================================================
+`;
+
+exports[`issue-17746.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+=====================================output=====================================
+- a
+
+    - b
+
+- c
+
+    - d
+
+================================================================================
+`;
+
+exports[`issue-17746.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+=====================================output=====================================
+- a
+
+     - b
+
+- c
+
+     - d
+
+================================================================================
+`;
+
+exports[`issue-17746.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+=====================================output=====================================
+- a
+
+  - b
+
+- c
+
+  - d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-before-list.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+-     a
+  - b
+- c
+- d
+
+=====================================output=====================================
+-     a
+  - b
+- c
+- d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-before-list.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+-     a
+  - b
+- c
+- d
+
+=====================================output=====================================
+-     a
+    - b
+- c
+- d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-before-list.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+-     a
+  - b
+- c
+- d
+
+=====================================output=====================================
+-     a
+     - b
+- c
+- d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-before-list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+-     a
+  - b
+- c
+- d
+
+=====================================output=====================================
+-     a
+  - b
+- c
+- d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-sibling-nested-list.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+=====================================output=====================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-sibling-nested-list.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+=====================================output=====================================
+- a
+    \`\`\`
+    b
+    \`\`\`
+- c
+
+    - d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-sibling-nested-list.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+=====================================output=====================================
+- a
+     \`\`\`
+     b
+     \`\`\`
+- c
+
+     - d
+
+================================================================================
+`;
+
+exports[`issue-17746-code-sibling-nested-list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+=====================================output=====================================
+- a
+  \`\`\`
+  b
+  \`\`\`
+- c
+
+  - d
+
+================================================================================
+`;
+
+exports[`issue-17746-fenced-code-then-nested-list.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+- c
+
+=====================================output=====================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+
+- c
+
+================================================================================
+`;
+
+exports[`issue-17746-fenced-code-then-nested-list.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+- c
+
+=====================================output=====================================
+- \`\`\`
+  a
+  \`\`\`
+
+    - b
+
+- c
+
+================================================================================
+`;
+
+exports[`issue-17746-fenced-code-then-nested-list.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+- c
+
+=====================================output=====================================
+- \`\`\`
+  a
+  \`\`\`
+
+     - b
+
+- c
+
+================================================================================
+`;
+
+exports[`issue-17746-fenced-code-then-nested-list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+- c
+
+=====================================output=====================================
+- \`\`\`
+  a
+  \`\`\`
+
+  - b
+
+- c
+
+================================================================================
+`;
+
+exports[`issue-17746-indented-code-then-nested-list.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+-     a
+
+  - b
+
+=====================================output=====================================
+-     a
+
+  - b
+
+================================================================================
+`;
+
+exports[`issue-17746-indented-code-then-nested-list.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+-     a
+
+  - b
+
+=====================================output=====================================
+-     a
+
+    - b
+
+================================================================================
+`;
+
+exports[`issue-17746-indented-code-then-nested-list.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+-     a
+
+  - b
+
+=====================================output=====================================
+-     a
+
+     - b
+
+================================================================================
+`;
+
+exports[`issue-17746-indented-code-then-nested-list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+-     a
+
+  - b
+
+=====================================output=====================================
+-     a
+
+  - b
 
 ================================================================================
 `;
@@ -2615,12 +3130,15 @@ tabWidth: 0
 
 =====================================output=====================================
 - 123
+
   - abc
 
 - 456
+
   - def
 
 - 789
+
   - ghi
 
 ================================================================================
@@ -2648,12 +3166,15 @@ tabWidth: 4
 
 =====================================output=====================================
 - 123
+
     - abc
 
 - 456
+
     - def
 
 - 789
+
     - ghi
 
 ================================================================================
@@ -2681,12 +3202,15 @@ tabWidth: 999
 
 =====================================output=====================================
 - 123
+
      - abc
 
 - 456
+
      - def
 
 - 789
+
      - ghi
 
 ================================================================================
@@ -2713,12 +3237,15 @@ proseWrap: "always"
 
 =====================================output=====================================
 - 123
+
   - abc
 
 - 456
+
   - def
 
 - 789
+
   - ghi
 
 ================================================================================
@@ -2897,6 +3424,7 @@ tabWidth: 0
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
+
   - child list item child list item child list item child list item child list
     item child list item
 
@@ -2905,6 +3433,7 @@ tabWidth: 0
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
+
   - [x] child task list item child task list item child task list item child
         task list item
 
@@ -2937,6 +3466,7 @@ tabWidth: 4
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
+
     - child list item child list item child list item child list item child list
       item child list item
 
@@ -2945,6 +3475,7 @@ tabWidth: 4
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
+
     - [x] child task list item child task list item child task list item child
           task list item
 
@@ -2977,6 +3508,7 @@ tabWidth: 999
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
+
      - child list item child list item child list item child list item child
        list item child list item
 
@@ -2985,6 +3517,7 @@ tabWidth: 999
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
+
      - [x] child task list item child task list item child task list item child
            task list item
 
@@ -3016,6 +3549,7 @@ proseWrap: "always"
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
+
   - child list item child list item child list item child list item child list
     item child list item
 
@@ -3024,6 +3558,7 @@ proseWrap: "always"
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
+
   - [x] child task list item child task list item child task list item child
         task list item
 
@@ -4390,6 +4925,7 @@ tabWidth: 0
   [title](link)
 
 - Text
+
   - foo
   - foo
   - bar
@@ -4449,6 +4985,7 @@ tabWidth: 4
     [title](link)
 
 - Text
+
     - foo
     - foo
     - bar
@@ -4508,6 +5045,7 @@ tabWidth: 999
      [title](link)
 
 - Text
+
      - foo
      - foo
      - bar
@@ -4566,6 +5104,7 @@ proseWrap: "always"
   [title](link)
 
 - Text
+
   - foo
   - foo
   - bar
