@@ -189,7 +189,7 @@ Add a Prettier job to a `lefthook.yml` file at the repo root:
 pre-commit:
   jobs:
     - name: prettier
-      run: npx prettier --ignore-unknown --write {staged_files}
+      run: npx prettier --ignore-unknown --write '{staged_files}'
       stage_fixed: true
 ```
 
