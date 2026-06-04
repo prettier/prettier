@@ -4,7 +4,7 @@ import { normalizeDirectory } from "./utilities.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-export const FORMAT_SCRIPT_FILENAME = "format.test.js";
+export const FORMAT_TEST_SCRIPT_FILENAME = "format.test.js";
 
 export const FORMAT_TEST_DIRECTORY = normalizeDirectory(
   path.join(__dirname, "../../format/"),
