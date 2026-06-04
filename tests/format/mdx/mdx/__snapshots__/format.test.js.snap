@@ -348,8 +348,7 @@ semi: false
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -362,8 +361,7 @@ parsers: ["mdx"]
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
