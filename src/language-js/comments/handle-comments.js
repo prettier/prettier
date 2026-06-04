@@ -1119,24 +1119,23 @@ function handleParenthesizedExpressionTrailingComment({
  * @param {CommentContext} context
  * @returns {boolean}
  */
-function handleUnionTypeLeadingComments({ followingNode, comment, text }) {
+function handleUnionTypeLeadingComments({
+  followingNode,
+  comment,
+  text,
+  options,
+}) {
   if (
     isUnionType(followingNode) &&
     isBlockComment(comment) &&
     isSingleLineComment(comment, text)
   ) {
-    const [firstType] = followingNode.types;
-    if (
-      !hasNewlineInRange(
-        text,
-        // @ts-expect-error -- it's a "Node"
-        locStart(firstType),
-        locEnd(comment),
-      )
-    ) {
-      addLeadingComment(firstType, comment);
+    const text = stripComments(options);
+    const textBetween = text.slice(locEnd(comment), locStart(followingNode));
+    if (/^[ \t]*$/.test(textBetween)) {
+      addLeadingComment(followingNode.types[0], comment);
+      return true;
     }
-    return true;
   }
 
   return false;

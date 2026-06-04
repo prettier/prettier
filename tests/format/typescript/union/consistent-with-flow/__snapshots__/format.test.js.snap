@@ -513,8 +513,8 @@ type A5 =
   | { key: string }
   | { key: string };
 type A6 =
-  | /*1*/ A
-    // A comment to force break
+  /*1*/ | A
+  // A comment to force break
   | B;
 
 type B1 =

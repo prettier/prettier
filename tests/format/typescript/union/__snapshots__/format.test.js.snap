@@ -583,9 +583,9 @@ type Aa3 = /*1*/ /*2*/ C | /*3*/ D /*4*/;
 type C1 = /*1*/ a | b;
 type C2 = /*1*/ a | b;
 type C3 = /*1*/ a | b;
-type C4 = /*1*/ a | b;
+type C4 /*1*/ = a | b;
 type C5 = /*1*/ a | b;
-type C6 = /*0*/ /*1*/ a | b;
+type C6 /*0*/ = /*1*/ a | b;
 
 type Ctor = (new () => X) | Y;
 
