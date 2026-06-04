@@ -83,6 +83,7 @@ function handleOwnLineComment(context) {
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
+    handleUnionTypeLeadingComments,
   ].some((fn) => fn(context));
 }
 
@@ -137,6 +138,7 @@ function handleRemainingComment(context) {
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
+    handleUnionTypeLeadingComments,
   ].some((fn) => fn(context));
 }
 
@@ -1108,6 +1110,33 @@ function handleParenthesizedExpressionTrailingComment({
       );
       return true;
     }
+  }
+
+  return false;
+}
+
+/**
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleUnionTypeLeadingComments({ followingNode, comment, text }) {
+  if (
+    isUnionType(followingNode) &&
+    isBlockComment(comment) &&
+    isSingleLineComment(comment, text)
+  ) {
+    const [firstType] = followingNode.types;
+    if (
+      !hasNewlineInRange(
+        text,
+        // @ts-expect-error -- it's a "Node"
+        locStart(firstType),
+        locEnd(comment),
+      )
+    ) {
+      addLeadingComment(firstType, comment);
+    }
+    return true;
   }
 
   return false;

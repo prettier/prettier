@@ -180,6 +180,8 @@ function attachComments(ast, options) {
       comment.followingNode = followingNode;
     }
 
+    console.log({ comment });
+
     if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
