@@ -1128,7 +1128,8 @@ function handleUnionTypeLeadingComments({
   if (
     isUnionType(followingNode) &&
     isBlockComment(comment) &&
-    isSingleLineComment(comment, text)
+    isSingleLineComment(comment, text) &&
+    !isPrettierIgnoreComment(comment)
   ) {
     const text = stripComments(options);
     const textBetween = text.slice(locEnd(comment), locStart(followingNode));
