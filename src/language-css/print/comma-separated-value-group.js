@@ -33,6 +33,7 @@ import {
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,
+  isRelativeColorSyntaxNode,
   isRightCurlyBraceNode,
   isSCSSControlDirectiveNode,
   isSubtractionNode,
@@ -330,6 +331,19 @@ function printCommaSeparatedValueGroup(path, options, print) {
       parentParentNode &&
       isColorAdjusterFuncNode(parentParentNode) &&
       !hasEmptyRawBefore(iNextNode);
+
+    // Keep the sign attached to a channel value in the relative color syntax
+    // (e.g. `oklch(from red l c +130)`). The `+`/`-` here is a sign, not a math
+    // operator, so adding a space (`+ 130`) would change the value.
+    if (
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      iNextNode.type === "value-number" &&
+      !hasEmptyRawBefore(iNode) &&
+      hasEmptyRawBefore(iNextNode) &&
+      isRelativeColorSyntaxNode(node, parentParentNode)
+    ) {
+      continue;
+    }
 
     // Space before unary minus followed by a function call.
     if (
