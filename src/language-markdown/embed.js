@@ -14,13 +14,25 @@ function embed(path, options) {
       }
 
       let parser;
-      // https://shiki.style/references/engine-js-compat#supported-languages
-      if (language === "angular-ts") {
-        parser = inferParser(options, { language: "typescript" });
-      } else if (language === "angular-html") {
-        parser = "angular";
-      } else {
-        parser = inferParser(options, { language });
+      switch (language) {
+        // https://shiki.style/references/engine-js-compat#supported-languages
+        case "angular-ts":
+          parser = inferParser(options, { language: "typescript" });
+          break;
+
+        // https://shiki.style/references/engine-js-compat#supported-languages
+        case "angular-html":
+          parser = "angular";
+          break;
+
+        // `inferParser` can't get the parser for LWC (Lightning Web Components)
+        case "lwc":
+          parser = "lwc";
+          break;
+
+        default:
+          parser = inferParser(options, { language });
+          break;
       }
 
       if (!parser) {
