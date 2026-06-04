@@ -58,7 +58,8 @@ const assertDocFillParts =
       */
       function (parts) {
         assertDocArray(parts);
-        if (parts.length > 1 && isEmptyDoc(parts[parts.length - 1])) {
+        const { length } = parts;
+        if (length > 1 && isEmptyDoc(parts[length - 1])) {
           // stripTrailingHardline can transform trailing hardline into empty string.
           // The trailing empty string is not a problem even if it's a line element.
           parts = parts.slice(0, -1);

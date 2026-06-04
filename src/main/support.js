@@ -79,8 +79,10 @@ function normalizeOptionSettings(settings) {
     const option = { name, ...originalOption };
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
-    if (Array.isArray(option.default)) {
-      option.default = option.default[option.default.length - 1].value;
+    const { default: defaultValue } = option;
+    if (Array.isArray(defaultValue)) {
+      const { length } = defaultValue;
+      option.default = defaultValue[length - 1].value;
     }
 
     options.push(option);

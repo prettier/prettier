@@ -195,13 +195,13 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
   // allow CLI overriding, e.g., prettier package.json --tab-width 1 --tab-width 2
   if (isCLI && !optionInfo.array) {
     const originalPreprocess = parameters.preprocess || ((x) => x);
-    parameters.preprocess = (value, schema, utils) =>
-      schema.preprocess(
-        originalPreprocess(
-          Array.isArray(value) ? value[value.length - 1] : value,
-        ),
-        utils,
-      );
+    parameters.preprocess = (value, schema, utils) => {
+      if (Array.isArray(value)) {
+        const { length } = value;
+        value = value[length - 1];
+      }
+      return schema.preprocess(originalPreprocess(value), utils);
+    };
   }
 
   return optionInfo.array

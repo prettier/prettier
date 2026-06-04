@@ -129,8 +129,9 @@ function willBreak(doc) {
 }
 
 function breakParentGroup(groupStack) {
-  if (groupStack.length > 0) {
-    const parentGroup = groupStack[groupStack.length - 1];
+  const { length } = groupStack;
+  if (length > 0) {
+    const parentGroup = groupStack[length - 1];
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
     if (!parentGroup.expandedStates && !parentGroup.break) {
@@ -190,7 +191,7 @@ function propagateBreaks(doc) {
         docsStack.push(doc.flatContents, doc.breakContents);
         break;
 
-      case DOC_TYPE_GROUP:
+      case DOC_TYPE_GROUP: {
         groupStack.push(doc);
         docsStack.push(doc, propagateBreaksOnExitStackMarker);
 
@@ -208,6 +209,7 @@ function propagateBreaks(doc) {
           docsStack.push(doc.contents);
         }
         break;
+      }
 
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT:
@@ -257,17 +259,21 @@ function removeLines(doc) {
 function stripTrailingHardlineFromParts(parts) {
   parts = [...parts];
 
-  while (
-    parts.length >= 2 &&
-    parts[parts.length - 2].type === DOC_TYPE_LINE &&
-    parts[parts.length - 1].type === DOC_TYPE_BREAK_PARENT
-  ) {
-    parts.length -= 2;
+  while (parts.length >= 2) {
+    const { length } = parts;
+    if (
+      parts[length - 2].type !== DOC_TYPE_LINE ||
+      parts[length - 1].type !== DOC_TYPE_BREAK_PARENT
+    ) {
+      break;
+    }
+    parts.length = length - 2;
   }
 
-  if (parts.length > 0) {
-    const lastPart = stripTrailingHardlineFromDoc(parts[parts.length - 1]);
-    parts[parts.length - 1] = lastPart;
+  const { length } = parts;
+  if (length > 0) {
+    const lastPart = stripTrailingHardlineFromDoc(parts[length - 1]);
+    parts[length - 1] = lastPart;
   }
 
   return parts;
@@ -370,11 +376,12 @@ function cleanDocFn(doc) {
           continue;
         }
         const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
+        const lastPartIndex = parts.length - 1;
         if (
           typeof currentPart === "string" &&
-          typeof parts[parts.length - 1] === "string"
+          typeof parts[lastPartIndex] === "string"
         ) {
-          parts[parts.length - 1] += currentPart;
+          parts[lastPartIndex] += currentPart;
         } else {
           parts.push(currentPart);
         }

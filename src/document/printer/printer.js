@@ -54,7 +54,7 @@ function getDocTypeForPrinting(doc) {
     return;
   }
 
-  const type = doc.type;
+  const { type } = doc;
   return type === DOC_TYPE_STRING || type === DOC_TYPE_ARRAY ? undefined : type;
 }
 
@@ -81,25 +81,25 @@ function fits(
 
   let restCommandsIndex = restCommands.length;
   let hasPendingSpace = false;
-  const docs = [next.doc];
+  const documentStack = [next.doc];
   /** @type {Mode[]} */
   const modes = [next.mode];
   // `output` is only used for width counting because `trim` requires to look
   // backwards for space characters.
   let output = "";
   while (remainingWidth >= 0) {
-    if (docs.length === 0) {
+    if (documentStack.length === 0) {
       if (restCommandsIndex === 0) {
         return true;
       }
       const command = restCommands[--restCommandsIndex];
-      docs.push(command.doc);
+      documentStack.push(command.doc);
       modes.push(command.mode);
 
       continue;
     }
 
-    const doc = docs.pop();
+    const doc = documentStack.pop();
     const mode = /** @type {Mode} */ (modes.pop());
     const docType = getDocTypeForPrinting(doc);
     switch (docType) {
@@ -118,7 +118,7 @@ function fits(
 
       case DOC_TYPE_ARRAY:
         for (let index = doc.length - 1; index >= 0; index--) {
-          docs.push(doc[index]);
+          documentStack.push(doc[index]);
           modes.push(mode);
         }
         break;
@@ -127,7 +127,7 @@ function fits(
         const { parts } = doc;
         const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         for (let index = parts.length - 1; index >= end; index--) {
-          docs.push(parts[index]);
+          documentStack.push(parts[index]);
           modes.push(mode);
         }
         break;
@@ -137,7 +137,7 @@ function fits(
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT_IF_BREAK:
       case DOC_TYPE_LABEL:
-        docs.push(doc.contents);
+        documentStack.push(doc.contents);
         modes.push(mode);
         break;
 
@@ -153,12 +153,15 @@ function fits(
           return false;
         }
         const groupMode = doc.break ? MODE_BREAK : mode;
-        // The most expanded state takes up the least space on the current line.
-        const contents =
-          doc.expandedStates && groupMode === MODE_BREAK
-            ? doc.expandedStates[doc.expandedStates.length - 1]
-            : doc.contents;
-        docs.push(contents);
+        let { contents } = doc;
+        if (doc.expandedStates && groupMode === MODE_BREAK) {
+          // The most expanded state takes up the least space on the current
+          // line.
+          const { expandedStates } = doc;
+          const { length } = expandedStates;
+          contents = expandedStates[length - 1];
+        }
+        documentStack.push(contents);
         modes.push(groupMode);
         break;
       }
@@ -170,7 +173,7 @@ function fits(
         const contents =
           groupMode === MODE_BREAK ? doc.breakContents : doc.flatContents;
         if (contents) {
-          docs.push(contents);
+          documentStack.push(contents);
           modes.push(mode);
         }
         break;
@@ -340,10 +343,12 @@ function printDocToString(doc, options) {
             }
           }
 
+          const { expandedStates } = doc;
+          const { length } = expandedStates;
           return {
             indent,
             mode: MODE_BREAK,
-            doc: doc.expandedStates[doc.expandedStates.length - 1],
+            doc: expandedStates[length - 1],
           };
         })();
 

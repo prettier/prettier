@@ -6,17 +6,22 @@ class AstPath {
   /** @type {string | null} */
   get key() {
     const { stack, siblings } = this;
-    return stack[stack.length - (siblings === null ? 2 : 4)] ?? null;
+    const { length } = stack;
+    return stack[length - (siblings === null ? 2 : 4)] ?? null;
   }
 
   /** @type {number | null} */
   get index() {
-    return this.siblings === null ? null : this.stack[this.stack.length - 2];
+    const { stack, siblings } = this;
+    const { length } = stack;
+    return siblings === null ? null : stack[length - 2];
   }
 
   /** @type {object} */
   get node() {
-    return this.stack[this.stack.length - 1];
+    const { stack } = this;
+    const { length } = stack;
+    return stack[length - 1];
   }
 
   /** @type {object | null} */
@@ -37,7 +42,8 @@ class AstPath {
   /** @type {object[] | null} */
   get siblings() {
     const { stack } = this;
-    const maybeArray = stack[stack.length - 3];
+    const { length } = stack;
+    const maybeArray = stack[length - 3];
     return Array.isArray(maybeArray) ? maybeArray : null;
   }
 
@@ -96,7 +102,9 @@ class AstPath {
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return this.stack[this.stack.length - 1];
+    const { stack } = this;
+    const { length } = stack;
+    return stack[length - 1];
   }
 
   getNode(count = 0) {
@@ -126,7 +134,7 @@ class AstPath {
   call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = stack[stack.length - 1];
+    let value = stack[length - 1];
 
     for (const name of names) {
       value = value?.[name];
@@ -162,7 +170,7 @@ class AstPath {
   each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = stack[stack.length - 1];
+    let value = stack[length - 1];
 
     for (const name of names) {
       value = value[name];
