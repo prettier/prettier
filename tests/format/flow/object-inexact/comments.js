@@ -15,6 +15,9 @@ type Foo = { /* comment */ ... };
 type Foo = { /* comment */
   ...};
 
+type Foo = { // comment
+  ...};
+
 type Foo = {
   // comment0
   // comment1
