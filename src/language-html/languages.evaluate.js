@@ -19,6 +19,7 @@ const languages = [
     vscodeLanguageIds: ["html"],
     extensions: [],
     filenames: [],
+    aliases: ["LWC", "lwc"],
   })),
   createLanguage(linguistLanguages.HTML, () => ({
     name: "MJML",
