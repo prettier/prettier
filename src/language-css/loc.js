@@ -403,14 +403,6 @@ function isEmptyLocNode(node) {
   );
 }
 
-function indexToLineColumn(index, text) {
-  const lines = text.slice(0, index).split("\n");
-  return {
-    line: lines.length,
-    column: lines.at(-1).length,
-  };
-}
-
 /**
  * Workaround for a bug: quotes and asterisks in inline comments corrupt loc data of subsequent nodes.
  * This function replaces the quotes and asterisks with spaces. Later, when the comments are printed,
