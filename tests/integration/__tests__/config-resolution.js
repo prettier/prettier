@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
@@ -167,6 +168,68 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
     useTabs: false,
     tabWidth: 8,
     printWidth: 100,
+  });
+});
+
+describe("API resolveConfig doesn’t apply editorconfig outside project when .git is present", () => {
+  async function run() {
+    const file = new URL(
+      "../cli/config/editorconfig/repo-root-git/file.js",
+      import.meta.url,
+    );
+    await expect(
+      prettier.resolveConfig(file, { editorconfig: true }),
+    ).resolves.toMatchObject({
+      endOfLine: "auto",
+      semi: false,
+    });
+    await expect(
+      prettier.resolveConfig(file, { editorconfig: true }),
+    ).resolves.not.toMatchObject({
+      useTabs: true,
+      tabWidth: 8,
+      printWidth: 100,
+    });
+  }
+
+  describe("when .git is a file", () => {
+    const gitFilePath = new URL(
+      "../cli/config/editorconfig/repo-root-git/.git",
+      import.meta.url,
+    );
+
+    beforeAll(async () => {
+      await fs.rm(gitFilePath, { recursive: true, force: true });
+      await fs.writeFile(gitFilePath, "");
+    });
+
+    afterAll(async () => {
+      await fs.rm(gitFilePath, { recursive: true, force: true });
+    });
+
+    test("API resolveConfig doesn’t apply editorconfig outside project when .git is a file", async () => {
+      await run();
+    });
+  });
+
+  describe("when .git is a directory", () => {
+    const gitDirPath = new URL(
+      "../cli/config/editorconfig/repo-root-git/.git",
+      import.meta.url,
+    );
+
+    beforeAll(async () => {
+      await fs.rm(gitDirPath, { recursive: true, force: true });
+      await fs.mkdir(gitDirPath, { recursive: true });
+    });
+
+    afterAll(async () => {
+      await fs.rm(gitDirPath, { recursive: true, force: true });
+    });
+
+    test("API resolveConfig doesn’t apply editorconfig outside project when .git is a directory", async () => {
+      await run();
+    });
   });
 });
 
