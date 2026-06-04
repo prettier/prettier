@@ -1,5 +1,5 @@
 <!--
-Pull requests that do not follow the template may be closed without review.
+⚠️ Pull requests that do not follow the template may be closed without review.
 -->
 
 ## Description
