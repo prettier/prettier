@@ -80,7 +80,7 @@ function normalizeOptionSettings(settings) {
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
     if (Array.isArray(option.default)) {
-      option.default = option.default.at(-1).value;
+      option.default = option.default[option.default.length - 1].value;
     }
 
     options.push(option);

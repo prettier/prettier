@@ -19,7 +19,7 @@ import {
   hardlineWithoutBreakParent,
   indent as indentDoc,
 } from "../builders/index.js";
-import { getDocType, propagateBreaks } from "../utilities/index.js";
+import { propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 import PrintResult from "./print-result.js";
@@ -40,6 +40,23 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 const MODE_FLAT = Symbol("MODE_FLAT");
 
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
+
+function getDocTypeForPrinting(doc) {
+  if (typeof doc === "string") {
+    return DOC_TYPE_STRING;
+  }
+
+  if (Array.isArray(doc)) {
+    return DOC_TYPE_ARRAY;
+  }
+
+  if (!doc) {
+    return;
+  }
+
+  const type = doc.type;
+  return type === DOC_TYPE_STRING || type === DOC_TYPE_ARRAY ? undefined : type;
+}
 
 /**
  * @param {Command} next
@@ -64,23 +81,27 @@ function fits(
 
   let restCommandsIndex = restCommands.length;
   let hasPendingSpace = false;
-  /** @type {Array<Omit<Command, 'indent'>>} */
-  const commands = [next];
+  const docs = [next.doc];
+  /** @type {Mode[]} */
+  const modes = [next.mode];
   // `output` is only used for width counting because `trim` requires to look
   // backwards for space characters.
   let output = "";
   while (remainingWidth >= 0) {
-    if (commands.length === 0) {
+    if (docs.length === 0) {
       if (restCommandsIndex === 0) {
         return true;
       }
-      commands.push(restCommands[--restCommandsIndex]);
+      const command = restCommands[--restCommandsIndex];
+      docs.push(command.doc);
+      modes.push(command.mode);
 
       continue;
     }
 
-    const { mode, doc } = commands.pop();
-    const docType = getDocType(doc);
+    const doc = docs.pop();
+    const mode = /** @type {Mode} */ (modes.pop());
+    const docType = getDocTypeForPrinting(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
         if (doc) {
@@ -96,11 +117,18 @@ function fits(
         break;
 
       case DOC_TYPE_ARRAY:
+        for (let index = doc.length - 1; index >= 0; index--) {
+          docs.push(doc[index]);
+          modes.push(mode);
+        }
+        break;
+
       case DOC_TYPE_FILL: {
-        const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
+        const { parts } = doc;
         const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         for (let index = parts.length - 1; index >= end; index--) {
-          commands.push({ mode, doc: parts[index] });
+          docs.push(parts[index]);
+          modes.push(mode);
         }
         break;
       }
@@ -109,7 +137,8 @@ function fits(
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT_IF_BREAK:
       case DOC_TYPE_LABEL:
-        commands.push({ mode, doc: doc.contents });
+        docs.push(doc.contents);
+        modes.push(mode);
         break;
 
       case DOC_TYPE_TRIM: {
@@ -127,9 +156,10 @@ function fits(
         // The most expanded state takes up the least space on the current line.
         const contents =
           doc.expandedStates && groupMode === MODE_BREAK
-            ? doc.expandedStates.at(-1)
+            ? doc.expandedStates[doc.expandedStates.length - 1]
             : doc.contents;
-        commands.push({ mode: groupMode, doc: contents });
+        docs.push(contents);
+        modes.push(groupMode);
         break;
       }
 
@@ -140,7 +170,8 @@ function fits(
         const contents =
           groupMode === MODE_BREAK ? doc.breakContents : doc.flatContents;
         if (contents) {
-          commands.push({ mode, doc: contents });
+          docs.push(contents);
+          modes.push(mode);
         }
         break;
       }
@@ -198,7 +229,7 @@ function printDocToString(doc, options) {
 
   while (commands.length > 0) {
     const { indent, mode, doc } = commands.pop();
-    switch (getDocType(doc)) {
+    switch (getDocTypeForPrinting(doc)) {
       case DOC_TYPE_STRING: {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
@@ -309,7 +340,11 @@ function printDocToString(doc, options) {
             }
           }
 
-          return { indent, mode: MODE_BREAK, doc: doc.expandedStates.at(-1) };
+          return {
+            indent,
+            mode: MODE_BREAK,
+            doc: doc.expandedStates[doc.expandedStates.length - 1],
+          };
         })();
 
         commands.push(command);

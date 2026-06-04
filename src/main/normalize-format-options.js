@@ -18,6 +18,34 @@ const formatOptionsHiddenDefaults = {
   getVisitorKeys: null,
 };
 
+const emptyPlugins = [];
+const supportInfoCache = new WeakMap();
+
+function getSupportInfoForFormatOptions(plugins = emptyPlugins) {
+  let cachedSupportInfo = supportInfoCache.get(plugins);
+  if (!cachedSupportInfo) {
+    const supportOptions = getSupportInfo({
+      plugins,
+      showDeprecated: true,
+    }).options;
+
+    cachedSupportInfo = {
+      supportOptions,
+      defaults: {
+        ...formatOptionsHiddenDefaults,
+        ...Object.fromEntries(
+          supportOptions
+            .filter((optionInfo) => optionInfo.default !== undefined)
+            .map((option) => [option.name, option.default]),
+        ),
+      },
+    };
+    supportInfoCache.set(plugins, cachedSupportInfo);
+  }
+
+  return cachedSupportInfo;
+}
+
 // Copy options and fill in default values.
 async function normalizeFormatOptions(options, opts = {}) {
   const rawOptions = { ...options };
@@ -39,19 +67,9 @@ async function normalizeFormatOptions(options, opts = {}) {
     }
   }
 
-  const supportOptions = getSupportInfo({
-    plugins: options.plugins,
-    showDeprecated: true,
-  }).options;
-
-  const defaults = {
-    ...formatOptionsHiddenDefaults,
-    ...Object.fromEntries(
-      supportOptions
-        .filter((optionInfo) => optionInfo.default !== undefined)
-        .map((option) => [option.name, option.default]),
-    ),
-  };
+  const { supportOptions, defaults } = getSupportInfoForFormatOptions(
+    rawOptions.plugins,
+  );
 
   const parserPlugin = getParserPluginByParserName(
     rawOptions.plugins,

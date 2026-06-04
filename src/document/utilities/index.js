@@ -130,7 +130,7 @@ function willBreak(doc) {
 
 function breakParentGroup(groupStack) {
   if (groupStack.length > 0) {
-    const parentGroup = groupStack.at(-1);
+    const parentGroup = groupStack[groupStack.length - 1];
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
     if (!parentGroup.expandedStates && !parentGroup.break) {
@@ -142,35 +142,96 @@ function breakParentGroup(groupStack) {
   return null;
 }
 
+// Using a unique object to compare by reference.
+const propagateBreaksOnExitStackMarker = {};
+
 function propagateBreaks(doc) {
   const alreadyVisitedSet = new Set();
   const groupStack = [];
-  function propagateBreaksOnEnterFn(doc) {
-    if (doc.type === DOC_TYPE_BREAK_PARENT) {
-      breakParentGroup(groupStack);
-    }
-    if (doc.type === DOC_TYPE_GROUP) {
-      groupStack.push(doc);
-      if (alreadyVisitedSet.has(doc)) {
-        return false;
-      }
-      alreadyVisitedSet.add(doc);
-    }
-  }
-  function propagateBreaksOnExitFn(doc) {
-    if (doc.type === DOC_TYPE_GROUP) {
+  const docsStack = [doc];
+
+  while (docsStack.length > 0) {
+    doc = docsStack.pop();
+
+    if (doc === propagateBreaksOnExitStackMarker) {
+      docsStack.pop();
       const group = groupStack.pop();
       if (group.break) {
         breakParentGroup(groupStack);
       }
+      continue;
+    }
+
+    if (typeof doc === "string") {
+      continue;
+    }
+
+    if (Array.isArray(doc)) {
+      for (let index = doc.length - 1; index >= 0; index--) {
+        docsStack.push(doc[index]);
+      }
+      continue;
+    }
+
+    if (!doc) {
+      throw new InvalidDocError(doc);
+    }
+
+    switch (doc.type) {
+      case DOC_TYPE_FILL: {
+        const { parts } = doc;
+        for (let index = parts.length - 1; index >= 0; index--) {
+          docsStack.push(parts[index]);
+        }
+        break;
+      }
+
+      case DOC_TYPE_IF_BREAK:
+        docsStack.push(doc.flatContents, doc.breakContents);
+        break;
+
+      case DOC_TYPE_GROUP:
+        groupStack.push(doc);
+        docsStack.push(doc, propagateBreaksOnExitStackMarker);
+
+        const alreadyVisitedCount = alreadyVisitedSet.size;
+        alreadyVisitedSet.add(doc);
+        if (alreadyVisitedSet.size === alreadyVisitedCount) {
+          break;
+        }
+
+        if (doc.expandedStates) {
+          for (let index = doc.expandedStates.length - 1; index >= 0; index--) {
+            docsStack.push(doc.expandedStates[index]);
+          }
+        } else {
+          docsStack.push(doc.contents);
+        }
+        break;
+
+      case DOC_TYPE_ALIGN:
+      case DOC_TYPE_INDENT:
+      case DOC_TYPE_INDENT_IF_BREAK:
+      case DOC_TYPE_LABEL:
+      case DOC_TYPE_LINE_SUFFIX:
+        docsStack.push(doc.contents);
+        break;
+
+      case DOC_TYPE_BREAK_PARENT:
+        breakParentGroup(groupStack);
+        break;
+
+      case DOC_TYPE_CURSOR:
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+        // No children
+        break;
+
+      default:
+        throw new InvalidDocError(doc);
     }
   }
-  traverseDoc(
-    doc,
-    propagateBreaksOnEnterFn,
-    propagateBreaksOnExitFn,
-    /* shouldTraverseConditionalGroups */ true,
-  );
 }
 
 function removeLinesFn(doc) {
@@ -198,14 +259,14 @@ function stripTrailingHardlineFromParts(parts) {
 
   while (
     parts.length >= 2 &&
-    parts.at(-2).type === DOC_TYPE_LINE &&
-    parts.at(-1).type === DOC_TYPE_BREAK_PARENT
+    parts[parts.length - 2].type === DOC_TYPE_LINE &&
+    parts[parts.length - 1].type === DOC_TYPE_BREAK_PARENT
   ) {
     parts.length -= 2;
   }
 
   if (parts.length > 0) {
-    const lastPart = stripTrailingHardlineFromDoc(parts.at(-1));
+    const lastPart = stripTrailingHardlineFromDoc(parts[parts.length - 1]);
     parts[parts.length - 1] = lastPart;
   }
 
@@ -311,7 +372,7 @@ function cleanDocFn(doc) {
         const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
         if (
           typeof currentPart === "string" &&
-          typeof parts.at(-1) === "string"
+          typeof parts[parts.length - 1] === "string"
         ) {
           parts[parts.length - 1] += currentPart;
         } else {

@@ -48,16 +48,21 @@ function withPlugins(
   return async (...args) => {
     const options = args[optionsArgumentIndex] ?? {};
     const { plugins = [] } = options;
+    const builtinPluginsPromise = loadBuiltinPlugins();
+    const loadedPluginsPromise =
+      plugins.length === 0 ? undefined : loadPlugins(plugins);
+    const builtinPlugins = await builtinPluginsPromise;
 
     args[optionsArgumentIndex] = {
       ...options,
-      plugins: (
-        await Promise.all([
-          loadBuiltinPlugins(),
-          // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
-          loadPlugins(plugins),
-        ])
-      ).flat(),
+      plugins:
+        plugins.length === 0
+          ? builtinPlugins
+          : [
+              ...builtinPlugins,
+              // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
+              ...(await loadedPluginsPromise),
+            ],
     };
 
     return fn(...args);
