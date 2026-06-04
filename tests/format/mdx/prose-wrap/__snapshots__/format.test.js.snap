@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`wrap.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long long long long long long long long
+long long long long long long long long long long long long long long long long
+long long long long long long long long long sentense</div>
+
+---
+
+<div>
+  long long long long long long long long long long long long long long long
+  long long long long long long long long long long long long long long long
+  long long long long long long long long long long sentense
+</div>
+
+================================================================================
+`;
+
+exports[`wrap.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense</div>
+
+---
+
+<div>
+  long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long sentense
+</div>
+
+================================================================================
+`;
+
+exports[`wrap.mdx - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const SomeElement = ({ children }) => <span>{children}</span>
+
+<SomeElement
+  attr1
+  attr2
+  attr3
+  attr4
+  attr5
+>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</
+SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+    long long long long long long long long
+   long long long long long long long long
+  long long long long long long long long
+   long long long long long long long long
+  sentense
+</div>
+
+=====================================output=====================================
+export const SomeElement = ({ children }) => <span>{children}</span>;
+
+<SomeElement attr1 attr2 attr3 attr4 attr5>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い</SomeElement>長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い段落
+
+---
+
+<div>long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+long long long long long long long long
+sentense</div>
+
+---
+
+<div>
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  long long long long long long long long
+  sentense
+</div>
+
+================================================================================
+`;
