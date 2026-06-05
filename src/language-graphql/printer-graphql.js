@@ -8,14 +8,14 @@ import {
   softline,
 } from "../document/index.js";
 import { printDanglingComments } from "../main/comments/print.js";
-import isNextLineEmpty from "../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd, locStart } from "./loc.js";
+import { locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
-import printDescription from "./print/description.js";
+import { printDescription } from "./print/description.js";
+import { printSequence } from "./print/sequence.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -167,24 +167,7 @@ function genericPrint(path, options, print) {
       return [print("name"), ": ", print("value")];
 
     case "Directive":
-      return [
-        "@",
-        print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
-      ];
+      return ["@", print("name"), printArguments(path, options, print)];
 
     case "NamedType":
       return print("name");
@@ -459,18 +442,6 @@ function printDirectives(path, print) {
   }
 
   return [" ", group(indent([softline, printed]))];
-}
-
-function printSequence(path, options, print, property) {
-  return path.map(({ isLast, node }) => {
-    const printed = print();
-
-    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
-      return [printed, hardline];
-    }
-
-    return printed;
-  }, property);
 }
 
 function canAttachComment(node /* , ancestors */) {
