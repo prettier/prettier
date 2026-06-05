@@ -17,6 +17,7 @@ function parseComments(ast) {
 
 const parseOptions = {
   allowLegacyFragmentVariables: true,
+  experimentalFragmentArguments: true,
   experimentalDirectivesOnDirectiveDefinitions: true,
 };
 
