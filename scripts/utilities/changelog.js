@@ -1,13 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import semver from "semver";
 
-const { __dirname } = createEsmUtils(import.meta);
-
-export const changelogUnreleasedDirPath = path.join(
-  __dirname,
-  "../../changelog_unreleased",
+export const changelogUnreleasedDirectory = new URL(
+  "../../changelog_unreleased/",
+  import.meta.url,
 );
 
 export const categories = [
@@ -33,11 +30,7 @@ export const categories = [
   { dir: "misc", title: "Miscellaneous" },
 ];
 
-export const changelogUnreleasedDirs = fs
-  .readdirSync(changelogUnreleasedDirPath, {
-    withFileTypes: true,
-  })
-  .filter((entry) => entry.isDirectory());
+export const CHANGELOG_CATEGORIES = categories.map(({ dir }) => dir);
 
 export function getEntries(dirPath, options) {
   const fileNames = fs

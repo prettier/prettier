@@ -1,4 +1,5 @@
 import { commentsPropertyInOptions } from "../../constants.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
 import { locEnd, locStart } from "../location/index.js";
 
@@ -39,10 +40,9 @@ const cache = new WeakMap();
 */
 function stripComments(options) {
   const comments = options[commentsPropertyInOptions];
-  if (!cache.has(comments)) {
-    cache.set(comments, stripCommentsFromText(options.originalText, comments));
-  }
-  return cache.get(comments);
+  return getOrInsertComputed(cache, comments, (comments) =>
+    stripCommentsFromText(options.originalText, comments),
+  );
 }
 
 export { stripComments };

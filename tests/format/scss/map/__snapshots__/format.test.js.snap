@@ -776,9 +776,7 @@ $o-grid-default-config: (
 );
 
 $map: (
-  key: (
-    value,
-  ),
+  key: (value),
   other-key: (
     key: other-other-value,
   ),
@@ -927,9 +925,7 @@ $o-grid-default-config: (
 );
 
 $map: (
-  key: (
-    value
-  ),
+  key: (value),
   other-key: (
     key: other-other-value
   )
@@ -1154,9 +1150,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ): (
-      "list",
-    ),
+  ): ("list"),
   (
     "list",
     "list",
@@ -1168,9 +1162,7 @@ $map: (
     "list",
     "list",
     "list",
-  ): (
-      "list",
-    ),
+  ): ("list"),
   (
     "list",
     "list",
@@ -1233,9 +1225,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ): (
-      "list"
-    ),
+  ): ("list"),
   (
     "list",
     "list",
@@ -1247,9 +1237,7 @@ $map: (
     "list",
     "list",
     "list"
-  ): (
-      "list"
-    ),
+  ): ("list"),
   (
     "list",
     "list",

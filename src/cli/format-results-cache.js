@@ -5,7 +5,7 @@ import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
-import { createHash } from "./utilities.js";
+import { createHash, getOrInsertComputed } from "./utilities.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
@@ -15,14 +15,9 @@ const nodeVersion = process.version;
  * @returns {string}
  */
 function getHashOfOptions(options) {
-  if (optionsHashCache.has(options)) {
-    return optionsHashCache.get(options);
-  }
-  const hash = createHash(
-    `${prettierVersion}_${nodeVersion}_${stringify(options)}`,
+  return getOrInsertComputed(optionsHashCache, options, (options) =>
+    createHash(`${prettierVersion}_${nodeVersion}_${stringify(options)}`),
   );
-  optionsHashCache.set(options, hash);
-  return hash;
 }
 
 /**

@@ -117,3 +117,12 @@ declare module X {
 
 ================================================================================
 `;
+
+exports[`module.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
+"A 'declare' modifier cannot be used in an already ambient context. (2:3)
+  1 | declare module X {
+> 2 |   declare interface Y { x: number; }
+    |   ^^^^^^^
+  3 | }
+  4 |"
+`;

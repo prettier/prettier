@@ -1,6 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { isUrl, toPath } from "url-or-path";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import importFromDirectory from "../../utilities/import-from-directory.js";
 
 /**
@@ -47,11 +48,10 @@ function loadPlugin(plugin) {
 
   const cwd = process.cwd();
   const cacheKey = JSON.stringify({ name: plugin, cwd });
-  if (!cache.has(cacheKey)) {
-    cache.set(cacheKey, loadPluginWithoutCache(plugin, cwd));
-  }
 
-  return cache.get(cacheKey);
+  return getOrInsertComputed(cache, cacheKey, () =>
+    loadPluginWithoutCache(plugin, cwd),
+  );
 }
 
 function clearCache() {

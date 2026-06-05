@@ -430,9 +430,39 @@ By default, Prettier will not change wrapping in markdown text since some servic
 
 Valid options:
 
-- `"always"` - Wrap prose if it exceeds the print width.
-- `"never"` - Un-wrap each block of prose into one line.
-- `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
+- `"always"` - Wrap prose to the `printWidth`.
+- `"never"` - Put each prose block on a single line.
+- `"preserve"` - Keep the existing wrapping as-is. _First available in v1.9.0_
+
+For example, given this Markdown paragraph:
+
+```md
+The quick brown
+fox jumps over the lazy dog.
+```
+
+With `printWidth: 20`, Prettier formats it as:
+
+- `"always"`
+
+  ```md
+  The quick brown fox
+  jumps over the lazy
+  dog.
+  ```
+
+- `"never"`
+
+  ```md
+  The quick brown fox jumps over the lazy dog.
+  ```
+
+- `"preserve"`
+
+  ```md
+  The quick brown
+  fox jumps over the lazy dog.
+  ```
 
 | Default      | CLI Override                                                 | API Override                                                 |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |

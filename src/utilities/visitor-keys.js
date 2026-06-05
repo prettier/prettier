@@ -1,3 +1,5 @@
+import { getOrInsert } from "./get-or-insert.js";
+
 /**
 @typedef {readonly string[]} Keys
 @typedef {Record<string, Keys>} VisitorKeys */
@@ -109,11 +111,7 @@ function generateReferenceSharedVisitorKeys(visitorKeys) {
       continue;
     }
 
-    const cacheKey = keys.toSorted().join("\0");
-    if (!cache.has(cacheKey)) {
-      cache.set(cacheKey, keys);
-    }
-    result[type] = cache.get(cacheKey);
+    result[type] = getOrInsert(cache, keys.toSorted().join("\0"), keys);
   }
 
   return result;

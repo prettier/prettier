@@ -787,6 +787,7 @@ function needsParentheses(path, options) {
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
+    case "ImportExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -795,6 +796,7 @@ function needsParentheses(path, options) {
         while (object) {
           switch (object.type) {
             case "CallExpression":
+            case "ImportExpression":
               return true;
             case "MemberExpression":
             case "OptionalMemberExpression":
