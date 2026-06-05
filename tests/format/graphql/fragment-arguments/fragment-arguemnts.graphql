@@ -1,0 +1,5 @@
+fragment variableProfilePic on User {
+  ...dynamicProfilePic(size: $size)
+}
+
+fragment a on t { ...b(v: $v) }
