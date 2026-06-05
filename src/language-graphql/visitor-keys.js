@@ -13,4 +13,10 @@ for (const kind of [
   delete visitorKeys[kind];
 }
 
+// Not supported yet
+visitorKeys.FragmentSpread = visitorKeys.FragmentSpread.filter(
+  (key) => key !== "arguments",
+);
+delete visitorKeys.FragmentArgument;
+
 export default visitorKeys;
