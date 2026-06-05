@@ -154,10 +154,7 @@ const graphqlSourceElements = new Set([
   "UnionTypeDefinition",
   "ScalarTypeDefinition",
 ]);
-const yamlSourceElements = new Set([
-  "mappingItem",
-  "sequenceItem",
-]);
+const yamlSourceElements = new Set(["mappingItem", "sequenceItem"]);
 
 function isSourceElement(opts, node, parentNode) {
   /* c8 ignore next 3 */
