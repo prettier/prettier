@@ -1337,6 +1337,10 @@ exports[`visitor keys graphql 1`] = `
     "type",
   ],
   "FloatValue": [],
+  "FragmentArgument": [
+    "name",
+    "value",
+  ],
   "FragmentDefinition": [
     "description",
     "directives",
@@ -1346,6 +1350,7 @@ exports[`visitor keys graphql 1`] = `
     "variableDefinitions",
   ],
   "FragmentSpread": [
+    "arguments",
     "directives",
     "name",
   ],

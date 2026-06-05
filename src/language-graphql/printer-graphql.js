@@ -167,6 +167,7 @@ function genericPrint(path, options, print) {
 
     case "ObjectField":
     case "Argument":
+    case "FragmentArgument":
       return [print("name"), ": ", print("value")];
 
     case "Directive":
@@ -373,7 +374,12 @@ function genericPrint(path, options, print) {
       return [node.operation, ": ", print("type")];
 
     case "FragmentSpread":
-      return ["...", print("name"), printDirectives(path, print)];
+      return [
+        "...",
+        print("name"),
+        printArguments(path, options, print),
+        printDirectives(path, print),
+      ];
 
     case "InlineFragment":
       return [
