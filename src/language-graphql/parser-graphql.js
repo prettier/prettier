@@ -3,6 +3,10 @@ import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
+/**
+@import {ParseOptions} from "graphql"
+*/
+
 function parseComments(ast) {
   const comments = [];
   const { startToken, endToken } = ast.loc;
@@ -15,8 +19,8 @@ function parseComments(ast) {
   return comments;
 }
 
+/** @type {ParseOptions} */
 const parseOptions = {
-  allowLegacyFragmentVariables: true,
   experimentalFragmentArguments: true,
   experimentalDirectivesOnDirectiveDefinitions: true,
 };
