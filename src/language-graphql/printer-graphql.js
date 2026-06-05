@@ -8,14 +8,17 @@ import {
   softline,
 } from "../document/index.js";
 import { printDanglingComments } from "../main/comments/print.js";
-import isNextLineEmpty from "../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd, locStart } from "./loc.js";
+import { locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
-import printDescription from "./print/description.js";
+import { printArguments } from "./print/arguments.js";
+import { printDescription } from "./print/description.js";
+import { printDirectives } from "./print/directives.js";
+import { printSequence } from "./print/sequence.js";
+import { printVariableDefinitions } from "./print/variable-definitions.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -167,24 +170,7 @@ function genericPrint(path, options, print) {
       return [print("name"), ": ", print("value")];
 
     case "Directive":
-      return [
-        "@",
-        print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
-      ];
+      return ["@", print("name"), printArguments(path, options, print)];
 
     case "NamedType":
       return print("name");
@@ -442,37 +428,6 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printDirectives(path, print) {
-  const { node } = path;
-
-  if (!isNonEmptyArray(node.directives)) {
-    return "";
-  }
-
-  const printed = join(line, path.map(print, "directives"));
-
-  if (
-    node.kind === "FragmentDefinition" ||
-    node.kind === "OperationDefinition"
-  ) {
-    return group([line, printed]);
-  }
-
-  return [" ", group(indent([softline, printed]))];
-}
-
-function printSequence(path, options, print, property) {
-  return path.map(({ isLast, node }) => {
-    const printed = print();
-
-    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
-      return [printed, hardline];
-    }
-
-    return printed;
-  }, property);
-}
-
 function canAttachComment(node /* , ancestors */) {
   return node.kind !== "Comment";
 }
@@ -484,25 +439,6 @@ function printComment({ node: comment }) {
 
   /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
-}
-
-function printVariableDefinitions(path, print) {
-  const { node } = path;
-  if (!isNonEmptyArray(node.variableDefinitions)) {
-    return "";
-  }
-  return group([
-    "(",
-    indent([
-      softline,
-      join(
-        [ifBreak("", ", "), softline],
-        path.map(print, "variableDefinitions"),
-      ),
-    ]),
-    softline,
-    ")",
-  ]);
 }
 
 function hasPrettierIgnore(path) {
