@@ -71,7 +71,7 @@ function genericPrint(path, options, print) {
       return group([
         node.alias ? [print("alias"), ": "] : "",
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -142,20 +142,20 @@ function genericPrint(path, options, print) {
       ]);
 
     case "ObjectValue": {
-      const bracketSpace =
-        options.bracketSpacing && node.fields.length > 0 ? " " : "";
+      const isEmpty = !isNonEmptyArray(node.fields);
+      const bracketSpace = options.bracketSpacing && !isEmpty ? " " : "";
       return group([
         "{",
         bracketSpace,
         printDanglingComments(path, options, { indent: true }),
-        isNonEmptyArray(node.fields)
-          ? [
+        isEmpty
+          ? ""
+          : [
               indent([
                 softline,
                 join([ifBreak("", ", "), softline], path.map(print, "fields")),
               ]),
-            ]
-          : "",
+            ],
         softline,
         ifBreak("", bracketSpace),
         "}",
@@ -170,7 +170,7 @@ function genericPrint(path, options, print) {
       return [
         "@",
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -223,7 +223,10 @@ function genericPrint(path, options, print) {
       }
       parts.push(" ", print("name"));
 
-      if (!kind.startsWith("InputObjectType") && node.interfaces.length > 0) {
+      if (
+        !kind.startsWith("InputObjectType") &&
+        isNonEmptyArray(node.interfaces)
+      ) {
         parts.push(
           " implements ",
           indent([group([join([" &", line], path.map(print, "interfaces"))])]),
@@ -232,7 +235,7 @@ function genericPrint(path, options, print) {
 
       parts.push(printDirectives(path, print));
 
-      if (node.fields.length > 0) {
+      if (isNonEmptyArray(node.fields)) {
         parts.push([
           " {",
           indent([
@@ -251,7 +254,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -276,7 +279,7 @@ function genericPrint(path, options, print) {
         "directive ",
         "@",
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -311,7 +314,7 @@ function genericPrint(path, options, print) {
         "enum ",
         print("name"),
         printDirectives(path, print),
-        node.values.length > 0
+        isNonEmptyArray(node.values)
           ? [
               " {",
               indent([
@@ -345,7 +348,7 @@ function genericPrint(path, options, print) {
       return [
         "extend schema",
         printDirectives(path, print),
-        ...(node.operationTypes.length > 0
+        ...(isNonEmptyArray(node.operationTypes)
           ? [
               " {",
               indent([
@@ -367,7 +370,7 @@ function genericPrint(path, options, print) {
         "schema",
         printDirectives(path, print),
         " {",
-        node.operationTypes.length > 0
+        isNonEmptyArray(node.operationTypes)
           ? indent([
               hardline,
               join(
@@ -404,7 +407,7 @@ function genericPrint(path, options, print) {
           "union ",
           print("name"),
           printDirectives(path, print),
-          node.types.length > 0
+          isNonEmptyArray(node.types)
             ? [
                 " =",
                 ifBreak("", " "),
@@ -442,7 +445,7 @@ function genericPrint(path, options, print) {
 function printDirectives(path, print) {
   const { node } = path;
 
-  if (node.directives.length === 0) {
+  if (!isNonEmptyArray(node.directives)) {
     return "";
   }
 
