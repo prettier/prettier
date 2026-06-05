@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`fragment-arguemnts.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+fragment variableProfilePic on User {
+  ...dynamicProfilePic(size: $size)
+}
+
+fragment a on t { ...b(v: $v) }
+
+=====================================output=====================================
+fragment variableProfilePic on User {
+  ...dynamicProfilePic(size: $size)
+}
+
+fragment a on t {
+  ...b(v: $v)
+}
+
+================================================================================
+`;
