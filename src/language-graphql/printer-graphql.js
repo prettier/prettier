@@ -142,20 +142,20 @@ function genericPrint(path, options, print) {
       ]);
 
     case "ObjectValue": {
-      const bracketSpace =
-        options.bracketSpacing && node.fields.length > 0 ? " " : "";
+      const isEmpty = !isNonEmptyArray(node.fields);
+      const bracketSpace = options.bracketSpacing && !isEmpty ? " " : "";
       return group([
         "{",
         bracketSpace,
         printDanglingComments(path, options, { indent: true }),
-        isNonEmptyArray(node.fields)
-          ? [
+        isEmpty
+          ? ""
+          : [
               indent([
                 softline,
                 join([ifBreak("", ", "), softline], path.map(print, "fields")),
               ]),
-            ]
-          : "",
+            ],
         softline,
         ifBreak("", bracketSpace),
         "}",
@@ -370,7 +370,7 @@ function genericPrint(path, options, print) {
         "schema",
         printDirectives(path, print),
         " {",
-        node.operationTypes.length > 0
+        isNonEmptyArray(node.operationTypes)
           ? indent([
               hardline,
               join(
