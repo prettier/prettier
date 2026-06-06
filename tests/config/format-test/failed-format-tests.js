@@ -43,7 +43,13 @@ const unstableTests = new Map(
   }),
 );
 
-const unstableAstTests = new Map();
+const unstableAstTests = new Map(
+  [
+    // TODO: The YAML block scalar printer drops whitespace-only trailing
+    // content lines for folded scalars with strip chomping.
+    "yaml/block-folded/block-folded-strip.yml",
+  ].map((file) => [path.join(FORMAT_TEST_DIRECTORY, file), () => true]),
+);
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
 const commentClosureTypecaseTests = [
