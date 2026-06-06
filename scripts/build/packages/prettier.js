@@ -688,7 +688,21 @@ const pluginFiles = [
       },
     ],
   },
-  "src/plugins/graphql.js",
+  {
+    input: "src/plugins/graphql.js",
+    replaceModule: [
+      {
+        module: resolveEsmModulePath("graphql/language/ast"),
+        process(text) {
+          text = text.replace(
+            "new Set(Object.keys(QueryDocumentKeys))",
+            "/* @__PURE__ */ new Set(Object.keys(QueryDocumentKeys))",
+          );
+          return text;
+        },
+      },
+    ],
+  },
   {
     input: "src/plugins/markdown.js",
     replaceModule: [

@@ -226,7 +226,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
     },
     packages: "bundle",
     absWorkingDir: PROJECT_ROOT,
-    pure: ["Object.keys"],
   };
 
   if (buildOptions.platform === "universal") {
