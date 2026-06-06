@@ -696,7 +696,7 @@ const pluginFiles = [
         process(text) {
           text = text.replace(
             "new Set(Object.keys(QueryDocumentKeys))",
-            "/* @__PURE__ */ new Set(Object.keys(QueryDocumentKeys))",
+            "/* @__PURE__ */ new Set(/* @__PURE__ */ Object.keys(QueryDocumentKeys))",
           );
           return text;
         },
