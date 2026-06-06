@@ -4,6 +4,9 @@ import {
   removeNodeTypes,
 } from "../utilities/visitor-keys.js";
 
+/** @import {VisitorKeys} from "../utilities/visitor-keys.js" */
+
+/** @type {VisitorKeys} */
 let visitorKeys = { ...graphqlVisitorKeys };
 
 // Unable to produce https://github.com/prettier/prettier/issues/18212#issuecomment-3506234429
