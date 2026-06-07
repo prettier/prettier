@@ -285,7 +285,7 @@ const configs = [
       "unicorn/prefer-export-from": [
         "error",
         {
-          ignoreUsedVariables: true,
+          checkUsedVariables: false,
         },
       ],
       "unicorn/prefer-global-this": "off",
