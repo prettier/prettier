@@ -40,6 +40,41 @@ parsers: ["vue"]
 ================================================================================
 `;
 
+exports[`comment-after-interpolation.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <legend>{{ $t('package') }}<!-- #238 --></legend><!-- this gets ugly -->
+
+  <legend>{{ $t('package') }}</legend> <!-- this is ok -->
+
+  <legend>{{ $t('package') }}<!-- comment after interpolation comment after interpolation --></legend>
+
+  <legend><b>inline</b>{{ $t('package') }}<!-- glued comment --></legend>
+</template>
+
+=====================================output=====================================
+<template>
+  <legend>{{ $t("package") }}<!-- #238 --></legend>
+  <!-- this gets ugly -->
+
+  <legend>{{ $t("package") }}</legend>
+  <!-- this is ok -->
+
+  <legend>
+    {{
+      $t("package")
+    }}<!-- comment after interpolation comment after interpolation -->
+  </legend>
+
+  <legend><b>inline</b>{{ $t("package") }}<!-- glued comment --></legend>
+</template>
+
+================================================================================
+`;
+
 exports[`parenthesized.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

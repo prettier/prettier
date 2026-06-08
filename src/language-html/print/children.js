@@ -126,6 +126,18 @@ function printBetweenLine(prevNode, nextNode) {
     return "";
   }
 
+  /**
+   *     <div>{{ x }}<!-- comment --></div>
+   *                 ~
+   */
+  if (
+    nextNode.kind === "comment" &&
+    nextNode.isLeadingSpaceSensitive &&
+    !nextNode.hasLeadingSpaces
+  ) {
+    return softline;
+  }
+
   if (
     !nextNode.isLeadingSpaceSensitive ||
     preferHardlineAsLeadingSpaces(nextNode) ||
