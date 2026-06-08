@@ -12,7 +12,7 @@ const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 const TEST_RUNTIME = process.env.TEST_RUNTIME ?? "nodejs";
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
-const nodejsMajorVersion = Number(process.versions.node.split(".")[0]);
+const nodejsMajorVersion = Number(process.versions.node.split(".", 1)[0]);
 
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist/prettier")
