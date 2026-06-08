@@ -437,7 +437,7 @@ function printStartingTag(path, print) {
   for (const attributeType of types) {
     path.each(({ node }) => {
       const index = attributes.indexOf(node);
-      attributes.splice(index, 1, [line, print()]);
+      attributes[index] = [line, print()];
     }, attributeType);
   }
 
