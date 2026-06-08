@@ -359,20 +359,18 @@ function printTernary(path, options, print, args) {
 
     ":",
 
-    isAlternateTernary
+    isAlternateTernary || !isBigTabs
       ? " "
-      : !isBigTabs
-        ? " "
-        : shouldGroupTestAndConsequent
-          ? ifBreak(
-              fillTab,
-              ifBreak(
-                isInChain || tryToParenthesizeAlternate ? " " : fillTab,
-                " ",
-              ),
-              { groupId: testAndConsequentId },
-            )
-          : ifBreak(fillTab, " "),
+      : shouldGroupTestAndConsequent
+        ? ifBreak(
+            fillTab,
+            ifBreak(
+              isInChain || tryToParenthesizeAlternate ? " " : fillTab,
+              " ",
+            ),
+            { groupId: testAndConsequentId },
+          )
+        : ifBreak(fillTab, " "),
 
     isAlternateTernary
       ? printedAlternateWithParens

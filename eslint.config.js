@@ -238,10 +238,14 @@ const configs = [
       "simple-import-sort/exports": "error",
 
       /* eslint-plugin-unicorn */
-      "unicorn/escape-case": "off",
+      "unicorn/better-dom-traversing": "off",
       "unicorn/catch-error-name": "off",
+      "unicorn/consistent-compound-words": "off",
       "unicorn/consistent-destructuring": "off",
       "unicorn/consistent-function-scoping": "off",
+      "unicorn/consistent-json-file-read": ["error", "buffer"],
+      "unicorn/escape-case": "off",
+      "unicorn/filename-case": ["error", { checkDirectories: false }],
       "unicorn/import-style": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
@@ -256,6 +260,7 @@ const configs = [
       "unicorn/no-null": "off",
       "unicorn/no-process-exit": "off",
       "unicorn/no-thenable": "off",
+      "unicorn/no-this-outside-of-class": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
       "unicorn/no-useless-switch-case": "off",
       "unicorn/no-useless-undefined": [
@@ -285,11 +290,14 @@ const configs = [
       "unicorn/prefer-export-from": [
         "error",
         {
-          ignoreUsedVariables: true,
+          checkUsedVariables: false,
         },
       ],
       "unicorn/prefer-global-this": "off",
+      "unicorn/prefer-https": "off",
+      "unicorn/prefer-includes-over-repeated-comparisons": "off",
       "unicorn/prefer-query-selector": "off",
+      "unicorn/prefer-string-repeat": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prevent-abbreviations": "off",
       "unicorn/relative-url-style": "off",
