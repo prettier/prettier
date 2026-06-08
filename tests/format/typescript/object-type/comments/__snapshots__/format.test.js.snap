@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`11307.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T1 = (/** K */{
+  K: number;
+})
+type T2 = /** K */{
+  K: number;
+}
+
+const O1 = (/** K */{
+  K: number,
+})
+const O2 = /** K */{
+  K: number,
+}
+
+o = (/** K */{
+  K: number,
+})
+o = /** K */{
+  K: number,
+}
+
+=====================================output=====================================
+type T1 = /** K */ {
+  K: number;
+};
+type T2 = /** K */ {
+  K: number;
+};
+
+const O1 = /** K */ {
+  K: number,
+};
+const O2 = /** K */ {
+  K: number,
+};
+
+o = /** K */ {
+  K: number,
+};
+o = /** K */ {
+  K: number,
+};
+
+================================================================================
+`;
