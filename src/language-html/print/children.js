@@ -126,6 +126,18 @@ function printBetweenLine(prevNode, nextNode) {
     return "";
   }
 
+  /**
+   *     <div>{{ x }}<!-- comment --></div>
+   *                 ~
+   */
+  if (
+    nextNode.kind === "comment" &&
+    nextNode.isLeadingSpaceSensitive &&
+    !nextNode.hasLeadingSpaces
+  ) {
+    return softline;
+  }
+
   if (
     !nextNode.isLeadingSpaceSensitive ||
     preferHardlineAsLeadingSpaces(nextNode) ||
@@ -227,13 +239,7 @@ function printChildren(path, options, print) {
         }
       } else if (nextBetweenLine === hardline) {
         if (isTextLikeNode(childNode.next)) {
-          nextParts.push(
-            childNode.next.kind === "comment" &&
-              childNode.next.isLeadingSpaceSensitive &&
-              !childNode.next.hasLeadingSpaces
-              ? softline
-              : hardline,
-          );
+          nextParts.push(hardline);
         }
       } else {
         trailingParts.push(nextBetweenLine);

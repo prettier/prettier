@@ -64,7 +64,8 @@ parsers: ["vue"]
   <!-- this is ok -->
 
   <legend>
-    {{ $t("package")
+    {{
+      $t("package")
     }}<!-- comment after interpolation comment after interpolation -->
   </legend>
 
