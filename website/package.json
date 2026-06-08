@@ -38,7 +38,7 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-markdown": "10.1.0",
-    "react-tweet": "3.3.0",
+    "react-tweet": "3.3.1",
     "vue": "3.5.35"
   },
   "devDependencies": {
