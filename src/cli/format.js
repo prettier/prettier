@@ -82,6 +82,14 @@ function writeOutput(context, result, options) {
   }
 }
 
+function getIgnoredFileWarning(filename, isIgnoredByDirectory) {
+  if (isIgnoredByDirectory && filename.split("/").includes("node_modules")) {
+    return `Ignored ${filename} because it is in node_modules. Use --with-node-modules to format this file.`;
+  }
+
+  return `Ignored ${filename} because it matches an ignore pattern.`;
+}
+
 async function listDifferent(context, input, options, filename) {
   if (!context.argv.check && !context.argv.listDifferent) {
     return;
@@ -302,9 +310,13 @@ async function formatFiles(context) {
   // See https://github.com/prettier/prettier/issues/5801
   const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
 
-  for await (const { error, filename, ignoreUnknown } of expandPatterns(
-    context,
-  )) {
+  for await (const {
+    error,
+    filename,
+    ignoreUnknown,
+    isExplicitFile,
+    isIgnoredByDirectory,
+  } of expandPatterns(context)) {
     if (error) {
       context.logger.error(error);
       // Don't exit, but set the exit code to 2
@@ -312,7 +324,14 @@ async function formatFiles(context) {
       continue;
     }
 
+    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     const isFileIgnored = isIgnored(filename);
+    if (isFileIgnored && isExplicitFile) {
+      context.logger.warn(
+        getIgnoredFileWarning(fileNameToDisplay, isIgnoredByDirectory),
+      );
+    }
+
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
@@ -328,7 +347,6 @@ async function formatFiles(context) {
       filepath: filename,
     };
 
-    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
     if (isTTY) {
       printedFilename = context.logger.log(fileNameToDisplay, {
