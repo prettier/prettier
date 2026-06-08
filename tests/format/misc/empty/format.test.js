@@ -13,19 +13,19 @@ runFormatTest(
       "",
       // space
       " ",
-      "     ",
+      " ".repeat(5),
       // `\n`
       "\n",
       " \n",
       " \n ",
-      "\n\n\n\n",
+      "\n".repeat(4),
       " \n  \n \n\n",
       " \n  \n \n\n ",
       // `\r`
       "\r",
       " \r",
       " \r ",
-      "\r\r\r\r",
+      "\r".repeat(4),
       " \r  \r \r\r",
       " \r  \r \r\r ",
       // `\r\n`

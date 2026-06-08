@@ -297,7 +297,6 @@ const configs = [
       "unicorn/prefer-https": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
       "unicorn/prefer-query-selector": "off",
-      "unicorn/prefer-string-repeat": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prevent-abbreviations": "off",
       "unicorn/relative-url-style": "off",
