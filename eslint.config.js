@@ -296,6 +296,7 @@ const configs = [
         },
       ],
       "unicorn/prefer-global-this": "off",
+      "unicorn/prefer-https": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-string-repeat": "off",
