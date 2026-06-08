@@ -262,7 +262,6 @@ const configs = [
       "unicorn/no-thenable": "off",
       "unicorn/no-this-outside-of-class": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
-      "unicorn/no-unnecessary-nested-ternary": "off",
       "unicorn/no-useless-switch-case": "off",
       "unicorn/no-useless-undefined": [
         "error",
