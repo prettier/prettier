@@ -240,7 +240,7 @@ export default function getCodeSamples(parser) {
         "</style>",
       ].join("\n");
     case "yaml":
-      // modified from https://yaml.org/start.html
+      // modified from https://yaml.org/spec/1.2.2/#25-full-length-example
       return [
         "---",
         "invoice   :   34843",
