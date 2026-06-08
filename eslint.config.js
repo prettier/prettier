@@ -248,7 +248,6 @@ const configs = [
       "unicorn/filename-case": ["error", { checkDirectories: false }],
       "unicorn/import-style": "off",
       "unicorn/no-array-callback-reference": "off",
-      "unicorn/no-array-from-fill": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
       "unicorn/no-array-reverse": "off",

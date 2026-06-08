@@ -707,9 +707,10 @@ function countTrailingNewLines(string) {
 }
 
 function generateHardlines(number = 0) {
-  return Array.from({
-    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
-  }).fill(hardline);
+  return Array.from(
+    { length: Math.min(number, NEWLINES_TO_PRESERVE_MAX) },
+    () => hardline,
+  );
 }
 
 /* StringLiteral print helpers */

@@ -131,7 +131,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       ...tableBody.map((row) => row.cells.length),
     );
 
-    const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
+    const maxColumnWidths = Array.from({ length: maxColumnCount }, () => 0);
     const table = [
       { cells: headerNames },
       ...tableBody.filter((row) => row.cells.length > 0),
