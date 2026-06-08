@@ -12442,9 +12442,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-tweet@npm:3.3.0":
-  version: 3.3.0
-  resolution: "react-tweet@npm:3.3.0"
+"react-tweet@npm:3.3.1":
+  version: 3.3.1
+  resolution: "react-tweet@npm:3.3.1"
   dependencies:
     "@swc/helpers": "npm:^0.5.3"
     clsx: "npm:^2.0.0"
@@ -12452,7 +12452,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
-  checksum: 10/372063014ff6411a0204d41db9ab8eee122a7c5cb0a9f09e25cd7bb210ab0cdb9dea0280fd84bb72484f78bb9202c66ea51b912f6dd3a7e75d4640cee7a0a56b
+  checksum: 10/ff5591ff2fe12cd46f95d2781406cdd119c0fc25309ce7f8609f94cc6d02faf2972373c05f67c7c3b7eeb331762dd94147b6114f7d013fcac1a79b22b69d1ae1
   languageName: node
   linkType: hard
 
@@ -12980,7 +12980,7 @@ __metadata:
     react: "npm:19.2.6"
     react-dom: "npm:19.2.6"
     react-markdown: "npm:10.1.0"
-    react-tweet: "npm:3.3.0"
+    react-tweet: "npm:3.3.1"
     rollup-plugin-visualizer: "npm:7.0.1"
     vite: "npm:8.0.14"
     vue: "npm:3.5.35"
