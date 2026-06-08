@@ -8205,7 +8205,7 @@ __metadata:
     unicode-regex: "npm:4.2.0"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.6.1"
-    vnopts: "npm:2.0.3"
+    vnopts: "npm:2.0.5"
     wcwidth.js: "npm:2.0.0"
     yaml: "npm:2.9.0"
     yaml-test-suite: "npm:0.1.0"
@@ -9611,13 +9611,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vnopts@npm:2.0.3":
-  version: 2.0.3
-  resolution: "vnopts@npm:2.0.3"
+"vnopts@npm:2.0.5":
+  version: 2.0.5
+  resolution: "vnopts@npm:2.0.5"
   dependencies:
     leven: "npm:^4.1.0"
     picocolors: "npm:^1.1.1"
-  checksum: 10/afcbd467bc1bef0e39c5210647556979dc5cddcfc37fb4e7d33176943bd9e215d94c08e59c58db69e745bd65b66ed9bf76510a168cf3a0baa9c218169ab4b90d
+  checksum: 10/699911c1ff8545abb456e379f0608dc83033f38f66391ad77f12a4962dae3c2a87fa10d945a209ca0fecad3be1076e128a823316929d54c4e5dd9052a452acc6
   languageName: node
   linkType: hard
 
