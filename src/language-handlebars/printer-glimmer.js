@@ -191,7 +191,7 @@ function print(path, options, print) {
       if (attrName) {
         // TODO: format style and srcset attributes
         if (attrName === "class") {
-          const formattedClasses = text.trim().split(/\s+/).join(" ");
+          const formattedClasses = text.trim().replaceAll(/\s+/g, " ");
 
           let leadingSpace = false;
           let trailingSpace = false;

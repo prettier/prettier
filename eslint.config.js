@@ -238,6 +238,7 @@ const configs = [
       "simple-import-sort/exports": "error",
 
       /* eslint-plugin-unicorn */
+      "unicorn/better-dom-traversing": "off",
       "unicorn/catch-error-name": "off",
       "unicorn/consistent-compound-words": "off",
       "unicorn/consistent-destructuring": "off",

@@ -9,7 +9,7 @@ import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 const require = createRequire(import.meta.url);
 
 const packageJsonFile = new URL("../package.json", import.meta.url);
-const packageJson = JSON.parse(fs.readFileSync(packageJsonFile, "utf8"));
+const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
 const GITHUB_URL = `https://github.com/${packageJson.repository}`;
 
 /**
@@ -210,7 +210,7 @@ const config = {
               },
               {
                 label: "Stack Overflow",
-                href: "http://stackoverflow.com/questions/tagged/prettier",
+                href: "https://stackoverflow.com/questions/tagged/prettier",
               },
               {
                 label: "@PrettierCode on X",

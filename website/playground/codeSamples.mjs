@@ -104,7 +104,7 @@ export default function getCodeSamples(parser) {
         "}",
       ].join("\n");
     case "less":
-      // Copied from http://lesscss.org/features/#detached-rulesets-feature
+      // Copied from https://lesscss.org/features/#detached-rulesets-feature
       return [
         "@my-ruleset: {",
         "    .my-selector {",
@@ -173,7 +173,7 @@ export default function getCodeSamples(parser) {
         "+ and [another one]",
         "",
         "",
-        "  [another one]:  http://example.com 'Example title'",
+        "  [another one]:  https://example.com 'Example title'",
         "",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.",
@@ -240,7 +240,7 @@ export default function getCodeSamples(parser) {
         "</style>",
       ].join("\n");
     case "yaml":
-      // modified from http://yaml.org/start.html
+      // modified from https://yaml.org/start.html
       return [
         "---",
         "invoice   :   34843",
@@ -283,7 +283,7 @@ export default function getCodeSamples(parser) {
         "",
       ].join("\n");
     case "glimmer":
-      // modified from http://handlebarsjs.com/
+      // modified from https://handlebarsjs.com/
       return [
         '  <div     class="entry"    >',
         "  <h1>{{  title    }}</h1>",
