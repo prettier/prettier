@@ -28,9 +28,9 @@ type T2 ={
 
 interface I3 {
   prop: Foo;
-  <string>():string
+  <T>():string
 }
 type T3 ={
   prop: Foo;
-  <string>():string
+  <T>():string
 }
