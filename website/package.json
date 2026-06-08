@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@catppuccin/codemirror": "1.0.3",
-    "@codemirror/autocomplete": "6.20.2",
+    "@codemirror/autocomplete": "6.20.3",
     "@codemirror/commands": "6.10.3",
     "@codemirror/language": "6.12.3",
     "@codemirror/language-data": "6.5.2",
