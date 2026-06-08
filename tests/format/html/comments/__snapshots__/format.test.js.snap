@@ -166,6 +166,146 @@ parsers: ["html"]
 ================================================================================
 `;
 
+exports[`comment-after-element.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p><b>x</b><!-- glued comment --></p>
+<p><b>x</b> <!-- comment with leading space --></p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+=====================================output=====================================
+<p>
+  <b>x</b>
+  <!-- glued comment -->
+</p>
+<p>
+  <b>x</b>
+  <!-- comment with leading space -->
+</p>
+<p>
+  <span>hello</span>
+  <!-- a comment that is quite long enough to wrap around the line -->
+</p>
+<p>
+  text
+  <!-- glued comment after text -->
+</p>
+
+================================================================================
+`;
+
+exports[`comment-after-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p><b>x</b><!-- glued comment --></p>
+<p><b>x</b> <!-- comment with leading space --></p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+=====================================output=====================================
+<p><b>x</b><!-- glued comment --></p>
+<p
+  ><b>x</b>
+  <!-- comment with leading space --></p
+>
+<p
+  ><span>hello</span
+  ><!-- a comment that is quite long enough to wrap around the line --></p
+>
+<p>text<!-- glued comment after text --></p>
+
+================================================================================
+`;
+
+exports[`comment-after-element.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<p><b>x</b><!-- glued comment --></p>
+<p><b>x</b> <!-- comment with leading space --></p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+=====================================output=====================================
+<p><b>x</b><!-- glued comment --></p>
+<p>
+  <b>x</b>
+  <!-- comment with leading space -->
+</p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+================================================================================
+`;
+
+exports[`comment-after-element.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<p><b>x</b><!-- glued comment --></p>
+<p><b>x</b> <!-- comment with leading space --></p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+=====================================output=====================================
+<p>
+  <b
+    >x</b
+  ><!-- glued comment -->
+</p>
+<p>
+  <b
+    >x</b
+  >
+  <!-- comment with leading space -->
+</p>
+<p>
+  <span
+    >hello</span
+  ><!-- a comment that is quite long enough to wrap around the line -->
+</p>
+<p>
+  text<!-- glued comment after text -->
+</p>
+
+================================================================================
+`;
+
+exports[`comment-after-element.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p><b>x</b><!-- glued comment --></p>
+<p><b>x</b> <!-- comment with leading space --></p>
+<p><span>hello</span><!-- a comment that is quite long enough to wrap around the line --></p>
+<p>text<!-- glued comment after text --></p>
+
+=====================================output=====================================
+<p><b>x</b><!-- glued comment --></p>
+<p>
+  <b>x</b>
+  <!-- comment with leading space -->
+</p>
+<p>
+  <span>hello</span
+  ><!-- a comment that is quite long enough to wrap around the line -->
+</p>
+<p>text<!-- glued comment after text --></p>
+
+================================================================================
+`;
+
 exports[`conditional.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"

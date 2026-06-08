@@ -227,7 +227,13 @@ function printChildren(path, options, print) {
         }
       } else if (nextBetweenLine === hardline) {
         if (isTextLikeNode(childNode.next)) {
-          nextParts.push(hardline);
+          nextParts.push(
+            childNode.next.kind === "comment" &&
+              childNode.next.isLeadingSpaceSensitive &&
+              !childNode.next.hasLeadingSpaces
+              ? softline
+              : hardline,
+          );
         }
       } else {
         trailingParts.push(nextBetweenLine);
