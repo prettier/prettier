@@ -95,7 +95,9 @@ test("sharedUtil.getStringWidth", () => {
 test("sharedUtil.getAlignmentSize", () => {
   const { getAlignmentSize } = utilities;
   expect(getAlignmentSize(" ".repeat(3))).toBe(3);
-  expect(getAlignmentSize(" ".repeat(3), /* tabWidth */ 2, /* startIndex */ 2)).toBe(1);
+  expect(
+    getAlignmentSize(" ".repeat(3), /* tabWidth */ 2, /* startIndex */ 2),
+  ).toBe(1);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3)).toBe(6);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3, /* startIndex */ 1)).toBe(
