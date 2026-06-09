@@ -499,6 +499,7 @@ function needsParentheses(path, options) {
       // otherwise the inner => can be assumed to be for the outer one.
       if (
         node.type === "NullableTypeAnnotation" &&
+        node.typeAnnotation.type === "FunctionTypeAnnotation" &&
         path.match(
           undefined,
           (node, key) =>
