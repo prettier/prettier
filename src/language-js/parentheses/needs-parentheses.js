@@ -679,7 +679,6 @@ function needsParentheses(path, options) {
         case "BinaryExpression":
         case "LogicalExpression":
         case "NGPipeExpression":
-        case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
         case "TSTypeAssertion":

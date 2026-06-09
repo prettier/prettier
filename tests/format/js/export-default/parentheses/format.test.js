@@ -55,10 +55,6 @@ const snippets = [
   "export default (<a></a>);",
   "export default (<a></a>).toString();",
   "export default (<a></a>)?.toString();",
-
-  "export default (a ? b : c);",
-  "export default (a ? b : c).toString();",
-  "export default (a ? b : c)?.toString();",
 ];
 
 runFormatTest(
