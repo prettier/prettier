@@ -56,5 +56,11 @@ if (path.sep === "/") {
       stderr: "",
       write: [],
     });
+    runCli("cli/special-characters-in-path/quotes", ["*.js", "-l"]).test({
+      status: 1,
+      stdout: '".js\n["].js',
+      stderr: "",
+      write: [],
+    });
   });
 }
