@@ -1,3 +1,39 @@
+# 3.8.4
+
+[diff](https://github.com/prettier/prettier/compare/3.8.3...3.8.4)
+
+#### Markdown: Fix blank lines between list items and nested sub-lists being removed in Markdown/MDX ([#17746](https://github.com/prettier/prettier/pull/17746) by [@byplayer](https://github.com/byplayer))
+
+Prettier was removing blank lines between list items and their nested sub-lists, converting loose lists into tight lists and changing their semantic meaning.
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+<!-- Prettier 3.8.3 -->
+- a
+  - b
+- c
+  - d
+
+<!-- Prettier 3.8.4 -->
+- a
+
+  - b
+
+- c
+
+  - d
+```
+
 # 3.8.3
 
 [diff](https://github.com/prettier/prettier/compare/3.8.2...3.8.3)
