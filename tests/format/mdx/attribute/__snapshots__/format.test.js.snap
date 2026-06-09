@@ -11,19 +11,13 @@ color:     'red'}}></Foo>
 <Foo foo={{color:    /** @type {'red'} */('red')}}></Foo>
 
 =====================================output=====================================
-<Foo foo={{ color: "red" }}>
-
-</Foo>
+<Foo foo={{ color: "red" }}></Foo>
 <Foo
   foo={{
     color: "red",
   }}
->
-
-</Foo>
-<Foo foo={{ color: /** @type {'red'} */ ("red") }}>
-
-</Foo>
+></Foo>
+<Foo foo={{ color: /** @type {'red'} */ ("red") }}></Foo>
 
 ================================================================================
 `;

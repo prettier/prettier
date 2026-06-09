@@ -76,6 +76,19 @@ function embed(path, options) {
         await printJsExpression(textToDoc, print, path, options),
         "}",
       ];
+
+    case "mdxJsxFlowElement":
+    case "mdxJsxTextElement":
+      return (textToDoc) => {
+        const text = options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset,
+        );
+        return textToDoc(`<$>${text}</$>`, {
+          parser: "__js_expression",
+          rootMarker: "mdx",
+        });
+      };
   }
 }
 
