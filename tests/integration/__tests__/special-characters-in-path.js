@@ -39,18 +39,20 @@ if (path.sep === "/") {
 
   fs.rmSync(directory, { force: true, recursive: true });
   fs.mkdirSync(directory, { recursive: true });
-  fs.writeFileSync(
-    path.join(directory, '".js'),
-    "function add(){ return 1 + 2 }",
-  );
+  for (const file of ['".js', '["].js']) {
+    fs.writeFileSync(
+      path.join(directory, file),
+      "function add   (){ return 1 + 2 }",
+    );
+  }
   afterAll(() => {
     fs.rmSync(directory, { force: true, recursive: true });
   });
 
   describe("quotes", () => {
-    runCli("cli/special-characters-in-path/quotes", ["**/*.js"]).test({
-      status: 0,
-      stdout: "function add() {\n  return 1 + 2;\n}",
+    runCli("cli/special-characters-in-path/quotes", ['".js', "-l"]).test({
+      status: 1,
+      stdout: '".js',
       stderr: "",
       write: [],
     });
