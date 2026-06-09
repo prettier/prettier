@@ -36,10 +36,11 @@ if (path.sep === "/") {
     path.dirname(url.fileURLToPath(import.meta.url)),
     "../cli/special-characters-in-path/quotes",
   );
+  const files = ['".js', '["].js'];
 
   fs.rmSync(directory, { force: true, recursive: true });
   fs.mkdirSync(directory, { recursive: true });
-  for (const file of ['".js', '["].js']) {
+  for (const file of files) {
     fs.writeFileSync(
       path.join(directory, file),
       "function add   (){ return 1 + 2 }",
@@ -50,15 +51,17 @@ if (path.sep === "/") {
   });
 
   describe("quotes", () => {
-    runCli("cli/special-characters-in-path/quotes", ['".js', "-l"]).test({
-      status: 1,
-      stdout: '".js',
-      stderr: "",
-      write: [],
-    });
+    for (const file of files) {
+      runCli("cli/special-characters-in-path/quotes", [file, "-l"]).test({
+        status: 1,
+        stdout: file,
+        stderr: "",
+        write: [],
+      });
+    }
     runCli("cli/special-characters-in-path/quotes", ["*.js", "-l"]).test({
       status: 1,
-      stdout: '".js\n["].js',
+      stdout: files.join("\n"),
       stderr: "",
       write: [],
     });
