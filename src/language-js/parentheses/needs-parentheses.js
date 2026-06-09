@@ -868,7 +868,10 @@ function needsParentheses(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator" &&
           parent.type !== "YieldExpression" &&
-          parent.type !== "MatchExpressionCase")
+          parent.type !== "MatchExpressionCase" &&
+          !(
+            key === "declaration" && parent.type === "ExportDefaultDeclaration"
+          ))
       );
 
     case "TSInstantiationExpression":
