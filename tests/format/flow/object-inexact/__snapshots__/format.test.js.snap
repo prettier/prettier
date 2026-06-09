@@ -23,6 +23,9 @@ type Foo = { /* comment */ ... };
 type Foo = { /* comment */
   ...};
 
+type Foo = { // comment
+  ...};
+
 type Foo = {
   // comment0
   // comment1
@@ -80,13 +83,15 @@ type Foo = {
   ...
 };
 
+type Foo = { /* comment */ ... };
+
 type Foo = {
   /* comment */
   ...
 };
 
 type Foo = {
-  /* comment */
+  // comment
   ...
 };
 
@@ -160,6 +165,9 @@ type Foo = { /* comment */ ... };
 type Foo = { /* comment */
   ...};
 
+type Foo = { // comment
+  ...};
+
 type Foo = {
   // comment0
   // comment1
@@ -217,13 +225,15 @@ type Foo = {
   ...
 };
 
+type Foo = { /* comment */ ... };
+
 type Foo = {
   /* comment */
   ...
 };
 
 type Foo = {
-  /* comment */
+  // comment
   ...
 };
 
@@ -297,6 +307,9 @@ type Foo = { /* comment */ ... };
 type Foo = { /* comment */
   ...};
 
+type Foo = { // comment
+  ...};
+
 type Foo = {
   // comment0
   // comment1
@@ -354,13 +367,15 @@ type Foo = {
   ...
 };
 
+type Foo = { /* comment */ ... };
+
 type Foo = {
   /* comment */
   ...
 };
 
 type Foo = {
-  /* comment */
+  // comment
   ...
 };
 

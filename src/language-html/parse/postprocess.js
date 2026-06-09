@@ -128,7 +128,7 @@ function lowerCaseIf(text, fn) {
  */
 function restoreName(node) {
   const namespace = node.name.startsWith(":")
-    ? node.name.slice(1).split(":")[0]
+    ? node.name.slice(1).split(":", 1)[0]
     : null;
   const rawName = node.nameSpan.toString();
   const hasExplicitNamespace =

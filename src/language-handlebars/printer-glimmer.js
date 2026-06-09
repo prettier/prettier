@@ -191,7 +191,7 @@ function print(path, options, print) {
       if (attrName) {
         // TODO: format style and srcset attributes
         if (attrName === "class") {
-          const formattedClasses = text.trim().split(/\s+/).join(" ");
+          const formattedClasses = text.trim().replaceAll(/\s+/g, " ");
 
           let leadingSpace = false;
           let trailingSpace = false;
@@ -437,7 +437,7 @@ function printStartingTag(path, print) {
   for (const attributeType of types) {
     path.each(({ node }) => {
       const index = attributes.indexOf(node);
-      attributes.splice(index, 1, [line, print()]);
+      attributes[index] = [line, print()];
     }, attributeType);
   }
 
@@ -707,9 +707,10 @@ function countTrailingNewLines(string) {
 }
 
 function generateHardlines(number = 0) {
-  return Array.from({
-    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
-  }).fill(hardline);
+  return Array.from(
+    { length: Math.min(number, NEWLINES_TO_PRESERVE_MAX) },
+    () => hardline,
+  );
 }
 
 /* StringLiteral print helpers */

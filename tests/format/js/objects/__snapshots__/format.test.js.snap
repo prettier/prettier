@@ -163,11 +163,11 @@ exports[`expression.js format[flow] 1`] = `
 `;
 
 exports[`expression.js format[hermes] 1`] = `
-"unexpected token in type annotation (5:4)
+"unexpected token in type annotation (5:5)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
 > 5 | ({}::b, 0);
-    |    ^
+    |     ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
   8 | ({} = 0);

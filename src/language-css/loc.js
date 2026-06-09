@@ -37,6 +37,10 @@ function calculateLocEnd(node, text) {
     return skipEverythingButNewLine(text, node.source.startOffset);
   }
 
+  if (node.type === "value-paren" && typeof node.sourceIndex === "number") {
+    return node.sourceIndex + (node.value === ")" ? node.value.length : 0);
+  }
+
   // `postcss>=8`
   if (typeof node.source?.end?.offset === "number") {
     return node.source.end.offset;
@@ -54,40 +58,51 @@ function calculateLocEnd(node, text) {
     if (isNonEmptyArray(node.nodes)) {
       return calculateLocEnd(node.nodes.at(-1), text);
     }
+
+    if (node.type === "css-atrule" && typeof node.name === "string") {
+      return (
+        calculateLocStart(node, text) +
+        1 +
+        node.name.length +
+        node.raws.afterName.length +
+        node.raws.params.length
+      );
+    }
+  }
+
+  if (typeof node.sourceIndex === "number" && typeof node.value === "string") {
+    return node.sourceIndex + node.value.length;
   }
 
   return null;
 }
 
 function calculateLoc(node, text) {
-  if (node.source) {
-    node.source.startOffset = calculateLocStart(node, text);
-    node.source.endOffset = calculateLocEnd(node, text);
-  }
-
-  for (const key in node) {
-    const child = node[key];
-
-    if (key === "source" || !child || typeof child !== "object") {
-      continue;
-    }
-
-    if (child.type === "value-root" || child.type === "value-unknown") {
-      calculateValueNodeLoc(
-        child,
-        getValueRootOffset(node),
-        child.text || child.value,
-      );
-    } else {
-      calculateLoc(child, text);
-    }
-  }
+  calculateNodeLoc(node, text, 0, false);
 }
 
-function calculateValueNodeLoc(node, rootOffset, text) {
-  if (node.source) {
-    node.source.startOffset = calculateLocStart(node, text) + rootOffset;
-    node.source.endOffset = calculateLocEnd(node, text) + rootOffset;
+function calculateNodeLoc(node, text, rootOffset, isRootOfText) {
+  if (isRootOfText && typeof node.type === "string") {
+    node.source ??= {};
+    node.source.startOffset = rootOffset;
+    node.source.endOffset = rootOffset + text.length;
+  } else if (
+    typeof node.source?.startOffset === "number" &&
+    typeof node.source?.endOffset === "number"
+  ) {
+    // Already calculated while walking another view of the same nested tree.
+  } else if (node.source || typeof node.sourceIndex === "number") {
+    node.source ??= {};
+    const maxEndOffset = rootOffset + text.length;
+    node.source.startOffset = Math.min(
+      calculateLocStart(node, text) + rootOffset,
+      maxEndOffset,
+    );
+    const endOffset = calculateLocEnd(node, text);
+    node.source.endOffset =
+      typeof endOffset === "number"
+        ? Math.min(endOffset + rootOffset, maxEndOffset)
+        : endOffset;
   }
 
   for (const key in node) {
@@ -97,7 +112,57 @@ function calculateValueNodeLoc(node, rootOffset, text) {
       continue;
     }
 
-    calculateValueNodeLoc(child, rootOffset, text);
+    const children = Array.isArray(child) ? child : [child];
+    for (const childNode of children) {
+      if (!childNode || typeof childNode !== "object") {
+        continue;
+      }
+
+      const nestedLoc = getNestedLoc(node, childNode, rootOffset);
+
+      if (nestedLoc) {
+        calculateNodeLoc(childNode, nestedLoc.text, nestedLoc.rootOffset, true);
+      } else {
+        calculateNodeLoc(childNode, text, rootOffset, false);
+      }
+
+      fillEmptyLocFromParent(childNode, node);
+    }
+  }
+
+  fillLocFromChildren(node);
+  fillEmptyChildLocs(node);
+}
+
+function getNestedLoc(parentNode, node, rootOffset) {
+  if (node.type === "value-root" || node.type === "value-unknown") {
+    return {
+      rootOffset: getValueRootOffset(parentNode),
+      text: node.text || node.value || "",
+    };
+  }
+
+  if (node.type === "media-query-list" || parentNode.params === node) {
+    return {
+      rootOffset: getAtRuleParamsRootOffset(parentNode),
+      text: parentNode.raws?.params || node.value || "",
+    };
+  }
+
+  if (node.type?.startsWith("selector-")) {
+    const selectorText = getSelectorText(parentNode, node);
+
+    if (typeof selectorText === "string") {
+      return {
+        rootOffset: getSelectorRootOffset(
+          parentNode,
+          node,
+          selectorText,
+          rootOffset,
+        ),
+        text: selectorText,
+      };
+    }
   }
 }
 
@@ -117,6 +182,225 @@ function getValueRootOffset(node) {
   }
 
   return result;
+}
+
+function getAtRuleParamsRootOffset(node) {
+  let result = node.source.startOffset;
+
+  if (node.type === "css-atrule" && typeof node.name === "string") {
+    result +=
+      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
+  }
+
+  return result;
+}
+
+function getSelectorText(parentNode, selectorNode) {
+  if (typeof selectorNode.raws?.selector === "string") {
+    return selectorNode.raws.selector;
+  }
+
+  if (parentNode.selector !== selectorNode) {
+    return;
+  }
+
+  if (parentNode.mixin) {
+    return (
+      parentNode.raws.identifier +
+      parentNode.name +
+      parentNode.raws.afterName +
+      parentNode.raws.params
+    );
+  }
+
+  if (typeof parentNode.raws?.selector === "string") {
+    return parentNode.raws.selector;
+  }
+
+  if (
+    parentNode.customSelector &&
+    typeof parentNode.raws?.params === "string"
+  ) {
+    return parentNode.raws.params
+      .slice(parentNode.customSelector.length)
+      .trim();
+  }
+
+  if (typeof parentNode.raws?.params === "string") {
+    return parentNode.raws.params;
+  }
+
+  if (
+    parentNode.type === "css-decl" &&
+    typeof parentNode.raws?.value === "string"
+  ) {
+    const { value } = parentNode.raws;
+
+    if (parentNode.extend && value.startsWith("extend(")) {
+      return value.slice("extend(".length, -1);
+    }
+
+    return value;
+  }
+}
+
+function getSelectorRootOffset(
+  parentNode,
+  selectorNode,
+  selectorText,
+  rootOffset,
+) {
+  if (
+    typeof selectorNode.sourceIndex === "number" &&
+    typeof selectorNode.raws?.selector === "string"
+  ) {
+    return rootOffset + selectorNode.sourceIndex;
+  }
+
+  if (parentNode.mixin) {
+    return parentNode.source.startOffset;
+  }
+
+  if (typeof parentNode.raws?.selector === "string") {
+    return (
+      parentNode.source.startOffset +
+      getStringOffset(parentNode.raws.selector, selectorText)
+    );
+  }
+
+  if (typeof parentNode.raws?.params === "string") {
+    return (
+      getAtRuleParamsRootOffset(parentNode) +
+      getStringOffset(parentNode.raws.params, selectorText)
+    );
+  }
+
+  if (
+    parentNode.type === "css-decl" &&
+    typeof parentNode.raws?.value === "string"
+  ) {
+    return (
+      getValueRootOffset(parentNode) +
+      getStringOffset(parentNode.raws.value, selectorText)
+    );
+  }
+
+  return rootOffset;
+}
+
+function getStringOffset(text, search) {
+  const index = text.indexOf(search);
+  return index === -1 ? 0 : index;
+}
+
+function fillLocFromChildren(node) {
+  if (typeof node.type !== "string") {
+    return;
+  }
+
+  const hasOffsets =
+    typeof node.source?.startOffset === "number" &&
+    typeof node.source?.endOffset === "number";
+  const hasLineColumn = node.source?.start && node.source.end;
+
+  if (hasOffsets && hasLineColumn) {
+    return;
+  }
+
+  let startOffset = Number.POSITIVE_INFINITY;
+  let endOffset = Number.NEGATIVE_INFINITY;
+  let start;
+  let end;
+
+  for (const key in node) {
+    if (key === "source" || key === "raws" || key === "spaces") {
+      continue;
+    }
+
+    const child = node[key];
+    const children = Array.isArray(child) ? child : [child];
+
+    for (const childNode of children) {
+      if (
+        !childNode ||
+        typeof childNode !== "object" ||
+        typeof childNode.source?.startOffset !== "number" ||
+        typeof childNode.source?.endOffset !== "number"
+      ) {
+        continue;
+      }
+
+      if (childNode.source.startOffset < startOffset) {
+        startOffset = childNode.source.startOffset;
+        start = childNode.source.start;
+      }
+
+      if (childNode.source.endOffset > endOffset) {
+        endOffset = childNode.source.endOffset;
+        end = childNode.source.end;
+      }
+    }
+  }
+
+  if (startOffset !== Number.POSITIVE_INFINITY) {
+    node.source ??= {};
+    if (!hasOffsets) {
+      node.source.startOffset = startOffset;
+      node.source.endOffset = endOffset;
+    }
+    node.source.start ??= start;
+    node.source.end ??= end;
+  }
+}
+
+function fillEmptyLocFromParent(node, parentNode) {
+  if (
+    typeof node.type !== "string" ||
+    node.source ||
+    typeof parentNode.source?.startOffset !== "number" ||
+    typeof parentNode.source?.endOffset !== "number" ||
+    !isEmptyLocNode(node)
+  ) {
+    return;
+  }
+
+  node.source = {
+    startOffset: parentNode.source.startOffset,
+    endOffset: parentNode.source.startOffset,
+    start: parentNode.source.start,
+    end: parentNode.source.start,
+  };
+}
+
+function fillEmptyChildLocs(node) {
+  if (
+    typeof node.source?.startOffset !== "number" ||
+    typeof node.source?.endOffset !== "number"
+  ) {
+    return;
+  }
+
+  for (const key in node) {
+    if (key === "source" || key === "raws" || key === "spaces") {
+      continue;
+    }
+
+    const child = node[key];
+    const children = Array.isArray(child) ? child : [child];
+
+    for (const childNode of children) {
+      if (childNode && typeof childNode === "object") {
+        fillEmptyLocFromParent(childNode, node);
+      }
+    }
+  }
+}
+
+function isEmptyLocNode(node) {
+  return (
+    (Array.isArray(node.nodes) && node.nodes.length === 0) ||
+    (Array.isArray(node.groups) && node.groups.length === 0)
+  );
 }
 
 /**
@@ -245,7 +529,7 @@ function replaceQuotesInInlineComments(text) {
   return text;
 }
 
-const locStart = (node) => node.source?.startOffset;
-const locEnd = (node) => node.source?.endOffset;
+const locStart = (node) => node.source.startOffset;
+const locEnd = (node) => node.source.endOffset;
 
 export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };

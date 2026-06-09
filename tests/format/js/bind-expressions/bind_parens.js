@@ -32,3 +32,7 @@ new (a::b)();
 new f(a::b);
 f[a::b];
 f[a::b()];
+
+a::(import("foo"));
+a::(import("foo").bar);
+a::(import("foo")`bar`);

@@ -15,9 +15,9 @@ Cause: Sequence expressions cannot be directly nested inside JSX. Did you mean t
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
-"'}' expected in JSX child expression (1:16)
+"'}' expected in JSX child expression (1:17)
 > 1 | let x1 = <div>{a,b}</div>
-    |                ^
+    |                 ^
 Cause: '}' expected in JSX child expression (1:16)
 let x1 = <div>{a,b}</div>
               ~~^"

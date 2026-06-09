@@ -101,7 +101,7 @@ function printClassBody(path, options, print) {
 
   if (isObjectType) {
     const shouldBreak =
-      hasDanglingComments ||
+      hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line) ||
       (options.objectWrap === "preserve" &&
         firstMember &&
         hasNewlineInRange(
@@ -323,6 +323,10 @@ function shouldPrintSemicolonAfterInterfaceProperty(
 
   switch (nextNode.type) {
     case "TSCallSignatureDeclaration":
+      if (node.type === "TSPropertySignature" && node.typeAnnotation) {
+        return false;
+      }
+
       return true;
   }
 

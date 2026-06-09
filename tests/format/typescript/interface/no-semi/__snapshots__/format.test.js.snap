@@ -174,14 +174,98 @@ type G2 = {
 type G3 = { get: X; foo(): X }
 
 interface H1 {
-  foo: X;
+  foo: X
   <T>(): T
 }
 type H2 = {
-  foo: X;
+  foo: X
   <T>(): T
 }
 type H3 = { foo: X; <T>(): T }
+
+================================================================================
+`;
+
+exports[`18858.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export interface MyInterface {
+  someMethod: (a: number) => Promise<number>
+  (a: string): Promise<string>
+}
+
+export type MyType = {
+  someMethod: (a: number) => Promise<number>
+  (a: string): Promise<string>
+}
+
+interface I1 {
+  prop: string;
+  ():string
+}
+type T1 ={
+  prop: string;
+  ():string
+}
+
+interface I2 {
+  prop;
+  ():string
+}
+type T2 ={
+  prop;
+  ():string
+}
+
+interface I3 {
+  prop: Foo;
+  <T>():string
+}
+type T3 ={
+  prop: Foo;
+  <T>():string
+}
+
+=====================================output=====================================
+export interface MyInterface {
+  someMethod: (a: number) => Promise<number>
+  (a: string): Promise<string>
+}
+
+export type MyType = {
+  someMethod: (a: number) => Promise<number>
+  (a: string): Promise<string>
+}
+
+interface I1 {
+  prop: string
+  (): string
+}
+type T1 = {
+  prop: string
+  (): string
+}
+
+interface I2 {
+  prop;
+  (): string
+}
+type T2 = {
+  prop;
+  (): string
+}
+
+interface I3 {
+  prop: Foo
+  <T>(): string
+}
+type T3 = {
+  prop: Foo
+  <T>(): string
+}
 
 ================================================================================
 `;

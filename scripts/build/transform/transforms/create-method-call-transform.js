@@ -3,7 +3,7 @@ import { outdent } from "outdent";
 import { OPTIONAL_OBJECT } from "../../shims/shared.js";
 import { createIdentifier, isIdentifier } from "./utilities.js";
 
-/* Doesn't work for optional call, computed property, and spread arguments */
+/* Doesn't work for computed property, and spread arguments */
 
 /**
  * @param {import("@babel/types").Node} node

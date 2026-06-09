@@ -16,7 +16,7 @@ export function getReleaseUrl(version, previousVersion) {
   if (isPatch) {
     const urlToChangelog =
       `https://github.com/prettier/prettier/blob/${tag}/CHANGELOG.md#` +
-      version.split(".").join("");
+      version.replaceAll(".", "");
     body = `🔗 [Changelog](${urlToChangelog})`;
   } else {
     const blogPostInfo = getBlogPostInfo(version);

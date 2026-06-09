@@ -1,6 +1,6 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 import { DIST_DIR, PROJECT_ROOT } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
@@ -15,13 +15,9 @@ import {
 } from "./config-helpers.js";
 import { generatePackageJson } from "./prettier-package-json.js";
 
-const {
-  require,
-  dirname,
-  resolve: importMetaResolve,
-} = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 const resolveEsmModulePath = (specifier) =>
-  url.fileURLToPath(importMetaResolve(specifier));
+  url.fileURLToPath(import.meta.resolve(specifier));
 
 const extensions = {
   esm: ".mjs",
@@ -70,17 +66,33 @@ const mainModule = {
           }),
           path: require.resolve("@babel/code-frame"),
         },
+        // `parse-json` uses old version of `@babel/code-frame`
+        // Remove this when `parse-json` supports @babel/code-frame v8
+        {
+          module: resolveEsmModulePath("parse-json"),
+          process(text) {
+            text = text.replace(
+              "return {line: Number(line), column: Number(column)}",
+              "return {line: Number(line), column: Number(column) - 1}",
+            );
+            text = text.replace(
+              "return indexToPosition(string, Number(index), {oneBased: true});",
+              "return indexToPosition(string, Number(index), {oneBasedLine: true});",
+            );
+            return text;
+          },
+        },
         {
           module: getPackageFile("json5/dist/index.mjs"),
           find: "export default lib;",
           replacement: "export default { parse };",
         },
         {
-          module: require.resolve("@babel/code-frame"),
+          module: resolveEsmModulePath("@babel/code-frame"),
           process(text) {
             text = text.replace(
               "from 'node:util'",
-              `from ${JSON.stringify(path.join(dirname, "../shims/node-util.js"))}`,
+              `from ${JSON.stringify(path.join(import.meta.dirname, "../shims/node-util.js"))}`,
             );
             return text;
           },
@@ -98,7 +110,7 @@ const mainModule = {
         // Smaller size
         {
           module: getPackageFile("picocolors/picocolors.browser.js"),
-          path: path.join(dirname, "../shims/colors.js"),
+          path: path.join(import.meta.dirname, "../shims/colors.js"),
         },
       ],
     }),
@@ -424,7 +436,7 @@ const pluginFiles = [
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile("debug/src/browser.js"),
-        path: path.join(dirname, "../shims/debug.js"),
+        path: path.join(import.meta.dirname, "../shims/debug.js"),
       },
       {
         module: require.resolve("ts-api-utils"),
@@ -676,7 +688,21 @@ const pluginFiles = [
       },
     ],
   },
-  "src/plugins/graphql.js",
+  {
+    input: "src/plugins/graphql.js",
+    replaceModule: [
+      {
+        module: resolveEsmModulePath("graphql/language/ast"),
+        process(text) {
+          text = text.replace(
+            "new Set(Object.keys(QueryDocumentKeys))",
+            "/* @__PURE__ */ new Set(/* @__PURE__ */ Object.keys(QueryDocumentKeys))",
+          );
+          return text;
+        },
+      },
+    ],
+  },
   {
     input: "src/plugins/markdown.js",
     replaceModule: [
@@ -750,7 +776,33 @@ const pluginFiles = [
     ],
   },
   "src/plugins/html.js",
-  "src/plugins/yaml.js",
+  {
+    input: "src/plugins/yaml.js",
+    replaceModule: [
+      {
+        module: getPackageFile("yaml/browser/dist/schema/yaml-1.1/binary.js"),
+        process(text) {
+          // We don't care about content of `binary`
+          text = text.replace(
+            "onError('This environment does not support reading binary tags; either Buffer or atob is required');",
+            "",
+          );
+          return text;
+        },
+      },
+      // `Error#cause` for Node.js v14
+      {
+        module: getPackageFile("yaml-unist-parser/dist/yaml-syntax-error.mjs"),
+        process(text) {
+          text = text.replace(
+            "this.code = error.code;",
+            "this.cause ??= error; this.code = error.code;",
+          );
+          return text;
+        },
+      },
+    ],
+  },
 ];
 
 function createPluginModule(file) {

@@ -343,8 +343,10 @@ exports[`CLI --support-info  1`] = `
       "extensions": [".js.flow"],
       "filenames": [],
       "interpreters": [
+        "bun",
         "chakra",
         "d8",
+        "deno",
         "gjs",
         "js",
         "node",
@@ -438,8 +440,10 @@ exports[`CLI --support-info  1`] = `
       ],
       "filenames": ["Jakefile", "start.frag", "end.frag"],
       "interpreters": [
+        "bun",
         "chakra",
         "d8",
+        "deno",
         "gjs",
         "js",
         "node",
@@ -484,6 +488,7 @@ exports[`CLI --support-info  1`] = `
         ".json.example",
         ".mcmeta",
         ".sarif",
+        ".slnlaunch",
         ".tact",
         ".tfstate",
         ".tfstate.backup",
@@ -612,7 +617,7 @@ exports[`CLI --support-info  1`] = `
     },
     {
       "aceMode": "html",
-      "aliases": ["xhtml"],
+      "aliases": ["LWC", "lwc"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
       "extensions": [],

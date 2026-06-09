@@ -16,4 +16,4 @@ function printDescription(path, options, print) {
   return parts;
 }
 
-export default printDescription;
+export { printDescription };

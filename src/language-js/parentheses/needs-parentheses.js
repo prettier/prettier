@@ -380,12 +380,10 @@ function needsParentheses(path, options) {
         (key === "constraint" &&
           node.type === "TSConditionalType" &&
           parent.type === "TSTypeParameter") ||
-        (key === "typeAnnotation" &&
+        (key === "bound" &&
           node.type === "ConditionalTypeAnnotation" &&
-          parent.type === "TypeAnnotation" &&
-          path.grandparent.type === "TypeParameter" &&
-          path.grandparent.bound === parent &&
-          path.grandparent.usesExtendsBound)
+          parent.type === "TypeParameter" &&
+          parent.usesExtendsBound)
       ) {
         return true;
       }
@@ -789,6 +787,7 @@ function needsParentheses(path, options) {
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
+    case "ImportExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -797,6 +796,7 @@ function needsParentheses(path, options) {
         while (object) {
           switch (object.type) {
             case "CallExpression":
+            case "ImportExpression":
               return true;
             case "MemberExpression":
             case "OptionalMemberExpression":

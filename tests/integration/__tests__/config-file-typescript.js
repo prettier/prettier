@@ -4,7 +4,7 @@ import jestPathSerializer from "../path-serializer.js";
 expect.addSnapshotSerializer(jestPathSerializer);
 
 const NODE_TS_SUPPORT_FLAGS = ["--experimental-strip-types"];
-const NODE_JS_MAJOR_VERSION = Number(process.versions.node.split(".")[0]);
+const NODE_JS_MAJOR_VERSION = Number(process.versions.node.split(".", 1)[0]);
 
 const getOutputTabWidth = (code) =>
   code.match(/\n(?<indention>\s+)return/).groups.indention.length;

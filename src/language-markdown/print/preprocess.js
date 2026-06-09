@@ -37,6 +37,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       if (lastChild && shouldMerge(lastChild, child)) {
         child = mergeNode(lastChild, child);
         // Replace the previous node
+        // eslint-disable-next-line unicorn/no-confusing-array-splice
         children.splice(-1, 1, child);
         changed ||= true;
       } else {

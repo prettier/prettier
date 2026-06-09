@@ -7,9 +7,9 @@ exports[`snippet: #0 format[flow] 1`] = `
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
-"';' expected (1:23)
+"';' expected (1:24)
 > 1 | const a = not_a_record {}
-    |                       ^
+    |                        ^
 Cause: ';' expected (1:23)
 const a = not_a_record {}
                        ^"

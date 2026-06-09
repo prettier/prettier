@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`fragment-arguemnts.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query withShadowedVariables($size: Int!) {
+  user(id: 4) {
+    ...variableProfilePic
+  }
+  secondUser: user(id: 5) {
+    ...dynamicProfilePic(size: 10)
+  }
+}
+
+fragment variableProfilePic on User {
+  ...dynamicProfilePic(size: $size)
+}
+
+fragment a on t { ...b(v: $v) }
+fragment a on t { ...b(v: $v) @foo }
+
+=====================================output=====================================
+query withShadowedVariables($size: Int!) {
+  user(id: 4) {
+    ...variableProfilePic
+  }
+  secondUser: user(id: 5) {
+    ...dynamicProfilePic(size: 10)
+  }
+}
+
+fragment variableProfilePic on User {
+  ...dynamicProfilePic(size: $size)
+}
+
+fragment a on t {
+  ...b(v: $v)
+}
+fragment a on t {
+  ...b(v: $v) @foo
+}
+
+================================================================================
+`;

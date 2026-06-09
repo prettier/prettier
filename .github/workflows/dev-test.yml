@@ -28,22 +28,21 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          # Latest even version
-          - "24"
+          # Latest version
+          - "26"
           # Minimal version for development
-          - "20"
+          - "22"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
+            # Doesn't work on Node.js v26 https://github.com/bcoe/c8/issues/592
             node: "24"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
-          # Versions not tested on linux, normally only even versions
-          # If latest version is an odd number, it can be listed below too
-          - os: "ubuntu-latest"
-            node: "25"
-          - os: "ubuntu-latest"
-            node: "22"
+          # Versions between "Latest version" and "Minimal version for development"
+          # that not tested on linux
+          # - os: "ubuntu-latest"
+          #   node: "22"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -51,10 +50,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -71,7 +70,7 @@ jobs:
         run: yarn c8 yarn test
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         if: ${{ matrix.ENABLE_CODE_COVERAGE && github.repository == 'prettier/prettier' }}
         with:
           fail_ci_if_error: true

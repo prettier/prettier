@@ -33,10 +33,10 @@ declare module "foo" {
 `;
 
 exports[`implicit.js format[hermes] 1`] = `
-"'{' expected in function declaration (2:38)
+"'{' expected in function declaration (2:39)
   1 | declare module "foo" {
 > 2 |   function greet(name: string): string;
-    |                                      ^
+    |                                       ^
   3 | }
   4 |
 Cause: '{' expected in function declaration (2:38)

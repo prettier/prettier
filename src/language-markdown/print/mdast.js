@@ -1,5 +1,4 @@
 import collapseWhiteSpace from "collapse-white-space";
-import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
   DOC_TYPE_STRING,
@@ -45,10 +44,15 @@ function prevOrNextWord(path) {
   const hasPrevOrNextWord =
     (previous?.type === "sentence" &&
       previous.children.at(-1)?.type === "word" &&
-      !previous.children.at(-1).hasTrailingPunctuation) ||
+      !previous.children.at(-1).hasTrailingPunctuation &&
+      // https://spec.commonmark.org/0.31.2/#unicode-whitespace-character
+      !/[\p{Space_Separator}\t\n\f\r]$/u.test(
+        previous.children.at(-1).value,
+      )) ||
     (next?.type === "sentence" &&
       next.children[0]?.type === "word" &&
-      !next.children[0].hasLeadingPunctuation);
+      !next.children[0].hasLeadingPunctuation &&
+      !/^[\p{Space_Separator}\t\n\f\r]/u.test(next.children[0].value));
   return hasPrevOrNextWord;
 }
 
@@ -192,7 +196,7 @@ function printMdast(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            printUrl(node.url, ")"),
+            node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
             printTitle(node.title, options),
             ")",
           ];
@@ -207,7 +211,7 @@ function printMdast(path, options, print) {
         "![",
         printImageAlt(node),
         "](",
-        printUrl(node.url, ")"),
+        node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
         printTitle(node.title, options),
         ")",
       ];
@@ -521,30 +525,23 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-const encodeUrl = (url, characters) => {
-  for (const character of characters) {
-    url = url.replaceAll(character, encodeURIComponent(character));
-  }
-  return url;
-};
-
 /**
  * @param {string} url
- * @param {string[] | string} [dangerousCharOrChars]
  * @returns {string}
  */
-function printUrl(url, dangerousCharOrChars = []) {
-  const dangerousChars = [
-    " ",
-    ...(Array.isArray(dangerousCharOrChars)
-      ? dangerousCharOrChars
-      : [dangerousCharOrChars]),
-  ];
-
-  return new RegExp(
-    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
-  ).test(url)
-    ? `<${encodeUrl(url, "<>")}>`
+function printUrl(url) {
+  // Backslash followed by ASCII punctuation would be misinterpreted as an
+  // escape sequence, so must itself be escaped.
+  url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+  // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
+  // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
+  // only suggests implementations "should" support at least three levels of
+  // parenthesis nesting, so it's unclear whether we can safely rely on three
+  // levels as we do here, but we certainly can't expect more.
+  // eslint-disable-next-line no-control-regex
+  return /[\x00-\x1f\x7f ]|^</.test(url) ||
+    !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
+    ? `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`
     : url;
 }
 
@@ -556,9 +553,16 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-  if (title.includes('"') && title.includes("'") && !title.includes(")")) {
+  if (
+    title.includes('"') &&
+    title.includes("'") &&
+    !title.includes("(") &&
+    !title.includes(")")
+  ) {
+    title = title.replaceAll("\\", "\\\\");
     return `(${title})`; // avoid escaped quotes
   }
+
   const quote = getPreferredQuote(title, options.singleQuote);
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(quote, `\\${quote}`);

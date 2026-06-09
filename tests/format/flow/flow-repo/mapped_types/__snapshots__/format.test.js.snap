@@ -1,0 +1,2119 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`aliases.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Mapped Type aliases should not participate in the buggy TypeAppT ~> TypeAppT special case
+type ReadOnly<O> = {readonly [key in keyof O]: O[key]};
+type ReadOnlyDeeper<O> = ReadOnly<O>;
+type ReadOnlyDeepest<O> = ReadOnlyDeeper<O>;
+
+type O1 = {foo: number};
+type O2 = {foo: string | number};
+
+declare const x: ReadOnly<O1>;
+x as ReadOnly<O2>; // OK
+
+declare const y: ReadOnlyDeeper<O1>;
+y as ReadOnlyDeeper<O2>; // OK
+
+declare const z: ReadOnlyDeepest<O1>;
+z as ReadOnlyDeepest<O2>; // OK
+
+=====================================output=====================================
+// Mapped Type aliases should not participate in the buggy TypeAppT ~> TypeAppT special case
+type ReadOnly<O> = { readonly [key in keyof O]: O[key] };
+type ReadOnlyDeeper<O> = ReadOnly<O>;
+type ReadOnlyDeepest<O> = ReadOnlyDeeper<O>;
+
+type O1 = { foo: number };
+type O2 = { foo: string | number };
+
+declare const x: ReadOnly<O1>;
+x as ReadOnly<O2>; // OK
+
+declare const y: ReadOnlyDeeper<O1>;
+y as ReadOnlyDeeper<O2>; // OK
+
+declare const z: ReadOnlyDeepest<O1>;
+z as ReadOnlyDeepest<O2>; // OK
+
+================================================================================
+`;
+
+exports[`deep_types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type DeepPartialState<T> =
+  // Leave primitives alone
+  T extends ?(number | string | boolean)
+    ? T
+    : Readonly<{
+      [K in keyof T]: DeepPartialState<Partial<T>[K]>,
+    }>
+
+{
+  declare const a: DeepPartialState<number>;
+  a as number; // ok
+  a as empty; // error: number ~> empty
+
+  declare const b: DeepPartialState<{foo: {bar: {baz: string}}}>;
+  b as {readonly foo?: {readonly bar?: {readonly baz?: string}}};
+  b as {readonly foo: {readonly bar?: {readonly baz?: string}}}; // error: foo not optional
+  b as {readonly foo?: {readonly bar: {readonly baz?: string}}}; // error: bar not optional
+  b as {readonly foo?: {readonly bar?: {readonly baz: string}}}; // error: baz not optional
+}
+
+type DeepReadOnly<T> =
+  T extends ReadonlyArray<infer V> ? ReadonlyArray<DeepReadOnly<V>> :
+  T extends {...} ? {readonly [K in keyof T]: DeepReadOnly<T[K]>} : T;
+
+{
+  const obj: DeepReadOnly<{
+    arr: Array<{value: string, ...}>,
+    nested: {
+      value: string,
+      doubleNested: {value: string, ...},
+      ...
+    },
+    ...
+  }> = {
+    arr: [{value: 'a'}, {value: 'b'}],
+    nested: {
+      value: 'nested value',
+      doubleNested: {
+        value: 'double nested value',
+      },
+    },
+    value: 'top value',
+  };
+  obj as empty; // error
+
+  obj.arr.push({value: 'updated value'}); // error: Cannot mutate arrays.
+  obj.arr[0].value = 'updated value'; // error: Cannot mutate objects in arrays.
+  obj.arr = []; // error: Cannot change top-level values.
+  obj.nested = obj.nested; // error: Cannot change top-level values.
+  obj.nested.value = 'updated value'; // error: Cannot change nested values.
+  obj.nested.doubleNested = obj.nested.doubleNested; // error: Cannot change nested values.
+  obj.nested.doubleNested.value = 'updated value'; // error: Cannot change nested values.
+
+  const arr: DeepReadOnly<Array<string>> = ['hello', 'world'];
+  arr.push('goodbye'); // error: Cannot mutate arrays.
+  arr[0] = 'goodbye'; // error: Cannot mutate values in arrays.
+}
+
+=====================================output=====================================
+type DeepPartialState<T> =
+  // Leave primitives alone
+  T extends ?(number | string | boolean)
+    ? T
+    : Readonly<{
+        [K in keyof T]: DeepPartialState<Partial<T>[K]>,
+      }>;
+
+{
+  declare const a: DeepPartialState<number>;
+  a as number; // ok
+  a as empty; // error: number ~> empty
+
+  declare const b: DeepPartialState<{ foo: { bar: { baz: string } } }>;
+  b as { readonly foo?: { readonly bar?: { readonly baz?: string } } };
+  b as { readonly foo: { readonly bar?: { readonly baz?: string } } }; // error: foo not optional
+  b as { readonly foo?: { readonly bar: { readonly baz?: string } } }; // error: bar not optional
+  b as { readonly foo?: { readonly bar?: { readonly baz: string } } }; // error: baz not optional
+}
+
+type DeepReadOnly<T> =
+  T extends ReadonlyArray<infer V>
+    ? ReadonlyArray<DeepReadOnly<V>>
+    : T extends { ... }
+      ? { readonly [K in keyof T]: DeepReadOnly<T[K]> }
+      : T;
+
+{
+  const obj: DeepReadOnly<{
+    arr: Array<{ value: string, ... }>,
+    nested: {
+      value: string,
+      doubleNested: { value: string, ... },
+      ...
+    },
+    ...
+  }> = {
+    arr: [{ value: "a" }, { value: "b" }],
+    nested: {
+      value: "nested value",
+      doubleNested: {
+        value: "double nested value",
+      },
+    },
+    value: "top value",
+  };
+  obj as empty; // error
+
+  obj.arr.push({ value: "updated value" }); // error: Cannot mutate arrays.
+  obj.arr[0].value = "updated value"; // error: Cannot mutate objects in arrays.
+  obj.arr = []; // error: Cannot change top-level values.
+  obj.nested = obj.nested; // error: Cannot change top-level values.
+  obj.nested.value = "updated value"; // error: Cannot change nested values.
+  obj.nested.doubleNested = obj.nested.doubleNested; // error: Cannot change nested values.
+  obj.nested.doubleNested.value = "updated value"; // error: Cannot change nested values.
+
+  const arr: DeepReadOnly<Array<string>> = ["hello", "world"];
+  arr.push("goodbye"); // error: Cannot mutate arrays.
+  arr[0] = "goodbye"; // error: Cannot mutate values in arrays.
+}
+
+================================================================================
+`;
+
+exports[`distributivity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Tests that we correctly distribute mapped types over unions.
+// A failure here would be trying to access a key from a branch
+// that only exists in one branch of the union.
+{
+  type Homomorphic<O extends {...}> = {[key in keyof O]: O[key]};
+  declare const o: Homomorphic<{foo: number} | {bar: number}>; // OK
+  o as {foo: number} | {bar: number}; // OK
+  o as {foo: empty} | {bar: empty}; // ERROR x2
+}
+
+{
+  type SemiHomomorphic<O extends {...}, Keys extends keyof O> = {[key in Keys]: O[key]};
+  declare const o: SemiHomomorphic<{foo: number, bar: number} | {foo: string, baz: number}, 'foo'>;
+  o as {foo: number} | {foo: string}; // OK
+  o as {}; // ERROR
+}
+
+{
+  type DistributeNullAndVoid<O> = {writeonly [key in keyof O]: number};
+
+  type O = {foo: number};
+
+  declare const oExplicit: DistributeNullAndVoid<O | null | void>;
+  oExplicit as {writeonly foo: number} | null | void;
+  oExplicit as {writeonly foo: number}; // ERROR 2x
+
+  declare const oMaybe: DistributeNullAndVoid<?O>;
+  oMaybe as {writeonly foo: number} | null | void;
+  oMaybe as {writeonly foo: number}; // ERROR
+}
+
+=====================================output=====================================
+// Tests that we correctly distribute mapped types over unions.
+// A failure here would be trying to access a key from a branch
+// that only exists in one branch of the union.
+{
+  type Homomorphic<O extends { ... }> = { [key in keyof O]: O[key] };
+  declare const o: Homomorphic<{ foo: number } | { bar: number }>; // OK
+  o as { foo: number } | { bar: number }; // OK
+  o as { foo: empty } | { bar: empty }; // ERROR x2
+}
+
+{
+  type SemiHomomorphic<O extends { ... }, Keys extends keyof O> = {
+    [key in Keys]: O[key],
+  };
+  declare const o: SemiHomomorphic<
+    { foo: number, bar: number } | { foo: string, baz: number },
+    "foo",
+  >;
+  o as { foo: number } | { foo: string }; // OK
+  o as {}; // ERROR
+}
+
+{
+  type DistributeNullAndVoid<O> = { writeonly [key in keyof O]: number };
+
+  type O = { foo: number };
+
+  declare const oExplicit: DistributeNullAndVoid<O | null | void>;
+  oExplicit as { writeonly foo: number } | null | void;
+  oExplicit as { writeonly foo: number }; // ERROR 2x
+
+  declare const oMaybe: DistributeNullAndVoid<?O>;
+  oMaybe as { writeonly foo: number } | null | void;
+  oMaybe as { writeonly foo: number }; // ERROR
+}
+
+================================================================================
+`;
+
+exports[`export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type O = {foo: number, bar?: string, readonly baz: boolean};
+
+export type MappedO = {[key in keyof O]: O[key]};
+export type AddOptional = {[key in keyof O]?: O[key]};
+export type AllReadonly = {readonly [key in keyof O]: O[key]};
+
+export type ParameterizedId<O extends {...}> = {[key in keyof O]: O[key]};
+export type ParameterizedPartial<O extends {...}> = {[key in keyof O]?: O[key]};
+export type ParameterizedReadonly<O extends {...}> = {readonly [key in keyof O]: O[key]};
+
+export type MappedNonHomomorphic = {[key in 'foo' | 'bar']: number};
+
+export type SemiHomomorphic<O extends {...}, Keys extends keyof O> = {[key in Keys]: O[key]};
+
+=====================================output=====================================
+type O = { foo: number, bar?: string, readonly baz: boolean };
+
+export type MappedO = { [key in keyof O]: O[key] };
+export type AddOptional = { [key in keyof O]?: O[key] };
+export type AllReadonly = { readonly [key in keyof O]: O[key] };
+
+export type ParameterizedId<O extends { ... }> = { [key in keyof O]: O[key] };
+export type ParameterizedPartial<O extends { ... }> = {
+  [key in keyof O]?: O[key],
+};
+export type ParameterizedReadonly<O extends { ... }> = {
+  readonly [key in keyof O]: O[key],
+};
+
+export type MappedNonHomomorphic = { [key in "foo" | "bar"]: number };
+
+export type SemiHomomorphic<O extends { ... }, Keys extends keyof O> = {
+  [key in Keys]: O[key],
+};
+
+================================================================================
+`;
+
+exports[`identity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare const any: any;
+
+type IdentityMap<O> = {[K in keyof O]: O[K]};
+type Foo = IdentityMap<{ a: number, b: number }>;
+declare const foo: Foo;
+
+({
+  a: 42, // OK
+  b: 42, // OK
+} as Foo);
+
+({
+  a: 'asd', // Error: string ~> number
+  b: 'asd', // Error: string ~> number
+} as Foo);
+
+((any as {
+  a: string, // Error: string ~> number
+  b: string, // Error: string ~> number
+}) as Foo);
+
+({} as {} as Foo); // Error: \`a\` and \`b\` are not defined.
+
+any as {} as Foo; // Error: \`a\` and \`b\` are not defined.
+
+(foo as {
+  a: number, // OK
+  b: number, // OK
+});
+
+(foo as {
+  a: string, // Error: number ~> string
+  b: string, // Error: number ~> string
+});
+
+foo.a as empty; // Error: number ~> empty
+
+({
+  foo: 'asd', // OK
+} as IdentityMap<{ foo: number | string }>);
+
+({
+  foo: 'asd', // OK
+} as IdentityMap<{ foo: number } | { foo: string }>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+} as IdentityMap<{ foo: number | string }>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+} as IdentityMap<{ foo: number } | { foo: string }>);
+
+=====================================output=====================================
+declare const any: any;
+
+type IdentityMap<O> = { [K in keyof O]: O[K] };
+type Foo = IdentityMap<{ a: number, b: number }>;
+declare const foo: Foo;
+
+({
+  a: 42, // OK
+  b: 42, // OK
+}) as Foo;
+
+({
+  a: "asd", // Error: string ~> number
+  b: "asd", // Error: string ~> number
+}) as Foo;
+
+any as {
+  a: string, // Error: string ~> number
+  b: string, // Error: string ~> number
+} as Foo;
+
+({}) as {} as Foo; // Error: \`a\` and \`b\` are not defined.
+
+any as {} as Foo; // Error: \`a\` and \`b\` are not defined.
+
+foo as {
+  a: number, // OK
+  b: number, // OK
+};
+
+foo as {
+  a: string, // Error: number ~> string
+  b: string, // Error: number ~> string
+};
+
+foo.a as empty; // Error: number ~> empty
+
+({
+  foo: "asd", // OK
+}) as IdentityMap<{ foo: number | string }>;
+
+({
+  foo: "asd", // OK
+}) as IdentityMap<{ foo: number } | { foo: string }>;
+
+({
+  foo: true, // Error: boolean ~> number | string
+}) as IdentityMap<{ foo: number | string }>;
+
+({
+  foo: true, // Error: boolean ~> number | string
+}) as IdentityMap<{ foo: number } | { foo: string }>;
+
+================================================================================
+`;
+
+exports[`idx_replacement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare opaque type DeepRequiredArray<out T>: ReadonlyArray<
+  DeepRequired<NonNullable<T>>,
+>;
+
+declare opaque type DeepRequiredObject<out T extends interface {}>: Required<{
+  readonly [K in keyof T]: DeepRequired<T[K]>,
+}>;
+
+declare opaque type IdxNonMaybeType<T>: NonNullable<T>;
+
+declare opaque type DeepRequired<T>: T extends empty
+  ? $FlowFixMe // If something can pass empty, it's already unsafe
+  : T extends ReadonlyArray<infer V>
+  ? DeepRequiredArray<V>
+  : T extends interface {}
+  ? DeepRequiredObject<T>
+  : IdxNonMaybeType<T>;
+
+type UnboxDeepRequired<T> = T extends DeepRequired<infer V> ? V : T;
+
+declare function idx<T1, T2>(
+  prop: T1,
+  accessor: (prop: NonNullable<DeepRequired<T1>>) => T2,
+): ?UnboxDeepRequired<T2>;
+
+// Migrated from original idx test
+{
+  // Objects
+  declare const obj1: {a: ?{b: {c: number}}};
+  obj1.a.b.c; // error
+  idx(obj1, obj => obj.a.b.c) as ?number; // ok
+  idx(obj1, obj => obj["a"].b.c) as ?number; // ok
+  idx(obj1, obj => obj.a.b.c) as number; // error: result must be MaybeT
+  idx(obj1, obj => obj.a.b.c) as ?string; // error: number ~> string
+  idx(obj1, obj => obj["a"].b.c) as number; // error: result must be MaybeT
+  idx(obj1, obj => obj.notAProp); // error: prop-missing
+  idx(obj1, obj => obj.a = null); // error: invalid-idx
+  declare const obj2: {a?: {b: {c: number}}};
+  idx(obj2, obj => obj.a.b.c) as ?number; // ok
+  idx(obj2, obj => obj.a.b.c) as number; // error: result must be MaybeT
+  declare const obj3: {a: null | {b: {c: number}}};
+  idx(obj3, obj => obj.a.b.c) as ?number; // ok
+  idx(obj3, obj => obj.a.b.c) as number; // error: result must be MaybeT
+  // Nested maybes/optionals should get unwrapped
+  declare const obj4: {a?: ?(?{b: number})};
+  idx(obj4, obj => obj.a.b) as ?number; // ok
+
+  // Unions
+  declare const ab: {a:string}|{b:number};
+  idx(ab, _ => _.a) as empty; // error
+  idx(ab, _ => _.b) as empty; // error
+  idx(ab, _ => _.c) as empty; // error
+
+  // Classes
+  class Foo1 { a: ?Foo1; b: ?number; }
+  class Foo2 { a: Foo2 | void; b: ?number; }
+  class Foo3 { a: Foo3 | null; b: ?number; }
+  idx(new Foo1(), o => o.a.b) as ?number; // ok
+  idx(new Foo1(), o => o.a.b) as number; // error: result must be MaybeT
+  idx(new Foo1(), o => o.a = null); // error: not writable
+
+  // Arrays
+  declare const arr1: Array<?Array<number>>;
+  declare const arr2: Array<Array<number> | void>;
+  declare const arr3: Array<Array<number> | null>;
+  idx(arr1, arr => arr[0][0]) as ?number; // ok
+  idx(arr2, arr => arr[0][0]) as ?number; // ok
+  idx(arr3, arr => arr[0][0]) as ?number; // ok
+
+  // Non-objects
+  idx(42, n => n) as ?number; // ok
+  idx(42, n => n) as number; // error: result must be MaybeT
+  idx(42, n => n.nope); // error: prop-missing
+
+  // Weird edge cases
+  // Using an annotation obscures the type wrapper mechanism that idx() uses
+  // around the parameter it passes to the callback
+  idx({}, (obj: any) => obj.a.b.c) as ?number; // ok
+  // Can't do anything with the callback parameter other than get elements and properties off of it
+  idx({}, obj => obj()); // error
+}
+
+// Additional tests
+{
+  declare const props: { data: { readonly id: ?string } };
+  declare function nullthrows<T>(x: ?T): T;
+
+  const a = nullthrows(idx(props, _ => _.data.id));
+  a as empty; // error
+  if (a != null) {
+    a as empty; // error
+    a as string; // ok
+  }
+}
+
+=====================================output=====================================
+declare opaque type DeepRequiredArray<out T>: ReadonlyArray<
+  DeepRequired<NonNullable<T>>,
+>;
+
+declare opaque type DeepRequiredObject<out T extends interface {}>: Required<{
+  readonly [K in keyof T]: DeepRequired<T[K]>,
+}>;
+
+declare opaque type IdxNonMaybeType<T>: NonNullable<T>;
+
+declare opaque type DeepRequired<T>: T extends empty
+  ? $FlowFixMe // If something can pass empty, it's already unsafe
+  : T extends ReadonlyArray<infer V>
+    ? DeepRequiredArray<V>
+    : T extends interface {}
+      ? DeepRequiredObject<T>
+      : IdxNonMaybeType<T>;
+
+type UnboxDeepRequired<T> = T extends DeepRequired<infer V> ? V : T;
+
+declare function idx<T1, T2>(
+  prop: T1,
+  accessor: (prop: NonNullable<DeepRequired<T1>>) => T2,
+): ?UnboxDeepRequired<T2>;
+
+// Migrated from original idx test
+{
+  // Objects
+  declare const obj1: { a: ?{ b: { c: number } } };
+  obj1.a.b.c; // error
+  idx(obj1, (obj) => obj.a.b.c) as ?number; // ok
+  idx(obj1, (obj) => obj["a"].b.c) as ?number; // ok
+  idx(obj1, (obj) => obj.a.b.c) as number; // error: result must be MaybeT
+  idx(obj1, (obj) => obj.a.b.c) as ?string; // error: number ~> string
+  idx(obj1, (obj) => obj["a"].b.c) as number; // error: result must be MaybeT
+  idx(obj1, (obj) => obj.notAProp); // error: prop-missing
+  idx(obj1, (obj) => (obj.a = null)); // error: invalid-idx
+  declare const obj2: { a?: { b: { c: number } } };
+  idx(obj2, (obj) => obj.a.b.c) as ?number; // ok
+  idx(obj2, (obj) => obj.a.b.c) as number; // error: result must be MaybeT
+  declare const obj3: { a: null | { b: { c: number } } };
+  idx(obj3, (obj) => obj.a.b.c) as ?number; // ok
+  idx(obj3, (obj) => obj.a.b.c) as number; // error: result must be MaybeT
+  // Nested maybes/optionals should get unwrapped
+  declare const obj4: { a?: ??{ b: number } };
+  idx(obj4, (obj) => obj.a.b) as ?number; // ok
+
+  // Unions
+  declare const ab: { a: string } | { b: number };
+  idx(ab, (_) => _.a) as empty; // error
+  idx(ab, (_) => _.b) as empty; // error
+  idx(ab, (_) => _.c) as empty; // error
+
+  // Classes
+  class Foo1 {
+    a: ?Foo1;
+    b: ?number;
+  }
+  class Foo2 {
+    a: Foo2 | void;
+    b: ?number;
+  }
+  class Foo3 {
+    a: Foo3 | null;
+    b: ?number;
+  }
+  idx(new Foo1(), (o) => o.a.b) as ?number; // ok
+  idx(new Foo1(), (o) => o.a.b) as number; // error: result must be MaybeT
+  idx(new Foo1(), (o) => (o.a = null)); // error: not writable
+
+  // Arrays
+  declare const arr1: Array<?Array<number>>;
+  declare const arr2: Array<Array<number> | void>;
+  declare const arr3: Array<Array<number> | null>;
+  idx(arr1, (arr) => arr[0][0]) as ?number; // ok
+  idx(arr2, (arr) => arr[0][0]) as ?number; // ok
+  idx(arr3, (arr) => arr[0][0]) as ?number; // ok
+
+  // Non-objects
+  idx(42, (n) => n) as ?number; // ok
+  idx(42, (n) => n) as number; // error: result must be MaybeT
+  idx(42, (n) => n.nope); // error: prop-missing
+
+  // Weird edge cases
+  // Using an annotation obscures the type wrapper mechanism that idx() uses
+  // around the parameter it passes to the callback
+  idx({}, (obj: any) => obj.a.b.c) as ?number; // ok
+  // Can't do anything with the callback parameter other than get elements and properties off of it
+  idx({}, (obj) => obj()); // error
+}
+
+// Additional tests
+{
+  declare const props: { data: { readonly id: ?string } };
+  declare function nullthrows<T>(x: ?T): T;
+
+  const a = nullthrows(idx(props, (_) => _.data.id));
+  a as empty; // error
+  if (a != null) {
+    a as empty; // error
+    a as string; // ok
+  }
+}
+
+================================================================================
+`;
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import type {
+  MappedO,
+  AddOptional,
+  AllReadonly,
+  ParameterizedId,
+  ParameterizedPartial,
+  ParameterizedReadonly,
+  MappedNonHomomorphic,
+  SemiHomomorphic,
+} from './export';
+
+// No modifiers concrete
+{
+  ({foo: 3, bar: 'str', baz: true} as MappedO); // OK
+
+  declare const mapped: MappedO;
+  mapped as {foo: number, bar?: string, readonly baz: boolean}; // OK
+  mapped as {foo: empty, bar: empty, readonly baz: empty}; // ERROR
+  mapped.baz = true; // ERROR
+}
+
+// Add optional concrete
+{
+  ({foo: undefined, bar: undefined, baz: undefined} as AddOptional); // OK
+  declare const addOptional: AddOptional;
+  addOptional as {foo?: number, bar?: string, readonly baz?: boolean}; // OK
+  addOptional.baz = true; // ERROR
+}
+
+// Add readonly concrete
+{
+  ({foo: 3, bar: undefined, baz: true} as AllReadonly);
+  declare const readonly: AllReadonly;
+  readonly.foo = 4; // ERROR;
+  readonly.bar = 'str'; // ERROR;
+  readonly.baz = false; // ERROR;
+}
+
+// All of these tests are the same as above but use a parameterize type alias
+type O = {foo: number, bar?: string, readonly baz: boolean};
+// No modifiers parameterized
+{
+  ({foo: 3, bar: 'str', baz: true} as ParameterizedId<O>); // OK
+
+  declare const mapped: ParameterizedId<O>;
+  mapped as {foo: number, bar?: string, readonly baz: boolean}; // OK
+  mapped as {foo: empty, bar: empty, readonly baz: empty}; // ERROR
+  mapped.baz = true; // ERROR
+}
+
+// Add optional parameterized
+{
+  ({foo: undefined, bar: undefined, baz: undefined} as ParameterizedPartial<O>); // OK
+  declare const addOptional: ParameterizedPartial<O>;
+  addOptional as {foo?: number, bar?: string, readonly baz?: boolean}; // OK
+  addOptional.baz = true; // ERROR
+}
+
+// Add readonly parameterized
+{
+  ({foo: 3, bar: undefined, baz: true} as ParameterizedReadonly<O>);
+  declare const readonly: ParameterizedReadonly<O>;
+  readonly.foo = 4; // ERROR;
+  readonly.bar = 'str'; // ERROR;
+  readonly.baz = false; // ERROR;
+}
+
+// Non-homomorphic mapped types
+{
+  ({foo: 3, bar: 3} as MappedNonHomomorphic); // OK!
+  ({foo: null, bar: null} as MappedNonHomomorphic); // ERROR!
+}
+
+// Semi-homomorphic mapped types
+{
+  declare const semi: SemiHomomorphic<{readonly foo: number, bar: string}, 'foo'>;
+  semi as {readonly foo: number}; // OK
+  semi as {foo: number}; // ERROR
+}
+
+// Both homomorphic and semi-homomorphic mapped types are distributive
+{
+  declare const semi: SemiHomomorphic<{readonly foo: number} | {readonly foo: string}, 'foo'>;
+  semi as {readonly foo: number} | {readonly foo: string}; // OK!
+  semi as {foo: number} | {foo: string}; // ERROR 2x
+
+  declare const homomorphic: ParameterizedReadonly<{foo: number} | {bar:number} >;
+  homomorphic as {readonly foo: number} | {readonly bar: number}; // OK!
+  homomorphic as {foo: number} | {bar: number}; // ERROR 2x
+}
+
+=====================================output=====================================
+import type {
+  MappedO,
+  AddOptional,
+  AllReadonly,
+  ParameterizedId,
+  ParameterizedPartial,
+  ParameterizedReadonly,
+  MappedNonHomomorphic,
+  SemiHomomorphic,
+} from "./export";
+
+// No modifiers concrete
+{
+  ({ foo: 3, bar: "str", baz: true }) as MappedO; // OK
+
+  declare const mapped: MappedO;
+  mapped as { foo: number, bar?: string, readonly baz: boolean }; // OK
+  mapped as { foo: empty, bar: empty, readonly baz: empty }; // ERROR
+  mapped.baz = true; // ERROR
+}
+
+// Add optional concrete
+{
+  ({ foo: undefined, bar: undefined, baz: undefined }) as AddOptional; // OK
+  declare const addOptional: AddOptional;
+  addOptional as { foo?: number, bar?: string, readonly baz?: boolean }; // OK
+  addOptional.baz = true; // ERROR
+}
+
+// Add readonly concrete
+{
+  ({ foo: 3, bar: undefined, baz: true }) as AllReadonly;
+  declare const readonly: AllReadonly;
+  readonly.foo = 4; // ERROR;
+  readonly.bar = "str"; // ERROR;
+  readonly.baz = false; // ERROR;
+}
+
+// All of these tests are the same as above but use a parameterize type alias
+type O = { foo: number, bar?: string, readonly baz: boolean };
+// No modifiers parameterized
+{
+  ({ foo: 3, bar: "str", baz: true }) as ParameterizedId<O>; // OK
+
+  declare const mapped: ParameterizedId<O>;
+  mapped as { foo: number, bar?: string, readonly baz: boolean }; // OK
+  mapped as { foo: empty, bar: empty, readonly baz: empty }; // ERROR
+  mapped.baz = true; // ERROR
+}
+
+// Add optional parameterized
+{
+  ({
+    foo: undefined,
+    bar: undefined,
+    baz: undefined,
+  }) as ParameterizedPartial<O>; // OK
+  declare const addOptional: ParameterizedPartial<O>;
+  addOptional as { foo?: number, bar?: string, readonly baz?: boolean }; // OK
+  addOptional.baz = true; // ERROR
+}
+
+// Add readonly parameterized
+{
+  ({ foo: 3, bar: undefined, baz: true }) as ParameterizedReadonly<O>;
+  declare const readonly: ParameterizedReadonly<O>;
+  readonly.foo = 4; // ERROR;
+  readonly.bar = "str"; // ERROR;
+  readonly.baz = false; // ERROR;
+}
+
+// Non-homomorphic mapped types
+{
+  ({ foo: 3, bar: 3 }) as MappedNonHomomorphic; // OK!
+  ({ foo: null, bar: null }) as MappedNonHomomorphic; // ERROR!
+}
+
+// Semi-homomorphic mapped types
+{
+  declare const semi: SemiHomomorphic<
+    { readonly foo: number, bar: string },
+    "foo",
+  >;
+  semi as { readonly foo: number }; // OK
+  semi as { foo: number }; // ERROR
+}
+
+// Both homomorphic and semi-homomorphic mapped types are distributive
+{
+  declare const semi: SemiHomomorphic<
+    { readonly foo: number } | { readonly foo: string },
+    "foo",
+  >;
+  semi as { readonly foo: number } | { readonly foo: string }; // OK!
+  semi as { foo: number } | { foo: string }; // ERROR 2x
+
+  declare const homomorphic: ParameterizedReadonly<
+    { foo: number } | { bar: number },
+  >;
+  homomorphic as { readonly foo: number } | { readonly bar: number }; // OK!
+  homomorphic as { foo: number } | { bar: number }; // ERROR 2x
+}
+
+================================================================================
+`;
+
+exports[`instancet.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface I {
+  foo: number;
+}
+
+type MappedInterface = {readonly [key in keyof I]: I[key]};
+{
+  declare const i: MappedInterface;
+  i as interface {readonly foo: number}; // OK
+  i as interface {foo: number}; // ERROR
+  i as {readonly foo: number, ...}; // ERROR (class object subtyping)
+}
+
+interface WithIndexer {
+  foo: number;
+  [string]: boolean;
+}
+type MappedInterfaceWithIndexer = {readonly [key in keyof WithIndexer]: WithIndexer[key]};
+{
+  declare const i: MappedInterfaceWithIndexer;
+  i as interface {readonly foo: number, readonly [string]: boolean}; // OK
+  i as interface {readonly foo: number, [string]: boolean}; // ERROR
+}
+
+class A {
+  static bar: number;
+  foo: number;
+}
+
+type MappedInstance = {readonly [key in keyof A]: A[key]};
+{
+  declare const inst: MappedInstance;
+  inst as interface {readonly foo: number}; // OK
+  inst as interface {foo: number}; // ERROR
+  (inst['bar']); // ERROR
+}
+
+type MappedClass = {readonly [key in keyof Class<A>]: Class<A>[key]};
+{
+  declare const c: MappedClass;
+  c as interface {readonly bar: number}; // OK
+  c as interface {bar: number}; // ERROR
+}
+
+=====================================output=====================================
+interface I {
+  foo: number;
+}
+
+type MappedInterface = { readonly [key in keyof I]: I[key] };
+{
+  declare const i: MappedInterface;
+  i as interface { readonly foo: number }; // OK
+  i as interface { foo: number }; // ERROR
+  i as { readonly foo: number, ... }; // ERROR (class object subtyping)
+}
+
+interface WithIndexer {
+  foo: number;
+  [string]: boolean;
+}
+type MappedInterfaceWithIndexer = {
+  readonly [key in keyof WithIndexer]: WithIndexer[key],
+};
+{
+  declare const i: MappedInterfaceWithIndexer;
+  i as interface { readonly foo: number, readonly [string]: boolean }; // OK
+  i as interface { readonly foo: number, [string]: boolean }; // ERROR
+}
+
+class A {
+  static bar: number;
+  foo: number;
+}
+
+type MappedInstance = { readonly [key in keyof A]: A[key] };
+{
+  declare const inst: MappedInstance;
+  inst as interface { readonly foo: number }; // OK
+  inst as interface { foo: number }; // ERROR
+  inst["bar"]; // ERROR
+}
+
+type MappedClass = { readonly [key in keyof Class<A>]: Class<A>[key] };
+{
+  declare const c: MappedClass;
+  c as interface { readonly bar: number }; // OK
+  c as interface { bar: number }; // ERROR
+}
+
+================================================================================
+`;
+
+exports[`issue-2674.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Map<O> = {[K in keyof O]: 'FOO'};
+type B = Map<{ FOO: null }>;
+declare const b: B;
+
+b.FOO as 'FOO'; // ok
+b.FOO as 'BAR'; // error
+b.FOO = 'BAR'; // error
+
+=====================================output=====================================
+type Map<O> = { [K in keyof O]: "FOO" };
+type B = Map<{ FOO: null }>;
+declare const b: B;
+
+b.FOO as "FOO"; // ok
+b.FOO as "BAR"; // error
+b.FOO = "BAR"; // error
+
+================================================================================
+`;
+
+exports[`key_mirror.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare function keyMirror<O>(o: O): {[K in keyof O]: K};
+
+var o = keyMirror({
+  FOO: null,
+  BAR: null,
+});
+
+o.FOO as 'FOO'; // ok
+o.FOO as 'BAR'; // error, 'FOO' incompatible with 'BAR'
+
+=====================================output=====================================
+declare function keyMirror<O>(o: O): { [K in keyof O]: K };
+
+var o = keyMirror({
+  FOO: null,
+  BAR: null,
+});
+
+o.FOO as "FOO"; // ok
+o.FOO as "BAR"; // error, 'FOO' incompatible with 'BAR'
+
+================================================================================
+`;
+
+exports[`lti_implicit_instantiation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type F<T> = Readonly<{
+    log: (() => T) => void,
+    ...
+  }>;
+
+  declare function map<O extends {...}>(o1: O): {[K in keyof O]: O[K] extends F<infer V> ? V : empty};
+
+  const foo = Object.freeze({bar: {log: (f: () => string) => {}}})
+  const o1 = map(foo) as {readonly bar: number}; // error
+
+=====================================output=====================================
+type F<T> = Readonly<{
+  log: (() => T) => void,
+  ...
+}>;
+
+declare function map<O extends { ... }>(o1: O): {
+  [K in keyof O]: O[K] extends F<infer V> ? V : empty,
+};
+
+const foo = Object.freeze({ bar: { log: (f: () => string) => {} } });
+const o1 = map(foo) as { readonly bar: number }; // error
+
+================================================================================
+`;
+
+exports[`minus_optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type O = {foo: number, bar?: string};
+
+// -? removes optionality from optional props
+type Required1 = {[K in keyof O]-?: O[K]};
+declare const r1: Required1;
+r1 as {foo: number, bar: string}; // OK
+({foo: 1}) as Required1; // ERROR - bar is required
+
+// -? on already-required props is a no-op
+type AllRequired = {foo: number, bar: string};
+type Same = {[K in keyof AllRequired]-?: AllRequired[K]};
+declare const s: Same;
+s as AllRequired; // OK
+
+// Mimic Required<T> utility
+type MyRequired<T> = {[K in keyof T]-?: T[K]};
+type X = MyRequired<{a?: number, b?: string, c: boolean}>;
+declare const x: X;
+x as {a: number, b: string, c: boolean}; // OK
+({a: 1, c: true}) as X; // ERROR - b is required
+
+// Tuple input: -? clears per-element optional bit
+type T = [a: string, b?: number, c?: boolean];
+type U = {[K in keyof T]-?: T[K]};
+declare const u: U;
+u as [string, number, boolean]; // OK
+(['']) as U; // ERROR - elements 1 and 2 are required
+
+// Nested: -? then +? roundtrip
+type RoundTrip<O> = {[K in keyof MyRequired<O>]+?: MyRequired<O>[K]};
+type Y = RoundTrip<{a?: number}>;
+declare const y: Y;
+y as {a?: number}; // OK
+
+// Required-prop with explicit \`void\` in the value type: -? does NOT strip void,
+// since the source property was not optional. Matches TS.
+type ReqWithVoid = {a: string | void};
+type ReqWithVoidR = MyRequired<ReqWithVoid>;
+declare const rwv: ReqWithVoidR;
+rwv.a as string | void; // OK
+rwv.a as string; // ERROR - void survives because source prop was not optional
+
+// Required tuple element with \`void\` in the value type: -? does NOT strip void.
+type ReqTupleWithVoid = [string | void];
+type ReqTupleWithVoidR = {[K in keyof ReqTupleWithVoid]-?: ReqTupleWithVoid[K]};
+declare const rtv: ReqTupleWithVoidR;
+rtv[0] as string | void; // OK
+rtv[0] as string; // ERROR - void survives
+
+// Plain Array element with \`void\`: -? DOES strip void from the array element type.
+// TS: R<Array<string | undefined>> = Array<string>.
+type ArrWithVoid = Array<string | void>;
+type ArrWithVoidR = {[K in keyof ArrWithVoid]-?: ArrWithVoid[K]};
+declare const arr: ArrWithVoidR;
+arr as Array<string>; // OK - undefined stripped from array element
+declare const a1: Array<string | void>;
+a1 as ArrWithVoidR; // ERROR - void no longer accepted
+
+// Tuple-wide elem_t: under -? the tuple-wide element type should no longer contain
+// \`void\` contributed by originally-optional elements. Verified via computed
+// numeric access (which reads elem_t, not the per-index element list).
+type TWide = [a: string, b?: number, c?: boolean];
+type UWide = {[K in keyof TWide]-?: TWide[K]};
+declare const uWide: UWide;
+declare const idx: number;
+uWide[idx] as string | number | boolean; // OK - void filtered from elem_t
+uWide.forEach((x) => { x as string | number | boolean; }); // OK - callback param uses elem_t
+
+=====================================output=====================================
+type O = { foo: number, bar?: string };
+
+// -? removes optionality from optional props
+type Required1 = { [K in keyof O]-?: O[K] };
+declare const r1: Required1;
+r1 as { foo: number, bar: string }; // OK
+({ foo: 1 }) as Required1; // ERROR - bar is required
+
+// -? on already-required props is a no-op
+type AllRequired = { foo: number, bar: string };
+type Same = { [K in keyof AllRequired]-?: AllRequired[K] };
+declare const s: Same;
+s as AllRequired; // OK
+
+// Mimic Required<T> utility
+type MyRequired<T> = { [K in keyof T]-?: T[K] };
+type X = MyRequired<{ a?: number, b?: string, c: boolean }>;
+declare const x: X;
+x as { a: number, b: string, c: boolean }; // OK
+({ a: 1, c: true }) as X; // ERROR - b is required
+
+// Tuple input: -? clears per-element optional bit
+type T = [a: string, b?: number, c?: boolean];
+type U = { [K in keyof T]-?: T[K] };
+declare const u: U;
+u as [string, number, boolean]; // OK
+[""] as U; // ERROR - elements 1 and 2 are required
+
+// Nested: -? then +? roundtrip
+type RoundTrip<O> = { [K in keyof MyRequired<O>]+?: MyRequired<O>[K] };
+type Y = RoundTrip<{ a?: number }>;
+declare const y: Y;
+y as { a?: number }; // OK
+
+// Required-prop with explicit \`void\` in the value type: -? does NOT strip void,
+// since the source property was not optional. Matches TS.
+type ReqWithVoid = { a: string | void };
+type ReqWithVoidR = MyRequired<ReqWithVoid>;
+declare const rwv: ReqWithVoidR;
+rwv.a as string | void; // OK
+rwv.a as string; // ERROR - void survives because source prop was not optional
+
+// Required tuple element with \`void\` in the value type: -? does NOT strip void.
+type ReqTupleWithVoid = [string | void];
+type ReqTupleWithVoidR = {
+  [K in keyof ReqTupleWithVoid]-?: ReqTupleWithVoid[K],
+};
+declare const rtv: ReqTupleWithVoidR;
+rtv[0] as string | void; // OK
+rtv[0] as string; // ERROR - void survives
+
+// Plain Array element with \`void\`: -? DOES strip void from the array element type.
+// TS: R<Array<string | undefined>> = Array<string>.
+type ArrWithVoid = Array<string | void>;
+type ArrWithVoidR = { [K in keyof ArrWithVoid]-?: ArrWithVoid[K] };
+declare const arr: ArrWithVoidR;
+arr as Array<string>; // OK - undefined stripped from array element
+declare const a1: Array<string | void>;
+a1 as ArrWithVoidR; // ERROR - void no longer accepted
+
+// Tuple-wide elem_t: under -? the tuple-wide element type should no longer contain
+// \`void\` contributed by originally-optional elements. Verified via computed
+// numeric access (which reads elem_t, not the per-index element list).
+type TWide = [a: string, b?: number, c?: boolean];
+type UWide = { [K in keyof TWide]-?: TWide[K] };
+declare const uWide: UWide;
+declare const idx: number;
+uWide[idx] as string | number | boolean; // OK - void filtered from elem_t
+uWide.forEach((x) => {
+  x as string | number | boolean;
+}); // OK - callback param uses elem_t
+
+================================================================================
+`;
+
+exports[`no_explicit_exactness.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Homomorphic mapped types cannot be explicitly exact or inexact. They take on
+// the exactness of their input type
+
+
+type O = {foo: number};
+
+type MappedExact = {| // ERROR
+  [key in keyof O]: number
+|}
+
+type MappedInexact = { // ERROR
+  [key in keyof O]: number,
+  ...
+}
+
+=====================================output=====================================
+// Homomorphic mapped types cannot be explicitly exact or inexact. They take on
+// the exactness of their input type
+
+type O = { foo: number };
+
+type MappedExact = {|
+  // ERROR
+  [key in keyof O]: number,
+|};
+
+type MappedInexact = {
+  // ERROR
+  [key in keyof O]: number,
+  ...
+};
+
+================================================================================
+`;
+
+exports[`no_other_props.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Mapped types cannot have extra properties yet
+
+type MappedFirst = {
+  [key in keyof {foo: number}]: number, // ERROR
+  prop: number,
+};
+type SliceFirst = {
+  prop: number,
+  [key in keyof {foo: number}]: number, // ERROR
+};
+type SpreadFirst = {
+  ...{prop: number},
+  [key in keyof {foo: number}]: number, // ERROR
+};
+type MappedLater1 = {
+  ...{prop: number},
+  foo: number,
+  [key in keyof {foo: number}]: number, // ERROR
+};
+type MappedLater2 = {
+  foo: number,
+  ...{prop: number},
+  foo: number,
+  [key in keyof {foo: number}]: number, // ERROR
+};
+
+=====================================output=====================================
+// Mapped types cannot have extra properties yet
+
+type MappedFirst = {
+  [key in keyof { foo: number }]: number, // ERROR
+  prop: number,
+};
+type SliceFirst = {
+  prop: number,
+  [key in keyof { foo: number }]: number, // ERROR
+};
+type SpreadFirst = {
+  ...{ prop: number },
+  [key in keyof { foo: number }]: number, // ERROR
+};
+type MappedLater1 = {
+  ...{ prop: number },
+  foo: number,
+  [key in keyof { foo: number }]: number, // ERROR
+};
+type MappedLater2 = {
+  foo: number,
+  ...{ prop: number },
+  foo: number,
+  [key in keyof { foo: number }]: number, // ERROR
+};
+
+================================================================================
+`;
+
+exports[`non_homomorphic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  // Basic functionality test
+  type Keys = 'foo' | 'bar';
+  type Mapped = {[key in Keys]: number};
+
+  declare const mapped: Mapped;
+  mapped.foo as number; // OK!
+  mapped.foo = 3; // OK!
+
+
+  mapped as empty; // ERROR!
+  mapped as {foo: empty, bar: empty}; // ERROR 2x
+  mapped as {foo: number, bar: number}; // OK!
+}
+
+{
+  // Leftover types are converted to indexers
+  type WithLeftovers = {[key in 'foo' | number]: number};
+  declare const withLeftovers: WithLeftovers;
+  withLeftovers as {[number]: number, foo: number}; // OK!
+  withLeftovers as {[number]: string, foo: string}; // ERROR 2x
+}
+
+{
+  // Key types must be string | number | symbol, otherwise error on the
+  // definition.
+  // TS Reference: https://www.typescriptlang.org/play?ts=5.0.4#code/C4TwDgpgBAsghmSATKBeKBvA2gawiKASwDsoAjAewoBsI5iBdALimIFcBbMiAJwF8A3EA
+  type BadKeys = {[key in boolean]: number}; // ERROR!
+  declare const badKeys: BadKeys;
+  badKeys as any;
+}
+
+{
+  // Tests using mapped types in output positions for implicit instantiation
+  declare function keyMirror<const T>(...x: ReadonlyArray<T>): {[key in T]: key};
+
+  let keyMirroredObject = keyMirror('foo', 'bar', 'baz');
+  keyMirroredObject as {foo: 'foo', bar: 'bar', baz: 'baz'};
+
+  keyMirroredObject as {foo: 'bar', bar: 'baz', baz: 'foo'}; // ERROR x3
+}
+
+{
+  // Tests using mapped types in input positions for implicit instantiation
+  declare function ObjWithKeys<const T>(x: {[key in T]: number}, ...y: ReadonlyArray<T>): {[key in T]: number};
+  const noContext = ObjWithKeys({foo: 3, bar: 3}, 'foo', 'bar'); // OK!
+  noContext as {foo: number, bar: number}; // OK!
+  noContext as {foo: empty, bar: empty, baz: number}; // ERROR 3x
+  const withReturnAnnot: {foo: number, bar: number} = ObjWithKeys({foo: 3, bar: 3}, 'foo', 'bar'); // OK!
+}
+
+=====================================output=====================================
+{
+  // Basic functionality test
+  type Keys = "foo" | "bar";
+  type Mapped = { [key in Keys]: number };
+
+  declare const mapped: Mapped;
+  mapped.foo as number; // OK!
+  mapped.foo = 3; // OK!
+
+  mapped as empty; // ERROR!
+  mapped as { foo: empty, bar: empty }; // ERROR 2x
+  mapped as { foo: number, bar: number }; // OK!
+}
+
+{
+  // Leftover types are converted to indexers
+  type WithLeftovers = { [key in "foo" | number]: number };
+  declare const withLeftovers: WithLeftovers;
+  withLeftovers as { [number]: number, foo: number }; // OK!
+  withLeftovers as { [number]: string, foo: string }; // ERROR 2x
+}
+
+{
+  // Key types must be string | number | symbol, otherwise error on the
+  // definition.
+  // TS Reference: https://www.typescriptlang.org/play?ts=5.0.4#code/C4TwDgpgBAsghmSATKBeKBvA2gawiKASwDsoAjAewoBsI5iBdALimIFcBbMiAJwF8A3EA
+  type BadKeys = { [key in boolean]: number }; // ERROR!
+  declare const badKeys: BadKeys;
+  badKeys as any;
+}
+
+{
+  // Tests using mapped types in output positions for implicit instantiation
+  declare function keyMirror<const T>(...x: ReadonlyArray<T>): {
+    [key in T]: key,
+  };
+
+  let keyMirroredObject = keyMirror("foo", "bar", "baz");
+  keyMirroredObject as { foo: "foo", bar: "bar", baz: "baz" };
+
+  keyMirroredObject as { foo: "bar", bar: "baz", baz: "foo" }; // ERROR x3
+}
+
+{
+  // Tests using mapped types in input positions for implicit instantiation
+  declare function ObjWithKeys<const T>(
+    x: { [key in T]: number },
+    ...y: ReadonlyArray<T>
+  ): { [key in T]: number };
+  const noContext = ObjWithKeys({ foo: 3, bar: 3 }, "foo", "bar"); // OK!
+  noContext as { foo: number, bar: number }; // OK!
+  noContext as { foo: empty, bar: empty, baz: number }; // ERROR 3x
+  const withReturnAnnot: { foo: number, bar: number } = ObjWithKeys(
+    { foo: 3, bar: 3 },
+    "foo",
+    "bar",
+  ); // OK!
+}
+
+================================================================================
+`;
+
+exports[`non_homomorphic_resolution.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// This test checks ensures that we resolve TypeAppTs, KeysT, EvalTs, etc
+// before trying to construct the mapped type.
+
+type Mapped<T> = {[key in T]: number};
+
+{
+  type TypeApp<T> = T;
+  type MappedTypeApp = Mapped<TypeApp<'foo'>>;
+  declare const mappedTypeApp: MappedTypeApp;
+  mappedTypeApp as empty; // ERROR
+  mappedTypeApp as {foo: number}; // OK!
+}
+
+{
+  type Keys = keyof {foo: number};
+  type MappedKeys = Mapped<Keys>;
+  declare const mappedKeys: MappedKeys;
+  mappedKeys as empty; // ERROR
+  mappedKeys as {foo: number}; // OK!
+}
+
+{
+  type O = {foo: 'foo'};
+  type Eval = O['foo'];
+  type MappedEval = Mapped<Eval>;
+  declare const mappedEval: MappedEval;
+  mappedEval as empty; // ERROR
+  mappedEval as {foo: number};
+}
+
+=====================================output=====================================
+// This test checks ensures that we resolve TypeAppTs, KeysT, EvalTs, etc
+// before trying to construct the mapped type.
+
+type Mapped<T> = { [key in T]: number };
+
+{
+  type TypeApp<T> = T;
+  type MappedTypeApp = Mapped<TypeApp<"foo">>;
+  declare const mappedTypeApp: MappedTypeApp;
+  mappedTypeApp as empty; // ERROR
+  mappedTypeApp as { foo: number }; // OK!
+}
+
+{
+  type Keys = keyof { foo: number };
+  type MappedKeys = Mapped<Keys>;
+  declare const mappedKeys: MappedKeys;
+  mappedKeys as empty; // ERROR
+  mappedKeys as { foo: number }; // OK!
+}
+
+{
+  type O = { foo: "foo" };
+  type Eval = O["foo"];
+  type MappedEval = Mapped<Eval>;
+  declare const mappedEval: MappedEval;
+  mappedEval as empty; // ERROR
+  mappedEval as { foo: number };
+}
+
+================================================================================
+`;
+
+exports[`pick_and_omit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//@flow
+{
+  // Omit Tests
+  type Exclude<T, U> = T extends U ? empty : T;
+
+  type Omit<O extends {...}, Keys extends keyof O> = {
+    [key in Exclude<keyof O, Keys>]: O[key],
+  };
+
+  type O = {
+    foo: number,
+    bar: number,
+    baz: number,
+  };
+
+  declare const noFoo: Omit<O, 'foo'>;
+  noFoo.foo = 3; // ERROR!
+  noFoo as {bar: number, baz: number}; // OK!
+
+  declare const noFooOrBar: Omit<O, 'foo' | 'bar'>;
+  noFooOrBar as {baz: number}; // OK!
+
+  declare const noKeysBad: Omit<O, string>; // ERROR! string is not a subtype of keyof O
+  noKeysBad as {};
+
+  declare const noKeysGood: Omit<O, 'foo' | 'bar' | 'baz'>;
+  noKeysGood as {}; // OK!
+
+  declare function omit<O extends {...}, Keys extends keyof O>(
+    o: O,
+    ...keys: ReadonlyArray<Keys>
+  ): Omit<O, Keys>;
+  // KP: We need proper natural inference to make this work with no annotations
+  const noBarOrBaz = omit(
+    {foo: 3, bar: 3, baz: 3},
+    'bar' as 'bar',
+    'baz' as 'baz',
+  );
+  noBarOrBaz as {foo: number}; // OK!
+  noBarOrBaz.foo as number; // OK!
+  noBarOrBaz.foo = 3; // OK!
+
+  declare function omitInput<O extends {...}, Keys extends keyof O>(
+    o: O,
+    x: Omit<O, Keys>,
+    ...keys: ReadonlyArray<Keys>
+  ): void;
+  const noIssues = omitInput({foo: 3, bar: 3}, {bar: 3}, 'foo' as 'foo');
+  const badCall = omitInput({foo: 3, bar: 3}, {foo: 3}, 'foo' as 'foo'); // ERROR 2x
+}
+
+{
+  // Pick Tests
+  type Pick<O extends {...}, Keys extends keyof O> = {[key in Keys]: O[key]};
+
+  type P = {
+    foo: number,
+    bar: number,
+    baz: number,
+  };
+
+  declare const onlyFoo: Pick<P, 'foo'>;
+  onlyFoo.bar; // ERROR!
+  onlyFoo as {foo: number}; // OK!
+
+  declare const fooAndBaz: Pick<P, 'foo' | 'baz'>;
+  fooAndBaz as {foo: number, baz: number}; // OK!
+
+  declare function pick<O extends {...}, Keys extends keyof O>(
+    o: O,
+    ...keys: ReadonlyArray<Keys>
+  ): Pick<O, Keys>;
+  const picked = pick({foo: 3, bar: 3}, 'foo');
+  picked as {foo: number};
+
+  declare function pickInput<O extends {...}, Keys extends keyof O>(
+    o: O,
+    x: Pick<O, Keys>,
+    ...keys: ReadonlyArray<Keys>
+  ): void;
+
+  const noIssues = pickInput({foo: 3, bar: 3}, {foo: 3}, 'foo');
+  const badCall = pickInput({foo: 3, bar: 3}, {bar: 3}, 'foo'); // ERROR 2x
+}
+
+=====================================output=====================================
+//@flow
+{
+  // Omit Tests
+  type Exclude<T, U> = T extends U ? empty : T;
+
+  type Omit<O extends { ... }, Keys extends keyof O> = {
+    [key in Exclude<keyof O, Keys>]: O[key],
+  };
+
+  type O = {
+    foo: number,
+    bar: number,
+    baz: number,
+  };
+
+  declare const noFoo: Omit<O, "foo">;
+  noFoo.foo = 3; // ERROR!
+  noFoo as { bar: number, baz: number }; // OK!
+
+  declare const noFooOrBar: Omit<O, "foo" | "bar">;
+  noFooOrBar as { baz: number }; // OK!
+
+  declare const noKeysBad: Omit<O, string>; // ERROR! string is not a subtype of keyof O
+  noKeysBad as {};
+
+  declare const noKeysGood: Omit<O, "foo" | "bar" | "baz">;
+  noKeysGood as {}; // OK!
+
+  declare function omit<O extends { ... }, Keys extends keyof O>(
+    o: O,
+    ...keys: ReadonlyArray<Keys>
+  ): Omit<O, Keys>;
+  // KP: We need proper natural inference to make this work with no annotations
+  const noBarOrBaz = omit(
+    { foo: 3, bar: 3, baz: 3 },
+    "bar" as "bar",
+    "baz" as "baz",
+  );
+  noBarOrBaz as { foo: number }; // OK!
+  noBarOrBaz.foo as number; // OK!
+  noBarOrBaz.foo = 3; // OK!
+
+  declare function omitInput<O extends { ... }, Keys extends keyof O>(
+    o: O,
+    x: Omit<O, Keys>,
+    ...keys: ReadonlyArray<Keys>
+  ): void;
+  const noIssues = omitInput({ foo: 3, bar: 3 }, { bar: 3 }, "foo" as "foo");
+  const badCall = omitInput({ foo: 3, bar: 3 }, { foo: 3 }, "foo" as "foo"); // ERROR 2x
+}
+
+{
+  // Pick Tests
+  type Pick<O extends { ... }, Keys extends keyof O> = {
+    [key in Keys]: O[key],
+  };
+
+  type P = {
+    foo: number,
+    bar: number,
+    baz: number,
+  };
+
+  declare const onlyFoo: Pick<P, "foo">;
+  onlyFoo.bar; // ERROR!
+  onlyFoo as { foo: number }; // OK!
+
+  declare const fooAndBaz: Pick<P, "foo" | "baz">;
+  fooAndBaz as { foo: number, baz: number }; // OK!
+
+  declare function pick<O extends { ... }, Keys extends keyof O>(
+    o: O,
+    ...keys: ReadonlyArray<Keys>
+  ): Pick<O, Keys>;
+  const picked = pick({ foo: 3, bar: 3 }, "foo");
+  picked as { foo: number };
+
+  declare function pickInput<O extends { ... }, Keys extends keyof O>(
+    o: O,
+    x: Pick<O, Keys>,
+    ...keys: ReadonlyArray<Keys>
+  ): void;
+
+  const noIssues = pickInput({ foo: 3, bar: 3 }, { foo: 3 }, "foo");
+  const badCall = pickInput({ foo: 3, bar: 3 }, { bar: 3 }, "foo"); // ERROR 2x
+}
+
+================================================================================
+`;
+
+exports[`promises.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare function promiseAllByKey<O>(o: O): Promise<{[K in keyof O]: O[K] extends Promise<infer V> ? V : O[K]}>;
+
+promiseAllByKey({
+  foo: Promise.resolve(0),
+  bar: 'bar' as const,
+}).then(o => {
+  o.foo as string; // error, number ~> string
+  o.bar as 'bar'; // ok
+});
+
+=====================================output=====================================
+declare function promiseAllByKey<O>(
+  o: O,
+): Promise<{ [K in keyof O]: O[K] extends Promise<infer V> ? V : O[K] }>;
+
+promiseAllByKey({
+  foo: Promise.resolve(0),
+  bar: "bar" as const,
+}).then((o) => {
+  o.foo as string; // error, number ~> string
+  o.bar as "bar"; // ok
+});
+
+================================================================================
+`;
+
+exports[`reasons.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// We make a SingeltonStringT to implement mapped types via substitution.
+// Let's make sure they have good reasons for error messages.
+
+
+// Make sure the substituted SingletonStringTs have good reasons
+{
+  type TakesFoo<T extends 'foo'> = T;
+
+  type FooBarObj = {foo: number, bar: number};
+  type MappedFooBarObj = {[key in keyof FooBarObj]: TakesFoo<key>}; // ERROR
+
+  ({foo: 'foo', bar: 'bar'} as MappedFooBarObj);
+}
+
+=====================================output=====================================
+// We make a SingeltonStringT to implement mapped types via substitution.
+// Let's make sure they have good reasons for error messages.
+
+// Make sure the substituted SingletonStringTs have good reasons
+{
+  type TakesFoo<T extends "foo"> = T;
+
+  type FooBarObj = { foo: number, bar: number };
+  type MappedFooBarObj = { [key in keyof FooBarObj]: TakesFoo<key> }; // ERROR
+
+  ({ foo: "foo", bar: "bar" }) as MappedFooBarObj;
+}
+
+================================================================================
+`;
+
+exports[`semi_homomorphic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Semi<O extends {...}, Keys extends keyof O> = {
+  [key in Keys]: O[key],
+}
+{
+  // Regular properties work
+  type O = {readonly foo: number};
+
+  type Mapped = Semi<O, 'foo'>;
+
+  declare const a: Mapped;
+  a.foo = 3; // ERROR
+
+  type MappedBad = Semi<O, 'bar'>; // ERROR HERE
+  declare const b: MappedBad;
+  b as {bar: empty}; // NO ERROR
+}
+
+{
+  // Indexers work
+  type P = {foo: number, bar: string, [string]: boolean};
+
+  type MappedWithIndexer = Semi<P, 'foo' | string>;
+
+  declare const withIndexer: MappedWithIndexer;
+  withIndexer as {foo: number, [string]: boolean}; // OK
+  withIndexer as {foo: number}; // ERROR, missing indexer
+
+  type MappedWithoutIndexer = Semi<P, 'foo' | 'bar'>;
+
+  declare const withoutIndexer: MappedWithoutIndexer;
+  withoutIndexer as {foo: number, bar: string}; // OK
+  withoutIndexer as P; // Arguably should error, but pre-existing unsoundness
+  declare const p: P;
+  p as MappedWithoutIndexer; // ERROR
+
+  // Incompatible indexers cause an error at the instantiation site
+  // but persist the indexer type.
+  type IndexedBad = Semi<P, number>; // ERROR
+  declare const bad: IndexedBad;
+  bad as {[number]: boolean}; // NO ERROR
+
+  // Indexers when the original type has none cause an error at the instantiation
+  // site and an any-typed indexer
+  type NoIndexerBad = Semi<{}, number>; // ERROR
+  declare const noIndexerBad: NoIndexerBad;
+  noIndexerBad as {[number]: empty}; // NO ERROR
+}
+
+=====================================output=====================================
+type Semi<O extends { ... }, Keys extends keyof O> = {
+  [key in Keys]: O[key],
+};
+{
+  // Regular properties work
+  type O = { readonly foo: number };
+
+  type Mapped = Semi<O, "foo">;
+
+  declare const a: Mapped;
+  a.foo = 3; // ERROR
+
+  type MappedBad = Semi<O, "bar">; // ERROR HERE
+  declare const b: MappedBad;
+  b as { bar: empty }; // NO ERROR
+}
+
+{
+  // Indexers work
+  type P = { foo: number, bar: string, [string]: boolean };
+
+  type MappedWithIndexer = Semi<P, "foo" | string>;
+
+  declare const withIndexer: MappedWithIndexer;
+  withIndexer as { foo: number, [string]: boolean }; // OK
+  withIndexer as { foo: number }; // ERROR, missing indexer
+
+  type MappedWithoutIndexer = Semi<P, "foo" | "bar">;
+
+  declare const withoutIndexer: MappedWithoutIndexer;
+  withoutIndexer as { foo: number, bar: string }; // OK
+  withoutIndexer as P; // Arguably should error, but pre-existing unsoundness
+  declare const p: P;
+  p as MappedWithoutIndexer; // ERROR
+
+  // Incompatible indexers cause an error at the instantiation site
+  // but persist the indexer type.
+  type IndexedBad = Semi<P, number>; // ERROR
+  declare const bad: IndexedBad;
+  bad as { [number]: boolean }; // NO ERROR
+
+  // Indexers when the original type has none cause an error at the instantiation
+  // site and an any-typed indexer
+  type NoIndexerBad = Semi<{}, number>; // ERROR
+  declare const noIndexerBad: NoIndexerBad;
+  noIndexerBad as { [number]: empty }; // NO ERROR
+}
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type O = { foo: number }
+type Arr = Array<number>;
+type ROArr = ReadonlyArray<number>;
+type Tuple = [a: number, readonly b?: string];
+type Box<T> = {contents: T};
+
+type WithIndexer = {
+  foo: number,
+  [string]: string,
+};
+
+
+type Mapped<O extends {...} | ReadonlyArray<unknown>> = {
+  [key in keyof O]: Box<O[key]>,
+};
+
+// MappedType ~> ObjT
+{
+  declare const o: Mapped<O>;
+  o as {foo: {contents: number}}; // OK
+}
+
+// MappedType ~> array & tuple
+{
+  declare const a: Mapped<Arr>;
+  declare const b: Mapped<ROArr>;
+  declare const c: Mapped<Tuple>;
+  a as Array<{contents: number}>; // OK
+  b as ReadonlyArray<{contents: number}>; // OK
+  c as [a: {contents: number}, readonly b?: {contents: string | void}]; // OK
+  a as empty; // ERROR
+  b as empty; // ERROR
+  c as empty; // ERROR
+}
+
+// ObjT ~> MappedType
+{
+  declare const o: {foo: {contents: number}};
+  o as Mapped<O>; // OK
+
+  declare const badKey: {bar: {contents: number}};
+  badKey as Mapped<O>; // ERROR
+
+  declare const badVal: {foo: {contents: string}};
+  badVal as Mapped<O>; // ERROR
+}
+
+// array & tuple ~> MappedType
+{
+  declare const a: Array<{contents: number}>;
+  declare const b: ReadonlyArray<{contents: number}>;
+  declare const c: [a: {contents: number}, readonly b?: {contents: string | void}];
+  declare const badA: Array<{contents: string}>;
+  declare const badB: ReadonlyArray<{contents: string}>;
+  declare const badC: [a: {contents: number}, readonly b: {contents: string}];
+  a as Mapped<Arr>; // OK
+  b as Mapped<ROArr>; // OK
+  c as Mapped<Tuple>; // OK
+  badA as Mapped<Arr>; // ERROR
+  badB as Mapped<ROArr>; // ERROR
+  badC as Mapped<Tuple>; // ERROR
+}
+
+// No mapped types in declared classes or interfaces
+{
+  declare class DeclaredClass {
+    [x in keyof O]: number; // ERROR
+  }
+  interface I {
+    [x in keyof O]: number; // ERROR
+  }
+}
+
+// Mapped types with indexers
+{
+  type MappedIndexer = Mapped<WithIndexer>;
+  declare const mappedIndexer: MappedIndexer;
+
+  mappedIndexer.foo as number; // ERROR
+  mappedIndexer.bar as string; // ERROR
+  mappedIndexer as {foo: Box<number>, [string]: Box<string>}; // OK
+
+  declare const indexer: {foo: Box<number>, [string]: Box<string>};
+  indexer as MappedIndexer; // OK
+}
+
+// Variance
+{
+  type ReadOnly<T extends {...}> = {readonly [key in keyof T]: T[key]};
+  declare const readonly: ReadOnly<O>;
+  readonly.foo as number; // OK
+  readonly.foo = 3; // ERROR
+
+  type WriteOnly<T extends {...}> = {writeonly [key in keyof T]: T[key]};
+  declare const writeonly: WriteOnly<O>;
+  writeonly.foo as number; // ERROR
+  writeonly.foo = 3; // OK
+
+  type ReadOnlyIndexer = ReadOnly<WithIndexer>;
+  declare const readonlyIndexer: ReadOnlyIndexer;
+  readonlyIndexer.qux as string; // OK
+  readonlyIndexer.qux = 'str'; // ERROR
+
+  type _Unsupported = {readonly [key in keyof Arr]: Arr[key]}; // error: unsupported variance
+}
+
+// Optionality
+{
+  type Partial<T extends {...} | ReadonlyArray<unknown>> = {[key in keyof T]?: T[key]};
+  declare const partial: Partial<O>;
+  partial.foo as number; // ERROR
+  partial.foo as number | void; // OK
+
+  declare const partialIndexer: Partial<WithIndexer>;
+  partialIndexer.qux as string; // ERROR
+  partialIndexer.qux as string | void; // OK
+
+  declare const partialArr: Partial<Arr>;
+  partialArr[0] as number; // ERROR;
+  declare const partialTuple: Partial<Tuple>;
+  partialTuple[0] as number; // ERROR;
+}
+
+// Error positioning
+{
+  type ConstrainedBox<T extends string> = Box<T>;
+  type MappedConstrained<O extends {...}> = {
+    [key in keyof O]: ConstrainedBox<O[key]>,
+  };
+
+  declare const constrained: MappedConstrained<O>; // SHOULD ERROR HERE (constraint \`T extends string\` violated by O[foo] = number), NOT IN DEFINITION OF MAPPEDCONSTRAINED — but Flow currently delays the report to the cast below
+  constrained as {foo: {contents: number}}; // intended OK; currently ERROR — Flow surfaces the constraint violation here instead of at the type instantiation above
+}
+
+// Error positioning
+{
+  type UnconstrainedKey<T> = {[key in T]: number};
+  type BadKeys = UnconstrainedKey<boolean>; // ERROR HERE, NOT LINE ABOVE
+  declare const badKeys: BadKeys;
+  badKeys as empty; // ERROR
+}
+
+=====================================output=====================================
+type O = { foo: number };
+type Arr = Array<number>;
+type ROArr = ReadonlyArray<number>;
+type Tuple = [a: number, readonly b?: string];
+type Box<T> = { contents: T };
+
+type WithIndexer = {
+  foo: number,
+  [string]: string,
+};
+
+type Mapped<O extends { ... } | ReadonlyArray<unknown>> = {
+  [key in keyof O]: Box<O[key]>,
+};
+
+// MappedType ~> ObjT
+{
+  declare const o: Mapped<O>;
+  o as { foo: { contents: number } }; // OK
+}
+
+// MappedType ~> array & tuple
+{
+  declare const a: Mapped<Arr>;
+  declare const b: Mapped<ROArr>;
+  declare const c: Mapped<Tuple>;
+  a as Array<{ contents: number }>; // OK
+  b as ReadonlyArray<{ contents: number }>; // OK
+  c as [a: { contents: number }, readonly b?: { contents: string | void }]; // OK
+  a as empty; // ERROR
+  b as empty; // ERROR
+  c as empty; // ERROR
+}
+
+// ObjT ~> MappedType
+{
+  declare const o: { foo: { contents: number } };
+  o as Mapped<O>; // OK
+
+  declare const badKey: { bar: { contents: number } };
+  badKey as Mapped<O>; // ERROR
+
+  declare const badVal: { foo: { contents: string } };
+  badVal as Mapped<O>; // ERROR
+}
+
+// array & tuple ~> MappedType
+{
+  declare const a: Array<{ contents: number }>;
+  declare const b: ReadonlyArray<{ contents: number }>;
+  declare const c: [
+    a: { contents: number },
+    readonly b?: { contents: string | void },
+  ];
+  declare const badA: Array<{ contents: string }>;
+  declare const badB: ReadonlyArray<{ contents: string }>;
+  declare const badC: [
+    a: { contents: number },
+    readonly b: { contents: string },
+  ];
+  a as Mapped<Arr>; // OK
+  b as Mapped<ROArr>; // OK
+  c as Mapped<Tuple>; // OK
+  badA as Mapped<Arr>; // ERROR
+  badB as Mapped<ROArr>; // ERROR
+  badC as Mapped<Tuple>; // ERROR
+}
+
+// No mapped types in declared classes or interfaces
+{
+  declare class DeclaredClass {
+    [x in keyof O]: number; // ERROR
+  }
+  interface I {
+    [x in keyof O]: number; // ERROR
+  }
+}
+
+// Mapped types with indexers
+{
+  type MappedIndexer = Mapped<WithIndexer>;
+  declare const mappedIndexer: MappedIndexer;
+
+  mappedIndexer.foo as number; // ERROR
+  mappedIndexer.bar as string; // ERROR
+  mappedIndexer as { foo: Box<number>, [string]: Box<string> }; // OK
+
+  declare const indexer: { foo: Box<number>, [string]: Box<string> };
+  indexer as MappedIndexer; // OK
+}
+
+// Variance
+{
+  type ReadOnly<T extends { ... }> = { readonly [key in keyof T]: T[key] };
+  declare const readonly: ReadOnly<O>;
+  readonly.foo as number; // OK
+  readonly.foo = 3; // ERROR
+
+  type WriteOnly<T extends { ... }> = { writeonly [key in keyof T]: T[key] };
+  declare const writeonly: WriteOnly<O>;
+  writeonly.foo as number; // ERROR
+  writeonly.foo = 3; // OK
+
+  type ReadOnlyIndexer = ReadOnly<WithIndexer>;
+  declare const readonlyIndexer: ReadOnlyIndexer;
+  readonlyIndexer.qux as string; // OK
+  readonlyIndexer.qux = "str"; // ERROR
+
+  type _Unsupported = { readonly [key in keyof Arr]: Arr[key] }; // error: unsupported variance
+}
+
+// Optionality
+{
+  type Partial<T extends { ... } | ReadonlyArray<unknown>> = {
+    [key in keyof T]?: T[key],
+  };
+  declare const partial: Partial<O>;
+  partial.foo as number; // ERROR
+  partial.foo as number | void; // OK
+
+  declare const partialIndexer: Partial<WithIndexer>;
+  partialIndexer.qux as string; // ERROR
+  partialIndexer.qux as string | void; // OK
+
+  declare const partialArr: Partial<Arr>;
+  partialArr[0] as number; // ERROR;
+  declare const partialTuple: Partial<Tuple>;
+  partialTuple[0] as number; // ERROR;
+}
+
+// Error positioning
+{
+  type ConstrainedBox<T extends string> = Box<T>;
+  type MappedConstrained<O extends { ... }> = {
+    [key in keyof O]: ConstrainedBox<O[key]>,
+  };
+
+  declare const constrained: MappedConstrained<O>; // SHOULD ERROR HERE (constraint \`T extends string\` violated by O[foo] = number), NOT IN DEFINITION OF MAPPEDCONSTRAINED — but Flow currently delays the report to the cast below
+  constrained as { foo: { contents: number } }; // intended OK; currently ERROR — Flow surfaces the constraint violation here instead of at the type instantiation above
+}
+
+// Error positioning
+{
+  type UnconstrainedKey<T> = { [key in T]: number };
+  type BadKeys = UnconstrainedKey<boolean>; // ERROR HERE, NOT LINE ABOVE
+  declare const badKeys: BadKeys;
+  badKeys as empty; // ERROR
+}
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = {p:string}|{p:number};
+type IdentityMap<O> = {[K in keyof O]: O[K]};
+type U = IdentityMap<T>;
+({p:0} as T); // ok
+({p:0} as U); // ok
+({p:'0'} as T); // ok
+({p:'0'} as U); // ok
+({p:false} as T); // error
+({p:false} as U); // error
+
+=====================================output=====================================
+type T = { p: string } | { p: number };
+type IdentityMap<O> = { [K in keyof O]: O[K] };
+type U = IdentityMap<T>;
+({ p: 0 }) as T; // ok
+({ p: 0 }) as U; // ok
+({ p: "0" }) as T; // ok
+({ p: "0" }) as U; // ok
+({ p: false }) as T; // error
+({ p: false }) as U; // error
+
+================================================================================
+`;

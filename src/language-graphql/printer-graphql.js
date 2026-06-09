@@ -8,14 +8,17 @@ import {
   softline,
 } from "../document/index.js";
 import { printDanglingComments } from "../main/comments/print.js";
-import isNextLineEmpty from "../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd, locStart } from "./loc.js";
+import { locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
-import printDescription from "./print/description.js";
+import { printArguments } from "./print/arguments.js";
+import { printDescription } from "./print/description.js";
+import { printDirectives } from "./print/directives.js";
+import { printSequence } from "./print/sequence.js";
+import { printVariableDefinitions } from "./print/variable-definitions.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -38,7 +41,7 @@ function genericPrint(path, options, print) {
           ? " "
           : "",
         printVariableDefinitions(path, print),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         !hasOperation && !hasName ? "" : " ",
         print("selectionSet"),
       ];
@@ -51,7 +54,7 @@ function genericPrint(path, options, print) {
         printVariableDefinitions(path, print),
         " on ",
         print("typeCondition"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " ",
         print("selectionSet"),
       ];
@@ -71,7 +74,7 @@ function genericPrint(path, options, print) {
       return group([
         node.alias ? [print("alias"), ": "] : "",
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -85,7 +88,7 @@ function genericPrint(path, options, print) {
               ")",
             ])
           : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         node.selectionSet ? " " : "",
         print("selectionSet"),
       ]);
@@ -142,20 +145,20 @@ function genericPrint(path, options, print) {
       ]);
 
     case "ObjectValue": {
-      const bracketSpace =
-        options.bracketSpacing && node.fields.length > 0 ? " " : "";
+      const isEmpty = !isNonEmptyArray(node.fields);
+      const bracketSpace = options.bracketSpacing && !isEmpty ? " " : "";
       return group([
         "{",
         bracketSpace,
         printDanglingComments(path, options, { indent: true }),
-        isNonEmptyArray(node.fields)
-          ? [
+        isEmpty
+          ? ""
+          : [
               indent([
                 softline,
                 join([ifBreak("", ", "), softline], path.map(print, "fields")),
               ]),
-            ]
-          : "",
+            ],
         softline,
         ifBreak("", bracketSpace),
         "}",
@@ -164,27 +167,11 @@ function genericPrint(path, options, print) {
 
     case "ObjectField":
     case "Argument":
+    case "FragmentArgument":
       return [print("name"), ": ", print("value")];
 
     case "Directive":
-      return [
-        "@",
-        print("name"),
-        node.arguments.length > 0
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
-      ];
+      return ["@", print("name"), printArguments(path, options, print)];
 
     case "NamedType":
       return print("name");
@@ -196,7 +183,7 @@ function genericPrint(path, options, print) {
         ": ",
         print("type"),
         node.defaultValue ? [" = ", print("defaultValue")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "ObjectTypeExtension":
@@ -223,16 +210,19 @@ function genericPrint(path, options, print) {
       }
       parts.push(" ", print("name"));
 
-      if (!kind.startsWith("InputObjectType") && node.interfaces.length > 0) {
+      if (
+        !kind.startsWith("InputObjectType") &&
+        isNonEmptyArray(node.interfaces)
+      ) {
         parts.push(
           " implements ",
           indent([group([join([" &", line], path.map(print, "interfaces"))])]),
         );
       }
 
-      parts.push(printDirectives(path, print, node));
+      parts.push(printDirectives(path, print));
 
-      if (node.fields.length > 0) {
+      if (isNonEmptyArray(node.fields)) {
         parts.push([
           " {",
           indent([
@@ -251,7 +241,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -267,7 +257,7 @@ function genericPrint(path, options, print) {
           : "",
         ": ",
         print("type"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "DirectiveDefinition":
@@ -276,7 +266,7 @@ function genericPrint(path, options, print) {
         "directive ",
         "@",
         print("name"),
-        node.arguments.length > 0
+        isNonEmptyArray(node.arguments)
           ? group([
               "(",
               indent([
@@ -290,9 +280,17 @@ function genericPrint(path, options, print) {
               ")",
             ])
           : "",
+        printDirectives(path, print),
         node.repeatable ? " repeatable" : "",
         " on ",
         ...join(" | ", path.map(print, "locations")),
+      ];
+
+    case "DirectiveExtension":
+      return [
+        "extend directive @",
+        print("name"),
+        printDirectives(path, print),
       ];
 
     case "EnumTypeExtension":
@@ -302,8 +300,8 @@ function genericPrint(path, options, print) {
         node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
         print("name"),
-        printDirectives(path, print, node),
-        node.values.length > 0
+        printDirectives(path, print),
+        isNonEmptyArray(node.values)
           ? [
               " {",
               indent([
@@ -320,7 +318,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "InputValueDefinition":
@@ -330,14 +328,14 @@ function genericPrint(path, options, print) {
         ": ",
         print("type"),
         node.defaultValue ? [" = ", print("defaultValue")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "SchemaExtension":
       return [
         "extend schema",
-        printDirectives(path, print, node),
-        ...(node.operationTypes.length > 0
+        printDirectives(path, print),
+        ...(isNonEmptyArray(node.operationTypes)
           ? [
               " {",
               indent([
@@ -357,9 +355,9 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         "schema",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " {",
-        node.operationTypes.length > 0
+        isNonEmptyArray(node.operationTypes)
           ? indent([
               hardline,
               join(
@@ -376,13 +374,18 @@ function genericPrint(path, options, print) {
       return [node.operation, ": ", print("type")];
 
     case "FragmentSpread":
-      return ["...", print("name"), printDirectives(path, print, node)];
+      return [
+        "...",
+        print("name"),
+        printArguments(path, options, print),
+        printDirectives(path, print),
+      ];
 
     case "InlineFragment":
       return [
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
-        printDirectives(path, print, node),
+        printDirectives(path, print),
         " ",
         print("selectionSet"),
       ];
@@ -395,8 +398,8 @@ function genericPrint(path, options, print) {
           node.kind === "UnionTypeExtension" ? "extend " : "",
           "union ",
           print("name"),
-          printDirectives(path, print, node),
-          node.types.length > 0
+          printDirectives(path, print),
+          isNonEmptyArray(node.types)
             ? [
                 " =",
                 ifBreak("", " "),
@@ -416,7 +419,7 @@ function genericPrint(path, options, print) {
         node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
         print("name"),
-        printDirectives(path, print, node),
+        printDirectives(path, print),
       ];
 
     case "NonNullType":
@@ -431,35 +434,6 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printDirectives(path, print, node) {
-  if (node.directives.length === 0) {
-    return "";
-  }
-
-  const printed = join(line, path.map(print, "directives"));
-
-  if (
-    node.kind === "FragmentDefinition" ||
-    node.kind === "OperationDefinition"
-  ) {
-    return group([line, printed]);
-  }
-
-  return [" ", group(indent([softline, printed]))];
-}
-
-function printSequence(path, options, print, property) {
-  return path.map(({ isLast, node }) => {
-    const printed = print();
-
-    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
-      return [printed, hardline];
-    }
-
-    return printed;
-  }, property);
-}
-
 function canAttachComment(node /* , ancestors */) {
   return node.kind !== "Comment";
 }
@@ -471,25 +445,6 @@ function printComment({ node: comment }) {
 
   /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
-}
-
-function printVariableDefinitions(path, print) {
-  const { node } = path;
-  if (!isNonEmptyArray(node.variableDefinitions)) {
-    return "";
-  }
-  return group([
-    "(",
-    indent([
-      softline,
-      join(
-        [ifBreak("", ", "), softline],
-        path.map(print, "variableDefinitions"),
-      ),
-    ]),
-    softline,
-    ")",
-  ]);
 }
 
 function hasPrettierIgnore(path) {

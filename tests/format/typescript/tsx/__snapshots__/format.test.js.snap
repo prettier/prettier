@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`attribute-blank-lines.tsx format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const element = (
+  <Component<Props>
+    first={1}
+
+    second={2}
+  />
+);
+
+=====================================output=====================================
+const element = (
+  <Component<Props>
+    first={1}
+
+    second={2}
+  />
+);
+
+================================================================================
+`;
+
 exports[`generic-component.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

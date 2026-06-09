@@ -29,14 +29,7 @@ function printChildren(path, options, print, events = {}) {
       if (parts.length > 0 && shouldPrePrintHardline(path)) {
         parts.push(hardline);
 
-        if (
-          shouldPrePrintDoubleHardline(path) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
+        if (shouldPrePrintDoubleHardline(path)) {
           parts.push(hardline);
         }
       }
@@ -77,7 +70,10 @@ function shouldPrePrintDoubleHardline(path) {
     isPreviousNodeLooseListItem(path) ||
     (node.type === "list" &&
       parent.type === "listItem" &&
-      previous.type === "code")
+      (previous.type === "code" ||
+        // Preserve blank line before nested list within listItem (issue #17746)
+        previous.type === "paragraph") &&
+      previous.position.end.line + 1 < node.position.start.line)
   ) {
     return true;
   }
@@ -120,13 +116,6 @@ function shouldPrePrintDoubleHardline(path) {
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
   );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function isLooseListItem({ node, parent, next }) {
