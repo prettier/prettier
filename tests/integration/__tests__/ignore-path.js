@@ -74,3 +74,9 @@ test("multiple `--ignore-path`", async () => {
     ]),
   ).toStrictEqual(["ignored-by-gitignore.js"]);
 });
+
+test("ignore paths are matched case-sensitively", async () => {
+  const { stdout } = await runCli("cli/ignore-path-case/", ["**/*.vue", "-l"]);
+
+  expect(stdout).toBe("components/Logs/table.vue");
+});
