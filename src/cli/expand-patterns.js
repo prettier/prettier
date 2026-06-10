@@ -168,7 +168,7 @@ function escapePathForGlob(path) {
       path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
     )
     .replaceAll("\0", String.raw`@(\\)`) // Workaround for fast-glob#262 (part 2)
-    .replaceAll('"', '["]'); // Workaround for fast-glob#494
+    .replaceAll('"', String.raw`\"`); // Workaround for fast-glob#494
 }
 
 /**
