@@ -1,8 +1,8 @@
-// node_modules/@babel/code-frame/lib/common-BO7XIBW3.js
+// node_modules/@babel/code-frame/lib/common-shared.js
 var NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
 function getMarkerLines(loc, source, opts, startLineBaseZero) {
   const startLoc = {
-    column: 0,
+    column: null,
     line: -1,
     ...loc.start
   };
@@ -31,27 +31,29 @@ function getMarkerLines(loc, source, opts, startLineBaseZero) {
   if (lineDiff) {
     for (let i = 0; i <= lineDiff; i++) {
       const lineNumber = i + startLine;
-      if (!startColumn) {
+      if (startColumn == null) {
         markerLines[lineNumber] = true;
       } else if (i === 0) {
         const sourceLength = source[lineNumber - 1].length;
-        markerLines[lineNumber] = [startColumn, sourceLength - startColumn + 1];
+        markerLines[lineNumber] = [startColumn, sourceLength - startColumn];
       } else if (i === lineDiff) {
         markerLines[lineNumber] = [0, endColumn];
       } else {
-        const sourceLength = source[lineNumber - i].length;
+        const sourceLength = source[lineNumber - 1].length;
         markerLines[lineNumber] = [0, sourceLength];
       }
     }
   } else {
     if (startColumn === endColumn) {
-      if (startColumn) {
+      if (startColumn != null) {
         markerLines[startLine] = [startColumn, 0];
       } else {
         markerLines[startLine] = true;
       }
     } else {
-      markerLines[startLine] = [startColumn, endColumn - startColumn];
+      const safeStart = startColumn ?? 0;
+      const safeEnd = endColumn ?? safeStart;
+      markerLines[startLine] = [safeStart, safeEnd - safeStart];
     }
   }
   return {
@@ -92,7 +94,7 @@ function _codeFrameColumns(rawLines, loc, opts = {}, colorOpts) {
     if (hasMarker) {
       let markerLine = "";
       if (Array.isArray(hasMarker)) {
-        const markerSpacing = line.slice(0, Math.max(hasMarker[0] - 1, 0)).replace(/[^\t]/g, " ");
+        const markerSpacing = line.slice(0, hasMarker[0]).replace(/[^\t]/g, " ");
         const numberOfMarkers = hasMarker[1] || 1;
         markerLine = ["\n ", defs.gutter(gutter.replace(/\d/g, " ")), " ", markerSpacing, defs.marker("^").repeat(numberOfMarkers)].join("");
         if (lastMarkerLine && opts.message) {
@@ -112,32 +114,13 @@ ${frame}`;
 }
 
 // node_modules/@babel/code-frame/lib/browser.js
-var deprecationWarningShown = false;
 function codeFrameColumns(rawLines, loc, opts = {}) {
   return _codeFrameColumns(rawLines, loc, opts);
-}
-function browser(rawLines, lineNumber, colNumber, opts = {}) {
-  if (!deprecationWarningShown) {
-    deprecationWarningShown = true;
-    const message = "Passing lineNumber and colNumber is deprecated to @babel/code-frame. Please use `codeFrameColumns`.";
-    const deprecationError = new Error(message);
-    deprecationError.name = "DeprecationWarning";
-    console.warn(new Error(message));
-  }
-  colNumber = Math.max(colNumber, 0);
-  const location = {
-    start: {
-      column: colNumber,
-      line: lineNumber
-    }
-  };
-  return codeFrameColumns(rawLines, location, opts);
 }
 function highlight(code) {
   return code;
 }
 export {
   codeFrameColumns,
-  browser as default,
   highlight
 };

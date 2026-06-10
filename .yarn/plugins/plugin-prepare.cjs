@@ -30,7 +30,16 @@ module.exports = {
   factory: () => ({
     hooks: {
       async afterAllInstalled({ cwd }) {
+        if (process.env.CI) {
+          console.log(`Yarn "plugin-prepare" running in "${cwd}".`);
+        }
+
+        if (process.platform === "win32" && cwd.startsWith("/")) {
+          cwd = path.join(cwd.slice(1), "./");
+        }
+
         if (cwd !== root) {
+          console.log('Yarn "plugin-prepare" skipped.');
           return;
         }
 
