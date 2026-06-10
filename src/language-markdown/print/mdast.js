@@ -26,6 +26,7 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
+import { printDirectiveAttributes } from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
 import { printParagraph } from "./paragraph.js";
@@ -430,6 +431,25 @@ function printMdast(path, options, print) {
       return options.originalText.slice(locStart(node), locEnd(node));
     case "text":
       return replaceEndOfLine(node.value, hardline);
+
+    case "containerDirective":
+      return [
+        ":::",
+        node.name,
+        printDirectiveAttributes(path),
+        hardline,
+        printChildren(path, options, print),
+        hardline,
+        ":::",
+      ];
+
+    case "leafDirective":
+    case "textDirective":
+      return [
+        node.type === "textDirective" ? ":" : "::",
+        node.name,
+        printDirectiveAttributes(path),
+      ];
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"

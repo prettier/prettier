@@ -1,7 +1,12 @@
+import {
+  directiveFromMarkdown,
+  directiveToMarkdown,
+} from "mdast-util-directive";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
 import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
+import { directive as directiveSyntax } from "micromark-extension-directive";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { mdxExpression } from "micromark-extension-mdx-expression";
@@ -39,6 +44,7 @@ function getMarkdownParseOptions() {
       mdxExpression(settings),
       mdxJsx(settings),
       mdxMd(),
+      directiveSyntax(),
       comment,
     ],
     mdastExtensions: [
@@ -46,6 +52,7 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       mdxFromMarkdown(),
+      directiveFromMarkdown(),
       // @ts-expect-error
       commentFromMarkdown({ ast: true }),
     ],
