@@ -29,6 +29,7 @@ import { printChildren } from "./children.js";
 import {
   printDirectiveAttributes,
   printDirectiveChildren,
+  printDirectiveFence,
   printDirectiveLabel,
 } from "./directive.js";
 import { printHeading } from "./heading.js";
@@ -437,8 +438,9 @@ function printMdast(path, options, print) {
       return replaceEndOfLine(node.value, hardline);
 
     case "containerDirective": {
+      const fence = printDirectiveFence(path);
       const parts = [
-        ":::",
+        fence,
         node.name,
         printDirectiveLabel(path, options, print),
         printDirectiveAttributes(path),
@@ -451,7 +453,7 @@ function printMdast(path, options, print) {
         parts.push(childrenDocs, hardline);
       }
 
-      parts.push(":::");
+      parts.push(fence);
 
       return parts;
     }
@@ -459,7 +461,7 @@ function printMdast(path, options, print) {
     case "leafDirective":
     case "textDirective":
       return [
-        node.type === "textDirective" ? ":" : "::",
+        printDirectiveFence(path),
         node.name,
         printDirectiveLabel(path, options, print),
         printDirectiveAttributes(path),
