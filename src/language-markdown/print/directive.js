@@ -8,13 +8,16 @@ function isInlineDirectiveLabel(node) {
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L136
 function printDirectiveLabel(path, options, print) {
   const { node } = path;
-  const [head] = node.children;
 
-  if (!isInlineDirectiveLabel(head)) {
-    return "";
+  if (
+    (node.type === "containerDirective" &&
+      isInlineDirectiveLabel(node.children[0])) ||
+    (node.type !== "containerDirective" && node.children.length === 1)
+  ) {
+    return ["[", print(["children", 0]), "]"];
   }
 
-  return ["[", print(["children", 0]), "]"];
+  return "";
 }
 
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L196

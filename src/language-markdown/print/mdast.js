@@ -461,6 +461,7 @@ function printMdast(path, options, print) {
       return [
         node.type === "textDirective" ? ":" : "::",
         node.name,
+        printDirectiveLabel(path, options, print),
         printDirectiveAttributes(path),
       ];
 
