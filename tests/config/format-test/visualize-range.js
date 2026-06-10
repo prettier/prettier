@@ -1,5 +1,6 @@
 import indexToPosition from "index-to-position";
 import { codeFrameColumns } from "../../../vendors/babel-code-frame-for-test.js";
+
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
@@ -8,7 +9,7 @@ const codeFrameColumnsOptions = {
 const locationForRange = (text, range) => {
   const [start, end] = [...range]
     .sort((indexA, indexB) => indexA - indexB)
-    .map((index) => indexToPosition(text, index, { oneBased: true }));
+    .map((index) => indexToPosition(text, index, { oneBasedLine: true }));
 
   if (start.line !== end.line) {
     end.column -= 1;
