@@ -450,10 +450,12 @@ function printMdast(path, options, print) {
       const childrenDocs = printDirectiveChildren(path, options, print);
 
       if (childrenDocs) {
-        parts.push(childrenDocs, hardline);
+        parts.push(...childrenDocs);
       }
 
-      parts.push(fence);
+      if (fence === ":::") {
+        parts.push(fence);
+      }
 
       return parts;
     }
