@@ -971,6 +971,7 @@ export interface MethodDefinitionConstructor extends MethodDefinitionBase {
   kind: "constructor";
   computed: false;
   static: false;
+  decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithComputedName extends MethodDefinitionBase {
   type: "MethodDefinition";
@@ -978,6 +979,7 @@ export interface MethodDefinitionWithComputedName extends MethodDefinitionBase {
   kind: "method" | "get" | "set";
   computed: true;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBase {
   type: "MethodDefinition";
@@ -985,6 +987,7 @@ export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBas
   kind: "method" | "get" | "set";
   computed: false;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
 }
 
 // `PropertyDefinition` is the new standard for all class properties
@@ -995,6 +998,7 @@ interface PropertyDefinitionBase extends BaseNode {
   value: null | Expression;
   typeAnnotation: null | TypeAnnotation;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
   variance: null | Variance;
   declare: boolean;
   // hermes always emit this as false
@@ -1051,7 +1055,7 @@ export interface ImportDeclaration extends BaseNode {
     ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier
   >;
   source: StringLiteral;
-  assertions: ReadonlyArray<ImportAttribute>;
+  attributes: ReadonlyArray<ImportAttribute>;
 
   importKind: "value" | "type" | "typeof";
 }
@@ -1202,7 +1206,7 @@ export type TypeAnnotationType =
 
 export interface Variance extends BaseNode {
   type: "Variance";
-  kind: "plus" | "minus" | "readonly";
+  kind: "plus" | "minus" | "readonly" | "writeonly" | "in" | "out";
 }
 
 interface BaseTypeAlias extends BaseNode {
