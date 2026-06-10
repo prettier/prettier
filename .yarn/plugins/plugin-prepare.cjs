@@ -29,17 +29,19 @@ module.exports = {
   name: "plugin-prepare",
   factory: () => ({
     hooks: {
-      async afterAllInstalled({ cwd }) {
-        if (process.env.CI) {
-          console.log(`Yarn "plugin-prepare" running in "${cwd}".`);
-        }
+      async afterAllInstalled({ cwd: rawCwd }) {
+        console.log(`Yarn plugin "prepare" running in "${rawCwd}".`);
+
+        let cwd = rawCwd;
 
         if (process.platform === "win32" && cwd.startsWith("/")) {
-          cwd = path.join(cwd.slice(1), "./");
+          cwd = cwd.slice(1);
         }
 
-        if (cwd !== root) {
-          console.log('Yarn "plugin-prepare" skipped.');
+        if (path.join(cwd, "./") !== root) {
+          console.log(
+            `Yarn plugin "prepare" skipped, yarn command not running in "${root}".`,
+          );
           return;
         }
 
