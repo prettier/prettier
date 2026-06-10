@@ -11,10 +11,6 @@ const locationForRange = (text, range) => {
     .sort((indexA, indexB) => indexA - indexB)
     .map((index) => indexToPosition(text, index, { oneBasedLine: true }));
 
-  if (start.line !== end.line) {
-    end.column -= 1;
-  }
-
   return { start, end };
 };
 
