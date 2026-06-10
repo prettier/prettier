@@ -1,19 +1,15 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-19146.md - {"proseWrap":"always"} format 1`] = `
+exports[`issue-6078.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 proseWrap: "always"
                                                       printWidth: 80 (default) |
 =====================================input======================================
- - foo
-   - bar
-	 - baz
+[](http://example.com/path?a=1&amp;b=2&c=3)
 
 =====================================output=====================================
-- foo
-  - bar
-    - baz
+[](http://example.com/path?a=1&b=2&c=3)
 
 ================================================================================
 `;
