@@ -36,7 +36,7 @@ if (path.sep === "/") {
     path.dirname(url.fileURLToPath(import.meta.url)),
     "../cli/special-characters-in-path/quotes",
   );
-  const files = ['".js', '["].js'];
+  const files = ['".js', '["].js', String.raw`\".js`];
 
   fs.rmSync(directory, { force: true, recursive: true });
   fs.mkdirSync(directory, { recursive: true });
