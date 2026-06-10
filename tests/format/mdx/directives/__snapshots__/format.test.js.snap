@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`container.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b *c* d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::::
+
+:::::a
+b
+::::c
+d
+:::e
+- - f
+:::
+> g h
+:::::
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b _c_ d **e**]
+:::
+
+:::a{#e .c.d.f.g h="i & j k"}
+:::
+
+:::a
+::::b
+:::::c
+:::
+
+:::a
+b
+
+::::c
+d
+
+:::::e
+- - f
+
+> g h:::
+
+================================================================================
+`;
+
+exports[`leaf.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b *c* d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a
+
+::a{#e .c.d.f.g h="i & j k"}
+
+================================================================================
+`;
+
+exports[`text.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+:a[b *c*
+d **e**].
+
+:a{#b.c.d id=e class="f g" h="i &amp; j
+k"}.
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+:a.
+
+:a{#e .c.d.f.g h="i & j
+k"}.
+
+================================================================================
+`;
