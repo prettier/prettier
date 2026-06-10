@@ -432,16 +432,22 @@ function printMdast(path, options, print) {
     case "text":
       return replaceEndOfLine(node.value, hardline);
 
-    case "containerDirective":
-      return [
+    case "containerDirective": {
+      const parts = [
         ":::",
         node.name,
         printDirectiveAttributes(path),
         hardline,
-        printChildren(path, options, print),
-        hardline,
-        ":::",
       ];
+
+      if (node.children.length > 0) {
+        parts.push([printChildren(path, options, print), hardline]);
+      }
+
+      parts.push([":::"]);
+
+      return parts;
+    }
 
     case "leafDirective":
     case "textDirective":

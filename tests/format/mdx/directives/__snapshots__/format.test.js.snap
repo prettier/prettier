@@ -44,7 +44,6 @@ d
 {/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
 
 :::a
-
 :::
 
 :::a
@@ -52,7 +51,6 @@ b
 :::
 
 :::a{b}
-
 :::
 
 :::a{c}
@@ -64,13 +62,11 @@ b _c_ d **e**
 :::
 
 :::a{#e .c.d.f.g h="i & j k"}
-
 :::
 
 :::a
 :::b
 :::c
-
 :::
 :::
 :::
