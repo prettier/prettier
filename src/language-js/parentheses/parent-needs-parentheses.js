@@ -88,6 +88,10 @@ function parentNeedsParentheses(path, options, needsParentheses) {
           (node, key) =>
             key === "returnType" && node.type === "ArrowFunctionExpression",
         ) &&
+        !(
+          node.type === "NullableTypeAnnotation" &&
+          path.call(() => needsParentheses(path, options), "typeAnnotation")
+        ) &&
         includesFunctionTypeInObjectType(node)
       ) {
         return true;
