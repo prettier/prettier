@@ -82,6 +82,10 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
     case "TypeAnnotation":
       if (
+        !(
+          node.type === "NullableTypeAnnotation" &&
+          path.call(() => needsParentheses(path, options), "typeAnnotation")
+        ) &&
         path.match(
           undefined,
           undefined,
