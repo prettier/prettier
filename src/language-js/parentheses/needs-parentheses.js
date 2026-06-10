@@ -495,22 +495,6 @@ function needsParentheses(path, options) {
         return true;
       }
 
-      // If the return type is a nullable arrow function, then we need a paren
-      // otherwise the inner => can be assumed to be for the outer one.
-      if (
-        node.type === "NullableTypeAnnotation" &&
-        node.typeAnnotation.type === "FunctionTypeAnnotation" &&
-        path.match(
-          undefined,
-          (node, key) =>
-            key === "typeAnnotation" && node.type === "TypeAnnotation",
-          (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression",
-        )
-      ) {
-        return true;
-      }
-
       break;
 
     case "ComponentTypeAnnotation":
@@ -525,6 +509,22 @@ function needsParentheses(path, options) {
       if (
         path.match(
           undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression",
+        )
+      ) {
+        return true;
+      }
+
+      // If the return type is a nullable arrow function, then we need a paren
+      // otherwise the inner => can be assumed to be for the outer one.
+      if (
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "NullableTypeAnnotation",
           (node, key) =>
             key === "typeAnnotation" && node.type === "TypeAnnotation",
           (node, key) =>

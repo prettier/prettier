@@ -16,11 +16,11 @@ fn = (a: number): ?((string => string)) => {
 fn = (): ?number => 1;
 
 =====================================output=====================================
-fn = (a: number): (?(string) => string) => {
+fn = (a: number): ?((string) => string) => {
   return a > 0 ? (s) => \`\${s}: \${a}\` : null;
 };
 
-fn = (a: number): (?(string) => string) => {
+fn = (a: number): ?((string) => string) => {
   return a > 0 ? (s) => \`\${s}: \${a}\` : null;
 };
 
