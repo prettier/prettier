@@ -26,7 +26,11 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
-import { printDirectiveAttributes } from "./directive.js";
+import {
+  printDirectiveAttributes,
+  printDirectiveChildren,
+  printDirectiveLabel,
+} from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
 import { printParagraph } from "./paragraph.js";
@@ -436,15 +440,18 @@ function printMdast(path, options, print) {
       const parts = [
         ":::",
         node.name,
+        printDirectiveLabel(path, options, print),
         printDirectiveAttributes(path),
         hardline,
       ];
 
-      if (node.children.length > 0) {
-        parts.push([printChildren(path, options, print), hardline]);
+      const childrenDocs = printDirectiveChildren(path, options, print);
+
+      if (childrenDocs) {
+        parts.push(childrenDocs, hardline);
       }
 
-      parts.push([":::"]);
+      parts.push(":::");
 
       return parts;
     }
