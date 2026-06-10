@@ -4,11 +4,11 @@ const path = require("node:path");
 const root = path.join(__dirname, "../../");
 
 function setupVscode() {
-  const settingsFile = path.join(__dirname, "../../.vscode/settings.json");
-
+  const vscodeDirectory = path.join(root, ".vscode/");
+  const settingsFile = path.join(vscodeDirectory, "settings.json");
   const settingsExampleFile = path.join(
-    __dirname,
-    "../../.vscode/settings.example.json",
+    vscodeDirectory,
+    "settings.example.json",
   );
 
   if (fs.existsSync(settingsFile) || !fs.existsSync(settingsExampleFile)) {
