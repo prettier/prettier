@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import url from "node:url";
 import { codeFrameColumns } from "@babel/code-frame";
 import * as ts from "typescript";
-import * as prettier from "../index.js";
+import * as prettier from "../node_modules/prettier/index.mjs";
 
 const PROJECT_ROOT = new URL("../", import.meta.url);
 const FLOW_TYPES = new URL(
