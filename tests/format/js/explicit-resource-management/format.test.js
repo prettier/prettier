@@ -52,14 +52,12 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
-      "valid-for-using-binding-of-of.js",
     ],
     espree: [
       "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
-      "valid-for-using-binding-of-of.js",
     ],
     meriyah: [
       "for-await-using-of-comments.js",
