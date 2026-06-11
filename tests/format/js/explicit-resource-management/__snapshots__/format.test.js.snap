@@ -584,28 +584,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-for-using-binding-of-of.js format[acorn] 1`] = `
-"Assigning to rvalue (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |
-Cause: Assigning to rvalue (2:7)"
-`;
-
-exports[`valid-for-using-binding-of-of.js format[espree] 1`] = `
-"Assigning to rvalue (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |
-Cause: Assigning to rvalue"
-`;
-
 exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
 "Invalid left-hand side in for-of (2:8)
   1 | async function f() {
