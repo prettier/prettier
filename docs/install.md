@@ -226,6 +226,10 @@ bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
 
 ```json
 {
+  ...
+  "scripts": {
+  ...
+  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   }
