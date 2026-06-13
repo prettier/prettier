@@ -1,6 +1,8 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink } from "../utilities.js";
 
+const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
@@ -8,15 +10,30 @@ import { isAutolink } from "../utilities.js";
 
 /**
  * @param {AstPath} path
+ * @param {boolean} isProseWrapPreserve
  * @return {Doc}
  */
-function printWord(path) {
+function printWord(path, isProseWrapPreserve) {
   const { node } = path;
   const emphasisOrStrong = path.findAncestor(
     (p) => p.type === "emphasis" || p.type === "strong",
   );
   if (!emphasisOrStrong) {
-    return node.value;
+    const text = node.value;
+    const { previous, next } = path;
+    if (
+      isProseWrapPreserve &&
+      path.parent.type === "sentence" &&
+      fakeSetextHeaderRegex.test(text) &&
+      previous?.type === "whitespace" &&
+      previous.value === "\n" &&
+      (path.isLast || (next?.type === "whitespace" && next.value === "\n"))
+    ) {
+      // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
+      return `\\${text}`;
+    }
+
+    return text;
   }
   const { previous, next, grandparent } = path;
   let text = node.value;

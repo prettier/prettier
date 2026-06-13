@@ -65,6 +65,22 @@ function hasFakeWhitespaceAfterNextToken(path) {
   return afterNext?.type === "whitespace" && afterNext.value === "";
 }
 
+/**
+ * @param {AstPath} path
+ * @param {string} currentValue
+ * @returns {boolean}
+ */
+function isNextTokenFakeSetextH2Line(path, currentValue) {
+  if (currentValue !== "\n" || path.next?.value !== "-") {
+    return false;
+  }
+  const { siblings, index } = path;
+  const afterNext = siblings?.[index + 2];
+  return (
+    !afterNext || (afterNext?.type === "whitespace" && afterNext.value === "\n")
+  );
+}
+
 function printMdast(path, options, print) {
   const { node } = path;
 
@@ -116,16 +132,23 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
+      return options.parser !== "mdx"
+        ? printWord(path, options.proseWrap === "preserve")
+        : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
         next &&
-        /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
+        /^(?:>|(?:[*+-]|#{1,6}|\d+[).])$)/.test(next.value) &&
         // Avoid https://github.com/prettier/prettier/issues/18861
-        !hasFakeWhitespaceAfterNextToken(path)
+        !hasFakeWhitespaceAfterNextToken(path) &&
+        // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
+        !(
+          options.proseWrap === "preserve" &&
+          isNextTokenFakeSetextH2Line(path, node.value)
+        )
           ? "never"
           : options.proseWrap;
 
