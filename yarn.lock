@@ -5389,6 +5389,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"imurmurhash-esm@npm:0.0.2":
+  version: 0.0.2
+  resolution: "imurmurhash-esm@npm:0.0.2"
+  checksum: 10/5105c36082c13dcf862dec66f2cb679341fe501f70c41b9d6674e6d2bf2eb473fdcb01b1bdd88030e5a0d9162f6686c872800324855be7b1187664d4f549e016
+  languageName: node
+  linkType: hard
+
 "imurmurhash@npm:^0.1.4":
   version: 0.1.4
   resolution: "imurmurhash@npm:0.1.4"
@@ -8134,6 +8141,7 @@ __metadata:
     html-ua-styles: "npm:0.4.0"
     ignore: "npm:7.0.5"
     import-meta-resolve: "npm:4.2.0"
+    imurmurhash-esm: "npm:0.0.2"
     index-to-position: "npm:1.2.0"
     is-es5-identifier-name: "npm:1.0.1"
     jest: "npm:30.4.2"
@@ -8190,7 +8198,6 @@ __metadata:
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.7.1"
-    sdbm: "npm:3.0.0"
     search-closest: "npm:3.0.0"
     semver: "npm:7.8.4"
     serialize-javascript: "npm:7.0.5"
@@ -8518,13 +8525,6 @@ __metadata:
     refa: "npm:^0.12.0"
     regexp-ast-analysis: "npm:^0.7.0"
   checksum: 10/164ec9b9a9d819838240b1df613b6c60ae00c69c4472264f354a191f73b538c064d43c0ac3accf89f5c05880ddab33846077b0cda3ad383701623d468960c005
-  languageName: node
-  linkType: hard
-
-"sdbm@npm:3.0.0":
-  version: 3.0.0
-  resolution: "sdbm@npm:3.0.0"
-  checksum: 10/77c2e9e04d78f468252a64f571c3763fcde5c200c963cc7ba4b7b51ad44b3905d5775a9c68c172d17b45111a26b4ff96d12168972e856ed0631997e6a21de07f
   languageName: node
   linkType: hard
 
