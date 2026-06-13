@@ -52,10 +52,13 @@ function printList(path, options, print) {
       function getPrefix() {
         const rawPrefix = node.ordered
           ? (path.isFirst
-              ? node.start
+              ? // One more than 999,999,999 should not have been parsed as a list item number as long as the parser follows CommonMark
+                node.start
               : isGitDiffFriendlyOrderedList
                 ? 1
-                : node.start + path.index) +
+                : // 999,999,999 is the maximum number that can be parsed as a list item number as intended in CommonMark
+                  // https://spec.commonmark.org/0.31.2/#ordered-list-marker
+                  Math.min(node.start + path.index, 999_999_999)) +
             (nthSiblingIndex % 2 === 0 ? ". " : ") ")
           : nthSiblingIndex % 2 === 0
             ? "- "
@@ -175,10 +178,17 @@ function printListLegacy(path, options, print) {
       function getPrefix() {
         const rawPrefix = node.ordered
           ? (path.isFirst
-              ? node.start
+              ? Number.isSafeInteger(node.start)
+                ? node.start
+                : // Not correctly parsed as an actual list item number, fallback to the original text
+                  getPrefixNumberString()
               : isGitDiffFriendlyOrderedList
                 ? 1
-                : node.start + path.index) +
+                : node.start <= 999_999_999
+                  ? // Only respect the list item number if it parses correctly according to strict CommonMark
+                    Math.min(node.start + path.index, 999_999_999)
+                  : // May not be parsed as a list item. Don't modify the original text.
+                    getPrefixNumberString()) +
             (nthSiblingIndex % 2 === 0 ? ". " : ") ")
           : nthSiblingIndex % 2 === 0
             ? "- "
@@ -189,6 +199,15 @@ function printListLegacy(path, options, print) {
           node.ordered
           ? alignListPrefix(rawPrefix, options)
           : rawPrefix;
+
+        function getPrefixNumberString() {
+          return options.originalText
+            .slice(
+              path.node.position.start.offset,
+              path.node.position.start.offset + path.node.position.end.column,
+            )
+            .match(/^(\d+)/)?.[1];
+        }
       }
     },
   });
