@@ -204,7 +204,9 @@ function printListLegacy(path, options, print) {
           return options.originalText
             .slice(
               path.node.position.start.offset,
-              path.node.position.start.offset + path.node.position.end.column,
+              path.node.position.start.offset +
+                path.node.position.end.column -
+                path.node.position.start.column,
             )
             .match(/^(\d+)/)?.[1];
         }
