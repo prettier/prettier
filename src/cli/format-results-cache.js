@@ -7,6 +7,10 @@ import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
 import { createHash, getOrInsertComputed } from "./utilities.js";
 
+/**
+@import {FileDescriptor, FileDescriptorMeta, CreateOptions} from "file-entry-cache"
+*/
+
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
 
@@ -21,8 +25,6 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
- *
  * @param {FileDescriptor} fileDescriptor
  * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
@@ -39,6 +41,8 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useCheckSum = cacheStrategy === "content";
+
+    /** @type {CreateOptions} */
     const fileEntryCacheOptions = {
       useCheckSum,
       useModifiedTime: !useCheckSum,
