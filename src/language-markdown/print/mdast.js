@@ -240,9 +240,14 @@ function printMdast(path, options, print) {
 
       // fenced code block
       const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
+      const minLength = Math.max(
+        3,
+        getMaxContinuousCount(node.value, styleUnit) + 1,
       );
+      // Preserve the original fence length when it's already long enough,
+      // so nested code fences (e.g. MyST directives) keep their visual nesting.
+      const originalLength = getOriginalFenceLength(node, options, styleUnit);
+      const style = styleUnit.repeat(Math.max(minLength, originalLength));
       return [
         style,
         node.lang || "",
@@ -400,6 +405,37 @@ function printMdast(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
   }
+}
+
+/**
+ * Returns the length of the opening fence in the source, or 0 if it can't be
+ * determined (e.g. for nodes synthesized without position information, or for
+ * code blocks whose value is supplied without an opening fence such as in
+ * JS template literals).
+ *
+ * @param {{ position?: { start: { offset: number } } }} node
+ * @param {{ originalText?: string }} options
+ * @param {"`" | "~"} styleUnit
+ * @returns {number}
+ */
+function getOriginalFenceLength(node, options, styleUnit) {
+  const start = node.position?.start?.offset;
+  if (typeof start !== "number" || typeof options.originalText !== "string") {
+    return 0;
+  }
+  // The opening line may begin with up to 3 spaces of indentation per
+  // CommonMark; skip them before counting the fence marker run.
+  let i = start;
+  let leadingSpaces = 0;
+  while (leadingSpaces < 3 && options.originalText[i] === " ") {
+    i++;
+    leadingSpaces++;
+  }
+  let length = 0;
+  while (options.originalText[i + length] === styleUnit) {
+    length++;
+  }
+  return length;
 }
 
 function printRoot(path, options, print) {
