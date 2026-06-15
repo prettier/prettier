@@ -304,7 +304,8 @@ const configs = [
       "unicorn/switch-case-braces": ["error", "avoid"],
       "unicorn/template-indent": "error",
 
-      "unicorn/comment-content": "error",
+      "unicorn/comment-content": "off",
+      "unicorn/prefer-short-arrow-method": "off",
     },
 
     linterOptions: {
