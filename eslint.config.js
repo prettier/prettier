@@ -331,7 +331,6 @@ const configs = [
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/prefer-await": "off",
       "unicorn/no-top-level-side-effects": "off",
-      "unicorn/no-return-array-push": "off",
       "unicorn/prefer-array-from-map": "off",
       "unicorn/no-error-property-assignment": "off",
       // Bug on `"\u{3000}"`
