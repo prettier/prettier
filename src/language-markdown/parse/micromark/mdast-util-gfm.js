@@ -15,7 +15,7 @@ import * as assert from "#universal/assert";
 export function gfmFromMarkdown() {
   const mdastExtensions = originalGfmFromMarkdown();
   const autolinkExtension = mdastExtensions.find((extension) =>
-    Boolean(extension.enter.literalAutolink),
+    extension.enter.literalAutolink,
   );
 
   if (process.env.NODE_ENV !== "production") {

@@ -326,7 +326,6 @@ const configs = [
       "unicorn/no-negated-comparison": "off",
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",
-      "unicorn/no-useless-boolean-cast": "off",
       "unicorn/no-useless-fallback-in-spread": "off",
       "unicorn/no-unnecessary-splice": "off",
       "unicorn/no-useless-template-literals": "off",
