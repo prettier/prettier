@@ -2375,26 +2375,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.10.0":
-  version: 0.10.0
-  resolution: "@prettier/cli@npm:0.10.0"
+"@prettier/cli@npm:0.11.1":
+  version: 0.11.1
+  resolution: "@prettier/cli@npm:0.11.1"
   dependencies:
-    atomically: "npm:^2.1.0"
-    fast-ignore: "npm:^1.1.3"
+    atomically: "npm:^2.1.1"
+    fast-ignore: "npm:^2.0.0"
     find-up-json: "npm:^2.0.5"
     function-once: "npm:^3.0.1"
     import-meta-resolve: "npm:^4.2.0"
     is-binary-path: "npm:^3.0.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.2.0"
     json-sorted-stringify: "npm:^1.0.2"
     json5: "npm:^2.2.3"
-    kasi: "npm:^1.1.1"
+    kasi: "npm:^2.0.1"
     lomemo: "npm:^1.0.1"
     pioppo: "npm:^1.2.1"
     promise-resolve-timeout: "npm:^2.0.1"
-    smol-toml: "npm:^1.5.2"
+    smol-toml: "npm:^1.6.1"
     specialist: "npm:^1.4.5"
-    tiny-editorconfig: "npm:^1.0.1"
+    tiny-editorconfig: "npm:^1.0.2"
     tiny-readdir: "npm:^2.7.4"
     tiny-readdir-glob: "npm:^1.23.2"
     tiny-spinner: "npm:^2.0.5"
@@ -2406,7 +2406,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/bb2232eb6ec32d71dc55f08c4cb8b10a3d2d683620a1e6dc1dbf1a38dc90be67a71641fe4beca0fa52a82edbe9acd71dd312ee3018e9b0b2af21c370e341f2fd
+  checksum: 10/a6a9f95020412425aefcc9a1731b6a6a815bc98b0ade0985112f1380546965f662eb95a416f58730404ff45b8ab5b0c8a79674be12fc28a68480224854601be7
   languageName: node
   linkType: hard
 
@@ -3203,7 +3203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"atomically@npm:^2.1.0":
+"atomically@npm:^2.1.1":
   version: 2.1.1
   resolution: "atomically@npm:2.1.1"
   dependencies:
@@ -4786,13 +4786,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-ignore@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "fast-ignore@npm:1.1.3"
+"fast-ignore@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "fast-ignore@npm:2.0.0"
   dependencies:
-    grammex: "npm:^3.1.2"
-    string-escape-regex: "npm:^1.0.0"
-  checksum: 10/12d33fe53e140ac902ec9f32f2c69f3a74d3412b1011007248a0a0a50d290bc1efe2c6725f5c60cb94256c34b9bff6e9ef90abce3d14a8402301bce3699296f6
+    grammex: "npm:^3.1.12"
+    string-escape-regex: "npm:^1.0.1"
+  checksum: 10/329949ef852cb0e4ddf17b6b83f8049b02e60071b264d0fa2694378fc3436e558ae3e468b83e600e1f701b594f64ed16f391db5bb31fd493d8c978790ae17833
   languageName: node
   linkType: hard
 
@@ -5246,7 +5246,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"grammex@npm:^3.1.11, grammex@npm:^3.1.2":
+"grammex@npm:^3.1.11, grammex@npm:^3.1.12":
   version: 3.1.12
   resolution: "grammex@npm:3.1.12"
   checksum: 10/d8391ead1b7ad152b9fdb41c3608a3fd562e747b6a5992d57c2c98ba7a7d9112c10988b8f9a577da7fa6844c5015de4407735241470295b77143f1bbd965284f
@@ -6345,14 +6345,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "js-yaml@npm:4.1.1"
+"js-yaml@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "js-yaml@npm:4.2.0"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
     js-yaml: bin/js-yaml.js
-  checksum: 10/a52d0519f0f4ef5b4adc1cde466cb54c50d56e2b4a983b9d5c9c0f2f99462047007a6274d7e95617a21d3c91fde3ee6115536ed70991cd645ba8521058b78f77
+  checksum: 10/51de2067a2b44b07ba5206132e56005f8b568ff279bb4d2f645068958c56fa4827d40a6841c983234671fa0a134bf094d0b0717873c2a3d319185297af145a6d
   languageName: node
   linkType: hard
 
@@ -6430,10 +6430,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kasi@npm:^1.1.1":
-  version: 1.1.2
-  resolution: "kasi@npm:1.1.2"
-  checksum: 10/bfb17b778d0e71b6f684996ddb87ca5a87a008e3bcf90b15bb9749ca9c44a5615fa616787e55c0e8469c1187616ed76dda03d5bc5d0cf36bd2bf61b689a0d388
+"kasi@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "kasi@npm:2.0.1"
+  checksum: 10/011e7451c0e734950417142486671d1afed4c520b07fa497bad6f45207a2e8225caedec42cb4a4dccf2a6c156cffe4946a6f989b15eb4e734690ef2391d6955c
   languageName: node
   linkType: hard
 
@@ -8107,7 +8107,7 @@ __metadata:
     "@babel/types": "npm:8.0.0-rc.6"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
-    "@prettier/cli": "npm:0.10.0"
+    "@prettier/cli": "npm:0.11.1"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
@@ -8657,7 +8657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.6.1, smol-toml@npm:^1.5.2, smol-toml@npm:^1.6.1":
+"smol-toml@npm:1.6.1, smol-toml@npm:^1.6.1":
   version: 1.6.1
   resolution: "smol-toml@npm:1.6.1"
   checksum: 10/9a0d86cc7f8abef429c915b373b9a1f369fe57a87efbbec46b967fb41dc28af753a2fa62c9c4848907c3b47c282be15c8854aa4e2942ef1fa86ff95a76d13856
@@ -8792,7 +8792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-escape-regex@npm:^1.0.0":
+"string-escape-regex@npm:^1.0.1":
   version: 1.0.1
   resolution: "string-escape-regex@npm:1.0.1"
   checksum: 10/183adf4e5ccd4eae90c7381158a37db773cd08a63d16b181e313338b5c3395395f8fe356bcc4b0ec2682007f9ee14d7335847e3cfb2b9a493195b209b9b0f292
@@ -9067,7 +9067,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-editorconfig@npm:^1.0.1":
+"tiny-editorconfig@npm:^1.0.2":
   version: 1.0.2
   resolution: "tiny-editorconfig@npm:1.0.2"
   dependencies:

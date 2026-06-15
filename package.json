@@ -47,7 +47,7 @@
     "@babel/parser": "8.0.0-rc.6",
     "@babel/types": "8.0.0-rc.6",
     "@glimmer/syntax": "0.95.0",
-    "@prettier/cli": "0.10.0",
+    "@prettier/cli": "0.11.1",
     "@prettier/html-event-attributes": "0.0.2",
     "@prettier/html-tags": "2.2.0",
     "@prettier/parse-srcset": "3.1.0",
