@@ -293,6 +293,7 @@ const configs = [
           checkUsedVariables: false,
         },
       ],
+      "unicorn/prefer-global-number-constants": "off",
       "unicorn/prefer-global-this": "off",
       "unicorn/prefer-https": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
@@ -302,6 +303,8 @@ const configs = [
       "unicorn/relative-url-style": "off",
       "unicorn/switch-case-braces": ["error", "avoid"],
       "unicorn/template-indent": "error",
+
+      "unicorn/comment-content": "error",
     },
 
     linterOptions: {

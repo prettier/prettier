@@ -13,6 +13,7 @@ for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
     {
       "Array#join()"() {
         const result = [];
+        // eslint-disable-next-line unicorn/prefer-spread
         for (const string of strings) {
           result.push(string);
         }
