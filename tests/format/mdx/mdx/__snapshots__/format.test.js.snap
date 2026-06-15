@@ -348,8 +348,7 @@ semi: false
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -362,8 +361,7 @@ parsers: ["mdx"]
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
-opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -544,14 +542,14 @@ parsers: ["mdx"]
 semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<Heading hi='there'>Hello, world!
-</Heading>
+<Heading hi='there'>Hello, world!</Heading>
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -560,22 +558,26 @@ semi: false
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>       123
+</Hello>
+123
 <Hello>
     test   <World />   test
-</Hello>       234
+</Hello>
+234
 
 ---
 
 <>
     test   <World        />   test
-</>       123
+</>
+123
 
 ---
 
@@ -649,14 +651,14 @@ exports[`jsx.mdx format 1`] = `
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<Heading hi='there'>Hello, world!
-</Heading>
+<Heading hi='there'>Hello, world!</Heading>
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -665,22 +667,26 @@ parsers: ["mdx"]
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>       123
+</Hello>
+123
 <Hello>
     test   <World />   test
-</Hello>       234
+</Hello>
+234
 
 ---
 
 <>
     test   <World        />   test
-</>       123
+</>
+123
 
 ---
 
@@ -846,13 +852,13 @@ import { Foo, Bar } from "./Fixture"
   </div>
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 
 <Foo />
 test
 
 <ul>
-  <li>item </li>
+  <li>item {" "} </li>
   <li />
 </ul>
 
@@ -900,13 +906,13 @@ import { Foo, Bar } from "./Fixture";
   </div>
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 
 <Foo />
 test
 
 <ul>
-  <li>item </li>
+  <li>item {" "} </li>
   <li />
 </ul>
 

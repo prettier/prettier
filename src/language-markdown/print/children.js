@@ -29,7 +29,7 @@ function printChildren(path, options, print, events = {}) {
       if (parts.length > 0 && shouldPrePrintHardline(path)) {
         parts.push(hardline);
 
-        if (shouldPrePrintDoubleHardline(path, options)) {
+        if (shouldPrePrintDoubleHardline(path)) {
           parts.push(hardline);
         }
       }
@@ -56,61 +56,49 @@ const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
  * @param {AstPath} path
  * @returns {boolean}
  */
-function shouldPrePrintDoubleHardline(path, options) {
+function shouldPrePrintDoubleHardline(path) {
   const { node, previous, parent } = path;
 
-  if (options.parser === "mdx") {
-    if (
-      isLooseListItemLegacy(previous, options) ||
-      (node.type === "list" &&
-        parent.type === "listItem" &&
-        (previous.type === "code" ||
-          // Preserve blank line before nested list within listItem (issue #17746)
-          previous.type === "paragraph") &&
-        previous.position.end.line + 1 < node.position.start.line)
-    ) {
-      return true;
-    }
-  } else {
-    if (
-      isSetextHeading(node) &&
-      node.position.start.line < previous.position.end.line
-    ) {
-      return false;
-    }
+  if (
+    isSetextHeading(node) &&
+    node.position.start.line < previous.position.end.line
+  ) {
+    return false;
+  }
 
-    if (
-      isPreviousNodeLooseListItem(path) ||
-      (node.type === "list" &&
-        parent.type === "listItem" &&
-        (previous.type === "code" ||
-          // Preserve blank line before nested list within listItem (issue #17746)
-          previous.type === "paragraph") &&
-        previous.position.end.line + 1 < node.position.start.line)
-    ) {
-      return true;
-    }
+  if (
+    isPreviousNodeLooseListItem(path) ||
+    (node.type === "list" &&
+      parent.type === "listItem" &&
+      (previous.type === "code" ||
+        // Preserve blank line before nested list within listItem (issue #17746)
+        previous.type === "paragraph") &&
+      previous.position.end.line + 1 < node.position.start.line)
+  ) {
+    return true;
+  }
+
+  if (
+    isAdjacentSibling(
+      path,
+      ["mdxJsxFlowElement", "mdxFlowExpression"],
+      ["mdxJsxFlowElement", "mdxFlowExpression", "paragraph"],
+    )
+  ) {
+    return previous.position.end.line + 1 < node.position.start.line;
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  let isInTightListItem;
-  if (options.parser === "mdx") {
-    isInTightListItem =
-      parent.type === "listItem" &&
-      (node.type === "list" || !isLooseListItemLegacy(parent, options));
-  } else {
-    isInTightListItem =
-      parent.type === "listItem" &&
-      (node.type === "list" || !path.callParent(isLooseListItem));
-  }
+  const isInTightListItem =
+    parent.type === "listItem" &&
+    (node.type === "list" || !path.callParent(isLooseListItem));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
     previous.type === "html" &&
     previous.position.end.line + 1 === node.position.start.line;
   const isBlockHtmlWithoutBlankLineBetweenPrevParagraph =
-    options.parser !== "mdx" &&
     node.type === "html" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
@@ -127,16 +115,6 @@ function shouldPrePrintDoubleHardline(path, options) {
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
-  );
-}
-
-function isLooseListItemLegacy(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
   );
 }
 
@@ -163,6 +141,23 @@ function isPreviousNodeLooseListItem(path) {
     parent: path.parent,
     next: path.node,
   });
+}
+
+/**
+ * @param {AstPath} path
+ * @param {Array<string>} typesA
+ * @param {Array<string>} typesB
+ * @returns {boolean}
+ */
+function isAdjacentSibling(path, typesA, typesB) {
+  const { previous, node } = path;
+  if (typesA.includes(previous.type) && typesB.includes(node.type)) {
+    return true;
+  }
+  if (typesB.includes(previous.type) && typesA.includes(node.type)) {
+    return true;
+  }
+  return false;
 }
 
 export { printChildren };

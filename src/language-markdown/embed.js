@@ -1,7 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utilities.js";
+import { printJsExpression } from "./acorn/printer.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -40,12 +40,7 @@ function embed(path, options) {
           textToDocOptions.filepath = "dummy.tsx";
         }
 
-        const doc = await textToDoc(
-          options.parser === "mdx"
-            ? getFencedCodeBlockValue(node, options.originalText)
-            : node.value,
-          textToDocOptions,
-        );
+        const doc = await textToDoc(node.value, textToDocOptions);
 
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
@@ -65,23 +60,23 @@ function embed(path, options) {
     }
 
     // MDX
-    case "import":
-    case "export":
-      return (textToDoc) =>
-        textToDoc(node.value, {
+    case "mdxjsEsm":
+      return async (textToDoc) =>
+        await textToDoc(node.value.trimEnd(), {
           // TODO: Rename this option since it's not used in HTML
-          __onHtmlBindingRoot: (ast) => validateImportExport(ast, node.type),
+          __onHtmlBindingRoot: validateImportExport,
           parser: "babel",
         });
-    case "jsx":
-      return (textToDoc) =>
-        textToDoc(`<$>${node.value}</$>`, {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        });
-  }
 
-  return null;
+    case "mdxFlowExpression":
+    case "mdxJsxAttributeValueExpression":
+    case "mdxTextExpression":
+      return async (textToDoc, print, path, options) => [
+        "{",
+        await printJsExpression(textToDoc, print, path, options),
+        "}",
+      ];
+  }
 }
 
 function validateImportExport(ast, type) {
@@ -89,13 +84,14 @@ function validateImportExport(ast, type) {
     program: { body },
   } = ast;
 
-  // https://github.com/mdx-js/mdx/blob/3430138958c9c0344ecad9d59e0d6b5d72bedae3/packages/remark-mdx/extract-imports-and-exports.js#L16
+  // https://github.com/micromark/micromark-extension-mdxjs-esm/blob/3fdf3d3e597c707ac08ca94ba52d99d88f87ddfe/dev/lib/syntax.js#L18-L23
   if (
     !body.every(
       (node) =>
-        node.type === "ImportDeclaration" ||
+        node.type === "ExportAllDeclaration" ||
         node.type === "ExportDefaultDeclaration" ||
-        node.type === "ExportNamedDeclaration",
+        node.type === "ExportNamedDeclaration" ||
+        node.type === "ImportDeclaration",
     )
   ) {
     throw new Error(`Unexpected '${type}' in MDX.`);
