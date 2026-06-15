@@ -304,8 +304,7 @@ function printBinaryishExpressions(
             rightContent.shift();
             break;
           case DOC_TYPE_LABEL:
-            // @ts-expect-error -- FIXME
-            comment = right.contents[0];
+            comment = rightContent.contents[0];
             rightContent.contents.shift();
             break;
         }
