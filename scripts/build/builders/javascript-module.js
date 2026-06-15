@@ -50,11 +50,10 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
     {
       module: require.resolve("jest-docblock"),
       process(text) {
-        const exports = [
-          ...text.matchAll(
-            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g,
-          ),
-        ].map((match) => match.groups.specifier);
+        const exports = text
+          .matchAll(/(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g)
+          .map((match) => match.groups.specifier)
+          .toArray();
 
         const lines = text.split("\n");
         const startMarkLine = lines.findIndex((line) =>

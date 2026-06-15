@@ -339,7 +339,6 @@ const configs = [
       "unicorn/no-return-array-push": "off",
       "unicorn/prefer-array-from-map": "off",
       "unicorn/no-error-property-assignment": "off",
-      "unicorn/prefer-iterator-to-array": "off",
       // Bug on `"\u{3000}"`
       "unicorn/no-incorrect-template-string-interpolation": "off",
     },
