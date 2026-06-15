@@ -258,6 +258,8 @@ const configs = [
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
+      // Bug on `"\u{3000}"`
+      "unicorn/no-incorrect-template-string-interpolation": "off",
       "unicorn/no-negated-condition": "off",
       "unicorn/no-nested-ternary": "off",
       "unicorn/no-null": "off",
@@ -332,9 +334,6 @@ const configs = [
       "unicorn/prefer-await": "off",
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/prefer-array-from-map": "off",
-      "unicorn/no-error-property-assignment": "off",
-      // Bug on `"\u{3000}"`
-      "unicorn/no-incorrect-template-string-interpolation": "off",
     },
 
     linterOptions: {
