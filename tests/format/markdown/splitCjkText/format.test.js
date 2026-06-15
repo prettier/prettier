@@ -1,9 +1,11 @@
 const snippets = [
   {
     name: "Should ignore single trailing space after han before New Line before han",
-    code: Array.from({ length: 6 })
+    code: Array.from(
+      { length: 6 },
       // less "文" <= [..., "文...文 ", "文...文", ...] => more "文"
-      .map((_, i) => ["文".repeat(39 + (i >> 1)), i & 1 ? "" : " "])
+      (_, i) => ["文".repeat(39 + (i >> 1)), i & 1 ? "" : " "],
+    )
       // ["<Line #1>", "<L2>", ...]
       .reduce(
         (previousInputLines, [base, space]) => [
