@@ -18,6 +18,28 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-9314.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# Bibliography
+
+-
+
+---
+
+=====================================output=====================================
+# Bibliography
+
+-
+
+---
+
+================================================================================
+`;
+
 exports[`issue-10063.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -151,6 +173,27 @@ Why is this section indented?
 5.2 **Section 2**
 
 Why is this section indented?
+
+================================================================================
+`;
+
+exports[`issue-17778.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1. list item
+999999999. list item
+
+1. list item
+1000000000. ordered list marker can't have more than 9 digits
+
+=====================================output=====================================
+1. list item
+2. list item
+
+3. list item 1000000000. ordered list marker can't have more than 9 digits
 
 ================================================================================
 `;
