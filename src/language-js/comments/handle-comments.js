@@ -116,6 +116,7 @@ function handleEndOfLineComment(context) {
     handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
+    handleTaggedTemplateExpressionComments,
   ].some((fn) => fn(context));
 }
 
@@ -775,6 +776,28 @@ function handleVariableDeclaratorComments({
     isAssignmentLikeNode(enclosingNode) &&
     followingNode &&
     (isComplexExprNode(followingNode) || isBlockComment(comment))
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleTaggedTemplateExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  // A comment between a tagged template's tag and its quasi belongs to the
+  // quasi. A comment with no newline after it already attaches there as a
+  // leading comment, but an end-of-line comment (with a trailing newline) would
+  // otherwise become a trailing comment of the tag. Those two attachments print
+  // differently, so the result was unstable: formatting drops the newline, which
+  // flips the attachment on the next format. Always attaching to the quasi keeps
+  // the output idempotent.
+  if (
+    enclosingNode?.type === "TaggedTemplateExpression" &&
+    followingNode === enclosingNode.quasi
   ) {
     addLeadingComment(followingNode, comment);
     return true;
