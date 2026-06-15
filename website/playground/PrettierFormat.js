@@ -30,9 +30,11 @@ function setup(props, { slots }) {
 
   // Should not trigger format when these changes
   const ignoredKeys = new Set(["showSidebar", "showInput"]);
-  for (const key of Object.keys(settings).filter(
-    (key) => !ignoredKeys.has(key),
-  )) {
+  for (const key of Object.keys(settings)) {
+    if (ignoredKeys.has(key)) {
+      continue;
+    }
+
     watch(
       () => settings[key],
       (newValue, oldValue) => {

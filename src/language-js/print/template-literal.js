@@ -136,8 +136,12 @@ function printJestEachTemplateLiteral(path, options, print) {
       { cells: headerNames },
       ...tableBody.filter((row) => row.cells.length > 0),
     ];
-    for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
-      for (const [index, cell] of cells.entries()) {
+    for (const row of table) {
+      if (row.hasLineBreak) {
+        continue;
+      }
+
+      for (const [index, cell] of row.cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
           getStringWidth(cell),
