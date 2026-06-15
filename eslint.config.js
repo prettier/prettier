@@ -333,7 +333,6 @@ const configs = [
       "unicorn/prefer-await": "off",
       "unicorn/prefer-number-coercion": "off",
       "unicorn/no-top-level-side-effects": "off",
-      "unicorn/no-return-array-push": "off",
       "unicorn/prefer-array-from-map": "off",
       "unicorn/no-error-property-assignment": "off",
       // Bug on `"\u{3000}"`
