@@ -280,7 +280,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Ignore css variables and interpolation in SCSS (i.e. `--#{$var}`)
+    // Ignore CSS variables and interpolation in SCSS (i.e. `--#{$var}`)
     if (iNode.value === "--" && isHashNode(iNextNode)) {
       continue;
     }
@@ -533,7 +533,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     return group(indent(parts));
   }
 
-  // Indent is not needed for import url when url is very long
+  // Indent is not needed for import URL when URL is very long
   // and node has two groups
   // when type is value-comma_group
   // example @import url("verylongurl") projection,tv

@@ -1,6 +1,6 @@
 const MESSAGE_ID = "jsx-identifier-case";
 
-// To ignore variables, config eslint like this
+// To ignore variables, config ESLint like this
 // {'prettier-internal-rules/jsx-identifier-case': ['error', 'name1', ... 'nameN']}
 
 export default {

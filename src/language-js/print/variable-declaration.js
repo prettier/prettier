@@ -21,7 +21,7 @@ function printVariableDeclaration(path, options, print) {
   if (printed.length === 1 && !hasComment(node.declarations[0])) {
     firstVariable = printed[0];
   } else {
-    // Indent first var to comply with eslint one-var rule
+    // Indent first var to comply with ESLint one-var rule
     firstVariable = indent(printed[0]);
   }
 

@@ -240,6 +240,8 @@ const configs = [
       /* eslint-plugin-unicorn */
       "unicorn/better-dom-traversing": "off",
       "unicorn/catch-error-name": "off",
+      // Doesn't work for code and JSDoc in comments
+      "unicorn/comment-content": "off",
       "unicorn/consistent-class-member-order": "off",
       "unicorn/consistent-compound-words": "off",
       "unicorn/consistent-destructuring": "off",
@@ -308,7 +310,6 @@ const configs = [
       "unicorn/template-indent": "error",
 
       // TODO: Enable the followings
-      "unicorn/comment-content": "off",
       "unicorn/prefer-short-arrow-method": "off",
       "unicorn/no-useless-concat": "off",
       "unicorn/no-computed-property-existence-check": "off",

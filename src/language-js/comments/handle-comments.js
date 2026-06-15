@@ -356,7 +356,7 @@ function handleMethodNameComments({
   followingNode,
   text,
 }) {
-  // This is only needed for estree parsers (flow, typescript) to attach
+  // This is only needed for estree parsers (Flow, TypeScript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
   if (
