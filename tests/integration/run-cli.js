@@ -6,7 +6,7 @@ import url from "node:url";
 @typedef {{
   isTTY?: boolean,
   stdoutIsTTY?: boolean,
-  CI?: boolean,
+  ci?: boolean,
   mockWriteFileErrors?: Record<string, string>,
   nodeOptions?: string[],
   input?: string,

@@ -12,7 +12,7 @@ import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
 
 /**
-@import {HtmlParseOptions, AST, ParseTreeResult} from "angular-html-parser";
+@import {HtmlParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
 @import {ParseOptions} from "./parse-options.js";
 */
 

@@ -105,7 +105,7 @@ process.once("message", async (data) => {
     process.send({ type: "worker:fault", error });
     throw error;
   } finally {
-    // On macOS, if we exit too quick the stdio won't received on main thread
+    // On MacOS, if we exit too quick the stdio won't received on main thread
     if (process.platform === "darwin") {
       await Promise.all(
         ["stdout", "stderr"].map(

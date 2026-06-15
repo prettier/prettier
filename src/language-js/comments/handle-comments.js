@@ -50,7 +50,7 @@ import {
   followingNode: Node,
   text: string,
   options: any,
-  AST: NodeMap["File"] | NodeMap["Program"],
+  ast: NodeMap["File"] | NodeMap["Program"],
   isLastComment: boolean,
   placement: "ownLine" | "endOfLine" | "remaining"
 }} CommentContext
@@ -356,7 +356,7 @@ function handleMethodNameComments({
   followingNode,
   text,
 }) {
-  // This is only needed for estree parsers (flow, TypeScript) to attach
+  // This is only needed for estree parsers (Flow, TypeScript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
   if (

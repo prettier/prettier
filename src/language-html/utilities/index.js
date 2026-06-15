@@ -43,7 +43,7 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
-  // e.g. <!--[if lt IE 9]><HTML><![endif]-->
+  // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
     node.kind === "ieConditionalComment" &&
     node.lastChild &&

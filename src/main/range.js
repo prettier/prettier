@@ -189,7 +189,7 @@ function isSourceElement(opts, node, parentNode) {
 /**
 @param {string} text
 @param {*} opts
-@param {*} AST
+@param {*} ast
 @returns {[number, number]}
 */
 function calculateRange(text, opts, ast) {

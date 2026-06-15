@@ -6,7 +6,7 @@
  *
  *   $ node ./scripts/generate-changelog.js
  *   ✔ Input your Pull Request number: 10961
- *   ✔ Input category of your Pull Request: TypeScript
+ *   ✔ Input category of your Pull Request: typescript
  */
 
 import fs from "node:fs/promises";

@@ -37,8 +37,8 @@ const spawn = (command, args, options) =>
 const createTemporaryDirectory = () => {
   const directory = path.join(
     // The following quoted from https://github.com/es-tooling/module-replacements/blob/27d1acd38f19741e31d2eae561a5c8a914373fc5/docs/modules/tempy.md?plain=1#L20-L21, not sure if it's true
-    // macOS and possibly some other platforms return a symlink from `os.tmpdir`.
-    // For some apps, this can cause problems; thus, we use `realpath`.
+    // MacOS and possibly some other platforms return a symlink from `os.tmpdir`.
+    // For some applications, this can cause problems; thus, we use `realpath`.
     fs.realpathSync(os.tmpdir()),
     crypto.randomBytes(16).toString("hex"),
   );

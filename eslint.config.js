@@ -240,7 +240,7 @@ const configs = [
       /* eslint-plugin-unicorn */
       "unicorn/better-dom-traversing": "off",
       "unicorn/catch-error-name": "off",
-      // Annoying when comment code out
+      // Doesn't work for code and JSDoc in comments
       "unicorn/comment-content": "off",
       "unicorn/consistent-class-member-order": "off",
       "unicorn/consistent-compound-words": "off",

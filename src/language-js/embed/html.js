@@ -103,7 +103,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
 }
 
 /**
- *     - HTML`...`
+ *     - html`...`
  *     - HTML comment block
  */
 function isEmbedHtml(path) {

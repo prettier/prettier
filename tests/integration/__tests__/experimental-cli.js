@@ -45,7 +45,7 @@ describe("experimental cli", () => {
     stdout: expectedVersion,
   });
 
-  // stdin format
+  // Stdin format
   runExperimentalCli(["--parser=meriyah"], { input: "foo(   )" }).test({
     stderr: "",
     status: 0,

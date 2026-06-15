@@ -11,7 +11,7 @@ function shouldAddParenthesesToIdentifier(path) {
 
   // ...unless those identifiers are embed placeholders. They might be substituted by complex
   // expressions, so the parens around them should not be dropped. Example (JS-in-HTML-in-JS):
-  //     let tpl = HTML`<script> f((${expr}) / 2); </script>`;
+  //     let tpl = html`<script> f((${expr}) / 2); </script>`;
   // If the inner JS formatter removes the parens, the expression might change its meaning:
   //     f((a + b) / 2)  vs  f(a + b / 2)
   if (

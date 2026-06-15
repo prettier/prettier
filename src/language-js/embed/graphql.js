@@ -96,7 +96,7 @@ function printGraphqlComments(lines) {
 
 /*
  * react-relay and graphql-tag
- * GraphQL`...`
+ * graphql`...`
  * graphql.experimental`...`
  * gql`...`
  * GraphQL comment block
