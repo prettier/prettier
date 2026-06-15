@@ -322,7 +322,6 @@ const configs = [
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/no-negated-array-predicate": "off",
       "unicorn/no-break-in-nested-loop": "off",
-      "unicorn/no-duplicate-loops": "off",
       "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/no-negated-comparison": "off",
       "unicorn/prefer-early-return": "off",
