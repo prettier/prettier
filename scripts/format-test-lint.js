@@ -25,8 +25,8 @@ async function* checkDirectory(directory) {
     ok:
       directory === FORMAT_TEST_DIRECTORY ||
       files.some((file) => file.name === ".not-test-directory") ||
-      !files.some(
-        (file) => file.isFile() && file.name !== TEST_SCRIPT_FILE_NAME,
+      files.every(
+        (file) => !(file.isFile() && file.name !== TEST_SCRIPT_FILE_NAME),
       ) ||
       files.some(
         (file) => file.isFile() && file.name === TEST_SCRIPT_FILE_NAME,

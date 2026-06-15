@@ -398,7 +398,7 @@ function isValidHookCallbackAndDepsFormat(args, baseIndex) {
     getFunctionParameters(maybeArrowFunction).length === 0 &&
     maybeArrowFunction.body.type === "BlockStatement" &&
     maybeDepsArray.type === "ArrayExpression" &&
-    !args.some((arg) => hasComment(arg))
+    args.every((arg) => !hasComment(arg))
   );
 }
 

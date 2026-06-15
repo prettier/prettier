@@ -324,7 +324,6 @@ const configs = [
       "unicorn/no-unreadable-object-destructuring": "off",
       "unicorn/no-unreadable-new-expression": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
-      "unicorn/no-negated-array-predicate": "off",
       "unicorn/no-break-in-nested-loop": "off",
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",

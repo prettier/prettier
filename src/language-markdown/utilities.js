@@ -165,7 +165,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+      [lastNode.value, node.value].every((value) => !/\u3000/.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
