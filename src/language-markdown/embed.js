@@ -93,9 +93,11 @@ function validateImportExport(ast, type) {
   if (
     body.some(
       (node) =>
-        !(node.type === "ImportDeclaration" ||
-        node.type === "ExportDefaultDeclaration" ||
-        node.type === "ExportNamedDeclaration"),
+        !(
+          node.type === "ImportDeclaration" ||
+          node.type === "ExportDefaultDeclaration" ||
+          node.type === "ExportNamedDeclaration"
+        ),
     )
   ) {
     throw new Error(`Unexpected '${type}' in MDX.`);
