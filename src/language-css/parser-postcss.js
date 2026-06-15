@@ -288,7 +288,6 @@ function parseNestedCSS(node, options) {
 
     if (node.type === "css-atrule" && params.length > 0) {
       const { name } = node;
-      const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
         node.params = {
@@ -317,6 +316,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
+      const lowercasedName = name.toLowerCase();
       if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;

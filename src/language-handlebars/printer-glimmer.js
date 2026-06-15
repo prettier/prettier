@@ -289,11 +289,6 @@ function print(path, options, print) {
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
-      const lineBreaksCount = countNewLines(text);
-
-      let leadingLineBreaksCount = countLeadingNewLines(text);
-      let trailingLineBreaksCount = countTrailingNewLines(text);
-
       if (
         (isFirst || isLast) &&
         isWhitespaceOnly &&
@@ -303,6 +298,10 @@ function print(path, options, print) {
       ) {
         return "";
       }
+
+      const lineBreaksCount = countNewLines(text);
+      let leadingLineBreaksCount = countLeadingNewLines(text);
+      let trailingLineBreaksCount = countTrailingNewLines(text);
 
       if (isWhitespaceOnly && lineBreaksCount) {
         leadingLineBreaksCount = Math.min(

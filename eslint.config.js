@@ -256,6 +256,8 @@ const configs = [
       "unicorn/no-array-reverse": "off",
       "unicorn/no-array-sort": "off",
       "unicorn/no-await-expression-member": "off",
+      // Disabled due to false positives
+      "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
       // Bug on `"\u{3000}"`
@@ -324,7 +326,6 @@ const configs = [
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/no-negated-array-predicate": "off",
       "unicorn/no-break-in-nested-loop": "off",
-      "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-useless-fallback-in-spread": "off",

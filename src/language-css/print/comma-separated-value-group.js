@@ -90,7 +90,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
-    const iNextNextNode = node.groups[i + 2];
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
@@ -321,16 +320,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
-    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
-    const isColorAdjusterNode =
-      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
-      i === 0 &&
-      (iNextNode.type === "value-number" || iNextNode.isHex) &&
-      parentParentNode &&
-      isColorAdjusterFuncNode(parentParentNode) &&
-      !hasEmptyRawBefore(iNextNode);
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -343,6 +332,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    const iNextNextNode = node.groups[i + 2];
+
+    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
+    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
+    const isColorAdjusterNode =
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      i === 0 &&
+      (iNextNode.type === "value-number" || iNextNode.isHex) &&
+      parentParentNode &&
+      isColorAdjusterFuncNode(parentParentNode) &&
+      !hasEmptyRawBefore(iNextNode);
     const requireSpaceBeforeOperator =
       iNextNextNode?.type === "value-func" ||
       (iNextNextNode && isWordNode(iNextNextNode)) ||

@@ -68,11 +68,11 @@ function printArray(path, options, print) {
       (!options.__inJestEach &&
         elements.length > 1 &&
         elements.every((element, i, elements) => {
-          const elementType = element?.type;
           if (!isArrayExpression(element) && !isObjectExpression(element)) {
             return false;
           }
 
+          const elementType = element?.type;
           const nextElement = elements[i + 1];
           if (nextElement && elementType !== nextElement.type) {
             return false;
