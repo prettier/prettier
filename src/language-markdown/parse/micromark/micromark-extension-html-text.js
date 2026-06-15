@@ -714,7 +714,7 @@ function tokenizeHtmlText(effects, ok, nok) {
   }
 
   /**
-   * At EOL.
+   * At eol.
    *
    * > 👉 **Note**: we can’t have blank lines in text, so no need to worry about
    * > empty tokens.
@@ -738,7 +738,7 @@ function tokenizeHtmlText(effects, ok, nok) {
   }
 
   /**
-   * After EOL, at optional whitespace.
+   * After eol, at optional whitespace.
    *
    * > 👉 **Note**: we can’t have blank lines in text, so no need to worry about
    * > empty tokens.
@@ -777,7 +777,7 @@ function tokenizeHtmlText(effects, ok, nok) {
   }
 
   /**
-   * After EOL, after optional whitespace.
+   * After eol, after optional whitespace.
    *
    * > 👉 **Note**: we can’t have blank lines in text, so no need to worry about
    * > empty tokens.

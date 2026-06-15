@@ -28,7 +28,7 @@ const languages = [
     name: "JSON.stringify",
     parsers: ["json-stringify"],
     vscodeLanguageIds: ["json"],
-    extensions: [".importmap"], // .json file defaults to JSON instead of json-stringify
+    extensions: [".importmap"], // .json file defaults to `json` instead of `json-stringify`
     filenames: ["package.json", "package-lock.json", "composer.json"],
   })),
   createLanguage(linguistLanguages.JSON, (data) => ({

@@ -36,7 +36,7 @@ function shouldHugJsExpression(ast, options) {
  * @param {string} code
  * @param {Function} textToDoc
  * @param {*} options
- * @param {(AST: any, options: any) => boolean} [shouldHugJsExpression]
+ * @param {(ast: any, options: any) => boolean} [shouldHugJsExpression]
  * @returns {Promise<Doc>}
  */
 async function formatAttributeValue(
