@@ -6,7 +6,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
 const argv = process.argv.slice(2);
 const nodeVersion = Number(argv[1]);
 
-if (argv[0] !== "--node-version" || !Number.isInteger(nodeVersion)) {
+if (argv[0] !== "--node-version" || !Number.isSafeInteger(nodeVersion)) {
   throw new Error("Expect `--node-version` argument.");
 }
 

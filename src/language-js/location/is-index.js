@@ -1,3 +1,3 @@
-const isIndex = (value) => Number.isInteger(value) && value >= 0;
+const isIndex = (value) => Number.isSafeInteger(value) && value >= 0;
 
 export { isIndex };
