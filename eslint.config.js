@@ -328,7 +328,6 @@ const configs = [
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-useless-fallback-in-spread": "off",
-      "unicorn/no-unnecessary-splice": "off",
       "unicorn/no-useless-template-literals": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/prefer-await": "off",
