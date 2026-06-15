@@ -460,11 +460,10 @@ const pluginFiles = [
       {
         module: getPackageFile("ts-api-utils/lib/index.js"),
         process(text) {
-          const typescriptVariables = [
-            ...text.matchAll(
-              /import (?<variable>\w+) from ["']typescript["']/g,
-            ),
-          ].map((match) => match.groups.variable);
+          const typescriptVariables = text
+            .matchAll(/import (?<variable>\w+) from ["']typescript["']/g)
+            .map((match) => match.groups.variable)
+            .toArray();
 
           // Remove `'property' in typescript` check
           text = text.replaceAll(
