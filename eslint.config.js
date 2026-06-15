@@ -332,7 +332,6 @@ const configs = [
       "unicorn/no-useless-template-literals": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/prefer-await": "off",
-      "unicorn/prefer-number-coercion": "off",
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-return-array-push": "off",
       "unicorn/prefer-array-from-map": "off",
