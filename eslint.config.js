@@ -317,7 +317,6 @@ const configs = [
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/max-nested-calls": "off",
       "unicorn/no-invalid-argument-count": "off",
-      "unicorn/no-useless-else": "off",
       "unicorn/no-unreadable-object-destructuring": "off",
       "unicorn/no-unreadable-new-expression": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
