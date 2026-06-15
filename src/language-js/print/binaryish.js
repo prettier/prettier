@@ -300,10 +300,13 @@ function printBinaryishExpressions(
       if (commentBeforeOperator) {
         switch (getDocType(rightContent)) {
           case DOC_TYPE_ARRAY:
-            comment = rightContent.splice(0, 1)[0];
+            comment = rightContent[0];
+            rightContent.shift();
             break;
           case DOC_TYPE_LABEL:
-            comment = rightContent.contents.splice(0, 1)[0];
+            // @ts-expect-error -- FIXME
+            comment = right.contents[0];
+            rightContent.contents.shift();
             break;
         }
       }
