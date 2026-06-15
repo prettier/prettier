@@ -338,6 +338,7 @@ const configs = [
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-return-array-push": "off",
       "unicorn/prefer-array-from-map": "off",
+      "unicorn/no-error-property-assignment": "off",
       // Bug on `"\u{3000}"`
       "unicorn/no-incorrect-template-string-interpolation": "off",
     },
