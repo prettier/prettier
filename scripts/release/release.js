@@ -20,7 +20,7 @@ function runCommand(command) {
   });
 }
 
-// Fetch git tags to get the previous version number (i.e. the latest tag)
+// Fetch Git tags to get the previous version number (i.e. the latest tag)
 await runCommand("git fetch --tags");
 
 // Install script's dependencies before any require

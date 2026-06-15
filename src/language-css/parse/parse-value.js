@@ -175,7 +175,7 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
-  // Inline javascript in Less
+  // Inline JavaScript in Less
   if (options.parser === "less" && value.startsWith("~`")) {
     return { type: "value-unknown", value };
   }

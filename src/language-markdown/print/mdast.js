@@ -190,7 +190,7 @@ function printMdast(path, options, print) {
         case "<": {
           const mailto = "mailto:";
           const url =
-            // <hello@example.com> is parsed as { url: "mailto:hello@example.com" }
+            // <hello@example.com> is parsed as { URL: "mailto:hello@example.com" }
             node.url.startsWith(mailto) &&
             options.originalText.slice(
               node.position.start.offset + 1,
@@ -489,7 +489,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 /**
- * @param {string} url
+ * @param {string} URL
  * @returns {string}
  */
 function printUrl(url) {

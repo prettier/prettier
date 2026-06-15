@@ -14,7 +14,7 @@ import {
 import { postprocess } from "./postprocess.js";
 
 /**
-@import {HtmlParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
+@import {HtmlParseOptions, AST, ParseTreeResult} from "angular-html-parser";
 @import {RawParseOptions, ParseOptions} from "./parse-options.js";
 @import {FrontMatter} from "../../main/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
@@ -56,7 +56,7 @@ function parseVue(input, parseOptions) {
       (node.kind === "element" && node.name.toLowerCase() === "html"),
   );
 
-  // If not Vue SFC, treat as html
+  // If not Vue.js SFC, treat as HTML
   if (isHtml) {
     return parseHtml(input, HTML_PARSE_OPTIONS);
   }

@@ -9,7 +9,7 @@ import visualizeEndOfLine from "./visualize-end-of-line.js";
 /**
 @param {TestCase} testCase
 @param {string} name
-@param {"\r\n" | "\r"} eol
+@param {"\r\n" | "\r"} EOL
 */
 function testEndOfLine(testCase, name, eol) {
   test(name, async () => {

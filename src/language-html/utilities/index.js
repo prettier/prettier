@@ -43,7 +43,7 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
-  // e.g. <!--[if lt IE 9]><html><![endif]-->
+  // e.g. <!--[if lt IE 9]><HTML><![endif]-->
   if (
     node.kind === "ieConditionalComment" &&
     node.lastChild &&
@@ -53,7 +53,7 @@ function shouldPreserveContent(node, options) {
     return true;
   }
 
-  // incomplete html in ie conditional comment
+  // incomplete HTML in ie conditional comment
   // e.g. <!--[if lt IE 9]></div><![endif]-->
   if (node.kind === "ieConditionalComment" && !node.complete) {
     return true;
@@ -475,7 +475,7 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
-  // Every root block in Vue SFC is a block
+  // Every root block in Vue.js SFC is a block
   if (isVueSfcBlock(node, options)) {
     return "block";
   }
@@ -535,7 +535,7 @@ function getUnescapedAttributeValue(node) {
   return unescapeQuoteEntities(node.value);
 }
 
-// top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
+// top-level elements (excluding <template>, <style> and <script>) in Vue.js SFC are considered custom block
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
 function isVueCustomBlock(node, options) {

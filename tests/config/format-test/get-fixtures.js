@@ -29,7 +29,7 @@ function* getFiles(context) {
       !file.isFile() ||
       filename[0] === "." ||
       filename === FORMAT_TEST_SCRIPT_FILENAME ||
-      // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
+      // VS Code creates this file sometime https://github.com/microsoft/vscode/issues/105191
       filename === "debug.log" ||
       path.extname(filename) === ".snap"
     ) {

@@ -3,7 +3,7 @@ import { ParseSourceSpan } from "angular-html-parser";
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 /**
-@import {Ast} from "angular-html-parser";
+@import {AST} from "angular-html-parser";
 */
 
 const parseFunctions = [

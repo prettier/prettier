@@ -1,5 +1,5 @@
 const parsers = [
-  // Didn't test flow and typescript since they can't parse `await (a ? b : c)` correctly
+  // Didn't test flow and TypeScript since they can't parse `await (a ? b : c)` correctly
   "babel", // "flow", "typescript"
 ];
 

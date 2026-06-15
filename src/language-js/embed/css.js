@@ -66,8 +66,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
 /**
  * Template literal in these contexts:
- * <style jsx>{`div{color:red}`}</style>
- * css``
+ * <style JSX>{`div{color:red}`}</style>
+ * CSS``
  * css.global``
  * css.resolve``
  */
@@ -145,7 +145,7 @@ function isStyledComponents({ parent }) {
       );
 
     case "Identifier":
-      // css``
+      // CSS``
       return tag.name === "css";
 
     default:

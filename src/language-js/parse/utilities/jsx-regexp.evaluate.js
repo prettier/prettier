@@ -1,6 +1,6 @@
 /**
  * Use a naive regular expression to detect JSX
- * copied from typescript.js
+ * copied from TypeScript.js
  */
 export default new RegExp(
   [

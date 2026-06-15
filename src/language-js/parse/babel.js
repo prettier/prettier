@@ -263,13 +263,13 @@ export {
   /** @internal */
   babelExpression as __js_expression,
   babelTSExpression as __ts_expression,
-  /** for vue filter */
+  /** for Vue.js filter */
   babelExpression as __vue_expression,
-  /** for vue filter written in TS */
+  /** for Vue.js filter written in TS */
   babelTSExpression as __vue_ts_expression,
-  /** for vue event binding to handle semicolon */
+  /** for Vue.js event binding to handle semicolon */
   babel as __vue_event_binding,
-  /** for vue event binding written in TS to handle semicolon */
+  /** for Vue.js event binding written in TS to handle semicolon */
   babelTs as __vue_ts_event_binding,
   /** verify that we can print this AST */
   babelEstree as __babel_estree,

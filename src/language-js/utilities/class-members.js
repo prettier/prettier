@@ -31,7 +31,7 @@ function iterateClassMembersPath(path, iteratee) {
   }
 
   if (node.type === "ObjectTypeAnnotation") {
-    // Unfortunately, things grouped together in the ast can be
+    // Unfortunately, things grouped together in the AST can be
     // interleaved in the source code. So we need to reorder them before
     // printing them.
     const children = flowObjectTypeAnnotationChildrenProperties

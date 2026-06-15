@@ -92,7 +92,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       module: "*",
       process: (text, file) => transform(text, file, buildOptions),
     },
-    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
+    // #12493, not sure what the problem is, but replace the CJS version with ESM version seems fix it
     {
       module: require.resolve("tslib"),
       path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),

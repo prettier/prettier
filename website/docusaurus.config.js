@@ -31,7 +31,7 @@ const config = {
   favicon: "icon.png",
   titleDelimiter: "·",
 
-  // Set the production url of your site here
+  // Set the production URL of your site here
   url: packageJson.homepage,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -58,7 +58,7 @@ const config = {
   onBrokenLinks: "throw",
 
   // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
+  // useful metadata like HTML lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",

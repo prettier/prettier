@@ -1,7 +1,7 @@
 import { parsing, transform } from "json-test-suite";
 
 const SKIP = new Set([
-  // Prettier doesn't support other encodings than utf8
+  // Prettier doesn't support other encodings than UTF-8
   "i_string_utf16LE_no_BOM.json",
 
   // Maximum call stack size exceeded

@@ -479,7 +479,7 @@ test("Search from directory, not treat file as directory", async () => {
     "directory/.prettierrc",
   );
 
-  // Api
+  // API
   const directory = new URL("../cli/config/config-position/", import.meta.url);
   const getConfigFileByApi = async (file) => {
     const configFile = await prettier.resolveConfigFile(
