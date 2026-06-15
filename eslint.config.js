@@ -333,7 +333,6 @@ const configs = [
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/prefer-await": "off",
       "unicorn/no-top-level-side-effects": "off",
-      "unicorn/prefer-array-from-map": "off",
     },
 
     linterOptions: {
