@@ -324,7 +324,6 @@ const configs = [
       "unicorn/no-break-in-nested-loop": "off",
       "unicorn/no-duplicate-loops": "off",
       "unicorn/no-declarations-before-early-exit": "off",
-      "unicorn/no-negated-comparison": "off",
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-useless-boolean-cast": "off",
