@@ -260,8 +260,6 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 }
 
 function shouldExpandLastArg(args, argDocs, options) {
-  const lastArg = args.at(-1);
-
   if (args.length === 1) {
     const lastArgDoc = argDocs.at(-1);
     if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
@@ -269,6 +267,7 @@ function shouldExpandLastArg(args, argDocs, options) {
     }
   }
 
+  const lastArg = args.at(-1);
   const penultimateArg = args.at(-2);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&

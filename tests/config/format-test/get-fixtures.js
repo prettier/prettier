@@ -24,7 +24,6 @@ function* getFiles(context) {
   const { dirname } = context;
   for (const file of fs.readdirSync(dirname, { withFileTypes: true })) {
     const filename = file.name;
-    const filepath = path.join(dirname, filename);
     if (
       !file.isFile() ||
       filename[0] === "." ||
@@ -36,6 +35,7 @@ function* getFiles(context) {
       continue;
     }
 
+    const filepath = path.join(dirname, filename);
     const text = fs.readFileSync(filepath, "utf8");
 
     verifyFilename(context, filename);

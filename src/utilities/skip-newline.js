@@ -21,11 +21,11 @@ const isNewlineCharacter = (character) =>
  * @returns {number | false}
  */
 function skipNewline(text, startIndex, options) {
-  const backwards = Boolean(options?.backwards);
   if (startIndex === false) {
     return false;
   }
 
+  const backwards = Boolean(options?.backwards);
   const character = text.charAt(startIndex);
   if (backwards) {
     // We already replace `\r\n` with `\n` before parsing

@@ -39,9 +39,6 @@ async function printVueVForDirective(textToDoc, print, path, options) {
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueVForDirective(value) {
   const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
-  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
-  const stripParensRE = /^\(|\)$/g;
-
   const inMatch = value.match(forAliasRE);
   if (!inMatch) {
     return;
@@ -52,6 +49,8 @@ function parseVueVForDirective(value) {
     return;
   }
 
+  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
+  const stripParensRE = /^\(|\)$/g;
   const alias = inMatch[1].trim().replaceAll(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
