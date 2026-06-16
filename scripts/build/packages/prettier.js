@@ -190,6 +190,10 @@ const cliModule = {
             find: "var dump                = dumper.dump;",
             replacement: "var dump;",
           },
+          {
+            module: getPackageFile("smol-toml"),
+            path: getPackageFile("smol-toml/dist/parse.js"),
+          },
         ],
       },
       {
