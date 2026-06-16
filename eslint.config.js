@@ -330,6 +330,7 @@ const configs = [
       "unicorn/prefer-global-number-constants": "off",
       "unicorn/prefer-global-this": "off",
       "unicorn/prefer-https": "off",
+      // TODO: Enable
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
       "unicorn/prefer-minimal-ternary": "off",

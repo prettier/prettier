@@ -161,12 +161,13 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       };
     });
     replaceModule.push(...replacements);
-  }
-
-  // Current version of `yaml` is not tree-shakable,
-  // but when we update it, we may reduce size,
-  // since the UMD version don't need expose `__parsePrettierYamlConfig`
-  if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
+  } else if (
+    buildOptions.format === "umd" &&
+    file.output === "plugins/yaml.js"
+  ) {
+    // Current version of `yaml` is not tree-shakable,
+    // but when we update it, we may reduce size,
+    // since the UMD version don't need expose `__parsePrettierYamlConfig`
     replaceModule.push({
       module: path.join(sourceDirectory, file.input),
       text: 'export * from "../language-yaml/index.js";',
