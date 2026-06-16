@@ -209,6 +209,37 @@ function massageAstNode(original, cloned, parent) {
       value: original.groups.map((node) => node.value).join(""),
     };
   }
+
+  if (
+    original.type === "value-func" &&
+    original.value === "if" &&
+    original.group.type === "value-paren_group" &&
+    original.group.groups.length === 1 &&
+    original.group.groups[0].type === "value-comma_group"
+  ) {
+    const originalGroups = original.group.groups[0].groups;
+    const clonedGroups = cloned.group.groups[0].groups;
+
+    // `if(sass(true): 10px ; else: 15px)`
+    //                      ^
+    for (let index = originalGroups.length - 1; index >= 0; index--) {
+      const group = originalGroups[index];
+
+      if (
+        group.type === "value-word" &&
+        typeof group.value === "string" &&
+        group.value.endsWith(";")
+      ) {
+        if (group.value === ";" && index > 0) {
+          clonedGroups.splice(index - 1, 2, {
+            type: "value-comma_group#merged-value",
+          });
+        } else {
+          clonedGroups[index] = { type: "value-comma_group#merged-value" };
+        }
+      }
+    }
+  }
 }
 
 massageAstNode.ignoredProperties = ignoredProperties;
