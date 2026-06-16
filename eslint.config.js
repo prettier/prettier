@@ -63,7 +63,6 @@ const configs = [
       curly: "error",
       "dot-notation": "error",
       eqeqeq: "error",
-      "logical-assignment-operators": "error",
       "no-console": isCI ? "error" : "warn",
       "no-constant-binary-expression": "error",
       "no-duplicate-imports": "error",
@@ -250,7 +249,11 @@ const configs = [
       "unicorn/escape-case": "off",
       "unicorn/filename-case": ["error", { checkDirectories: false }],
       "unicorn/import-style": "off",
-      "unicorn/logical-assignment-operators": "off",
+      "unicorn/logical-assignment-operators": [
+        "error",
+        "always",
+        { enforceForIfStatements: true },
+      ],
       "unicorn/max-nested-calls": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
@@ -420,7 +423,7 @@ const configs = [
     files: ["tests/**/*.{js,cjs}"],
     rules: {
       // TODO: Enable this when we drop support for Node.js v14
-      "logical-assignment-operators": "off",
+      "unicorn/logical-assignment-operators": "off",
       "unicorn/prefer-array-flat": "off",
       "unicorn/prefer-array-flat-map": "off",
       "unicorn/prefer-string-replace-all": "off",
