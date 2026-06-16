@@ -287,7 +287,12 @@ const configs = [
       "unicorn/no-unreadable-object-destructuring": "off",
       "unicorn/no-unsafe-string-replacement": "off",
       "unicorn/no-useless-concat": "off",
-      "unicorn/no-useless-fallback-in-spread": "off",
+      "unicorn/no-useless-fallback-in-spread": [
+        "error",
+        {
+          checkTernary: false,
+        },
+      ],
       "unicorn/no-useless-recursion": "off",
       "unicorn/no-useless-switch-case": "off",
       "unicorn/no-useless-undefined": [
@@ -328,6 +333,13 @@ const configs = [
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
       "unicorn/prefer-minimal-ternary": "off",
+      "unicorn/prefer-number-properties": [
+        "error",
+        {
+          checkInfinity: true,
+          checkNaN: true,
+        },
+      ],
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
       "unicorn/prefer-ternary": "off",
