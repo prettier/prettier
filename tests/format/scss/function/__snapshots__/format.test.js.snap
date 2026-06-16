@@ -238,9 +238,8 @@ parsers: ["scss"]
 trailingComma: "es5"
                                                       printWidth: 80 (default) |
 =====================================input======================================
-$a: if(sass($x): 1 ; else: white);
-$b: if(sass($x): map.get($view, background); else: white);
-$c: if(sass($x): map.get($view, background) ; else: white);
+$a: if(sass($x): map.get($view, background); else: white);
+$b: if(sass($x): map.get($view, background) ; else: white);
 
 @mixin foo($isDark, $view) {
   .bar {
@@ -249,9 +248,8 @@ $c: if(sass($x): map.get($view, background) ; else: white);
 }
 
 =====================================output=====================================
-$a: if(sass($x): 1; else: white);
+$a: if(sass($x): map.get($view, background); else: white);
 $b: if(sass($x): map.get($view, background); else: white);
-$c: if(sass($x): map.get($view, background); else: white);
 
 @mixin foo($isDark, $view) {
   .bar {
@@ -270,9 +268,8 @@ parsers: ["scss"]
 trailingComma: "none"
                                                       printWidth: 80 (default) |
 =====================================input======================================
-$a: if(sass($x): 1 ; else: white);
-$b: if(sass($x): map.get($view, background); else: white);
-$c: if(sass($x): map.get($view, background) ; else: white);
+$a: if(sass($x): map.get($view, background); else: white);
+$b: if(sass($x): map.get($view, background) ; else: white);
 
 @mixin foo($isDark, $view) {
   .bar {
@@ -281,9 +278,8 @@ $c: if(sass($x): map.get($view, background) ; else: white);
 }
 
 =====================================output=====================================
-$a: if(sass($x): 1; else: white);
+$a: if(sass($x): map.get($view, background); else: white);
 $b: if(sass($x): map.get($view, background); else: white);
-$c: if(sass($x): map.get($view, background); else: white);
 
 @mixin foo($isDark, $view) {
   .bar {

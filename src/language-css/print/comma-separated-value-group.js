@@ -143,6 +143,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Don't print a space before the `;` branch delimiter in the SCSS `if()`
     // function (i.e. `if(condition: value; else: value)`)
     if (
+      options.parser === "scss" &&
       iNextNode.type === "value-word" &&
       iNextNode.value === ";" &&
       insideValueFunctionNode(path, "if")
