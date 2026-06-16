@@ -140,6 +140,16 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Don't print a space before the `;` branch delimiter in the SCSS `if()`
+    // function (i.e. `if(condition: value; else: value)`)
+    if (
+      iNextNode.type === "value-word" &&
+      iNextNode.value === ";" &&
+      insideValueFunctionNode(path, "if")
+    ) {
+      continue;
+    }
+
     // We should keep spaces between words in a embedded JS expression
     // examples:
     //   styled.div` font-size: var(--font-size-h${({ level }) => level}); `;
