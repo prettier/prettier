@@ -43,8 +43,8 @@ vendors/**
 const configs = [
   { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
-  eslintPluginRegexp.configs["flat/recommended"],
-  eslintPluginUnicorn.configs["flat/recommended"],
+  eslintPluginRegexp.configs.recommended,
+  eslintPluginUnicorn.configs.recommended,
   eslintConfigPrettier,
   eslintConfigNodeStyleText,
   {
@@ -58,7 +58,6 @@ const configs = [
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
       "simple-import-sort": eslintPluginSimpleImportSort,
     },
-
     rules: {
       "arrow-body-style": ["error", "as-needed"],
       curly: "error",
@@ -328,12 +327,10 @@ const configs = [
       "unicorn/prefer-early-return": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-useless-fallback-in-spread": "off",
-      "unicorn/no-useless-template-literals": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/prefer-await": "off",
       "unicorn/no-top-level-side-effects": "off",
     },
-
     linterOptions: {
       reportUnusedDisableDirectives: "error",
     },
