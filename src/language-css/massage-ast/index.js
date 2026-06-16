@@ -230,13 +230,15 @@ function massageAstNode(original, cloned, parent) {
         typeof group.value === "string" &&
         group.value.endsWith(";")
       ) {
-        if (group.value === ";" && index > 0) {
-          clonedGroups.splice(index - 1, 2, {
-            type: "value-comma_group#merged-value",
-          });
-        } else {
-          clonedGroups[index] = { type: "value-comma_group#merged-value" };
+        if (group.value === ";") {
+          const previousGroup = originalGroups[index - 1];
+          if (previousGroup?.type === "value-number") {
+            clonedGroups.splice(index - 1, 2, { type: "#node-placeholder" });
+          }
+          continue;
         }
+
+        clonedGroups[index] = { type: "#node-placeholder" };
       }
     }
   }
