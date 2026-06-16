@@ -166,7 +166,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
   // Current version of `yaml` is not tree-shakable,
   // but when we update it, we may reduce size,
   // since the UMD version don't need expose `__parsePrettierYamlConfig`
-  if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
+  else if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
     replaceModule.push({
       module: path.join(sourceDirectory, file.input),
       text: 'export * from "../language-yaml/index.js";',
