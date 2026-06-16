@@ -98,6 +98,12 @@ function liquidSyntax() {
     /** @type {State} */
     function mayExit(code) {
       if (code !== codes.rightCurlyBrace) {
+        if (markdownLineEnding(code)) {
+          effects.enter(types.lineEnding);
+          effects.consume(code);
+          effects.exit(types.lineEnding);
+          return inside;
+        }
         effects.consume(code);
         return inside;
       }
