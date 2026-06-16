@@ -83,9 +83,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
   for (const [k, value] of Object.entries(mixedDefaults)) {
-    if (rawOptions[k] === null || rawOptions[k] === undefined) {
-      rawOptions[k] = value;
-    }
+    rawOptions[k] ??= value;
   }
 
   if (rawOptions.parser === "json") {
