@@ -17,12 +17,12 @@ const nodeType = "liquidNode";
 function liquidFromMarkdown() {
   return {
     canContainEols: [nodeType],
-    enter: { [nodeType]: enterInlineMath },
-    exit: { [nodeType]: exitInlineMath },
+    enter: { [nodeType]: enterInlineLiquid },
+    exit: { [nodeType]: exitInlineLiquid },
   };
 
   /** @type {Handle} */
-  function enterInlineMath(token) {
+  function enterInlineLiquid(token) {
     this.enter(
       // @ts-expect-error
       { type: nodeType },
@@ -32,7 +32,7 @@ function liquidFromMarkdown() {
   }
 
   /** @type {Handle} */
-  function exitInlineMath(token) {
+  function exitInlineLiquid(token) {
     const d = this.resume();
     /** @type {any} */
     const node = this.stack.at(-1);
