@@ -1,0 +1,11 @@
+.foo, // line comment
+	.bar /* block */ {
+	color: red;
+}
+
+.wrap {
+.a, /* c */
+		.b {
+		color: red;
+	}
+}

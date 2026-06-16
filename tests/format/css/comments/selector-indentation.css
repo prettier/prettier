@@ -1,0 +1,22 @@
+.foo, /* c1 */
+	.bar /* c2 */ {
+	color: red;
+}
+
+@media x {
+.a,
+		.b /* c */ {
+	color: red;
+}
+}
+
+.x, /* multi
+line comment */
+	.y {
+	color: red;
+}
+
+.a[data-x="/* not a comment */"], /* real */
+	.b {
+	color: red;
+}

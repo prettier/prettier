@@ -3384,7 +3384,7 @@ li + li {
 }
 
 .foo,
-  // Comment
+// Comment
 .bar {
   // Comment
   color: red; // Comment

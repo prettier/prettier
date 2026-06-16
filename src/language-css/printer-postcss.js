@@ -54,6 +54,59 @@ import {
   maybeToLowerCase,
 } from "./utilities/index.js";
 
+// Re-indent a selector printed verbatim (it couldn't be parsed, e.g. it has
+// comments), keeping block-comment internals as-is. The scan ignores `/*` in
+// strings or after `//` so only real block comments mark a line as continued.
+function reindentUnknownSelector(selector) {
+  const startsInBlockComment = [false];
+  let inBlockComment = false;
+  let inLineComment = false;
+  let quote = "";
+  for (let i = 0; i < selector.length; i++) {
+    const char = selector[i];
+    const next = selector[i + 1];
+    if (char === "\n") {
+      inLineComment = false;
+      startsInBlockComment.push(inBlockComment);
+    } else if (inBlockComment) {
+      if (char === "*" && next === "/") {
+        inBlockComment = false;
+        i++;
+      }
+    } else if (inLineComment) {
+      // skip until end of line
+    } else if (quote) {
+      if (char === "\\") {
+        i++;
+      } else if (char === quote) {
+        quote = "";
+      }
+    } else if (char === "/" && next === "*") {
+      inBlockComment = true;
+      i++;
+    } else if (char === "/" && next === "/") {
+      inLineComment = true;
+      i++;
+    } else if (char === '"' || char === "'") {
+      quote = char;
+    }
+  }
+
+  return join(
+    hardline,
+    selector.split("\n").map((line, index) => {
+      if (startsInBlockComment[index]) {
+        return line;
+      }
+      line = line.replace(/^[\t ]+/, "");
+      if (!startsInBlockComment[index + 1]) {
+        line = line.replace(/[\t ]+$/, "");
+      }
+      return line;
+    }),
+  );
+}
+
 function genericPrint(path, options, print) {
   const { node } = path;
 
@@ -487,7 +540,10 @@ function genericPrint(path, options, print) {
       if (parentNode.raws?.selector) {
         const start = locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
-        return options.originalText.slice(start, end).trim();
+        const selector = options.originalText.slice(start, end).trim();
+        return selector.includes("\n")
+          ? reindentUnknownSelector(selector)
+          : selector;
       }
 
       // Same reason above

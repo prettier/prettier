@@ -112,6 +112,70 @@ vueIndentScriptAndStyle: true
 ================================================================================
 `;
 
+exports[`selector-comment-indentation.vue - {"vueIndentScriptAndStyle":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentScriptAndStyle: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <div />
+</template>
+
+<style>
+.foo, /* c */
+	.bar {
+	color: red;
+}
+</style>
+
+=====================================output=====================================
+<template>
+  <div />
+</template>
+
+<style>
+.foo, /* c */
+.bar {
+  color: red;
+}
+</style>
+
+================================================================================
+`;
+
+exports[`selector-comment-indentation.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentScriptAndStyle: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <div />
+</template>
+
+<style>
+.foo, /* c */
+	.bar {
+	color: red;
+}
+</style>
+
+=====================================output=====================================
+<template>
+  <div />
+</template>
+
+<style>
+  .foo, /* c */
+  .bar {
+    color: red;
+  }
+</style>
+
+================================================================================
+`;
+
 exports[`vue-tag-indent.vue - {"vueIndentScriptAndStyle":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

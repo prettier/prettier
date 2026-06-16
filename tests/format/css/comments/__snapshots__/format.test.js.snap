@@ -633,6 +633,61 @@ foo {
 ================================================================================
 `;
 
+exports[`selector-indentation.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.foo, /* c1 */
+	.bar /* c2 */ {
+	color: red;
+}
+
+@media x {
+.a,
+		.b /* c */ {
+	color: red;
+}
+}
+
+.x, /* multi
+line comment */
+	.y {
+	color: red;
+}
+
+.a[data-x="/* not a comment */"], /* real */
+	.b {
+	color: red;
+}
+
+=====================================output=====================================
+.foo, /* c1 */
+.bar /* c2 */ {
+  color: red;
+}
+
+@media x {
+  .a,
+  .b /* c */ {
+    color: red;
+  }
+}
+
+.x, /* multi
+line comment */
+.y {
+  color: red;
+}
+
+.a[data-x="/* not a comment */"], /* real */
+.b {
+  color: red;
+}
+
+================================================================================
+`;
+
 exports[`selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
