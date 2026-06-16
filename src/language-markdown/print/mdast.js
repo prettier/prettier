@@ -141,7 +141,7 @@ function printMdast(path, options, print) {
       const proseWrap =
         // leading char that may cause different syntax
         next &&
-        /^(?:>|(?:[*+-]|#{1,6}|\d+[).])$)/.test(next.value) &&
+        /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
         // Avoid https://github.com/prettier/prettier/issues/18861
         !hasFakeWhitespaceAfterNextToken(path) &&
         // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
