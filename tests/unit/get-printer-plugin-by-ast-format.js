@@ -28,7 +28,7 @@ describe("unit tests for getPrinterPluginByAstFormat", () => {
     { falsyValue: undefined },
     { falsyValue: false },
   ])("throws an error when astFormat is $falsyValue", ({ falsyValue }) => {
-    const plugins = getMockPlugins(`${falsyValue}`);
+    const plugins = getMockPlugins(String(falsyValue));
     expect(() => getPrinterPluginByAstFormat(plugins, falsyValue)).toThrow(
       "astFormat is required.",
     );
