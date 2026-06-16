@@ -295,7 +295,6 @@ const configs = [
       ],
       "unicorn/number-literal-case": "off",
       "unicorn/numeric-separators-style": "off",
-      "unicorn/operator-assignment": "off",
       "unicorn/prefer-array-flat": [
         "error",
         {

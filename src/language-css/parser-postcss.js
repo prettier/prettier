@@ -127,7 +127,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
-        params = params + node.raws.between;
+        params += node.raws.between;
       }
 
       params = params.trim();
