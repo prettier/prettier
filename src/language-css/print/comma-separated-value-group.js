@@ -146,7 +146,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       options.parser === "scss" &&
       iNextNode.type === "value-word" &&
       iNextNode.value === ";" &&
-      insideValueFunctionNode(path, "if")
+      path.match(
+        undefined,
+        (node, key) => key === "groups" && node.type === "value-paren_group",
+        (node, key) =>
+          key === "group" && node.type === "value-func" && node.value === "if",
+      )
     ) {
       continue;
     }
