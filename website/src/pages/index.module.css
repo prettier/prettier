@@ -309,8 +309,10 @@
 }
 
 .ecosystemGridItem {
+  --ecosystem-logo-size: 80px;
+
   display: grid;
-  grid-template-columns: auto 260px;
+  grid-template-columns: var(--ecosystem-logo-size) 260px;
   align-items: center;
   flex: 1 1 0;
   min-width: 0;
@@ -332,7 +334,7 @@
 }
 
 .ecosystemGridItem img {
-  width: 80px;
+  width: var(--ecosystem-logo-size);
 }
 
 .ecosystemGridItem li + li {
