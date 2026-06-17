@@ -14,3 +14,8 @@ type A3 = (
   | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
   b: number,
 ) => boolean
+
+type A4 = (
+  /* this: */ | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+  b: number,
+) => boolean
