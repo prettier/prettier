@@ -308,12 +308,14 @@ function UsersSection() {
               <ul>
                 <li>
                   <Link to="https://2021.stateofjs.com/en-US/other-tools/#utilities">
-                    More than 83% of respondents to State of JS 2021.
+                    More than <strong>83%</strong> of respondents to State of JS
+                    2021.
                   </Link>
                 </li>
                 <li>
                   <Link to="https://2020.stateofjs.com/en-US/other-tools/#utilities">
-                    More than 70% of respondents to State of JS 2020.
+                    More than <strong>70%</strong> of respondents to State of JS
+                    2020.
                   </Link>
                 </li>
               </ul>
