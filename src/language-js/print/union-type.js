@@ -17,6 +17,7 @@ import {
   isTypeParameterInstantiation,
 } from "../utilities/node-types.js";
 import {
+  isMultipleTupleTypeElement,
   shouldHugUnionType,
   shouldUnionTypePrintOwnComments,
 } from "../utilities/union-type-print.js";
@@ -70,12 +71,7 @@ function printUnionType(path, options, print, args) {
     return group([indent([softline, printed]), softline]);
   }
 
-  const { key, parent } = path;
-  if (
-    key === "elementTypes" &&
-    isTupleType(parent) &&
-    parent.elementTypes.length > 1
-  ) {
+  if (isMultipleTupleTypeElement(path)) {
     return group([
       indent([ifBreak(["(", softline]), printed]),
       softline,
