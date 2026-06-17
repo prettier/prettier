@@ -301,8 +301,9 @@
   gap: 1.5rem 1rem;
 }
 
-@media only screen and (max-width: 736px) {
+@media only screen and (max-width: 1100px) {
   .ecosystemGrid {
+    flex-direction: column;
     gap: 2rem 1rem;
   }
 }
@@ -310,6 +311,9 @@
 .ecosystemGridItem {
   display: grid;
   grid-template-columns: auto 260px;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
   gap: 0.8rem;
   font-size: 14px;
   line-height: 1.4;
@@ -317,7 +321,14 @@
   --ifm-link-color: #b0c4ce;
   --ifm-link-hover-color: var(--ifm-color-white);
   --ifm-list-left-padding: 2rem;
-  --ifm-paragraph-margin-bottom: 1rem;
+  --ifm-paragraph-margin-bottom: 0.5rem;
+}
+
+.ecosystemGridItem > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .ecosystemGridItem img {

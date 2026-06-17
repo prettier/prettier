@@ -299,7 +299,6 @@ function UsersSection() {
           <div className={styles.ecosystemGridItem}>
             <Link
               to="https://2021.stateofjs.com/en-US/other-tools/utilities"
-              style={{ marginTop: "15px" }}
               aria-label="Statistic for utility tools in the State of JavaScript survey"
             >
               <img src="/images/state_of_js_grey.svg" alt="" />
