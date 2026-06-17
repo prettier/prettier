@@ -176,30 +176,41 @@ trailingComma: "all"
 =====================================input======================================
 // @flow
 
-type A = (
-  this: | SupperLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+type A1 = (
+  this: | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
   b: number,
 ) => boolean;
 
-type B = (
-  _this: | SupperLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+type A2 = (
+  _this: | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+  b: number,
+) => boolean
+
+type A3 = (
+  | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
   b: number,
 ) => boolean
 
 =====================================output=====================================
 // @flow
 
-type A = (
+type A1 = (
   this:
-    | SupperLongLongLongLongLongLongLongLongLongLongLongType
+    | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType
     | FooBarBazLorem12345,
   b: number,
 ) => boolean;
 
-type B = (
+type A2 = (
   _this:
-    | SupperLongLongLongLongLongLongLongLongLongLongLongType
+    | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType
     | FooBarBazLorem12345,
+  b: number,
+) => boolean;
+
+type A3 = (
+  | SupperLongLongLongLongLongLongLongLongLongLongLongLongLongType
+  | FooBarBazLorem12345,
   b: number,
 ) => boolean;
 
