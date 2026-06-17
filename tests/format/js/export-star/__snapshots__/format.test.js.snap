@@ -76,7 +76,7 @@ export * as "foo" from "foo";
 exports[`export-star-as-string.js format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:13)
 > 1 | export * as 'foo' from 'foo'
-    |             ^^^^^
+    |             ^
   2 |"
 `;
 
@@ -106,7 +106,7 @@ export * as "foo" from "foo";
 exports[`export-star-as-string2.js format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:13)
 > 1 | export * as "foo" from 'foo'
-    |             ^^^^^
+    |             ^
   2 |"
 `;
 

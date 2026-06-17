@@ -34,7 +34,7 @@ exports[`default-escaped.js format[flow] 1`] = `
 "Unexpected identifier, expected a declaration, statement or export specifiers (2:8)
   1 | // export asyn\\u{63} from "async";
 > 2 | export n\\u{63} from "async";
-    |        ^^^^^^^"
+    |        ^"
 `;
 
 exports[`default-escaped.js format[hermes] 1`] = `

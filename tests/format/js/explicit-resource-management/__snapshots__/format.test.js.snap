@@ -16,7 +16,7 @@ parsers: ["babel", "flow", "typescript"]
 exports[`for-await-using-of-comments.js format[flow] 1`] = `
 "Unexpected token \`await\`, expected the token \`(\` (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
-    |                   ^^^^^
+    |                   ^
   2 |"
 `;
 
@@ -329,7 +329,7 @@ exports[`valid-await-using-binding-basic.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
   1 | async function f() {
 > 2 |   await using basic = getReader();
-    |               ^^^^^
+    |               ^
   3 | }
   4 |"
 `;
@@ -365,7 +365,7 @@ exports[`valid-await-using-binding-escaped.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
   1 | async function f() {
 > 2 |   await using \\u0061b = c;
-    |               ^^^^^^^
+    |               ^
   3 | }
   4 |"
 `;
@@ -439,7 +439,7 @@ exports[`valid-await-using-binding-using.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
   1 | async function f() {
 > 2 |   await using using = of;
-    |               ^^^^^
+    |               ^
   3 |   for (await using using of of);
   4 | }
   5 |"
@@ -588,7 +588,7 @@ exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
 "Invalid left-hand side in for-of (2:8)
   1 | async function f() {
 > 2 |   for (await using of of of);
-    |        ^^^^^^^^^^^
+    |        ^
   3 |   for await (await using of of of);
   4 | }
   5 |"
@@ -626,7 +626,7 @@ exports[`valid-for-using-declaration.js format[flow] 1`] = `
 "Unexpected identifier, expected the token \`;\` (2:20)
   1 | async function f() {
 > 2 |   for (await using basic = reader();;);
-    |                    ^^^^^
+    |                    ^
   3 | }
   4 |"
 `;
@@ -891,7 +891,7 @@ for await (using of of);
 exports[`valid-using-as-identifier-for-await-of.js format[flow] 1`] = `
 "Unexpected token \`await\`, expected the token \`(\` (1:5)
 > 1 | for await (using of of);
-    |     ^^^^^
+    |     ^
   2 |"
 `;
 
@@ -1010,7 +1010,7 @@ exports[`valid-using-binding-basic.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
   1 | {
 > 2 |   using basic = getReader();
-    |         ^^^^^
+    |         ^
   3 | }
   4 |"
 `;
@@ -1043,7 +1043,7 @@ parsers: ["babel", "flow", "typescript"]
 exports[`valid-using-binding-escaped.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
 > 1 | { using \\u0061b = c; }
-    |         ^^^^^^^
+    |         ^
   2 |"
 `;
 
@@ -1108,7 +1108,7 @@ exports[`valid-using-binding-using.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
   1 | {
 > 2 |   using using = of;
-    |         ^^^^^
+    |         ^
   3 |   for (using using of of);
   4 | }
   5 |"

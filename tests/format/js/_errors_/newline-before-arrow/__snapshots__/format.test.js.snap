@@ -49,7 +49,7 @@ exports[`newline-before-arrow.js format[flow] 1`] = `
 "Illegal newline before arrow (2:1)
   1 | async x
 > 2 | => x
-    | ^^
+    | ^
   3 |"
 `;
 

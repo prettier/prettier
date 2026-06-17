@@ -72,7 +72,7 @@ exports[`snippet: #0 format[flow] 1`] = `
 exports[`snippet: #0 format[flow] 2`] = `
 "Invalid left-hand side in for-of (1:6)
 > 1 | for (async of []);
-    |      ^^^^^"
+    |      ^"
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
@@ -168,7 +168,7 @@ Cause: The keyword 'let' is reserved"
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected template literal part, expected an identifier (1:9)
 > 1 | for (let\`\`.bar of []);
-    |         ^^"
+    |         ^"
 `;
 
 exports[`snippet: #2 format[meriyah] 1`] = `

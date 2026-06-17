@@ -113,7 +113,7 @@ exports[`array-pattern.js format[flow] 1`] = `
   1 | {
   2 |   // destructuring binding
 > 3 |   const [, void, ] = value;
-    |            ^^^^
+    |            ^
   4 | }
   5 | {
   6 |   // for-of destructuring binding"
@@ -227,7 +227,7 @@ Cause: Unexpected keyword 'void'"
 exports[`basic.js format[flow] 1`] = `
 "Unexpected reserved word (1:8)
 > 1 | const [void] = [,void] = [void,] = [];
-    |        ^^^^
+    |        ^
   2 |
   3 | function f(void, { p: void }, [ void ]) {}
   4 |"
@@ -543,7 +543,7 @@ Cause: Unexpected keyword 'void'"
 exports[`discard-binding-bindings.js format[flow] 1`] = `
 "Unexpected reserved word (1:12)
 > 1 | const { p: void } = {};
-    |            ^^^^
+    |            ^
   2 |"
 `;
 
@@ -628,7 +628,7 @@ exports[`discard-binding-for-await-using-binding.js format[flow] 1`] = `
 "Unexpected token \`void\`, expected the token \`;\` (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
-    |                   ^^^^
+    |                   ^
   3 | }
   4 |"
 `;
@@ -715,7 +715,7 @@ Cause: Unexpected keyword 'void'"
 exports[`discard-binding-for-bindings.js format[flow] 1`] = `
 "Unexpected reserved word (1:16)
 > 1 | for(const { p: void } of []);
-    |                ^^^^
+    |                ^
   2 |"
 `;
 
@@ -876,7 +876,7 @@ exports[`discard-binding-for-using-binding.js format[flow] 1`] = `
 "Unexpected token \`void\`, expected the token \`;\` (2:13)
   1 | {
 > 2 |   for(using void of []);
-    |             ^^^^
+    |             ^
   3 | }
   4 |"
 `;
@@ -1009,7 +1009,7 @@ exports[`function-parameter.js format[flow] 1`] = `
   1 | {
   2 |   // function parameter
 > 3 |   function f(void) {}
-    |              ^^^^
+    |              ^
   4 | }
   5 | {
   6 |   // arrow function parameter"
@@ -1206,7 +1206,7 @@ exports[`object-pattern.js format[flow] 1`] = `
   1 | {
   2 |   // destructuring binding
 > 3 |   const { void: void } = value;
-    |                 ^^^^
+    |                 ^
   4 | }
   5 | {
   6 |   // for-of destructuring binding"
@@ -1461,7 +1461,7 @@ exports[`using.js format[flow] 1`] = `
 "Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (2:9)
   1 | {
 > 2 |   using void = f();
-    |         ^^^^
+    |         ^
   3 | }
   4 | async (void) => {
   5 |   await using void = f();"
@@ -1634,7 +1634,7 @@ exports[`using-variable-declarator.js format[flow] 1`] = `
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();
-    |         ^^^^
+    |         ^
   4 | }
   5 | {
   6 |   // using 2 declarators"

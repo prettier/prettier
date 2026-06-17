@@ -182,9 +182,7 @@ function postprocess(ast, options) {
           }
           break;
 
-        // NOTE: AI noticed the test breakages and added this to unbreak.
-        // I don't think this is a good fix. I aim to fix it in the oxidized
-        // flow parser instead.
+        // Oxidized can omit the marker that suppresses an explicit `declare`.
         case "DeclareClass":
         case "DeclareComponent":
         case "DeclareFunction":

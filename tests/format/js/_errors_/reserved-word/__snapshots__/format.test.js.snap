@@ -31,13 +31,13 @@ Cause: Unexpected token asyn\\u{63}"
 exports[`snippet: #0 format[flow] 1`] = `
 "Use of reserved word in strict mode (1:7)
 > 1 | class interface {}
-    |       ^^^^^^^^^"
+    |       ^"
 `;
 
 exports[`snippet: #0 format[flow] 2`] = `
 "Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
 > 1 | export asyn\\u{63} from "async";
-    |        ^^^^^^^^^^"
+    |        ^"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
@@ -99,7 +99,7 @@ Cause: The keyword 'interface' is reserved"
 exports[`snippet: #1 format[flow] 1`] = `
 "Use of reserved word in strict mode (1:8)
 > 1 | import interface from "foo";
-    |        ^^^^^^^^^"
+    |        ^"
 `;
 
 exports[`snippet: #1 format[meriyah] 1`] = `

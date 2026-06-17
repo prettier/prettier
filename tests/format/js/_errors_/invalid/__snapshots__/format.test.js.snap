@@ -59,13 +59,13 @@ Cause: Unexpected token each"
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected identifier, expected the token \`(\` (1:5)
 > 1 | for each (a in b) {}
-    |     ^^^^"
+    |     ^"
 `;
 
 exports[`snippet: #0 format[flow] 2`] = `
 "Invalid left-hand side in assignment (1:2)
 > 1 | (a = b) = 1
-    |  ^^^^^"
+    |  ^"
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
@@ -148,7 +148,7 @@ Cause: Unexpected token switch"
 exports[`snippet: #1 format[flow] 1`] = `
 "Unexpected token \`switch\`, expected an identifier (1:7)
 > 1 | class switch() {}
-    |       ^^^^^^"
+    |       ^"
 `;
 
 exports[`snippet: #1 format[flow] 2`] = `
@@ -243,7 +243,7 @@ exports[`snippet: #2 format[flow] 1`] = `
 exports[`snippet: #2 format[flow] 2`] = `
 "Invalid left-hand side in assignment (1:2)
 > 1 | (a = 1) = 2
-    |  ^^^^^"
+    |  ^"
 `;
 
 exports[`snippet: #2 format[meriyah] 1`] = `
@@ -332,7 +332,7 @@ exports[`snippet: #3 format[flow] 1`] = `
 exports[`snippet: #3 format[flow] 2`] = `
 "Invalid left-hand side in assignment (1:2)
 > 1 | (a += b) = 1
-    |  ^^^^^^"
+    |  ^"
 `;
 
 exports[`snippet: #3 format[meriyah] 1`] = `
@@ -421,7 +421,7 @@ exports[`snippet: #4 format[flow] 1`] = `
 exports[`snippet: #4 format[flow] 2`] = `
 "Invalid left-hand side in assignment (1:2)
 > 1 | (a = b) += 1
-    |  ^^^^^"
+    |  ^"
 `;
 
 exports[`snippet: #4 format[meriyah] 1`] = `

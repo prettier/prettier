@@ -898,7 +898,7 @@ exports[`for-in-with-initializer.js format[flow] 1`] = `
   1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
   2 |
 > 3 | for (var a = (b in c) in {});
-    |      ^^^^^^^^^^^^^^^^
+    |      ^
   4 | for (var a = 1 || (b in c) in {});
   5 | for (var a = 1 + (2 || (b in c)) in {});
   6 | for (var a = (() => b in c) in {});"
@@ -1069,7 +1069,7 @@ exports[`parentheses.js format[flow] 1`] = `
    9 | for (var a = [b in c];;);
   10 | for (var a = {b: b in c};;);
 > 11 | for (var a = (x = b in c) => {};;);
-     |                           ^^
+     |                           ^
   12 | for (var a = class extends (b in c) {};;);
   13 | for (var a = function (x = b in c) {};;);
   14 |"

@@ -59,7 +59,7 @@ exports[`snippet: #0 format[flow] 1`] = `
 exports[`snippet: #0 format[flow] 2`] = `
 "\`await\` is not allowed in async function parameters. (1:12)
 > 1 | async (x = await (2)) => {};
-    |            ^^^^^"
+    |            ^"
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
@@ -95,7 +95,7 @@ Cause: Await expression cannot be a default value"
 exports[`snippet: #1 format[flow] 1`] = `
 "\`await\` is not allowed in async function parameters. (1:12)
 > 1 | async (x = await 2) => {};
-    |            ^^^^^"
+    |            ^"
 `;
 
 exports[`snippet: #1 format[meriyah] 1`] = `
@@ -231,7 +231,7 @@ Cause: Unexpected token **"
 exports[`snippet: #5 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:2)
 > 1 | (-+5 ** 6);
-    |  ^^^"
+    |  ^"
 `;
 
 exports[`snippet: #5 format[meriyah] 1`] = `
@@ -265,7 +265,7 @@ Cause: Unexpected token **"
 exports[`snippet: #6 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await 5 ** 6;
-    |                 ^^^^^^^"
+    |                 ^"
 `;
 
 exports[`snippet: #6 format[meriyah] 1`] = `
@@ -299,7 +299,7 @@ Cause: Unexpected token **"
 exports[`snippet: #7 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await -5 ** 6;
-    |                 ^^^^^^^^"
+    |                 ^"
 `;
 
 exports[`snippet: #7 format[meriyah] 1`] = `

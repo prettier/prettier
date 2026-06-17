@@ -170,8 +170,7 @@ exports[`snippet: Should not support front matter format[flow] 1`] = `
 "Invalid left-hand side in assignment (1:3)
 > 1 | ---
     |   ^
-> 2 | Front Matter content
-    | ^^^^^
+  2 | Front Matter content
   3 | ---"
 `;
 
