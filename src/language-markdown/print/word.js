@@ -83,22 +83,18 @@ function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
   }
 
   // https://spec.commonmark.org/0.31.2/#emphasis-and-strong-emphasis
-  const isFollowedByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(
-    following,
-  );
-  const isPrecededByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(
-    preceding,
-  );
+  const followedByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(following);
+  const precededByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(preceding);
   const followedByPunctuation = PUNCTUATION_REGEXP.test(following);
   const precededByPunctuation = PUNCTUATION_REGEXP.test(preceding);
 
   const isLeftFlanking =
-    !isFollowedByWhitespace &&
+    !followedByWhitespace &&
     (!followedByPunctuation ||
       (followedByPunctuation &&
         (isPrecededByWhitespace || precededByPunctuation)));
   const isRightFlanking =
-    !isPrecededByWhitespace &&
+    !precededByWhitespace &&
     (!precededByPunctuation ||
       (precededByPunctuation &&
         (isFollowedByWhitespace || followedByPunctuation)));
