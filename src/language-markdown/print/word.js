@@ -92,12 +92,12 @@ function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
     !followedByWhitespace &&
     (!followedByPunctuation ||
       (followedByPunctuation &&
-        (isPrecededByWhitespace || precededByPunctuation)));
+        (precededByWhitespace  || precededByPunctuation)));
   const isRightFlanking =
     !precededByWhitespace &&
     (!precededByPunctuation ||
       (precededByPunctuation &&
-        (isFollowedByWhitespace || followedByPunctuation)));
+        (followedByWhitespace || followedByPunctuation)));
 
   const indicator = delimiterRun[0];
   if (indicator === "*") {
