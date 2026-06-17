@@ -92,7 +92,7 @@ function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
     !followedByWhitespace &&
     (!followedByPunctuation ||
       (followedByPunctuation &&
-        (precededByWhitespace  || precededByPunctuation)));
+        (precededByWhitespace || precededByPunctuation)));
   const isRightFlanking =
     !precededByWhitespace &&
     (!precededByPunctuation ||
