@@ -1,71 +1,163 @@
-import flowParser from "flow-parser";
+import { parse as flowParse } from "flow-parser/oxidized/index.js";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 
-// https://github.com/facebook/flow/tree/main/packages/flow-parser#options
+// https://github.com/facebook/flow/tree/main/packages/flow-parser/oxidized-src#options
 // Keep this sync with `/scripts/sync-flow-test.js`
 const parseOptions = {
-  /* Basic options */
-  // `types` (boolean, default true) - enable parsing of Flow types
-  // types: true,
-  // `use_strict` (boolean, default false) - treat the file as strict, without needing a "use strict" directive
-  // use_strict: false,
-  // `comments` (boolean, default `true`) - attach comments to AST nodes (`leadingComments` and `trailingComments`)
-  comments: false,
-  // `all_comments` (boolean, default `true`) - include a list of all comments from the whole program
-  // all_comments: true,
-  // `tokens` (boolean, default `false`) - include a list of all parsed tokens in a top-level `tokens` property
-  // tokens: false,
-
-  /* Language features */
-  // `enums` (boolean, default `false`) - enable parsing of enums https://flow.org/en/docs/enums/
-  enums: true,
-  // `match` (boolean, default `false`) - enable parsing of match expressions and match statements https://flow.org/en/docs/match/
-  match: true,
-  // `components` (boolean, default `false`) - enable parsing of Flow component syntax
-  components: true,
+  flow: "all",
+  babel: false,
+  tokens: false,
+  allowReturnOutsideFunction: true,
+  // `enableEnums` (boolean, default `true`) - enable parsing of enums https://flow.org/en/docs/enums/
+  enableEnums: true,
+  // `enableExperimentalFlowMatchSyntax` (boolean, default `true`) - enable parsing of match expressions and match statements https://flow.org/en/docs/match/
+  enableExperimentalFlowMatchSyntax: true,
+  // `enableExperimentalComponentSyntax` (boolean, default `true`) - enable parsing of Flow component syntax
+  enableExperimentalComponentSyntax: true,
   // TODO: Support it
-  // `assert_operator` (boolean, default `false`) - enable parsing of the assert operator
-  // assert_operator: true,
-  // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators
-  esproposal_decorators: true,
-  // Undocumented
-  pattern_matching: true,
-  // Undocumented
-  records: true,
+  // `assertOperator` (boolean, default `false`) - enable parsing of the assert operator
+  // assertOperator: true,
+  // `enableExperimentalDecorators` (boolean, default `true`) - enable parsing of decorators
+  enableExperimentalDecorators: true,
+  // `enableExperimentalFlowRecordSyntax` (boolean, default `true`) - enable parsing of records
+  enableExperimentalFlowRecordSyntax: true,
 };
 
 function createParseError(error) {
-  const { message, loc } = error;
+  let { message } = error;
+  const { loc } = error;
 
   /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }
 
-  const { start, end } = loc;
+  const { line, column } = loc;
+  const suffix = ` (${line}:${column})`;
+  if (message.endsWith(suffix)) {
+    message = message.slice(0, -suffix.length);
+  }
 
   return createError(message, {
     loc: {
-      start: { line: start.line, column: start.column + 1 },
-      end: { line: end.line, column: end.column + 1 },
+      start: { line, column: column + 1 },
     },
-    cause: error,
   });
+}
+
+function offsetNodePositions(node, rangeOffset, lineOffset, columnOffset) {
+  if (!node || typeof node !== "object") {
+    return;
+  }
+
+  if (node.loc) {
+    for (const key of ["start", "end"]) {
+      const position = node.loc[key];
+      position.column += position.line === 1 ? columnOffset : 0;
+      position.line += lineOffset;
+    }
+  }
+
+  if (node.range) {
+    node.range[0] += rangeOffset;
+    node.range[1] += rangeOffset;
+  }
+
+  for (const value of Object.values(node)) {
+    if (Array.isArray(value)) {
+      for (const child of value) {
+        offsetNodePositions(child, rangeOffset, lineOffset, columnOffset);
+      }
+    } else {
+      offsetNodePositions(value, rangeOffset, lineOffset, columnOffset);
+    }
+  }
+}
+
+function repairDeclareVariable(node, text, sourceFilename) {
+  if (
+    node.type !== "DeclareVariable" ||
+    Array.isArray(node.declarations) ||
+    !node.id?.range
+  ) {
+    return;
+  }
+
+  const [start, end] = node.range;
+  const prefixLength = node.id.range[0] - start;
+  if (prefixLength < 3) {
+    return;
+  }
+
+  // Oxidized currently omits extra declarators and initializers on DeclareVariable.
+  let declaration;
+  try {
+    declaration = flowParse(
+      "let" +
+        " ".repeat(prefixLength - 3) +
+        text.slice(start + prefixLength, end),
+      { ...parseOptions, sourceFilename },
+    ).body[0];
+  } catch {
+    return;
+  }
+
+  if (declaration?.type !== "VariableDeclaration") {
+    return;
+  }
+
+  offsetNodePositions(
+    declaration,
+    start,
+    node.loc.start.line - 1,
+    node.loc.start.column,
+  );
+  node.declarations = declaration.declarations;
+}
+
+function repairAst(ast, text, sourceFilename) {
+  const visited = new WeakSet();
+
+  function visit(node) {
+    if (!node || typeof node !== "object" || visited.has(node)) {
+      return;
+    }
+
+    visited.add(node);
+    repairDeclareVariable(node, text, sourceFilename);
+
+    for (const value of Object.values(node)) {
+      if (Array.isArray(value)) {
+        for (const child of value) {
+          visit(child);
+        }
+      } else {
+        visit(value);
+      }
+    }
+  }
+
+  visit(ast);
 }
 
 function parse(text, options) {
   const filepath = options?.filepath;
+  const sourceFilename =
+    typeof filepath === "string" ? filepath : "prettier.js.flow";
 
-  const ast = flowParser.parse(text, {
-    filename: typeof filepath === "string" ? filepath : "prettier.js.flow",
-    ...parseOptions,
-  });
-  const [error] = ast.errors;
-  if (error) {
+  let ast;
+  try {
+    ast = flowParse(text, {
+      sourceFilename,
+      ...parseOptions,
+    });
+  } catch (error) {
     throw createParseError(error);
   }
+
+  repairAst(ast, text, sourceFilename);
 
   return postprocess(ast, { text, astType: "flow" });
 }

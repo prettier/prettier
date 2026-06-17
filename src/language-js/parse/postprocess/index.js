@@ -182,10 +182,30 @@ function postprocess(ast, options) {
           }
           break;
 
-        // Since flow@0.313.0, `TypeParameter.bound` is a bare type node without the `TypeAnnotation` wrapper
-        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03130
+        // NOTE: AI noticed the test breakages and added this to unbreak.
+        // I don't think this is a good fix. I aim to fix it in the oxidized
+        // flow parser instead.
+        case "DeclareClass":
+        case "DeclareComponent":
+        case "DeclareFunction":
+        case "DeclareHook":
+        case "DeclareVariable":
+        case "DeclareExportDeclaration":
+        case "DeclareExportAllDeclaration":
+        case "DeclareOpaqueType":
+        case "DeclareTypeAlias":
+        case "DeclareEnum":
+        case "DeclareInterface":
+          if (
+            astType === "flow" &&
+            !text.startsWith("declare", locStart(node))
+          ) {
+            node.implicitDeclare = true;
+          }
+          break;
+
         case "TypeParameter":
-          if (astType !== "flow" && node.bound?.type === "TypeAnnotation") {
+          if (node.bound?.type === "TypeAnnotation") {
             node.bound = node.bound.typeAnnotation;
           }
           break;

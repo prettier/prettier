@@ -3,7 +3,7 @@
 exports[`snippet: #0 format[flow] 1`] = `
 "\`match\` argument must not be empty (1:7)
 > 1 | match () {}
-    |       ^^"
+    |       ^"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
@@ -18,7 +18,7 @@ match () {}
 exports[`snippet: #1 format[flow] 1`] = `
 "\`match\` argument cannot contain spread elements (1:8)
 > 1 | match (...b) {}
-    |        ^^^^"
+    |        ^"
 `;
 
 exports[`snippet: #1 format[hermes] 1`] = `

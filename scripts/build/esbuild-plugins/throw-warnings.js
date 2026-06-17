@@ -113,6 +113,7 @@ export default function esbuildPluginThrowWarnings({
           if (
             [
               "node_modules/flow-parser/flow_parser.js",
+              "node_modules/flow-parser/oxidized/FlowParserWASM.js",
               "dist/_parser-flow.js.umd.js",
               "dist/_parser-flow.js.esm.mjs",
             ].includes(warning.location.file) &&

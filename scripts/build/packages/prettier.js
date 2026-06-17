@@ -253,30 +253,24 @@ const pluginFiles = [
     input: "src/plugins/flow.js",
     replaceModule: [
       {
-        module: require.resolve("flow-parser"),
+        module: getPackageFile("flow-parser/oxidized/FlowParser.js"),
         process(text) {
-          const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
-          ).groups;
-
-          text = text
-            .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
-            .replaceAll('require("fs")', "{}")
-            .replaceAll('require("constants")', "{}");
-
-          const { globalThisVariableName } = text.match(
-            /\(function\((?<globalThisVariableName>[\p{ID_Start}$][\p{ID_Continue}$]*)\)\{"use strict";/u,
-          ).groups;
-
-          // flow-parser adds a global error handler cause the error stack been huge
-          // https://github.com/facebook/flow/issues/9299
-          // NOTE: Can't reproduce in flow-parser@0.298.0, but the code still there
-          // NOTE2: This is not tested
-          text = text.replaceAll(`${globalThisVariableName}.process`, "({})");
-          text = text.replaceAll(
-            `${globalThisVariableName}.addEventListener`,
-            "(() =>{})",
+          return (
+            'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+            text
           );
+        },
+      },
+      {
+        module: getPackageFile("flow-parser/oxidized/FlowParserWASM.js"),
+        process(text) {
+          text = text.replaceAll("process.argv", "[]");
+          text = text.replaceAll('require("fs")', "undefined");
+          text = text.replaceAll('require("path")', "undefined");
+          text = text.replaceAll('require("crypto")', "undefined");
+          text =
+            'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+            text;
 
           return text;
         },
