@@ -97,7 +97,11 @@ function shouldIndentUnionType(path) {
     (key === "elementTypes" && isTupleType(parent)) ||
     ((key === "trueType" || key === "falseType") &&
       isConditionalType(parent)) ||
-    (key === "params" && isTypeParameterInstantiation(parent))
+    (key === "params" && isTypeParameterInstantiation(parent)) ||
+    (key === "typeAnnotation" &&
+      parent.type === "FunctionTypeParam" &&
+      !parent.name &&
+      path.grandparent.this !== parent)
   ) {
     return false;
   }
