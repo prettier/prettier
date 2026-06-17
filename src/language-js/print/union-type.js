@@ -100,7 +100,8 @@ function shouldIndentUnionType(path) {
     (key === "params" && isTypeParameterInstantiation(parent)) ||
     (key === "typeAnnotation" &&
       parent.type === "FunctionTypeParam" &&
-      !parent.name &&  path.grandparent.this !== parent)
+      !parent.name &&
+      path.grandparent.this !== parent)
   ) {
     return false;
   }
