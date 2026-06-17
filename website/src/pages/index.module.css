@@ -314,7 +314,7 @@
   align-items: center;
   flex: 1 1 0;
   min-width: 0;
-  gap: 0.8rem;
+  gap: calc(var(--ifm-spacing-horizontal) / 2);
   font-size: 14px;
   line-height: 1.4;
   color: #b0c4ce;
