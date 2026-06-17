@@ -67,11 +67,10 @@ function hasFakeWhitespaceAfterNextToken(path) {
 
 /**
  * @param {AstPath} path
- * @param {string} currentValue
  * @returns {boolean}
  */
-function isNextTokenFakeSetextH2Line(path, currentValue) {
-  if (currentValue !== "\n" || path.next?.value !== "-") {
+function isNextTokenFakeSetextH2Line(path) {
+  if (path.node.value !== "\n" || path.next?.value !== "-") {
     return false;
   }
 
@@ -145,10 +144,7 @@ function printMdast(path, options, print) {
         // Avoid https://github.com/prettier/prettier/issues/18861
         !hasFakeWhitespaceAfterNextToken(path) &&
         // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
-        !(
-          options.proseWrap === "preserve" &&
-          isNextTokenFakeSetextH2Line(path, node.value)
-        )
+        !(options.proseWrap === "preserve" && isNextTokenFakeSetextH2Line(path))
           ? "never"
           : options.proseWrap;
 
