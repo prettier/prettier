@@ -22,6 +22,7 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
+  isNewLine,
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
@@ -63,6 +64,19 @@ function hasFakeWhitespaceAfterNextToken(path) {
   }
   const afterNext = siblings[index + 2];
   return afterNext?.type === "whitespace" && afterNext.value === "";
+}
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isNextTokenFakeSetextH2Line(path) {
+  if (!isNewLine(path.node) || path.next?.value !== "-") {
+    return false;
+  }
+
+  const afterNext = path.siblings[path.index + 2];
+  return !afterNext || isNewLine(afterNext);
 }
 
 function printMdast(path, options, print) {
@@ -116,7 +130,9 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
+      return options.parser !== "mdx"
+        ? printWord(path, options)
+        : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
@@ -125,7 +141,9 @@ function printMdast(path, options, print) {
         next &&
         /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
         // Avoid https://github.com/prettier/prettier/issues/18861
-        !hasFakeWhitespaceAfterNextToken(path)
+        !hasFakeWhitespaceAfterNextToken(path) &&
+        // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
+        !(options.proseWrap === "preserve" && isNextTokenFakeSetextH2Line(path))
           ? "never"
           : options.proseWrap;
 
