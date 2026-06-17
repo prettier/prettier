@@ -25,6 +25,32 @@ const extensions = {
   cjs: ".cjs",
 };
 
+const flowParserWasmCryptoShim = outdent`
+  (() => {
+    const webCrypto = globalThis.crypto;
+    if (webCrypto && typeof webCrypto.getRandomValues === "function") {
+      return {
+        randomFillSync(view) {
+          webCrypto.getRandomValues(view);
+          return view;
+        },
+      };
+    }
+
+    let state = 0x9e3779b9;
+    return {
+      randomFillSync(view) {
+        for (let index = 0; index < view.length; index++) {
+          state = Math.imul(state ^ (state >>> 15), state | 1);
+          state ^= state + Math.imul(state ^ (state >>> 7), state | 61);
+          view[index] = (state ^ (state >>> 14)) & 255;
+        }
+        return view;
+      },
+    };
+  })()
+`;
+
 const packageConfig = {
   packageName: "prettier",
   sourceDirectory: PROJECT_ROOT,
@@ -267,7 +293,7 @@ const pluginFiles = [
           text = text.replaceAll("process.argv", "[]");
           text = text.replaceAll('require("fs")', "undefined");
           text = text.replaceAll('require("path")', "undefined");
-          text = text.replaceAll('require("crypto")', "undefined");
+          text = text.replaceAll('require("crypto")', flowParserWasmCryptoShim);
           text =
             'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
             text;
