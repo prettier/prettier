@@ -2,6 +2,7 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -10,24 +11,22 @@ const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 
 /**
  * @param {AstPath} path
- * @param {boolean} isProseWrapPreserve
+ * @param {*} options
  * @return {Doc}
  */
-function printWord(path, isProseWrapPreserve) {
+function printWord(path, options) {
   const { node } = path;
   const emphasisOrStrong = path.findAncestor(
     (p) => p.type === "emphasis" || p.type === "strong",
   );
+  let text = node.value;
   if (!emphasisOrStrong) {
-    const text = node.value;
-    const { previous, next } = path;
     if (
-      isProseWrapPreserve &&
+      options.proseWrap === "preserve" &&
       path.parent.type === "sentence" &&
       fakeSetextHeaderRegex.test(text) &&
-      previous?.type === "whitespace" &&
-      previous.value === "\n" &&
-      (path.isLast || (next?.type === "whitespace" && next.value === "\n"))
+      isNewLine(path.previous) &&
+      (path.isLast || isNewLine(path.next))
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
       return `\\${text}`;
@@ -35,15 +34,13 @@ function printWord(path, isProseWrapPreserve) {
 
     return text;
   }
-  const { previous, next, grandparent } = path;
-  let text = node.value;
 
   // escape leading `*` or `_` if it's the first character in an emphasis/strong
   if (
     path.isFirst &&
     (text.startsWith("*") || text.startsWith("_")) &&
     path.callParent(() => path.isFirst) &&
-    grandparent === emphasisOrStrong
+    path.grandparent === emphasisOrStrong
   ) {
     text = `\\${text}`;
   }
@@ -61,9 +58,9 @@ function printWord(path, isProseWrapPreserve) {
       }
       if (
         canOpenOrCloseStrongOrEmphasis(
-          preceding.at(-1) || previous?.value.at(-1),
+          preceding.at(-1) || path.previous?.value.at(-1),
           delimiterRun,
-          following[0] || next?.value[0],
+          following[0] || path.next?.value[0],
         )
       ) {
         return `${preceding}\\${delimiterRun}${following}`;
@@ -87,21 +84,25 @@ function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
   }
 
   // https://spec.commonmark.org/0.31.2/#emphasis-and-strong-emphasis
-  const followedByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(following);
-  const precededByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(preceding);
+  const isFollowedByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(
+    following,
+  );
+  const isPrecededByWhitespace = /[\p{Space_Separator}\t\n\f\r]/u.test(
+    preceding,
+  );
   const followedByPunctuation = PUNCTUATION_REGEXP.test(following);
   const precededByPunctuation = PUNCTUATION_REGEXP.test(preceding);
 
   const isLeftFlanking =
-    !followedByWhitespace &&
+    !isFollowedByWhitespace &&
     (!followedByPunctuation ||
       (followedByPunctuation &&
-        (precededByWhitespace || precededByPunctuation)));
+        (isPrecededByWhitespace || precededByPunctuation)));
   const isRightFlanking =
-    !precededByWhitespace &&
+    !isPrecededByWhitespace &&
     (!precededByPunctuation ||
       (precededByPunctuation &&
-        (followedByWhitespace || followedByPunctuation)));
+        (isFollowedByWhitespace || followedByPunctuation)));
 
   const indicator = delimiterRun[0];
   if (indicator === "*") {
