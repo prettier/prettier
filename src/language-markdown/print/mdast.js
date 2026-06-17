@@ -74,10 +74,10 @@ function isNextTokenFakeSetextH2Line(path, currentValue) {
   if (currentValue !== "\n" || path.next?.value !== "-") {
     return false;
   }
-  const { siblings, index } = path;
-  const afterNext = siblings?.[index + 2];
+
+  const afterNext = path.siblings[path.index + 2];
   return (
-    !afterNext || (afterNext?.type === "whitespace" && afterNext.value === "\n")
+    !afterNext || (afterNext.type === "whitespace" && afterNext.value === "\n")
   );
 }
 
