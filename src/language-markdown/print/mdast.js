@@ -22,6 +22,7 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
+  isNewLine,
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
@@ -70,14 +71,12 @@ function hasFakeWhitespaceAfterNextToken(path) {
  * @returns {boolean}
  */
 function isNextTokenFakeSetextH2Line(path) {
-  if (path.node.value !== "\n" || path.next?.value !== "-") {
+  if (!isNewLine(path.node) || path.next?.value !== "-") {
     return false;
   }
 
   const afterNext = path.siblings[path.index + 2];
-  return (
-    !afterNext || (afterNext.type === "whitespace" && afterNext.value === "\n")
-  );
+  return !afterNext || isNewLine(afterNext);
 }
 
 function printMdast(path, options, print) {

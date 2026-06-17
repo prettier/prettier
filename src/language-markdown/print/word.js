@@ -1,8 +1,7 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
-import { isAutolink } from "../utilities.js";
+import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
-const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
