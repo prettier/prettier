@@ -19,8 +19,8 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default)(?:\s|\/\*.*?\*\/)*$/s;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global)(?:\s|\/\*.*?\*\/)*$/s;
 
 function parseNestedCSS(node, options) {
   if (isObject(node)) {

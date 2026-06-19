@@ -83,3 +83,103 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 
 ================================================================================
 `;
+
+exports[`19203.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// \`!default\` / \`!global\` inside strings or function arguments are not flags
+// and must be left untouched (no stray space injected).
+$a: "!default";
+$b: "!global";
+$c: "x !default";
+$d: "x !global";
+$e: unquote("!default");
+$f: unquote("!global");
+$g: url("x!default");
+$h: url("x!global");
+$i: map-get($map, "!default");
+$j: map-get($map, "!global");
+
+// A genuine trailing flag is still detected, even when the value also
+// contains the flag text inside a string.
+$k: "!default" !default;
+$l: "!global" !global;
+$m: map-get($map, "!default") !default;
+$n: map-get($map, "!global") !global;
+
+=====================================output=====================================
+// \`!default\` / \`!global\` inside strings or function arguments are not flags
+// and must be left untouched (no stray space injected).
+$a: "!default";
+$b: "!global";
+$c: "x !default";
+$d: "x !global";
+$e: unquote("!default");
+$f: unquote("!global");
+$g: url("x!default");
+$h: url("x!global");
+$i: map-get($map, "!default");
+$j: map-get($map, "!global");
+
+// A genuine trailing flag is still detected, even when the value also
+// contains the flag text inside a string.
+$k: "!default" !default;
+$l: "!global" !global;
+$m: map-get($map, "!default") !default;
+$n: map-get($map, "!global") !global;
+
+================================================================================
+`;
+
+exports[`19203.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// \`!default\` / \`!global\` inside strings or function arguments are not flags
+// and must be left untouched (no stray space injected).
+$a: "!default";
+$b: "!global";
+$c: "x !default";
+$d: "x !global";
+$e: unquote("!default");
+$f: unquote("!global");
+$g: url("x!default");
+$h: url("x!global");
+$i: map-get($map, "!default");
+$j: map-get($map, "!global");
+
+// A genuine trailing flag is still detected, even when the value also
+// contains the flag text inside a string.
+$k: "!default" !default;
+$l: "!global" !global;
+$m: map-get($map, "!default") !default;
+$n: map-get($map, "!global") !global;
+
+=====================================output=====================================
+// \`!default\` / \`!global\` inside strings or function arguments are not flags
+// and must be left untouched (no stray space injected).
+$a: "!default";
+$b: "!global";
+$c: "x !default";
+$d: "x !global";
+$e: unquote("!default");
+$f: unquote("!global");
+$g: url("x!default");
+$h: url("x!global");
+$i: map-get($map, "!default");
+$j: map-get($map, "!global");
+
+// A genuine trailing flag is still detected, even when the value also
+// contains the flag text inside a string.
+$k: "!default" !default;
+$l: "!global" !global;
+$m: map-get($map, "!default") !default;
+$n: map-get($map, "!global") !global;
+
+================================================================================
+`;
