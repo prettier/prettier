@@ -287,12 +287,6 @@ const configs = [
       "unicorn/no-unreadable-object-destructuring": "off",
       "unicorn/no-unsafe-string-replacement": "off",
       "unicorn/no-useless-concat": "off",
-      "unicorn/no-useless-fallback-in-spread": [
-        "error",
-        {
-          checkTernary: false,
-        },
-      ],
       "unicorn/no-useless-recursion": "off",
       "unicorn/no-useless-switch-case": "off",
       "unicorn/no-useless-undefined": [
