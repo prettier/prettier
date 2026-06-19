@@ -182,26 +182,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        // Oxidized can omit the marker that suppresses an explicit `declare`.
-        case "DeclareClass":
-        case "DeclareComponent":
-        case "DeclareFunction":
-        case "DeclareHook":
-        case "DeclareVariable":
-        case "DeclareExportDeclaration":
-        case "DeclareExportAllDeclaration":
-        case "DeclareOpaqueType":
-        case "DeclareTypeAlias":
-        case "DeclareEnum":
-        case "DeclareInterface":
-          if (
-            astType === "flow" &&
-            !text.startsWith("declare", locStart(node))
-          ) {
-            node.implicitDeclare = true;
-          }
-          break;
-
         case "TypeParameter":
           if (node.bound?.type === "TypeAnnotation") {
             node.bound = node.bound.typeAnnotation;

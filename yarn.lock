@@ -4998,19 +4998,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-estree@npm:0.319.0":
+"flow-estree@file:vendors/flow-estree-0.319.0.tgz::locator=prettier%40workspace%3A.":
   version: 0.319.0
-  resolution: "flow-estree@npm:0.319.0"
-  checksum: 10/5d6679612f3d2f6e26f6a8e6ddb6750f8aaa6ee58355a24faacd192104e60fd88ec3b5e7bc0111cb91e33b34b5361da731dec155e7311eee344ac76751183f13
+  resolution: "flow-estree@file:vendors/flow-estree-0.319.0.tgz#vendors/flow-estree-0.319.0.tgz::hash=d332f4&locator=prettier%40workspace%3A."
+  checksum: 10/2a2fd8e63a8351758f3f635880548bc8963293e6a8d343d74e6b54f2121b9dd64977e964f7898f272f7082dcc839443735b5423a15d81407a27dc282e28062c7
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.319.0":
+"flow-parser@file:vendors/flow-parser-0.319.0.tgz::locator=prettier%40workspace%3A.":
   version: 0.319.0
-  resolution: "flow-parser@npm:0.319.0"
+  resolution: "flow-parser@file:vendors/flow-parser-0.319.0.tgz#vendors/flow-parser-0.319.0.tgz::hash=8d98e7&locator=prettier%40workspace%3A."
   dependencies:
     flow-estree: "npm:0.319.0"
-  checksum: 10/deede67b6ab07d74b3db63fb9c87e4bbdc451e21d126433883af6b423924d34e9a271acbb5fae9af929dd7371a551dfba8bb0e7c4b676b4a81b1c6235a16c183
+  checksum: 10/9c91d58fd14e31b41e0ae255e9aa8f80a005a83677e3a2e6763a0144c0fcbdab21f8c734ab6b8268516682e11867241761e5ebe8e156dc7bbf7c5a759dfee0e4
   languageName: node
   linkType: hard
 
@@ -8167,7 +8167,7 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:11.1.3"
     find-cache-directory: "npm:6.0.0"
-    flow-parser: "npm:0.319.0"
+    flow-parser: "file:vendors/flow-parser-0.319.0.tgz"
     get-east-asian-width: "npm:1.6.0"
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"

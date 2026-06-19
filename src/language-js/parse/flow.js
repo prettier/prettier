@@ -47,101 +47,6 @@ function createParseError(error) {
   });
 }
 
-function offsetNodePositions(node, rangeOffset, lineOffset, columnOffset) {
-  if (!node || typeof node !== "object") {
-    return;
-  }
-
-  if (node.loc) {
-    for (const key of ["start", "end"]) {
-      const position = node.loc[key];
-      position.column += position.line === 1 ? columnOffset : 0;
-      position.line += lineOffset;
-    }
-  }
-
-  if (node.range) {
-    node.range[0] += rangeOffset;
-    node.range[1] += rangeOffset;
-  }
-
-  for (const value of Object.values(node)) {
-    if (Array.isArray(value)) {
-      for (const child of value) {
-        offsetNodePositions(child, rangeOffset, lineOffset, columnOffset);
-      }
-    } else {
-      offsetNodePositions(value, rangeOffset, lineOffset, columnOffset);
-    }
-  }
-}
-
-function repairDeclareVariable(node, text, sourceFilename) {
-  if (
-    node.type !== "DeclareVariable" ||
-    Array.isArray(node.declarations) ||
-    !node.id?.range
-  ) {
-    return;
-  }
-
-  const [start, end] = node.range;
-  const prefixLength = node.id.range[0] - start;
-  if (prefixLength < 3) {
-    return;
-  }
-
-  // Oxidized currently omits extra declarators and initializers on DeclareVariable.
-  let declaration;
-  try {
-    declaration = flowParse(
-      "let" +
-        " ".repeat(prefixLength - 3) +
-        text.slice(start + prefixLength, end),
-      { ...parseOptions, sourceFilename },
-    ).body[0];
-  } catch {
-    return;
-  }
-
-  if (declaration?.type !== "VariableDeclaration") {
-    return;
-  }
-
-  offsetNodePositions(
-    declaration,
-    start,
-    node.loc.start.line - 1,
-    node.loc.start.column,
-  );
-  node.declarations = declaration.declarations;
-}
-
-function repairAst(ast, text, sourceFilename) {
-  const visited = new WeakSet();
-
-  function visit(node) {
-    if (!node || typeof node !== "object" || visited.has(node)) {
-      return;
-    }
-
-    visited.add(node);
-    repairDeclareVariable(node, text, sourceFilename);
-
-    for (const value of Object.values(node)) {
-      if (Array.isArray(value)) {
-        for (const child of value) {
-          visit(child);
-        }
-      } else {
-        visit(value);
-      }
-    }
-  }
-
-  visit(ast);
-}
-
 function parse(text, options) {
   const filepath = options?.filepath;
   const sourceFilename =
@@ -156,8 +61,6 @@ function parse(text, options) {
   } catch (error) {
     throw createParseError(error);
   }
-
-  repairAst(ast, text, sourceFilename);
 
   return postprocess(ast, { text, astType: "flow" });
 }

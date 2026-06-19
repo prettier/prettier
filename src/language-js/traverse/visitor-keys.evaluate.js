@@ -21,8 +21,6 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
-
-  DeclareVariable: ["declarations"],
 };
 
 const excludeVisitorKeys = {
