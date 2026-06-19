@@ -39,7 +39,9 @@
     "index.js",
     "standalone.js",
     "src",
-    "bin"
+    "bin",
+    "vendors/flow-estree-0.319.0.tgz",
+    "vendors/flow-parser-0.319.0.tgz"
   ],
   "dependencies": {
     "@angular/compiler": "22.0.1",
@@ -73,6 +75,7 @@
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "11.1.3",
     "find-cache-directory": "6.0.0",
+    "flow-estree": "file:vendors/flow-estree-0.319.0.tgz",
     "flow-parser": "file:vendors/flow-parser-0.319.0.tgz",
     "get-east-asian-width": "1.6.0",
     "get-stdin": "9.0.0",
