@@ -15,7 +15,7 @@ Get a package file.
   - a package name with path like `"prettier/index.js"`
 @param {string} [base] -- Where the package should be solved from
   - a package name like `"prettier"`
-  - a file url like `"file://path/to/prettier"`
+  - a file URL like `"file://path/to/prettier"`
   - an absolute path like `"/path/to/prettier"`
 @returns {string}
 */

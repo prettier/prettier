@@ -193,7 +193,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
@@ -209,7 +209,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
@@ -239,7 +239,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }

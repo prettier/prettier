@@ -289,7 +289,7 @@ function handleClassComments({
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
-    if (isNonEmptyArray(decorators) && !(followingNode?.type === "Decorator")) {
+    if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {
       addTrailingComment(decorators.at(-1), comment);
       return true;
     }
@@ -356,7 +356,7 @@ function handleMethodNameComments({
   followingNode,
   text,
 }) {
-  // This is only needed for estree parsers (flow, typescript) to attach
+  // This is only needed for estree parsers (Flow, TypeScript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
   if (

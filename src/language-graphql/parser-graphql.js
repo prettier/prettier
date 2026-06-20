@@ -22,7 +22,6 @@ function parseComments(ast) {
 /** @type {ParseOptions} */
 const parseOptions = {
   experimentalFragmentArguments: true,
-  experimentalDirectivesOnDirectiveDefinitions: true,
 };
 
 function createParseError(error) {

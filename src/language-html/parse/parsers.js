@@ -41,7 +41,7 @@ const angularParser = createParser({
   tokenizeAngularLetDeclaration: true,
 });
 
-// Vue
+// Vue.js
 const vueParser = createParser({
   name: "vue",
   isTagNameCaseSensitive: true,

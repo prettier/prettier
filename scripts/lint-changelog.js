@@ -159,7 +159,7 @@ function getCommentDescription(content, comment) {
   return `template comment on line ${startLine}-${endLine}`;
 }
 
-// Forbid html in title
+// Forbid HTML in title
 // https://github.com/prettier/prettier/issues/17089
 function validateTitle(displayPath, title) {
   const processor = unified().use(remarkParse);

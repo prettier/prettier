@@ -48,7 +48,7 @@ export default {
         }
       },
       "Program:exit"() {
-        for (const [variable, { fixable }] of variables.entries()) {
+        for (const [variable, { fixable }] of variables) {
           const [node] = variable.identifiers;
 
           const fix = function* (fixer) {
