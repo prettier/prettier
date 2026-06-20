@@ -1,3 +1,4 @@
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import coreOptions from "./core-options.evaluate.js";
 
 /**
@@ -79,7 +80,18 @@ function normalizeOptionSettings(settings) {
     const option = { name, ...originalOption };
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
-    if (Array.isArray(option.default)) {
+    // Only this redundant-default format (a non-empty array of `{ value }`
+    // entries) should be unwrapped. A plain array value, e.g. the `default` of
+    // an `array` option, must be kept as-is.
+    if (
+      isNonEmptyArray(option.default) &&
+      option.default.every(
+        (defaultEntry) =>
+          defaultEntry !== null &&
+          typeof defaultEntry === "object" &&
+          "value" in defaultEntry,
+      )
+    ) {
       option.default = option.default.at(-1).value;
     }
 
