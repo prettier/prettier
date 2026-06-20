@@ -255,6 +255,7 @@ const configs = [
         { enforceForIfStatements: true },
       ],
       "unicorn/max-nested-calls": "off",
+      "unicorn/name-replacements": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
@@ -339,7 +340,6 @@ const configs = [
       "unicorn/prefer-short-arrow-method": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
-      "unicorn/prevent-abbreviations": "off",
       "unicorn/relative-url-style": "off",
       "unicorn/require-array-sort-compare": "off",
       "unicorn/switch-case-braces": ["error", "avoid"],
@@ -555,7 +555,7 @@ const configs = [
   {
     files: ["src/document/printer/printer.js"],
     rules: {
-      "unicorn/prevent-abbreviations": [
+      "unicorn/name-replacements": [
         "error",
         { replacements: { doc: false } },
       ],
