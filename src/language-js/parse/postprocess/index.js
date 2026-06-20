@@ -181,12 +181,6 @@ function postprocess(ast, options) {
             delete node.assertions;
           }
           break;
-
-        case "TypeParameter":
-          if (node.bound?.type === "TypeAnnotation") {
-            node.bound = node.bound.typeAnnotation;
-          }
-          break;
       }
     },
     onLeave(node) {
