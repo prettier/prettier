@@ -139,6 +139,7 @@ function handleRemainingComment(context) {
     handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleAssignmentLikeAnnotationLeadingComments,
   ].some((fn) => fn(context));
 }
 
@@ -780,6 +781,34 @@ function handleVariableDeclaratorComments({
     return true;
   }
   return false;
+}
+
+// Comments that appear between the `=` of an assignment-like node and its
+// right-hand side belong to the right-hand side. This matters in particular
+// for `TSTypeAliasDeclaration` (and the analogous Flow `TypeAlias`), where
+// single-type unions/intersections and parenthesized types are stripped
+// during parse post-processing — leaving comments like `type A = /* x */ | T`
+// with no inner anchor to attach to. Without this handler they fall through
+// to the default placement, which can move them in front of the `=`.
+function handleAssignmentLikeAnnotationLeadingComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
+  if (!isAssignmentLikeNode(enclosingNode) || !followingNode) {
+    return false;
+  }
+  // Only act when the comment actually appears after the `=` in the source.
+  // Comments authored between the identifier and `=` (e.g. `const x /* a */ = …`)
+  // are intentional annotations of the left-hand side and must not be moved.
+  const leftSide = enclosingNode.id ?? enclosingNode.left ?? enclosingNode;
+  const equalsIndex = text.indexOf("=", locEnd(leftSide));
+  if (equalsIndex === -1 || locStart(comment) < equalsIndex) {
+    return false;
+  }
+  addLeadingComment(followingNode, comment);
+  return true;
 }
 
 function handleTSFunctionTrailingComments({

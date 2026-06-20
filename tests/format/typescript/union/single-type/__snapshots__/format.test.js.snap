@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/18834
+type A1 = /* 1 */ | T1;
+type A2 = /* 1 */ | (T2);
+type A3 = (/* 1 */ | T3);
+type A4 = /* 1 */ | /* 2 */ T4;
+type A5 = /* 1 */ | (/* 2 */ T5);
+type A6 = /* 0 */ /* 1 */ | /* 2 */ T6;
+type A7 = /* 0 */ | /* 1 */ T7;
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/18834
+type A1 = /* 1 */ T1;
+type A2 = /* 1 */ T2;
+type A3 = /* 1 */ T3;
+type A4 = /* 1 */ /* 2 */ T4;
+type A5 = /* 1 */ /* 2 */ T5;
+type A6 = /* 0 */ /* 1 */ /* 2 */ T6;
+type A7 = /* 0 */ /* 1 */ T7;
+
+================================================================================
+`;
+
 exports[`single-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -13,7 +40,7 @@ type A1 =
   );
 
 =====================================output=====================================
-type A1 /* 2 */ = /* 1 */ /* 3 */ /* 4 */ {
+type A1 = /* 1 */ /* 2 */ /* 3 */ /* 4 */ {
   key: string;
 };
 
