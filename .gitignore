@@ -9,8 +9,6 @@
 .tmp
 *.log
 *.tgz
-!vendors/flow-estree-0.319.0.tgz
-!vendors/flow-parser-0.319.0.tgz
 /errors
 /test*.*
 /.vscode/**/*
