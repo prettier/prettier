@@ -69,7 +69,7 @@ function liquidSyntax() {
             effects.consume(code);
             return inside;
           default:
-            return nok;
+            return nok(code);
         }
       };
     }
@@ -79,34 +79,61 @@ function liquidSyntax() {
       switch (code) {
         case codes.percentSign:
         case codes.rightCurlyBrace:
-          effects.consume(code);
-          return mayExit;
+          return effects.check({ tokenize: tokenizeClose }, close, data)(code);
         case codes.eof:
-          return nok;
+          return nok(code);
         default:
           if (markdownLineEnding(code)) {
+            effects.exit(types.data);
             effects.enter(types.lineEnding);
             effects.consume(code);
             effects.exit(types.lineEnding);
+            effects.enter(types.data);
             return inside;
           }
-          effects.consume(code);
-          return inside;
+          return data(code);
       }
     }
 
     /** @type {State} */
-    function mayExit(code) {
-      if (code !== codes.rightCurlyBrace) {
-        if (markdownLineEnding(code)) {
-          effects.enter(types.lineEnding);
-          effects.consume(code);
-          effects.exit(types.lineEnding);
-          return inside;
+    function data(code) {
+      effects.consume(code);
+      return inside;
+    }
+
+    function tokenizeClose(effects, ok, nok) {
+      return startClose;
+
+      /** @type {State} */
+      function startClose(code) {
+        switch (code) {
+          case codes.percentSign:
+          case codes.rightCurlyBrace:
+            effects.consume(code);
+            return endClose;
+          default:
+            return nok(code);
+        }
+      }
+
+      /** @type {State} */
+      function endClose(code) {
+        if (code !== codes.rightCurlyBrace) {
+          return nok(code);
         }
         effects.consume(code);
-        return inside;
+        return ok;
       }
+    }
+
+    /** @type {State} */
+    function close(code) {
+      effects.consume(code);
+      return closeEnd;
+    }
+
+    /** @type {State} */
+    function closeEnd(code) {
       effects.consume(code);
       effects.exit(types.data);
       effects.exit(nodeType);
