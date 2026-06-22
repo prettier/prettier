@@ -6,7 +6,7 @@ import * as prettier from "../node_modules/prettier/index.mjs";
 
 const PROJECT_ROOT = new URL("../", import.meta.url);
 const FLOW_TYPES = new URL(
-  "./node_modules/hermes-estree/dist/types.js.flow",
+  "./node_modules/flow-estree/dist/types.js.flow",
   PROJECT_ROOT,
 );
 const FLOW_TYPES_DTS = new URL(
@@ -77,10 +77,10 @@ function toDts(text) {
     "$<type> & ",
   );
 
-  // `$ReadOnlyArray<?T>` -> `ReadonlyArray<T | null>`
+  // `$ReadOnlyArray<?T>` / `ReadonlyArray<?T>` -> `ReadonlyArray<T | null>`
   text = text.replaceAll(
-    /\$ReadOnlyArray<\?(\w+)>/g,
-    "ReadonlyArray<$1 | null>",
+    /(?:\$ReadOnlyArray|ReadonlyArray)<\?(?<type>\w+)>/g,
+    "ReadonlyArray<$<type> | null>",
   );
 
   // `$ReadOnlyArray<T>` -> `ReadonlyArray<T>`
