@@ -110,14 +110,6 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
-          if (
-            warning.location.file ===
-              "node_modules/flow-parser/oxidized/FlowParserWASM.js" &&
-            warning.id === "duplicate-case"
-          ) {
-            continue;
-          }
-
           console.log(warning);
           throw new Error(warning.text);
         }
