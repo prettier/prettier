@@ -190,7 +190,7 @@ const cliModule = {
             process(text) {
               text = text.replaceAll(
                 /export \{ .* \};/g,
-                "export {load, JSON_SCHEMA}",
+                "export { JSON_SCHEMA, load };",
               );
               return text;
             },
