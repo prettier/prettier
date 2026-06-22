@@ -37,6 +37,13 @@ bun add --dev --exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev prettier@%PRETTIER_VERSION%
+```
+
+</TabItem>
 </Tabs>
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
