@@ -187,8 +187,13 @@ const cliModule = {
           },
           {
             module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-            find: "var dump                = dumper.dump;",
-            replacement: "var dump;",
+            process(text) {
+              text = text.replaceAll(
+                /export \{ .* \};/g,
+                "export { JSON_SCHEMA, load };",
+              );
+              return text;
+            },
           },
           {
             module: getPackageFile("smol-toml"),

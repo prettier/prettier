@@ -2375,9 +2375,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.11.1":
-  version: 0.11.1
-  resolution: "@prettier/cli@npm:0.11.1"
+"@prettier/cli@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@prettier/cli@npm:0.12.0"
   dependencies:
     atomically: "npm:^2.1.1"
     fast-ignore: "npm:^2.0.0"
@@ -2385,7 +2385,7 @@ __metadata:
     function-once: "npm:^3.0.1"
     import-meta-resolve: "npm:^4.2.0"
     is-binary-path: "npm:^3.0.0"
-    js-yaml: "npm:^4.2.0"
+    js-yaml: "npm:^5.0.0"
     json-sorted-stringify: "npm:^1.0.2"
     json5: "npm:^2.2.3"
     kasi: "npm:^2.0.1"
@@ -2393,7 +2393,7 @@ __metadata:
     pioppo: "npm:^1.2.1"
     promise-resolve-timeout: "npm:^2.0.1"
     smol-toml: "npm:^1.6.1"
-    specialist: "npm:^1.4.5"
+    specialist: "npm:^2.0.0"
     tiny-editorconfig: "npm:^1.0.2"
     tiny-readdir: "npm:^2.7.4"
     tiny-readdir-glob: "npm:^1.23.2"
@@ -2406,7 +2406,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/a6a9f95020412425aefcc9a1731b6a6a815bc98b0ade0985112f1380546965f662eb95a416f58730404ff45b8ab5b0c8a79674be12fc28a68480224854601be7
+  checksum: 10/663353b5e58edc95b2be2244bb5aa47892191d487a77fa34879de741ba78ac2d7bb73c22f43a6703004e24b25c8ff5b17ca6ba9b5d3631bc040e7b0d9e43d459
   languageName: node
   linkType: hard
 
@@ -3085,7 +3085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-purge@npm:^1.0.1":
+"ansi-purge@npm:^1.1.0":
   version: 1.1.0
   resolution: "ansi-purge@npm:1.1.0"
   checksum: 10/ccbf7bc63e9c053a32623509cb4f8ee2eed86ebc07afdbbccbdb2cb66330cb0413f95a8108ffb6826cc792efd902821ea257319c1d391198d675d5205cbb6f45
@@ -4817,7 +4817,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-string-width@npm:^3.0.1":
+"fast-string-width@npm:^3.0.2":
   version: 3.0.2
   resolution: "fast-string-width@npm:3.0.2"
   dependencies:
@@ -6345,14 +6345,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
+"js-yaml@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "js-yaml@npm:5.0.0"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 10/51de2067a2b44b07ba5206132e56005f8b568ff279bb4d2f645068958c56fa4827d40a6841c983234671fa0a134bf094d0b0717873c2a3d319185297af145a6d
+    js-yaml: bin/js-yaml.mjs
+  checksum: 10/51691da5a1b3894ffdd6ffe386d061fecf8769d135560dce8f3d3b7c5f7b167ec7fbe2c232c91135d58216b2f6ba215e85ac60fe569c46f0a9024f2ff6dec47e
   languageName: node
   linkType: hard
 
@@ -8107,7 +8107,7 @@ __metadata:
     "@babel/types": "npm:8.0.0"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
-    "@prettier/cli": "npm:0.11.1"
+    "@prettier/cli": "npm:0.12.0"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
@@ -8750,15 +8750,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"specialist@npm:^1.4.5":
-  version: 1.4.5
-  resolution: "specialist@npm:1.4.5"
+"specialist@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "specialist@npm:2.0.0"
   dependencies:
-    tiny-bin: "npm:^1.10.3"
+    tiny-bin: "npm:^2.0.0"
     tiny-colors: "npm:^2.2.2"
-    tiny-parse-argv: "npm:^2.8.1"
-    tiny-updater: "npm:^3.5.3"
-  checksum: 10/cc2154f3f22907a570deea7d40b13f414100cafdbf83baad24dddaeb2031ba707597842ffbfbe6aac90e5178a173e2cd6dc83a552a3691bb92b110a0455e0e92
+    tiny-parse-argv: "npm:^2.8.2"
+    tiny-updater: "npm:^3.7.0"
+  checksum: 10/dcfb9c3ce4d948feb730f06794e619e5fd9dd72c4ec84a229d4899b7513adbfa56d5b0d11b6ce2090452b0fd516387daab2759f90a0cc9fca46b20cd04dd5b7c
   languageName: node
   linkType: hard
 
@@ -9036,18 +9036,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-bin@npm:^1.10.3":
-  version: 1.11.3
-  resolution: "tiny-bin@npm:1.11.3"
+"tiny-bin@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "tiny-bin@npm:2.0.1"
   dependencies:
-    ansi-purge: "npm:^1.0.1"
-    fast-string-width: "npm:^3.0.1"
+    ansi-purge: "npm:^1.1.0"
+    fast-string-width: "npm:^3.0.2"
     get-current-package: "npm:^1.0.1"
+    kasi: "npm:^2.0.1"
     tiny-colors: "npm:^2.2.2"
     tiny-levenshtein: "npm:^1.1.0"
     tiny-parse-argv: "npm:^2.8.2"
-    tiny-updater: "npm:^3.5.3"
-  checksum: 10/f43c8751b7ae864083c2c6a2b346fbcc5e9118465623eb30eaba77eb1bf62d15c555accb2e5533a8fba13cc9741a3cf3494d3af8c3510166f68bf18e00dea75d
+  checksum: 10/b47fdc897fb7b1942d78ea63557f97abf52d7db61b82d91564bec018fa09efbabdfa958740f2771deb9775c96cad31b5f8d2ebed063b8702970b3d9becf1b53d
   languageName: node
   linkType: hard
 
@@ -9084,7 +9084,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-parse-argv@npm:^2.8.1, tiny-parse-argv@npm:^2.8.2":
+"tiny-parse-argv@npm:^2.8.2":
   version: 2.8.2
   resolution: "tiny-parse-argv@npm:2.8.2"
   checksum: 10/b4499c3efe7541027b05c09977f43c6c25ccdba627497fc3b4c88c1cf5120ab3cb133e7cdedab842f2f12a358c2c82f18d4d1cdeae192c3c41bf89dc29c8b9b7
@@ -9134,7 +9134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-updater@npm:^3.5.3":
+"tiny-updater@npm:^3.7.0":
   version: 3.7.0
   resolution: "tiny-updater@npm:3.7.0"
   dependencies:
