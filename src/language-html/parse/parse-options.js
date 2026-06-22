@@ -25,6 +25,7 @@ const DEFAULT_PARSE_OPTIONS = {
   normalizeTagName: false,
   normalizeAttributeName: false,
   allowHtmComponentClosingTags: false,
+  allowInElementComments: false,
   isTagNameCaseSensitive: false,
   shouldParseFrontMatter: true,
 };
