@@ -581,7 +581,7 @@ const configs = [
       "unicorn/prefer-export-from": [
         "error",
         {
-          ignoreUsedVariables: false,
+          checkUsedVariables: true,
         },
       ],
     },
