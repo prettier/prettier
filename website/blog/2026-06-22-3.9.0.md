@@ -15,7 +15,7 @@ Prettier now fully supports newer syntax features from `graphql-js` v17, includi
 
 <!-- TODO[@fisker]: this not merged yet, https://github.com/prettier/prettier/pull/19398 -->
 
-We switched to the new Rust-based Flow parser released by the Flow team, which improves performance for Flow-typed code.
+We switched to the new Rust-based Flow parser (oxidized) released by the Flow team, which improves performance for Flow-typed code.
 
 We also shipped several formatting improvements for JS/TS code, with particular attention to `--no-semi` mode.
 
