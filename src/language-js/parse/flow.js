@@ -26,8 +26,7 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  let { message } = error;
-  const { loc } = error;
+  let { message, loc } = error;
 
   /* c8 ignore next 3 */
   if (!loc) {
@@ -44,6 +43,7 @@ function createParseError(error) {
     loc: {
       start: { line, column: column + 1 },
     },
+    cause: error,
   });
 }
 
