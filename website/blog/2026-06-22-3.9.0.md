@@ -18,6 +18,7 @@ The YAML parser has been upgraded to use `yaml` v2, thanks to excellent work on 
 Prettier now fully supports newer syntax features from `graphql-js` v17, including directives on directive definitions, fragment arguments, and other enhancements.
 
 <!-- TODO[@fisker]: this not merged yet, https://github.com/prettier/prettier/pull/19398 -->
+
 We switched to the new Rust-based Flow parser released by the Flow team, which improves performance for Flow-typed code.
 
 We also shipped several formatting improvements for JS/TS code, with particular attention to `--no-semi` mode.
