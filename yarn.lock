@@ -2375,9 +2375,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@https://pkg.pr.new/@prettier/cli@102.tgz":
-  version: 0.11.1
-  resolution: "@prettier/cli@https://pkg.pr.new/@prettier/cli@102.tgz"
+"@prettier/cli@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@prettier/cli@npm:0.12.0"
   dependencies:
     atomically: "npm:^2.1.1"
     fast-ignore: "npm:^2.0.0"
@@ -2406,7 +2406,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/7eac168a0093d62b8c2faedf87243cd4998f0fba4cf79a915706b6b6aa2f4ffceaef7e208f9356d7d5993fd3a6c87866664728b7d799921a0aee6675c4cb03ab
+  checksum: 10/663353b5e58edc95b2be2244bb5aa47892191d487a77fa34879de741ba78ac2d7bb73c22f43a6703004e24b25c8ff5b17ca6ba9b5d3631bc040e7b0d9e43d459
   languageName: node
   linkType: hard
 
@@ -8107,7 +8107,7 @@ __metadata:
     "@babel/types": "npm:8.0.0"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
-    "@prettier/cli": "https://pkg.pr.new/@prettier/cli@102.tgz"
+    "@prettier/cli": "npm:0.12.0"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
