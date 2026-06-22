@@ -243,11 +243,18 @@ const configs = [
       "unicorn/consistent-boolean-name": "off",
       "unicorn/consistent-class-member-order": "off",
       "unicorn/consistent-compound-words": "off",
+      "unicorn/consistent-conditional-object-spread": ["error", "ternary"],
       "unicorn/consistent-destructuring": "off",
       "unicorn/consistent-function-scoping": "off",
       "unicorn/consistent-json-file-read": ["error", "buffer"],
+      "unicorn/default-export-style": "off",
       "unicorn/escape-case": "off",
-      "unicorn/filename-case": ["error", { checkDirectories: false }],
+      "unicorn/filename-case": [
+        "error",
+        {
+          checkDirectories: false,
+        },
+      ],
       "unicorn/import-style": "off",
       "unicorn/logical-assignment-operators": [
         "error",
@@ -282,6 +289,7 @@ const configs = [
       "unicorn/no-top-level-assignment-in-function": "off",
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-undeclared-class-members": "off",
+      "unicorn/no-unnecessary-boolean-comparison": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
       "unicorn/no-unreadable-for-of-expression": "off",
       "unicorn/no-unreadable-new-expression": "off",
@@ -312,7 +320,9 @@ const configs = [
         },
       ],
       "unicorn/prefer-await": "off",
+      "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-continue": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
       "unicorn/prefer-early-return": "off",
@@ -555,10 +565,7 @@ const configs = [
   {
     files: ["src/document/printer/printer.js"],
     rules: {
-      "unicorn/name-replacements": [
-        "error",
-        { replacements: { doc: false } },
-      ],
+      "unicorn/name-replacements": ["error", { replacements: { doc: false } }],
     },
   },
   {
