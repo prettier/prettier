@@ -63,7 +63,7 @@ if (diagnostics.length > 0) {
 
 function toDts(text) {
   // Useless directive
-  text = text.replaceAll("'use strict';", "  ");
+  text = text.replaceAll("'use strict';", "");
 
   // `{+foo: string}` -> `{foo: string}`
   text = text.replaceAll(/(?<=\n)(?<indention>[ {2}]+)\+/g, "$<indention>");
@@ -77,17 +77,11 @@ function toDts(text) {
     "$<type> & ",
   );
 
-  // `$ReadOnlyArray<?T>` / `ReadonlyArray<?T>` -> `ReadonlyArray<T | null>`
+  // `ReadonlyArray<?T>` -> `ReadonlyArray<T | null>`
   text = text.replaceAll(
-    /(?:\$ReadOnlyArray|ReadonlyArray)<\?(?<type>\w+)>/g,
+    /ReadonlyArray<\?(?<type>\w+)>/g,
     "ReadonlyArray<$<type> | null>",
   );
-
-  // `$ReadOnlyArray<T>` -> `ReadonlyArray<T>`
-  text = text.replaceAll("$ReadOnlyArray<", "ReadonlyArray<");
-
-  // `$ReadOnly<T>` -> `Readonly<T>`
-  text = text.replaceAll("$ReadOnly<", "Readonly<");
 
   // `{[string]: T}` -> `{[key: string]: T}`
   text = text.replaceAll(
