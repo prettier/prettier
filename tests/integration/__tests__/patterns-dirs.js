@@ -382,7 +382,7 @@ function testPatterns(
   describe(testName, () => {
     runCliWithoutGitignore(cwd, [...cliArgs, "-l"]).test({
       write: [],
-      ...(!("status" in expected) && { stderr: "", status: 1 }),
+      ...(!("status" in expected) ? { stderr: "", status: 1 } : {}),
       ...expected,
     });
   });
