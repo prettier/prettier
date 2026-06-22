@@ -7,7 +7,7 @@ We are excited to announce Prettier 3.9!
 
 This release brings major parser upgrades for Markdown, YAML, GraphQL, and Flow, along with meaningful formatting improvements for JavaScript and TypeScript—particularly in `--no-semi` mode.
 
-We upgraded the Markdown parser from `remark-parse` v8 to `micromark` v4. This delivers significantly better compliance with **CommonMark** and **GFM**, resulting in more accurate parsing and fewer edge-case formatting issues. Huge thanks to [@seiyab](https://github.com/seiyab), [@j-f1](https://github.com/j-f1), and everyone else who contributed to this long-awaited improvement!
+We upgraded the Markdown parser from `remark-parse` v8 to `micromark` v4. This delivers significantly better compliance with CommonMark and GFM, resulting in more accurate parsing and fewer edge-case formatting issues. Huge thanks to [@seiyab](https://github.com/seiyab), [@j-f1](https://github.com/j-f1), and everyone else who contributed to this long-awaited improvement!
 
 The YAML parser has been upgraded to use `yaml` v2, thanks to excellent work on the [`yaml-unist-parser`](https://github.com/prettier/yaml-unist-parser/pull/301) side by [@ota-meshi](https://github.com/ota-meshi).
 
