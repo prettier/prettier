@@ -26,3 +26,8 @@ $q: 1 !default /* c1 */ /* c2 */;
 $r: "!default" !default /* trailing comment */;
 $s: 1 !default /* multi
 line comment */;
+
+// A trailing flag is also detected when the statement has a single-line comment.
+$t: 1 !default; // trailing comment
+$u: 1 !global; // trailing comment
+$v: "!default" !default; // trailing comment
