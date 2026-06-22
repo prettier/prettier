@@ -110,6 +110,15 @@ $l: "!global" !global;
 $m: map-get($map, "!default") !default;
 $n: map-get($map, "!global") !global;
 
+// A trailing flag followed by comments is still detected, including when the
+// value contains the flag text inside a string.
+$o: 1 !default /* trailing comment */;
+$p: 1 !global /* trailing comment */;
+$q: 1 !default /* c1 */ /* c2 */;
+$r: "!default" !default /* trailing comment */;
+$s: 1 !default /* multi
+line comment */;
+
 =====================================output=====================================
 // \`!default\` / \`!global\` inside strings or function arguments are not flags
 // and must be left untouched (no stray space injected).
@@ -130,6 +139,15 @@ $k: "!default" !default;
 $l: "!global" !global;
 $m: map-get($map, "!default") !default;
 $n: map-get($map, "!global") !global;
+
+// A trailing flag followed by comments is still detected, including when the
+// value contains the flag text inside a string.
+$o: 1 !default /* trailing comment */;
+$p: 1 !global /* trailing comment */;
+$q: 1 !default /* c1 */ /* c2 */;
+$r: "!default" !default /* trailing comment */;
+$s: 1 !default /* multi
+line comment */;
 
 ================================================================================
 `;
@@ -160,6 +178,15 @@ $l: "!global" !global;
 $m: map-get($map, "!default") !default;
 $n: map-get($map, "!global") !global;
 
+// A trailing flag followed by comments is still detected, including when the
+// value contains the flag text inside a string.
+$o: 1 !default /* trailing comment */;
+$p: 1 !global /* trailing comment */;
+$q: 1 !default /* c1 */ /* c2 */;
+$r: "!default" !default /* trailing comment */;
+$s: 1 !default /* multi
+line comment */;
+
 =====================================output=====================================
 // \`!default\` / \`!global\` inside strings or function arguments are not flags
 // and must be left untouched (no stray space injected).
@@ -180,6 +207,15 @@ $k: "!default" !default;
 $l: "!global" !global;
 $m: map-get($map, "!default") !default;
 $n: map-get($map, "!global") !global;
+
+// A trailing flag followed by comments is still detected, including when the
+// value contains the flag text inside a string.
+$o: 1 !default /* trailing comment */;
+$p: 1 !global /* trailing comment */;
+$q: 1 !default /* c1 */ /* c2 */;
+$r: "!default" !default /* trailing comment */;
+$s: 1 !default /* multi
+line comment */;
 
 ================================================================================
 `;
