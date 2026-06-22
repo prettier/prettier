@@ -40,7 +40,7 @@ bun add --dev --exact prettier@%PRETTIER_VERSION%
 <TabItem value="deno">
 
 ```bash
-deno install --dev prettier@%PRETTIER_VERSION%
+deno install --dev --save-exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>
