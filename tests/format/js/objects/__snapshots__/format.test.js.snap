@@ -159,7 +159,8 @@ exports[`expression.js format[flow] 1`] = `
     |     ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: Unexpected token \`:\`, expected a type (5:4)"
 `;
 
 exports[`expression.js format[hermes] 1`] = `

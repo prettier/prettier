@@ -17,7 +17,8 @@ exports[`for-await-using-of-comments.js format[flow] 1`] = `
 "Unexpected token \`await\`, expected the token \`(\` (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
     |                   ^
-  2 |"
+  2 |
+Cause: Unexpected token \`await\`, expected the token \`(\` (1:18)"
 `;
 
 exports[`for-await-using-of-comments.js format[hermes] 1`] = `
@@ -93,7 +94,8 @@ exports[`invalid-duplicate-using-bindings.js format[flow] 1`] = `
     |         ^
   3 | }
   4 | {
-  5 |   using g = foo();"
+  5 |   using g = foo();
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:8)"
 `;
 
 exports[`invalid-duplicate-using-bindings.js format[hermes] 1`] = `
@@ -140,7 +142,8 @@ exports[`invalid-script-top-level-using-binding.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
 > 1 | using x = bar();
     |       ^
-  2 |"
+  2 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:6)"
 `;
 
 exports[`invalid-script-top-level-using-binding.js format[meriyah] 1`] = `
@@ -184,7 +187,8 @@ exports[`using-declarations.js format[flow] 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:16)"
 `;
 
 exports[`using-declarations.js format[hermes] 1`] = `
@@ -331,7 +335,8 @@ exports[`valid-await-using-binding-basic.js format[flow] 1`] = `
 > 2 |   await using basic = getReader();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:14)"
 `;
 
 exports[`valid-await-using-binding-basic.js format[meriyah] 1`] = `
@@ -367,7 +372,8 @@ exports[`valid-await-using-binding-escaped.js format[flow] 1`] = `
 > 2 |   await using \\u0061b = c;
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:14)"
 `;
 
 exports[`valid-await-using-binding-escaped.js format[meriyah] 1`] = `
@@ -403,7 +409,8 @@ exports[`valid-await-using-binding-non-bmp.js format[flow] 1`] = `
 > 2 |   await using 𠮷 = foo();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:14)"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js format[meriyah] 1`] = `
@@ -442,7 +449,8 @@ exports[`valid-await-using-binding-using.js format[flow] 1`] = `
     |               ^
   3 |   for (await using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:14)"
 `;
 
 exports[`valid-await-using-binding-using.js format[meriyah] 1`] = `
@@ -506,7 +514,8 @@ exports[`valid-await-using-comments.js format[flow] 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (3:27)"
 `;
 
 exports[`valid-await-using-comments.js format[hermes] 1`] = `
@@ -591,7 +600,8 @@ exports[`valid-for-using-binding-of-of.js format[flow] 1`] = `
     |        ^
   3 |   for await (await using of of of);
   4 | }
-  5 |"
+  5 |
+Cause: Invalid left-hand side in for-of (2:7)"
 `;
 
 exports[`valid-for-using-binding-of-of.js format[meriyah] 1`] = `
@@ -628,7 +638,8 @@ exports[`valid-for-using-declaration.js format[flow] 1`] = `
 > 2 |   for (await using basic = reader();;);
     |                    ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the token \`;\` (2:19)"
 `;
 
 exports[`valid-for-using-declaration.js format[hermes] 1`] = `
@@ -696,7 +707,8 @@ exports[`valid-module-block-top-level-await-using-binding.js format[flow] 1`] = 
     |                  ^
   2 |   await using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token \`{\`, expected the token \`;\` (1:17)"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js format[hermes] 1`] = `
@@ -792,7 +804,8 @@ exports[`valid-module-block-top-level-using-binding.js format[flow] 1`] = `
     |        ^
   2 |   using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token \`{\`, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js format[hermes] 1`] = `
@@ -892,7 +905,8 @@ exports[`valid-using-as-identifier-for-await-of.js format[flow] 1`] = `
 "Unexpected token \`await\`, expected the token \`(\` (1:5)
 > 1 | for await (using of of);
     |     ^
-  2 |"
+  2 |
+Cause: Unexpected token \`await\`, expected the token \`(\` (1:4)"
 `;
 
 exports[`valid-using-as-identifier-for-await-of.js format[hermes] 1`] = `
@@ -1012,7 +1026,8 @@ exports[`valid-using-binding-basic.js format[flow] 1`] = `
 > 2 |   using basic = getReader();
     |         ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:8)"
 `;
 
 exports[`valid-using-binding-basic.js format[meriyah] 1`] = `
@@ -1044,7 +1059,8 @@ exports[`valid-using-binding-escaped.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
 > 1 | { using \\u0061b = c; }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)"
 `;
 
 exports[`valid-using-binding-escaped.js format[meriyah] 1`] = `
@@ -1074,7 +1090,8 @@ exports[`valid-using-binding-non-bmp.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
 > 1 | { using 𠮷 = foo(); }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)"
 `;
 
 exports[`valid-using-binding-non-bmp.js format[meriyah] 1`] = `
@@ -1111,7 +1128,8 @@ exports[`valid-using-binding-using.js format[flow] 1`] = `
     |         ^
   3 |   for (using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:8)"
 `;
 
 exports[`valid-using-binding-using.js format[meriyah] 1`] = `

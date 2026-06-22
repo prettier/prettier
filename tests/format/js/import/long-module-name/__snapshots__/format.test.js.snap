@@ -47,7 +47,8 @@ exports[`import-defer.js format[flow] 1`] = `
     |        ^
   2 | import.defer(
   3 |   // Comment
-  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: Unexpected identifier, expected the identifier \`meta\` (1:7)"
 `;
 
 exports[`import-defer.js format[hermes] 1`] = `
@@ -146,7 +147,8 @@ exports[`import-source.js format[flow] 1`] = `
     |        ^
   2 | import.source(
   3 |   // Comment
-  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: Unexpected identifier, expected the identifier \`meta\` (1:7)"
 `;
 
 exports[`import-source.js format[hermes] 1`] = `

@@ -48,7 +48,8 @@ exports[`comment.js format[flow] 1`] = `
 > 1 | <!--
     |  ^
   2 | alert(1)
-  3 | -->"
+  3 | -->
+Cause: Unexpected token \`!\`, expected the token \`>\` (1:1)"
 `;
 
 exports[`comment.js format[hermes] 1`] = `

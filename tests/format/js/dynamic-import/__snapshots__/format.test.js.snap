@@ -64,7 +64,8 @@ exports[`import-phase.js format[flow] 1`] = `
     |        ^
   2 |     console.log("RUN");
   3 | \`)
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the identifier \`meta\` (1:7)"
 `;
 
 exports[`import-phase.js format[hermes] 1`] = `
@@ -123,7 +124,8 @@ exports[`template-literal.js format[flow] 1`] = `
     |                    ^
   2 |     console.log("RUN");
   3 | \`);
-  4 |"
+  4 |
+Cause: Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:19)"
 `;
 
 exports[`template-literal.js format[hermes] 1`] = `

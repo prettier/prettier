@@ -10,7 +10,8 @@ Cause: Unexpected token, expected "{" (1:12)"
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:13)
 > 1 | interface A mixins B {}
-    |             ^"
+    |             ^
+Cause: Unexpected identifier, expected the token \`{\` (1:12)"
 `;
 
 exports[`snippet: #1 format[babel-flow] 1`] = `
@@ -23,7 +24,8 @@ Cause: Unexpected token, expected "{" (1:12)"
 exports[`snippet: #1 format[flow] 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:13)
 > 1 | interface A implements B {}
-    |             ^"
+    |             ^
+Cause: Unexpected identifier, expected the token \`{\` (1:12)"
 `;
 
 exports[`snippet: #2 format[babel-flow] 1`] = `
@@ -36,7 +38,8 @@ Cause: Unexpected token, expected "{" (1:20)"
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:21)
 > 1 | declare interface A mixins B {}
-    |                     ^"
+    |                     ^
+Cause: Unexpected identifier, expected the token \`{\` (1:20)"
 `;
 
 exports[`snippet: #3 format[babel-flow] 1`] = `
@@ -49,5 +52,6 @@ Cause: Unexpected token, expected "{" (1:20)"
 exports[`snippet: #3 format[flow] 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:21)
 > 1 | declare interface A implements B {}
-    |                     ^"
+    |                     ^
+Cause: Unexpected identifier, expected the token \`{\` (1:20)"
 `;

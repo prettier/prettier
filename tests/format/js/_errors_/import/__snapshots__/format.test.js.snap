@@ -24,7 +24,8 @@ Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected token \`)\` (1:8)
 > 1 | import();
-    |        ^"
+    |        ^
+Cause: Unexpected token \`)\` (1:7)"
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
@@ -65,7 +66,8 @@ Cause: \`import()\` requires exactly one or two arguments. (1:0)"
 exports[`snippet: #1 format[flow] 1`] = `
 "Unexpected token \`)\` (1:21)
 > 1 | import(/* comment */);
-    |                     ^"
+    |                     ^
+Cause: Unexpected token \`)\` (1:20)"
 `;
 
 exports[`snippet: #1 format[meriyah] 1`] = `
@@ -106,7 +108,8 @@ Cause: Cannot use new with import(). (1:4)"
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected token \`import\` (1:5)
 > 1 | new import('./a.mjs');
-    |     ^"
+    |     ^
+Cause: Unexpected token \`import\` (1:4)"
 `;
 
 exports[`snippet: #2 format[meriyah] 1`] = `
@@ -147,7 +150,8 @@ Cause: \`import()\` requires exactly one or two arguments. (1:4)"
 exports[`snippet: #3 format[flow] 1`] = `
 "Unexpected token \`import\` (1:5)
 > 1 | new import();
-    |     ^"
+    |     ^
+Cause: Unexpected token \`import\` (1:4)"
 `;
 
 exports[`snippet: #3 format[meriyah] 1`] = `

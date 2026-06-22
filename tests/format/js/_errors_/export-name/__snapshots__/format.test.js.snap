@@ -52,7 +52,8 @@ Cause: An export name cannot include a lone surrogate."
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:10)
 > 1 | import { "\\uD83C" as b } from "./foo";
-    |          ^"
+    |          ^
+Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
@@ -135,7 +136,8 @@ Cause: An export name cannot include a lone surrogate."
 exports[`snippet: #1 format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
-    |          ^"
+    |          ^
+Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
 exports[`snippet: #1 format[hermes] 1`] = `
@@ -218,7 +220,8 @@ Cause: An export name cannot include a lone surrogate."
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:10)
 > 1 | export { "\\uD83C" as b } from "./foo";
-    |          ^"
+    |          ^
+Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
 exports[`snippet: #2 format[hermes] 1`] = `
@@ -301,7 +304,8 @@ Cause: An export name cannot include a lone surrogate."
 exports[`snippet: #3 format[flow] 1`] = `
 "Unexpected string, expected an identifier (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
-    |               ^"
+    |               ^
+Cause: Unexpected string, expected an identifier (1:14)"
 `;
 
 exports[`snippet: #3 format[hermes] 1`] = `

@@ -41,7 +41,8 @@ exports[`snippet: #0 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   constructor
     |   ^
-  3 | }"
+  3 | }
+Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
@@ -130,7 +131,8 @@ exports[`snippet: #1 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   'constructor'
     |   ^
-  3 | }"
+  3 | }
+Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
 exports[`snippet: #1 format[hermes] 1`] = `
@@ -219,7 +221,8 @@ exports[`snippet: #2 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   'constructor'
     |   ^
-  3 | }"
+  3 | }
+Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
 exports[`snippet: #2 format[hermes] 1`] = `
@@ -308,7 +311,8 @@ exports[`snippet: #3 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   accessor 'constructor'
     |            ^
-  3 | }"
+  3 | }
+Cause: Unexpected string, expected the token \`(\` (2:11)"
 `;
 
 exports[`snippet: #3 format[hermes] 1`] = `
@@ -397,7 +401,8 @@ exports[`snippet: #4 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   accessor 'constructor'
     |            ^
-  3 | }"
+  3 | }
+Cause: Unexpected string, expected the token \`(\` (2:11)"
 `;
 
 exports[`snippet: #4 format[hermes] 1`] = `
@@ -486,7 +491,8 @@ exports[`snippet: #5 format[flow] 1`] = `
   1 | class Foo {
 > 2 |   accessor constructor
     |            ^
-  3 | }"
+  3 | }
+Cause: Unexpected identifier, expected the token \`(\` (2:11)"
 `;
 
 exports[`snippet: #5 format[hermes] 1`] = `

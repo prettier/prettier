@@ -115,7 +115,8 @@ exports[`function-declaration-in-while.js format[flow] 1`] = `
 "In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement. (1:15)
 > 1 | while (false) function foo(){}
     |               ^
-  2 |"
+  2 |
+Cause: In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement. (1:14)"
 `;
 
 exports[`function-declaration-in-while.js format[hermes] 1`] = `

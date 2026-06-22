@@ -3,7 +3,8 @@
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected token \`{\`, expected the token \`;\` (1:24)
 > 1 | const a = not_a_record {}
-    |                        ^"
+    |                        ^
+Cause: Unexpected token \`{\`, expected the token \`;\` (1:23)"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `

@@ -901,7 +901,8 @@ exports[`for-in-with-initializer.js format[flow] 1`] = `
     |      ^
   4 | for (var a = 1 || (b in c) in {});
   5 | for (var a = 1 + (2 || (b in c)) in {});
-  6 | for (var a = (() => b in c) in {});"
+  6 | for (var a = (() => b in c) in {});
+Cause: Invalid left-hand side in for-in (3:5)"
 `;
 
 exports[`for-in-with-initializer.js format[typescript] 1`] = `
@@ -1072,7 +1073,8 @@ exports[`parentheses.js format[flow] 1`] = `
      |                           ^
   12 | for (var a = class extends (b in c) {};;);
   13 | for (var a = function (x = b in c) {};;);
-  14 |"
+  14 |
+Cause: Unexpected token \`=>\`, expected the token \`;\` (11:26)"
 `;
 
 exports[`parentheses.js format[typescript] 1`] = `

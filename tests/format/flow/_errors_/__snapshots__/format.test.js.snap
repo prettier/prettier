@@ -5,28 +5,32 @@ exports[`async-arrow-invalid.js format 1`] = `
   2 |
   3 | <T> async () => {}
 > 4 |
-    | ^"
+    | ^
+Cause: Unexpected token ILLEGAL (4:0)"
 `;
 
 exports[`function-async.js format 1`] = `
 "Unexpected token \`;\`, expected the token \`=>\` (2:11)
   1 | // Flow can't parse this since \`v0.128.0\`, #8661
 > 2 | async<T>();
-    |           ^"
+    |           ^
+Cause: Unexpected token \`;\`, expected the token \`=>\` (2:10)"
 `;
 
 exports[`invalid_keyword_symbol.js format 1`] = `
 "Unexpected reserved type (1:6)
 > 1 | type symbol = number;
     |      ^
-  2 |"
+  2 |
+Cause: Unexpected reserved type (1:5)"
 `;
 
 exports[`module-attributes-static.js format 1`] = `
 "Unexpected token \`type\`, expected the token \`{\` (1:33)
 > 1 | import foo from "foo.json" with type: "json";
     |                                 ^
-  2 |"
+  2 |
+Cause: Unexpected token \`type\`, expected the token \`{\` (1:32)"
 `;
 
 exports[`newline-before-arrow.js format 1`] = `
@@ -34,7 +38,8 @@ exports[`newline-before-arrow.js format 1`] = `
   1 | async x
 > 2 | => x
     | ^
-  3 |"
+  3 |
+Cause: Illegal newline before arrow (2:0)"
 `;
 
 exports[`number.js format 1`] = `
@@ -43,12 +48,14 @@ exports[`number.js format 1`] = `
   2 |
 > 3 | a = 09e1_1;
     |     ^
-  4 |"
+  4 |
+Cause: Unexpected token ILLEGAL (3:4)"
 `;
 
 exports[`spread-with-optional.js format 1`] = `
 "Tuple spread elements cannot be optional. (1:17)
 > 1 | type T = [...foo?: S]; // ERROR
     |                 ^
-  2 |"
+  2 |
+Cause: Tuple spread elements cannot be optional. (1:16)"
 `;

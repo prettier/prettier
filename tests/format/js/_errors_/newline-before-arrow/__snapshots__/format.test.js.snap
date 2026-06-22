@@ -50,7 +50,8 @@ exports[`newline-before-arrow.js format[flow] 1`] = `
   1 | async x
 > 2 | => x
     | ^
-  3 |"
+  3 |
+Cause: Illegal newline before arrow (2:0)"
 `;
 
 exports[`newline-before-arrow.js format[meriyah] 1`] = `
