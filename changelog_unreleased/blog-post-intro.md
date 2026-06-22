@@ -3,7 +3,7 @@ authors: "fisker"
 title: "Prettier 3.9: New Parser Foundations and Formatting Improvements"
 ---
 
-We are excited to announce **Prettier 3.9**!
+We are excited to announce Prettier 3.9!
 
 This release brings major parser upgrades for Markdown, YAML, GraphQL, and Flow, along with meaningful formatting improvements for JavaScript and TypeScript—particularly in `--no-semi` mode.
 
@@ -11,7 +11,7 @@ We upgraded the Markdown parser from `remark-parse` v8 to `micromark` v4. This d
 
 The YAML parser has been upgraded to use `yaml` v2, thanks to excellent work on the [`yaml-unist-parser`](https://github.com/prettier/yaml-unist-parser/pull/301) side by [@ota-meshi](https://github.com/ota-meshi).
 
-Prettier now fully supports newer syntax features from `graphql-js` v17, including directives on directive definitions, fragment arguments, and other enhancements.
+Prettier now fully supports newer syntax features from GraphQL.js v17, including directives on directive definitions, fragment arguments, and other enhancements.
 
 <!-- TODO[@fisker]: this not merged yet, https://github.com/prettier/prettier/pull/19398 -->
 
