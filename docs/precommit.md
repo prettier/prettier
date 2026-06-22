@@ -65,6 +65,15 @@ bun simple-git-hooks
 ```
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev simple-git-hooks pretty-quick
+deno eval "Deno.writeTextFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'deno x pretty-quick --staged'},undefined,2)+'\n')"
+deno x simple-git-hooks
+```
+
+</TabItem>
 </Tabs>
 
 Read more at the [pretty-quick](https://github.com/prettier/pretty-quick) repo.
@@ -137,6 +146,15 @@ node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prett
 bunx husky init
 bun add --dev git-format-staged
 bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
+<TabItem value="deno">
+
+```bash
+deno x husky init
+deno install --dev git-format-staged
+deno eval "Deno.writeTextFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 </TabItem>

@@ -152,7 +152,7 @@ deno x prettier . --write
 
 :::info
 
-What is `deno x prettier` doing at the start? It runs the locally installed Prettier. We’ll leave off the `deno x prettier` part for brevity throughout the rest of this file!
+What is `deno x` doing at the start? It runs the locally installed Prettier. We’ll leave off the `deno x` part for brevity throughout the rest of this file!
 
 :::
 
