@@ -565,13 +565,25 @@ const configs = [
   {
     files: ["src/document/printer/printer.js"],
     rules: {
-      "unicorn/name-replacements": ["error", { replacements: { doc: false } }],
+      "unicorn/name-replacements": [
+        "error",
+        {
+          replacements: {
+            doc: false,
+          },
+        },
+      ],
     },
   },
   {
     files: ["src/language-js/utilities/utilities.js"],
     rules: {
-      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
+      "unicorn/prefer-export-from": [
+        "error",
+        {
+          ignoreUsedVariables: false,
+        },
+      ],
     },
   },
 ];
