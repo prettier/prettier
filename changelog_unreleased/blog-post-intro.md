@@ -1,0 +1,26 @@
+---
+authors: "fisker"
+title: "Prettier 3.9: New Parser Foundations and Formatting Improvements"
+---
+
+We are excited to announce **Prettier 3.9**!
+
+This release brings major parser upgrades for Markdown, YAML, and GraphQL, along with meaningful formatting improvements for JavaScript and TypeScript—particularly in `--no-semi` mode.
+
+We upgraded the Markdown parser from `remark-parse` v8 to `micromark` v4. This delivers significantly better compliance with **CommonMark** and **GFM**, resulting in more accurate parsing and fewer edge-case formatting issues.
+
+Huge thanks to [@seiyab](https://github.com/seiyab), [@j-f1](https://github.com/j-f1), and everyone else who contributed to this long-awaited improvement!
+
+**Note**: While the core Markdown parser has been upgraded, [the MDX parser upgrade](https://github.com/prettier/prettier/pull/18533) is not yet complete. If you're familiar with the unified ecosystem, micromark, or MDX, we'd love your help to finish the migration — contributions are very welcome!
+
+The YAML parser has been upgraded to use `yaml` v2, thanks to excellent work on the [`yaml-unist-parser`](https://github.com/prettier/yaml-unist-parser/pull/301) side by [@ota-meshi](https://github.com/ota-meshi).
+
+Prettier now fully supports newer syntax features from `graphql-js` v17, including directives on directive definitions, fragment arguments, and other enhancements.
+
+We also shipped several formatting improvements for JS/TS code, with particular attention to `--no-semi` mode.
+
+If you find Prettier valuable, please consider [sponsoring us on OpenCollective](https://opencollective.com/prettier) or supporting the upstream projects we rely on. Your contributions help us keep improving the tool for everyone.
+
+Thank you for your continued support! ❤️
+
+<!-- truncate -->
