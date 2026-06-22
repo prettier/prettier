@@ -95,7 +95,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
-exports[`template-literal-types.ts format[flow] 1`] = `"Unexpected ESTree node type: "TemplateLiteralTypeAnnotation"."`;
+exports[`template-literal-types.ts format[flow] 1`] = `"Missing visitor keys for 'TemplateLiteralTypeAnnotation'."`;
 
 exports[`template-literal-types.ts format[hermes] 1`] = `
 "unexpected token in type annotation (1:84)
