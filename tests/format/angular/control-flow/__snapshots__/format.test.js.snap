@@ -80,15 +80,15 @@ exports[`content.html format 1`] = `
 parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-   <FancyButton [label]="title">
-      @content(icon) {
-        <span>Icon!</span>
-      }
+<FancyButton [label]="title">
+    @content(icon) {
+      <span>Icon!</span>
+    }
       @content(description) {
         <span>Description text</span>
       }
-      <span>Other children</span>
-    </FancyButton>
+  <span>Other children</span>
+   </FancyButton>
 
 =====================================output=====================================
 <FancyButton [label]="title">
