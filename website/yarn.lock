@@ -1533,15 +1533,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/commands@npm:6.10.3, @codemirror/commands@npm:^6.0.0":
-  version: 6.10.3
-  resolution: "@codemirror/commands@npm:6.10.3"
+"@codemirror/commands@npm:6.10.4, @codemirror/commands@npm:^6.0.0":
+  version: 6.10.4
+  resolution: "@codemirror/commands@npm:6.10.4"
   dependencies:
     "@codemirror/language": "npm:^6.0.0"
-    "@codemirror/state": "npm:^6.6.0"
+    "@codemirror/state": "npm:^6.7.0"
     "@codemirror/view": "npm:^6.27.0"
     "@lezer/common": "npm:^1.1.0"
-  checksum: 10/2740c95cc7165c445cce530f1ad2677e0a80af11b2dd94a20729a198c2342783c04fbfda1364be9ab9cee3042a6906bb11619821dfc7bae154436c82d37e1b24
+  checksum: 10/384808f8767967f7a2bf4007cb57e2b137e98fbeb6bb7239502b79ad06fb8039b67b43ab2f5eaf955a2569c65203c7a0e59ad758e7d90ba727936f9b2a77e47b
   languageName: node
   linkType: hard
 
@@ -1901,24 +1901,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/state@npm:6.6.0, @codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.5.4, @codemirror/state@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@codemirror/state@npm:6.6.0"
+"@codemirror/state@npm:6.7.0, @codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.5.4, @codemirror/state@npm:^6.7.0":
+  version: 6.7.0
+  resolution: "@codemirror/state@npm:6.7.0"
   dependencies:
     "@marijn/find-cluster-break": "npm:^1.0.0"
-  checksum: 10/5d624f3c8832b287d76ebb5f57c01327641875c12c58ada2a97f958dc4df8c3bb0a1ad08ed370300a4a929ee8d5c7f14a397449a0d075ac3129d60d85f077441
+  checksum: 10/437f93a28beb5daa3cced930e0400a61fffcbce696a158a37b4d9a4ebe394cf4269155b28a32ab15f5f1e2cbf00f92e87a14990083f2126606805cc7ea22285f
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:6.43.1, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
-  version: 6.43.1
-  resolution: "@codemirror/view@npm:6.43.1"
+"@codemirror/view@npm:6.43.2, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
+  version: 6.43.2
+  resolution: "@codemirror/view@npm:6.43.2"
   dependencies:
-    "@codemirror/state": "npm:^6.6.0"
+    "@codemirror/state": "npm:^6.7.0"
     crelt: "npm:^1.0.6"
     style-mod: "npm:^4.1.0"
     w3c-keyname: "npm:^2.2.4"
-  checksum: 10/a867a26cb511f161a8ef60b2574afae2561cfe94abd822e0af2a6e4bd94d1ff46f0d5085428c89f6f6b80a52482c8d23f80362173491903f49fb93462a216b95
+  checksum: 10/c735c46458d31d1a7aebb21b4b3626b8169c5ab1069689490edb1a5ede787951e1a3cb439b56d82ef42586b0d28f1c37678bced9e1017b4b8be5c9f1d095a43c
   languageName: node
   linkType: hard
 
@@ -12950,12 +12950,12 @@ __metadata:
   dependencies:
     "@catppuccin/codemirror": "npm:1.0.3"
     "@codemirror/autocomplete": "npm:6.20.3"
-    "@codemirror/commands": "npm:6.10.3"
+    "@codemirror/commands": "npm:6.10.4"
     "@codemirror/language": "npm:6.12.3"
     "@codemirror/language-data": "npm:6.5.2"
     "@codemirror/lint": "npm:6.9.7"
-    "@codemirror/state": "npm:6.6.0"
-    "@codemirror/view": "npm:6.43.1"
+    "@codemirror/state": "npm:6.7.0"
+    "@codemirror/view": "npm:6.43.2"
     "@docusaurus/core": "npm:3.10.1"
     "@docusaurus/faster": "npm:3.10.1"
     "@docusaurus/module-type-aliases": "npm:3.10.1"
