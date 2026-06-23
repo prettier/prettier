@@ -5,3 +5,9 @@ query {
       id
   }
 }
+
+query {
+  a(x: [
+    # only comment
+  ])
+}
