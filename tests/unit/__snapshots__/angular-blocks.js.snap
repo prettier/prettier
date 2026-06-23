@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`angular blocks 1`] = `
+[
+  "@if",
+  "@else",
+  "@for",
+  "@switch",
+  "@case",
+  "@default",
+  "@empty",
+  "@defer",
+  "@placeholder",
+  "@loading",
+  "@error",
+  "@content",
+]
+`;
