@@ -75,6 +75,35 @@ parsers: ["angular"]
 ================================================================================
 `;
 
+exports[`content.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<FancyButton [label]="title">
+    @content(icon) {
+      <span>Icon!</span>
+    }
+      @content(description) {
+        <span>Description text</span>
+      }
+  <span>Other children</span>
+   </FancyButton>
+
+=====================================output=====================================
+<FancyButton [label]="title">
+  @content(icon) {
+    <span>Icon!</span>
+  }
+  @content(description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+================================================================================
+`;
+
 exports[`default-never.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
