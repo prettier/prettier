@@ -17,12 +17,12 @@ const nodeType = "liquidNode";
 function liquidFromMarkdown() {
   return {
     canContainEols: [nodeType],
-    enter: { [nodeType]: enterInlineLiquid },
-    exit: { [nodeType]: exitInlineLiquid },
+    enter: { [nodeType]: enter },
+    exit: { [nodeType]: exit },
   };
 
   /** @type {Handle} */
-  function enterInlineLiquid(token) {
+  function enter(token) {
     this.enter(
       // @ts-expect-error
       { type: nodeType },
@@ -32,7 +32,7 @@ function liquidFromMarkdown() {
   }
 
   /** @type {Handle} */
-  function exitInlineLiquid(token) {
+  function exit(token) {
     const d = this.resume();
     /** @type {any} */
     const node = this.stack.at(-1);
@@ -49,12 +49,12 @@ function liquidSyntax() {
     text: {
       [codes.leftCurlyBrace]: {
         name: "liquid",
-        tokenize: liquidTokenize,
+        tokenize: tokenize,
       },
     },
   };
 
-  function liquidTokenize(effects, ok, nok) {
+  function tokenize(effects, ok, nok) {
     return start;
 
     /** @type {State} */
