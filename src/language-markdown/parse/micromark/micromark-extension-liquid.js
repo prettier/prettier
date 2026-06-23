@@ -49,7 +49,7 @@ function liquidSyntax() {
     text: {
       [codes.leftCurlyBrace]: {
         name: "liquid",
-        tokenize: tokenize,
+        tokenize,
       },
     },
   };
