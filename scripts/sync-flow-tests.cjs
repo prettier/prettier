@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const flowParser = require("flow-parser");
+const { parse: flowParse } = require("flow-parser/oxidized");
 const fastGlob = require("fast-glob");
 
 const DEFAULT_SPEC_CONTENT = "runFormatTest(import.meta);\n";
@@ -11,15 +11,19 @@ const FLOW_TESTS_DIR = path.join(__dirname, "../tests/format/flow/flow-repo");
 
 function tryParse(file, content) {
   // Keep this sync with `/src/language-js/parse/flow.js`
-  const ast = flowParser.parse(content, {
-    comments: false,
-    enums: true,
-    match: true,
-    components: true,
-    // assert_operator: true,
-    esproposal_decorators: true,
-    pattern_matching: true,
-    records: true,
+  const ast = flowParse(content, {
+    sourceFilename: file,
+    flow: "all",
+    babel: false,
+    tokens: false,
+    allowReturnOutsideFunction: true,
+    enableEnums: true,
+    enableExperimentalFlowMatchSyntax: true,
+    enableExperimentalComponentSyntax: true,
+    // assertOperator: true,
+    enableExperimentalDecorators: true,
+    enableExperimentalFlowRecordSyntax: true,
+    throwOnParseErrors: false,
   });
 
   if (ast.errors.length > 0) {

@@ -1,7 +1,7 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
-import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
+import { FlowVisitorKeys as flowVisitorKeys } from "flow-parser/oxidized/index.js";
 import {
   addVisitorKeys,
   generateReferenceSharedVisitorKeys,
@@ -21,15 +21,6 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
-
-  // Flow
-  // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
-  SatisfiesExpression: ["expression", "typeAnnotation"],
-
-  // https://github.com/facebook/flow/commit/9c815177852e5695c02306c86830a865223c9fb5
-  EnumBody: ["members"],
-
-  DeclareVariable: ["declarations"],
 };
 
 const excludeVisitorKeys = {
@@ -48,6 +39,26 @@ const excludeNodeTypes = [
   // https://github.com/typescript-eslint/typescript-eslint/blob/d2d7ace4e52bedf07482fd879d8e31a52b38fc26/packages/visitor-keys/tests/visitor-keys.test.ts#L14-L18
   "ExperimentalRestProperty",
   "ExperimentalSpreadProperty",
+
+  // From flow-parser
+  "AbstractMethodDefinition",
+  "AbstractPropertyDefinition",
+  "ConstructorTypeAnnotation",
+  "DeclareClassExtendsCall",
+  "DeclareMethodDefinition",
+  "ExportAssignment",
+  "ExternalModuleReference",
+  "ImportEqualsDeclaration",
+  "ImportType",
+  "NamespaceExportDeclaration",
+  "NonNullExpression",
+  "ObjectTypePrivateField",
+  "ParameterProperty",
+  "RendersMaybeType",
+  "RendersStarType",
+  "RendersType",
+  "TemplateLiteralTypeAnnotation",
+  "TupleTypeElement",
 ];
 
 let visitorKeys = unionVisitorKeys(
