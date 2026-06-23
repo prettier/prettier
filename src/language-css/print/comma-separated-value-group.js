@@ -403,7 +403,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
     if (isInlineValueCommentNode(iNode)) {
       if (parentNode.type === "value-paren_group") {
-        parts.push(dedent(hardline), "");
+        parts.push(hardline, "");
         continue;
       }
       parts.push(hardline, "");
@@ -554,6 +554,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
   // when type is value-comma_group
   // example @import url("verylongurl") projection,tv
   if (insideURLFunctionInImportAtRuleNode(path)) {
+    return group(fill(parts));
+  }
+
+  // When inside a value-paren_group and a comma_group has an inline comment,
+  // the fill normally adds an extra indent level. Remove the indent wrapper
+  // to keep the content at the correct indentation level.
+  if (hasInlineComment && parentNode.type === "value-paren_group") {
     return group(fill(parts));
   }
 
