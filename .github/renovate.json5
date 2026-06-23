@@ -69,7 +69,7 @@
     },
     {
       groupName: "Markdown dependencies",
-      matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
+      matchPackageNames: ["micromark-*", "mdast-"],
     },
     {
       groupName: "Docusaurus",
@@ -94,6 +94,12 @@
     "node",
     // Not tree-shakeable, and we don't need it in v4
     "get-stdin",
+    // Those mdx related dependencies will be dropped
+    "unified",
+    "remark-parse",
+    "remark-math",
+    "remark-footnotes",
+    "trim",
   ],
   ignorePaths: ["tests/**", "packages/**"],
 }
