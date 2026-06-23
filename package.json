@@ -127,7 +127,7 @@
     "trim-newlines": "5.0.0",
     "typescript": "6.0.3",
     "unicode-regex": "4.2.0",
-    "unified": "9.2.2",
+    "unified": "11.0.5",
     "url-or-path": "2.7.1",
     "vnopts": "2.0.5",
     "wcwidth.js": "2.0.0",
