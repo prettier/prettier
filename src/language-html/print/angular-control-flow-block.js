@@ -10,6 +10,15 @@ import { hasPrettierIgnore } from "../utilities/index.js";
 import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
 
+const blocksShouldPrintSpaceAfterName = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+  "loading",
+]);
+
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const docs = [];
@@ -26,7 +35,12 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   if (node.parameters) {
-    docs.push(" (", group(print("parameters")), ")");
+    docs.push(
+      blocksShouldPrintSpaceAfterName.has(node.name) ? " " : "",
+      "(",
+      group(print("parameters")),
+      ")",
+    );
   }
 
   if (!isSwitchFallthroughCase(node)) {
