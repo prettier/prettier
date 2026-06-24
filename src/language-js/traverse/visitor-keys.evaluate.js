@@ -1,7 +1,7 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
-import { FlowVisitorKeys as flowVisitorKeys } from "flow-parser/oxidized/index.js";
+import { FlowVisitorKeys as flowVisitorKeys } from "flow-parser";
 import {
   addVisitorKeys,
   generateReferenceSharedVisitorKeys,

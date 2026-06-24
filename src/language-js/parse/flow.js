@@ -1,4 +1,4 @@
-import { parse as flowParse } from "flow-parser/oxidized/index.js";
+import { parse as flowParse } from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
