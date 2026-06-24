@@ -789,16 +789,17 @@ function handleAssignmentLikeAnnotationLeadingComments({
   followingNode,
   text,
 }) {
-  if (!isAssignmentLikeNode(enclosingNode) || !followingNode) {
-    return false;
+  if (isAssignmentLikeNode(enclosingNode) && followingNode) {
+    // @ts-expect-error -- Safe
+    const leftSide = enclosingNode.id ?? enclosingNode.left;
+    const equalsIndex = text.indexOf("=", locEnd(leftSide));
+    if (equalsIndex !== -1 && locStart(comment) >= equalsIndex) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
   }
-  const leftSide = enclosingNode.id ?? enclosingNode.left;
-  const equalsIndex = text.indexOf("=", locEnd(leftSide));
-  if (equalsIndex === -1 || locStart(comment) < equalsIndex) {
-    return false;
-  }
-  addLeadingComment(followingNode, comment);
-  return true;
+
+  return false;
 }
 
 function handleTSFunctionTrailingComments({
