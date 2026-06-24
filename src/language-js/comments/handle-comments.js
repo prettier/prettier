@@ -1137,13 +1137,9 @@ function handleParenthesizedExpressionTrailingComment({
  * @returns {boolean}
  */
 function handleUnionTypeLeadingComments(context) {
-  const { followingNode, comment, text } = context;
+  const { followingNode, comment } = context;
 
-  if (
-    isBlockComment(comment) &&
-    isSingleLineComment(comment, text) &&
-    shouldAttachToUnionTypeFirstElement(followingNode, context)
-  ) {
+  if (shouldAttachToUnionTypeFirstElement(followingNode, context)) {
     // @ts-expect-error -- safe
     addLeadingComment(followingNode.types[0], comment);
     return true;

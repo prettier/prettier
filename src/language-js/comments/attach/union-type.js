@@ -1,11 +1,18 @@
 import { addLeadingComment } from "../../../main/comments/utilities.js";
 import { locEnd, locStart } from "../../location/index.js";
+import { isBlockComment } from "../../utilities/comment-types.js";
 import { isPrettierIgnoreComment } from "../../utilities/is-prettier-ignore-comment.js";
 import { isUnionType } from "../../utilities/node-types.js";
 import { stripComments } from "../../utilities/strip-comments.js";
+import { isSingleLineComment } from "../attach/utilities.js";
 
-function shouldAttachToUnionTypeFirstElement(node, { comment, options }) {
-  if (isUnionType(node) && !isPrettierIgnoreComment(comment)) {
+function shouldAttachToUnionTypeFirstElement(node, { comment, text, options }) {
+  if (
+    isUnionType(node) &&
+    isBlockComment(comment) &&
+    isSingleLineComment(comment, text) &&
+    !isPrettierIgnoreComment(comment)
+  ) {
     const text = stripComments(options);
     const textBetween = text.slice(locEnd(comment), locStart(node));
     return /^[ \t]*$/.test(textBetween);
