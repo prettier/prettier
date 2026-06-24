@@ -139,6 +139,7 @@ function handleRemainingComment(context) {
     handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleAssignmentLikeAnnotationLeadingComments,
   ].some((fn) => fn(context));
 }
 
@@ -779,6 +780,28 @@ function handleVariableDeclaratorComments({
     addLeadingComment(followingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleAssignmentLikeAnnotationLeadingComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (isAssignmentLikeNode(enclosingNode) && followingNode) {
+    // @ts-expect-error -- Safe
+    const leftSide = enclosingNode.id ?? enclosingNode.left;
+    const equalsTokenIndex = stripComments(options).indexOf(
+      "=",
+      locEnd(leftSide),
+    );
+    if (locStart(comment) >= equalsTokenIndex) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+  }
+
   return false;
 }
 

@@ -16,7 +16,6 @@ const unstableTests = new Map(
       (options) => options.proseWrap === "always",
     ],
     "flow/hook/declare-hook.js",
-    "flow/hook/comments-before-arrow.js",
     "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
