@@ -792,8 +792,11 @@ function handleAssignmentLikeAnnotationLeadingComments({
   if (isAssignmentLikeNode(enclosingNode) && followingNode) {
     // @ts-expect-error -- Safe
     const leftSide = enclosingNode.id ?? enclosingNode.left;
-    const equalsIndex = text.indexOf("=", locEnd(leftSide));
-    if (equalsIndex !== -1 && locStart(comment) >= equalsIndex) {
+    const equalsTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      locEnd(leftSide),
+    );
+    if (equalsTokenIndex !== false && locStart(comment) >= equalsTokenIndex) {
       addLeadingComment(followingNode, comment);
       return true;
     }
