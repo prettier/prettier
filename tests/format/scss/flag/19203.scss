@@ -1,0 +1,13 @@
+// `!default` / `!global` inside strings, urls and function arguments must not
+// be treated as Sass declaration flags. (#19203)
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "foo !default bar";
+$e: "a" + "!global";
+
+// Real trailing flags still apply, even alongside a string containing the flag.
+$f: "!default" !default;
+$g: "!global" !global;
+$h: 1px !default;
+$i: map(a: 1, b: 2) !default;

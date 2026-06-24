@@ -19,8 +19,55 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+// Returns `true` when `value[index]` is not inside a string or parentheses,
+// i.e. a position where a trailing SCSS flag like `!default` may legitimately
+// appear (rather than inside a quoted value such as `"!default"`).
+function isTopLevelIndex(value, index) {
+  let stringChar = "";
+  let parenDepth = 0;
+  for (let i = 0; i < index; i++) {
+    const character = value[i];
+    if (stringChar) {
+      if (character === "\\") {
+        i++;
+      } else if (character === stringChar) {
+        stringChar = "";
+      }
+    } else if (character === '"' || character === "'") {
+      stringChar = character;
+    } else if (character === "(") {
+      parenDepth++;
+    } else if (character === ")" && parenDepth > 0) {
+      parenDepth--;
+    }
+  }
+  return !stringChar && parenDepth === 0;
+}
+
+// Finds a trailing SCSS flag (`!default` / `!global`) that is a real
+// declaration flag — i.e. appears at the top level — and returns the matched
+// text (including the leading whitespace) and its start index. A flag that
+// only occurs inside a string or parentheses (e.g. `$x: "!default"`) is
+// ignored. (#19203)
+function matchTrailingSCSSDirective(value, directive) {
+  let searchFrom = 0;
+  while (true) {
+    const directiveIndex = value.indexOf(directive, searchFrom);
+    if (directiveIndex === -1) {
+      return null;
+    }
+
+    if (isTopLevelIndex(value, directiveIndex)) {
+      let start = directiveIndex;
+      while (start > 0 && /\s/u.test(value[start - 1])) {
+        start--;
+      }
+      return { index: start, matched: value.slice(start) };
+    }
+
+    searchFrom = directiveIndex + directive.length;
+  }
+}
 
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
@@ -163,25 +210,28 @@ function parseNestedCSS(node, options) {
     }
 
     if (value.trim().length > 0) {
-      const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+      const defaultSCSSDirective = matchTrailingSCSSDirective(
+        value,
+        "!default",
+      );
 
-      if (defaultSCSSDirectiveIndex) {
-        value = value.slice(0, defaultSCSSDirectiveIndex.index);
+      if (defaultSCSSDirective) {
+        value = value.slice(0, defaultSCSSDirective.index);
         node.scssDefault = true;
 
-        if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+        if (defaultSCSSDirective.matched.trim() !== "!default") {
+          node.raws.scssDefault = defaultSCSSDirective.matched;
         }
       }
 
-      const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+      const globalSCSSDirective = matchTrailingSCSSDirective(value, "!global");
 
-      if (globalSCSSDirectiveIndex) {
-        value = value.slice(0, globalSCSSDirectiveIndex.index);
+      if (globalSCSSDirective) {
+        value = value.slice(0, globalSCSSDirective.index);
         node.scssGlobal = true;
 
-        if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+        if (globalSCSSDirective.matched.trim() !== "!global") {
+          node.raws.scssGlobal = globalSCSSDirective.matched;
         }
       }
 
