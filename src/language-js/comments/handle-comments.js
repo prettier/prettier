@@ -784,17 +784,15 @@ function handleAssignmentLikeComments(context) {
       return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
 
-    if (placement === "remaining") {
-      // @ts-expect-error -- Safe
-      const leftSide = enclosingNode.id ?? enclosingNode.left;
-      const equalsTokenIndex = stripComments(options).indexOf(
-        "=",
-        locEnd(leftSide),
-      );
+    // @ts-expect-error -- Safe
+    const leftSide = enclosingNode.id ?? enclosingNode.left;
+    const equalsTokenIndex = stripComments(options).indexOf(
+      "=",
+      locEnd(leftSide),
+    );
 
-      if (locStart(comment) >= equalsTokenIndex) {
-        return addLeadingCommentToPossibleUnionType(followingNode, context);
-      }
+    if (locStart(comment) >= equalsTokenIndex) {
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
   }
 
@@ -1139,9 +1137,13 @@ function handleParenthesizedExpressionTrailingComment({
  * @returns {boolean}
  */
 function handleUnionTypeLeadingComments(context) {
-  const { followingNode, comment } = context;
+  const { followingNode, comment, text } = context;
 
-  if (shouldAttachToUnionTypeFirstElement(followingNode, context)) {
+  if (
+    isBlockComment(comment) &&
+    isSingleLineComment(comment, text) &&
+    shouldAttachToUnionTypeFirstElement(followingNode, context)
+  ) {
     // @ts-expect-error -- safe
     addLeadingComment(followingNode.types[0], comment);
     return true;
