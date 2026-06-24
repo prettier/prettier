@@ -258,7 +258,7 @@ const pluginFiles = [
     input: "src/plugins/flow.js",
     replaceModule: [
       {
-        module: getPackageFile("flow-parser/oxidized/FlowParser.js"),
+        module: getPackageFile("flow-parser/dist/FlowParser.js"),
         process(text) {
           text = outdent`
             const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;
@@ -269,7 +269,7 @@ const pluginFiles = [
         },
       },
       {
-        module: getPackageFile("flow-parser/oxidized/FlowParserWASM.js"),
+        module: getPackageFile("flow-parser/dist/FlowParserWASM.js"),
         process(text) {
           text = outdent`
             const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;

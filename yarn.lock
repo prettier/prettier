@@ -7976,6 +7976,7 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:11.1.3"
     find-cache-directory: "npm:6.0.0"
+    flow-estree: "npm:0.321.0"
     flow-parser: "npm:0.321.0"
     get-east-asian-width: "npm:1.6.0"
     get-port: "npm:7.2.0"

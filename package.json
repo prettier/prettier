@@ -162,6 +162,7 @@
     "eslint-plugin-simple-import-sort": "13.0.0",
     "eslint-plugin-unicorn": "68.0.0",
     "esm-utils": "4.4.2",
+    "flow-estree": "0.321.0",
     "get-port": "7.2.0",
     "gfm-test-suite": "0.0.2",
     "globals": "17.7.0",

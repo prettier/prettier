@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { parse: flowParse } = require("flow-parser/oxidized");
+const { parse: flowParse } = require("flow-parser");
 const fastGlob = require("fast-glob");
 
 const DEFAULT_SPEC_CONTENT = "runFormatTest(import.meta);\n";
