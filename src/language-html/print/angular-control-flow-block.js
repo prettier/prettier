@@ -7,8 +7,10 @@ import {
   softline,
 } from "../../document/index.js";
 import { hasPrettierIgnore } from "../utilities/index.js";
-import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
+import { ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS } from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
+
+const blocksShouldNotPrintSpaceAfterName = new Set(["content"]);
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
@@ -26,7 +28,12 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   if (node.parameters) {
-    docs.push(" (", group(print("parameters")), ")");
+    docs.push(
+      blocksShouldNotPrintSpaceAfterName.has(node.name) ? "" : " ",
+      "(",
+      group(print("parameters")),
+      ")",
+    );
   }
 
   if (!isSwitchFallthroughCase(node)) {

@@ -17,7 +17,8 @@ exports[`outside-functions.js format[flow] 1`] = `
 "Unexpected token \`.\` (1:14)
 > 1 | const x = new.target;
     |              ^
-  2 |"
+  2 |
+Cause: Unexpected token \`.\` (1:13)"
 `;
 
 exports[`outside-functions.js format[hermes] 1`] = `
@@ -60,7 +61,8 @@ exports[`range.js format[flow] 1`] = `
 "Unexpected token \`.\` (2:4)
   1 | const x =
 > 2 | new.target;
-    |    ^"
+    |    ^
+Cause: Unexpected token \`.\` (2:3)"
 `;
 
 exports[`range.js format[hermes] 1`] = `

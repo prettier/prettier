@@ -187,8 +187,13 @@ const cliModule = {
           },
           {
             module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-            find: "var dump                = dumper.dump;",
-            replacement: "var dump;",
+            process(text) {
+              text = text.replaceAll(
+                /export \{ .* \};/g,
+                "export { JSON_SCHEMA, load };",
+              );
+              return text;
+            },
           },
           {
             module: getPackageFile("smol-toml"),
@@ -253,29 +258,30 @@ const pluginFiles = [
     input: "src/plugins/flow.js",
     replaceModule: [
       {
-        module: require.resolve("flow-parser"),
+        module: getPackageFile("flow-parser/oxidized/FlowParser.js"),
         process(text) {
-          const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
-          ).groups;
+          text = outdent`
+            const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;
 
-          text = text
-            .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
-            .replaceAll('require("fs")', "{}")
-            .replaceAll('require("constants")', "{}");
+            ${text}
+          `;
+          return text;
+        },
+      },
+      {
+        module: getPackageFile("flow-parser/oxidized/FlowParserWASM.js"),
+        process(text) {
+          text = outdent`
+            const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;
 
-          const { globalThisVariableName } = text.match(
-            /\(function\((?<globalThisVariableName>[\p{ID_Start}$][\p{ID_Continue}$]*)\)\{"use strict";/u,
-          ).groups;
-
-          // flow-parser adds a global error handler cause the error stack been huge
-          // https://github.com/facebook/flow/issues/9299
-          // NOTE: Can't reproduce in flow-parser@0.298.0, but the code still there
-          // NOTE2: This is not tested
-          text = text.replaceAll(`${globalThisVariableName}.process`, "({})");
+            ${text}
+          `;
+          text = text.replaceAll("process.argv", "[]");
+          text = text.replaceAll('require("fs")', "undefined");
+          text = text.replaceAll('require("path")', "undefined");
           text = text.replaceAll(
-            `${globalThisVariableName}.addEventListener`,
-            "(() =>{})",
+            'require("crypto")',
+            `require(${JSON.stringify(path.join(import.meta.dirname, "../shims/crypto-random-fill-sync.cjs"))})`,
           );
 
           return text;

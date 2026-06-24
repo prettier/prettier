@@ -1,4 +1,5 @@
 import path from "node:path";
+import { outdent } from "outdent";
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import { getPackageFile } from "../utilities.js";
@@ -27,21 +28,25 @@ const mainModule = {
           {
             module: getPackageFile("hermes-parser/dist/HermesParser.js"),
             process(text) {
-              text =
-                'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
-                text;
+              text = outdent`
+                const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;
+
+                ${text}
+              `;
               return text;
             },
           },
           {
             module: getPackageFile("hermes-parser/dist/HermesParserWASM.js"),
             process(text) {
+              text = outdent`
+                const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;
+
+                ${text}
+              `;
               text = text.replaceAll("process.argv", "[]");
               text = text.replaceAll('require("fs")', "undefined");
               text = text.replaceAll('require("path")', "undefined");
-              text =
-                'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
-                text;
 
               return text;
             },

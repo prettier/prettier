@@ -74,7 +74,8 @@ exports[`classes.js format[flow] 1`] = `
      |             ^
    8 |   //
    9 | };
-  10 |"
+  10 |
+Cause: Unexpected token \`@\` (7:12)"
 `;
 
 exports[`classes.js format[hermes] 1`] = `

@@ -17,12 +17,12 @@
   "dependencies": {
     "@catppuccin/codemirror": "1.0.3",
     "@codemirror/autocomplete": "6.20.3",
-    "@codemirror/commands": "6.10.3",
+    "@codemirror/commands": "6.10.4",
     "@codemirror/language": "6.12.3",
     "@codemirror/language-data": "6.5.2",
     "@codemirror/lint": "6.9.7",
-    "@codemirror/state": "6.6.0",
-    "@codemirror/view": "6.43.1",
+    "@codemirror/state": "6.7.0",
+    "@codemirror/view": "6.43.2",
     "@docusaurus/preset-classic": "3.10.1",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
@@ -39,7 +39,7 @@
     "react-dom": "19.2.7",
     "react-markdown": "10.1.0",
     "react-tweet": "3.3.1",
-    "vue": "3.5.35"
+    "vue": "3.5.38"
   },
   "devDependencies": {
     "@docusaurus/core": "3.10.1",
@@ -48,11 +48,11 @@
     "@docusaurus/types": "3.10.1",
     "@types/react": "19.2.17",
     "@vitejs/plugin-vue": "6.0.7",
-    "@vitejs/plugin-vue-jsx": "5.1.5",
+    "@vitejs/plugin-vue-jsx": "5.1.6",
     "concurrently": "10.0.3",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
-    "vite": "8.0.16",
+    "vite": "8.1.0",
     "yaml": "2.9.0"
   },
   "browserslist": {
