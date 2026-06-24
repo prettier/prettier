@@ -5894,9 +5894,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.7.12":
-  version: 0.7.12
-  resolution: "jest-light-runner@npm:0.7.12"
+"jest-light-runner@npm:0.7.13":
+  version: 0.7.13
+  resolution: "jest-light-runner@npm:0.7.13"
   dependencies:
     "@jest/expect": "npm:^30.4.1"
     "@jest/fake-timers": "npm:^30.4.1"
@@ -5909,7 +5909,7 @@ __metadata:
     tinypool: "npm:0.8.4"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0
-  checksum: 10/a0baf5a048b27738f504da7fe737797c13d642c37294afc699dfed20037531155656a5276631a3a733299b9f5f13e81883ba6e874a5629adc7c2eabca88350e3
+  checksum: 10/897427cb712ce284b053932058c234f4b34f17a9a9770bde7132caf5b721eb7dfdf7b14b744ddbc9f86b94e7b30b63c77c8d330e1d955dba289b4425ef407f6b
   languageName: node
   linkType: hard
 
@@ -6354,9 +6354,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.18.0":
-  version: 6.18.0
-  resolution: "knip@npm:6.18.0"
+"knip@npm:6.20.0":
+  version: 6.20.0
+  resolution: "knip@npm:6.20.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.3.0"
@@ -6374,7 +6374,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/0596e98e3cc2f29762f0a3692f03a88551e0225420e228f4d427d5462bc78bf2e81173f07bbb54b65e4cd737486e8db82c702c11d118bcab45b0b296b9ca0406
+  checksum: 10/e966c3a1c39fa66342e2080361356300193a7032c326f960ba37ea6b7b8e57b03325aa645bb0a3f8973fb2f4ef6fccf15965a161c515cf6bf94a4dc2935ef6f4
   languageName: node
   linkType: hard
 
@@ -7993,14 +7993,14 @@ __metadata:
     is-es5-identifier-name: "npm:1.0.1"
     jest: "npm:30.4.2"
     jest-docblock: "npm:30.4.0"
-    jest-light-runner: "npm:0.7.12"
+    jest-light-runner: "npm:0.7.13"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:3.0.1"
     jsesc: "npm:3.1.0"
     json-test-suite: "npm:1.0.0"
     json5: "npm:2.2.3"
-    knip: "npm:6.18.0"
+    knip: "npm:6.20.0"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
     magic-string: "npm:0.30.21"
@@ -8039,7 +8039,7 @@ __metadata:
     prettier: "npm:3.8.4"
     pretty-bytes: "npm:7.1.0"
     pretty-ms: "npm:9.3.0"
-    puppeteer: "npm:25.2.0"
+    puppeteer: "npm:25.2.1"
     regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
@@ -8134,9 +8134,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:25.2.0":
-  version: 25.2.0
-  resolution: "puppeteer-core@npm:25.2.0"
+"puppeteer-core@npm:25.2.1":
+  version: 25.2.1
+  resolution: "puppeteer-core@npm:25.2.1"
   dependencies:
     "@puppeteer/browsers": "npm:3.0.5"
     chromium-bidi: "npm:16.0.1"
@@ -8144,23 +8144,23 @@ __metadata:
     typed-query-selector: "npm:^2.12.2"
     webdriver-bidi-protocol: "npm:0.4.2"
     ws: "npm:^8.21.0"
-  checksum: 10/34b4337ad4ed68da0ca9e94a51236adf93af7c118662ada089a33ff091d6c9974b03599be134e791b133c094b5988be4cd456999e60b740f99491c4ff1c9bbd2
+  checksum: 10/af6d5c22f5528fd440365721266dd6554f74b169e2c6e62adb3b8a1bc4200d8fcd0f22fc6fd50545d80bdfe2ea25316ed6b21d232d9a6d6c88ea3133959ef2fe
   languageName: node
   linkType: hard
 
-"puppeteer@npm:25.2.0":
-  version: 25.2.0
-  resolution: "puppeteer@npm:25.2.0"
+"puppeteer@npm:25.2.1":
+  version: 25.2.1
+  resolution: "puppeteer@npm:25.2.1"
   dependencies:
     "@puppeteer/browsers": "npm:3.0.5"
     chromium-bidi: "npm:16.0.1"
     devtools-protocol: "npm:0.0.1638949"
     lilconfig: "npm:^3.1.3"
-    puppeteer-core: "npm:25.2.0"
+    puppeteer-core: "npm:25.2.1"
     typed-query-selector: "npm:^2.12.2"
   bin:
     puppeteer: lib/puppeteer/node/cli.js
-  checksum: 10/5fb3cd18d20812eb1f3f062400eb5338a06e68dbfa797b0b8cf45da1ca56ce1e2c656eb09c227363a3ff2f5ee86eaaeae2337d541f8a3d7bd5c07a6d1ab13dba
+  checksum: 10/f36104c01a30ad0662e4662d2c37550b81cec3c80453c4affe327501b7d948c311569668d436aab17cd311b2c9a0e66e85b3d6a7944c92ccf0928ea733085cbc
   languageName: node
   linkType: hard
 
