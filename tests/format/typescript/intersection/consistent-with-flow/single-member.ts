@@ -1,7 +1,7 @@
 // https://github.com/oxc-project/oxc/pull/21915
 
-// export type aType = & // Comment
-// "VALUE";
+export type aType = & // Comment
+"VALUE";
 
 export type bType = &
 // Comment
@@ -13,8 +13,8 @@ export type cType = & /* Comment */
 export type dType = /* Comment */
 & "VALUE";
 
-// export type eType = // Comment
-// & "VALUE";
+export type eType = // Comment
+& "VALUE";
 
 export type fType = &
 /* Comment */
@@ -48,6 +48,6 @@ export type nType = // Comment
 & /* Comment */
 "VALUE";
 
-// type oType = // Comment
-// & // Comment
-// "VALUE"
+type oType = // Comment
+& // Comment
+"VALUE"

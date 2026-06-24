@@ -33,6 +33,10 @@ import { handleForXStatementComments } from "./attach/handle-for-x-statement-com
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
 import {
+  addLeadingCommentToPossibleUnionType,
+  shouldAttachToUnionTypeFirstElement,
+} from "./attach/union-type.js";
+import {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
   isSingleLineComment,
@@ -107,7 +111,7 @@ function handleEndOfLineComment(context) {
     handleCallExpressionComments,
     handlePropertyComments,
     handleOnlyComments,
-    handleVariableDeclaratorComments,
+    handleAssignmentLikeComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
@@ -132,6 +136,7 @@ function handleRemainingComment(context) {
     handleForXStatementComments,
     handleMethodNameComments,
     handleOnlyComments,
+    handleAssignmentLikeComments,
     handleTSMappedTypeComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
@@ -139,7 +144,6 @@ function handleRemainingComment(context) {
     handleParenthesizedExpressionTrailingComment,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
-    handleAssignmentLikeAnnotationLeadingComments,
   ].some((fn) => fn(context));
 }
 
@@ -759,6 +763,7 @@ const isAssignmentLikeNode = createTypeCheckFunction([
   "TypeAlias",
   "TSTypeAliasDeclaration",
 ]);
+
 const isComplexExprNode = createTypeCheckFunction([
   "ObjectExpression",
   "ArrayExpression",
@@ -767,38 +772,27 @@ const isComplexExprNode = createTypeCheckFunction([
   "ObjectTypeAnnotation",
   "TSTypeLiteral",
 ]);
-function handleVariableDeclaratorComments({
-  comment,
-  enclosingNode,
-  followingNode,
-}) {
-  if (
-    isAssignmentLikeNode(enclosingNode) &&
-    followingNode &&
-    (isComplexExprNode(followingNode) || isBlockComment(comment))
-  ) {
-    addLeadingComment(followingNode, comment);
-    return true;
-  }
-  return false;
-}
 
-function handleAssignmentLikeAnnotationLeadingComments({
-  comment,
-  enclosingNode,
-  followingNode,
-  options,
-}) {
+/** @param {CommentContext} context */
+function handleAssignmentLikeComments(context) {
+  const { comment, enclosingNode, followingNode, options, placement } = context;
   if (isAssignmentLikeNode(enclosingNode) && followingNode) {
+    if (
+      placement === "endOfLine" &&
+      (isComplexExprNode(followingNode) || isBlockComment(comment))
+    ) {
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
+    }
+
     // @ts-expect-error -- Safe
     const leftSide = enclosingNode.id ?? enclosingNode.left;
     const equalsTokenIndex = stripComments(options).indexOf(
       "=",
       locEnd(leftSide),
     );
+
     if (locStart(comment) >= equalsTokenIndex) {
-      addLeadingComment(followingNode, comment);
-      return true;
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
   }
 
@@ -1142,24 +1136,13 @@ function handleParenthesizedExpressionTrailingComment({
  * @param {CommentContext} context
  * @returns {boolean}
  */
-function handleUnionTypeLeadingComments({
-  followingNode,
-  comment,
-  text,
-  options,
-}) {
-  if (
-    isUnionType(followingNode) &&
-    isBlockComment(comment) &&
-    isSingleLineComment(comment, text) &&
-    !isPrettierIgnoreComment(comment)
-  ) {
-    const text = stripComments(options);
-    const textBetween = text.slice(locEnd(comment), locStart(followingNode));
-    if (/^[ \t]*$/.test(textBetween)) {
-      addLeadingComment(followingNode.types[0], comment);
-      return true;
-    }
+function handleUnionTypeLeadingComments(context) {
+  const { followingNode, comment } = context;
+
+  if (shouldAttachToUnionTypeFirstElement(followingNode, context)) {
+    // @ts-expect-error -- safe
+    addLeadingComment(followingNode.types[0], comment);
+    return true;
   }
 
   return false;
