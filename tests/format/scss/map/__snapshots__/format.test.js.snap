@@ -1026,12 +1026,14 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  /* comment */ key1: value,
+  /* comment */
+  key1: value,
 
   // comment
   key2: value,
 
-  /* comment */ /* comment */ key3: value,
+  /* comment */ /* comment */
+  key3: value,
 
   /* comment */
   key4: (
@@ -1088,12 +1090,14 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  /* comment */ key1: value,
+  /* comment */
+  key1: value,
 
   // comment
   key2: value,
 
-  /* comment */ /* comment */ key3: value,
+  /* comment */ /* comment */
+  key3: value,
 
   /* comment */
   key4: (

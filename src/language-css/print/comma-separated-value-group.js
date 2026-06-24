@@ -140,6 +140,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // A block comment that sits on its own line in the source keeps the
+    // following value on its own line too, instead of gluing a short value to a
+    // long comment (which overruns `printWidth`). Without this, a unary minus
+    // (e.g. `-1px`) would be glued to the comment by the math-operator handling
+    // below. (#18311)
+    if (
+      !atRuleAncestorNode &&
+      iNode.type === "value-comment" &&
+      !iNode.inline &&
+      iNextNode.type !== "value-comment" &&
+      iNextNode.raws?.before?.includes("\n")
+    ) {
+      parts.push(dedent(hardline), "");
+      continue;
+    }
+
     // Don't print a space before the `;` branch delimiter in the SCSS `if()`
     // function (i.e. `if(condition: value; else: value)`)
     if (

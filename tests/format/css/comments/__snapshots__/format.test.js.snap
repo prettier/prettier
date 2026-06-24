@@ -76,6 +76,46 @@ parsers: ["css"]
 ================================================================================
 `;
 
+exports[`18311.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/* A block comment on its own line between comma-separated values should keep
+   the following value on its own line instead of gluing it (which overruns
+   printWidth). (#18311) */
+.foo {
+  box-shadow: 2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    -1px -1px 2px lightgray;
+}
+
+/* An inline block comment stays inline. */
+.bar {
+  box-shadow: 2px 2px 4px gray, /* inline */ -1px -1px 2px lightgray;
+}
+
+=====================================output=====================================
+/* A block comment on its own line between comma-separated values should keep
+   the following value on its own line instead of gluing it (which overruns
+   printWidth). (#18311) */
+.foo {
+  box-shadow:
+    2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    -1px -1px 2px lightgray;
+}
+
+/* An inline block comment stays inline. */
+.bar {
+  box-shadow:
+    2px 2px 4px gray,
+    /* inline */ -1px -1px 2px lightgray;
+}
+
+================================================================================
+`;
+
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
