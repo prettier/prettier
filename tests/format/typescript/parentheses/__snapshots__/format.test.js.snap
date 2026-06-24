@@ -12,7 +12,7 @@ async function* f() {
 
 =====================================output=====================================
 async function* f() {
-  makeRecord = await makeRecordFactory<ManualValue>;
+  makeRecord = (await makeRecordFactory)<ManualValue>;
 }
 
 ================================================================================
@@ -32,8 +32,8 @@ async function* f() {
 
 =====================================output=====================================
 async function* f() {
-  makeRecord = yield* makeRecordFactory<ManualValue>;
-  makeRecord = yield makeRecordFactory<ManualValue>;
+  makeRecord = (yield* makeRecordFactory)<ManualValue>;
+  makeRecord = (yield makeRecordFactory)<ManualValue>;
 }
 
 ================================================================================
