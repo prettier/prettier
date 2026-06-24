@@ -39,6 +39,7 @@ import {
 import {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
+  isSingleLineBlockComment,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -764,23 +765,11 @@ const isAssignmentLikeNode = createTypeCheckFunction([
   "TSTypeAliasDeclaration",
 ]);
 
-const isComplexExprNode = createTypeCheckFunction([
-  "ObjectExpression",
-  "ArrayExpression",
-  "TemplateLiteral",
-  "TaggedTemplateExpression",
-  "ObjectTypeAnnotation",
-  "TSTypeLiteral",
-]);
-
 /** @param {CommentContext} context */
 function handleAssignmentLikeComments(context) {
-  const { comment, enclosingNode, followingNode, options, placement } = context;
+  const { comment, enclosingNode, followingNode, options, text } = context;
   if (isAssignmentLikeNode(enclosingNode) && followingNode) {
-    if (
-      placement === "endOfLine" &&
-      (isComplexExprNode(followingNode) || isBlockComment(comment))
-    ) {
+    if (!isSingleLineBlockComment(comment, text)) {
       return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
 
