@@ -6,8 +6,7 @@ parsers: ["typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 async function* f() {
-  makeRecord =
-    (await makeRecordFactory)<ManualValue>
+  makeRecord = (   await makeRecordFactory)<ManualValue>
 }
 
 =====================================output=====================================
@@ -24,10 +23,8 @@ parsers: ["typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 async function* f() {
-  makeRecord =
-    (yield* makeRecordFactory)<ManualValue>
-  makeRecord =
-    (yield makeRecordFactory)<ManualValue>
+  makeRecord = (   yield* makeRecordFactory)<ManualValue>
+  makeRecord = (    yield makeRecordFactory)<ManualValue>
 }
 
 =====================================output=====================================

@@ -1,4 +1,3 @@
 async function* f() {
-  makeRecord =
-    (await makeRecordFactory)<ManualValue>
+  makeRecord = (   await makeRecordFactory)<ManualValue>
 }
