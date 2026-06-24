@@ -71,6 +71,21 @@ function printCommaSeparatedValueGroup(path, options, print) {
   );
 
   const printed = path.map(print, "groups");
+
+  // A value following an inline comment inside a parenthesized group is wrapped
+  // in an extra `indent(...)` at the end of this function (because the comment
+  // forces it into a `value-comma_group`). Dedent it so it lines up with the
+  // comment instead of being over-indented by one level (#19427).
+  if (parentNode.type === "value-paren_group") {
+    for (let i = 1; i < node.groups.length; i++) {
+      if (
+        isInlineValueCommentNode(node.groups[i - 1]) &&
+        !isInlineValueCommentNode(node.groups[i])
+      ) {
+        printed[i] = dedent(printed[i]);
+      }
+    }
+  }
   /*
    * We assume parts always meet following conditions:
    * - parts.length is odd
