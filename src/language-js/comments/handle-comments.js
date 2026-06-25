@@ -787,7 +787,7 @@ function handleAssignmentLikeComments(context) {
   }
 
   // Ideally, we should only check cases that the right side is a single-element union or intersection type
-  // We already strip the wrpper, there is no way to know it, so we only check "type alias"
+  // We already strip the wrapper, there is no way to know it, so we only check "type alias"
   if (isTypeAlias(enclosingNode) && followingNode) {
     const leftSide = enclosingNode.id;
     const equalsTokenIndex = stripComments(options).indexOf(
