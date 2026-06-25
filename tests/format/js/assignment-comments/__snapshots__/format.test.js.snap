@@ -19,8 +19,7 @@ if (true)
     if (true)
       if (true)
         if (true)
-          longVariableName1 =
-            // @ts-ignore
+          longVariableName1 = // @ts-ignore
             (variable01 + veryLongVariableNameNumber2).method();
 
 ================================================================================
@@ -35,8 +34,7 @@ const kochabCooieGameOnOboleUnweave = // ???
       rhubarbRhubarb(annularCooeedSplicesWalksWayWay);
 
 =====================================output=====================================
-const kochabCooieGameOnOboleUnweave =
-  // ???
+const kochabCooieGameOnOboleUnweave = // ???
   rhubarbRhubarb(annularCooeedSplicesWalksWayWay);
 
 ================================================================================
@@ -123,8 +121,7 @@ f3 = (
   a = b, //comment
 ) => {};
 
-f4 =
-  // Comment
+f4 = // Comment
   () => {};
 
 f5 =
@@ -152,8 +149,7 @@ let f3 = (
   a = b, //comment
 ) => {};
 
-let f4 =
-  // Comment
+let f4 = // Comment
   () => {};
 
 let f5 =
@@ -185,12 +181,10 @@ const bifornCringerMoshedPerplexSawder = // !!!
   anodyneCondosMalateOverateRetinol;
 
 =====================================output=====================================
-const kochabCooieGameOnOboleUnweave =
-  // ???
+const kochabCooieGameOnOboleUnweave = // ???
   annularCooeedSplicesWalksWayWay;
 
-const bifornCringerMoshedPerplexSawder =
-  // !!!
+const bifornCringerMoshedPerplexSawder = // !!!
   glimseGlyphsHazardNoopsTieTie +
   averredBathersBoxroomBuggyNurl -
   anodyneCondosMalateOverateRetinol;
@@ -434,14 +428,11 @@ fnString =
   "long" +
   "string";
 
-fnString =
-  // Comment0
+fnString = // Comment0
   // Comment1
   "some" + "long" + "string";
 
-fnString =
-  // Comment
-  "some" + "long" + "string";
+fnString = "some" + "long" + "string"; // Comment
 
 fnString =
   // Comment
@@ -481,14 +472,11 @@ var fnString =
   "long" +
   "string";
 
-var fnString =
-  // Comment0
+var fnString = // Comment0
   // Comment1
   "some" + "long" + "string";
 
-var fnString =
-  // Comment
-  "some" + "long" + "string";
+var fnString = "some" + "long" + "string"; // Comment
 
 ================================================================================
 `;
