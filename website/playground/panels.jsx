@@ -197,7 +197,7 @@ function setup(props, { emit }) {
     const lines = props.value.split("\n");
     const effects = [];
 
-    for (let i = lines.length - 1; i >= 0; i--) {
+    for (let i = 0; i < lines.length; i++) {
       if (props.autoFold.test(lines[i])) {
         const lineNumber = i + 1;
         const range = foldable(
