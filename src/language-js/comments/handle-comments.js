@@ -39,7 +39,6 @@ import {
 import {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
-  isSingleLineBlockComment,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
