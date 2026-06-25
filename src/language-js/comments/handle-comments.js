@@ -765,11 +765,23 @@ const isAssignmentLikeNode = createTypeCheckFunction([
   "TSTypeAliasDeclaration",
 ]);
 
+const isComplexExprNode = createTypeCheckFunction([
+  "ObjectExpression",
+  "ArrayExpression",
+  "TemplateLiteral",
+  "TaggedTemplateExpression",
+  "ObjectTypeAnnotation",
+  "TSTypeLiteral",
+]);
+
 /** @param {CommentContext} context */
 function handleAssignmentLikeComments(context) {
-  const { comment, enclosingNode, followingNode, options, text } = context;
+  const { comment, enclosingNode, followingNode, options, placement } = context;
   if (isAssignmentLikeNode(enclosingNode) && followingNode) {
-    if (!isSingleLineBlockComment(comment, text)) {
+    if (
+      placement === "endOfLine" &&
+      (isComplexExprNode(followingNode) || isBlockComment(comment))
+    ) {
       return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
 
