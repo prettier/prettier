@@ -50,9 +50,7 @@ let a32 =
   /*
 commment */
   1;
-let a4 =
-  // comment
-  1;
+let a4 = 1; // comment
 let a42 =
   // comment
   1;
