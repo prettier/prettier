@@ -6,6 +6,7 @@
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
+  lockFileMaintenance: { enabled: true },
   packageRules: [
     {
       groupName: "GitHub Actions",
