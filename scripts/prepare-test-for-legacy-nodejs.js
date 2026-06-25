@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+import assert from "node:assert";
 import fs from "node:fs";
 
 const packageJsonFile = new URL("../package.json", import.meta.url);
