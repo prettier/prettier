@@ -5718,7 +5718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-circus@npm:30.4.2, jest-circus@npm:^30.4.1":
+"jest-circus@npm:30.4.2, jest-circus@npm:^30.4.2":
   version: 30.4.2
   resolution: "jest-circus@npm:30.4.2"
   dependencies:
@@ -5894,22 +5894,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.7.13":
-  version: 0.7.13
-  resolution: "jest-light-runner@npm:0.7.13"
+"jest-light-runner@npm:0.8.0":
+  version: 0.8.0
+  resolution: "jest-light-runner@npm:0.8.0"
   dependencies:
     "@jest/expect": "npm:^30.4.1"
     "@jest/fake-timers": "npm:^30.4.1"
-    jest-circus: "npm:^30.4.1"
+    jest-circus: "npm:^30.4.2"
     jest-each: "npm:^30.4.1"
     jest-mock: "npm:^30.4.1"
     jest-snapshot: "npm:^30.4.1"
-    p-limit: "npm:^6.2.0"
-    supports-color: "npm:^9.2.1"
-    tinypool: "npm:0.8.4"
+    p-limit: "npm:^7.3.0"
+    supports-color: "npm:^10.2.2"
+    tinypool: "npm:^2.1.0"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0
-  checksum: 10/897427cb712ce284b053932058c234f4b34f17a9a9770bde7132caf5b721eb7dfdf7b14b744ddbc9f86b94e7b30b63c77c8d330e1d955dba289b4425ef407f6b
+  checksum: 10/1c65e13c4985f2371249a6c6bd76ddc4a169d5f9ee6a903a01924e819c168864d1f62080f03ef2f03a33c9889703f51a8efe91563da776def2afe9f364c56368
   languageName: node
   linkType: hard
 
@@ -7612,12 +7612,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "p-limit@npm:6.2.0"
+"p-limit@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "p-limit@npm:7.3.0"
   dependencies:
-    yocto-queue: "npm:^1.1.1"
-  checksum: 10/70e8df3e5f1c173c9bd9fa8390a3c5c2797505240ae42973536992b1f5f59a922153c2f35ff1bf36fb72a0f025b0f13fca062a4233e830adad446960d56b4d84
+    yocto-queue: "npm:^1.2.1"
+  checksum: 10/bd3f3487ec84401e2cbf243122eef11813edacb621a27808e60a425646d0e75a79514acc2c01e39c41911550dbae5ef0f0ab01caa61cfc1c541cd17a19e8f01b
   languageName: node
   linkType: hard
 
@@ -7994,7 +7994,7 @@ __metadata:
     is-es5-identifier-name: "npm:1.0.1"
     jest: "npm:30.4.2"
     jest-docblock: "npm:30.4.0"
-    jest-light-runner: "npm:0.7.13"
+    jest-light-runner: "npm:0.8.0"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:3.0.1"
@@ -8755,6 +8755,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"supports-color@npm:^10.2.2":
+  version: 10.2.2
+  resolution: "supports-color@npm:10.2.2"
+  checksum: 10/bd132705fc07213a4024131fb061f0a46a48b49ecaf434bb029c0a5aa0339b969236d496d63969e3c248a90fdcac16d4f9c5bf187e7be0bfb5e804ed13bef6b0
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^5.3.0":
   version: 5.5.0
   resolution: "supports-color@npm:5.5.0"
@@ -8779,13 +8786,6 @@ __metadata:
   dependencies:
     has-flag: "npm:^4.0.0"
   checksum: 10/157b534df88e39c5518c5e78c35580c1eca848d7dbaf31bbe06cdfc048e22c7ff1a9d046ae17b25691128f631a51d9ec373c1b740c12ae4f0de6e292037e4282
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:^9.2.1":
-  version: 9.4.0
-  resolution: "supports-color@npm:9.4.0"
-  checksum: 10/cb8ff8daeaf1db642156f69a9aa545b6c01dd9c4def4f90a49f46cbf24be0c245d392fcf37acd119cd1819b99dad2cc9b7e3260813f64bcfd7f5b18b5a1eefb8
   languageName: node
   linkType: hard
 
@@ -8993,10 +8993,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinypool@npm:0.8.4":
-  version: 0.8.4
-  resolution: "tinypool@npm:0.8.4"
-  checksum: 10/7365944c2532f240111443e7012be31a634faf1a02db08a91db3aa07361c26a374d0be00a0f2ea052c4bee39c107ba67f1f814c108d9d51dfc725c559c1a9c03
+"tinypool@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tinypool@npm:2.1.0"
+  checksum: 10/c11cfe84e8147d5bf198fe04ea789c068dfa8656c7f3483c76a7408c02d108b2e07d7301458021a0a98952d4a760efb6212ab49a01bac085c4aed3d6ee40ab2d
   languageName: node
   linkType: hard
 
@@ -9775,7 +9775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yocto-queue@npm:^1.1.1":
+"yocto-queue@npm:^1.2.1":
   version: 1.2.2
   resolution: "yocto-queue@npm:1.2.2"
   checksum: 10/92dd9880c324dbc94ff4b677b7d350ba8d835619062b7102f577add7a59ab4d87f40edc5a03d77d369dfa9d11175b1b2ec4a06a6f8a5d8ce5d1306713f66ee41
