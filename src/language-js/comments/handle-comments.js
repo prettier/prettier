@@ -26,6 +26,7 @@ import {
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
+  isTypeAlias,
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
@@ -776,16 +777,19 @@ const isComplexExprNode = createTypeCheckFunction([
 /** @param {CommentContext} context */
 function handleAssignmentLikeComments(context) {
   const { comment, enclosingNode, followingNode, options, placement } = context;
-  if (isAssignmentLikeNode(enclosingNode) && followingNode) {
-    if (
-      placement === "endOfLine" &&
-      (isComplexExprNode(followingNode) || isBlockComment(comment))
-    ) {
-      return addLeadingCommentToPossibleUnionType(followingNode, context);
-    }
+  if (
+    isAssignmentLikeNode(enclosingNode) &&
+    followingNode &&
+    placement === "endOfLine" &&
+    (isComplexExprNode(followingNode) || isBlockComment(comment))
+  ) {
+    return addLeadingCommentToPossibleUnionType(followingNode, context);
+  }
 
-    // @ts-expect-error -- Safe
-    const leftSide = enclosingNode.id ?? enclosingNode.left;
+  // Ideally, we should only check cases that the right side is a single-element union or intersection type
+  // We already strip the wrpper, there is no way to know it, so we only check "type alias"
+  if (isTypeAlias(enclosingNode) && followingNode) {
+    const leftSide = enclosingNode.id;
     const equalsTokenIndex = stripComments(options).indexOf(
       "=",
       locEnd(leftSide),
