@@ -275,7 +275,7 @@ function printAttributes(path, options, print) {
   const shouldPrintAttributePerLine =
     shouldForceBreak ||
     (options.singleAttributePerLine &&
-      node.attrs.length > 1 &&
+      attributes.length > 1 &&
       !isVueSfcBlock(node, options));
   const attributeLine = shouldPrintAttributePerLine ? hardline : line;
 
