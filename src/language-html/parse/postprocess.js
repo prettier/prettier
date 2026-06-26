@@ -36,6 +36,8 @@ class Visitor extends RecursiveVisitor {
 }
 
 function postprocess(rawAst, frontMatter, parseOptions, parseSubHtml) {
+  const isAngular = parseOptions.name === "angular";
+
   visitAll(new Visitor(), rawAst.children, { parseOptions });
 
   if (frontMatter) {
@@ -53,11 +55,16 @@ function postprocess(rawAst, frontMatter, parseOptions, parseSubHtml) {
       if (ieConditionalComment) {
         node.parent.replaceChild(node, ieConditionalComment);
       }
+    } else if (isAngular && node.kind === "element") {
+      node.startTagComments = node.comments;
+      delete node.comments;
     }
 
-    normalizeAngularControlFlowBlock(node);
-    normalizeAngularLetDeclaration(node);
-    normalizeAngularIcuExpression(node);
+    if (isAngular) {
+      normalizeAngularControlFlowBlock(node);
+      normalizeAngularLetDeclaration(node);
+      normalizeAngularIcuExpression(node);
+    }
   });
 
   return ast;

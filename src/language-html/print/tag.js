@@ -11,7 +11,6 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getLastDescendant,
@@ -221,16 +220,6 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 function printAttributes(path, options, print) {
   const { node } = path;
 
-  if (!isNonEmptyArray(node.attrs)) {
-    return node.isSelfClosing
-      ? /**
-         *     <br />
-         *        ^
-         */
-        " "
-      : "";
-  }
-
   const ignoreAttributeData =
     node.prev?.kind === "comment" &&
     getPrettierIgnoreAttributeCommentData(node.prev.value);
@@ -242,22 +231,40 @@ function printAttributes(path, options, print) {
         ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
         : () => false;
 
-  const printedAttributes = path.map(
-    ({ node: attribute }) =>
-      hasPrettierIgnoreAttribute(attribute)
-        ? replaceEndOfLine(
-            options.originalText.slice(locStart(attribute), locEnd(attribute)),
-          )
-        : print(),
-    "attrs",
-  );
+  const printedAttributes = ["attrs", "startTagComments"]
+    .flatMap((property) =>
+      path.map(
+        ({ node }) => ({
+          loc: locStart(node),
+          printed:
+            node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
+              ? replaceEndOfLine(
+                  options.originalText.slice(locStart(node), locEnd(node)),
+                )
+              : print(),
+        }),
+        property,
+      ),
+    )
+    .sort((a, b) => a.loc - b.loc);
+
+  if (printedAttributes.length === 0) {
+    return node.isSelfClosing
+      ? /**
+         *     <br />
+         *        ^
+         */
+        " "
+      : "";
+  }
 
   const forceNotToBreakAttrContent =
     node.kind === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
-    node.children.length === 0;
+    node.children.length === 0 &&
+    node.startTagComments.length === 0;
 
   const shouldPrintAttributePerLine =
     options.singleAttributePerLine &&
@@ -269,7 +276,10 @@ function printAttributes(path, options, print) {
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
-      join(attributeLine, printedAttributes),
+      join(
+        attributeLine,
+        printedAttributes.map(({ printed }) => printed),
+      ),
     ]),
   ];
 
