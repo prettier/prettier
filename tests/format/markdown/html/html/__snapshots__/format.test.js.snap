@@ -107,6 +107,8 @@ The following takes from https://github.com/microsoft/vscode/blob/b949969d71c378
 
 According to commonmark \`</example>\` should be parsed as part of the list item
 
+https://spec.commonmark.org/dingus/?text=%3Cexample%3E%0A%23%23%20Installation%20Summary%0A%0A%23%23%23%20%E2%9D%93%20Unable%20to%20Verify%0A-%20ToolName%20-%20%5BReason%20why%20it%20couldn%27t%20be%20verified%5D%0A%20%20-%20%5BManual%20verification%20instructions%20steps%5D%0A%3C%2Fexample%3E
+
 But ... whatever
 
 -->
@@ -119,14 +121,10 @@ But ... whatever
   - [Manual verification instructions steps]
 </example>
 
-
 ---
 
-
 <!--
-
 Added a blank line before \`</example>\`
-
 -->
 
 <example>
@@ -145,6 +143,8 @@ The following takes from https://github.com/microsoft/vscode/blob/b949969d71c378
 
 According to commonmark \`</example>\` should be parsed as part of the list item
 
+https://spec.commonmark.org/dingus/?text=%3Cexample%3E%0A%23%23%20Installation%20Summary%0A%0A%23%23%23%20%E2%9D%93%20Unable%20to%20Verify%0A-%20ToolName%20-%20%5BReason%20why%20it%20couldn%27t%20be%20verified%5D%0A%20%20-%20%5BManual%20verification%20instructions%20steps%5D%0A%3C%2Fexample%3E
+
 But ... whatever
 
 -->
@@ -162,9 +162,7 @@ But ... whatever
 ---
 
 <!--
-
 Added a blank line before \`</example>\`
-
 -->
 
 <example>
@@ -189,13 +187,16 @@ parsers: ["markdown"]
 
 The folling takes from https://github.com/vega/vega-lite/blob/91845a3bca89f9e8bd6ae847bc1b3f31cc85e919/site/docs/transform/aggregate.md?plain=1#L55-L56
 
-According to commonmark the content inside \`<span>\` should be parsed as a link
-But not the \`<div>\` case
+According to commonmark the content inside \`<span>\` should be parsed as a link, but the \`<div>\` one should parsed as a whole "html"
+
+https://spec.commonmark.org/dingus/?text=%3Cspan%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fspan%3E%0A%0A%3Cdiv%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fdiv%3E%0A%0A%3Cno-a-html-tag%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fno-a-html-tag%3E
 
 -->
 
 <span>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </span>
+
 <div>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </div>
+
 <no-a-html-tag>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </no-a-html-tag>
 
 =====================================output=====================================
@@ -203,13 +204,16 @@ But not the \`<div>\` case
 
 The folling takes from https://github.com/vega/vega-lite/blob/91845a3bca89f9e8bd6ae847bc1b3f31cc85e919/site/docs/transform/aggregate.md?plain=1#L55-L56
 
-According to commonmark the content inside \`<span>\` should be parsed as a link
-But not the \`<div>\` case
+According to commonmark the content inside \`<span>\` should be parsed as a link, but the \`<div>\` one should parsed as a whole "html"
+
+https://spec.commonmark.org/dingus/?text=%3Cspan%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fspan%3E%0A%0A%3Cdiv%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fdiv%3E%0A%0A%3Cno-a-html-tag%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fno-a-html-tag%3E
 
 -->
 
 <span>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </span>
+
 <div>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </div>
+
 <no-a-html-tag>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </no-a-html-tag>
 
 ================================================================================
