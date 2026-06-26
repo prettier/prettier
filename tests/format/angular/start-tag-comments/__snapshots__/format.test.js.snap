@@ -18,10 +18,36 @@ parsers: ["angular"]
 
 <div // line comment
 ></div>
+<div // line comment
+disabled
+></div>
+
+<div /* block comment */
+></div>
+
+<div /* block comment */
+disabled
+></div>
+
+<div /* block comment */></div>
+<div /* block comment */ disabled></div>
+
+<div
+/*
+line 1
+line 2
+*/
+></div>
 
 <div><div>
 <div /*
 should not indent
+*/></div>
+</div></div>
+
+<div><div>
+<div /**
+* TODO: This comment should aligned
 */></div>
 </div></div>
 
@@ -40,12 +66,40 @@ should not indent
 <div
   // line comment
 ></div>
+<div
+  // line comment
+  disabled
+></div>
+
+<div /* block comment */></div>
+
+<div /* block comment */ disabled></div>
+
+<div /* block comment */></div>
+<div /* block comment */ disabled></div>
+
+<div
+  /*
+line 1
+line 2
+*/
+></div>
 
 <div>
   <div>
     <div
       /*
 should not indent
+*/
+    ></div>
+  </div>
+</div>
+
+<div>
+  <div>
+    <div
+      /**
+* TODO: This comment should aligned
 */
     ></div>
   </div>
