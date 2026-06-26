@@ -191,34 +191,47 @@ function setup(props, { emit }) {
   };
 
   const foldCode = () => {
-    if (!_codeMirror || !(props.autoFold instanceof RegExp)) {
+    if (!_codeMirror) {
       return;
     }
 
-    const lineNumbers = props.value
-      .split("\n")
-      .flatMap((line, i) => (props.autoFold.test(line) ? [i + 1] : []));
-
-    if (lineNumbers.length === 0) {
+    const { autoFold, value } = props;
+    if (!value || !(autoFold instanceof RegExp)) {
       return;
     }
 
-    forceParsing(
-      _codeMirror,
-      _codeMirror.state.doc.length,
-      Number.POSITIVE_INFINITY,
-    );
+    const effects = [];
+    let forceParsed = false;
+    for (const [lineIndex, lineText] of value.split("\n").entries()) {
+      if (!autoFold.test(lineText)) {
+        continue;
+      }
 
-    const effects = lineNumbers.flatMap((lineNumber) => {
-      const { from, to } = _codeMirror.state.doc.line(lineNumber);
+      if (!forceParsed) {
+        forceParsed = true;
+
+        forceParsing(
+          _codeMirror,
+          _codeMirror.state.doc.length,
+          Number.POSITIVE_INFINITY,
+        );
+      }
+
+      const { from, to } = _codeMirror.state.doc.line(lineIndex + 1);
       const range = foldable(_codeMirror.state, from, to);
 
-      return range ? [foldEffect.of(range)] : [];
-    });
+      if (!range) {
+        continue;
+      }
 
-    if (effects.length > 0) {
-      _codeMirror.dispatch({ effects });
+      effects.push(foldEffect.of(range));
     }
+
+    if (effects.length === 0) {
+      return;
+    }
+
+    _codeMirror.dispatch({ effects });
   };
 
   const updateValue = (value) => {
