@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`merge-into-text.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong /*
+comment
+*/>seddoeiusmod</strong>".
+</div>
+
+=====================================output=====================================
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+
+================================================================================
+`;
+
 exports[`start-tag-comments.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
