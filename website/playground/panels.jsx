@@ -195,22 +195,25 @@ function setup(props, { emit }) {
       return;
     }
 
+    const lineNumbers = props.value
+      .split("\n")
+      .flatMap((line, i) => (props.autoFold.test(line) ? [i + 1] : []));
+
+    if (lineNumbers.length === 0) {
+      return;
+    }
+
     forceParsing(
       _codeMirror,
       _codeMirror.state.doc.length,
       Number.POSITIVE_INFINITY,
     );
 
-    const effects = props.value.split("\n").flatMap((line, i) => {
-      if (props.autoFold.test(line)) {
-        const { from, to } = _codeMirror.state.doc.line(i + 1);
-        const range = foldable(_codeMirror.state, from, to);
-        if (range) {
-          return [foldEffect.of(range)];
-        }
-      }
+    const effects = lineNumbers.flatMap((lineNumber) => {
+      const { from, to } = _codeMirror.state.doc.line(lineNumber);
+      const range = foldable(_codeMirror.state, from, to);
 
-      return [];
+      return range ? [foldEffect.of(range)] : [];
     });
 
     if (effects.length > 0) {
