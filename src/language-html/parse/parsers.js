@@ -39,6 +39,7 @@ const angularParser = createParser({
   name: "angular",
   tokenizeAngularBlocks: true,
   tokenizeAngularLetDeclaration: true,
+  allowStartTagComments: true,
 });
 
 // Vue.js
