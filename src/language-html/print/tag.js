@@ -265,17 +265,20 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0 &&
     node.startTagComments.length === 0;
-
+  const shouldForceBreak = node.startTagComments.some(
+    (comment) => comment.type === "single",
+  );
   const shouldPrintAttributePerLine =
-    options.singleAttributePerLine &&
-    node.attrs.length > 1 &&
-    !isVueSfcBlock(node, options);
+    shouldForceBreak ||
+    (options.singleAttributePerLine &&
+      node.attrs.length > 1 &&
+      !isVueSfcBlock(node, options));
   const attributeLine = shouldPrintAttributePerLine ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [
     indent([
-      forceNotToBreakAttrContent ? " " : line,
+      forceNotToBreakAttrContent ? " " : shouldForceBreak ? hardline : line,
       join(
         attributeLine,
         printedAttributes.map(({ printed }) => printed),
