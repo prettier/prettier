@@ -240,13 +240,18 @@ bar
 </div>
 
 =====================================output=====================================
-text <em>text</em> text
+text
+<em>text</em>
+text
 
-text <em>text</em>
+text
+ <em>text</em>
 
-text <em>text</em>
+text
+  <em>text</em>
 
-![image](https://example.com) <img src="image.png" />
+![image](https://example.com)
+<img src="image.png" />
 
 Foo
 <div>
@@ -303,13 +308,18 @@ bar
 </div>
 
 =====================================output=====================================
-text <em>text</em> text
+text
+<em>text</em>
+text
 
-text <em>text</em>
+text
+ <em>text</em>
 
-text <em>text</em>
+text
+  <em>text</em>
 
-![image](https://example.com) <img src="image.png" />
+![image](https://example.com)
+<img src="image.png" />
 
 Foo
 <div>
@@ -371,10 +381,10 @@ text
 text
 
 text
-<em>text</em>
+ <em>text</em>
 
 text
-<em>text</em>
+  <em>text</em>
 
 ![image](https://example.com)
 <img src="image.png" />
@@ -409,7 +419,7 @@ proseWrap: "always"
 
 =====================================output=====================================
 - <div>html</div>            text
-- <span>html</span> text
+- <span>html</span>            text
 
 ================================================================================
 `;
@@ -425,7 +435,7 @@ proseWrap: "never"
 
 =====================================output=====================================
 - <div>html</div>            text
-- <span>html</span> text
+- <span>html</span>            text
 
 ================================================================================
 `;
@@ -441,7 +451,7 @@ proseWrap: "preserve"
 
 =====================================output=====================================
 - <div>html</div>            text
-- <span>html</span> text
+- <span>html</span>            text
 
 ================================================================================
 `;
