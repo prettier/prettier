@@ -219,6 +219,17 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 
 function printAttributes(path, options, print) {
   const { node } = path;
+  const { attrs: attributes, startTagComments = [] } = node;
+
+  if (attributes.length === 0 && startTagComments.length === 0) {
+    return node.isSelfClosing
+      ? /**
+         *     <br />
+         *        ^
+         */
+        " "
+      : "";
+  }
 
   const ignoreAttributeData =
     node.prev?.kind === "comment" &&
@@ -249,18 +260,6 @@ function printAttributes(path, options, print) {
         : [],
     )
     .sort((a, b) => a.loc - b.loc);
-
-  if (printedAttributes.length === 0) {
-    return node.isSelfClosing
-      ? /**
-         *     <br />
-         *        ^
-         */
-        " "
-      : "";
-  }
-
-  const { attrs: attributes, startTagComments = [] } = node;
 
   const forceNotToBreakAttrContent =
     node.kind === "element" &&
