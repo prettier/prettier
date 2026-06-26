@@ -4316,9 +4316,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:29.15.2":
-  version: 29.15.2
-  resolution: "eslint-plugin-jest@npm:29.15.2"
+"eslint-plugin-jest@npm:29.15.3":
+  version: 29.15.3
+  resolution: "eslint-plugin-jest@npm:29.15.3"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.0.0"
   peerDependencies:
@@ -4333,13 +4333,13 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/c7bc4dc705e5613e51a1d19bb924a439db9897c67e694f091e29dbacaa218b758040aacbb8d3f9136f2af0171ad69c1c49736b5e3f30098bdf44d4c1e93c6381
+  checksum: 10/de57d25fe8eb02ec17c6552a4a77d64773aa9cf2f4bc312bdac736e7756f23c7a98afe217cbd09c2cb4fc4a37894e3542e7f0b93f44cb4fe7450ed95300134b6
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:18.1.0":
-  version: 18.1.0
-  resolution: "eslint-plugin-n@npm:18.1.0"
+"eslint-plugin-n@npm:18.2.1":
+  version: 18.2.1
+  resolution: "eslint-plugin-n@npm:18.2.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.5.0"
     enhanced-resolve: "npm:^5.17.1"
@@ -4358,13 +4358,13 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/3557362ce4935bf133e89ed901b9aa70db42d266c06d3ffe9f40d019900d9a9776ea6e226f45840371768f43e23ebe4152e7dd80b7f7de859be03039ff9ca5e3
+  checksum: 10/96547dc958abeaa6cbdf2b768cb72ff3b03b44107db50304ae1b5e55e9c7bbe4d93444b425ee2427309c8fe9feddafc49b857d860e0cf7e4a95edb67c2b49854
   languageName: node
   linkType: hard
 
-"eslint-plugin-regexp@npm:3.1.0":
-  version: 3.1.0
-  resolution: "eslint-plugin-regexp@npm:3.1.0"
+"eslint-plugin-regexp@npm:3.1.1":
+  version: 3.1.1
+  resolution: "eslint-plugin-regexp@npm:3.1.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.11.0"
@@ -4375,7 +4375,7 @@ __metadata:
     scslre: "npm:^0.3.0"
   peerDependencies:
     eslint: ">=9.38.0"
-  checksum: 10/f16407a355c0984de39f16c45ddb99579e20490ac244f80bb73e5e494707e8bba3a80b95ebdeebdfa9b59700917cb4e77660e720085396dc124c5dd7c043a014
+  checksum: 10/82ad89c01af711d450277fb96acc05a7390168b113dbfae6090c0bdeec7063a9d3ba2396599d915c20d3aca56efbdab75f69a0a7560bcbd2020bf05562fc0c32
   languageName: node
   linkType: hard
 
@@ -7965,9 +7965,9 @@ __metadata:
     eslint-config-prettier: "npm:10.1.8"
     eslint-formatter-friendly: "npm:7.0.0"
     eslint-plugin-compat: "npm:7.0.2"
-    eslint-plugin-jest: "npm:29.15.2"
-    eslint-plugin-n: "npm:18.1.0"
-    eslint-plugin-regexp: "npm:3.1.0"
+    eslint-plugin-jest: "npm:29.15.3"
+    eslint-plugin-n: "npm:18.2.1"
+    eslint-plugin-regexp: "npm:3.1.1"
     eslint-plugin-simple-import-sort: "npm:13.0.0"
     eslint-plugin-unicorn: "npm:69.0.0"
     esm-utils: "npm:4.4.2"
