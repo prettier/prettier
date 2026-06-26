@@ -16,6 +16,15 @@ parsers: ["angular"]
   attr2="value2"
 ></div>
 
+<div // line comment
+></div>
+
+<div><div>
+<div /*
+should not indent
+*/></div>
+</div></div>
+
 =====================================output=====================================
 <div
   // comment 0
@@ -27,6 +36,20 @@ parsers: ["angular"]
   */
   attr2="value2"
 ></div>
+
+<div
+  // line comment
+></div>
+
+<div>
+  <div>
+    <div
+      /*
+should not indent
+*/
+    ></div>
+  </div>
+</div>
 
 ================================================================================
 `;
