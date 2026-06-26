@@ -1,7 +1,7 @@
 const CATEGORY_COMMON = "Common";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
-const options = {
+const options = Object.freeze({
   bracketSpacing: {
     category: CATEGORY_COMMON,
     type: "boolean",
@@ -65,6 +65,6 @@ const options = {
     default: false,
     description: "Enforce single attribute per line in HTML, Vue and JSX.",
   },
-};
+});
 
 export default options;

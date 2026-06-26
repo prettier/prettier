@@ -43,7 +43,7 @@ import {
  */
 
 /** @type {{ [name: string]: OptionInfo }} */
-const options = {
+const options = Object.freeze({
   checkIgnorePragma: {
     category: CATEGORY_SPECIAL,
     type: "boolean",
@@ -219,6 +219,6 @@ const options = {
       },
     ],
   },
-};
+});
 
 export default options;
