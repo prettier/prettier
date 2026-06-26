@@ -51,6 +51,7 @@ function toAngularHtmlParserParseOptions(parseOptions) {
   const {
     canSelfClose,
     allowHtmComponentClosingTags,
+    allowStartTagComments,
     isTagNameCaseSensitive,
     shouldParseAsRawText,
     tokenizeAngularBlocks,
@@ -60,6 +61,7 @@ function toAngularHtmlParserParseOptions(parseOptions) {
   return {
     canSelfClose,
     allowHtmComponentClosingTags,
+    allowStartTagComments,
     isTagNameCaseSensitive,
     getTagContentType: shouldParseAsRawText
       ? (...args) =>
