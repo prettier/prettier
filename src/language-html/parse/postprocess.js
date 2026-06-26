@@ -55,7 +55,7 @@ function postprocess(rawAst, frontMatter, parseOptions, parseSubHtml) {
       if (ieConditionalComment) {
         node.parent.replaceChild(node, ieConditionalComment);
       }
-    } else if (isAngular && node.kind === "element") {
+    } else if (isAngular && node.kind === "element" && node.comments) {
       node.startTagComments = node.comments;
       delete node.comments;
     }

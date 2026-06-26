@@ -233,18 +233,20 @@ function printAttributes(path, options, print) {
 
   const printedAttributes = ["attrs", "startTagComments"]
     .flatMap((property) =>
-      path.map(
-        ({ node }) => ({
-          loc: locStart(node),
-          printed:
-            node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
-              ? replaceEndOfLine(
-                  options.originalText.slice(locStart(node), locEnd(node)),
-                )
-              : print(),
-        }),
-        property,
-      ),
+      node[property]
+        ? path.map(
+            ({ node }) => ({
+              loc: locStart(node),
+              printed:
+                node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
+                  ? replaceEndOfLine(
+                      options.originalText.slice(locStart(node), locEnd(node)),
+                    )
+                  : print(),
+            }),
+            property,
+          )
+        : [],
     )
     .sort((a, b) => a.loc - b.loc);
 
@@ -258,14 +260,16 @@ function printAttributes(path, options, print) {
       : "";
   }
 
+  const { attrs: attributes, startTagComments = [] } = node;
+
   const forceNotToBreakAttrContent =
     node.kind === "element" &&
     node.fullName === "script" &&
-    node.attrs.length === 1 &&
-    node.attrs[0].fullName === "src" &&
+    attributes.length === 1 &&
+    attributes[0].fullName === "src" &&
     node.children.length === 0 &&
-    node.startTagComments.length === 0;
-  const shouldForceBreak = node.startTagComments.some(
+    startTagComments.length === 0;
+  const shouldForceBreak = startTagComments.some(
     (comment) => comment.type === "single",
   );
   const shouldPrintAttributePerLine =
