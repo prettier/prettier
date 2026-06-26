@@ -1508,6 +1508,7 @@ exports[`visitor keys html 1`] = `
   "element": [
     "attrs",
     "children",
+    "startTagComments",
   ],
   "ieConditionalComment": [
     "children",
@@ -1520,6 +1521,7 @@ exports[`visitor keys html 1`] = `
   "root": [
     "children",
   ],
+  "startTagComment": [],
   "text": [
     "children",
   ],

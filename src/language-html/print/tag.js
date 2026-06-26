@@ -219,7 +219,8 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 
 function printAttributes(path, options, print) {
   const { node } = path;
-  const { attrs: attributes, startTagComments = [] } = node;
+
+  const { attrs: attributes = [], startTagComments = [] } = node;
 
   if (attributes.length === 0 && startTagComments.length === 0) {
     return node.isSelfClosing
