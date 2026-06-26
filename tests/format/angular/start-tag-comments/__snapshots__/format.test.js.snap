@@ -24,8 +24,12 @@ comment
 </div>
 
 <div>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  "<strong>seddoeiusmod</strong>".
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong
+    /*
+comment
+*/
+    >seddoeiusmod</strong
+  >".
 </div>
 
 ================================================================================

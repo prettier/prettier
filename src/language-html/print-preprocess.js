@@ -141,6 +141,7 @@ function mergeSimpleElementIntoText(ast /* , options */) {
   const isSimpleElement = (node) =>
     node.kind === "element" &&
     node.attrs.length === 0 &&
+    node.startTagComments.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.kind === "text" &&
     !htmlWhitespace.hasWhitespaceCharacter(node.children[0].value) &&
