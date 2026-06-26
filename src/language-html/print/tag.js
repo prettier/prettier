@@ -11,6 +11,7 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getLastDescendant,
@@ -243,24 +244,27 @@ function printAttributes(path, options, print) {
         ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
         : () => false;
 
-  const printedAttributes = ["attrs", "startTagComments"]
-    .flatMap((property) =>
-      node[property]
-        ? path.map(
-            ({ node }) => ({
-              loc: locStart(node),
-              printed:
-                node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
-                  ? replaceEndOfLine(
-                      options.originalText.slice(locStart(node), locEnd(node)),
-                    )
-                  : print(),
-            }),
-            property,
-          )
-        : [],
-    )
-    .sort((a, b) => a.loc - b.loc);
+  const properties = ["attrs", "startTagComments"].filter((property) =>
+    isNonEmptyArray(node[property]),
+  );
+  const printedAttributes = properties.flatMap((property) =>
+    path.map(
+      ({ node }) => ({
+        loc: locStart(node),
+        printed:
+          node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
+            ? replaceEndOfLine(
+                options.originalText.slice(locStart(node), locEnd(node)),
+              )
+            : print(),
+      }),
+      property,
+    ),
+  );
+
+  if (properties.length > 1) {
+    printedAttributes.sort((a, b) => a.loc - b.loc);
+  }
 
   const forceNotToBreakAttrContent =
     node.kind === "element" &&
