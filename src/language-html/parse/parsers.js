@@ -4,11 +4,11 @@ import { HTML_PARSE_OPTIONS, parse, parseHtml, parseVue } from "./parse.js";
 import { normalizeParseOptions } from "./parse-options.js";
 
 /**
-@import { RawParseOptions } from "./parse-options.js";
+@import { ParseOptions } from "./parse-options.js";
 */
 
 /**
- * @param {RawParseOptions} rawParseOptions
+ * @param {ParseOptions} rawParseOptions
  */
 function createParser(rawParseOptions) {
   const parseOptions = normalizeParseOptions(rawParseOptions);
