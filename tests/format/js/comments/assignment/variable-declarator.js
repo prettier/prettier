@@ -1,27 +1,27 @@
-let a1 // commment
+let a1 // comment
  = 1;
 let a12
-// commment
+// comment
  = 1;
-let a2 /* commment */
+let a2 /* comment */
  = 1;
 let a22
-/* commment */
+/* comment */
  = 1;
 let a3 /*
-commment */
+comment */
  = 1;
 let a32
 /*
-commment */
+comment */
  = 1;
 let a4 = // comment
 1;
 let a42 =
 // comment
 1;
-let a5 = /* commment */
+let a5 = /* comment */
 1;
 let a52 =
-/* commment */
+/* comment */
 1;
