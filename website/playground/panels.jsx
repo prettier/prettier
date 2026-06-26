@@ -12,6 +12,7 @@ import {
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
+  forceParsing,
 } from "@codemirror/language";
 import {
   Compartment,
@@ -194,23 +195,23 @@ function setup(props, { emit }) {
       return;
     }
 
-    const lines = props.value.split("\n");
-    const effects = [];
+    forceParsing(
+      _codeMirror,
+      _codeMirror.state.doc.length,
+      Number.POSITIVE_INFINITY,
+    );
 
-    for (let i = 0; i < lines.length; i++) {
-      if (props.autoFold.test(lines[i])) {
-        const lineNumber = i + 1;
-        const range = foldable(
-          _codeMirror.state,
-          _codeMirror.state.doc.line(lineNumber).from,
-          _codeMirror.state.doc.line(lineNumber).to,
-        );
-
+    const effects = props.value.split("\n").flatMap((line, i) => {
+      if (props.autoFold.test(line)) {
+        const { from, to } = _codeMirror.state.doc.line(i + 1);
+        const range = foldable(_codeMirror.state, from, to);
         if (range) {
-          effects.push(foldEffect.of(range));
+          return [foldEffect.of(range)];
         }
       }
-    }
+
+      return [];
+    });
 
     if (effects.length > 0) {
       _codeMirror.dispatch({ effects });
