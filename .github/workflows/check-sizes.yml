@@ -25,9 +25,36 @@ jobs:
           cache: "yarn"
 
       - name: Check Sizes
+        id: compressed-size
         uses: preactjs/compressed-size-action@f322c295dde06a1cb7ccaef105732dd8a726d1d9 # 2.10.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
           compression: none
           build-script: "build --clean"
+
+      - name: Save comment body
+        env:
+          COMMENT_BODY: ${{ steps.compressed-size.outputs.comment-body }}
+        run: |
+          printf '%s\n' "$COMMENT_BODY" > /tmp/check-sizes-comment.md
+
+      - name: Save PR number
+        env:
+          PULL_REQUEST_NUMBER: ${{ github.event.number }}
+        run: |
+          echo "$PULL_REQUEST_NUMBER" > /tmp/check-sizes-pr-number
+
+      - name: Upload comment body
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: check-sizes-comment
+          path: /tmp/check-sizes-comment.md
+          retention-days: 1
+
+      - name: Upload PR number
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: check-sizes-pr-number
+          path: /tmp/check-sizes-pr-number
+          retention-days: 1
