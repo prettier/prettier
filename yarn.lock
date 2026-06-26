@@ -5894,9 +5894,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.8.0":
-  version: 0.8.0
-  resolution: "jest-light-runner@npm:0.8.0"
+"jest-light-runner@npm:0.8.1":
+  version: 0.8.1
+  resolution: "jest-light-runner@npm:0.8.1"
   dependencies:
     "@jest/expect": "npm:^30.4.1"
     "@jest/fake-timers": "npm:^30.4.1"
@@ -5909,7 +5909,7 @@ __metadata:
     tinypool: "npm:^2.1.0"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0
-  checksum: 10/1c65e13c4985f2371249a6c6bd76ddc4a169d5f9ee6a903a01924e819c168864d1f62080f03ef2f03a33c9889703f51a8efe91563da776def2afe9f364c56368
+  checksum: 10/9ef08a3aa92208c95b8fe6e72cf4d0d4047330f1bd92ab810c919bb306db7bc349ef11c641ac109725def142e85a8caf9785c25eaba97d4158f631f549b4388f
   languageName: node
   linkType: hard
 
@@ -6354,9 +6354,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.20.0":
-  version: 6.20.0
-  resolution: "knip@npm:6.20.0"
+"knip@npm:6.21.0":
+  version: 6.21.0
+  resolution: "knip@npm:6.21.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.3.0"
@@ -6374,7 +6374,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/e966c3a1c39fa66342e2080361356300193a7032c326f960ba37ea6b7b8e57b03325aa645bb0a3f8973fb2f4ef6fccf15965a161c515cf6bf94a4dc2935ef6f4
+  checksum: 10/7171c9abab65aa96a2b87fdb5c59be3ec0f7ef2ffa73e988667e7c74e4cdcd2cbaebfb1cbefe3da83b3bf21f5e94c6d4dc6324b5628f880ec620e90f6dc75f98
   languageName: node
   linkType: hard
 
@@ -7994,14 +7994,14 @@ __metadata:
     is-es5-identifier-name: "npm:1.0.1"
     jest: "npm:30.4.2"
     jest-docblock: "npm:30.4.0"
-    jest-light-runner: "npm:0.8.0"
+    jest-light-runner: "npm:0.8.1"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:3.0.1"
     jsesc: "npm:3.1.0"
     json-test-suite: "npm:1.0.0"
     json5: "npm:2.2.3"
-    knip: "npm:6.20.0"
+    knip: "npm:6.21.0"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
     magic-string: "npm:0.30.21"
