@@ -1,3 +1,27 @@
+# 3.8.5
+
+[diff](https://github.com/prettier/prettier/compare/3.8.4...3.8.5)
+
+#### Flow: Support `readonly` as a variance annotation ([#19022](https://github.com/prettier/prettier/pull/19022) by [@marcoww6](https://github.com/marcoww6))
+
+Flow now accepts `readonly` as a property variance annotation, equivalent to `+` (covariant/read-only).
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T = {
+  readonly foo: string,
+};
+
+// Prettier 3.8.4
+SyntaxError
+
+// Prettier 3.8.5
+type T = {
+  readonly foo: string,
+};
+```
+
 # 3.8.4
 
 [diff](https://github.com/prettier/prettier/compare/3.8.3...3.8.4)
