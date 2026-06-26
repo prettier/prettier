@@ -50,3 +50,48 @@ parsers: ["markdown"]
 
 ================================================================================
 `;
+
+exports[`multiline-2.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- https://github.com/prettier/prettier/pull/18467#discussion_r2614298105 -->
+
+<table><tr><td>
+<pre>
+**Hello**,
+
+_world_.
+</pre>
+</td></tr></table>
+
+<table><tr><td>
+pre
+**Hello**,
+
+_world_.
+pre
+</td></tr></table>
+
+=====================================output=====================================
+<!-- https://github.com/prettier/prettier/pull/18467#discussion_r2614298105 -->
+
+<table><tr><td>
+<pre>
+**Hello**,
+
+_world_.
+</pre>
+</td></tr></table>
+
+<table><tr><td>
+pre
+**Hello**,
+
+_world_.
+pre
+</td></tr></table>
+
+================================================================================
+`;
