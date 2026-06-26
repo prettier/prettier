@@ -6,32 +6,34 @@ import { TagContentType } from "angular-html-parser";
 */
 
 /**
-@typedef {HtmlParseOptions & {
+@typedef {Omit<HtmlParseOptions, "enableAngularSelectorlessSyntax"> & {
   name: 'html' | 'angular' | 'vue' | 'lwc' | 'mjml';
   normalizeTagName?: boolean;
   normalizeAttributeName?: boolean;
-  shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: Array<{
+  shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: {
     prefix: string;
     name: string;
     value?: string;
-  }>) => boolean;
-}} RawParseOptions
-
-@typedef {RawParseOptions & typeof DEFAULT_PARSE_OPTIONS} ParseOptions
+  }[]) => boolean;
+  shouldParseFrontMatter?: boolean;
+}} ParseOptions
 */
 
+/**
+@type {Omit<ParseOptions, "name">}
+*/
 const DEFAULT_PARSE_OPTIONS = {
   canSelfClose: true,
   normalizeTagName: false,
   normalizeAttributeName: false,
   allowHtmComponentClosingTags: false,
-  allowInElementComments: false,
+  allowStartTagComments: false,
   isTagNameCaseSensitive: false,
   shouldParseFrontMatter: true,
 };
 
 /**
-@param {RawParseOptions} rawParseOptions
+@param {ParseOptions} rawParseOptions
 @returns {ParseOptions}
 */
 function normalizeParseOptions(rawParseOptions) {
