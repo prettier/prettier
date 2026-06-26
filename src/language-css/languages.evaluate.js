@@ -7,8 +7,8 @@ const languages = [
     vscodeLanguageIds: ["css"],
     extensions: [
       ...data.extensions,
-      // `WeiXin Style Sheets`(Weixin Mini Programs)
-      // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
+      // WeiXin Style Sheets (Weixin Mini Programs)
+      // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxss.html
       ".wxss",
     ],
   })),

@@ -181,13 +181,15 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 =====================================output=====================================
 type A1 = /* 4 */ (A | B)[];
 
-type A2 = // dir, exp, arg, modifiers
+type A2 =
+  // dir, exp, arg, modifiers
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
-type A3 = // dir, exp, arg, modifiers
+type A3 =
+  // dir, exp, arg, modifiers
   [string] &
     [string, ExpressionNode] &
     [string, ExpressionNode, ExpressionNode] &
@@ -433,7 +435,8 @@ type T2 =
   | /* comment */ "A"
   | /* A comment long enough to make the union type break into multiple lines */ B;
 
-type T3 = // comment
+type T3 =
+  // comment
   | "A"
   | /* A comment long enough to make the union type break into multiple lines */ B;
 

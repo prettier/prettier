@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`block-comment.html format[angular] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div /* block comment */></div>
+    | ^^^^^^
+  2 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`block-comment.html format[html] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div /* block comment */></div>
+    | ^^^^^^
+  2 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`block-comment.html format[lwc] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div /* block comment */></div>
+    | ^^^^^^
+  2 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`block-comment.html format[mjml] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div /* block comment */></div>
+    | ^^^^^^
+  2 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`block-comment.html format[vue] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div /* block comment */></div>
+    | ^^^^^^
+  2 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`line-comment.html format[angular] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div // line comment
+    | ^^^^^^
+  2 | ></div>
+  3 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`line-comment.html format[html] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div // line comment
+    | ^^^^^^
+  2 | ></div>
+  3 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`line-comment.html format[lwc] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div // line comment
+    | ^^^^^^
+  2 | ></div>
+  3 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`line-comment.html format[mjml] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div // line comment
+    | ^^^^^^
+  2 | ></div>
+  3 |
+Cause: Opening tag "div" not terminated."
+`;
+
+exports[`line-comment.html format[vue] 1`] = `
+"Opening tag "div" not terminated. (1:1)
+> 1 | <div // line comment
+    | ^^^^^^
+  2 | ></div>
+  3 |
+Cause: Opening tag "div" not terminated."
+`;

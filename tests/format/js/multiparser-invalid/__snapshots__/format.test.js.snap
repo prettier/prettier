@@ -103,7 +103,8 @@ exports[`text.js format[flow] 1`] = `
     |            ^
   2 | foo = html\`\\u{prettier}\\u{0065}\`;
   3 | foo = graphql\`\\u{prettier}\\u{0065}\`;
-  4 | foo = markdown\`\\u{prettier}\\u{0065}\`;"
+  4 | foo = markdown\`\\u{prettier}\\u{0065}\`;
+Cause: Unexpected token ILLEGAL (1:11)"
 `;
 
 exports[`text.js format[hermes] 1`] = `

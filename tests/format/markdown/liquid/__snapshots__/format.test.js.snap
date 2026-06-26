@@ -70,6 +70,152 @@ where does it end }}
 ================================================================================
 `;
 
+exports[`example-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar   baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar  baz %}
+
+=====================================output=====================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar baz %}
+
+================================================================================
+`;
+
+exports[`example-2.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar   baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar  baz %}
+
+=====================================output=====================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar baz %}
+
+================================================================================
+`;
+
+exports[`issue-19386.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+=====================================output=====================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+================================================================================
+`;
+
+exports[`issue-19386.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+=====================================output=====================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+================================================================================
+`;
+
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

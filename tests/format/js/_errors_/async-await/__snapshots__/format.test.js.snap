@@ -53,13 +53,15 @@ exports[`snippet: #0 format[flow] 1`] = `
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
     |                          ^
-  3 | }"
+  3 | }
+Cause: Unexpected number, expected the token \`,\` (2:25)"
 `;
 
 exports[`snippet: #0 format[flow] 2`] = `
 "\`await\` is not allowed in async function parameters. (1:12)
 > 1 | async (x = await (2)) => {};
-    |            ^^^^^"
+    |            ^
+Cause: \`await\` is not allowed in async function parameters. (1:11)"
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
@@ -95,7 +97,8 @@ Cause: Await expression cannot be a default value"
 exports[`snippet: #1 format[flow] 1`] = `
 "\`await\` is not allowed in async function parameters. (1:12)
 > 1 | async (x = await 2) => {};
-    |            ^^^^^"
+    |            ^
+Cause: \`await\` is not allowed in async function parameters. (1:11)"
 `;
 
 exports[`snippet: #1 format[meriyah] 1`] = `
@@ -129,7 +132,8 @@ Cause: Unexpected token !"
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:25)
 > 1 | f = async (a) => await a! ** 6;
-    |                         ^"
+    |                         ^
+Cause: Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:24)"
 `;
 
 exports[`snippet: #2 format[meriyah] 1`] = `
@@ -163,7 +167,8 @@ Cause: Unexpected token !"
 exports[`snippet: #3 format[flow] 1`] = `
 "Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:14)
 > 1 | f = (a) => +a! ** 6;
-    |              ^"
+    |              ^
+Cause: Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:13)"
 `;
 
 exports[`snippet: #3 format[meriyah] 1`] = `
@@ -197,7 +202,8 @@ Cause: Unexpected token !"
 exports[`snippet: #4 format[flow] 1`] = `
 "Unexpected token \`!\`, expected the token \`)\` (1:22)
 > 1 | async (a) => (await a!) ** 6;
-    |                      ^"
+    |                      ^
+Cause: Unexpected token \`!\`, expected the token \`)\` (1:21)"
 `;
 
 exports[`snippet: #4 format[meriyah] 1`] = `
@@ -231,7 +237,8 @@ Cause: Unexpected token **"
 exports[`snippet: #5 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:2)
 > 1 | (-+5 ** 6);
-    |  ^^^"
+    |  ^
+Cause: Invalid left-hand side in exponentiation expression (1:1)"
 `;
 
 exports[`snippet: #5 format[meriyah] 1`] = `
@@ -265,7 +272,8 @@ Cause: Unexpected token **"
 exports[`snippet: #6 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await 5 ** 6;
-    |                 ^^^^^^^"
+    |                 ^
+Cause: Invalid left-hand side in exponentiation expression (1:16)"
 `;
 
 exports[`snippet: #6 format[meriyah] 1`] = `
@@ -299,7 +307,8 @@ Cause: Unexpected token **"
 exports[`snippet: #7 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await -5 ** 6;
-    |                 ^^^^^^^^"
+    |                 ^
+Cause: Invalid left-hand side in exponentiation expression (1:16)"
 `;
 
 exports[`snippet: #7 format[meriyah] 1`] = `
@@ -333,7 +342,8 @@ Cause: Shorthand property assignments are valid only in destructuring patterns"
 exports[`snippet: #8 format[flow] 1`] = `
 "Unexpected token \`=\` (1:15)
 > 1 | async({ foo33 = 1 });
-    |               ^"
+    |               ^
+Cause: Unexpected token \`=\` (1:14)"
 `;
 
 exports[`snippet: #8 format[meriyah] 1`] = `
