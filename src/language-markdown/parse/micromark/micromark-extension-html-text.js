@@ -11,7 +11,6 @@
  * } from 'micromark-util-types'
  */
 
-import { factorySpace } from "micromark-factory-space";
 import {
   asciiAlpha,
   asciiAlphanumeric,
