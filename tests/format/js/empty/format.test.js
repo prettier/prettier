@@ -7,7 +7,7 @@ runFormatTest(
         "",
         // empty lines
         "\n",
-        "\n\n\n\n",
+        "\n".repeat(4),
         // semicolons
         ";",
         ";;;;",

@@ -221,7 +221,9 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 function printAttributes(path, options, print) {
   const { node } = path;
 
-  if (!isNonEmptyArray(node.attrs)) {
+  const { attrs: attributes = [], startTagComments = [] } = node;
+
+  if (attributes.length === 0 && startTagComments.length === 0) {
     return node.isSelfClosing
       ? /**
          *     <br />
@@ -242,34 +244,53 @@ function printAttributes(path, options, print) {
         ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
         : () => false;
 
-  const printedAttributes = path.map(
-    ({ node: attribute }) =>
-      hasPrettierIgnoreAttribute(attribute)
-        ? replaceEndOfLine(
-            options.originalText.slice(locStart(attribute), locEnd(attribute)),
-          )
-        : print(),
-    "attrs",
+  const properties = ["attrs", "startTagComments"].filter((property) =>
+    isNonEmptyArray(node[property]),
   );
+  const printedAttributes = properties.flatMap((property) =>
+    path.map(
+      ({ node }) => ({
+        loc: locStart(node),
+        printed:
+          node.kind === "attribute" && hasPrettierIgnoreAttribute(node)
+            ? replaceEndOfLine(
+                options.originalText.slice(locStart(node), locEnd(node)),
+              )
+            : print(),
+      }),
+      property,
+    ),
+  );
+
+  if (properties.length > 1) {
+    printedAttributes.sort((a, b) => a.loc - b.loc);
+  }
 
   const forceNotToBreakAttrContent =
     node.kind === "element" &&
     node.fullName === "script" &&
-    node.attrs.length === 1 &&
-    node.attrs[0].fullName === "src" &&
-    node.children.length === 0;
-
+    attributes.length === 1 &&
+    attributes[0].fullName === "src" &&
+    node.children.length === 0 &&
+    startTagComments.length === 0;
+  const shouldForceBreak = startTagComments.some(
+    (comment) => comment.type === "single",
+  );
   const shouldPrintAttributePerLine =
-    options.singleAttributePerLine &&
-    node.attrs.length > 1 &&
-    !isVueSfcBlock(node, options);
+    shouldForceBreak ||
+    (options.singleAttributePerLine &&
+      attributes.length > 1 &&
+      !isVueSfcBlock(node, options));
   const attributeLine = shouldPrintAttributePerLine ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [
     indent([
-      forceNotToBreakAttrContent ? " " : line,
-      join(attributeLine, printedAttributes),
+      forceNotToBreakAttrContent ? " " : shouldForceBreak ? hardline : line,
+      join(
+        attributeLine,
+        printedAttributes.map(({ printed }) => printed),
+      ),
     ]),
   ];
 

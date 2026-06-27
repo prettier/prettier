@@ -170,9 +170,9 @@ exports[`snippet: Should not support front matter format[flow] 1`] = `
 "Invalid left-hand side in assignment (1:3)
 > 1 | ---
     |   ^
-> 2 | Front Matter content
-    | ^^^^^
-  3 | ---"
+  2 | Front Matter content
+  3 | ---
+Cause: Invalid left-hand side in assignment (1:2)"
 `;
 
 exports[`snippet: Should not support front matter format[graphql] 1`] = `

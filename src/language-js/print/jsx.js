@@ -217,11 +217,15 @@ function printJsxElementInternal(path, options, print) {
         // Leading whitespace
         multilineChildren.push([rawJsxWhitespace, hardline], "");
         continue;
-      } else if (i === children.length - 1) {
+      }
+
+      if (i === children.length - 1) {
         // Trailing whitespace
         multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
-      } else if (children[i - 1] === "" && children[i - 2] === hardline) {
+      }
+
+      if (children[i - 1] === "" && children[i - 2] === hardline) {
         // Whitespace after line break
         multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;

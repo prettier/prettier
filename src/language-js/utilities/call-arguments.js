@@ -73,11 +73,15 @@ function getCallArgumentSelector(node, index) {
     if (index === 0 || index === (node.options ? -2 : -1)) {
       return ["source"];
     }
+
     if (node.options && (index === 1 || index === -1)) {
       return ["options"];
     }
+
     throw new RangeError("Invalid argument index");
-  } else if (node.type === "TSExternalModuleReference") {
+  }
+
+  if (node.type === "TSExternalModuleReference") {
     if (index === 0 || index === -1) {
       return ["expression"];
     }

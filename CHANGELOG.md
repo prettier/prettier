@@ -1,3 +1,69 @@
+# 3.9.0
+
+[diff](https://github.com/prettier/prettier/compare/3.8.5...3.9.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2026/06/27/3.9.0)
+
+# 3.8.5
+
+[diff](https://github.com/prettier/prettier/compare/3.8.4...3.8.5)
+
+#### Flow: Support `readonly` as a variance annotation ([#19022](https://github.com/prettier/prettier/pull/19022) by [@marcoww6](https://github.com/marcoww6))
+
+Flow now accepts `readonly` as a property variance annotation, equivalent to `+` (covariant/read-only).
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T = {
+  readonly foo: string,
+};
+
+// Prettier 3.8.4
+SyntaxError
+
+// Prettier 3.8.5
+type T = {
+  readonly foo: string,
+};
+```
+
+# 3.8.4
+
+[diff](https://github.com/prettier/prettier/compare/3.8.3...3.8.4)
+
+#### Markdown: Fix blank lines between list items and nested sub-lists being removed in Markdown/MDX ([#17746](https://github.com/prettier/prettier/pull/17746) by [@byplayer](https://github.com/byplayer))
+
+Prettier was removing blank lines between list items and their nested sub-lists, converting loose lists into tight lists and changing their semantic meaning.
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+- a
+
+  - b
+
+- c
+
+
+  - d
+
+<!-- Prettier 3.8.3 -->
+- a
+  - b
+- c
+  - d
+
+<!-- Prettier 3.8.4 -->
+- a
+
+  - b
+
+- c
+
+  - d
+```
+
 # 3.8.3
 
 [diff](https://github.com/prettier/prettier/compare/3.8.2...3.8.3)

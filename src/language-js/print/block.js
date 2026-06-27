@@ -32,27 +32,25 @@ function printBlock(path, options, print) {
     parts.push(indent([hardline, bodyDoc]), hardline);
   } else {
     const parentParent = path.grandparent;
-    if (
-      !(
-        parent.type === "ArrowFunctionExpression" ||
-        parent.type === "FunctionExpression" ||
-        parent.type === "FunctionDeclaration" ||
-        parent.type === "ComponentDeclaration" ||
-        parent.type === "HookDeclaration" ||
-        parent.type === "ObjectMethod" ||
-        parent.type === "ClassMethod" ||
-        parent.type === "ClassPrivateMethod" ||
-        parent.type === "ForStatement" ||
-        parent.type === "WhileStatement" ||
-        parent.type === "DoWhileStatement" ||
-        parent.type === "DoExpression" ||
-        parent.type === "ModuleExpression" ||
-        (parent.type === "CatchClause" && !parentParent.finalizer) ||
-        parent.type === "TSModuleDeclaration" ||
-        parent.type === "MatchStatementCase" ||
-        node.type === "StaticBlock"
-      )
-    ) {
+    if (!(
+      parent.type === "ArrowFunctionExpression" ||
+      parent.type === "FunctionExpression" ||
+      parent.type === "FunctionDeclaration" ||
+      parent.type === "ComponentDeclaration" ||
+      parent.type === "HookDeclaration" ||
+      parent.type === "ObjectMethod" ||
+      parent.type === "ClassMethod" ||
+      parent.type === "ClassPrivateMethod" ||
+      parent.type === "ForStatement" ||
+      parent.type === "WhileStatement" ||
+      parent.type === "DoWhileStatement" ||
+      parent.type === "DoExpression" ||
+      parent.type === "ModuleExpression" ||
+      (parent.type === "CatchClause" && !parentParent.finalizer) ||
+      parent.type === "TSModuleDeclaration" ||
+      parent.type === "MatchStatementCase" ||
+      node.type === "StaticBlock"
+    )) {
       parts.push(hardline);
     }
   }

@@ -9,7 +9,7 @@ import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 const require = createRequire(import.meta.url);
 
 const packageJsonFile = new URL("../package.json", import.meta.url);
-const packageJson = JSON.parse(fs.readFileSync(packageJsonFile, "utf8"));
+const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
 const GITHUB_URL = `https://github.com/${packageJson.repository}`;
 
 /**
@@ -31,7 +31,7 @@ const config = {
   favicon: "icon.png",
   titleDelimiter: "·",
 
-  // Set the production url of your site here
+  // Set the production URL of your site here
   url: packageJson.homepage,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -58,7 +58,7 @@ const config = {
   onBrokenLinks: "throw",
 
   // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
+  // useful metadata like HTML lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
@@ -210,7 +210,7 @@ const config = {
               },
               {
                 label: "Stack Overflow",
-                href: "http://stackoverflow.com/questions/tagged/prettier",
+                href: "https://stackoverflow.com/questions/tagged/prettier",
               },
               {
                 label: "@PrettierCode on X",

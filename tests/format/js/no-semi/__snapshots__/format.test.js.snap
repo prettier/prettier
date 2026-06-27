@@ -1,5 +1,104 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`blank-lines.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a1=foo
+  .bar()
+  ;
+
+bar();
+
+const a2=foo
+  .bar()
+  ;
+
++bar();
+
+a=foo
+  .bar()
+  ;
+
+bar();
+
+a=foo
+  .bar()
+  ;
+
++bar();
+
+=====================================output=====================================
+const a1 = foo.bar()
+
+bar()
+
+const a2 = foo.bar()
+
+;+bar()
+
+a = foo.bar()
+
+bar()
+
+a = foo.bar()
+
+;+bar()
+
+================================================================================
+`;
+
+exports[`blank-lines.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a1=foo
+  .bar()
+  ;
+
+bar();
+
+const a2=foo
+  .bar()
+  ;
+
++bar();
+
+a=foo
+  .bar()
+  ;
+
+bar();
+
+a=foo
+  .bar()
+  ;
+
++bar();
+
+=====================================output=====================================
+const a1 = foo.bar();
+
+bar();
+
+const a2 = foo.bar();
+
++bar();
+
+a = foo.bar();
+
+bar();
+
+a = foo.bar();
+
++bar();
+
+================================================================================
+`;
+
 exports[`class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

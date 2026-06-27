@@ -347,7 +347,7 @@ function printMemberChain(path, options, print) {
   if (
     groups.length <= cutoff &&
     !nodeHasComment &&
-    !groups.some((g) => g.at(-1).hasTrailingEmptyLine)
+    groups.every((g) => !g.at(-1).hasTrailingEmptyLine)
   ) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
@@ -396,8 +396,8 @@ function printMemberChain(path, options, print) {
   if (
     nodeHasComment ||
     (callExpressions.length > 2 &&
-      callExpressions.some(
-        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg)),
+      callExpressions.some((expr) =>
+        expr.arguments.some((arg) => !isSimpleCallArgument(arg)),
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()

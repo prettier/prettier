@@ -127,7 +127,7 @@ function mergeOverrides(configResult, filePath) {
   return options;
 }
 
-// Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
+// Based on ESLint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled

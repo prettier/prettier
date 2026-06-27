@@ -4,7 +4,10 @@ import {
 } from "../../../main/comments/utilities.js";
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../../location/index.js";
-import { isLineComment } from "../../utilities/comment-types.js";
+import {
+  isBlockComment,
+  isLineComment,
+} from "../../utilities/comment-types.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../../types/estree.js";
@@ -15,9 +18,17 @@ import { isLineComment } from "../../utilities/comment-types.js";
 @param {string} text
 @returns {boolean}
 */
-const isSingleLineComment = (comment, text) =>
-  isLineComment(comment) ||
+const isSingleLineBlockComment = (comment, text) =>
+  isBlockComment(comment) &&
   !hasNewlineInRange(text, locStart(comment), locEnd(comment));
+
+/**
+@param {Comment} comment
+@param {string} text
+@returns {boolean}
+*/
+const isSingleLineComment = (comment, text) =>
+  isLineComment(comment) || isSingleLineBlockComment(comment, text);
 
 /**
  * @param {Node} node
@@ -50,5 +61,6 @@ function addBlockStatementFirstComment(node, comment) {
 export {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
+  isSingleLineBlockComment,
   isSingleLineComment,
 };

@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`issue-17300.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> [NOTE]
+> [Link](https://example.com) after link reference.
+>
+> [IMPORTANT]
+> **Strong emphasis** after link reference.
+
+> [CRITICAL]
+> _emphasis_ oafter link reference
+
+> **Strong emphasis**
+> _emphasis_
+
+[NOTE]: /note
+[IMPORTANT]: /important
+[CRITICAL]: /critical
+
+=====================================output=====================================
+> [NOTE]
+> [Link](https://example.com) after link reference.
+>
+> [IMPORTANT]
+> **Strong emphasis** after link reference.
+
+> [CRITICAL]
+> _emphasis_ oafter link reference
+
+> **Strong emphasis**
+> _emphasis_
+
+[NOTE]: /note
+[IMPORTANT]: /important
+[CRITICAL]: /critical
+
+================================================================================
+`;
+
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

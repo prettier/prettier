@@ -46,7 +46,7 @@ async function formatAttributeValue(
   shouldHugJsExpression,
 ) {
   options = {
-    // strictly prefer single quote to avoid unnecessary html entity escape
+    // strictly prefer single quote to avoid unnecessary HTML entity escape
     __isInHtmlAttribute: true,
     __embeddedInHtml: true,
     ...options,

@@ -130,31 +130,32 @@ async function format(context, input, opt) {
       throw new DebugError(
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp),
       );
-    } else {
-      const stringify = (obj) => JSON.stringify(obj, null, 2);
-      const ast = stringify(
-        (await prettier.__debug.parse(input, opt, { massage: true })).ast,
-      );
-      const past = stringify(
-        (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
-      );
-
-      /* c8 ignore start */
-      if (ast !== past) {
-        const MAX_AST_SIZE = 2097152; // 2MB
-        const astDiff =
-          ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-            ? "AST diff too large to render"
-            : diff(ast, past);
-        throw new DebugError(
-          "ast(input) !== ast(prettier(input))\n" +
-            astDiff +
-            "\n" +
-            diff(input, pp),
-        );
-      }
-      /* c8 ignore end */
     }
+
+    const stringify = (obj) => JSON.stringify(obj, null, 2);
+    const ast = stringify(
+      (await prettier.__debug.parse(input, opt, { massage: true })).ast,
+    );
+    const past = stringify(
+      (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
+    );
+
+    /* c8 ignore start */
+    if (ast !== past) {
+      const MAX_AST_SIZE = 2097152; // 2MB
+      const astDiff =
+        ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+          ? "AST diff too large to render"
+          : diff(ast, past);
+      throw new DebugError(
+        "ast(input) !== ast(prettier(input))\n" +
+          astDiff +
+          "\n" +
+          diff(input, pp),
+      );
+    }
+    /* c8 ignore end */
+
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
@@ -320,6 +321,10 @@ async function formatFiles(context) {
         context.argv.check ||
         context.argv.listDifferent)
     ) {
+      // If the file is ignored remove it from the cache
+      // - it won't be formatted anymore
+      // - if it has been restored, we shouldn't keep the old cache entry
+      formatResultsCache?.removeFormatResultsCache(filename);
       continue;
     }
 

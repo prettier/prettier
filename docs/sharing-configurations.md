@@ -110,6 +110,13 @@ bun add --dev @username/prettier-config
 ```
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev @username/prettier-config
+```
+
+</TabItem>
 </Tabs>
 
 Then, you can reference it in your `package.json`:

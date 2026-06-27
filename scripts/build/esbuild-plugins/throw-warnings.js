@@ -110,17 +110,6 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
-          if (
-            [
-              "node_modules/flow-parser/flow_parser.js",
-              "dist/_parser-flow.js.umd.js",
-              "dist/_parser-flow.js.esm.mjs",
-            ].includes(warning.location.file) &&
-            warning.id === "duplicate-case"
-          ) {
-            continue;
-          }
-
           console.log(warning);
           throw new Error(warning.text);
         }

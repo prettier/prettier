@@ -1,4 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
+import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
   DOC_TYPE_STRING,
@@ -22,6 +23,7 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
+  isNewLine,
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
@@ -63,6 +65,19 @@ function hasFakeWhitespaceAfterNextToken(path) {
   }
   const afterNext = siblings[index + 2];
   return afterNext?.type === "whitespace" && afterNext.value === "";
+}
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isNextTokenFakeSetextH2Line(path) {
+  if (!isNewLine(path.node) || path.next?.value !== "-") {
+    return false;
+  }
+
+  const afterNext = path.siblings[path.index + 2];
+  return !afterNext || isNewLine(afterNext);
 }
 
 function printMdast(path, options, print) {
@@ -116,7 +131,9 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
+      return options.parser !== "mdx"
+        ? printWord(path, options)
+        : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
@@ -125,7 +142,9 @@ function printMdast(path, options, print) {
         next &&
         /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
         // Avoid https://github.com/prettier/prettier/issues/18861
-        !hasFakeWhitespaceAfterNextToken(path)
+        !hasFakeWhitespaceAfterNextToken(path) &&
+        // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
+        !(options.proseWrap === "preserve" && isNextTokenFakeSetextH2Line(path))
           ? "never"
           : options.proseWrap;
 
@@ -205,7 +224,7 @@ function printMdast(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
+            printUrl(node.url, ")"),
             printTitle(node.title, options),
             ")",
           ];
@@ -220,7 +239,7 @@ function printMdast(path, options, print) {
         "![",
         printImageAlt(node, options),
         "](",
-        node.url === "" && node.title !== null ? "<>" : printUrl(node.url),
+        printUrl(node.url, ")"),
         printTitle(node.title, options),
         ")",
       ];
@@ -488,23 +507,30 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+const encodeUrl = (url, characters) => {
+  for (const character of characters) {
+    url = url.replaceAll(character, encodeURIComponent(character));
+  }
+  return url;
+};
+
 /**
  * @param {string} url
+ * @param {string[] | string} [dangerousCharOrChars]
  * @returns {string}
  */
-function printUrl(url) {
-  // Backslash followed by ASCII punctuation would be misinterpreted as an
-  // escape sequence, so must itself be escaped.
-  url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
-  // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
-  // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
-  // only suggests implementations "should" support at least three levels of
-  // parenthesis nesting, so it's unclear whether we can safely rely on three
-  // levels as we do here, but we certainly can't expect more.
-  // eslint-disable-next-line no-control-regex
-  return /[\x00-\x1f\x7f ]|^</.test(url) ||
-    !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
-    ? `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`
+function printUrl(url, dangerousCharOrChars = []) {
+  const dangerousChars = [
+    " ",
+    ...(Array.isArray(dangerousCharOrChars)
+      ? dangerousCharOrChars
+      : [dangerousCharOrChars]),
+  ];
+
+  return new RegExp(
+    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
+  ).test(url)
+    ? `<${encodeUrl(url, "<>")}>`
     : url;
 }
 
@@ -521,13 +547,7 @@ function printTitle(title, options, printSpace = true) {
     title = title.replaceAll(/\\(?=["')])/g, "");
   }
 
-  if (
-    title.includes('"') &&
-    title.includes("'") &&
-    !title.includes("(") &&
-    !title.includes(")")
-  ) {
-    title = title.replaceAll("\\", "\\\\");
+  if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
   const quote = getPreferredQuote(title, options.singleQuote);

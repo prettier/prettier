@@ -133,16 +133,21 @@ function genericPrint(path, options, print) {
     case "Variable":
       return ["$", print("name")];
 
-    case "ListValue":
+    case "ListValue": {
+      const isEmpty = !isNonEmptyArray(node.values);
       return group([
         "[",
-        indent([
-          softline,
-          join([ifBreak("", ", "), softline], path.map(print, "values")),
-        ]),
+        printDanglingComments(path, options, { indent: true }),
+        isEmpty
+          ? ""
+          : indent([
+              softline,
+              join([ifBreak("", ", "), softline], path.map(print, "values")),
+            ]),
         softline,
         "]",
       ]);
+    }
 
     case "ObjectValue": {
       const isEmpty = !isNonEmptyArray(node.fields);
