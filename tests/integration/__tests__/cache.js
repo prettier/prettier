@@ -400,7 +400,7 @@ describe("--cache option", () => {
         "*.js",
       ]);
 
-      expect(secondStdout.split("\n")).toEqual(
+      expect(secondStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
         ]),
@@ -416,7 +416,7 @@ describe("--cache option", () => {
         "*.js",
       ]);
 
-      expect(thirdStdout.split("\n")).toEqual(
+      expect(thirdStdout.split("\n")).toStrictEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
           expect.stringMatching(/^b\.js .+ms$/u),
