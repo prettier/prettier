@@ -273,10 +273,7 @@ export type BindingPattern = ArrayPattern | ObjectPattern;
 export type RestElementPattern = AssignmentPattern | BindingName | RestElement;
 export type FunctionParameter = AssignmentPattern | BindingName | RestElement;
 export type DestructuringPattern =
-  | BindingName
-  | AssignmentPattern
-  | MemberExpression
-  | RestElement;
+  BindingName | AssignmentPattern | MemberExpression | RestElement;
 
 interface BaseFunction extends BaseNode {
   params: ReadonlyArray<FunctionParameter>;
@@ -288,9 +285,7 @@ interface BaseFunction extends BaseNode {
 }
 
 export type AFunction =
-  | FunctionDeclaration
-  | FunctionExpression
-  | ArrowFunctionExpression;
+  FunctionDeclaration | FunctionExpression | ArrowFunctionExpression;
 
 export type Statement =
   | BlockStatement
@@ -347,10 +342,7 @@ export type StatementParentSingle =
   | ForOfStatement;
 // nodes that can be the parent of a statement that store the statements in an array
 export type StatementParentArray =
-  | SwitchCase
-  | Program
-  | BlockStatement
-  | StaticBlock;
+  SwitchCase | Program | BlockStatement | StaticBlock;
 export type StatementParent = StatementParentSingle | StatementParentArray;
 
 export interface EmptyStatement extends BaseNode {
@@ -571,10 +563,7 @@ export interface ObjectExpression extends BaseNode {
 export type Property = ObjectProperty | DestructuringObjectProperty;
 
 export type ObjectPropertyKey =
-  | Identifier
-  | StringLiteral
-  | NumericLiteral
-  | BigIntLiteral;
+  Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
 
 export type ObjectProperty =
   | ObjectPropertyWithNonShorthandStaticName
@@ -736,8 +725,7 @@ export interface NewExpression extends BaseCallExpression {
 }
 
 export type MemberExpression =
-  | MemberExpressionWithComputedName
-  | MemberExpressionWithNonComputedName;
+  MemberExpressionWithComputedName | MemberExpressionWithNonComputedName;
 export interface MemberExpressionWithComputedName extends BaseNode {
   type: "MemberExpression";
   object: Expression | Super;
@@ -842,13 +830,7 @@ export interface StringLiteral extends BaseNode {
 }
 
 export type UnaryOperator =
-  | "-"
-  | "+"
-  | "!"
-  | "~"
-  | "typeof"
-  | "void"
-  | "delete";
+  "-" | "+" | "!" | "~" | "typeof" | "void" | "delete";
 
 export type BinaryOperatorWithoutIn =
   | "=="
@@ -981,12 +963,10 @@ interface BaseClass extends BaseNode {
 }
 
 export type PropertyName =
-  | ClassPropertyNameComputed
-  | ClassPropertyNameNonComputed;
+  ClassPropertyNameComputed | ClassPropertyNameNonComputed;
 export type ClassPropertyNameComputed = Expression;
 export type ClassPropertyNameNonComputed =
-  | PrivateIdentifier
-  | ObjectPropertyKey;
+  PrivateIdentifier | ObjectPropertyKey;
 
 export type ClassMember = PropertyDefinition | MethodDefinition | StaticBlock;
 export type ClassMemberWithNonComputedName =
@@ -1036,8 +1016,7 @@ export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBas
 
 // `PropertyDefinition` is the new standard for all class properties
 export type PropertyDefinition =
-  | PropertyDefinitionWithComputedName
-  | PropertyDefinitionWithNonComputedName;
+  PropertyDefinitionWithComputedName | PropertyDefinitionWithNonComputedName;
 interface PropertyDefinitionBase extends BaseNode {
   value: null | Expression;
   typeAnnotation: null | TypeAnnotation;
@@ -1174,8 +1153,7 @@ export interface ExportNamedDeclarationWithDeclaration extends ExportNamedDeclar
   specifiers: [];
 }
 export type ExportNamedDeclaration =
-  | ExportNamedDeclarationWithSpecifiers
-  | ExportNamedDeclarationWithDeclaration;
+  ExportNamedDeclarationWithSpecifiers | ExportNamedDeclarationWithDeclaration;
 
 export interface ExportSpecifier extends BaseNode {
   type: "ExportSpecifier";
@@ -1435,14 +1413,10 @@ export interface ConditionalTypeAnnotation extends BaseNode {
 }
 
 export type TypeOperator =
-  | RendersTypeOperator
-  | RendersStarTypeOperator
-  | RendersQuestionTypeOperator;
+  RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
 
 export type RendersType =
-  | RendersTypeOperator
-  | RendersStarTypeOperator
-  | RendersQuestionTypeOperator;
+  RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
 
 interface TypeOperatorBase extends BaseNode {
   type: "TypeOperator";
@@ -1962,16 +1936,10 @@ export interface DeclaredPredicate extends BaseNode {
  **********************/
 
 export type JSXChild =
-  | JSXElement
-  | JSXExpression
-  | JSXFragment
-  | JSXText
-  | JSXSpreadChild;
+  JSXElement | JSXExpression | JSXFragment | JSXText | JSXSpreadChild;
 export type JSXExpression = JSXEmptyExpression | JSXExpressionContainer;
 export type JSXTagNameExpression =
-  | JSXIdentifier
-  | JSXMemberExpression
-  | JSXNamespacedName;
+  JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
 
 export type JSXNode =
   | JSXAttribute

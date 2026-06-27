@@ -134,14 +134,12 @@ function unwrap(text) {
 function getExports(entry) {
   let lines = entry.code.trim().split("\n");
 
-  if (
-    !(
-      lines[0] === "var typescript_exports = {};" &&
-      lines[1] === "__export(typescript_exports, {" &&
-      lines.at(-2) === "});" &&
-      lines.at(-1) === "module.exports = __toCommonJS(typescript_exports);"
-    )
-  ) {
+  if (!(
+    lines[0] === "var typescript_exports = {};" &&
+    lines[1] === "__export(typescript_exports, {" &&
+    lines.at(-2) === "});" &&
+    lines.at(-1) === "module.exports = __toCommonJS(typescript_exports);"
+  )) {
     throw new Error("Unexpected source");
   }
 

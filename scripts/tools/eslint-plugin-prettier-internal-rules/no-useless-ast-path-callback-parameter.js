@@ -111,21 +111,19 @@ export default {
       CallExpression(callExpression) {
         const { callee } = callExpression;
 
-        if (
-          !(
-            !callExpression.optional &&
-            callExpression.arguments.length > 0 &&
-            callee.type === "MemberExpression" &&
-            !callee.optional &&
-            !callee.computed &&
-            callee.object.type === "Identifier" &&
-            callee.property.type === "Identifier" &&
-            (callee.property.name === "call" ||
-              callee.property.name === "callParent" ||
-              callee.property.name === "each" ||
-              callee.property.name === "map")
-          )
-        ) {
+        if (!(
+          !callExpression.optional &&
+          callExpression.arguments.length > 0 &&
+          callee.type === "MemberExpression" &&
+          !callee.optional &&
+          !callee.computed &&
+          callee.object.type === "Identifier" &&
+          callee.property.type === "Identifier" &&
+          (callee.property.name === "call" ||
+            callee.property.name === "callParent" ||
+            callee.property.name === "each" ||
+            callee.property.name === "map")
+        )) {
           return;
         }
 
@@ -135,12 +133,10 @@ export default {
         }
 
         const [callback] = callExpression.arguments;
-        if (
-          !(
-            callback.type === "FunctionExpression" ||
-            callback.type === "ArrowFunctionExpression"
-          )
-        ) {
+        if (!(
+          callback.type === "FunctionExpression" ||
+          callback.type === "ArrowFunctionExpression"
+        )) {
           return;
         }
 

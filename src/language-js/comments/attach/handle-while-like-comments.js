@@ -19,13 +19,11 @@ function handleWhileLikeComments({
   followingNode,
   text,
 }) {
-  if (
-    !(
-      (enclosingNode?.type === "WhileStatement" ||
-        enclosingNode?.type === "WithStatement") &&
-      followingNode
-    )
-  ) {
+  if (!(
+    (enclosingNode?.type === "WhileStatement" ||
+      enclosingNode?.type === "WithStatement") &&
+    followingNode
+  )) {
     return false;
   }
 

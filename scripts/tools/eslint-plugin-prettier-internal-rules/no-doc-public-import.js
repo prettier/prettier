@@ -20,15 +20,13 @@ const docProperties = new Set(["builders", "debug", "printer", "utils"]);
 
 function fix(source, context) {
   // only fix `import doc from './document/public.js'`
-  if (
-    !(
-      source.parent.type === "ImportDeclaration" &&
-      source.parent.specifiers.length === 1 &&
-      source.parent.specifiers[0].type === "ImportDefaultSpecifier" &&
-      source.parent.specifiers[0].local.type === "Identifier" &&
-      source.parent.specifiers[0].local.name === "doc"
-    )
-  ) {
+  if (!(
+    source.parent.type === "ImportDeclaration" &&
+    source.parent.specifiers.length === 1 &&
+    source.parent.specifiers[0].type === "ImportDefaultSpecifier" &&
+    source.parent.specifiers[0].local.type === "Identifier" &&
+    source.parent.specifiers[0].local.name === "doc"
+  )) {
     return;
   }
 
@@ -45,24 +43,22 @@ function fix(source, context) {
   // Only fix `const {builders: {}} = doc`
   const [{ identifier }] = references;
 
-  if (
-    !(
-      identifier.parent.type === "VariableDeclarator" &&
-      identifier.parent.init === identifier &&
-      identifier.parent.id.type === "ObjectPattern" &&
-      identifier.parent.id.properties.every(
-        (property) =>
-          property.type === "Property" &&
-          !property.computed &&
-          property.key.type === "Identifier" &&
-          docProperties.has(property.key.name),
-      ) &&
-      identifier.parent.parent.type === "VariableDeclaration" &&
-      identifier.parent.parent.kind === "const" &&
-      identifier.parent.parent.declarations.length === 1 &&
-      identifier.parent.parent.declarations[0] === identifier.parent
-    )
-  ) {
+  if (!(
+    identifier.parent.type === "VariableDeclarator" &&
+    identifier.parent.init === identifier &&
+    identifier.parent.id.type === "ObjectPattern" &&
+    identifier.parent.id.properties.every(
+      (property) =>
+        property.type === "Property" &&
+        !property.computed &&
+        property.key.type === "Identifier" &&
+        docProperties.has(property.key.name),
+    ) &&
+    identifier.parent.parent.type === "VariableDeclaration" &&
+    identifier.parent.parent.kind === "const" &&
+    identifier.parent.parent.declarations.length === 1 &&
+    identifier.parent.parent.declarations[0] === identifier.parent
+  )) {
     return;
   }
 
