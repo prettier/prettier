@@ -12,35 +12,35 @@ First, install Prettier locally:
 <TabItem value="npm">
 
 ```bash
-npm install --save-dev --save-exact prettier@3.9.0
+npm install --save-dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="yarn">
 
 ```bash
-yarn add --dev --exact prettier@3.9.0
+yarn add --dev --exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="pnpm">
 
 ```bash
-pnpm add --save-dev --save-exact prettier@3.9.0
+pnpm add --save-dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="bun">
 
 ```bash
-bun add --dev --exact prettier@3.9.0
+bun add --dev --exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="deno">
 
 ```bash
-deno install --dev --save-exact prettier@3.9.0
+deno install --dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>

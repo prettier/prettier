@@ -18,7 +18,7 @@ const entries = fs
   .readdirSync(changelogUnreleasedDirectory, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .flatMap((dir) => {
-    const dirPath = path.join(dir.path, dir.name);
+    const dirPath = path.join(dir.parentPath, dir.name);
     const { title } = categories.find((category) => category.dir === dir.name);
 
     return getEntries(dirPath).map((entry) => {

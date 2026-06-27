@@ -1,3 +1,11 @@
+# 3.9.1
+
+[diff](https://github.com/prettier/prettier/compare/3.9.0...3.9.1)
+
+#### CLI: Fix ignored file has been cached incorrectly ([#19483](https://github.com/prettier/prettier/pull/19483) by [@kovsu](https://github.com/kovsu))
+
+Bug details https://github.com/prettier/prettier/issues/18016
+
 # 3.9.0
 
 [diff](https://github.com/prettier/prettier/compare/3.8.5...3.9.0)
