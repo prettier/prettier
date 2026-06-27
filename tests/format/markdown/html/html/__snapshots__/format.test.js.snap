@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`multiline.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<docs-code
+  header="app.ts"
+  path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+  visibleLines="[21,22,23,24,25,26,27]"
+  highlight="[23,24,26]"
+/>
+
+<div
+  header="app.ts"
+  path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+  visibleLines="[21,22,23,24,25,26,27]"
+  highlight="[23,24,26]"
+/>
+
+<span
+  header="app.ts"
+  path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+  visibleLines="[21,22,23,24,25,26,27]"
+  highlight="[23,24,26]"
+/>
+
+=====================================output=====================================
+<docs-code
+header="app.ts"
+path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+visibleLines="[21,22,23,24,25,26,27]"
+highlight="[23,24,26]"
+/>
+
+<div
+  header="app.ts"
+  path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+  visibleLines="[21,22,23,24,25,26,27]"
+  highlight="[23,24,26]"
+/>
+
+<span
+header="app.ts"
+path="adev/src/content/examples/signal-forms/src/login-validation-complete/app/app.ts"
+visibleLines="[21,22,23,24,25,26,27]"
+highlight="[23,24,26]"
+/>
+
+================================================================================
+`;
+
+exports[`multiline-2.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- https://github.com/prettier/prettier/pull/18467#discussion_r2614298105 -->
+
+<table><tr><td>
+<pre>
+**Hello**,
+
+_world_.
+</pre>
+</td></tr></table>
+
+<table><tr><td>
+pre
+**Hello**,
+
+_world_.
+pre
+</td></tr></table>
+
+=====================================output=====================================
+<!-- https://github.com/prettier/prettier/pull/18467#discussion_r2614298105 -->
+
+<table><tr><td>
+<pre>
+**Hello**,
+
+_world_.
+</pre>
+</td></tr></table>
+
+<table><tr><td>
+pre
+**Hello**,
+
+_world_.
+pre
+</td></tr></table>
+
+================================================================================
+`;
+
+exports[`problematic-1.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--
+
+The following takes from https://github.com/microsoft/vscode/blob/b949969d71c3788856872a52e3bc6441292046f9/.github/prompts/setup-environment.prompt.md?plain=1#L30-L43
+
+According to commonmark \`</example>\` should be parsed as part of the list item
+
+https://spec.commonmark.org/dingus/?text=%3Cexample%3E%0A%23%23%20Installation%20Summary%0A%0A%23%23%23%20%E2%9D%93%20Unable%20to%20Verify%0A-%20ToolName%20-%20%5BReason%20why%20it%20couldn%27t%20be%20verified%5D%0A%20%20-%20%5BManual%20verification%20instructions%20steps%5D%0A%3C%2Fexample%3E
+
+But ... whatever
+
+-->
+
+<example>
+## Installation Summary
+
+### ❓ Unable to Verify
+- ToolName - [Reason why it couldn't be verified]
+  - [Manual verification instructions steps]
+</example>
+
+---
+
+<!--
+Added a blank line before \`</example>\`
+-->
+
+<example>
+## Installation Summary
+
+### ❓ Unable to Verify
+- ToolName - [Reason why it couldn't be verified]
+  - [Manual verification instructions steps]
+
+</example>
+
+=====================================output=====================================
+<!--
+
+The following takes from https://github.com/microsoft/vscode/blob/b949969d71c3788856872a52e3bc6441292046f9/.github/prompts/setup-environment.prompt.md?plain=1#L30-L43
+
+According to commonmark \`</example>\` should be parsed as part of the list item
+
+https://spec.commonmark.org/dingus/?text=%3Cexample%3E%0A%23%23%20Installation%20Summary%0A%0A%23%23%23%20%E2%9D%93%20Unable%20to%20Verify%0A-%20ToolName%20-%20%5BReason%20why%20it%20couldn%27t%20be%20verified%5D%0A%20%20-%20%5BManual%20verification%20instructions%20steps%5D%0A%3C%2Fexample%3E
+
+But ... whatever
+
+-->
+
+<example>
+## Installation Summary
+
+### ❓ Unable to Verify
+
+- ToolName - [Reason why it couldn't be verified]
+  - [Manual verification instructions steps]
+  </example>
+
+---
+
+<!--
+Added a blank line before \`</example>\`
+-->
+
+<example>
+## Installation Summary
+
+### ❓ Unable to Verify
+
+- ToolName - [Reason why it couldn't be verified]
+  - [Manual verification instructions steps]
+
+</example>
+
+================================================================================
+`;
+
+exports[`problematic-2.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--
+
+The folling takes from https://github.com/vega/vega-lite/blob/91845a3bca89f9e8bd6ae847bc1b3f31cc85e919/site/docs/transform/aggregate.md?plain=1#L55-L56
+
+According to commonmark the content inside \`<span>\` should be parsed as a link, but the \`<div>\` one should parsed as a whole "html"
+
+https://spec.commonmark.org/dingus/?text=%3Cspan%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fspan%3E%0A%0A%3Cdiv%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fdiv%3E%0A%0A%3Cno-a-html-tag%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fno-a-html-tag%3E
+
+-->
+
+<span>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </span>
+
+<div>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </div>
+
+<no-a-html-tag>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </no-a-html-tag>
+
+=====================================output=====================================
+<!--
+
+The folling takes from https://github.com/vega/vega-lite/blob/91845a3bca89f9e8bd6ae847bc1b3f31cc85e919/site/docs/transform/aggregate.md?plain=1#L55-L56
+
+According to commonmark the content inside \`<span>\` should be parsed as a link, but the \`<div>\` one should parsed as a whole "html"
+
+https://spec.commonmark.org/dingus/?text=%3Cspan%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fspan%3E%0A%0A%3Cdiv%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fdiv%3E%0A%0A%3Cno-a-html-tag%3E...%20%5Bdimensions%5D(%3Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDimension%3E)%20...%20%3C%2Fno-a-html-tag%3E
+
+-->
+
+<span>... [dimensions](https://en.wikipedia.org/wiki/Dimension) ... </span>
+
+<div>... [dimensions](<https://en.wikipedia.org/wiki/Dimension>) ... </div>
+
+<no-a-html-tag>... [dimensions](https://en.wikipedia.org/wiki/Dimension) ... </no-a-html-tag>
+
+================================================================================
+`;
