@@ -1910,15 +1910,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:6.43.3, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
-  version: 6.43.3
-  resolution: "@codemirror/view@npm:6.43.3"
+"@codemirror/view@npm:6.43.4, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
+  version: 6.43.4
+  resolution: "@codemirror/view@npm:6.43.4"
   dependencies:
     "@codemirror/state": "npm:^6.7.0"
     crelt: "npm:^1.0.6"
     style-mod: "npm:^4.1.0"
     w3c-keyname: "npm:^2.2.4"
-  checksum: 10/18d1f2515ff27e04793738917e22b76f131fdf809be5cdc30ea780d3691a95c0a88d9163120dffacff9a82b9545a4c7b1938c9553cf751b0c8e494cf483fd3d0
+  checksum: 10/0f118f3fc492950f791cc600697397393847dacadfb4160c09bb55680e168fe9f087380568bfa678248cfa7d5cdac14743b272af5f091f9c139e01e9d1cd11b7
   languageName: node
   linkType: hard
 
@@ -12956,7 +12956,7 @@ __metadata:
     "@codemirror/language-data": "npm:6.5.2"
     "@codemirror/lint": "npm:6.9.7"
     "@codemirror/state": "npm:6.7.0"
-    "@codemirror/view": "npm:6.43.3"
+    "@codemirror/view": "npm:6.43.4"
     "@docusaurus/core": "npm:3.10.1"
     "@docusaurus/faster": "npm:3.10.1"
     "@docusaurus/module-type-aliases": "npm:3.10.1"
