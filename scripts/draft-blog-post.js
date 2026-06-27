@@ -47,7 +47,7 @@ for (const entry of fs.readdirSync(changelogUnreleasedDirectory, {
     continue;
   }
 
-  const dirPath = path.join(entry.path, entry.name);
+  const dirPath = path.join(entry.parentPath, entry.name);
   const category = categoriesByDir.get(entry.name);
 
   if (!category) {
