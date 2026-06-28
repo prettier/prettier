@@ -44,7 +44,13 @@ const unstableTests = new Map(
   }),
 );
 
-const unstableAstTests = new Map();
+const unstableAstTests = new Map(
+  [
+    // The YAML printer currently drops trailing whitespace from this folded
+    // scalar, so the reparsed AST has a different value.
+    "yaml/block-folded/block-folded-strip.yml",
+  ].map((fixture) => [path.join(FORMAT_TEST_DIRECTORY, fixture), () => true]),
+);
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
 const commentClosureTypecaseTests = [
