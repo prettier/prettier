@@ -6318,6 +6318,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsx-test-suite@npm:0.0.2":
+  version: 0.0.2
+  resolution: "jsx-test-suite@npm:0.0.2"
+  checksum: 10/37829b06dc68a223741b28e73298c510a9dc7d36f68c4e2d417fcd4628833804f7546cc0e80096215c434175c01b38548792887fb0166061727660dd64b696d5
+  languageName: node
+  linkType: hard
+
 "kasi@npm:^2.0.1":
   version: 2.0.1
   resolution: "kasi@npm:2.0.1"
@@ -8001,6 +8008,7 @@ __metadata:
     jsesc: "npm:3.1.0"
     json-test-suite: "npm:1.0.0"
     json5: "npm:2.2.3"
+    jsx-test-suite: "npm:0.0.2"
     knip: "npm:6.21.0"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
