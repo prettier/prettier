@@ -136,6 +136,18 @@ function isIndentationSensitiveNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
+// In `strict` whitespace mode, the children of `<svg>` must stay
+// space-sensitive even though `<svg>` itself is `inline-block`, so that
+// content like `<svg><text>{{ value }}</text></svg>` isn't broken apart.
+function isStrictSvgDescendant(node, options) {
+  return (
+    options.htmlWhitespaceSensitivity === "strict" &&
+    node.parent?.kind === "element" &&
+    node.parent.namespace === "svg" &&
+    node.parent.name === "svg"
+  );
+}
+
 function isLeadingSpaceSensitiveNode(node, options) {
   const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
 
@@ -176,7 +188,8 @@ function isLeadingSpaceSensitiveNode(node, options) {
         (isPreLikeNode(node) && node.parent) ||
         isScriptLikeTag(node.parent, options) ||
         isVueCustomBlock(node.parent, options) ||
-        !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
+        (!isStrictSvgDescendant(node, options) &&
+          !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay)))
     ) {
       return false;
     }
@@ -219,7 +232,8 @@ function isTrailingSpaceSensitiveNode(node, options) {
       (isPreLikeNode(node) && node.parent) ||
       isScriptLikeTag(node.parent, options) ||
       isVueCustomBlock(node.parent, options) ||
-      !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
+      (!isStrictSvgDescendant(node, options) &&
+        !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay)))
   ) {
     return false;
   }
@@ -492,10 +506,10 @@ function getNodeCssStyleDisplay(node, options) {
   if (node.kind === "element" && node.namespace === "svg") {
     if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
-    } else {
-      if (options.htmlWhitespaceSensitivity !== "strict") {
-        return node.name === "svg" ? "inline-block" : "block";
-      }
+    } else if (node.name === "svg") {
+      return "inline-block";
+    } else if (options.htmlWhitespaceSensitivity !== "strict") {
+      return "block";
     }
   }
 
