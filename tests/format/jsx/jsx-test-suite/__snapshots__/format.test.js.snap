@@ -12,6 +12,62 @@ parsers: ["babel", "typescript", "flow"]
 ================================================================================
 `;
 
+exports[`snippet: 0006-e58e.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--a
+=====================================output=====================================
+<!--a
+
+================================================================================
+`;
+
+exports[`snippet: 0006-e58e.jsx format[__babel_estree] 1`] = `
+"Unexpected token (1:1)
+> 1 | <!--a
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: 0006-e58e.jsx format[babel] 1`] = `
+"Unexpected token (1:1)
+> 1 | <!--a
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: 0006-e58e.jsx format[babel-ts] 1`] = `
+"Unexpected token (1:1)
+> 1 | <!--a
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: 0006-e58e.jsx format[flow] 1`] = `
+"Unexpected token \`!\`, expected the token \`>\` (1:2)
+> 1 | <!--a
+    |  ^
+Cause: Unexpected token \`!\`, expected the token \`>\` (1:1)"
+`;
+
+exports[`snippet: 0006-e58e.jsx format[hermes] 1`] = `
+"'identifier' expected as JSX element name (1:2)
+> 1 | <!--a
+    |  ^
+Cause: 'identifier' expected as JSX element name (1:1)
+<!--a
+ ^"
+`;
+
+exports[`snippet: 0006-e58e.jsx format[typescript] 1`] = `
+"Expression expected. (1:1)
+> 1 | <!--a
+    | ^
+Cause: Expression expected."
+`;
+
 exports[`snippet: 0007-e20f.jsx format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
