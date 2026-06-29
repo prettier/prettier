@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`character-after-closing-tokens.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}!
+{% endif %}
+
+=====================================output=====================================
+{{ page.title
+ a
+
+---
+
+{%
+ if user
+ Hello, {{ user }}! {% endif %}
+
+================================================================================
+`;
+
+exports[`character-after-closing-tokens.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}!
+{% endif %}
+
+=====================================output=====================================
+{{ page.title
+ a
+
+---
+
+{%
+ if user
+ Hello, {{ user }}!
+{% endif %}
+
+================================================================================
+`;
+
 exports[`example-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
