@@ -5,7 +5,7 @@ describe("format correctly if stdin content compatible with stdin-filepath", () 
   runCli(
     "cli",
     ["--stdin-filepath", "abc.css"],
-    { input: ".name { display: none; }" }, // css
+    { input: ".name { display: none; }" }, // CSS
   ).test({
     status: 0,
   });
@@ -15,7 +15,7 @@ describe("throw error if stdin content incompatible with stdin-filepath", () => 
   runCli(
     "cli",
     ["--stdin-filepath", "abc.js"],
-    { input: ".name { display: none; }" }, // css
+    { input: ".name { display: none; }" }, // CSS
   ).test({
     status: "non-zero",
   });
@@ -25,7 +25,7 @@ describe("gracefully handle stdin-filepath with nonexistent directory", () => {
   runCli(
     "cli",
     ["--stdin-filepath", "definitely/nonexistent/path.css"],
-    { input: ".name { display: none; }" }, // css
+    { input: ".name { display: none; }" }, // CSS
   ).test({
     status: 0,
   });

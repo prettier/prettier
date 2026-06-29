@@ -28,6 +28,7 @@ import {
 } from "./print/angular-icu-expression.js";
 import { printChildren } from "./print/children.js";
 import { printElement } from "./print/element.js";
+import { printStartTagComment } from "./print/start-tag-comment.js";
 import {
   printClosingTagEnd,
   printClosingTagSuffix,
@@ -150,6 +151,10 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+
+    case "startTagComment":
+      return printStartTagComment(path);
+
     case "frontMatter": // Handled in core
     case "cdata": // Transformed into `text`
     default:

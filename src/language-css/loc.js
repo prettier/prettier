@@ -482,8 +482,7 @@ function replaceQuotesInInlineComments(text) {
       case "url":
         if (c === ")") {
           state = "initial";
-        }
-        if (c === "\n" || c === "\r") {
+        } else if (c === "\n" || c === "\r") {
           return text; // invalid input
         }
         if (c === "'") {
@@ -507,8 +506,7 @@ function replaceQuotesInInlineComments(text) {
       case "comment-inline":
         if (c === '"' || c === "'" || c === "*") {
           inlineCommentContainsQuotes = true;
-        }
-        if (c === "\n" || c === "\r") {
+        } else if (c === "\n" || c === "\r") {
           if (inlineCommentContainsQuotes) {
             inlineCommentsToReplace.push([inlineCommentStartIndex, i]);
           }

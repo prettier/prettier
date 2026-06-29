@@ -13,11 +13,13 @@ Prettier is an opinionated code formatter with support for:
 - [TypeScript](https://www.typescriptlang.org/)
 - CSS, [Less](https://lesscss.org/), and [SCSS](https://sass-lang.com)
 - [HTML](https://en.wikipedia.org/wiki/HTML)
-- [Ember/Handlebars](https://handlebarsjs.com/)
+- [Ember/Handlebars](https://emberjs.com/)
 - [JSON](https://json.org/)
 - [GraphQL](https://graphql.org/)
 - [Markdown](https://commonmark.org/), including [GFM](https://github.github.com/gfm/) and [MDX v1](https://mdxjs.com/)
 - [YAML](https://yaml.org/)
+- [Lightning Web Components (LWC)](https://developer.salesforce.com/developer-centers/lightning-web-components)
+- [MJML](https://mjml.io/)
 
 It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://jlongster.com/A-Prettier-Formatter))
 
@@ -25,6 +27,7 @@ Prettier takes your code and reprints it from scratch by taking the line length 
 
 For example, take the following code:
 
+<!-- prettier-ignore -->
 ```js
 foo(arg1, arg2, arg3, arg4);
 ```

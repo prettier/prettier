@@ -22,6 +22,85 @@ const myValue = (callcallcallcallcallcall(
 ================================================================================
 `;
 
+exports[`function-type-param.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type a1 = (
+    | {//
+      }
+    | {//
+      },
+  ) => void
+
+type a2 = (
+// Comment
+    | {//
+      }
+    | {//
+      },
+  ) => void
+
+hook useRefetchFunction(
+  dispatch: (
+    | {
+        environment: IEnvironment,
+        fragmentIdentifier: string,
+        type: 'reset',
+      }
+    | {
+        fetchPolicy?: FetchPolicy,
+        onComplete?: (Error | null) => void,
+        refetchEnvironment: ?IEnvironment,
+        refetchQuery: OperationDescriptor,
+        renderPolicy?: RenderPolicy,
+        type: 'refetch',
+      },
+  ) => void,
+) {}
+
+=====================================output=====================================
+type a1 = (
+  | {
+      //
+    }
+  | {
+      //
+    },
+) => void;
+
+type a2 = (
+  // Comment
+  | {
+      //
+    }
+  | {
+      //
+    },
+) => void;
+
+hook useRefetchFunction(
+  dispatch: (
+    | {
+        environment: IEnvironment,
+        fragmentIdentifier: string,
+        type: "reset",
+      }
+    | {
+        fetchPolicy?: FetchPolicy,
+        onComplete?: (Error | null) => void,
+        refetchEnvironment: ?IEnvironment,
+        refetchQuery: OperationDescriptor,
+        renderPolicy?: RenderPolicy,
+        type: "refetch",
+      },
+  ) => void,
+) {}
+
+================================================================================
+`;
+
 exports[`issue-1197-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

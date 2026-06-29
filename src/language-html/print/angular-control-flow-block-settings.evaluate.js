@@ -20,4 +20,4 @@ const ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = new Map(
     .map(([name, followingBlockNames]) => [name, new Set(followingBlockNames)]),
 );
 
-export default ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS;
+export { ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS };

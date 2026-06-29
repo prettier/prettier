@@ -90,7 +90,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
-    const iNextNextNode = node.groups[i + 2];
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
@@ -138,6 +137,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // Ignore after latest node (i.e. before semicolon)
     if (!iNextNode) {
+      continue;
+    }
+
+    // Don't print a space before the `;` branch delimiter in the SCSS `if()`
+    // function (i.e. `if(condition: value; else: value)`)
+    if (
+      options.parser === "scss" &&
+      iNextNode.type === "value-word" &&
+      iNextNode.value === ";" &&
+      path.match(
+        undefined,
+        (node, key) => key === "groups" && node.type === "value-paren_group",
+        (node, key) =>
+          key === "group" && node.type === "value-func" && node.value === "if",
+      )
+    ) {
       continue;
     }
 
@@ -280,7 +295,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Ignore css variables and interpolation in SCSS (i.e. `--#{$var}`)
+    // Ignore CSS variables and interpolation in SCSS (i.e. `--#{$var}`)
     if (iNode.value === "--" && isHashNode(iNextNode)) {
       continue;
     }
@@ -321,16 +336,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
-    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
-    const isColorAdjusterNode =
-      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
-      i === 0 &&
-      (iNextNode.type === "value-number" || iNextNode.isHex) &&
-      parentParentNode &&
-      isColorAdjusterFuncNode(parentParentNode) &&
-      !hasEmptyRawBefore(iNextNode);
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -343,6 +348,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    const iNextNextNode = node.groups[i + 2];
+
+    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
+    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
+    const isColorAdjusterNode =
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      i === 0 &&
+      (iNextNode.type === "value-number" || iNextNode.isHex) &&
+      parentParentNode &&
+      isColorAdjusterFuncNode(parentParentNode) &&
+      !hasEmptyRawBefore(iNextNode);
     const requireSpaceBeforeOperator =
       iNextNextNode?.type === "value-func" ||
       (iNextNextNode && isWordNode(iNextNextNode)) ||
@@ -533,7 +549,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     return group(indent(parts));
   }
 
-  // Indent is not needed for import url when url is very long
+  // Indent is not needed for import URL when URL is very long
   // and node has two groups
   // when type is value-comma_group
   // example @import url("verylongurl") projection,tv

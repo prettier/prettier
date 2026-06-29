@@ -12,28 +12,35 @@ First, install Prettier locally:
 <TabItem value="npm">
 
 ```bash
-npm install --save-dev --save-exact prettier
+npm install --save-dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="yarn">
 
 ```bash
-yarn add --dev --exact prettier
+yarn add --dev --exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="pnpm">
 
 ```bash
-pnpm add --save-dev --save-exact prettier
+pnpm add --save-dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>
 <TabItem value="bun">
 
 ```bash
-bun add --dev --exact prettier
+bun add --dev --exact prettier@3.9.1
+```
+
+</TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev --save-exact prettier@3.9.1
 ```
 
 </TabItem>
@@ -137,6 +144,19 @@ If you forget to install Prettier first, `bunx` will temporarily download the la
 :::
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno x prettier . --write
+```
+
+:::info
+
+What is `deno x` doing at the start? It runs the locally installed Prettier. We’ll leave off the `deno x` part for brevity throughout the rest of this file!
+
+:::
+
+</TabItem>
 </Tabs>
 
 `prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain file. Or use a _glob_ like `prettier --write "app/**/*.test.js"` to format all tests in a directory (see [fast-glob](https://github.com/mrmlnc/fast-glob#pattern-syntax) for supported glob syntax).
@@ -217,6 +237,15 @@ node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
 bun add --dev husky lint-staged
 bunx husky init
 bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev husky lint-staged
+deno x husky init
+deno eval "Deno.writeTextFileSync('.husky/pre-commit','deno x lint-staged\n')"
 ```
 
 </TabItem>

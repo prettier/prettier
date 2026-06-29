@@ -490,6 +490,17 @@ class _ {
 ================================================================================
 `;
 
+exports[`const.ts format[oxc-ts] 1`] = `
+"'const' modifier can only appear on a type parameter of a function, method or class (22:13)
+  20 | (class <const in T> {});
+  21 |
+> 22 | interface I<const T> {}
+     |             ^^^^^^^
+  23 | interface J<const T extends U> {}
+  24 | interface K<T, const U> {}
+  25 | interface L<in const T> {}"
+`;
+
 exports[`constraints-and-default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

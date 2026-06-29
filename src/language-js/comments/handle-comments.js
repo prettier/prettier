@@ -26,12 +26,17 @@ import {
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
+  isTypeAlias,
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { handleForXStatementComments } from "./attach/handle-for-x-statement-comments.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
+import {
+  addLeadingCommentToPossibleUnionType,
+  shouldAttachToUnionTypeFirstElement,
+} from "./attach/union-type.js";
 import {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
@@ -107,7 +112,7 @@ function handleEndOfLineComment(context) {
     handleCallExpressionComments,
     handlePropertyComments,
     handleOnlyComments,
-    handleVariableDeclaratorComments,
+    handleAssignmentLikeComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
@@ -132,6 +137,7 @@ function handleRemainingComment(context) {
     handleForXStatementComments,
     handleMethodNameComments,
     handleOnlyComments,
+    handleAssignmentLikeComments,
     handleTSMappedTypeComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
@@ -289,7 +295,7 @@ function handleClassComments({
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
-    if (isNonEmptyArray(decorators) && !(followingNode?.type === "Decorator")) {
+    if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {
       addTrailingComment(decorators.at(-1), comment);
       return true;
     }
@@ -356,7 +362,7 @@ function handleMethodNameComments({
   followingNode,
   text,
 }) {
-  // This is only needed for estree parsers (flow, typescript) to attach
+  // This is only needed for estree parsers (Flow, TypeScript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
   if (
@@ -758,6 +764,7 @@ const isAssignmentLikeNode = createTypeCheckFunction([
   "TypeAlias",
   "TSTypeAliasDeclaration",
 ]);
+
 const isComplexExprNode = createTypeCheckFunction([
   "ObjectExpression",
   "ArrayExpression",
@@ -766,19 +773,33 @@ const isComplexExprNode = createTypeCheckFunction([
   "ObjectTypeAnnotation",
   "TSTypeLiteral",
 ]);
-function handleVariableDeclaratorComments({
-  comment,
-  enclosingNode,
-  followingNode,
-}) {
+
+/** @param {CommentContext} context */
+function handleAssignmentLikeComments(context) {
+  const { comment, enclosingNode, followingNode, options, placement } = context;
   if (
     isAssignmentLikeNode(enclosingNode) &&
     followingNode &&
+    placement === "endOfLine" &&
     (isComplexExprNode(followingNode) || isBlockComment(comment))
   ) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return addLeadingCommentToPossibleUnionType(followingNode, context);
   }
+
+  // Ideally, we should only check cases that the right side is a single-element union or intersection type
+  // We already strip the wrapper, there is no way to know it, so we only check "type alias"
+  if (isTypeAlias(enclosingNode) && followingNode) {
+    const leftSide = enclosingNode.id;
+    const equalsTokenIndex = stripComments(options).indexOf(
+      "=",
+      locEnd(leftSide),
+    );
+
+    if (locStart(comment) >= equalsTokenIndex) {
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
+    }
+  }
+
   return false;
 }
 
@@ -1119,24 +1140,13 @@ function handleParenthesizedExpressionTrailingComment({
  * @param {CommentContext} context
  * @returns {boolean}
  */
-function handleUnionTypeLeadingComments({
-  followingNode,
-  comment,
-  text,
-  options,
-}) {
-  if (
-    isUnionType(followingNode) &&
-    isBlockComment(comment) &&
-    isSingleLineComment(comment, text) &&
-    !isPrettierIgnoreComment(comment)
-  ) {
-    const text = stripComments(options);
-    const textBetween = text.slice(locEnd(comment), locStart(followingNode));
-    if (/^[ \t]*$/.test(textBetween)) {
-      addLeadingComment(followingNode.types[0], comment);
-      return true;
-    }
+function handleUnionTypeLeadingComments(context) {
+  const { followingNode, comment } = context;
+
+  if (shouldAttachToUnionTypeFirstElement(followingNode, context)) {
+    // @ts-expect-error -- safe
+    addLeadingComment(followingNode.types[0], comment);
+    return true;
   }
 
   return false;

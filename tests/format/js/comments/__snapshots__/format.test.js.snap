@@ -7216,7 +7216,7 @@ try {
 ================================================================================
 `;
 
-exports[`variable_declarator.js - {"semi":false} format 1`] = `
+exports[`variable-declarator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 semi: false
@@ -7366,7 +7366,7 @@ const foo3 = 123
 ================================================================================
 `;
 
-exports[`variable_declarator.js format 1`] = `
+exports[`variable-declarator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |

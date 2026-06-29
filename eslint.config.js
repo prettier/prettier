@@ -43,8 +43,8 @@ vendors/**
 const configs = [
   { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
-  eslintPluginRegexp.configs["flat/recommended"],
-  eslintPluginUnicorn.configs["flat/recommended"],
+  eslintPluginRegexp.configs.recommended,
+  eslintPluginUnicorn.configs.recommended,
   eslintConfigPrettier,
   eslintConfigNodeStyleText,
   {
@@ -58,13 +58,11 @@ const configs = [
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
       "simple-import-sort": eslintPluginSimpleImportSort,
     },
-
     rules: {
       "arrow-body-style": ["error", "as-needed"],
       curly: "error",
       "dot-notation": "error",
       eqeqeq: "error",
-      "logical-assignment-operators": "error",
       "no-console": isCI ? "error" : "warn",
       "no-constant-binary-expression": "error",
       "no-duplicate-imports": "error",
@@ -240,28 +238,65 @@ const configs = [
       /* eslint-plugin-unicorn */
       "unicorn/better-dom-traversing": "off",
       "unicorn/catch-error-name": "off",
+      // Doesn't work for code and JSDoc in comments
+      "unicorn/comment-content": "off",
+      "unicorn/consistent-boolean-name": "off",
+      "unicorn/consistent-class-member-order": "off",
       "unicorn/consistent-compound-words": "off",
+      "unicorn/consistent-conditional-object-spread": ["error", "ternary"],
       "unicorn/consistent-destructuring": "off",
       "unicorn/consistent-function-scoping": "off",
       "unicorn/consistent-json-file-read": ["error", "buffer"],
+      "unicorn/default-export-style": "off",
       "unicorn/escape-case": "off",
-      "unicorn/filename-case": ["error", { checkDirectories: false }],
+      "unicorn/filename-case": [
+        "error",
+        {
+          checkDirectories: false,
+        },
+      ],
       "unicorn/import-style": "off",
+      "unicorn/logical-assignment-operators": [
+        "error",
+        "always",
+        { enforceForIfStatements: true },
+      ],
+      "unicorn/max-nested-calls": "off",
+      "unicorn/name-replacements": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
       "unicorn/no-array-reverse": "off",
       "unicorn/no-array-sort": "off",
+      "unicorn/no-array-splice": "off",
       "unicorn/no-await-expression-member": "off",
+      "unicorn/no-break-in-nested-loop": "off",
+      "unicorn/no-computed-property-existence-check": "off",
+      // Disabled due to false positives
+      "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/no-for-loop": "off",
+      "unicorn/no-global-object-property-assignment": "off",
       "unicorn/no-hex-escape": "off",
+      // Bug on `"\u{3000}"`
+      "unicorn/no-incorrect-template-string-interpolation": "off",
+      "unicorn/no-invalid-argument-count": "off",
       "unicorn/no-negated-condition": "off",
       "unicorn/no-nested-ternary": "off",
       "unicorn/no-null": "off",
       "unicorn/no-process-exit": "off",
       "unicorn/no-thenable": "off",
       "unicorn/no-this-outside-of-class": "off",
+      "unicorn/no-top-level-assignment-in-function": "off",
+      "unicorn/no-top-level-side-effects": "off",
+      "unicorn/no-undeclared-class-members": "off",
+      "unicorn/no-unnecessary-boolean-comparison": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
+      "unicorn/no-unreadable-for-of-expression": "off",
+      "unicorn/no-unreadable-new-expression": "off",
+      "unicorn/no-unreadable-object-destructuring": "off",
+      "unicorn/no-unsafe-string-replacement": "off",
+      "unicorn/no-useless-concat": "off",
+      "unicorn/no-useless-recursion": "off",
       "unicorn/no-useless-switch-case": "off",
       "unicorn/no-useless-undefined": [
         "error",
@@ -284,26 +319,42 @@ const configs = [
           getLastElementFunctions: ["getLast"],
         },
       ],
+      "unicorn/prefer-await": "off",
+      "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-continue": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
+      "unicorn/prefer-early-return": "off",
       "unicorn/prefer-export-from": [
         "error",
         {
           checkUsedVariables: false,
         },
       ],
+      "unicorn/prefer-global-number-constants": "off",
       "unicorn/prefer-global-this": "off",
       "unicorn/prefer-https": "off",
+      // TODO: Enable
+      "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
+      "unicorn/prefer-minimal-ternary": "off",
+      "unicorn/prefer-number-properties": [
+        "error",
+        {
+          checkInfinity: true,
+          checkNaN: true,
+        },
+      ],
       "unicorn/prefer-query-selector": "off",
+      "unicorn/prefer-short-arrow-method": "off",
       "unicorn/prefer-ternary": "off",
-      "unicorn/prevent-abbreviations": "off",
+      "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/relative-url-style": "off",
+      "unicorn/require-array-sort-compare": "off",
       "unicorn/switch-case-braces": ["error", "avoid"],
       "unicorn/template-indent": "error",
     },
-
     linterOptions: {
       reportUnusedDisableDirectives: "error",
     },
@@ -388,7 +439,7 @@ const configs = [
     files: ["tests/**/*.{js,cjs}"],
     rules: {
       // TODO: Enable this when we drop support for Node.js v14
-      "logical-assignment-operators": "off",
+      "unicorn/logical-assignment-operators": "off",
       "unicorn/prefer-array-flat": "off",
       "unicorn/prefer-array-flat-map": "off",
       "unicorn/prefer-string-replace-all": "off",
@@ -514,16 +565,14 @@ const configs = [
   {
     files: ["src/document/printer/printer.js"],
     rules: {
-      "unicorn/prevent-abbreviations": [
+      "unicorn/name-replacements": [
         "error",
-        { replacements: { doc: false } },
+        {
+          replacements: {
+            doc: false,
+          },
+        },
       ],
-    },
-  },
-  {
-    files: ["src/language-js/utilities/utilities.js"],
-    rules: {
-      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
     },
   },
 ];

@@ -149,7 +149,6 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
 
-    // eslint-disable-next-line unicorn/prefer-spread
     const oldCursorNodeCharArray = oldCursorRegionText.split("");
     oldCursorNodeCharArray.splice(
       cursorOffsetRelativeToOldCursorRegionStart,
@@ -157,7 +156,6 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       CURSOR,
     );
 
-    // eslint-disable-next-line unicorn/prefer-spread
     const newCursorNodeCharArray = newCursorRegionText.split("");
     const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,

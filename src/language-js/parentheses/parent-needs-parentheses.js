@@ -115,6 +115,16 @@ function parentNeedsParentheses(path, options, needsParentheses) {
         return true;
       }
       break;
+
+    case "TSInstantiationExpression":
+      if (
+        key === "expression" &&
+        (node.type === "AwaitExpression" || node.type === "YieldExpression")
+      ) {
+        return true;
+      }
+
+      break;
   }
 }
 

@@ -31,7 +31,8 @@ Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
 exports[`snippet: #0 format[flow] 1`] = `
 "Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:15)
 > 1 | let x1 = <div>}</div>;
-    |               ^"
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:14)"
 `;
 
 exports[`snippet: #0 format[oxc] 1`] = `
@@ -84,7 +85,8 @@ Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
 exports[`snippet: #1 format[flow] 1`] = `
 "Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:15)
 > 1 | let x2 = <div>></div>;
-    |               ^"
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:14)"
 `;
 
 exports[`snippet: #1 format[oxc] 1`] = `
@@ -137,7 +139,8 @@ Cause: Unexpected token <"
 exports[`snippet: #2 format[flow] 1`] = `
 "Unexpected token \`<\`, expected the token \`>\` (1:16)
 > 1 | let x2 = <div><</div>;
-    |                ^"
+    |                ^
+Cause: Unexpected token \`<\`, expected the token \`>\` (1:15)"
 `;
 
 exports[`snippet: #2 format[oxc] 1`] = `
@@ -190,7 +193,8 @@ Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
 exports[`snippet: #3 format[flow] 1`] = `
 "Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:22)
 > 1 | let x3 = <div>{"foo"}}</div>;
-    |                      ^"
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:21)"
 `;
 
 exports[`snippet: #3 format[oxc] 1`] = `
@@ -243,7 +247,8 @@ Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
 exports[`snippet: #4 format[flow] 1`] = `
 "Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:22)
 > 1 | let x4 = <div>{"foo"}></div>;
-    |                      ^"
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:21)"
 `;
 
 exports[`snippet: #4 format[oxc] 1`] = `
@@ -296,7 +301,8 @@ Cause: Unexpected token <"
 exports[`snippet: #5 format[flow] 1`] = `
 "Unexpected token \`<\`, expected the token \`>\` (1:23)
 > 1 | let x4 = <div>{"foo"}<</div>;
-    |                       ^"
+    |                       ^
+Cause: Unexpected token \`<\`, expected the token \`>\` (1:22)"
 `;
 
 exports[`snippet: #5 format[oxc] 1`] = `
@@ -349,7 +355,8 @@ Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
 exports[`snippet: #6 format[flow] 1`] = `
 "Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:15)
 > 1 | let x5 = <div>}{"foo"}</div>;
-    |               ^"
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:14)"
 `;
 
 exports[`snippet: #6 format[oxc] 1`] = `
@@ -402,7 +409,8 @@ Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
 exports[`snippet: #7 format[flow] 1`] = `
 "Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:15)
 > 1 | let x6 = <div>>{"foo"}</div>;
-    |               ^"
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:14)"
 `;
 
 exports[`snippet: #7 format[oxc] 1`] = `
@@ -455,7 +463,8 @@ Cause: Unexpected token {"
 exports[`snippet: #8 format[flow] 1`] = `
 "Unexpected token \`{\`, expected the token \`>\` (1:16)
 > 1 | let x6 = <div><{"foo"}</div>;
-    |                ^"
+    |                ^
+Cause: Unexpected token \`{\`, expected the token \`>\` (1:15)"
 `;
 
 exports[`snippet: #8 format[oxc] 1`] = `

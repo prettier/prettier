@@ -479,15 +479,16 @@ function printDocToString(doc, options) {
               }
 
               break;
-            } else {
-              // This line was forced into the output even if we
-              // were in flattened mode, so we need to tell the next
-              // group that no matter what, it needs to remeasure
-              // because the previous measurement didn't accurately
-              // capture the entire expression (this is necessary
-              // for nested groups)
-              shouldRemeasure = true;
             }
+
+            // This line was forced into the output even if we
+            // were in flattened mode, so we need to tell the next
+            // group that no matter what, it needs to remeasure
+            // because the previous measurement didn't accurately
+            // capture the entire expression (this is necessary
+            // for nested groups)
+            shouldRemeasure = true;
+
           // fallthrough
 
           case MODE_BREAK:

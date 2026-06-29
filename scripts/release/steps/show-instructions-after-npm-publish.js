@@ -36,7 +36,7 @@ export default async function showInstructionsAfterNpmPublish({
   next,
 }) {
   if (next) {
-    console.log(`${styleText.green.bold`Prettier ${version} published!`}`);
+    console.log(styleText.green.bold`Prettier ${version} published!`);
     await waitForEnter();
     return;
   }

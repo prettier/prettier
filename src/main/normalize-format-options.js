@@ -27,15 +27,16 @@ async function normalizeFormatOptions(options, opts = {}) {
       throw new UndefinedParserError(
         "No parser and no file path given, couldn't infer a parser.",
       );
-    } else {
-      rawOptions.parser = inferParser(rawOptions, {
-        physicalFile: rawOptions.filepath,
-      });
-      if (!rawOptions.parser) {
-        throw new UndefinedParserError(
-          `No parser could be inferred for file "${rawOptions.filepath}".`,
-        );
-      }
+    }
+
+    rawOptions.parser = inferParser(rawOptions, {
+      physicalFile: rawOptions.filepath,
+    });
+
+    if (!rawOptions.parser) {
+      throw new UndefinedParserError(
+        `No parser could be inferred for file "${rawOptions.filepath}".`,
+      );
     }
   }
 
@@ -82,9 +83,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
   for (const [k, value] of Object.entries(mixedDefaults)) {
-    if (rawOptions[k] === null || rawOptions[k] === undefined) {
-      rawOptions[k] = value;
-    }
+    rawOptions[k] ??= value;
   }
 
   if (rawOptions.parser === "json") {

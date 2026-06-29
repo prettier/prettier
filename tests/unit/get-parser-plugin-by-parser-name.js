@@ -28,7 +28,7 @@ describe("unit tests for getParserPluginByParserName", () => {
     { falsyValue: undefined },
     { falsyValue: false },
   ])("throws an error when parserName is $falsyValue", ({ falsyValue }) => {
-    const plugins = getMockPlugins(`${falsyValue}`);
+    const plugins = getMockPlugins(String(falsyValue));
     expect(() => getParserPluginByParserName(plugins, falsyValue)).toThrow(
       "parserName is required.",
     );

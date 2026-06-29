@@ -10,10 +10,10 @@
     "nano-spawn": "2.1.0",
     "node-style-text": "2.1.2",
     "outdent": "0.8.0",
-    "semver": "7.8.4"
+    "semver": "7.8.5"
   },
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "yarn@4.16.0"
+  "packageManager": "yarn@4.17.0"
 }

@@ -100,7 +100,7 @@ function handleCommentsBetween({
   // - treat as a dangling comment otherwise
   if (
     !isConsequentBlockStatement &&
-    isSingleLineComment &&
+    isSingleLineComment(comment, text) &&
     // Comment and `precedingNode` are on same line
     !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment))
   ) {

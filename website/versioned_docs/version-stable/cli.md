@@ -11,7 +11,7 @@ prettier [options] [file/dir/glob ...]
 
 :::note
 
-To run your locally installed version of Prettier, prefix the command with `npx`, `yarn exec`, `pnpm exec`, or `bunx`, i.e. `npx prettier --help`, `yarn exec prettier --help`, `pnpm exec prettier --help`, or `bunx prettier --help`.
+To run your locally installed version of Prettier, prefix the command with `npx`, `yarn exec`, `pnpm exec`, `bunx`, or `deno x`, i.e. `npx prettier --help`, `yarn exec prettier --help`, `pnpm exec prettier --help`, `bunx prettier --help`, or `deno x prettier --help`.
 
 :::
 
@@ -126,8 +126,9 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.\
-Multiple values are accepted.
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.
+
+Multiple values are accepted by providing multiple `--ignore-path` options: `prettier --ignore-path=foo-ignore --ignore-path=bar-ignore`. Specifying an `--ignore-path` overrides the default rather than adding to it, so to add a new ignore file while keeping `./.gitignore` and `./.prettierignore` as well, specify `prettier --ignore-path=.gitignore --ignore-path=.prettierignore --ignore-path=foo-ignore`.
 
 ## `--list-different`
 

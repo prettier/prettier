@@ -127,7 +127,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
-        params = params + node.raws.between;
+        params += node.raws.between;
       }
 
       params = params.trim();
@@ -230,7 +230,7 @@ function parseNestedCSS(node, options) {
         }
       }
 
-      // only css support custom-selector
+      // only CSS support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
         const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
@@ -288,7 +288,6 @@ function parseNestedCSS(node, options) {
 
     if (node.type === "css-atrule" && params.length > 0) {
       const { name } = node;
-      const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
         node.params = {
@@ -317,6 +316,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
+      const lowercasedName = name.toLowerCase();
       if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
