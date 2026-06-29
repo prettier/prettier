@@ -55,6 +55,9 @@ function liquidSyntax() {
   };
 
   function tokenize(effects, ok, nok) {
+    /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
+    let closingCode;
+
     return start;
 
     /** @type {State} */
@@ -66,6 +69,10 @@ function liquidSyntax() {
         switch (code) {
           case codes.percentSign:
           case codes.leftCurlyBrace:
+            closingCode =
+              code === codes.percentSign
+                ? codes.percentSign
+                : codes.rightCurlyBrace;
             effects.consume(code);
             return inside;
           default:
@@ -77,8 +84,7 @@ function liquidSyntax() {
     /** @type {State} */
     function inside(code) {
       switch (code) {
-        case codes.percentSign:
-        case codes.rightCurlyBrace:
+        case closingCode:
           return effects.check({ tokenize: tokenizeClose }, close, data)(code);
         case codes.eof:
           return nok(code);

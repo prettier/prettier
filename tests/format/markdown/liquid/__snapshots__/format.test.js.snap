@@ -233,7 +233,7 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 =====================================output=====================================
 {{% blocks/cover
 title="Welcome"
-}
+%}}
 
 This input uses Hugo shortcode. Prettier doesn't support this explicitly but it
 shouldn't break it either.
@@ -259,7 +259,7 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 =====================================output=====================================
 {{% blocks/cover
 title="Welcome"
-}
+%}}
 
 This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
 
@@ -278,8 +278,8 @@ proseWrap: "always"
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces
-{%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+Braces {% doesn't match so these words should not be considered as _liquid node_
+}}
 
 ================================================================================
 `;
@@ -293,7 +293,7 @@ parsers: ["markdown"]
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+Braces {% doesn't match so these words should not be considered as _liquid node_ }}
 
 ================================================================================
 `;
