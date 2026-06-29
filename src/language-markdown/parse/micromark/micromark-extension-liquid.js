@@ -85,7 +85,8 @@ function liquidSyntax() {
     function inside(code) {
       switch (code) {
         case closingCode:
-          return effects.check({ tokenize: tokenizeClose }, close, data)(code);
+          effects.consume(code);
+          return mayClose;
         case codes.eof:
           return nok(code);
         default:
@@ -97,53 +98,21 @@ function liquidSyntax() {
             effects.enter(types.data);
             return inside;
           }
-          return data(code);
+          effects.consume(code);
+          return inside;
       }
     }
 
     /** @type {State} */
-    function data(code) {
-      effects.consume(code);
-      return inside;
-    }
-
-    function tokenizeClose(effects, ok, nok) {
-      return startClose;
-
-      /** @type {State} */
-      function startClose(code) {
-        switch (code) {
-          case codes.percentSign:
-          case codes.rightCurlyBrace:
-            effects.consume(code);
-            return endClose;
-          default:
-            return nok(code);
-        }
-      }
-
-      /** @type {State} */
-      function endClose(code) {
-        if (code !== codes.rightCurlyBrace) {
-          return nok(code);
-        }
+    function mayClose(code) {
+      if (code === codes.rightCurlyBrace) {
         effects.consume(code);
+        effects.exit(types.data);
+        effects.exit(nodeType);
         return ok;
       }
-    }
 
-    /** @type {State} */
-    function close(code) {
-      effects.consume(code);
-      return closeEnd;
-    }
-
-    /** @type {State} */
-    function closeEnd(code) {
-      effects.consume(code);
-      effects.exit(types.data);
-      effects.exit(nodeType);
-      return ok;
+      return inside;
     }
   }
 }
