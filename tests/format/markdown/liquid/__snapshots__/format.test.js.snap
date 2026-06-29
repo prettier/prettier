@@ -216,6 +216,58 @@ parsers: ["markdown"]
 ================================================================================
 `;
 
+exports[`issue-19488.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+=====================================output=====================================
+{{% blocks/cover
+title="Welcome"
+}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it
+shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+================================================================================
+`;
+
+exports[`issue-19488.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+=====================================output=====================================
+{{% blocks/cover
+title="Welcome"
+}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+================================================================================
+`;
+
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
