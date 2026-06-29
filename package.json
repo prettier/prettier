@@ -172,6 +172,7 @@
     "jest-watch-typeahead": "3.0.1",
     "jsesc": "3.1.0",
     "json-test-suite": "1.0.0",
+    "jsx-test-suite": "0.0.2",
     "knip": "6.21.0",
     "magic-string": "0.30.21",
     "make-synchronized": "0.8.0",
