@@ -1,3 +1,49 @@
+# 3.9.3
+
+[diff](https://github.com/prettier/prettier/compare/3.9.1...3.9.3)
+
+#### Markdown: Fix unexpected removal of characters in liquid syntax ([#19489](https://github.com/prettier/prettier/pull/19489) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```md
+// Input
+<!-- Input -->
+{{ page.title
+}} text
+
+<!-- Prettier 3.9.1 -->
+{{ page.title
+ text
+
+<!-- Prettier 3.9.3 -->
+{{ page.title
+}} text
+```
+
+#### TypeScript: Allow decorators to be used with declare on class fields ([#19492](https://github.com/prettier/prettier/pull/19492) by [@evoactivity](https://github.com/evoactivity))
+
+Extensively used within the Ember ecosystem, decorators with `declare` on class fields will ignore the babel parser error and allow Prettier to format the code without breaking it.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+// Prettier 3.9.1
+// SyntaxError: Decorators can't be used with a declare field. (2:3)
+//  1 | export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+//> 2 |   @service declare server: ServerService;
+//    |   ^
+//  3 | }
+
+// Prettier 3.9.3
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+```
+
 # 3.9.1
 
 [diff](https://github.com/prettier/prettier/compare/3.9.0...3.9.1)
