@@ -33,7 +33,7 @@ function liquidFromMarkdown() {
 
   /** @type {Handle} */
   function exit(token) {
-    const d = this.resume();
+    this.resume();
     /** @type {any} */
     const node = this.stack.at(-1);
     node.value = this.sliceSerialize(token);
