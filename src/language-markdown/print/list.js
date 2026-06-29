@@ -10,6 +10,10 @@ import { printChildren } from "./children.js";
  * @import {Doc} from "../../document/index.js"
  */
 
+// 999,999,999 is the maximum number that can be parsed as a list item number as intended in CommonMark
+// https://spec.commonmark.org/0.31.2/#ordered-list-marker
+const MAXIMUM_ORDERED_LIST_MARKER = 999_999_999;
+
 /**
  * @param {AstPath} path
  * @param {*} options
@@ -50,19 +54,33 @@ function printList(path, options, print) {
       ];
 
       function getPrefix() {
-        const rawPrefix = node.ordered
-          ? (path.isFirst
-              ? // One more than 999,999,999 should not have been parsed as a list item number as long as the parser follows CommonMark
-                node.start
-              : isGitDiffFriendlyOrderedList
-                ? 1
-                : // 999,999,999 is the maximum number that can be parsed as a list item number as intended in CommonMark
-                  // https://spec.commonmark.org/0.31.2/#ordered-list-marker
-                  Math.min(node.start + path.index, 999_999_999)) +
-            (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-          : nthSiblingIndex % 2 === 0
-            ? "- "
-            : "* ";
+        let rawPrefix;
+
+        if (options.parser === "mdx") {
+          rawPrefix = node.ordered
+            ? (path.isFirst
+                ? node.start
+                : isGitDiffFriendlyOrderedList
+                  ? 1
+                  : node.start + path.index) +
+              (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+            : nthSiblingIndex % 2 === 0
+              ? "- "
+              : "* ";
+        } else {
+          rawPrefix = node.ordered
+            ? (path.isFirst
+                ? node.start
+                : isGitDiffFriendlyOrderedList
+                  ? 1
+                  : Math.min(
+                      node.start + path.index,
+                      MAXIMUM_ORDERED_LIST_MARKER,
+                    )) + (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+            : nthSiblingIndex % 2 === 0
+              ? "- "
+              : "* ";
+        }
 
         let prefix =
           node.isAligned && node.ordered
