@@ -82,6 +82,23 @@ class Something {
 ================================================================================
 `;
 
+exports[`decorator-declare.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+=====================================output=====================================
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+================================================================================
+`;
+
 exports[`decorator-type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

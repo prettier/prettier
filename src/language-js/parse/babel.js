@@ -227,7 +227,7 @@ const allowedReasonCodesArray = [
   Allow decorators to be used with declare fields
   https://github.com/prettier/prettier/issues/19491
   */
-  "DecoratorAbstractMethod"
+  "DecoratorAbstractMethod",
 ];
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 
