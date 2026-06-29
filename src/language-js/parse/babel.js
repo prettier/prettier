@@ -222,6 +222,12 @@ const allowedReasonCodesArray = [
   ```
   */
   "DeclarationMissingInitializer",
+
+  /*
+  Allow decorators to be used with declare fields
+  https://github.com/prettier/prettier/issues/19491
+  */
+  "DecoratorAbstractMethod"
 ];
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 
