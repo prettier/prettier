@@ -28,3 +28,9 @@ class Something {
     // comment
     readonly property: Array<string>
 }
+
+class Something2 {
+    @foo()
+    // comment
+    abstract property: Array<string>
+}
