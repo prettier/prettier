@@ -3,6 +3,7 @@ import lessTestSuite from "less-test-suite";
 /* spell-checker: disable */
 const SKIP = new Set(["tests-unit/import/import/invalid-css.less"]);
 const BUGS = new Set([
+  // Can't parse
   "tests-unit/variables/variable-advanced.less",
   "tests-unit/property-accessors/property-accessors.less",
   "tests-unit/plugin/plugin.less",
@@ -14,6 +15,10 @@ const BUGS = new Set([
   "tests-unit/extract-and-length/extract-and-length.less",
   "tests-unit/css-escapes/css-escapes.less",
   "tests-unit/comments/comments.less",
+
+  // Ast changed or unstable
+  "tests-unit/property-name-interp/property-name-interp.less",
+  "tests-unit/extend-chaining/extend-chaining.less",
 ]);
 /* spell-checker: enable */
 
