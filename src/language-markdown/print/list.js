@@ -178,17 +178,10 @@ function printListLegacy(path, options, print) {
       function getPrefix() {
         const rawPrefix = node.ordered
           ? (path.isFirst
-              ? Number.isSafeInteger(node.start)
-                ? node.start
-                : // Not correctly parsed as an actual list item number, fallback to the original text
-                  getPrefixNumberString()
+              ? node.start
               : isGitDiffFriendlyOrderedList
                 ? 1
-                : node.start <= 999_999_999
-                  ? // Only respect the list item number if it parses correctly according to strict CommonMark
-                    Math.min(node.start + path.index, 999_999_999)
-                  : // May not be parsed as a list item. Don't modify the original text.
-                    getPrefixNumberString()) +
+                : node.start + path.index) +
             (nthSiblingIndex % 2 === 0 ? ". " : ") ")
           : nthSiblingIndex % 2 === 0
             ? "- "
@@ -199,17 +192,6 @@ function printListLegacy(path, options, print) {
           node.ordered
           ? alignListPrefix(rawPrefix, options)
           : rawPrefix;
-
-        function getPrefixNumberString() {
-          return options.originalText
-            .slice(
-              path.node.position.start.offset,
-              path.node.position.start.offset +
-                path.node.position.end.column -
-                path.node.position.start.column,
-            )
-            .match(/^(\d+)/)?.[1];
-        }
       }
     },
   });
