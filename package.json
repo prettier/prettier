@@ -175,6 +175,7 @@
     "json-test-suite": "1.0.0",
     "jsx-test-suite": "0.0.2",
     "knip": "6.21.0",
+    "less-test-suite": "0.0.1",
     "magic-string": "0.30.21",
     "make-synchronized": "0.8.0",
     "nano-spawn": "2.1.0",
