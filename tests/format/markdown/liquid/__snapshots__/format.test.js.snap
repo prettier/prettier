@@ -288,6 +288,26 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 
 {{% /blocks/cover %}}
 
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
 =====================================output=====================================
 {{% blocks/cover
 title="Welcome"
@@ -297,6 +317,26 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it
 shouldn't break it either.
 
 {{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
 
 ================================================================================
 `;
@@ -314,6 +354,26 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 
 {{% /blocks/cover %}}
 
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
 =====================================output=====================================
 {{% blocks/cover
 title="Welcome"
@@ -322,6 +382,26 @@ title="Welcome"
 This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
 
 {{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
 
 ================================================================================
 `;
