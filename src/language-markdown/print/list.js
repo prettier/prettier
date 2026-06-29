@@ -54,33 +54,18 @@ function printList(path, options, print) {
       ];
 
       function getPrefix() {
-        let rawPrefix;
-
-        if (options.parser === "mdx") {
-          rawPrefix = node.ordered
-            ? (path.isFirst
-                ? node.start
-                : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + path.index) +
-              (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-            : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
-        } else {
-          rawPrefix = node.ordered
-            ? (path.isFirst
-                ? node.start
-                : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : Math.min(
-                      node.start + path.index,
-                      MAXIMUM_ORDERED_LIST_MARKER,
-                    )) + (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-            : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
-        }
+        const rawPrefix = node.ordered
+          ? (path.isFirst
+              ? node.start
+              : isGitDiffFriendlyOrderedList
+                ? 1
+                : Math.min(
+                    node.start + path.index,
+                    MAXIMUM_ORDERED_LIST_MARKER,
+                  )) + (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+          : nthSiblingIndex % 2 === 0
+            ? "- "
+            : "* ";
 
         let prefix =
           node.isAligned && node.ordered
