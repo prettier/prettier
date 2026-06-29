@@ -1,3 +1,25 @@
+# 3.9.2
+
+[diff](https://github.com/prettier/prettier/compare/3.9.1...3.9.2)
+
+#### Markdown: Fix unexpected removal of characters in liquid syntax ([#19489](https://github.com/prettier/prettier/pull/19489) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```md
+// Input
+<!-- Input -->
+{{ page.title
+}} text
+
+<!-- Prettier 3.9.1 -->
+{{ page.title
+ text
+
+<!-- Prettier 3.9.2 -->
+{{ page.title
+}} text
+```
+
 # 3.9.1
 
 [diff](https://github.com/prettier/prettier/compare/3.9.0...3.9.1)
