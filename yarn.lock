@@ -6392,6 +6392,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"less-test-suite@npm:0.0.1":
+  version: 0.0.1
+  resolution: "less-test-suite@npm:0.0.1"
+  checksum: 10/89b750e91ab3d8309d130f240f6e9583b489265080989dc3398a66f45cf53faa7ebb29240746fb3820aa8caa4d9420601a19af3bb09eff1452a3dcdbba03363a
+  languageName: node
+  linkType: hard
+
 "leven@npm:4.1.0, leven@npm:^4.1.0":
   version: 4.1.0
   resolution: "leven@npm:4.1.0"
@@ -8018,6 +8025,7 @@ __metadata:
     json5: "npm:2.2.3"
     jsx-test-suite: "npm:0.0.2"
     knip: "npm:6.21.0"
+    less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
     magic-string: "npm:0.30.21"
