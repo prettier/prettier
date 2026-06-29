@@ -36,7 +36,7 @@ function liquidFromMarkdown() {
     const d = this.resume();
     /** @type {any} */
     const node = this.stack.at(-1);
-    node.value = d;
+    node.value = this.sliceSerialize(token);
     this.exit(token);
   }
 }
