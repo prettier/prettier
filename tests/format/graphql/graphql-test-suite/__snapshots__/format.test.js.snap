@@ -1,0 +1,1586 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: apollo-rs/lexer/ok/0008_block_string.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+Input Filter with title fitlering
+"""
+input Filter {
+  """unicode in block string 🤷"""
+    title: String
+}
+
+"""
+\\""" a/b \\"""
+"""
+input Filter {
+    title: String
+}
+
+"""
+\\\\"""
+"""
+scalar LiteralBackslashThenEscape
+
+=====================================output=====================================
+"""
+Input Filter with title fitlering
+"""
+input Filter {
+  """
+  unicode in block string 🤷
+  """
+  title: String
+}
+
+"""
+\\""" a/b \\"""
+"""
+input Filter {
+  title: String
+}
+
+"""
+\\\\"""
+"""
+scalar LiteralBackslashThenEscape
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/lexer/ok/0009_block_string_character_with_loose_quotations.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+Example with "
+"""
+type Store {
+  """
+  **Example**: "Saturn5"
+  """
+  name: String @join__field(graph: PRODUCTS)
+  """
+  "Another Example
+  """
+  title: String
+}
+=====================================output=====================================
+"""
+Example with "
+"""
+type Store {
+  """
+  **Example**: "Saturn5"
+  """
+  name: String @join__field(graph: PRODUCTS)
+  """
+  "Another Example
+  """
+  title: String
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/lexer/ok/0013_emoji_char_in_string_value.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+mutation UpdateStuff {
+  stuffUpdate(input: {
+    tags: "really great 👻 halloween"
+  }) { stuff { tags } }
+}
+
+=====================================output=====================================
+mutation UpdateStuff {
+  stuffUpdate(input: { tags: "really great 👻 halloween" }) {
+    stuff {
+      tags
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0001_input_type_definition_without_input_values.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"An input with no input values"
+input AnInputWithoutInputValues
+
+extend input AnInputWithoutInputValues {
+  limit: Int!
+}
+
+=====================================output=====================================
+"An input with no input values"
+input AnInputWithoutInputValues
+
+extend input AnInputWithoutInputValues {
+  limit: Int!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0002_selection_simple.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+    pet
+    faveSnack
+}
+=====================================output=====================================
+{
+  pet
+  faveSnack
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0003_selection_with_fields.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+{
+    pet {
+        name
+        birthday {
+            month
+            day
+        }
+        playmates {
+            name
+            faveSnack
+        }
+    }
+    faveSnack
+}
+=====================================output=====================================
+{
+  pet {
+    name
+    birthday {
+      month
+      day
+    }
+    playmates {
+      name
+      faveSnack
+    }
+  }
+  faveSnack
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0004_selection_with_fields_aliases_arguments.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+{
+    pet {
+        name: nickname
+        birthday {
+            month
+            day
+        }
+        playmates {
+            name
+            faveSnack
+        }
+    }
+    faveSnack(quantity: 4)
+}
+=====================================output=====================================
+{
+  pet {
+    name: nickname
+    birthday {
+      month
+      day
+    }
+    playmates {
+      name
+      faveSnack
+    }
+  }
+  faveSnack(quantity: 4)
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0005_selection_with_inline_fragments.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+    animal
+    faveSnack
+    ... on Pet {
+      playmates {
+        count
+      }
+    }
+}
+=====================================output=====================================
+{
+  animal
+  faveSnack
+  ... on Pet {
+    playmates {
+      count
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0006_selection_with_fragment_spread.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  pet
+  ...snackSelection
+  ... on Nap {
+    cozyLocation
+    durationOfNap
+  }
+  ...snackSelection @deprecated
+  ... on Nap @provides(duration: "2 hours") {
+    cozyLocation
+  }
+  ... @J(N: 0) {
+    a
+  }
+}
+
+=====================================output=====================================
+{
+  pet
+  ...snackSelection
+  ... on Nap {
+    cozyLocation
+    durationOfNap
+  }
+  ...snackSelection @deprecated
+  ... on Nap @provides(duration: "2 hours") {
+    cozyLocation
+  }
+  ... @J(N: 0) {
+    a
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0007_directive_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+directive @example on FIELD
+=====================================output=====================================
+directive @example on FIELD
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0008_directive_definition_with_arguments.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+directive @example(isTreat: Boolean, treatKind: String) on FIELD | MUTATION
+=====================================output=====================================
+directive @example(isTreat: Boolean, treatKind: String) on FIELD | MUTATION
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0009_directive_definition_repeatable.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+directive @example(isTreat: Boolean, treatKind: String) repeatable on FIELD | MUTATION
+=====================================output=====================================
+directive @example(
+  isTreat: Boolean
+  treatKind: String
+) repeatable on FIELD | MUTATION
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0010_enum_type_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum Direction @example {
+    """
+    description
+    """
+    NORTH
+    EAST
+    SOUTH
+    WEST
+}
+=====================================output=====================================
+enum Direction @example {
+  """
+  description
+  """
+  NORTH
+  EAST
+  SOUTH
+  WEST
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0011_enum_type_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend enum Direction @example {
+    SOUTH
+    WEST
+}
+=====================================output=====================================
+extend enum Direction @example {
+  SOUTH
+  WEST
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0012_fragment_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+fragment friendFields on User @example {
+    id
+    name
+    profilePic(size: 50)
+}
+=====================================output=====================================
+fragment friendFields on User @example {
+  id
+  name
+  profilePic(size: 50)
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0013_fragment_definition_with_fragment_spread.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+fragment friendFields on User {
+    id
+    name
+    ...standardProfilePic
+}
+=====================================output=====================================
+fragment friendFields on User {
+  id
+  name
+  ...standardProfilePic
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0014_input_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+input ExampleInputObject {
+    a: String
+    b: Int!
+}
+=====================================output=====================================
+input ExampleInputObject {
+  a: String
+  b: Int!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0015_input_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend input ExampleInputObject @skip {
+    a: String
+}
+=====================================output=====================================
+extend input ExampleInputObject @skip {
+  a: String
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0016_interface_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface ValuedEntity {
+    value: Int
+}
+=====================================output=====================================
+interface ValuedEntity {
+  value: Int
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0017_interface_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend interface ValuedEntity @skip {
+    value: Int
+}
+=====================================output=====================================
+extend interface ValuedEntity @skip {
+  value: Int
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0018_object_type_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"description of type"
+type Person implements Human {
+    """
+    description of field
+    """
+    name: String
+    age: Int
+    picture: Url
+}
+=====================================output=====================================
+"description of type"
+type Person implements Human {
+  """
+  description of field
+  """
+  name: String
+  age: Int
+  picture: Url
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0019_object_type_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend type Person implements Human @deprecated {
+    name: String
+    age: Int
+    picture: Url
+}
+=====================================output=====================================
+extend type Person implements Human @deprecated {
+  name: String
+  age: Int
+  picture: Url
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0020_operation_type_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query myQuery {
+    animal: cat
+    dog {
+        panda {
+            anotherCat @deprecated
+        }
+    }
+    lion
+}
+=====================================output=====================================
+query myQuery {
+  animal: cat
+  dog {
+    panda {
+      anotherCat @deprecated
+    }
+  }
+  lion
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0021_operation_type_definition_with_arguments.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query myQuery($var: input $varOther: otherInput){
+    animal
+    treat
+}
+=====================================output=====================================
+query myQuery($var: input, $varOther: otherInput) {
+  animal
+  treat
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0022_operation_type_definition_with_arguments_and_directives.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query myQuery($var: input $varOther: otherInput) @deprecated @unused {
+    animal
+    treat
+}
+=====================================output=====================================
+query myQuery($var: input, $varOther: otherInput) @deprecated @unused {
+  animal
+  treat
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0023_scalar_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+scalar Time @deprecated
+=====================================output=====================================
+scalar Time @deprecated
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0024_scalar_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend scalar Time @deprecated
+=====================================output=====================================
+extend scalar Time @deprecated
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0025_schema_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+schema {
+  query: MyQueryRootType
+  mutation: MyMutationRootType,
+  subscription: MySubscriptionRootType
+}
+=====================================output=====================================
+schema {
+  query: MyQueryRootType
+  mutation: MyMutationRootType
+  subscription: MySubscriptionRootType
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0026_schema_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend schema @skip @example {
+    query: MyExtendedQueryType
+}
+=====================================output=====================================
+extend schema @skip @example {
+  query: MyExtendedQueryType
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0027_union_type_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+union SearchResult = Photo | Person
+
+union MultiLine =
+  | Photo
+  | Person
+
+=====================================output=====================================
+union SearchResult = Photo | Person
+
+union MultiLine = Photo | Person
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0028_union_type_definition_followed_by_object_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+union SearchResult = Photo | Person
+
+type Error {
+    code: Int
+}
+=====================================output=====================================
+union SearchResult = Photo | Person
+
+type Error {
+  code: Int
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0029_union_type_extension.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+extend union SearchResult @deprecated = Photo | Person
+=====================================output=====================================
+extend union SearchResult @deprecated = Photo | Person
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0030_values.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+    user(
+        id: 4,
+        size: $size
+        value: "string",
+        input: [ "one", 1.34 ],
+        otherInput: { key: false, output: null }
+        emptyList: []
+        emptyObject: {}
+    )
+}
+
+=====================================output=====================================
+{
+  user(
+    id: 4
+    size: $size
+    value: "string"
+    input: ["one", 1.34]
+    otherInput: { key: false, output: null }
+    emptyList: []
+    emptyObject: {}
+  )
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0031_variables_with_default.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query getOutput($input: Int = 5 $config: String = "Config") {
+    animal
+}
+=====================================output=====================================
+query getOutput($input: Int = 5, $config: String = "Config") {
+  animal
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0032_supergraph.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+schema
+@core(feature: "https://specs.apollo.dev/core/v0.1"),
+@core(feature: "https://specs.apollo.dev/join/v0.1")
+{
+  query: Query
+  mutation: Mutation
+}
+
+directive @core(feature: String!) repeatable on SCHEMA
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet) on FIELD_DEFINITION
+directive @join__type(graph: join__Graph!, key: join__FieldSet) repeatable on OBJECT | INTERFACE
+directive @join__owner(graph: join__Graph!) on OBJECT | INTERFACE
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+directive @stream on FIELD
+directive @transform(from: String!) on FIELD
+
+union AccountType = PasswordAccount | SMSAccount
+
+type Amazon {
+  referrer: String
+}
+
+union Body = Image | Text
+
+type Book implements Product
+@join__owner(graph: BOOKS)
+@join__type(graph: BOOKS, key: "isbn")
+@join__type(graph: INVENTORY, key: "isbn")
+@join__type(graph: PRODUCT, key: "isbn")
+@join__type(graph: REVIEWS, key: "isbn")
+{
+  isbn: String! @join__field(graph: BOOKS)
+  title: String @join__field(graph: BOOKS)
+  year: Int @join__field(graph: BOOKS)
+  similarBooks: [Book]! @join__field(graph: BOOKS)
+  metadata: [MetadataOrError] @join__field(graph: BOOKS)
+  inStock: Boolean @join__field(graph: INVENTORY)
+  isCheckedOut: Boolean @join__field(graph: INVENTORY)
+  upc: String! @join__field(graph: PRODUCT)
+  sku: String! @join__field(graph: PRODUCT)
+  name(delimeter: String = " "): String @join__field(graph: PRODUCT, requires: "title year")
+  price: String @join__field(graph: PRODUCT)
+  details: ProductDetailsBook @join__field(graph: PRODUCT)
+  reviews: [Review] @join__field(graph: REVIEWS)
+  relatedReviews: [Review!]! @join__field(graph: REVIEWS, requires: "similarBooks{isbn}")
+}
+
+union Brand = Ikea | Amazon
+
+type Car implements Vehicle
+@join__owner(graph: PRODUCT)
+@join__type(graph: PRODUCT, key: "id")
+@join__type(graph: REVIEWS, key: "id")
+{
+  id: String! @join__field(graph: PRODUCT)
+  description: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  retailPrice: String @join__field(graph: REVIEWS, requires: "price")
+}
+
+type Error {
+  code: Int
+  message: String
+}
+
+type Furniture implements Product
+@join__owner(graph: PRODUCT)
+@join__type(graph: PRODUCT, key: "upc")
+@join__type(graph: PRODUCT, key: "sku")
+@join__type(graph: INVENTORY, key: "sku")
+@join__type(graph: REVIEWS, key: "upc")
+{
+  upc: String! @join__field(graph: PRODUCT)
+  sku: String! @join__field(graph: PRODUCT)
+  name: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  brand: Brand @join__field(graph: PRODUCT)
+  metadata: [MetadataOrError] @join__field(graph: PRODUCT)
+  details: ProductDetailsFurniture @join__field(graph: PRODUCT)
+  inStock: Boolean @join__field(graph: INVENTORY)
+  isHeavy: Boolean @join__field(graph: INVENTORY)
+  reviews: [Review] @join__field(graph: REVIEWS)
+}
+
+type Ikea {
+  asile: Int
+}
+
+type Image implements NamedObject {
+  name: String!
+  attributes: ImageAttributes!
+}
+
+type ImageAttributes {
+  url: String!
+}
+
+scalar join__FieldSet
+
+enum join__Graph {
+ACCOUNTS @join__graph(name: "accounts" url: "")
+BOOKS @join__graph(name: "books" url: "")
+DOCUMENTS @join__graph(name: "documents" url: "")
+INVENTORY @join__graph(name: "inventory" url: "")
+PRODUCT @join__graph(name: "product" url: "")
+REVIEWS @join__graph(name: "reviews" url: "")
+}
+
+type KeyValue {
+  key: String!
+  value: String!
+}
+
+type Library
+@join__owner(graph: BOOKS)
+@join__type(graph: BOOKS, key: "id")
+@join__type(graph: ACCOUNTS, key: "id")
+{
+  id: ID! @join__field(graph: BOOKS)
+  name: String @join__field(graph: BOOKS)
+  userAccount(id: ID! = 1): User @join__field(graph: ACCOUNTS, requires: "name")
+}
+
+union MetadataOrError = KeyValue | Error
+
+type Mutation {
+  login(username: String!, password: String!): User @join__field(graph: ACCOUNTS)
+  reviewProduct(upc: String!, body: String!): Product @join__field(graph: REVIEWS)
+  updateReview(review: UpdateReviewInput!): Review @join__field(graph: REVIEWS)
+  deleteReview(id: ID!): Boolean @join__field(graph: REVIEWS)
+}
+
+type Name {
+  first: String
+  last: String
+}
+
+interface NamedObject {
+  name: String!
+}
+
+type PasswordAccount
+@join__owner(graph: ACCOUNTS)
+@join__type(graph: ACCOUNTS, key: "email")
+{
+  email: String! @join__field(graph: ACCOUNTS)
+}
+
+interface Product {
+  upc: String!
+  sku: String!
+  name: String
+  price: String
+  details: ProductDetails
+  inStock: Boolean
+  reviews: [Review]
+}
+
+interface ProductDetails {
+  country: String
+}
+
+type ProductDetailsBook implements ProductDetails {
+  country: String
+  pages: Int
+}
+
+type ProductDetailsFurniture implements ProductDetails {
+  country: String
+  color: String
+}
+
+type Query {
+  user(id: ID!): User @join__field(graph: ACCOUNTS)
+  me: User @join__field(graph: ACCOUNTS)
+  book(isbn: String!): Book @join__field(graph: BOOKS)
+  books: [Book] @join__field(graph: BOOKS)
+  library(id: ID!): Library @join__field(graph: BOOKS)
+  body: Body! @join__field(graph: DOCUMENTS)
+  product(upc: String!): Product @join__field(graph: PRODUCT)
+  vehicle(id: String!): Vehicle @join__field(graph: PRODUCT)
+  topProducts(first: Int = 5): [Product] @join__field(graph: PRODUCT)
+  topCars(first: Int = 5): [Car] @join__field(graph: PRODUCT)
+  topReviews(first: Int = 5): [Review] @join__field(graph: REVIEWS)
+}
+
+type Review
+@join__owner(graph: REVIEWS)
+@join__type(graph: REVIEWS, key: "id")
+{
+  id: ID! @join__field(graph: REVIEWS)
+  body(format: Boolean = false): String @join__field(graph: REVIEWS)
+  author: User @join__field(graph: REVIEWS, provides: "username")
+  product: Product @join__field(graph: REVIEWS)
+  metadata: [MetadataOrError] @join__field(graph: REVIEWS)
+}
+
+type SMSAccount
+@join__owner(graph: ACCOUNTS)
+@join__type(graph: ACCOUNTS, key: "number")
+{
+  number: String @join__field(graph: ACCOUNTS)
+}
+
+type Text implements NamedObject {
+  name: String!
+  attributes: TextAttributes!
+}
+
+type TextAttributes {
+  bold: Boolean
+  text: String
+}
+
+union Thing = Car | Ikea
+
+input UpdateReviewInput {
+  id: ID!
+  body: String
+}
+
+type User
+@join__owner(graph: ACCOUNTS)
+@join__type(graph: ACCOUNTS, key: "id")
+@join__type(graph: ACCOUNTS, key: "username name{first last}")
+@join__type(graph: INVENTORY, key: "id")
+@join__type(graph: PRODUCT, key: "id")
+@join__type(graph: REVIEWS, key: "id")
+{
+  id: ID! @join__field(graph: ACCOUNTS)
+  name: Name @join__field(graph: ACCOUNTS)
+  username: String @join__field(graph: ACCOUNTS)
+  birthDate(locale: String): String @join__field(graph: ACCOUNTS)
+  account: AccountType @join__field(graph: ACCOUNTS)
+  metadata: [UserMetadata] @join__field(graph: ACCOUNTS)
+  goodDescription: Boolean @join__field(graph: INVENTORY, requires: "metadata{description}")
+  vehicle: Vehicle @join__field(graph: PRODUCT)
+  thing: Thing @join__field(graph: PRODUCT)
+  reviews: [Review] @join__field(graph: REVIEWS)
+  numberOfReviews: Int! @join__field(graph: REVIEWS)
+  goodAddress: Boolean @join__field(graph: REVIEWS, requires: "metadata{address}")
+}
+
+type UserMetadata {
+  name: String
+  address: String
+  description: String
+}
+
+type Van implements Vehicle
+@join__owner(graph: PRODUCT)
+@join__type(graph: PRODUCT, key: "id")
+@join__type(graph: REVIEWS, key: "id")
+{
+  id: String! @join__field(graph: PRODUCT)
+  description: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  retailPrice: String @join__field(graph: REVIEWS, requires: "price")
+}
+
+interface Vehicle {
+  id: String!
+  description: String
+  price: String
+  retailPrice: String
+}
+=====================================output=====================================
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.1")
+  @core(feature: "https://specs.apollo.dev/join/v0.1") {
+  query: Query
+  mutation: Mutation
+}
+
+directive @core(feature: String!) repeatable on SCHEMA
+directive @join__field(
+  graph: join__Graph
+  requires: join__FieldSet
+  provides: join__FieldSet
+) on FIELD_DEFINITION
+directive @join__type(
+  graph: join__Graph!
+  key: join__FieldSet
+) repeatable on OBJECT | INTERFACE
+directive @join__owner(graph: join__Graph!) on OBJECT | INTERFACE
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+directive @stream on FIELD
+directive @transform(from: String!) on FIELD
+
+union AccountType = PasswordAccount | SMSAccount
+
+type Amazon {
+  referrer: String
+}
+
+union Body = Image | Text
+
+type Book implements Product
+  @join__owner(graph: BOOKS)
+  @join__type(graph: BOOKS, key: "isbn")
+  @join__type(graph: INVENTORY, key: "isbn")
+  @join__type(graph: PRODUCT, key: "isbn")
+  @join__type(graph: REVIEWS, key: "isbn") {
+  isbn: String! @join__field(graph: BOOKS)
+  title: String @join__field(graph: BOOKS)
+  year: Int @join__field(graph: BOOKS)
+  similarBooks: [Book]! @join__field(graph: BOOKS)
+  metadata: [MetadataOrError] @join__field(graph: BOOKS)
+  inStock: Boolean @join__field(graph: INVENTORY)
+  isCheckedOut: Boolean @join__field(graph: INVENTORY)
+  upc: String! @join__field(graph: PRODUCT)
+  sku: String! @join__field(graph: PRODUCT)
+  name(delimeter: String = " "): String
+    @join__field(graph: PRODUCT, requires: "title year")
+  price: String @join__field(graph: PRODUCT)
+  details: ProductDetailsBook @join__field(graph: PRODUCT)
+  reviews: [Review] @join__field(graph: REVIEWS)
+  relatedReviews: [Review!]!
+    @join__field(graph: REVIEWS, requires: "similarBooks{isbn}")
+}
+
+union Brand = Ikea | Amazon
+
+type Car implements Vehicle
+  @join__owner(graph: PRODUCT)
+  @join__type(graph: PRODUCT, key: "id")
+  @join__type(graph: REVIEWS, key: "id") {
+  id: String! @join__field(graph: PRODUCT)
+  description: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  retailPrice: String @join__field(graph: REVIEWS, requires: "price")
+}
+
+type Error {
+  code: Int
+  message: String
+}
+
+type Furniture implements Product
+  @join__owner(graph: PRODUCT)
+  @join__type(graph: PRODUCT, key: "upc")
+  @join__type(graph: PRODUCT, key: "sku")
+  @join__type(graph: INVENTORY, key: "sku")
+  @join__type(graph: REVIEWS, key: "upc") {
+  upc: String! @join__field(graph: PRODUCT)
+  sku: String! @join__field(graph: PRODUCT)
+  name: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  brand: Brand @join__field(graph: PRODUCT)
+  metadata: [MetadataOrError] @join__field(graph: PRODUCT)
+  details: ProductDetailsFurniture @join__field(graph: PRODUCT)
+  inStock: Boolean @join__field(graph: INVENTORY)
+  isHeavy: Boolean @join__field(graph: INVENTORY)
+  reviews: [Review] @join__field(graph: REVIEWS)
+}
+
+type Ikea {
+  asile: Int
+}
+
+type Image implements NamedObject {
+  name: String!
+  attributes: ImageAttributes!
+}
+
+type ImageAttributes {
+  url: String!
+}
+
+scalar join__FieldSet
+
+enum join__Graph {
+  ACCOUNTS @join__graph(name: "accounts", url: "")
+  BOOKS @join__graph(name: "books", url: "")
+  DOCUMENTS @join__graph(name: "documents", url: "")
+  INVENTORY @join__graph(name: "inventory", url: "")
+  PRODUCT @join__graph(name: "product", url: "")
+  REVIEWS @join__graph(name: "reviews", url: "")
+}
+
+type KeyValue {
+  key: String!
+  value: String!
+}
+
+type Library
+  @join__owner(graph: BOOKS)
+  @join__type(graph: BOOKS, key: "id")
+  @join__type(graph: ACCOUNTS, key: "id") {
+  id: ID! @join__field(graph: BOOKS)
+  name: String @join__field(graph: BOOKS)
+  userAccount(id: ID! = 1): User @join__field(graph: ACCOUNTS, requires: "name")
+}
+
+union MetadataOrError = KeyValue | Error
+
+type Mutation {
+  login(username: String!, password: String!): User
+    @join__field(graph: ACCOUNTS)
+  reviewProduct(upc: String!, body: String!): Product
+    @join__field(graph: REVIEWS)
+  updateReview(review: UpdateReviewInput!): Review @join__field(graph: REVIEWS)
+  deleteReview(id: ID!): Boolean @join__field(graph: REVIEWS)
+}
+
+type Name {
+  first: String
+  last: String
+}
+
+interface NamedObject {
+  name: String!
+}
+
+type PasswordAccount
+  @join__owner(graph: ACCOUNTS)
+  @join__type(graph: ACCOUNTS, key: "email") {
+  email: String! @join__field(graph: ACCOUNTS)
+}
+
+interface Product {
+  upc: String!
+  sku: String!
+  name: String
+  price: String
+  details: ProductDetails
+  inStock: Boolean
+  reviews: [Review]
+}
+
+interface ProductDetails {
+  country: String
+}
+
+type ProductDetailsBook implements ProductDetails {
+  country: String
+  pages: Int
+}
+
+type ProductDetailsFurniture implements ProductDetails {
+  country: String
+  color: String
+}
+
+type Query {
+  user(id: ID!): User @join__field(graph: ACCOUNTS)
+  me: User @join__field(graph: ACCOUNTS)
+  book(isbn: String!): Book @join__field(graph: BOOKS)
+  books: [Book] @join__field(graph: BOOKS)
+  library(id: ID!): Library @join__field(graph: BOOKS)
+  body: Body! @join__field(graph: DOCUMENTS)
+  product(upc: String!): Product @join__field(graph: PRODUCT)
+  vehicle(id: String!): Vehicle @join__field(graph: PRODUCT)
+  topProducts(first: Int = 5): [Product] @join__field(graph: PRODUCT)
+  topCars(first: Int = 5): [Car] @join__field(graph: PRODUCT)
+  topReviews(first: Int = 5): [Review] @join__field(graph: REVIEWS)
+}
+
+type Review
+  @join__owner(graph: REVIEWS)
+  @join__type(graph: REVIEWS, key: "id") {
+  id: ID! @join__field(graph: REVIEWS)
+  body(format: Boolean = false): String @join__field(graph: REVIEWS)
+  author: User @join__field(graph: REVIEWS, provides: "username")
+  product: Product @join__field(graph: REVIEWS)
+  metadata: [MetadataOrError] @join__field(graph: REVIEWS)
+}
+
+type SMSAccount
+  @join__owner(graph: ACCOUNTS)
+  @join__type(graph: ACCOUNTS, key: "number") {
+  number: String @join__field(graph: ACCOUNTS)
+}
+
+type Text implements NamedObject {
+  name: String!
+  attributes: TextAttributes!
+}
+
+type TextAttributes {
+  bold: Boolean
+  text: String
+}
+
+union Thing = Car | Ikea
+
+input UpdateReviewInput {
+  id: ID!
+  body: String
+}
+
+type User
+  @join__owner(graph: ACCOUNTS)
+  @join__type(graph: ACCOUNTS, key: "id")
+  @join__type(graph: ACCOUNTS, key: "username name{first last}")
+  @join__type(graph: INVENTORY, key: "id")
+  @join__type(graph: PRODUCT, key: "id")
+  @join__type(graph: REVIEWS, key: "id") {
+  id: ID! @join__field(graph: ACCOUNTS)
+  name: Name @join__field(graph: ACCOUNTS)
+  username: String @join__field(graph: ACCOUNTS)
+  birthDate(locale: String): String @join__field(graph: ACCOUNTS)
+  account: AccountType @join__field(graph: ACCOUNTS)
+  metadata: [UserMetadata] @join__field(graph: ACCOUNTS)
+  goodDescription: Boolean
+    @join__field(graph: INVENTORY, requires: "metadata{description}")
+  vehicle: Vehicle @join__field(graph: PRODUCT)
+  thing: Thing @join__field(graph: PRODUCT)
+  reviews: [Review] @join__field(graph: REVIEWS)
+  numberOfReviews: Int! @join__field(graph: REVIEWS)
+  goodAddress: Boolean
+    @join__field(graph: REVIEWS, requires: "metadata{address}")
+}
+
+type UserMetadata {
+  name: String
+  address: String
+  description: String
+}
+
+type Van implements Vehicle
+  @join__owner(graph: PRODUCT)
+  @join__type(graph: PRODUCT, key: "id")
+  @join__type(graph: REVIEWS, key: "id") {
+  id: String! @join__field(graph: PRODUCT)
+  description: String @join__field(graph: PRODUCT)
+  price: String @join__field(graph: PRODUCT)
+  retailPrice: String @join__field(graph: REVIEWS, requires: "price")
+}
+
+interface Vehicle {
+  id: String!
+  description: String
+  price: String
+  retailPrice: String
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0033_directive_on_argument_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Mutation {
+  login(userId: String @deprecated(reason: "Use username instead")): User
+}
+=====================================output=====================================
+type Mutation {
+  login(userId: String @deprecated(reason: "Use username instead")): User
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0034_query_shorthand_followed_by_fragment_definition.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  ...friendFields
+}
+
+fragment friendFields on User {
+  id
+  name
+}
+=====================================output=====================================
+{
+  ...friendFields
+}
+
+fragment friendFields on User {
+  id
+  name
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0035_query_with_variables.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query Foo($bar: Int) {
+    name
+}
+=====================================output=====================================
+query Foo($bar: Int) {
+  name
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0036_parses_variable_definition_with_list_type.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query ($height: [Int]) {
+    id
+    trees(height: $height)
+}
+=====================================output=====================================
+query ($height: [Int]) {
+  id
+  trees(height: $height)
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0037_operation_type_definition_with_inline_fragment.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query SomeQuery(
+  $param1: String!
+  $param2: String!
+) {
+  item1(
+    param1: $param1
+    param2: $param2
+  ) {
+    id
+    ... on Fragment1 {
+      field3 {
+        field4
+      }
+    }
+  }
+}
+=====================================output=====================================
+query SomeQuery($param1: String!, $param2: String!) {
+  item1(param1: $param1, param2: $param2) {
+    id
+    ... on Fragment1 {
+      field3 {
+        field4
+      }
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0038_wrapped_named_types.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type ObjectDef {
+    a: String
+    b: Int!
+    c: [Int!]!
+    d: [[[[[Int]]]]]
+    d: [[[[[Int!]!]!]!]!]!
+}
+
+type ObjectDefTwo {
+    a: String,
+    b: Int!,
+    c: [Int!]!,
+    d: [[[[[Int]]]]],
+    d: [[[[[Int!]!]!]!]!]!,
+}
+=====================================output=====================================
+type ObjectDef {
+  a: String
+  b: Int!
+  c: [Int!]!
+  d: [[[[[Int]]]]]
+  d: [[[[[Int!]!]!]!]!]!
+}
+
+type ObjectDefTwo {
+  a: String
+  b: Int!
+  c: [Int!]!
+  d: [[[[[Int]]]]]
+  d: [[[[[Int!]!]!]!]!]!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0039_variable_with_directives.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query getOutput($input: Int @deprecated $config: String = "Config" @tag(name: "team-customers")) {
+    animal
+}
+=====================================output=====================================
+query getOutput(
+  $input: Int @deprecated
+  $config: String = "Config" @tag(name: "team-customers")
+) {
+  animal
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0040_type_token_order.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Object {
+  #(apparently you can stick a comma in there?? please dont do it!)
+  field : [Int ,!] # comment
+  _other:
+String,,,   ,
+#garbage
+  realField: ID!
+}
+
+=====================================output=====================================
+type Object {
+  #(apparently you can stick a comma in there?? please dont do it!)
+  field: [Int!] # comment
+  _other: String
+  #garbage
+  realField: ID!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0041_implements_list.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Just one interface"
+type One implements A { field: Int! }
+
+"Several interfaces"
+type Two implements A & B & C { field: Int! }
+
+"&-prefixed"
+type Three implements
+  & A
+  & B
+  & C
+{ field: Int! }
+
+=====================================output=====================================
+"Just one interface"
+type One implements A {
+  field: Int!
+}
+
+"Several interfaces"
+type Two implements A & B & C {
+  field: Int!
+}
+
+"&-prefixed"
+type Three implements A & B & C {
+  field: Int!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0042_object_type_definition_without_fields.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"A type with no fields"
+type AnObjectTypeWithoutFields
+
+extend type AnObjectTypeWithoutFields {
+  id: ID!
+}
+=====================================output=====================================
+"A type with no fields"
+type AnObjectTypeWithoutFields
+
+extend type AnObjectTypeWithoutFields {
+  id: ID!
+}
+
+================================================================================
+`;
+
+exports[`snippet: apollo-rs/parser/ok/0043_interface_type_definition_without_fields.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"An interface with no fields"
+interface AnInterfaceWithoutFields
+
+extend interface AnInterfaceWithoutFields {
+  id: ID!
+}
+
+=====================================output=====================================
+"An interface with no fields"
+interface AnInterfaceWithoutFields
+
+extend interface AnInterfaceWithoutFields {
+  id: ID!
+}
+
+================================================================================
+`;
