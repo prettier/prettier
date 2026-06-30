@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   breakParent,
   dedent,
@@ -234,14 +235,16 @@ function printCommaSeparatedValueGroup(path, options, print) {
       if (
         iNode.type === "value-word" &&
         iNode.value.endsWith("[") &&
-        (iNextNode?.type === "value-atword" ||
-          iNextNode?.type === "value-word") &&
-        node.groups.some(
-          (node, index) =>
-            index > i &&
-            (node.value?.startsWith("]") || node.value?.endsWith("]")),
-        )
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
       ) {
+        assert.ok(
+          node.groups.some(
+            (node, index) =>
+              index > i &&
+              (node.value?.startsWith("]") || node.value?.endsWith("]")),
+          ),
+        );
+
         continue;
       }
     }
