@@ -225,13 +225,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Less property/variable lookup
     // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
     if (options.parser === "less") {
-      // `var [@result]`
+      // `foo [@bar]`
       //      ^
       if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
         continue;
       }
 
-      // Ignore spaces after `[` (i.e. `[ @foo]` or `[ bar]`)
+      // Ignore spaces after `[` (i.e. `foo[ @bar]` or `foo[ bar]`)
       if (
         iNode.type === "value-word" &&
         iNode.value.endsWith("[") &&
