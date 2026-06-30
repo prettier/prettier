@@ -230,13 +230,19 @@ function printCommaSeparatedValueGroup(path, options, print) {
         continue;
       }
 
-      // `var[ @result]`
-      //     ^
+      // `var [ @result]`
+      //      ^
       // `@var [ @@foo ] [ bar ]`
       //                 ^
+      // `#var[ @result]`
+      //      ^
+      // `var[ @@result]`
+      //     ^
+      // `var[ result]`
+      //     ^
       if (
         iNode.type === "value-word" &&
-        iNode.value === "[" &&
+        iNode.value.endsWith("[") &&
         (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
       ) {
         continue;

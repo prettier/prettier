@@ -3479,7 +3479,7 @@ parsers: ["less"]
 }
 .example {
   // #lookup[@var](); -- fails, need the following alias
-  @dr: #lookup2[ @var];
+  @dr: #lookup2[@var];
   @dr();
 }
 
@@ -3523,7 +3523,7 @@ parsers: ["less"]
     @small: 600px;
   }
   .breakpoint(@size) {
-    @val: #ns.sizes[ @@size];
+    @val: #ns.sizes[@@size];
     @min: (min-width: @val);
     @max: not all and @min;
   }
