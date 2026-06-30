@@ -56,6 +56,8 @@ function massageAstNode(original, cloned, parent) {
 
   if (original.type === "css-rule") {
     delete cloned.params;
+    // https://github.com/shellscape/postcss-less/blob/v6.0.0/lib/LessParser.js#L182-L186
+    delete cloned.extend;
   }
 
   if (
