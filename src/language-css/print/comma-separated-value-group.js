@@ -245,7 +245,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       if (
         iNode.type === "value-word" &&
         iNode.value.endsWith("[") &&
-        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word") &&
+        node.groups.some(
+          (node, index) =>
+            index > i &&
+            (node.value?.startsWith("]") || node.value?.endsWith("]")),
+        )
       ) {
         continue;
       }
