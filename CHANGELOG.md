@@ -1,3 +1,45 @@
+# 3.9.4
+
+[diff](https://github.com/prettier/prettier/compare/3.9.3...3.9.4)
+
+#### Angular: Format `@content(name)` -> `@content (name)` to align with other block syntax ([#19499](https://github.com/prettier/prettier/pull/19499) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.3 -->
+<FancyButton [label]="title">
+  @content(icon) {
+    <span>Icon!</span>
+  }
+  @content(description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.4 -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+```
+
 # 3.9.3
 
 [diff](https://github.com/prettier/prettier/compare/3.9.1...3.9.3)
