@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   breakParent,
   dedent,
@@ -224,31 +225,26 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Less property/variable lookup
     // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
     if (options.parser === "less") {
-      // `var [@result]`
+      // `foo [@bar]`
       //      ^
       if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
         continue;
       }
 
-      // `var[ @result]`
-      //     ^
-      // `@var [ @@foo ] [ bar ]`
-      //                 ^
+      // Ignore spaces after `[` (i.e. `foo[ @bar]` or `foo[ bar]`)
       if (
         iNode.type === "value-word" &&
-        iNode.value === "[" &&
+        iNode.value.endsWith("[") &&
         (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
       ) {
-        continue;
-      }
+        assert.ok(
+          node.groups.some(
+            (node, index) =>
+              index > i &&
+              (node.value?.startsWith("]") || node.value?.endsWith("]")),
+          ),
+        );
 
-      // `@var [ @@foo ][ bar ]`
-      //               ^^
-      if (
-        iNode.type === "value-word" &&
-        iNode.value === "][" &&
-        iNextNode?.type === "value-word"
-      ) {
         continue;
       }
     }

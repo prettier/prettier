@@ -2783,7 +2783,7 @@ parsers: ["less"]
   color4: @theme[@nested][color];
   color5: @defaults[@@varToGet];
   prop: #ns1[foo];
-  var: #ns1[ @foo];
+  var: #ns1[@foo];
   sub: #ns1.vars[$sub];
 }
 
@@ -2869,7 +2869,7 @@ parsers: ["less"]
 @import "imports/library.less";
 
 .bar {
-  width: #library.sizes[ @width];
+  width: #library.sizes[@width];
   height: #library.add-one(1px)[@return];
 }
 
@@ -2881,7 +2881,7 @@ parsers: ["less"]
 }
 
 .foo {
-  width: #library.sizes[ @width];
+  width: #library.sizes[@width];
 }
 
 .foods() {
@@ -2891,7 +2891,7 @@ parsers: ["less"]
 @key-to-lookup: dessert;
 
 .lunch {
-  treat: .foods[ @@key-to-lookup];
+  treat: .foods[@@key-to-lookup];
 }
 
 ================================================================================
@@ -2978,7 +2978,7 @@ parsers: ["less"]
 @media (min-width: @breakpoints[mobile]) {
   .toolbar {
     width: @map[@width];
-    height: #ns.mixin[ @height];
+    height: #ns.mixin[@height];
     background: @map[@colors][toolbar-background];
     color: @map[@colors][toolbar-foreground];
   }
@@ -3080,7 +3080,7 @@ parsers: ["less"]
   .colors() {
     #library.core.colors();
   }
-  width: .alias[ @a];
+  width: .alias[@a];
   background: .colors[primary];
   color: .colors[foreground];
 }
@@ -3479,7 +3479,7 @@ parsers: ["less"]
 }
 .example {
   // #lookup[@var](); -- fails, need the following alias
-  @dr: #lookup2[ @var];
+  @dr: #lookup2[@var];
   @dr();
 }
 
@@ -3523,7 +3523,7 @@ parsers: ["less"]
     @small: 600px;
   }
   .breakpoint(@size) {
-    @val: #ns.sizes[ @@size];
+    @val: #ns.sizes[@@size];
     @min: (min-width: @val);
     @max: not all and @min;
   }
