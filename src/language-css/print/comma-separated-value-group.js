@@ -136,6 +136,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // In CSS type() syntax, `+` and `*` are multipliers, not math operators.
+    if (
+      insideValueFunctionNode(path, "type") &&
+      iNode.type === "value-word" &&
+      iNextNode &&
+      /^<[^>]+>$/.test(iNode.value) &&
+      (isAdditionNode(iNextNode) || isMultiplicationNode(iNextNode))
+    ) {
+      continue;
+    }
+
     // Ignore after latest node (i.e. before semicolon)
     if (!iNextNode) {
       continue;

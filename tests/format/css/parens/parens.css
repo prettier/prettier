@@ -234,6 +234,8 @@ a {
     20
     )
     ;
+    prop26: attr(br type(<length>+));
+    prop27: attr(br type(<length> *));
 }
 
 .bar {
