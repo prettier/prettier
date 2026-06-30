@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`type.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+div {
+  border-radius: attr(br type(<length>+));
+}
+
+
+div {
+  background: attr(bg type(<color>+));
+}
+=====================================output=====================================
+div {
+  border-radius: attr(br type(<length>+));
+}
+
+div {
+  background: attr(bg type(<color>+));
+}
+
+================================================================================
+`;

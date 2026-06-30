@@ -1,0 +1,8 @@
+div {
+  border-radius: attr(br type(<length>+));
+}
+
+
+div {
+  background: attr(bg type(<color>+));
+}

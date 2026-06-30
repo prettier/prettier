@@ -40,6 +40,13 @@ import {
   isWordNode,
 } from "../utilities/index.js";
 
+function thisShouldReturnTrue(node) {
+  const regex = /<[^<>]+>/;
+  const hasOpenCloseBrackets = regex.test(node.value);
+
+  return node.type === "value-word" && hasOpenCloseBrackets;
+}
+
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
@@ -91,6 +98,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
+
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
@@ -305,7 +313,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // (i.e. `5+#{$var}`, `5 +#{$var}`, `5+ #{$var}`, `5 + #{$var}`)
     if (
       ((isMathOperator && isHashNode(iNextNode)) ||
-        (isNextMathOperator && isRightCurlyBraceNode(iNode))) &&
+        (isNextMathOperator && isRightCurlyBraceNode(iNode)) || (isNextMathOperator && thisShouldReturnTrue(iNode))) &&
       hasEmptyRawBefore(iNextNode)
     ) {
       continue;
