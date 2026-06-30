@@ -240,20 +240,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       //     ^
       // `var[ result]`
       //     ^
-      if (
-        iNode.type === "value-word" &&
-        iNode.value.endsWith("[") &&
-        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
-      ) {
-        continue;
-      }
-
       // `@var [ @@foo ][ bar ]`
       //               ^^
       if (
         iNode.type === "value-word" &&
-        iNode.value === "][" &&
-        iNextNode?.type === "value-word"
+        iNode.value.endsWith("[") &&
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
       ) {
         continue;
       }
