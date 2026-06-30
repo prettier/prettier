@@ -300,6 +300,16 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const isMathOperator = isMathOperatorNode(iNode);
     const isNextMathOperator = isMathOperatorNode(iNextNode);
 
+    // Multipliers such as `+` and `*` inside the `type()` function of `attr()`
+    // are `<syntax>` grammar tokens, not math operators, so they must stay
+    // adjacent (e.g. `type(<length>+)`, not `type(<length> +)`).
+    if (
+      (isMathOperator || isNextMathOperator) &&
+      insideValueFunctionNode(path, "type")
+    ) {
+      continue;
+    }
+
     // Print spaces before and after math operators beside SCSS interpolation as is
     // (i.e. `#{$var}+5`, `#{$var} +5`, `#{$var}+ 5`, `#{$var} + 5`)
     // (i.e. `5+#{$var}`, `5 +#{$var}`, `5+ #{$var}`, `5 + #{$var}`)

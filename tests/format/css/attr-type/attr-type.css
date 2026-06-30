@@ -1,0 +1,6 @@
+a {
+  width: attr(data-width type(<length>+));
+  color: attr(data-color type(<color>#));
+  gap: attr(data-gap type(<length>*));
+  height: attr(data-height type(<length>));
+}

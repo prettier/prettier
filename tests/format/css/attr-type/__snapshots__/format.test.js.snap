@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`attr-type.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  width: attr(data-width type(<length>+));
+  color: attr(data-color type(<color>#));
+  gap: attr(data-gap type(<length>*));
+  height: attr(data-height type(<length>));
+}
+
+=====================================output=====================================
+a {
+  width: attr(data-width type(<length>+));
+  color: attr(data-color type(<color>#));
+  gap: attr(data-gap type(<length>*));
+  height: attr(data-height type(<length>));
+}
+
+================================================================================
+`;
