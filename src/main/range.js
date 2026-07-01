@@ -25,7 +25,8 @@ function dropRootParents(parents) {
 function findSiblingAncestors(
   startNodeAndAncestors,
   endNodeAndAncestors,
-  { locStart, locEnd },
+  { locStart, locEnd, rangeStart, rangeEnd },
+  isSourceElement,
 ) {
   let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
@@ -52,6 +53,20 @@ function findSiblingAncestors(
     }
     if (resultStartNode === resultEndNode) {
       break;
+    }
+  }
+
+  if (
+    resultStartNode !== resultEndNode &&
+    !isSourceElement(resultStartNode) &&
+    !isSourceElement(resultEndNode) &&
+    (rangeStart > locStart(resultStartNode) || rangeEnd < locEnd(resultEndNode))
+  ) {
+    const endNodeSet = new Set(endNodeAndAncestors);
+    for (const ancestor of startNodeAncestors) {
+      if (endNodeSet.has(ancestor) && isSourceElement(ancestor)) {
+        return [ancestor, ancestor];
+      }
     }
   }
 
@@ -250,17 +265,19 @@ function calculateRange(text, opts, ast) {
     startNode = commonAncestor;
     endNode = commonAncestor;
   } else {
+    const { locStart, locEnd } = locFunctions;
     [startNode, endNode] = findSiblingAncestors(
       startNodeAndAncestors,
       endNodeAndAncestors,
-      opts,
+      { locStart, locEnd, rangeStart: start, rangeEnd: end },
+      (node) => isSourceElement(opts, node),
     );
   }
 
-  const { locStart, locEnd } = locFunctions;
+  const { locStart: locStartFn, locEnd: locEndFn } = locFunctions;
   return [
-    Math.min(locStart(startNode), locStart(endNode)),
-    Math.max(locEnd(startNode), locEnd(endNode)),
+    Math.min(locStartFn(startNode), locStartFn(endNode)),
+    Math.max(locEndFn(startNode), locEndFn(endNode)),
   ];
 }
 
