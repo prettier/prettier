@@ -268,6 +268,9 @@ function printTemplateExpression(path, options, print) {
   if (options.__inJestEach) {
     indentSize = Math.max(indentSize, options.tabWidth);
   }
+  if (options.__embeddedHtmlTemplate) {
+    indentSize = 0;
+  }
   expressionDoc =
     indentSize === 0 && previousQuasiText.endsWith("\n")
       ? align(Number.NEGATIVE_INFINITY, expressionDoc)
