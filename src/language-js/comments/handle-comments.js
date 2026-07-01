@@ -143,6 +143,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
+    handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
   ].some((fn) => fn(context));
@@ -1003,12 +1004,31 @@ function handlePropertySignatureComments({
   enclosingNode,
   followingNode,
   comment,
+  options,
 }) {
   if (
-    enclosingNode &&
-    (enclosingNode.type === "TSPropertySignature" ||
-      enclosingNode.type === "ObjectTypeProperty") &&
-    (isUnionType(followingNode) || isIntersectionType(followingNode))
+    !enclosingNode ||
+    (enclosingNode.type !== "TSPropertySignature" &&
+      enclosingNode.type !== "ObjectTypeProperty") ||
+    !followingNode
+  ) {
+    return;
+  }
+
+  if (isUnionType(followingNode) || isIntersectionType(followingNode)) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  // A leading `|`/`&` can be stripped with single-member unions/intersections,
+  // making `followingNode` the first type instead of the union/intersection.
+  const textBetweenCommentAndType = options.originalText.slice(
+    locEnd(comment),
+    locStart(followingNode),
+  );
+  if (
+    /[|&]/u.test(textBetweenCommentAndType) &&
+    /^[\s|&]+$/u.test(textBetweenCommentAndType)
   ) {
     addLeadingComment(followingNode, comment);
     return true;
