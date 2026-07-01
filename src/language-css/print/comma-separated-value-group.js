@@ -311,6 +311,14 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Prevent the addition of a space inside type() declarations that include an + operator
+    // due to the fact that it is not valid syntax
+    // (i.e. `type(<number> +)`, `type(<color> +)`)
+    if (isAdditionNode(iNextNode) && insideValueFunctionNode(path, "type") &&
+      hasEmptyRawBefore(iNextNode)) {
+      continue;
+    }
+
     // absolute paths are only parsed as one token if they are part of url(/abs/path) call
     // but if you have custom -fb-url(/abs/path/) then it is parsed as "division /" and rest
     // of the path. We don't want to put a space after that first division in this case.
