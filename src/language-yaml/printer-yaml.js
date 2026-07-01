@@ -422,6 +422,7 @@ const printer = {
   massageAstNode,
   insertPragma,
   getVisitorKeys,
+  canAttachComment: () => true,
 };
 
 export default printer;
