@@ -164,7 +164,91 @@ Add or remove file extensions to suit your project. Note that regardless of whic
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 5. Shell script
+## Option 5. [Lefthook](https://lefthook.dev/)
+
+**Use Case:** A fast, polyglot Git hooks manager with built-in parallelization. Useful if you want a single tool that can run Prettier alongside hooks for other languages in the same repo.
+
+Install Lefthook:
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```bash
+npm install --save-dev lefthook
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn add --dev lefthook
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm add --save-dev lefthook
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bun add --dev lefthook
+```
+
+</TabItem>
+</Tabs>
+
+Add a Prettier job to a `lefthook.yml` file at the repo root:
+
+```yaml title="lefthook.yml"
+pre-commit:
+  jobs:
+    - name: prettier
+      run: npx prettier --ignore-unknown --write '{staged_files}'
+      stage_fixed: true
+```
+
+`stage_fixed: true` re-stages files that Prettier modified so the formatted version is what gets committed.
+
+Then install the hooks so lefthook wires up the configured jobs into `.git/hooks`:
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```bash
+npx lefthook install
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn lefthook install
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm lefthook install
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bunx lefthook install
+```
+
+</TabItem>
+</Tabs>
+
+Re-run `lefthook install` whenever you change `lefthook.yml`. Read more at the [Lefthook](https://lefthook.dev/) website.
+
+## Option 6. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
