@@ -259,9 +259,14 @@ function printMdast(path, options, print) {
 
       // fenced code block
       const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
+      const minLength = Math.max(
+        3,
+        getMaxContinuousCount(node.value, styleUnit) + 1,
       );
+      // Preserve the original fence length when it's already long enough,
+      // so nested code fences (e.g. MyST directives) keep their visual nesting.
+      const originalLength = getOriginalFenceLength(node, options);
+      const style = styleUnit.repeat(Math.max(minLength, originalLength));
       return [
         style,
         node.lang || "",
@@ -419,6 +424,42 @@ function printMdast(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
   }
+}
+
+/**
+ * Returns the length of the opening fence in the source, or 0 if it can't be
+ * determined (e.g. for nodes synthesized without position information, or for
+ * code blocks whose value is supplied without an opening fence such as in
+ * JS template literals). Reads whichever fence character (`` ` `` or `~`) the
+ * source actually uses — Prettier may print a different one (e.g. when the
+ * source uses tildes but the output uses backticks).
+ *
+ * @param {{ position?: { start: { offset: number } } }} node
+ * @param {{ originalText?: string }} options
+ * @returns {number}
+ */
+function getOriginalFenceLength(node, options) {
+  const start = node.position?.start?.offset;
+  if (typeof start !== "number" || typeof options.originalText !== "string") {
+    return 0;
+  }
+  // The opening line may begin with up to 3 spaces of indentation per
+  // CommonMark; skip them before counting the fence marker run.
+  let i = start;
+  let leadingSpaces = 0;
+  while (leadingSpaces < 3 && options.originalText[i] === " ") {
+    i++;
+    leadingSpaces++;
+  }
+  const fenceChar = options.originalText[i];
+  if (fenceChar !== "`" && fenceChar !== "~") {
+    return 0;
+  }
+  let length = 0;
+  while (options.originalText[i + length] === fenceChar) {
+    length++;
+  }
+  return length;
 }
 
 function printRoot(path, options, print) {
