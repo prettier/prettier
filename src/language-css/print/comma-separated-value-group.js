@@ -332,6 +332,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // CSS `attr()` type syntax embeds CSS value-definition grammar, where
+    // multipliers are suffixes rather than math operators (e.g. `<length>+`).
+    if (insideValueFunctionNode(path, "type") && isAdditionNode(iNextNode)) {
+      continue;
+    }
+
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
