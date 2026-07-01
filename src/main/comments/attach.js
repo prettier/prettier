@@ -256,7 +256,6 @@ function attachComments(ast, options) {
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
-      delete comment.placement;
     }
   }
 }

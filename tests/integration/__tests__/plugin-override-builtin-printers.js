@@ -1,4 +1,5 @@
 import prettier from "../../config/prettier-entry.js";
+import { estree } from "../../../src/language-js/printers.js";
 
 /**
 If plugin matched by parser:
@@ -43,5 +44,54 @@ describe("Allow plugin to override printer if the plugin does not provide one", 
         parser: "babel",
       }),
     ).toBe(expectedOutput);
+  });
+
+  test("keeps comment placement available for plugin printers", async () => {
+    const collectComments = (node, seen = new Set()) => {
+      if (!node || typeof node !== "object" || seen.has(node)) {
+        return [];
+      }
+
+      seen.add(node);
+
+      const comments = Array.isArray(node.comments) ? node.comments : [];
+      for (const comment of comments) {
+        comment.printed = true;
+      }
+      return [
+        ...comments.map(
+          (comment) => `${comment.value.trim()}:${comment.placement}`,
+        ),
+        ...Object.entries(node).flatMap(([key, value]) =>
+          key === "comments" || key === "tokens"
+            ? []
+            : Array.isArray(value)
+              ? value.flatMap((child) => collectComments(child, seen))
+              : collectComments(value, seen),
+        ),
+      ];
+    };
+
+    const output = await prettier.format("// own\nfoo();\nfoo(); // end", {
+      plugins: [
+        {
+          printers: {
+            estree: {
+              ...estree,
+              print(path) {
+                return collectComments(path.node).sort().join("\n");
+              },
+            },
+          },
+        },
+      ],
+      parser: "babel",
+    });
+
+    expect(output).toMatchInlineSnapshot(`
+      "end:remaining
+      own:endOfLine"
+    `);
+    expect(output).not.toContain("undefined");
   });
 });

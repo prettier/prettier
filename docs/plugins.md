@@ -522,7 +522,7 @@ function ownLine(comment, text, options, ast, isLastComment) {
 }
 ```
 
-Nodes with comments are expected to have a `comments` property containing an array of comments. Each comment is expected to have the following properties: `leading`, `trailing`, `printed`.
+Nodes with comments are expected to have a `comments` property containing an array of comments. Each comment is expected to have the following properties: `leading`, `trailing`, `printed`, and `placement`. `placement` is one of `ownLine`, `endOfLine`, or `remaining`.
 
 <!-- TODO: add a note that this might change in the future -->
 
