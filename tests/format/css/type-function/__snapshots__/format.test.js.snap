@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`type-function.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@property --foo {
+  syntax: "<length>+";
+  inherits: false;
+  initial-value: 0px;
+}
+
+div {
+  border-radius: attr(br type(<length>+));
+  width: attr(data-x type(<length>*));
+  height: attr(data-x type(<number>#));
+  margin: attr(data-x type(<length>?));
+  padding: attr(data-x type(<length>!));
+  top: attr(data-x type(<length>+), 10px);
+  left: attr(data-x type(<length>+ <percentage>+));
+}
+
+=====================================output=====================================
+@property --foo {
+  syntax: "<length>+";
+  inherits: false;
+  initial-value: 0px;
+}
+
+div {
+  border-radius: attr(br type(<length>+));
+  width: attr(data-x type(<length>*));
+  height: attr(data-x type(<number>#));
+  margin: attr(data-x type(<length>?));
+  padding: attr(data-x type(<length>!));
+  top: attr(data-x type(<length>+), 10px);
+  left: attr(data-x type(<length>+ <percentage>+));
+}
+
+================================================================================
+`;
