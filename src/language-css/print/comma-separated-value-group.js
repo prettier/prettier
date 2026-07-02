@@ -300,6 +300,18 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const isMathOperator = isMathOperatorNode(iNode);
     const isNextMathOperator = isMathOperatorNode(iNextNode);
 
+    // Don't print a space before a multiplier (e.g. `+`, `*`) in a CSS Values
+    // `type()` syntax string, since a space there is invalid syntax
+    // (i.e. `type(<length>+)`, `type(<color>*)`)
+    // https://drafts.csswg.org/css-values-5/#typedef-syntax
+    if (
+      isNextMathOperator &&
+      hasEmptyRawBefore(iNextNode) &&
+      insideValueFunctionNode(path, "type")
+    ) {
+      continue;
+    }
+
     // Print spaces before and after math operators beside SCSS interpolation as is
     // (i.e. `#{$var}+5`, `#{$var} +5`, `#{$var}+ 5`, `#{$var} + 5`)
     // (i.e. `5+#{$var}`, `5 +#{$var}`, `5+ #{$var}`, `5 + #{$var}`)
