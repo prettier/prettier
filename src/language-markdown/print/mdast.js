@@ -195,11 +195,12 @@ function printMdast(path, options, print) {
       return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
-      let contents;
-      if (options.proseWrap === "preserve") {
-        contents = node.value;
-      } else {
-        contents = node.value.replaceAll(/[\t\n]+/g, " ");
+      let contents = node.value;
+      if (node.data?.alias && node.data.alias !== node.value) {
+        contents += `:${node.data.alias}`;
+      }
+      if (options.proseWrap !== "preserve") {
+        contents = contents.replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
