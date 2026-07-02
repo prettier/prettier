@@ -260,14 +260,12 @@ function handleConditionalExpressionComments({
     if (
       options.experimentalTernaries &&
       enclosingNode.alternate === followingNode &&
-      !(
-        isBlockComment(comment) &&
-        !hasNewlineInRange(
+      (!isBlockComment(comment) ||
+        hasNewlineInRange(
           options.originalText,
           locStart(comment),
           locEnd(comment),
-        )
-      )
+        ))
     ) {
       addDanglingComment(enclosingNode, comment);
       return true;

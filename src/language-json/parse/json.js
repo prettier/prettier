@@ -20,11 +20,10 @@ function parseEmptyJson(text) {
 
   // Not an empty JSON
   /* c8 ignore next */
-  if (!(
-    program.body.length === 0 &&
-    program.directives.length === 0 &&
-    !program.interpreter
-  )) {
+  if (
+    !(program.body.length === 0 && program.directives.length === 0) ||
+    program.interpreter
+  ) {
     return;
   }
 
