@@ -2007,8 +2007,8 @@ const someJSX = (
       <div>Nothing is here</div>
     )}
     As is a non-jsx consequent:
-    {showTheJSXElement ? <div>the stuff</div> : renderOtherStuff()}
-    But if the alternate breaks, add a newline before the closing curly brace:
+    {showTheJSXElement ? <div>the stuff</div> : renderOtherStuff()}But if the
+    alternate breaks, add a newline before the closing curly brace:
     {showTheThing || pleaseShowTheThing ? (
       <Foo attribute="such and such stuff here" />
     ) : (
