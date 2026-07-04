@@ -71,9 +71,7 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("\u{2194}\u{FE0F}")).toBe(2);
   expect(getStringWidth("\u{1F469}")).toBe(2);
   expect(getStringWidth("\u{1F469}\u{1F3FF}")).toBe(2);
-  // Ideally this should be `2`, switch to use `Intl.Segmenter` will fix it
-  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
-  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(3);
+  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(2);
 
   expect(getStringWidth(String.fromCharCode(0))).toBe(0);
   expect(getStringWidth(String.fromCharCode(31))).toBe(0);
@@ -82,6 +80,9 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth(String.fromCharCode(159))).toBe(0);
   expect(getStringWidth("\u001B")).toBe(0);
   expect(getStringWidth("x\u0300")).toBe(1);
+  expect(getStringWidth("ཟླ")).toBe(1);
+  expect(getStringWidth("a\u20DD")).toBe(1);
+  expect(getStringWidth("\u093E")).toBe(1);
 
   expect(getStringWidth("👶")).toBe(2);
   expect(getStringWidth("👶🏽")).toBe(2);
