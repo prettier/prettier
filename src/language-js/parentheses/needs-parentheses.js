@@ -12,6 +12,7 @@ import {
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
+  isJsxElement,
   isMemberExpression,
   isNumericLiteral,
   isObjectExpression,
@@ -200,7 +201,12 @@ function needsParentheses(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || isNullishCoalescing(node);
+          return (
+            isBinaryCastExpression(node) ||
+            (isNullishCoalescing(node) &&
+              (key === "test" ||
+                !conditionalExpressionChainContainsJsx(parent)))
+          );
 
         case "CallExpression":
         case "NewExpression":
@@ -955,6 +961,26 @@ function isPathInForStatementInitializer(path) {
       return true;
     }
     node = parent;
+  }
+
+  return false;
+}
+
+function conditionalExpressionChainContainsJsx(node) {
+  const conditionalExpressions = [node];
+  for (let index = 0; index < conditionalExpressions.length; index++) {
+    const conditionalExpression = conditionalExpressions[index];
+    for (const property of ["test", "consequent", "alternate"]) {
+      const child = conditionalExpression[property];
+
+      if (isJsxElement(child)) {
+        return true;
+      }
+
+      if (child.type === "ConditionalExpression") {
+        conditionalExpressions.push(child);
+      }
+    }
   }
 
   return false;

@@ -140,3 +140,10 @@ cable ? (
 // #3552
 foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
 undefined
+
+// #19533
+const value = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
