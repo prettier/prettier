@@ -55,3 +55,9 @@ function* f2() {
 }
 
 x = class extends (++b) {}
+
+// "MemberExpression" chains starting with "ObjectExpression" (#18653)
+class a18 extends ({}).Foo {}
+class a19 extends ({}.Foo) {}
+class a20 extends ({}).Foo.Bar {}
+class a21 extends ({}.Foo()) {}

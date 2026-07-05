@@ -20,6 +20,7 @@ import {
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
@@ -71,6 +72,28 @@ function needsParentheses(path, options) {
       expression &&
       startsWithNoLookaheadToken(
         expression,
+        (leftmostNode) => leftmostNode === node,
+      )
+    ) {
+      return true;
+    }
+  }
+
+  if (node.type === "ObjectExpression") {
+    // `class A extends ({}).Foo {}` — without parentheses the leading `{`
+    // reads as the class body and some parsers reject the output. When the
+    // object (modulo chain element wrappers) is the entire `superClass`, the
+    // `ClassDeclaration` check in `parent-needs-parentheses.js` already
+    // parenthesizes it.
+    const superClass = path.findAncestor(
+      (node) =>
+        node.type === "ClassDeclaration" || node.type === "ClassExpression",
+    )?.superClass;
+    if (
+      superClass &&
+      stripChainElementWrappers(superClass) !== node &&
+      startsWithNoLookaheadToken(
+        superClass,
         (leftmostNode) => leftmostNode === node,
       )
     ) {
