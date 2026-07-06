@@ -2450,20 +2450,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:3.0.5":
-  version: 3.0.5
-  resolution: "@puppeteer/browsers@npm:3.0.5"
+"@puppeteer/browsers@npm:3.0.6":
+  version: 3.0.6
+  resolution: "@puppeteer/browsers@npm:3.0.6"
   dependencies:
     modern-tar: "npm:^0.7.6"
     yargs: "npm:^18.0.0"
   peerDependencies:
     proxy-agent: ">=8.0.1"
+    yauzl: ^2.10.0 || ^3.4.0
   peerDependenciesMeta:
     proxy-agent:
       optional: true
+    yauzl:
+      optional: true
   bin:
     browsers: lib/main-cli.js
-  checksum: 10/0142371b7607b80b5901ddb225177181c9b4a00be591eb98cd581ab25063ed9935bdd1ef1db30095eb9a17b65024bdf14886d16761744e0097afe60fe2b17f5e
+  checksum: 10/e2507e7ad36323a042a37f8bd80191a020a8a0119c8923edaf589f86be2f7289c140bbb16289408efdf6e7ba82922239e217c1cbc131362a51175dbc2933b5bd
   languageName: node
   linkType: hard
 
@@ -6519,9 +6522,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.21.0":
-  version: 6.21.0
-  resolution: "knip@npm:6.21.0"
+"knip@npm:6.24.0":
+  version: 6.24.0
+  resolution: "knip@npm:6.24.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.3.0"
@@ -6539,7 +6542,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/7171c9abab65aa96a2b87fdb5c59be3ec0f7ef2ffa73e988667e7c74e4cdcd2cbaebfb1cbefe3da83b3bf21f5e94c6d4dc6324b5628f880ec620e90f6dc75f98
+  checksum: 10/409dce647f258810e14744824c87122a3e2f0ca950fb8f42631bb201f23077b5f648c66a761cd1738927375dac2f904d917b8a6f626530ee1b7c55b848925dfe
   languageName: node
   linkType: hard
 
@@ -8245,7 +8248,7 @@ __metadata:
     json-test-suite: "npm:1.0.0"
     json5: "npm:2.2.3"
     jsx-test-suite: "npm:0.0.2"
-    knip: "npm:6.21.0"
+    knip: "npm:6.24.0"
     less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
@@ -8284,7 +8287,7 @@ __metadata:
     prettier: "npm:3.9.4"
     pretty-bytes: "npm:7.1.0"
     pretty-ms: "npm:9.3.0"
-    puppeteer: "npm:25.2.1"
+    puppeteer: "npm:25.3.0"
     regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
@@ -8292,7 +8295,7 @@ __metadata:
     rollup-plugin-license: "npm:3.7.1"
     search-closest: "npm:3.1.0"
     semver: "npm:7.8.5"
-    serialize-javascript: "npm:7.0.6"
+    serialize-javascript: "npm:7.0.7"
     smol-toml: "npm:1.7.0"
     strip-ansi: "npm:7.2.0"
     tempy: "npm:3.2.0"
@@ -8379,33 +8382,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:25.2.1":
-  version: 25.2.1
-  resolution: "puppeteer-core@npm:25.2.1"
+"puppeteer-core@npm:25.3.0":
+  version: 25.3.0
+  resolution: "puppeteer-core@npm:25.3.0"
   dependencies:
-    "@puppeteer/browsers": "npm:3.0.5"
+    "@puppeteer/browsers": "npm:3.0.6"
     chromium-bidi: "npm:16.0.1"
     devtools-protocol: "npm:0.0.1638949"
     typed-query-selector: "npm:^2.12.2"
     webdriver-bidi-protocol: "npm:0.4.2"
     ws: "npm:^8.21.0"
-  checksum: 10/af6d5c22f5528fd440365721266dd6554f74b169e2c6e62adb3b8a1bc4200d8fcd0f22fc6fd50545d80bdfe2ea25316ed6b21d232d9a6d6c88ea3133959ef2fe
+  checksum: 10/2adfe9d9c0b30fbfe926f6af957a4e51a5ae2bf18313b89f3d31b67481d0ac607ad4edef8b4ab68f6ad02a4b7c96f31d63bd4b979b42bac948e7603c4976f9ca
   languageName: node
   linkType: hard
 
-"puppeteer@npm:25.2.1":
-  version: 25.2.1
-  resolution: "puppeteer@npm:25.2.1"
+"puppeteer@npm:25.3.0":
+  version: 25.3.0
+  resolution: "puppeteer@npm:25.3.0"
   dependencies:
-    "@puppeteer/browsers": "npm:3.0.5"
+    "@puppeteer/browsers": "npm:3.0.6"
     chromium-bidi: "npm:16.0.1"
     devtools-protocol: "npm:0.0.1638949"
     lilconfig: "npm:^3.1.3"
-    puppeteer-core: "npm:25.2.1"
+    puppeteer-core: "npm:25.3.0"
     typed-query-selector: "npm:^2.12.2"
   bin:
     puppeteer: lib/puppeteer/node/cli.js
-  checksum: 10/f36104c01a30ad0662e4662d2c37550b81cec3c80453c4affe327501b7d948c311569668d436aab17cd311b2c9a0e66e85b3d6a7944c92ccf0928ea733085cbc
+  checksum: 10/1a1dba7ef5d84d14b5a4201335433f400877b6617f6213fe9680ff17314f42fd7d6a80ba92d371ad5adba780342c632a7b426710a1c5bfd56f79cf9e725d6d58
   languageName: node
   linkType: hard
 
@@ -8655,10 +8658,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:7.0.6":
-  version: 7.0.6
-  resolution: "serialize-javascript@npm:7.0.6"
-  checksum: 10/e3790f5dfd08fd842f2824c3b0c7893e2db55ed23e44293c95501d487522f6eea576fea69a353bf3cee8f30256825cb92b2219380b37693a68bad95c8b0edfbb
+"serialize-javascript@npm:7.0.7":
+  version: 7.0.7
+  resolution: "serialize-javascript@npm:7.0.7"
+  checksum: 10/da427e5660c88c24020cae037883ac234127248c7f972d7e1eb3cea863d89d1816fa4bcf0ecd39f92082c346347ed312c46e50c8473060dcd723bd1891e98942
   languageName: node
   linkType: hard
 
