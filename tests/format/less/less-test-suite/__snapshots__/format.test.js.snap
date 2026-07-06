@@ -8856,8 +8856,10 @@ parsers: ["less"]
   @media (plasma) {
     .me,
     .mf {
-      &:extend(.mb,
-      .md);
+      &:extend(
+        .mb,
+        .md
+      );
       background: red;
     }
   }
