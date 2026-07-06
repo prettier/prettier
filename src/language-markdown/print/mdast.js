@@ -197,7 +197,7 @@ function printMdast(path, options, print) {
     case "wikiLink": {
       let contents = node.value;
       if (node.data?.alias && node.data.alias !== node.value) {
-        contents += `:${node.data.alias}`;
+        contents += `|${node.data.alias}`;
       }
       if (options.proseWrap !== "preserve") {
         contents = contents.replaceAll(/[\t\n]+/g, " ");

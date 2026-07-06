@@ -484,6 +484,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@braindb/micromark-extension-wiki-link@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@braindb/micromark-extension-wiki-link@npm:0.1.0"
+  dependencies:
+    micromark-util-types: "npm:^2.0.0"
+  checksum: 10/d27d138abe21e08f95673d0927187ddcd3955b5dacc9e84a0f2507881e48f148ea83126e034d8afc859d2cc3f5d2ced3cc040bf38b126e89b4a1b6ed32b79434
+  languageName: node
+  linkType: hard
+
 "@cacheable/memory@npm:^2.2.0":
   version: 2.2.0
   resolution: "@cacheable/memory@npm:2.2.0"
@@ -6935,15 +6944,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-wiki-link@npm:0.0.4":
-  version: 0.0.4
-  resolution: "micromark-extension-wiki-link@npm:0.0.4"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.1"
-  checksum: 10/668294fb5069ba869953d05e0cc79029962ba76d068c7288207b6b0ee2273e15059c810d5b7c10f3dcef030f559610ce31aeb4cd6955a0f2f359acdcca719bde
-  languageName: node
-  linkType: hard
-
 "micromark-factory-destination@npm:^2.0.0":
   version: 2.0.1
   resolution: "micromark-factory-destination@npm:2.0.1"
@@ -7944,6 +7944,7 @@ __metadata:
     "@babel/generator": "npm:8.0.0"
     "@babel/parser": "npm:8.0.0"
     "@babel/types": "npm:8.0.0"
+    "@braindb/micromark-extension-wiki-link": "npm:0.1.0"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.12.0"
@@ -8037,7 +8038,6 @@ __metadata:
     meriyah: "npm:7.1.0"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
-    micromark-extension-wiki-link: "npm:0.0.4"
     micromark-util-character: "npm:2.1.1"
     micromark-util-symbol: "npm:2.0.1"
     micromark-util-types: "npm:2.0.2"
