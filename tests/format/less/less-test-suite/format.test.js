@@ -14,7 +14,7 @@ const BUGS = new Set([
   "tests-unit/functions/functions.less",
   "tests-unit/extract-and-length/extract-and-length.less",
   "tests-unit/css-escapes/css-escapes.less",
-  "tests-unit/comments/comments.less"
+  "tests-unit/comments/comments.less",
 ]);
 /* spell-checker: enable */
 
