@@ -15771,6 +15771,131 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/property-name-interp/property-name-interp.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Property name interpolation tests
+pi-test {
+    @prefix: ufo-;
+    @a:    border;
+    @bb:      top;
+    @c_c:    left;
+    @d-d4: radius;
+    @-:         -;
+
+    @var: ~'@not-variable';
+
+    @{a}: 0;
+    @{var}: @var;
+    @{prefix}width: 50%;
+    *-z-@{a} :1px dashed blue;
+    -www-@{a}-@{bb}: 2px;
+    @{d-d4}-is-not-a-@{a}:true;
+    @{a}-@{bb}-@{c_c}-@{d-d4}       : 2em;
+    @{a}@{-}@{bb}@{-}red@{-}@{d-d4}-: 3pt;
+
+    .mixin(mixer);
+    .merge(ish, base);
+}
+
+@global: global;
+
+.mixin(@arg) {
+    @local: local;
+    @{global}-@{local}-@{arg}-property: strong;
+}
+
+.merge(@p, @v) {
+    &-merge {
+        @prefix: pre;
+        @suffix: ish;
+        @{prefix}-property-ish+       :high;
+        pre-property-@{suffix}    +: middle;
+        @{prefix}-property-@{suffix}+:  low;
+        @{prefix}-property-@{p}   +  :   @v;
+
+        @subterfuge: ~'+';
+        pre-property-ish@{subterfuge}: nice try dude;
+    }
+}
+
+pi-indirect-vars {
+    @{p}: @p;
+    @p: @@a;
+    @a: b;
+    @b: auto;
+}
+
+pi-complex-values {
+    @{p}@{p}: none;
+    @p: (1 + 2px) fadeout(#ff0, 50%), pi() /* foo */;
+}
+
+=====================================output=====================================
+// Property name interpolation tests
+pi-test {
+  @prefix: ufo-;
+  @a: border;
+  @bb: top;
+  @c_c: left;
+  @d-d4: radius;
+  @-: -;
+
+  @var: ~"@not-variable";
+
+  @{a}: 0;
+  @{var}: @var;
+  @{prefix}width: 50%;
+  *-z-@{a}: 1px dashed blue;
+  -www-@{a}-@{bb}: 2px;
+  @{d-d4}-is-not-a-@{a}: true;
+  @{a}-@{bb}-@{c_c}-@{d-d4}: 2em;
+  @{a}@{-}@{bb}@{-}red@{-}@{d-d4}-: 3pt;
+
+  .mixin(mixer);
+  .merge(ish, base);
+}
+
+@global: global;
+
+.mixin(@arg) {
+  @local: local;
+  @{global}-@{local}-@{arg}-property: strong;
+}
+
+.merge(@p, @v) {
+  &-merge {
+    @prefix: pre;
+    @suffix: ish;
+    @{prefix}-property-ish+: high;
+    pre-property-@{suffix}+: middle;
+    @{prefix}-property-@{suffix}+: low;
+    @{prefix}-property-@{p}+: @v;
+
+    @subterfuge: ~"+";
+    pre-property-ish@{subterfuge}: nice try dude;
+  }
+}
+
+pi-indirect-vars {
+  @{p}: @p;
+  @p: @@a;
+  @a: b;
+  @b: auto;
+}
+
+pi-complex-values {
+  @{p}@{p}: none;
+  @p:
+    (1 + 2px) fadeout(#ff0, 50%),
+    pi()/* foo */ ;
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/property-targeted/property-targeted.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
