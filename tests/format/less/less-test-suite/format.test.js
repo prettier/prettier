@@ -18,7 +18,6 @@ const BUGS = new Set([
 
   // Ast changed or unstable
   "tests-unit/property-name-interp/property-name-interp.less",
-  "tests-unit/extend-chaining/extend-chaining.less",
 ]);
 /* spell-checker: enable */
 
