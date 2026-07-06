@@ -6947,10 +6947,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:7.1.0":
-  version: 7.1.0
-  resolution: "meriyah@npm:7.1.0"
-  checksum: 10/29740fcd28da0e044e3b60e11605dc006dac637e7588c0f8a2b694b45db10b23950a55553c6d16ed5423bacc9a2260ed6a8ec81582dc7d094627c41ea3428640
+"meriyah@npm:7.1.1":
+  version: 7.1.1
+  resolution: "meriyah@npm:7.1.1"
+  checksum: 10/1b2c0e6e987b758e98020002d5b664a2c81f2cfcc2013131615cca4a3a7a33b291fb595e7bf142d65c7337cf26e6c4d8f20bb24404d301f1ef0a049e39b10d4e
   languageName: node
   linkType: hard
 
@@ -8255,7 +8255,7 @@ __metadata:
     mdast-util-gfm: "npm:3.1.0"
     mdast-util-math: "npm:3.0.0"
     mdast-util-wiki-link: "npm:0.1.2"
-    meriyah: "npm:7.1.0"
+    meriyah: "npm:7.1.1"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-extension-wiki-link: "npm:0.0.4"
