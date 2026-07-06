@@ -46,7 +46,7 @@ Example `package.json`:
     "prettier": ">=3.0.0"
   },
   "devDependencies": {
-    "prettier": "3.9.0"
+    "prettier": "3.9.4"
   }
 }
 ```
@@ -193,7 +193,7 @@ export default config;
     "prettier": ">=3.0.0"
   },
   "devDependencies": {
-    "prettier": "3.9.0"
+    "prettier": "3.9.4"
   }
 }
 ```

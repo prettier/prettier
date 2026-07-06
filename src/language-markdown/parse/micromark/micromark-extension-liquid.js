@@ -33,10 +33,10 @@ function liquidFromMarkdown() {
 
   /** @type {Handle} */
   function exit(token) {
-    const d = this.resume();
+    this.resume();
     /** @type {any} */
     const node = this.stack.at(-1);
-    node.value = d;
+    node.value = this.sliceSerialize(token);
     this.exit(token);
   }
 }
@@ -55,6 +55,9 @@ function liquidSyntax() {
   };
 
   function tokenize(effects, ok, nok) {
+    /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
+    let closingCode;
+
     return start;
 
     /** @type {State} */
@@ -66,6 +69,10 @@ function liquidSyntax() {
         switch (code) {
           case codes.percentSign:
           case codes.leftCurlyBrace:
+            closingCode =
+              code === codes.percentSign
+                ? codes.percentSign
+                : codes.rightCurlyBrace;
             effects.consume(code);
             return inside;
           default:
@@ -77,9 +84,9 @@ function liquidSyntax() {
     /** @type {State} */
     function inside(code) {
       switch (code) {
-        case codes.percentSign:
-        case codes.rightCurlyBrace:
-          return effects.check({ tokenize: tokenizeClose }, close, data)(code);
+        case closingCode:
+          effects.consume(code);
+          return mayClose;
         case codes.eof:
           return nok(code);
         default:
@@ -91,53 +98,21 @@ function liquidSyntax() {
             effects.enter(types.data);
             return inside;
           }
-          return data(code);
+          effects.consume(code);
+          return inside;
       }
     }
 
     /** @type {State} */
-    function data(code) {
-      effects.consume(code);
-      return inside;
-    }
-
-    function tokenizeClose(effects, ok, nok) {
-      return startClose;
-
-      /** @type {State} */
-      function startClose(code) {
-        switch (code) {
-          case codes.percentSign:
-          case codes.rightCurlyBrace:
-            effects.consume(code);
-            return endClose;
-          default:
-            return nok(code);
-        }
-      }
-
-      /** @type {State} */
-      function endClose(code) {
-        if (code !== codes.rightCurlyBrace) {
-          return nok(code);
-        }
+    function mayClose(code) {
+      if (code === codes.rightCurlyBrace) {
         effects.consume(code);
+        effects.exit(types.data);
+        effects.exit(nodeType);
         return ok;
       }
-    }
 
-    /** @type {State} */
-    function close(code) {
-      effects.consume(code);
-      return closeEnd;
-    }
-
-    /** @type {State} */
-    function closeEnd(code) {
-      effects.consume(code);
-      effects.exit(types.data);
-      effects.exit(nodeType);
-      return ok;
+      return inside;
     }
   }
 }

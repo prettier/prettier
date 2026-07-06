@@ -1,3 +1,99 @@
+# 3.9.4
+
+[diff](https://github.com/prettier/prettier/compare/3.9.3...3.9.4)
+
+#### Angular: Format `@content(name)` -> `@content (name)` to align with other block syntax ([#19499](https://github.com/prettier/prettier/pull/19499) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.3 -->
+<FancyButton [label]="title">
+  @content(icon) {
+    <span>Icon!</span>
+  }
+  @content(description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.4 -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+```
+
+# 3.9.3
+
+[diff](https://github.com/prettier/prettier/compare/3.9.1...3.9.3)
+
+#### Markdown: Fix unexpected removal of characters in liquid syntax ([#19489](https://github.com/prettier/prettier/pull/19489) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```md
+// Input
+<!-- Input -->
+{{ page.title
+}} text
+
+<!-- Prettier 3.9.1 -->
+{{ page.title
+ text
+
+<!-- Prettier 3.9.3 -->
+{{ page.title
+}} text
+```
+
+#### TypeScript: Allow decorators to be used with declare on class fields ([#19492](https://github.com/prettier/prettier/pull/19492) by [@evoactivity](https://github.com/evoactivity))
+
+Extensively used within the Ember ecosystem, decorators with `declare` on class fields will ignore the babel parser error and allow Prettier to format the code without breaking it.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+// Prettier 3.9.1
+// SyntaxError: Decorators can't be used with a declare field. (2:3)
+//  1 | export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+//> 2 |   @service declare server: ServerService;
+//    |   ^
+//  3 | }
+
+// Prettier 3.9.3
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+```
+
+# 3.9.1
+
+[diff](https://github.com/prettier/prettier/compare/3.9.0...3.9.1)
+
+#### CLI: Fix ignored file has been cached incorrectly ([#19483](https://github.com/prettier/prettier/pull/19483) by [@kovsu](https://github.com/kovsu))
+
+Bug details https://github.com/prettier/prettier/issues/18016
+
 # 3.9.0
 
 [diff](https://github.com/prettier/prettier/compare/3.8.5...3.9.0)
