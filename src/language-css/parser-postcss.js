@@ -195,6 +195,20 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value, options);
     }
 
+    // Clean spaces in between `+` and `:`
+    // https://lesscss.org/features/#merge-feature
+    if (
+      options.parser === "less" &&
+      node.type === "css-decl" &&
+      typeof node.prop === "string" &&
+      /^\s*\+\s*:/.test(node.raws.between)
+    ) {
+      // Add "+" to prop
+      node.prop += "+";
+      // Only ":" should be left in between
+      node.raws.between = node.raws.between.replace("+", "");
+    }
+
     if (
       options.parser === "less" &&
       node.type === "css-decl" &&

@@ -15,10 +15,6 @@ const BUGS = new Set([
   "tests-unit/extract-and-length/extract-and-length.less",
   "tests-unit/css-escapes/css-escapes.less",
   "tests-unit/comments/comments.less",
-
-  // Ast changed or unstable
-  "tests-unit/property-name-interp/property-name-interp.less",
-  "tests-unit/extend-chaining/extend-chaining.less",
 ]);
 /* spell-checker: enable */
 

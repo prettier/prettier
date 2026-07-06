@@ -2783,7 +2783,7 @@ parsers: ["less"]
   color4: @theme[@nested][color];
   color5: @defaults[@@varToGet];
   prop: #ns1[foo];
-  var: #ns1[ @foo];
+  var: #ns1[@foo];
   sub: #ns1.vars[$sub];
 }
 
@@ -2869,7 +2869,7 @@ parsers: ["less"]
 @import "imports/library.less";
 
 .bar {
-  width: #library.sizes[ @width];
+  width: #library.sizes[@width];
   height: #library.add-one(1px)[@return];
 }
 
@@ -2881,7 +2881,7 @@ parsers: ["less"]
 }
 
 .foo {
-  width: #library.sizes[ @width];
+  width: #library.sizes[@width];
 }
 
 .foods() {
@@ -2891,7 +2891,7 @@ parsers: ["less"]
 @key-to-lookup: dessert;
 
 .lunch {
-  treat: .foods[ @@key-to-lookup];
+  treat: .foods[@@key-to-lookup];
 }
 
 ================================================================================
@@ -2978,7 +2978,7 @@ parsers: ["less"]
 @media (min-width: @breakpoints[mobile]) {
   .toolbar {
     width: @map[@width];
-    height: #ns.mixin[ @height];
+    height: #ns.mixin[@height];
     background: @map[@colors][toolbar-background];
     color: @map[@colors][toolbar-foreground];
   }
@@ -3080,7 +3080,7 @@ parsers: ["less"]
   .colors() {
     #library.core.colors();
   }
-  width: .alias[ @a];
+  width: .alias[@a];
   background: .colors[primary];
   color: .colors[foreground];
 }
@@ -3479,7 +3479,7 @@ parsers: ["less"]
 }
 .example {
   // #lookup[@var](); -- fails, need the following alias
-  @dr: #lookup2[ @var];
+  @dr: #lookup2[@var];
   @dr();
 }
 
@@ -3523,7 +3523,7 @@ parsers: ["less"]
     @small: 600px;
   }
   .breakpoint(@size) {
-    @val: #ns.sizes[ @@size];
+    @val: #ns.sizes[@@size];
     @min: (min-width: @val);
     @max: not all and @min;
   }
@@ -8620,6 +8620,251 @@ parsers: ["less"]
 .bar {
   &:extend(.clearfix all);
   color: blue;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/extend-chaining/extend-chaining.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//very simple chaining
+.a {
+  color: black;
+}
+.b:extend(.a) {}
+.c:extend(.b) {}
+
+//very simple chaining, ordering not important
+
+.d:extend(.e) {}
+.e:extend(.f) {}
+.f {
+  color: black;
+}
+
+//extend with all
+
+.g.h {
+  color: black;
+}
+.i.j:extend(.g all) {
+  color: inherit;
+}
+.k:extend(.i all) {}
+
+//extend multi-chaining
+
+.l {
+  color: black;
+}
+.m:extend(.l){}
+.n:extend(.m){}
+.o:extend(.n){}
+.p:extend(.o){}
+.q:extend(.p){}
+.r:extend(.q){}
+.s:extend(.r){}
+.t:extend(.s){}
+
+// self referencing is ignored
+
+.u {color: black;}
+.v.u.v:extend(.u all){}
+
+// circular reference because the new extend product will match the existing extend
+
+.w:extend(.w) {color: black;}
+.v.w.v:extend(.w all){}
+
+// classic circular references
+
+.x:extend(.z) {
+  color: x;
+}
+.y:extend(.x) {
+  color: y;
+}
+.z:extend(.y) {
+  color: z;
+}
+
+//very simple chaining, but with the extend inside the ruleset
+.va {
+  color: black;
+}
+.vb {
+  &:extend(.va);
+  color: inherit;
+}
+.vc {
+  &:extend(.vb);
+}
+
+// media queries - don't extend outside, do extend inside
+
+@media (tv) {
+  .ma:extend(.a,.b,.c,.d,.e,.f,.g,.h,.i,.j,.k,.l,.m,.n,.o,.p,.q,.r,.s,.t,.u,.v,.w,.x,.y,.z,.md) {
+    color: black;
+  }
+  .md {
+    color: inherit;
+  }
+  @media (plasma) {
+    .me, .mf {
+      &:extend(.mb,.md);
+      background: red;
+    }
+  }
+}
+.mb:extend(.ma) {};
+.mc:extend(.mb) {};
+
+
+=====================================output=====================================
+//very simple chaining
+.a {
+  color: black;
+}
+.b:extend(.a) {
+}
+.c:extend(.b) {
+}
+
+//very simple chaining, ordering not important
+
+.d:extend(.e) {
+}
+.e:extend(.f) {
+}
+.f {
+  color: black;
+}
+
+//extend with all
+
+.g.h {
+  color: black;
+}
+.i.j:extend(.g all) {
+  color: inherit;
+}
+.k:extend(.i all) {
+}
+
+//extend multi-chaining
+
+.l {
+  color: black;
+}
+.m:extend(.l) {
+}
+.n:extend(.m) {
+}
+.o:extend(.n) {
+}
+.p:extend(.o) {
+}
+.q:extend(.p) {
+}
+.r:extend(.q) {
+}
+.s:extend(.r) {
+}
+.t:extend(.s) {
+}
+
+// self referencing is ignored
+
+.u {
+  color: black;
+}
+.v.u.v:extend(.u all) {
+}
+
+// circular reference because the new extend product will match the existing extend
+
+.w:extend(.w) {
+  color: black;
+}
+.v.w.v:extend(.w all) {
+}
+
+// classic circular references
+
+.x:extend(.z) {
+  color: x;
+}
+.y:extend(.x) {
+  color: y;
+}
+.z:extend(.y) {
+  color: z;
+}
+
+//very simple chaining, but with the extend inside the ruleset
+.va {
+  color: black;
+}
+.vb {
+  &:extend(.va);
+  color: inherit;
+}
+.vc {
+  &:extend(.vb);
+}
+
+// media queries - don't extend outside, do extend inside
+
+@media (tv) {
+  .ma:extend(
+    .a,
+    .b,
+    .c,
+    .d,
+    .e,
+    .f,
+    .g,
+    .h,
+    .i,
+    .j,
+    .k,
+    .l,
+    .m,
+    .n,
+    .o,
+    .p,
+    .q,
+    .r,
+    .s,
+    .t,
+    .u,
+    .v,
+    .w,
+    .x,
+    .y,
+    .z,
+    .md
+  ) {
+    color: black;
+  }
+  .md {
+    color: inherit;
+  }
+  @media (plasma) {
+    .me,
+    .mf {
+      &:extend(.mb,
+      .md);
+      background: red;
+    }
+  }
+}
+.mb:extend(.ma) {
+}
+.mc:extend(.mb) {
 }
 
 ================================================================================
@@ -15522,6 +15767,131 @@ parsers: ["less"]
 }
 
 @stop: end;
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/property-name-interp/property-name-interp.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Property name interpolation tests
+pi-test {
+    @prefix: ufo-;
+    @a:    border;
+    @bb:      top;
+    @c_c:    left;
+    @d-d4: radius;
+    @-:         -;
+
+    @var: ~'@not-variable';
+
+    @{a}: 0;
+    @{var}: @var;
+    @{prefix}width: 50%;
+    *-z-@{a} :1px dashed blue;
+    -www-@{a}-@{bb}: 2px;
+    @{d-d4}-is-not-a-@{a}:true;
+    @{a}-@{bb}-@{c_c}-@{d-d4}       : 2em;
+    @{a}@{-}@{bb}@{-}red@{-}@{d-d4}-: 3pt;
+
+    .mixin(mixer);
+    .merge(ish, base);
+}
+
+@global: global;
+
+.mixin(@arg) {
+    @local: local;
+    @{global}-@{local}-@{arg}-property: strong;
+}
+
+.merge(@p, @v) {
+    &-merge {
+        @prefix: pre;
+        @suffix: ish;
+        @{prefix}-property-ish+       :high;
+        pre-property-@{suffix}    +: middle;
+        @{prefix}-property-@{suffix}+:  low;
+        @{prefix}-property-@{p}   +  :   @v;
+
+        @subterfuge: ~'+';
+        pre-property-ish@{subterfuge}: nice try dude;
+    }
+}
+
+pi-indirect-vars {
+    @{p}: @p;
+    @p: @@a;
+    @a: b;
+    @b: auto;
+}
+
+pi-complex-values {
+    @{p}@{p}: none;
+    @p: (1 + 2px) fadeout(#ff0, 50%), pi() /* foo */;
+}
+
+=====================================output=====================================
+// Property name interpolation tests
+pi-test {
+  @prefix: ufo-;
+  @a: border;
+  @bb: top;
+  @c_c: left;
+  @d-d4: radius;
+  @-: -;
+
+  @var: ~"@not-variable";
+
+  @{a}: 0;
+  @{var}: @var;
+  @{prefix}width: 50%;
+  *-z-@{a}: 1px dashed blue;
+  -www-@{a}-@{bb}: 2px;
+  @{d-d4}-is-not-a-@{a}: true;
+  @{a}-@{bb}-@{c_c}-@{d-d4}: 2em;
+  @{a}@{-}@{bb}@{-}red@{-}@{d-d4}-: 3pt;
+
+  .mixin(mixer);
+  .merge(ish, base);
+}
+
+@global: global;
+
+.mixin(@arg) {
+  @local: local;
+  @{global}-@{local}-@{arg}-property: strong;
+}
+
+.merge(@p, @v) {
+  &-merge {
+    @prefix: pre;
+    @suffix: ish;
+    @{prefix}-property-ish+: high;
+    pre-property-@{suffix}+: middle;
+    @{prefix}-property-@{suffix}+: low;
+    @{prefix}-property-@{p}+: @v;
+
+    @subterfuge: ~"+";
+    pre-property-ish@{subterfuge}: nice try dude;
+  }
+}
+
+pi-indirect-vars {
+  @{p}: @p;
+  @p: @@a;
+  @a: b;
+  @b: auto;
+}
+
+pi-complex-values {
+  @{p}@{p}: none;
+  @p:
+    (1 + 2px) fadeout(#ff0, 50%),
+    pi()/* foo */ ;
+}
 
 ================================================================================
 `;
