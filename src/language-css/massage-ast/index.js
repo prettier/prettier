@@ -56,6 +56,13 @@ function massageAstNode(original, cloned, parent) {
 
   if (original.type === "css-rule") {
     delete cloned.params;
+
+    // postcss-less only marks single-line `:extend()` selectors, so formatted
+    // multiline selectors lose `extend` and fail AST comparison.
+    // https://github.com/shellscape/postcss-less/blob/v6.0.0/lib/LessParser.js#L182-L186
+    if (original.extend && hasLessExtendSelector(original.selector)) {
+      delete cloned.extend;
+    }
   }
 
   if (
@@ -248,6 +255,14 @@ massageAstNode.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
+}
+
+function hasLessExtendSelector(selector) {
+  return selector?.nodes?.some((selectorNode) =>
+    selectorNode.nodes?.some(
+      (node) => node.type === "selector-pseudo" && node.value === ":extend",
+    ),
+  );
 }
 
 export { massageAstNode };

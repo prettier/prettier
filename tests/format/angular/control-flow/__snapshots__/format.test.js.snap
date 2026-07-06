@@ -90,16 +90,64 @@ parsers: ["angular"]
   <span>Other children</span>
    </FancyButton>
 
+<FancyButton [label]="title">
+      @content (items; let item, index) {
+        <span>#{{index}}: {{item}}</span>
+      }
+    </FancyButton>
+
+<FancyList>
+            @content (renderHeader; let _) {
+              <span>Header Content</span>
+            }
+          </FancyList>
+
+<FancyTable>
+            @content (renderRow; let row, idx, isLast) {
+              <span>{{ idx }} - {{ row }} (Last: {{ isLast }})</span>
+            }
+          </FancyTable>
+
+<DynamicIf [injector]="injector" [cond]="visible">
+            @content (children; let result) {
+              <child>{{ result }}</child>
+            }
+          </DynamicIf>
+
 =====================================output=====================================
 <FancyButton [label]="title">
-  @content(icon) {
+  @content (icon) {
     <span>Icon!</span>
   }
-  @content(description) {
+  @content (description) {
     <span>Description text</span>
   }
   <span>Other children</span>
 </FancyButton>
+
+<FancyButton [label]="title">
+  @content (items; let item, index) {
+    <span>#{{ index }}: {{ item }}</span>
+  }
+</FancyButton>
+
+<FancyList>
+  @content (renderHeader; let _) {
+    <span>Header Content</span>
+  }
+</FancyList>
+
+<FancyTable>
+  @content (renderRow; let row, idx, isLast) {
+    <span>{{ idx }} - {{ row }} (Last: {{ isLast }})</span>
+  }
+</FancyTable>
+
+<DynamicIf [injector]="injector" [cond]="visible">
+  @content (children; let result) {
+    <child>{{ result }}</child>
+  }
+</DynamicIf>
 
 ================================================================================
 `;
