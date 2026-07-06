@@ -8380,10 +8380,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:17.0.1":
-  version: 17.0.1
-  resolution: "graphql@npm:17.0.1"
-  checksum: 10/f59d39448ec380e0378958cf834905e12e86cbcbe06bc6739a3d903b575f30a87cffee98bd838c40d2546253278e3faf0c4ec848817cda17f663185c511a80ae
+"graphql@npm:17.0.2":
+  version: 17.0.2
+  resolution: "graphql@npm:17.0.2"
+  checksum: 10/e3760187b08cafd0755cc504bf272623cba8a05c29671c9ec5709fe634aaf62011a98e7831f67add3775261a0617e1b0d548da99ab70532b72d6dd5e1f0915ca
   languageName: node
   linkType: hard
 
@@ -12974,7 +12974,7 @@ __metadata:
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:10.0.3"
     github-buttons: "npm:2.32.0"
-    graphql: "npm:17.0.1"
+    graphql: "npm:17.0.2"
     lz-string: "npm:1.5.0"
     package-dependencies-tree: "npm:0.0.1"
     prism-react-renderer: "npm:2.4.1"
