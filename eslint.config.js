@@ -348,6 +348,7 @@ const configs = [
       ],
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
+      "unicorn/prefer-simplified-conditions": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/relative-url-style": "off",
