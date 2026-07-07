@@ -4,6 +4,8 @@ export type { B as C } from './a';
 export type { foo } from 'bar';
 export type { foo };
 
+export { type /* comment */ T } from 'foo';
+
 // this should be treated as a normal import statement
 import type from './foo';
 

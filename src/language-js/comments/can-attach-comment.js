@@ -55,7 +55,7 @@ const isChildWontPrint = (node, [parent]) =>
     parent.imported !== parent.local) ||
   (parent?.type === "ExportSpecifier" &&
     isShorthandSpecifier(parent) &&
-    parent.local === node &&
+    parent.exported === node &&
     parent.local !== parent.exported);
 
 /**
