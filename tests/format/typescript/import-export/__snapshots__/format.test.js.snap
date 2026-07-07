@@ -110,6 +110,9 @@ export type { foo };
 export { type /* comment */ T } from 'foo';
 import { type /* comment */ T } from 'foo';
 
+export { /* e1 */ type /* e2 */ T /* e3 */ as /* e4 */ U /* e5 */ } from 'foo';
+import { /* i1 */ type /* i2 */ T /* i3 */ as /* i4 */ U /* i5 */ } from 'foo';
+
 // this should be treated as a normal import statement
 import type from './foo';
 
@@ -128,6 +131,9 @@ export type { foo };
 
 export { type /* comment */ T } from "foo";
 import { type /* comment */ T } from "foo";
+
+export { /* e1 */ type /* e2 */ T /* e3 */ as /* e4 */ U /* e5 */ } from "foo";
+import { /* i1 */ type /* i2 */ T /* i3 */ as /* i4 */ U /* i5 */ } from "foo";
 
 // this should be treated as a normal import statement
 import type from "./foo";
