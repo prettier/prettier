@@ -4564,9 +4564,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unicorn@npm:71.0.0":
-  version: 71.0.0
-  resolution: "eslint-plugin-unicorn@npm:71.0.0"
+"eslint-plugin-unicorn@npm:71.1.0":
+  version: 71.1.0
+  resolution: "eslint-plugin-unicorn@npm:71.1.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.9.1"
     browserslist: "npm:^4.28.4"
@@ -4587,7 +4587,7 @@ __metadata:
     strip-indent: "npm:^4.1.1"
   peerDependencies:
     eslint: ">=10.4"
-  checksum: 10/014611814c63117d3b800e773e90fc4dcc18c4d1bba3c3cec14984a55aa9e4ee632ffe70017827d3517f67da88ecb6684d45efee0eb83270d85341dedaed158f
+  checksum: 10/1432ad58b96f9eea6d2bc3c24b5e8e636a431305ef4925da7ebcede22dbd287cbb5158bf1b321477baefe4de20d194928a9ee21a59fcdf717b86a7267a9e5968
   languageName: node
   linkType: hard
 
@@ -8290,7 +8290,7 @@ __metadata:
     eslint-plugin-n: "npm:18.2.1"
     eslint-plugin-regexp: "npm:3.1.1"
     eslint-plugin-simple-import-sort: "npm:13.0.0"
-    eslint-plugin-unicorn: "npm:71.0.0"
+    eslint-plugin-unicorn: "npm:71.1.0"
     esm-utils: "npm:4.4.2"
     espree: "npm:11.2.0"
     fast-glob: "npm:3.3.3"
