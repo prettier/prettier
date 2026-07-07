@@ -15,9 +15,12 @@ async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
 
-  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
-    context,
-  )) {
+  for await (const {
+    filePath,
+    ignoreUnknown,
+    error,
+    globPattern,
+  } of expandPatternsInternal(context)) {
     noResults = false;
     if (error) {
       yield { error };
@@ -32,7 +35,7 @@ async function* expandPatterns(context) {
     }
 
     seen.add(filename);
-    yield { filename, ignoreUnknown };
+    yield { filename, ignoreUnknown, globPattern };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -131,7 +134,15 @@ async function* expandPatternsInternal(context) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      yield* sortPaths(result).map((filePath) => ({ filePath, ignoreUnknown }));
+      // Remember which explicit glob each file came from, so the caller can
+      // warn when a glob matches only files that are later filtered out by an
+      // ignore file (`.prettierignore`).
+      const globPattern = type === "glob" ? input : undefined;
+      yield* sortPaths(result).map((filePath) => ({
+        filePath,
+        ignoreUnknown,
+        globPattern,
+      }));
     }
   }
 }

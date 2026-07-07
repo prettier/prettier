@@ -303,9 +303,16 @@ async function formatFiles(context) {
   // See https://github.com/prettier/prettier/issues/5801
   const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
 
-  for await (const { error, filename, ignoreUnknown } of expandPatterns(
-    context,
-  )) {
+  // Track, per explicit glob pattern, how many matched files were filtered out
+  // by an ignore file, so we can warn when a glob matches only ignored files.
+  const globIgnoreStats = new Map();
+
+  for await (const {
+    error,
+    filename,
+    ignoreUnknown,
+    globPattern,
+  } of expandPatterns(context)) {
     if (error) {
       context.logger.error(error);
       // Don't exit, but set the exit code to 2
@@ -314,6 +321,19 @@ async function formatFiles(context) {
     }
 
     const isFileIgnored = isIgnored(filename);
+
+    if (globPattern !== undefined) {
+      const stats = globIgnoreStats.get(globPattern) ?? {
+        total: 0,
+        ignored: 0,
+      };
+      stats.total += 1;
+      if (isFileIgnored) {
+        stats.ignored += 1;
+      }
+      globIgnoreStats.set(globPattern, stats);
+    }
+
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
@@ -463,6 +483,22 @@ async function formatFiles(context) {
         context.logger.log(fileNameToDisplay);
       }
       numberOfUnformattedFilesFound += 1;
+    }
+  }
+
+  // Warn about explicit globs that matched files but had all of them filtered
+  // out by an ignore file. Directories (e.g. `prettier .`) don't set a glob
+  // pattern, so the common `prettier --check .` usage is never warned about.
+  if (context.argv.errorOnUnmatchedPattern !== false) {
+    for (const [globPattern, { total, ignored }] of globIgnoreStats) {
+      if (total > 0 && total === ignored) {
+        const patternToDisplay = normalizeToPosix(
+          path.relative(cwd, path.resolve(globPattern)),
+        );
+        context.logger.warn(
+          `All files matching the pattern "${patternToDisplay}" are ignored.`,
+        );
+      }
     }
   }
 
