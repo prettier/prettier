@@ -1,4 +1,4 @@
 name: "CodeQL config"
 paths-ignore:
-  - tests/format/**/*
-  - tests/integration/cli/**/*
+  - "tests/format/**/*"
+  - "tests/integration/cli/**/*"
