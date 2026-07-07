@@ -506,12 +506,28 @@ singleQuote: true
 
 [[Foo|Bar]]
 
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
 =====================================output=====================================
 [[Foo:Bar]]
 
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
 
 ================================================================================
 `;
@@ -528,12 +544,28 @@ proseWrap: "always"
 
 [[Foo|Bar]]
 
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
 =====================================output=====================================
 [[Foo:Bar]]
 
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
 
 ================================================================================
 `;
@@ -550,12 +582,28 @@ proseWrap: "never"
 
 [[Foo|Bar]]
 
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
 =====================================output=====================================
 [[Foo:Bar]]
 
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
 
 ================================================================================
 `;
@@ -572,12 +620,28 @@ proseWrap: "preserve"
 
 [[Foo|Bar]]
 
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
 =====================================output=====================================
 [[Foo:Bar]]
 
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
 
 ================================================================================
 `;

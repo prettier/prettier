@@ -1,7 +1,8 @@
+
+import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
-import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import parseFrontMatter from "../../main/front-matter/parse.js";

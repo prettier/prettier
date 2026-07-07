@@ -417,13 +417,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.1":
-  version: 7.29.7
-  resolution: "@babel/runtime@npm:7.29.7"
-  checksum: 10/9883b4951787779fd382b121f22f92966d85f19434841f65fb00b2dfec232107e139683f47c6f252891826ad8ee18317b46c3a0e4819116a9885f47b46d7126a
-  languageName: node
-  linkType: hard
-
 "@babel/template@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/template@npm:7.29.7"
@@ -481,6 +474,17 @@ __metadata:
   version: 1.0.2
   resolution: "@bcoe/v8-coverage@npm:1.0.2"
   checksum: 10/46600b2dde460269b07a8e4f12b72e418eae1337b85c979f43af3336c9a1c65b04e42508ab6b245f1e0e3c64328e1c38d8cd733e4a7cebc4fbf9cf65c6e59937
+  languageName: node
+  linkType: hard
+
+"@braindb/mdast-util-wiki-link@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@braindb/mdast-util-wiki-link@npm:0.2.0"
+  dependencies:
+    "@types/unist": "npm:^3.0.2"
+    mdast-util-from-markdown: "npm:^2.0.0"
+    mdast-util-to-markdown: "npm:^2.1.0"
+  checksum: 10/0950ec4c0f2432f9eab4df2817dffc7d44360409737ef6f2e519247c8fad286dc6cb4297d3bce884804ac55c0dc4077e727dae65aea17ae4790cefef6886e662
   languageName: node
   linkType: hard
 
@@ -2708,7 +2712,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/unist@npm:*, @types/unist@npm:^3.0.0":
+"@types/unist@npm:*, @types/unist@npm:^3.0.0, @types/unist@npm:^3.0.2":
   version: 3.0.3
   resolution: "@types/unist@npm:3.0.3"
   checksum: 10/96e6453da9e075aaef1dc22482463898198acdc1eeb99b465e65e34303e2ec1e3b1ed4469a9118275ec284dc98019f63c3f5d49422f0e4ac707e5ab90fb3b71a
@@ -6704,13 +6708,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"longest-streak@npm:^2.0.0":
-  version: 2.0.4
-  resolution: "longest-streak@npm:2.0.4"
-  checksum: 10/28b8234a14963002c5c71035dee13a0a11e9e9d18ffa320fdc8796ed7437399204495702ed69cd2a7087b0af041a2a8b562829b7c1e2042e73a3374d1ecf6580
-  languageName: node
-  linkType: hard
-
 "longest-streak@npm:^3.0.0":
   version: 3.1.0
   resolution: "longest-streak@npm:3.1.0"
@@ -6934,20 +6931,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-markdown@npm:^0.6.5":
-  version: 0.6.5
-  resolution: "mdast-util-to-markdown@npm:0.6.5"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    longest-streak: "npm:^2.0.0"
-    mdast-util-to-string: "npm:^2.0.0"
-    parse-entities: "npm:^2.0.0"
-    repeat-string: "npm:^1.0.0"
-    zwitch: "npm:^1.0.0"
-  checksum: 10/e1fdb7a75f59166abe5d9d26fed5e04cd40bc6ab54cba239350f70c92df093106b9462660a1891210e9d52b2729c14fc107605127e25837b0a4ad74fbdfbd328
-  languageName: node
-  linkType: hard
-
 "mdast-util-to-markdown@npm:^2.0.0, mdast-util-to-markdown@npm:^2.1.0":
   version: 2.1.2
   resolution: "mdast-util-to-markdown@npm:2.1.2"
@@ -6965,29 +6948,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-string@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mdast-util-to-string@npm:2.0.0"
-  checksum: 10/0b2113ada10e002fbccb014170506dabe2f2ddacaacbe4bc1045c33f986652c5a162732a2c057c5335cdb58419e2ad23e368e5be226855d4d4e280b81c4e9ec2
-  languageName: node
-  linkType: hard
-
 "mdast-util-to-string@npm:^4.0.0":
   version: 4.0.0
   resolution: "mdast-util-to-string@npm:4.0.0"
   dependencies:
     "@types/mdast": "npm:^4.0.0"
   checksum: 10/f4a5dbb9ea03521d7d3e26a9ba5652a1d6fbd55706dddd2155427517085688830e0ecd3f12418cfd40892640886eb39a4034c3c967d85e01e2fa64cfb53cff05
-  languageName: node
-  linkType: hard
-
-"mdast-util-wiki-link@npm:0.1.2":
-  version: 0.1.2
-  resolution: "mdast-util-wiki-link@npm:0.1.2"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.1"
-    mdast-util-to-markdown: "npm:^0.6.5"
-  checksum: 10/80a4dd00f412f68d26cb0b23ef6c0efdec9d2b429614dda325eebdffb5c8d91c5c93037965afc29595b02f3fb10b691bd9e65d313a82ccc828074474055610db
   languageName: node
   linkType: hard
 
@@ -8244,6 +8210,7 @@ __metadata:
     "@babel/generator": "npm:8.0.0"
     "@babel/parser": "npm:8.0.0"
     "@babel/types": "npm:8.0.0"
+    "@braindb/mdast-util-wiki-link": "npm:0.2.0"
     "@braindb/micromark-extension-wiki-link": "npm:0.1.0"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
@@ -8334,7 +8301,6 @@ __metadata:
     mdast-util-from-markdown: "npm:2.0.3"
     mdast-util-gfm: "npm:3.1.0"
     mdast-util-math: "npm:3.0.0"
-    mdast-util-wiki-link: "npm:0.1.2"
     meriyah: "npm:7.1.1"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
@@ -8617,7 +8583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"repeat-string@npm:^1.0.0, repeat-string@npm:^1.5.4":
+"repeat-string@npm:^1.5.4":
   version: 1.6.1
   resolution: "repeat-string@npm:1.6.1"
   checksum: 10/1b809fc6db97decdc68f5b12c4d1a671c8e3f65ec4a40c238bc5200e44e85bcc52a54f78268ab9c29fcf5fe4f1343e805420056d1f30fa9a9ee4c2d93e3cc6c0
@@ -10191,13 +10157,6 @@ __metadata:
   version: 4.4.3
   resolution: "zod@npm:4.4.3"
   checksum: 10/804b9a42aa8f35f2b3c5a8dff906291cb749115f83ee2afe3576d70b5b5c53c965365c7f4967690647a9c54af9838ff232a85ff9577a0a36c44b68bc6cdefe36
-  languageName: node
-  linkType: hard
-
-"zwitch@npm:^1.0.0":
-  version: 1.0.5
-  resolution: "zwitch@npm:1.0.5"
-  checksum: 10/28a1bebacab3bc60150b6b0a2ba1db2ad033f068e81f05e4892ec0ea13ae63f5d140a1d692062ac0657840c8da076f35b94433b5f1c329d7803b247de80f064a
   languageName: node
   linkType: hard
 
