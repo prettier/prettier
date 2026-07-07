@@ -483,7 +483,7 @@ function genericPrint(path, options, print) {
       );
 
       // Nested SCSS property
-      if (ruleAncestorNode?.isSCSSNesterProperty) {
+      if (ruleAncestorNode?.isScssNestedProperty) {
         return adjustNumbers(
           adjustStrings(maybeToLowerCase(node.value), options),
         );
