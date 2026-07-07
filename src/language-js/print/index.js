@@ -83,7 +83,12 @@ function print(path, options, print, args) {
       ? printDecorators(path, options, print)
       : "";
 
-  const needsParens = needsParentheses(path, options);
+  const needsParens =
+    args?.shouldOmitJsxModeConditionalBranchParens &&
+    node.type === "LogicalExpression" &&
+    node.operator === "??"
+      ? false
+      : needsParentheses(path, options);
 
   if (!decoratorsDoc && !needsParens) {
     return doc;

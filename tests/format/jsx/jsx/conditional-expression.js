@@ -77,6 +77,13 @@ jsxModeFromElementBreaking ? (
   </div>
 );
 
+// #19533
+const nullishInJsxModeAlternate = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
+
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
 // non-breaking.

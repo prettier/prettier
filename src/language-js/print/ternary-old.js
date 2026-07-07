@@ -14,6 +14,7 @@ import {
   isJsxElement,
   isMemberExpression,
 } from "../utilities/node-types.js";
+import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
@@ -259,15 +260,26 @@ function printTernaryOld(path, options, print) {
       (node.type === "Literal" && node.value === null) ||
       (node.type === "Identifier" && node.name === "undefined");
 
+    const printJsxModeBranch = (nodePropertyName) => {
+      const branchNode = node[nodePropertyName];
+      if (!isNullishCoalescing(branchNode)) {
+        return print(nodePropertyName);
+      }
+
+      return print(nodePropertyName, {
+        shouldOmitJsxModeConditionalBranchParens: true,
+      });
+    };
+
     parts.push(
       " ? ",
       isNil(consequentNode)
         ? print(consequentNodePropertyName)
-        : wrap(print(consequentNodePropertyName)),
+        : wrap(printJsxModeBranch(consequentNodePropertyName)),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName)),
+        : wrap(printJsxModeBranch(alternateNodePropertyName)),
     );
   } else {
     /*
