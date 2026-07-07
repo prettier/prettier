@@ -5,6 +5,7 @@ export type { foo } from 'bar';
 export type { foo };
 
 export { type /* comment */ T } from 'foo';
+import { type /* comment */ T } from 'foo';
 
 // this should be treated as a normal import statement
 import type from './foo';
