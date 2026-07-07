@@ -3346,7 +3346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"baseline-browser-mapping@npm:^2.10.38, baseline-browser-mapping@npm:^2.10.42":
+"baseline-browser-mapping@npm:^2.10.42":
   version: 2.10.42
   resolution: "baseline-browser-mapping@npm:2.10.42"
   bin:
@@ -3412,22 +3412,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.28.4":
-  version: 4.28.4
-  resolution: "browserslist@npm:4.28.4"
-  dependencies:
-    baseline-browser-mapping: "npm:^2.10.38"
-    caniuse-lite: "npm:^1.0.30001799"
-    electron-to-chromium: "npm:^1.5.376"
-    node-releases: "npm:^2.0.48"
-    update-browserslist-db: "npm:^1.2.3"
-  bin:
-    browserslist: cli.js
-  checksum: 10/beb030f5b301b6af3fc7df3291d56f9edb34b7e4bd3cdc50d379c84c3410ad1ba013602952bcec1d98af940cf6596609fc81ef09d200f7f2e25e9f84d9d38201
-  languageName: node
-  linkType: hard
-
-"browserslist@npm:^4.24.0, browserslist@npm:^4.25.2, browserslist@npm:^4.28.1, browserslist@npm:^4.28.4":
+"browserslist@npm:4.28.5, browserslist@npm:^4.24.0, browserslist@npm:^4.25.2, browserslist@npm:^4.28.1, browserslist@npm:^4.28.4":
   version: 4.28.5
   resolution: "browserslist@npm:4.28.5"
   dependencies:
@@ -3551,7 +3536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001799, caniuse-lite@npm:^1.0.30001800":
+"caniuse-lite@npm:^1.0.30001800":
   version: 1.0.30001802
   resolution: "caniuse-lite@npm:1.0.30001802"
   checksum: 10/496fd430cf348fb175a794a641a525a7ecf332f7118133ba2faacc820f556f8e8a314aec7f422e0636ffc346525e33e3bf1ba520c3898ed70c380e41d00e534f
@@ -4196,7 +4181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.5.376, electron-to-chromium@npm:^1.5.387":
+"electron-to-chromium@npm:^1.5.387":
   version: 1.5.387
   resolution: "electron-to-chromium@npm:1.5.387"
   checksum: 10/987c002c3a8e08b33977ae4130c7a67a7047c69120b1240cbaedd0a2b72e9a67d32c52d2644b521092dbb2ce058129690f77fd376e58d895cdba12a9eddea689
@@ -7538,7 +7523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-releases@npm:^2.0.48, node-releases@npm:^2.0.50":
+"node-releases@npm:^2.0.50":
   version: 2.0.50
   resolution: "node-releases@npm:2.0.50"
   checksum: 10/c40306176fc9d43d27b919034fab57ab0753448dfcabeb1ae669128d28f595fba4c329a269b2d7fa9bb7d5a6d2bda8b2bd8fe5e8446226bb809f448fec2e80fb
@@ -8261,7 +8246,7 @@ __metadata:
     angular-estree-parser: "npm:15.5.0"
     angular-html-parser: "npm:10.10.0"
     base64-arraybuffer-es6: "npm:3.1.0"
-    browserslist: "npm:4.28.4"
+    browserslist: "npm:4.28.5"
     browserslist-to-esbuild: "npm:2.1.1"
     buffer: "npm:6.0.3"
     c8: "npm:11.0.0"
