@@ -1,4 +1,3 @@
-
 import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
 import { fromMarkdown } from "mdast-util-from-markdown";
