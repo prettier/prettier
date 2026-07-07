@@ -273,6 +273,7 @@ function UsersSection() {
         <img
           src={user.greyImage}
           title={user.caption}
+          alt={user.caption}
           className={styles.userItemImage}
         />
       </a>
