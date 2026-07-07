@@ -470,7 +470,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     // Add `space` before next math operation
-    // Note: `grip` property have `/` delimiter and it is not math operation, so
+    // Note: `grid` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
     if (isNextMathOperator) {
       parts.push([parts.pop(), " "]);
