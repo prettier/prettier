@@ -17,7 +17,7 @@ import parseValue from "./parse/parse-value.js";
 import { addTypePrefix } from "./parse/utilities.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
-import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
+import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
@@ -153,8 +153,8 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node, options)) {
-        node.isSCSSNesterProperty = true;
+      if (isScssNestedPropertyNode(node, options)) {
+        node.isScssNestedProperty = true;
       }
 
       node.selector = parseSelector(selector);
