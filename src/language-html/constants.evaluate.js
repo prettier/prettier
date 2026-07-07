@@ -45,18 +45,12 @@ const CSS_DISPLAY_TAGS = {
   script: "block",
   param: "block",
 
-  // `noscript` is inline
-  // noscript: "inline",
-
   // there's no CSS display for these elements but they behave these ways
   meter: "inline-block",
   progress: "inline-block",
   object: "inline-block",
   video: "inline-block",
   audio: "inline-block",
-  select: "inline-block",
-  option: "block",
-  optgroup: "block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
