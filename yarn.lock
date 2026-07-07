@@ -5407,10 +5407,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-ua-styles@npm:0.4.0":
-  version: 0.4.0
-  resolution: "html-ua-styles@npm:0.4.0"
-  checksum: 10/0dfaaae30247b7781376a8190cd78fd4a7fd02c7c088f6049df1ea717dbfd3ef09ca53e3102e28e37277c1ee4da9ef228755fd56ebbd513bbd8428c5c79efbd7
+"html-ua-styles@npm:0.5.0":
+  version: 0.5.0
+  resolution: "html-ua-styles@npm:0.5.0"
+  checksum: 10/7ea75504a2f90277456642c990bdd826d9cbf241eb7cad889b01b346a5da87669b487a084ca00db739ce986081edb4bc002f0766a572878d97ff8667deb6f81c
   languageName: node
   linkType: hard
 
@@ -8293,7 +8293,7 @@ __metadata:
     graphql-test-suite: "npm:0.0.2"
     hermes-parser: "npm:0.36.1"
     html-element-attributes: "npm:3.5.0"
-    html-ua-styles: "npm:0.4.0"
+    html-ua-styles: "npm:0.5.0"
     ignore: "npm:7.0.5"
     import-meta-resolve: "npm:4.2.0"
     imurmurhash-esm: "npm:0.0.2"
