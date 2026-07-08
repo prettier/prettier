@@ -19,10 +19,10 @@ function getMarkdownParseOptions() {
       gfmSyntax(),
       mathSyntax(),
       wikiLinkSyntax({
+        // We don't need support alias, use a fake string to bypass
+        // https://github.com/stereobooster/braindb/blob/66d6cf74d0bad43f20924a14e382a432ff81cdfa/packages/micromark-extension-wiki-link/src/syntax.ts#L81
         // @ts-expect-error -- expected
-        aliasDivider: {
-          charCodeAt: () => Symbol("aliasDivider"),
-        },
+        aliasDivider: { charCodeAt: () => Number.NaN },
       }),
       liquidSyntax(),
       overrideHtmlTextSyntax(),
