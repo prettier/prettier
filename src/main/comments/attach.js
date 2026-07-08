@@ -174,11 +174,11 @@ function attachComments(ast, options) {
     }
 
     if (attachPropertiesToComment) {
-      comment.placement = placement;
       comment.enclosingNode = enclosingNode;
       comment.precedingNode = precedingNode;
       comment.followingNode = followingNode;
     }
+    comment.placement = placement;
 
     if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
