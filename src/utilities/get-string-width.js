@@ -8,6 +8,7 @@ import {
 import { isNarrowEmojiCharacter } from "narrow-emojis";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
+// Exclude `Mc` because spacing marks contribute horizontal width.
 const zeroWidthMarkRegex = /[\p{Nonspacing_Mark}\p{Enclosing_Mark}]/u;
 
 // Similar to https://github.com/sindresorhus/string-width
