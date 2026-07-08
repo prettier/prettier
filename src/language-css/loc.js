@@ -446,14 +446,16 @@ function replaceQuotesInInlineComments(text) {
           continue;
         }
 
-        if (c === "*" && text[i - 1] === "/") {
-          state = "comment-block";
-          continue;
-        }
-
-        if (c === "/" && text[i - 1] === "/") {
-          state = "comment-inline";
-          inlineCommentStartIndex = i - 1;
+        if (c === "/") {
+          const nextCharacter = text[i + 1];
+          if (nextCharacter === "*") {
+            state = "comment-block";
+            i++;
+          } else if (nextCharacter === "/") {
+            state = "comment-inline";
+            inlineCommentStartIndex = i;
+            i++;
+          }
           continue;
         }
 

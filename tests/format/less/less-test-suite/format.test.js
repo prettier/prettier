@@ -10,11 +10,9 @@ const BUGS = new Set([
   "tests-unit/permissive-parse/permissive-parse.less",
   "tests-unit/parser-property-interp/parser-property-interp.less",
   "tests-unit/mixins-interpolated/mixins-interpolated.less",
-  "tests-unit/import/import/invalid-css.less",
   "tests-unit/functions/functions.less",
   "tests-unit/extract-and-length/extract-and-length.less",
   "tests-unit/css-escapes/css-escapes.less",
-  "tests-unit/comments/comments.less",
 ]);
 /* spell-checker: enable */
 
