@@ -506,6 +506,8 @@ singleQuote: true
 
 [[Foo|Bar]]
 
+[[Foo|Foo]]
+
 [[slug|Label: with colon]]
 
 [[slug|A: B: C]]
@@ -520,6 +522,8 @@ singleQuote: true
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[Foo|Foo]]
 
 [[slug|Label: with colon]]
 
@@ -544,6 +548,8 @@ proseWrap: "always"
 
 [[Foo|Bar]]
 
+[[Foo|Foo]]
+
 [[slug|Label: with colon]]
 
 [[slug|A: B: C]]
@@ -558,6 +564,8 @@ proseWrap: "always"
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[Foo|Foo]]
 
 [[slug|Label: with colon]]
 
@@ -582,6 +590,8 @@ proseWrap: "never"
 
 [[Foo|Bar]]
 
+[[Foo|Foo]]
+
 [[slug|Label: with colon]]
 
 [[slug|A: B: C]]
@@ -596,6 +606,8 @@ proseWrap: "never"
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[Foo|Foo]]
 
 [[slug|Label: with colon]]
 
@@ -620,6 +632,8 @@ proseWrap: "preserve"
 
 [[Foo|Bar]]
 
+[[Foo|Foo]]
+
 [[slug|Label: with colon]]
 
 [[slug|A: B: C]]
@@ -634,6 +648,8 @@ proseWrap: "preserve"
 [[Foo:Foo]]
 
 [[Foo|Bar]]
+
+[[Foo|Foo]]
 
 [[slug|Label: with colon]]
 

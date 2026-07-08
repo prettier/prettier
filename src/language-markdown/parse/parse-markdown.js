@@ -18,7 +18,12 @@ function getMarkdownParseOptions() {
     extensions: [
       gfmSyntax(),
       mathSyntax(),
-      wikiLinkSyntax(),
+      wikiLinkSyntax({
+        // @ts-expect-error -- expected
+        aliasDivider: {
+          charCodeAt: () => Symbol("aliasDivider"),
+        },
+      }),
       liquidSyntax(),
       overrideHtmlTextSyntax(),
     ],
