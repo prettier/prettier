@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-19525.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+[[Foo:Bar]]
+
+[[Foo:Foo]]
+
+[[Foo|Bar]]
+
+[[Foo|Foo]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
+=====================================output=====================================
+[[Foo:Bar]]
+
+[[Foo:Foo]]
+
+[[Foo|Bar]]
+
+[[Foo|Foo]]
+
+[[slug|Label: with colon]]
+
+[[slug|A: B: C]]
+
+[[slug|Label with no colon]]
+
+[text|Label: with colon]
+
+================================================================================
+`;
