@@ -7,6 +7,15 @@ describe("glob matching only ignored files warns", () => {
   });
 });
 
+describe("glob matching only ignored files warns and writes nothing with --write", () => {
+  runCli("cli/ignored-glob", ["ignored/*.js", "--write"]).test({
+    status: 0,
+    stdout: "",
+    stderr: '[warn] All files matching the pattern "ignored/*.js" are ignored.',
+    write: [],
+  });
+});
+
 describe("glob matching some non-ignored files does not warn", () => {
   runCli("cli/ignored-glob", ["**/*.js", "-l"]).test({
     status: 0,
