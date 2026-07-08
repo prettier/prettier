@@ -138,40 +138,40 @@ parsers: ["typescript"]
 createObject<{
         // dangling comment
         [key in keyof Function]: TypeInfo | null
-    }>
+    }>()
 
 createObject<
 // comment
 {
         [key in keyof Function]: TypeInfo | null
-    }>
+    }>()
 
 createObject<
 {
         [key in keyof Function]: TypeInfo | null
     }
 // comment
->
+>()
 
 =====================================output=====================================
 createObject<{
   // dangling comment
   [key in keyof Function]: TypeInfo | null;
-}>;
+}>();
 
 createObject<
   // comment
   {
     [key in keyof Function]: TypeInfo | null;
   }
->;
+>();
 
 createObject<
   {
     [key in keyof Function]: TypeInfo | null;
   }
   // comment
->;
+>();
 
 ================================================================================
 `;
