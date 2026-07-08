@@ -83,6 +83,7 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("ཟླ")).toBe(1);
   expect(getStringWidth("a\u20DD")).toBe(1);
   expect(getStringWidth("\u093E")).toBe(1);
+  expect(getStringWidth("\u0915\u093E")).toBe(2);
 
   expect(getStringWidth("👶")).toBe(2);
   expect(getStringWidth("👶🏽")).toBe(2);
