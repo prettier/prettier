@@ -20,13 +20,21 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push("@", node.name);
 
-  if (isSwitchExhaustiveCheck(node)) {
-    docs.push(";");
-    return docs;
-  }
+  const isDefaultNever = isSwitchExhaustiveCheck(node);
 
   if (node.parameters) {
-    docs.push(" ", "(", group(print("parameters")), ")");
+    // No space in `@default never(state)`
+    // https://github.com/prettier/prettier/issues/19570#issuecomment-4916194365
+    if (!isDefaultNever) {
+      docs.push(" ");
+    }
+
+    docs.push("(", group(print("parameters")), ")");
+  }
+
+  if (isDefaultNever) {
+    docs.push(";");
+    return docs;
   }
 
   if (!isSwitchFallthroughCase(node)) {

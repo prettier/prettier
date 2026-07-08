@@ -170,7 +170,7 @@ parsers: ["angular"]
 }
 
 @switch (   state.mode) {
-   @default   never(state);
+   @default   never(   state);
 }
 
 @switch (   state.mode) {
@@ -191,19 +191,19 @@ parsers: ["angular"]
 }
 
 @switch (state.mode) {
-  @default never;
+  @default never(state);
 }
 
 @switch (state.mode) {
-  @default never;
+  @default never(state);
 }
 
 @switch (state.mode) {
-  @default never;
+  @default never(state);
 }
 
 @switch (expr) {
-  @default never;
+  @default never(expr.prop);
 }
 
 ================================================================================
