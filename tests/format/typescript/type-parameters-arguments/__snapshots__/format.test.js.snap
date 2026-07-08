@@ -130,6 +130,52 @@ foo</* Comment */ Type>(/* Comment */ value);
 ================================================================================
 `;
 
+exports[`19505.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+createObject<{
+        // dangling comment
+        [key in keyof Function]: TypeInfo | null
+    }>
+
+createObject<
+// comment
+{
+        [key in keyof Function]: TypeInfo | null
+    }>
+
+createObject<
+{
+        [key in keyof Function]: TypeInfo | null
+    }
+// comment
+>
+
+=====================================output=====================================
+createObject<{
+  // dangling comment
+  [key in keyof Function]: TypeInfo | null;
+}>;
+
+createObject<
+  // comment
+  {
+    [key in keyof Function]: TypeInfo | null;
+  }
+>;
+
+createObject<
+  {
+    [key in keyof Function]: TypeInfo | null;
+  }
+  // comment
+>;
+
+================================================================================
+`;
+
 exports[`class-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

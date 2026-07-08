@@ -11,7 +11,12 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import { locEnd } from "../location/index.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isLineComment } from "../utilities/comment-types.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isObjectType } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
@@ -83,15 +88,19 @@ function printTypeParameters(path, options, print, paramsKey) {
         (parameters.length === 1 &&
           (parameters[0].type === "NullableTypeAnnotation" ||
             shouldHugType(parameters[0])))) &&
-      !parameters.some(
-        (node) =>
-          hasComment(node, CommentCheckFlags.Line) ||
-          // This condition base on existing one in class-body.js
-          // It is not really correct, but we don't have a way to check how comments are printed
-          hasComment(node, CommentCheckFlags.Last, (comment) =>
-            hasNewline(options.originalText, locEnd(comment)),
-          ),
-      ));
+      !parameters.some((node) => {
+        const comments = getComments(
+          node,
+          (comment) => comment.leading || comment.trailing,
+        );
+        return (
+          comments.length > 0 &&
+          (comments.some((comment) => isLineComment(comment)) ||
+            // This condition base on existing one in class-body.js
+            // It is not really correct, but we don't have a way to check how comments are printed
+            hasNewline(options.originalText, locEnd(comments.at(-1))))
+        );
+      }));
 
   if (shouldInline) {
     return [
