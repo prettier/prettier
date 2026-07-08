@@ -28,6 +28,7 @@ div {
 div {
   aspect-ratio: attr(data-ar type(*));
 }
+
 =====================================output=====================================
 div {
   border-radius: attr(br type(<length>+));
