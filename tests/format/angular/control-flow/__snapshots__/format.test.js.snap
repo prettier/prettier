@@ -152,6 +152,63 @@ parsers: ["angular"]
 ================================================================================
 `;
 
+exports[`default-never.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@switch (   cond.kind) {
+  @default never;
+}
+
+@switch (   cond.kind) {
+  @default never    ;
+}
+
+@switch (   state.mode) {
+   @default never(state);
+}
+
+@switch (   state.mode) {
+   @default   never(state);
+}
+
+@switch (   state.mode) {
+   @default never   (state);
+}
+
+@switch (   expr) {
+   @default never(expr.prop);
+}
+
+=====================================output=====================================
+@switch (cond.kind) {
+  @default never;
+}
+
+@switch (cond.kind) {
+  @default never;
+}
+
+@switch (state.mode) {
+  @default never;
+}
+
+@switch (state.mode) {
+  @default never;
+}
+
+@switch (state.mode) {
+  @default never;
+}
+
+@switch (expr) {
+  @default never;
+}
+
+================================================================================
+`;
+
 exports[`defer.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
