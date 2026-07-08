@@ -1,2 +1,3 @@
+# Fixture for tests/integration/__tests__/ignored-glob.js
 ignored/
 all-ignored/
