@@ -447,10 +447,11 @@ function replaceQuotesInInlineComments(text) {
         }
 
         if (c === "/") {
-          if (text[i + 1] === "*") {
+          const nextCharacter = text[i + 1];
+          if (nextCharacter === "*") {
             state = "comment-block";
             i++;
-          } else if (text[i + 1] === "/") {
+          } else if (nextCharacter === "/") {
             state = "comment-inline";
             inlineCommentStartIndex = i;
             i++;
