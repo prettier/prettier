@@ -879,8 +879,9 @@ proseWrap: "always"
 > This is a quote with an italic _across multuple lines which should just work_.
 > So make sure there is no > if we set proseWrap to \`never\`
 
-> This is a quote with a link [across multuple lines which should just work]().
-> So make sure there is no > if we set proseWrap to \`never\`
+> This is a quote with a link
+> [across multuple lines which should just work](<>). So make sure there is no >
+> if we set proseWrap to \`never\`
 
 ================================================================================
 `;
@@ -926,7 +927,7 @@ proseWrap: "never"
 
 > This is a quote with an italic _across multuple lines which should just work_. So make sure there is no > if we set proseWrap to \`never\`
 
-> This is a quote with a link [across multuple lines which should just work](). So make sure there is no > if we set proseWrap to \`never\`
+> This is a quote with a link [across multuple lines which should just work](<>). So make sure there is no > if we set proseWrap to \`never\`
 
 ================================================================================
 `;
@@ -977,7 +978,7 @@ proseWrap: "preserve"
 > proseWrap to \`never\`
 
 > This is a quote with a link [across multuple lines
-> which should just work](). So make sure there is no > if we set
+> which should just work](<>). So make sure there is no > if we set
 > proseWrap to \`never\`
 
 ================================================================================
