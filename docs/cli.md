@@ -130,6 +130,16 @@ Path to a file containing patterns that describe files to ignore. By default, Pr
 
 Multiple values are accepted by providing multiple `--ignore-path` options: `prettier --ignore-path=foo-ignore --ignore-path=bar-ignore`. Specifying an `--ignore-path` overrides the default rather than adding to it, so to add a new ignore file while keeping `./.gitignore` and `./.prettierignore` as well, specify `prettier --ignore-path=.gitignore --ignore-path=.prettierignore --ignore-path=foo-ignore`.
 
+## `--plugin`
+
+Load a plugin by package name or path. This option can be provided multiple times:
+
+```bash
+prettier . --write --plugin=prettier-plugin-foo --plugin=./local-plugin.js
+```
+
+See [Plugins](plugins.md) for more information about installing and using plugins.
+
 ## `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
