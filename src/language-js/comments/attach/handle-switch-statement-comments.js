@@ -30,7 +30,7 @@ function handleSwitchStatementComments({
     locEnd(comment),
   );
 
-  if (nextCharacter !== ")") {
+  if (nextCharacter === "}") {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
