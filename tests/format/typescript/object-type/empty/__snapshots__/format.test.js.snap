@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`empty.ts - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a = [];
+a = [/*c*/];
+type A1 = [];
+type A12 = [/*c*/];
+
+o = {};
+o = {/*c*/};
+type O2 = {  };
+type O22 = { /*c*/ };
+interface I2 {}
+interface I22 {/*c*/}
+
+=====================================output=====================================
+a = [];
+a = [/*c*/];
+type A1 = [];
+type A12 = [/*c*/];
+
+o = {};
+o = {/*c*/};
+type O2 = {};
+type O22 = {/*c*/};
+interface I2 {}
+interface I22 {
+  /*c*/
+}
+
+================================================================================
+`;
+
+exports[`empty.ts - {"bracketSpacing":true} format 1`] = `
+====================================options=====================================
+bracketSpacing: true
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a = [];
+a = [/*c*/];
+type A1 = [];
+type A12 = [/*c*/];
+
+o = {};
+o = {/*c*/};
+type O2 = {  };
+type O22 = { /*c*/ };
+interface I2 {}
+interface I22 {/*c*/}
+
+=====================================output=====================================
+a = [];
+a = [/*c*/];
+type A1 = [];
+type A12 = [/*c*/];
+
+o = {};
+o = {/*c*/};
+type O2 = {};
+type O22 = { /*c*/ };
+interface I2 {}
+interface I22 {
+  /*c*/
+}
+
+================================================================================
+`;
