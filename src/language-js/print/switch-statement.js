@@ -33,7 +33,7 @@ function printSwitchStatement(path, options, print) {
             ),
           ),
         ])
-      : "",
+      : printDanglingComments(path, options, { indent: true }),
     hardline,
     "}",
   ];
