@@ -11,5 +11,5 @@
     "test": "node test.js",
     "test-coverage": "npx c8 node test.js"
   },
-  "packageManager": "yarn@4.17.0"
+  "packageManager": "yarn@4.17.1"
 }
