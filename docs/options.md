@@ -522,6 +522,18 @@ If you want to make sure that your entire git repository only contains Linux-sty
 1. Add `* text=auto eol=lf` to the repo’s `.gitattributes` file.
    You may need to ask Windows users to re-clone your repo after this change to ensure git has not converted `LF` to `CRLF` on checkout.
 
+If you are applying Prettier to an existing codebase, consider recording the
+formatting-only commit in a `.git-blame-ignore-revs` file with one commit hash
+per line. Contributors can then configure Git to ignore those revisions in
+blame output:
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+This keeps `git blame` focused on behavioral changes after a mechanical
+formatting update.
+
 All modern text editors in all operating systems are able to correctly display line endings when `\n` (`LF`) is used.
 However, old versions of Notepad for Windows will visually squash such lines into one as they can only deal with `\r\n` (`CRLF`).
 
