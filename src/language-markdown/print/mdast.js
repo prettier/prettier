@@ -224,7 +224,7 @@ function printMdast(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            node.url === "" && node.title !== null
+            options.parser !== "mdx" && node.url === ""
               ? "<>"
               : printUrl(node.url, ")"),
             printTitle(node.title, options),
@@ -241,7 +241,9 @@ function printMdast(path, options, print) {
         "![",
         printImageAlt(node, options),
         "](",
-        node.url === "" && node.title !== null ? "<>" : printUrl(node.url, ")"),
+        options.parser !== "mdx" && node.url === ""
+          ? "<>"
+          : printUrl(node.url, ")"),
         printTitle(node.title, options),
         ")",
       ];
