@@ -15,3 +15,11 @@ createObject<
     }
 // comment
 >()
+
+foo<{
+  // comment
+}>();
+
+foo<[
+  // comment
+]>();

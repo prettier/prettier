@@ -153,6 +153,14 @@ createObject<
 // comment
 >()
 
+foo<{
+  // comment
+}>();
+
+foo<[
+  // comment
+]>();
+
 =====================================output=====================================
 createObject<{
   // dangling comment
@@ -171,6 +179,16 @@ createObject<
     [key in keyof Function]: TypeInfo | null;
   }
   // comment
+>();
+
+foo<{
+  // comment
+}>();
+
+foo<
+  [
+    // comment
+  ]
 >();
 
 ================================================================================
