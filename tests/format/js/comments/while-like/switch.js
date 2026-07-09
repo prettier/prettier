@@ -6,6 +6,10 @@ switch(
 switch(true)// 2
 {}
 
+switch(true)
+// 22
+{}
+
 switch(true){}// 3
 
 switch(true)/*4*/{}

@@ -6,6 +6,10 @@ if(
 if(true)// 2
 {}
 
+if(true)
+// 22
+{}
+
 if(true){}// 3
 
 if(true)/*4*/{}

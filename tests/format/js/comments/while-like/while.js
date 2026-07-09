@@ -6,6 +6,10 @@ while(
 while(true)// 2
 {}
 
+while(true)
+// 22
+{}
+
 while(true){}// 3
 
 while(true)/*4*/{}

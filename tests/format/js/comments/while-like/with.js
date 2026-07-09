@@ -6,6 +6,10 @@ with(
 with(foo)// 2
 {}
 
+with(foo)
+// 22
+{}
+
 with(foo){}// 3
 
 with(foo)/*4*/{}
