@@ -32,6 +32,7 @@ import {
 import { stripComments } from "../utilities/strip-comments.js";
 import { handleForXStatementComments } from "./attach/handle-for-x-statement-comments.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
+import { handleSwitchStatementComments } from "./attach/handle-switch-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
 import {
   addLeadingCommentToPossibleUnionType,
@@ -74,6 +75,7 @@ function handleOwnLineComment(context) {
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileLikeComments,
+    handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
     handleForXStatementComments,
@@ -105,6 +107,7 @@ function handleEndOfLineComment(context) {
     handleModuleSpecifiersComments,
     handleIfStatementComments,
     handleWhileLikeComments,
+    handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
     handleForXStatementComments,
@@ -134,6 +137,7 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileLikeComments,
+    handleSwitchStatementComments,
     handleForXStatementComments,
     handleMethodNameComments,
     handleOnlyComments,
