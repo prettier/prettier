@@ -117,7 +117,8 @@ function printClassBody(path, options, print) {
     if (parts.length === 0) {
       content = openingBrace + closingBrace;
     } else {
-      const spacing = isEmpty ? "" : options.bracketSpacing ? line : softline;
+      const spacing =
+        !options.bracketSpacing || (isEmpty && !shouldBreak) ? softline : line;
       content = [
         openingBrace,
         indent([spacing, ...parts]),
