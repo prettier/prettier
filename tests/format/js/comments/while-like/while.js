@@ -30,3 +30,5 @@ while (0) {
 }
 
 while (0) {/* comment */}
+
+while ((0, 0/* comment */)) {}

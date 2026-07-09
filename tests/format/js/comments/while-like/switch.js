@@ -25,3 +25,5 @@ switch (0) {
 }
 
 switch (0) {/* comment */}
+
+switch ((0, 0/* comment */)) {}

@@ -30,3 +30,5 @@ if (0) {
 }
 
 if (0) {/* comment */}
+
+if ((0, 0/* comment */)) {}

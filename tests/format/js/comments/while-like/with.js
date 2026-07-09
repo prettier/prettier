@@ -30,3 +30,5 @@ with (0) {
 }
 
 with (0) {/* comment */}
+
+with ((0, 0/* comment */)) {}
