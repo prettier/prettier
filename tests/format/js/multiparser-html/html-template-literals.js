@@ -31,6 +31,12 @@ setFoo(
   secondArgument
 );
 
+const idempotentInterpolation = html`
+          ${{
+              c: y,
+          }}
+`;
+
 // Attribute quotes
 a = /* HTML */ `<div
     double-quoted="${foo}"

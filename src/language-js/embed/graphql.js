@@ -10,7 +10,9 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
 
   const numQuasis = node.quasis.length;
 
-  const expressionDocs = printTemplateExpressions(path, options, print);
+  const expressionDocs = printTemplateExpressions(path, options, print, {
+    isEmbeddedLanguage: true,
+  });
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {
