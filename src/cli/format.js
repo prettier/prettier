@@ -303,16 +303,12 @@ async function formatFiles(context) {
   // See https://github.com/prettier/prettier/issues/5801
   const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
 
-  // Track, per explicit glob pattern, how many matched files were filtered out
-  // by an ignore file, so we can warn when a glob matches only ignored files.
-  const globIgnoreStats = new Map();
-
   for await (const {
     error,
     filename,
     ignoreUnknown,
-    globPattern,
-  } of expandPatterns(context)) {
+    ignoredGlob,
+  } of expandPatterns(context, isIgnored)) {
     if (error) {
       context.logger.error(error);
       // Don't exit, but set the exit code to 2
@@ -320,19 +316,20 @@ async function formatFiles(context) {
       continue;
     }
 
-    const isFileIgnored = isIgnored(filename);
-
-    if (globPattern !== undefined) {
-      const stats = globIgnoreStats.get(globPattern) ?? {
-        total: 0,
-        ignored: 0,
-      };
-      stats.total += 1;
-      if (isFileIgnored) {
-        stats.ignored += 1;
-      }
-      globIgnoreStats.set(globPattern, stats);
+    // A glob matched files, but every one of them is filtered out by an ignore
+    // file. Decided per-glob in `expandPatterns` against the glob's complete
+    // match set, so overlapping globs can't mask each other.
+    if (ignoredGlob !== undefined) {
+      const patternToDisplay = normalizeToPosix(
+        path.relative(cwd, path.resolve(ignoredGlob)),
+      );
+      context.logger.warn(
+        `All files matching the pattern "${patternToDisplay}" are ignored.`,
+      );
+      continue;
     }
+
+    const isFileIgnored = isIgnored(filename);
 
     if (
       isFileIgnored &&
@@ -483,22 +480,6 @@ async function formatFiles(context) {
         context.logger.log(fileNameToDisplay);
       }
       numberOfUnformattedFilesFound += 1;
-    }
-  }
-
-  // Warn about explicit globs that matched files but had all of them filtered
-  // out by an ignore file. Directories (e.g. `prettier .`) don't set a glob
-  // pattern, so the common `prettier --check .` usage is never warned about.
-  if (context.argv.errorOnUnmatchedPattern !== false) {
-    for (const [globPattern, { total, ignored }] of globIgnoreStats) {
-      if (total > 0 && total === ignored) {
-        const patternToDisplay = normalizeToPosix(
-          path.relative(cwd, path.resolve(globPattern)),
-        );
-        context.logger.warn(
-          `All files matching the pattern "${patternToDisplay}" are ignored.`,
-        );
-      }
     }
   }
 

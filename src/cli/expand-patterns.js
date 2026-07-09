@@ -11,7 +11,7 @@ import { lstatSafe, normalizeToPosix } from "./utilities.js";
 /**
  * @param {Context} context
  */
-async function* expandPatterns(context) {
+async function* expandPatterns(context, isIgnored) {
   const seen = new Set();
   let noResults = true;
 
@@ -19,11 +19,18 @@ async function* expandPatterns(context) {
     filePath,
     ignoreUnknown,
     error,
-    globPattern,
-  } of expandPatternsInternal(context)) {
+    ignoredGlob,
+  } of expandPatternsInternal(context, isIgnored)) {
     noResults = false;
     if (error) {
       yield { error };
+      continue;
+    }
+
+    // A glob whose every match is filtered out by an ignore file. Passed
+    // through as-is; the caller decides how to surface it.
+    if (ignoredGlob !== undefined) {
+      yield { ignoredGlob };
       continue;
     }
 
@@ -35,7 +42,7 @@ async function* expandPatterns(context) {
     }
 
     seen.add(filename);
-    yield { filename, ignoreUnknown, globPattern };
+    yield { filename, ignoreUnknown };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -49,7 +56,7 @@ async function* expandPatterns(context) {
 /**
  * @param {Context} context
  */
-async function* expandPatternsInternal(context) {
+async function* expandPatternsInternal(context, isIgnored) {
   const directoryIgnorer =
     context.argv.withNodeModules === true
       ? directoryIgnorerWithoutNodeModules
@@ -134,14 +141,23 @@ async function* expandPatternsInternal(context) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      // Remember which explicit glob each file came from, so the caller can
-      // warn when a glob matches only files that are later filtered out by an
-      // ignore file (`.prettierignore`).
-      const globPattern = type === "glob" ? input : undefined;
+      // `result` is this glob's complete match set, evaluated before the
+      // caller's dedup — so overlapping globs can't mask each other. If every
+      // match is filtered out by an ignore file, flag the whole glob. Only
+      // globs are flagged: directories (`prettier .`) and explicit files are
+      // left alone, matching the accepted design in
+      // https://github.com/prettier/prettier/issues/10395.
+      if (
+        type === "glob" &&
+        isIgnored &&
+        context.argv.errorOnUnmatchedPattern !== false &&
+        result.every((filePath) => isIgnored(path.resolve(filePath)))
+      ) {
+        yield { ignoredGlob: input };
+      }
       yield* sortPaths(result).map((filePath) => ({
         filePath,
         ignoreUnknown,
-        globPattern,
       }));
     }
   }
