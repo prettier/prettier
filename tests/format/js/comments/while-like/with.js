@@ -21,3 +21,12 @@ with(foo) /* 7 */ ++x;
 
 with(1) // 8
   foo();
+
+with (0) {// comment
+}
+
+with (0) {
+  // comment
+}
+
+with (0) {/* comment */}

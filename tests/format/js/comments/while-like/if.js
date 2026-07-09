@@ -21,3 +21,12 @@ if(true) /* 7 */ ++x;
 
 if(1) // 8
   foo();
+
+if (0) {// comment
+}
+
+if (0) {
+  // comment
+}
+
+if (0) {/* comment */}

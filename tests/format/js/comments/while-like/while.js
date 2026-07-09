@@ -21,3 +21,12 @@ while(true) /* 7 */ ++x;
 
 while(1) // 8
   foo();
+
+while (0) {// comment
+}
+
+while (0) {
+  // comment
+}
+
+while (0) {/* comment */}
