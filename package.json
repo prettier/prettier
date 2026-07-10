@@ -44,8 +44,8 @@
   "dependencies": {
     "@angular/compiler": "22.0.6",
     "@babel/code-frame": "8.0.0",
-    "@babel/parser": "8.0.0",
-    "@babel/types": "8.0.0",
+    "@babel/parser": "8.0.4",
+    "@babel/types": "8.0.4",
     "@braindb/mdast-util-wiki-link": "0.2.0",
     "@braindb/micromark-extension-wiki-link": "0.1.0",
     "@glimmer/syntax": "0.95.0",
