@@ -229,6 +229,18 @@ const allowedReasonCodesArray = [
   https://github.com/babel/babel/pull/17949
   */
   "DecoratorAbstractMethod",
+
+  /*
+  Allow `import.meta` in a non-module `<script>` embedded in HTML
+  https://github.com/prettier/prettier/issues/15999
+
+  ```html
+  <script>
+    console.log(import.meta.url);
+  </script>
+  ```
+  */
+  "ImportMetaOutsideModule",
 ];
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 

@@ -49,6 +49,33 @@ alert(1)
 ================================================================================
 `;
 
+exports[`import-meta.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!-- https://github.com/prettier/prettier/issues/15999 -->
+<script>
+  console.log(import.meta.url)
+</script>
+
+<script type="module">
+  console.log(import.meta.url)
+</script>
+
+=====================================output=====================================
+<!-- https://github.com/prettier/prettier/issues/15999 -->
+<script>
+  console.log(import.meta.url);
+</script>
+
+<script type="module">
+  console.log(import.meta.url);
+</script>
+
+================================================================================
+`;
+
 exports[`legacy.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
