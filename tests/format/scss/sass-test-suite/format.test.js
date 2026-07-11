@@ -2,7 +2,7 @@ import sassTestSuite from "sass-test-suite";
 
 /* spell-checker: disable */
 const SKIP = new Set([
-  // Except errors
+  // Expect errors
   "css/comment.hrx/error/loud/unterminated/scss/input.scss",
   "css/custom_properties/error.hrx/brackets/curly/input.scss",
   "css/custom_properties/error.hrx/brackets/paren/input.scss",
