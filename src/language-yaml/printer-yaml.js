@@ -52,15 +52,15 @@ function genericPrint(path, options, print) {
     parts.push([join(hardline, path.map(print, "leadingComments")), hardline]);
   }
 
-  const properties = ["tag", "anchor"].filter((property) => node[property]);
-  if (properties.length > 1) {
-    properties.sort(
+  const tagAndAnchor = ["tag", "anchor"].filter((property) => node[property]);
+  if (tagAndAnchor.length > 1) {
+    tagAndAnchor.sort(
       (propertyA, propertyB) =>
         locStart(node[propertyA]) - locStart(node[propertyB]),
     );
   }
 
-  for (const [index, property] of properties.entries()) {
+  for (const [index, property] of tagAndAnchor.entries()) {
     if (index > 0) {
       parts.push(" ");
     }
@@ -85,7 +85,7 @@ function genericPrint(path, options, print) {
     nextEmptyLine = printNextEmptyLine(path, options.originalText);
   }
 
-  if (properties.length > 0) {
+  if (tagAndAnchor.length > 0) {
     if (isNode(node, ["sequence", "mapping"]) && !hasMiddleComments(node)) {
       parts.push(hardline);
     } else {
