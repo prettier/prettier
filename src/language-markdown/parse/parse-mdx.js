@@ -54,13 +54,11 @@ function getMarkdownParseOptions() {
 
 function createParseError(error) {
   /* c8 ignore next 9 */
-  if (
-    !(
-      typeof error?.line === "number" &&
-      typeof error?.column === "number" &&
-      typeof error?.reason === "string"
-    )
-  ) {
+  if (!(
+    typeof error?.line === "number" &&
+    typeof error?.column === "number" &&
+    typeof error?.reason === "string"
+  )) {
     return error;
   }
 
