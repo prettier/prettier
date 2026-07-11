@@ -34,14 +34,14 @@ function shouldAddParenthesesToIdentifier(path) {
   // `for ((let.a) of []);`
   // `for ((let.a) in []);`
   if (node.name === "let") {
-    const expression = path.findAncestor(
+    const statement = path.findAncestor(
       (node) =>
         node.type === "ForOfStatement" || node.type === "ForInStatement",
-    )?.left;
+    );
     if (
-      expression &&
+      statement &&
       startsWithNoLookaheadToken(
-        expression,
+        statement.left,
         (leftmostNode) => leftmostNode === node,
       )
     ) {
@@ -63,21 +63,21 @@ function shouldAddParenthesesToIdentifier(path) {
         node.type === "ForStatement" ||
         node.type === "ForInStatement",
     );
-    const expression = !statement
-      ? undefined
-      : statement.type === "ExpressionStatement"
-        ? statement.expression
-        : statement.type === "ForStatement"
-          ? statement.init
-          : statement.left;
-    if (
-      expression &&
-      startsWithNoLookaheadToken(
-        expression,
-        (leftmostNode) => leftmostNode === node,
-      )
-    ) {
-      return true;
+    if (statement) {
+      const expression =
+        statement.type === "ExpressionStatement"
+          ? statement.expression
+          : statement.type === "ForStatement"
+            ? statement.init
+            : statement.left;
+      if (
+        startsWithNoLookaheadToken(
+          expression,
+          (leftmostNode) => leftmostNode === node,
+        )
+      ) {
+        return true;
+      }
     }
   }
 
