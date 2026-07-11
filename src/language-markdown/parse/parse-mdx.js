@@ -1,14 +1,14 @@
+import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
+import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
-import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { mdxExpression } from "micromark-extension-mdx-expression";
 import { mdxJsx } from "micromark-extension-mdx-jsx";
 import { mdxMd } from "micromark-extension-mdx-md";
 import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
-import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
 import createError from "../../common/parser-create-error.js";
 import parseFrontMatter from "../../main/front-matter/parse.js";
@@ -34,7 +34,12 @@ function getMarkdownParseOptions() {
     extensions: [
       gfmSyntax(),
       mathSyntax(),
-      wikiLinkSyntax(),
+      wikiLinkSyntax({
+        // We don't need support alias, use a fake string to bypass
+        // https://github.com/stereobooster/braindb/blob/66d6cf74d0bad43f20924a14e382a432ff81cdfa/packages/micromark-extension-wiki-link/src/syntax.ts#L81
+        // @ts-expect-error -- expected
+        aliasDivider: { charCodeAt: () => Number.NaN },
+      }),
       mdxjsEsm(esmSettings),
       mdxExpression(settings),
       mdxJsx(settings),
