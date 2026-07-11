@@ -87,20 +87,12 @@
     },
   ],
   ignoreDeps: [
-    // It's a dependency of `remark-parse`, use same version to reduce size
-    "collapse-white-space",
     // It will be updated by release script
     "prettier",
     // Old versions are required to test
     "node",
     // Not tree-shakeable, and we don't need it in v4
     "get-stdin",
-    // Those mdx related dependencies will be dropped
-    "unified",
-    "remark-parse",
-    "remark-math",
-    "remark-footnotes",
-    "trim",
   ],
   ignorePaths: ["tests/**", "packages/**"],
 }
