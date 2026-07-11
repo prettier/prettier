@@ -2,3 +2,6 @@
  - !!int 2
  - !!int &c 4
  - &d d
+---
+One: &anchor !custom Value
+Two: *anchor

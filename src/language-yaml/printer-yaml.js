@@ -53,14 +53,14 @@ function genericPrint(path, options, print) {
   }
 
   const { tag, anchor } = node;
-  if (tag) {
-    parts.push(print("tag"));
+  if (anchor) {
+    parts.push(print("anchor"));
   }
   if (tag && anchor) {
     parts.push(" ");
   }
-  if (anchor) {
-    parts.push(print("anchor"));
+  if (tag) {
+    parts.push(print("tag"));
   }
 
   /** @type {Doc} */

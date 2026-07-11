@@ -310,12 +310,18 @@ proseWrap: "always"
  - !!int 2
  - !!int &c 4
  - &d d
+---
+One: &anchor !custom Value
+Two: *anchor
 
 =====================================output=====================================
-- !!str &a a
+- &a !!str a
 - !!int 2
-- !!int &c 4
+- &c !!int 4
 - &d d
+---
+One: &anchor !custom Value
+Two: *anchor
 
 ================================================================================
 `;
@@ -330,12 +336,18 @@ useTabs: true
  - !!int 2
  - !!int &c 4
  - &d d
+---
+One: &anchor !custom Value
+Two: *anchor
 
 =====================================output=====================================
-- !!str &a a
+- &a !!str a
 - !!int 2
-- !!int &c 4
+- &c !!int 4
 - &d d
+---
+One: &anchor !custom Value
+Two: *anchor
 
 ================================================================================
 `;
@@ -2139,7 +2151,7 @@ key: &anchor
   a: b
 
 =====================================output=====================================
-key: !!map &anchor
+key: &anchor !!map
   a: b
 
 ================================================================================
@@ -2156,7 +2168,7 @@ key: &anchor
   a: b
 
 =====================================output=====================================
-key: !!map &anchor
+key: &anchor !!map
   a: b
 
 ================================================================================
@@ -4133,7 +4145,7 @@ anchored: !local &anchor value
 alias: *anchor
 
 =====================================output=====================================
-anchored: !local &anchor value
+anchored: &anchor !local value
 alias: *anchor
 
 ================================================================================
@@ -4149,7 +4161,7 @@ anchored: !local &anchor value
 alias: *anchor
 
 =====================================output=====================================
-anchored: !local &anchor value
+anchored: &anchor !local value
 alias: *anchor
 
 ================================================================================
@@ -5208,7 +5220,7 @@ proseWrap: "always"
 &a2 baz : *a1
 
 =====================================output=====================================
-!!str &a1 "foo": !!str bar
+&a1 !!str "foo": !!str bar
 &a2 baz: *a1
 
 ================================================================================
@@ -5225,7 +5237,7 @@ useTabs: true
 &a2 baz : *a1
 
 =====================================output=====================================
-!!str &a1 "foo": !!str bar
+&a1 !!str "foo": !!str bar
 &a2 baz: *a1
 
 ================================================================================
@@ -7840,25 +7852,25 @@ value11
 
 =====================================output=====================================
 ---
-!!str &a1 scalar1
+&a1 !!str scalar1
 ---
-!!str &a2 scalar2
+&a2 !!str scalar2
 ---
-!!str &a3 scalar3
+&a3 !!str scalar3
 ---
-!!map &a4
-!!str &a5 key5: value4
+&a4 !!map
+&a5 !!str key5: value4
 ---
 a6: 1
 &anchor6 b6: 2
 ---
 !!map
-!!str &a8 key8: value7
+&a8 !!str key8: value7
 ---
 !!map
-!!str &a10 key10: value9
+&a10 !!str key10: value9
 ---
-!!str &a11 value11
+&a11 !!str value11
 
 ================================================================================
 `;
@@ -7898,25 +7910,25 @@ value11
 
 =====================================output=====================================
 ---
-!!str &a1 scalar1
+&a1 !!str scalar1
 ---
-!!str &a2 scalar2
+&a2 !!str scalar2
 ---
-!!str &a3 scalar3
+&a3 !!str scalar3
 ---
-!!map &a4
-!!str &a5 key5: value4
+&a4 !!map
+&a5 !!str key5: value4
 ---
 a6: 1
 &anchor6 b6: 2
 ---
 !!map
-!!str &a8 key8: value7
+&a8 !!str key8: value7
 ---
 !!map
-!!str &a10 key10: value9
+&a10 !!str key10: value9
 ---
-!!str &a11 value11
+&a11 !!str value11
 
 ================================================================================
 `;
