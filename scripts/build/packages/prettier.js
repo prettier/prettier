@@ -719,10 +719,6 @@ const pluginFiles = [
         module: getPackageFile("decode-named-character-reference/index.dom.js"),
         path: getPackageFile("decode-named-character-reference"),
       },
-      {
-        module: getPackageFile("parse-entities/decode-entity.browser.js"),
-        path: getPackageFile("parse-entities/decode-entity.js"),
-      },
     ],
   },
   {
