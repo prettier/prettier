@@ -125,13 +125,7 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-<<<<<<< HEAD
       return printWord(path);
-=======
-      return options.parser !== "mdx"
-        ? printWord(path, options)
-        : printWordLegacy(path);
->>>>>>> main
     case "whitespace": {
       const { next } = path;
 
