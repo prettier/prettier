@@ -130,6 +130,70 @@ foo</* Comment */ Type>(/* Comment */ value);
 ================================================================================
 `;
 
+exports[`19505.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+createObject<{
+        // dangling comment
+        [key in keyof Function]: TypeInfo | null
+    }>()
+
+createObject<
+// comment
+{
+        [key in keyof Function]: TypeInfo | null
+    }>()
+
+createObject<
+{
+        [key in keyof Function]: TypeInfo | null
+    }
+// comment
+>()
+
+foo<{
+  // comment
+}>();
+
+foo<[
+  // comment
+]>();
+
+=====================================output=====================================
+createObject<{
+  // dangling comment
+  [key in keyof Function]: TypeInfo | null;
+}>();
+
+createObject<
+  // comment
+  {
+    [key in keyof Function]: TypeInfo | null;
+  }
+>();
+
+createObject<
+  {
+    [key in keyof Function]: TypeInfo | null;
+  }
+  // comment
+>();
+
+foo<{
+  // comment
+}>();
+
+foo<
+  [
+    // comment
+  ]
+>();
+
+================================================================================
+`;
+
 exports[`class-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -488,6 +552,17 @@ class _ {
 }
 
 ================================================================================
+`;
+
+exports[`const.ts format[oxc-ts] 1`] = `
+"'const' modifier can only appear on a type parameter of a function, method or class (22:13)
+  20 | (class <const in T> {});
+  21 |
+> 22 | interface I<const T> {}
+     |             ^^^^^^^
+  23 | interface J<const T extends U> {}
+  24 | interface K<T, const U> {}
+  25 | interface L<in const T> {}"
 `;
 
 exports[`constraints-and-default.ts format 1`] = `

@@ -9,7 +9,7 @@ To apply autofix for Prettier from GitHub Actions, do the following:
 
 1. Install the [`autofix.ci`](https://github.com/apps/autofix-ci) GitHub App.
 1. Make sure you have a **pinned** version of Prettier installed in your repository.
-1. Create `.github/workflows/prettier.yml` with following content:
+1. Create `.github/workflows/prettier.yml` with the following content:
 
    ```yaml title=".github/workflows/prettier.yml"
    name: autofix.ci
@@ -31,4 +31,4 @@ To apply autofix for Prettier from GitHub Actions, do the following:
              commit-message: "Apply Prettier format"
    ```
 
-For more information see [autofix.ci](https://autofix.ci/) website.
+For more information, see [autofix.ci](https://autofix.ci/) website.

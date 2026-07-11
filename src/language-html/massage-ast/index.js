@@ -42,7 +42,7 @@ function massageAstNode(original, cloned, parent) {
         (parent.fullName === "img" || parent.fullName === "source")) ||
       (name === "allow" && parent.fullName === "iframe") ||
       name.startsWith("on") ||
-      // Vue attributes
+      // Vue.js attributes
       name.startsWith("@") ||
       name.startsWith(":") ||
       name.startsWith(".") ||

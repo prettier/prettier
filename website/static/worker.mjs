@@ -25,18 +25,14 @@ let prettierPluginDocExplorerCache;
 let pluginsCache;
 
 async function loadPrettier() {
-  if (!prettierCache) {
-    prettierCache = import(`./lib/${version}/prettier/standalone.mjs`);
-  }
+  prettierCache ??= import(`./lib/${version}/prettier/standalone.mjs`);
   return await prettierCache;
 }
 
 async function loadPrettierPackageManifest() {
-  if (!prettierPackageManifestCache) {
-    prettierPackageManifestCache = import(
-      `./lib/${version}/package-manifest.mjs`
-    ).then((m) => m.default);
-  }
+  prettierPackageManifestCache ??= import(
+    `./lib/${version}/package-manifest.mjs`
+  ).then((m) => m.default);
   return await prettierPackageManifestCache;
 }
 

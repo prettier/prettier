@@ -45,7 +45,8 @@ exports[`arguments.js - {"semi":false} format[flow] 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected token \`@\` (1:12)"
 `;
 
 exports[`arguments.js format 1`] = `
@@ -92,7 +93,8 @@ exports[`arguments.js format[flow] 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected token \`@\` (1:12)"
 `;
 
 exports[`class-expression.js - {"semi":false} format 1`] = `
@@ -178,7 +180,8 @@ exports[`class-expression.js - {"semi":false} format[flow] 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected token \`@\` (1:12)"
 `;
 
 exports[`class-expression.js format 1`] = `
@@ -263,7 +266,8 @@ exports[`class-expression.js format[flow] 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected token \`@\` (1:12)"
 `;
 
 exports[`member-expression.js - {"semi":false} format 1`] = `
@@ -311,7 +315,8 @@ exports[`member-expression.js - {"semi":false} format[flow] 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected token \`@\` (1:1)"
 `;
 
 exports[`member-expression.js format 1`] = `
@@ -358,7 +363,8 @@ exports[`member-expression.js format[flow] 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected token \`@\` (1:1)"
 `;
 
 exports[`super-class.js - {"semi":false} format 1`] = `
@@ -411,7 +417,8 @@ exports[`super-class.js - {"semi":false} format[flow] 1`] = `
     |                    ^
   2 |
   3 | class Fo2 extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected token \`@\` (1:19)"
 `;
 
 exports[`super-class.js format 1`] = `
@@ -463,5 +470,6 @@ exports[`super-class.js format[flow] 1`] = `
     |                    ^
   2 |
   3 | class Fo2 extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected token \`@\` (1:19)"
 `;

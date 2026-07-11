@@ -150,7 +150,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     node.type === "ImportAttribute" ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
-    // do not put values on a separate line from the key in json
+    // do not put values on a separate line from the key in JSON
     path.root.type === "JsonRoot"
   ) {
     return "never-break-after-operator";

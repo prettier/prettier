@@ -39,10 +39,12 @@ function printClassBody(path, options, print) {
 
   const [openingBrace, closingBrace] =
     isFlowTypeAnnotation && node.exact ? ["{|", "|}"] : "{}";
+  let isEmpty = true;
   let firstMember;
 
   iterateClassMembersPath(path, ({ node, next, isLast }) => {
     firstMember ??= node;
+    isEmpty &&= false;
     parts.push(print());
 
     if (!isFlowRecordDeclaration && isObjectType && isFlowTypeAnnotation) {
@@ -83,6 +85,7 @@ function printClassBody(path, options, print) {
 
   // TODO: this part can unify with the similar part in `printObject`
   if (node.type === "ObjectTypeAnnotation" && node.inexact) {
+    isEmpty &&= false;
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
@@ -114,7 +117,8 @@ function printClassBody(path, options, print) {
     if (parts.length === 0) {
       content = openingBrace + closingBrace;
     } else {
-      const spacing = options.bracketSpacing ? line : softline;
+      const spacing =
+        !options.bracketSpacing || (isEmpty && !shouldBreak) ? softline : line;
       content = [
         openingBrace,
         indent([spacing, ...parts]),

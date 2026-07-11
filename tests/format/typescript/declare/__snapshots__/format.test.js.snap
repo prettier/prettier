@@ -168,15 +168,13 @@ declare module m {
 `;
 
 exports[`declare-module.ts format[babel-ts] 1`] = `
-"Initializers are not allowed in ambient contexts. (3:11)
-  1 | declare module m {
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:16)
+> 1 | declare module m {
+    |                ^
   2 |   class C {
-> 3 |     field = "field";
-    |           ^
+  3 |     field = "field";
   4 |   }
-  5 | }
-  6 |
-Cause: Initializers are not allowed in ambient contexts. (3:10)"
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:15)"
 `;
 
 exports[`declare-module.ts format[oxc-ts] 1`] = `

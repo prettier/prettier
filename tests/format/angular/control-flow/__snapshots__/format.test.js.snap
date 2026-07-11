@@ -75,6 +75,83 @@ parsers: ["angular"]
 ================================================================================
 `;
 
+exports[`content.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<FancyButton [label]="title">
+    @content(icon) {
+      <span>Icon!</span>
+    }
+      @content(description) {
+        <span>Description text</span>
+      }
+  <span>Other children</span>
+   </FancyButton>
+
+<FancyButton [label]="title">
+      @content (items; let item, index) {
+        <span>#{{index}}: {{item}}</span>
+      }
+    </FancyButton>
+
+<FancyList>
+            @content (renderHeader; let _) {
+              <span>Header Content</span>
+            }
+          </FancyList>
+
+<FancyTable>
+            @content (renderRow; let row, idx, isLast) {
+              <span>{{ idx }} - {{ row }} (Last: {{ isLast }})</span>
+            }
+          </FancyTable>
+
+<DynamicIf [injector]="injector" [cond]="visible">
+            @content (children; let result) {
+              <child>{{ result }}</child>
+            }
+          </DynamicIf>
+
+=====================================output=====================================
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<FancyButton [label]="title">
+  @content (items; let item, index) {
+    <span>#{{ index }}: {{ item }}</span>
+  }
+</FancyButton>
+
+<FancyList>
+  @content (renderHeader; let _) {
+    <span>Header Content</span>
+  }
+</FancyList>
+
+<FancyTable>
+  @content (renderRow; let row, idx, isLast) {
+    <span>{{ idx }} - {{ row }} (Last: {{ isLast }})</span>
+  }
+</FancyTable>
+
+<DynamicIf [injector]="injector" [cond]="visible">
+  @content (children; let result) {
+    <child>{{ result }}</child>
+  }
+</DynamicIf>
+
+================================================================================
+`;
+
 exports[`default-never.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
@@ -84,8 +161,20 @@ parsers: ["angular"]
   @default never;
 }
 
-@switch (   cond.kind) {
-  @default never    ;
+@switch (   cond.kind      ) {
+      @default      never      ;
+}
+
+@switch (   state.mode) {
+   @default never(state);
+}
+
+@switch (      state.mode      ) {
+      @default      never      (      state      )      ;
+}
+
+@switch (   expr) {
+   @default never(expr.prop);
 }
 
 =====================================output=====================================
@@ -95,6 +184,18 @@ parsers: ["angular"]
 
 @switch (cond.kind) {
   @default never;
+}
+
+@switch (state.mode) {
+  @default never(state);
+}
+
+@switch (state.mode) {
+  @default never(state);
+}
+
+@switch (expr) {
+  @default never(expr.prop);
 }
 
 ================================================================================

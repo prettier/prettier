@@ -17,9 +17,7 @@ for (let i = 0; i < groupCount; i++) {
     for (let i = 0; i < groupSize; i++) {
       await format(sourceText, { parser: "typescript" });
     }
-  }
-
-  if (method === "parallel") {
+  } else if (method === "parallel") {
     await Promise.allSettled(
       Array.from({ length: groupSize }, () =>
         format(sourceText, { parser: "typescript" }),

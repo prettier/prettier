@@ -3,6 +3,14 @@ class Foo {
   @decorator
   readonly /* comment */ propertyDefinition;
 
+  // TSAbstractPropertyDefinition
+  @decorator
+  abstract /* comment */ abstractPropertyDefinition;
+
+  // TSAbstractMethodDefinition
+  @decorator
+  abstract /* comment */ abstractMethodDefinition;
+
   // MethodDefinition
   @decorator
   private /* comment */ methodDefinition() {}

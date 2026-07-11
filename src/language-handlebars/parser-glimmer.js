@@ -34,7 +34,7 @@ function addBackslash(node) {
   }
 }
 
-const isIndex = (value) => Number.isInteger(value) && value >= 0;
+const isIndex = (value) => Number.isSafeInteger(value) && value >= 0;
 // Add `offset` to `loc.{start,end}`
 const setOffset = (node) => {
   const { start, end } = node.loc;

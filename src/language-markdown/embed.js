@@ -86,12 +86,14 @@ function validateImportExport(ast, type) {
 
   // https://github.com/micromark/micromark-extension-mdxjs-esm/blob/3fdf3d3e597c707ac08ca94ba52d99d88f87ddfe/dev/lib/syntax.js#L18-L23
   if (
-    !body.every(
+    body.some(
       (node) =>
-        node.type === "ExportAllDeclaration" ||
-        node.type === "ExportDefaultDeclaration" ||
-        node.type === "ExportNamedDeclaration" ||
-        node.type === "ImportDeclaration",
+        !(
+          node.type === "ExportAllDeclaration" ||
+          node.type === "ExportDefaultDeclaration" ||
+          node.type === "ExportNamedDeclaration" ||
+          node.type === "ImportDeclaration"
+        ),
     )
   ) {
     throw new Error(`Unexpected '${type}' in MDX.`);

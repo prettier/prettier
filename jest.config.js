@@ -5,8 +5,7 @@ import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
-// Disabled https://github.com/nicolo-ribaudo/jest-light-runner/pull/13
-// const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 const TEST_RUNTIME = process.env.TEST_RUNTIME ?? "nodejs";
@@ -83,7 +82,11 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-  runner: "jest-light-runner/child-process",
+  runner:
+    // Doesn't work well on child process
+    ENABLE_CODE_COVERAGE
+      ? "jest-light-runner"
+      : "jest-light-runner/child-process",
   testEnvironmentOptions: {
     customExportConditions: ["development"],
   },
@@ -100,6 +103,7 @@ const config = {
   testPathIgnorePatterns: testPathIgnorePatterns.map(
     (file) => `<rootDir>/${file}`,
   ),
+  // Disabled https://github.com/nicolo-ribaudo/jest-light-runner/pull/13
   // collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [

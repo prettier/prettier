@@ -22,8 +22,7 @@ export namespace doc {
 // It comes from this issue: microsoft/TypeScript#29729:
 //   https://github.com/microsoft/TypeScript/issues/29729#issuecomment-700527227
 export type LiteralUnion<T extends U, U = string> =
-  | T
-  | (Pick<U, never> & { _?: never | undefined });
+  T | (Pick<U, never> & { _?: never | undefined });
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
@@ -521,8 +520,7 @@ export interface Printer<T = any> {
         | null)
     | undefined;
   preprocess?:
-    | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
-    | undefined;
+    ((ast: T, options: ParserOptions<T>) => T | Promise<T>) | undefined;
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
@@ -530,15 +528,13 @@ export interface Printer<T = any> {
    * @returns anything if you want to replace the node with it
    */
   massageAstNode?:
-    | ((original: any, cloned: any, parent: any) => any)
-    | undefined;
+    ((original: any, cloned: any, parent: any) => any) | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
   canAttachComment?: ((node: T, ancestors: T[]) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:
-    | ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc)
-    | undefined;
+    ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
   /**
    * By default, Prettier searches all object properties (except for a few predefined ones) of each node recursively.
    * This function can be provided to override that behavior.
@@ -547,8 +543,7 @@ export interface Printer<T = any> {
    * @returns `[]` if the node has no children or `undefined` to fall back on the default behavior.
    */
   getCommentChildNodes?:
-    | ((node: T, options: ParserOptions<T>) => T[] | undefined)
-    | undefined;
+    ((node: T, options: ParserOptions<T>) => T[] | undefined) | undefined;
   handleComments?:
     | {
         ownLine?:
@@ -581,8 +576,7 @@ export interface Printer<T = any> {
       }
     | undefined;
   getVisitorKeys?:
-    | ((node: T, nonTraversableKeys: Set<string>) => string[])
-    | undefined;
+    ((node: T, nonTraversableKeys: Set<string>) => string[]) | undefined;
 }
 
 export interface CursorOptions extends Options {
@@ -702,20 +696,10 @@ export interface SupportOptionRange {
 }
 
 export type SupportOptionType =
-  | "int"
-  | "string"
-  | "boolean"
-  | "choice"
-  | "path";
+  "int" | "string" | "boolean" | "choice" | "path";
 
 export type CoreCategoryType =
-  | "Config"
-  | "Editor"
-  | "Format"
-  | "Other"
-  | "Output"
-  | "Global"
-  | "Special";
+  "Config" | "Editor" | "Format" | "Other" | "Output" | "Global" | "Special";
 
 export interface BaseSupportOption<Type extends SupportOptionType> {
   readonly name?: string | undefined;

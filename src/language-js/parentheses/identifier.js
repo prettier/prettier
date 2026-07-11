@@ -1,6 +1,18 @@
 import { isBinaryCastExpression } from "../utilities/node-types.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
+const namesNeedParenthesesAsExpressionOfBinaryCastExpression = new Set([
+  "await",
+  "interface",
+  "module",
+  "using",
+  "yield",
+  "let",
+  "component",
+  "hook",
+  "type",
+]);
+
 function shouldAddParenthesesToIdentifier(path) {
   const { node } = path;
 
@@ -34,14 +46,14 @@ function shouldAddParenthesesToIdentifier(path) {
   // `for ((let.a) of []);`
   // `for ((let.a) in []);`
   if (node.name === "let") {
-    const expression = path.findAncestor(
+    const statement = path.findAncestor(
       (node) =>
         node.type === "ForOfStatement" || node.type === "ForInStatement",
-    )?.left;
+    );
     if (
-      expression &&
+      statement &&
       startsWithNoLookaheadToken(
-        expression,
+        statement.left,
         (leftmostNode) => leftmostNode === node,
       )
     ) {
@@ -63,47 +75,33 @@ function shouldAddParenthesesToIdentifier(path) {
         node.type === "ForStatement" ||
         node.type === "ForInStatement",
     );
-    const expression = !statement
-      ? undefined
-      : statement.type === "ExpressionStatement"
-        ? statement.expression
-        : statement.type === "ForStatement"
-          ? statement.init
-          : statement.left;
-    if (
-      expression &&
-      startsWithNoLookaheadToken(
-        expression,
-        (leftmostNode) => leftmostNode === node,
-      )
-    ) {
-      return true;
+    if (statement) {
+      const expression =
+        statement.type === "ExpressionStatement"
+          ? statement.expression
+          : statement.type === "ForStatement"
+            ? statement.init
+            : statement.left;
+      if (
+        startsWithNoLookaheadToken(
+          expression,
+          (leftmostNode) => leftmostNode === node,
+        )
+      ) {
+        return true;
+      }
     }
   }
 
   // `(type) satisfies never;` and similar cases
-  if (key === "expression") {
-    switch (node.name) {
-      case "await":
-      case "interface":
-      case "module":
-      case "using":
-      case "yield":
-      case "let":
-      case "component":
-      case "hook":
-      case "type": {
-        const ancestorNeitherAsNorSatisfies = path.findAncestor(
-          (node) => !isBinaryCastExpression(node),
-        );
-        if (
-          ancestorNeitherAsNorSatisfies !== parent &&
-          ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
-        ) {
-          return true;
-        }
-      }
-    }
+  if (
+    key === "expression" &&
+    isBinaryCastExpression(parent) &&
+    namesNeedParenthesesAsExpressionOfBinaryCastExpression.has(node.name) &&
+    path.findAncestor((node) => !isBinaryCastExpression(node)).type ===
+      "ExpressionStatement"
+  ) {
+    return true;
   }
 
   return false;

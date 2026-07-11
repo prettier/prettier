@@ -75,7 +75,7 @@ function isKeySafeToQuote(node, options) {
 // Angular does not support unquoted numbers in expressions.
 //
 // So we play it safe and only unquote numbers for the JavaScript parsers.
-// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
+// (Vue.js supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
 function isKeySafeToUnquote(node, options) {

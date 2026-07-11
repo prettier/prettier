@@ -91,7 +91,7 @@ const inferParser = withPlugins((file, options) =>
   inferParserWithoutPlugins(options, { physicalFile: file }),
 );
 
-// Internal shared with cli
+// Internal shared with CLI
 const sharedWithCli = {
   errors,
   optionCategories,

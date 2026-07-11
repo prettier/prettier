@@ -174,11 +174,11 @@ function attachComments(ast, options) {
     }
 
     if (attachPropertiesToComment) {
-      comment.placement = placement;
       comment.enclosingNode = enclosingNode;
       comment.precedingNode = precedingNode;
       comment.followingNode = followingNode;
     }
+    comment.placement = placement;
 
     if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
@@ -193,7 +193,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
@@ -209,7 +209,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
@@ -239,7 +239,7 @@ function attachComments(ast, options) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // There are no nodes, let's attach it to the root of the ast
+        // There are no nodes, let's attach it to the root of the AST
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
@@ -256,7 +256,10 @@ function attachComments(ast, options) {
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
-      delete comment.placement;
+
+      // The `placement` property already used by plugins, can't delete
+      // https://github.com/prettier-solidity/prettier-plugin-solidity/blob/6986134753d72095bde41fe8e9a3c795830282ea/src/slang-nodes/IfStatement.ts#L56
+      // https://github.com/dangmai/prettier-plugin-apex/blob/ff35044e53e0ba30423e1f2030161d096e99ae99/packages/prettier-plugin-apex/src/printer.ts#L251
     }
   }
 }

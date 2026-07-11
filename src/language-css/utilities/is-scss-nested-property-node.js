@@ -1,4 +1,4 @@
-function isSCSSNestedPropertyNode(node, options) {
+function isScssNestedPropertyNode(node, options) {
   if (options.parser !== "scss") {
     return false;
   }
@@ -15,4 +15,4 @@ function isSCSSNestedPropertyNode(node, options) {
     .endsWith(":");
 }
 
-export default isSCSSNestedPropertyNode;
+export default isScssNestedPropertyNode;

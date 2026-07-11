@@ -166,7 +166,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+      [lastNode.value, node.value].every((value) => !/\u3000/.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
@@ -228,11 +228,9 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     const newNode = { ...handler(node, index, parentStack) };
-    if (newNode.children) {
-      newNode.children = newNode.children.map((child, index) =>
-        preorder(child, index, [newNode, ...parentStack]),
-      );
-    }
+    newNode.children &&= newNode.children.map((child, index) =>
+      preorder(child, index, [newNode, ...parentStack]),
+    );
 
     return newNode;
   })(ast, null, []);
@@ -307,6 +305,8 @@ function isSetextHeading(node) {
   return start.line !== end.line;
 }
 
+const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
+
 export {
   getNthListSiblingIndex,
   getOrderedListItemInfo,
@@ -315,6 +315,7 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isNewLine,
   isPrettierIgnore,
   isSetextHeading,
   KIND_CJ_LETTER,

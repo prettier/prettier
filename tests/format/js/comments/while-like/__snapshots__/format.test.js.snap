@@ -13,6 +13,10 @@ if(
 if(true)// 2
 {}
 
+if(true)
+// 22
+{}
+
 if(true){}// 3
 
 if(true)/*4*/{}
@@ -29,6 +33,17 @@ if(true) /* 7 */ ++x;
 if(1) // 8
   foo();
 
+if (0) {// comment
+}
+
+if (0) {
+  // comment
+}
+
+if (0) {/* comment */}
+
+if ((0, 0/* comment */)) {}
+
 =====================================output=====================================
 if (
   true
@@ -37,6 +52,11 @@ if (
 }
 
 if (true) // 2
+{
+}
+
+if (true)
+// 22
 {
 }
 
@@ -61,6 +81,111 @@ if (1)
   // 8
   foo();
 
+if (0) {
+  // comment
+}
+
+if (0) {
+  // comment
+}
+
+if (0) {
+  /* comment */
+}
+
+if ((0, 0) /* comment */) {
+}
+
+================================================================================
+`;
+
+exports[`switch.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+switch(
+    true
+    // 1
+  ) {}
+
+switch(true)// 2
+{}
+
+switch(true)
+// 22
+{}
+
+switch(true){}// 3
+
+switch(true)/*4*/{}
+
+switch(
+  true // 5
+  && true // 52
+  ){}
+
+switch(true) {} // 6
+
+switch (0) {// comment
+}
+
+switch (0) {
+  // comment
+}
+
+switch (0) {/* comment */}
+
+switch ((0, 0/* comment */)) {}
+
+=====================================output=====================================
+switch (
+  true
+  // 1
+) {
+}
+
+switch (
+  true // 2
+) {
+}
+
+switch (
+  true
+  // 22
+) {
+}
+
+switch (true) {
+} // 3
+
+switch (true /*4*/) {
+}
+
+switch (
+  true && // 5
+  true // 52
+) {
+}
+
+switch (true) {
+} // 6
+
+switch (0) {
+  // comment
+}
+
+switch (0) {
+  // comment
+}
+
+switch (0) {
+  /* comment */
+}
+
+switch ((0, 0) /* comment */) {
+}
+
 ================================================================================
 `;
 
@@ -75,6 +200,10 @@ while(
   ) {}
 
 while(true)// 2
+{}
+
+while(true)
+// 22
 {}
 
 while(true){}// 3
@@ -93,6 +222,17 @@ while(true) /* 7 */ ++x;
 while(1) // 8
   foo();
 
+while (0) {// comment
+}
+
+while (0) {
+  // comment
+}
+
+while (0) {/* comment */}
+
+while ((0, 0/* comment */)) {}
+
 =====================================output=====================================
 while (
   true
@@ -100,6 +240,10 @@ while (
 ) {}
 
 while (true) // 2
+{}
+
+while (true)
+// 22
 {}
 
 while (true) {} // 3
@@ -119,6 +263,20 @@ while (1)
   // 8
   foo();
 
+while (0) {
+  // comment
+}
+
+while (0) {
+  // comment
+}
+
+while (0) {
+  /* comment */
+}
+
+while ((0, 0) /* comment */) {}
+
 ================================================================================
 `;
 
@@ -133,6 +291,10 @@ with(
   ) {}
 
 with(foo)// 2
+{}
+
+with(foo)
+// 22
 {}
 
 with(foo){}// 3
@@ -151,6 +313,17 @@ with(foo) /* 7 */ ++x;
 with(1) // 8
   foo();
 
+with (0) {// comment
+}
+
+with (0) {
+  // comment
+}
+
+with (0) {/* comment */}
+
+with ((0, 0/* comment */)) {}
+
 =====================================output=====================================
 with (
   foo
@@ -159,6 +332,11 @@ with (
 }
 
 with (foo) // 2
+{
+}
+
+with (foo)
+// 22
 {
 }
 
@@ -182,6 +360,21 @@ with (foo) /* 7 */ ++x;
 with (1)
   // 8
   foo();
+
+with (0) {
+  // comment
+}
+
+with (0) {
+  // comment
+}
+
+with (0) {
+  /* comment */
+}
+
+with ((0, 0) /* comment */) {
+}
 
 ================================================================================
 `;

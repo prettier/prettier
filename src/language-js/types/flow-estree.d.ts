@@ -1,5 +1,5 @@
 // ! Do NOT edit !
-// Generated from 'node_modules/hermes-estree/dist/types.js.flow'
+// Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
 // spell-checker: disable
 
@@ -11,6 +11,50 @@
  *
  * @flow strict
  * @format
+ * @generated
+ */
+
+/*
+ * !!! GENERATED FILE !!!
+ *
+ * DESIGN NOTE — please read before editing.
+ *
+ * This file is a VERBATIM MIRROR of upstream
+ *   xplat/static_h/tools/hermes-parser/js/hermes-estree/src/types.js
+ * with our header swapped in. It is **not** schema-derived generation —
+ * the body is byte-for-byte from upstream after the upstream header is
+ * stripped. The `@generated` tag means "do not hand-edit" — to update,
+ * edit upstream's types.js (or upstream the change first) and re-run the
+ * regeneration command below.
+ *
+ * The codegen step ALSO performs a SCHEMA cross-check: every concrete
+ * NodeDef in `node_kinds.rs` must have a matching `export interface` or
+ * `export type` in upstream's types.js (or appear in
+ * `KNOWN_TYPES_WITHOUT_INTERFACE` in codegen.rs with attribution). On any
+ * drift, codegen FAILS the build with a non-zero exit and lists the
+ * missing kinds. There is no synthesis or soft-warning path — upstream
+ * already contains all Flow-only nodes today, so the cross-check exists
+ * solely to prevent future drift between the Rust SCHEMA and upstream.
+ *
+ * Schema-derivable per-node interfaces are NOT independently generated
+ * because upstream's interfaces carry hand-curated child unions (e.g.
+ * `Expression`, `Statement`, `BindingName`, `MemberExpression` refinement
+ * splits, `MethodDefinition` discriminator splits, per-property
+ * nullability) that the Rust schema does not encode and should not encode
+ * — the Rust schema is the source of truth for *binary serialization*
+ * between the Rust parser and the JS deserializer; the upstream Flow
+ * types are the source of truth for *consumer typings*. See
+ * `generate_estree_types` in `flow_parser_wasm/src/bin/codegen.rs` for
+ * the implementation.
+ *
+ * To regenerate (run from the fbsource root):
+ *
+ *   buck run fbcode//flow/rust_port/crates/flow_parser_wasm:codegen -- \
+ *     --estree-types > \
+ *     fbcode/flow/packages/flow-estree/src/types.js
+ *
+ * To regenerate against a different upstream copy, set
+ * `HERMES_ESTREE_TYPES_JS` to an absolute path before invoking codegen.
  */
 
 /**
@@ -229,10 +273,7 @@ export type BindingPattern = ArrayPattern | ObjectPattern;
 export type RestElementPattern = AssignmentPattern | BindingName | RestElement;
 export type FunctionParameter = AssignmentPattern | BindingName | RestElement;
 export type DestructuringPattern =
-  | BindingName
-  | AssignmentPattern
-  | MemberExpression
-  | RestElement;
+  BindingName | AssignmentPattern | MemberExpression | RestElement;
 
 interface BaseFunction extends BaseNode {
   params: ReadonlyArray<FunctionParameter>;
@@ -244,9 +285,7 @@ interface BaseFunction extends BaseNode {
 }
 
 export type AFunction =
-  | FunctionDeclaration
-  | FunctionExpression
-  | ArrowFunctionExpression;
+  FunctionDeclaration | FunctionExpression | ArrowFunctionExpression;
 
 export type Statement =
   | BlockStatement
@@ -303,10 +342,7 @@ export type StatementParentSingle =
   | ForOfStatement;
 // nodes that can be the parent of a statement that store the statements in an array
 export type StatementParentArray =
-  | SwitchCase
-  | Program
-  | BlockStatement
-  | StaticBlock;
+  SwitchCase | Program | BlockStatement | StaticBlock;
 export type StatementParent = StatementParentSingle | StatementParentArray;
 
 export interface EmptyStatement extends BaseNode {
@@ -527,10 +563,7 @@ export interface ObjectExpression extends BaseNode {
 export type Property = ObjectProperty | DestructuringObjectProperty;
 
 export type ObjectPropertyKey =
-  | Identifier
-  | StringLiteral
-  | NumericLiteral
-  | BigIntLiteral;
+  Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
 
 export type ObjectProperty =
   | ObjectPropertyWithNonShorthandStaticName
@@ -692,8 +725,7 @@ export interface NewExpression extends BaseCallExpression {
 }
 
 export type MemberExpression =
-  | MemberExpressionWithComputedName
-  | MemberExpressionWithNonComputedName;
+  MemberExpressionWithComputedName | MemberExpressionWithNonComputedName;
 export interface MemberExpressionWithComputedName extends BaseNode {
   type: "MemberExpression";
   object: Expression | Super;
@@ -798,13 +830,7 @@ export interface StringLiteral extends BaseNode {
 }
 
 export type UnaryOperator =
-  | "-"
-  | "+"
-  | "!"
-  | "~"
-  | "typeof"
-  | "void"
-  | "delete";
+  "-" | "+" | "!" | "~" | "typeof" | "void" | "delete";
 
 export type BinaryOperatorWithoutIn =
   | "=="
@@ -937,12 +963,10 @@ interface BaseClass extends BaseNode {
 }
 
 export type PropertyName =
-  | ClassPropertyNameComputed
-  | ClassPropertyNameNonComputed;
+  ClassPropertyNameComputed | ClassPropertyNameNonComputed;
 export type ClassPropertyNameComputed = Expression;
 export type ClassPropertyNameNonComputed =
-  | PrivateIdentifier
-  | ObjectPropertyKey;
+  PrivateIdentifier | ObjectPropertyKey;
 
 export type ClassMember = PropertyDefinition | MethodDefinition | StaticBlock;
 export type ClassMemberWithNonComputedName =
@@ -971,6 +995,7 @@ export interface MethodDefinitionConstructor extends MethodDefinitionBase {
   kind: "constructor";
   computed: false;
   static: false;
+  decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithComputedName extends MethodDefinitionBase {
   type: "MethodDefinition";
@@ -978,6 +1003,7 @@ export interface MethodDefinitionWithComputedName extends MethodDefinitionBase {
   kind: "method" | "get" | "set";
   computed: true;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBase {
   type: "MethodDefinition";
@@ -985,16 +1011,17 @@ export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBas
   kind: "method" | "get" | "set";
   computed: false;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
 }
 
 // `PropertyDefinition` is the new standard for all class properties
 export type PropertyDefinition =
-  | PropertyDefinitionWithComputedName
-  | PropertyDefinitionWithNonComputedName;
+  PropertyDefinitionWithComputedName | PropertyDefinitionWithNonComputedName;
 interface PropertyDefinitionBase extends BaseNode {
   value: null | Expression;
   typeAnnotation: null | TypeAnnotation;
   static: boolean;
+  decorators: ReadonlyArray<Decorator>;
   variance: null | Variance;
   declare: boolean;
   // hermes always emit this as false
@@ -1051,7 +1078,7 @@ export interface ImportDeclaration extends BaseNode {
     ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier
   >;
   source: StringLiteral;
-  assertions: ReadonlyArray<ImportAttribute>;
+  attributes: ReadonlyArray<ImportAttribute>;
 
   importKind: "value" | "type" | "typeof";
 }
@@ -1126,8 +1153,7 @@ export interface ExportNamedDeclarationWithDeclaration extends ExportNamedDeclar
   specifiers: [];
 }
 export type ExportNamedDeclaration =
-  | ExportNamedDeclarationWithSpecifiers
-  | ExportNamedDeclarationWithDeclaration;
+  ExportNamedDeclarationWithSpecifiers | ExportNamedDeclarationWithDeclaration;
 
 export interface ExportSpecifier extends BaseNode {
   type: "ExportSpecifier";
@@ -1202,7 +1228,7 @@ export type TypeAnnotationType =
 
 export interface Variance extends BaseNode {
   type: "Variance";
-  kind: "plus" | "minus" | "readonly";
+  kind: "plus" | "minus" | "readonly" | "writeonly" | "in" | "out";
 }
 
 interface BaseTypeAlias extends BaseNode {
@@ -1387,14 +1413,10 @@ export interface ConditionalTypeAnnotation extends BaseNode {
 }
 
 export type TypeOperator =
-  | RendersTypeOperator
-  | RendersStarTypeOperator
-  | RendersQuestionTypeOperator;
+  RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
 
 export type RendersType =
-  | RendersTypeOperator
-  | RendersStarTypeOperator
-  | RendersQuestionTypeOperator;
+  RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
 
 interface TypeOperatorBase extends BaseNode {
   type: "TypeOperator";
@@ -1789,12 +1811,14 @@ export interface DeclareHook extends BaseNode {
       typeAnnotation: HookTypeAnnotation;
     };
   };
+  implicitDeclare: boolean;
 }
 
 export interface DeclareVariable extends BaseNode {
   type: "DeclareVariable";
-  id: Identifier;
+  declarations: ReadonlyArray<VariableDeclarator>;
   kind: "var" | "let" | "const";
+  implicitDeclare: boolean;
 }
 
 export interface DeclareEnum extends BaseNode {
@@ -1811,6 +1835,7 @@ export interface DeclareFunction extends BaseNode {
       typeAnnotation: FunctionTypeAnnotation;
     };
   };
+  implicitDeclare: boolean;
   predicate: InferredPredicate | DeclaredPredicate | null;
 }
 
@@ -1822,8 +1847,11 @@ export interface DeclareModule extends BaseNode {
 
 export interface DeclareNamespace extends BaseNode {
   type: "DeclareNamespace";
+  global: boolean;
   id: Identifier;
   body: BlockStatement;
+  implicitDeclare: boolean;
+  keyword: "namespace" | "module";
 }
 
 export interface DeclareInterface extends BaseInterfaceDeclaration {
@@ -1908,16 +1936,10 @@ export interface DeclaredPredicate extends BaseNode {
  **********************/
 
 export type JSXChild =
-  | JSXElement
-  | JSXExpression
-  | JSXFragment
-  | JSXText
-  | JSXSpreadChild;
+  JSXElement | JSXExpression | JSXFragment | JSXText | JSXSpreadChild;
 export type JSXExpression = JSXEmptyExpression | JSXExpressionContainer;
 export type JSXTagNameExpression =
-  | JSXIdentifier
-  | JSXMemberExpression
-  | JSXNamespacedName;
+  JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
 
 export type JSXNode =
   | JSXAttribute

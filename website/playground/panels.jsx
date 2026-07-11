@@ -12,6 +12,7 @@ import {
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
+  forceParsing,
 } from "@codemirror/language";
 import {
   Compartment,
@@ -190,31 +191,47 @@ function setup(props, { emit }) {
   };
 
   const foldCode = () => {
-    if (!_codeMirror || !(props.autoFold instanceof RegExp)) {
+    if (!_codeMirror) {
       return;
     }
 
-    const lines = props.value.split("\n");
+    const { autoFold, value } = props;
+    if (!value || !(autoFold instanceof RegExp)) {
+      return;
+    }
+
     const effects = [];
-
-    for (let i = lines.length - 1; i >= 0; i--) {
-      if (props.autoFold.test(lines[i])) {
-        const lineNumber = i + 1;
-        const range = foldable(
-          _codeMirror.state,
-          _codeMirror.state.doc.line(lineNumber).from,
-          _codeMirror.state.doc.line(lineNumber).to,
-        );
-
-        if (range) {
-          effects.push(foldEffect.of(range));
-        }
+    let forceParsed = false;
+    for (const [lineIndex, lineText] of value.split("\n").entries()) {
+      if (!autoFold.test(lineText)) {
+        continue;
       }
+
+      if (!forceParsed) {
+        forceParsed = true;
+
+        forceParsing(
+          _codeMirror,
+          _codeMirror.state.doc.length,
+          Number.POSITIVE_INFINITY,
+        );
+      }
+
+      const { from, to } = _codeMirror.state.doc.line(lineIndex + 1);
+      const range = foldable(_codeMirror.state, from, to);
+
+      if (!range) {
+        continue;
+      }
+
+      effects.push(foldEffect.of(range));
     }
 
-    if (effects.length > 0) {
-      _codeMirror.dispatch({ effects });
+    if (effects.length === 0) {
+      return;
     }
+
+    _codeMirror.dispatch({ effects });
   };
 
   const updateValue = (value) => {
