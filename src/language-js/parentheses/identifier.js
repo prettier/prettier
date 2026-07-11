@@ -1,6 +1,18 @@
 import { isBinaryCastExpression } from "../utilities/node-types.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
+const namesNeedParenthesesAsExpressionOfBinaryCastExpression = new Set([
+  "await",
+  "interface",
+  "module",
+  "using",
+  "yield",
+  "let",
+  "component",
+  "hook",
+  "type",
+]);
+
 function shouldAddParenthesesToIdentifier(path) {
   const { node } = path;
 
@@ -82,28 +94,14 @@ function shouldAddParenthesesToIdentifier(path) {
   }
 
   // `(type) satisfies never;` and similar cases
-  if (key === "expression") {
-    switch (node.name) {
-      case "await":
-      case "interface":
-      case "module":
-      case "using":
-      case "yield":
-      case "let":
-      case "component":
-      case "hook":
-      case "type": {
-        const ancestorNeitherAsNorSatisfies = path.findAncestor(
-          (node) => !isBinaryCastExpression(node),
-        );
-        if (
-          ancestorNeitherAsNorSatisfies !== parent &&
-          ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
-        ) {
-          return true;
-        }
-      }
-    }
+  if (
+    key === "expression" &&
+    isBinaryCastExpression(parent) &&
+    namesNeedParenthesesAsExpressionOfBinaryCastExpression.has(node.name) &&
+    path.findAncestor((node) => !isBinaryCastExpression(node)).type ===
+      "ExpressionStatement"
+  ) {
+    return true;
   }
 
   return false;
