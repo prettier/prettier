@@ -125,7 +125,7 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return printWord(path);
+      return printWord(path, options);
     case "whitespace": {
       const { next } = path;
 
