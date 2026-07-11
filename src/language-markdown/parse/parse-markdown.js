@@ -12,6 +12,9 @@ import {
   liquidSyntax,
 } from "./micromark/micromark-extension-liquid.js";
 
+const escapedCharacterReferenceRegex =
+  /&(?:#x[\da-f]+|#\d+|[a-z][a-z\d]*)\\;/gi;
+
 let markdownParseOptions;
 function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
@@ -32,8 +35,47 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       liquidFromMarkdown(),
+      preserveEscapedCharacterReferences(),
     ],
   });
+}
+
+function preserveEscapedCharacterReferences() {
+  return {
+    exit: {
+      definitionDestinationString: exitUrl,
+      resourceDestinationString: exitUrl,
+    },
+  };
+
+  /** @type {import("mdast-util-from-markdown").Handle} */
+  function exitUrl(token) {
+    let url = this.resume();
+    const rawUrl = this.sliceSerialize(token);
+    let searchIndex = 0;
+
+    for (const { 0: escapedCharacterReference } of rawUrl.matchAll(
+      escapedCharacterReferenceRegex,
+    )) {
+      const characterReference = escapedCharacterReference.slice(0, -2) + ";";
+      const index = url.indexOf(characterReference, searchIndex);
+      if (index === -1) {
+        continue;
+      }
+
+      url =
+        url.slice(0, index) +
+        escapedCharacterReference +
+        url.slice(index + characterReference.length);
+      searchIndex = index + escapedCharacterReference.length;
+    }
+
+    const node =
+      /** @type {import("mdast").Definition | import("mdast").Link | import("mdast").Image} */ (
+        this.stack.at(-1)
+      );
+    node.url = url;
+  }
 }
 
 function parseMarkdown(text) {

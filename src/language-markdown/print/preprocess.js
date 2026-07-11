@@ -10,7 +10,6 @@ function preprocess(ast, options) {
     ast = restoreUnescapedCharacter(ast, options);
   } else {
     ast = addRawToText(ast, options);
-    ast = restoreEscapedCharacterReferencesInUrls(ast, options);
   }
   ast = mergeContinuousTexts(ast);
   if (options.parser === "mdx") {
@@ -75,115 +74,6 @@ function addRawToText(ast, options) {
     }
     return node;
   });
-}
-
-const escapedCharacterReferenceRegex =
-  /&(?:#x[\da-f]+|#\d+|[a-z][a-z\d]*)\\;/gi;
-
-function restoreEscapedCharacterReferencesInUrls(ast, options) {
-  return mapAst(ast, (node) => {
-    if (
-      (node.type !== "link" &&
-        node.type !== "image" &&
-        node.type !== "definition") ||
-      !node.url
-    ) {
-      return node;
-    }
-
-    const rawUrl = getRawUrl(node, options.originalText);
-    if (!rawUrl) {
-      return node;
-    }
-
-    // The parser removes the backslash from `&name\;`. If we don't restore it,
-    // the next parse decodes the newly formed `&name;` character reference.
-    let { url } = node;
-    let searchIndex = 0;
-    for (const { 0: escapedCharacterReference } of rawUrl.matchAll(
-      escapedCharacterReferenceRegex,
-    )) {
-      const characterReference = escapedCharacterReference.slice(0, -2) + ";";
-      const index = url.indexOf(characterReference, searchIndex);
-      if (index === -1) {
-        continue;
-      }
-
-      url =
-        url.slice(0, index) +
-        escapedCharacterReference +
-        url.slice(index + characterReference.length);
-      searchIndex = index + escapedCharacterReference.length;
-    }
-
-    node.url = url;
-    return node;
-  });
-}
-
-function getRawUrl(node, text) {
-  const bracketRange = getBracketRange(
-    text,
-    node.position.start.offset,
-    node.position.end.offset,
-  );
-  if (!bracketRange) {
-    return;
-  }
-
-  let index = bracketRange.end + 1;
-  if (node.type === "definition") {
-    if (text[index] !== ":") {
-      return;
-    }
-  } else if (text[index] !== "(") {
-    return;
-  }
-  index++;
-
-  while (/\s/.test(text[index])) {
-    index++;
-  }
-
-  const start = index;
-  if (text[index] === "<") {
-    index++;
-    while (index < node.position.end.offset) {
-      if (text[index] === "\\") {
-        index += 2;
-      } else if (text[index] === ">") {
-        return text.slice(start + 1, index);
-      } else {
-        index++;
-      }
-    }
-    return;
-  }
-
-  let parenthesisDepth = 0;
-  while (index < node.position.end.offset) {
-    const character = text[index];
-    if (character === "\\") {
-      index += 2;
-      continue;
-    }
-    if (/\s/.test(character)) {
-      break;
-    }
-    if (node.type !== "definition") {
-      if (character === "(") {
-        parenthesisDepth++;
-      } else if (character === ")") {
-        if (parenthesisDepth === 0) {
-          break;
-        }
-        parenthesisDepth--;
-      }
-    }
-    index++;
-  }
-
-  return text.slice(start, index);
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {
@@ -453,11 +343,6 @@ function markOriginalImageAndLinkAlt(ast, options) {
 }
 
 function getBracketContent(text, startOffset, endOffset) {
-  const bracketRange = getBracketRange(text, startOffset, endOffset);
-  return bracketRange ? text.slice(bracketRange.start, bracketRange.end) : null;
-}
-
-function getBracketRange(text, startOffset, endOffset) {
   const firstBracket = text.indexOf("[", startOffset);
 
   if (firstBracket === -1 || firstBracket >= endOffset) {
@@ -480,7 +365,7 @@ function getBracketRange(text, startOffset, endOffset) {
     } else if (char === "]") {
       depth--;
       if (depth === 0) {
-        return { start: firstBracket + 1, end: index };
+        return text.slice(firstBracket + 1, index);
       }
     }
 
