@@ -24,3 +24,8 @@ x;
   // comment
   ;[foo] = [1]
 }
+
+(
+  //foo
+  []
+).forEach()

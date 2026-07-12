@@ -9,6 +9,11 @@ import {
   shouldExpressionStatementPrintLeadingSemicolon,
 } from "../semicolon/semicolon.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
+import {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+} from "../utilities/left-side.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import {
   isVueEventBindingFunctionExpression,
@@ -46,11 +51,39 @@ function shouldPrintSemicolon(path, options) {
 }
 
 function printExpressionStatement(path, options, print) {
+  const shouldPrintLeadingSemicolon =
+    shouldExpressionStatementPrintLeadingSemicolon(path, options);
+  const shouldPrintOwnComments = shouldExpressionStatementPrintOwnComments(
+    path,
+    options,
+  );
+  const leftSideComments =
+    shouldPrintLeadingSemicolon && !shouldPrintOwnComments
+      ? path.call(function printLeftSideComments() {
+          if (hasNakedLeftSide(path.node)) {
+            return path.call(
+              printLeftSideComments,
+              ...getLeftSidePathName(path.node),
+            );
+          }
+
+          const comments = getComments(path.node, CommentCheckFlags.Leading);
+          if (comments.length > 0 && isTypeCastComment(comments.at(-1))) {
+            return "";
+          }
+          const doc = printLeadingComments(path, options);
+          const printedComments = options[Symbol.for("printedComments")];
+          for (const comment of comments) {
+            printedComments.add(comment);
+          }
+          return doc;
+        }, "expression")
+      : "";
   /** @type {Doc[]} */
   const parts = [print("expression")];
 
-  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
-    if (shouldExpressionStatementPrintOwnComments(path, options)) {
+  if (shouldPrintLeadingSemicolon) {
+    if (shouldPrintOwnComments) {
       const { node } = path;
       const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
         -1,
@@ -66,7 +99,7 @@ function printExpressionStatement(path, options, print) {
       });
     }
 
-    parts.unshift(";");
+    parts.unshift(leftSideComments, ";");
   } else if (shouldPrintSemicolon(path, options)) {
     parts.push(";");
   }
