@@ -56,7 +56,7 @@ function parseVue(input, parseOptions) {
       (node.kind === "element" && node.name.toLowerCase() === "html"),
   );
 
-  // If not Vue SFC, treat as html
+  // If not Vue.js SFC, treat as HTML
   if (isHtml) {
     return parseHtml(input, HTML_PARSE_OPTIONS);
   }

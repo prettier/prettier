@@ -1,4 +1,7 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
+import { isNewLine } from "../utilities.js";
+
+const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -7,25 +10,36 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 
 /**
  * @param {AstPath} path
+ * @param {*} options
  * @return {Doc}
  */
-function printWord(path) {
+function printWord(path, options) {
   const { node } = path;
   const emphasisOrStrong = path.findAncestor(
     (p) => p.type === "emphasis" || p.type === "strong",
   );
-  if (!emphasisOrStrong) {
-    return node.value;
-  }
-  const { previous, next, grandparent } = path;
   let text = node.value;
+  if (!emphasisOrStrong) {
+    if (
+      options.proseWrap === "preserve" &&
+      path.parent.type === "sentence" &&
+      fakeSetextHeaderRegex.test(text) &&
+      isNewLine(path.previous) &&
+      (path.isLast || isNewLine(path.next))
+    ) {
+      // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
+      return `\\${text}`;
+    }
+
+    return text;
+  }
 
   // escape leading `*` or `_` if it's the first character in an emphasis/strong
   if (
     path.isFirst &&
     (text.startsWith("*") || text.startsWith("_")) &&
     path.callParent(() => path.isFirst) &&
-    grandparent === emphasisOrStrong
+    path.grandparent === emphasisOrStrong
   ) {
     text = `\\${text}`;
   }
@@ -43,9 +57,9 @@ function printWord(path) {
       }
       if (
         canOpenOrCloseStrongOrEmphasis(
-          preceding.at(-1) || previous?.value.at(-1),
+          preceding.at(-1) || path.previous?.value.at(-1),
           delimiterRun,
-          following[0] || next?.value[0],
+          following[0] || path.next?.value[0],
         )
       ) {
         return `${preceding}\\${delimiterRun}${following}`;

@@ -446,14 +446,16 @@ function replaceQuotesInInlineComments(text) {
           continue;
         }
 
-        if (c === "*" && text[i - 1] === "/") {
-          state = "comment-block";
-          continue;
-        }
-
-        if (c === "/" && text[i - 1] === "/") {
-          state = "comment-inline";
-          inlineCommentStartIndex = i - 1;
+        if (c === "/") {
+          const nextCharacter = text[i + 1];
+          if (nextCharacter === "*") {
+            state = "comment-block";
+            i++;
+          } else if (nextCharacter === "/") {
+            state = "comment-inline";
+            inlineCommentStartIndex = i;
+            i++;
+          }
           continue;
         }
 
@@ -482,8 +484,7 @@ function replaceQuotesInInlineComments(text) {
       case "url":
         if (c === ")") {
           state = "initial";
-        }
-        if (c === "\n" || c === "\r") {
+        } else if (c === "\n" || c === "\r") {
           return text; // invalid input
         }
         if (c === "'") {
@@ -507,8 +508,7 @@ function replaceQuotesInInlineComments(text) {
       case "comment-inline":
         if (c === '"' || c === "'" || c === "*") {
           inlineCommentContainsQuotes = true;
-        }
-        if (c === "\n" || c === "\r") {
+        } else if (c === "\n" || c === "\r") {
           if (inlineCommentContainsQuotes) {
             inlineCommentsToReplace.push([inlineCommentStartIndex, i]);
           }

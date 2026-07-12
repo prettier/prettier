@@ -30,7 +30,12 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: ["ts-expect", "buffer", "base64-arraybuffer-es6"],
+      ignoreDependencies: [
+        "ts-expect",
+        "buffer",
+        "base64-arraybuffer-es6",
+        "flow-estree",
+      ],
       ignoreBinaries: ["test-coverage"],
     },
     website: {

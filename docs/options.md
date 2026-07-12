@@ -319,7 +319,7 @@ Valid options:
 - `"jsonc"` (same parser as `"json"`, but outputs as "JSON with Comments") _First available in v3.2.0_
 - `"json-stringify"` (parse like `JSON.parse()` except it's less strict, whitespace resembles `JSON.stringify()`) _First available in v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
-- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse)) _First available in v1.8.0_
+- `"markdown"` (via [micromark](https://github.com/micromark/micromark)) _First available in v1.8.0_
 - `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _First available in v1.15.0_
 - `"html"` (via [angular-html-parser](https://github.com/ikatyang/angular-html-parser/tree/master/packages/angular-html-parser)) _First available in 1.15.0_
 - `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _First available in 1.10.0_

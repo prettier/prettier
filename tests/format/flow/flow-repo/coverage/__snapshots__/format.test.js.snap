@@ -22,11 +22,9 @@ declare module bar {
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 
-declare module foo {
-}
+declare module foo {}
 
-declare module bar {
-}
+declare module bar {}
 
 // TODO
 
@@ -46,8 +44,7 @@ declare module foo {
 =====================================output=====================================
 // check coverage of declare module
 
-declare module foo {
-}
+declare module foo {}
 
 ================================================================================
 `;
@@ -92,11 +89,9 @@ declare class qux {
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 
-declare module foo {
-}
+declare module foo {}
 
-declare module bar {
-}
+declare module bar {}
 
 // TODO
 

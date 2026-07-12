@@ -292,21 +292,19 @@ export default {
             continue;
           }
 
-          if (
-            !(
-              referenceIdentifier.parent.type === "MemberExpression" &&
-              referenceIdentifier.parent.object === referenceIdentifier &&
-              !referenceIdentifier.parent.optional &&
-              !referenceIdentifier.parent.computed &&
-              referenceIdentifier.parent.property.type === "Identifier" &&
-              referenceIdentifier.parent.property.name === "has" &&
-              referenceIdentifier.parent.parent.type === "CallExpression" &&
-              referenceIdentifier.parent.parent.callee ===
-                referenceIdentifier.parent &&
-              !referenceIdentifier.parent.parent.optional &&
-              referenceIdentifier.parent.parent.arguments.length === 1
-            )
-          ) {
+          if (!(
+            referenceIdentifier.parent.type === "MemberExpression" &&
+            referenceIdentifier.parent.object === referenceIdentifier &&
+            !referenceIdentifier.parent.optional &&
+            !referenceIdentifier.parent.computed &&
+            referenceIdentifier.parent.property.type === "Identifier" &&
+            referenceIdentifier.parent.property.name === "has" &&
+            referenceIdentifier.parent.parent.type === "CallExpression" &&
+            referenceIdentifier.parent.parent.callee ===
+              referenceIdentifier.parent &&
+            !referenceIdentifier.parent.parent.optional &&
+            referenceIdentifier.parent.parent.arguments.length === 1
+          )) {
             return;
           }
 
@@ -316,14 +314,12 @@ export default {
               ? typeNode.expression
               : typeNode;
 
-          if (
-            !(
-              memberExpression.type === "MemberExpression" &&
-              !memberExpression.computed &&
-              memberExpression.property.type === "Identifier" &&
-              memberExpression.property.name === "type"
-            )
-          ) {
+          if (!(
+            memberExpression.type === "MemberExpression" &&
+            !memberExpression.computed &&
+            memberExpression.property.type === "Identifier" &&
+            memberExpression.property.name === "type"
+          )) {
             return;
           }
 

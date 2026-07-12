@@ -6,7 +6,7 @@ export function read() {
     return {};
   }
 
-  // backwards support for old json encoded URIComponent
+  // backwards support for old JSON encoded URIComponent
   const decode = hash.includes("%7B%22")
     ? decodeURIComponent
     : LZString.decompressFromEncodedURIComponent;

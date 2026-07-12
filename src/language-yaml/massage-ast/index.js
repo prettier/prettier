@@ -34,7 +34,7 @@ function massageAstNode(original, cloned /* , parent */) {
       }
 
       // TODO: Fix this
-      if (original.chomping === "clip" || original.chomping === "strip") {
+      else if (original.chomping === "clip" || original.chomping === "strip") {
         cloned.value = original.value.trimEnd();
       }
       break;

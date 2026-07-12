@@ -33,7 +33,7 @@ Install it along with [simple-git-hooks](https://github.com/toplenboren/simple-g
 
 ```bash
 npm install --save-dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "npx pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'npx pretty-quick --staged'},undefined,2)+'\n')"
 npx simple-git-hooks
 ```
 
@@ -42,7 +42,7 @@ npx simple-git-hooks
 
 ```bash
 yarn add --dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "yarn pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'yarn pretty-quick --staged'},undefined,2)+'\n')"
 yarn simple-git-hooks
 ```
 
@@ -51,7 +51,7 @@ yarn simple-git-hooks
 
 ```bash
 pnpm add --save-dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "pnpm pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'pnpm pretty-quick --staged'},undefined,2)+'\n')"
 pnpm simple-git-hooks
 ```
 
@@ -60,8 +60,17 @@ pnpm simple-git-hooks
 
 ```bash
 bun add --dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "bun pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'bun pretty-quick --staged'},undefined,2)+'\n')"
 bun simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev simple-git-hooks pretty-quick
+deno eval "Deno.writeTextFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'deno x pretty-quick --staged'},undefined,2)+'\n')"
+deno x simple-git-hooks
 ```
 
 </TabItem>
@@ -82,7 +91,7 @@ dotnet husky add pre-commit
 
 after installation you can add prettier task to the `task-runner.json`.
 
-```json
+```json title="task-runner.json"
 {
   "command": "npx",
   "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
@@ -140,6 +149,15 @@ bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'pretti
 ```
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno x husky init
+deno install --dev git-format-staged
+deno eval "Deno.writeTextFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
 </Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
@@ -150,7 +168,7 @@ To read about how git-format-staged works see [Automatic Code Formatting for Par
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
-```sh
+```sh title=".git/hooks/pre-commit"
 #!/bin/sh
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
@@ -168,7 +186,7 @@ If git is reporting that your prettified files are still modified after committi
 
 Add something like the following to `.git/hooks/post-commit`:
 
-```sh
+```sh title=".git/hooks/post-commit"
 #!/bin/sh
 git update-index -g
 ```

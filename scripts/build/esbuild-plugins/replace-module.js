@@ -107,13 +107,11 @@ function setupOnResolveListener(build, { concepts, replacements }) {
   // Use a `Set` to avoid infinite loop
   const seenModules = new Set();
   build.onResolve(concepts, async (args) => {
-    if (
-      !(
-        args.kind === "require-call" ||
-        args.kind === "import-statement" ||
-        args.kind === "dynamic-import"
-      )
-    ) {
+    if (!(
+      args.kind === "require-call" ||
+      args.kind === "import-statement" ||
+      args.kind === "dynamic-import"
+    )) {
       return;
     }
 

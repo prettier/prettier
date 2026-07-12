@@ -619,6 +619,53 @@ This paragraph
 ================================================================================
 `;
 
+exports[`issue-14228.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> **Source:**
+> [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+=====================================output=====================================
+> **Source:**
+> [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+================================================================================
+`;
+
+exports[`issue-14228.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> **Source:**
+> [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+=====================================output=====================================
+> **Source:** [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+================================================================================
+`;
+
+exports[`issue-14228.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> **Source:**
+> [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+=====================================output=====================================
+> **Source:**
+> [packages/react-dom/src/client/ReactDOMComponent.js:225](https://github.com/facebook/react/blob/8a8d973d3cc5623676a84f87af66ef9259c3937c/packages/react-dom/src/client/ReactDOMComponent.js#L225)
+
+================================================================================
+`;
+
 exports[`list.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -832,8 +879,9 @@ proseWrap: "always"
 > This is a quote with an italic _across multuple lines which should just work_.
 > So make sure there is no > if we set proseWrap to \`never\`
 
-> This is a quote with a link [across multuple lines which should just work]().
-> So make sure there is no > if we set proseWrap to \`never\`
+> This is a quote with a link
+> [across multuple lines which should just work](<>). So make sure there is no >
+> if we set proseWrap to \`never\`
 
 ================================================================================
 `;
@@ -879,7 +927,7 @@ proseWrap: "never"
 
 > This is a quote with an italic _across multuple lines which should just work_. So make sure there is no > if we set proseWrap to \`never\`
 
-> This is a quote with a link [across multuple lines which should just work](). So make sure there is no > if we set proseWrap to \`never\`
+> This is a quote with a link [across multuple lines which should just work](<>). So make sure there is no > if we set proseWrap to \`never\`
 
 ================================================================================
 `;
@@ -930,7 +978,7 @@ proseWrap: "preserve"
 > proseWrap to \`never\`
 
 > This is a quote with a link [across multuple lines
-> which should just work](). So make sure there is no > if we set
+> which should just work](<>). So make sure there is no > if we set
 > proseWrap to \`never\`
 
 ================================================================================

@@ -21,13 +21,10 @@ const isCallExpressionWithArguments = (node) =>
 function shouldInlineNewExpressionCallee(path) {
   let { node: child, ancestors } = path;
   for (const ancestor of ancestors) {
-    if (
-      !(
-        (isMemberExpression(ancestor) && ancestor.object === child) ||
-        (ancestor.type === "TSNonNullExpression" &&
-          ancestor.expression === child)
-      )
-    ) {
+    if (!(
+      (isMemberExpression(ancestor) && ancestor.object === child) ||
+      (ancestor.type === "TSNonNullExpression" && ancestor.expression === child)
+    )) {
       return ancestor.type === "NewExpression" && ancestor.callee === child;
     }
 

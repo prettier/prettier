@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`character-after-closing-tokens.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}!
+{% endif %}
+
+=====================================output=====================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}! {% endif %}
+
+================================================================================
+`;
+
+exports[`character-after-closing-tokens.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}!
+{% endif %}
+
+=====================================output=====================================
+{{ page.title
+}} a
+
+---
+
+{%
+ if user
+%} Hello, {{ user }}!
+{% endif %}
+
+================================================================================
+`;
+
 exports[`example-1.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -70,6 +128,284 @@ where does it end }}
 ================================================================================
 `;
 
+exports[`example-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar   baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar  baz %}
+
+=====================================output=====================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar baz %}
+
+================================================================================
+`;
+
+exports[`example-2.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar   baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar  baz %}
+
+=====================================output=====================================
+# linebreak after opening brace
+
+{
+
+---
+
+# including empty lines
+
+{{ foo
+
+bar baz
+
+qux }}
+
+---
+
+# line break after %
+
+{% foo %
+
+bar baz %}
+
+================================================================================
+`;
+
+exports[`issue-19386.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+=====================================output=====================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+================================================================================
+`;
+
+exports[`issue-19386.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+=====================================output=====================================
+{{ rule({
+    categories: {
+    }
+}) }}
+
+================================================================================
+`;
+
+exports[`issue-19488.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
+=====================================output=====================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it
+shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
+================================================================================
+`;
+
+exports[`issue-19488.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
+=====================================output=====================================
+{{% blocks/cover
+title="Welcome"
+%}}
+
+This input uses Hugo shortcode. Prettier doesn't support this explicitly but it shouldn't break it either.
+
+{{% /blocks/cover %}}
+
+---
+
+{{% blocks/cover
+%}}
+
+{{% blocks/cover
+%%}}
+
+{{% blocks/cover
+}}}
+
+{{{% blocks/cover
+%}}
+
+{% blocks/cover
+%}}
+
+{{ blocks/cover
+%}}
+
+================================================================================
+`;
+
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -80,8 +416,8 @@ proseWrap: "always"
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces
-{%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+Braces {% doesn't match so these words should not be considered as _liquid node_
+}}
 
 ================================================================================
 `;
@@ -95,7 +431,7 @@ parsers: ["markdown"]
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+Braces {% doesn't match so these words should not be considered as _liquid node_ }}
 
 ================================================================================
 `;

@@ -43,16 +43,16 @@ T6 = {/* comment */ // comment
 };
 
 =====================================output=====================================
-type T1 = {| /* comment */ |};
-type T12 = { /* comment */ };
+type T1 = {|/* comment */|};
+type T12 = {/* comment */};
 T1 = {/* comment */};
 
-type T2 = {| /* comment */ |};
-type T22 = { /* comment */ };
+type T2 = {|/* comment */|};
+type T22 = {/* comment */};
 T2 = {/* comment */};
 
-type T3 = {| /* comment */ |};
-type T32 = { /* comment */ };
+type T3 = {|/* comment */|};
+type T32 = {/* comment */};
 T3 = {/* comment */};
 
 type T4 = {|

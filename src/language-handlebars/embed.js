@@ -7,14 +7,12 @@ function embed(path /* , options*/) {
 
   const { parent } = path;
 
-  if (
-    !(
-      parent.type === "ElementNode" &&
-      parent.tag === "style" &&
-      parent.children.length === 1 &&
-      parent.children[0] === node
-    )
-  ) {
+  if (!(
+    parent.type === "ElementNode" &&
+    parent.tag === "style" &&
+    parent.children.length === 1 &&
+    parent.children[0] === node
+  )) {
     return;
   }
 

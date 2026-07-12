@@ -45,9 +45,7 @@ async function buildPlaygroundFiles(version) {
       url.pathToFileURL(path.join(packagesDirectory, "prettier/standalone.mjs"))
     );
     versionData.version = prettierVersion;
-  }
-
-  if (version === "next") {
+  } else if (version === "next") {
     packagesDirectory = DIST_DIR;
     versionData.gitTree = await getGitTreeInformation();
     if (IS_PULL_REQUEST) {

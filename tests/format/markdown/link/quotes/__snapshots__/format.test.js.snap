@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`escape-in-link.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"https\\://developer.mozilla.org" x
+
+=====================================output=====================================
+"https\\://developer.mozilla.org" x
+
+================================================================================
+`;
+
+exports[`escape-in-link.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"https\\://developer.mozilla.org" x
+
+=====================================output=====================================
+"https\\://developer.mozilla.org" x
+
+================================================================================
+`;
+
+exports[`title.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+[hello](#world "title")
+[hello](#world 'title')
+[hello](#world (title))
+
+[a](https://example.com "\\"")
+[a](https://example.com '\\"')
+[a](https://example.com (\\"))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\'')
+[a](https://example.com (\\'))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\)')
+[a](https://example.com (\\)))
+
+[a](https://example.com "\\\\\\"")
+[a](https://example.com '\\\\\\'')
+[a](https://example.com (\\\\\\)))
+
+[a](https://example.com "\\\\'")
+[a](https://example.com '\\\\"')
+[a](https://example.com (\\\\"))
+
+<!-- magical incantations -->
+
+[a](https://example.com "\\"')")
+[a](https://example.com '"\\')')
+[a](https://example.com ("'\\)))
+
+=====================================output=====================================
+[hello](#world 'title') [hello](#world 'title') [hello](#world 'title')
+
+[a](https://example.com '"') [a](https://example.com '"')
+[a](https://example.com '"')
+
+[a](https://example.com "'") [a](https://example.com "'")
+[a](https://example.com "'")
+
+[a](https://example.com "'") [a](https://example.com ')')
+[a](https://example.com ')')
+
+[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
+[a](https://example.com '\\\\)')
+
+[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
+[a](https://example.com '\\\\"')
+
+<!-- magical incantations -->
+
+[a](https://example.com '"\\')') [a](https://example.com '"\\')')
+[a](https://example.com '"\\')')
+
+================================================================================
+`;
+
+exports[`title.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+[hello](#world "title")
+[hello](#world 'title')
+[hello](#world (title))
+
+[a](https://example.com "\\"")
+[a](https://example.com '\\"')
+[a](https://example.com (\\"))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\'')
+[a](https://example.com (\\'))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\)')
+[a](https://example.com (\\)))
+
+[a](https://example.com "\\\\\\"")
+[a](https://example.com '\\\\\\'')
+[a](https://example.com (\\\\\\)))
+
+[a](https://example.com "\\\\'")
+[a](https://example.com '\\\\"')
+[a](https://example.com (\\\\"))
+
+<!-- magical incantations -->
+
+[a](https://example.com "\\"')")
+[a](https://example.com '"\\')')
+[a](https://example.com ("'\\)))
+
+=====================================output=====================================
+[hello](#world "title") [hello](#world "title") [hello](#world "title")
+
+[a](https://example.com '"') [a](https://example.com '"')
+[a](https://example.com '"')
+
+[a](https://example.com "'") [a](https://example.com "'")
+[a](https://example.com "'")
+
+[a](https://example.com "'") [a](https://example.com ")")
+[a](https://example.com ")")
+
+[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
+[a](https://example.com "\\\\)")
+
+[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
+[a](https://example.com '\\\\"')
+
+<!-- magical incantations -->
+
+[a](https://example.com "\\"')") [a](https://example.com "\\"')")
+[a](https://example.com "\\"')")
+
+================================================================================
+`;

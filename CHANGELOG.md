@@ -1,3 +1,412 @@
+# 3.9.5
+
+[diff](https://github.com/prettier/prettier/compare/3.9.4...3.9.5)
+
+#### Markdown: Cap ordered list mark at 999,999,999 ([#19351](https://github.com/prettier/prettier/pull/19351) by [@tats-u](https://github.com/tats-u))
+
+CommonMark parsers only support ordered list item numbers up to 999,999,999.
+
+With this change, Prettier now caps the ordered list item number at 999,999,999 to ensure that the output is correctly parsed as an ordered list by CommonMark parsers. Numbers larger than 999,999,999 are not parsed as list item numbers and are left unchanged in the output:
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+999999998. text
+999999998. text
+999999998. text
+999999998. text
+
+1234567890123456789012) text
+
+<!-- Prettier 3.9.4 -->
+999999998. text
+999999999. text
+1000000000. text
+1000000001. text
+
+1234567890123456789012) text
+
+<!-- Prettier 3.9.5 -->
+999999998. text
+999999999. text
+999999999. text
+999999999. text
+
+1234567890123456789012) text
+```
+
+#### Markdown: Avoid corrupting empty link with title ([#19487](https://github.com/prettier/prettier/pull/19487) by [@andersk](https://github.com/andersk))
+
+Do not remove `<>` from an inline link or image with an empty URL and a title, as this removal would change its interpretation.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+[link](<> "title")
+
+<!-- Prettier 3.9.4 -->
+[link]( "title")
+
+<!-- Prettier 3.9.5 -->
+[link](<> "title")
+```
+
+#### Less: Remove extra spaces after `[` in map lookups ([#19503](https://github.com/prettier/prettier/pull/19503) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.foo {
+  color: #theme[ primary];
+  color: #theme[@name];
+  color: #theme[@@name];
+}
+
+// Prettier 3.9.4
+.foo {
+  color: #theme[ primary];
+  color: #theme[ @name];
+  color: #theme[ @@name];
+}
+
+// Prettier 3.9.5
+.foo {
+  color: #theme[primary];
+  color: #theme[@name];
+  color: #theme[@@name];
+}
+```
+
+#### CSS: Prevent addition space in `type()` with `+` ([#19516](https://github.com/prettier/prettier/pull/19516) by [@bigandy](https://github.com/bigandy))
+
+This fixes the addition space before `+` in CSS `type()` declaration. For example `type(<number>+)` was being converted into `type(<number> +)` which is invalid CSS and does not work.
+
+<!-- prettier-ignore -->
+```css
+/* Input */
+div {
+  border-radius: attr(br type(<length>+));
+}
+
+/* Prettier 3.9.4 */
+div {
+  border-radius: attr(br type(<length> +));
+}
+
+/* Prettier 3.9.5 */
+div {
+  border-radius: attr(br type(<length>+));
+}
+```
+
+#### Less: Remove spaces between merge markers and colons ([#19517](https://github.com/prettier/prettier/pull/19517) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```less
+// Input
+a {
+  box-shadow  +  : 0 0 1px #000;
+}
+
+// Prettier 3.9.4
+a {
+  box-shadow+  : 0 0 1px #000;
+}
+
+// Prettier 3.9.5
+a {
+  box-shadow+: 0 0 1px #000;
+}
+```
+
+#### Markdown: Preserve wiki links with aliases ([#19527](https://github.com/prettier/prettier/pull/19527) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+[[Foo:Bar]]
+
+<!-- Prettier 3.9.4 -->
+[[Foo]]
+
+<!-- Prettier 3.9.5 -->
+[[Foo:Bar]]
+```
+
+#### TypeScript: Fix comments being dropped on shorthand `type` import/export specifiers ([#19565](https://github.com/prettier/prettier/pull/19565) by [@kirkwaiblinger](https://github.com/kirkwaiblinger))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+export { type /* comment */ T } from "foo";
+import { type /* comment */ T } from "foo";
+
+// Prettier 3.9.4
+Error: Comment "comment" was not printed. Please report this error!
+
+// Prettier 3.9.5
+export { type /* comment */ T } from "foo";
+import { type /* comment */ T } from "foo";
+```
+
+#### Miscellaneous: Preserving comments' `placement` property ([#19567](https://github.com/prettier/prettier/pull/19567) by [@Janther](https://github.com/Janther))
+
+Prettier@3.9.0 deleted an undocumented property on comments, which was already used by plugins, `comment.placement` is now available again after comment attach.
+
+#### Flow: Stop enforcing empty module declaration to break ([#19568](https://github.com/prettier/prettier/pull/19568) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```flow
+// Input
+declare module "foo" {}
+
+// Prettier 3.9.4
+declare module "foo" {
+}
+
+// Prettier 3.9.5
+declare module "foo" {}
+```
+
+#### Angular: Support expression for exhaustive typechecking ([#19571](https://github.com/prettier/prettier/pull/19571) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+@switch (state.mode) {
+  @default never(state);
+}
+
+<!-- Prettier 3.9.4 -->
+@switch (state.mode) {
+  @default never;
+}
+
+<!-- Prettier 3.9.5 -->
+@switch (state.mode) {
+  @default never(state);
+}
+```
+
+#### TypeScript: Ignore comments inside mapped type when checking type parameter comments ([#19572](https://github.com/prettier/prettier/pull/19572) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+foo<{
+  // comment
+  [key in keyof Foo]: number
+}>();
+
+// Prettier 3.9.4
+foo<
+  {
+    // comment
+    [key in keyof Foo]: number;
+  }
+>();
+
+// Prettier 3.9.5
+foo<{
+  // comment
+  [key in keyof Foo]: number;
+}>();
+```
+
+#### Less: Fix adjacent block comments being corrupted ([#19574](https://github.com/prettier/prettier/pull/19574) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```less
+// Input
+/* a *//* b */
+/* a */* {
+  color: red;
+}
+
+// Prettier 3.9.4
+/* a */
+/* b */
+/* a * {
+  color: red;
+}
+
+// Prettier 3.9.5
+/* a */ /* b */
+/* a */
+* {
+  color: red;
+}
+```
+
+#### JavaScript: Handle dangling comments in `SwitchStatement` ([#19581](https://github.com/prettier/prettier/pull/19581) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+switch (foo) {
+ // comment
+}
+
+// Prettier 3.9.4
+switch (
+  foo
+  // comment
+) {
+}
+
+// Prettier 3.9.5
+switch (foo) {
+  // comment
+}
+```
+
+#### TypeScript: Remove space in comment-only object type ([#19583](https://github.com/prettier/prettier/pull/19583) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+var foo = {
+  /* comment */
+};
+type Foo = {
+  /* comment */
+};
+
+// Prettier 3.9.4
+var foo = {/* comment */};
+type Foo = { /* comment */ };
+
+// Prettier 3.9.5
+var foo = {/* comment */};
+type Foo = {/* comment */};
+```
+
+# 3.9.4
+
+[diff](https://github.com/prettier/prettier/compare/3.9.3...3.9.4)
+
+#### Angular: Format `@content(name)` -> `@content (name)` to align with other block syntax ([#19499](https://github.com/prettier/prettier/pull/19499) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.3 -->
+<FancyButton [label]="title">
+  @content(icon) {
+    <span>Icon!</span>
+  }
+  @content(description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+
+<!-- Prettier 3.9.4 -->
+<FancyButton [label]="title">
+  @content (icon) {
+    <span>Icon!</span>
+  }
+  @content (description) {
+    <span>Description text</span>
+  }
+  <span>Other children</span>
+</FancyButton>
+```
+
+# 3.9.3
+
+[diff](https://github.com/prettier/prettier/compare/3.9.1...3.9.3)
+
+#### Markdown: Fix unexpected removal of characters in liquid syntax ([#19489](https://github.com/prettier/prettier/pull/19489) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```md
+// Input
+<!-- Input -->
+{{ page.title
+}} text
+
+<!-- Prettier 3.9.1 -->
+{{ page.title
+ text
+
+<!-- Prettier 3.9.3 -->
+{{ page.title
+}} text
+```
+
+#### TypeScript: Allow decorators to be used with declare on class fields ([#19492](https://github.com/prettier/prettier/pull/19492) by [@evoactivity](https://github.com/evoactivity))
+
+Extensively used within the Ember ecosystem, decorators with `declare` on class fields will ignore the babel parser error and allow Prettier to format the code without breaking it.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+// Prettier 3.9.1
+// SyntaxError: Decorators can't be used with a declare field. (2:3)
+//  1 | export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+//> 2 |   @service declare server: ServerService;
+//    |   ^
+//  3 | }
+
+// Prettier 3.9.3
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+```
+
+# 3.9.1
+
+[diff](https://github.com/prettier/prettier/compare/3.9.0...3.9.1)
+
+#### CLI: Fix ignored file has been cached incorrectly ([#19483](https://github.com/prettier/prettier/pull/19483) by [@kovsu](https://github.com/kovsu))
+
+Bug details https://github.com/prettier/prettier/issues/18016
+
+# 3.9.0
+
+[diff](https://github.com/prettier/prettier/compare/3.8.5...3.9.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2026/06/27/3.9.0)
+
+# 3.8.5
+
+[diff](https://github.com/prettier/prettier/compare/3.8.4...3.8.5)
+
+#### Flow: Support `readonly` as a variance annotation ([#19022](https://github.com/prettier/prettier/pull/19022) by [@marcoww6](https://github.com/marcoww6))
+
+Flow now accepts `readonly` as a property variance annotation, equivalent to `+` (covariant/read-only).
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T = {
+  readonly foo: string,
+};
+
+// Prettier 3.8.4
+SyntaxError
+
+// Prettier 3.8.5
+type T = {
+  readonly foo: string,
+};
+```
+
 # 3.8.4
 
 [diff](https://github.com/prettier/prettier/compare/3.8.3...3.8.4)

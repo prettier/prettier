@@ -237,7 +237,7 @@ exports[`range.js format 1`] = `
 > 2 | };
     | ^^
 > 3 |
-    | ^^
+    | ^
 > 4 | foo(module { export let foo = "foo"; })
     | ^^
   5 |

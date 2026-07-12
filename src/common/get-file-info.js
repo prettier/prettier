@@ -58,7 +58,7 @@ async function getParser(file, options) {
 
   // We should wrap this function with `withPlugins` and use `options.plugins` directly instead of loading plugins here
   // See #18375 #18081
-  // But somehow it breaks VSCode extension, see #18353
+  // But somehow it breaks VS Code extension, see #18353
   plugins = (
     await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])
   ).flat();

@@ -45,7 +45,6 @@ export function NumberInput(
   { label: _label, title, value, min, max, step },
   { emit },
 ) {
-  const onChange = (value) => emit("change", value);
   return (
     <label title={title}>
       {_label}{" "}
@@ -55,7 +54,9 @@ export function NumberInput(
         max={max}
         step={step}
         value={value}
-        onChange={(ev) => onChange(Number.parseInt(ev.target.value, 10))}
+        onChange={(ev) => {
+          emit("change", Number(ev.target.value));
+        }}
       />
     </label>
   );

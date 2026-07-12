@@ -46,7 +46,11 @@ const categoryParsers = new Map([
   ],
   [
     "html",
-    { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
+    {
+      parsers: ["html"],
+      verifyParsers: ["vue", "mjml", "lwc", "angular"],
+      extensions: [".html", ".svg"],
+    },
   ],
   [
     "mjml",
@@ -128,7 +132,7 @@ const categoryParsers = new Map([
   ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
   [
     "markdown",
-    { parsers: ["markdown"], verifyParsers: [], extensions: [".md"] },
+    { parsers: ["markdown"], verifyParsers: ["mdx"], extensions: [".md"] },
   ],
   [
     "mdx",

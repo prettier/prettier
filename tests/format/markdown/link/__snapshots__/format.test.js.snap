@@ -1,28 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`autolink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-<https://www.example.com>
-
-<hello@example.com>
-
-<mailto:hello@example.com>
-
-=====================================output=====================================
-<https://www.example.com>
-
-<hello@example.com>
-
-<mailto:hello@example.com>
-
-================================================================================
-`;
-
 exports[`autolink.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -45,74 +22,50 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`encodedLink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+exports[`empty-url.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 proseWrap: "always"
-singleQuote: true
                                                       printWidth: 80 (default) |
 =====================================input======================================
-[link](https://www.google.fr/()foo->bar)
-[link](https://www.google.fr/foo->bar)
-[link](https://www.google.fr/foo-%3Ebar)
-[link](https://www.google.fr/foo-<bar)
-[link](https://www.google.fr/foo-%3Cbar)
-[link](\\<)
-[link](\\()
-[link](\\\\)
-[link](<	>)
 [link](<> "title")
+
 [link](<>)
+
 [link]()
 
-![link](https://www.google.fr/()foo->bar)
-![link](https://www.google.fr/foo->bar)
-![link](https://www.google.fr/foo-%3Ebar)
-![link](https://www.google.fr/foo-<bar)
-![link](https://www.google.fr/foo-%3Cbar)
-![link](\\<)
-![link](\\()
-![link](\\\\)
-![link](<	>)
+---
+
 ![link](<> "title")
+
 ![link](<>)
+
 ![link]()
 
-[link]: https://www.google.fr/()foo->bar
-[link]: https://www.google.fr/foo->bar
-[link]: https://www.google.fr/foo-%3Ebar
-[link]: https://www.google.fr/foo-<bar
-[link]: https://www.google.fr/foo-%3Cbar
-[link]: \\<
-[link]: \\(
-[link]: \\\\
-[link]: <	>
+---
+
 [link]: <> "title"
+
 [link]: <>
 
 =====================================output=====================================
-[link](https://www.google.fr/()foo->bar) [link](https://www.google.fr/foo->bar)
-[link](https://www.google.fr/foo-%3Ebar) [link](https://www.google.fr/foo-<bar)
-[link](https://www.google.fr/foo-%3Cbar) [link](<\\<>) [link](<(>) [link](\\\\)
-[link](<	>) [link](<> 'title') [link]() [link]()
+[link](<> "title")
 
-![link](https://www.google.fr/()foo->bar)
-![link](https://www.google.fr/foo->bar)
-![link](https://www.google.fr/foo-%3Ebar)
-![link](https://www.google.fr/foo-<bar)
-![link](https://www.google.fr/foo-%3Cbar) ![link](<\\<>) ![link](<(>) ![link](\\\\)
-![link](<	>) ![link](<> 'title') ![link]() ![link]()
+[link](<>)
 
-[link]: https://www.google.fr/()foo->bar
-[link]: https://www.google.fr/foo->bar
-[link]: https://www.google.fr/foo-%3Ebar
-[link]: https://www.google.fr/foo-<bar
-[link]: https://www.google.fr/foo-%3Cbar
-[link]: <\\<>
-[link]: <(>
-[link]: \\\\
-[link]: <	>
-[link]: <> 'title'
+[link](<>)
+
+---
+
+![link](<> "title")
+
+![link](<>)
+
+![link](<>)
+
+---
+
+[link]: <> "title"
 [link]: <>
 
 ================================================================================
@@ -129,78 +82,35 @@ proseWrap: "always"
 [link](https://www.google.fr/foo-%3Ebar)
 [link](https://www.google.fr/foo-<bar)
 [link](https://www.google.fr/foo-%3Cbar)
-[link](\\<)
-[link](\\()
-[link](\\\\)
-[link](<	>)
-[link](<> "title")
-[link](<>)
-[link]()
 
 ![link](https://www.google.fr/()foo->bar)
 ![link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar)
-![link](\\<)
-![link](\\()
-![link](\\\\)
-![link](<	>)
-![link](<> "title")
-![link](<>)
-![link]()
 
 [link]: https://www.google.fr/()foo->bar
 [link]: https://www.google.fr/foo->bar
 [link]: https://www.google.fr/foo-%3Ebar
 [link]: https://www.google.fr/foo-<bar
 [link]: https://www.google.fr/foo-%3Cbar
-[link]: \\<
-[link]: \\(
-[link]: \\\\
-[link]: <	>
-[link]: <> "title"
-[link]: <>
 
 =====================================output=====================================
-[link](https://www.google.fr/()foo->bar) [link](https://www.google.fr/foo->bar)
-[link](https://www.google.fr/foo-%3Ebar) [link](https://www.google.fr/foo-<bar)
-[link](https://www.google.fr/foo-%3Cbar) [link](<\\<>) [link](<(>) [link](\\\\)
-[link](<	>) [link](<> "title") [link]() [link]()
+[link](<https://www.google.fr/()foo-%3Ebar>)
+[link](https://www.google.fr/foo->bar) [link](https://www.google.fr/foo-%3Ebar)
+[link](https://www.google.fr/foo-<bar) [link](https://www.google.fr/foo-%3Cbar)
 
-![link](https://www.google.fr/()foo->bar)
+![link](<https://www.google.fr/()foo-%3Ebar>)
 ![link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
-![link](https://www.google.fr/foo-%3Cbar) ![link](<\\<>) ![link](<(>) ![link](\\\\)
-![link](<	>) ![link](<> "title") ![link]() ![link]()
+![link](https://www.google.fr/foo-%3Cbar)
 
 [link]: https://www.google.fr/()foo->bar
 [link]: https://www.google.fr/foo->bar
 [link]: https://www.google.fr/foo-%3Ebar
 [link]: https://www.google.fr/foo-<bar
 [link]: https://www.google.fr/foo-%3Cbar
-[link]: <\\<>
-[link]: <(>
-[link]: \\\\
-[link]: <	>
-[link]: <> "title"
-[link]: <>
-
-================================================================================
-`;
-
-exports[`entity.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[Test](http://localhost:8080/test?language=DE&currency=EUR)
-
-=====================================output=====================================
-[Test](http://localhost:8080/test?language=DE&currency=EUR)
 
 ================================================================================
 `;
@@ -219,50 +129,6 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`escape-in-link.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-"https\\://developer.mozilla.org" x
-
-=====================================output=====================================
-"https\\://developer.mozilla.org" x
-
-================================================================================
-`;
-
-exports[`escape-in-link.md - {"proseWrap":"always"} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-"https\\://developer.mozilla.org" x
-
-=====================================output=====================================
-"https\\://developer.mozilla.org" x
-
-================================================================================
-`;
-
-exports[`long.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-
-=====================================output=====================================
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-
-================================================================================
-`;
-
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -277,21 +143,6 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[hello](#world)
-
-=====================================output=====================================
-[hello](#world)
-
-================================================================================
-`;
-
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -302,146 +153,6 @@ proseWrap: "always"
 
 =====================================output=====================================
 [hello](#world)
-
-================================================================================
-`;
-
-exports[`title.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[hello](#world "title")
-[hello](#world 'title')
-[hello](#world (title))
-
-[a](https://example.com "\\"")
-[a](https://example.com '\\"')
-[a](https://example.com (\\"))
-
-[a](https://example.com "\\'")
-[a](https://example.com '\\'')
-[a](https://example.com (\\'))
-
-[a](https://example.com "\\'")
-[a](https://example.com '\\)')
-[a](https://example.com (\\)))
-
-[a](https://example.com "\\\\\\"")
-[a](https://example.com '\\\\\\'')
-[a](https://example.com (\\\\\\)))
-
-[a](https://example.com "\\\\'")
-[a](https://example.com '\\\\"')
-[a](https://example.com (\\\\"))
-
-<!-- magical incantations -->
-
-[a](https://example.com "\\"')")
-[a](https://example.com '"\\')')
-[a](https://example.com ("'\\)))
-
-=====================================output=====================================
-[hello](#world 'title') [hello](#world 'title') [hello](#world 'title')
-
-[a](https://example.com '"') [a](https://example.com '"')
-[a](https://example.com '"')
-
-[a](https://example.com "'") [a](https://example.com "'")
-[a](https://example.com "'")
-
-[a](https://example.com "'") [a](https://example.com ')')
-[a](https://example.com ')')
-
-[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
-[a](https://example.com '\\\\)')
-
-[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
-[a](https://example.com '\\\\"')
-
-<!-- magical incantations -->
-
-[a](https://example.com '"\\')') [a](https://example.com '"\\')')
-[a](https://example.com '"\\')')
-
-================================================================================
-`;
-
-exports[`title.md - {"proseWrap":"always"} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[hello](#world "title")
-[hello](#world 'title')
-[hello](#world (title))
-
-[a](https://example.com "\\"")
-[a](https://example.com '\\"')
-[a](https://example.com (\\"))
-
-[a](https://example.com "\\'")
-[a](https://example.com '\\'')
-[a](https://example.com (\\'))
-
-[a](https://example.com "\\'")
-[a](https://example.com '\\)')
-[a](https://example.com (\\)))
-
-[a](https://example.com "\\\\\\"")
-[a](https://example.com '\\\\\\'')
-[a](https://example.com (\\\\\\)))
-
-[a](https://example.com "\\\\'")
-[a](https://example.com '\\\\"')
-[a](https://example.com (\\\\"))
-
-<!-- magical incantations -->
-
-[a](https://example.com "\\"')")
-[a](https://example.com '"\\')')
-[a](https://example.com ("'\\)))
-
-=====================================output=====================================
-[hello](#world "title") [hello](#world "title") [hello](#world "title")
-
-[a](https://example.com '"') [a](https://example.com '"')
-[a](https://example.com '"')
-
-[a](https://example.com "'") [a](https://example.com "'")
-[a](https://example.com "'")
-
-[a](https://example.com "'") [a](https://example.com ")")
-[a](https://example.com ")")
-
-[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
-[a](https://example.com "\\\\)")
-
-[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
-[a](https://example.com '\\\\"')
-
-<!-- magical incantations -->
-
-[a](https://example.com "\\"')") [a](https://example.com "\\"')")
-[a](https://example.com "\\"')")
-
-================================================================================
-`;
-
-exports[`url.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-proseWrap: "always"
-singleQuote: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-https://www.example.com/
-
-=====================================output=====================================
-https://www.example.com/
 
 ================================================================================
 `;

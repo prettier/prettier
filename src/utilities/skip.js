@@ -8,8 +8,6 @@
  */
 function skip(characters) {
   return (text, startIndex, options) => {
-    const backwards = Boolean(options?.backwards);
-
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
     /* c8 ignore next 3 */
@@ -17,6 +15,7 @@ function skip(characters) {
       return false;
     }
 
+    const backwards = Boolean(options?.backwards);
     const { length } = text;
     let cursor = startIndex;
     while (cursor >= 0 && cursor < length) {

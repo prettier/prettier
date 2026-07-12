@@ -88,6 +88,10 @@ function parentNeedsParentheses(path, options, needsParentheses) {
           (node, key) =>
             key === "returnType" && node.type === "ArrowFunctionExpression",
         ) &&
+        !(
+          node.type === "NullableTypeAnnotation" &&
+          path.call(() => needsParentheses(path, options), "typeAnnotation")
+        ) &&
         includesFunctionTypeInObjectType(node)
       ) {
         return true;
@@ -110,6 +114,16 @@ function parentNeedsParentheses(path, options, needsParentheses) {
       ) {
         return true;
       }
+      break;
+
+    case "TSInstantiationExpression":
+      if (
+        key === "expression" &&
+        (node.type === "AwaitExpression" || node.type === "YieldExpression")
+      ) {
+        return true;
+      }
+
       break;
   }
 }
