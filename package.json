@@ -104,8 +104,6 @@
     "micromark-extension-mdx-jsx": "3.0.2",
     "micromark-extension-mdx-md": "2.0.0",
     "micromark-extension-mdxjs-esm": "3.0.0",
-    "micromark-extension-wiki-link": "0.0.4",
-    "micromark-factory-space": "2.0.1",
     "micromark-util-character": "2.1.1",
     "micromark-util-symbol": "2.0.1",
     "micromark-util-types": "2.0.2",
