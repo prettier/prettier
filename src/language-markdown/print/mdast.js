@@ -531,11 +531,18 @@ function printUrl(url, dangerousCharOrChars = []) {
       : [dangerousCharOrChars]),
   ];
 
-  return new RegExp(
+  const printedUrl = new RegExp(
     dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
   ).test(url)
     ? `<${encodeUrl(url, "<>")}>`
     : url;
+
+  // An escaped semicolon is decoded by the parser. Escape it again when it
+  // would otherwise turn the preceding text into a character reference.
+  return printedUrl.replaceAll(
+    /&(?:#\d{1,7}|#x[0-9A-F]{1,6}|[A-Z][A-Z0-9]{1,30});/gi,
+    (reference) => String.raw`${reference.slice(0, -1)}\;`,
+  );
 }
 
 function printTitle(title, options, printSpace = true) {
