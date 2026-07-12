@@ -249,18 +249,17 @@ function splitTextIntoSentences(ast) {
 }
 
 function getBlockquoteRawText(text, node) {
-  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/;
+  const angleBracketsRegex = /^([ \t]*>[ \t]*)+/;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
-    const leadingRawAngleBrackets = rawLine.match(angleBracketsRegex)[0] ?? "";
-    if (leadingRawAngleBrackets.length === 0) {
+    if (!angleBracketsRegex.test(rawLine)) {
       return rawLine;
     }
 
     const valueLine = valueLines[index] ?? "";
     const leadingTextAngleBrackets =
-      valueLine.match(angleBracketsRegex)[0] ?? "";
+      valueLine.match(angleBracketsRegex)?.[0] ?? "";
     return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
   });
   return resultLines.join("\n");
