@@ -1,5 +1,6 @@
 import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
+import { decodeString } from "micromark-util-decode-string";
 import {
   align,
   DOC_TYPE_STRING,
@@ -518,12 +519,27 @@ const encodeUrl = (url, characters) => {
   return url;
 };
 
+const characterReferenceRegex =
+  /(\\*)&(?:#(?:\d{1,7}|x[\da-f]{1,6})|[\da-z]{1,31});/gi;
+
+// `url` already contains decoded Markdown escapes. Escape only sequences that
+// micromark would decode as character references on the next formatting pass.
+const escapeCharacterReferences = (url) =>
+  url.replaceAll(characterReferenceRegex, (match, backslashes) => {
+    const reference = match.slice(backslashes.length);
+    return decodeString(reference) === reference
+      ? match
+      : `${backslashes.replaceAll("\\", "\\\\")}\\${reference}`;
+  });
+
 /**
  * @param {string} url
  * @param {string[] | string} [dangerousCharOrChars]
  * @returns {string}
  */
 function printUrl(url, dangerousCharOrChars = []) {
+  url = escapeCharacterReferences(url);
+
   const dangerousChars = [
     " ",
     ...(Array.isArray(dangerousCharOrChars)
