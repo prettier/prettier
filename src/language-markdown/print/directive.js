@@ -21,9 +21,21 @@ function printDirectiveLabel(path, options, print) {
 }
 
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L196
-function printDirectiveAttributes(path) {
+function printDirectiveAttributes(path, options) {
   const { node } = path;
   const { attributes } = node;
+  if (Object.keys(attributes).length === 0) {
+    return "";
+  }
+
+  let start = node.position.start.offset;
+  start = options.originalText.indexOf("{", start);
+  const end = options.originalText.indexOf("\n", start);
+  const text = options.originalText.slice(start, end).trimEnd();
+
+  return text;
+
+  console.log({ text, node });
 
   const values = Object.entries(attributes).map(([key, value]) => {
     if (key === "id") {

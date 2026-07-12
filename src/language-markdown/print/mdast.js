@@ -464,7 +464,7 @@ function printMdast(path, options, print) {
         fence,
         node.name,
         printDirectiveLabel(path, options, print),
-        printDirectiveAttributes(path),
+        printDirectiveAttributes(path, options),
         hardline,
       ];
 
@@ -487,7 +487,7 @@ function printMdast(path, options, print) {
         printDirectiveFence(path),
         node.name,
         printDirectiveLabel(path, options, print),
-        printDirectiveAttributes(path),
+        printDirectiveAttributes(path, options),
       ];
 
     case "frontMatter": // Handled in core
