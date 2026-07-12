@@ -9,3 +9,13 @@ type T2 = {
   property2: string;
   "property-3": string;
 }
+
+// `"new"` as a method must stay quoted: `new(…)` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// `"new"` as a property is safe to unquote.
+type TNewProperty = {
+  "new": number;
+};

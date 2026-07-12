@@ -96,6 +96,13 @@ function isKeySafeToUnquote(node, options) {
     return false;
   }
 
+  // A `"new"` method in an interface or type literal is a method named "new".
+  // Unquoting it to `new(…)` would reinterpret it as a construct signature,
+  // changing the type, so it must stay quoted.
+  if (node.type === "TSMethodSignature" && value === "new") {
+    return false;
+  }
+
   // Safe to unquote as identifier
   if (
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.

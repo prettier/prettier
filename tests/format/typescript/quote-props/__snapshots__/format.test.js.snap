@@ -156,6 +156,16 @@ interface I2 {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  "new": number;
+}
+
 =====================================output=====================================
 interface I1 {
   method(): string;
@@ -167,6 +177,16 @@ interface I2 {
   property: string;
   property2: string;
   "property-3": string;
+}
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  new: number;
 }
 
 ================================================================================
@@ -190,6 +210,16 @@ interface I2 {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  "new": number;
+}
+
 =====================================output=====================================
 interface I1 {
   "method"(): string;
@@ -201,6 +231,16 @@ interface I2 {
   "property": string;
   "property2": string;
   "property-3": string;
+}
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  new: number;
 }
 
 ================================================================================
@@ -224,6 +264,16 @@ interface I2 {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  "new": number;
+}
+
 =====================================output=====================================
 interface I1 {
   "method"(): string;
@@ -235,6 +285,16 @@ interface I2 {
   "property": string;
   property2: string;
   "property-3": string;
+}
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+interface INewMethod {
+  "new"(id: string): number;
+}
+
+// \`"new"\` as a property is safe to unquote.
+interface INewProperty {
+  "new": number;
 }
 
 ================================================================================
@@ -258,6 +318,16 @@ type T2 = {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  "new": number;
+};
+
 =====================================output=====================================
 type T1 = {
   method(): string;
@@ -269,6 +339,16 @@ type T2 = {
   property: string;
   property2: string;
   "property-3": string;
+};
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  new: number;
 };
 
 ================================================================================
@@ -292,6 +372,16 @@ type T2 = {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  "new": number;
+};
+
 =====================================output=====================================
 type T1 = {
   "method"(): string;
@@ -303,6 +393,16 @@ type T2 = {
   "property": string;
   "property2": string;
   "property-3": string;
+};
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  new: number;
 };
 
 ================================================================================
@@ -326,6 +426,16 @@ type T2 = {
   "property-3": string;
 }
 
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  "new": number;
+};
+
 =====================================output=====================================
 type T1 = {
   "method"(): string;
@@ -337,6 +447,16 @@ type T2 = {
   "property": string;
   property2: string;
   "property-3": string;
+};
+
+// \`"new"\` as a method must stay quoted: \`new(…)\` would be a construct signature.
+type TNewMethod = {
+  "new"(id: string): number;
+};
+
+// \`"new"\` as a property is safe to unquote.
+type TNewProperty = {
+  "new": number;
 };
 
 ================================================================================
