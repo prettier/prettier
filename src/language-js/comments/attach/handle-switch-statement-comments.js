@@ -16,12 +16,7 @@ function handleSwitchStatementComments({
   followingNode,
   text,
 }) {
-  if (!(
-    enclosingNode?.type === "SwitchStatement" &&
-    enclosingNode.cases.length === 0 &&
-    !followingNode &&
-    precedingNode === enclosingNode.discriminant
-  )) {
+  if (enclosingNode?.type !== "SwitchStatement") {
     return false;
   }
 
@@ -30,7 +25,17 @@ function handleSwitchStatementComments({
     locEnd(comment),
   );
 
-  if (nextCharacter === "}") {
+  if (precedingNode === enclosingNode.discriminant && nextCharacter === "{") {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
+  if (
+    enclosingNode.cases.length === 0 &&
+    !followingNode &&
+    precedingNode === enclosingNode.discriminant &&
+    nextCharacter === "}"
+  ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }

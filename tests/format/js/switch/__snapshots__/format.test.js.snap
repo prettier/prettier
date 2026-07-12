@@ -135,6 +135,53 @@ switch (x) {
 ================================================================================
 `;
 
+exports[`comments_before_brace.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+switch (a) /*c*/ {}
+
+switch (a) /*c*/ {
+  case 1:
+}
+
+switch (a) /*c*/ /*d*/ {
+  case 1:
+    break;
+  default:
+    break;
+}
+
+switch (a) // line comment
+{
+  case 1:
+}
+
+=====================================output=====================================
+switch (a) /*c*/ {
+}
+
+switch (a) /*c*/ {
+  case 1:
+}
+
+switch (a) /*c*/
+/*d*/ {
+  case 1:
+    break;
+  default:
+    break;
+}
+
+switch (a) // line comment
+{
+  case 1:
+}
+
+================================================================================
+`;
+
 exports[`comments2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
