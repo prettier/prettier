@@ -385,7 +385,7 @@ function printMdast(path, options, print) {
       return ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
-      const isJsxFragment = !node.name;
+      const isFragment = !node.name;
 
       // NOTE: we don't have good heuristic for singleAttributePerLine for mdxJsxTextElement yet.
       const inline = node.type === "mdxJsxTextElement";
@@ -406,7 +406,7 @@ function printMdast(path, options, print) {
             ]
           : "";
       const isSelfClosing =
-        !isJsxFragment &&
+        !isFragment &&
         node.children.length === 0 &&
         options.originalText.startsWith("/>", node.position.end.offset - 2);
       if (isSelfClosing) {
