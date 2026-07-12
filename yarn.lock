@@ -2529,6 +2529,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@slorber/remark-comment@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@slorber/remark-comment@npm:1.0.0"
+  dependencies:
+    micromark-factory-space: "npm:^1.0.0"
+    micromark-util-character: "npm:^1.1.0"
+    micromark-util-symbol: "npm:^1.0.1"
+  checksum: 10/c96f1533d09913c57381859966f10a706afd8eb680923924af1c451f3b72f22c31e394028d7535131c10f8682d3c60206da95c50fb4f016fbbd04218c853cc88
+  languageName: node
+  linkType: hard
+
 "@stylistic/eslint-plugin@npm:5.10.0":
   version: 5.10.0
   resolution: "@stylistic/eslint-plugin@npm:5.10.0"
@@ -8368,6 +8379,7 @@ __metadata:
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
+    "@slorber/remark-comment": "npm:1.0.0"
     "@stylistic/eslint-plugin": "npm:5.10.0"
     "@types/jsesc": "npm:3.0.3"
     "@typescript-eslint/eslint-plugin": "npm:8.63.0"
@@ -8486,7 +8498,6 @@ __metadata:
     pretty-ms: "npm:9.3.0"
     puppeteer: "npm:25.3.0"
     regexp-util: "npm:2.0.3"
-    remark-comment: "npm:1.0.0"
     rollup-plugin-license: "npm:3.7.1"
     search-closest: "npm:3.1.0"
     semver: "npm:7.8.5"
@@ -8694,17 +8705,6 @@ __metadata:
   bin:
     regjsparser: bin/parser
   checksum: 10/291aecbd47371cee347a96c47ccaae729ba50b7b2cb2a5de7e088e2ab835fe133569422f06ae28f5ff0830ac03f3196a35ba493f23ecda086d82e3e326f14074
-  languageName: node
-  linkType: hard
-
-"remark-comment@npm:1.0.0":
-  version: 1.0.0
-  resolution: "remark-comment@npm:1.0.0"
-  dependencies:
-    micromark-factory-space: "npm:^1.0.0"
-    micromark-util-character: "npm:^1.1.0"
-    micromark-util-symbol: "npm:^1.0.1"
-  checksum: 10/bb455a7a2ec88fe6927a5c585c2c61de9d2a178cec4f8ec9289a6549e07d835a026a0a8e29a27b125eedca04b3174cebd61d0cc30991b7d3d04b3a5bfc37fcd3
   languageName: node
   linkType: hard
 
