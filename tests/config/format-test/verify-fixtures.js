@@ -132,7 +132,7 @@ const categoryParsers = new Map([
   ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
   [
     "markdown",
-    { parsers: ["markdown"], verifyParsers: [], extensions: [".md"] },
+    { parsers: ["markdown"], verifyParsers: ["mdx"], extensions: [".md"] },
   ],
   [
     "mdx",
