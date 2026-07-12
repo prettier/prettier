@@ -144,3 +144,18 @@ One :a, two :a[b], three :a{b}, four :a[b]{c}., four :a[b]{c}..
 
 ================================================================================
 `;
+
+exports[`url.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+A new blog post is now available at [http://localhost:3000/blog/greetings](http://localhost:3000/blog/greetings).
+
+=====================================output=====================================
+A new blog post is now available at [http://localhost
+
+:3000/blog/greetings](http://localhost:3000/blog/greetings).
+
+================================================================================
+`;
