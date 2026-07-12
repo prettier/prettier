@@ -28,12 +28,7 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
-import {
-  printDirectiveAttributes,
-  printDirectiveChildren,
-  printDirectiveFence,
-  printDirectiveLabel,
-} from "./directive.js";
+import { printDirectiveContainer, printLeafDirective } from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
 import { printParagraph } from "./paragraph.js";
@@ -458,37 +453,12 @@ function printMdast(path, options, print) {
     case "text":
       return replaceEndOfLine(node.value, hardline);
 
-    case "containerDirective": {
-      const fence = printDirectiveFence(path);
-      const parts = [
-        fence,
-        node.name,
-        printDirectiveLabel(path, options, print),
-        printDirectiveAttributes(path, options),
-        hardline,
-      ];
-
-      const childrenDocs = printDirectiveChildren(path, options, print);
-
-      if (childrenDocs) {
-        parts.push(...childrenDocs);
-      }
-
-      if (fence === ":::") {
-        parts.push(fence);
-      }
-
-      return parts;
-    }
+    case "containerDirective":
+      return printDirectiveContainer(path, options, print);
 
     case "leafDirective":
     case "textDirective":
-      return [
-        printDirectiveFence(path),
-        node.name,
-        printDirectiveLabel(path, options, print),
-        printDirectiveAttributes(path, options),
-      ];
+      return printLeafDirective(path, options, print);
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"

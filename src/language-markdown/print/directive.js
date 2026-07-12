@@ -1,3 +1,4 @@
+import { hardline } from "../../document/index.js";
 import { printChildren } from "./children.js";
 
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L480
@@ -105,9 +106,38 @@ function printDirectiveFence(path) {
   return ":".repeat(size);
 }
 
-export {
-  printDirectiveAttributes,
-  printDirectiveChildren,
-  printDirectiveFence,
-  printDirectiveLabel,
-};
+function printDirectiveContainer(path, options, print) {
+  const { node } = path;
+  const fence = printDirectiveFence(path);
+  const parts = [
+    fence,
+    node.name,
+    printDirectiveLabel(path, options, print),
+    printDirectiveAttributes(path, options),
+    hardline,
+  ];
+
+  const childrenDocs = printDirectiveChildren(path, options, print);
+
+  if (childrenDocs) {
+    parts.push(childrenDocs);
+  }
+
+  if (fence === ":::") {
+    parts.push(fence);
+  }
+
+  return parts;
+}
+
+function printLeafDirective(path, options, print) {
+  const { node } = path;
+  return [
+    printDirectiveFence(path),
+    node.name,
+    printDirectiveLabel(path, options, print),
+    printDirectiveAttributes(path, options),
+  ];
+}
+
+export { printDirectiveContainer, printLeafDirective };
