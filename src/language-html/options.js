@@ -32,6 +32,12 @@ const options = {
     default: false,
     description: "Indent script and style tags in Vue files.",
   },
+  vueIndentTemplate: {
+    category: CATEGORY_HTML,
+    type: "boolean",
+    default: true,
+    description: "Indent template tags in Vue files.",
+  },
 };
 
 export default options;

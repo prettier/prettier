@@ -112,6 +112,118 @@ vueIndentScriptAndStyle: true
 ================================================================================
 `;
 
+exports[`inside-template.vue - {"vueIndentTemplate":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentTemplate: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+    <style>
+        br {
+            background: #00abc9;
+        }
+
+    div {
+        background: #00abc9;
+    }
+    </style>
+
+    <script>
+        console.log('hello');
+    console.log('hello');
+    </script>
+
+    <br />
+    <footer>
+        foo
+        <br/>
+    </footer>
+</template>
+
+=====================================output=====================================
+<template>
+<style>
+  br {
+    background: #00abc9;
+  }
+
+  div {
+    background: #00abc9;
+  }
+</style>
+
+<script>
+  console.log("hello");
+  console.log("hello");
+</script>
+
+<br />
+<footer>
+  foo
+  <br />
+</footer>
+</template>
+
+================================================================================
+`;
+
+exports[`inside-template.vue - {"vueIndentTemplate":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentTemplate: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+    <style>
+        br {
+            background: #00abc9;
+        }
+
+    div {
+        background: #00abc9;
+    }
+    </style>
+
+    <script>
+        console.log('hello');
+    console.log('hello');
+    </script>
+
+    <br />
+    <footer>
+        foo
+        <br/>
+    </footer>
+</template>
+
+=====================================output=====================================
+<template>
+  <style>
+    br {
+      background: #00abc9;
+    }
+
+    div {
+      background: #00abc9;
+    }
+  </style>
+
+  <script>
+    console.log("hello");
+    console.log("hello");
+  </script>
+
+  <br />
+  <footer>
+    foo
+    <br />
+  </footer>
+</template>
+
+================================================================================
+`;
+
 exports[`vue-tag-indent.vue - {"vueIndentScriptAndStyle":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -211,6 +323,118 @@ footer {
   footer {
     background: #00abc9;
   }
+</style>
+
+<template>
+  <br />
+  <footer>
+    foo
+    <br />
+  </footer>
+</template>
+
+================================================================================
+`;
+
+exports[`vue-tag-indent.vue - {"vueIndentTemplate":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentTemplate: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+  console.log('hello');
+console.log('hello');
+</script>
+
+<style lang="scss">
+  footer {
+    background: #00abc9;
+  }
+
+footer {
+  background: #00abc9;
+}
+</style>
+
+<template>
+  <br />
+  <footer>
+    foo
+    <br/>
+  </footer>
+</template>
+
+=====================================output=====================================
+<script>
+console.log("hello");
+console.log("hello");
+</script>
+
+<style lang="scss">
+footer {
+  background: #00abc9;
+}
+
+footer {
+  background: #00abc9;
+}
+</style>
+
+<template>
+<br />
+<footer>
+  foo
+  <br />
+</footer>
+</template>
+
+================================================================================
+`;
+
+exports[`vue-tag-indent.vue - {"vueIndentTemplate":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+vueIndentTemplate: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+  console.log('hello');
+console.log('hello');
+</script>
+
+<style lang="scss">
+  footer {
+    background: #00abc9;
+  }
+
+footer {
+  background: #00abc9;
+}
+</style>
+
+<template>
+  <br />
+  <footer>
+    foo
+    <br/>
+  </footer>
+</template>
+
+=====================================output=====================================
+<script>
+console.log("hello");
+console.log("hello");
+</script>
+
+<style lang="scss">
+footer {
+  background: #00abc9;
+}
+
+footer {
+  background: #00abc9;
+}
 </style>
 
 <template>

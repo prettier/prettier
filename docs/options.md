@@ -501,6 +501,21 @@ Valid options:
 | ------- | ------------------------------- | --------------------------------- |
 | `false` | `--vue-indent-script-and-style` | `vueIndentScriptAndStyle: <bool>` |
 
+## Vue files template tags indentation
+
+_First available in v3.10.0_
+
+Whether or not to indent the code inside `<template>` tags in Vue files.
+
+Valid options:
+
+- `true` - Indent template tags in Vue files.
+- `false` - Do not indent template tags in Vue files.
+
+| Default | CLI Override               | API Override                |
+| ------- | -------------------------- | --------------------------- |
+| `true`  | `--no-vue-indent-template` | `vueIndentTemplate: <bool>` |
+
 ## End of Line
 
 _First available in v1.15.0, default value changed from `auto` to `lf` in v2.0.0_

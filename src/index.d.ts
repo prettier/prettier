@@ -425,6 +425,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   vueIndentScriptAndStyle: boolean;
   /**
+   * Whether or not to indent the code inside <template> tags in Vue files.
+   * @default true
+   */
+  vueIndentTemplate: boolean;
+  /**
    * Control whether Prettier formats quoted code embedded in the file.
    * @default "auto"
    */

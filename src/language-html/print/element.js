@@ -88,13 +88,16 @@ function printElement(path, options, print) {
     if (shouldHugContent) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
     }
-    if (
-      (isScriptLikeTag(node, options) || isVueCustomBlock(node, options)) &&
-      node.parent.kind === "root" &&
-      options.parser === "vue" &&
-      !options.vueIndentScriptAndStyle
-    ) {
-      return childrenDoc;
+    if (node.parent.kind === "root" && options.parser === "vue") {
+      if (
+        (isScriptLikeTag(node, options) || isVueCustomBlock(node, options)) &&
+        !options.vueIndentScriptAndStyle
+      ) {
+        return childrenDoc;
+      }
+      if (node.fullName === "template" && !options.vueIndentTemplate) {
+        return childrenDoc;
+      }
     }
     return indent(childrenDoc);
   };
