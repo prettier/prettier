@@ -22,6 +22,7 @@ const INLINE_NODE_TYPES = new Set([
   "inlineMath",
   "mdxTextExpression",
   "mdxJsxTextElement",
+  "textDirective",
 ]);
 
 const INLINE_NODE_WRAPPER_TYPES = new Set([
