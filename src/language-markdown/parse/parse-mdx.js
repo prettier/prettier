@@ -1,5 +1,7 @@
 import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
+// https://github.com/leebyron/remark-comment/pull/3
+import { comment, commentFromMarkdown } from "@slorber/remark-comment";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
@@ -9,7 +11,6 @@ import { mdxExpression } from "micromark-extension-mdx-expression";
 import { mdxJsx } from "micromark-extension-mdx-jsx";
 import { mdxMd } from "micromark-extension-mdx-md";
 import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
-import { comment, commentFromMarkdown } from "remark-comment";
 import createError from "../../common/parser-create-error.js";
 import parseFrontMatter from "../../main/front-matter/parse.js";
 import * as dummyAcorn from "../acorn/dummy-parser.js";
