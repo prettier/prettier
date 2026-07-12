@@ -114,17 +114,16 @@ function printDirectiveContainer(path, options, print) {
     node.name,
     printDirectiveLabel(path, options, print),
     printDirectiveAttributes(path, options),
-    hardline,
   ];
 
   const childrenDocs = printDirectiveChildren(path, options, print);
 
   if (childrenDocs) {
-    parts.push(childrenDocs);
+    parts.push(hardline, childrenDocs);
   }
 
   if (fence === ":::") {
-    parts.push(fence);
+    parts.push(hardline, fence);
   }
 
   return parts;
