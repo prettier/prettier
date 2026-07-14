@@ -1,7 +1,7 @@
 import indexToPosition from "index-to-position";
 import { parse as yukuParse } from "yuku-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinations } from "../../utilities/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 import {
@@ -35,8 +35,8 @@ function createParseError(error, { text }) {
 @param {string} text
 @param {ParseOptions} options
 */
-async function parseWithOptions(text, options) {
-  const result = await yukuParse(text, {
+function parseWithOptions(text, options) {
+  const result = yukuParse(text, {
     preserveParens: true,
     allowReturnOutsideFunction: true,
     semanticErrors: false,
@@ -52,7 +52,7 @@ async function parseWithOptions(text, options) {
   return result;
 }
 
-async function parseJs(text, options) {
+function parseJs(text, options) {
   const filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
@@ -68,7 +68,7 @@ async function parseJs(text, options) {
 
   let result;
   try {
-    result = await tryCombinations(combinations);
+    result = tryCombinationsSync(combinations);
   } catch ({
     // @ts-expect-error -- expected
     errors: [error],

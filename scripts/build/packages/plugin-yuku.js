@@ -49,25 +49,20 @@ const mainModule = {
               const wasmUrlPattern =
                 /const wasmUrl = new URL\("(?<wasmFile>.\/.+\.wasm)", import\.meta\.url\);/;
               let { wasmFile } = text.match(wasmUrlPattern).groups;
-              wasmFile = getPackageFile(`@yuku-parser/wasm/${wasmFile}`);
-              const wasmBase64String = await fs.readFile(wasmFile, "base64");
+              const wasmBase64String = await fs.readFile(
+                getPackageFile(`@yuku-parser/wasm/${wasmFile}`),
+                "base64",
+              );
 
               text = text.replace('import("node:fs/promises")', "whatever");
               text = text.replace(wasmUrlPattern, "");
 
               text = text.replace(
                 "const { memory, alloc, free, parse: wasmParse } = (await instantiate()).exports;",
-                "",
-              );
-
-              text = text.replace(
-                "export function parse(source, options) {",
                 outdent`
-                  let promise;
-                  export async function parse(source, options) {
-                    promise ??= WebAssembly.instantiate(__base64ToArrayBuffer(wasmBinary));
-                    const { instance } = await promise;
-                    const { memory, alloc, free, parse: wasmParse } = instance.exports;
+                  const module = new WebAssembly.Module((wasmBinary));
+                  const instance = new WebAssembly.Instance(module);
+                  const { memory, alloc, free, parse: wasmParse } = instance.exports;
                 `,
               );
 
@@ -76,7 +71,7 @@ const mainModule = {
                 const __base64ToArrayBuffer = Uint8Array.fromBase64
                   ? (string) => Uint8Array.fromBase64(string).buffer
                   : __decode;
-                const wasmBinary = /* "${wasmFile}" */ ${JSON.stringify(wasmBase64String)};
+                const wasmBinary = /* "${wasmFile}" */ __base64ToArrayBuffer(${JSON.stringify(wasmBase64String)});
 
                 ${text}
               `;
