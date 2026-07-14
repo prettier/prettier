@@ -99,6 +99,10 @@ function isKeySafeToUnquote(node, options) {
     return false;
   }
 
+  if (node.type === "TSMethodSignature" && value === "new") {
+    return false;
+  }
+
   // Safe to unquote as identifier
   if (
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
