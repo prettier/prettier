@@ -3457,6 +3457,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base64-arraybuffer-es6@npm:3.1.0":
+  version: 3.1.0
+  resolution: "base64-arraybuffer-es6@npm:3.1.0"
+  checksum: 10/a623b7e396785b67e87ee92b474506a8ba1e26b977260bd2b97fde1332973de86689018dc847a7a4b1a238b09a5b3be0b51b9d3879815c220b2171c1722f3b6f
+  languageName: node
+  linkType: hard
+
+"base64-js@npm:^1.3.1":
+  version: 1.5.1
+  resolution: "base64-js@npm:1.5.1"
+  checksum: 10/669632eb3745404c2f822a18fc3a0122d2f9a7a13f7fb8b5823ee19d1d2ff9ee5b52c53367176ea4ad093c332fd5ab4bd0ebae5a8e27917a4105a4cfc86b1005
+  languageName: node
+  linkType: hard
+
 "baseline-browser-mapping@npm:^2.10.42":
   version: 2.10.42
   resolution: "baseline-browser-mapping@npm:2.10.42"
@@ -3510,6 +3524,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browserlist@npm:1.0.2":
+  version: 1.0.2
+  resolution: "browserlist@npm:1.0.2"
+  bin:
+    browserlist: cli.js
+  checksum: 10/1aef99b7c84a61accda980337a2c4bc2c692b83e693e098fe2783533c8026c2d88cb9b5591058f7e292a9c2553d78880f690c60c8b415fce4c5cd9eb984336ee
+  languageName: node
+  linkType: hard
+
 "browserslist-to-esbuild@npm:2.1.1":
   version: 2.1.1
   resolution: "browserslist-to-esbuild@npm:2.1.1"
@@ -3551,6 +3574,16 @@ __metadata:
   version: 1.1.2
   resolution: "buffer-from@npm:1.1.2"
   checksum: 10/0448524a562b37d4d7ed9efd91685a5b77a50672c556ea254ac9a6d30e3403a517d8981f10e565db24e8339413b43c97ca2951f10e399c6125a0d8911f5679bb
+  languageName: node
+  linkType: hard
+
+"buffer@npm:6.0.3":
+  version: 6.0.3
+  resolution: "buffer@npm:6.0.3"
+  dependencies:
+    base64-js: "npm:^1.3.1"
+    ieee754: "npm:^1.2.1"
+  checksum: 10/b6bc68237ebf29bdacae48ce60e5e28fc53ae886301f2ad9496618efac49427ed79096750033e7eab1897a4f26ae374ace49106a5758f38fb70c78c9fda2c3b1
   languageName: node
   linkType: hard
 
@@ -5535,6 +5568,13 @@ __metadata:
   dependencies:
     reserved-identifiers: "npm:^1.0.0"
   checksum: 10/df6358b7a336624315fca6f83659994314db8e74e4e801d9b8419d078a7182c33719e846e3af118c994b576852571bd8df3c7a4c0789856161c7b913a6dbd60b
+  languageName: node
+  linkType: hard
+
+"ieee754@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "ieee754@npm:1.2.1"
+  checksum: 10/d9f2557a59036f16c282aaeb107832dc957a93d73397d89bbad4eb1130560560eb695060145e8e6b3b498b15ab95510226649a0b8f52ae06583575419fe10fc4
   languageName: node
   linkType: hard
 
@@ -8295,7 +8335,10 @@ __metadata:
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
     angular-html-parser: "npm:10.11.0"
+    base64-arraybuffer-es6: "npm:3.1.0"
+    browserlist: "npm:1.0.2"
     browserslist-to-esbuild: "npm:2.1.1"
+    buffer: "npm:6.0.3"
     c8: "npm:11.0.0"
     camelcase: "npm:9.0.0"
     ci-info: "npm:4.4.0"
