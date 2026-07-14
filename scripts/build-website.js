@@ -68,7 +68,7 @@ async function buildPlaygroundFiles(version) {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
-    for (const pluginName of ["plugin-oxc"]) {
+    for (const pluginName of ["plugin-oxc", "plugin-yuku"]) {
       pluginFiles.push(`${pluginName}/index.browser.mjs`);
     }
   }

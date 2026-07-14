@@ -48,6 +48,7 @@ test("builtin parsers", async () => {
       "typescript",
       "vue",
       "yaml",
+      "yuku",
     ]
   `);
 });

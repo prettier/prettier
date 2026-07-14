@@ -118,6 +118,7 @@ function isKeySafeToUnquote(node, options) {
     (parser === "babel" ||
       parser === "acorn" ||
       parser === "oxc" ||
+      parser === "yuku" ||
       parser === "espree" ||
       parser === "meriyah" ||
       parser === "__babel_estree") &&

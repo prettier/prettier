@@ -33,6 +33,7 @@ runFormatTest(import.meta, ["babel"], {
     ],
     oxc: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     "oxc-ts": [...optionalChainingAssignTests, ...invalidSyntaxTests],
+    yuku: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },

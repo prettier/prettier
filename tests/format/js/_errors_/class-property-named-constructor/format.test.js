@@ -14,6 +14,7 @@ runFormatTest(
     "babel-ts",
     "oxc",
     "oxc-ts",
+    "yuku",
     "flow",
     "hermes",
   ],

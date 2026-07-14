@@ -15,6 +15,7 @@ function getCodemirrorMode(parser) {
     case "espree":
     case "meriyah":
     case "oxc":
+    case "yuku":
       return "JSX";
 
     case "doc-explorer":

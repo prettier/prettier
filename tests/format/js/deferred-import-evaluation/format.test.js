@@ -13,6 +13,7 @@ runFormatTest(import.meta, ["babel"], {
     meriyah: [...importDeferTests, ...invalidSyntaxTests],
     oxc: invalidSyntaxTests,
     "oxc-ts": invalidSyntaxTests,
+    yuku: ["dynamic-import-attributes-expression.js", ...invalidSyntaxTests],
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },

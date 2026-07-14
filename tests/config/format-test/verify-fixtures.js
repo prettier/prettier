@@ -59,7 +59,7 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "acorn", "espree", "meriyah", "oxc"],
+      parsers: ["babel", "acorn", "espree", "meriyah", "oxc", "yuku"],
       verifyParsers: [
         "babel",
         "acorn",
@@ -67,6 +67,7 @@ const categoryParsers = new Map([
         "meriyah",
         "oxc",
         "oxc-ts",
+        "yuku",
         "flow",
         "babel-flow",
         "typescript",
@@ -102,6 +103,7 @@ const categoryParsers = new Map([
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
       ],
       verifyParsers: [
         "babel",
@@ -117,6 +119,7 @@ const categoryParsers = new Map([
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
       ],
       extensions: [".js", ".jsx"],
     },

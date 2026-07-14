@@ -195,6 +195,13 @@ exports[`no-default.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`no-default.js format[yuku] 1`] = `
+"'import defer' only supports a namespace import (1:8)
+> 1 | import defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
 exports[`no-named.js format[__babel_estree] 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:16)
 > 1 | import defer { x } from "x";
@@ -239,5 +246,12 @@ exports[`no-named.js format[oxc] 1`] = `
 "Named imports are not allowed in a deferred import. (1:8)
 > 1 | import defer { x } from "x";
     |        ^^^^^
+  2 |"
+`;
+
+exports[`no-named.js format[yuku] 1`] = `
+"Expected 'from' after import clause, but found '{' (1:14)
+> 1 | import defer { x } from "x";
+    |              ^
   2 |"
 `;

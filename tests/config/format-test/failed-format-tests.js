@@ -89,6 +89,7 @@ const disabledTests = new Map(
     ],
     oxc: [],
     "oxc-ts": ["typescript/typescript-only/"],
+    yuku: [],
     hermes: [
       ...commentClosureTypecaseTests,
 
