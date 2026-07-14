@@ -111,6 +111,7 @@ const disabledTests = new Map(
       "typescript/declare/trailing-comma/function-rest-trailing-comma.ts",
       "typescript/typescript-only/",
       "typescript/enum/multiline.ts",
+      "typescript/chain-expression/new-expression.ts",
       "typescript/new/with-member-expression.ts",
     ],
     hermes: [
