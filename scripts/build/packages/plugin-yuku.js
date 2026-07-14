@@ -67,7 +67,7 @@ const mainModule = {
                   export async function parse(source, options) {
                     promise ??= WebAssembly.instantiate(__base64ToArrayBuffer(wasmBinary));
                     const { instance } = await promise;
-                    const { memory, alloc, free, parse: wasmParse } = instance;
+                    const { memory, alloc, free, parse: wasmParse } = instance.exports;
                 `,
               );
 
