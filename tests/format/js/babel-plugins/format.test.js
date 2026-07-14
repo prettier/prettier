@@ -145,7 +145,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "pipeline-operator-hack.cjs",
       "pipeline-operator-minimal.js",
       "throw-expressions.js",
-      "typescript.js",
       "v8intrinsic.js",
       "discard-binding.js",
     ],

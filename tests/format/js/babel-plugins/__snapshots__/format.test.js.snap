@@ -2657,11 +2657,11 @@ exports[`typescript.js format[oxc] 1`] = `
 `;
 
 exports[`typescript.js format[yuku] 1`] = `
-"'const' declarations must be initialized (3:7)
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (3:8)
   1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
-    |       ^
+    |        ^
   4 |"
 `;
 
