@@ -63,3 +63,13 @@ exports[`do.js format[oxc] 1`] = `
   4 |   }}
   5 | </div>"
 `;
+
+exports[`do.js format[yuku] 1`] = `
+"'do' is reserved and cannot be used as an identifier (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>"
+`;
