@@ -25,6 +25,7 @@ const mainModule = {
         output: "index.mjs",
         format: "esm",
         platform: "node",
+        external: ["yuku-parser"],
         addDefaultExport: true,
       }),
     },
@@ -32,6 +33,18 @@ const mainModule = {
   ],
 };
 
-packageConfig.modules.push(mainModule, createPackageMetaFilesConfig());
+packageConfig.modules.push(
+  mainModule,
+  createPackageMetaFilesConfig({
+    "package.json"(packageJson, { projectPackageJson }) {
+      return {
+        ...packageJson,
+        dependencies: {
+          "yuku-parser": projectPackageJson.dependencies["yuku-parser"],
+        },
+      };
+    },
+  }),
+);
 
 export default packageConfig;
