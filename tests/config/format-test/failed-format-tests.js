@@ -89,6 +89,13 @@ const disabledTests = new Map(
     ],
     oxc: [],
     "oxc-ts": ["typescript/typescript-only/"],
+    yuku: [
+      "js/import-attributes/bracket-spacing/empty.js",
+      "js/import-assertions/empty.js",
+      "js/import-assertions/keyword-detect.js",
+      "js/import-attributes/empty.js",
+      "js/import-attributes/keyword-detect.js",
+    ],
     hermes: [
       ...commentClosureTypecaseTests,
 
