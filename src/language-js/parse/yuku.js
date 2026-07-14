@@ -4,7 +4,6 @@ import createError from "../../common/parser-create-error.js";
 import { tryCombinations } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
-import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
