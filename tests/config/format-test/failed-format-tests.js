@@ -90,22 +90,7 @@ const disabledTests = new Map(
     oxc: [],
     "oxc-ts": ["typescript/typescript-only/"],
     yuku: [],
-    "yuku-ts": [
-      "js/import-attributes/bracket-spacing/empty.js",
-      "js/import-assertions/bracket-spacing/empty.js",
-      "js/import-assertions/empty.js",
-      "js/import-assertions/keyword-detect.js",
-      "js/import-attributes/empty.js",
-      "js/import-attributes/keyword-detect.js",
-      "js/classes/keyword-property/async.js",
-      "js/classes/keyword-property/static-async.js",
-
-      "typescript/declare/trailing-comma/function-rest-trailing-comma.ts",
-      "typescript/typescript-only/",
-      "typescript/enum/multiline.ts",
-      "typescript/chain-expression/new-expression.ts",
-      "typescript/new/with-member-expression.ts",
-    ],
+    "yuku-ts": ["typescript/typescript-only/"],
     hermes: [
       ...commentClosureTypecaseTests,
 
