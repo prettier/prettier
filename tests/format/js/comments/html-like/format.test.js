@@ -6,5 +6,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     "babel-ts": true,
     hermes: true,
     __babel_estree: true,
+    yuku: true,
   },
 });

@@ -93,3 +93,12 @@ exports[`async-do-expressions.js format[oxc] 1`] = `
   3 | };
   4 |"
 `;
+
+exports[`async-do-expressions.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
+> 1 | async do {
+    |       ^^
+  2 |   1;
+  3 | };
+  4 |"
+`;

@@ -58,3 +58,12 @@ exports[`null-arguments-item.js format[oxc] 1`] = `
   3 | foo("a",
   4 |     //1"
 `;
+
+exports[`null-arguments-item.js format[yuku] 1`] = `
+"Unexpected token ',' (1:11)
+> 1 | foor('a', , 'b');
+    |           ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | foo("a",
+  4 |     //1"
+`;
