@@ -38,4 +38,4 @@ async function tryCombinations(combinations) {
   throw Object.assign(new Error("All combinations failed"), { errors });
 }
 
-export { tryCombinationsSync, tryCombinations };
+export { tryCombinations, tryCombinationsSync };
