@@ -4,11 +4,11 @@ import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
-import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 
 /** @import {ParseOptions} from "yuku-parser" */
 
@@ -112,7 +112,7 @@ function getLanguageCombinations(text, options) {
 }
 
 function parseTs(text, options) {
-  let filepath = options?.filepath;
+  const filepath = options?.filepath;
 
   const sourceType = getSourceType(filepath);
   const languageCombinations = getLanguageCombinations(text, options);
@@ -149,4 +149,4 @@ function parseTs(text, options) {
 const yuku = /* @__PURE__ */ createParser(parseJs);
 const yukuTs = /* @__PURE__ */ createParser(parseTs);
 
-export { yuku, yukuTs as "yuku-ts" };
+export { yukuTs as, "yuku-ts"yuku };
