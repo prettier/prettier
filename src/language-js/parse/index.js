@@ -6,4 +6,5 @@ export * from "./flow.js";
 export * from "./hermes.js";
 export * from "./meriyah.js";
 export * from "./oxc.js";
+export * from "./yuku.js";
 export * from "./typescript.js";
