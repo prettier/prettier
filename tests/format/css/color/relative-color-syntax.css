@@ -1,0 +1,15 @@
+/* https://www.w3.org/TR/css-color-5/#relative-colors */
+/* A leading `+`/`-` on a channel value is a sign, not a math operator, so it
+   must stay attached to the number (`+ 130` would change the value). */
+:root {
+  --a: oklch(from rgb(255, 0, 0) l c +130);
+  --b: oklch(from red l c -130);
+  --c: oklab(from var(--base) l a +0.1);
+  --d: color(from red srgb r g +0.2);
+  --e: hsl(from red h s +10%);
+  --f: rgb(from red r g +20);
+  --g: lab(from teal l a +12);
+  --h: hwb(from red h +10% +5%);
+  --i: lch(from blue calc(l + 10%) c h);
+  --j: calc(1px + 2px);
+}

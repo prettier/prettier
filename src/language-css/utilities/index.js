@@ -371,6 +371,40 @@ function isColorAdjusterFuncNode(node) {
   return colorAdjusterFunctions.has(node.value.toLowerCase());
 }
 
+// CSS color functions that accept the relative color syntax,
+// e.g. `oklch(from red l c h)`. https://www.w3.org/TR/css-color-5/#relative-colors
+const relativeColorFunctions = new Set([
+  "rgb",
+  "rgba",
+  "hsl",
+  "hsla",
+  "hwb",
+  "lab",
+  "lch",
+  "oklab",
+  "oklch",
+  "color",
+]);
+
+// In the relative color syntax a leading `+`/`-` directly attached to a channel
+// value is a sign, not a math operator (e.g. `oklch(from red l c +130)`).
+// Printing a space (`+ 130`) would change the meaning of the value, so such a
+// sign must stay attached to the number.
+function isRelativeColorSyntaxNode(commaGroupNode, funcNode) {
+  if (
+    funcNode?.type !== "value-func" ||
+    !relativeColorFunctions.has(funcNode.value.toLowerCase()) ||
+    commaGroupNode?.type !== "value-comma_group"
+  ) {
+    return false;
+  }
+
+  const firstNode = commaGroupNode.groups?.[0];
+  return (
+    firstNode?.type === "value-word" && firstNode.value.toLowerCase() === "from"
+  );
+}
+
 function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\n\r]/).pop());
 }
@@ -444,6 +478,7 @@ export {
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,
+  isRelativeColorSyntaxNode,
   isRightCurlyBraceNode,
   isSCSSControlDirectiveNode,
   isSCSSMapItemNode,
