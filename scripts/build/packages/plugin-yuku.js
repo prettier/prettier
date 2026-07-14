@@ -48,7 +48,7 @@ const mainModule = {
             async process(text) {
               const wasmUrlPattern =
                 /const wasmUrl = new URL\("(?<wasmFile>.\/.+\.wasm)", import\.meta\.url\);/;
-              let { wasmFile } = text.match(wasmUrlPattern).groups;
+              const { wasmFile } = text.match(wasmUrlPattern).groups;
               const wasmBase64String = await fs.readFile(
                 getPackageFile(`@yuku-parser/wasm/${wasmFile}`),
                 "base64",
