@@ -95,6 +95,8 @@ const disabledTests = new Map(
       "js/import-assertions/keyword-detect.js",
       "js/import-attributes/empty.js",
       "js/import-attributes/keyword-detect.js",
+      "js/classes/keyword-property/async.js",
+      "js/classes/keyword-property/static-async.js",
     ],
     hermes: [
       ...commentClosureTypecaseTests,
