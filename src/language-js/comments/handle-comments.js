@@ -147,6 +147,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
+    handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
   ].some((fn) => fn(context));
@@ -1003,20 +1004,38 @@ function handleLastBinaryOperatorOperand({
   return false;
 }
 
-function handlePropertySignatureComments({
-  enclosingNode,
-  followingNode,
-  comment,
-}) {
+/** @param {CommentContext} context */
+function handlePropertySignatureComments(context) {
+  const { enclosingNode, followingNode, comment, options, placement } = context;
+
   if (
-    enclosingNode &&
-    (enclosingNode.type === "TSPropertySignature" ||
-      enclosingNode.type === "ObjectTypeProperty") &&
+    !followingNode ||
+    (enclosingNode?.type !== "TSPropertySignature" &&
+      enclosingNode.type !== "ObjectTypeProperty")
+  ) {
+    return false;
+  }
+
+  if (
+    placement === "endOfLine" &&
     (isUnionType(followingNode) || isIntersectionType(followingNode))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
   }
+
+  if (!isBlockComment(comment)) {
+    return false;
+  }
+
+  const colonTokenIndex = stripComments(options).indexOf(
+    ":",
+    locEnd(enclosingNode.key),
+  );
+
+  return colonTokenIndex !== -1 && colonTokenIndex < locStart(comment)
+    ? addLeadingCommentToPossibleUnionType(followingNode, context)
+    : false;
 }
 
 function handleBinaryCastExpressionComment({
