@@ -10,18 +10,14 @@ import {
   SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
 
-/** @import {ParserOptions} from "yuku-parser" */
+/** @import {ParseOptions} from "yuku-parser" */
 
 function createParseError(error, { text }) {
-  /* c8 ignore next 3 */
-  if (!error?.labels?.[0]) {
+  if (typeof error?.start !== "number" || typeof error?.end !== "number") {
     return error;
   }
 
-  const {
-    message,
-    labels: [{ start: startIndex, end: endIndex }],
-  } = error;
+  const { message, start: startIndex, end: endIndex } = error;
 
   const [start, end] = [startIndex, endIndex].map((index) =>
     indexToPosition(text, index, { oneBased: true }),
@@ -37,11 +33,10 @@ function createParseError(error, { text }) {
 }
 
 /**
-@param {string} filepath
 @param {string} text
-@param {ParserOptions} options
+@param {ParseOptions} options
 */
-function parseWithOptions(filepath, text, options) {
+function parseWithOptions(text, options) {
   const result = yukuParse(text, {
     preserveParens: true,
     allowReturnOutsideFunction: true,
@@ -62,15 +57,10 @@ function parseJs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
-  if (typeof filepath !== "string") {
-    filepath = "prettier.jsx";
-  }
-
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
-    (sourceType) => () =>
-      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
+    (sourceType) => () => parseWithOptions(text, { sourceType, lang: "jsx" }),
   );
 
   let result;
