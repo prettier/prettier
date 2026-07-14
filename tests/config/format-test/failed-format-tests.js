@@ -108,12 +108,9 @@ const disabledTests = new Map(
       "js/classes/keyword-property/async.js",
       "js/classes/keyword-property/static-async.js",
 
-      "typescript/trailing-comma/trailing.ts",
-      "typescript/trailing-comma/trailing-arguments.ts",
       "typescript/declare/trailing-comma/function-rest-trailing-comma.ts",
       "typescript/typescript-only/",
       "typescript/enum/multiline.ts",
-      "typescript/chain-expression/new-expression.ts",
       "typescript/new/with-member-expression.ts",
     ],
     hermes: [
