@@ -132,7 +132,7 @@
     "wcwidth.js": "2.0.0",
     "yaml": "2.9.0",
     "yaml-unist-parser": "3.2.0",
-    "yuku-parser": "0.6.1"
+    "yuku-parser": "0.6.2"
   },
   "devDependencies": {
     "@babel/generator": "8.0.0",
@@ -141,11 +141,8 @@
     "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.64.0",
     "@typescript-eslint/parser": "8.64.0",
-    "@yuku-parser/wasm": "0.6.1",
-    "base64-arraybuffer-es6": "3.1.0",
-    "browserslist": "4.28.5",
+    "@yuku-parser/wasm": "0.6.2",
     "browserslist-to-esbuild": "2.1.1",
-    "buffer": "6.0.3",
     "c8": "11.0.0",
     "commonmark-test-suite": "0.1.0",
     "cross-env": "10.1.0",
