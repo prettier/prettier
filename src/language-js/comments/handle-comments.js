@@ -1011,7 +1011,7 @@ function handlePropertySignatureComments(context) {
   if (
     !followingNode ||
     (enclosingNode?.type !== "TSPropertySignature" &&
-      enclosingNode.type !== "ObjectTypeProperty")
+      enclosingNode?.type !== "ObjectTypeProperty")
   ) {
     return false;
   }
