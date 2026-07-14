@@ -98,6 +98,16 @@ const disabledTests = new Map(
       "js/classes/keyword-property/async.js",
       "js/classes/keyword-property/static-async.js",
     ],
+    "yuku-ts": [
+      "js/import-attributes/bracket-spacing/empty.js",
+      "js/import-assertions/bracket-spacing/empty.js",
+      "js/import-assertions/empty.js",
+      "js/import-assertions/keyword-detect.js",
+      "js/import-attributes/empty.js",
+      "js/import-attributes/keyword-detect.js",
+      "js/classes/keyword-property/async.js",
+      "js/classes/keyword-property/static-async.js",
+    ],
     hermes: [
       ...commentClosureTypecaseTests,
 
