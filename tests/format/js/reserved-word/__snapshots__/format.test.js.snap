@@ -50,6 +50,16 @@ var let = "foo";
 ================================================================================
 `;
 
+exports[`let.js format[yuku] 1`] = `
+"Unexpected token '.' in binding pattern (2:4)
+  1 | foo.let;
+> 2 | let.foo;
+    |    ^
+  3 | new let();
+  4 | ({ let: "foo" });
+  5 | (let, "foo");"
+`;
+
 exports[`yield.js format 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]

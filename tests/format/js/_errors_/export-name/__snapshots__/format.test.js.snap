@@ -84,6 +84,12 @@ exports[`snippet: #0 format[oxc-ts] 1`] = `
     |          ^^^^^^^^"
 `;
 
+exports[`snippet: #0 format[yuku] 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
 exports[`snippet: #1 format[__babel_estree] 1`] = `
 "An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
@@ -163,6 +169,12 @@ exports[`snippet: #1 format[oxc] 1`] = `
 `;
 
 exports[`snippet: #1 format[oxc-ts] 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #1 format[yuku] 1`] = `
 "An export name cannot include a unicode lone surrogate (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
     |          ^^^^^^^^"
@@ -252,6 +264,12 @@ exports[`snippet: #2 format[oxc-ts] 1`] = `
     |          ^^^^^^^^"
 `;
 
+exports[`snippet: #2 format[yuku] 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
 exports[`snippet: #3 format[__babel_estree] 1`] = `
 "An export name cannot include a lone surrogate, found '\\ud83c'. (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
@@ -331,6 +349,12 @@ exports[`snippet: #3 format[oxc] 1`] = `
 `;
 
 exports[`snippet: #3 format[oxc-ts] 1`] = `
+"An export name cannot include a unicode lone surrogate (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^^^^^^^^"
+`;
+
+exports[`snippet: #3 format[yuku] 1`] = `
 "An export name cannot include a unicode lone surrogate (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
     |               ^^^^^^^^"

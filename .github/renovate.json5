@@ -61,6 +61,10 @@
       matchPackageNames: ["acorn", "acorn-jsx", "espree"],
     },
     {
+      groupName: "Yuku parser",
+      matchPackageNames: ["yuku-parser", "@yuku-parser/*"],
+    },
+    {
       groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },

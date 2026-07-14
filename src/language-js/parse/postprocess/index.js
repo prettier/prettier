@@ -45,7 +45,15 @@ const isNodeWithRaw = createTypeCheckFunction([
 /**
 @param {{
   text: string,
-  astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
+  astType?:
+    | "espree"
+    | "flow"
+    | "hermes"
+    | "meriyah"
+    | "oxc-js"
+    | "oxc-ts"
+    | "typescript"
+    | "yuku-js",
 }} options
 */
 function postprocess(ast, options) {
@@ -65,7 +73,7 @@ function postprocess(ast, options) {
   }
 
   if (ast.hashbang) {
-    if (isOxcTs) {
+    if (isOxcTs || astType === "yuku-js") {
       comments.unshift(ast.hashbang);
     }
     delete ast.hashbang;

@@ -134,3 +134,12 @@ exports[`worker.js format[oxc] 1`] = `
   3 |     let mod = import(data);
   4 |     postMessage(mod.fn());"
 `;
+
+exports[`worker.js format[yuku] 1`] = `
+"Expected ')' after constructor arguments, but found '{' (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;

@@ -69,7 +69,7 @@ function parseJs(text, options) {
   const sourceType = getSourceType(filepath);
 
   if (typeof filepath !== "string") {
-    filepath = "prettier.tsx";
+    filepath = "prettier.jsx";
   }
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS

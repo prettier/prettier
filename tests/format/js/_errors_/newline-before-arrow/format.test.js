@@ -8,4 +8,5 @@ runFormatTest(import.meta, [
   "meriyah",
   "babel-ts",
   "oxc",
+  "yuku",
 ]);
