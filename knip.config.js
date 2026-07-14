@@ -35,8 +35,9 @@ const config = {
         "buffer",
         "base64-arraybuffer-es6",
         "flow-estree",
+        "@yuku-parser/wasm",
       ],
-      ignoreBinaries: ["test-coverage"],
+      ignoreBinaries: [],
     },
     website: {
       entry: [
