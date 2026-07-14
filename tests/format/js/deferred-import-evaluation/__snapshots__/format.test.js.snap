@@ -2,7 +2,7 @@
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import.defer("foo");
@@ -39,7 +39,7 @@ Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 
 exports[`dynamic-import-attributes-expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import.defer("x", { with: { attr: "val" } });
@@ -76,7 +76,7 @@ Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 
 exports[`import-defer.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import defer * as ns from "x";
@@ -113,7 +113,7 @@ Cause: [1:13-1:14]: Expected 'from'"
 
 exports[`import-defer-attributes-declaration.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import defer * as ns from "x" with { attr: "val" };
@@ -148,6 +148,19 @@ exports[`import-defer-attributes-declaration.js format[meriyah] 1`] = `
 Cause: [1:13-1:14]: Expected 'from'"
 `;
 
+exports[`no-default.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import defer x from "x";
+
+=====================================output=====================================
+import defer x from "x";
+
+================================================================================
+`;
+
 exports[`no-default.js format[__babel_estree] 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:14)
 > 1 | import defer x from "x";
@@ -165,6 +178,14 @@ Cause: Unexpected token (1:13)"
 `;
 
 exports[`no-default.js format[babel] 1`] = `
+"Only \`import defer * as x from "./module"\` is valid. (1:14)
+> 1 | import defer x from "x";
+    |              ^
+  2 |
+Cause: Only \`import defer * as x from "./module"\` is valid. (1:13)"
+`;
+
+exports[`no-default.js format[babel-ts] 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:14)
 > 1 | import defer x from "x";
     |              ^
@@ -195,6 +216,26 @@ exports[`no-default.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`no-default.js format[oxc-ts] 1`] = `
+"Default imports are not allowed in a deferred import. (1:8)
+> 1 | import defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-named.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import defer { x } from "x";
+
+=====================================output=====================================
+import defer { x } from "x";
+
+================================================================================
+`;
+
 exports[`no-named.js format[__babel_estree] 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:16)
 > 1 | import defer { x } from "x";
@@ -219,6 +260,14 @@ exports[`no-named.js format[babel] 1`] = `
 Cause: Only \`import defer * as x from "./module"\` is valid. (1:15)"
 `;
 
+exports[`no-named.js format[babel-ts] 1`] = `
+"Only \`import defer * as x from "./module"\` is valid. (1:16)
+> 1 | import defer { x } from "x";
+    |                ^
+  2 |
+Cause: Only \`import defer * as x from "./module"\` is valid. (1:15)"
+`;
+
 exports[`no-named.js format[espree] 1`] = `
 "Unexpected token { (1:14)
 > 1 | import defer { x } from "x";
@@ -236,6 +285,13 @@ Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`no-named.js format[oxc] 1`] = `
+"Named imports are not allowed in a deferred import. (1:8)
+> 1 | import defer { x } from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-named.js format[oxc-ts] 1`] = `
 "Named imports are not allowed in a deferred import. (1:8)
 > 1 | import defer { x } from "x";
     |        ^^^^^

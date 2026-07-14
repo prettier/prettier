@@ -6,7 +6,7 @@ const importDeferTests = [
 ];
 const invalidSyntaxTests = ["no-default.js", "no-named.js"];
 
-runFormatTest(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel", "typescript"], {
   errors: {
     acorn: [...importDeferTests, ...invalidSyntaxTests],
     espree: [...importDeferTests, ...invalidSyntaxTests],
@@ -14,6 +14,7 @@ runFormatTest(import.meta, ["babel"], {
     oxc: invalidSyntaxTests,
     "oxc-ts": invalidSyntaxTests,
     babel: invalidSyntaxTests,
+    "babel-ts": invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },
 });
