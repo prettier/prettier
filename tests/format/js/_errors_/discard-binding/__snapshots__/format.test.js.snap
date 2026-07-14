@@ -89,6 +89,15 @@ exports[`invalid-array-expression.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`invalid-array-expression.js format[yuku-ts] 1`] = `
+"Unexpected token ']' (1:9)
+> 1 | ([[[void], x, ], y]);
+    |         ^
+  2 |
+  3 | ([[[x], void, ], y]);
+  4 |"
+`;
+
 exports[`invalid-assignment-expression.js format[acorn] 1`] = `
 "Unexpected token (1:6)
 > 1 | void = 0;
@@ -160,6 +169,13 @@ exports[`invalid-assignment-expression.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`invalid-assignment-expression.js format[yuku-ts] 1`] = `
+"Unexpected token '=' (1:6)
+> 1 | void = 0;
+    |      ^
+  2 |"
+`;
+
 exports[`invalid-assignment-for.js format[acorn] 1`] = `
 "Unexpected token (1:15)
 > 1 | for (void of []);
@@ -225,6 +241,13 @@ Cause: An element access expression should take an argument."
 `;
 
 exports[`invalid-assignment-for.js format[yuku] 1`] = `
+"Unexpected token ']' (1:15)
+> 1 | for (void of []);
+    |               ^
+  2 |"
+`;
+
+exports[`invalid-assignment-for.js format[yuku-ts] 1`] = `
 "Unexpected token ']' (1:15)
 > 1 | for (void of []);
     |               ^
@@ -338,6 +361,17 @@ exports[`invalid-assignment-pattern.js format[yuku] 1`] = `
   6 |   // arrow function parameter"
 `;
 
+exports[`invalid-assignment-pattern.js format[yuku-ts] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (3:14)
+  1 | {
+  2 |   // function parameter
+> 3 |   function f(void = 0) {}
+    |              ^^^^
+  4 | }
+  5 | {
+  6 |   // arrow function parameter"
+`;
+
 exports[`invalid-async-call-argument.js format[acorn] 1`] = `
 "Unexpected token (1:11)
 > 1 | async(void, x);
@@ -427,6 +461,15 @@ exports[`invalid-async-call-argument.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`invalid-async-call-argument.js format[yuku-ts] 1`] = `
+"Unexpected token ',' (1:11)
+> 1 | async(void, x);
+    |           ^
+  2 |
+  3 | async(x, void);
+  4 |"
+`;
+
 exports[`invalid-catch-parameter.js format[acorn] 1`] = `
 "Unexpected keyword 'void' (1:15)
 > 1 | try {} catch (void) {}
@@ -492,6 +535,13 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`invalid-catch-parameter.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (1:15)
+> 1 | try {} catch (void) {}
+    |               ^^^^
+  2 |"
+`;
+
+exports[`invalid-catch-parameter.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (1:15)
 > 1 | try {} catch (void) {}
     |               ^^^^
@@ -569,6 +619,13 @@ exports[`invalid-lone-arrow-function-parameter.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`invalid-lone-arrow-function-parameter.js format[yuku-ts] 1`] = `
+"Unexpected token '=>' (1:6)
+> 1 | void => {}
+    |      ^^
+  2 |"
+`;
+
 exports[`invalid-lone-async-arrow-function-parameter.js format[acorn] 1`] = `
 "Unexpected token (1:7)
 > 1 | async void => {}
@@ -634,6 +691,13 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`invalid-lone-async-arrow-function-parameter.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as an identifier (1:7)
+> 1 | async void => {}
+    |       ^^^^
+  2 |"
+`;
+
+exports[`invalid-lone-async-arrow-function-parameter.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as an identifier (1:7)
 > 1 | async void => {}
     |       ^^^^
@@ -729,6 +793,15 @@ exports[`invalid-object-expression.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`invalid-object-expression.js format[yuku-ts] 1`] = `
+"Unexpected token '}' (1:22)
+> 1 | ({ p: { p: { p: void }, x, }, y});
+    |                      ^
+  2 |
+  3 | ({ p: { x: { x }, p: void, }, y});
+  4 |"
+`;
+
 exports[`invalid-parenthesized-assignment.js format[acorn] 1`] = `
 "Unexpected token (1:7)
 > 1 | [(void)] = [];
@@ -800,6 +873,13 @@ exports[`invalid-parenthesized-assignment.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`invalid-parenthesized-assignment.js format[yuku-ts] 1`] = `
+"Unexpected token ')' (1:7)
+> 1 | [(void)] = [];
+    |       ^
+  2 |"
+`;
+
 exports[`invalid-parenthesized-binding.js format[acorn] 1`] = `
 "Unexpected token (1:10)
 > 1 | const [, (void), ] = value;
@@ -865,6 +945,13 @@ Cause: Array element destructuring pattern expected."
 `;
 
 exports[`invalid-parenthesized-binding.js format[yuku] 1`] = `
+"Unexpected token ')' (1:15)
+> 1 | const [, (void), ] = value;
+    |               ^
+  2 |"
+`;
+
+exports[`invalid-parenthesized-binding.js format[yuku-ts] 1`] = `
 "Unexpected token ')' (1:15)
 > 1 | const [, (void), ] = value;
     |               ^
@@ -969,6 +1056,16 @@ exports[`invalid-rest-element-array-pattern.js format[yuku] 1`] = `
   5 |   for (var [...void] of [[]]);"
 `;
 
+exports[`invalid-rest-element-array-pattern.js format[yuku-ts] 1`] = `
+"Unexpected token ']' (2:17)
+  1 | {
+> 2 |   var [ ...void ] = [];
+    |                 ^
+  3 | }
+  4 | {
+  5 |   for (var [...void] of [[]]);"
+`;
+
 exports[`invalid-rest-element-array-pattern-for-lhs.js format[acorn] 1`] = `
 "Unexpected token (1:16)
 > 1 | for ([ ...void ] of []);
@@ -1040,6 +1137,13 @@ exports[`invalid-rest-element-array-pattern-for-lhs.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`invalid-rest-element-array-pattern-for-lhs.js format[yuku-ts] 1`] = `
+"Unexpected token ']' (1:16)
+> 1 | for ([ ...void ] of []);
+    |                ^
+  2 |"
+`;
+
 exports[`invalid-rest-element-array-pattern-lhs.js format[acorn] 1`] = `
 "Unexpected token (1:12)
 > 1 | ([ ...void ] = []);
@@ -1105,6 +1209,13 @@ Cause: Expression expected."
 `;
 
 exports[`invalid-rest-element-array-pattern-lhs.js format[yuku] 1`] = `
+"Unexpected token ']' (1:12)
+> 1 | ([ ...void ] = []);
+    |            ^
+  2 |"
+`;
+
+exports[`invalid-rest-element-array-pattern-lhs.js format[yuku-ts] 1`] = `
 "Unexpected token ']' (1:12)
 > 1 | ([ ...void ] = []);
     |            ^
@@ -1209,6 +1320,16 @@ exports[`invalid-rest-element-object-pattern.js format[yuku] 1`] = `
   5 |   for (var { ...void } of [{}]);"
 `;
 
+exports[`invalid-rest-element-object-pattern.js format[yuku-ts] 1`] = `
+"Unexpected token '}' (2:17)
+  1 | {
+> 2 |   var { ...void } = {};
+    |                 ^
+  3 | }
+  4 | {
+  5 |   for (var { ...void } of [{}]);"
+`;
+
 exports[`invalid-rest-element-object-pattern-for-lhs.js format[acorn] 1`] = `
 "Unexpected token (1:16)
 > 1 | for ({ ...void } of []);
@@ -1280,6 +1401,13 @@ exports[`invalid-rest-element-object-pattern-for-lhs.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`invalid-rest-element-object-pattern-for-lhs.js format[yuku-ts] 1`] = `
+"Unexpected token '}' (1:16)
+> 1 | for ({ ...void } of []);
+    |                ^
+  2 |"
+`;
+
 exports[`invalid-rest-element-object-pattern-lhs.js format[acorn] 1`] = `
 "Unexpected token (1:12)
 > 1 | ({ ...void } = {});
@@ -1345,6 +1473,13 @@ Cause: Expression expected."
 `;
 
 exports[`invalid-rest-element-object-pattern-lhs.js format[yuku] 1`] = `
+"Unexpected token '}' (1:12)
+> 1 | ({ ...void } = {});
+    |            ^
+  2 |"
+`;
+
+exports[`invalid-rest-element-object-pattern-lhs.js format[yuku-ts] 1`] = `
 "Unexpected token '}' (1:12)
 > 1 | ({ ...void } = {});
     |            ^
@@ -1432,6 +1567,15 @@ Cause: Expression expected."
 `;
 
 exports[`invalid-sequence-expression.js format[yuku] 1`] = `
+"Unexpected token ',' (1:6)
+> 1 | (void, x);
+    |      ^
+  2 |
+  3 | (x, void);
+  4 |"
+`;
+
+exports[`invalid-sequence-expression.js format[yuku-ts] 1`] = `
 "Unexpected token ',' (1:6)
 > 1 | (void, x);
     |      ^
@@ -1529,6 +1673,16 @@ Cause: 'void' is not allowed as a variable declaration name."
 `;
 
 exports[`invalid-variable-declarator.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (2:7)
+  1 | {
+> 2 |   var void = f();
+    |       ^^^^
+  3 | }
+  4 | {
+  5 |   let void = f(), void = g();"
+`;
+
+exports[`invalid-variable-declarator.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (2:7)
   1 | {
 > 2 |   var void = f();

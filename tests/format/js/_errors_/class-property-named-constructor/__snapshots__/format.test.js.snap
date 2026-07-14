@@ -98,6 +98,14 @@ exports[`snippet: #0 format[yuku] 1`] = `
     | ^"
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   constructor
+> 3 | }
+    | ^"
+`;
+
 exports[`snippet: #1 format[acorn] 1`] = `
 "Classes can't have a field named 'constructor' (2:3)
   1 | class Foo {
@@ -189,6 +197,14 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   'constructor'
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
 "Expected '(' for getter/setter definition, but found '}' (3:1)
   1 | class Foo {
   2 |   'constructor'
@@ -294,6 +310,14 @@ exports[`snippet: #2 format[yuku] 1`] = `
     | ^"
 `;
 
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   'constructor'
+> 3 | }
+    | ^"
+`;
+
 exports[`snippet: #3 format[acorn] 1`] = `
 "Unexpected token (2:12)
   1 | class Foo {
@@ -385,6 +409,14 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #3 format[yuku] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   accessor 'constructor'
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
 "Expected '(' for getter/setter definition, but found '}' (3:1)
   1 | class Foo {
   2 |   accessor 'constructor'
@@ -490,6 +522,14 @@ exports[`snippet: #4 format[yuku] 1`] = `
     | ^"
 `;
 
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   accessor 'constructor'
+> 3 | }
+    | ^"
+`;
+
 exports[`snippet: #5 format[acorn] 1`] = `
 "Unexpected token (2:12)
   1 | class Foo {
@@ -581,6 +621,14 @@ Cause: '(' expected."
 `;
 
 exports[`snippet: #5 format[yuku] 1`] = `
+"Expected '(' for getter/setter definition, but found '}' (3:1)
+  1 | class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
 "Expected '(' for getter/setter definition, but found '}' (3:1)
   1 | class Foo {
   2 |   accessor constructor

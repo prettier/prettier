@@ -928,6 +928,17 @@ exports[`for-in-with-initializer.js format[yuku] 1`] = `
   7 | for (var a = 1 || (() => b in c) in {});"
 `;
 
+exports[`for-in-with-initializer.js format[yuku-ts] 1`] = `
+"Expected ';' after for-loop init, but found ')' (4:33)
+  2 |
+  3 | for (var a = (b in c) in {});
+> 4 | for (var a = 1 || (b in c) in {});
+    |                                 ^
+  5 | for (var a = 1 + (2 || (b in c)) in {});
+  6 | for (var a = (() => b in c) in {});
+  7 | for (var a = 1 || (() => b in c) in {});"
+`;
+
 exports[`in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

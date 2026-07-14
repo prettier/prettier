@@ -7,5 +7,6 @@ runFormatTest(import.meta, [
   "oxc",
   "oxc-ts",
   "yuku",
+  "yuku-ts",
   "hermes",
 ]);

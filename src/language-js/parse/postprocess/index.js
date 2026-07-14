@@ -52,8 +52,9 @@ const isNodeWithRaw = createTypeCheckFunction([
     | "meriyah"
     | "oxc-js"
     | "oxc-ts"
+    | "yuku-js"
+    | "yuku-ts"
     | "typescript"
-    | "yuku-js",
 }} options
 */
 function postprocess(ast, options) {

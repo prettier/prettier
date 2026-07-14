@@ -20,6 +20,11 @@ runFormatTest(import.meta, ["babel"], {
       "import-source-binding-from.js",
       ...invalidSyntaxTests,
     ],
+    "yuku-ts": [
+      "import-source-attributes-expression.js",
+      "import-source-binding-from.js",
+      ...invalidSyntaxTests,
+    ],
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },

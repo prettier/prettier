@@ -137,7 +137,7 @@ function parseTs(text, options) {
 
   // @ts-expect-error -- expected
   ast.comments = comments;
-  return postprocess(ast, { text });
+  return postprocess(ast, { text, astType: "yuku-ts" });
 }
 
 const yuku = /* @__PURE__ */ createParser(parseJs);

@@ -23,5 +23,6 @@ runFormatTest(
     "oxc",
     "oxc-ts",
     "yuku",
+    "yuku-ts",
   ],
 );

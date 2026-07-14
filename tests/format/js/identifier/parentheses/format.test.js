@@ -1,4 +1,4 @@
-const errors = { yuku: ["let.js"] };
+const errors = { yuku: ["let.js"], "yuku-ts": ["let.js"] };
 
 runFormatTest(
   import.meta,
