@@ -46,14 +46,8 @@ function parseWithOptions(text, options) {
   });
 
   const { diagnostics: errors } = result;
-  for (const error of errors) {
-    if (
-      error.severity === "error" &&
-      error.message === "'const' declarations must be initialized"
-    ) {
-      continue;
-    }
-    throw createParseError(error, { text });
+  if (errors.length > 0) {
+    throw createParseError(errors[0], { text });
   }
 
   return result;
