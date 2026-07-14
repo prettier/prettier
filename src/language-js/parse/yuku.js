@@ -8,6 +8,7 @@ import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 
 /** @import {ParseOptions} from "yuku-parser" */
 
@@ -84,6 +85,62 @@ function parseJs(text, options) {
   return postprocess(ast, { text, astType: "yuku-js" });
 }
 
-const yuku = /* @__PURE__ */ createParser(parseJs);
+/**
+@returns {ParseOptions["lang"][]}
+*/
+function getLanguageCombinations(text, options) {
+  const filepath = options?.filepath;
 
-export { yuku };
+  if (typeof filepath === "string") {
+    if (/\.(?:jsx|tsx)$/i.test(filepath)) {
+      return ["tsx"];
+    }
+
+    if (filepath.toLowerCase().endsWith(".d.ts")) {
+      return ["dts"];
+    }
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
+}
+
+function parseTs(text, options) {
+  let filepath = options?.filepath;
+
+  const sourceType = getSourceType(filepath);
+  const languageCombinations = getLanguageCombinations(text, options);
+
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).flatMap((sourceType) =>
+    languageCombinations.map(
+      (lang) => () =>
+        parseWithOptions(text, {
+          sourceType: sourceType === "commonjs" ? "script" : sourceType,
+          lang,
+        }),
+    ),
+  );
+
+  let result;
+  try {
+    result = tryCombinationsSync(combinations);
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [error],
+  }) {
+    throw error;
+  }
+
+  const { program: ast, comments } = result;
+
+  // @ts-expect-error -- expected
+  ast.comments = comments;
+  return postprocess(ast, { text });
+}
+
+const yuku = /* @__PURE__ */ createParser(parseJs);
+const yukuTs = /* @__PURE__ */ createParser(parseTs);
+
+export { yuku, yukuTs as "yuku-ts" };

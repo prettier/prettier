@@ -80,6 +80,7 @@ export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
       "oxc-ts",
       "typescript",
       "yuku",
+      "yuku-ts",
     ],
   },
   {
