@@ -35,6 +35,7 @@ const mainModule = {
       input: "index.js",
       output: "index.browser.mjs",
       build: createJavascriptModuleBuilder({
+        format: "esm",
         platform: "universal",
         addDefaultExport: true,
         replaceModule: [
