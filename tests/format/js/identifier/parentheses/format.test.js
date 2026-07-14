@@ -1,8 +1,14 @@
-runFormatTest(import.meta, [
-  "babel",
-  //  "flow",
-  "typescript",
-]);
+const errors = { yuku: ["let.js"] };
+
+runFormatTest(
+  import.meta,
+  [
+    "babel",
+    //  "flow",
+    "typescript",
+  ],
+  { errors },
+);
 runFormatTest(
   import.meta,
   [
@@ -10,5 +16,5 @@ runFormatTest(
     // "flow",
     "typescript",
   ],
-  { semi: false },
+  { semi: false, errors },
 );

@@ -71,11 +71,3 @@ exports[`comment.js format[typescript] 1`] = `
   3 | -->
 Cause: Expression expected."
 `;
-
-exports[`comment.js format[yuku] 1`] = `
-"Expected JSX element name, but found '!' (1:2)
-> 1 | <!--
-    |  ^
-  2 | alert(1)
-  3 | -->"
-`;

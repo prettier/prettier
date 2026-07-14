@@ -60,7 +60,11 @@ function parseJs(text, options) {
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
-    (sourceType) => () => parseWithOptions(text, { sourceType, lang: "jsx" }),
+    (sourceType) => () =>
+      parseWithOptions(text, {
+        sourceType: sourceType === "commonjs" ? "script" : sourceType,
+        lang: "jsx",
+      }),
   );
 
   let result;
@@ -78,7 +82,7 @@ function parseJs(text, options) {
   // @ts-expect-error -- expected
   ast.comments = comments;
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { text, astType: "yuku-js" });
 }
 
 const yuku = /* @__PURE__ */ createParser(parseJs);

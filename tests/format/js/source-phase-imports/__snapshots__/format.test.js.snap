@@ -124,6 +124,13 @@ exports[`import-source-attributes-expression.js format[meriyah] 1`] = `
 Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
+exports[`import-source-attributes-expression.js format[yuku] 1`] = `
+"Expected ')' after import(), but found ',' (1:18)
+> 1 | import.source("x", { with: { attr: "val" } });
+    |                  ^
+  2 |"
+`;
+
 exports[`import-source-binding-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -159,6 +166,13 @@ exports[`import-source-binding-from.js format[meriyah] 1`] = `
     |                    ^^^^
   2 |
 Cause: [1:19-1:23]: Import source must be string"
+`;
+
+exports[`import-source-binding-from.js format[yuku] 1`] = `
+"Expected module specifier, but found 'from' (1:20)
+> 1 | import source from from "x";
+    |                    ^^^^
+  2 |"
 `;
 
 exports[`import-source-binding-source.js format 1`] = `
@@ -282,6 +296,13 @@ exports[`no-named.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`no-named.js format[yuku] 1`] = `
+"Expected 'from' after import clause, but found '{' (1:15)
+> 1 | import source { x } from "x";
+    |               ^
+  2 |"
+`;
+
 exports[`no-namespace.js format[__babel_estree] 1`] = `
 "Only \`import source x from "./module"\` is valid. (1:15)
 > 1 | import source * as x from "x";
@@ -326,5 +347,12 @@ exports[`no-namespace.js format[oxc] 1`] = `
 "Only a single default import is allowed in a source phase import. (1:8)
 > 1 | import source * as x from "x";
     |        ^^^^^^
+  2 |"
+`;
+
+exports[`no-namespace.js format[yuku] 1`] = `
+"Expected 'from' after import clause, but found '*' (1:15)
+> 1 | import source * as x from "x";
+    |               ^
   2 |"
 `;
