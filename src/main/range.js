@@ -171,6 +171,7 @@ function isSourceElement(opts, node, parentNode) {
     case "meriyah":
     case "oxc":
     case "oxc-ts":
+    case "yuku":
     case "__babel_estree":
       return isJsSourceElement(node.type, parentNode?.type);
     case "json":

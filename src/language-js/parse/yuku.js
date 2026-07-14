@@ -52,14 +52,6 @@ function parseWithOptions(filepath, text, options) {
 
   const { diagnostics: errors } = result;
   for (const error of errors) {
-    if (
-      error.severity === "Error" &&
-      (error.message ===
-        "A 'return' statement can only be used within a function body." ||
-        /^Identifier `.*` has already been declared$/.test(error.message))
-    ) {
-      continue;
-    }
     throw createParseError(error, { text });
   }
 

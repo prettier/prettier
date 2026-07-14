@@ -17,7 +17,7 @@ function getParsers(dirname, parsers) {
     parsers.includes("babel") &&
     (isLanguage(dirname, "js") || isLanguage(dirname, "jsx"))
   ) {
-    addParsers("acorn", "espree", "meriyah", "oxc");
+    addParsers("acorn", "espree", "meriyah", "oxc", "yuku");
   }
 
   if (parsers.includes("typescript")) {
