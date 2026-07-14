@@ -83,6 +83,15 @@ exports[`index-signature.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
   4 |   [a: string, b: string]: string;"
 `;
 
+exports[`index-signature.ts - {"trailingComma":"all"} format[yuku-ts] 1`] = `
+"Expected ':' after index signature parameters, but found '}' (1:26)
+> 1 | type A = { [key: string] };
+    |                          ^
+  2 |
+  3 | type TwoParams = {
+  4 |   [a: string, b: string]: string;"
+`;
+
 exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -161,6 +170,15 @@ exports[`index-signature.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
 "An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
     |            ^^^^^^^^^^^^^
+  2 |
+  3 | type TwoParams = {
+  4 |   [a: string, b: string]: string;"
+`;
+
+exports[`index-signature.ts - {"trailingComma":"es5"} format[yuku-ts] 1`] = `
+"Expected ':' after index signature parameters, but found '}' (1:26)
+> 1 | type A = { [key: string] };
+    |                          ^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -248,6 +266,15 @@ exports[`index-signature.ts format[oxc-ts] 1`] = `
   4 |   [a: string, b: string]: string;"
 `;
 
+exports[`index-signature.ts format[yuku-ts] 1`] = `
+"Expected ':' after index signature parameters, but found '}' (1:26)
+> 1 | type A = { [key: string] };
+    |                          ^
+  2 |
+  3 | type TwoParams = {
+  4 |   [a: string, b: string]: string;"
+`;
+
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -288,6 +315,15 @@ Cause: Unexpected token (1:7)"
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 "Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[yuku-ts] 1`] = `
+"Expected a type, but found '*' (1:8)
 > 1 | let a: *;
     |        ^
   2 | function b(x: ?) {}
@@ -342,6 +378,15 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
   4 | let d: string?;"
 `;
 
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[yuku-ts] 1`] = `
+"Expected a type, but found '*' (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
 exports[`jsdoc_only_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -381,6 +426,15 @@ Cause: Unexpected token (1:7)"
 
 exports[`jsdoc_only_types.ts format[oxc-ts] 1`] = `
 "Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
+exports[`jsdoc_only_types.ts format[yuku-ts] 1`] = `
+"Expected a type, but found '*' (1:8)
 > 1 | let a: *;
     |        ^
   2 | function b(x: ?) {}
