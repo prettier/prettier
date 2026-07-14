@@ -1,7 +1,14 @@
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: ["let x!", "let x! = 1"],
+    snippets: [
+      "let x!",
+      "let x! = 1",
+      "class C {x!}",
+      "class C {x! = 1}",
+      // "class C {accessor x!}",
+      // "class C {accessor x! = 1}",
+    ],
   },
   ["typescript", "babel-ts", "oxc-ts"],
 );
@@ -9,12 +16,12 @@ runFormatTest(
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: ["class C {x!}", "class C {x! = 1}"],
+    snippets: ["class C {accessor x!}", "class C {accessor x! = 1}"],
   },
   [
-    // https://github.com/typescript-eslint/typescript-eslint/issues/12532
-    // "typescript",
+    "typescript",
     "babel-ts",
-    "oxc-ts",
+    // https://github.com/oxc-project/oxc/issues/24503
+    // "oxc-ts",
   ],
 );
