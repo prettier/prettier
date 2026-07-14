@@ -54,7 +54,7 @@ function parseWithOptions(text, options) {
 }
 
 function parseJs(text, options) {
-  let filepath = options?.filepath;
+  const filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
   const combinations = (
