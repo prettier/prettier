@@ -6,7 +6,7 @@ function a() {
 
 () => { await (x) };
 
-function foo() {
+function foo2() {
   await
   (foo);
 }
