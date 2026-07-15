@@ -87,12 +87,11 @@ const disabledTests = new Map(
       "typescript/module/module_nested.ts",
       "typescript/custom/stability/moduleBlock.ts",
       "typescript/interface2/module.ts",
-      "typescript/typescript-only/",
     ],
     oxc: [],
-    "oxc-ts": ["typescript/typescript-only/"],
+    "oxc-ts": [],
     yuku: ["js/await/await-with-parens.ts"],
-    "yuku-ts": ["typescript/typescript-only/", "js/await/await-with-parens.ts"],
+    "yuku-ts": ["js/await/await-with-parens.ts"],
     hermes: [
       ...commentClosureTypecaseTests,
 
