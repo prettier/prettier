@@ -351,6 +351,7 @@ const configs = [
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-simplified-conditions": "off",
       "unicorn/prefer-ternary": "off",
+      "unicorn/prefer-then-catch": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/relative-url-style": "off",
       "unicorn/require-array-sort-compare": "off",
