@@ -114,7 +114,9 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     const titleMatch = content.match(titleRegex);
     if (!titleMatch) {
-      showErrorMessage(`[${displayPath}]: Something wrong in title.`);
+      showErrorMessage(
+        `[${displayPath}]: Invalid title format. Expected: "#### <title> (#12345)".`,
+      );
       continue;
     }
     const [, title] = titleMatch;
