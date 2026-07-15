@@ -95,6 +95,12 @@ async function getLanguageExtension(mode) {
   const language =
     languageExtensions.get(mode) ?? languageExtensions.get("TSX");
 
+  if (!language) {
+    throw new Error(
+      `No CodeMirror language extension found for "${mode}", and fallback "TSX" is unavailable.`,
+    );
+  }
+
   return await language.loadFunc();
 }
 
