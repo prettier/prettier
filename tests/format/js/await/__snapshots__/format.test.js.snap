@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`await-with-parens.ts format 1`] = `
+exports[`await-with-parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
