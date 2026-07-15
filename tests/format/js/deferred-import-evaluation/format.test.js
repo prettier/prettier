@@ -13,11 +13,8 @@ runFormatTest(import.meta, ["babel", "typescript"], {
     meriyah: [...importDeferTests, ...invalidSyntaxTests],
     oxc: invalidSyntaxTests,
     "oxc-ts": invalidSyntaxTests,
-    yuku: ["dynamic-import-attributes-expression.js", ...invalidSyntaxTests],
-    "yuku-ts": [
-      "dynamic-import-attributes-expression.js",
-      ...invalidSyntaxTests,
-    ],
+    yuku: invalidSyntaxTests,
+    "yuku-ts": invalidSyntaxTests,
     babel: invalidSyntaxTests,
     "babel-ts": invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
