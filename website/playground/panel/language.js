@@ -27,6 +27,7 @@ function getCodemirrorMode(parser) {
     case "typescript":
     case "hermes":
     case "oxc-ts":
+    case "yuku-ts":
       return "TSX";
 
     case "css":

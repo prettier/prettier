@@ -74,13 +74,6 @@ exports[`dynamic-import-attributes-expression.js format[meriyah] 1`] = `
 Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`dynamic-import-attributes-expression.js format[yuku] 1`] = `
-"Expected ')' after import(), but found ',' (1:17)
-> 1 | import.defer("x", { with: { attr: "val" } });
-    |                 ^
-  2 |"
-`;
-
 exports[`import-defer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -237,6 +230,13 @@ exports[`no-default.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`no-default.js format[yuku-ts] 1`] = `
+"Expected 'from' after import clause, but found 'x' (1:14)
+> 1 | import defer x from "x";
+    |              ^
+  2 |"
+`;
+
 exports[`no-named.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -313,6 +313,13 @@ exports[`no-named.js format[oxc-ts] 1`] = `
 `;
 
 exports[`no-named.js format[yuku] 1`] = `
+"Expected 'from' after import clause, but found '{' (1:14)
+> 1 | import defer { x } from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`no-named.js format[yuku-ts] 1`] = `
 "Expected 'from' after import clause, but found '{' (1:14)
 > 1 | import defer { x } from "x";
     |              ^

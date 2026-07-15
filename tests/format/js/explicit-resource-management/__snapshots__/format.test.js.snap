@@ -245,6 +245,16 @@ exports[`valid-await-expr-using.js format[yuku] 1`] = `
   5 |"
 `;
 
+exports[`valid-await-expr-using.js format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '+' (3:17)
+  1 | async function f() {
+  2 |   await using[x];
+> 3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
+    |                 ^
+  4 | }
+  5 |"
+`;
+
 exports[`valid-await-expr-using-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -283,6 +293,15 @@ exports[`valid-await-expr-using-in.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`valid-await-expr-using-in.js format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (2:15)
+  1 | async function f() {
+> 2 |   await using in foo;
+    |               ^^
+  3 | }
+  4 |"
+`;
+
 exports[`valid-await-expr-using-instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -313,6 +332,15 @@ Cause: 'identifier' expected in declaration (2:14)
 `;
 
 exports[`valid-await-expr-using-instanceof.js format[yuku] 1`] = `
+"'instanceof' is reserved and cannot be used as a binding identifier (2:15)
+  1 | async function f() {
+> 2 |   await using instanceof foo;
+    |               ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-expr-using-instanceof.js format[yuku-ts] 1`] = `
 "'instanceof' is reserved and cannot be used as a binding identifier (2:15)
   1 | async function f() {
 > 2 |   await using instanceof foo;
@@ -798,6 +826,15 @@ exports[`valid-module-block-top-level-await-using-binding.js format[yuku] 1`] = 
   4 |"
 `;
 
+exports[`valid-module-block-top-level-await-using-binding.js format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
 exports[`valid-module-block-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -904,6 +941,15 @@ exports[`valid-module-block-top-level-using-binding.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`valid-module-block-top-level-using-binding.js format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
 exports[`valid-using-as-identifier-computed-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1001,6 +1047,15 @@ exports[`valid-using-as-identifier-for-in.js format[yuku] 1`] = `
   5 |"
 `;
 
+exports[`valid-using-as-identifier-for-in.js format[yuku-ts] 1`] = `
+"Unexpected token '\`\`' in binding pattern (4:11)
+  2 | for (using.foo in []);
+  3 | for (using().foo in []);
+> 4 | for (using\`\`.foo in []);
+    |           ^^
+  5 |"
+`;
+
 exports[`valid-using-as-identifier-for-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1017,6 +1072,15 @@ for (using; (reader = getReader()););
 `;
 
 exports[`valid-using-as-identifier-for-init.js format[yuku] 1`] = `
+"Unexpected token ';' in binding pattern (2:8)
+  1 | for (
+> 2 |   using;
+    |        ^
+  3 |   reader = getReader(););
+  4 |"
+`;
+
+exports[`valid-using-as-identifier-for-init.js format[yuku-ts] 1`] = `
 "Unexpected token ';' in binding pattern (2:8)
   1 | for (
 > 2 |   using;
@@ -1053,6 +1117,15 @@ exports[`valid-using-as-identifier-for-of.js format[yuku] 1`] = `
   5 |"
 `;
 
+exports[`valid-using-as-identifier-for-of.js format[yuku-ts] 1`] = `
+"Unexpected token '\`\`' in binding pattern (4:11)
+  2 | for (using.foo of of);
+  3 | for (using().foo of of);
+> 4 | for (using\`\`.foo of of);
+    |           ^^
+  5 |"
+`;
+
 exports[`valid-using-as-identifier-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1077,6 +1150,13 @@ using in using instanceof using;
 `;
 
 exports[`valid-using-as-identifier-in.js format[yuku] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:7)
+> 1 | using in using instanceof using;
+    |       ^^
+  2 |"
+`;
+
+exports[`valid-using-as-identifier-in.js format[yuku-ts] 1`] = `
 "'in' is reserved and cannot be used as a binding identifier (1:7)
 > 1 | using in using instanceof using;
     |       ^^

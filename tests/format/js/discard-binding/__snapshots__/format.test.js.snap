@@ -191,6 +191,17 @@ exports[`array-pattern.js format[yuku] 1`] = `
   6 |   // for-of destructuring binding"
 `;
 
+exports[`array-pattern.js format[yuku-ts] 1`] = `
+"Unexpected token ',' (3:16)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |                ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
+`;
+
 exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -305,6 +316,15 @@ exports[`basic.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`basic.js format[yuku-ts] 1`] = `
+"Unexpected token ']' (1:12)
+> 1 | const [void] = [,void] = [void,] = [];
+    |            ^
+  2 |
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |"
+`;
+
 exports[`discard-binding-arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -389,6 +409,13 @@ exports[`discard-binding-arrow-params.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`discard-binding-arrow-params.js format[yuku-ts] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (1:2)
+> 1 | (void) => {}
+    |  ^^^^
+  2 |"
+`;
+
 exports[`discard-binding-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -467,6 +494,13 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-assignment.js format[yuku] 1`] = `
+"Unexpected token ']' (1:7)
+> 1 | ([void] = []);
+    |       ^
+  2 |"
+`;
+
+exports[`discard-binding-assignment.js format[yuku-ts] 1`] = `
 "Unexpected token ']' (1:7)
 > 1 | ([void] = []);
     |       ^
@@ -557,6 +591,13 @@ exports[`discard-binding-async-arrow-params.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`discard-binding-async-arrow-params.js format[yuku-ts] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (1:8)
+> 1 | async (void) => {}
+    |        ^^^^
+  2 |"
+`;
+
 exports[`discard-binding-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -635,6 +676,13 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`discard-binding-bindings.js format[yuku] 1`] = `
+"Unexpected token '}' (1:17)
+> 1 | const { p: void } = {};
+    |                 ^
+  2 |"
+`;
+
+exports[`discard-binding-bindings.js format[yuku-ts] 1`] = `
 "Unexpected token '}' (1:17)
 > 1 | const { p: void } = {};
     |                 ^
@@ -747,6 +795,15 @@ exports[`discard-binding-for-await-using-binding.js format[yuku] 1`] = `
   4 |"
 `;
 
+exports[`discard-binding-for-await-using-binding.js format[yuku-ts] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^^^^
+  3 | }
+  4 |"
+`;
+
 exports[`discard-binding-for-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -831,6 +888,13 @@ exports[`discard-binding-for-bindings.js format[yuku] 1`] = `
   2 |"
 `;
 
+exports[`discard-binding-for-bindings.js format[yuku-ts] 1`] = `
+"Unexpected token '}' (1:21)
+> 1 | for(const { p: void } of []);
+    |                     ^
+  2 |"
+`;
+
 exports[`discard-binding-for-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -909,6 +973,13 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-for-lhs.js format[yuku] 1`] = `
+"Unexpected token '}' (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |"
+`;
+
+exports[`discard-binding-for-lhs.js format[yuku-ts] 1`] = `
 "Unexpected token '}' (1:15)
 > 1 | for({ p: void } of []);
     |               ^
@@ -1009,6 +1080,15 @@ Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-using-binding.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (2:13)
+  1 | {
+> 2 |   for(using void of []);
+    |             ^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`discard-binding-for-using-binding.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (2:13)
   1 | {
 > 2 |   for(using void of []);
@@ -1167,6 +1247,17 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`function-parameter.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (3:14)
+  1 | {
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^^^^
+  4 | }
+  5 | {
+  6 |   // arrow function parameter"
+`;
+
+exports[`function-parameter.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (3:14)
   1 | {
   2 |   // function parameter
@@ -1386,6 +1477,17 @@ exports[`object-pattern.js format[yuku] 1`] = `
   6 |   // for-of destructuring binding"
 `;
 
+exports[`object-pattern.js format[yuku-ts] 1`] = `
+"Unexpected token '}' (3:22)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                      ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
+`;
+
 exports[`unary-expression-void.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1538,6 +1640,17 @@ exports[`unary-expression-void.js format[yuku] 1`] = `
   7 |     // pattern"
 `;
 
+exports[`unary-expression-void.js format[yuku-ts] 1`] = `
+"Unexpected token ']' (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern"
+`;
+
 exports[`using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1650,6 +1763,16 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (2:9)
+  1 | {
+> 2 |   using void = f();
+    |         ^^^^
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();"
+`;
+
+exports[`using.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (2:9)
   1 | {
 > 2 |   using void = f();
@@ -1839,6 +1962,17 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using-variable-declarator.js format[yuku] 1`] = `
+"'void' is reserved and cannot be used as a binding identifier (3:9)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |         ^^^^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators"
+`;
+
+exports[`using-variable-declarator.js format[yuku-ts] 1`] = `
 "'void' is reserved and cannot be used as a binding identifier (3:9)
   1 | {
   2 |   // using 1 declarator

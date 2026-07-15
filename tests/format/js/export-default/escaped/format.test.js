@@ -8,5 +8,6 @@ runFormatTest(import.meta, ["babel", "flow"], {
     oxc: true,
     "oxc-ts": true,
     yuku: true,
+    "yuku-ts": true,
   },
 });

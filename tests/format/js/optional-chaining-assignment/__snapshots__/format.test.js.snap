@@ -591,9 +591,9 @@ exports[`valid-complex-case.js format[oxc] 1`] = `
 `;
 
 exports[`valid-complex-case.js format[yuku] 1`] = `
-"Unexpected token '?.' in binding pattern (1:4)
+"Optional chaining is not allowed in assignment pattern (1:1)
 > 1 | let?.()[a] =1;
-    |    ^^
+    | ^^^^^^^^^^
   2 | let?.[a] = 1;
   3 |"
 `;
