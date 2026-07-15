@@ -1,6 +1,9 @@
 import builtinJsLanguages from "../../src/language-js/languages.evaluate.js";
 
-const replacements = new Map([["babel", "yuku"]]);
+const replacements = new Map([
+  ["babel", "yuku"],
+  ["typescript", "yuku-ts"],
+]);
 
 const languages = builtinJsLanguages
   .map((language) => {
