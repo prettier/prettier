@@ -447,7 +447,7 @@ function genericPrint(path, options, print) {
         return [leading, node.value, path.isLast ? "" : " "];
       }
 
-      const leading = node.value.trim().startsWith("(") ? line : "";
+      const leading = node.value.trimStart().startsWith("(") ? line : "";
       const value =
         adjustNumbers(adjustStrings(node.value.trim(), options)) || line;
 
