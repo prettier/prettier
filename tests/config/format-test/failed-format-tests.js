@@ -57,6 +57,7 @@ const disabledTests = new Map(
     espree: [
       ...commentClosureTypecaseTests,
       "js/explicit-resource-management/valid-await-using-asi-assignment.js",
+      "js/await/await-with-parens.ts",
     ],
     acorn: [
       "js/explicit-resource-management/valid-await-using-asi-assignment.js",
@@ -64,6 +65,7 @@ const disabledTests = new Map(
     meriyah: [
       // Parsing to different ASTs
       "js/decorators/member-expression.js",
+      "js/await/await-with-parens.ts",
     ],
     "babel-ts": [
       "typescript/conformance/types/moduleDeclaration/kind-detection.ts",
@@ -89,8 +91,8 @@ const disabledTests = new Map(
     ],
     oxc: [],
     "oxc-ts": ["typescript/typescript-only/"],
-    yuku: [],
-    "yuku-ts": ["typescript/typescript-only/"],
+    yuku: ["js/await/await-with-parens.ts"],
+    "yuku-ts": ["typescript/typescript-only/", "js/await/await-with-parens.ts"],
     hermes: [
       ...commentClosureTypecaseTests,
 
@@ -100,10 +102,11 @@ const disabledTests = new Map(
 
       // Different result
       "flow/hook/comments-before-arrow.js",
+      "js/await/await-with-parens.ts",
     ],
     flow: [
-      // Parsing to different ASTs
-      "js/decorators/member-expression.js",
+      "js/decorators/member-expression.js", // Parsing to different ASTs
+      "js/await/await-with-parens.ts",
     ],
     typescript: [
       // https://github.com/typescript-eslint/typescript-eslint/issues/11389
