@@ -63,7 +63,7 @@ A list of parser names.
 
 The tests verify that the parsers in this list produce the same output.
 
-If the list includes `typescript`, then `babel-ts`, and `oxc-ts` are included implicitly.
+If the list includes `typescript`, then `babel-ts`, `oxc-ts`, and `yuku-ts` are included implicitly.
 
 If the list includes `flow`, then `hermes` is included implicitly.
 

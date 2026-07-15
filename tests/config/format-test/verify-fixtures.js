@@ -68,6 +68,7 @@ const categoryParsers = new Map([
         "oxc",
         "oxc-ts",
         "yuku",
+        "yuku-ts",
         "flow",
         "babel-flow",
         "typescript",
@@ -104,6 +105,7 @@ const categoryParsers = new Map([
         "oxc",
         "oxc-ts",
         "yuku",
+        "yuku-ts",
       ],
       verifyParsers: [
         "babel",
@@ -120,6 +122,7 @@ const categoryParsers = new Map([
         "oxc",
         "oxc-ts",
         "yuku",
+        "yuku-ts",
       ],
       extensions: [".js", ".jsx"],
     },
@@ -149,8 +152,15 @@ const categoryParsers = new Map([
   [
     "typescript",
     {
-      parsers: ["typescript", "babel-ts", "oxc-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow", "oxc-ts"],
+      parsers: ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
+      verifyParsers: [
+        "typescript",
+        "babel-ts",
+        "flow",
+        "babel-flow",
+        "oxc-ts",
+        "yuku-ts",
+      ],
       extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],

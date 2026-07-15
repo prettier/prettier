@@ -252,15 +252,6 @@ a[1] + (let[2] = 2)
 ================================================================================
 `;
 
-exports[`let.js - {"semi":false} format[yuku] 1`] = `
-"Unexpected token '.' in binding pattern (1:4)
-> 1 | let.a = 1;
-    |    ^
-  2 |
-  3 | let.a[0] = 1;
-  4 |"
-`;
-
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -483,13 +474,4 @@ a = let[x].foo();
 a[1] + (let[2] = 2);
 
 ================================================================================
-`;
-
-exports[`let.js format[yuku] 1`] = `
-"Unexpected token '.' in binding pattern (1:4)
-> 1 | let.a = 1;
-    |    ^
-  2 |
-  3 | let.a[0] = 1;
-  4 |"
 `;

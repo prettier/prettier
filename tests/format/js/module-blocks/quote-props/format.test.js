@@ -6,5 +6,6 @@ runFormatTest(import.meta, ["babel"], {
     oxc: ["worker.js"],
     "oxc-ts": ["worker.js"],
     yuku: ["worker.js"],
+    "yuku-ts": ["worker.js"],
   },
 });

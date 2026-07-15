@@ -22,7 +22,10 @@ function isSimpleNumber(numberString) {
 
 // TODO[@fisker]: `__vue_ts_expression` and `__vue_ts_event_binding`
 const isTypeScript = ({ parser }) =>
-  parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts";
+  parser === "typescript" ||
+  parser === "babel-ts" ||
+  parser === "oxc-ts" ||
+  parser === "yuku-ts";
 
 /**
 @param {Node} node
@@ -102,7 +105,9 @@ function isKeySafeToUnquote(node, options) {
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (parser === "babel-ts" && node.type === "ClassProperty") ||
-      ((parser === "typescript" || parser === "oxc-ts") &&
+      ((parser === "typescript" ||
+        parser === "oxc-ts" ||
+        parser === "yuku-ts") &&
         node.type === "PropertyDefinition")
     ) &&
     isEs5IdentifierName(value)

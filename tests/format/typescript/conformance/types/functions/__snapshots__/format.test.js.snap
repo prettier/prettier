@@ -638,6 +638,16 @@ exports[`functionOverloadErrorsSyntax.ts format[oxc-ts] 1`] = `
   11 |"
 `;
 
+exports[`functionOverloadErrorsSyntax.ts format[yuku-ts] 1`] = `
+"Rest parameter must be the last parameter (9:25)
+   7 |
+   8 | //Function overload signature with rest param followed by non-optional parameter
+>  9 | function fn5(x: string, ...y: any[], z: string);
+     |                         ^^^^^^^^^^^^
+  10 | function fn5() { }
+  11 |"
+`;
+
 exports[`functionTypeTypeParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

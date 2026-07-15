@@ -124,13 +124,6 @@ exports[`import-source-attributes-expression.js format[meriyah] 1`] = `
 Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-source-attributes-expression.js format[yuku] 1`] = `
-"Expected ')' after import(), but found ',' (1:18)
-> 1 | import.source("x", { with: { attr: "val" } });
-    |                  ^
-  2 |"
-`;
-
 exports[`import-source-binding-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

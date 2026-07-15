@@ -49,6 +49,11 @@ const config = {
       parser: "yuku",
       plugins: [prettierPluginYuku],
     },
+    {
+      files: ["**/*.{ts,mts,cts,tsx}"],
+      parser: "yuku-ts",
+      plugins: [prettierPluginYuku],
+    },
   ],
 };
 

@@ -4,6 +4,7 @@ import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
@@ -45,8 +46,8 @@ function parseWithOptions(text, options) {
   });
 
   const { diagnostics: errors } = result;
-  for (const error of errors) {
-    throw createParseError(error, { text });
+  if (errors.length > 0) {
+    throw createParseError(errors[0], { text });
   }
 
   return result;
@@ -84,6 +85,62 @@ function parseJs(text, options) {
   return postprocess(ast, { text, astType: "yuku-js" });
 }
 
-const yuku = /* @__PURE__ */ createParser(parseJs);
+/**
+@returns {ParseOptions["lang"][]}
+*/
+function getLanguageCombinations(text, options) {
+  const filepath = options?.filepath;
 
-export { yuku };
+  if (typeof filepath === "string") {
+    if (/\.(?:jsx|tsx)$/i.test(filepath)) {
+      return ["tsx"];
+    }
+
+    if (filepath.toLowerCase().endsWith(".d.ts")) {
+      return ["dts"];
+    }
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
+}
+
+function parseTs(text, options) {
+  const filepath = options?.filepath;
+
+  const sourceType = getSourceType(filepath);
+  const languageCombinations = getLanguageCombinations(text, options);
+
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).flatMap((sourceType) =>
+    languageCombinations.map(
+      (lang) => () =>
+        parseWithOptions(text, {
+          sourceType: sourceType === "commonjs" ? "script" : sourceType,
+          lang,
+        }),
+    ),
+  );
+
+  let result;
+  try {
+    result = tryCombinationsSync(combinations);
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [error],
+  }) {
+    throw error;
+  }
+
+  const { program: ast, comments } = result;
+
+  // @ts-expect-error -- expected
+  ast.comments = comments;
+  return postprocess(ast, { text, astType: "yuku-ts" });
+}
+
+const yuku = /* @__PURE__ */ createParser(parseJs);
+const yukuTs = /* @__PURE__ */ createParser(parseTs);
+
+export { yukuTs as "yuku-ts", yuku };

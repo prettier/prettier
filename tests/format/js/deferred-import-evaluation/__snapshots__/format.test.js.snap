@@ -196,9 +196,9 @@ exports[`no-default.js format[oxc] 1`] = `
 `;
 
 exports[`no-default.js format[yuku] 1`] = `
-"'import defer' only supports a namespace import (1:8)
+"Expected 'from' after import clause, but found 'x' (1:14)
 > 1 | import defer x from "x";
-    |        ^^^^^
+    |              ^
   2 |"
 `;
 

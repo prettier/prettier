@@ -90,6 +90,12 @@ exports[`snippet: #0 format[yuku] 1`] = `
     |        ^^^^^^^^^^"
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^"
+`;
+
 exports[`snippet: #1 format[acorn] 1`] = `
 "The keyword 'interface' is reserved (1:8)
 > 1 | import interface from "foo";

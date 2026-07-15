@@ -5,6 +5,7 @@ const errors = {
   oxc: ["module-blocks.js", "range.js", "comments.js"],
   "oxc-ts": ["module-blocks.js", "range.js", "comments.js"],
   yuku: ["module-blocks.js", "range.js", "comments.js"],
+  "yuku-ts": ["module-blocks.js", "range.js", "comments.js"],
 };
 
 runFormatTest(import.meta, ["babel"], { errors });
