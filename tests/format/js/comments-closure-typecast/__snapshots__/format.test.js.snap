@@ -477,6 +477,24 @@ const fooooba4 =
 ================================================================================
 `;
 
+exports[`issue-19645.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+var target = /** @type {ShadowRoot} */ (root).host
+  ? /** @type {ShadowRoot} */ (root)
+  : /** @type {Document} */ (root).head ?? /** @type {Document} */ (root.ownerDocument).head;
+
+=====================================output=====================================
+var target = /** @type {ShadowRoot} */ (root).host
+  ? /** @type {ShadowRoot} */ (root)
+  : (/** @type {Document} */ (root).head ??
+    /** @type {Document} */ (root.ownerDocument).head);
+
+================================================================================
+`;
+
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

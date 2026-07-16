@@ -15,9 +15,11 @@ import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isMethod } from "../utilities/is-method.js";
+import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
+import { getLeftSide, hasNakedLeftSide } from "../utilities/left-side.js";
 import {
   isArrayType,
   isBinaryCastExpression,
@@ -134,6 +136,7 @@ function handleEndOfLineComment(context) {
 function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleClosureTypeCastCommentInNullishCoalescing,
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -157,6 +160,35 @@ function handleClosureTypeCastComments({ comment, followingNode }) {
     addLeadingComment(followingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleClosureTypeCastCommentInNullishCoalescing({
+  comment,
+  followingNode,
+}) {
+  if (
+    !followingNode ||
+    !isNullishCoalescing(followingNode) ||
+    !isTypeCastComment(comment)
+  ) {
+    return false;
+  }
+
+  let leftMost = followingNode;
+  while (hasNakedLeftSide(leftMost)) {
+    const nextLeftMost = getLeftSide(leftMost);
+    if (!nextLeftMost || locStart(nextLeftMost) !== locStart(leftMost)) {
+      return false;
+    }
+
+    leftMost = nextLeftMost;
+    if (leftMost.type === "ParenthesizedExpression") {
+      addLeadingComment(leftMost, comment);
+      return true;
+    }
+  }
+
   return false;
 }
 
