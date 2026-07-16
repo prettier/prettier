@@ -71,7 +71,7 @@ function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
-    handleNullishCoalescingComments,
+    handleClosureTypeCastComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
     handleMemberExpressionComments,
@@ -137,7 +137,7 @@ function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
-    handleNullishCoalescingComments,
+    handleClosureTypeCastComments,
     handleIfStatementComments,
     handleWhileLikeComments,
     handleSwitchStatementComments,
@@ -155,9 +155,21 @@ function handleRemainingComment(context) {
   ].some((fn) => fn(context));
 }
 
-function handleClosureTypeCastComments({ comment, followingNode }) {
+function handleClosureTypeCastComments({
+  comment,
+  followingNode,
+  enclosingNode,
+}) {
   if (followingNode && isTypeCastComment(comment)) {
-    addLeadingComment(followingNode, comment);
+    addLeadingComment(
+      // We'll add parentheses to the nullish coalescing expression,
+      // The comment need attach to the left side, so the comments can print inside it
+      enclosingNode?.type === "ConditionalExpression" &&
+        isNullishCoalescing(followingNode)
+        ? followingNode.left
+        : followingNode,
+      comment,
+    );
     return true;
   }
   return false;
@@ -243,25 +255,6 @@ function handleNestedConditionalExpressionComments({
     addDanglingComment(enclosingNode, comment);
     return true;
   }
-  return false;
-}
-
-function handleNullishCoalescingComments({
-  comment,
-  enclosingNode,
-  followingNode,
-}) {
-  if (
-    (enclosingNode?.type === "ConditionalExpression" ||
-      isConditionalType(enclosingNode)) &&
-    isNullishCoalescing(followingNode)
-  ) {
-    // We'll add parentheses to the nullish coalescing expression,
-    // The comment need attach to the left side, so the comments can print inside it
-    addLeadingComment(followingNode.left, comment);
-    return true;
-  }
-
   return false;
 }
 
