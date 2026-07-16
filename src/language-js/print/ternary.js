@@ -310,9 +310,18 @@ function printTernary(path, options, print, args) {
           ? print("extendsType")
           : group(wrapInParens(print("extendsType"))),
       ];
-  const printedTestWithQuestionMark = group([printedTest, " ?"], {
-    id: testId,
-  });
+  const printedTestWithQuestionMark = group(
+    [
+      isConditionalExpression &&
+      parent.type === "ExpressionStatement" &&
+      !options.semi
+        ? ifBreak(";")
+        : "",
+      printedTest,
+      " ?",
+    ],
+    { id: testId },
+  );
 
   const printedConsequent = print(consequentNodePropertyName);
   const consequent = indent([
