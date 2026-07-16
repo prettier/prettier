@@ -6701,9 +6701,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.24.0":
-  version: 6.24.0
-  resolution: "knip@npm:6.24.0"
+"knip@npm:6.27.0":
+  version: 6.27.0
+  resolution: "knip@npm:6.27.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.3.0"
@@ -6721,7 +6721,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/409dce647f258810e14744824c87122a3e2f0ca950fb8f42631bb201f23077b5f648c66a761cd1738927375dac2f904d917b8a6f626530ee1b7c55b848925dfe
+  checksum: 10/434dca050b5eb758d60fab210cce83d9b2ed53e3d96aa77a43c0ff570dd5491a5233f5b0ae52d916e5291e48cd396e65e6a37fa61a89ebbb697058fb9d6db711
   languageName: node
   linkType: hard
 
@@ -8426,7 +8426,7 @@ __metadata:
     json-test-suite: "npm:1.0.0"
     json5: "npm:2.2.3"
     jsx-test-suite: "npm:0.0.2"
-    knip: "npm:6.24.0"
+    knip: "npm:6.27.0"
     less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.4.0"
@@ -8461,7 +8461,7 @@ __metadata:
     postcss-selector-parser: "npm:2.2.3"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.9.5"
-    pretty-bytes: "npm:7.1.0"
+    pretty-bytes: "npm:7.1.1"
     pretty-ms: "npm:9.3.0"
     puppeteer: "npm:25.3.0"
     regexp-util: "npm:2.0.3"
@@ -8494,10 +8494,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"pretty-bytes@npm:7.1.0":
-  version: 7.1.0
-  resolution: "pretty-bytes@npm:7.1.0"
-  checksum: 10/75fb34fba44596dc69983039fce9288f3b247b513aba2d6dfe74727505fe43199fcd7a1cee95dbd5be56a431d30fbdb4d24d3a62b9cf22bb63fa706b81c2e540
+"pretty-bytes@npm:7.1.1":
+  version: 7.1.1
+  resolution: "pretty-bytes@npm:7.1.1"
+  checksum: 10/44877bebbd90663c0a40eee17866ff1ec333dd0ce71ff2a84bca8e5f7a9c5a2405d7406abf177d9443912b1720fc59cd8cbd98262887d3d8eb6ef4485b62025a
   languageName: node
   linkType: hard
 
