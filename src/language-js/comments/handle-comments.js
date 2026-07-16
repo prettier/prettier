@@ -71,6 +71,7 @@ function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
+    handleNullishCoalescingComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
     handleMemberExpressionComments,
@@ -136,6 +137,7 @@ function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
+    handleNullishCoalescingComments,
     handleIfStatementComments,
     handleWhileLikeComments,
     handleSwitchStatementComments,
@@ -244,6 +246,25 @@ function handleNestedConditionalExpressionComments({
   return false;
 }
 
+function handleNullishCoalescingComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    (enclosingNode?.type === "ConditionalExpression" ||
+      isConditionalType(enclosingNode)) &&
+    isNullishCoalescing(followingNode)
+  ) {
+    // We'll add parentheses to the nullish coalescing expression,
+    // The comment need attach to the left side, so the comments can print inside it
+    addLeadingComment(followingNode.left, comment);
+    return true;
+  }
+
+  return false;
+}
+
 function handleConditionalExpressionComments({
   comment,
   precedingNode,
@@ -278,12 +299,7 @@ function handleConditionalExpressionComments({
       return true;
     }
 
-    addLeadingComment(
-      // We'll add parentheses to the nullish coalescing expression,
-      // The comment need attach to the left side, so the comments can print inside it
-      isNullishCoalescing(followingNode) ? followingNode.left : followingNode,
-      comment,
-    );
+    addLeadingComment(followingNode, comment);
     return true;
   }
   return false;
