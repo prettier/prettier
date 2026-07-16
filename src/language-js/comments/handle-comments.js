@@ -298,7 +298,6 @@ function handleConditionalExpressionComments({
       addDanglingComment(enclosingNode, comment);
       return true;
     }
-
     addLeadingComment(followingNode, comment);
     return true;
   }
