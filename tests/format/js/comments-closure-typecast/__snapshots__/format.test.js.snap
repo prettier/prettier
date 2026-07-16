@@ -566,6 +566,36 @@ const w1 = /** @typefoo Foo */ value;
 ================================================================================
 `;
 
+exports[`nullish-coalescing.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+target = a
+  ?
+    b
+  : (
+    /** @type {A} */ (c)
+    ?? d
+  )
+
+// https://github.com/sveltejs/svelte/blob/602a873b6b82bba4e6edc91b039e2f6defbe3fc4/packages/svelte/src/internal/client/dom/css.js#L15-L17
+target = /** @type {ShadowRoot} */ (root).host
+  ? /** @type {ShadowRoot} */ (root)
+  : (/** @type {Document} */ (root).head ?? /** @type {Document} */ (root.ownerDocument).head);
+
+=====================================output=====================================
+target = a ? b : (/** @type {A} */ (c) ?? d);
+
+// https://github.com/sveltejs/svelte/blob/602a873b6b82bba4e6edc91b039e2f6defbe3fc4/packages/svelte/src/internal/client/dom/css.js#L15-L17
+target = /** @type {ShadowRoot} */ (root).host
+  ? /** @type {ShadowRoot} */ (root)
+  : /** @type {Document} */ ((root).head ??
+    /** @type {Document} */ (root.ownerDocument).head);
+
+================================================================================
+`;
+
 exports[`object-with-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
