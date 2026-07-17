@@ -146,7 +146,7 @@
     "browserslist": "4.28.6",
     "browserslist-to-esbuild": "2.1.1",
     "buffer": "6.0.3",
-    "c8": "11.0.0",
+    "c8": "12.0.0",
     "commonmark-test-suite": "0.1.0",
     "cross-env": "10.1.0",
     "cspell": "10.0.1",
