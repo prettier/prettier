@@ -1024,18 +1024,17 @@ function handlePropertySignatureComments(context) {
     return true;
   }
 
-  if (!isBlockComment(comment)) {
-    return false;
+  if (isBlockComment(comment)) {
+    const colonTokenIndex = stripComments(options).indexOf(
+      ":",
+      locEnd(enclosingNode.key),
+    );
+    if (colonTokenIndex !== -1 && colonTokenIndex < locStart(comment)) {
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
+    }
   }
 
-  const colonTokenIndex = stripComments(options).indexOf(
-    ":",
-    locEnd(enclosingNode.key),
-  );
-
-  return colonTokenIndex !== -1 && colonTokenIndex < locStart(comment)
-    ? addLeadingCommentToPossibleUnionType(followingNode, context)
-    : false;
+  return false;
 }
 
 function handleBinaryCastExpressionComment({
