@@ -99,10 +99,7 @@ function printListItem(path, options, print, listPrefix) {
     prefix,
     printChildren(path, options, print, {
       processor({ node, isFirst }) {
-        if (
-          (isFirst && node.type !== "list") ||
-          (node.type === "code" && node.isIndented)
-        ) {
+        if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
