@@ -903,17 +903,6 @@ function* g() {
 ================================================================================
 `;
 
-exports[`explicit-resource-management.js format[meriyah] 1`] = `
-"Unexpected token: 'identifier' (2:9)
-  1 | function * g() {
-> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
-    |         ^^^^^^
-  3 | } // cleanup
-  4 |
-  5 | {
-Cause: [2:8-2:14]: Unexpected token: 'identifier'"
-`;
-
 exports[`export-default-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
