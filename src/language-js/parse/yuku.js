@@ -143,4 +143,4 @@ function parseTs(text, options) {
 const yuku = /* @__PURE__ */ createParser(parseJs);
 const yukuTs = /* @__PURE__ */ createParser(parseTs);
 
-export { yukuTs as "yuku-ts", yuku };
+export { yuku, yukuTs as "yuku-ts" };
