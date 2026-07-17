@@ -7118,10 +7118,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:7.1.2":
+"meriyah@https://pkg.pr.new/meriyah@579.tgz":
   version: 7.1.2
-  resolution: "meriyah@npm:7.1.2"
-  checksum: 10/cc9686b436349e73bbf21b7db1d83bb1479a5d7e9270775911598e8b2a8a4d35dd4d5e29a865ba2be5abd53f896c82fb682893f9236b7265ccbdba39448fe37c
+  resolution: "meriyah@https://pkg.pr.new/meriyah@579.tgz"
+  checksum: 10/de979b72e7e980035ba02996616a859f0e8281fbf46be357c9c745268154e6b32570431c2db13828c9dcdcbea7d2b445b457ead236d9fc3b9405aee9e60eaf27
   languageName: node
   linkType: hard
 
@@ -8435,7 +8435,7 @@ __metadata:
     mdast-util-from-markdown: "npm:2.0.3"
     mdast-util-gfm: "npm:3.1.0"
     mdast-util-math: "npm:3.0.0"
-    meriyah: "npm:7.1.2"
+    meriyah: "https://pkg.pr.new/meriyah@579.tgz"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-util-character: "npm:2.1.1"
