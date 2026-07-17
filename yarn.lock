@@ -3052,89 +3052,89 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-arm64@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-darwin-arm64@npm:0.6.4"
+"@yuku-parser/binding-darwin-arm64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-darwin-arm64@npm:0.6.5"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-x64@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-darwin-x64@npm:0.6.4"
+"@yuku-parser/binding-darwin-x64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-darwin-x64@npm:0.6.5"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-freebsd-x64@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-freebsd-x64@npm:0.6.4"
+"@yuku-parser/binding-freebsd-x64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-freebsd-x64@npm:0.6.5"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-gnu@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-arm-gnu@npm:0.6.4"
+"@yuku-parser/binding-linux-arm-gnu@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-arm-gnu@npm:0.6.5"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-musl@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-arm-musl@npm:0.6.4"
+"@yuku-parser/binding-linux-arm-musl@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-arm-musl@npm:0.6.5"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-gnu@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-arm64-gnu@npm:0.6.4"
+"@yuku-parser/binding-linux-arm64-gnu@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-arm64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-musl@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-arm64-musl@npm:0.6.4"
+"@yuku-parser/binding-linux-arm64-musl@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-arm64-musl@npm:0.6.5"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-gnu@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-x64-gnu@npm:0.6.4"
+"@yuku-parser/binding-linux-x64-gnu@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-x64-gnu@npm:0.6.5"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-musl@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-linux-x64-musl@npm:0.6.4"
+"@yuku-parser/binding-linux-x64-musl@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-linux-x64-musl@npm:0.6.5"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-arm64@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-win32-arm64@npm:0.6.4"
+"@yuku-parser/binding-win32-arm64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-win32-arm64@npm:0.6.5"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-x64@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/binding-win32-x64@npm:0.6.4"
+"@yuku-parser/binding-win32-x64@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/binding-win32-x64@npm:0.6.5"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/wasm@npm:0.6.4":
-  version: 0.6.4
-  resolution: "@yuku-parser/wasm@npm:0.6.4"
+"@yuku-parser/wasm@npm:0.6.5":
+  version: 0.6.5
+  resolution: "@yuku-parser/wasm@npm:0.6.5"
   dependencies:
     "@yuku-toolchain/types": "npm:0.5.43"
-  checksum: 10/b1b3cbc2989a3a4df1dac26890cedccfd6d7ee181d0a34f367b2c405fc59a6e5d546a50e268fb902f9d383811623779c91df1b874f57cfc9d0d47d2bd48e522a
+  checksum: 10/26de88d755adb9c299551a676e4b6f8568514c19398a82f75e2fe00e4f946022892eadd097dfefb31ec4a7b77ee6c9a539b5c3dd7c21c29544536f6fdbd9a4b4
   languageName: node
   linkType: hard
 
@@ -8329,7 +8329,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.64.0"
     "@typescript-eslint/typescript-estree": "npm:8.64.0"
     "@typescript-eslint/visitor-keys": "npm:8.64.0"
-    "@yuku-parser/wasm": "npm:0.6.4"
+    "@yuku-parser/wasm": "npm:0.6.5"
     acorn: "npm:8.17.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
@@ -8460,7 +8460,7 @@ __metadata:
     yaml: "npm:2.9.0"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.0"
-    yuku-parser: "npm:0.6.4"
+    yuku-parser: "npm:0.6.5"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -10215,21 +10215,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku-parser@npm:0.6.4":
-  version: 0.6.4
-  resolution: "yuku-parser@npm:0.6.4"
+"yuku-parser@npm:0.6.5":
+  version: 0.6.5
+  resolution: "yuku-parser@npm:0.6.5"
   dependencies:
-    "@yuku-parser/binding-darwin-arm64": "npm:0.6.4"
-    "@yuku-parser/binding-darwin-x64": "npm:0.6.4"
-    "@yuku-parser/binding-freebsd-x64": "npm:0.6.4"
-    "@yuku-parser/binding-linux-arm-gnu": "npm:0.6.4"
-    "@yuku-parser/binding-linux-arm-musl": "npm:0.6.4"
-    "@yuku-parser/binding-linux-arm64-gnu": "npm:0.6.4"
-    "@yuku-parser/binding-linux-arm64-musl": "npm:0.6.4"
-    "@yuku-parser/binding-linux-x64-gnu": "npm:0.6.4"
-    "@yuku-parser/binding-linux-x64-musl": "npm:0.6.4"
-    "@yuku-parser/binding-win32-arm64": "npm:0.6.4"
-    "@yuku-parser/binding-win32-x64": "npm:0.6.4"
+    "@yuku-parser/binding-darwin-arm64": "npm:0.6.5"
+    "@yuku-parser/binding-darwin-x64": "npm:0.6.5"
+    "@yuku-parser/binding-freebsd-x64": "npm:0.6.5"
+    "@yuku-parser/binding-linux-arm-gnu": "npm:0.6.5"
+    "@yuku-parser/binding-linux-arm-musl": "npm:0.6.5"
+    "@yuku-parser/binding-linux-arm64-gnu": "npm:0.6.5"
+    "@yuku-parser/binding-linux-arm64-musl": "npm:0.6.5"
+    "@yuku-parser/binding-linux-x64-gnu": "npm:0.6.5"
+    "@yuku-parser/binding-linux-x64-musl": "npm:0.6.5"
+    "@yuku-parser/binding-win32-arm64": "npm:0.6.5"
+    "@yuku-parser/binding-win32-x64": "npm:0.6.5"
     "@yuku-toolchain/types": "npm:0.5.43"
   dependenciesMeta:
     "@yuku-parser/binding-darwin-arm64":
@@ -10254,7 +10254,7 @@ __metadata:
       optional: true
     "@yuku-parser/binding-win32-x64":
       optional: true
-  checksum: 10/a374d7e8b676b4c4bbe2d7aec20b0aca2dc48ba0da8253b2547842b3344270b12ecfd4e21ffc414c258f6065c1cb5b012153f5fdc236b131d2d77c5afd76821c
+  checksum: 10/0e1ada7fe83ea9de52cba38edc88f37eed4a2138f10afacb43d7e766a840b352e7a00e1f90be1a685962b2e85a601f15e7a47d746018b42ec688006e5ddd6b2d
   languageName: node
   linkType: hard
 

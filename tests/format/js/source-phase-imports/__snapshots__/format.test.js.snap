@@ -161,13 +161,6 @@ exports[`import-source-binding-from.js format[meriyah] 1`] = `
 Cause: [1:19-1:23]: Import source must be string"
 `;
 
-exports[`import-source-binding-from.js format[yuku] 1`] = `
-"Expected module specifier, but found 'from' (1:20)
-> 1 | import source from from "x";
-    |                    ^^^^
-  2 |"
-`;
-
 exports[`import-source-binding-source.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
