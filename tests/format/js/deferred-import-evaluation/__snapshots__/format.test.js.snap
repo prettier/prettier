@@ -224,16 +224,16 @@ exports[`no-default.js format[oxc-ts] 1`] = `
 `;
 
 exports[`no-default.js format[yuku] 1`] = `
-"Expected 'from' after import clause, but found 'x' (1:14)
+"'import defer' only supports a namespace import (1:8)
 > 1 | import defer x from "x";
-    |              ^
+    |        ^^^^^
   2 |"
 `;
 
 exports[`no-default.js format[yuku-ts] 1`] = `
-"Expected 'from' after import clause, but found 'x' (1:14)
+"'import defer' only supports a namespace import (1:8)
 > 1 | import defer x from "x";
-    |              ^
+    |        ^^^^^
   2 |"
 `;
 

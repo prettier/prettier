@@ -1111,6 +1111,28 @@ exports[`parentheses.js format[typescript] 1`] = `
 Cause: ',' expected."
 `;
 
+exports[`parentheses.js format[yuku] 1`] = `
+"Expected ',' or ')' in parenthesized expression, but found 'in' (6:23)
+  4 | for (var a = 1 || (b in c);;);
+  5 | for (var a = 1 + (2 || (b in c));;);
+> 6 | for (var a = (() => b in c);;);
+    |                       ^^
+  7 | for (var a = 1 || (() => b in c);;);
+  8 | for (var a = (() => { b in c; });;);
+  9 | for (var a = [b in c];;);"
+`;
+
+exports[`parentheses.js format[yuku-ts] 1`] = `
+"Expected ',' or ')' in parenthesized expression, but found 'in' (6:23)
+  4 | for (var a = 1 || (b in c);;);
+  5 | for (var a = 1 + (2 || (b in c));;);
+> 6 | for (var a = (() => b in c);;);
+    |                       ^^
+  7 | for (var a = 1 || (() => b in c);;);
+  8 | for (var a = (() => { b in c; });;);
+  9 | for (var a = [b in c];;);"
+`;
+
 exports[`var.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
