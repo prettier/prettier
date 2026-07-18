@@ -45,6 +45,8 @@ function getDependencies(results) {
 function getLicenseText(packageConfig, dependencies, packageDisplayName) {
   dependencies = dependencies.filter(
     (dependency, index) =>
+      // Exclude Prettier
+      dependency.name !== "prettier" &&
       // Exclude self
       dependency.name !== packageConfig.packageName &&
       // Unique by `name` and `version`
