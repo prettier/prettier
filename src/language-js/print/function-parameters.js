@@ -34,7 +34,9 @@ import {
 
 // `ArrowFunctionExpression` has other dangling comments
 const functionParameterDanglingCommentFilter = (comment) =>
-  comment.mark !== "commentBeforeArrow";
+  comment.marker !== "commentBeforeArrow" &&
+  comment.marker !== "commentBeforeParameters" &&
+  comment.marker !== "commentAfterParameters";
 
 /*
 - `ArrowFunctionExpression`

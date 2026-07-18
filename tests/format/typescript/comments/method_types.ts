@@ -30,6 +30,12 @@ type foo8 = /* foo */ (a: /* bar */ string) /* baz */ => void
 
 let foo9: new /* foo */ (/* bar */) /* baz */ => string;
 
+let foo11: new // foo
+() => string;
+
+let foo12: new () // foo
+=> string;
+
 let foo10: new /* foo */ (a: /* bar */ string) /* baz */ => string;
 
 abstract class Test {

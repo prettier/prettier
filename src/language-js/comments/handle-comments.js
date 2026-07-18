@@ -69,6 +69,7 @@ import {
 function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentAroundEmptyConstructorTypeParameters,
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
@@ -101,6 +102,7 @@ function handleOwnLineComment(context) {
 function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentAroundEmptyConstructorTypeParameters,
     handleClosureTypeCastComments,
     handleLastFunctionParameterComments,
     handleConditionalExpressionComments,
@@ -134,6 +136,7 @@ function handleEndOfLineComment(context) {
 function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentAroundEmptyConstructorTypeParameters,
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -516,6 +519,42 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   }
 
   return false;
+}
+
+const isConstructorType = createTypeCheckFunction([
+  "TSConstructorType",
+  "TSConstructSignatureDeclaration",
+]);
+
+function handleCommentAroundEmptyConstructorTypeParameters({
+  comment,
+  enclosingNode,
+  text,
+}) {
+  if (
+    !isConstructorType(enclosingNode) ||
+    getFunctionParameters(enclosingNode).length > 0
+  ) {
+    return false;
+  }
+
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
+    text,
+    locEnd(comment),
+  );
+  const marker =
+    nextCharacter === "("
+      ? "commentBeforeParameters"
+      : nextCharacter === ":" || nextCharacter === "="
+        ? "commentAfterParameters"
+        : undefined;
+
+  if (!marker) {
+    return false;
+  }
+
+  addDanglingComment(enclosingNode, comment, marker);
+  return true;
 }
 
 function handleLastFunctionParameterComments({

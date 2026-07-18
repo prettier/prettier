@@ -1,5 +1,7 @@
-import { group } from "../../document/index.js";
+import { group, hardline } from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import { hasSameLocStart } from "../location/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
@@ -35,6 +37,20 @@ function printFunctionType(path, options, print) {
     parts.push("new ");
   }
 
+  const beforeParametersDoc = printMarkedDanglingComments(
+    path,
+    options,
+    "commentBeforeParameters",
+  );
+  if (beforeParametersDoc) {
+    parts.push(
+      beforeParametersDoc,
+      hasMarkedLineComment(path.node, "commentBeforeParameters")
+        ? hardline
+        : " ",
+    );
+  }
+
   let parametersDoc = printFunctionParameters(
     path,
     options,
@@ -43,6 +59,10 @@ function printFunctionType(path, options, print) {
     /* shouldPrintTypeParameters */ true,
   );
 
+  const hasLineCommentAfterParameters = hasMarkedLineComment(
+    path.node,
+    "commentAfterParameters",
+  );
   const returnTypeDoc = [];
   // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
@@ -51,6 +71,11 @@ function printFunctionType(path, options, print) {
       isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
       print("returnType"),
     );
+  } else if (hasLineCommentAfterParameters) {
+    // Mark the type annotation as checked without putting its leading space at
+    // the beginning of the line following a line comment.
+    printTypeAnnotationProperty(path, print, "returnType");
+    returnTypeDoc.push(print("returnType"));
   } else {
     returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
@@ -59,7 +84,22 @@ function printFunctionType(path, options, print) {
     parametersDoc = group(parametersDoc);
   }
 
-  parts.push(parametersDoc, returnTypeDoc);
+  parts.push(parametersDoc);
+
+  const afterParametersDoc = printMarkedDanglingComments(
+    path,
+    options,
+    "commentAfterParameters",
+  );
+  if (afterParametersDoc) {
+    parts.push(
+      " ",
+      afterParametersDoc,
+      hasLineCommentAfterParameters ? hardline : "",
+    );
+  }
+
+  parts.push(returnTypeDoc);
 
   return [
     group(parts),
@@ -68,6 +108,18 @@ function printFunctionType(path, options, print) {
       ? printClassMemberSemicolon(path, options)
       : "",
   ];
+}
+
+function printMarkedDanglingComments(path, options, marker) {
+  return printDanglingComments(path, options, { marker });
+}
+
+function hasMarkedLineComment(node, marker) {
+  return hasComment(
+    node,
+    CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+    (comment) => comment.marker === marker,
+  );
 }
 
 /*
