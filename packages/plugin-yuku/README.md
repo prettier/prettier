@@ -46,13 +46,17 @@ const config = {
   overrides: [
     {
       files: ["**/*.{js,mjs,cjs,jsx}"],
-      parser: "yuku",
-      plugins: [prettierPluginYuku],
+      options: {
+        parser: "yuku",
+        plugins: [prettierPluginYuku],
+      },
     },
     {
       files: ["**/*.{ts,mts,cts,tsx}"],
-      parser: "yuku-ts",
-      plugins: [prettierPluginYuku],
+      options: {
+        parser: "yuku-ts",
+        plugins: [prettierPluginYuku],
+      },
     },
   ],
 };

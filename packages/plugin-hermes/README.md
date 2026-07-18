@@ -43,8 +43,10 @@ const config = {
   overrides: [
     {
       files: ["**/*.{js.flow,js,mjs,cjs}"],
-      parser: "hermes",
-      plugins: [prettierPluginHermes],
+      plugins: {
+        parser: "hermes",
+        plugins: [prettierPluginHermes],
+      },
     },
   ],
 };
