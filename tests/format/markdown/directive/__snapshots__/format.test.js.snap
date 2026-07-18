@@ -1,0 +1,533 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`container.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b *c* d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::::
+
+:::::a
+b
+::::c
+d
+:::e
+- - f
+:::
+> g h
+:::::
+
+=====================================output=====================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b _c_ d **e**]
+:::
+
+:::a{#e .c.d.f.g h="i & j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::
+::::
+:::::
+
+:::::a
+b
+
+::::c
+d
+
+:::e
+- - f
+:::
+
+> g h
+::::
+:::::
+
+================================================================================
+`;
+
+exports[`container.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b *c* d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::::
+
+:::::a
+b
+::::c
+d
+:::e
+- - f
+:::
+> g h
+:::::
+
+=====================================output=====================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b _c_ d **e**]
+:::
+
+:::a{#e .c.d.f.g h="i & j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::
+::::
+:::::
+
+:::::a
+b
+
+::::c
+d
+
+:::e
+- - f
+:::
+
+> g h
+::::
+:::::
+
+================================================================================
+`;
+
+exports[`container.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b *c* d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::::
+
+:::::a
+b
+::::c
+d
+:::e
+- - f
+:::
+> g h
+:::::
+
+=====================================output=====================================
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b _c_ d **e**]
+:::
+
+:::a{#e .c.d.f.g h="i & j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::
+::::
+:::::
+
+:::::a
+b
+
+::::c
+d
+
+:::e
+- - f
+:::
+
+> g h
+::::
+:::::
+
+================================================================================
+`;
+
+exports[`issue-8640.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::note
+Some note
+:::
+
+:::note
+
+Some note
+:::
+
+:::note
+Some note
+
+:::
+
+:::tip Pro tip
+This is a Docusaurus admonition with a title on the fence line and a body long enough to be reflowed when proseWrap is always, which used to destroy the fences.
+:::
+
+=====================================output=====================================
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::tip Pro tip This is a Docusaurus admonition with a title on the fence line
+and a body long enough to be reflowed when proseWrap is always, which used to
+destroy the fences. :::
+
+================================================================================
+`;
+
+exports[`issue-8640.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::note
+Some note
+:::
+
+:::note
+
+Some note
+:::
+
+:::note
+Some note
+
+:::
+
+:::tip Pro tip
+This is a Docusaurus admonition with a title on the fence line and a body long enough to be reflowed when proseWrap is always, which used to destroy the fences.
+:::
+
+=====================================output=====================================
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::tip Pro tip This is a Docusaurus admonition with a title on the fence line and a body long enough to be reflowed when proseWrap is always, which used to destroy the fences. :::
+
+================================================================================
+`;
+
+exports[`issue-8640.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::note
+Some note
+:::
+
+:::note
+
+Some note
+:::
+
+:::note
+Some note
+
+:::
+
+:::tip Pro tip
+This is a Docusaurus admonition with a title on the fence line and a body long enough to be reflowed when proseWrap is always, which used to destroy the fences.
+:::
+
+=====================================output=====================================
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::note
+Some note
+:::
+
+:::tip Pro tip
+This is a Docusaurus admonition with a title on the fence line and a body long enough to be reflowed when proseWrap is always, which used to destroy the fences.
+:::
+
+================================================================================
+`;
+
+exports[`leaf.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b *c* d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+=====================================output=====================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b ]
+
+::a{#e .c.d.f.g h="i & j k"}
+
+================================================================================
+`;
+
+exports[`leaf.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b *c* d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+=====================================output=====================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b ]
+
+::a{#e .c.d.f.g h="i & j k"}
+
+================================================================================
+`;
+
+exports[`leaf.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b *c* d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+=====================================output=====================================
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b ]
+
+::a{#e .c.d.f.g h="i & j k"}
+
+================================================================================
+`;
+
+exports[`text.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+=====================================output=====================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+================================================================================
+`;
+
+exports[`text.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+=====================================output=====================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+================================================================================
+`;
+
+exports[`text.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+=====================================output=====================================
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+A :name[label]{key="value"} directive in the middle of a sentence.
+
+================================================================================
+`;

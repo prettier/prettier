@@ -28,6 +28,10 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
+import {
+  printContainerDirective,
+  printLeafOrTextDirective,
+} from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList, printListLegacy } from "./list.js";
 import { printParagraph } from "./paragraph.js";
@@ -415,6 +419,13 @@ function printMdast(path, options, print) {
       return options.originalText.slice(locStart(node), locEnd(node));
     case "text":
       return replaceEndOfLine(node.value, hardline);
+
+    case "containerDirective":
+      return printContainerDirective(path, options, print);
+
+    case "leafDirective":
+    case "textDirective":
+      return printLeafOrTextDirective(path, options, print);
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
