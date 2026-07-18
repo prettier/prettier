@@ -1024,7 +1024,12 @@ function handlePropertySignatureComments(context) {
     return true;
   }
 
-  if (isBlockComment(comment)) {
+  const typeNode =
+    enclosingNode.type === "TSPropertySignature"
+      ? enclosingNode.typeAnnotation
+      : enclosingNode.value;
+
+  if (typeNode && isBlockComment(comment)) {
     const colonTokenIndex = stripComments(options).indexOf(
       ":",
       locEnd(enclosingNode.key),
