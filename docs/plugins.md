@@ -59,6 +59,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 
 ## Community Plugins
 
+- [`@htnabe/prettier-plugin-go-template`](https://github.com/htnabe/prettier-plugin-go-template) by [**@htnabe**](https://github.com/htnabe)
 - [`@poliklot/prettier-plugin-handlebars`](https://github.com/Poliklot/prettier-plugin-handlebars) by [**@Poliklot**](https://github.com/Poliklot)
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro contributors**](https://github.com/withastro/prettier-plugin-astro/graphs/contributors)
