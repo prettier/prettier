@@ -326,6 +326,7 @@ Valid options:
 - `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
 - `"mjml"` (same parser as `"html"`, but also formats MJML-specific syntax) _First available in 3.6.0_
+- `"glimmer"` (Ember / Handlebars, via [@glimmer/syntax](https://github.com/glimmerjs/glimmer-vm/tree/main/packages/%40glimmer/syntax)) _First available in 1.10.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
 | Default | CLI Override        | API Override         |
