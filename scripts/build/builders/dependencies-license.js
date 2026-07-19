@@ -145,7 +145,7 @@ function createDependenciesLicenseBuilder({ packageDisplayName }) {
     const dependencies = getDependencies(results);
 
     if (dependencies.length === 0) {
-      throw new Error("Fail to collect dependencies.");
+      throw new Error("Failed to collect dependencies.");
     }
 
     const text = getLicenseText(
