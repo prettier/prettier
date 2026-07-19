@@ -81,7 +81,13 @@ function genericPrint(path, options, print) {
   }
 
   if (tag || anchor) {
-    if (isNode(node, ["sequence", "mapping"]) && !hasMiddleComments(node)) {
+    if (
+      isNode(node, ["sequence", "mapping"]) &&
+      (!hasMiddleComments(node) ||
+        (anchor &&
+          anchor.position.end.line <
+            node.middleComments[0].position.start.line))
+    ) {
       parts.push(hardline);
     } else {
       parts.push(" ");

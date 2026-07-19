@@ -4,3 +4,11 @@ key1: &default
 
 key2:
   <<: *default
+
+key3: &detached-comment
+
+  # This key has a detached comment.
+  subkey1: value1
+
+key4: &inline-comment # This key has an inline comment.
+  subkey1: value1
