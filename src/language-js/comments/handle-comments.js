@@ -126,6 +126,7 @@ function handleEndOfLineComment(context) {
     handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
+    handleTaggedTemplateExpressionComments,
   ].some((fn) => fn(context));
 }
 
@@ -819,6 +820,21 @@ function handleAssignmentLikeComments(context) {
     }
   }
 
+  return false;
+}
+
+function handleTaggedTemplateExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    enclosingNode?.type === "TaggedTemplateExpression" &&
+    followingNode === enclosingNode.quasi
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
   return false;
 }
 
