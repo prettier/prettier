@@ -8216,10 +8216,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"github-buttons@npm:2.32.0":
-  version: 2.32.0
-  resolution: "github-buttons@npm:2.32.0"
-  checksum: 10/df95f331acf94e0d26f12c90251724619fdedee81af72dd132b347afa5bd66485944f862b76fb7f42d010b890279d662f22a90e1857b7ebb9134cf2703dcfff1
+"github-buttons@npm:2.33.0":
+  version: 2.33.0
+  resolution: "github-buttons@npm:2.33.0"
+  checksum: 10/384c6f6824583e943dca1fe2d176b642f752c4925a6a969a717a3552872cc9a049470570bdb1a4b6f6267b44d262bb124d03586bf940b3c838a3d50ab2f8eb2a
   languageName: node
   linkType: hard
 
@@ -12933,7 +12933,7 @@ __metadata:
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:10.0.3"
-    github-buttons: "npm:2.32.0"
+    github-buttons: "npm:2.33.0"
     graphql: "npm:17.0.2"
     lz-string: "npm:1.5.0"
     package-dependencies-tree: "npm:0.0.1"
