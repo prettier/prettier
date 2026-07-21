@@ -1,3 +1,68 @@
+# 3.9.6
+
+[diff](https://github.com/prettier/prettier/compare/3.9.5...3.9.6)
+
+#### TypeScript: Preserve quotes for methods named `new` ([#19621](https://github.com/prettier/prettier/pull/19621) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface Container {
+  "new"(id: string): number;
+}
+
+// Prettier 3.9.5
+interface Container {
+  new(id: string): number;
+}
+
+// Prettier 3.9.6
+interface Container {
+  "new"(id: string): number;
+}
+```
+
+#### TypeScript: Support `import defer` ([#19624](https://github.com/prettier/prettier/pull/19624), [#19675](https://github.com/prettier/prettier/pull/19675) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+import defer * as foo from "foo";
+
+// Prettier 3.9.5
+import * as foo from "foo";
+
+// Prettier 3.9.6
+import defer * as foo from "foo";
+```
+
+#### JavaScript: Added a new official plugin `@prettier/plugin-yuku` ([#19628](https://github.com/prettier/prettier/pull/19628), [#19629](https://github.com/prettier/prettier/pull/19629) by [@fisker](https://github.com/fisker))
+
+`@prettier/plugin-yuku` is powered by [Yuku](https://yuku.fyi/) (A high-performance JavaScript/TypeScript compiler toolchain written in Zig).
+
+This plugin includes two new parsers: `yuku` (JavaScript syntax) and `yuku-ts` (TypeScript syntax).
+
+**To use this plugin:**
+
+1. Install the plugin:
+
+   ```bash
+   yarn add --dev prettier @prettier/plugin-yuku
+   ```
+
+2. Add it to your `.prettierrc`:
+
+   ```yaml
+   plugins:
+     - "@prettier/plugin-yuku"
+   ```
+
+Due to package size limitations, this plugin is not bundled with the main prettier package and must be installed separately.
+
+For more information, check [the package homepage](https://github.com/prettier/prettier/tree/main/packages/plugin-yuku).
+
+Big thanks to [@arshad-yaseen](https://github.com/arshad-yaseen) for his excellent work.
+
 # 3.9.5
 
 [diff](https://github.com/prettier/prettier/compare/3.9.4...3.9.5)
