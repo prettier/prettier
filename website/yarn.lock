@@ -6081,8 +6081,8 @@ __metadata:
   linkType: hard
 
 "body-parser@npm:~1.20.5":
-  version: 1.20.5
-  resolution: "body-parser@npm:1.20.5"
+  version: 1.20.6
+  resolution: "body-parser@npm:1.20.6"
   dependencies:
     bytes: "npm:~3.1.2"
     content-type: "npm:~1.0.5"
@@ -6096,7 +6096,7 @@ __metadata:
     raw-body: "npm:~2.5.3"
     type-is: "npm:~1.6.18"
     unpipe: "npm:~1.0.0"
-  checksum: 10/3ec787c0d23b16542972226ee352ed917ae404bf862b6783040e8cfc994f165432f6d48e9341ef57f489c667c880f9c5174fad559c482607f83f4db7f412de3a
+  checksum: 10/cf3730f79d8d773a1a6f34fdec4bd40cf41b2cf25c17a3b9dfeb81e83b7e62e309285a92ba6bf5d99eee44144083d3122f332757215da37eb4740544432c2766
   languageName: node
   linkType: hard
 
@@ -6150,12 +6150,12 @@ __metadata:
   linkType: hard
 
 "brace-expansion@npm:^1.1.7":
-  version: 1.1.15
-  resolution: "brace-expansion@npm:1.1.15"
+  version: 1.1.16
+  resolution: "brace-expansion@npm:1.1.16"
   dependencies:
     balanced-match: "npm:^1.0.0"
     concat-map: "npm:0.0.1"
-  checksum: 10/f2a950034e670523cc186da61aabe3beab74b1b8a7c74a756bf6b172dad1917312f255d9ec46906c9f0cab530868095d8c143918576930dd0e1323c3803850f1
+  checksum: 10/94498bead66c51536df5b7bf1b0a0e581a5b7f86888be10481d06920c4bd9d976e003b13a3d19fddc733f21a09d162ff72f90e18b2c9d062b15121e973d0e13b
   languageName: node
   linkType: hard
 
@@ -9387,7 +9387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"launch-editor@npm:^2.6.1":
+"launch-editor@npm:^2.14.1":
   version: 2.14.1
   resolution: "launch-editor@npm:2.14.1"
   dependencies:
@@ -13737,15 +13737,15 @@ __metadata:
   linkType: hard
 
 "tar@npm:^7.5.4":
-  version: 7.5.16
-  resolution: "tar@npm:7.5.16"
+  version: 7.5.20
+  resolution: "tar@npm:7.5.20"
   dependencies:
     "@isaacs/fs-minipass": "npm:^4.0.0"
     chownr: "npm:^3.0.0"
     minipass: "npm:^7.1.2"
     minizlib: "npm:^3.1.0"
     yallist: "npm:^5.0.0"
-  checksum: 10/fafa22efceb9f056bf29ddc47d9bd90bb82fe3ce57b8d1242fc45771251741964cebba69d4e14a24fd1643f3c7f68478e945a19def534703cf370c2d9dca2e09
+  checksum: 10/90a0fe423ac921197ad5eefc5e5f7ad7f42b06e80444c8c347c1e4112384cbe9cb53ade3ef71748eed3684888756869c2aeef6b6303c766101f3217e254d4be9
   languageName: node
   linkType: hard
 
@@ -14422,8 +14422,8 @@ __metadata:
   linkType: hard
 
 "webpack-dev-server@npm:^5.2.2":
-  version: 5.2.5
-  resolution: "webpack-dev-server@npm:5.2.5"
+  version: 5.2.6
+  resolution: "webpack-dev-server@npm:5.2.6"
   dependencies:
     "@types/bonjour": "npm:^3.5.13"
     "@types/connect-history-api-fallback": "npm:^1.5.4"
@@ -14443,7 +14443,7 @@ __metadata:
     graceful-fs: "npm:^4.2.6"
     http-proxy-middleware: "npm:^2.0.9"
     ipaddr.js: "npm:^2.1.0"
-    launch-editor: "npm:^2.6.1"
+    launch-editor: "npm:^2.14.1"
     open: "npm:^10.0.3"
     p-retry: "npm:^6.2.0"
     schema-utils: "npm:^4.2.0"
@@ -14462,7 +14462,7 @@ __metadata:
       optional: true
   bin:
     webpack-dev-server: bin/webpack-dev-server.js
-  checksum: 10/2bd8e03615c32ecac53e783e2be5670ccac051d051ef4ed7fe944df8fd8745b508c8ebc63bfecfdccd23c2200ca4c373b22ea2da76ce4e1c0a6f58d900c11ecb
+  checksum: 10/19c107cff555dbe2bda044f6faa45cd1f4d6779c6961b05a475b856709aa4d35cafb1c9a7ec2cb6463a7ca28a308d6e6bbc66b38ce8e1afeec5cd70e326a12ce
   languageName: node
   linkType: hard
 
