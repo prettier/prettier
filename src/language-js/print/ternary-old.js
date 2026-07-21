@@ -243,9 +243,14 @@ function printTernaryOld(path, options, print) {
     // Even though they don't need parens, we wrap (almost) everything in
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
-    const wrap = (doc) => [
+    const printWrappedBranch = (nodePropertyName) => [
       ifBreak("("),
-      indent([softline, doc]),
+      indent([
+        softline,
+        print(nodePropertyName, {
+          skipNullishCoalescingParensInConditionalExpression: true,
+        }),
+      ]),
       softline,
       ifBreak(")"),
     ];
@@ -263,11 +268,11 @@ function printTernaryOld(path, options, print) {
       " ? ",
       isNil(consequentNode)
         ? print(consequentNodePropertyName)
-        : wrap(print(consequentNodePropertyName)),
+        : printWrappedBranch(consequentNodePropertyName),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName)),
+        : printWrappedBranch(alternateNodePropertyName),
     );
   } else {
     /*

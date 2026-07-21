@@ -87,7 +87,7 @@ _ = (
            * with zero data rows, the DataTable
            * displays the empty component.
            */
-          (empty ?? null)
+          empty ?? null
         ) : (
           /**
            * After the initial load, if the data for the list

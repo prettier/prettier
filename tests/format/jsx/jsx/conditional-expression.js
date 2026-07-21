@@ -67,6 +67,12 @@ jsxModeFromElementBreaking ? (
   "a"
 );
 
+jsxModeFromElementBreaking ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (

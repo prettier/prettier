@@ -32,7 +32,7 @@ import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
  * @param {AstPath} path
  * @returns {boolean}
  */
-function needsParentheses(path, options) {
+function needsParentheses(path, options, args) {
   if (path.isRoot) {
     return false;
   }
@@ -200,7 +200,11 @@ function needsParentheses(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || isNullishCoalescing(node);
+          return (
+            isBinaryCastExpression(node) ||
+            (isNullishCoalescing(node) &&
+              !args?.skipNullishCoalescingParensInConditionalExpression)
+          );
 
         case "CallExpression":
         case "NewExpression":

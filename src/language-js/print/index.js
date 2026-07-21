@@ -83,7 +83,7 @@ function print(path, options, print, args) {
       ? printDecorators(path, options, print)
       : "";
 
-  const needsParens = needsParentheses(path, options);
+  const needsParens = needsParentheses(path, options, args);
 
   if (!decoratorsDoc && !needsParens) {
     return doc;
