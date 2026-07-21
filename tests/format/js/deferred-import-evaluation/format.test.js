@@ -4,18 +4,13 @@ const importDeferTests = [
   "dynamic-import.js",
   "dynamic-import-attributes-expression.js",
 ];
-const invalidSyntaxTests = ["no-default.js", "no-named.js"];
 
-runFormatTest(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
   errors: {
-    acorn: [...importDeferTests, ...invalidSyntaxTests],
-    espree: [...importDeferTests, ...invalidSyntaxTests],
-    meriyah: [...importDeferTests, ...invalidSyntaxTests],
-    oxc: invalidSyntaxTests,
-    "oxc-ts": invalidSyntaxTests,
-    yuku: invalidSyntaxTests,
-    "yuku-ts": invalidSyntaxTests,
-    babel: invalidSyntaxTests,
-    __babel_estree: invalidSyntaxTests,
+    acorn: importDeferTests,
+    espree: importDeferTests,
+    meriyah: importDeferTests,
+    flow: importDeferTests,
+    hermes: importDeferTests,
   },
 });

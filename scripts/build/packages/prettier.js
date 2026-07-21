@@ -385,7 +385,7 @@ const pluginFiles = [
         },
         {
           file: "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js",
-          text: "export const warnAboutTSVersion = () => {};",
+          text: "export const handleUnsupportedTSVersion = () => {};",
         },
         {
           file: "@typescript-eslint/typescript-estree/dist/version-check.js",
