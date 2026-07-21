@@ -5,10 +5,12 @@ const importDeferTests = [
   "dynamic-import-attributes-expression.js",
 ];
 
-runFormatTest(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
   errors: {
     acorn: importDeferTests,
     espree: importDeferTests,
     meriyah: importDeferTests,
+    flow: importDeferTests,
+    hermes: importDeferTests,
   },
 });
