@@ -1,6 +1,6 @@
 {
   "name": "@prettier/plugin-yuku",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Prettier yuku plugin.",
   "type": "module",
   "exports": {
