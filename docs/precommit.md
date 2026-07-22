@@ -215,6 +215,14 @@ bunx lefthook install
 ```
 
 </TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev lefthook
+deno x lefthook install
+```
+
+</TabItem>
 </Tabs>
 
 Re-run `lefthook install` whenever you change `lefthook.yml`. Read more at the [Lefthook](https://lefthook.dev/) website.
