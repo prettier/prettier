@@ -168,39 +168,6 @@ To read about how git-format-staged works see [Automatic Code Formatting for Par
 
 **Use Case:** A fast, polyglot Git hooks manager with built-in parallelization. Useful if you want a single tool that can run Prettier alongside hooks for other languages in the same repo.
 
-Install Lefthook:
-
-<Tabs groupId="package-manager">
-<TabItem value="npm">
-
-```bash
-npm install --save-dev lefthook
-```
-
-</TabItem>
-<TabItem value="yarn">
-
-```bash
-yarn add --dev lefthook
-```
-
-</TabItem>
-<TabItem value="pnpm">
-
-```bash
-pnpm add --save-dev lefthook
-```
-
-</TabItem>
-<TabItem value="bun">
-
-```bash
-bun add --dev lefthook
-```
-
-</TabItem>
-</Tabs>
-
 Add a Prettier job to a `lefthook.yml` file at the repo root:
 
 ```yaml title="lefthook.yml"
@@ -213,12 +180,13 @@ pre-commit:
 
 `stage_fixed: true` re-stages files that Prettier modified so the formatted version is what gets committed.
 
-Then install the hooks so lefthook wires up the configured jobs into `.git/hooks`:
+Then install Lefthook and run `lefthook install` so Lefthook wires up the configured jobs into `.git/hooks`:
 
 <Tabs groupId="package-manager">
 <TabItem value="npm">
 
 ```bash
+npm install --save-dev lefthook
 npx lefthook install
 ```
 
@@ -226,6 +194,7 @@ npx lefthook install
 <TabItem value="yarn">
 
 ```bash
+yarn add --dev lefthook
 yarn lefthook install
 ```
 
@@ -233,6 +202,7 @@ yarn lefthook install
 <TabItem value="pnpm">
 
 ```bash
+pnpm add --save-dev lefthook
 pnpm lefthook install
 ```
 
@@ -240,6 +210,7 @@ pnpm lefthook install
 <TabItem value="bun">
 
 ```bash
+bun add --dev lefthook
 bunx lefthook install
 ```
 
