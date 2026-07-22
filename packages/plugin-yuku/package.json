@@ -1,0 +1,24 @@
+{
+  "name": "@prettier/plugin-yuku",
+  "version": "0.0.1",
+  "description": "Prettier yuku plugin.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "browser": "./index.browser.mjs",
+      "default": "./index.mjs"
+    },
+    "./*": "./*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prettier/prettier.git",
+    "directory": "packages/plugin-yuku"
+  },
+  "funding": "https://github.com/prettier/prettier?sponsor=1",
+  "homepage": "https://github.com/prettier/prettier/tree/main/packages/plugin-yuku",
+  "author": "fisker Cheung <lionkay@gmail.com>",
+  "license": "MIT",
+  "sideEffects": false
+}

@@ -2,7 +2,7 @@ import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js
 
 const visitorKeys = generateReferenceSharedVisitorKeys({
   root: ["children"],
-  element: ["attrs", "children"],
+  element: ["attrs", "startTagComments", "children"],
   ieConditionalComment: ["children"],
   ieConditionalStartComment: [],
   ieConditionalEndComment: [],
@@ -11,6 +11,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   docType: [],
   comment: [],
   attribute: [],
+  startTagComment: [],
   cdata: [],
   angularControlFlowBlock: ["children", "parameters"],
   angularControlFlowBlockParameters: ["children"],

@@ -47,6 +47,13 @@ exports[`invalid-destructuring-arr.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-destructuring-arr.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:2)
+> 1 | [a?.b] = [];
+    |  ^^^^
+  2 |"
+`;
+
 exports[`invalid-destructuring-obj.js format[__babel_estree] 1`] = `
 "Invalid optional chaining in the left-hand side of object destructuring pattern. (1:10)
 > 1 | ({ prop: a?.b } = {});
@@ -89,6 +96,13 @@ Cause: [1:18-1:19]: Invalid left-hand side in assignment"
 
 exports[`invalid-destructuring-obj.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:10)
+> 1 | ({ prop: a?.b } = {});
+    |          ^^^^
+  2 |"
+`;
+
+exports[`invalid-destructuring-obj.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:10)
 > 1 | ({ prop: a?.b } = {});
     |          ^^^^
   2 |"
@@ -141,6 +155,13 @@ exports[`invalid-fn-param.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-fn-param.js format[yuku] 1`] = `
+"Expected ')' to close parameter list, but found '?.' (1:13)
+> 1 | function f(a?.b) {}
+    |             ^^
+  2 |"
+`;
+
 exports[`invalid-fn-param-arrow.js format[__babel_estree] 1`] = `
 "Invalid optional chaining in the left-hand side of function parameter list. (1:2)
 > 1 | (a?.b) => {}
@@ -188,6 +209,13 @@ exports[`invalid-fn-param-arrow.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-fn-param-arrow.js format[yuku] 1`] = `
+"Optional chaining is not allowed in binding pattern (1:2)
+> 1 | (a?.b) => {}
+    |  ^^^^
+  2 |"
+`;
+
 exports[`invalid-fn-param-assign.js format[__babel_estree] 1`] = `
 "Unexpected token, expected "," (1:13)
 > 1 | function f(a?.b = c) {}
@@ -230,6 +258,13 @@ Cause: [1:12-1:14]: Expected ')'"
 
 exports[`invalid-fn-param-assign.js format[oxc] 1`] = `
 "Expected \`,\` or \`)\` but found \`?.\` (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^^
+  2 |"
+`;
+
+exports[`invalid-fn-param-assign.js format[yuku] 1`] = `
+"Expected ')' to close parameter list, but found '?.' (1:13)
 > 1 | function f(a?.b = c) {}
     |             ^^
   2 |"
@@ -282,6 +317,13 @@ exports[`invalid-for-await-of.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-for-await-of.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:6)
+> 1 | for (a?.b of x);
+    |      ^^^^
+  2 |"
+`;
+
 exports[`invalid-for-in.js format[__babel_estree] 1`] = `
 "Invalid optional chaining in the left-hand side of for-in statement. (1:6)
 > 1 | for (a?.b in x);
@@ -324,6 +366,13 @@ Cause: [1:10-1:12]: Invalid left-hand side in for-in"
 
 exports[`invalid-for-in.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:6)
+> 1 | for (a?.b in x);
+    |      ^^^^
+  2 |"
+`;
+
+exports[`invalid-for-in.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:6)
 > 1 | for (a?.b in x);
     |      ^^^^
   2 |"
@@ -376,6 +425,13 @@ exports[`invalid-for-of.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-for-of.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:6)
+> 1 | for (a?.b of x);
+    |      ^^^^
+  2 |"
+`;
+
 exports[`invalid-inc-postfix.js format[__babel_estree] 1`] = `
 "Invalid optional chaining in the left-hand side of postfix operation. (1:1)
 > 1 | a?.b++;
@@ -423,6 +479,13 @@ exports[`invalid-inc-postfix.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`invalid-inc-postfix.js format[yuku] 1`] = `
+"Invalid operand for increment/decrement operator (1:1)
+> 1 | a?.b++;
+    | ^^^^
+  2 |"
+`;
+
 exports[`invalid-inc-prefix.js format[__babel_estree] 1`] = `
 "Invalid optional chaining in the left-hand side of prefix operation. (1:3)
 > 1 | ++a?.b;
@@ -465,6 +528,13 @@ Cause: [1:6-1:7]: Invalid increment/decrement operand"
 
 exports[`invalid-inc-prefix.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:3)
+> 1 | ++a?.b;
+    |   ^^^^
+  2 |"
+`;
+
+exports[`invalid-inc-prefix.js format[yuku] 1`] = `
+"Invalid operand for increment/decrement operator (1:3)
 > 1 | ++a?.b;
     |   ^^^^
   2 |"
@@ -520,6 +590,14 @@ exports[`valid-complex-case.js format[oxc] 1`] = `
   3 |"
 `;
 
+exports[`valid-complex-case.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:1)
+> 1 | let?.()[a] =1;
+    | ^^^^^^^^^^
+  2 | let?.[a] = 1;
+  3 |"
+`;
+
 exports[`valid-lhs-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -556,6 +634,13 @@ exports[`valid-lhs-eq.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`valid-lhs-eq.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:1)
+> 1 | a?.b.c = d;
+    | ^^^^^^
+  2 |"
+`;
+
 exports[`valid-lhs-plus-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -587,6 +672,13 @@ Cause: Optional chaining cannot appear in left-hand side"
 
 exports[`valid-lhs-plus-eq.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:1)
+> 1 | a?.b.c += d;
+    | ^^^^^^
+  2 |"
+`;
+
+exports[`valid-lhs-plus-eq.js format[yuku] 1`] = `
+"Invalid assignment target (1:1)
 > 1 | a?.b.c += d;
     | ^^^^^^
   2 |"
@@ -631,6 +723,13 @@ Cause: [1:7-1:8]: Invalid left-hand side in assignment"
 
 exports[`valid-parenthesized.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:2)
+> 1 | (a?.b) = c;
+    |  ^^^^
+  2 |"
+`;
+
+exports[`valid-parenthesized.js format[yuku] 1`] = `
+"Parenthesized expression in assignment pattern must be a simple assignment target (1:2)
 > 1 | (a?.b) = c;
     |  ^^^^
   2 |"

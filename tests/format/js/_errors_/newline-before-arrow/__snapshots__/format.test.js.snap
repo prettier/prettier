@@ -49,8 +49,9 @@ exports[`newline-before-arrow.js format[flow] 1`] = `
 "Illegal newline before arrow (2:1)
   1 | async x
 > 2 | => x
-    | ^^
-  3 |"
+    | ^
+  3 |
+Cause: Illegal newline before arrow (2:0)"
 `;
 
 exports[`newline-before-arrow.js format[meriyah] 1`] = `
@@ -77,4 +78,12 @@ exports[`newline-before-arrow.js format[typescript] 1`] = `
   2 | => x
   3 |
 Cause: Unexpected keyword or identifier."
+`;
+
+exports[`newline-before-arrow.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'x' (1:7)
+> 1 | async x
+    |       ^
+  2 | => x
+  3 |"
 `;

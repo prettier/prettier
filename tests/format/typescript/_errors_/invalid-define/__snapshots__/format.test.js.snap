@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format[babel-ts] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:5)
+> 1 | let x!
+    |     ^
+Cause: Declarations with definite assignment assertions must also have type annotations. (1:4)"
+`;
+
+exports[`snippet: #0 format[babel-ts] 2`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {accessor x!}
+    |          ^
+Cause: Declarations with definite assignment assertions must also have type annotations. (1:9)"
+`;
+
+exports[`snippet: #0 format[oxc-ts] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:6)
+> 1 | let x!
+    |      ^"
+`;
+
+exports[`snippet: #0 format[typescript] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:5)
+> 1 | let x!
+    |     ^^
+Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #0 format[typescript] 2`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {accessor x!}
+    |          ^^^^^^^^^^^
+Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #1 format[babel-ts] 1`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:5)
+> 1 | let x! = 1
+    |     ^
+Cause: Declarations with initializers cannot also have definite assignment assertions. (1:4)"
+`;
+
+exports[`snippet: #1 format[babel-ts] 2`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:10)
+> 1 | class C {accessor x! = 1}
+    |          ^
+Cause: Declarations with initializers cannot also have definite assignment assertions. (1:9)"
+`;
+
+exports[`snippet: #1 format[oxc-ts] 1`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:6)
+> 1 | let x! = 1
+    |      ^"
+`;
+
+exports[`snippet: #1 format[typescript] 1`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:5)
+> 1 | let x! = 1
+    |     ^^^^^^
+Cause: Declarations with initializers cannot also have definite assignment assertions."
+`;
+
+exports[`snippet: #1 format[typescript] 2`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {accessor x! = 1}
+    |          ^^^^^^^^^^^^^^^
+Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #2 format[babel-ts] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {x!}
+    |          ^
+Cause: Declarations with definite assignment assertions must also have type annotations. (1:9)"
+`;
+
+exports[`snippet: #2 format[oxc-ts] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:11)
+> 1 | class C {x!}
+    |           ^"
+`;
+
+exports[`snippet: #2 format[typescript] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {x!}
+    |          ^^
+Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #3 format[babel-ts] 1`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:10)
+> 1 | class C {x! = 1}
+    |          ^
+Cause: Declarations with initializers cannot also have definite assignment assertions. (1:9)"
+`;
+
+exports[`snippet: #3 format[oxc-ts] 1`] = `
+"Declarations with initializers cannot also have definite assignment assertions. (1:11)
+> 1 | class C {x! = 1}
+    |           ^"
+`;
+
+exports[`snippet: #3 format[typescript] 1`] = `
+"Declarations with definite assignment assertions must also have type annotations. (1:10)
+> 1 | class C {x! = 1}
+    |          ^^^^^^
+Cause: Declarations with definite assignment assertions must also have type annotations."
+`;

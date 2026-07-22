@@ -14,6 +14,7 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
@@ -40,17 +41,16 @@ import { printTrailingComma } from "./miscellaneous.js";
 // a <= a ? a : a
 const shouldAddParensIfNotBreakCache = new WeakMap();
 function shouldAddParensIfNotBreak(node) {
-  if (!shouldAddParensIfNotBreakCache.has(node)) {
-    shouldAddParensIfNotBreakCache.set(
-      node,
+  return getOrInsertComputed(
+    shouldAddParensIfNotBreakCache,
+    node,
+    (node) =>
       node.type === "ConditionalExpression" &&
-        !startsWithNoLookaheadToken(
-          node,
-          (node) => node.type === "ObjectExpression",
-        ),
-    );
-  }
-  return shouldAddParensIfNotBreakCache.get(node);
+      !startsWithNoLookaheadToken(
+        node,
+        (node) => node.type === "ObjectExpression",
+      ),
+  );
 }
 
 // We handle sequence expressions as the body of arrows specially,

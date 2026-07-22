@@ -17,7 +17,7 @@ import parseValue from "./parse/parse-value.js";
 import { addTypePrefix } from "./parse/utilities.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
-import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
+import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
@@ -127,7 +127,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
-        params = params + node.raws.between;
+        params += node.raws.between;
       }
 
       params = params.trim();
@@ -153,8 +153,8 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node, options)) {
-        node.isSCSSNesterProperty = true;
+      if (isScssNestedPropertyNode(node, options)) {
+        node.isScssNestedProperty = true;
       }
 
       node.selector = parseSelector(selector);
@@ -195,6 +195,20 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value, options);
     }
 
+    // Clean spaces in between `+` and `:`
+    // https://lesscss.org/features/#merge-feature
+    if (
+      options.parser === "less" &&
+      node.type === "css-decl" &&
+      typeof node.prop === "string" &&
+      /^\s*\+\s*:/.test(node.raws.between)
+    ) {
+      // Add "+" to prop
+      node.prop += "+";
+      // Only ":" should be left in between
+      node.raws.between = node.raws.between.replace("+", "");
+    }
+
     if (
       options.parser === "less" &&
       node.type === "css-decl" &&
@@ -230,7 +244,7 @@ function parseNestedCSS(node, options) {
         }
       }
 
-      // only css support custom-selector
+      // only CSS support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
         const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
@@ -288,7 +302,6 @@ function parseNestedCSS(node, options) {
 
     if (node.type === "css-atrule" && params.length > 0) {
       const { name } = node;
-      const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
         node.params = {
@@ -317,6 +330,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
+      const lowercasedName = name.toLowerCase();
       if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;

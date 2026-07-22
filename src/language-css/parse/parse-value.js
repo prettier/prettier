@@ -44,14 +44,15 @@ function parseValueNode(valueNode, options) {
     }
 
     if (node.type === "func" && node.value === "selector") {
-      node.group.groups = [
-        parseSelector(
-          getValueRoot(valueNode).text.slice(
-            node.group.open.sourceIndex + 1,
-            node.group.close.sourceIndex,
-          ),
-        ),
-      ];
+      const selector = getValueRoot(valueNode).text.slice(
+        node.group.open.sourceIndex + 1,
+        node.group.close.sourceIndex,
+      );
+      const parsedSelector = parseSelector(selector);
+      parsedSelector.sourceIndex = node.group.open.sourceIndex + 1;
+      parsedSelector.raws ??= {};
+      parsedSelector.raws.selector = selector;
+      node.group.groups = [parsedSelector];
     }
 
     if (node.type === "func" && node.value === "url") {
@@ -162,7 +163,9 @@ function parseNestedValue(node, options) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);
         if (key === "nodes") {
-          node.group = flattenGroups(parseValueNode(node, options));
+          if (!(node.type === "atword" && node.nodes.length === 0)) {
+            node.group = flattenGroups(parseValueNode(node, options));
+          }
           delete node[key];
         }
       }
@@ -172,7 +175,7 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
-  // Inline javascript in Less
+  // Inline JavaScript in Less
   if (options.parser === "less" && value.startsWith("~`")) {
     return { type: "value-unknown", value };
   }

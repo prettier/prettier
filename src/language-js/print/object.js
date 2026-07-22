@@ -105,7 +105,7 @@ function printObject(path, options, print) {
   /** @type {Doc[]} */
   let separatorParts = [];
   const parts = path.map(({ node }) => {
-    const result = [...separatorParts, group(print())];
+    const result = [...separatorParts, print()];
     separatorParts = [",", line];
     if (isNextLineEmpty(node, options)) {
       separatorParts.push(hardline);

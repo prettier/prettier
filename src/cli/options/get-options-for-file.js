@@ -121,8 +121,7 @@ async function getOptionsForFile(context, filepath) {
   };
 
   context.logger.debug(
-    `applied config-precedence (${context.argv.configPrecedence}): ` +
-      `${JSON.stringify(appliedOptions)}`,
+    `applied config-precedence (${context.argv.configPrecedence}): ${JSON.stringify(appliedOptions)}`,
   );
 
   if (hasPlugins) {

@@ -159,7 +159,8 @@ exports[`expression.js format[flow] 1`] = `
     |     ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: Unexpected token \`:\`, expected a type (5:4)"
 `;
 
 exports[`expression.js format[hermes] 1`] = `
@@ -220,6 +221,28 @@ exports[`expression.js format[typescript] 1`] = `
   7 | ({}(), 0);
   8 | ({} = 0);
 Cause: ')' expected."
+`;
+
+exports[`expression.js format[yuku] 1`] = `
+"Expected ',' or ')' in parenthesized expression, but found ':' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js format[yuku-ts] 1`] = `
+"Expected ',' or ')' in parenthesized expression, but found ':' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
 `;
 
 exports[`getter-setter.js format 1`] = `

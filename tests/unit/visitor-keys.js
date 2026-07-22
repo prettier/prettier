@@ -1,5 +1,5 @@
 import postcssVisitorKeys from "../../src/language-css/visitor-keys.evaluate.js";
-import graphqlVisitorKeys from "../../src/language-graphql/visitor-keys.js";
+import graphqlVisitorKeys from "../../src/language-graphql/visitor-keys.evaluate.js";
 import glimmerVisitorKeys from "../../src/language-handlebars/visitor-keys.js";
 import htmlVisitorKeys from "../../src/language-html/visitor-keys.evaluate.js";
 import estreeVisitorKeys from "../../src/language-js/traverse/visitor-keys.evaluate.js";

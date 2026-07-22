@@ -100,7 +100,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
         prettyBytes(sizeDiff),
       );
 
-      sizeMessages.push(`${message}`);
+      sizeMessages.push(message);
     } else {
       sizeMessages.push(styleText.blue("[NEW FILE]"));
     }

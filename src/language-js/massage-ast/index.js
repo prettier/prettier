@@ -16,9 +16,6 @@ const ignoredProperties = new Set([
   "range",
   "raw",
   "comments",
-  "leadingComments",
-  "trailingComments",
-  "innerComments",
   "extra",
   "start",
   "end",
@@ -106,7 +103,7 @@ function massageAstNode(original, cloned, parent) {
     }
   }
 
-  // CSS template literals in css prop
+  // CSS template literals in CSS prop
   if (
     original.type === "JSXAttribute" &&
     original.name.name === "css" &&
@@ -158,7 +155,7 @@ function massageAstNode(original, cloned, parent) {
     }
   }
 
-  // styled-components, graphql, markdown
+  // styled-components, GraphQL, markdown
   if (
     original.type === "TaggedTemplateExpression" &&
     (original.tag.type === "MemberExpression" ||

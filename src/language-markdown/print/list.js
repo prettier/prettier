@@ -10,6 +10,10 @@ import { printChildren } from "./children.js";
  * @import {Doc} from "../../document/index.js"
  */
 
+// 999,999,999 is the maximum number that can be parsed as a list item number as intended in CommonMark
+// https://spec.commonmark.org/0.31.2/#ordered-list-marker
+const MAXIMUM_ORDERED_LIST_MARKER = 999_999_999;
+
 /**
  * @param {AstPath} path
  * @param {*} options
@@ -55,8 +59,10 @@ function printList(path, options, print) {
               ? node.start
               : isGitDiffFriendlyOrderedList
                 ? 1
-                : node.start + path.index) +
-            (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+                : Math.min(
+                    node.start + path.index,
+                    MAXIMUM_ORDERED_LIST_MARKER,
+                  )) + (nthSiblingIndex % 2 === 0 ? ". " : ") ")
           : nthSiblingIndex % 2 === 0
             ? "- "
             : "* ";
@@ -93,10 +99,7 @@ function printListItem(path, options, print, listPrefix) {
     prefix,
     printChildren(path, options, print, {
       processor({ node, isFirst }) {
-        if (
-          (isFirst && node.type !== "list") ||
-          (node.type === "code" && node.isIndented)
-        ) {
+        if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 

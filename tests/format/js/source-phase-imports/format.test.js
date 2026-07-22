@@ -15,6 +15,8 @@ runFormatTest(import.meta, ["babel"], {
     meriyah: [...importSourceTests, ...invalidSyntaxTests],
     oxc: invalidSyntaxTests,
     "oxc-ts": invalidSyntaxTests,
+    yuku: invalidSyntaxTests,
+    "yuku-ts": invalidSyntaxTests,
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },

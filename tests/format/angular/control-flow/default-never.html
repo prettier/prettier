@@ -2,6 +2,18 @@
   @default never;
 }
 
-@switch (   cond.kind) {
-  @default never    ;
+@switch (   cond.kind      ) {
+      @default      never      ;
+}
+
+@switch (   state.mode) {
+   @default never(state);
+}
+
+@switch (      state.mode      ) {
+      @default      never      (      state      )      ;
+}
+
+@switch (   expr) {
+   @default never(expr.prop);
 }

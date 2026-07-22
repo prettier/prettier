@@ -1,8 +1,8 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
-import createEsmUtils from "esm-utils";
 import projectPackageJson from "../../../package.json" with { type: "json" };
 import {
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
@@ -20,7 +20,7 @@ import esbuildPluginVisualizer from "../esbuild-plugins/visualizer.js";
 import transform from "../transform/index.js";
 import { getPackageFile } from "../utilities.js";
 
-const { require, resolve: importMetaResolve } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 
 const universalTarget = browserslistToEsbuild(projectPackageJson.browserslist);
 const getRelativePath = (from, to) => {
@@ -44,17 +44,16 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
     We already replaced line end to `\n` before calling it
     */
     {
-      module: url.fileURLToPath(importMetaResolve("jest-docblock")),
+      module: url.fileURLToPath(import.meta.resolve("jest-docblock")),
       path: require.resolve("jest-docblock"),
     },
     {
       module: require.resolve("jest-docblock"),
       process(text) {
-        const exports = [
-          ...text.matchAll(
-            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g,
-          ),
-        ].map((match) => match.groups.specifier);
+        const exports = text
+          .matchAll(/(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g)
+          .map((match) => match.groups.specifier)
+          .toArray();
 
         const lines = text.split("\n");
         const startMarkLine = lines.findIndex((line) =>
@@ -92,7 +91,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       module: "*",
       process: (text, file) => transform(text, file, buildOptions),
     },
-    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
+    // #12493, not sure what the problem is, but replace the CJS version with ESM version seems fix it
     {
       module: require.resolve("tslib"),
       path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
@@ -167,7 +166,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
   // Current version of `yaml` is not tree-shakable,
   // but when we update it, we may reduce size,
   // since the UMD version don't need expose `__parsePrettierYamlConfig`
-  if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
+  else if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
     replaceModule.push({
       module: path.join(sourceDirectory, file.input),
       text: 'export * from "../language-yaml/index.js";',

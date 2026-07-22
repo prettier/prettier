@@ -3,10 +3,9 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import indexToPosition from "index-to-position";
+import { fromMarkdown } from "mdast-util-from-markdown";
 import { outdent } from "outdent";
-import remarkParse from "remark-parse";
-import unified from "unified";
-import { CHANGELOG_CATEGORIES } from "./utilities/changelog-categories.js";
+import { CHANGELOG_CATEGORIES } from "./utilities/changelog.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
@@ -115,7 +114,9 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     const titleMatch = content.match(titleRegex);
     if (!titleMatch) {
-      showErrorMessage(`[${displayPath}]: Something wrong in title.`);
+      showErrorMessage(
+        `[${displayPath}]: Invalid title format. Expected: "#### <title> (#12345 by @author)".`,
+      );
       continue;
     }
     const [, title] = titleMatch;
@@ -159,11 +160,10 @@ function getCommentDescription(content, comment) {
   return `template comment on line ${startLine}-${endLine}`;
 }
 
-// Forbid html in title
+// Forbid HTML in title
 // https://github.com/prettier/prettier/issues/17089
 function validateTitle(displayPath, title) {
-  const processor = unified().use(remarkParse);
-  const tree = processor.runSync(processor.parse(title));
+  const tree = fromMarkdown(title);
   assert.equal(tree.children.length, 1);
   assert.equal(tree.children[0].type, "paragraph");
   const { children } = tree.children[0];

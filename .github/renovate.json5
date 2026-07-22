@@ -6,6 +6,7 @@
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
+  lockFileMaintenance: { enabled: true },
   packageRules: [
     {
       groupName: "GitHub Actions",
@@ -33,7 +34,7 @@
     },
     {
       groupName: "flow-parser",
-      matchPackageNames: ["flow-parser", "hermes-parser"],
+      matchPackageNames: ["flow-parser", "hermes-parser", "flow-estree"],
     },
     {
       groupName: "ESLint related dependencies",
@@ -60,6 +61,10 @@
       matchPackageNames: ["acorn", "acorn-jsx", "espree"],
     },
     {
+      groupName: "Yuku parser",
+      matchPackageNames: ["yuku-parser", "@yuku-parser/*"],
+    },
+    {
       groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },
@@ -69,7 +74,7 @@
     },
     {
       groupName: "Markdown dependencies",
-      matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
+      matchPackageNames: ["micromark-*", "mdast-"],
     },
     {
       groupName: "Docusaurus",
@@ -94,6 +99,12 @@
     "node",
     // Not tree-shakeable, and we don't need it in v4
     "get-stdin",
+    // Those mdx related dependencies will be dropped
+    "unified",
+    "remark-parse",
+    "remark-math",
+    "remark-footnotes",
+    "trim",
   ],
   ignorePaths: ["tests/**", "packages/**"],
 }

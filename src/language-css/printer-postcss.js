@@ -147,7 +147,14 @@ function genericPrint(path, options, print) {
           ? ""
           : " ",
         options.parser === "less" && node.extend && node.selector
-          ? ["extend(", print("selector"), ")"]
+          ? node.selector.nodes.length > 1
+            ? group([
+                "extend(",
+                indent([softline, print("selector")]),
+                softline,
+                ")",
+              ])
+            : ["extend(", print("selector"), ")"]
           : "",
         value,
         node.raws.important
@@ -440,7 +447,7 @@ function genericPrint(path, options, print) {
         return [leading, node.value, path.isLast ? "" : " "];
       }
 
-      const leading = node.value.trim().startsWith("(") ? line : "";
+      const leading = node.value.trimStart().startsWith("(") ? line : "";
       const value =
         adjustNumbers(adjustStrings(node.value.trim(), options)) || line;
 
@@ -476,7 +483,7 @@ function genericPrint(path, options, print) {
       );
 
       // Nested SCSS property
-      if (ruleAncestorNode?.isSCSSNesterProperty) {
+      if (ruleAncestorNode?.isScssNestedProperty) {
         return adjustNumbers(
           adjustStrings(maybeToLowerCase(node.value), options),
         );

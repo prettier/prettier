@@ -11,12 +11,12 @@ const {
 });
 if (semver.parse(previousVersion) === null) {
   throw new Error(`Unexpected previousVersion: ${previousVersion}`);
-} else {
-  params.previousVersion = previousVersion;
-  params.previousVersionOnDefaultBranch = (
-    await readJson("package.json")
-  ).version;
 }
+
+params.previousVersion = previousVersion;
+params.previousVersionOnDefaultBranch = (
+  await readJson("package.json")
+).version;
 
 for (let step of [
   {

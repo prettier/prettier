@@ -1,5 +1,6 @@
 import isEs5IdentifierName from "is-es5-identifier-name";
 import { printComments } from "../../main/comments/print.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
@@ -21,7 +22,10 @@ function isSimpleNumber(numberString) {
 
 // TODO[@fisker]: `__vue_ts_expression` and `__vue_ts_event_binding`
 const isTypeScript = ({ parser }) =>
-  parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts";
+  parser === "typescript" ||
+  parser === "babel-ts" ||
+  parser === "oxc-ts" ||
+  parser === "yuku-ts";
 
 /**
 @param {Node} node
@@ -74,7 +78,7 @@ function isKeySafeToQuote(node, options) {
 // Angular does not support unquoted numbers in expressions.
 //
 // So we play it safe and only unquote numbers for the JavaScript parsers.
-// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
+// (Vue.js supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
 function isKeySafeToUnquote(node, options) {
@@ -95,13 +99,19 @@ function isKeySafeToUnquote(node, options) {
     return false;
   }
 
+  if (node.type === "TSMethodSignature" && value === "new") {
+    return false;
+  }
+
   // Safe to unquote as identifier
   if (
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (parser === "babel-ts" && node.type === "ClassProperty") ||
-      ((parser === "typescript" || parser === "oxc-ts") &&
+      ((parser === "typescript" ||
+        parser === "oxc-ts" ||
+        parser === "yuku-ts") &&
         node.type === "PropertyDefinition")
     ) &&
     isEs5IdentifierName(value)
@@ -117,6 +127,7 @@ function isKeySafeToUnquote(node, options) {
     (parser === "babel" ||
       parser === "acorn" ||
       parser === "oxc" ||
+      parser === "yuku" ||
       parser === "espree" ||
       parser === "meriyah" ||
       parser === "__babel_estree") &&
@@ -132,20 +143,15 @@ function isKeySafeToUnquote(node, options) {
 
 const needQuoteKeysCache = new WeakMap();
 function hasSiblingsRequireQuoted(path, options) {
-  const { parent } = path;
-
-  if (!needQuoteKeysCache.has(parent)) {
-    const hasStringKey = path.siblings.some((sibling) => {
+  return getOrInsertComputed(needQuoteKeysCache, path.parent, () =>
+    path.siblings.some((sibling) => {
       if (isComputedKey(sibling)) {
         return false;
       }
       const key = getKey(sibling);
       return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
-    });
-    needQuoteKeysCache.set(parent, hasStringKey);
-  }
-
-  return needQuoteKeysCache.get(parent);
+    }),
+  );
 }
 
 function shouldQuoteKey(path, options) {

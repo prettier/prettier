@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare_class_fields.ts format 1`] = `
+exports[`declare-class-fields.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -31,7 +31,19 @@ declare class D {
 ================================================================================
 `;
 
-exports[`declare_class_fields.ts format[oxc-ts] 1`] = `
+exports[`declare-class-fields.ts format[babel-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (4:17)
+  2 | class C extends B {declare p: 256 | 1000;}
+  3 | class D {
+> 4 |   declare field = "field";
+    |                 ^
+  5 | }
+  6 | declare class D {
+  7 |   field = "field";
+Cause: Initializers are not allowed in ambient contexts. (4:16)"
+`;
+
+exports[`declare-class-fields.ts format[oxc-ts] 1`] = `
 "Initializers are not allowed in ambient contexts. (4:19)
   2 | class C extends B {declare p: 256 | 1000;}
   3 | class D {
@@ -42,7 +54,7 @@ exports[`declare_class_fields.ts format[oxc-ts] 1`] = `
   7 |   field = "field";"
 `;
 
-exports[`declare_enum.ts format 1`] = `
+exports[`declare-enum.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -57,7 +69,7 @@ declare enum Bar {}
 ================================================================================
 `;
 
-exports[`declare_function.ts format 1`] = `
+exports[`declare-function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -86,7 +98,26 @@ declare function f([]?);
 ================================================================================
 `;
 
-exports[`declare_interface.ts format 1`] = `
+exports[`declare-get-set-field.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  declare get: string
+  declare set: string;
+}
+
+=====================================output=====================================
+class C {
+  declare get: string;
+  declare set: string;
+}
+
+================================================================================
+`;
+
+exports[`declare-interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -115,7 +146,7 @@ declare interface B {
 ================================================================================
 `;
 
-exports[`declare_module.ts format 1`] = `
+exports[`declare-module.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -136,7 +167,17 @@ declare module m {
 ================================================================================
 `;
 
-exports[`declare_module.ts format[oxc-ts] 1`] = `
+exports[`declare-module.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:16)
+> 1 | declare module m {
+    |                ^
+  2 |   class C {
+  3 |     field = "field";
+  4 |   }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:15)"
+`;
+
+exports[`declare-module.ts format[oxc-ts] 1`] = `
 "Initializers are not allowed in ambient contexts. (3:13)
   1 | declare module m {
   2 |   class C {
@@ -147,7 +188,7 @@ exports[`declare_module.ts format[oxc-ts] 1`] = `
   6 |"
 `;
 
-exports[`declare_namespace.ts format 1`] = `
+exports[`declare-namespace.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -168,7 +209,19 @@ declare namespace m {
 ================================================================================
 `;
 
-exports[`declare_namespace.ts format[oxc-ts] 1`] = `
+exports[`declare-namespace.ts format[babel-ts] 1`] = `
+"Initializers are not allowed in ambient contexts. (3:11)
+  1 | declare namespace m {
+  2 |   class C {
+> 3 |     field = "field";
+    |           ^
+  4 |   }
+  5 | }
+  6 |
+Cause: Initializers are not allowed in ambient contexts. (3:10)"
+`;
+
+exports[`declare-namespace.ts format[oxc-ts] 1`] = `
 "Initializers are not allowed in ambient contexts. (3:13)
   1 | declare namespace m {
   2 |   class C {
@@ -179,7 +232,7 @@ exports[`declare_namespace.ts format[oxc-ts] 1`] = `
   6 |"
 `;
 
-exports[`declare_var.ts format 1`] = `
+exports[`declare-var.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -196,25 +249,6 @@ const hello = 5;
 
 // tslint:disable-next-line:no-use-before-declare
 declare const hello2 = 5;
-
-================================================================================
-`;
-
-exports[`declare-get-set-field.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-class C {
-  declare get: string
-  declare set: string;
-}
-
-=====================================output=====================================
-class C {
-  declare get: string;
-  declare set: string;
-}
 
 ================================================================================
 `;

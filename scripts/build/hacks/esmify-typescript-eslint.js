@@ -16,7 +16,7 @@ function esmifyTypescriptEslint(text) {
   ````
   */
   text = text.replaceAll(
-    // TODO: Use duplicate capture group name when eslint supports
+    // TODO: Use duplicate capture group name when ESLint supports
     /(?<=\n)(?:const|let|var) (?<variable>\w+) = (?:__importStar\(require\(["'](?<moduleName1>.*?)["']\)\)|require\(["'](?<moduleName2>.*?)["']\));/g,
     (...args) => {
       const groups = args.at(-1);

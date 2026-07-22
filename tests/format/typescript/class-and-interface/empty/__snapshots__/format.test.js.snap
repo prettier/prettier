@@ -63,18 +63,10 @@ type T2 = {
 type T3 = {
   //comment
 };
-type T4 = {
-  /*comment*/
-};
-type T5 = {
-  /*comment*/
-};
-type T6 = {
-  /*comment*/
-};
-type T7 = {
-  /*comment*/
-};
+type T4 = {/*comment*/};
+type T5 = {/*comment*/};
+type T6 = {/*comment*/};
+type T7 = {/*comment*/};
 
 ================================================================================
 `;

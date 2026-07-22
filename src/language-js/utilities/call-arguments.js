@@ -13,16 +13,14 @@
 } CallLikeNode
 */
 
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+
 const callArgumentsCache = new WeakMap();
 
 /**
 @param {CallLikeNode} node
 */
-function getCallArguments(node) {
-  if (callArgumentsCache.has(node)) {
-    return callArgumentsCache.get(node);
-  }
-
+function getCallArgumentsWithoutCache(node) {
   let args;
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     args = [node.source];
@@ -36,8 +34,18 @@ function getCallArguments(node) {
     args = node.arguments;
   }
 
-  callArgumentsCache.set(node, args);
   return args;
+}
+
+/**
+@param {CallLikeNode} node
+*/
+function getCallArguments(node) {
+  return getOrInsertComputed(
+    callArgumentsCache,
+    node,
+    getCallArgumentsWithoutCache,
+  );
 }
 
 function iterateCallArgumentsPath(path, iteratee) {
@@ -65,11 +73,15 @@ function getCallArgumentSelector(node, index) {
     if (index === 0 || index === (node.options ? -2 : -1)) {
       return ["source"];
     }
+
     if (node.options && (index === 1 || index === -1)) {
       return ["options"];
     }
+
     throw new RangeError("Invalid argument index");
-  } else if (node.type === "TSExternalModuleReference") {
+  }
+
+  if (node.type === "TSExternalModuleReference") {
     if (index === 0 || index === -1) {
       return ["expression"];
     }

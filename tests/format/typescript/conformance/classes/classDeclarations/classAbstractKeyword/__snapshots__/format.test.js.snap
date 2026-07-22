@@ -640,14 +640,14 @@ Cause: 'static' modifier cannot be used with 'abstract' modifier. (12:13)"
 `;
 
 exports[`classAbstractMixedWithModifiers.ts format[oxc-ts] 1`] = `
-"'public' modifier must precede 'abstract' modifier. (8:14)
-   6 |     private abstract foo_d();
-   7 |     
->  8 |     abstract public foo_bb();
-     |              ^^^^^^
-   9 |     abstract protected foo_cc();
-  10 |     abstract private foo_dd();
-  11 |     "
+"'private' modifier cannot be used with 'abstract' modifier. (6:13)
+  4 |     public abstract foo_b();
+  5 |     protected abstract foo_c();
+> 6 |     private abstract foo_d();
+    |             ^^^^^^^^
+  7 |     
+  8 |     abstract public foo_bb();
+  9 |     abstract protected foo_cc();"
 `;
 
 exports[`classAbstractOverloads.ts format 1`] = `
@@ -798,6 +798,17 @@ abstract class A {
 }
 
 ================================================================================
+`;
+
+exports[`classAbstractProperties.ts format[oxc-ts] 1`] = `
+"'private' modifier cannot be used with 'abstract' modifier. (5:13)
+  3 |     public abstract y : number;
+  4 |     protected abstract z : number;
+> 5 |     private abstract w : number;
+    |             ^^^^^^^^
+  6 |     
+  7 |     abstract m: () => void; 
+  8 |     "
 `;
 
 exports[`classAbstractSingleLineDecl.ts format 1`] = `

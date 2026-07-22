@@ -31,6 +31,7 @@ import {
   normalizeOptionSettings,
 } from "./main/support.js";
 import createMockable from "./utilities/create-mockable.js";
+import { getOrInsertComputed } from "./utilities/get-or-insert.js";
 import { createIsIgnoredFunction } from "./utilities/ignore.js";
 import inferParserWithoutPlugins from "./utilities/infer-parser.js";
 import omit from "./utilities/object-omit.js";
@@ -90,7 +91,7 @@ const inferParser = withPlugins((file, options) =>
   inferParserWithoutPlugins(options, { physicalFile: file }),
 );
 
-// Internal shared with cli
+// Internal shared with CLI
 const sharedWithCli = {
   errors,
   optionCategories,
@@ -112,6 +113,7 @@ const sharedWithCli = {
   utilities: {
     omit,
     createMockable,
+    getOrInsertComputed,
   },
 };
 

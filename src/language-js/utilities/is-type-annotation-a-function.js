@@ -1,6 +1,6 @@
 import { hasSameLocStart } from "../location/index.js";
 
-// Hack to differentiate between the following two which have the same ast
+// Hack to differentiate between the following two which have the same AST
 // declare function f(a): void;
 // var f: (a) => void;
 function isTypeAnnotationAFunction(node) {

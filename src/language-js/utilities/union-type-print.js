@@ -1,6 +1,6 @@
 import { hasComment } from "./comments.js";
 import { createTypeCheckFunction } from "./create-type-check-function.js";
-import { isIntersectionType, isUnionType } from "./node-types.js";
+import { isIntersectionType, isTupleType, isUnionType } from "./node-types.js";
 
 const isVoidType = createTypeCheckFunction([
   "VoidTypeAnnotation",
@@ -17,6 +17,14 @@ const isObjectLikeType = createTypeCheckFunction([
   "TSTypeReference",
 ]);
 
+function isMultipleTupleTypeElement(path) {
+  return (
+    path.key === "elementTypes" &&
+    isTupleType(path.parent) &&
+    path.parent.elementTypes.length > 1
+  );
+}
+
 function shouldHugUnionType(node) {
   const { types } = node;
   if (types.some((node) => hasComment(node))) {
@@ -31,13 +39,15 @@ function shouldHugUnionType(node) {
   return types.every((node) => node === objectType || isVoidType(node));
 }
 
-function shouldUnionTypePrintOwnComments({ key, node, parent }) {
+function shouldUnionTypePrintOwnComments(path) {
+  const { key, node, parent } = path;
   if (
     shouldHugUnionType(node) ||
     // If it's `types` of union type, parent will print comment for it
     (key === "types" && isUnionType(parent)) ||
     // Inside intersection type let the comment print outside of parentheses
-    (key === "types" && isIntersectionType(parent))
+    (key === "types" && isIntersectionType(parent)) ||
+    isMultipleTupleTypeElement(path)
   ) {
     return false;
   }
@@ -45,4 +55,8 @@ function shouldUnionTypePrintOwnComments({ key, node, parent }) {
   return true;
 }
 
-export { shouldHugUnionType, shouldUnionTypePrintOwnComments };
+export {
+  isMultipleTupleTypeElement,
+  shouldHugUnionType,
+  shouldUnionTypePrintOwnComments,
+};

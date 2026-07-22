@@ -22,6 +22,11 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
     const lines = text.split("\n");
     const numLines = lines.length;
 
+    // Bail out if an interpolation occurs within a comment.
+    if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
+      return null;
+    }
+
     const startsWithBlankLine =
       numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
     const endsWithBlankLine =
@@ -32,11 +37,6 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
     const commentsAndWhitespaceOnly = lines.every((line) =>
       /^\s*(?:#[^\n\r]*)?$/.test(line),
     );
-
-    // Bail out if an interpolation occurs within a comment.
-    if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
-      return null;
-    }
 
     let doc;
 

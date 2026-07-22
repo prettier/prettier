@@ -61,10 +61,11 @@ Cause: The only valid meta property for import is 'import.meta'"
 exports[`import-phase.js format[flow] 1`] = `
 "Unexpected identifier, expected the identifier \`meta\` (1:8)
 > 1 | import.source(\`data:text/javascript,
-    |        ^^^^^^
+    |        ^
   2 |     console.log("RUN");
   3 | \`)
-  4 |"
+  4 |
+Cause: Unexpected identifier, expected the identifier \`meta\` (1:7)"
 `;
 
 exports[`import-phase.js format[hermes] 1`] = `
@@ -120,10 +121,11 @@ module = await import(String.raw\`data:text/javascript,
 exports[`template-literal.js format[flow] 1`] = `
 "Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:20)
 > 1 | module   =   await import(\`data:text/javascript,
-    |                    ^^^^^^
+    |                    ^
   2 |     console.log("RUN");
   3 | \`);
-  4 |"
+  4 |
+Cause: Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:19)"
 `;
 
 exports[`template-literal.js format[hermes] 1`] = `

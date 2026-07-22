@@ -89,7 +89,8 @@ exports[`class-expression-decorator.js - {"semi":false} format[flow] 1`] = `
     |   ^
   4 |   class {}
   5 | );
-  6 |"
+  6 |
+Cause: Unexpected token \`@\` (3:2)"
 `;
 
 exports[`class-expression-decorator.js format 1`] = `
@@ -145,7 +146,8 @@ exports[`class-expression-decorator.js format[flow] 1`] = `
     |   ^
   4 |   class {}
   5 | );
-  6 |"
+  6 |
+Cause: Unexpected token \`@\` (3:2)"
 `;
 
 exports[`directive.js - {"semi":false} format 1`] = `

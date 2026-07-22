@@ -56,6 +56,13 @@ function massageAstNode(original, cloned, parent) {
 
   if (original.type === "css-rule") {
     delete cloned.params;
+
+    // postcss-less only marks single-line `:extend()` selectors, so formatted
+    // multiline selectors lose `extend` and fail AST comparison.
+    // https://github.com/shellscape/postcss-less/blob/v6.0.0/lib/LessParser.js#L182-L186
+    if (original.extend && hasLessExtendSelector(original.selector)) {
+      delete cloned.extend;
+    }
   }
 
   if (
@@ -207,13 +214,40 @@ function massageAstNode(original, cloned, parent) {
     return {
       type: "value-atword",
       value: original.groups.map((node) => node.value).join(""),
-      group: {
-        open: null,
-        close: null,
-        groups: [],
-        type: "value-paren_group",
-      },
     };
+  }
+
+  if (
+    original.type === "value-func" &&
+    original.value === "if" &&
+    original.group.type === "value-paren_group" &&
+    original.group.groups.length === 1 &&
+    original.group.groups[0].type === "value-comma_group"
+  ) {
+    const originalGroups = original.group.groups[0].groups;
+    const clonedGroups = cloned.group.groups[0].groups;
+
+    // `if(sass(true): 10px ; else: 15px)`
+    //                      ^
+    for (let index = originalGroups.length - 1; index >= 0; index--) {
+      const group = originalGroups[index];
+
+      if (
+        group.type === "value-word" &&
+        typeof group.value === "string" &&
+        group.value.endsWith(";")
+      ) {
+        if (group.value === ";") {
+          const previousGroup = originalGroups[index - 1];
+          if (previousGroup?.type === "value-number") {
+            clonedGroups.splice(index - 1, 2, { type: "#node-placeholder" });
+          }
+          continue;
+        }
+
+        clonedGroups[index] = { type: "#node-placeholder" };
+      }
+    }
   }
 }
 
@@ -221,6 +255,14 @@ massageAstNode.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
+}
+
+function hasLessExtendSelector(selector) {
+  return selector?.nodes?.some((selectorNode) =>
+    selectorNode.nodes?.some(
+      (node) => node.type === "selector-pseudo" && node.value === ":extend",
+    ),
+  );
 }
 
 export { massageAstNode };

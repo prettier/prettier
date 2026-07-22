@@ -67,7 +67,8 @@ export class DirectiveArgumentNode12 extends ArrayExpression {
     | [string, ExpressionNode, ExpressionNode, ObjectExpression] = 1;
 }
 
-type A = // dir, exp, arg, modifiers
+type A =
+  // dir, exp, arg, modifiers
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]

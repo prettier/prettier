@@ -33,7 +33,7 @@ const categoryParsers = new Map([
         "hermes",
         "babel",
       ],
-      extensions: [".js", ".cjs", ".mjs", ".unknown"],
+      extensions: [".js", ".cjs", ".mjs", ".flow", ".unknown"],
     },
   ],
   [
@@ -46,7 +46,11 @@ const categoryParsers = new Map([
   ],
   [
     "html",
-    { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
+    {
+      parsers: ["html"],
+      verifyParsers: ["vue", "mjml", "lwc", "angular"],
+      extensions: [".html", ".svg"],
+    },
   ],
   [
     "mjml",
@@ -55,7 +59,7 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "acorn", "espree", "meriyah", "oxc"],
+      parsers: ["babel", "acorn", "espree", "meriyah", "oxc", "yuku"],
       verifyParsers: [
         "babel",
         "acorn",
@@ -63,6 +67,8 @@ const categoryParsers = new Map([
         "meriyah",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
         "flow",
         "babel-flow",
         "typescript",
@@ -98,6 +104,8 @@ const categoryParsers = new Map([
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
       ],
       verifyParsers: [
         "babel",
@@ -113,6 +121,8 @@ const categoryParsers = new Map([
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
       ],
       extensions: [".js", ".jsx"],
     },
@@ -128,7 +138,7 @@ const categoryParsers = new Map([
   ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
   [
     "markdown",
-    { parsers: ["markdown"], verifyParsers: [], extensions: [".md"] },
+    { parsers: ["markdown"], verifyParsers: ["mdx"], extensions: [".md"] },
   ],
   ["mdx", { parsers: ["mdx"], verifyParsers: [], extensions: [".mdx"] }],
   [
@@ -142,8 +152,15 @@ const categoryParsers = new Map([
   [
     "typescript",
     {
-      parsers: ["typescript", "babel-ts", "oxc-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow", "oxc-ts"],
+      parsers: ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
+      verifyParsers: [
+        "typescript",
+        "babel-ts",
+        "flow",
+        "babel-flow",
+        "oxc-ts",
+        "yuku-ts",
+      ],
       extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],

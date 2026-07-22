@@ -12,7 +12,7 @@ function getUmdWrapper({ name }, build) {
   for (let index = 0; index < path.length; index++) {
     const object = ["root", ...path.slice(0, index + 1)].join(".");
     if (index === path.length - 1) {
-      globalObjectText.push(`${object}`);
+      globalObjectText.push(object);
     } else {
       globalObjectText.push(`${object} = ${object} || {};`);
     }

@@ -380,10 +380,12 @@ function needsParentheses(path, options) {
         (key === "constraint" &&
           node.type === "TSConditionalType" &&
           parent.type === "TSTypeParameter") ||
-        (key === "bound" &&
+        (key === "typeAnnotation" &&
           node.type === "ConditionalTypeAnnotation" &&
-          parent.type === "TypeParameter" &&
-          parent.usesExtendsBound)
+          parent.type === "TypeAnnotation" &&
+          path.grandparent.type === "TypeParameter" &&
+          path.grandparent.bound === parent &&
+          path.grandparent.usesExtendsBound)
       ) {
         return true;
       }
@@ -495,21 +497,6 @@ function needsParentheses(path, options) {
         return true;
       }
 
-      // If the return type is a nullable arrow function, then we need a paren
-      // otherwise the inner => can be assumed to be for the outer one.
-      if (
-        node.type === "NullableTypeAnnotation" &&
-        path.match(
-          undefined,
-          (node, key) =>
-            key === "typeAnnotation" && node.type === "TypeAnnotation",
-          (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression",
-        )
-      ) {
-        return true;
-      }
-
       break;
 
     case "ComponentTypeAnnotation":
@@ -524,6 +511,22 @@ function needsParentheses(path, options) {
       if (
         path.match(
           undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression",
+        )
+      ) {
+        return true;
+      }
+
+      // If the return type is a nullable arrow function, then we need a paren
+      // otherwise the inner => can be assumed to be for the outer one.
+      if (
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "NullableTypeAnnotation",
           (node, key) =>
             key === "typeAnnotation" && node.type === "TypeAnnotation",
           (node, key) =>
@@ -679,7 +682,6 @@ function needsParentheses(path, options) {
         case "BinaryExpression":
         case "LogicalExpression":
         case "NGPipeExpression":
-        case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
         case "TSTypeAssertion":
@@ -787,6 +789,7 @@ function needsParentheses(path, options) {
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
+    case "ImportExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -795,6 +798,7 @@ function needsParentheses(path, options) {
         while (object) {
           switch (object.type) {
             case "CallExpression":
+            case "ImportExpression":
               return true;
             case "MemberExpression":
             case "OptionalMemberExpression":
@@ -866,7 +870,10 @@ function needsParentheses(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator" &&
           parent.type !== "YieldExpression" &&
-          parent.type !== "MatchExpressionCase")
+          parent.type !== "MatchExpressionCase" &&
+          !(
+            key === "declaration" && parent.type === "ExportDefaultDeclaration"
+          ))
       );
 
     case "TSInstantiationExpression":

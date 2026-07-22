@@ -338,6 +338,37 @@ class Something2 {
 ================================================================================
 `;
 
+exports[`ember.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+https://github.com/prettier/prettier/issues/19491
+
+decorators with declare is used extensively in Ember ecosystem,
+and we want to make sure that Prettier doesn't break them.
+*/
+
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+=====================================output=====================================
+/*
+https://github.com/prettier/prettier/issues/19491
+
+decorators with declare is used extensively in Ember ecosystem,
+and we want to make sure that Prettier doesn't break them.
+*/
+
+export default class ProjectStatusComponent extends Component<ProjectStatusSig> {
+  @service declare server: ServerService;
+}
+
+================================================================================
+`;
+
 exports[`inline-decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -574,6 +605,40 @@ class OrderLine {
 
   @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
     doSomething();
+}
+
+================================================================================
+`;
+
+exports[`parenthesized-decorators-call-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@(test().x("global").y())
+class X {}
+
+=====================================output=====================================
+@(test().x("global").y())
+class X {}
+
+================================================================================
+`;
+
+exports[`parenthesized-decorators-tagged-template.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class Test {
+  @(foo\`bar\`)
+  text: string = "text"
+}
+
+=====================================output=====================================
+class Test {
+  @(foo\`bar\`)
+  text: string = "text";
 }
 
 ================================================================================

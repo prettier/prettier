@@ -3018,10 +3018,8 @@ parsers: ["angular"]
 }}
 <span
   ><!--
---><span>{{ a }}</span
-  ><!--
---><span>{{ b }}</span
-  ><!--
+--><span>{{ a }}</span><!--
+--><span>{{ b }}</span><!--
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
@@ -3745,10 +3743,8 @@ trailingComma: "es5"
 }}
 <span
   ><!--
---><span>{{ a }}</span
-  ><!--
---><span>{{ b }}</span
-  ><!--
+--><span>{{ a }}</span><!--
+--><span>{{ b }}</span><!--
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
@@ -3919,10 +3915,8 @@ trailingComma: "none"
 }}
 <span
   ><!--
---><span>{{ a }}</span
-  ><!--
---><span>{{ b }}</span
-  ><!--
+--><span>{{ a }}</span><!--
+--><span>{{ b }}</span><!--
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:

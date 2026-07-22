@@ -61,9 +61,7 @@ class Node {
       if (nodes) {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
-          if (!newNode) {
-            newNode = new Node({ parent: this.parent });
-          }
+          newNode ??= new Node({ parent: this.parent });
           newNode.setProperty(NODES_KEY, mappedNodes);
         }
       }

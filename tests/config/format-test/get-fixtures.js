@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
+import { FORMAT_TEST_SCRIPT_FILENAME } from "./constants.js";
 import { verifyFilename } from "./verify-fixtures.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
@@ -24,18 +24,18 @@ function* getFiles(context) {
   const { dirname } = context;
   for (const file of fs.readdirSync(dirname, { withFileTypes: true })) {
     const filename = file.name;
-    const filepath = path.join(dirname, filename);
     if (
       !file.isFile() ||
       filename[0] === "." ||
-      filename === FORMAT_SCRIPT_FILENAME ||
-      // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
+      filename === FORMAT_TEST_SCRIPT_FILENAME ||
+      // VS Code creates this file sometime https://github.com/microsoft/vscode/issues/105191
       filename === "debug.log" ||
       path.extname(filename) === ".snap"
     ) {
       continue;
     }
 
+    const filepath = path.join(dirname, filename);
     const text = fs.readFileSync(filepath, "utf8");
 
     verifyFilename(context, filename);

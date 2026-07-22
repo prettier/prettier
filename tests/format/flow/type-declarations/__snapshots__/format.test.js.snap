@@ -44,8 +44,7 @@ declare module "foo" {
   declare var bar: string
 }
 
-declare module baz {
-}
+declare module baz {}
 
 ================================================================================
 `;
@@ -66,8 +65,7 @@ declare module "foo" {
   declare var bar: string;
 }
 
-declare module baz {
-}
+declare module baz {}
 
 ================================================================================
 `;

@@ -85,6 +85,7 @@ function deserializeError(serialized) {
   Object.assign(error, serialized);
 
   if (serialized.cause) {
+    // eslint-disable-next-line unicorn/no-error-property-assignment
     error.cause = deserializeError(serialized.cause);
   }
 

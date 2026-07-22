@@ -27,7 +27,7 @@ So why are there any options at all?
 
 Options that are easier to motivate include:
 
-- `--trailing-comma es5` lets you use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
+- `--trailing-comma=es5` lets you use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
 - `--prose-wrap` is important to support all quirky Markdown renderers in the wild.
 - `--html-whitespace-sensitivity` is needed due to the unfortunate whitespace rules of HTML.
 - `--end-of-line` makes it easier for teams to keep CRLFs out of their git repositories.

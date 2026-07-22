@@ -133,3 +133,14 @@ exports[`pipeline_own_line.js format[oxc] 1`] = `
   6 |
   7 | bifornCringerMoshedPerplexSawder("
 `;
+
+exports[`pipeline_own_line.js format[yuku] 1`] = `
+"Unexpected token '>' (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder("
+`;

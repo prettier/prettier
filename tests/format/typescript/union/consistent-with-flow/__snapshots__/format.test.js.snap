@@ -181,13 +181,15 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 =====================================output=====================================
 type A1 = /* 4 */ (A | B)[];
 
-type A2 = // dir, exp, arg, modifiers
+type A2 =
+  // dir, exp, arg, modifiers
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
-type A3 = // dir, exp, arg, modifiers
+type A3 =
+  // dir, exp, arg, modifiers
   [string] &
     [string, ExpressionNode] &
     [string, ExpressionNode, ExpressionNode] &
@@ -253,6 +255,208 @@ type A = T extends "arrow"
   ? | ExcalidrawArrowElement["startBinding"]
     | ExcalidrawElbowArrowElement["startBinding"]
   : never;
+
+================================================================================
+`;
+
+exports[`function-type-param.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type a1 = (
+  a:  | {//
+      }
+    | {//
+      },
+  ) => void
+
+type a2 = (
+a:
+// Comment
+    | {//
+      }
+    | {//
+      },
+  ) => void
+
+=====================================output=====================================
+type a1 = (
+  a:
+    | {
+        //
+      }
+    | {
+        //
+      },
+) => void;
+
+type a2 = (
+  a:
+    // Comment
+    | {
+        //
+      }
+    | {
+        //
+      },
+) => void;
+
+================================================================================
+`;
+
+exports[`in-tuple.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type ChildMessageInitialize = [
+  typeof CHILD_MESSAGE_INITIALIZE, // type
+  boolean, // processed
+  string, // file
+  Array<unknown> | void, // setupArgs
+  number | void, // workerId
+];
+
+type ChildMessageInitialize2 = [
+  number | void, // workerId
+];
+
+type ChildMessageInitialize3 = [
+  number | void | void | void | void | void | void | void | void | void | void | void, // workerId
+];
+
+type ChildMessageInitialize4 = [
+  string,
+  number | void | void | void | void | void | void | void | void | void | void | void, // workerId
+];
+
+=====================================output=====================================
+type ChildMessageInitialize = [
+  typeof CHILD_MESSAGE_INITIALIZE, // type
+  boolean, // processed
+  string, // file
+  Array<unknown> | void, // setupArgs
+  number | void, // workerId
+];
+
+type ChildMessageInitialize2 = [
+  number | void, // workerId
+];
+
+type ChildMessageInitialize3 = [
+  | number
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void
+  | void, // workerId
+];
+
+type ChildMessageInitialize4 = [
+  string,
+  (
+    | number
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+    | void
+  ), // workerId
+];
+
+================================================================================
+`;
+
+exports[`leading-comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T1 =
+  /* comment */ A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+type T12 =
+  /* comment */ | A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+type T13 =
+  | /* comment */ A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T2 = /* comment */ 'A'
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T3 = // comment
+  'A'
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T4 =
+  // comment
+  'A'
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T5 =
+  /**
+  comment
+  */ 'A'
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T6 =
+  /**
+  comment
+  */
+  'A'
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+=====================================output=====================================
+type T1 =
+  | /* comment */ A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+type T12 =
+  | /* comment */ A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+type T13 =
+  | /* comment */ A
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T2 =
+  | /* comment */ "A"
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T3 =
+  // comment
+  | "A"
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T4 =
+  // comment
+  | "A"
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T5 =
+  /**
+  comment
+  */ | "A"
+  | /* A comment long enough to make the union type break into multiple lines */ B;
+
+type T6 =
+  /**
+  comment
+  */
+  | "A"
+  | /* A comment long enough to make the union type break into multiple lines */ B;
 
 ================================================================================
 `;

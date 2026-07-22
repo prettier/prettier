@@ -22,7 +22,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
     ...Object.fromEntries(
       Object.entries(normalized).map(([key, value]) => {
         const option = detailedOptions.find(({ name }) => name === key) || {};
-        // If the flag is a prettier api option, use the option name
+        // If the flag is a prettier API option, use the option name
         // Otherwise use camel case for readability
         // `--ignore-unknown` -> `ignoreUnknown`
         return [option.forwardToApi || camelCase(key), value];

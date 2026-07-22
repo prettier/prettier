@@ -6,6 +6,6 @@ to remove the `__parsePrettierYamlConfig` export.
 */
 export * from "../language-yaml/index.js";
 
-// Exposed to parser prettier yaml config
+// Exposed to parser prettier YAML config
 import YAML from "yaml";
 export const __parsePrettierYamlConfig = YAML.parse;

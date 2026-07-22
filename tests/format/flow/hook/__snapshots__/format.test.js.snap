@@ -50,7 +50,7 @@ a = () /*
 1 *\\/ => void
 \`\`\`
 */
-type A1 = hook () => /* 11 */ void;
+type A1 = /* 11 */ hook () => void;
 type A2 = hook () => /* 12 */ void;
 type A3 = hook () => /* 13 */ void;
 

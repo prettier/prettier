@@ -158,8 +158,8 @@ function sortPaths(paths) {
 
 /**
  * This function should be replaced with `fastGlob.escapePath` when these issues are fixed:
- * - https://github.com/mrmlnc/fast-glob/issues/261
  * - https://github.com/mrmlnc/fast-glob/issues/262
+ * - https://github.com/mrmlnc/fast-glob/issues/494
  * @param {string} path
  */
 function escapePathForGlob(path) {
@@ -167,8 +167,8 @@ function escapePathForGlob(path) {
     .escapePath(
       path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
     )
-    .replaceAll(String.raw`\!`, "@(!)") // Workaround for fast-glob#261
-    .replaceAll("\0", String.raw`@(\\)`); // Workaround for fast-glob#262 (part 2)
+    .replaceAll("\0", String.raw`@(\\)`) // Workaround for fast-glob#262 (part 2)
+    .replaceAll('"', String.raw`@(\")`); // Workaround for fast-glob#494
 }
 
 /**

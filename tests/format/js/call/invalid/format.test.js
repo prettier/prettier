@@ -7,5 +7,7 @@ runFormatTest(import.meta, ["babel"], {
     meriyah: true,
     oxc: true,
     "oxc-ts": true,
+    yuku: true,
+    "yuku-ts": true,
   },
 });

@@ -1337,6 +1337,10 @@ exports[`visitor keys graphql 1`] = `
     "type",
   ],
   "FloatValue": [],
+  "FragmentArgument": [
+    "name",
+    "value",
+  ],
   "FragmentDefinition": [
     "description",
     "directives",
@@ -1346,6 +1350,7 @@ exports[`visitor keys graphql 1`] = `
     "variableDefinitions",
   ],
   "FragmentSpread": [
+    "arguments",
     "directives",
     "name",
   ],
@@ -1503,6 +1508,7 @@ exports[`visitor keys html 1`] = `
   "element": [
     "attrs",
     "children",
+    "startTagComments",
   ],
   "ieConditionalComment": [
     "children",
@@ -1515,6 +1521,7 @@ exports[`visitor keys html 1`] = `
   "root": [
     "children",
   ],
+  "startTagComment": [],
   "text": [
     "children",
   ],

@@ -71,6 +71,15 @@ exports[`comments.js format[oxc] 1`] = `
   4 |   export { foo }; /*A5*/"
 `;
 
+exports[`comments.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = "foo";
+  4 |   export { foo }; /*A5*/"
+`;
+
 exports[`module-blocks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -209,6 +218,15 @@ exports[`module-blocks.js format[oxc] 1`] = `
   4 |   #p() {"
 `;
 
+exports[`module-blocks.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
+`;
+
 exports[`non-module-blocks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -237,7 +255,7 @@ exports[`range.js format 1`] = `
 > 2 | };
     | ^^
 > 3 |
-    | ^^
+    | ^
 > 4 | foo(module { export let foo = "foo"; })
     | ^^
   5 |
@@ -287,6 +305,15 @@ exports[`range.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:25)
 > 1 | let moduleBlock = module {  export let y = 1;
     |                         ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = "foo"; })"
+`;
+
+exports[`range.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
   2 | };
   3 |
   4 | foo(module { export let foo = "foo"; })"

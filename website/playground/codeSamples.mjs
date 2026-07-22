@@ -5,6 +5,7 @@ export default function getCodeSamples(parser) {
     case "espree":
     case "meriyah":
     case "oxc":
+    case "yuku":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -44,6 +45,7 @@ export default function getCodeSamples(parser) {
     case "typescript":
     case "babel-ts":
     case "oxc-ts":
+    case "yuku-ts":
       return [
         "interface MyInterface {",
         "  foo(): string,",
@@ -104,7 +106,7 @@ export default function getCodeSamples(parser) {
         "}",
       ].join("\n");
     case "less":
-      // Copied from http://lesscss.org/features/#detached-rulesets-feature
+      // Copied from https://lesscss.org/features/#detached-rulesets-feature
       return [
         "@my-ruleset: {",
         "    .my-selector {",
@@ -173,7 +175,7 @@ export default function getCodeSamples(parser) {
         "+ and [another one]",
         "",
         "",
-        "  [another one]:  http://example.com 'Example title'",
+        "  [another one]:  https://example.com 'Example title'",
         "",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.",
@@ -240,7 +242,7 @@ export default function getCodeSamples(parser) {
         "</style>",
       ].join("\n");
     case "yaml":
-      // modified from http://yaml.org/start.html
+      // modified from https://yaml.org/spec/1.2.2/#25-full-length-example
       return [
         "---",
         "invoice   :   34843",
@@ -258,22 +260,22 @@ export default function getCodeSamples(parser) {
         "ship-to: *id001",
         "product:",
         "    - ",
-        "    ",
+        " ".repeat(4),
         "      sku         : BL394D",
         "      ? quantity    ",
         "      : 4",
         "      description : Basketball",
         "      ? price       ",
         "      : 450.00",
-        "      ",
-        "      ",
+        " ".repeat(6),
+        " ".repeat(6),
         "    - ",
         "      sku          :   BL4438H",
         "      quantity      :  1",
         "      description:      Super Hoop",
         "      price         :  2392.00",
-        "      ",
-        "      ",
+        " ".repeat(6),
+        " ".repeat(6),
         "tax  :  251.42",
         "total : 4443.52",
         "comments: >",
@@ -283,7 +285,7 @@ export default function getCodeSamples(parser) {
         "",
       ].join("\n");
     case "glimmer":
-      // modified from http://handlebarsjs.com/
+      // modified from https://handlebarsjs.com/
       return [
         '  <div     class="entry"    >',
         "  <h1>{{  title    }}</h1>",

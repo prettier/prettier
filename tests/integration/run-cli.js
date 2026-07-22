@@ -25,7 +25,7 @@ const IS_CI = Boolean(process.env.CI);
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
 const SUPPORTS_DISABLE_WARNING_FLAG =
-  Number(process.versions.node.split(".")[0]) >= 20;
+  Number(process.versions.node.split(".", 1)[0]) >= 20;
 const promiseWithResolvers = Promise.withResolvers
   ? Promise.withResolvers.bind(Promise)
   : () => {

@@ -71,9 +71,7 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("\u{2194}\u{FE0F}")).toBe(2);
   expect(getStringWidth("\u{1F469}")).toBe(2);
   expect(getStringWidth("\u{1F469}\u{1F3FF}")).toBe(2);
-  // Ideally this should be `2`, switch to use `Intl.Segmenter` will fix it
-  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
-  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(3);
+  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(2);
 
   expect(getStringWidth(String.fromCharCode(0))).toBe(0);
   expect(getStringWidth(String.fromCharCode(31))).toBe(0);
@@ -82,6 +80,10 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth(String.fromCharCode(159))).toBe(0);
   expect(getStringWidth("\u001B")).toBe(0);
   expect(getStringWidth("x\u0300")).toBe(1);
+  expect(getStringWidth("ཟླ")).toBe(1);
+  expect(getStringWidth("a\u20DD")).toBe(1);
+  expect(getStringWidth("\u093E")).toBe(1);
+  expect(getStringWidth("\u0915\u093E")).toBe(2);
 
   expect(getStringWidth("👶")).toBe(2);
   expect(getStringWidth("👶🏽")).toBe(2);
@@ -94,8 +96,10 @@ test("sharedUtil.getStringWidth", () => {
 
 test("sharedUtil.getAlignmentSize", () => {
   const { getAlignmentSize } = utilities;
-  expect(getAlignmentSize("   ")).toBe(3);
-  expect(getAlignmentSize("   ", /* tabWidth */ 2, /* startIndex */ 2)).toBe(1);
+  expect(getAlignmentSize(" ".repeat(3))).toBe(3);
+  expect(
+    getAlignmentSize(" ".repeat(3), /* tabWidth */ 2, /* startIndex */ 2),
+  ).toBe(1);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3)).toBe(6);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3, /* startIndex */ 1)).toBe(

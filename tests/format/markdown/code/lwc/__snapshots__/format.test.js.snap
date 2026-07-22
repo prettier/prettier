@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`lwc.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`html
+<test-this attr={should-be-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+\`\`\`lwc
+<test-this attr={should-NOT-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+=====================================output=====================================
+\`\`\`html
+<test-this attr={should-be-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+\`\`\`lwc
+<test-this attr={should-NOT-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+================================================================================
+`;
+
+exports[`lwc.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`html
+<test-this attr={should-be-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+\`\`\`lwc
+<test-this attr={should-NOT-quoted}>
+    Awesome</test-this>
+\`\`\`
+
+=====================================output=====================================
+\`\`\`html
+<test-this attr="{should-be-quoted}"> Awesome</test-this>
+\`\`\`
+
+\`\`\`lwc
+<test-this attr={should-NOT-quoted}> Awesome</test-this>
+\`\`\`
+
+================================================================================
+`;
+
+exports[`lwc-invalid.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`lwc
+<test-this>
+    Awesome</test-this></this-is-invalid>
+\`\`\`
+
+=====================================output=====================================
+\`\`\`lwc
+<test-this>
+    Awesome</test-this></this-is-invalid>
+\`\`\`
+
+================================================================================
+`;
+
+exports[`lwc-invalid.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`lwc
+<test-this>
+    Awesome</test-this></this-is-invalid>
+\`\`\`
+
+=====================================output=====================================
+\`\`\`lwc
+<test-this>
+    Awesome</test-this></this-is-invalid>
+\`\`\`
+
+================================================================================
+`;

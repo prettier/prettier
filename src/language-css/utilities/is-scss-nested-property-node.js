@@ -1,4 +1,4 @@
-function isSCSSNestedPropertyNode(node, options) {
+function isScssNestedPropertyNode(node, options) {
   if (options.parser !== "scss") {
     return false;
   }
@@ -11,8 +11,8 @@ function isSCSSNestedPropertyNode(node, options) {
   return node.selector
     .replace(/\/\*.*?\*\//, "")
     .replace(/\/\/.*\n/, "")
-    .trim()
+    .trimEnd()
     .endsWith(":");
 }
 
-export default isSCSSNestedPropertyNode;
+export default isScssNestedPropertyNode;

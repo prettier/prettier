@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import sdbm from "sdbm";
+import MurmurHash3 from "imurmurhash-esm";
 // @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
 
@@ -43,11 +43,11 @@ function pick(object, keys) {
 }
 
 /**
- * @param {string} source
+ * @param {string} string
  * @returns {string}
  */
-function createHash(source) {
-  return String(sdbm(source));
+function createHash(string) {
+  return MurmurHash3(string).result().toString(36);
 }
 
 /** @import {Stats} from "fs" */
@@ -106,7 +106,7 @@ const normalizeToPosix =
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
 
-export const { omit } = sharedWithCli.utilities;
+export const { omit, getOrInsertComputed } = sharedWithCli.utilities;
 export {
   createHash,
   groupBy,

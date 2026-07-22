@@ -6202,6 +6202,30 @@ function foo() {
   );
 }
 
+// #4032
+function transitionedFromBleepToBloop() {
+  return !!(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+
+  return Boolean(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+
+  return foo(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+}
+
 =====================================output=====================================
 function foo() {
   return (
@@ -6239,6 +6263,39 @@ function foo() {
   throw (
     // Comment
     a = b
+  )
+}
+
+// #4032
+function transitionedFromBleepToBloop() {
+  return !!(
+    // Start with a bloop.
+    thing != null &&
+    thing.foo &&
+    thing.foo.bar === "bloop" &&
+    // End up with a bleep.
+    thing.foo &&
+    thing.foo.bar === "bleep"
+  )
+
+  return Boolean(
+    // Start with a bloop.
+    thing != null &&
+    thing.foo &&
+    thing.foo.bar === "bloop" &&
+    // End up with a bleep.
+    thing.foo &&
+    thing.foo.bar === "bleep",
+  )
+
+  return foo(
+    // Start with a bloop.
+    thing != null &&
+      thing.foo &&
+      thing.foo.bar === "bloop" &&
+      // End up with a bleep.
+      thing.foo &&
+      thing.foo.bar === "bleep",
   )
 }
 
@@ -6288,6 +6345,30 @@ function foo() {
   );
 }
 
+// #4032
+function transitionedFromBleepToBloop() {
+  return !!(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+
+  return Boolean(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+
+  return foo(
+    // Start with a bloop.
+    thing != null && (thing.foo && thing.foo.bar === 'bloop') &&
+    // End up with a bleep.
+    (thing.foo && thing.foo.bar === 'bleep')
+  );
+}
+
 =====================================output=====================================
 function foo() {
   return (
@@ -6325,6 +6406,39 @@ function foo() {
   throw (
     // Comment
     a = b
+  );
+}
+
+// #4032
+function transitionedFromBleepToBloop() {
+  return !!(
+    // Start with a bloop.
+    thing != null &&
+    thing.foo &&
+    thing.foo.bar === "bloop" &&
+    // End up with a bleep.
+    thing.foo &&
+    thing.foo.bar === "bleep"
+  );
+
+  return Boolean(
+    // Start with a bloop.
+    thing != null &&
+    thing.foo &&
+    thing.foo.bar === "bloop" &&
+    // End up with a bleep.
+    thing.foo &&
+    thing.foo.bar === "bleep",
+  );
+
+  return foo(
+    // Start with a bloop.
+    thing != null &&
+      thing.foo &&
+      thing.foo.bar === "bloop" &&
+      // End up with a bleep.
+      thing.foo &&
+      thing.foo.bar === "bleep",
   );
 }
 
@@ -6484,7 +6598,8 @@ var a = { /* comment */
 b };
 =====================================output=====================================
 var a = {
-  /* comment */ b,
+  /* comment */
+  b,
 }
 
 ================================================================================
@@ -6499,7 +6614,8 @@ var a = { /* comment */
 b };
 =====================================output=====================================
 var a = {
-  /* comment */ b,
+  /* comment */
+  b,
 };
 
 ================================================================================
@@ -6515,7 +6631,8 @@ var a = { /* comment */
 b };
 =====================================output=====================================
 var a = {
-  /* comment */ b,
+  /* comment */
+  b,
 }
 
 ================================================================================
@@ -6530,7 +6647,8 @@ var a = { /* comment */
 b };
 =====================================output=====================================
 var a = {
-  /* comment */ b,
+  /* comment */
+  b,
 };
 
 ================================================================================
@@ -6731,6 +6849,12 @@ foo /* comment 5 */
 \`
 \`;
 
+foo /* comment 6 */
+\`x\`;
+
+foo // comment 7
+\`x\`;
+
 =====================================output=====================================
 foo\`\` // comment 1
 
@@ -6744,8 +6868,15 @@ foo // comment 3
 foo /* comment 4 */ \`
 \`
 
-foo /* comment 5 */\`
+foo /* comment 5 */
 \`
+\`
+
+foo /* comment 6 */
+\`x\`
+
+foo // comment 7
+\`x\`
 
 ================================================================================
 `;
@@ -6771,6 +6902,12 @@ foo /* comment 5 */
 \`
 \`;
 
+foo /* comment 6 */
+\`x\`;
+
+foo // comment 7
+\`x\`;
+
 =====================================output=====================================
 foo\`\`; // comment 1
 
@@ -6784,8 +6921,15 @@ foo // comment 3
 foo /* comment 4 */ \`
 \`;
 
-foo /* comment 5 */\`
+foo /* comment 5 */
+\`
 \`;
+
+foo /* comment 6 */
+\`x\`;
+
+foo // comment 7
+\`x\`;
 
 ================================================================================
 `;
@@ -7098,7 +7242,7 @@ try {
 ================================================================================
 `;
 
-exports[`variable_declarator.js - {"semi":false} format 1`] = `
+exports[`variable-declarator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 semi: false
@@ -7248,7 +7392,7 @@ const foo3 = 123
 ================================================================================
 `;
 
-exports[`variable_declarator.js format 1`] = `
+exports[`variable-declarator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |

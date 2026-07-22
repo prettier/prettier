@@ -5,5 +5,6 @@ runFormatTest(import.meta, ["babel"], {
     meriyah: ["do.js"],
     oxc: ["do.js"],
     "oxc-ts": ["do.js"],
+    yuku: ["do.js"],
   },
 });

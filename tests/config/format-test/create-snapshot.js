@@ -56,12 +56,10 @@ function makeWidthIndicator(printWidth) {
 
 const defaultWidthIndicator = makeWidthIndicator();
 function printWidthIndicator(printWidth) {
-  if (
-    !(
-      printWidth === undefined ||
-      (Number.isSafeInteger(printWidth) && printWidth > 0)
-    )
-  ) {
+  if (!(
+    printWidth === undefined ||
+    (Number.isSafeInteger(printWidth) && printWidth > 0)
+  )) {
     return "";
   }
 

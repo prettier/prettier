@@ -312,7 +312,7 @@ proseWrap: "always"
  - &d d
 
 =====================================output=====================================
-- !!str &a a
+- &a !!str a
 - !!int 2
 - !!int &c 4
 - &d d
@@ -332,7 +332,7 @@ useTabs: true
  - &d d
 
 =====================================output=====================================
-- !!str &a a
+- &a !!str a
 - !!int 2
 - !!int &c 4
 - &d d
@@ -2139,7 +2139,7 @@ key: &anchor
   a: b
 
 =====================================output=====================================
-key: !!map &anchor
+key: &anchor !!map
   a: b
 
 ================================================================================
@@ -2156,7 +2156,7 @@ key: &anchor
   a: b
 
 =====================================output=====================================
-key: !!map &anchor
+key: &anchor !!map
   a: b
 
 ================================================================================
@@ -3145,58 +3145,6 @@ hr:
 rbi:
   - *SS # Subsequent occurrence
   - Ken Griffey
-
-================================================================================
-`;
-
-exports[`spec-example-2-11-mapping-between-sequences.yml - {"proseWrap":"always"} format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-proseWrap: "always"
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-? - Detroit Tigers
-  - Chicago cubs
-:
-  - 2001-07-23
-
-? [ New York Yankees,
-    Atlanta Braves ]
-: [ 2001-07-02, 2001-08-12,
-    2001-08-14 ]
-
-=====================================output=====================================
-? - Detroit Tigers
-  - Chicago cubs
-: - 2001-07-23
-
-[New York Yankees, Atlanta Braves]: [2001-07-02, 2001-08-12, 2001-08-14]
-
-================================================================================
-`;
-
-exports[`spec-example-2-11-mapping-between-sequences.yml - {"useTabs":true} format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-useTabs: true
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-? - Detroit Tigers
-  - Chicago cubs
-:
-  - 2001-07-23
-
-? [ New York Yankees,
-    Atlanta Braves ]
-: [ 2001-07-02, 2001-08-12,
-    2001-08-14 ]
-
-=====================================output=====================================
-? - Detroit Tigers
-  - Chicago cubs
-: - 2001-07-23
-
-[New York Yankees, Atlanta Braves]: [2001-07-02, 2001-08-12, 2001-08-14]
 
 ================================================================================
 `;
@@ -7892,20 +7840,20 @@ value11
 
 =====================================output=====================================
 ---
-!!str &a1 scalar1
+&a1 !!str scalar1
 ---
 !!str &a2 scalar2
 ---
-!!str &a3 scalar3
+&a3 !!str scalar3
 ---
-!!map &a4
-!!str &a5 key5: value4
+&a4 !!map
+&a5 !!str key5: value4
 ---
 a6: 1
 &anchor6 b6: 2
 ---
 !!map
-!!str &a8 key8: value7
+&a8 !!str key8: value7
 ---
 !!map
 !!str &a10 key10: value9
@@ -7950,20 +7898,20 @@ value11
 
 =====================================output=====================================
 ---
-!!str &a1 scalar1
+&a1 !!str scalar1
 ---
 !!str &a2 scalar2
 ---
-!!str &a3 scalar3
+&a3 !!str scalar3
 ---
-!!map &a4
-!!str &a5 key5: value4
+&a4 !!map
+&a5 !!str key5: value4
 ---
 a6: 1
 &anchor6 b6: 2
 ---
 !!map
-!!str &a8 key8: value7
+&a8 !!str key8: value7
 ---
 !!map
 !!str &a10 key10: value9

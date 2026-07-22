@@ -22,6 +22,139 @@ const myValue = (callcallcallcallcallcall(
 ================================================================================
 `;
 
+exports[`function-type-param.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type a1 = (
+    | {//
+      }
+    | {//
+      },
+  ) => void
+
+type a2 = (
+// Comment
+    | {//
+      }
+    | {//
+      },
+  ) => void
+
+hook useRefetchFunction(
+  dispatch: (
+    | {
+        environment: IEnvironment,
+        fragmentIdentifier: string,
+        type: 'reset',
+      }
+    | {
+        fetchPolicy?: FetchPolicy,
+        onComplete?: (Error | null) => void,
+        refetchEnvironment: ?IEnvironment,
+        refetchQuery: OperationDescriptor,
+        renderPolicy?: RenderPolicy,
+        type: 'refetch',
+      },
+  ) => void,
+) {}
+
+=====================================output=====================================
+type a1 = (
+  | {
+      //
+    }
+  | {
+      //
+    },
+) => void;
+
+type a2 = (
+  // Comment
+  | {
+      //
+    }
+  | {
+      //
+    },
+) => void;
+
+hook useRefetchFunction(
+  dispatch: (
+    | {
+        environment: IEnvironment,
+        fragmentIdentifier: string,
+        type: "reset",
+      }
+    | {
+        fetchPolicy?: FetchPolicy,
+        onComplete?: (Error | null) => void,
+        refetchEnvironment: ?IEnvironment,
+        refetchQuery: OperationDescriptor,
+        renderPolicy?: RenderPolicy,
+        type: "refetch",
+      },
+  ) => void,
+) {}
+
+================================================================================
+`;
+
+exports[`issue-1197-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/1197#issuecomment-496620145
+
+type RecordDataType = {|
+  type: 'Record',
+  /** Fields */
+  fields: {[string]: DataType},
+  /**
+   * Meta
+   */
+  meta?: /**
+     * Custom layouts allow you to provide your own layout.
+     * Example for conditionally showing the interface of one setting based on the value of another.
+     */
+      | {|
+        layout: 'Custom',
+      |}
+    /**
+     * The None layout, embeds Record children directly with no wrapping layout.
+     */
+    | {|layout: 'None'|},
+|};
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/1197#issuecomment-496620145
+
+type RecordDataType = {|
+  type: "Record",
+  /** Fields */
+  fields: { [string]: DataType },
+  /**
+   * Meta
+   */
+  meta?:
+    /**
+     * Custom layouts allow you to provide your own layout.
+     * Example for conditionally showing the interface of one setting based on the value of another.
+     */
+    | {|
+        layout: "Custom",
+      |}
+    /**
+     * The None layout, embeds Record children directly with no wrapping layout.
+     */
+    | {| layout: "None" |},
+|};
+
+================================================================================
+`;
+
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

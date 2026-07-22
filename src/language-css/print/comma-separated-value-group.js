@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   breakParent,
   dedent,
@@ -66,6 +67,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
   const isControlDirective =
     atRuleAncestorNode &&
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+  const hasLogicalOperator =
+    isControlDirective && node.groups.some(isIfElseKeywordNode);
   const hasInlineComment = node.groups.some((node) =>
     isInlineValueCommentNode(node),
   );
@@ -90,7 +93,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
-    const iNextNextNode = node.groups[i + 2];
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
@@ -138,6 +140,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // Ignore after latest node (i.e. before semicolon)
     if (!iNextNode) {
+      continue;
+    }
+
+    // Don't print a space before the `;` branch delimiter in the SCSS `if()`
+    // function (i.e. `if(condition: value; else: value)`)
+    if (
+      options.parser === "scss" &&
+      iNextNode.type === "value-word" &&
+      iNextNode.value === ";" &&
+      path.match(
+        undefined,
+        (node, key) => key === "groups" && node.type === "value-paren_group",
+        (node, key) =>
+          key === "group" && node.type === "value-func" && node.value === "if",
+      )
+    ) {
       continue;
     }
 
@@ -209,31 +227,26 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Less property/variable lookup
     // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
     if (options.parser === "less") {
-      // `var [@result]`
+      // `foo [@bar]`
       //      ^
       if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
         continue;
       }
 
-      // `var[ @result]`
-      //     ^
-      // `@var [ @@foo ] [ bar ]`
-      //                 ^
+      // Ignore spaces after `[` (i.e. `foo[ @bar]` or `foo[ bar]`)
       if (
         iNode.type === "value-word" &&
-        iNode.value === "[" &&
+        iNode.value.endsWith("[") &&
         (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
       ) {
-        continue;
-      }
+        assert.ok(
+          node.groups.some(
+            (node, index) =>
+              index > i &&
+              (node.value?.startsWith("]") || node.value?.endsWith("]")),
+          ),
+        );
 
-      // `@var [ @@foo ][ bar ]`
-      //               ^^
-      if (
-        iNode.type === "value-word" &&
-        iNode.value === "][" &&
-        iNextNode?.type === "value-word"
-      ) {
         continue;
       }
     }
@@ -280,7 +293,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Ignore css variables and interpolation in SCSS (i.e. `--#{$var}`)
+    // Ignore CSS variables and interpolation in SCSS (i.e. `--#{$var}`)
     if (iNode.value === "--" && isHashNode(iNextNode)) {
       continue;
     }
@@ -295,6 +308,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
     if (
       ((isMathOperator && isHashNode(iNextNode)) ||
         (isNextMathOperator && isRightCurlyBraceNode(iNode))) &&
+      hasEmptyRawBefore(iNextNode)
+    ) {
+      continue;
+    }
+
+    // Prevent the addition of a space inside type() declarations that include an + operator
+    // due to the fact that it is not valid syntax
+    // (i.e. `type(<number> +)`, `type(<color> +)`)
+    if (
+      isAdditionNode(iNextNode) &&
+      insideValueFunctionNode(path, "type") &&
       hasEmptyRawBefore(iNextNode)
     ) {
       continue;
@@ -321,16 +345,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
-    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
-    const isColorAdjusterNode =
-      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
-      i === 0 &&
-      (iNextNode.type === "value-number" || iNextNode.isHex) &&
-      parentParentNode &&
-      isColorAdjusterFuncNode(parentParentNode) &&
-      !hasEmptyRawBefore(iNextNode);
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -343,6 +357,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    const iNextNextNode = node.groups[i + 2];
+
+    // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
+    // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
+    const isColorAdjusterNode =
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      i === 0 &&
+      (iNextNode.type === "value-number" || iNextNode.isHex) &&
+      parentParentNode &&
+      isColorAdjusterFuncNode(parentParentNode) &&
+      !hasEmptyRawBefore(iNextNode);
     const requireSpaceBeforeOperator =
       iNextNextNode?.type === "value-func" ||
       (iNextNextNode && isWordNode(iNextNextNode)) ||
@@ -399,6 +424,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isControlDirective &&
       (isEqualityOperatorNode(iNextNode) ||
         isRelationalOperatorNode(iNextNode) ||
+        (hasLogicalOperator &&
+          (isEqualityOperatorNode(iNode) || isRelationalOperatorNode(iNode))) ||
         isIfElseKeywordNode(iNextNode) ||
         isEachKeywordNode(iNode) ||
         isForKeywordNode(iNode))
@@ -458,7 +485,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     // Add `space` before next math operation
-    // Note: `grip` property have `/` delimiter and it is not math operation, so
+    // Note: `grid` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
     if (isNextMathOperator) {
       parts.push([parts.pop(), " "]);
@@ -533,7 +560,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     return group(indent(parts));
   }
 
-  // Indent is not needed for import url when url is very long
+  // Indent is not needed for import URL when URL is very long
   // and node has two groups
   // when type is value-comma_group
   // example @import url("verylongurl") projection,tv

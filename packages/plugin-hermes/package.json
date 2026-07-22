@@ -1,6 +1,6 @@
 {
   "name": "@prettier/plugin-hermes",
-  "version": "0.1.3",
+  "version": "0.2.2",
   "description": "Prettier Hermes plugin.",
   "type": "module",
   "exports": {

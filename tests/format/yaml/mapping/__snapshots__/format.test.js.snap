@@ -1,54 +1,25 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`3-style.yml - {"tabWidth":4} format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-tabWidth: 4
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-=====================================output=====================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-? [
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-  ]
-: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-================================================================================
+"Map comment with trailing content (5:1)
+  3 | [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  4 |
+> 5 | [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | ^
+  6 |
+Cause: Map comment with trailing content
+Cause: Map comment with trailing content"
 `;
 
 exports[`3-style.yml format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-=====================================output=====================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-? [
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-  ]
-: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-================================================================================
+"Map comment with trailing content (5:1)
+  3 | [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  4 |
+> 5 | [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | ^
+  6 |
+Cause: Map comment with trailing content
+Cause: Map comment with trailing content"
 `;
 
 exports[`anchor.yml - {"tabWidth":4} format 1`] = `

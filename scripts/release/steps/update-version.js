@@ -10,7 +10,7 @@ export default async function updateVersion({ version, next }) {
     return;
   }
 
-  // Update github issue templates
+  // Update GitHub issue templates
   processFile(".github/ISSUE_TEMPLATE/formatting.md", (content) =>
     content.replace(/^(\*\*Prettier ).*?(\*\*)$/m, `$1${version}$2`),
   );

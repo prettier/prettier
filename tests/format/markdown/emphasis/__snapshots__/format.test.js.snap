@@ -32,6 +32,127 @@ _bug_?
 ================================================================================
 `;
 
+exports[`issue-3837.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+5 * 10
+a * b * c
+
+=====================================output=====================================
+5 * 10 a * b * c
+
+================================================================================
+`;
+
+exports[`issue-6112.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+*[Italic link](../_link_including_underscores_.md)*
+
+---
+
+_[Italic link](../_link_including_underscores_.md)_
+
+=====================================output=====================================
+_[Italic link](../_link_including_underscores_.md)_
+
+---
+
+_[Italic link](../_link_including_underscores_.md)_
+
+================================================================================
+`;
+
+exports[`issue-15032.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1: The **exponentiation (\`**\`)** operator.
+
+2: The *exponentiation (\`*\`)* operator.
+
+3: The _exponentiation (\`_\`)_ operator.
+
+4: The __exponentiation (\`__\`)__ operator.
+
+=====================================output=====================================
+1: The **exponentiation (\`**\`)** operator.
+
+2: The _exponentiation (\`*\`)_ operator.
+
+3: The _exponentiation (\`_\`)_ operator.
+
+4: The **exponentiation (\`__\`)** operator.
+
+================================================================================
+`;
+
+exports[`issue-16160.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- style\\_name = *dplr*
+- style\\_name = _dplr_
+- style_name = _dplr_
+
+=====================================output=====================================
+- style\\_name = _dplr_
+- style\\_name = _dplr_
+- style_name = _dplr_
+
+================================================================================
+`;
+
+exports[`issue-17286.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Note: With {"NO\\_PROPAGATE"}, the client is expected to honour the {"errors"} in
+the _response_ and prevent developers from reading a \`null\` produced by an
+
+=====================================output=====================================
+Note: With {"NO\\_PROPAGATE"}, the client is expected to honour the {"errors"} in
+the _response_ and prevent developers from reading a \`null\` produced by an
+
+================================================================================
+`;
+
+exports[`nbsp.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- _REPORTED_ — message received;
+- _NEEDSINFO_ — additional info needed;
+
+foo _bar_ baz
+
+foo _bar_ baz
+
+=====================================output=====================================
+- _REPORTED_ — message received;
+- _NEEDSINFO_ — additional info needed;
+
+foo _bar_ baz
+
+foo _bar_ baz
+
+================================================================================
+`;
+
 exports[`special.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

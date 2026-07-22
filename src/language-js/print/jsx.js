@@ -25,6 +25,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getRaw } from "../utilities/get-raw.js";
 import { isMeaningfulJsxText } from "../utilities/is-meaningful-jsx-text.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { jsxWhitespace } from "../utilities/jsx-whitespace.js";
 import {
   isArrayExpression,
@@ -216,11 +217,15 @@ function printJsxElementInternal(path, options, print) {
         // Leading whitespace
         multilineChildren.push([rawJsxWhitespace, hardline], "");
         continue;
-      } else if (i === children.length - 1) {
+      }
+
+      if (i === children.length - 1) {
         // Trailing whitespace
         multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
-      } else if (children[i - 1] === "" && children[i - 2] === hardline) {
+      }
+
+      if (children[i - 1] === "" && children[i - 2] === hardline) {
         // Whitespace after line break
         multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
@@ -652,7 +657,19 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       print("name"),
       print("typeArguments"),
-      indent(path.map(() => [attributeLine, print()], "attributes")),
+      indent(
+        path.map(
+          ({ isFirst, previous }) => [
+            isFirst
+              ? attributeLine
+              : isNextLineEmpty(previous, options)
+                ? [hardline, hardline]
+                : attributeLine,
+            print(),
+          ],
+          "attributes",
+        ),
+      ),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak },

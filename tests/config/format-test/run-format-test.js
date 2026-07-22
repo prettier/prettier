@@ -1,6 +1,6 @@
 import path from "node:path";
 import url from "node:url";
-import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
+import { FORMAT_TEST_SCRIPT_FILENAME } from "./constants.js";
 import { getFixtures } from "./get-fixtures.js";
 import { getParsers } from "./get-parsers.js";
 import { testFixture } from "./run-test.js";
@@ -41,9 +41,9 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     : { importMeta: rawFixtures };
 
   const filename = path.basename(new URL(importMeta.url).pathname);
-  if (filename !== FORMAT_SCRIPT_FILENAME) {
+  if (filename !== FORMAT_TEST_SCRIPT_FILENAME) {
     throw new Error(
-      `Format test should run in file named '${FORMAT_SCRIPT_FILENAME}'.`,
+      `Format test should run in file named '${FORMAT_TEST_SCRIPT_FILENAME}'.`,
     );
   }
 

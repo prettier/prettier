@@ -34,7 +34,8 @@ exports[`default-escaped.js format[flow] 1`] = `
 "Unexpected identifier, expected a declaration, statement or export specifiers (2:8)
   1 | // export asyn\\u{63} from "async";
 > 2 | export n\\u{63} from "async";
-    |        ^^^^^^^"
+    |        ^
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (2:7)"
 `;
 
 exports[`default-escaped.js format[hermes] 1`] = `
@@ -57,6 +58,13 @@ Cause: [2:7-2:14]: Unexpected token: 'identifier'"
 
 exports[`default-escaped.js format[oxc] 1`] = `
 "Unexpected token (2:8)
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
+    |        ^^^^^^^"
+`;
+
+exports[`default-escaped.js format[yuku] 1`] = `
+"Expected declaration after 'export', but found 'n\\u{63}' (2:8)
   1 | // export asyn\\u{63} from "async";
 > 2 | export n\\u{63} from "async";
     |        ^^^^^^^"

@@ -63,6 +63,16 @@ exports[`await.js - {"semi":false} format[oxc] 1`] = `
   5 |"
 `;
 
+exports[`await.js - {"semi":false} format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
 exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -125,6 +135,16 @@ exports[`await.js format[oxc] 1`] = `
   5 |"
 `;
 
+exports[`await.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
 exports[`bind_parens.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -166,6 +186,10 @@ new f(a::b);
 f[a::b];
 f[a::b()];
 
+a::(import("foo"));
+a::(import("foo").bar);
+a::(import("foo")\`bar\`);
+
 =====================================output=====================================
 ;(a || b)::c
 a || b::c
@@ -202,6 +226,10 @@ new f(a::b)
 f[a::b]
 f[a::b()]
 
+a::(import("foo"))
+a::(import("foo").bar)
+a::(import("foo")\`bar\`)
+
 ================================================================================
 `;
 
@@ -237,6 +265,15 @@ Cause: [1:8-1:9]: Unexpected token: ':'"
 
 exports[`bind_parens.js - {"semi":false} format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js - {"semi":false} format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:9)
 > 1 | (a || b)::c;
     |         ^
   2 | a || (b::c);
@@ -284,6 +321,10 @@ new f(a::b);
 f[a::b];
 f[a::b()];
 
+a::(import("foo"));
+a::(import("foo").bar);
+a::(import("foo")\`bar\`);
+
 =====================================output=====================================
 (a || b)::c;
 a || b::c;
@@ -320,6 +361,10 @@ new f(a::b);
 f[a::b];
 f[a::b()];
 
+a::(import("foo"));
+a::(import("foo").bar);
+a::(import("foo")\`bar\`);
+
 ================================================================================
 `;
 
@@ -355,6 +400,15 @@ Cause: [1:8-1:9]: Unexpected token: ':'"
 
 exports[`bind_parens.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:9)
 > 1 | (a || b)::c;
     |         ^
   2 | a || (b::c);
@@ -439,6 +493,17 @@ exports[`long_name_method.js - {"semi":false} format[oxc] 1`] = `
   6 |   testLongNameMethodAndSomethingElseLallala() {"
 `;
 
+exports[`long_name_method.js - {"semi":false} format[yuku] 1`] = `
+"Unexpected token ':' (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
 exports[`long_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -506,6 +571,17 @@ Cause: [3:53-3:54]: Unexpected token: ':'"
 
 exports[`long_name_method.js format[oxc] 1`] = `
 "Unexpected token (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
+exports[`long_name_method.js format[yuku] 1`] = `
+"Unexpected token ':' (3:54)
   1 | class X {
   2 |   constructor() {
 > 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
@@ -608,6 +684,17 @@ exports[`method_chain.js - {"semi":false} format[oxc] 1`] = `
   13 |                 ::take(1)"
 `;
 
+exports[`method_chain.js - {"semi":false} format[yuku] 1`] = `
+"Unexpected token ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
 exports[`method_chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -700,6 +787,17 @@ exports[`method_chain.js format[oxc] 1`] = `
   13 |                 ::take(1)"
 `;
 
+exports[`method_chain.js format[yuku] 1`] = `
+"Unexpected token ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
 exports[`short_name_method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -776,6 +874,17 @@ exports[`short_name_method.js - {"semi":false} format[oxc] 1`] = `
   6 |   shortMethod() {"
 `;
 
+exports[`short_name_method.js - {"semi":false} format[yuku] 1`] = `
+"Unexpected token ':' (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
 exports[`short_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -842,6 +951,17 @@ Cause: [3:23-3:24]: Unexpected token: ':'"
 
 exports[`short_name_method.js format[oxc] 1`] = `
 "Unexpected token (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
+exports[`short_name_method.js format[yuku] 1`] = `
+"Unexpected token ':' (3:24)
   1 | class X {
   2 |   constructor() {
 > 3 |     this.shortMethod = ::this.shortMethod;
@@ -930,6 +1050,15 @@ exports[`unary.js - {"semi":false} format[oxc] 1`] = `
   4 | !("
 `;
 
+exports[`unary.js - {"semi":false} format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -1001,6 +1130,15 @@ Cause: [1:2-1:3]: Unexpected token: ':'"
 
 exports[`unary.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
+exports[`unary.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:3)
 > 1 | !x::y;
     |   ^
   2 | !(x::y /* foo */);

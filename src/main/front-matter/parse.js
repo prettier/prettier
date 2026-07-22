@@ -50,9 +50,7 @@ function getFrontMatter(text) {
   );
 
   let language = explicitLanguage;
-  if (!language) {
-    language = startDelimiter === "+++" ? "toml" : "yaml";
-  }
+  language ||= startDelimiter === "+++" ? "toml" : "yaml";
 
   if (
     endDelimiterIndex === -1 &&

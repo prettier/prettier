@@ -32,6 +32,11 @@ function massageAstNode(original, cloned /* , parent */) {
           .map((line) => line.replace(/[ \t]+$/, ""))
           .join("\n");
       }
+
+      // TODO: Fix this
+      else if (original.chomping === "clip" || original.chomping === "strip") {
+        cloned.value = original.value.trimEnd();
+      }
       break;
   }
 }

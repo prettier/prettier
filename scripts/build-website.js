@@ -45,9 +45,7 @@ async function buildPlaygroundFiles(version) {
       url.pathToFileURL(path.join(packagesDirectory, "prettier/standalone.mjs"))
     );
     versionData.version = prettierVersion;
-  }
-
-  if (version === "next") {
+  } else if (version === "next") {
     packagesDirectory = DIST_DIR;
     versionData.gitTree = await getGitTreeInformation();
     if (IS_PULL_REQUEST) {
@@ -70,7 +68,7 @@ async function buildPlaygroundFiles(version) {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
-    for (const pluginName of ["plugin-oxc"]) {
+    for (const pluginName of ["plugin-oxc", "plugin-yuku"]) {
       pluginFiles.push(`${pluginName}/index.browser.mjs`);
     }
   }

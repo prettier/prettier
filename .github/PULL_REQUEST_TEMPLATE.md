@@ -1,3 +1,7 @@
+<!--
+⚠️ Pull requests that do not follow the template may be closed without review.
+-->
+
 ## Description
 
 <!-- Please provide a brief summary of your changes -->
@@ -11,3 +15,5 @@
 - [ ] (If changing the API or CLI) I’ve documented the changes I’ve made (in the `docs/` directory).
 - [ ] (If the change is user-facing) I’ve added my changes to `changelog_unreleased/*/XXXX.md` file following `changelog_unreleased/TEMPLATE.md`.
 - [ ] I’ve read the [contributing guidelines](https://github.com/prettier/prettier/blob/main/CONTRIBUTING.md).
+- [ ] I did _not_ use AI to generate this PR.
+- [ ] (If the above is not checked) I have reviewed the AI-generated content before submitting.

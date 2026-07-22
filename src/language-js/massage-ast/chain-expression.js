@@ -16,9 +16,7 @@ function cleanChainExpression(original, cloned) {
   // We don't add parentheses to `(a?.b)?.c`
   if (original.type === "ChainExpression") {
     cleanEstreeChainExpression(cloned);
-  }
-
-  if (
+  } else if (
     original.type === "OptionalMemberExpression" ||
     original.type === "OptionalCallExpression"
   ) {

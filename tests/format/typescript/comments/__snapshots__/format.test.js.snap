@@ -564,7 +564,7 @@ class A {
 ================================================================================
 `;
 
-exports[`abstract_class.ts format 1`] = `
+exports[`abstract-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -591,7 +591,7 @@ abstract class AbstractRule {
 ================================================================================
 `;
 
-exports[`abstract_methods.ts format 1`] = `
+exports[`abstract-methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -624,7 +624,90 @@ abstract class AbstractFoo {
 ================================================================================
 `;
 
-exports[`after_jsx_generic.tsx format 1`] = `
+exports[`abstract-methods-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// #18478
+
+abstract class AbstractBar {
+  abstract method4(
+    param1: number,
+    // trailing line comment
+  ): void;
+  abstract method5(
+    param1: number,
+    /* trailing block comment */
+  ): void;
+  abstract method6(
+    ...rest: number[]
+    // trailing after rest
+  ): void;
+  abstract method7(
+    { a }: { a: number },
+    // trailing after object pattern
+  ): void;
+}
+
+declare class DeclareCls {
+  method(
+    param1: number,
+    // trailing line after last param
+  ): void;
+}
+
+class Overload {
+  method(
+    param1: number,
+    // trailing line on first overload
+  ): void;
+  method(param1: string): void;
+  method(param1: number | string): void {}
+}
+
+=====================================output=====================================
+// #18478
+
+abstract class AbstractBar {
+  abstract method4(
+    param1: number,
+    // trailing line comment
+  ): void;
+  abstract method5(
+    param1: number,
+    /* trailing block comment */
+  ): void;
+  abstract method6(
+    ...rest: number[]
+    // trailing after rest
+  ): void;
+  abstract method7(
+    { a }: { a: number },
+    // trailing after object pattern
+  ): void;
+}
+
+declare class DeclareCls {
+  method(
+    param1: number,
+    // trailing line after last param
+  ): void;
+}
+
+class Overload {
+  method(
+    param1: number,
+    // trailing line on first overload
+  ): void;
+  method(param1: string): void;
+  method(param1: number | string): void {}
+}
+
+================================================================================
+`;
+
+exports[`after-jsx-generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -1353,7 +1436,7 @@ class A {
 ================================================================================
 `;
 
-exports[`type_literals.ts format 1`] = `
+exports[`type-literals.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
