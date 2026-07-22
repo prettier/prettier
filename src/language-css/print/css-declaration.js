@@ -20,8 +20,7 @@ import { shouldBreakList } from "./parenthesized-value-group.js";
 import printSequence from "./sequence.js";
 
 function printCssDeclaration(path, options, print) {
-  const { node } = path;
-  const parentNode = path.parent;
+  const { node, parent } = path;
 
   const { between: rawBetween } = node.raws;
   const trimmedBetween = rawBetween.trim();
@@ -44,7 +43,7 @@ function printCssDeclaration(path, options, print) {
   const parts = [
     node.raws.before.replaceAll(/[\s;]/g, ""),
     // Less variable
-    (parentNode.type === "css-atrule" && parentNode.variable) ||
+    (parent.type === "css-atrule" && parent.variable) ||
     insideIcssRuleNode(path)
       ? node.prop
       : maybeToLowerCase(node.prop),
@@ -111,7 +110,7 @@ function printCssDeclaration(path, options, print) {
     ]);
   } else if (!(
     isTemplatePropNode(node) &&
-    !parentNode.raws.semicolon &&
+    !parent.raws.semicolon &&
     options.originalText[locEnd(node) - 1] !== ";"
   )) {
     parts.push(
