@@ -42,8 +42,7 @@ interface A {
 }
 
 interface A {
-  property: /** Comment */
-  B;
+  property: /** Comment */ B;
 }
 
 interface A {
