@@ -47,34 +47,35 @@ const mainModule = {
             module: getPackageFile("@yuku-parser/wasm"),
             async process(text) {
               const wasmUrlPattern =
-                /const wasmUrl = new URL\("(?<wasmFile>.\/.+\.wasm)", import\.meta\.url\);/;
-              const { wasmFile } = text.match(wasmUrlPattern).groups;
-              const wasmBase64String = await fs.readFile(
-                getPackageFile(`@yuku-parser/wasm/${wasmFile}`),
-                "base64",
-              );
-
-              text = text.replace('import("node:fs/promises")', "whatever");
-              text = text.replace(wasmUrlPattern, "");
-
-              text = text.replace(
-                "const { memory, alloc, free, parse: wasmParse } = (await instantiate()).exports;",
-                outdent`
-                  const module = new WebAssembly.Module((wasmBinary));
-                  const instance = new WebAssembly.Instance(module);
-                  const { memory, alloc, free, parse: wasmParse } = instance.exports;
-                `,
-              );
+                /const wasmUrl = new URL\("(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\);/;
+              const { wasmUrl } = text.match(wasmUrlPattern).groups;
+              const wasmFile = getPackageFile(`@yuku-parser/wasm/${wasmUrl}`);
+              const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
               text = outdent`
                 import { decode as __decode } from "base64-arraybuffer-es6";
+
                 const __base64ToArrayBuffer = Uint8Array.fromBase64
                   ? (string) => Uint8Array.fromBase64(string).buffer
                   : __decode;
-                const wasmBinary = /* "${wasmFile}" */ __base64ToArrayBuffer(${JSON.stringify(wasmBase64String)});
 
                 ${text}
               `;
+
+              text = text.replace('import("node:fs/promises")', "whatever");
+              text = text.replace(wasmUrlPattern, "");
+              text = text.replace(
+                "(await instantiate())",
+                outdent`
+                  new WebAssembly.Instance(
+                    new WebAssembly.Module(
+                      __base64ToArrayBuffer(
+                        /* "${wasmUrl}" */ ${JSON.stringify(wasmBase64String)}
+                      )
+                    )
+                  )
+                `,
+              );
 
               return text;
             },
