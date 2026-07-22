@@ -67,6 +67,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
   const isControlDirective =
     atRuleAncestorNode &&
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+  const hasLogicalOperator =
+    isControlDirective && node.groups.some(isIfElseKeywordNode);
   const hasInlineComment = node.groups.some((node) =>
     isInlineValueCommentNode(node),
   );
@@ -422,6 +424,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isControlDirective &&
       (isEqualityOperatorNode(iNextNode) ||
         isRelationalOperatorNode(iNextNode) ||
+        (hasLogicalOperator &&
+          (isEqualityOperatorNode(iNode) || isRelationalOperatorNode(iNode))) ||
         isIfElseKeywordNode(iNextNode) ||
         isEachKeywordNode(iNode) ||
         isForKeywordNode(iNode))
