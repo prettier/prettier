@@ -1024,17 +1024,17 @@ function handlePropertySignatureComments(context) {
     return true;
   }
 
-  const typeNode =
-    enclosingNode.type === "TSPropertySignature"
-      ? enclosingNode.typeAnnotation
-      : enclosingNode.value;
-
-  if (typeNode && isBlockComment(comment)) {
+  if (
+    ((enclosingNode.type === "TSPropertySignature" &&
+      enclosingNode.typeAnnotation) ||
+      (enclosingNode.type === "ObjectTypeProperty" && enclosingNode.value)) &&
+    isBlockComment(comment)
+  ) {
     const colonTokenIndex = stripComments(options).indexOf(
       ":",
       locEnd(enclosingNode.key),
     );
-    if (colonTokenIndex !== -1 && colonTokenIndex < locStart(comment)) {
+    if (colonTokenIndex < locStart(comment)) {
       return addLeadingCommentToPossibleUnionType(followingNode, context);
     }
   }
