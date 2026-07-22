@@ -151,6 +151,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
+    handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
   ].some((fn) => fn(context));
@@ -1034,20 +1035,42 @@ function handleLastBinaryOperatorOperand({
   return false;
 }
 
-function handlePropertySignatureComments({
-  enclosingNode,
-  followingNode,
-  comment,
-}) {
+/** @param {CommentContext} context */
+function handlePropertySignatureComments(context) {
+  const { enclosingNode, followingNode, comment, options, placement } = context;
+
   if (
-    enclosingNode &&
-    (enclosingNode.type === "TSPropertySignature" ||
-      enclosingNode.type === "ObjectTypeProperty") &&
+    !followingNode ||
+    (enclosingNode?.type !== "TSPropertySignature" &&
+      enclosingNode?.type !== "ObjectTypeProperty")
+  ) {
+    return false;
+  }
+
+  if (
+    placement === "endOfLine" &&
     (isUnionType(followingNode) || isIntersectionType(followingNode))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
   }
+
+  if (
+    ((enclosingNode.type === "TSPropertySignature" &&
+      enclosingNode.typeAnnotation) ||
+      (enclosingNode.type === "ObjectTypeProperty" && enclosingNode.value)) &&
+    isBlockComment(comment)
+  ) {
+    const colonTokenIndex = stripComments(options).indexOf(
+      ":",
+      locEnd(enclosingNode.key),
+    );
+    if (colonTokenIndex < locStart(comment)) {
+      return addLeadingCommentToPossibleUnionType(followingNode, context);
+    }
+  }
+
+  return false;
 }
 
 function handleBinaryCastExpressionComment({
