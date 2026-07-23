@@ -48,6 +48,101 @@ export { foo };
 ================================================================================
 `;
 
+exports[`issue-13934.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const attempt2 = (input) => {
+    return input.split('\\n').map((line) => line.split(' ')).map((([them, me]) => {
+       console.log(them, me);
+    })).reduce((sum, [them, me]) => {
+let round = 0;
+
+if(me === "X") {round += 1;}
+
+if(me === "Y"){ round += 2;}
+
+    }, 0)
+
+}
+
+=====================================output=====================================
+export const attempt2 = (input) => {
+  return input
+    .split("\\n")
+    .map((line) => line.split(" "))
+    .map(([them, me]) => {
+      console.log(them, me);
+    })
+    .reduce((sum, [them, me]) => {
+      let round = 0;
+
+      if (me === "X") {
+        round += 1;
+      }
+
+      if (me === "Y") {
+        round += 2;
+      }
+    }, 0);
+};
+
+================================================================================
+`;
+
+exports[`issue-16241.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export function Example1() {
+  /** NOT formatted because has empty line */
+  const x =     '42';
+
+  return x;
+}
+
+=====================================output=====================================
+export function Example1() {
+  /** NOT formatted because has empty line */
+  const x = "42";
+
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`issue-17906.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const description = \`
+  # this is a test
+
+  some text in the body
+\`;
+
+# the actual body
+
+some more text <span className="test">test</span>
+
+=====================================output=====================================
+export const description = \`
+  # this is a test
+
+  some text in the body
+\`;
+
+# the actual body
+
+some more text <span className="test">test</span>
+
+================================================================================
+`;
+
 exports[`like-import-declaration.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -137,6 +232,28 @@ parsers: ["mdx"]
 import is a word
 =====================================output=====================================
 import is a word
+
+================================================================================
+`;
+
+exports[`unterminated-comment.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const a = 1; /* comment starts
+
+comment ends */ export const b = "x   y";
+
+# heading
+
+=====================================output=====================================
+export const a = 1;
+/* comment starts
+
+comment ends */ export const b = "x   y";
+
+# heading
 
 ================================================================================
 `;
