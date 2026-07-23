@@ -519,18 +519,23 @@ function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
   // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
   // only suggests implementations "should" support at least three levels of
   // parenthesis nesting, so it's unclear whether we can safely rely on three
   // levels as we do here, but we certainly can't expect more.
-  // eslint-disable-next-line no-control-regex
-  return /[\x00-\x1f\x7f ]|^</.test(url) ||
+  if (
+    // eslint-disable-next-line no-control-regex
+    /[\x00-\x1f\x7f ]|^</.test(url) ||
     (unwrapBalancedParens
       ? !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
       : /[()]/.test(url))
-    ? `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`
-    : url;
+  ) {
+    url = `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`;
+  }
+
+  return url;
 }
 
 function printTitle(title, options, printSpace = true) {
