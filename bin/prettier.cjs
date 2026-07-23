@@ -30,11 +30,10 @@ function isVersionSatisfies(version, required) {
   );
 }
 
+var requiredVersion = require("../package.json").engines.node.replace(">=", "");
+
 function run() {
   // Based on `please-upgrade-node` package
-  var packageJson = require("../package.json");
-  var requiredVersion = packageJson.engines.node.replace(">=", "");
-
   if (!isVersionSatisfies(process.versions.node, requiredVersion)) {
     var message =
       "Prettier requires at least version " +

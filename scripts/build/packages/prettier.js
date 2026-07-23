@@ -2,7 +2,11 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
 import { outdent } from "outdent";
-import { DIST_DIR, PROJECT_ROOT } from "../../utilities/index.js";
+import {
+  DIST_DIR,
+  PRODUCTION_MINIMAL_NODE_JS_VERSION,
+  PROJECT_ROOT,
+} from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import esmifyTypescriptEslint from "../hacks/esmify-typescript-eslint.js";
 import modifyTypescriptModule from "../hacks/modify-typescript-module.js";
@@ -133,6 +137,10 @@ const cliModule = {
         {
           module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
           process(text) {
+            text = text.replace(
+              'require("../package.json").engines.node.replace(">=", "")',
+              JSON.stringify(PRODUCTION_MINIMAL_NODE_JS_VERSION),
+            );
             text = text.replace(
               "../src/cli/index.js",
               "../internal/legacy-cli.mjs",
