@@ -253,8 +253,9 @@ function printMdast(path, options, print) {
       return printHeading(path, options, print);
     case "code": {
       if (node.isIndented) {
-        // indented code block
-        const alignment = " ".repeat(4);
+        // indented code block: CommonMark treats one tab as 4 columns,
+        // so when `useTabs` is enabled a single tab is equivalent.
+        const alignment = options.useTabs ? "\t" : " ".repeat(4);
         return align(alignment, [
           alignment,
           replaceEndOfLine(node.value, hardline),
@@ -373,7 +374,7 @@ function printMdast(path, options, print) {
           ? printChildren(path, options, print)
           : group([
               align(
-                " ".repeat(4),
+                options.useTabs ? "\t" : " ".repeat(4),
                 printChildren(path, options, print, {
                   processor: ({ isFirst }) =>
                     isFirst ? group([softline, print()]) : print(),
