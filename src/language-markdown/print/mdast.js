@@ -1,4 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
+import { decodeNamedCharacterReference } from "decode-named-character-reference";
 import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
@@ -518,6 +519,26 @@ const encodeUrl = (url, characters) => {
   return url;
 };
 
+// Matches a character reference as it would be recognized by a CommonMark
+// parser: `&name;` (bounded by `characterReferenceNamedSizeMax`) or a numeric
+// reference like `&#123;`/`&#x1f;` (bounded by the decimal/hexadecimal size
+// maxes).
+const CHARACTER_REFERENCE_REGEX =
+  /&(#(?:\d{1,7}|x[\da-f]{1,6})|[a-z][\da-z]{0,30});/gi;
+
+// A url's node.url is already decoded by the markdown parser, so escape
+// sequences (e.g. `\;`) that prevented a character reference from being
+// decoded are lost. If such a reference is printed back verbatim, formatting
+// again will decode it, breaking idempotency. Re-escape the `;` to keep the
+// reference inert, matching the original, unresolved source.
+function escapeUrlCharacterReferences(url) {
+  return url.replaceAll(CHARACTER_REFERENCE_REGEX, (reference, name) =>
+    name.startsWith("#") || decodeNamedCharacterReference(name) !== false
+      ? reference.slice(0, -1) + String.raw`\;`
+      : reference,
+  );
+}
+
 /**
  * @param {string} url
  * @param {string[] | string} [dangerousCharOrChars]
@@ -530,6 +551,8 @@ function printUrl(url, dangerousCharOrChars = []) {
       ? dangerousCharOrChars
       : [dangerousCharOrChars]),
   ];
+
+  url = escapeUrlCharacterReferences(url);
 
   return new RegExp(
     dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),

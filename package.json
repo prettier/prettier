@@ -65,6 +65,7 @@
     "collapse-white-space": "1.0.6",
     "css-units-list": "2.1.0",
     "dashify": "2.0.0",
+    "decode-named-character-reference": "1.3.0",
     "deno-path-from-file-url": "0.0.7",
     "diff": "9.0.0",
     "editorconfig-without-wasm": "0.0.7",
