@@ -4,6 +4,11 @@
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
   postUpdateOptions: ["yarnDedupeHighest"],
+  extends: [
+    ":pinDependencies",
+    ":pinDevDependencies",
+    "helpers:pinGitHubActionDigests",
+  ],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
@@ -13,8 +18,9 @@
       matchManagers: ["github-actions"],
     },
     {
-      groupName: "devDependencies",
+      groupName: "non-major dev-dependencies",
       matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["minor", "patch"],
     },
     {
       groupName: "React",
