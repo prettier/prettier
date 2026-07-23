@@ -17,22 +17,25 @@ function parseVersion(version) {
   };
 }
 
+function isVersionSatisfies(version, required) {
+  required = parseVersion(required);
+  version = parseVersion(version);
+
+  return (
+    version.major > required.major ||
+    (version.major === required.major && version.minor > required.minor) ||
+    (version.major === required.major &&
+      version.minor === required.minor &&
+      version.patch >= required.patch)
+  );
+}
+
 function run() {
   // Based on `please-upgrade-node` package
   var packageJson = require("../package.json");
   var requiredVersion = packageJson.engines.node.replace(">=", "");
-  var currentVersion = process.versions.node;
-  var parsedRequiredVersion = parseVersion(requiredVersion);
-  var parsedCurrentVersion = parseVersion(currentVersion);
 
-  if (
-    parsedCurrentVersion.major < parsedRequiredVersion.major ||
-    (parsedCurrentVersion.major === parsedRequiredVersion.major &&
-      parsedCurrentVersion.minor < parsedRequiredVersion.minor) ||
-    (parsedCurrentVersion.major === parsedRequiredVersion.major &&
-      parsedCurrentVersion.minor === parsedRequiredVersion.minor &&
-      parsedCurrentVersion.patch < parsedRequiredVersion.patch)
-  ) {
+  if (!isVersionSatisfies(process.versions.node, requiredVersion)) {
     var message =
       "Prettier requires at least version " +
       requiredVersion +
