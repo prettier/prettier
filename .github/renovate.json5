@@ -4,6 +4,7 @@
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
   postUpdateOptions: ["yarnDedupeHighest"],
+  extends: ["helpers:pinGitHubActionDigests"],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
@@ -11,7 +12,6 @@
     {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
-      extends: ["helpers:pinGitHubActionDigests"],
     },
     {
       groupName: "non-major dev-dependencies",
