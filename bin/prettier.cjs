@@ -30,6 +30,16 @@ function isVersionSatisfies(version, required) {
   );
 }
 
+function shouldEnableExperimentalCli() {
+  var index = process.argv.indexOf("--experimental-cli");
+
+  if (index !== -1) {
+    process.argv.splice(index, 1);
+  }
+
+  return index !== -1 || process.env.PRETTIER_EXPERIMENTAL_CLI;
+}
+
 var requiredVersion = require("../package.json").engines.node.replace(">=", "");
 
 function run() {
@@ -46,12 +56,8 @@ function run() {
   }
 
   var dynamicImport = new Function("module", "return import(module)");
-  var index = process.argv.indexOf("--experimental-cli");
-  if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
-    if (index !== -1) {
-      process.argv.splice(index, 1);
-    }
 
+  if (shouldEnableExperimentalCli()) {
     return dynamicImport("../src/experimental-cli/index.js").then(
       function (cli) {
         return cli.__promise;
