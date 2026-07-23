@@ -11,6 +11,7 @@
     {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
+      extends: ["helpers:pinGitHubActionDigests"],
     },
     {
       groupName: "non-major dev-dependencies",
