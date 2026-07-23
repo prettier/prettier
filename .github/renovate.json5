@@ -4,7 +4,11 @@
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
   postUpdateOptions: ["yarnDedupeHighest"],
-  extends: ["helpers:pinGitHubActionDigests"],
+  extends: [
+    ":pinDependencies",
+    ":pinDevDependencies",
+    "helpers:pinGitHubActionDigests",
+  ],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
