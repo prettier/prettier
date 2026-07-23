@@ -17,8 +17,6 @@ function parseVersion(version) {
   };
 }
 
-var dynamicImport = new Function("module", "return import(module)");
-
 function run() {
   // Based on `please-upgrade-node` package
   var packageJson = require("../package.json");
@@ -41,11 +39,11 @@ function run() {
       " of Node.js, please upgrade!";
 
     process.exitCode = 1;
-    // eslint-disable-next-line no-console
     console.error(message);
     return Promise.reject(new Error(message));
   }
 
+  var dynamicImport = new Function("module", "return import(module)");
   var index = process.argv.indexOf("--experimental-cli");
   if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
     if (index !== -1) {
