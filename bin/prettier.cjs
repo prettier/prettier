@@ -8,53 +8,42 @@ if (typeof nodeModule.enableCompileCache === "function") {
   nodeModule.enableCompileCache();
 }
 
-// https://unpkg.com/semver-compare@1.0.0/index.js
-function semverCompare(a, b) {
-  var pa = a.split(".");
-  var pb = b.split(".");
-  for (var i = 0; i < 3; i++) {
-    var na = Number(pa[i]);
-    var nb = Number(pb[i]);
-    if (na > nb) {
-      return 1;
-    }
-    if (nb > na) {
-      return -1;
-    }
-    if (!Number.isNaN(na) && Number.isNaN(nb)) {
-      return 1;
-    }
-    if (Number.isNaN(na) && !Number.isNaN(nb)) {
-      return -1;
-    }
-  }
-  return 0;
-}
-
-// https://unpkg.com/please-upgrade-node@3.2.0/index.js
-function checkNodejsVersion() {
-  var packageJson = require("../package.json");
-  var requiredVersion = packageJson.engines.node.replace(">=", "");
-  var currentVersion = process.version.slice(1);
-  if (semverCompare(currentVersion, requiredVersion) === -1) {
-    throw new Error(
-      "Prettier requires at least version " +
-        requiredVersion +
-        " of Node.js, please upgrade!"
-    );
-  }
+function parseVersion(version) {
+  var parts = version.split(".", 3);
+  return {
+    major: Number(parts[0]),
+    minor: parts.length > 1 ? Number(parts[1]) : 0,
+    patch: parts.length > 2 ? Number(parts[2]) : 0
+  };
 }
 
 var dynamicImport = new Function("module", "return import(module)");
 
 function run() {
-  try {
-    checkNodejsVersion();
-  } catch (error) {
+  // Based on `please-upgrade-node` package
+  var packageJson = require("../package.json");
+  var requiredVersion = packageJson.engines.node.replace(">=", "");
+  var currentVersion = process.version.slice(1);
+  var parsedRequiredVersion = parseVersion(requiredVersion);
+  var parsedCurrentVersion = parseVersion(currentVersion);
+
+  if (!(
+    parsedCurrentVersion.major > parsedRequiredVersion.major ||
+    (parsedCurrentVersion.major === parsedRequiredVersion.major &&
+      parsedCurrentVersion.minor > parsedRequiredVersion.minor) ||
+    (parsedCurrentVersion.major === parsedRequiredVersion.major &&
+      parsedCurrentVersion.minor === parsedRequiredVersion.minor &&
+      parsedCurrentVersion.patch >= parsedRequiredVersion.patch)
+  )) {
+    var message =
+      "Prettier requires at least version " +
+      requiredVersion +
+      " of Node.js, please upgrade!";
+
     process.exitCode = 1;
     // eslint-disable-next-line no-console
-    console.error(error.message);
-    return Promise.reject(error);
+    console.error(message);
+    return Promise.reject(new Error(message));
   }
 
   var index = process.argv.indexOf("--experimental-cli");
