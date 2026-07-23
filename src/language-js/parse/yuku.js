@@ -39,7 +39,6 @@ function createParseError(error, { text }) {
 function parseWithOptions(text, options) {
   const result = yukuParse(text, {
     preserveParens: true,
-    allowReturnOutsideFunction: true,
     semanticErrors: false,
     attachComments: false,
     ...options,
@@ -60,11 +59,7 @@ function parseJs(text, options) {
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
-    (sourceType) => () =>
-      parseWithOptions(text, {
-        sourceType: sourceType === "commonjs" ? "script" : sourceType,
-        lang: "jsx",
-      }),
+    (sourceType) => () => parseWithOptions(text, { sourceType, lang: "jsx" }),
   );
 
   let result;
@@ -115,11 +110,7 @@ function parseTs(text, options) {
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).flatMap((sourceType) =>
     languageCombinations.map(
-      (lang) => () =>
-        parseWithOptions(text, {
-          sourceType: sourceType === "commonjs" ? "script" : sourceType,
-          lang,
-        }),
+      (lang) => () => parseWithOptions(text, { sourceType, lang }),
     ),
   );
 
