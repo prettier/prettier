@@ -31,7 +31,6 @@ A formatter can be specified in your [Helix language configuration](https://docs
 
 For more details see the [Helix Formatter Configurations](https://github.com/helix-editor/helix/wiki/Formatter-Configurations#prettier) page.
 
-
 ## Sublime Text
 
 Sublime Text support is available through Package Control and the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
