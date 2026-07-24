@@ -13,7 +13,7 @@ test("htmlTagNames", () => {
     tagName,
     display: CSS_DISPLAY_TAGS[tagName] ?? CSS_DISPLAY_DEFAULT,
     whiteSpace: CSS_WHITE_SPACE_TAGS[tagName] ?? CSS_WHITE_SPACE_DEFAULT,
-    attributes: HTML_ELEMENT_ATTRIBUTES[tagName] ?? [],
+    attributes: HTML_ELEMENT_ATTRIBUTES.get(tagName) ?? [],
   }));
 
   expect(data).toMatchSnapshot();
