@@ -8,25 +8,31 @@ parsers: ["html"]
 <div
   CLASS="should print as lowercase"
   UNKNOWN="should print as uppercase"
->Tag with attributes</div>
+>
+  Tag with attributes
+</div>
 <span
   CLASS="should print as lowercase"
   UNKNOWN="should print as uppercase"
->Tag without attributes</span>
+>
+  Tag without attributes
+</span>
 <unknown
   CLASS="should print as uppercase"
   UNKNOWN="should print as uppercase"
->Non-html element</unknown>
+>
+  Non-html element
+</unknown>
 =====================================output=====================================
 <div class="should print as lowercase" UNKNOWN="should print as uppercase">
   Tag with attributes
 </div>
-<span class="should print as lowercase" UNKNOWN="should print as uppercase"
-  >Tag without attributes</span
->
-<unknown CLASS="should print as uppercase" UNKNOWN="should print as uppercase"
-  >Non-html element</unknown
->
+<span class="should print as lowercase" UNKNOWN="should print as uppercase">
+  Tag without attributes
+</span>
+<unknown CLASS="should print as uppercase" UNKNOWN="should print as uppercase">
+  Non-html element
+</unknown>
 
 ================================================================================
 `;

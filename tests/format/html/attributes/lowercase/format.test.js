@@ -17,15 +17,21 @@ runFormatTest(
         <${tagWithAttribute}
           CLASS="should print as lowercase"
           UNKNOWN="should print as uppercase"
-        >Tag with attributes</${tagWithAttribute}>
+        >
+          Tag with attributes
+        </${tagWithAttribute}>
         <${tagWithoutAttribute}
           CLASS="should print as lowercase"
           UNKNOWN="should print as uppercase"
-        >Tag without attributes</${tagWithoutAttribute}>
+        >
+          Tag without attributes
+        </${tagWithoutAttribute}>
         <unknown
           CLASS="should print as uppercase"
           UNKNOWN="should print as uppercase"
-        >Non-html element</unknown>
+        >
+          Non-html element
+        </unknown>
       `,
     ],
   },
