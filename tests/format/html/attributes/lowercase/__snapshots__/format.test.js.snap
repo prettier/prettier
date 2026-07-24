@@ -5,13 +5,13 @@ exports[`snippet: #0 format 1`] = `
 parsers: ["html"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-
-        <div CLASS="should print as lowercase">Tag with attributes</div>
-        <span CLASS="should print as lowercase">Tag without attributes</span>
-      
+<div CLASS="should print as lowercase">Tag with attributes</div>
+<span CLASS="should print as lowercase">Tag without attributes</span>
+<unknown CLASS="should print as uppercase">Non-html element</unknown>
 =====================================output=====================================
 <div class="should print as lowercase">Tag with attributes</div>
 <span class="should print as lowercase">Tag without attributes</span>
+<unknown CLASS="should print as uppercase">Non-html element</unknown>
 
 ================================================================================
 `;

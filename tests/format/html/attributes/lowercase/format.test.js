@@ -1,5 +1,6 @@
 import { elementAttributes } from "@prettier/html-attributes";
 import { htmlTags } from "@prettier/html-tags";
+import { outdent } from "outdent";
 
 const tagWithAttribute = elementAttributes.div
   ? "div"
@@ -12,9 +13,10 @@ runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
-      /* Indent */ `
+      outdent`
         <${tagWithAttribute} CLASS="should print as lowercase">Tag with attributes</${tagWithAttribute}>
         <${tagWithoutAttribute} CLASS="should print as lowercase">Tag without attributes</${tagWithoutAttribute}>
+        <unknown CLASS="should print as uppercase">Non-html element</unknown>
       `,
     ],
   },
