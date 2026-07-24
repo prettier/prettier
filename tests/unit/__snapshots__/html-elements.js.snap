@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`Global attributes 1`] = `
+[
+  "accesskey",
+  "autocapitalize",
+  "autocorrect",
+  "autofocus",
+  "class",
+  "contenteditable",
+  "dir",
+  "draggable",
+  "enterkeyhint",
+  "exportparts",
+  "headingoffset",
+  "headingreset",
+  "hidden",
+  "id",
+  "inert",
+  "inputmode",
+  "is",
+  "itemid",
+  "itemprop",
+  "itemref",
+  "itemscope",
+  "itemtype",
+  "lang",
+  "nonce",
+  "part",
+  "popover",
+  "slot",
+  "spellcheck",
+  "style",
+  "tabindex",
+  "title",
+  "translate",
+  "writingsuggestions",
+]
+`;
+
 exports[`htmlTagNames 1`] = `
 [
   {
