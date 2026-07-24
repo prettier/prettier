@@ -1,5 +1,10 @@
-// Dev version
-const minimalVersion = 22;
+import { PRODUCTION_MINIMAL_NODE_JS_VERSION } from "../../../scripts/utilities/index.js";
+
+const minimalVersion =
+  process.env.NODE_ENV === "production"
+    ? Number(PRODUCTION_MINIMAL_NODE_JS_VERSION)
+    : // Dev version
+      22;
 
 describe("Check Node.js version", () => {
   for (const version of [
