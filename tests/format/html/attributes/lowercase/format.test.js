@@ -16,19 +16,19 @@ runFormatTest(
       outdent`
         <${tagWithAttribute}
           CLASS="should print as lowercase"
-          UNKNOWN="should print as uppercase"
+          UNKNOWN="should print as UPPERCASE"
         >
           Tag with attributes
         </${tagWithAttribute}>
         <${tagWithoutAttribute}
           CLASS="should print as lowercase"
-          UNKNOWN="should print as uppercase"
+          UNKNOWN="should print as UPPERCASE"
         >
           Tag without attributes
         </${tagWithoutAttribute}>
         <unknown
-          CLASS="should print as uppercase"
-          UNKNOWN="should print as uppercase"
+          CLASS="should print as UPPERCASE"
+          UNKNOWN="should print as UPPERCASE"
         >
           Non-html element
         </unknown>

@@ -7,30 +7,30 @@ parsers: ["html"]
 =====================================input======================================
 <div
   CLASS="should print as lowercase"
-  UNKNOWN="should print as uppercase"
+  UNKNOWN="should print as UPPERCASE"
 >
   Tag with attributes
 </div>
 <span
   CLASS="should print as lowercase"
-  UNKNOWN="should print as uppercase"
+  UNKNOWN="should print as UPPERCASE"
 >
   Tag without attributes
 </span>
 <unknown
-  CLASS="should print as uppercase"
-  UNKNOWN="should print as uppercase"
+  CLASS="should print as UPPERCASE"
+  UNKNOWN="should print as UPPERCASE"
 >
   Non-html element
 </unknown>
 =====================================output=====================================
-<div class="should print as lowercase" UNKNOWN="should print as uppercase">
+<div class="should print as lowercase" UNKNOWN="should print as UPPERCASE">
   Tag with attributes
 </div>
-<span class="should print as lowercase" UNKNOWN="should print as uppercase">
+<span class="should print as lowercase" UNKNOWN="should print as UPPERCASE">
   Tag without attributes
 </span>
-<unknown CLASS="should print as uppercase" UNKNOWN="should print as uppercase">
+<unknown CLASS="should print as UPPERCASE" UNKNOWN="should print as UPPERCASE">
   Non-html element
 </unknown>
 
