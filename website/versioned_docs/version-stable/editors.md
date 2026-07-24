@@ -29,7 +29,7 @@ For more details see [the Vim setup guide](vim.md).
 
 A formatter can be specified in your [Helix language configuration](https://docs.helix-editor.com/languages.html#language-configuration), which will take precedence over any language servers.
 
-For more details see the [Helix external binary formatter configuration for Prettier](https://github.com/helix-editor/helix/wiki/External-formatter-configuration#prettier).
+For more details see the [Helix Formatter Configurations](https://github.com/helix-editor/helix/wiki/Formatter-Configurations#prettier) page.
 
 ## Sublime Text
 

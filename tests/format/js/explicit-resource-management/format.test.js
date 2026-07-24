@@ -43,7 +43,8 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-expr-using-in.js",
     ],
     typescript: [
-      // TypeScript does not support module expr
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
@@ -60,26 +61,9 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-module-block-top-level-await-using-binding.js",
     ],
     meriyah: [
-      "for-await-using-of-comments.js",
-      "invalid-duplicate-using-bindings.js",
-      "invalid-script-top-level-using-binding.js",
-      "using-declarations.js",
-      // "valid-for-await-using-binding-escaped-of-of.js",
-      // "valid-for-using-binding-escaped-of-of.js",
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
-      "valid-using-binding-basic.js",
-      "valid-using-binding-escaped.js",
-      "valid-using-binding-non-bmp.js",
-      "valid-using-binding-using.js",
-
-      "valid-await-using-binding-basic.js",
-      "valid-await-using-binding-escaped.js",
-      "valid-await-using-binding-non-bmp.js",
-      "valid-await-using-binding-using.js",
-      "valid-await-using-comments.js",
-      "valid-for-lhs-await-as-identifier.js",
-      "valid-for-using-binding-of-of.js",
-      "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
     oxc: [
@@ -89,6 +73,18 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-module-block-top-level-await-using-binding.js",
     ],
     "oxc-ts": [
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
+      "valid-module-block-top-level-using-binding.js",
+      "valid-module-block-top-level-await-using-binding.js",
+    ],
+    yuku: [
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
+      "valid-module-block-top-level-using-binding.js",
+      "valid-module-block-top-level-await-using-binding.js",
+    ],
+    "yuku-ts": [
       // "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",

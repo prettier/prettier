@@ -10,7 +10,6 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    "js/comments/tagged-template-literal.js",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -85,10 +84,11 @@ const disabledTests = new Map(
       "typescript/module/module_nested.ts",
       "typescript/custom/stability/moduleBlock.ts",
       "typescript/interface2/module.ts",
-      "typescript/typescript-only/",
     ],
     oxc: [],
-    "oxc-ts": ["typescript/typescript-only/"],
+    "oxc-ts": [],
+    yuku: ["js/await/await-with-parens.js"],
+    "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
       ...commentClosureTypecaseTests,
 
@@ -98,10 +98,12 @@ const disabledTests = new Map(
 
       // Different result
       "flow/hook/comments-before-arrow.js",
+      "js/await/like-call.js",
     ],
     flow: [
-      // Parsing to different ASTs
-      "js/decorators/member-expression.js",
+      "js/decorators/member-expression.js", // Parsing to different ASTs
+      "js/await/await-with-parens.js",
+      "js/await/like-call.js",
     ],
     typescript: [
       // https://github.com/typescript-eslint/typescript-eslint/issues/11389

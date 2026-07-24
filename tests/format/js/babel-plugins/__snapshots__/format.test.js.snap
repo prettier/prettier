@@ -46,6 +46,13 @@ exports[`async-do-expressions.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`async-do-expressions.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
+> 1 | async do { await requestAPI().json() };
+    |       ^^
+  2 |"
+`;
+
 exports[`async-generators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -681,6 +688,17 @@ exports[`destructuring-private.js format[oxc] 1`] = `
   8 |   equals({ #x: otherX }) {"
 `;
 
+exports[`destructuring-private.js format[yuku] 1`] = `
+"Unexpected token '#x' as property key (5:13)
+  3 |   constructor() {
+  4 |     console.log(this.#x); // => 1
+> 5 |     const { #x: x } = this;
+    |             ^^
+  6 |     console.log(x); // => 1
+  7 |   }
+  8 |   equals({ #x: otherX }) {"
+`;
+
 exports[`discard-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -722,6 +740,13 @@ exports[`discard-binding.js format[oxc] 1`] = `
 "Identifier expected. 'void' is a reserved word that cannot be used here. (1:11)
 > 1 | const [a, void] = iter;
     |           ^^^^
+  2 |"
+`;
+
+exports[`discard-binding.js format[yuku] 1`] = `
+"Unexpected token ']' (1:15)
+> 1 | const [a, void] = iter;
+    |               ^
   2 |"
 `;
 
@@ -805,6 +830,17 @@ exports[`do-expressions.js format[oxc] 1`] = `
   6 |   } else {"
 `;
 
+exports[`do-expressions.js format[yuku] 1`] = `
+"'do' is reserved and cannot be used as an identifier (3:9)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
+  2 |
+> 3 | let a = do {
+    |         ^^
+  4 |   if(x > 10) {
+  5 |     'big';
+  6 |   } else {"
+`;
+
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -867,17 +903,6 @@ function* g() {
 ================================================================================
 `;
 
-exports[`explicit-resource-management.js format[meriyah] 1`] = `
-"Unexpected token: 'identifier' (2:9)
-  1 | function * g() {
-> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
-    |         ^^^^^^
-  3 | } // cleanup
-  4 |
-  5 | {
-Cause: [2:8-2:14]: Unexpected token: 'identifier'"
-`;
-
 exports[`export-default-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -928,6 +953,15 @@ Cause: [4:7-4:8]: Unexpected token: 'identifier'"
 
 exports[`export-default-from.js format[oxc] 1`] = `
 "Unexpected token (4:8)
+  2 |
+  3 |
+> 4 | export v from 'mod';
+    |        ^
+  5 |"
+`;
+
+exports[`export-default-from.js format[yuku] 1`] = `
+"Expected declaration after 'export', but found 'v' (4:8)
   2 |
   3 |
 > 4 | export v from 'mod';
@@ -1028,6 +1062,15 @@ exports[`flow.js format[oxc] 1`] = `
   4 |"
 `;
 
+exports[`flow.js format[yuku] 1`] = `
+"Expected ')' to close parameter list, but found ':' (3:17)
+  1 | // https://babeljs.io/docs/babel-preset-flow
+  2 |
+> 3 | function foo(one: any, two: number, three?): string {}
+    |                 ^
+  4 |"
+`;
+
 exports[`function-bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1119,6 +1162,17 @@ exports[`function-bind.js format[oxc] 1`] = `
   6 |"
 `;
 
+exports[`function-bind.js format[yuku] 1`] = `
+"Unexpected token ':' (3:5)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
+  2 |
+> 3 | obj::func
+    |     ^
+  4 | // is equivalent to:
+  5 | func.bind(obj)
+  6 |"
+`;
+
 exports[`function-sent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1188,6 +1242,17 @@ Cause: [4:32-4:33]: Expected '('"
 
 exports[`function-sent.js format[oxc] 1`] = `
 "Expected \`(\` but found \`.\` (4:33)
+  2 |
+  3 | function* generator() {
+> 4 |     console.log("Sent", function.sent);
+    |                                 ^
+  5 |     console.log("Yield", yield);
+  6 | }
+  7 |"
+`;
+
+exports[`function-sent.js format[yuku] 1`] = `
+"Expected '(' to start parameter list, but found '.' (4:33)
   2 |
   3 | function* generator() {
 > 4 |     console.log("Sent", function.sent);
@@ -1386,6 +1451,15 @@ exports[`module-blocks.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:15)
 > 1 | let m = module {
     |               ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
+`;
+
+exports[`module-blocks.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:16)
+> 1 | let m = module {
+    |                ^
   2 |   export let m = 2;
   3 |   export let n = 3;
   4 | };"
@@ -1754,6 +1828,13 @@ exports[`optional-chaining-assignment.js format[oxc] 1`] = `
   2 |"
 `;
 
+exports[`optional-chaining-assignment.js format[yuku] 1`] = `
+"Optional chaining is not allowed in assignment pattern (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^^^^^^^^^^^^^^^^
+  2 |"
+`;
+
 exports[`partial-application.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1845,6 +1926,17 @@ Cause: [5:22-5:23]: Unexpected token: '?'"
 
 exports[`partial-application.js format[oxc] 1`] = `
 "Unexpected token (5:23)
+  3 | function add(x, y) { return x + y; }
+  4 |
+> 5 | const addOne = add(1, ?); // apply from the left
+    |                       ^
+  6 | addOne(2); // 3
+  7 |
+  8 | const addTen = add(?, 10); // apply from the right"
+`;
+
+exports[`partial-application.js format[yuku] 1`] = `
+"Unexpected token '?' (5:23)
   3 | function add(x, y) { return x + y; }
   4 |
 > 5 | const addOne = add(1, ?); // apply from the left
@@ -1975,6 +2067,17 @@ exports[`pipeline-operator-fsharp.js format[oxc] 1`] = `
   8 |   |> x => x + '!'"
 `;
 
+exports[`pipeline-operator-fsharp.js format[yuku] 1`] = `
+"Unexpected token '>' (5:4)
+  3 |
+  4 | promise
+> 5 |   |> await
+    |    ^
+  6 |   |> x => doubleSay(x, ', ')
+  7 |   |> capitalize
+  8 |   |> x => x + '!'"
+`;
+
 exports[`pipeline-operator-hack.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -2038,6 +2141,17 @@ Cause: [5:2-5:3]: Unexpected token: '>'"
 
 exports[`pipeline-operator-hack.cjs format[oxc] 1`] = `
 "Unexpected token (5:3)
+  3 |
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
+`;
+
+exports[`pipeline-operator-hack.cjs format[yuku] 1`] = `
+"Unexpected token '>' (5:3)
   3 |
   4 | return list
 > 5 |  |> take(prefix.length, %)
@@ -2117,6 +2231,17 @@ Cause: [8:3-8:4]: Unexpected token: '>'"
 
 exports[`pipeline-operator-minimal.js format[oxc] 1`] = `
 "Unexpected token (8:4)
+   6 |
+   7 | let result = "hello"
+>  8 |   |> doubleSay
+     |    ^
+   9 |   |> capitalize
+  10 |   |> exclaim;
+  11 |"
+`;
+
+exports[`pipeline-operator-minimal.js format[yuku] 1`] = `
+"Unexpected token '>' (8:4)
    6 |
    7 | let result = "hello"
 >  8 |   |> doubleSay
@@ -2433,6 +2558,17 @@ exports[`throw-expressions.js format[oxc] 1`] = `
   6 |"
 `;
 
+exports[`throw-expressions.js format[yuku] 1`] = `
+"'throw' is reserved and cannot be used as an identifier (3:23)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
+  2 |
+> 3 | function test(param = throw new Error('required!')) {
+    |                       ^^^^^
+  4 |   const test = param === true || throw new Error('Falsy!');
+  5 | }
+  6 |"
+`;
+
 exports[`typescript.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -2502,6 +2638,15 @@ Cause: [3:7-3:8]: Missing initializer in const declaration"
 
 exports[`typescript.js format[oxc] 1`] = `
 "Missing initializer in const declaration (3:7)
+  1 | // https://babeljs.io/docs/babel-preset-typescript
+  2 |
+> 3 | const x: number = 0;
+    |       ^
+  4 |"
+`;
+
+exports[`typescript.js format[yuku] 1`] = `
+"'const' declarations must be initialized (3:7)
   1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
@@ -2607,6 +2752,17 @@ Cause: [3:0-3:1]: Unexpected token: '%'"
 
 exports[`v8intrinsic.js format[oxc] 1`] = `
 "Unexpected token (3:1)
+  1 | // https://github.com/babel/babel/pull/10148
+  2 |
+> 3 | %DebugPrint(foo);
+    | ^
+  4 |
+  5 |
+  6 | // Invalid code https://github.com/JLHwung/babel/blob/c1a3cbfd65e08b7013fd6f8c62add8cb10b4b169/packages/babel-parser/test/fixtures/v8intrinsic/_errors/in-bind-expression/options.json"
+`;
+
+exports[`v8intrinsic.js format[yuku] 1`] = `
+"Unexpected token '%' (3:1)
   1 | // https://github.com/babel/babel/pull/10148
   2 |
 > 3 | %DebugPrint(foo);

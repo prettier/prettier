@@ -1,16 +1,13 @@
 import {
   breakParent,
-  dedent,
   group,
   hardline,
-  ifBreak,
   indent,
   join,
   line,
   lineSuffix,
   lineSuffixBoundary,
   literallineWithoutBreakParent,
-  removeLines,
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
@@ -23,6 +20,7 @@ import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
+import { printCssDeclaration } from "./print/css-declaration.js";
 import {
   adjustNumbers,
   adjustStrings,
@@ -30,25 +28,18 @@ import {
   printUnit,
   quoteAttributeValue,
 } from "./print/misc.js";
-import {
-  printParenthesizedValueGroup,
-  shouldBreakList,
-} from "./print/parenthesized-value-group.js";
+import { printParenthesizedValueGroup } from "./print/parenthesized-value-group.js";
 import printSequence from "./print/sequence.js";
 import {
-  hasComposesNode,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideIcssRuleNode,
   insideValueFunctionNode,
-  isAtWordPlaceholderNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
   isMediaAndSupportsKeywords,
   isSCSSControlDirectiveNode,
   isTemplatePlaceholderNode,
-  isTemplatePropNode,
   isWideKeywords,
   lastLineHasInlineComment,
   maybeToLowerCase,
@@ -108,88 +99,9 @@ function genericPrint(path, options, print) {
           : ";",
       ];
 
-    case "css-decl": {
-      const parentNode = path.parent;
+    case "css-decl":
+      return printCssDeclaration(path, options, print);
 
-      const { between: rawBetween } = node.raws;
-      const trimmedBetween = rawBetween.trim();
-      const isColon = trimmedBetween === ":";
-      const hasSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
-      const isValueAllSpace =
-        typeof node.value === "string" && /^ *$/.test(node.value);
-      let value = typeof node.value === "string" ? node.value : print("value");
-
-      value = hasComposesNode(node) ? removeLines(value) : value;
-
-      if (
-        !isColon &&
-        lastLineHasInlineComment(trimmedBetween) &&
-        !path.call(() => shouldBreakList(path), "value", "group", "group")
-      ) {
-        value = indent([hardline, dedent(value)]);
-      }
-
-      return [
-        node.raws.before.replaceAll(/[\s;]/g, ""),
-        // Less variable
-        (parentNode.type === "css-atrule" && parentNode.variable) ||
-        insideIcssRuleNode(path)
-          ? node.prop
-          : maybeToLowerCase(node.prop),
-        trimmedBetween.startsWith("//") ? " " : "",
-        trimmedBetween,
-        node.extend ||
-        isValueAllSpace ||
-        (!hasSpaceAfterColon &&
-          node.isNested &&
-          (isAtWordPlaceholderNode(node.value.group.group) ||
-            isAtWordPlaceholderNode(node.value.group.group.groups?.[0])))
-          ? ""
-          : " ",
-        options.parser === "less" && node.extend && node.selector
-          ? node.selector.nodes.length > 1
-            ? group([
-                "extend(",
-                indent([softline, print("selector")]),
-                softline,
-                ")",
-              ])
-            : ["extend(", print("selector"), ")"]
-          : "",
-        value,
-        node.raws.important
-          ? node.raws.important.replace(/\s*!\s*important/i, " !important")
-          : node.important
-            ? " !important"
-            : "",
-        node.raws.scssDefault
-          ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
-          : node.scssDefault
-            ? " !default"
-            : "",
-        node.raws.scssGlobal
-          ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
-          : node.scssGlobal
-            ? " !global"
-            : "",
-        node.nodes
-          ? [
-              " {",
-              node.nodes.length > 0
-                ? indent([softline, printSequence(path, options, print)])
-                : "",
-              softline,
-              "}",
-            ]
-          : isTemplatePropNode(node) &&
-              !parentNode.raws.semicolon &&
-              options.originalText[locEnd(node) - 1] !== ";"
-            ? ""
-            : options.__isHTMLStyleAttribute && path.isLast
-              ? ifBreak(";")
-              : ";",
-      ];
-    }
     case "css-atrule": {
       const parentNode = path.parent;
       const isTemplatePlaceholderNodeWithoutSemiColon =
@@ -447,7 +359,7 @@ function genericPrint(path, options, print) {
         return [leading, node.value, path.isLast ? "" : " "];
       }
 
-      const leading = node.value.trim().startsWith("(") ? line : "";
+      const leading = node.value.trimStart().startsWith("(") ? line : "";
       const value =
         adjustNumbers(adjustStrings(node.value.trim(), options)) || line;
 

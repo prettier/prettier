@@ -4,6 +4,8 @@ const errors = {
   meriyah: true,
   oxc: true,
   "oxc-ts": true,
+  yuku: true,
+  "yuku-ts": true,
 };
 
 runFormatTest(import.meta, ["babel"], { errors });

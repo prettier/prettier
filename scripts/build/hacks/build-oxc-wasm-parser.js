@@ -40,7 +40,7 @@ async function install(version) {
 }
 
 const wasmUrlPattern =
-  /const __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
+  /const __wasmUrl = new URL\("(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
 async function buildEntry(directory) {
   const packageDirectory = new URL(
     "./node_modules/@oxc-parser/binding-wasm32-wasi/",
@@ -70,15 +70,14 @@ async function buildEntry(directory) {
     ${text.slice(moduleEnd)}
   `;
 
-  const { wasmFile } = text.match(wasmUrlPattern).groups;
+  const { wasmUrl } = text.match(wasmUrlPattern).groups;
+  const wasmFile = new URL(wasmUrl, entryFile);
 
-  const wasmBase64String = await fs.readFile(
-    new URL(wasmFile, entryFile),
-    "base64",
-  );
+  const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
+
     const __base64ToArrayBuffer = Uint8Array.fromBase64
       ? (string) => Uint8Array.fromBase64(string).buffer
       : __decode;
@@ -89,7 +88,11 @@ async function buildEntry(directory) {
   text = text.replace(wasmUrlPattern, "");
   text = text.replace(
     "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
-    `/* "${wasmFile}" */ __base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
+    outdent`
+      __base64ToArrayBuffer(
+        /* "${wasmUrl}" */ ${JSON.stringify(wasmBase64String)}
+      )
+    `,
   );
 
   text = text.replaceAll(

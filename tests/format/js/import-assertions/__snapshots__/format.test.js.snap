@@ -2,7 +2,7 @@
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { assert: { type: "json" } });
@@ -15,7 +15,7 @@ import("./foo.json", { assert: { type: "json" } });
 
 exports[`empty.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export * as foo from "foo.json"
@@ -63,7 +63,7 @@ export * as bar from "bar.json" assert { }
 
 exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import "./test.json" /* with */ assert /* with */  { type: "json" }
@@ -108,7 +108,7 @@ import "./test.json" /* with */ assert /* with */  { type: "json" }
 
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json", type: "bar" };
@@ -139,7 +139,7 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
 
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import foo from "foo.json" assert { lazy: "true" };
@@ -170,7 +170,7 @@ import foo from "foo.json" assert { lazy: "true" };
 
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import "x"
@@ -185,7 +185,7 @@ assert({ type: "json" });
 
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export { default as foo2 } from "foo.json" assert { type: "json" };
@@ -224,7 +224,7 @@ export { default as foo2 } from "foo.json" assert { type: "json" };
 
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json" };
@@ -255,7 +255,7 @@ import json from "./foo.json" assert { type: "json" };
 
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["oxc", "typescript", "hermes"]
+parsers: ["oxc", "yuku", "typescript", "hermes"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import "foo" assert { type: "json" }

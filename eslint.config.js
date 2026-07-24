@@ -348,8 +348,10 @@ const configs = [
       ],
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
+      "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-simplified-conditions": "off",
       "unicorn/prefer-ternary": "off",
+      "unicorn/prefer-then-catch": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/relative-url-style": "off",
       "unicorn/require-array-sort-compare": "off",
@@ -515,6 +517,7 @@ const configs = [
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
         "src/language-js/parse/oxc.js",
+        "src/language-js/parse/yuku.js",
         "src/language-js/parse/utilities/wrap-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
@@ -561,6 +564,8 @@ const configs = [
     rules: {
       "no-var": "off",
       "prefer-arrow-callback": "off",
+      "object-shorthand": "off",
+      "no-console": "off",
     },
   },
   {

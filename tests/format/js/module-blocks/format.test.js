@@ -4,6 +4,8 @@ const errors = {
   meriyah: ["module-blocks.js", "range.js", "comments.js"],
   oxc: ["module-blocks.js", "range.js", "comments.js"],
   "oxc-ts": ["module-blocks.js", "range.js", "comments.js"],
+  yuku: ["module-blocks.js", "range.js", "comments.js"],
+  "yuku-ts": ["module-blocks.js", "range.js", "comments.js"],
 };
 
 runFormatTest(import.meta, ["babel"], { errors });

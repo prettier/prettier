@@ -1,7 +1,7 @@
 /** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
-import { replaceEndOfLine } from "../../document/index.js";
+import { group, replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
@@ -261,13 +261,15 @@ function printFlow(path, options, print, args) {
       }
 
       return [
-        modifier,
-        node.kind !== "init" ? node.kind + " " : "",
-        node.variance ? print("variance") : "",
-        printKey(path, options, print),
-        printOptionalToken(path),
-        isMethod(node) ? "" : ": ",
-        print("value"),
+        group([
+          modifier,
+          node.kind !== "init" ? node.kind + " " : "",
+          node.variance ? print("variance") : "",
+          printKey(path, options, print),
+          printOptionalToken(path),
+          isMethod(node) ? "" : ": ",
+          print("value"),
+        ]),
         printClassMemberSemicolon(path, options),
       ];
     }

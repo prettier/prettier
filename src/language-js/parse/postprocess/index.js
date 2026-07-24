@@ -45,12 +45,20 @@ const isNodeWithRaw = createTypeCheckFunction([
 /**
 @param {{
   text: string,
-  astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
+  astType?:
+    | "espree"
+    | "flow"
+    | "hermes"
+    | "meriyah"
+    | "oxc-js"
+    | "oxc-ts"
+    | "yuku-js"
+    | "yuku-ts"
+    | "typescript"
 }} options
 */
 function postprocess(ast, options) {
   const { text, astType } = options;
-  const isOxcTs = astType === "oxc-ts";
   const { comments } = ast;
 
   mergeNestledJsdocComments(comments);
@@ -65,7 +73,11 @@ function postprocess(ast, options) {
   }
 
   if (ast.hashbang) {
-    if (isOxcTs) {
+    if (
+      astType === "oxc-ts" ||
+      astType === "yuku-js" ||
+      astType === "yuku-ts"
+    ) {
       comments.unshift(ast.hashbang);
     }
     delete ast.hashbang;
@@ -96,7 +108,7 @@ function postprocess(ast, options) {
           }
 
           let shouldKeepParenthesizedExpression = false;
-          if (!isOxcTs) {
+          if (astType !== "oxc-ts") {
             if (!typeCastCommentsEnds) {
               typeCastCommentsEnds = [];
 
@@ -142,7 +154,8 @@ function postprocess(ast, options) {
             astType === "hermes" ||
             astType === "espree" ||
             astType === "typescript" ||
-            isOxcTs
+            astType === "oxc-ts" ||
+            astType === "yuku-ts"
           ) {
             const start = locStart(node) + 1;
             const end = locEnd(node) - (node.tail ? 1 : 2);
