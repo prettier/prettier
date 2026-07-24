@@ -19,6 +19,7 @@ const replaceAll = (text, find, replacement) =>
   text.replaceAll
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
+const originalNodeVersion = process.versions.node;
 
 async function getApiMockable() {
   const prettier = await import(url.pathToFileURL(prettierMainEntry));
@@ -86,13 +87,19 @@ async function mockImplementations(options) {
   });
 }
 
+let nodeVersionMocked = false;
 async function run(options) {
   await mockImplementations(options);
 
-  if (options.mockNodeVersion) {
+  if (!nodeVersionMocked) {
+    nodeVersionMocked = true;
     Object.defineProperty(process.versions, "node", {
-      ...Object.getOwnPropertyDescriptor(process.versions, "node"),
-      value: options.mockNodeVersion,
+      get value() {
+        return options.mockNodeVersion || originalNodeVersion;
+      },
+      writable: false,
+      enumerable: true,
+      configurable: true,
     });
   }
 
