@@ -105,11 +105,7 @@ const disabledTests = new Map(
       "js/await/await-with-parens.js",
       "js/await/like-call.js",
     ],
-    typescript: [
-      // https://github.com/typescript-eslint/typescript-eslint/issues/11389
-      "js/import/long-module-name/import-defer.js",
-      "js/import/long-module-name/import-source.js",
-    ],
+    typescript: [],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646
       "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",
