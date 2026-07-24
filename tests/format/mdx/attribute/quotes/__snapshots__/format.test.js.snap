@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quotes.mdx - {"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<C a="plain" />
+
+<C a='say "hi"' />
+
+<C a="it's" />
+
+<C a='both " and &#39; here' />
+
+<C a='both " and &apos; here' />
+
+<C a="&lt;x&gt;" />
+
+<C a="&amp;lt;" />
+
+<C bare expr={1} />
+
+=====================================output=====================================
+<C a='plain' />
+
+<C a='say "hi"' />
+
+<C a="it's" />
+
+<C a='both " and &#39; here' />
+
+<C a='both " and &apos; here' />
+
+<C a='&lt;x&gt;' />
+
+<C a='&amp;lt;' />
+
+<C bare expr={1} />
+
+================================================================================
+`;
+
+exports[`quotes.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<C a="plain" />
+
+<C a='say "hi"' />
+
+<C a="it's" />
+
+<C a='both " and &#39; here' />
+
+<C a='both " and &apos; here' />
+
+<C a="&lt;x&gt;" />
+
+<C a="&amp;lt;" />
+
+<C bare expr={1} />
+
+=====================================output=====================================
+<C a="plain" />
+
+<C a='say "hi"' />
+
+<C a="it's" />
+
+<C a='both " and &#39; here' />
+
+<C a="both &quot; and ' here" />
+
+<C a="&lt;x&gt;" />
+
+<C a="&amp;lt;" />
+
+<C bare expr={1} />
+
+================================================================================
+`;
