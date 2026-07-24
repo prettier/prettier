@@ -8147,15 +8147,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"please-upgrade-node@npm:3.2.0":
-  version: 3.2.0
-  resolution: "please-upgrade-node@npm:3.2.0"
-  dependencies:
-    semver-compare: "npm:^1.0.0"
-  checksum: 10/d87c41581a2a022fbe25965a97006238cd9b8cbbf49b39f78d262548149a9d30bd2bdf35fec3d810e0001e630cd46ef13c7e19c389dea8de7e64db271a2381bb
-  languageName: node
-  linkType: hard
-
 "pluralize@npm:^8.0.0":
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
@@ -8362,7 +8353,6 @@ __metadata:
     oxc-parser: "npm:0.141.0"
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
-    please-upgrade-node: "npm:3.2.0"
     postcss: "npm:8.5.22"
     postcss-less: "npm:6.0.0"
     postcss-media-query-parser: "npm:0.2.3"
@@ -8730,13 +8720,6 @@ __metadata:
     find-in-directory: "npm:^5.0.2"
     iterate-directory-up: "npm:^1.5.2"
   checksum: 10/a8a3bc5671f87453c38fe976c73ae51cb6e3c79526ee56802bb6d2a32e25d3a8444ee24df3d6671a9be30cf031e006bc60e8c2bca392018473fe3aef3f56c3bd
-  languageName: node
-  linkType: hard
-
-"semver-compare@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "semver-compare@npm:1.0.0"
-  checksum: 10/75f9c7a7786d1756f64b1429017746721e07bd7691bdad6368f7643885d3a98a27586777e9699456564f4844b407e9f186cc1d588a3f9c0be71310e517e942c3
   languageName: node
   linkType: hard
 

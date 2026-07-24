@@ -8,29 +8,67 @@ if (typeof nodeModule.enableCompileCache === "function") {
   nodeModule.enableCompileCache();
 }
 
-var pleaseUpgradeNode = require("please-upgrade-node");
-var packageJson = require("../package.json");
+function parseVersion(version) {
+  var parts = version.split(".", 3);
+  return {
+    major: Number(parts[0]),
+    minor: Number(parts[1]) || 0,
+    patch: Number(parts[2]) || 0
+  };
+}
 
-pleaseUpgradeNode(packageJson);
+function isVersionSatisfies(version, required) {
+  required = parseVersion(required);
+  version = parseVersion(version);
 
-var dynamicImport = new Function("module", "return import(module)");
+  return (
+    version.major > required.major ||
+    (version.major === required.major && version.minor > required.minor) ||
+    (version.major === required.major &&
+      version.minor === required.minor &&
+      version.patch >= required.patch)
+  );
+}
 
-var promise;
-var index = process.argv.indexOf("--experimental-cli");
-if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
+function shouldEnableExperimentalCli() {
+  var index = process.argv.indexOf("--experimental-cli");
+
   if (index !== -1) {
     process.argv.splice(index, 1);
   }
-  promise = dynamicImport("../src/experimental-cli/index.js").then(
-    function (cli) {
-      return cli.__promise;
-    }
-  );
-} else {
-  promise = dynamicImport("../src/cli/index.js").then(function runCli(cli) {
+
+  return index !== -1 || process.env.PRETTIER_EXPERIMENTAL_CLI;
+}
+
+var requiredVersion = require("../package.json").engines.node.replace(">=", "");
+
+function run() {
+  // Based on `please-upgrade-node` package
+  if (!isVersionSatisfies(process.versions.node, requiredVersion)) {
+    var message =
+      "Prettier requires at least version " +
+      requiredVersion +
+      " of Node.js, please upgrade!";
+
+    process.exitCode = 1;
+    console.error(message);
+    return Promise.reject(new Error(message));
+  }
+
+  var dynamicImport = new Function("module", "return import(module)");
+
+  if (shouldEnableExperimentalCli()) {
+    return dynamicImport("../src/experimental-cli/index.js").then(
+      function (cli) {
+        return cli.__promise;
+      }
+    );
+  }
+
+  return dynamicImport("../src/cli/index.js").then(function runCli(cli) {
     return cli.run();
   });
 }
 
 // Exposed for test
-module.exports.__promise = promise;
+module.exports.__promise = run();

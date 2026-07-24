@@ -564,6 +564,8 @@ const configs = [
     rules: {
       "no-var": "off",
       "prefer-arrow-callback": "off",
+      "object-shorthand": "off",
+      "no-console": "off",
     },
   },
   {

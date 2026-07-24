@@ -237,7 +237,7 @@ jobs:
 
       - name: Run CLI on Node.js v0.10.48
         working-directory: dist/prettier
-        run: node bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+        run: node bin/prettier.cjs --version 2>&1 >/dev/null | grep "Prettier requires at least version 14 of Node.js, please upgrade!" || exit 1
 
   preview:
     if: github.repository == 'prettier/prettier'
