@@ -243,7 +243,7 @@ function normalizeName(node, parseOptions) {
             (lowerCasedAttrName) =>
               HTML_TAGS.has(node.name) &&
               (GLOBAL_ATTRIBUTES.has(lowerCasedAttrName) ||
-                ELEMENT_ATTRIBUTES.get(node.name).has(lowerCasedAttrName)),
+                ELEMENT_ATTRIBUTES.get(node.name)?.has(lowerCasedAttrName)),
           );
         }
       }
