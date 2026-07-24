@@ -3794,11 +3794,7 @@ function HelloWorld() {
 
 =====================================output=====================================
 /** @type {any} */
-const x = (
-  <div>
-    <div />
-  </div>
-)
+const x = <div><div /></div>
 
 ;/**
  * @type {object}
@@ -3857,11 +3853,7 @@ function HelloWorld() {
 
 =====================================output=====================================
 /** @type {any} */
-const x = (
-  <div>
-    <div />
-  </div>
-);
+const x = <div><div /></div>;
 
 /**
  * @type {object}
@@ -4338,10 +4330,7 @@ onClick={() => {}}>
   {children}
 </div>
 
-;<Wrapper>
-  {}
-  <Component />
-</Wrapper>
+;<Wrapper>{}<Component /></Wrapper>
 
 ================================================================================
 `;
@@ -4577,10 +4566,7 @@ onClick={() => {}}>
   {children}
 </div>;
 
-<Wrapper>
-  {}
-  <Component />
-</Wrapper>;
+<Wrapper>{}<Component /></Wrapper>;
 
 ================================================================================
 `;

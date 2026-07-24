@@ -106,13 +106,25 @@ function printJsxElementInternal(path, options, print) {
       .length > 1;
   const containsMultipleAttributes =
     node.type === "JSXElement" && node.openingElement.attributes.length > 1;
+  const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
+  // `fbt` elements have semantically significant whitespace and their own
+  // separator handling, so neither an `fbt` element nor anything inside one is
+  // ever kept flat.
+  const isInsideFacebookTranslation =
+    isFacebookTranslationTag ||
+    path.ancestors.some(
+      (ancestor) => ancestor.openingElement?.name?.name === "fbt",
+    );
+  const shouldKeepFlat =
+    !isInsideFacebookTranslation && shouldKeepTopLevelJsxFlat(path);
 
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak =
     willBreak(openingLines) ||
-    containsTag ||
-    containsMultipleAttributes ||
-    containsMultipleExpressions;
+    (!shouldKeepFlat &&
+      (containsTag ||
+        containsMultipleAttributes ||
+        containsMultipleExpressions));
 
   const isMdxBlock = path.parent.rootMarker === "mdx";
 
@@ -121,14 +133,13 @@ function printJsxElementInternal(path, options, print) {
     ? line
     : ifBreak([rawJsxWhitespace, softline], " ");
 
-  const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
-
   const children = printJsxChildren(
     path,
     options,
     print,
     whitespace,
     isFacebookTranslationTag,
+    shouldKeepFlat,
   );
 
   const containsText = node.children.some((child) =>
@@ -243,7 +254,7 @@ function printJsxElementInternal(path, options, print) {
       multilineChildren.push(child, "");
     }
 
-    if (willBreak(child)) {
+    if (!shouldKeepFlat && willBreak(child)) {
       forcedBreak = true;
     }
   }
@@ -293,6 +304,16 @@ function printJsxElementInternal(path, options, print) {
     return multiLineElem;
   }
 
+  // When keeping simple JSX flat, the children must not contain a forced
+  // break (e.g. a child that itself breaks, or a preserved blank line);
+  // otherwise the flat branch of `conditionalGroup` would print a half-broken
+  // result with the tags glued on. Fall back to the fully multiline form in
+  // that case. (Breaks originating from the opening/closing tags, such as
+  // comments, are handled by `conditionalGroup` as usual.)
+  if (shouldKeepFlat && willBreak(children)) {
+    return multiLineElem;
+  }
+
   return conditionalGroup([
     group([openingLines, ...children, closingLines]),
     multiLineElem,
@@ -314,6 +335,7 @@ function printJsxChildren(
   print,
   whitespace,
   isFacebookTranslationTag,
+  shouldKeepFlat,
 ) {
   /** @type {Doc} */
   let prevPart = "";
@@ -349,6 +371,7 @@ function printJsxChildren(
                 words[1],
                 node,
                 next,
+                shouldKeepFlat,
               ),
             );
           } else {
@@ -385,6 +408,7 @@ function printJsxChildren(
                 prevPart,
                 node,
                 next,
+                shouldKeepFlat,
               ),
             );
           } else {
@@ -397,6 +421,7 @@ function printJsxChildren(
               prevPart,
               node,
               next,
+              shouldKeepFlat,
             ),
           );
         }
@@ -424,10 +449,19 @@ function printJsxChildren(
             firstWord,
             node,
             next,
+            shouldKeepFlat,
           ),
         );
       } else {
-        pushLine(hardline);
+        // Between adjacent tags/expressions we normally force each onto its own
+        // line; when keeping the element flat we soften so it can collapse.
+        // A blank line in the source is kept, so it must stay hard to pair with
+        // the blank-line `hardline` emitted for the whitespace text that follows.
+        const nextIsBlankLine =
+          next?.type === "JSXText" &&
+          !isMeaningfulJsxText(next) &&
+          (getRaw(next).match(/\n/gu)?.length ?? 0) > 1;
+        pushLine(shouldKeepFlat && !nextIsBlankLine ? softline : hardline);
       }
     }
   }, "children");
@@ -435,11 +469,52 @@ function printJsxChildren(
   return parts;
 }
 
+const isJsxElementOrFragment = createTypeCheckFunction([
+  "JSXElement",
+  "JSXFragment",
+]);
+
+// Predicate chains (starting from the JSX value's parent) that identify JSX
+// used as the value of a statement-level binding. Keeping these forms
+// consistent is important: `<jsx>;`, `x = <jsx>;`, and `const x = <jsx>;`
+// should all format the same way.
+const statementLevelJsxParentChains = [
+  // <jsx>;
+  [(node) => node.type === "ExpressionStatement"],
+  // x = <jsx>;
+  [
+    (node, key) => key === "right" && node.type === "AssignmentExpression",
+    (node) => node.type === "ExpressionStatement",
+  ],
+  // const x = <jsx>;
+  [(node, key) => key === "init" && node.type === "VariableDeclarator"],
+];
+
+function shouldKeepTopLevelJsxFlat(path) {
+  const isTopLevelJsx = statementLevelJsxParentChains.some((chain) =>
+    path.match(undefined, ...chain),
+  );
+  // A JSX element that is a direct child of a top-level JSX element with mixed
+  // text content (e.g. `<b>` in `<a> {value} <b><c /></b></a>`) should also be
+  // kept flat, so the whole element can stay on one line when it fits.
+  const parentHasText = path.parent.children?.some((child) =>
+    isMeaningfulJsxText(child),
+  );
+  const isNestedInTopLevelJsx =
+    parentHasText &&
+    statementLevelJsxParentChains.some((chain) =>
+      path.match(undefined, isJsxElementOrFragment, ...chain),
+    );
+
+  return isTopLevelJsx || isNestedInTopLevelJsx;
+}
+
 function separatorNoWhitespace(
   isFacebookTranslationTag,
   child,
   childNode,
   nextNode,
+  shouldKeepFlat,
 ) {
   if (isFacebookTranslationTag) {
     return "";
@@ -449,7 +524,9 @@ function separatorNoWhitespace(
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
     (nextNode?.type === "JSXElement" && !nextNode.closingElement)
   ) {
-    return child.length === 1 ? softline : hardline;
+    // When keeping the element flat, never force a break here; the enclosing
+    // `conditionalGroup` decides whether the whole element fits on one line.
+    return child.length === 1 || shouldKeepFlat ? softline : hardline;
   }
 
   return softline;
@@ -460,9 +537,16 @@ function separatorWithWhitespace(
   child,
   childNode,
   nextNode,
+  shouldKeepFlat,
 ) {
   if (isFacebookTranslationTag) {
     return hardline;
+  }
+
+  // The whitespace here is insignificant (it always contains a newline, which
+  // JSX collapses), so when keeping the element flat it can soften away.
+  if (shouldKeepFlat) {
+    return softline;
   }
 
   if (child.length === 1) {
