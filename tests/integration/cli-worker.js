@@ -89,6 +89,13 @@ async function mockImplementations(options) {
 async function run(options) {
   await mockImplementations(options);
 
+  if (options.mockNodeVersion) {
+    Object.defineProperty(process.versions, "node", {
+      ...Object.getOwnPropertyDescriptor(process.versions, "node"),
+      value: options.mockNodeVersion,
+    });
+  }
+
   const { __promise: promise } = await import(
     url.pathToFileURL(prettierCliEntry)
   );
