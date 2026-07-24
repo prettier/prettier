@@ -203,7 +203,12 @@ function getTemplateLiteralExpressionIndent(path, options) {
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
 */
-function printTemplateExpression(path, options, print) {
+function printTemplateExpression(
+  path,
+  options,
+  print,
+  { isEmbeddedLanguage = false } = {},
+) {
   const { node, index } = path;
   let expressionDoc = print();
 
@@ -268,17 +273,19 @@ function printTemplateExpression(path, options, print) {
   if (options.__inJestEach) {
     indentSize = Math.max(indentSize, options.tabWidth);
   }
-  expressionDoc =
-    indentSize === 0 && previousQuasiText.endsWith("\n")
-      ? align(Number.NEGATIVE_INFINITY, expressionDoc)
-      : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
+  if (!isEmbeddedLanguage) {
+    expressionDoc =
+      indentSize === 0 && previousQuasiText.endsWith("\n")
+        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+        : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
+  }
 
   return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
 }
 
-function printTemplateExpressions(path, options, print) {
+function printTemplateExpressions(path, options, print, args) {
   return path.map(
-    () => printTemplateExpression(path, options, print),
+    () => printTemplateExpression(path, options, print, args),
     path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
   );
 }

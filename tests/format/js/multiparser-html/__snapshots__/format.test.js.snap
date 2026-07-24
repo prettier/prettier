@@ -39,6 +39,12 @@ setFoo(
   secondArgument
 );
 
+const idempotentInterpolation = html\`
+          \${{
+              c: y,
+          }}
+\`;
+
 // Attribute quotes
 a = /* HTML */ \`<div
     double-quoted="\${foo}"
@@ -99,6 +105,12 @@ setFoo(
   secondArgument,
 );
 
+const idempotentInterpolation = html\`
+  \${{
+    c: y,
+  }}
+\`;
+
 // Attribute quotes
 a = /* HTML */ \`
   <div double-quoted="\${foo}" single-quoted="\${foo}" unquoted=\${foo}></div>
@@ -148,6 +160,12 @@ setFoo(
   secondArgument
 );
 
+const idempotentInterpolation = html\`
+          \${{
+              c: y,
+          }}
+\`;
+
 // Attribute quotes
 a = /* HTML */ \`<div
     double-quoted="\${foo}"
@@ -193,6 +211,12 @@ setFoo(
   </div>\`,
   secondArgument,
 );
+
+const idempotentInterpolation = html\`
+  \${{
+    c: y,
+  }}
+\`;
 
 // Attribute quotes
 a = /* HTML */ \`<div

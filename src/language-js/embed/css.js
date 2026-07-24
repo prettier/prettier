@@ -26,7 +26,9 @@ async function printEmbedCss(textToDoc, print, path, options) {
     text += raw;
   }
   const quasisDoc = await textToDoc(text, { parser: "scss" });
-  const expressionDocs = printTemplateExpressions(path, options, print);
+  const expressionDocs = printTemplateExpressions(path, options, print, {
+    isEmbeddedLanguage: true,
+  });
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* c8 ignore next 3 */
   if (!newDoc) {
