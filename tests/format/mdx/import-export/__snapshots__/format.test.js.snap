@@ -97,7 +97,6 @@ parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export function Example1() {
-  /** NOT formatted because has empty line */
   const x =     '42';
 
   return x;
@@ -105,7 +104,6 @@ export function Example1() {
 
 =====================================output=====================================
 export function Example1() {
-  /** NOT formatted because has empty line */
   const x = "42";
 
   return x;
