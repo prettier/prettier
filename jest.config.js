@@ -74,6 +74,7 @@ if (nodejsMajorVersion <= 14) {
     "tests/integration/__tests__/experimental-cli.js",
     // Fails on Node.js v14
     "tests/dts/unit/run.js",
+    "tests/format/html/attributes/lowercase/format.test.js",
   );
 }
 
