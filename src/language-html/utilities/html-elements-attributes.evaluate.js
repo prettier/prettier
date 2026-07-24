@@ -1,10 +1,12 @@
-import { htmlElementAttributes } from "html-element-attributes";
+import { elementAttributes, globalAttributes } from "@prettier/html-attributes";
 
-const HTML_ELEMENT_ATTRIBUTES = new Map(
-  Object.entries(htmlElementAttributes).map(([tagName, attributes]) => [
+const ELEMENT_ATTRIBUTES = new Map(
+  Object.entries(elementAttributes).map(([tagName, attributes]) => [
     tagName,
     new Set(attributes),
   ]),
 );
 
-export default HTML_ELEMENT_ATTRIBUTES;
+const GLOBAL_ATTRIBUTES = new Set(globalAttributes);
+
+export { ELEMENT_ATTRIBUTES, GLOBAL_ATTRIBUTES };

@@ -5,7 +5,7 @@ import {
   CSS_WHITE_SPACE_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
 } from "../../src/language-html/constants.evaluate.js";
-import HTML_ELEMENT_ATTRIBUTES from "../../src/language-html/utilities/html-elements-attributes.evaluate.js";
+import { ELEMENT_ATTRIBUTES } from "../../src/language-html/utilities/html-elements-attributes.evaluate.js";
 
 // Snapshot to notify changes
 test("htmlTagNames", () => {
@@ -13,7 +13,7 @@ test("htmlTagNames", () => {
     tagName,
     display: CSS_DISPLAY_TAGS[tagName] ?? CSS_DISPLAY_DEFAULT,
     whiteSpace: CSS_WHITE_SPACE_TAGS[tagName] ?? CSS_WHITE_SPACE_DEFAULT,
-    attributes: HTML_ELEMENT_ATTRIBUTES.get(tagName) ?? [],
+    attributes: [...(ELEMENT_ATTRIBUTES.get(tagName) ?? new Set())],
   }));
 
   expect(data).toMatchSnapshot();

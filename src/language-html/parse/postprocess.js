@@ -5,7 +5,10 @@ import {
   visitAll,
 } from "angular-html-parser";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import HTML_ELEMENT_ATTRIBUTES from "../utilities/html-elements-attributes.evaluate.js";
+import {
+  ELEMENT_ATTRIBUTES,
+  GLOBAL_ATTRIBUTES,
+} from "../utilities/html-elements-attributes.evaluate.js";
 import HTML_TAGS from "../utilities/html-tags.evaluate.js";
 import isUnknownNamespace from "../utilities/is-unknown-namespace.js";
 import { Node } from "./ast.js";
@@ -238,9 +241,9 @@ function normalizeName(node, parseOptions) {
           attr.name = lowerCaseIf(
             attr.name,
             (lowerCasedAttrName) =>
-              HTML_ELEMENT_ATTRIBUTES.has(node.name) &&
-              (HTML_ELEMENT_ATTRIBUTES.get("*").has(lowerCasedAttrName) ||
-                HTML_ELEMENT_ATTRIBUTES.get(node.name).has(lowerCasedAttrName)),
+              ELEMENT_ATTRIBUTES.has(node.name) &&
+              (GLOBAL_ATTRIBUTES.has(lowerCasedAttrName) ||
+                ELEMENT_ATTRIBUTES.get(node.name).has(lowerCasedAttrName)),
           );
         }
       }

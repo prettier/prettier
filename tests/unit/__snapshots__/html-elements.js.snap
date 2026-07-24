@@ -3,7 +3,7 @@
 exports[`htmlTagNames 1`] = `
 [
   {
-    "attributes": Set {
+    "attributes": [
       "charset",
       "coords",
       "download",
@@ -17,7 +17,7 @@ exports[`htmlTagNames 1`] = `
       "shape",
       "target",
       "type",
-    },
+    ],
     "display": "inline",
     "tagName": "a",
     "whiteSpace": "normal",
@@ -41,7 +41,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "alt",
       "archive",
@@ -53,13 +53,13 @@ exports[`htmlTagNames 1`] = `
       "object",
       "vspace",
       "width",
-    },
+    ],
     "display": "inline",
     "tagName": "applet",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "alt",
       "coords",
       "download",
@@ -72,7 +72,7 @@ exports[`htmlTagNames 1`] = `
       "shape",
       "target",
       "type",
-    },
+    ],
     "display": "none",
     "tagName": "area",
     "whiteSpace": "normal",
@@ -90,15 +90,16 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "autoplay",
       "controls",
       "crossorigin",
+      "loading",
       "loop",
       "muted",
       "preload",
       "src",
-    },
+    ],
     "display": "inline-block",
     "tagName": "audio",
     "whiteSpace": "normal",
@@ -110,20 +111,20 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "href",
       "target",
-    },
+    ],
     "display": "none",
     "tagName": "base",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "color",
       "face",
       "size",
-    },
+    ],
     "display": "none",
     "tagName": "basefont",
     "whiteSpace": "normal",
@@ -159,36 +160,40 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "cite",
-    },
+    ],
     "display": "block",
     "tagName": "blockquote",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "alink",
       "background",
       "bgcolor",
+      "bottommargin",
+      "leftmargin",
       "link",
+      "rightmargin",
       "text",
+      "topmargin",
       "vlink",
-    },
+    ],
     "display": "block",
     "tagName": "body",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "clear",
-    },
+    ],
     "display": "inline",
     "tagName": "br",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "command",
       "commandfor",
       "disabled",
@@ -203,24 +208,24 @@ exports[`htmlTagNames 1`] = `
       "popovertargetaction",
       "type",
       "value",
-    },
+    ],
     "display": "inline-block",
     "tagName": "button",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "height",
       "width",
-    },
+    ],
     "display": "inline",
     "tagName": "canvas",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "table-caption",
     "tagName": "caption",
     "whiteSpace": "normal",
@@ -244,27 +249,29 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "bgcolor",
       "char",
       "charoff",
       "span",
       "valign",
       "width",
-    },
+    ],
     "display": "table-column",
     "tagName": "col",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "bgcolor",
       "char",
       "charoff",
       "span",
       "valign",
       "width",
-    },
+    ],
     "display": "table-column-group",
     "tagName": "colgroup",
     "whiteSpace": "normal",
@@ -282,9 +289,9 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "value",
-    },
+    ],
     "display": "inline",
     "tagName": "data",
     "whiteSpace": "normal",
@@ -302,19 +309,19 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "cite",
       "datetime",
-    },
+    ],
     "display": "inline",
     "tagName": "del",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "name",
       "open",
-    },
+    ],
     "display": "block",
     "tagName": "details",
     "whiteSpace": "normal",
@@ -326,34 +333,34 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "closedby",
       "open",
-    },
+    ],
     "display": "block",
     "tagName": "dialog",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "compact",
-    },
+    ],
     "display": "block",
     "tagName": "dir",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "div",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "compact",
-    },
+    ],
     "display": "block",
     "tagName": "dl",
     "whiteSpace": "normal",
@@ -371,12 +378,12 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "height",
       "src",
       "type",
       "width",
-    },
+    ],
     "display": "inline",
     "tagName": "embed",
     "whiteSpace": "normal",
@@ -388,11 +395,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "disabled",
       "form",
       "name",
-    },
+    ],
     "display": "block",
     "tagName": "fieldset",
     "whiteSpace": "normal",
@@ -410,11 +417,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "color",
       "face",
       "size",
-    },
+    ],
     "display": "inline",
     "tagName": "font",
     "whiteSpace": "normal",
@@ -426,7 +433,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "accept",
       "accept-charset",
       "action",
@@ -435,14 +442,15 @@ exports[`htmlTagNames 1`] = `
       "method",
       "name",
       "novalidate",
+      "rel",
       "target",
-    },
+    ],
     "display": "block",
     "tagName": "form",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "frameborder",
       "longdesc",
       "marginheight",
@@ -451,16 +459,16 @@ exports[`htmlTagNames 1`] = `
       "noresize",
       "scrolling",
       "src",
-    },
+    ],
     "display": "inline",
     "tagName": "frame",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "cols",
       "rows",
-    },
+    ],
     "display": "inline",
     "tagName": "frameset",
     "whiteSpace": "normal",
@@ -472,57 +480,57 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h1",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h2",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h3",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h4",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h5",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "h6",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "profile",
-    },
+    ],
     "display": "none",
     "tagName": "head",
     "whiteSpace": "normal",
@@ -540,21 +548,23 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "color",
       "noshade",
       "size",
       "width",
-    },
+    ],
     "display": "block",
     "tagName": "hr",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "manifest",
       "version",
-    },
+      "xmlns",
+    ],
     "display": "block",
     "tagName": "html",
     "whiteSpace": "normal",
@@ -566,12 +576,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "allow",
       "allowfullscreen",
       "allowpaymentrequest",
-      "allowusermedia",
       "frameborder",
       "height",
       "loading",
@@ -585,7 +594,7 @@ exports[`htmlTagNames 1`] = `
       "src",
       "srcdoc",
       "width",
-    },
+    ],
     "display": "inline",
     "tagName": "iframe",
     "whiteSpace": "normal",
@@ -597,10 +606,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "alt",
       "border",
+      "controls",
       "crossorigin",
       "decoding",
       "fetchpriority",
@@ -617,13 +627,13 @@ exports[`htmlTagNames 1`] = `
       "usemap",
       "vspace",
       "width",
-    },
+    ],
     "display": "inline",
     "tagName": "img",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "accept",
       "align",
       "alpha",
@@ -640,7 +650,6 @@ exports[`htmlTagNames 1`] = `
       "formnovalidate",
       "formtarget",
       "height",
-      "ismap",
       "list",
       "max",
       "maxlength",
@@ -658,27 +667,27 @@ exports[`htmlTagNames 1`] = `
       "src",
       "step",
       "type",
-      "usemap",
       "value",
       "width",
-    },
+    ],
     "display": "inline-block",
     "tagName": "input",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "cite",
       "datetime",
-    },
+    ],
     "display": "inline",
     "tagName": "ins",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
+      "action",
       "prompt",
-    },
+    ],
     "display": "inline",
     "tagName": "isindex",
     "whiteSpace": "normal",
@@ -696,33 +705,33 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "for",
       "form",
-    },
+    ],
     "display": "inline",
     "tagName": "label",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "legend",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "type",
       "value",
-    },
+    ],
     "display": "list-item",
     "tagName": "li",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "as",
       "blocking",
       "charset",
@@ -742,7 +751,7 @@ exports[`htmlTagNames 1`] = `
       "sizes",
       "target",
       "type",
-    },
+    ],
     "display": "none",
     "tagName": "link",
     "whiteSpace": "normal",
@@ -760,9 +769,9 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "name",
-    },
+    ],
     "display": "inline",
     "tagName": "map",
     "whiteSpace": "normal",
@@ -786,9 +795,9 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "compact",
-    },
+    ],
     "display": "block",
     "tagName": "menu",
     "whiteSpace": "normal",
@@ -800,27 +809,27 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "charset",
       "content",
       "http-equiv",
       "media",
       "name",
       "scheme",
-    },
+    ],
     "display": "none",
     "tagName": "meta",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "high",
       "low",
       "max",
       "min",
       "optimum",
       "value",
-    },
+    ],
     "display": "inline-block",
     "tagName": "meter",
     "whiteSpace": "normal",
@@ -868,7 +877,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "archive",
       "border",
@@ -887,67 +896,67 @@ exports[`htmlTagNames 1`] = `
       "usemap",
       "vspace",
       "width",
-    },
+    ],
     "display": "inline-block",
     "tagName": "object",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "compact",
       "reversed",
       "start",
       "type",
-    },
+    ],
     "display": "block",
     "tagName": "ol",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "disabled",
       "label",
-    },
+    ],
     "display": "block",
     "tagName": "optgroup",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "disabled",
       "label",
       "selected",
       "value",
-    },
+    ],
     "display": "block",
     "tagName": "option",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "for",
       "form",
       "name",
-    },
+    ],
     "display": "inline",
     "tagName": "output",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
-    },
+    ],
     "display": "block",
     "tagName": "p",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "name",
       "type",
       "value",
       "valuetype",
-    },
+    ],
     "display": "block",
     "tagName": "param",
     "whiteSpace": "normal",
@@ -965,26 +974,27 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "pre",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "width",
-    },
+      "wrap",
+    ],
     "display": "block",
     "tagName": "pre",
     "whiteSpace": "pre",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "max",
       "value",
-    },
+    ],
     "display": "inline-block",
     "tagName": "progress",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "cite",
-    },
+    ],
     "display": "inline",
     "tagName": "q",
     "whiteSpace": "normal",
@@ -1038,7 +1048,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "async",
       "blocking",
       "charset",
@@ -1051,7 +1061,7 @@ exports[`htmlTagNames 1`] = `
       "referrerpolicy",
       "src",
       "type",
-    },
+    ],
     "display": "block",
     "tagName": "script",
     "whiteSpace": "normal",
@@ -1069,7 +1079,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "autocomplete",
       "disabled",
       "form",
@@ -1077,7 +1087,7 @@ exports[`htmlTagNames 1`] = `
       "name",
       "required",
       "size",
-    },
+    ],
     "display": "inline-block",
     "tagName": "select",
     "whiteSpace": "normal",
@@ -1095,9 +1105,9 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "name",
-    },
+    ],
     "display": "contents",
     "tagName": "slot",
     "whiteSpace": "normal",
@@ -1109,7 +1119,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "height",
       "media",
       "sizes",
@@ -1117,7 +1127,7 @@ exports[`htmlTagNames 1`] = `
       "srcset",
       "type",
       "width",
-    },
+    ],
     "display": "block",
     "tagName": "source",
     "whiteSpace": "normal",
@@ -1147,11 +1157,11 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "blocking",
       "media",
       "type",
-    },
+    ],
     "display": "none",
     "tagName": "style",
     "whiteSpace": "normal",
@@ -1181,7 +1191,7 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "bgcolor",
       "border",
@@ -1191,24 +1201,25 @@ exports[`htmlTagNames 1`] = `
       "rules",
       "summary",
       "width",
-    },
+    ],
     "display": "table",
     "tagName": "table",
     "whiteSpace": "initial",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "bgcolor",
       "char",
       "charoff",
       "valign",
-    },
+    ],
     "display": "table-row-group",
     "tagName": "tbody",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "abbr",
       "align",
       "axis",
@@ -1223,25 +1234,26 @@ exports[`htmlTagNames 1`] = `
       "scope",
       "valign",
       "width",
-    },
+    ],
     "display": "table-cell",
     "tagName": "td",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "shadowrootclonable",
       "shadowrootcustomelementregistry",
       "shadowrootdelegatesfocus",
       "shadowrootmode",
       "shadowrootserializable",
-    },
+      "shadowrootslotassignment",
+    ],
     "display": "inline",
     "tagName": "template",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "autocomplete",
       "cols",
       "dirname",
@@ -1255,24 +1267,25 @@ exports[`htmlTagNames 1`] = `
       "required",
       "rows",
       "wrap",
-    },
+    ],
     "display": "inline",
     "tagName": "textarea",
     "whiteSpace": "pre-wrap",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "bgcolor",
       "char",
       "charoff",
       "valign",
-    },
+    ],
     "display": "table-footer-group",
     "tagName": "tfoot",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "abbr",
       "align",
       "axis",
@@ -1287,26 +1300,27 @@ exports[`htmlTagNames 1`] = `
       "scope",
       "valign",
       "width",
-    },
+    ],
     "display": "table-cell",
     "tagName": "th",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
+      "bgcolor",
       "char",
       "charoff",
       "valign",
-    },
+    ],
     "display": "table-header-group",
     "tagName": "thead",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "datetime",
-    },
+    ],
     "display": "inline",
     "tagName": "time",
     "whiteSpace": "normal",
@@ -1318,25 +1332,25 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "align",
       "bgcolor",
       "char",
       "charoff",
       "valign",
-    },
+    ],
     "display": "table-row",
     "tagName": "tr",
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "default",
       "kind",
       "label",
       "src",
       "srclang",
-    },
+    ],
     "display": "block",
     "tagName": "track",
     "whiteSpace": "normal",
@@ -1354,10 +1368,10 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "compact",
       "type",
-    },
+    ],
     "display": "block",
     "tagName": "ul",
     "whiteSpace": "normal",
@@ -1369,11 +1383,12 @@ exports[`htmlTagNames 1`] = `
     "whiteSpace": "normal",
   },
   {
-    "attributes": Set {
+    "attributes": [
       "autoplay",
       "controls",
       "crossorigin",
       "height",
+      "loading",
       "loop",
       "muted",
       "playsinline",
@@ -1381,7 +1396,7 @@ exports[`htmlTagNames 1`] = `
       "preload",
       "src",
       "width",
-    },
+    ],
     "display": "inline-block",
     "tagName": "video",
     "whiteSpace": "normal",
