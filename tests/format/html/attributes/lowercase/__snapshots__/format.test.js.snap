@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+        <div CLASS="should print as lowercase">Tag with attributes</div>
+        <span CLASS="should print as lowercase">Tag without attributes</span>
+      
+=====================================output=====================================
+<div class="should print as lowercase">Tag with attributes</div>
+<span CLASS="should print as lowercase">Tag without attributes</span>
+
+================================================================================
+`;
