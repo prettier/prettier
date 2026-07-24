@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+"Unexpected end of file in expression, expected a corresponding closing brace for \`{\` (1:6)
+> 1 | a { b
+    |      ^
+Cause: Unexpected end of file in expression, expected a corresponding closing brace for \`{\`"
+`;
+
+exports[`snippet: #1 format 1`] = `
+"Unexpected lazy line in expression in container, expected line to be prefixed with \`>\` when in a block quote, whitespace when in a list, etc (2:1)
+  1 | > {a
+> 2 | b}
+    | ^
+Cause: Unexpected lazy line in expression in container, expected line to be prefixed with \`>\` when in a block quote, whitespace when in a list, etc"
+`;
+
+exports[`snippet: #2 format 1`] = `
+"Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`) (1:5)
+> 1 | <a {b=c}={} d>
+    |     ^
+Cause: Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`)"
+`;
+
+exports[`snippet: #3 format 1`] = `
+"Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`) (1:5)
+> 1 | <a {...b,c} d>
+    |     ^
+Cause: Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`)"
+`;
+
+exports[`snippet: #4 format 1`] = `
+"Could not parse expression with acorn (1:7)
+> 1 | a {"b" "c"} d
+    |       ^
+Cause: Could not parse expression with acorn
+Cause: Unexpected content after expression"
+`;
+
+exports[`snippet: #5 format 1`] = `
+"Could not parse expression with acorn (1:4)
+> 1 | a {var b = "c"} d
+    |    ^
+Cause: Could not parse expression with acorn
+Cause: Unexpected token"
+`;

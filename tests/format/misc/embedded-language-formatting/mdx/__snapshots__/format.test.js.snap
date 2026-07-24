@@ -82,14 +82,16 @@ embeddedLanguageFormatting: "off"
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<Heading hi='there'>Hello, world!
+<Heading hi='there'>
+Hello, world!
 </Heading>
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -98,22 +100,26 @@ parsers: ["mdx"]
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>       123
+</Hello>
+123
 <Hello>
     test   <World />   test
-</Hello>       234
+</Hello>
+234
 
 ---
 
 <>
     test   <World        />   test
-</>       123
+</>
+123
 
 ---
 
@@ -121,45 +127,67 @@ parsers: ["mdx"]
 |---|---|
 | Text | <Hello>Text</Hello> |
 
+---
+
+<Hello attr={{   ab: 'cd'}} />
+
+---
+
+Hello, {  javascript .    expression }!
+
 =====================================output=====================================
-<Heading hi='there'>Hello, world!
+<Heading hi="there">
+  Hello, world!
 </Heading>
 
 ---
 
 <Hello>
-    test   <World />   test
-</Hello>123
+  test <World /> test
+</Hello>
+123
 
 ---
 
 <Hello>
-    test   <World />   test
+  test <World /> test
 </Hello>
 <Hello>
-    test   <World />   test
-</Hello>123
+  test <World /> test
+</Hello>
+123
 
 ---
 
 <Hello>
-    test   <World />   test
-</Hello>       123
+  test <World /> test
+</Hello>
+123
 <Hello>
-    test   <World />   test
-</Hello>       234
+  test <World /> test
+</Hello>
+234
 
 ---
 
 <>
-    test   <World        />   test
-</>       123
+  test <World /> test
+</>
+123
 
 ---
 
 | Column 1 | Column 2            |
 | -------- | ------------------- |
 | Text     | <Hello>Text</Hello> |
+
+---
+
+<Hello attr={{   ab: 'cd'}} />
+
+---
+
+Hello, {javascript .    expression}!
 
 ================================================================================
 `;
