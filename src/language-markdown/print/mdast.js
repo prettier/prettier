@@ -431,14 +431,7 @@ function printMdast(path, options, print) {
     }
 
     case "mdxJsxAttribute":
-      return [
-        node.name,
-        node.value === null
-          ? ""
-          : typeof node.value === "string"
-            ? ['="', node.value, '"']
-            : ["=", path.call(print, "value")],
-      ];
+      return printMdxJsxAttribute(node, options, print);
     case "mdxJsxAttributeValueExpression":
       return ["{", node.value, "}"];
     case "math":
@@ -619,6 +612,30 @@ function printImageAlt(node) {
   }
 
   return node.alt || "";
+}
+
+function printMdxJsxAttribute(node, options, print) {
+  const { value, name } = node;
+
+  if (value === null) {
+    return name;
+  }
+
+  if (typeof value !== "string") {
+    return [name, "=", print("value")];
+  }
+
+  const raw = options.originalText.slice(locStart(node), locEnd(node));
+  let final = raw
+    .slice(raw.search(/['"]/u) + 1, -1)
+    .replaceAll("&apos;", "'")
+    .replaceAll("&quot;", '"');
+  const quote = getPreferredQuote(final, options.jsxSingleQuote);
+  final =
+    quote === '"'
+      ? final.replaceAll('"', "&quot;")
+      : final.replaceAll("'", "&apos;");
+  return [name, "=", quote, replaceEndOfLine(final), quote];
 }
 
 export { printMdast };
