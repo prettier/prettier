@@ -1,7 +1,9 @@
 import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
+import { directiveFromMarkdown } from "mdast-util-directive";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
+import { directive as directiveSyntax } from "micromark-extension-directive";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import parseFrontMatter from "../../main/front-matter/parse.js";
@@ -25,6 +27,7 @@ function getMarkdownParseOptions() {
         aliasDivider: { charCodeAt: () => Number.NaN },
       }),
       liquidSyntax(),
+      directiveSyntax(),
       overrideHtmlTextSyntax(),
     ],
     mdastExtensions: [
@@ -32,6 +35,7 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       liquidFromMarkdown(),
+      directiveFromMarkdown(),
     ],
   });
 }
