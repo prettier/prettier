@@ -254,6 +254,11 @@ function getBlockquoteRawText(text, node) {
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
     const valueLine = valueLines[index] ?? "";
+    const leadingRawAngleBrackets = rawLine.match(angleBracketsRegex)[0] ?? "";
+    if (!leadingRawAngleBrackets) {
+      return rawLine;
+    }
+
     const leadingTextAngleBrackets =
       valueLine.match(angleBracketsRegex)[0] ?? "";
     return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
