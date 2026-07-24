@@ -67,7 +67,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
-      "explicit-resource-management.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
