@@ -2450,6 +2450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/html-attributes@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@prettier/html-attributes@npm:0.0.1"
+  checksum: 10/fcc1aae312837164220d6069ddae37790c02570b9798db92cd2cf55621944b6aef2e820faf24a4d2abcfd35315c008a29c1ba3bfc1a1ab4acc122ca399088f44
+  languageName: node
+  linkType: hard
+
 "@prettier/html-event-attributes@npm:0.0.2":
   version: 0.0.2
   resolution: "@prettier/html-event-attributes@npm:0.0.2"
@@ -5448,13 +5455,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-element-attributes@npm:3.5.0":
-  version: 3.5.0
-  resolution: "html-element-attributes@npm:3.5.0"
-  checksum: 10/b266e3b6170325f8d70c799692925d46b7686d7438f083bf449af47796175e69494e1f7a583ae18dc0e8703108a9f248eb4efc9016d459f8898c41266f54e4d2
-  languageName: node
-  linkType: hard
-
 "html-escaper@npm:^2.0.0":
   version: 2.0.2
   resolution: "html-escaper@npm:2.0.2"
@@ -8249,6 +8249,7 @@ __metadata:
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.12.0"
+    "@prettier/html-attributes": "npm:0.0.1"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
@@ -8309,7 +8310,6 @@ __metadata:
     graphql: "npm:17.0.2"
     graphql-test-suite: "npm:0.0.2"
     hermes-parser: "npm:0.37.0"
-    html-element-attributes: "npm:3.5.0"
     html-ua-styles: "npm:0.5.0"
     ignore: "npm:7.0.6"
     import-meta-resolve: "npm:4.2.0"
