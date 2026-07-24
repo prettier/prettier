@@ -11,7 +11,7 @@ parsers: ["html"]
       
 =====================================output=====================================
 <div class="should print as lowercase">Tag with attributes</div>
-<span CLASS="should print as lowercase">Tag without attributes</span>
+<span class="should print as lowercase">Tag without attributes</span>
 
 ================================================================================
 `;
