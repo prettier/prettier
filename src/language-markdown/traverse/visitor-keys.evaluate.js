@@ -42,6 +42,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   mdxJsxTextElement: ["attributes", "children"],
   mdxJsxAttribute: ["value"],
   mdxJsxAttributeValueExpression: [],
+  mdxJsxExpressionAttribute: [],
 });
 
 export default visitorKeys;

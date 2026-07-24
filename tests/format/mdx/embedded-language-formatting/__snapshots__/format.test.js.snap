@@ -26,6 +26,36 @@ LF: Line Feed, \\n
 ================================================================================
 `;
 
+exports[`jsx-spread-attribute.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<C {...props} />
+
+<C { ...props } />
+
+<C {/* comment */ ...props} />
+
+<C {...props // after
+} />
+
+=====================================output=====================================
+<C {...props} />
+
+<C {...props} />
+
+<C {/* comment */ ...props} />
+
+<C
+  {...props // after
+  }
+/>
+
+================================================================================
+`;
+
 exports[`multiline-comments.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"

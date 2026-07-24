@@ -383,6 +383,12 @@ function printMdast(path, options, print) {
     case "mdxFlowExpression":
     case "mdxTextExpression":
       return ["{", node.value.trim(), "}"];
+    case "mdxJsxExpressionAttribute":
+      // Keep multiline values as-is, a line comment requires the newline
+      // before the closing brace to stay
+      return node.value.includes("\n")
+        ? ["{", replaceEndOfLine(node.value, hardline), "}"]
+        : ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const isFragment = !node.name;

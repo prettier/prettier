@@ -23,10 +23,10 @@ Cause: Unexpected \`ExpressionStatement\` in code: expected an object spread (\`
 `;
 
 exports[`snippet: #3 format 1`] = `
-"Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`) (1:5)
+"Unexpected extra content in spread: only a single spread is supported (1:10)
 > 1 | <a {...b,c} d>
-    |     ^
-Cause: Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`)"
+    |          ^
+Cause: Unexpected extra content in spread: only a single spread is supported"
 `;
 
 exports[`snippet: #4 format 1`] = `

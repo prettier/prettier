@@ -5,7 +5,7 @@ import * as assert from "#universal/assert";
 
 let acorn;
 const createParse =
-  ({ transformArguments, result, parse }) =>
+  ({ transformArguments, result: createResult, parse }) =>
   (...arguments_) => {
     const parseOptions = transformArguments(...arguments_);
 
@@ -38,16 +38,37 @@ const createParse =
       {
         start: ast.start,
         end: ast.end,
-        ...result,
+        ...createResult(ast),
       },
       "parseResult",
       { value: { ast, comments, text: parseOptions.text } },
     );
   };
 
+const createExpressionResult = (ast) => {
+  const expression =
+    ast.type === "ParenthesizedExpression" ? ast.expression : ast;
+
+  if (expression.type !== "ObjectExpression") {
+    return { type: "ThisExpression", isExpressionRoot: true };
+  }
+
+  return {
+    type: "ObjectExpression",
+    // Clones, since `micromark-util-events-to-acorn` rewrites positions on the
+    // result, while `result.parseResult.ast` should stay untouched
+    properties: expression.properties.map(({ type, start, end }) => ({
+      type,
+      start,
+      end,
+    })),
+    isExpressionRoot: true,
+  };
+};
+
 const parse = createParse({
   transformArguments: (text, options) => ({ text, options }),
-  result: { type: "Program", body: [], isProgram: true },
+  result: () => ({ type: "Program", body: [], isProgram: true }),
   parse: (acorn, { text, options }) => acorn.parse(text, options),
 });
 
@@ -57,7 +78,7 @@ const parseExpressionAt = createParse({
     position,
     options,
   }),
-  result: { type: "ThisExpression", isExpressionRoot: true },
+  result: createExpressionResult,
   parse: (acorn, { text, position, options }) =>
     acorn.parseExpressionAt(text, position, options),
 });
