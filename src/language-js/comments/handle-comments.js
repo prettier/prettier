@@ -1039,12 +1039,36 @@ function handleLastBinaryOperatorOperand({
 function handlePropertySignatureComments(context) {
   const { enclosingNode, followingNode, comment, options, placement } = context;
 
-  if (
-    !followingNode ||
-    (enclosingNode?.type !== "TSPropertySignature" &&
-      enclosingNode?.type !== "ObjectTypeProperty")
-  ) {
+  if (!followingNode) {
     return false;
+  }
+
+  let keyNode;
+  let valueNode;
+  switch (enclosingNode?.type) {
+    case "TSPropertySignature":
+      keyNode = enclosingNode.key;
+      valueNode = enclosingNode.typeAnnotation;
+      break;
+    case "TSMappedType":
+      keyNode = enclosingNode.nameType ?? enclosingNode.constraint;
+      valueNode = enclosingNode.typeAnnotation;
+      break;
+    case "ObjectTypeProperty":
+    case "ObjectTypeIndexer":
+      keyNode = enclosingNode.key;
+      valueNode = enclosingNode.value;
+      break;
+    case "ObjectTypeInternalSlot":
+      keyNode = enclosingNode.id;
+      valueNode = enclosingNode.value;
+      break;
+    case "ObjectTypeMappedTypeProperty":
+      keyNode = enclosingNode.sourceType;
+      valueNode = enclosingNode.propType;
+      break;
+    default:
+      return false;
   }
 
   if (
@@ -1055,15 +1079,11 @@ function handlePropertySignatureComments(context) {
     return true;
   }
 
-  if (
-    ((enclosingNode.type === "TSPropertySignature" &&
-      enclosingNode.typeAnnotation) ||
-      (enclosingNode.type === "ObjectTypeProperty" && enclosingNode.value)) &&
-    isBlockComment(comment)
-  ) {
+  if (valueNode && isBlockComment(comment)) {
     const colonTokenIndex = stripComments(options).indexOf(
       ":",
-      locEnd(enclosingNode.key),
+      // @ts-expect-error -- safe
+      locEnd(keyNode),
     );
     if (colonTokenIndex < locStart(comment)) {
       return addLeadingCommentToPossibleUnionType(followingNode, context);
