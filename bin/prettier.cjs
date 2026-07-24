@@ -12,8 +12,8 @@ function parseVersion(version) {
   var parts = version.split(".", 3);
   return {
     major: Number(parts[0]),
-    minor: parts.length > 1 ? Number(parts[1]) : 0,
-    patch: parts.length > 2 ? Number(parts[2]) : 0
+    minor: Number(parts[1]) || 0,
+    patch: Number(parts[2]) || 0
   };
 }
 
