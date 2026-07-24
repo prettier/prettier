@@ -8368,6 +8368,7 @@ __metadata:
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.7.1"
+    sass-test-suite: "npm:0.0.3"
     search-closest: "npm:3.1.0"
     semver: "npm:7.8.5"
     serialize-javascript: "npm:7.0.7"
@@ -8699,6 +8700,13 @@ __metadata:
   dependencies:
     queue-microtask: "npm:^1.2.2"
   checksum: 10/cb4f97ad25a75ebc11a8ef4e33bb962f8af8516bb2001082ceabd8902e15b98f4b84b4f8a9b222e5d57fc3bd1379c483886ed4619367a7680dad65316993021d
+  languageName: node
+  linkType: hard
+
+"sass-test-suite@npm:0.0.3":
+  version: 0.0.3
+  resolution: "sass-test-suite@npm:0.0.3"
+  checksum: 10/c7f37344694632187a5339da4f7dc24fb7be461a384dff4f52ba5227fee426a8666f3eb998bd609fc04b2e362b141aa3d7883a4ae427acba27004e069c70211b
   languageName: node
   linkType: hard
 

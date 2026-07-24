@@ -187,6 +187,7 @@
     "pretty-ms": "9.3.0",
     "puppeteer": "25.3.0",
     "rollup-plugin-license": "3.7.1",
+    "sass-test-suite": "0.0.3",
     "semver": "7.8.5",
     "serialize-javascript": "7.0.7",
     "tempy": "3.2.0",
