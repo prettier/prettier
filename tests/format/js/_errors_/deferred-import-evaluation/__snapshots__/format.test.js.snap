@@ -51,11 +51,11 @@ import defer x from "x";
 `;
 
 exports[`no-default.js format[meriyah] 1`] = `
-"Expected 'from' (1:14)
+"'import defer' must be followed by a namespace import (1:14)
 > 1 | import defer x from "x";
     |              ^
   2 |
-Cause: [1:13-1:14]: Expected 'from'"
+Cause: [1:13-1:14]: 'import defer' must be followed by a namespace import"
 `;
 
 exports[`no-default.js format[oxc] 1`] = `
@@ -145,11 +145,11 @@ import defer { x } from "x";
 `;
 
 exports[`no-named.js format[meriyah] 1`] = `
-"Expected 'from' (1:14)
+"'import defer' must be followed by a namespace import (1:14)
 > 1 | import defer { x } from "x";
     |              ^
   2 |
-Cause: [1:13-1:14]: Expected 'from'"
+Cause: [1:13-1:14]: 'import defer' must be followed by a namespace import"
 `;
 
 exports[`no-named.js format[oxc] 1`] = `
@@ -233,10 +233,10 @@ import defer { x } from "x";
 `;
 
 exports[`snippet: #0 format[meriyah] 1`] = `
-"Expected 'from' (1:14)
+"'import defer' must be followed by a namespace import (1:14)
 > 1 | import defer { x } from "x";
     |              ^
-Cause: [1:13-1:14]: Expected 'from'"
+Cause: [1:13-1:14]: 'import defer' must be followed by a namespace import"
 `;
 
 exports[`snippet: #0 format[oxc] 1`] = `
@@ -315,10 +315,10 @@ import defer x from "x";
 `;
 
 exports[`snippet: #1 format[meriyah] 1`] = `
-"Expected 'from' (1:14)
+"'import defer' must be followed by a namespace import (1:14)
 > 1 | import defer x from "x";
     |              ^
-Cause: [1:13-1:14]: Expected 'from'"
+Cause: [1:13-1:14]: 'import defer' must be followed by a namespace import"
 `;
 
 exports[`snippet: #1 format[oxc] 1`] = `

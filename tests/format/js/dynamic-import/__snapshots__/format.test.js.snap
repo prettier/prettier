@@ -83,16 +83,6 @@ import.source(\`data:text/javascript,
 ^"
 `;
 
-exports[`import-phase.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^^^^^^
-  2 |     console.log("RUN");
-  3 | \`)
-  4 |
-Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
-`;
-
 exports[`template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
