@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "webpack": "5.108.4"
+    "webpack": "5.109.0"
   },
   "scripts": {
     "test": "node ./index.js"
