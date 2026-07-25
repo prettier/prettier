@@ -42,3 +42,32 @@ a = /* HTML */ `<div
 style='${foo}'
         style=${foo}>   </div>
 `
+
+const list = html`
+  <ol>
+    ${items.map(
+      (entry) => html`
+        <li>
+          ${entry.children
+            ? html`
+                <ol>
+                  ${entry.children.map(
+                    (child) => html`<li>${child.title}</li>`,
+                  )}
+                </ol>
+              `
+            : entry.title}
+        </li>
+      `,
+    )}
+  </ol>
+`;
+
+const pre = html`
+  <div>
+    <pre>${JSON.stringify({
+      a: 1,
+      b: 2,
+    })}</pre>
+  </div>
+`;

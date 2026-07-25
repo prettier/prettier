@@ -203,7 +203,12 @@ function getTemplateLiteralExpressionIndent(path, options) {
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
 */
-function printTemplateExpression(path, options, print) {
+function printTemplateExpression(
+  path,
+  options,
+  print,
+  { shouldPreserveIndentation },
+) {
   const { node, index } = path;
   let expressionDoc = print();
 
@@ -260,25 +265,35 @@ function printTemplateExpression(path, options, print) {
   // quasi literal), therefore we want to indent the JavaScript
   // expression inside at the beginning of ${ instead of the beginning
   // of the `.
-  let { indentSize, previousQuasiText } = getTemplateLiteralExpressionIndent(
-    path,
-    options,
-  );
-  // In `jest.each`, we know expression will at least indent 2 level
-  if (options.__inJestEach) {
-    indentSize = Math.max(indentSize, options.tabWidth);
+  if (shouldPreserveIndentation) {
+    let { indentSize, previousQuasiText } = getTemplateLiteralExpressionIndent(
+      path,
+      options,
+    );
+    // In `jest.each`, we know expression will at least indent 2 level
+    if (options.__inJestEach) {
+      indentSize = Math.max(indentSize, options.tabWidth);
+    }
+    expressionDoc =
+      indentSize === 0 && previousQuasiText.endsWith("\n")
+        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+        : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
   }
-  expressionDoc =
-    indentSize === 0 && previousQuasiText.endsWith("\n")
-      ? align(Number.NEGATIVE_INFINITY, expressionDoc)
-      : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
 
   return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
 }
 
-function printTemplateExpressions(path, options, print) {
+function printTemplateExpressions(
+  path,
+  options,
+  print,
+  { shouldPreserveIndentation = true } = {},
+) {
   return path.map(
-    () => printTemplateExpression(path, options, print),
+    () =>
+      printTemplateExpression(path, options, print, {
+        shouldPreserveIndentation,
+      }),
     path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
   );
 }
