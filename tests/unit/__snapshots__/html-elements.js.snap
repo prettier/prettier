@@ -651,6 +651,7 @@ exports[`htmlTagNames 1`] = `
       "controls",
       "crossorigin",
       "decoding",
+      "elementtiming",
       "fetchpriority",
       "height",
       "hspace",
