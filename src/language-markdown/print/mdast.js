@@ -30,6 +30,7 @@ import {
 import { printChildren } from "./children.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
+import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
@@ -431,7 +432,7 @@ function printMdast(path, options, print) {
     }
 
     case "mdxJsxAttribute":
-      return printMdxJsxAttribute(node, options, print);
+      return printMdxJsxAttribute(path, options, print);
     case "mdxJsxAttributeValueExpression":
       return ["{", node.value, "}"];
     case "math":
@@ -612,30 +613,6 @@ function printImageAlt(node) {
   }
 
   return node.alt || "";
-}
-
-function printMdxJsxAttribute(node, options, print) {
-  const { value, name } = node;
-
-  if (value === null) {
-    return name;
-  }
-
-  if (typeof value !== "string") {
-    return [name, "=", print("value")];
-  }
-
-  const raw = options.originalText.slice(locStart(node), locEnd(node));
-  let final = raw
-    .slice(raw.search(/['"]/u) + 1, -1)
-    .replaceAll("&apos;", "'")
-    .replaceAll("&quot;", '"');
-  const quote = getPreferredQuote(final, options.jsxSingleQuote);
-  final =
-    quote === '"'
-      ? final.replaceAll('"', "&quot;")
-      : final.replaceAll("'", "&apos;");
-  return [name, "=", quote, replaceEndOfLine(final), quote];
 }
 
 export { printMdast };
