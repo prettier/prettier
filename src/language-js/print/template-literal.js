@@ -356,7 +356,6 @@ export {
   escapeTemplateCharacters,
   printEmbeddedTemplateExpressions,
   printTaggedTemplateExpression,
-  printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,
 };

@@ -24,8 +24,6 @@ const unstableTests = new Map(
     "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
-    // Unstable due to lack of indent information
-    "js/multiparser-comments/comment-inside.js",
     [
       "typescript/method-chain/object/issue-17239.ts",
       (options) => options.objectWrap !== "collapse",
