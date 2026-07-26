@@ -119,7 +119,7 @@
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
     "search-closest": "3.1.0",
-    "smol-toml": "1.7.0",
+    "smol-toml": "1.7.1",
     "strip-ansi": "7.2.0",
     "to-fast-properties": "4.0.0",
     "trim-newlines": "5.0.0",
