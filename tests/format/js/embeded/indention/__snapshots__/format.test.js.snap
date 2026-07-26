@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`indention.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+_ = \`
+  line
+                  \${
+                    a
+                    // comment
+                    + b}
+  line
+\`;
+
+_ = String.raw\`
+  line
+                  \${
+                    a
+                    // comment
+                    + b}
+  line
+\`;
+
+_ =  css\`
+  a{
+    color:
+                  \${
+                    a
+                    // comment
+                    + b}
+    ;
+  }
+\`;
+
+_ =  html\`
+  <div>
+                  \${
+                    a
+                    // comment
+                    + b}
+  </div>
+\`;
+
+=====================================output=====================================
+_ = \`
+  line
+                  \${
+                    a +
+                    // comment
+                    b
+                  }
+  line
+\`;
+
+_ = String.raw\`
+  line
+                  \${
+                    a +
+                    // comment
+                    b
+                  }
+  line
+\`;
+
+_ = css\`
+  a {
+    color: \${
+                    a +
+                    // comment
+                    b
+                  };
+  }
+\`;
+
+_ = html\`
+  <div>
+    \${
+                    a +
+                    // comment
+                    b
+                  }
+  </div>
+\`;
+
+================================================================================
+`;
