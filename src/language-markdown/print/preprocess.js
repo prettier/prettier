@@ -254,16 +254,22 @@ function getBlockquoteRawText(text, node) {
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
     const rawAngleBrackets = rawLine.match(angleBracketsRegex)[0];
-    // `angleBracketsRegex` also matches an empty string, so a raw line without
-    // blockquote markers must be left untouched: replacing an empty match would
-    // prepend the value's leading `>` as content (`\>` becoming `>\>`).
     if (!rawAngleBrackets) {
       return rawLine;
     }
+    /*
+     * Only the blockquote markers that `node.value` doesn't carry may be
+     * stripped. The leading `>`s of the value line are content, not markers, so
+     * they are kept in `rawLine` instead of being substituted in - otherwise an
+     * escaped `\>` gains a marker it never had (`\>` becoming `>\>`).
+     */
     const valueLine = valueLines[index] ?? "";
-    const leadingTextAngleBrackets =
-      valueLine.match(angleBracketsRegex)[0] ?? "";
-    return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
+    const contentAngleBrackets = valueLine.match(angleBracketsRegex)[0];
+    const markerLength = Math.max(
+      0,
+      rawAngleBrackets.length - contentAngleBrackets.length,
+    );
+    return rawLine.slice(markerLength);
   });
   return resultLines.join("\n");
 }
