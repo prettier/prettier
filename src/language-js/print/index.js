@@ -1,4 +1,10 @@
-import { group, indent, inheritLabel, softline } from "../../document/index.js";
+import {
+  group,
+  ifBreak,
+  indent,
+  inheritLabel,
+  softline,
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
@@ -90,9 +96,17 @@ function print(path, options, print, args) {
   }
 
   return inheritLabel(doc, (doc) => [
-    needsParens ? "(" : "",
+    needsParens
+      ? args?.parenthesesWhenNotBroken
+        ? ifBreak("", "(")
+        : "("
+      : "",
     decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
-    needsParens ? ")" : "",
+    needsParens
+      ? args?.parenthesesWhenNotBroken
+        ? ifBreak("", ")")
+        : ")"
+      : "",
   ]);
 }
 
