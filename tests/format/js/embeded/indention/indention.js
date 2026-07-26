@@ -35,3 +35,12 @@ _ =  html`
                     + b}
   </div>
 `;
+
+_ =  gql`
+
+                  ${
+                    a
+                    // comment
+                    + b}
+
+`;
