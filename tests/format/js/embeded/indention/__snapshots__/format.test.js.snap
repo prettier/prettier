@@ -1,109 +1,86 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`indention.js - {"embeddedLanguageFormatting":"off"} format 1`] = `
+exports[`19518.js format 1`] = `
 ====================================options=====================================
-embeddedLanguageFormatting: "off"
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-_ = \`
-  line
-                  \${
-                    a
-                    // comment
-                    + b}
-  line
+const t = html\`
+  <ol>
+    \${items.map(
+      (entry) => html\`
+        <li>
+          \${entry.children
+            ? html\`
+                <ol>
+                  \${entry.children.map(
+                    (child) => html\`<li>\${child.title}</li>\`,
+                  )}
+                </ol>
+              \`
+            : entry.title}
+        </li>
+      \`,
+    )}
+  </ol>
 \`;
 
-_ = String.raw\`
-  line
-                  \${
-                    a
-                    // comment
-                    + b}
-  line
-\`;
+export function foo() {
+  return html\`
+    <div>
+              <pre>\${JSON.stringify({
+                  a: 1,
+                  b: 2,
+                })}</pre>
+    </div>
+  \`;
+}
 
-_ =  css\`
-  a{
-    color:
-                  \${
-                    a
-                    // comment
-                    + b}
-    ;
-  }
-\`;
-
-_ =  html\`
-  <div>
-                  \${
-                    a
-                    // comment
-                    + b}
-  </div>
-\`;
-
-_ =  gql\`
-
-                  \${
-                    a
-                    // comment
-                    + b}
-
+const a = html\`
+          \${{
+              c: y,
+          }}
 \`;
 
 =====================================output=====================================
-_ = \`
-  line
-                  \${
-                    a +
-                    // comment
-                    b
-                  }
-  line
+const t = html\`
+  <ol>
+    \${items.map(
+      (entry) => html\`
+        <li>
+          \${
+            entry.children
+              ? html\`
+                  <ol>
+                    \${entry.children.map(
+                      (child) => html\`<li>\${child.title}</li>\`,
+                    )}
+                  </ol>
+                \`
+              : entry.title
+          }
+        </li>
+      \`,
+    )}
+  </ol>
 \`;
 
-_ = String.raw\`
-  line
-                  \${
-                    a +
-                    // comment
-                    b
-                  }
-  line
-\`;
+export function foo() {
+  return html\`
+    <div>
+      <pre>
+\${JSON.stringify({
+          a: 1,
+          b: 2,
+        })}</pre>
+    </div>
+  \`;
+}
 
-_ = css\`
-  a{
-    color:
-                  \${
-                    a +
-                    // comment
-                    b
-                  }
-    ;
-  }
-\`;
-
-_ = html\`
-  <div>
-                  \${
-                    a +
-                    // comment
-                    b
-                  }
-  </div>
-\`;
-
-_ = gql\`
-
-                  \${
-                    a +
-                    // comment
-                    b
-                  }
-
+const a = html\`
+  \${{
+    c: y,
+  }}
 \`;
 
 ================================================================================
