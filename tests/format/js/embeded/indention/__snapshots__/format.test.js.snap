@@ -67,20 +67,20 @@ _ = String.raw\`
 _ = css\`
   a {
     color: \${
-                    a +
-                    // comment
-                    b
-                  };
+      a +
+      // comment
+      b
+    };
   }
 \`;
 
 _ = html\`
   <div>
     \${
-                    a +
-                    // comment
-                    b
-                  }
+      a +
+      // comment
+      b
+    }
   </div>
 \`;
 
