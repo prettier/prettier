@@ -203,7 +203,12 @@ function getTemplateLiteralExpressionIndent(path, options) {
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
 */
-function printTemplateExpression(path, options, print) {
+function printTemplateExpression(
+  path,
+  options,
+  print,
+  shouldPreserveIndentation = true,
+) {
   const { node, index } = path;
   let expressionDoc = print();
 
@@ -249,6 +254,11 @@ function printTemplateExpression(path, options, print) {
     expressionDoc = [indent([softline, expressionDoc]), softline];
   }
 
+  // There is no way to know how the quasis will be printed
+  if (!shouldPreserveIndentation) {
+    return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
+  }
+
   // For a template literal of the following form:
   //   `someQuery {
   //     ${call({
@@ -280,6 +290,19 @@ function printTemplateExpressions(path, options, print) {
   return path.map(
     () => printTemplateExpression(path, options, print),
     path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
+  );
+}
+
+function printEmbeddedTemplateExpressions(path, options, print) {
+  return path.map(
+    () =>
+      printTemplateExpression(
+        path,
+        options,
+        print,
+        /* shouldPreserveIndentation */ false,
+      ),
+    "expressions",
   );
 }
 
@@ -331,8 +354,8 @@ function isJestEachTemplateLiteral({ node, parent }) {
 
 export {
   escapeTemplateCharacters,
+  printEmbeddedTemplateExpressions,
   printTaggedTemplateExpression,
-  printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,
 };

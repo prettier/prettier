@@ -84,9 +84,9 @@ html\`\${
 }\`;
 html\`
   \${
-  foo
-  /* comment */
-}
+    foo
+    /* comment */
+  }
 \`;
 
 graphql\`
@@ -97,9 +97,9 @@ graphql\`
 \`;
 graphql\`
   \${
-  foo
-  /* comment */
-}
+    foo
+    /* comment */
+  }
 \`;
 
 css\`
@@ -110,9 +110,9 @@ css\`
 \`;
 css\`
   \${
-  foo
-  /* comment */
-}
+    foo
+    /* comment */
+  }
 \`;
 
 markdown\`\${

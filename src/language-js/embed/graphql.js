@@ -1,7 +1,7 @@
 import { hardline, indent, join } from "../../document/index.js";
 import {
   escapeTemplateCharacters,
-  printTemplateExpressions,
+  printEmbeddedTemplateExpressions,
 } from "../print/template-literal.js";
 import { hasLanguageComment } from "./utilities.js";
 
@@ -10,7 +10,7 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
 
   const numQuasis = node.quasis.length;
 
-  const expressionDocs = printTemplateExpressions(path, options, print);
+  const expressionDocs = printEmbeddedTemplateExpressions(path, options, print);
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {
