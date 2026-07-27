@@ -350,13 +350,25 @@ function genericPrint(path, options, print) {
         node.value === ">>>"
       ) {
         const parentNode = path.parent;
-        const leading =
+        const isFirstNode =
           parentNode.type === "selector-selector" &&
-          parentNode.nodes[0] === node
-            ? ""
-            : line;
+          parentNode.nodes[0] === node;
+        const leading = isFirstNode ? "" : line;
 
-        return [leading, node.value, path.isLast ? "" : " "];
+        // The leading `+` in An+B notation (e.g. `:nth-child(+2n)`) must stay
+        // glued to the following token, a space there is invalid per spec.
+        const grandparentNode = path.grandparent;
+        const isNthLeadingSign =
+          isFirstNode &&
+          node.value === "+" &&
+          grandparentNode?.type === "selector-pseudo" &&
+          grandparentNode.value.toLowerCase().startsWith(":nth-");
+
+        return [
+          leading,
+          node.value,
+          path.isLast || isNthLeadingSign ? "" : " ",
+        ];
       }
 
       const leading = node.value.trimStart().startsWith("(") ? line : "";

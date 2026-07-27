@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`an-plus-b.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a:nth-child(+2n) {}
+a:nth-child(+n) {}
+a:nth-child(+3n+2) {}
+a:nth-last-child(+3n+1) {}
+a:nth-of-type(+2n) {}
+a:nth-last-of-type(+n+3) {}
+a:nth-child(2n+1) {}
+a:nth-child(-n+2) {}
+a:has(+ img) {}
+a:has(+img) {}
+
+=====================================output=====================================
+a:nth-child(+2n) {
+}
+a:nth-child(+n) {
+}
+a:nth-child(+3n + 2) {
+}
+a:nth-last-child(+3n + 1) {
+}
+a:nth-of-type(+2n) {
+}
+a:nth-last-of-type(+n + 3) {
+}
+a:nth-child(2n + 1) {
+}
+a:nth-child(-n + 2) {
+}
+a:has(+ img) {
+}
+a:has(+ img) {
+}
+
+================================================================================
+`;
+
 exports[`combinator.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
