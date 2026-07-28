@@ -108,7 +108,7 @@
     "oxc-parser": "0.142.0",
     "parse-json": "8.3.0",
     "picocolors": "1.1.1",
-    "postcss": "8.5.23",
+    "postcss": "8.5.24",
     "postcss-less": "6.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.9",
