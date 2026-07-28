@@ -5,37 +5,47 @@ exports[`an-plus-b.css format 1`] = `
 parsers: ["css"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-a:nth-child(+2n) {}
-a:nth-child(+n) {}
-a:nth-child(+3n+2) {}
-a:nth-last-child(+3n+1) {}
-a:nth-of-type(+2n) {}
-a:nth-last-of-type(+n+3) {}
-a:nth-child(2n+1) {}
-a:nth-child(-n+2) {}
-a:has(+ img) {}
-a:has(+img) {}
+:nth-child(+2n),
+:nth-child(+n),
+:nth-child(+3n+2),
+:nth-last-child(+3n+1),
+:nth-of-type(+2n),
+:nth-last-of-type(+n+3),
+:nth-child(2n+1),
+:nth-child(-n+2),
+:not(:nth-child(+2n)),
+:not(:nth-child(+n)),
+:not(:nth-child(+3n+2)),
+:not(:nth-last-child(+3n+1)),
+:not(:nth-of-type(+2n)),
+:not(:nth-last-of-type(+n+3)),
+:not(:nth-child(2n+1)),
+:not(:nth-child(-n+2)) {}
+
+:has(+ img),
+:has(+img) {}
 
 =====================================output=====================================
-a:nth-child(+2n) {
+:nth-child(+2n),
+:nth-child(+n),
+:nth-child(+3n + 2),
+:nth-last-child(+3n + 1),
+:nth-of-type(+2n),
+:nth-last-of-type(+n + 3),
+:nth-child(2n + 1),
+:nth-child(-n + 2),
+:not(:nth-child(+2n)),
+:not(:nth-child(+n)),
+:not(:nth-child(+3n + 2)),
+:not(:nth-last-child(+3n + 1)),
+:not(:nth-of-type(+2n)),
+:not(:nth-last-of-type(+n + 3)),
+:not(:nth-child(2n + 1)),
+:not(:nth-child(-n + 2)) {
 }
-a:nth-child(+n) {
-}
-a:nth-child(+3n + 2) {
-}
-a:nth-last-child(+3n + 1) {
-}
-a:nth-of-type(+2n) {
-}
-a:nth-last-of-type(+n + 3) {
-}
-a:nth-child(2n + 1) {
-}
-a:nth-child(-n + 2) {
-}
-a:has(+ img) {
-}
-a:has(+ img) {
+
+:has(+ img),
+:has(+ img) {
 }
 
 ================================================================================
