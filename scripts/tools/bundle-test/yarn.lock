@@ -53,7 +53,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@prettier/bundle-test@workspace:."
   dependencies:
-    webpack: "npm:5.109.0"
+    webpack: "npm:5.109.1"
   languageName: unknown
   linkType: soft
 
@@ -637,9 +637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.109.0":
-  version: 5.109.0
-  resolution: "webpack@npm:5.109.0"
+"webpack@npm:5.109.1":
+  version: 5.109.1
+  resolution: "webpack@npm:5.109.1"
   dependencies:
     "@types/estree": "npm:^1.0.8"
     "@types/json-schema": "npm:^7.0.15"
@@ -666,6 +666,6 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10/926e721ba027e62fcb97ef2455fcf9d0a40ac14805d3f6c5367b5e897c63e06fc2f8e2ac69814d192981cd7d72af4a195028cd8d827095ba78c7946195d7a4d2
+  checksum: 10/9bd8a05bd99b28661120a5675bc58a3b678f0cc2312bbda41678b77d63baba5d3643e68a630960717aa6110c06cb54624785d9612015ede0e882b6d66949076d
   languageName: node
   linkType: hard
