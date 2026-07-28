@@ -4052,10 +4052,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-units-list@npm:2.1.0":
-  version: 2.1.0
-  resolution: "css-units-list@npm:2.1.0"
-  checksum: 10/be36dd4ba4ed3f103a544ca955c80f46bb57d471b159b81e93fae7e700092de6cc75c98abcbde4bb9e963ad6f63c72fae18dde935c0944ca48e71f277420adfc
+"css-units-list@npm:2.2.0":
+  version: 2.2.0
+  resolution: "css-units-list@npm:2.2.0"
+  checksum: 10/2a02eac81f76490c122a0cfff13d5d4b6f3a97652a5d4a2453cf574c07a29aab191b39d2cde60bca5f6245773483d8537ca5f403461748383c60b75777a58d8f
   languageName: node
   linkType: hard
 
@@ -8238,7 +8238,7 @@ __metadata:
     commonmark-test-suite: "npm:0.1.0"
     cross-env: "npm:10.1.0"
     cspell: "npm:10.0.1"
-    css-units-list: "npm:2.1.0"
+    css-units-list: "npm:2.2.0"
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.7"
     diff: "npm:9.0.0"
