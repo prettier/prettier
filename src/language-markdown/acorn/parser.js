@@ -5,7 +5,7 @@ import * as assert from "#universal/assert";
 
 let acorn;
 const createParse =
-  ({ transformArguments, result, parse }) =>
+  ({ transformArguments, createResult, parse }) =>
   (...arguments_) => {
     const parseOptions = transformArguments(...arguments_);
 
@@ -38,7 +38,7 @@ const createParse =
       {
         start: ast.start,
         end: ast.end,
-        ...result,
+        ...createResult(ast),
       },
       "parseResult",
       { value: { ast, comments, text: parseOptions.text } },
@@ -47,7 +47,7 @@ const createParse =
 
 const parse = createParse({
   transformArguments: (text, options) => ({ text, options }),
-  result: { type: "Program", body: [], isProgram: true },
+  createResult: () => ({ type: "Program", body: [], isProgram: true }),
   parse: (acorn, { text, options }) => acorn.parse(text, options),
 });
 
@@ -57,7 +57,24 @@ const parseExpressionAt = createParse({
     position,
     options,
   }),
-  result: { type: "ThisExpression", isExpressionRoot: true },
+  createResult(ast) {
+    const expression =
+      ast.type === "ParenthesizedExpression" ? ast.expression : ast;
+
+    if (expression.type !== "ObjectExpression") {
+      return { type: "ThisExpression", isExpressionRoot: true };
+    }
+
+    return {
+      type: "ObjectExpression",
+      properties: expression.properties.map(({ type, start, end }) => ({
+        type,
+        start,
+        end,
+      })),
+      isExpressionRoot: true,
+    };
+  },
   parse: (acorn, { text, position, options }) =>
     acorn.parseExpressionAt(text, position, options),
 });

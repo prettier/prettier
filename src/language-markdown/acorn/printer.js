@@ -59,7 +59,6 @@ const printJsExpression = createPrint({
       assert.ok(
         body.length === 1 &&
           body[0].type === "ExpressionStatement" &&
-          body[0].expression.type === "ThisExpression" &&
           body[0].expression.isExpressionRoot &&
           body[0].expression.parseResult,
       );
@@ -70,4 +69,28 @@ const printJsExpression = createPrint({
   transform: transformJsExpression,
 });
 
-export { printJsExpression };
+const printJsSpreadAttribute = createPrint({
+  jsParserName: "__js_expression",
+  getParseResult(program) {
+    const { parseResult } = program.body[0].expression;
+
+    let { ast } = parseResult;
+    if (ast.type === "ParenthesizedExpression") {
+      ast = ast.expression;
+    }
+
+    /* c8 ignore next */
+    if (process.env.NODE_ENV !== "production") {
+      assert.ok(
+        ast.type === "ObjectExpression" &&
+          ast.properties.length === 1 &&
+          ast.properties[0].type === "SpreadElement",
+      );
+    }
+
+    return { ...parseResult, ast: ast.properties[0] };
+  },
+  transform: transformJsExpression,
+});
+
+export { printJsExpression, printJsSpreadAttribute };
