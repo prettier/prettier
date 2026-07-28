@@ -362,7 +362,12 @@ function genericPrint(path, options, print) {
           isFirstNode &&
           node.value === "+" &&
           grandparentNode?.type === "selector-pseudo" &&
-          grandparentNode.value.toLowerCase().startsWith(":nth-");
+          [
+            ":nth-child",
+            ":nth-last-child",
+            ":nth-of-type",
+            ":nth-last-of-type",
+          ].includes(grandparentNode.value.toLowerCase());
 
         return [
           leading,
