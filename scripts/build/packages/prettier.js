@@ -545,6 +545,14 @@ const pluginFiles = [
           `;
 
           // We don't use value of JSXText
+          text = text.replace(
+            "const decodeMap = ",
+            "const decodeMap = undefined &&",
+          );
+          text = text.replace(
+            "const entities = ",
+            "const entities = undefined &&",
+          );
           text = text.replaceAll(
             "parser.tokenValue = decodeHTMLStrict(raw);",
             "parser.tokenValue = raw;",
