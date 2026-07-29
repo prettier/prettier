@@ -539,7 +539,7 @@ const pluginFiles = [
           text = outdent`
             const structuredClone =
               globalThis.structuredClone ??
-              node => ({...node, range: [...node.range]});
+              ((node) => ({ ...node, range: [...node.range] }));
 
             ${text}
           `;
