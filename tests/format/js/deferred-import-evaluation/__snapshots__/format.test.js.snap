@@ -50,14 +50,6 @@ import.defer("foo");
 ^"
 `;
 
-exports[`dynamic-import.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.defer("foo");
-    |        ^^^^^
-  2 |
-Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
-`;
-
 exports[`dynamic-import-attributes-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -108,14 +100,6 @@ import.defer("x", { with: { attr: "val" } });
 ^"
 `;
 
-exports[`dynamic-import-attributes-expression.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.defer("x", { with: { attr: "val" } });
-    |        ^^^^^
-  2 |
-Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
-`;
-
 exports[`import-defer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -163,14 +147,6 @@ import defer * as ns from "x";
              ^"
 `;
 
-exports[`import-defer.js format[meriyah] 1`] = `
-"Expected 'from' (1:14)
-> 1 | import defer * as ns from "x";
-    |              ^
-  2 |
-Cause: [1:13-1:14]: Expected 'from'"
-`;
-
 exports[`import-defer-attributes-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -216,12 +192,4 @@ exports[`import-defer-attributes-declaration.js format[hermes] 1`] = `
 Cause: 'from' expected (1:13)
 import defer * as ns from "x" with { attr: "val" };
              ^"
-`;
-
-exports[`import-defer-attributes-declaration.js format[meriyah] 1`] = `
-"Expected 'from' (1:14)
-> 1 | import defer * as ns from "x" with { attr: "val" };
-    |              ^
-  2 |
-Cause: [1:13-1:14]: Expected 'from'"
 `;

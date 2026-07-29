@@ -58,10 +58,7 @@ const disabledTests = new Map(
     acorn: [
       "js/explicit-resource-management/valid-await-using-asi-assignment.js",
     ],
-    meriyah: [
-      // Parsing to different ASTs
-      "js/decorators/member-expression.js",
-    ],
+    meriyah: [],
     "babel-ts": [
       "typescript/conformance/types/moduleDeclaration/kind-detection.ts",
       // https://github.com/babel/babel/pull/17659

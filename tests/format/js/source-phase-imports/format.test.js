@@ -12,7 +12,7 @@ runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: [...importSourceTests, ...invalidSyntaxTests],
     espree: [...importSourceTests, ...invalidSyntaxTests],
-    meriyah: [...importSourceTests, ...invalidSyntaxTests],
+    meriyah: invalidSyntaxTests,
     oxc: invalidSyntaxTests,
     "oxc-ts": invalidSyntaxTests,
     yuku: invalidSyntaxTests,

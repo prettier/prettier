@@ -598,14 +598,6 @@ exports[`deferred-import-evaluation.js format[espree] 1`] = `
 Cause: Unexpected token *"
 `;
 
-exports[`deferred-import-evaluation.js format[meriyah] 1`] = `
-"Expected 'from' (1:14)
-> 1 | import defer * as ns from "x";
-    |              ^
-  2 |
-Cause: [1:13-1:14]: Expected 'from'"
-`;
-
 exports[`destructuring-private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -2479,15 +2471,6 @@ exports[`source-phase-imports.js format[espree] 1`] = `
   2 | import.source("x");
   3 |
 Cause: Unexpected token fooSource"
-`;
-
-exports[`source-phase-imports.js format[meriyah] 1`] = `
-"Expected 'from' (1:15)
-> 1 | import source fooSource from "foo";
-    |               ^^^^^^^^^
-  2 | import.source("x");
-  3 |
-Cause: [1:14-1:23]: Expected 'from'"
 `;
 
 exports[`throw-expressions.js format 1`] = `
