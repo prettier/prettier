@@ -127,7 +127,22 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
   );
 }
 
+function isPolyglotShellDirective(path, options) {
+  const { node, parent } = path;
+  const isFirstDirective =
+    node.type === "Directive"
+      ? parent.directives?.[0] === node && node.value.value === ":"
+      : parent.body?.[0] === node && node.directive === ":";
+
+  return (
+    parent.type === "Program" &&
+    isFirstDirective &&
+    /^#!\/bin\/sh[ \t]*\r?\n[ \t]*":"[ \t]*\/\/;/u.test(options.originalText)
+  );
+}
+
 export {
+  isPolyglotShellDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,

@@ -3,6 +3,7 @@ import {
   printLeadingComments,
 } from "../../main/comments/print.js";
 import {
+  isPolyglotShellDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
@@ -30,6 +31,10 @@ function shouldPrintSemicolon(path, options) {
   }
 
   if (!options.semi) {
+    return false;
+  }
+
+  if (isPolyglotShellDirective(path, options)) {
     return false;
   }
 
