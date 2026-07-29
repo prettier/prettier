@@ -38,6 +38,7 @@ import {
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
   isMediaAndSupportsKeywords,
+  isNthPseudoClassNode,
   isSCSSControlDirectiveNode,
   isTemplatePlaceholderNode,
   isWideKeywords,
@@ -357,17 +358,10 @@ function genericPrint(path, options, print) {
 
         // The leading `+` in An+B notation (e.g. `:nth-child(+2n)`) must stay
         // glued to the following token, a space there is invalid per spec.
-        const grandparentNode = path.grandparent;
         const isNthLeadingSign =
           isFirstNode &&
           node.value === "+" &&
-          grandparentNode?.type === "selector-pseudo" &&
-          [
-            ":nth-child",
-            ":nth-last-child",
-            ":nth-of-type",
-            ":nth-last-of-type",
-          ].includes(grandparentNode.value.toLowerCase());
+          isNthPseudoClassNode(path.grandparent);
 
         return [
           leading,
