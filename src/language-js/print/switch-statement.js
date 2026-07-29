@@ -6,11 +6,43 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locStart } from "../location/index.js";
+import { isLineComment } from "../utilities/comment-types.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
 
 function printSwitchStatement(path, options, print) {
+  const { node } = path;
+  const commentsAfterDiscriminant = getComments(
+    node,
+    CommentCheckFlags.Dangling,
+    (comment) => comment.marker === "commentAfterSwitchDiscriminant",
+  );
+  const firstCommentAfterDiscriminant = commentsAfterDiscriminant[0];
+  const commentAfterDiscriminantIsOnOwnLine =
+    firstCommentAfterDiscriminant &&
+    hasNewline(options.originalText, locStart(firstCommentAfterDiscriminant), {
+      backwards: true,
+    });
+  const commentAfterDiscriminant = firstCommentAfterDiscriminant
+    ? [
+        commentAfterDiscriminantIsOnOwnLine ? hardline : " ",
+        printDanglingComments(path, options, {
+          marker: "commentAfterSwitchDiscriminant",
+        }),
+        isLineComment(commentsAfterDiscriminant.at(-1)) ||
+        commentAfterDiscriminantIsOnOwnLine
+          ? hardline
+          : " ",
+      ]
+    : " ";
+
   return [
     group([
       "switch (",
@@ -18,8 +50,9 @@ function printSwitchStatement(path, options, print) {
       softline,
       ")",
     ]),
-    " {",
-    path.node.cases.length > 0
+    commentAfterDiscriminant,
+    "{",
+    node.cases.length > 0
       ? indent([
           hardline,
           join(

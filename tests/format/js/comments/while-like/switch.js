@@ -14,6 +14,8 @@ switch(true){}// 3
 
 switch(true)/*4*/{}
 
+switch(a) /*c*/{}
+
 switch(
   true // 5
   && true // 52

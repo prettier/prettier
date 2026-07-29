@@ -30,6 +30,15 @@ function handleSwitchStatementComments({
     locEnd(comment),
   );
 
+  if (nextCharacter === "{") {
+    addDanglingComment(
+      enclosingNode,
+      comment,
+      "commentAfterSwitchDiscriminant",
+    );
+    return true;
+  }
+
   if (nextCharacter === "}") {
     addDanglingComment(enclosingNode, comment);
     return true;
