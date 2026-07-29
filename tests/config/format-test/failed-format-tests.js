@@ -60,14 +60,7 @@ const disabledTests = new Map(
     yuku: ["js/await/await-with-parens.js"],
     "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
-      ...commentClosureTypecaseTests,
-
-      // Not supported
-      "flow/comments/",
-      "flow/flow-repo/union_new/",
-
       // Different result
-      "flow/hook/comments-before-arrow.js",
       "js/await/like-call.js",
     ],
     flow: [
