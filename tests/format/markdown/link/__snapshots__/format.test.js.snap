@@ -129,6 +129,32 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-19588.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+[test](/hello?foo&quot\\;bar)
+
+[test](/hello?foo&quot;bar)
+
+[test](/hello?foo&#34\\;bar)
+
+![test](/hello?foo&#x22\\;bar)
+
+=====================================output=====================================
+[test](/hello?foo&quot\\;bar)
+
+[test](/hello?foo"bar)
+
+[test](/hello?foo&#34\\;bar)
+
+![test](/hello?foo&#x22\\;bar)
+
+================================================================================
+`;
+
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

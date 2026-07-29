@@ -226,7 +226,11 @@ function printMdast(path, options, print) {
             "](",
             options.parser !== "mdx" && node.url === ""
               ? "<>"
-              : printUrl(node.url, ")"),
+              : printUrl(
+                  node.url,
+                  ")",
+                  getRawLinkDestination(node, options.originalText),
+                ),
             printTitle(node.title, options),
             ")",
           ];
@@ -243,7 +247,11 @@ function printMdast(path, options, print) {
         "](",
         options.parser !== "mdx" && node.url === ""
           ? "<>"
-          : printUrl(node.url, ")"),
+          : printUrl(
+              node.url,
+              ")",
+              getRawLinkDestination(node, options.originalText),
+            ),
         printTitle(node.title, options),
         ")",
       ];
@@ -518,12 +526,92 @@ const encodeUrl = (url, characters) => {
   return url;
 };
 
+function getRawLinkDestination(node, originalText) {
+  const source = originalText.slice(
+    node.position.start.offset,
+    node.position.end.offset,
+  );
+  let index = source.startsWith("![") ? 1 : 0;
+
+  if (source[index] !== "[") {
+    return;
+  }
+
+  let bracketDepth = 1;
+  for (index++; index < source.length && bracketDepth > 0; index++) {
+    switch (source[index]) {
+      case "\\":
+        index++;
+        break;
+      case "[":
+        bracketDepth++;
+        break;
+      case "]":
+        bracketDepth--;
+    }
+  }
+
+  if (bracketDepth !== 0 || source[index] !== "(") {
+    return;
+  }
+
+  index++;
+  while (/[\t\n\r ]/.test(source[index])) {
+    index++;
+  }
+
+  if (source[index] === "<") {
+    const start = ++index;
+    while (index < source.length && source[index] !== ">") {
+      index += source[index] === "\\" ? 2 : 1;
+    }
+    return source.slice(start, index);
+  }
+
+  const start = index;
+  let parenthesisDepth = 0;
+  while (index < source.length) {
+    const character = source[index];
+    if (character === "\\") {
+      index += 2;
+      continue;
+    }
+    if (character === "(") {
+      parenthesisDepth++;
+    } else if (character === ")") {
+      if (parenthesisDepth === 0) {
+        break;
+      }
+      parenthesisDepth--;
+    } else if (/[\t\n\r ]/.test(character) && parenthesisDepth === 0) {
+      break;
+    }
+    index++;
+  }
+  return source.slice(start, index);
+}
+
+function restoreEscapedCharacterReferences(url, originalUrl) {
+  for (const { 0: escapedCharacterReference } of originalUrl?.matchAll(
+    /&(?:#(?:\d+|x[\da-f]+)|[a-z][\da-z]+)\\;/gi,
+  ) ?? []) {
+    const characterReference = escapedCharacterReference.replace(
+      String.raw`\;`,
+      ";",
+    );
+    url = url.replace(characterReference, escapedCharacterReference);
+  }
+  return url;
+}
+
 /**
  * @param {string} url
  * @param {string[] | string} [dangerousCharOrChars]
+ * @param {string} [originalUrl]
  * @returns {string}
  */
-function printUrl(url, dangerousCharOrChars = []) {
+function printUrl(url, dangerousCharOrChars = [], originalUrl) {
+  url = restoreEscapedCharacterReferences(url, originalUrl);
   const dangerousChars = [
     " ",
     ...(Array.isArray(dangerousCharOrChars)
