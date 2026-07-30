@@ -15,9 +15,21 @@ This is a <TextElement   attr1="value1" attr2="value2" client:load/>.
 </FlowElement>
 
 =====================================output=====================================
-This is a <Text attr1="value1" attr2="value2" client:load>element</Text>.
+This is a
+<Text
+  attr1="value1"
+  attr2="value2"
+  client:load
+>
+  element
+</Text>.
 
-This is a <TextElement attr1="value1" attr2="value2" client:load />.
+This is a
+<TextElement
+  attr1="value1"
+  attr2="value2"
+  client:load
+/>.
 
 <FlowElement
   attr1="value1"
@@ -48,7 +60,10 @@ This is a <TextElement   attr1="value1" attr2="value2" client:load/>.
 </FlowElement>
 
 =====================================output=====================================
-This is a <Text attr1="value1" attr2="value2" client:load>element</Text>.
+This is a
+<Text attr1="value1" attr2="value2" client:load>
+  element
+</Text>.
 
 This is a <TextElement attr1="value1" attr2="value2" client:load />.
 

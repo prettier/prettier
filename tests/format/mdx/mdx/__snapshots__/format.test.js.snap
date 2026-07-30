@@ -688,7 +688,7 @@ asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 test
 
 <ul>
-  <li>item {" "} </li>
+  <li>item </li>
   <li />
 </ul>
 
@@ -742,7 +742,7 @@ asdfsdf <strong style={{ fontWeight: "bolder" }}>asdfasdf</strong>
 test
 
 <ul>
-  <li>item {" "} </li>
+  <li>item </li>
   <li />
 </ul>
 
