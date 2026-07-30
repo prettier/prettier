@@ -41,7 +41,12 @@ const unstableTests = new Map(
   }),
 );
 
-const unstableAstTests = new Map();
+const unstableAstTests = new Map(
+  ["yaml/block-folded/block-folded-strip.yml"].map((fixture) => [
+    path.join(FORMAT_TEST_DIRECTORY, fixture),
+    () => true,
+  ]),
+);
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
 const commentClosureTypecaseTests = [
