@@ -102,6 +102,18 @@ function setup(props) {
     state.content = "";
   };
 
+  const pasteConfig = async () => {
+    try {
+      const config = JSON.parse(await navigator.clipboard.readText());
+      if (!config || Array.isArray(config) || typeof config !== "object") {
+        throw new TypeError("Expected a configuration object.");
+      }
+      Object.assign(state, { options: { ...state.options, ...config } });
+    } catch {
+      window.alert("Unable to paste a valid Prettier configuration.");
+    }
+  };
+
   const resetOptions = () => {
     Object.assign(state, { options: { ...defaultOptions } });
   };
@@ -490,6 +502,7 @@ function setup(props) {
                   >
                     Copy config JSON
                   </ClipboardButton>
+                  <Button onClick={pasteConfig}>Paste config JSON</Button>
                   <Button
                     onClick={insertDummyId}
                     onMousedown={(event) => event.preventDefault()} // prevent button from focusing
