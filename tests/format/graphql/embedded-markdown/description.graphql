@@ -1,0 +1,41 @@
+"""
+## Example Request
+
+```graphql
+query{a}
+```
+
+## Example Response
+
+```json
+{"a":42}
+```
+"""
+type Query { a: Number! }
+
+type Nested {
+  """
+  ## Field description
+
+  ```json
+  {"a":42}
+  ```
+  """
+  a: Number!
+
+  b(
+    """
+    ```json
+    {"a":42}
+    ```
+    """
+    value: String
+  ): Number!
+}
+
+"""
+```text
+\"""
+```
+"""
+type Escaped { value: String }

@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`description.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query { a: Number! }
+
+type Nested {
+  """
+  ## Field description
+
+  \`\`\`json
+  {"a":42}
+  \`\`\`
+  """
+  a: Number!
+
+  b(
+    """
+    \`\`\`json
+    {"a":42}
+    \`\`\`
+    """
+    value: String
+  ): Number!
+}
+
+"""
+\`\`\`text
+\\"""
+\`\`\`
+"""
+type Escaped { value: String }
+
+=====================================output=====================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query {
+  a: Number!
+}
+
+type Nested {
+  """
+  ## Field description
+
+  \`\`\`json
+  {"a":42}
+  \`\`\`
+  """
+  a: Number!
+
+  b(
+    """
+    \`\`\`json
+    {"a":42}
+    \`\`\`
+    """
+    value: String
+  ): Number!
+}
+
+"""
+\`\`\`text
+\\"""
+\`\`\`
+"""
+type Escaped {
+  value: String
+}
+
+================================================================================
+`;
+
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query { a: Number! }
+
+type Nested {
+  """
+  ## Field description
+
+  \`\`\`json
+  {"a":42}
+  \`\`\`
+  """
+  a: Number!
+
+  b(
+    """
+    \`\`\`json
+    {"a":42}
+    \`\`\`
+    """
+    value: String
+  ): Number!
+}
+
+"""
+\`\`\`text
+\\"""
+\`\`\`
+"""
+type Escaped { value: String }
+
+=====================================output=====================================
+"""
+## Example Request
+
+\`\`\`graphql
+query {
+  a
+}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{ "a": 42 }
+\`\`\`
+"""
+type Query {
+  a: Number!
+}
+
+type Nested {
+  """
+  ## Field description
+
+  \`\`\`json
+  { "a": 42 }
+  \`\`\`
+  """
+  a: Number!
+
+  b(
+    """
+    \`\`\`json
+    { "a": 42 }
+    \`\`\`
+    """
+    value: String
+  ): Number!
+}
+
+"""
+\`\`\`text
+\\"""
+\`\`\`
+"""
+type Escaped {
+  value: String
+}
+
+================================================================================
+`;
