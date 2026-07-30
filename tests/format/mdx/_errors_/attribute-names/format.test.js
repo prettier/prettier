@@ -15,6 +15,10 @@ runFormatTest(
 
       // `value` must be quoted
       "<Foo name=value />",
+
+      // No space around
+      // "<Foo name ='value' />",
+      // "<Foo name= 'value' />",
     ],
   },
   ["mdx"],

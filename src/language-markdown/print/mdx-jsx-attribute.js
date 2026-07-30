@@ -17,7 +17,10 @@ function printMdxJsxAttributeValue(path, options, print) {
   const equalSignIndex = attributeText.indexOf("=");
   assert.ok(equalSignIndex !== -1);
 
-  const raw = attributeText.slice(equalSignIndex + 1);
+  let raw = attributeText.slice(equalSignIndex + 1);
+
+  // Mdx allows space around `=`
+  raw = raw.trim();
   assert.ok(/^(?<quote>["']).*\k<quote>$/s.test(raw));
 
   let final = raw
