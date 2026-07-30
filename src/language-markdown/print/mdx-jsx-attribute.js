@@ -4,22 +4,24 @@ import { locEnd, locStart } from "../loc.js";
 
 function printMdxJsxAttributeValue(path, options, print) {
   const { node } = path;
-  const { value } = node;
 
-  if (typeof value !== "string") {
+  if (typeof node.value !== "string") {
     return [print("value")];
   }
 
-  const raw = options.originalText.slice(locStart(node), locEnd(node));
-  let final = raw
-    .slice(raw.search(/['"]/u) + 1, -1)
+  const text = options.originalText.slice(locStart(node), locEnd(node));
+
+  const valueStart = text.search(/['"]/u) + 1;
+
+  const raw = text
+    .slice(valueStart, -1)
     .replaceAll("&apos;", "'")
     .replaceAll("&quot;", '"');
-  const quote = getPreferredQuote(final, options.jsxSingleQuote);
-  final =
+  const quote = getPreferredQuote(raw, options.jsxSingleQuote);
+  const final =
     quote === '"'
-      ? final.replaceAll('"', "&quot;")
-      : final.replaceAll("'", "&apos;");
+      ? raw.replaceAll('"', "&quot;")
+      : raw.replaceAll("'", "&apos;");
 
   return [quote, replaceEndOfLine(final), quote];
 }
