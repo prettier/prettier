@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import { replaceEndOfLine } from "../../document/index.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import { locEnd, locStart } from "../loc.js";
@@ -9,19 +10,25 @@ function printMdxJsxAttributeValue(path, options, print) {
     return [print("value")];
   }
 
-  const text = options.originalText.slice(locStart(node), locEnd(node));
+  const attributeText = options.originalText.slice(
+    locStart(node),
+    locEnd(node),
+  );
+  const equalSignIndex = attributeText.indexOf("=");
+  assert.ok(equalSignIndex !== -1);
 
-  const valueStart = text.search(/['"]/u) + 1;
+  const raw = attributeText.slice(equalSignIndex + 1);
+  assert.ok(/^(?<quote>["']).*\k<quote>$/s.test(raw));
 
-  const raw = text
-    .slice(valueStart, -1)
+  let final = raw
+    .slice(1, -1)
     .replaceAll("&apos;", "'")
     .replaceAll("&quot;", '"');
-  const quote = getPreferredQuote(raw, options.jsxSingleQuote);
-  const final =
+  const quote = getPreferredQuote(final, options.jsxSingleQuote);
+  final =
     quote === '"'
-      ? raw.replaceAll('"', "&quot;")
-      : raw.replaceAll("'", "&apos;");
+      ? final.replaceAll('"', "&quot;")
+      : final.replaceAll("'", "&apos;");
 
   return [quote, replaceEndOfLine(final), quote];
 }
