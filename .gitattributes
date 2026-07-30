@@ -1,3 +1,5 @@
 * text=auto eol=lf
 
 tests/**/* -linguist-detectable
+docs/**/* linguist-documentation
+website/versioned_docs/**/* linguist-documentation
