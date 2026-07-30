@@ -2,16 +2,12 @@ import { replaceEndOfLine } from "../../document/index.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import { locEnd, locStart } from "../loc.js";
 
-function printMdxJsxAttribute(path, options, print) {
+function printMdxJsxAttributeValue(path, options, print) {
   const { node } = path;
-  const { value, name } = node;
-
-  if (value === null) {
-    return name;
-  }
+  const { value } = node;
 
   if (typeof value !== "string") {
-    return [name, "=", print("value")];
+    return [print("value")];
   }
 
   const raw = options.originalText.slice(locStart(node), locEnd(node));
@@ -24,7 +20,19 @@ function printMdxJsxAttribute(path, options, print) {
     quote === '"'
       ? final.replaceAll('"', "&quot;")
       : final.replaceAll("'", "&apos;");
-  return [name, "=", quote, replaceEndOfLine(final), quote];
+
+  return [quote, replaceEndOfLine(final), quote];
+}
+
+// Based on `printJsxAttribute` in ESTree printer
+function printMdxJsxAttribute(path, options, print) {
+  const parts = [path.node.name];
+
+  if (path.node.value !== null) {
+    parts.push("=", printMdxJsxAttributeValue(path, options, print));
+  }
+
+  return parts;
 }
 
 export { printMdxJsxAttribute };
