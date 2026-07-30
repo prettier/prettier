@@ -35,8 +35,8 @@
     "graphql": "17.0.2",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "react-markdown": "10.1.0",
     "react-tweet": "3.3.1",
     "vue": "3.5.40"
@@ -49,7 +49,7 @@
     "@types/react": "19.2.17",
     "@vitejs/plugin-vue": "6.0.8",
     "@vitejs/plugin-vue-jsx": "5.1.6",
-    "concurrently": "10.0.3",
+    "concurrently": "10.0.4",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
     "vite": "8.1.5",
@@ -67,5 +67,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.17.1"
+  "packageManager": "yarn@4.18.0"
 }

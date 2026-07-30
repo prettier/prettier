@@ -47,6 +47,18 @@ var c = new B.a.C();
 ================================================================================
 `;
 
+exports[`circularImportAlias.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:1)
+  1 | // expected no error
+  2 |
+> 3 | module B {
+    | ^
+  4 |     export import a = A;
+  5 |     export class D extends a.C {
+  6 |         id: number;
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:0)"
+`;
+
 exports[`exportImportAlias.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -197,6 +209,18 @@ var p: M.D.Point;
 ================================================================================
 `;
 
+exports[`exportImportAlias.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:1)
+  1 | // expect no errors here
+  2 |
+> 3 | module A {
+    | ^
+  4 |
+  5 |     export var x = 'hello world'
+  6 |     export class Point {
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:0)"
+`;
+
 exports[`exportInterface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -313,6 +337,16 @@ var p: fundule.Point;
 var p: { x: number; y: number };
 
 ================================================================================
+`;
+
+exports[`importAliasIdentifiers.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module moduleA {
+    | ^
+  2 |     export class Point {
+  3 |         constructor(public x: number, public y: number) { }
+  4 |     }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
 `;
 
 exports[`invalidImportAliasIdentifiers.ts format 1`] = `
@@ -447,4 +481,16 @@ module Z {
 }
 
 ================================================================================
+`;
+
+exports[`shadowedInternalModule.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:1)
+  1 | // all errors imported modules conflict with local variables
+  2 |
+> 3 | module A {
+    | ^
+  4 |     export var Point = { x: 0, y: 0 }
+  5 |     export interface Point {
+  6 |         x: number;
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (3:0)"
 `;

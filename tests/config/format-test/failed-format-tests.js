@@ -24,8 +24,6 @@ const unstableTests = new Map(
     "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
-    // Unstable due to lack of indent information
-    "js/multiparser-comments/comment-inside.js",
     [
       "typescript/method-chain/object/issue-17239.ts",
       (options) => options.objectWrap !== "collapse",
@@ -53,51 +51,16 @@ const commentClosureTypecaseTests = [
 
 const disabledTests = new Map(
   Object.entries({
-    espree: [
-      ...commentClosureTypecaseTests,
-      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
-    ],
-    acorn: [
-      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
-    ],
-    meriyah: [
-      // Parsing to different ASTs
-      "js/decorators/member-expression.js",
-    ],
-    "babel-ts": [
-      "typescript/conformance/types/moduleDeclaration/kind-detection.ts",
-      // https://github.com/babel/babel/pull/17659
-      "typescript/conformance/internalModules/importDeclarations/circularImportAlias.ts",
-      "typescript/conformance/internalModules/importDeclarations/exportImportAlias.ts",
-      "typescript/conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
-      "typescript/conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
-      "typescript/conformance/types/moduleDeclaration/moduleDeclaration.ts",
-      "typescript/conformance/types/ambient/ambientDeclarations.ts",
-      "typescript/compiler/declareDottedModuleName.ts",
-      "typescript/compiler/privacyGloImport.ts",
-      "typescript/declare/declare_module.ts",
-      "typescript/const/initializer-ambient-context.ts",
-      "typescript/keywords/keywords.ts",
-      "typescript/keywords/module.ts",
-      "typescript/module/global.ts",
-      "typescript/module/keyword.ts",
-      "typescript/module/module_nested.ts",
-      "typescript/custom/stability/moduleBlock.ts",
-      "typescript/interface2/module.ts",
-    ],
+    espree: commentClosureTypecaseTests,
+    acorn: [],
+    meriyah: [],
+    "babel-ts": [],
     oxc: [],
     "oxc-ts": [],
     yuku: ["js/await/await-with-parens.js"],
     "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
-      ...commentClosureTypecaseTests,
-
-      // Not supported
-      "flow/comments/",
-      "flow/flow-repo/union_new/",
-
       // Different result
-      "flow/hook/comments-before-arrow.js",
       "js/await/like-call.js",
     ],
     flow: [

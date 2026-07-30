@@ -302,6 +302,69 @@ type Props3 = {
 ================================================================================
 `;
 
+exports[`object_type_indexer.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type A = {
+  [key: string]: /** Comment */ B,
+};
+
+type A = {
+  [key: string]: /** Comment */
+    B,
+};
+
+type A = {
+  [key: string] /** Comment */
+    : B,
+};
+
+type A = {
+  [key: string]: /** Comment */ | B,
+};
+
+type A = {
+  [key: string] /** Comment */: B | C,
+};
+
+type A = {
+  [key: string]: // Comment
+    | B
+    | C,
+};
+
+=====================================output=====================================
+type A = {
+  [key: string]: /** Comment */ B,
+};
+
+type A = {
+  [key: string]: /** Comment */ B,
+};
+
+type A = {
+  [key: string /** Comment */]: B,
+};
+
+type A = {
+  [key: string]: /** Comment */ B,
+};
+
+type A = {
+  [key: string /** Comment */]: B | C,
+};
+
+type A = {
+  [key: string]:
+    // Comment
+    B | C,
+};
+
+================================================================================
+`;
+
 exports[`type_annotations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
