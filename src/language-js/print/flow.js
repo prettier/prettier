@@ -240,14 +240,16 @@ function printFlow(path, options, print, args) {
       return printFlowMappedTypeProperty(path, options, print);
     case "ObjectTypeIndexer":
       return [
-        node.static ? "static " : "",
-        node.variance ? print("variance") : "",
-        "[",
-        print("id"),
-        node.id ? ": " : "",
-        print("key"),
-        "]: ",
-        print("value"),
+        group([
+          node.static ? "static " : "",
+          node.variance ? print("variance") : "",
+          "[",
+          print("id"),
+          node.id ? ": " : "",
+          print("key"),
+          "]: ",
+          print("value"),
+        ]),
         printClassMemberSemicolon(path, options),
       ];
 
@@ -275,13 +277,15 @@ function printFlow(path, options, print, args) {
     }
     case "ObjectTypeInternalSlot":
       return [
-        node.static ? "static " : "",
-        "[[",
-        print("id"),
-        "]]",
-        printOptionalToken(path),
-        node.method ? "" : ": ",
-        print("value"),
+        group([
+          node.static ? "static " : "",
+          "[[",
+          print("id"),
+          "]]",
+          printOptionalToken(path),
+          node.method ? "" : ": ",
+          print("value"),
+        ]),
         printClassMemberSemicolon(path, options),
       ];
     // Same as `RestElement`
