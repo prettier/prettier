@@ -46,11 +46,6 @@ function liquidFromMarkdown() {
  * @returns {import('micromark-util-types').Extension}
  */
 function liquidSyntax() {
-  const liquid = {
-    name: "liquid",
-    tokenize,
-  };
-
   return {
     flow: {
       [codes.leftCurlyBrace]: {
@@ -59,17 +54,29 @@ function liquidSyntax() {
       },
     },
     text: {
-      [codes.leftCurlyBrace]: liquid,
+      [codes.leftCurlyBrace]: {
+        name: "liquidText",
+        tokenize: tokenizeText,
+      },
     },
   };
 
   /** @this {TokenizeContext} */
   function tokenizeFlow(effects, ok, nok) {
-    return tokenize.call(this, effects, ok, nok, true);
+    return tokenize.call(this, effects, ok, nok, "flow");
   }
 
   /** @this {TokenizeContext} */
-  function tokenize(effects, ok, nok, isFlow = false) {
+  function tokenizeText(effects, ok, nok) {
+    return tokenize.call(this, effects, ok, nok, "text");
+  }
+
+  /**
+   * @this {TokenizeContext}
+   * @param mode {"text" | "flow"}
+   */
+  function tokenize(effects, ok, nok, mode) {
+    const isFlow = mode === "flow";
     const { interrupt, now, parser } = this;
     /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
     let closingCode;
