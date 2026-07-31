@@ -1,6 +1,3 @@
-a
-;::b.c
-
 class A {
   a = b;
   in
