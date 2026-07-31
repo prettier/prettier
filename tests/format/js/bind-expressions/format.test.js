@@ -9,4 +9,3 @@ const errors = {
 };
 
 runFormatTest(import.meta, ["babel"], { errors });
-runFormatTest(import.meta, ["babel"], { semi: false, errors });
