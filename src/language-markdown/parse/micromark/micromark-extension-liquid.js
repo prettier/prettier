@@ -11,10 +11,6 @@ import { codes, types } from "micromark-util-symbol";
  */
 
 const nodeType = "liquidNode";
-const nonLazyContinuation = {
-  tokenize: tokenizeNonLazyContinuation,
-  partial: true,
-};
 
 /**
  * @returns {FromMarkdownExtension}
@@ -69,14 +65,12 @@ function liquidSyntax() {
 
   /** @this {TokenizeContext} */
   function tokenizeFlow(effects, ok, nok) {
-    return tokenizeLiquid(effects, ok, nok, true, this.interrupt);
+    return tokenize.call(this, effects, ok, nok, true);
   }
 
-  function tokenize(effects, ok, nok) {
-    return tokenizeLiquid(effects, ok, nok, false, false);
-  }
-
-  function tokenizeLiquid(effects, ok, nok, isFlow, interrupt) {
+  /** @this {TokenizeContext} */
+  function tokenize(effects, ok, nok, isFlow = false) {
+    const { interrupt, now, parser } = this;
     /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
     let closingCode;
 
@@ -114,16 +108,12 @@ function liquidSyntax() {
         default:
           if (markdownLineEnding(code)) {
             effects.exit(types.data);
-            if (isFlow) {
-              return effects.attempt(
-                nonLazyContinuation,
-                afterLineEnding,
-                nok,
-              )(code);
-            }
             effects.enter(types.lineEnding);
             effects.consume(code);
             effects.exit(types.lineEnding);
+            if (isFlow) {
+              return afterLineEnding;
+            }
             effects.enter(types.data);
             return inside;
           }
@@ -134,8 +124,15 @@ function liquidSyntax() {
 
     /** @type {State} */
     function afterLineEnding(code) {
+      if (parser.lazy[now().line]) {
+        return nok(code);
+      }
+
       if (markdownLineEnding(code)) {
-        return effects.attempt(nonLazyContinuation, afterLineEnding, nok)(code);
+        effects.enter(types.lineEnding);
+        effects.consume(code);
+        effects.exit(types.lineEnding);
+        return afterLineEnding;
       }
 
       effects.enter(types.data);
@@ -182,29 +179,6 @@ function liquidSyntax() {
         ? ok(code)
         : nok(code);
     }
-  }
-}
-
-/** @this {TokenizeContext} */
-function tokenizeNonLazyContinuation(effects, ok, nok) {
-  const { now, parser } = this;
-  return start;
-
-  /** @type {State} */
-  function start(code) {
-    if (code === codes.eof) {
-      return ok(code);
-    }
-
-    effects.enter(types.lineEnding);
-    effects.consume(code);
-    effects.exit(types.lineEnding);
-    return lineStart;
-  }
-
-  /** @type {State} */
-  function lineStart(code) {
-    return parser.lazy[now().line] ? nok(code) : ok(code);
   }
 }
 
