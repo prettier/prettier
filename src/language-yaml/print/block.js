@@ -13,6 +13,7 @@ import {
 import {
   getBlockValueLineContents,
   hasIndicatorComment,
+  hasTrailingContentWhitespace,
   isLastDescendantNode,
 } from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
@@ -53,9 +54,14 @@ function printBlock(path, options, print) {
       contentsParts.push(
         lineWords.length === 0 ? hardline : markAsRoot(literalline),
       );
-    } else if (node.chomping === "keep" && isLastDescendant) {
+    } else if (
+      (isLastDescendant && node.chomping === "keep") ||
+      hasTrailingContentWhitespace(node)
+    ) {
       contentsParts.push(
-        dedentToRoot(lineWords.length === 0 ? hardline : literalline),
+        isLastDescendant
+          ? dedentToRoot(lineWords.length === 0 ? hardline : literalline)
+          : dedent(lineWords.length === 0 ? hardline : literalline),
       );
     }
   }

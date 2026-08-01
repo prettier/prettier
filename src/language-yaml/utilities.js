@@ -286,7 +286,7 @@ function getBlockValueLineContents(
 
     let trailingNewlineCount = 0;
     for (let i = lineContents.length - 1; i >= 0; i--) {
-      if (lineContents[i].every((line) => line.replace(/[ \t]+$/, "") === "")) {
+      if (lineContents[i].length === 0) {
         trailingNewlineCount++;
       } else {
         break;
@@ -300,6 +300,10 @@ function getBlockValueLineContents(
           lineContents.slice(0, -(trailingNewlineCount - 1))
         : lineContents.slice(0, -trailingNewlineCount);
   }
+}
+
+function hasTrailingContentWhitespace(node) {
+  return /[ \t]+\n*$/.test(node.value);
 }
 
 function isInlineNode(node) {
@@ -332,6 +336,7 @@ export {
   hasMiddleComments,
   hasPrettierIgnore,
   hasTrailingComment,
+  hasTrailingContentWhitespace,
   isEmptyNode,
   isInlineNode,
   isLastDescendantNode,
