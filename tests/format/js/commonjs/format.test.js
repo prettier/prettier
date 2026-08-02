@@ -12,7 +12,7 @@ const tests = [
     baseFilename: "using",
   },
 ].flatMap(({ code, baseFilename }) =>
-  [".js", ".cjs", ".mjs"].map((extension) => {
+  [".cjs", ".mjs", ".unknown"].map((extension) => {
     const filename = `${baseFilename}${extension}`;
     return { name: filename, code, filename };
   }),
@@ -29,12 +29,12 @@ runFormatTest(
       flow: [
         "new-target.cjs",
         "new-target.mjs",
-        "new-target.js",
+        "new-target.unknown",
         "using.cjs",
         "using.mjs",
-        "using.js",
+        "using.unknown",
       ],
-      hermes: ["new-target.cjs", "new-target.mjs", "new-target.js"],
+      hermes: ["new-target.cjs", "new-target.mjs", "new-target.unknown"],
       oxc: ["new-target.mjs"],
       "oxc-ts": ["new-target.mjs"],
       yuku: ["return.mjs"],
