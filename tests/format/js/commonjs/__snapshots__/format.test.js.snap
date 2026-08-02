@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: new-target.cjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+new.target
+=====================================output=====================================
+new.target;
+
+================================================================================
+`;
+
+exports[`snippet: new-target.cjs format[flow] 1`] = `
+"Unexpected token \`.\` (1:4)
+> 1 | new.target
+    |    ^
+Cause: Unexpected token \`.\` (1:3)"
+`;
+
+exports[`snippet: new-target.cjs format[hermes] 1`] = `
+"'new.target' not in a function (1:1)
+> 1 | new.target
+    | ^
+Cause: 'new.target' not in a function (1:0)
+new.target
+^~~~~~~~~~"
+`;
+
+exports[`snippet: new-target.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+new.target
+=====================================output=====================================
+new.target;
+
+================================================================================
+`;
+
+exports[`snippet: new-target.mjs format[acorn] 1`] = `
+"'new.target' can only be used in functions and class static block (1:1)
+> 1 | new.target
+    | ^
+Cause: 'new.target' can only be used in functions and class static block (1:0)"
+`;
+
+exports[`snippet: new-target.mjs format[espree] 1`] = `
+"'new.target' can only be used in functions and class static block (1:1)
+> 1 | new.target
+    | ^
+Cause: 'new.target' can only be used in functions and class static block"
+`;
+
+exports[`snippet: new-target.mjs format[flow] 1`] = `
+"Unexpected token \`.\` (1:4)
+> 1 | new.target
+    |    ^
+Cause: Unexpected token \`.\` (1:3)"
+`;
+
+exports[`snippet: new-target.mjs format[hermes] 1`] = `
+"'new.target' not in a function (1:1)
+> 1 | new.target
+    | ^
+Cause: 'new.target' not in a function (1:0)
+new.target
+^~~~~~~~~~"
+`;
+
+exports[`snippet: new-target.mjs format[meriyah] 1`] = `
+"new.target only allowed within functions or static blocks (1:5)
+> 1 | new.target
+    |     ^^^^^^
+Cause: [1:4-1:10]: new.target only allowed within functions or static blocks"
+`;
+
+exports[`snippet: new-target.mjs format[oxc] 1`] = `
+"Unexpected new.target expression (1:1)
+> 1 | new.target
+    | ^^^^^^^^^^"
+`;
+
+exports[`snippet: new-target.mjs format[oxc-ts] 1`] = `
+"Unexpected new.target expression (1:1)
+> 1 | new.target
+    | ^^^^^^^^^^"
+`;
+
+exports[`snippet: new-target.unknown format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+new.target
+=====================================output=====================================
+new.target;
+
+================================================================================
+`;
+
+exports[`snippet: new-target.unknown format[flow] 1`] = `
+"Unexpected token \`.\` (1:4)
+> 1 | new.target
+    |    ^
+Cause: Unexpected token \`.\` (1:3)"
+`;
+
+exports[`snippet: new-target.unknown format[hermes] 1`] = `
+"'new.target' not in a function (1:1)
+> 1 | new.target
+    | ^
+Cause: 'new.target' not in a function (1:0)
+new.target
+^~~~~~~~~~"
+`;
+
+exports[`snippet: return.cjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+return
+=====================================output=====================================
+return;
+
+================================================================================
+`;
+
+exports[`snippet: return.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+return
+=====================================output=====================================
+return;
+
+================================================================================
+`;
+
+exports[`snippet: return.mjs format[espree] 1`] = `
+"'return' outside of function (1:1)
+> 1 | return
+    | ^
+Cause: 'return' outside of function"
+`;
+
+exports[`snippet: return.mjs format[meriyah] 1`] = `
+"Illegal return statement (1:1)
+> 1 | return
+    | ^^^^^^
+Cause: [1:0-1:6]: Illegal return statement"
+`;
+
+exports[`snippet: return.mjs format[yuku] 1`] = `
+"'return' statement is only valid inside a function (1:1)
+> 1 | return
+    | ^^^^^^"
+`;
+
+exports[`snippet: return.mjs format[yuku-ts] 1`] = `
+"'return' statement is only valid inside a function (1:1)
+> 1 | return
+    | ^^^^^^"
+`;
+
+exports[`snippet: return.unknown format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+return
+=====================================output=====================================
+return;
+
+================================================================================
+`;
+
+exports[`snippet: using.cjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+using foo = bar
+=====================================output=====================================
+using foo = bar;
+
+================================================================================
+`;
+
+exports[`snippet: using.cjs format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
+> 1 | using foo = bar
+    |       ^
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:6)"
+`;
+
+exports[`snippet: using.cjs format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:7)
+> 1 | using foo = bar
+    |       ^^^
+Cause: [1:6-1:9]: Unexpected token: 'identifier'"
+`;
+
+exports[`snippet: using.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+using foo = bar
+=====================================output=====================================
+using foo = bar;
+
+================================================================================
+`;
+
+exports[`snippet: using.mjs format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
+> 1 | using foo = bar
+    |       ^
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:6)"
+`;
+
+exports[`snippet: using.unknown format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+using foo = bar
+=====================================output=====================================
+using foo = bar;
+
+================================================================================
+`;
+
+exports[`snippet: using.unknown format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
+> 1 | using foo = bar
+    |       ^
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:6)"
+`;
