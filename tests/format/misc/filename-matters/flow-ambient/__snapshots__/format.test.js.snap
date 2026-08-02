@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: (no name) format 1`] = `
+exports[`snippet: const-without-initializer (undefined filename) format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
                                                       printWidth: 80 (default) |
@@ -12,7 +12,7 @@ const foo: string;
 ================================================================================
 `;
 
-exports[`snippet: (no name) format[hermes] 1`] = `
+exports[`snippet: const-without-initializer (undefined filename) format[hermes] 1`] = `
 "missing initializer in const declaration (1:7)
 > 1 | const foo: string;
     |       ^

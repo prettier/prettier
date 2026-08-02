@@ -7,7 +7,11 @@ const tests = [
   [undefined, ".js.flow", ".unknown"].map((extension) => {
     const filename =
       extension === undefined ? undefined : `${baseFilename}${extension}`;
-    return { name: filename ?? "(no name)", code, filename };
+    return {
+      name: filename ?? `${baseFilename} (undefined filename)`,
+      code,
+      filename,
+    };
   }),
 );
 
