@@ -5313,10 +5313,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.7.0, globals@npm:^17.7.0":
-  version: 17.7.0
-  resolution: "globals@npm:17.7.0"
-  checksum: 10/79304ccc4d2ca167ea15bdb25da346aa34ce3847b18fbd6c3cad182e152505305db3c9722fd5e292c62f6db97a8fa06e0c110a1e7703d7325498e5351d08cab4
+"globals@npm:17.8.0, globals@npm:^17.7.0":
+  version: 17.8.0
+  resolution: "globals@npm:17.8.0"
+  checksum: 10/b7b854b2052d2608d1878884bf730c027e17b9e2d194834f48c3280a7f0005b06d5f51dba362d3149cc05eb90d36d990e5c996728ecd3585a43dc3b4a286ed85
   languageName: node
   linkType: hard
 
@@ -8275,7 +8275,7 @@ __metadata:
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"
     gfm-test-suite: "npm:0.0.2"
-    globals: "npm:17.7.0"
+    globals: "npm:17.8.0"
     graphql: "npm:17.0.2"
     graphql-test-suite: "npm:0.0.2"
     hermes-parser: "npm:0.37.0"
