@@ -21,7 +21,23 @@ const foo: string;
       ^~~~~~~~~~~"
 `;
 
-exports[`snippet: const-without-initializer.undefined format 1`] = `
+exports[`snippet: const-without-initializer.unknown format[flow] 1`] = `
+"Const must be initialized (1:7)
+> 1 | const foo: string;
+    |       ^
+Cause: Const must be initialized (1:6)"
+`;
+
+exports[`snippet: const-without-initializer.unknown format[hermes] 1`] = `
+"missing initializer in const declaration (1:7)
+> 1 | const foo: string;
+    |       ^
+Cause: missing initializer in const declaration (1:6)
+const foo: string;
+      ^~~~~~~~~~~"
+`;
+
+exports[`snippet: const-without-initializer.unset-filepath format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
                                                       printWidth: 80 (default) |
@@ -33,23 +49,7 @@ const foo: string;
 ================================================================================
 `;
 
-exports[`snippet: const-without-initializer.undefined format[hermes] 1`] = `
-"missing initializer in const declaration (1:7)
-> 1 | const foo: string;
-    |       ^
-Cause: missing initializer in const declaration (1:6)
-const foo: string;
-      ^~~~~~~~~~~"
-`;
-
-exports[`snippet: const-without-initializer.unknown format[flow] 1`] = `
-"Const must be initialized (1:7)
-> 1 | const foo: string;
-    |       ^
-Cause: Const must be initialized (1:6)"
-`;
-
-exports[`snippet: const-without-initializer.unknown format[hermes] 1`] = `
+exports[`snippet: const-without-initializer.unset-filepath format[hermes] 1`] = `
 "missing initializer in const declaration (1:7)
 > 1 | const foo: string;
     |       ^

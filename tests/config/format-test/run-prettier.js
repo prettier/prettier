@@ -10,12 +10,10 @@ import { ensurePromise } from "./utilities.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 function unsetFilepath(options) {
-  if (
-    typeof options.filepath === "string" &&
-    options.filepath.endsWith(".undefined")
-  ) {
-    options = { ...options };
-    delete options.filepath;
+  const { filepath, ...restOptions } = options;
+
+  if (typeof filepath === "string" && filepath.endsWith(".unset-filepath")) {
+    return restOptions;
   }
 
   return options;
