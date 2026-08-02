@@ -4,11 +4,10 @@ const tests = [
     baseFilename: "const-without-initializer",
   },
 ].flatMap(({ code, baseFilename }) =>
-  [undefined, ".js.flow", ".unknown"].map((extension) => {
-    const filename =
-      extension === undefined ? undefined : `${baseFilename}${extension}`;
+  [".js.flow", ".unknown", ".undefined"].map((extension) => {
+    const filename = `${baseFilename}${extension}`;
     return {
-      name: filename ?? `${baseFilename} (undefined filename)`,
+      name: filename,
       code,
       filename,
     };

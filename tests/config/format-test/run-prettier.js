@@ -9,7 +9,21 @@ import {
 import { ensurePromise } from "./utilities.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
+function unsetFilePath(options) {
+  if (
+    typeof options.filepath === "string" &&
+    options.filepath.endsWith(".undefined")
+  ) {
+    options = { ...options };
+    delete options.filepath;
+  }
+
+  return options;
+}
+
 async function parse(input, options) {
+  options = unsetFilePath(options);
+
   const prettier = await getPrettier();
   const { ast } = await ensurePromise(
     prettier.__debug.parse(input, await loadPlugins(options), {
@@ -20,6 +34,8 @@ async function parse(input, options) {
 }
 
 async function format(input, options) {
+  options = unsetFilePath(options);
+
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
