@@ -3019,97 +3019,97 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-arm64@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-darwin-arm64@npm:0.8.1"
+"@yuku-parser/binding-darwin-arm64@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-darwin-arm64@npm:0.8.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-x64@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-darwin-x64@npm:0.8.1"
+"@yuku-parser/binding-darwin-x64@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-darwin-x64@npm:0.8.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-freebsd-x64@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-freebsd-x64@npm:0.8.1"
+"@yuku-parser/binding-freebsd-x64@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-freebsd-x64@npm:0.8.2"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-gnu@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-arm-gnu@npm:0.8.1"
+"@yuku-parser/binding-linux-arm-gnu@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-arm-gnu@npm:0.8.2"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-musl@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-arm-musl@npm:0.8.1"
+"@yuku-parser/binding-linux-arm-musl@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-arm-musl@npm:0.8.2"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-gnu@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-arm64-gnu@npm:0.8.1"
+"@yuku-parser/binding-linux-arm64-gnu@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-arm64-gnu@npm:0.8.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-musl@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-arm64-musl@npm:0.8.1"
+"@yuku-parser/binding-linux-arm64-musl@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-arm64-musl@npm:0.8.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-gnu@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-x64-gnu@npm:0.8.1"
+"@yuku-parser/binding-linux-x64-gnu@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-x64-gnu@npm:0.8.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-musl@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-linux-x64-musl@npm:0.8.1"
+"@yuku-parser/binding-linux-x64-musl@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-linux-x64-musl@npm:0.8.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-arm64@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-win32-arm64@npm:0.8.1"
+"@yuku-parser/binding-win32-arm64@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-win32-arm64@npm:0.8.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-x64@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/binding-win32-x64@npm:0.8.1"
+"@yuku-parser/binding-win32-x64@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/binding-win32-x64@npm:0.8.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/wasm@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-parser/wasm@npm:0.8.1"
+"@yuku-parser/wasm@npm:0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-parser/wasm@npm:0.8.2"
   dependencies:
-    "@yuku-toolchain/types": "npm:^0.8.1"
-    yuku-ast: "npm:^0.8.1"
-  checksum: 10/59893232e673bf0b4a240ede964aa2d58773cae7d0b9053d5efc20c83006340268e1cc284594951fcd7a19075fad4fe59edddb4c0979c37c529030e89aeafdc5
+    "@yuku-toolchain/types": "npm:^0.8.2"
+    yuku-ast: "npm:^0.8.2"
+  checksum: 10/9ff66c4f0cdf29e0cfb58a944ad88f044e4100ebdd626bbfb977d20b2a43dfe5704219784585fe77addb227785063ea3b94be615b040df4518968e729e9ab631
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/types@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "@yuku-toolchain/types@npm:0.8.1"
-  checksum: 10/f3ff5c7e3ecd205c32e51d61ff3184b1fc3262ada18e0dfc29a4fb17a0f7a002406bb5239e7ff8adc451802b1c6ed0d931255532f514752ebf4d833fa662b30e
+"@yuku-toolchain/types@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "@yuku-toolchain/types@npm:0.8.2"
+  checksum: 10/dcb9d21e97b21b0f2d5725ab01e33c83c539cbb17faaf99303aff67da937a10b56177be7d8aea107987e8d8c31bd1fdae2781d851cfb45b2bb6f80aa1db33f09
   languageName: node
   linkType: hard
 
@@ -8221,7 +8221,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.65.0"
     "@typescript-eslint/typescript-estree": "npm:8.65.0"
     "@typescript-eslint/visitor-keys": "npm:8.65.0"
-    "@yuku-parser/wasm": "npm:0.8.1"
+    "@yuku-parser/wasm": "npm:0.8.2"
     acorn: "npm:8.18.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
@@ -8349,7 +8349,7 @@ __metadata:
     yaml: "npm:2.9.0"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.0"
-    yuku-parser: "npm:0.8.1"
+    yuku-parser: "npm:0.8.2"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -10072,32 +10072,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku-ast@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "yuku-ast@npm:0.8.1"
+"yuku-ast@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "yuku-ast@npm:0.8.2"
   dependencies:
-    "@yuku-toolchain/types": "npm:^0.8.1"
-  checksum: 10/7847ccfc5e1d7bbcde1a9a330249ca0451ea480abb5047108bc984bfc37267fb45295704066998d3fcbe33ed2168b76860c01fc75fb713e759a62f78bb613350
+    "@yuku-toolchain/types": "npm:^0.8.2"
+  checksum: 10/2282fb6b5dae689e4dbab236dd7c82d9f944cd35b943048c61eeabb4945ea8e0ba4e83e6f703c8648d18e199fbd3c948179c996c1b07a0db075e8c6a9f750a72
   languageName: node
   linkType: hard
 
-"yuku-parser@npm:0.8.1":
-  version: 0.8.1
-  resolution: "yuku-parser@npm:0.8.1"
+"yuku-parser@npm:0.8.2":
+  version: 0.8.2
+  resolution: "yuku-parser@npm:0.8.2"
   dependencies:
-    "@yuku-parser/binding-darwin-arm64": "npm:0.8.1"
-    "@yuku-parser/binding-darwin-x64": "npm:0.8.1"
-    "@yuku-parser/binding-freebsd-x64": "npm:0.8.1"
-    "@yuku-parser/binding-linux-arm-gnu": "npm:0.8.1"
-    "@yuku-parser/binding-linux-arm-musl": "npm:0.8.1"
-    "@yuku-parser/binding-linux-arm64-gnu": "npm:0.8.1"
-    "@yuku-parser/binding-linux-arm64-musl": "npm:0.8.1"
-    "@yuku-parser/binding-linux-x64-gnu": "npm:0.8.1"
-    "@yuku-parser/binding-linux-x64-musl": "npm:0.8.1"
-    "@yuku-parser/binding-win32-arm64": "npm:0.8.1"
-    "@yuku-parser/binding-win32-x64": "npm:0.8.1"
-    "@yuku-toolchain/types": "npm:^0.8.1"
-    yuku-ast: "npm:^0.8.1"
+    "@yuku-parser/binding-darwin-arm64": "npm:0.8.2"
+    "@yuku-parser/binding-darwin-x64": "npm:0.8.2"
+    "@yuku-parser/binding-freebsd-x64": "npm:0.8.2"
+    "@yuku-parser/binding-linux-arm-gnu": "npm:0.8.2"
+    "@yuku-parser/binding-linux-arm-musl": "npm:0.8.2"
+    "@yuku-parser/binding-linux-arm64-gnu": "npm:0.8.2"
+    "@yuku-parser/binding-linux-arm64-musl": "npm:0.8.2"
+    "@yuku-parser/binding-linux-x64-gnu": "npm:0.8.2"
+    "@yuku-parser/binding-linux-x64-musl": "npm:0.8.2"
+    "@yuku-parser/binding-win32-arm64": "npm:0.8.2"
+    "@yuku-parser/binding-win32-x64": "npm:0.8.2"
+    "@yuku-toolchain/types": "npm:^0.8.2"
+    yuku-ast: "npm:^0.8.2"
   dependenciesMeta:
     "@yuku-parser/binding-darwin-arm64":
       optional: true
@@ -10121,7 +10121,7 @@ __metadata:
       optional: true
     "@yuku-parser/binding-win32-x64":
       optional: true
-  checksum: 10/8796e5496ce63b4a8c66e107260dc4a50c451ff211f34d094ee793aee7a46d1c0d5d63ed55416fdf04c752410635e0827aad49f3d08a77565b4e8c708dd6de97
+  checksum: 10/fcdcf6c02cf445dfb42460a3b00c509bd1083c4110b374b88b1c09076ad02f11078107593acfbcc9205a610ed9147c6ab8a5bc36641d4fb4ed2ea17cb161b02c
   languageName: node
   linkType: hard
 
