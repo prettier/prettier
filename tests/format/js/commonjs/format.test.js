@@ -1,7 +1,7 @@
 const tests = [
   {
     code: "return",
-    baseFilename: "return",
+    baseFilename: "return-top-level",
   },
   {
     code: "new.target",
@@ -24,8 +24,8 @@ runFormatTest(
   {
     errors: {
       acorn: ["new-target.mjs"],
-      espree: ["return.mjs", "new-target.mjs"],
-      meriyah: ["using.cjs", "return.mjs", "new-target.mjs"],
+      espree: ["return-top-level.mjs", "new-target.mjs"],
+      meriyah: ["using.cjs", "return-top-level.mjs", "new-target.mjs"],
       flow: [
         "new-target.cjs",
         "new-target.mjs",
@@ -37,8 +37,8 @@ runFormatTest(
       hermes: ["new-target.cjs", "new-target.mjs", "new-target.unknown"],
       oxc: ["new-target.mjs"],
       "oxc-ts": ["new-target.mjs"],
-      yuku: ["return.mjs"],
-      "yuku-ts": ["return.mjs"],
+      yuku: ["return-top-level.mjs"],
+      "yuku-ts": ["return-top-level.mjs"],
     },
   },
 );

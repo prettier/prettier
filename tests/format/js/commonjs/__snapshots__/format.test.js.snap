@@ -117,7 +117,7 @@ new.target
 ^~~~~~~~~~"
 `;
 
-exports[`snippet: return.cjs format 1`] = `
+exports[`snippet: return-top-level.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
@@ -129,7 +129,7 @@ return;
 ================================================================================
 `;
 
-exports[`snippet: return.mjs format 1`] = `
+exports[`snippet: return-top-level.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
@@ -141,33 +141,33 @@ return;
 ================================================================================
 `;
 
-exports[`snippet: return.mjs format[espree] 1`] = `
+exports[`snippet: return-top-level.mjs format[espree] 1`] = `
 "'return' outside of function (1:1)
 > 1 | return
     | ^
 Cause: 'return' outside of function"
 `;
 
-exports[`snippet: return.mjs format[meriyah] 1`] = `
+exports[`snippet: return-top-level.mjs format[meriyah] 1`] = `
 "Illegal return statement (1:1)
 > 1 | return
     | ^^^^^^
 Cause: [1:0-1:6]: Illegal return statement"
 `;
 
-exports[`snippet: return.mjs format[yuku] 1`] = `
+exports[`snippet: return-top-level.mjs format[yuku] 1`] = `
 "'return' statement is only valid inside a function (1:1)
 > 1 | return
     | ^^^^^^"
 `;
 
-exports[`snippet: return.mjs format[yuku-ts] 1`] = `
+exports[`snippet: return-top-level.mjs format[yuku-ts] 1`] = `
 "'return' statement is only valid inside a function (1:1)
 > 1 | return
     | ^^^^^^"
 `;
 
-exports[`snippet: return.unknown format 1`] = `
+exports[`snippet: return-top-level.unknown format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
