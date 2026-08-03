@@ -117,7 +117,253 @@ new.target
 ^~~~~~~~~~"
 `;
 
-exports[`snippet: return-top-level.cjs format 1`] = `
+exports[`snippet: return/in-static-block.cjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class X { static { return; } }
+=====================================output=====================================
+class X {
+  static {
+    return;
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: return/in-static-block.cjs format[__babel_estree] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[acorn] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[babel] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[babel-ts] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[espree] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[meriyah] 1`] = `
+"Illegal return statement (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^
+Cause: [1:19-1:25]: Illegal return statement"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[oxc] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[oxc-ts] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[yuku] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.cjs format[yuku-ts] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class X { static { return; } }
+=====================================output=====================================
+class X {
+  static {
+    return;
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: return/in-static-block.mjs format[__babel_estree] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[acorn] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[babel] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[babel-ts] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[espree] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[meriyah] 1`] = `
+"Illegal return statement (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^
+Cause: [1:19-1:25]: Illegal return statement"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[oxc] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[oxc-ts] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[yuku] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.mjs format[yuku-ts] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.unknown format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class X { static { return; } }
+=====================================output=====================================
+class X {
+  static {
+    return;
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: return/in-static-block.unknown format[__babel_estree] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[acorn] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[babel] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[babel-ts] 1`] = `
+"'return' outside of function. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function. (1:19)"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[espree] 1`] = `
+"'return' outside of function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^
+Cause: 'return' outside of function"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[meriyah] 1`] = `
+"Illegal return statement (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^
+Cause: [1:19-1:25]: Illegal return statement"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[oxc] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[oxc-ts] 1`] = `
+"A 'return' statement cannot be used inside a class static block. (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[yuku] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/in-static-block.unknown format[yuku-ts] 1`] = `
+"'return' statement is only valid inside a function (1:20)
+> 1 | class X { static { return; } }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: return/top-level.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
@@ -129,7 +375,7 @@ return;
 ================================================================================
 `;
 
-exports[`snippet: return-top-level.mjs format 1`] = `
+exports[`snippet: return/top-level.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
@@ -141,33 +387,33 @@ return;
 ================================================================================
 `;
 
-exports[`snippet: return-top-level.mjs format[espree] 1`] = `
+exports[`snippet: return/top-level.mjs format[espree] 1`] = `
 "'return' outside of function (1:1)
 > 1 | return
     | ^
 Cause: 'return' outside of function"
 `;
 
-exports[`snippet: return-top-level.mjs format[meriyah] 1`] = `
+exports[`snippet: return/top-level.mjs format[meriyah] 1`] = `
 "Illegal return statement (1:1)
 > 1 | return
     | ^^^^^^
 Cause: [1:0-1:6]: Illegal return statement"
 `;
 
-exports[`snippet: return-top-level.mjs format[yuku] 1`] = `
+exports[`snippet: return/top-level.mjs format[yuku] 1`] = `
 "'return' statement is only valid inside a function (1:1)
 > 1 | return
     | ^^^^^^"
 `;
 
-exports[`snippet: return-top-level.mjs format[yuku-ts] 1`] = `
+exports[`snippet: return/top-level.mjs format[yuku-ts] 1`] = `
 "'return' statement is only valid inside a function (1:1)
 > 1 | return
     | ^^^^^^"
 `;
 
-exports[`snippet: return-top-level.unknown format 1`] = `
+exports[`snippet: return/top-level.unknown format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
