@@ -108,7 +108,14 @@ function setup(props) {
       if (!config || Array.isArray(config) || typeof config !== "object") {
         throw new TypeError("Expected a configuration object.");
       }
-      Object.assign(state, { options: { ...state.options, ...config } });
+      const supportedOptions = new Set(
+        props.availableOptions.map((option) => option.name),
+      );
+      const options = Object.fromEntries(
+        Object.entries(config).filter(([name]) => supportedOptions.has(name)),
+      );
+      Object.assign(state, { options: { ...state.options, ...options } });
+      formatInput();
     } catch {
       window.alert("Unable to paste a valid Prettier configuration.");
     }
