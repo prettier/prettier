@@ -78,11 +78,7 @@ function embed(path, options) {
       ];
 
     case "mdxJsxExpressionAttribute":
-      return async (textToDoc, print, path, options) => [
-        "{",
-        await printJsSpreadAttribute(textToDoc, print, path, options),
-        "}",
-      ];
+      return printJsSpreadAttribute;
   }
 }
 

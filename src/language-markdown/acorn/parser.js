@@ -57,24 +57,18 @@ const parseExpressionAt = createParse({
     position,
     options,
   }),
-  createResult(ast) {
-    const expression =
-      ast.type === "ParenthesizedExpression" ? ast.expression : ast;
-
-    if (expression.type !== "ObjectExpression") {
-      return { type: "ThisExpression", isExpressionRoot: true };
-    }
-
-    return {
-      type: "ObjectExpression",
-      properties: expression.properties.map(({ type, start, end }) => ({
-        type,
-        start,
-        end,
-      })),
-      isExpressionRoot: true,
-    };
-  },
+  // Bypass AST check
+  // https://github.com/micromark/micromark-extension-mdx-expression/blob/2891b75ff9e985c6df208a47348e76ced05dbfed/packages/micromark-factory-mdx-expression/dev/index.js#L302
+  createResult: () => ({
+    type: "ObjectExpression",
+    properties: [
+      {
+        type: "SpreadElement",
+        argument: { type: "Identifier", name: "_" },
+      },
+    ],
+    isExpressionRoot: true,
+  }),
   parse: (acorn, { text, position, options }) =>
     acorn.parseExpressionAt(text, position, options),
 });

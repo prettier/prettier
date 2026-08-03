@@ -36,6 +36,10 @@ const createPrint =
     const mdxParserName = `__mdx_${jsParserName.startsWith("__") ? jsParserName.slice(2) : jsParserName}`;
     const program = path.node.data.estree;
     const parseResult = getParseResult(program);
+    if (!parseResult) {
+      return;
+    }
+
     const plugin = createPlugin(mdxParserName, jsParserName, transform);
 
     return await textToDoc(parseResult.text, {
@@ -73,22 +77,29 @@ const printJsSpreadAttribute = createPrint({
   jsParserName: "__js_expression",
   getParseResult(program) {
     const { parseResult } = program.body[0].expression;
+    const { ast } = parseResult;
+    const expression =
+      ast.type === "ParenthesizedExpression" ? ast.expression : ast;
 
-    let { ast } = parseResult;
-    if (ast.type === "ParenthesizedExpression") {
-      ast = ast.expression;
+    if (
+      expression.type === "ObjectExpression" &&
+      expression.properties.length === 1 &&
+      expression.properties[0].type === "SpreadElement"
+    ) {
+      const {
+        properties: [spreadElement],
+        ...rest
+      } = expression;
+
+      return {
+        ...parseResult,
+        ast: {
+          ...rest,
+          type: "JSXSpreadAttribute",
+          argument: spreadElement.argument,
+        },
+      };
     }
-
-    /* c8 ignore next */
-    if (process.env.NODE_ENV !== "production") {
-      assert.ok(
-        ast.type === "ObjectExpression" &&
-          ast.properties.length === 1 &&
-          ast.properties[0].type === "SpreadElement",
-      );
-    }
-
-    return { ...parseResult, ast: ast.properties[0] };
   },
   transform: transformJsExpression,
 });

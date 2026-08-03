@@ -16,20 +16,6 @@ Cause: Unexpected lazy line in expression in container, expected line to be pref
 `;
 
 exports[`snippet: #2 format 1`] = `
-"Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`) (1:5)
-> 1 | <a {b=c}={} d>
-    |     ^
-Cause: Unexpected \`ExpressionStatement\` in code: expected an object spread (\`{...spread}\`)"
-`;
-
-exports[`snippet: #3 format 1`] = `
-"Unexpected extra content in spread: only a single spread is supported (1:10)
-> 1 | <a {...b,c} d>
-    |          ^
-Cause: Unexpected extra content in spread: only a single spread is supported"
-`;
-
-exports[`snippet: #4 format 1`] = `
 "Could not parse expression with acorn (1:7)
 > 1 | a {"b" "c"} d
     |       ^
@@ -37,7 +23,7 @@ Cause: Could not parse expression with acorn
 Cause: Unexpected content after expression"
 `;
 
-exports[`snippet: #5 format 1`] = `
+exports[`snippet: #3 format 1`] = `
 "Could not parse expression with acorn (1:4)
 > 1 | a {var b = "c"} d
     |    ^

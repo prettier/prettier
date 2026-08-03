@@ -29,6 +29,10 @@ parsers: ["mdx"]
 =====================================input======================================
 <C {...props} />
 
+<C {...   props} />
+
+<C {...call(   a, b)} />
+
 <C { ...props } />
 
 <C {...props}>text</C>
@@ -38,6 +42,8 @@ parsers: ["mdx"]
 <C {/* comment */ ...props} />
 
 <C a="1" {...rest} b={2} />
+
+<a {...b,c} d />
 
 a <b {...c} /> d
 
@@ -49,6 +55,10 @@ a <b {...c} /> d
 
 <C {...props} />
 
+<C {...call(a, b)} />
+
+<C {...props} />
+
 <C {...props}>text</C>
 
 <C {...a.b.c} />
@@ -56,6 +66,8 @@ a <b {...c} /> d
 <C {/* comment */ ...props} />
 
 <C a="1" {...rest} b={2} />
+
+<a {...b,c} d />
 
 a <b {...c} /> d
 

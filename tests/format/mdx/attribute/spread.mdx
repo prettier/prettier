@@ -1,5 +1,9 @@
 <C {...props} />
 
+<C {...   props} />
+
+<C {...call(   a, b)} />
+
 <C { ...props } />
 
 <C {...props}>text</C>
@@ -9,6 +13,8 @@
 <C {/* comment */ ...props} />
 
 <C a="1" {...rest} b={2} />
+
+<a {...b,c} d />
 
 a <b {...c} /> d
 
