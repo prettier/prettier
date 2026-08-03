@@ -1,5 +1,7 @@
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
+<input ng-model="$ctrl.name" ng-model-options="{ debounce : 1000 , 'updateOn' : 'blur' }" />
+
 <div
 	class="common--error-message"
 	test-hook="upper-error-message"
