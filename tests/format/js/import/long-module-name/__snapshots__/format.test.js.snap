@@ -155,3 +155,13 @@ note: start of member expression (1:0)
 import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 ^"
 `;
+
+exports[`import-source.js format[typescript] 1`] = `
+"'source' is not a valid meta-property for keyword 'import'. (1:1)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    | ^^^^^^^^^^^^^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: 'source' is not a valid meta-property for keyword 'import'."
+`;
