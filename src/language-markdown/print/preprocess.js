@@ -249,17 +249,44 @@ function splitTextIntoSentences(ast) {
 }
 
 function getBlockquoteRawText(text, node) {
-  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
     if (index === 0) return rawLine;
-    const valueLine = valueLines[index] ?? "";
-    const leadingTextAngleBrackets =
-      valueLine.match(angleBracketsRegex)[0] ?? "";
-    return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
+    const r = matchLeading(rawLine, [">", "\\>"]);
+    const v = matchLeading(valueLines[index], [">"]);
+    const l = v.matches.length;
+    if (l === 0) return r.rest;
+    const s = r.matches.at(-l) ?? 0;
+    return rawLine.slice(s);
   });
   return resultLines.join("\n");
+}
+
+/**
+ * @param text {string}
+ * @param marker {string}
+ */
+function matchLeading(text, markers) {
+  const matches = [];
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === " " || text[i] === "\t") {
+      i++;
+      continue;
+    }
+    let matched = false;
+    for (const m of markers) {
+      if (text.startsWith(m, i)) {
+        matches.push(i);
+        i += m.length;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) break;
+  }
+  return { matches, rest: text.slice(i) };
 }
 
 function transformIndentedCodeblock(ast, options) {
