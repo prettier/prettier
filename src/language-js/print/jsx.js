@@ -779,20 +779,28 @@ function printJsxEmptyExpression(path, options /* , print*/) {
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttributeOrChild(path, options, print) {
   const { node } = path;
+  const isSpreadAttribute = node.type === "JSXSpreadAttribute";
+  const bracketSpacing = isSpreadAttribute && options.bracketSpacing;
   return [
     "{",
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
         if (!hasComment(node)) {
+          if (isSpreadAttribute) {
+            return bracketSpacing ? [indent([line, printed]), line] : printed;
+          }
           return printed;
         }
         return [
-          indent([softline, printComments(path, printed, options)]),
-          softline,
+          indent([
+            bracketSpacing ? line : softline,
+            printComments(path, printed, options),
+          ]),
+          bracketSpacing ? line : softline,
         ];
       },
-      node.type === "JSXSpreadAttribute" ? "argument" : "expression",
+      isSpreadAttribute ? "argument" : "expression",
     ),
     "}",
   ];

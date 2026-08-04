@@ -67,7 +67,9 @@ const spreadAttributes = (
   <Component
     first={1}
 
-    {...props}
+    {
+      ...props
+    }
 
     second={2}
   />
@@ -157,7 +159,9 @@ const spreadAttributes = (
   <Component
     first={1}
 
-    {...props}
+    {
+      ...props
+    }
 
     second={2}
   />

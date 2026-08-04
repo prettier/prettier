@@ -54,7 +54,7 @@ const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
       {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
+        <TodoItem key={i} { ...todo } />
       ))}
     </ul>
   </div>
@@ -131,7 +131,7 @@ const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
       {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
+        <TodoItem key={i} { ...todo } />
       ))}
     </ul>
   </div>
@@ -208,7 +208,7 @@ const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
       {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
+        <TodoItem key={i} { ...todo } />
       ))}
     </ul>
   </div>
@@ -285,7 +285,7 @@ const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
       {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
+        <TodoItem key={i} { ...todo } />
       ))}
     </ul>
   </div>
@@ -4763,7 +4763,7 @@ a = [
   />,
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 f?.(<div />);
 (<div />)();
@@ -4814,7 +4814,7 @@ a = [
   />,
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 f?.(<div />);
 (<div />)();
@@ -4865,7 +4865,7 @@ a = [
   />,
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 f?.(<div />);
 (<div />)();
@@ -4916,7 +4916,7 @@ a = [
   />,
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 f?.(<div />);
 (<div />)();
