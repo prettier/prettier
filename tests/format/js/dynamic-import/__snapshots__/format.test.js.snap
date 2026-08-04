@@ -83,6 +83,16 @@ import.source(\`data:text/javascript,
 ^"
 `;
 
+exports[`import-phase.js format[typescript] 1`] = `
+"'source' is not a valid meta-property for keyword 'import'. (1:1)
+> 1 | import.source(\`data:text/javascript,
+    | ^^^^^^^^^^^^^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: 'source' is not a valid meta-property for keyword 'import'."
+`;
+
 exports[`template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
