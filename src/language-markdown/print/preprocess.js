@@ -253,7 +253,7 @@ function getBlockquoteRawText(text, node) {
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
     if (index === 0) return rawLine;
-    const r = matchLeading(rawLine, [">", "\\>"]);
+    const r = matchLeading(rawLine, [">", "\\>", "&gt;", "&#62;", "&#x3e;"]);
     const v = matchLeading(valueLines[index], [">"]);
     const l = v.matches.length;
     if (l === 0) return r.rest;
