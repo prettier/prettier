@@ -195,7 +195,7 @@ function splitTextIntoSentences(ast) {
           .slice(paragraphIndex + 1)
           .some((ancestor) => ancestor?.type === "blockquote")
       ) {
-        text = getBlockquoteRawText(text, node);
+        text = getBlockquoteRawText(text, parentStack);
       }
 
       const parentNode = parentStack[0];
@@ -248,45 +248,21 @@ function splitTextIntoSentences(ast) {
   }
 }
 
-function getBlockquoteRawText(text, node) {
-  const rawLines = text.split("\n");
-  const valueLines = node.value.split("\n");
-  const resultLines = rawLines.map((rawLine, index) => {
-    if (index === 0) return rawLine;
-    const r = matchLeading(rawLine, [">", "\\>", "&gt;", "&#62;", "&#x3e;"]);
-    const v = matchLeading(valueLines[index], [">"]);
-    const l = v.matches.length;
-    if (l === 0) return r.rest;
-    const s = r.matches.at(-l) ?? 0;
-    return rawLine.slice(s);
+function getBlockquoteRawText(text, parentStack) {
+  const blockquoteDepth = parentStack.filter(
+    (ancestor) => ancestor?.type === "blockquote",
+  ).length;
+  const originalLines = text.split("\n");
+  const resultLines = originalLines.map((rawLine, index) => {
+    if (index === 0) {
+      return rawLine;
+    }
+    return rawLine.replace(
+      new RegExp(String.raw`^[\t ]*(?:>[\t ]*){0,${blockquoteDepth}}`),
+      "",
+    );
   });
   return resultLines.join("\n");
-}
-
-/**
- * @param text {string}
- * @param marker {string}
- */
-function matchLeading(text, markers) {
-  const matches = [];
-  let i = 0;
-  while (i < text.length) {
-    if (text[i] === " " || text[i] === "\t") {
-      i++;
-      continue;
-    }
-    let matched = false;
-    for (const m of markers) {
-      if (text.startsWith(m, i)) {
-        matches.push(i);
-        i += m.length;
-        matched = true;
-        break;
-      }
-    }
-    if (!matched) break;
-  }
-  return { matches, rest: text.slice(i) };
 }
 
 function transformIndentedCodeblock(ast, options) {
