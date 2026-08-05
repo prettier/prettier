@@ -205,7 +205,6 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
 }
 
 export {
-  isAfterShellShebangDirective,
   isShellShebangDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
