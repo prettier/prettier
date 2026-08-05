@@ -564,6 +564,12 @@ export const defaultOptions = {
 
 `prettier.util` provides the following limited set of utility functions for plugins:
 
+```js
+import * as prettier from "prettier";
+
+const nextLineIsEmpty = prettier.util.isNextLineEmpty(text, startIndex);
+```
+
 ```ts
 type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };
