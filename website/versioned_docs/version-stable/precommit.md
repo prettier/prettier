@@ -20,6 +20,28 @@ npx mrm@2 lint-staged
 
 This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
+:::caution
+
+`npx mrm@2 lint-staged` does not detect pnpm. If your project uses pnpm, set up husky and lint-staged manually:
+
+```bash
+pnpm add --save-dev husky lint-staged
+pnpm exec husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
+```
+
+Then add the following to your `package.json`:
+
+```json
+{
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
+```
+
+:::
+
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
 ## Option 2. [pretty-quick](https://github.com/prettier/pretty-quick)
