@@ -55,7 +55,9 @@ function parentNeedsParentheses(path, options, needsParentheses) {
           superClass.type === "UpdateExpression" ||
           superClass.type === "YieldExpression" ||
           (superClass.type === "ClassExpression" &&
-            isNonEmptyArray(superClass.decorators))
+            isNonEmptyArray(superClass.decorators)) ||
+          (superClass.type === "TSInstantiationExpression" &&
+            parent.superTypeArguments)
         ) {
           return true;
         }
