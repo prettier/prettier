@@ -5,7 +5,7 @@ import * as assert from "#universal/assert";
 
 let acorn;
 const createParse =
-  ({ transformArguments, createResult, parse }) =>
+  ({ transformArguments, result, parse }) =>
   (...arguments_) => {
     const parseOptions = transformArguments(...arguments_);
 
@@ -38,7 +38,7 @@ const createParse =
       {
         start: ast.start,
         end: ast.end,
-        ...createResult(ast),
+        ...result,
       },
       "parseResult",
       { value: { ast, comments, text: parseOptions.text } },
@@ -47,7 +47,7 @@ const createParse =
 
 const parse = createParse({
   transformArguments: (text, options) => ({ text, options }),
-  createResult: () => ({ type: "Program", body: [], isProgram: true }),
+  result: { type: "Program", body: [], isProgram: true },
   parse: (acorn, { text, options }) => acorn.parse(text, options),
 });
 
@@ -59,7 +59,7 @@ const parseExpressionAt = createParse({
   }),
   // Bypass AST check
   // https://github.com/micromark/micromark-extension-mdx-expression/blob/2891b75ff9e985c6df208a47348e76ced05dbfed/packages/micromark-factory-mdx-expression/dev/index.js#L302
-  createResult: () => ({
+  result: {
     type: "ObjectExpression",
     properties: [
       {
@@ -68,7 +68,7 @@ const parseExpressionAt = createParse({
       },
     ],
     isExpressionRoot: true,
-  }),
+  },
   parse: (acorn, { text, position, options }) =>
     acorn.parseExpressionAt(text, position, options),
 });
