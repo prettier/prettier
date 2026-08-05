@@ -3,6 +3,7 @@ import {
   printLeadingComments,
 } from "../../main/comments/print.js";
 import {
+  isShellShebangDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
@@ -37,7 +38,9 @@ function shouldPrintSemicolon(path, options) {
     // Do not append semicolon after the only JSX element in a program
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
     // Do not append semicolon after the only HTML event binding expression in a program
-    isSingleHtmlEventHandlerExpressionStatement(path, options)
+    isSingleHtmlEventHandlerExpressionStatement(path, options) ||
+    // Do not append semicolon after the shell shebang trampoline directive
+    isShellShebangDirective(path, options)
   ) {
     return false;
   }
@@ -61,12 +64,25 @@ function printExpressionStatement(path, options, print) {
         filter: (comment) => comment === typeCastComment,
       });
 
-      return printComments(path, [";", typeCastCommentDoc, ...parts], options, {
-        filter: (comment) => comment !== typeCastComment,
-      });
+      return printComments(
+        path,
+        [
+          ";",
+          typeCastCommentDoc,
+          ...parts,
+          shouldPrintSemicolon(path, options) ? ";" : "",
+        ],
+        options,
+        {
+          filter: (comment) => comment !== typeCastComment,
+        },
+      );
     }
 
     parts.unshift(";");
+    if (shouldPrintSemicolon(path, options)) {
+      parts.push(";");
+    }
   } else if (shouldPrintSemicolon(path, options)) {
     parts.push(";");
   }

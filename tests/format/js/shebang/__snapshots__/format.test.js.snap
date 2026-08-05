@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`non-polyglot-shell.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#!/usr/bin/env node
+":" //; ordinary JavaScript comment
+const ten = 10;
+
+=====================================output=====================================
+#!/usr/bin/env node
+":"; //; ordinary JavaScript comment
+const ten = 10;
+
+================================================================================
+`;
+
+exports[`polyglot-shell.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+================================================================================
+`;
+
+exports[`polyglot-shell-asi.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;[].forEach();
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;[].forEach();
+
+================================================================================
+`;
+
 exports[`shebang.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

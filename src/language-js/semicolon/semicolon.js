@@ -1,3 +1,4 @@
+import { locEnd } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
@@ -6,8 +7,84 @@ import {
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
 
+const SHELL_SHEBANG_RE = /^#!.*\b(?:sh|bash|dash|ash|zsh|fish|ksh)\b/;
+
+function getFirstLine(originalText) {
+  const lineEnd = originalText.indexOf("\n");
+  return lineEnd === -1 ? originalText : originalText.slice(0, lineEnd);
+}
+
+function isShellShebang(options) {
+  return (
+    options.originalText.startsWith("#!") &&
+    SHELL_SHEBANG_RE.test(getFirstLine(options.originalText))
+  );
+}
+
+function isColonDirectiveLikeNode(node) {
+  return (
+    (node.type === "Directive" && node.value?.value === ":") ||
+    (node.type === "ExpressionStatement" &&
+      (node.directive === ":" || node.expression?.value === ":"))
+  );
+}
+
+function isFirstProgramNode(node, parent) {
+  return (
+    parent.type === "Program" &&
+    (parent.directives?.[0] === node || parent.body?.[0] === node)
+  );
+}
+
+function hasShellTrampolineComment(node, options) {
+  const contentNode = node.value ?? node.expression;
+  if (!contentNode) {
+    return false;
+  }
+
+  const contentEnd = locEnd(contentNode);
+  const lineEnd = options.originalText.indexOf("\n", contentEnd);
+  const lineRest =
+    lineEnd === -1
+      ? options.originalText.slice(contentEnd)
+      : options.originalText.slice(contentEnd, lineEnd);
+
+  return /^\s*\/\/\s*;/.test(lineRest);
+}
+
+function isShellShebangDirective(path, options) {
+  const { node, parent } = path;
+
+  return (
+    isShellShebang(options) &&
+    isFirstProgramNode(node, parent) &&
+    isColonDirectiveLikeNode(node) &&
+    hasShellTrampolineComment(node, options)
+  );
+}
+
+function isAfterShellShebangDirective(path, options) {
+  const { node, parent } = path;
+
+  if (
+    node.type !== "ExpressionStatement" ||
+    parent?.type !== "Program" ||
+    path.key !== "body"
+  ) {
+    return false;
+  }
+
+  const previousNode =
+    path.index === 0 ? parent.directives?.at(-1) : parent.body[path.index - 1];
+
+  return (
+    previousNode &&
+    isShellShebangDirective({ node: previousNode, parent }, options)
+  );
+}
+
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
-  if (options.semi) {
+  if (options.semi && !isAfterShellShebangDirective(path, options)) {
     return false;
   }
 
@@ -128,6 +205,8 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
 }
 
 export {
+  isAfterShellShebangDirective,
+  isShellShebangDirective,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
