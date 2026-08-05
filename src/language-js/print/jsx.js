@@ -308,6 +308,42 @@ function printJsxElementInternal(path, options, print) {
 // turn themselves into the rather ugly `{' '}` when breaking.
 //
 // This function returns Doc array that satisfies rule of `fill()`.
+function splitMdxJsxText(text) {
+  if (text === "") {
+    return [""];
+  }
+
+  const tokens = [
+    ...text.matchAll(
+      /!?\[[^\]]*\](?:\([^)]*\)|\[[^\]]*\])?|[ \n\r\t]+|[^ \n\r\t]+/g,
+    ),
+  ].map((match) => match[0]);
+
+  const words = [];
+  if (/^[ \n\r\t]/.test(text)) {
+    const leading = tokens.shift();
+    words.push("", leading);
+    if (tokens.length === 0) {
+      words.push("");
+      return words;
+    }
+  }
+
+  if (tokens.length > 0 && /[ \n\r\t]$/.test(text)) {
+    const trailing = tokens.pop();
+    for (const token of tokens) {
+      words.push(token);
+    }
+    words.push(trailing, "");
+  } else {
+    for (const token of tokens) {
+      words.push(token);
+    }
+  }
+
+  return words;
+}
+
 function printJsxChildren(
   path,
   options,
@@ -337,7 +373,10 @@ function printJsxChildren(
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
-        const words = jsxWhitespace.split(text, /* captureWhitespace */ true);
+        const words =
+          options.parentParser === "mdx"
+            ? splitMdxJsxText(text)
+            : jsxWhitespace.split(text, /* captureWhitespace */ true);
 
         // Starts with whitespace
         if (words[0] === "") {

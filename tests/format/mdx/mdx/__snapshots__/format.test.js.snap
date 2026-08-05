@@ -368,6 +368,49 @@ opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-e
 ================================================================================
 `;
 
+exports[`issue-19113.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<TestComp>
+   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam [nonumy  eirmod tempor](https://prettier.io) invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+</TestComp>
+
+=====================================output=====================================
+<TestComp>
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+  [nonumy  eirmod tempor](https://prettier.io) invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+  dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+  Lorem ipsum dolor sit amet.
+</TestComp>
+
+================================================================================
+`;
+
+exports[`issue-19113.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<TestComp>
+   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam [nonumy  eirmod tempor](https://prettier.io) invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+</TestComp>
+
+=====================================output=====================================
+<TestComp>
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+  [nonumy  eirmod tempor](https://prettier.io) invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+  dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+  Lorem ipsum dolor sit amet.
+</TestComp>
+
+================================================================================
+`;
+
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
