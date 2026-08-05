@@ -706,6 +706,20 @@ proseWrap: "always"
 > > a
 > &#x3E; b
 
+---
+
+> first
+    > second
+
+> first
+	> second
+
+> > first
+    > second
+
+> first
+    >> second
+
 =====================================output=====================================
 > test\\>
 
@@ -732,6 +746,16 @@ proseWrap: "always"
 > > a &#062; b
 
 > > a &#x3E; b
+
+---
+
+> first second
+
+> first second
+
+> > first second
+
+> first > second
 
 ================================================================================
 `;
@@ -776,6 +800,20 @@ proseWrap: "never"
 > > a
 > &#x3E; b
 
+---
+
+> first
+    > second
+
+> first
+	> second
+
+> > first
+    > second
+
+> first
+    >> second
+
 =====================================output=====================================
 > test\\>
 
@@ -802,6 +840,16 @@ proseWrap: "never"
 > > a &#062; b
 
 > > a &#x3E; b
+
+---
+
+> first second
+
+> first second
+
+> > first second
+
+> first > second
 
 ================================================================================
 `;
@@ -846,6 +894,20 @@ proseWrap: "preserve"
 > > a
 > &#x3E; b
 
+---
+
+> first
+    > second
+
+> first
+	> second
+
+> > first
+    > second
+
+> first
+    >> second
+
 =====================================output=====================================
 > test\\>
 
@@ -880,6 +942,19 @@ proseWrap: "preserve"
 
 > > a
 > > &#x3E; b
+
+---
+
+> first
+> second
+
+> first
+> second
+
+> > first
+> > second
+
+> first > second
 
 ================================================================================
 `;
