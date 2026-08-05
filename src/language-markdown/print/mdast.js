@@ -23,6 +23,7 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
+  isHtmlComment,
   isNewLine,
   isPrettierIgnore,
   splitText,
@@ -285,11 +286,10 @@ function printMdast(path, options, print) {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
         value,
-        isHtmlComment ? hardline : markAsRoot(literalline),
+        isHtmlComment(node) ? hardline : markAsRoot(literalline),
       );
     }
     case "list":

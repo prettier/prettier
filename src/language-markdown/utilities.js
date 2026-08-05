@@ -316,6 +316,16 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
+function isHtmlComment(valueOrNode) {
+  if (typeof valueOrNode === "string") {
+    return /^<!--.*-->$/s.test(valueOrNode.trimEnd());
+  }
+  return (
+    valueOrNode?.type === "html" &&
+    /^<!--.*-->$/s.test(valueOrNode.value.trimEnd())
+  );
+}
+
 function isSetextHeading(node) {
   const { start, end } = node.position;
   return start.line !== end.line;
@@ -332,6 +342,7 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isHtmlComment,
   isNewLine,
   isPrettierIgnore,
   isSetextHeading,

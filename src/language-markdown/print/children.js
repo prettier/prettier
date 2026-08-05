@@ -2,6 +2,7 @@ import { hardline } from "../../document/index.js";
 import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isHtmlComment,
   isPrettierIgnore,
   isSetextHeading,
 } from "../utilities.js";
@@ -119,6 +120,21 @@ function shouldPrePrintDoubleHardline(path, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
+  const isTightHtmlCommentBetweenListSiblings =
+    parent.type === "root" &&
+    node.type === "html" &&
+    isHtmlComment(node) &&
+    previous.type === "list" &&
+    path.next?.type === "list" &&
+    previous.position.end.line + 1 === node.position.start.line;
+  const isListAfterTightHtmlCommentBetweenListSiblings =
+    parent.type === "root" &&
+    node.type === "list" &&
+    isHtmlComment(previous) &&
+    path.siblings?.[path.index - 2]?.type === "list" &&
+    path.siblings[path.index - 2].position.end.line + 1 ===
+      previous.position.start.line &&
+    previous.position.end.line + 1 === node.position.start.line;
 
   return !(
     isSiblingNode ||
@@ -126,7 +142,9 @@ function shouldPrePrintDoubleHardline(path, options) {
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
-    isHtmlDirectAfterListItem
+    isHtmlDirectAfterListItem ||
+    isTightHtmlCommentBetweenListSiblings ||
+    isListAfterTightHtmlCommentBetweenListSiblings
   );
 }
 
