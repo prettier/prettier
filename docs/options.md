@@ -548,6 +548,8 @@ Control whether Prettier formats quoted code embedded in the file.
 
 When Prettier identifies cases where it looks like you've placed some code it knows how to format within a string in another file, like in a tagged template in JavaScript with a tag named `html` or in code blocks in Markdown, it will by default try to format that code.
 
+In JavaScript, a leading `/* HTML */` block comment can be used instead of the `html` tag to mark a template literal as embedded HTML. The comment must be uppercase (`HTML`).
+
 Sometimes this behavior is undesirable, particularly in cases where you might not have intended the string to be interpreted as code. This option allows you to switch between the default behavior (`auto`) and disabling this feature entirely (`off`).
 
 Valid options:
