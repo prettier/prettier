@@ -192,7 +192,13 @@ function printMdast(path, options, print) {
         (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
           ? " "
           : "";
-      return [backtickString, padding, code, padding, backtickString];
+      // When `proseWrap` is `preserve`, the code can contain newlines. Re-apply
+      // the surrounding indentation to continuation lines so they aren't emitted
+      // at column 0, which would break the enclosing list item's continuation.
+      const content = code.includes("\n")
+        ? replaceEndOfLine(code, markAsRoot(literalline))
+        : code;
+      return [backtickString, padding, content, padding, backtickString];
     }
     case "wikiLink": {
       let contents;
