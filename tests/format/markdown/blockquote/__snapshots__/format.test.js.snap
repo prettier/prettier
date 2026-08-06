@@ -720,6 +720,20 @@ proseWrap: "always"
 > first
     >> second
 
+---
+
+> a &#10; b
+> &gt; c
+
+> a &#xA; b
+> &#62; c
+
+> a &NewLine; b
+> \\> c
+
+> a &#10; b
+    > c
+
 =====================================output=====================================
 > test\\>
 
@@ -749,13 +763,23 @@ proseWrap: "always"
 
 ---
 
-> first second
-
-> first second
-
-> > first second
+> first > second
 
 > first > second
+
+> > first > second
+
+> first >> second
+
+---
+
+> a &#10; b gt; c
+
+> a &#xA; b #62; c
+
+> a &NewLine; b > c
+
+> a &#10; b c
 
 ================================================================================
 `;
@@ -814,6 +838,20 @@ proseWrap: "never"
 > first
     >> second
 
+---
+
+> a &#10; b
+> &gt; c
+
+> a &#xA; b
+> &#62; c
+
+> a &NewLine; b
+> \\> c
+
+> a &#10; b
+    > c
+
 =====================================output=====================================
 > test\\>
 
@@ -843,13 +881,23 @@ proseWrap: "never"
 
 ---
 
-> first second
-
-> first second
-
-> > first second
+> first > second
 
 > first > second
+
+> > first > second
+
+> first >> second
+
+---
+
+> a &#10; b gt; c
+
+> a &#xA; b #62; c
+
+> a &NewLine; b > c
+
+> a &#10; b c
 
 ================================================================================
 `;
@@ -908,6 +956,20 @@ proseWrap: "preserve"
 > first
     >> second
 
+---
+
+> a &#10; b
+> &gt; c
+
+> a &#xA; b
+> &#62; c
+
+> a &NewLine; b
+> \\> c
+
+> a &#10; b
+    > c
+
 =====================================output=====================================
 > test\\>
 
@@ -945,16 +1007,26 @@ proseWrap: "preserve"
 
 ---
 
-> first
-> second
-
-> first
-> second
-
-> > first
-> > second
+> first > second
 
 > first > second
+
+> > first > second
+
+> first >> second
+
+---
+
+> a &#10; b
+> gt; c
+
+> a &#xA; b
+> #62; c
+
+> a &NewLine; b > c
+
+> a &#10; b
+> c
 
 ================================================================================
 `;
