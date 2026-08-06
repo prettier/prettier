@@ -251,7 +251,14 @@ function splitTextIntoSentences(ast) {
 function getBlockquoteRawText(text, node) {
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
+  let valueIndex = 0;
   const resultLines = rawLines.map((rawLine, index) => {
+    const valueLine = valueLines[valueIndex++];
+    const decodedNewlines = rawLine.matchAll(
+      /(?:&newline;|&#0*10;|&#x0*A;)/giu,
+    );
+    valueIndex += [...decodedNewlines].length;
+
     if (index === 0) {
       return rawLine;
     }
@@ -259,16 +266,15 @@ function getBlockquoteRawText(text, node) {
       rawLine,
       rawGreaterThanToken,
     );
-    const valueLeadingMatches = leadingMatchPositions(
-      valueLines[index],
-      (line, i) => (line[i] === ">" ? 1 : 0),
+    const valueLeadingMatches = leadingMatchPositions(valueLine, (line, i) =>
+      line[i] === ">" ? 1 : 0,
     );
     const matchesToBeRemoved =
       rawLeadingMatches.length - valueLeadingMatches.length;
     if (matchesToBeRemoved <= 0) {
       return rawLine;
     }
-    return rawLine.slice(rawLeadingMatches[matchesToBeRemoved - 1] + 1);
+    return rawLine.slice(rawLeadingMatches[matchesToBeRemoved - 1].end);
   });
   return resultLines.join("\n");
 }
@@ -276,7 +282,7 @@ function getBlockquoteRawText(text, node) {
 /**
  * @param text {string}
  * @param tokenFunction {(text: string, cursor: number) => number} takes index in text to see and returns token length. returning 0 means not matched.
- * @returns {Array<number>}
+ * @returns {Array<{start: number, end: number}>}
  */
 function leadingMatchPositions(text, tokenFunction) {
   const matches = [];
@@ -290,7 +296,7 @@ function leadingMatchPositions(text, tokenFunction) {
     if (token === 0) {
       break;
     }
-    matches.push(i);
+    matches.push({ start: i, end: i + token });
     i += token;
   }
   return matches;
