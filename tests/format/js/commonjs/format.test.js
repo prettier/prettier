@@ -57,7 +57,6 @@ runFormatTest(
         "return/in-static-block.unknown",
       ],
       meriyah: [
-        "using.cjs",
         "return/top-level.mjs",
         "new-target.mjs",
         "return/in-static-block.cjs",

@@ -444,13 +444,6 @@ exports[`snippet: using.cjs format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:6)"
 `;
 
-exports[`snippet: using.cjs format[meriyah] 1`] = `
-"Unexpected token: 'identifier' (1:7)
-> 1 | using foo = bar
-    |       ^^^
-Cause: [1:6-1:9]: Unexpected token: 'identifier'"
-`;
-
 exports[`snippet: using.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
