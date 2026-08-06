@@ -75,3 +75,32 @@ union union = B | C | D
 
 ================================================================================
 `;
+
+exports[`union-with-description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Search result union"
+union myUnion = ATypeName | ASecondTypeName
+
+"""
+A union with a very long name
+for testing line breaks
+"""
+union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee = A | B
+
+=====================================output=====================================
+"Search result union"
+union myUnion = ATypeName | ASecondTypeName
+
+"""
+A union with a very long name
+for testing line breaks
+"""
+union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee =
+  | A
+  | B
+
+================================================================================
+`;

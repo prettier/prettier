@@ -1,0 +1,8 @@
+"Represents a color"
+scalar Color @deprecated
+
+"""
+A custom
+date scalar.
+"""
+scalar Date

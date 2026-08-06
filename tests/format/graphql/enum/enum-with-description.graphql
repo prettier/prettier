@@ -1,0 +1,15 @@
+"The state of an item"
+enum State {
+  PENDING
+  VISIBLE
+  ARCHIVED
+}
+
+"""
+A multiline
+description
+"""
+enum Status {
+  ACTIVE
+  INACTIVE
+}

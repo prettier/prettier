@@ -20,3 +20,44 @@ enum State {
 
 ================================================================================
 `;
+
+exports[`enum-with-description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"The state of an item"
+enum State {
+  PENDING
+  VISIBLE
+  ARCHIVED
+}
+
+"""
+A multiline
+description
+"""
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+=====================================output=====================================
+"The state of an item"
+enum State {
+  PENDING
+  VISIBLE
+  ARCHIVED
+}
+
+"""
+A multiline
+description
+"""
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+================================================================================
+`;

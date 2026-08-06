@@ -12,3 +12,30 @@ scalar Color @deprecated
 
 ================================================================================
 `;
+
+exports[`scalar-with-description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Represents a color"
+scalar Color @deprecated
+
+"""
+A custom
+date scalar.
+"""
+scalar Date
+
+=====================================output=====================================
+"Represents a color"
+scalar Color @deprecated
+
+"""
+A custom
+date scalar.
+"""
+scalar Date
+
+================================================================================
+`;
