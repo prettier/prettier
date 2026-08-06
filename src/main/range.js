@@ -25,8 +25,9 @@ function dropRootParents(parents) {
 function findSiblingAncestors(
   startNodeAndAncestors,
   endNodeAndAncestors,
-  { locStart, locEnd },
+  options,
 ) {
+  const { locStart, locEnd } = options;
   let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
 
@@ -44,12 +45,18 @@ function findSiblingAncestors(
   }
 
   const endNodeEnd = locEnd(resultEndNode);
-  for (const startAncestor of dropRootParents(startNodeAncestors)) {
-    if (locEnd(startAncestor) <= endNodeEnd) {
-      resultStartNode = startAncestor;
-    } else {
+  const startAncestors = dropRootParents(startNodeAncestors);
+  for (const [index, startAncestor] of startAncestors.entries()) {
+    if (locEnd(startAncestor) > endNodeEnd) {
       break;
     }
+    // Non source elements can't be printed standalone, keep walking up
+    if (
+      !isSourceElement(options, startAncestor, startNodeAncestors[index + 1])
+    ) {
+      continue;
+    }
+    resultStartNode = startAncestor;
     if (resultStartNode === resultEndNode) {
       break;
     }
