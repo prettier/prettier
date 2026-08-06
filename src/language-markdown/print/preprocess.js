@@ -195,7 +195,7 @@ function splitTextIntoSentences(ast) {
           .slice(paragraphIndex + 1)
           .some((ancestor) => ancestor?.type === "blockquote")
       ) {
-        text = getBlockquoteRawText(text, parentStack);
+        text = getBlockquoteRawText(text, node);
       }
 
       const parentNode = parentStack[0];
@@ -248,21 +248,73 @@ function splitTextIntoSentences(ast) {
   }
 }
 
-function getBlockquoteRawText(text, parentStack) {
-  const blockquoteDepth = parentStack.filter(
-    (ancestor) => ancestor?.type === "blockquote",
-  ).length;
-  const originalLines = text.split("\n");
-  const resultLines = originalLines.map((rawLine, index) => {
+function getBlockquoteRawText(text, node) {
+  const rawLines = text.split("\n");
+  const valueLines = node.value.split("\n");
+  const resultLines = rawLines.map((rawLine, index) => {
     if (index === 0) {
       return rawLine;
     }
-    return rawLine.replace(
-      new RegExp(String.raw`^[\t ]*(?:>[\t ]*){0,${blockquoteDepth}}`),
-      "",
+    const rawLeadingMatches = leadingMatchPositions(
+      rawLine,
+      rawGreaterThanToken,
     );
+    const valueLeadingMatches = leadingMatchPositions(
+      valueLines[index],
+      (line, i) => (line[i] === ">" ? 1 : 0),
+    );
+    const matchesToBeRemoved =
+      rawLeadingMatches.length - valueLeadingMatches.length;
+    if (matchesToBeRemoved <= 0) {
+      return rawLine;
+    }
+    return rawLine.slice(rawLeadingMatches[matchesToBeRemoved - 1] + 1);
   });
   return resultLines.join("\n");
+}
+
+/**
+ * @param text {string}
+ * @param tokenFunction {(text: string, cursor: number) => number} takes index in text to see and returns token length. returning 0 means not matched.
+ * @returns {Array<number>}
+ */
+function leadingMatchPositions(text, tokenFunction) {
+  const matches = [];
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === " " || text[i] === "\t") {
+      i++;
+      continue;
+    }
+    const token = tokenFunction(text, i);
+    if (token === 0) {
+      break;
+    }
+    matches.push(i);
+    i += token;
+  }
+  return matches;
+}
+
+/**
+ * @param text {string}
+ * @param index {number}
+ * @returns number
+ */
+function rawGreaterThanToken(text, index) {
+  for (const token of [">", String.raw`\>`]) {
+    if (text.startsWith(token, index)) {
+      return token.length;
+    }
+  }
+  if (text[index] !== "&") {
+    return 0;
+  }
+  const match = /^(&gt;)|(&#0*62;)|(&#x0*3e;)/i.exec(text.slice(index));
+  if (!match) {
+    return 0;
+  }
+  return match[0].length;
 }
 
 function transformIndentedCodeblock(ast, options) {
