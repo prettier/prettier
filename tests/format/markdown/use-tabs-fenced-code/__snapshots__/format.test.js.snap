@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`use-tabs-fenced-code.md - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+\`\`\`html
+<table style="min-width: 300px">
+  <tbody>
+    <tr>
+      <th colspan="2">Results</th>
+    </tr>
+    <tr>
+      <td><strong>Good</strong></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><strong>Bad</strong></td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+\`\`\`
+
+=====================================output=====================================
+\`\`\`html
+<table style="min-width: 300px">
+	<tbody>
+		<tr>
+			<th colspan="2">Results</th>
+		</tr>
+		<tr>
+			<td><strong>Good</strong></td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td><strong>Bad</strong></td>
+			<td>0</td>
+		</tr>
+	</tbody>
+</table>
+\`\`\`
+
+================================================================================
+`;
