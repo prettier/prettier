@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`style.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div style="color: red;"></div>
+<div style="margin: var(--really-long-variable-name) var(--another-really-long-name);"></div>
+<div style="margin: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;"></div>
+
+=====================================output=====================================
+<div style="color: red"></div>
+<div
+  style="
+    margin: var(--really-long-variable-name) var(--another-really-long-name);
+  "
+></div>
+<div
+  style="
+    margin: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
+  "
+></div>
+
+================================================================================
+`;

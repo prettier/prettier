@@ -1,0 +1,7 @@
+.important-suffix {
+  margin: var(--really-long-variable-name) var(--another-really-long-name) !important;
+}
+
+.multiline-important-suffix {
+  margin: var(--really-long-variable-name) var(--another-really-long-name) var(--third-long-variable-name) !important;
+}

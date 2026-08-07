@@ -1,0 +1,12 @@
+.issue-18360 {
+  margin: $really-long-variable-name $another-really-long-name $a-third-long-na;
+  margin: $really-long-variable-name $another-really-long-name $a-third-long-nam;
+}
+
+$default: $really-long-variable-name $another-really-long-name $third-long-name !default;
+$global: $really-long-variable-name $another-really-long-name $third-long-name !global;
+
+$string-default: "ends with !default";
+$string-global: "ends with !global";
+$function-default: flag-text("ends with !default");
+$function-global: flag-text("ends with !global");

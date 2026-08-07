@@ -1,5 +1,9 @@
 import {
   dedent,
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_INDENT,
+  getDocType,
   group,
   hardline,
   ifBreak,
@@ -18,6 +22,31 @@ import {
 } from "../utilities/index.js";
 import { shouldBreakList } from "./parenthesized-value-group.js";
 import printSequence from "./sequence.js";
+
+function appendSuffixToValue(value, suffix) {
+  if (
+    getDocType(value) === DOC_TYPE_GROUP &&
+    getDocType(value.contents) === DOC_TYPE_INDENT &&
+    getDocType(value.contents.contents) === DOC_TYPE_FILL
+  ) {
+    const fill = value.contents.contents;
+
+    // `fill` only measures its own parts, so include the declaration suffix
+    // in the final value chunk that decides whether the last line fits.
+    return {
+      ...value,
+      contents: {
+        ...value.contents,
+        contents: {
+          ...fill,
+          parts: [...fill.parts.slice(0, -1), [fill.parts.at(-1), suffix]],
+        },
+      },
+    };
+  }
+
+  return [value, suffix];
+}
 
 function printCssDeclaration(path, options, print) {
   const { node, parent } = path;
@@ -79,28 +108,30 @@ function printCssDeclaration(path, options, print) {
     );
   }
 
-  parts.push(value);
+  const suffix = [];
 
   if (node.raws.important) {
-    parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
+    suffix.push(
+      node.raws.important.replace(/\s*!\s*important/i, " !important"),
+    );
   } else if (node.important) {
-    parts.push(" !important");
+    suffix.push(" !important");
   }
 
   if (node.raws.scssDefault) {
-    parts.push(node.raws.scssDefault.replace(/\s*!default/i, " !default"));
+    suffix.push(node.raws.scssDefault.replace(/\s*!default/i, " !default"));
   } else if (node.scssDefault) {
-    parts.push(" !default");
+    suffix.push(" !default");
   }
 
   if (node.raws.scssGlobal) {
-    parts.push(node.raws.scssGlobal.replace(/\s*!global/i, " !global"));
+    suffix.push(node.raws.scssGlobal.replace(/\s*!global/i, " !global"));
   } else if (node.scssGlobal) {
-    parts.push(" !global");
+    suffix.push(" !global");
   }
 
   if (node.nodes) {
-    parts.push([
+    parts.push(value, suffix, [
       " {",
       node.nodes.length > 0
         ? indent([softline, printSequence(path, options, print)])
@@ -108,14 +139,32 @@ function printCssDeclaration(path, options, print) {
       softline,
       "}",
     ]);
-  } else if (!(
-    isTemplatePropNode(node) &&
-    !parent.raws.semicolon &&
-    options.originalText[locEnd(node) - 1] !== ";"
-  )) {
-    parts.push(
-      options.__isHTMLStyleAttribute && path.isLast ? ifBreak(";") : ";",
+  } else {
+    const shouldPrintSemicolon = !(
+      isTemplatePropNode(node) &&
+      !parent.raws.semicolon &&
+      options.originalText[locEnd(node) - 1] !== ";"
     );
+
+    const conditionalSemicolon =
+      shouldPrintSemicolon && options.__isHTMLStyleAttribute && path.isLast;
+
+    if (conditionalSemicolon) {
+      parts.push(
+        ifBreak(
+          appendSuffixToValue(value, [...suffix, ";"]),
+          suffix.length > 0 ? appendSuffixToValue(value, suffix) : value,
+        ),
+      );
+    } else {
+      if (shouldPrintSemicolon) {
+        suffix.push(";");
+      }
+
+      parts.push(
+        suffix.length > 0 ? appendSuffixToValue(value, suffix) : value,
+      );
+    }
   }
 
   return parts;

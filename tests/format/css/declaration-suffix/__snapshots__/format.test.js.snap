@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`suffix.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.important-suffix {
+  margin: var(--really-long-variable-name) var(--another-really-long-name) !important;
+}
+
+.multiline-important-suffix {
+  margin: var(--really-long-variable-name) var(--another-really-long-name) var(--third-long-variable-name) !important;
+}
+
+=====================================output=====================================
+.important-suffix {
+  margin: var(--really-long-variable-name)
+    var(--another-really-long-name) !important;
+}
+
+.multiline-important-suffix {
+  margin: var(--really-long-variable-name) var(--another-really-long-name)
+    var(--third-long-variable-name) !important;
+}
+
+================================================================================
+`;
