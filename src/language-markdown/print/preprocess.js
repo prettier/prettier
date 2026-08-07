@@ -255,7 +255,7 @@ function getBlockquoteRawText(text, node) {
   const resultLines = rawLines.map((rawLine, index) => {
     const valueLine = valueLines[valueIndex++];
     const decodedNewlines = rawLine.matchAll(
-      /(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/gu,
+      /&NewLine;|&#0*10;|&#[Xx]0*[Aa];/gu,
     );
     valueIndex += [...decodedNewlines].length;
 
@@ -264,11 +264,9 @@ function getBlockquoteRawText(text, node) {
     }
     const rawLeadingMatches = leadingMatchPositions(
       rawLine,
-      rawGreaterThanToken,
+      />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/,
     );
-    const valueLeadingMatches = leadingMatchPositions(valueLine, (line, i) =>
-      line[i] === ">" ? 1 : 0,
-    );
+    const valueLeadingMatches = leadingMatchPositions(valueLine, />/);
     const matchesToBeRemoved =
       rawLeadingMatches.length - valueLeadingMatches.length;
     if (matchesToBeRemoved <= 0) {
@@ -281,46 +279,18 @@ function getBlockquoteRawText(text, node) {
 
 /**
  * @param text {string}
- * @param tokenFunction {(text: string, cursor: number) => number} takes index in text to see and returns token length. returning 0 means not matched.
+ * @param pattern {RegExp}
  * @returns {Array<{start: number, end: number}>}
  */
-function leadingMatchPositions(text, tokenFunction) {
-  const matches = [];
-  let i = 0;
-  while (i < text.length) {
-    if (text[i] === " " || text[i] === "\t") {
-      i++;
-      continue;
-    }
-    const token = tokenFunction(text, i);
-    if (token === 0) {
-      break;
-    }
-    matches.push({ start: i, end: i + token });
-    i += token;
-  }
-  return matches;
-}
-
-/**
- * @param text {string}
- * @param index {number}
- * @returns number
- */
-function rawGreaterThanToken(text, index) {
-  for (const token of [">", String.raw`\>`]) {
-    if (text.startsWith(token, index)) {
-      return token.length;
-    }
-  }
-  if (text[index] !== "&") {
-    return 0;
-  }
-  const match = /^(&gt;)|(&#0*62;)|(&#x0*3e;)/i.exec(text.slice(index));
-  if (!match) {
-    return 0;
-  }
-  return match[0].length;
+function leadingMatchPositions(text, pattern) {
+  const [prefix] = text.match(
+    new RegExp(String.raw`^[ \t]*(?:(?:${pattern.source})[ \t]*)*`, "u"),
+  );
+  const matches = prefix.matchAll(new RegExp(pattern.source, "gu"));
+  return [...matches].map(({ 0: match, index }) => ({
+    start: index,
+    end: index + match.length,
+  }));
 }
 
 function transformIndentedCodeblock(ast, options) {
