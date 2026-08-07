@@ -286,7 +286,9 @@ function leadingMatchPositions(text, pattern) {
   const [prefix] = text.match(
     new RegExp(String.raw`^[ \t]*(?:(?:${pattern.source})[ \t]*)*`, "u"),
   );
-  const matches = prefix.matchAll(new RegExp(pattern.source, "gu"));
+  const matches = prefix.matchAll(
+    new RegExp(String.raw`(?:${pattern.source})[ \t]*`, "gu"),
+  );
   return [...matches].map(({ 0: match, index }) => ({
     start: index,
     end: index + match.length,
