@@ -256,7 +256,7 @@ function getBlockquoteRawText(text, node) {
   const resultLines = rawLines.map((rawLine, index) => {
     const valueLine = valueLines[valueIndex++];
     const decodedNewlines = rawLine.matchAll(
-      /&NewLine;|&#0*10;|&#[Xx]0*[Aa];/gu,
+      /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/gu,
     );
     valueIndex += [...decodedNewlines].length;
 
