@@ -249,6 +249,7 @@ function splitTextIntoSentences(ast) {
 }
 
 function getBlockquoteRawText(text, node) {
+  const rawBlockquoteMarker = />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   let valueIndex = 0;
@@ -262,37 +263,28 @@ function getBlockquoteRawText(text, node) {
     if (index === 0) {
       return rawLine;
     }
-    const rawLeadingMatches = leadingMatchPositions(
-      rawLine,
-      />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/,
-    );
-    const valueLeadingMatches = leadingMatchPositions(valueLine, />/);
-    const matchesToBeRemoved =
-      rawLeadingMatches.length - valueLeadingMatches.length;
+    const rawMarkerCount = countLeadingMarkers(rawLine, rawBlockquoteMarker);
+    const valueMarkerCount = countLeadingMarkers(valueLine, />/);
+    const matchesToBeRemoved = rawMarkerCount - valueMarkerCount;
     if (matchesToBeRemoved <= 0) {
       return rawLine;
     }
-    return rawLine.slice(rawLeadingMatches[matchesToBeRemoved - 1].end);
+    return rawLine.replace(
+      new RegExp(
+        String.raw`^[ \t]*(?:(?:${rawBlockquoteMarker.source})[ \t]*){${matchesToBeRemoved}}`,
+        "u",
+      ),
+      "",
+    );
   });
   return resultLines.join("\n");
 }
 
-/**
- * @param text {string}
- * @param pattern {RegExp}
- * @returns {Array<{start: number, end: number}>}
- */
-function leadingMatchPositions(text, pattern) {
+function countLeadingMarkers(text, marker) {
   const [prefix] = text.match(
-    new RegExp(String.raw`^[ \t]*(?:(?:${pattern.source})[ \t]*)*`, "u"),
+    new RegExp(String.raw`^[ \t]*(?:(?:${marker.source})[ \t]*)*`, "u"),
   );
-  const matches = prefix.matchAll(
-    new RegExp(String.raw`(?:${pattern.source})[ \t]*`, "gu"),
-  );
-  return [...matches].map(({ 0: match, index }) => ({
-    start: index,
-    end: index + match.length,
-  }));
+  return prefix.match(new RegExp(marker.source, "gu"))?.length ?? 0;
 }
 
 function transformIndentedCodeblock(ast, options) {
