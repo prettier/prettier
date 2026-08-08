@@ -61,6 +61,10 @@ function willPrintOwnComments(path, options) {
     return true;
   }
 
+  if (node.type === "EmptyStatement") {
+    return true;
+  }
+
   return false;
 }
 

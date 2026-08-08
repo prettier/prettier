@@ -121,7 +121,14 @@ function canAttachComment(node, ancestors) {
   }
 
   if (node.type === "EmptyStatement") {
-    return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
+    if (isMeaningfulEmptyStatement({ node, parent: ancestors[0] })) {
+      return true;
+    }
+
+    const parent = ancestors[0];
+    const siblings = parent?.body ?? parent?.consequent ?? parent?.cases ?? [];
+    const index = siblings.indexOf(node);
+    return index > 0 && index < siblings.length - 1;
   }
 
   // Flow doesn't generate node for `as const`

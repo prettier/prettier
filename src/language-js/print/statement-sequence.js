@@ -1,4 +1,5 @@
 import { hardline } from "../../document/index.js";
+import { hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 
 /**
@@ -17,13 +18,13 @@ function printStatementSequence(path, options, print, property) {
   const { node } = path;
   const parts = [];
   const lastStatement = node[property].findLast(
-    (statement) => statement.type !== "EmptyStatement",
+    (statement) => statement.type !== "EmptyStatement" || hasComment(statement),
   );
 
   path.each(({ node }) => {
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
-    if (node.type === "EmptyStatement") {
+    if (node.type === "EmptyStatement" && !hasComment(node)) {
       return;
     }
 
@@ -32,7 +33,7 @@ function printStatementSequence(path, options, print, property) {
     if (node !== lastStatement) {
       parts.push(hardline);
 
-      if (isNextLineEmpty(node, options)) {
+      if (node.type !== "EmptyStatement" && isNextLineEmpty(node, options)) {
         parts.push(hardline);
       }
     }

@@ -71,7 +71,9 @@ function printBlockBody(path, options, print) {
   const { node } = path;
 
   const hasDirectives = isNonEmptyArray(node.directives);
-  const hasBody = node.body.some((node) => node.type !== "EmptyStatement");
+  const hasBody = node.body.some(
+    (node) => node.type !== "EmptyStatement" || hasComment(node),
+  );
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
 
   if (!hasDirectives && !hasBody && !hasDanglingComments) {

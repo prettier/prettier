@@ -1,4 +1,11 @@
-import { group, indent, inheritLabel, softline } from "../../document/index.js";
+import {
+  group,
+  hardline,
+  indent,
+  inheritLabel,
+  join,
+  softline,
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
@@ -6,6 +13,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
+import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
@@ -64,9 +72,25 @@ function print(path, options, print, args) {
 
   const { node } = path;
 
-  let doc = isIgnored(path)
-    ? printIgnored(path, options)
-    : printWithoutParentheses(path, options, print, args);
+  let doc;
+  if (isIgnored(path)) {
+    doc = printIgnored(path, options);
+  } else if (node.type === "EmptyStatement") {
+    if (isMeaningfulEmptyStatement(path)) {
+      doc = printComments(path, ";", options);
+    } else if (hasComment(node)) {
+      const commentDocs = path.map(() => {
+        path.node.printed = true;
+        return options.printer.printComment(path, options);
+      }, "comments");
+      doc = commentDocs.length > 0 ? join(hardline, commentDocs) : "";
+    } else {
+      return "";
+    }
+  } else {
+    doc = printWithoutParentheses(path, options, print, args);
+  }
+
   if (!doc) {
     return "";
   }
