@@ -90,7 +90,7 @@ function printMemberExpression(path, options, print) {
       filter: isCommentBetweenObjectAndProperty,
     });
 
-    return label(objectDocWithComments.label, [
+    return label(objectDoc.label, [
       objectDocWithComments,
       lineSuffixBoundary,
       group(indent([softline, lookupDocWithComments])),
