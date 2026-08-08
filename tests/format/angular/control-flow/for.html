@@ -64,3 +64,21 @@ item of
 
   <div *ngFor="item of items; let i = $index; let count = $count; track block"></div>
 </div>
+
+<div>
+  @for (item of items; track item.id; let i=$index, f=$first) {
+    <p>{{ item }}</p>
+  }
+</div>
+
+<div>
+  @for (item of items; track item.id; let i=$index, f=$first, e=$even) {
+    <p>{{ item }}</p>
+  }
+</div>
+
+<div>
+  @for (item of items; track item.id; let i=$index, f=$first; let count=$count) {
+    <p>{{ item }}</p>
+  }
+</div>
