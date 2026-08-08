@@ -32,4 +32,5 @@ title: Related Projects
 - [csharpier](https://github.com/belav/csharpier) is a port of Prettier for C#
 - [Prettier](https://github.com/jaywcjlove/Prettier) is a Swift version based on Prettier
 - [reviewdog-action-prettier](https://github.com/EPMatt/reviewdog-action-prettier) runs Prettier in GitHub Actions CI/CD workflows
+- [MegaLinter](https://megalinter.io/) is an open-source linters aggregator for CI that runs [Prettier](https://megalinter.io/latest/descriptors/javascript_prettier/) out of the box
 - [monaco-prettier](https://github.com/remcohaszing/monaco-prettier) integrates Prettier into [Monaco editor](https://microsoft.github.io/monaco-editor/)
