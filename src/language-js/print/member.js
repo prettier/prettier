@@ -5,7 +5,10 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
+import { locEnd, locStart } from "../location/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
+import { hasComment } from "../utilities/comments.js";
 import {
   isCallExpression,
   isChainElementWrapper,
@@ -46,19 +49,53 @@ function printMemberExpression(path, options, print) {
     (node) => !isChainElementWrapper(node),
   );
 
+  const shouldPrintOwnComments = hasComment(
+    node,
+    (comment) =>
+      !comment.trailing &&
+      locStart(comment) > locEnd(node.object) &&
+      locEnd(comment) < locStart(node.property),
+  );
+
   const shouldInline =
-    firstNonMemberParent.type === "BindExpression" ||
-    (firstNonMemberParent.type === "AssignmentExpression" &&
-      firstNonMemberParent.left.type !== "Identifier") ||
-    shouldInlineNewExpressionCallee(path) ||
-    node.computed ||
-    (node.object.type === "Identifier" &&
-      node.property.type === "Identifier" &&
-      !isMemberExpression(firstNonChainElementWrapperParent)) ||
-    ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
-      firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(stripChainElementWrappers(node.object)) ||
-        objectDoc.label?.memberChain));
+    !shouldPrintOwnComments &&
+    (firstNonMemberParent.type === "BindExpression" ||
+      (firstNonMemberParent.type === "AssignmentExpression" &&
+        firstNonMemberParent.left.type !== "Identifier") ||
+      shouldInlineNewExpressionCallee(path) ||
+      node.computed ||
+      (node.object.type === "Identifier" &&
+        node.property.type === "Identifier" &&
+        !isMemberExpression(firstNonChainElementWrapperParent)) ||
+      ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
+        firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
+        (isCallExpressionWithArguments(
+          stripChainElementWrappers(node.object),
+        ) ||
+          objectDoc.label?.memberChain)));
+
+  if (shouldPrintOwnComments) {
+    const isCommentBeforeObject = (comment) =>
+      comment.leading && locEnd(comment) <= locStart(node.object);
+
+    const isCommentBetweenObjectAndProperty = (comment) =>
+      !comment.trailing &&
+      locStart(comment) > locEnd(node.object) &&
+      locEnd(comment) < locStart(node.property);
+
+    const objectDocWithComments = printComments(path, objectDoc, options, {
+      filter: isCommentBeforeObject,
+    });
+    const lookupDocWithComments = printComments(path, lookupDoc, options, {
+      filter: isCommentBetweenObjectAndProperty,
+    });
+
+    return label(objectDocWithComments.label, [
+      objectDocWithComments,
+      lineSuffixBoundary,
+      group(indent([softline, lookupDocWithComments])),
+    ]);
+  }
 
   return label(objectDoc.label, [
     objectDoc,
