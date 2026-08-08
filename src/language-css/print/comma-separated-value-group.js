@@ -8,6 +8,7 @@ import {
   indent,
   line,
   lineSuffix,
+  removeLines,
   softline,
 } from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
@@ -566,6 +567,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
   // example @import url("verylongurl") projection,tv
   if (insideURLFunctionInImportAtRuleNode(path)) {
     return group(fill(parts));
+  }
+
+  // Line breaks in a `grid` value are the author's, so a track must not break
+  // either, or the breaks we add are read back as the author's on the next run
+  if (isGridValue) {
+    return removeLines(group(indent(fill(parts))));
   }
 
   return group(indent(fill(parts)));
