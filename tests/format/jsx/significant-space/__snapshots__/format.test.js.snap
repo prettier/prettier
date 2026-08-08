@@ -152,7 +152,11 @@ break_components = (
   </div>
 );
 
-var x = <div>hello <strong>hi</strong> <foo>sdkflsdfjk</foo></div>;
+var x = (
+  <div>
+    hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
+  </div>
+);
 
 nest_plz = (
   <div>

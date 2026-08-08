@@ -3794,7 +3794,11 @@ function HelloWorld() {
 
 =====================================output=====================================
 /** @type {any} */
-const x = <div><div /></div>
+const x = (
+  <div>
+    <div />
+  </div>
+)
 
 ;/**
  * @type {object}
@@ -3853,7 +3857,11 @@ function HelloWorld() {
 
 =====================================output=====================================
 /** @type {any} */
-const x = <div><div /></div>;
+const x = (
+  <div>
+    <div />
+  </div>
+);
 
 /**
  * @type {object}

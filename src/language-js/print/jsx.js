@@ -107,9 +107,7 @@ function printJsxElementInternal(path, options, print) {
   const containsMultipleAttributes =
     node.type === "JSXElement" && node.openingElement.attributes.length > 1;
   const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
-  // `fbt` elements have semantically significant whitespace and their own
-  // separator handling, so neither an `fbt` element nor anything inside one is
-  // ever kept flat.
+  // `fbt` whitespace is significant, including in nested elements.
   const isInsideFacebookTranslation =
     isFacebookTranslationTag ||
     path.ancestors.some(
@@ -304,12 +302,7 @@ function printJsxElementInternal(path, options, print) {
     return multiLineElem;
   }
 
-  // When keeping simple JSX flat, the children must not contain a forced
-  // break (e.g. a child that itself breaks, or a preserved blank line);
-  // otherwise the flat branch of `conditionalGroup` would print a half-broken
-  // result with the tags glued on. Fall back to the fully multiline form in
-  // that case. (Breaks originating from the opening/closing tags, such as
-  // comments, are handled by `conditionalGroup` as usual.)
+  // A forced child break cannot use `conditionalGroup`'s flat branch.
   if (shouldKeepFlat && willBreak(children)) {
     return multiLineElem;
   }
@@ -453,10 +446,7 @@ function printJsxChildren(
           ),
         );
       } else {
-        // Between adjacent tags/expressions we normally force each onto its own
-        // line; when keeping the element flat we soften so it can collapse.
-        // A blank line in the source is kept, so it must stay hard to pair with
-        // the blank-line `hardline` emitted for the whitespace text that follows.
+        // Preserve source blank lines even when the surrounding JSX stays flat.
         const nextIsBlankLine =
           next?.type === "JSXText" &&
           !isMeaningfulJsxText(next) &&
@@ -474,10 +464,6 @@ const isJsxElementOrFragment = createTypeCheckFunction([
   "JSXFragment",
 ]);
 
-// Predicate chains (starting from the JSX value's parent) that identify JSX
-// used as the value of a statement-level binding. Keeping these forms
-// consistent is important: `<jsx>;`, `x = <jsx>;`, and `const x = <jsx>;`
-// should all format the same way.
 const statementLevelJsxParentChains = [
   // <jsx>;
   [(node) => node.type === "ExpressionStatement"],
@@ -486,17 +472,13 @@ const statementLevelJsxParentChains = [
     (node, key) => key === "right" && node.type === "AssignmentExpression",
     (node) => node.type === "ExpressionStatement",
   ],
-  // const x = <jsx>;
-  [(node, key) => key === "init" && node.type === "VariableDeclarator"],
 ];
 
 function shouldKeepTopLevelJsxFlat(path) {
   const isTopLevelJsx = statementLevelJsxParentChains.some((chain) =>
     path.match(undefined, ...chain),
   );
-  // A JSX element that is a direct child of a top-level JSX element with mixed
-  // text content (e.g. `<b>` in `<a> {value} <b><c /></b></a>`) should also be
-  // kept flat, so the whole element can stay on one line when it fits.
+  // Keep nested mixed-content JSX flat with its top-level parent.
   const parentHasText = path.parent.children?.some((child) =>
     isMeaningfulJsxText(child),
   );
@@ -524,8 +506,6 @@ function separatorNoWhitespace(
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
     (nextNode?.type === "JSXElement" && !nextNode.closingElement)
   ) {
-    // When keeping the element flat, never force a break here; the enclosing
-    // `conditionalGroup` decides whether the whole element fits on one line.
     return child.length === 1 || shouldKeepFlat ? softline : hardline;
   }
 
@@ -543,8 +523,7 @@ function separatorWithWhitespace(
     return hardline;
   }
 
-  // The whitespace here is insignificant (it always contains a newline, which
-  // JSX collapses), so when keeping the element flat it can soften away.
+  // JSX collapses newline whitespace, so it can soften in the flat form.
   if (shouldKeepFlat) {
     return softline;
   }
