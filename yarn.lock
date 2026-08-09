@@ -915,9 +915,9 @@ __metadata:
   linkType: hard
 
 "@cspell/dict-npm@npm:^5.2.38":
-  version: 5.2.43
-  resolution: "@cspell/dict-npm@npm:5.2.43"
-  checksum: 10/2da9d632913d6713a2941b7e73c3b2b0cb1a5530dfa7f3eb15fdedcef2a67b75a6a5d1e472325a9008b7efe4e09531c97145f9fbabe6f2df47d4c71fbdffc381
+  version: 5.2.44
+  resolution: "@cspell/dict-npm@npm:5.2.44"
+  checksum: 10/27955b3c064d7f9f0cde2c344689622a0a96694a3a47190d26c5707c7cc6e98a0bccc0642a2077bb55de775976c3c43618c4bbea97dc36004c79112a1715d7c6
   languageName: node
   linkType: hard
 
@@ -987,9 +987,9 @@ __metadata:
   linkType: hard
 
 "@cspell/dict-software-terms@npm:^5.2.2":
-  version: 5.2.4
-  resolution: "@cspell/dict-software-terms@npm:5.2.4"
-  checksum: 10/d6ec19190105991f619fd4b10bfbce21a2f4db9b842411af30ede8aef1c29d21f02c35540862fa9346b0ea2fd80d99868beecda7ab3d9b822839035674a4f392
+  version: 5.2.5
+  resolution: "@cspell/dict-software-terms@npm:5.2.5"
+  checksum: 10/a47630af73183d460655a0f50c49084c1d14f668da1c85b24676da8afd408989d61a09cfb682132f53a588c0af7d5b2e201cffa7ba43c032f5cf08edf16d6766
   languageName: node
   linkType: hard
 
@@ -2663,11 +2663,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 26.1.2
-  resolution: "@types/node@npm:26.1.2"
+  version: 26.2.0
+  resolution: "@types/node@npm:26.2.0"
   dependencies:
     undici-types: "npm:~8.3.0"
-  checksum: 10/2dd6d75b80c006deab4e381acc8cb2e3d634f10141f05fd6cadaabddd80a95f04aef7b00a574bd8fd5e08e940b899c23b91dd09a70b11a34a2762203b5eea25e
+  checksum: 10/3829dd8c82e7d4858f3cc946ec9e5133c9fa39a0a9173874a6392230665121b42dac1b134e5e10ee132a5487293708c77df253cf41a125e9fd838cc3af72d700
   languageName: node
   linkType: hard
 
@@ -3483,7 +3483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.28.8, browserslist@npm:^4.24.0, browserslist@npm:^4.25.2, browserslist@npm:^4.28.1, browserslist@npm:^4.28.4":
+"browserslist@npm:4.28.8, browserslist@npm:^4.24.0, browserslist@npm:^4.25.2, browserslist@npm:^4.28.4, browserslist@npm:^4.28.7":
   version: 4.28.8
   resolution: "browserslist@npm:4.28.8"
   dependencies:
@@ -3823,9 +3823,9 @@ __metadata:
   linkType: hard
 
 "comment-parser@npm:^1.4.0":
-  version: 1.4.7
-  resolution: "comment-parser@npm:1.4.7"
-  checksum: 10/7c102b7ff0b7321f1c09f21f62c8a75996dd7522750bac06d68d125c9e039d30d30a9e248c9e0172c81f4bf61a46b72780db97f79f1e0dfff8cd9fe6edaa515f
+  version: 1.4.8
+  resolution: "comment-parser@npm:1.4.8"
+  checksum: 10/cfb0055ec520cd34e88724c9b47cc204b1fce5143b51ee769d01a9bae492c83c253735abec6faec6303531fca1f76f17f2003efa595276a2efed0d1780cc3ffc
   languageName: node
   linkType: hard
 
@@ -3872,11 +3872,11 @@ __metadata:
   linkType: hard
 
 "core-js-compat@npm:^3.49.0":
-  version: 3.49.0
-  resolution: "core-js-compat@npm:3.49.0"
+  version: 3.50.0
+  resolution: "core-js-compat@npm:3.50.0"
   dependencies:
-    browserslist: "npm:^4.28.1"
-  checksum: 10/eb35ad9b31a613092d32e5eb0c9fecb695e680bb29509fe04ae297ef790cea47d06864ef8939c8f5f189cce0bd2807fef8b2d6450f7eeb917ffaaf38a775dece
+    browserslist: "npm:^4.28.7"
+  checksum: 10/491d522653c8e606b9548f030e247fb84c9374f897dd56703691206501d30c51e08f77c69f9a60ec36fc4a9d31495c6bcd5433ac03af5c62c69fe467ebb84b1e
   languageName: node
   linkType: hard
 
@@ -7454,11 +7454,11 @@ __metadata:
   linkType: hard
 
 "nanoid@npm:^3.3.17":
-  version: 3.3.17
-  resolution: "nanoid@npm:3.3.17"
+  version: 3.3.18
+  resolution: "nanoid@npm:3.3.18"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10/54c3238ba6ea31c173ccf70922481814892075dbf1b4636abec249d0b34d5594fc9a8892c04872068674010a11fa3d18316dc06e59e700def131ff9d8e740426
+  checksum: 10/1b3b4fdac831b92b56d1dbe8b1e63a372432faf86ea383134e3b53141ef8108a60b7f84343b5cefecac9550bb74edf8164da93ea07d1c4f757039bc75d8a5d9e
   languageName: node
   linkType: hard
 
@@ -9457,9 +9457,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^8.4.1":
-  version: 8.9.0
-  resolution: "undici@npm:8.9.0"
-  checksum: 10/dfad3e233087eafdf1d361acd17c4d45a9590d5db9400458f1c03f47d8f1ef68647e2109ebb982c862e50c227093abd2d5f44b154904fc0b3d22576b6e95cfe7
+  version: 8.10.0
+  resolution: "undici@npm:8.10.0"
+  checksum: 10/254219966d4a2fb110f565ffe73131caa82e949f207b9dd88930ebc23dfb6561db72ca187391cbd408ceeba7c647cb47d4110e8ae00df44c0c66e8a21e091dc0
   languageName: node
   linkType: hard
 
@@ -9934,8 +9934,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.21.1":
-  version: 8.21.1
-  resolution: "ws@npm:8.21.1"
+  version: 8.21.3
+  resolution: "ws@npm:8.21.3"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -9944,7 +9944,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10/8493bc543072763d7bacffb2282c9d7954dc5c599c9df4c2d15f91c217f63e293a33ffc70756e3f2bf8c5d85bc6069ad7d9983c382d4713c807b083ffb1b1719
+  checksum: 10/8856922c26fd2d106931c16310d9a0bc2d6d37ed8771352bfa0d2a36df0ab5cb1f6528c6db8213f3333cf4ce93925e56f13604df0454cb0d4289fef922bebcdd
   languageName: node
   linkType: hard
 
