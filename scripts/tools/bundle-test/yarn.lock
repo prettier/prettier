@@ -53,7 +53,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@prettier/bundle-test@workspace:."
   dependencies:
-    webpack: "npm:5.109.1"
+    webpack: "npm:5.109.2"
   languageName: unknown
   linkType: soft
 
@@ -350,7 +350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.24.2":
+"enhanced-resolve@npm:^5.24.4":
   version: 5.24.5
   resolution: "enhanced-resolve@npm:5.24.5"
   dependencies:
@@ -637,9 +637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.109.1":
-  version: 5.109.1
-  resolution: "webpack@npm:5.109.1"
+"webpack@npm:5.109.2":
+  version: 5.109.2
+  resolution: "webpack@npm:5.109.2"
   dependencies:
     "@types/estree": "npm:^1.0.8"
     "@types/json-schema": "npm:^7.0.15"
@@ -649,7 +649,7 @@ __metadata:
     acorn: "npm:^8.16.0"
     browserslist: "npm:^4.28.1"
     chrome-trace-event: "npm:^1.0.2"
-    enhanced-resolve: "npm:^5.24.2"
+    enhanced-resolve: "npm:^5.24.4"
     es-module-lexer: "npm:^2.1.0"
     eslint-scope: "npm:5.1.1"
     events: "npm:^3.2.0"
@@ -666,6 +666,6 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10/9bd8a05bd99b28661120a5675bc58a3b678f0cc2312bbda41678b77d63baba5d3643e68a630960717aa6110c06cb54624785d9612015ede0e882b6d66949076d
+  checksum: 10/cb72358e4385719921085dbc9b937a6fef07ee690c6791c52c98b526d50a52e6c6aa73a70ba4d0588fab18739703028f2be02abdc0229dbf2008bd29dd477f93
   languageName: node
   linkType: hard
