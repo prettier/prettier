@@ -6,6 +6,7 @@ import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import parseFrontMatter from "../../main/front-matter/parse.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
+import { preserveEscapedCharacterReference } from "./micromark/mdast-util-preserve-escaped-character-reference.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
 import {
   liquidFromMarkdown,
@@ -32,6 +33,7 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       liquidFromMarkdown(),
+      preserveEscapedCharacterReference(),
     ],
   });
 }
