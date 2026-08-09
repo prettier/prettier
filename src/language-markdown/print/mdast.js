@@ -478,6 +478,19 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+// Character references are resolved in link destinations and titles, so an
+// `&…;` sequence that we print verbatim would decode into a different value the
+// next time the document is parsed, breaking idempotency. Escaping the
+// terminating `;` keeps the sequence literal.
+// https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
+const characterReferenceRegexp =
+  /&(?:[a-zA-Z][a-zA-Z\d]*|#\d+|#[xX][\da-fA-F]+);/gu;
+const escapeCharacterReferences = (text) =>
+  text.replaceAll(
+    characterReferenceRegexp,
+    (reference) => `${reference.slice(0, -1)}${String.raw`\;`}`,
+  );
+
 /**
  * @param {string} url
  * @param {boolean} unwrapBalancedParens
@@ -487,6 +500,10 @@ function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+
+  // Must run after the backslashes above are doubled: `;` is ASCII punctuation,
+  // so the escape added here would otherwise be doubled too.
+  url = escapeCharacterReferences(url);
 
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
   // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
@@ -526,11 +543,14 @@ function printTitle(title, options, printSpace = true) {
     !title.includes(")")
   ) {
     title = title.replaceAll("\\", "\\\\");
-    return `(${title})`; // avoid escaped quotes
+    return `(${escapeCharacterReferences(title)})`; // avoid escaped quotes
   }
   const quote = getPreferredQuote(title, options.singleQuote);
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(quote, `\\${quote}`);
+  // Must run after the backslashes above are doubled, otherwise the escape
+  // added here would be doubled too.
+  title = escapeCharacterReferences(title);
   return `${quote}${title}${quote}`;
 }
 
