@@ -1,5 +1,4 @@
 /**
- * @import {Definition, Image, Link} from "mdast";
  * @import {CompileContext, Extension, Handle} from "mdast-util-from-markdown";
  */
 
@@ -25,9 +24,10 @@ function preserveEscapedCharacterReference() {
 function onExitDestinationString(token) {
   const url = this.resume();
   const rawUrl = this.sliceSerialize(token);
-  const node = /** @type {Definition | Image | Link} */ (this.stack.at(-1));
+  const node = this.stack.at(-1);
 
   // Removing this escape would let the next parse decode the character reference.
+  // @ts-expect-error -- Destination strings are only used by nodes with URLs.
   node.url = escapedCharacterReferenceEnd.test(rawUrl) ? rawUrl : url;
 }
 
