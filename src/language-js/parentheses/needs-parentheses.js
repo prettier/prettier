@@ -200,7 +200,7 @@ function needsParentheses(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || isNullishCoalescing(node);
+          return isBinaryCastExpression(node);
 
         case "CallExpression":
         case "NewExpression":

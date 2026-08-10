@@ -63,7 +63,7 @@ _ = (
 errorDetails =
   errorJSON === "{}"
     ? // regular JS error case: print stacktrace
-      (error.stack ?? "N/A")
+      error.stack ?? "N/A"
     : // MDX error: print extra attributes + stacktrace
       \`\${errorJSON}\\n\${error.stack}\`;
 
@@ -71,7 +71,7 @@ _ = {
   children: keepChildren
     ? instance.children
     : // $FlowFixMe[incompatible-type] We're not typing immutable instances.
-      (children ?? []),
+      children ?? [],
 };
 
 _ = (
@@ -87,7 +87,7 @@ _ = (
            * with zero data rows, the DataTable
            * displays the empty component.
            */
-          (empty ?? null)
+          empty ?? null
         ) : (
           /**
            * After the initial load, if the data for the list
@@ -150,7 +150,7 @@ obj.foo ?? "default";
 
 const x = (foo, bar = foo ?? bar) => {};
 
-foo ? (bar ?? foo) : baz;
+foo ? bar ?? foo : baz;
 
 foo ?? bar ?? baz;
 foo ?? bar ?? baz;
@@ -169,9 +169,9 @@ foo || (baz ?? baz);
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
 
-(foo ?? bar) ? a : b;
-a ? (foo ?? bar) : b;
-a ? b : (foo ?? bar);
+foo ?? bar ? a : b;
+a ? foo ?? bar : b;
+a ? b : foo ?? bar;
 
 ================================================================================
 `;
