@@ -12,7 +12,14 @@ const htmlEventAttributes = new Set(htmlEventAttributesArray);
 const isEventHandler = ({ node }, options) =>
   htmlEventAttributes.has(node.fullName) &&
   !options.parentParser &&
-  !node.value.includes("{{");
+  // Respect `embeddedLanguageFormatting: "off"`, which opts out of formatting
+  // quoted embedded code (including inline event handlers).
+  options.embeddedLanguageFormatting === "auto" &&
+  // `{{` is the Vue/Angular interpolation marker and `{!` is the Salesforce
+  // Aura expression-binding marker (e.g. `onclick="{!c.submit}"`). Feeding
+  // either to the Babel parser destroys the binding, so leave them untouched.
+  !node.value.includes("{{") &&
+  !node.value.includes("{!");
 
 /** @type {AttributeValuePrint} */
 const printEventHandler = (textToDoc, print, path /* , options*/) =>

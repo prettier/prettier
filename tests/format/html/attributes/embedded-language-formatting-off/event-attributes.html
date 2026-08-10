@@ -1,0 +1,13 @@
+<!-- With `embeddedLanguageFormatting: "off"`, inline event handlers are not reformatted. -->
+<button onclick="alert(    '1')">click me!</button>
+
+<div onclick="handleClick(  event  )" onmouseover="showTooltip( this )">Hover me</div>
+
+<button onclick="api.user.get(  123  ).then(  data =>   updateUI( data )  )">API Call</button>
+
+<input onfocus="highlightField(  this  )" onblur="validateField( this.value )" />
+
+<button onclick="(event) =>   {  console.log('clicked');  handleClick(  event  );  }">Modern JS</button>
+
+<!-- Salesforce Aura bindings (`{! ... }`) are left untouched regardless of the option -->
+<button onclick="{!c.submit}">Submit</button>

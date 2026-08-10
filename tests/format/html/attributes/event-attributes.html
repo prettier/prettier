@@ -35,3 +35,10 @@
   'use strict'
   console.log(onclick)
   ">Click</button>
+
+<!-- Salesforce Aura expression bindings (`{! ... }`) must be left untouched (#18890) -->
+<button onclick="{!c.submit}">Submit</button>
+
+<button onclick="{!c.handleClick}" onmouseover="{!c.showTooltip}" onmouseout="{!c.hideTooltip}">Hover me</button>
+
+<a onclick="{!c.navigate}" ondragstart="{!c.onDrag}">Link</a>
