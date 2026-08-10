@@ -323,6 +323,53 @@ function isSetextHeading(node) {
 
 const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
+const pseudoSetextLineRegex = /^(?:=+|-+)$/;
+
+/**
+ * Check whether the word at `index` in `sentence` is a pseudo setext header
+ * line (a line composed of only `=` or `-`) that was written as a "lazy"
+ * continuation line, e.g. the `===` in
+ *
+ *     > Foo
+ *     ===
+ *
+ * Such a line can be printed as-is: since it starts at the first column
+ * without any block markers, it stays a lazy continuation line and can't be
+ * mistaken for a setext heading underline, so it doesn't need to be escaped.
+ *
+ * @param {{children: Array<{type: string, value: string}>, position: any}} sentence
+ * @param {number} index
+ * @param {{originalText: string}} options
+ * @returns {boolean}
+ */
+function isLazyPseudoSetextLine(sentence, index, options) {
+  const { children } = sentence;
+  const node = children[index];
+
+  if (
+    node?.type !== "word" ||
+    !pseudoSetextLineRegex.test(node.value) ||
+    !isNewLine(children[index - 1]) ||
+    (index !== children.length - 1 && !isNewLine(children[index + 1]))
+  ) {
+    return false;
+  }
+
+  let lineOffset = 0;
+  for (let i = 0; i < index; i++) {
+    if (isNewLine(children[i])) {
+      lineOffset++;
+    }
+  }
+
+  const line =
+    options.originalText.split("\n")[
+      sentence.position.start.line - 1 + lineOffset
+    ];
+
+  return line !== undefined && line.trimEnd() === node.value;
+}
+
 export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -332,6 +379,7 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isLazyPseudoSetextLine,
   isNewLine,
   isPrettierIgnore,
   isSetextHeading,

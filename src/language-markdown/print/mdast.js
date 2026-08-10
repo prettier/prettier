@@ -23,6 +23,7 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
+  isLazyPseudoSetextLine,
   isNewLine,
   isPrettierIgnore,
   splitText,
@@ -136,6 +137,17 @@ function printMdast(path, options, print) {
         : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
+
+      if (
+        options.proseWrap === "preserve" &&
+        node.value === "\n" &&
+        isLazyPseudoSetextLine(path.parent, path.index + 1, options)
+      ) {
+        // Print lazy pseudo setext headers (e.g. the `===` in `> Foo↵===`)
+        // as lazy continuation lines without indentation and block markers,
+        // so they don't have to be escaped.
+        return literalline;
+      }
 
       const proseWrap =
         // leading char that may cause different syntax

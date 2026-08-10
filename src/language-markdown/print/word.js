@@ -1,5 +1,5 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
-import { isAutolink, isNewLine } from "../utilities.js";
+import { isAutolink, isLazyPseudoSetextLine, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 
@@ -27,6 +27,13 @@ function printWord(path, options) {
       isNewLine(path.previous) &&
       (path.isLast || isNewLine(path.next))
     ) {
+      // Lazy pseudo setext headers (e.g. the `===` in `> Foo↵===`) are
+      // printed as lazy continuation lines (see the `whitespace` handling
+      // in `printMdast`), so they don't need to be escaped.
+      if (isLazyPseudoSetextLine(path.parent, path.index, options)) {
+        return text;
+      }
+
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
       return `\\${text}`;
     }
