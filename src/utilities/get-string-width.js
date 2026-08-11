@@ -10,6 +10,10 @@ import { isNarrowEmojiCharacter } from "narrow-emojis";
 const notAsciiRegex = /[^\x20-\x7F]/;
 // Exclude [`Spacing Mark`](https://www.compart.com/en/unicode/category/Mc) because spacing marks contribute horizontal width.
 const zeroWidthMarkRegex = /[\p{Nonspacing_Mark}\p{Enclosing_Mark}]/u;
+// Regex for emoji that default to emoji presentation (Emoji_Presentation=Yes).
+// Default text presentation emoji (Emoji=Yes, not Emoji_Presentation=Yes)
+// should be counted as width 1 unless followed by VS16 (U+FE0F).
+const emojiPresentationRegex = /\p{Emoji_Presentation}/u;
 
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
@@ -29,7 +33,11 @@ function getStringWidth(text) {
 
   let width = 0;
   text = text.replace(emojiRegex(), (character) => {
-    width += isNarrowEmojiCharacter(character) ? 1 : 2;
+    // Default text presentation emoji (Emoji=Yes, not Emoji_Presentation=Yes,
+    // and not followed by VS16) should be counted as width 1.
+    const isEmojiPresentation =
+      character.includes("\uFE0F") || emojiPresentationRegex.test(character);
+    width += isNarrowEmojiCharacter(character) || !isEmojiPresentation ? 1 : 2;
     return "";
   });
 
