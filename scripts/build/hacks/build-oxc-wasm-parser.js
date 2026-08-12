@@ -101,6 +101,11 @@ async function buildEntry(directory) {
 
   text = text.replace("await __rollbackWasiInitialization()", "[]");
 
+  text = text.replace(
+    "await instantiateNapiModule(",
+    "instantiateNapiModuleSync(",
+  );
+
   text = text.replaceAll(
     /new URL\((?<url>".*?"), import\.meta\.url\)/g,
     "{/* $<url> */}",
