@@ -9,7 +9,7 @@ if (typeof nodeModule.enableCompileCache === "function") {
 }
 
 function parseVersion(version) {
-  var parts = version.split(".", 3);
+  var parts = version.split("-", 1)[0].split(".", 3);
   return {
     major: Number(parts[0]),
     minor: Number(parts[1]) || 0,
