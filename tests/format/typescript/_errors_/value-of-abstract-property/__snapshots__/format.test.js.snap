@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`value-of-abstract-property.ts format[babel-ts] 1`] = `
+"Property 'prop' cannot have an initializer because it is marked abstract. (2:17)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |                 ^
+  3 | }
+  4 |
+Cause: Property 'prop' cannot have an initializer because it is marked abstract. (2:16)"
+`;
+
+exports[`value-of-abstract-property.ts format[oxc-ts] 1`] = `
+"Property 'prop' cannot have an initializer because it is marked abstract. (2:12)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |            ^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`value-of-abstract-property.ts format[typescript] 1`] = `
+"Abstract property cannot have an initializer. (2:19)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |                   ^
+  3 | }
+  4 |
+Cause: Abstract property cannot have an initializer."
+`;

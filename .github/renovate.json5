@@ -12,6 +12,7 @@
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
+  abandonmentThreshold: "2 years",
   packageRules: [
     {
       groupName: "GitHub Actions",

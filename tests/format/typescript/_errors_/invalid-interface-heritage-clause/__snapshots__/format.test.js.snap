@@ -15,9 +15,9 @@ Cause: 'extends' list cannot be empty. (1:22)"
 `;
 
 exports[`snippet: #0 format[oxc-ts] 1`] = `
-"Expected \`{\` but found \`EOF\` (1:25)
+"'extends' list cannot be empty. (1:15)
 > 1 | interface Foo extends {}
-    |                         ^"
+    |               ^^^^^^^"
 `;
 
 exports[`snippet: #0 format[typescript] 1`] = `

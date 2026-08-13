@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`module-attributes-static.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token, expected "{" (1:32)"
+`;
+
+exports[`module-attributes-static.ts format[oxc-ts] 1`] = `
+"Expected \`{\` but found \`type\` (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;
+
+exports[`module-attributes-static.ts format[typescript] 1`] = `
+"'{' expected. (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: '{' expected."
+`;

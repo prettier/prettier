@@ -867,8 +867,7 @@ for (var a = 1 || (() => b in c) in {});
 for (var a = (() => { b in c; }) in {});
 for (var a = [b in c] in {});
 for (var a = {b: b in c} in {});
-// Meriyah can't parse
-// for (var a = (x = b in c) => {} in {});
+for (var a = (x = b in c) => {} in {});
 for (var a = class extends (b in c) {} in {});
 for (var a = function (x = b in c) {} in {});
 
@@ -885,8 +884,7 @@ for (var a = (() => {
 }) in {});
 for (var a = ([b in c]) in {});
 for (var a = ({ b: b in c }) in {});
-// Meriyah can't parse
-// for (var a = (x = b in c) => {} in {});
+for (var a = ((x = b in c) => {}) in {});
 for (var a = (class extends (b in c) {}) in {});
 for (var a = (function (x = b in c) {}) in {});
 
@@ -912,8 +910,8 @@ exports[`for-in-with-initializer.js format[typescript] 1`] = `
 >  9 | for (var a = [b in c] in {});
      |                 ^
   10 | for (var a = {b: b in c} in {});
-  11 | // Meriyah can't parse
-  12 | // for (var a = (x = b in c) => {} in {});
+  11 | for (var a = (x = b in c) => {} in {});
+  12 | for (var a = class extends (b in c) {} in {});
 Cause: ',' expected."
 `;
 

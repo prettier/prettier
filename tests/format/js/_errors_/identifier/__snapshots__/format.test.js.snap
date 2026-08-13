@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`invalid-escape-in-identifier.js format[acorn] 1`] = `
+"Invalid Unicode escape (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Invalid Unicode escape (1:6)"
+`;
+
+exports[`invalid-escape-in-identifier.js format[babel] 1`] = `
+"Invalid Unicode escape. (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Invalid Unicode escape. (1:6)"
+`;
+
+exports[`invalid-escape-in-identifier.js format[babel-ts] 1`] = `
+"Invalid Unicode escape. (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Invalid Unicode escape. (1:6)"
+`;
+
+exports[`invalid-escape-in-identifier.js format[espree] 1`] = `
+"Invalid Unicode escape (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Invalid Unicode escape"
+`;
+
+exports[`invalid-escape-in-identifier.js format[flow] 1`] = `
+"Illegal Unicode escape (1:10)
+> 1 | const \\u{20} = 1
+    |          ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Illegal Unicode escape (1:9)"
+`;
+
+exports[`invalid-escape-in-identifier.js format[hermes] 1`] = `
+"Unicode escape \\u20 is not a valid identifier start (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Unicode escape \\u20 is not a valid identifier start (1:6)
+const \\u{20} = 1
+      ^~~~~~"
+`;
+
+exports[`invalid-escape-in-identifier.js format[meriyah] 1`] = `
+"Illegal Unicode escape sequence (1:7)
+> 1 | const \\u{20} = 1
+    |       ^^^^^^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: [1:6-1:12]: Illegal Unicode escape sequence"
+`;
+
+exports[`invalid-escape-in-identifier.js format[oxc] 1`] = `
+"Invalid Character \` \` (1:13)
+> 1 | const \\u{20} = 1
+    |             ^
+  2 | const \\u{3000} = 1
+  3 |"
+`;
+
+exports[`invalid-escape-in-identifier.js format[oxc-ts] 1`] = `
+"Invalid Character \` \` (1:13)
+> 1 | const \\u{20} = 1
+    |             ^
+  2 | const \\u{3000} = 1
+  3 |"
+`;
+
+exports[`invalid-escape-in-identifier.js format[typescript] 1`] = `
+"Invalid character. (1:7)
+> 1 | const \\u{20} = 1
+    |       ^
+  2 | const \\u{3000} = 1
+  3 |
+Cause: Invalid character."
+`;
+
+exports[`invalid-escape-in-identifier.js format[yuku] 1`] = `
+"Invalid character at start of identifier (1:6)
+> 1 | const \\u{20} = 1
+    |      ^^
+  2 | const \\u{3000} = 1
+  3 |"
+`;
+
+exports[`invalid-escape-in-identifier.js format[yuku-ts] 1`] = `
+"Invalid character at start of identifier (1:6)
+> 1 | const \\u{20} = 1
+    |      ^^
+  2 | const \\u{3000} = 1
+  3 |"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[acorn] 1`] = `
+"Expecting Unicode escape sequence \\uXXXX (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |
+Cause: Expecting Unicode escape sequence \\uXXXX (1:2)"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[babel] 1`] = `
+"Expecting Unicode escape sequence \\uXXXX. (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |
+Cause: Expecting Unicode escape sequence \\uXXXX. (1:2)"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[babel-ts] 1`] = `
+"Expecting Unicode escape sequence \\uXXXX. (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |
+Cause: Expecting Unicode escape sequence \\uXXXX. (1:2)"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[espree] 1`] = `
+"Expecting Unicode escape sequence \\uXXXX (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |
+Cause: Expecting Unicode escape sequence \\uXXXX"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[flow] 1`] = `
+"Unexpected token ILLEGAL (1:2)
+> 1 | a\\ = a
+    |  ^
+  2 |
+Cause: Unexpected token ILLEGAL (1:1)"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[hermes] 1`] = `
+"invalid Unicode escape (1:2)
+> 1 | a\\ = a
+    |  ^
+  2 |
+Cause: invalid Unicode escape (1:1)
+a\\ = a
+ ^~"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[meriyah] 1`] = `
+"Illegal Unicode escape sequence (1:1)
+> 1 | a\\ = a
+    | ^
+  2 |
+Cause: [1:0-1:1]: Illegal Unicode escape sequence"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[oxc] 1`] = `
+"Invalid Unicode escape sequence (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[oxc-ts] 1`] = `
+"Invalid Unicode escape sequence (1:3)
+> 1 | a\\ = a
+    |   ^
+  2 |"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[typescript] 1`] = `
+"Invalid character. (1:2)
+> 1 | a\\ = a
+    |  ^
+  2 |
+Cause: Invalid character."
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[yuku] 1`] = `
+"Invalid Unicode escape sequence (1:1)
+> 1 | a\\ = a
+    | ^^
+  2 |"
+`;
+
+exports[`invalid-escape-in-identifier-2.js format[yuku-ts] 1`] = `
+"Invalid Unicode escape sequence (1:1)
+> 1 | a\\ = a
+    | ^^
+  2 |"
+`;

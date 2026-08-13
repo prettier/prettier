@@ -1,0 +1,8 @@
+"single line description"
+enum E1 { A }
+
+"""
+multiline
+description
+"""
+enum E2 { A }
