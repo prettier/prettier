@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"The state of an item"
+enum E1 { A }
+
+"""
+A multiline
+description
+"""
+enum E2 { A }
+
+=====================================output=====================================
+"The state of an item"
+enum E1 {
+  A
+}
+
+"""
+A multiline
+description
+"""
+enum E2 {
+  A
+}
+
+================================================================================
+`;
+
 exports[`enum.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -16,47 +47,6 @@ enum State {
   PENDING
   VISIBLE
   ARCHIVED
-}
-
-================================================================================
-`;
-
-exports[`enum-with-description.graphql format 1`] = `
-====================================options=====================================
-parsers: ["graphql"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-"The state of an item"
-enum State {
-  PENDING
-  VISIBLE
-  ARCHIVED
-}
-
-"""
-A multiline
-description
-"""
-enum Status {
-  ACTIVE
-  INACTIVE
-}
-
-=====================================output=====================================
-"The state of an item"
-enum State {
-  PENDING
-  VISIBLE
-  ARCHIVED
-}
-
-"""
-A multiline
-description
-"""
-enum Status {
-  ACTIVE
-  INACTIVE
 }
 
 ================================================================================
