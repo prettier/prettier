@@ -1,4 +1,4 @@
-"sigleline description"
+"singleline description"
 union U1 = A | B
 
 """
