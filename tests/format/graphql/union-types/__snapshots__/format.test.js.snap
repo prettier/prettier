@@ -5,22 +5,22 @@ exports[`description.graphql format 1`] = `
 parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-"Search result union"
+"sigleline description"
 union U1 = A | B
 
 """
-A union with a very long name
-for testing line breaks
+multiline
+description
 """
 union U2 = A | B
 
 =====================================output=====================================
-"Search result union"
+"sigleline description"
 union U1 = A | B
 
 """
-A union with a very long name
-for testing line breaks
+multiline
+description
 """
 union U2 = A | B
 

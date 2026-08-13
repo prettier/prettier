@@ -5,24 +5,24 @@ exports[`description.graphql format 1`] = `
 parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-"Represents a color"
-scalar Color @deprecated
+"sigleline description"
+scalar S1
 
 """
-A custom
-date scalar.
+multiline
+description
 """
-scalar Date
+scalar S2
 
 =====================================output=====================================
-"Represents a color"
-scalar Color @deprecated
+"sigleline description"
+scalar S1
 
 """
-A custom
-date scalar.
+multiline
+description
 """
-scalar Date
+scalar S2
 
 ================================================================================
 `;

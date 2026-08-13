@@ -1,8 +1,8 @@
-"The state of an item"
+"sigleline description"
 enum E1 { A }
 
 """
-A multiline
+multiline
 description
 """
 enum E2 { A }

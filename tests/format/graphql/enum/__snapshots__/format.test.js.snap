@@ -5,23 +5,23 @@ exports[`description.graphql format 1`] = `
 parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-"The state of an item"
+"sigleline description"
 enum E1 { A }
 
 """
-A multiline
+multiline
 description
 """
 enum E2 { A }
 
 =====================================output=====================================
-"The state of an item"
+"sigleline description"
 enum E1 {
   A
 }
 
 """
-A multiline
+multiline
 description
 """
 enum E2 {

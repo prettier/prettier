@@ -1,8 +1,8 @@
-"Represents a color"
-scalar Color @deprecated
+"sigleline description"
+scalar S1
 
 """
-A custom
-date scalar.
+multiline
+description
 """
-scalar Date
+scalar S2
