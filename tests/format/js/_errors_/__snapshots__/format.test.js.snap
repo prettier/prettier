@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`html-like-comments.js format 1`] = `
-"Unexpected token (3:1)
-  1 | // Only support HTML-like comment in HTML
-  2 | alert(
-> 3 | <!-- comment
-    | ^
-  4 | 'hello world'
-  5 | )
-  6 |
-Cause: Unexpected token (3:0)"
-`;
-
 exports[`import-attributes-for-export-without-from.js format 1`] = `
 "Unexpected token, expected "(" (1:32)
 > 1 | export { default as foo } with { type: "json" };

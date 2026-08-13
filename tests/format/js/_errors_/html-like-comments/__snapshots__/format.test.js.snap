@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format[babel] 1`] = `
+"Unexpected token (2:1)
+  1 | alert(
+> 2 | <!-- comment
+    | ^
+  3 | 'hello world'
+  4 | )
+Cause: Unexpected token (2:0)"
+`;
+
+exports[`snippet: #0 format[babel-ts] 1`] = `
+"Unexpected token (2:1)
+  1 | alert(
+> 2 | <!-- comment
+    | ^
+  3 | 'hello world'
+  4 | )
+Cause: Unexpected token (2:0)"
+`;
+
+exports[`snippet: #0 format[flow] 1`] = `
+"Unexpected token \`!\`, expected the token \`>\` (2:2)
+  1 | alert(
+> 2 | <!-- comment
+    |  ^
+  3 | 'hello world'
+  4 | )
+Cause: Unexpected token \`!\`, expected the token \`>\` (2:1)"
+`;
+
+exports[`snippet: #0 format[hermes] 1`] = `
+"'identifier' expected as JSX element name (2:2)
+  1 | alert(
+> 2 | <!-- comment
+    |  ^
+  3 | 'hello world'
+  4 | )
+Cause: 'identifier' expected as JSX element name (2:1)
+<!-- comment
+ ^"
+`;
+
+exports[`snippet: #0 format[typescript] 1`] = `
+"Type expected. (2:3)
+  1 | alert(
+> 2 | <!-- comment
+    |   ^
+  3 | 'hello world'
+  4 | )
+Cause: Type expected."
+`;
