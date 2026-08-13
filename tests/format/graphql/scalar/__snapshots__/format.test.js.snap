@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Represents a color"
+scalar Color @deprecated
+
+"""
+A custom
+date scalar.
+"""
+scalar Date
+
+=====================================output=====================================
+"Represents a color"
+scalar Color @deprecated
+
+"""
+A custom
+date scalar.
+"""
+scalar Date
+
+================================================================================
+`;
+
 exports[`scalar.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -9,33 +36,6 @@ scalar Color @deprecated
 
 =====================================output=====================================
 scalar Color @deprecated
-
-================================================================================
-`;
-
-exports[`scalar-with-description.graphql format 1`] = `
-====================================options=====================================
-parsers: ["graphql"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-"Represents a color"
-scalar Color @deprecated
-
-"""
-A custom
-date scalar.
-"""
-scalar Date
-
-=====================================output=====================================
-"Represents a color"
-scalar Color @deprecated
-
-"""
-A custom
-date scalar.
-"""
-scalar Date
 
 ================================================================================
 `;
