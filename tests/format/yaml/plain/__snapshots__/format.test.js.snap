@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`force-single line-in-mapping-value.yml - {"proseWrap":"always"} format 1`] = `
+exports[`force-single-line-in-mapping-value.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 proseWrap: "always"
@@ -35,7 +35,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`force-single line-in-mapping-value.yml - {"proseWrap":"never"} format 1`] = `
+exports[`force-single-line-in-mapping-value.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 proseWrap: "never"
@@ -66,7 +66,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`force-single line-in-mapping-value.yml format 1`] = `
+exports[`force-single-line-in-mapping-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
                                                       printWidth: 80 (default) |
