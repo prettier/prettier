@@ -1,0 +1,8 @@
+"Search result union"
+union U1 = A | B
+
+"""
+A union with a very long name
+for testing line breaks
+"""
+union U2 = A | B

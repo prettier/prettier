@@ -1,8 +1,0 @@
-"Search result union"
-union myUnion = ATypeName | ASecondTypeName
-
-"""
-A union with a very long name
-for testing line breaks
-"""
-union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee = A | B

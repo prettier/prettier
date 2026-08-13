@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Search result union"
+union U1 = A | B
+
+"""
+A union with a very long name
+for testing line breaks
+"""
+union U2 = A | B
+
+=====================================output=====================================
+"Search result union"
+union U1 = A | B
+
+"""
+A union with a very long name
+for testing line breaks
+"""
+union U2 = A | B
+
+================================================================================
+`;
+
 exports[`union_types.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -72,35 +99,6 @@ union SearchResult =
 # comment
 # comment2
 union union = B | C | D
-
-================================================================================
-`;
-
-exports[`union-with-description.graphql format 1`] = `
-====================================options=====================================
-parsers: ["graphql"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-"Search result union"
-union myUnion = ATypeName | ASecondTypeName
-
-"""
-A union with a very long name
-for testing line breaks
-"""
-union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee = A | B
-
-=====================================output=====================================
-"Search result union"
-union myUnion = ATypeName | ASecondTypeName
-
-"""
-A union with a very long name
-for testing line breaks
-"""
-union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee =
-  | A
-  | B
 
 ================================================================================
 `;
