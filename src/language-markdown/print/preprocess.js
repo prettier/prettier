@@ -249,30 +249,27 @@ function splitTextIntoSentences(ast) {
 }
 
 function getBlockquoteRawText(text, node) {
-  const rawBlockquoteMarker = />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/;
+  const newLineRegexp = /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/g;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   let valueIndex = 0;
   const resultLines = rawLines.map((rawLine, index) => {
     const valueLine = valueLines[valueIndex++];
-    const decodedNewlines = rawLine.matchAll(
-      /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/gu,
-    );
+    const decodedNewlines = rawLine.matchAll(newLineRegexp);
     valueIndex += [...decodedNewlines].length;
 
     if (index === 0) {
       return rawLine;
     }
-    const rawMarkerCount = countLeadingMarkers(rawLine, rawBlockquoteMarker);
-    const valueMarkerCount = countLeadingMarkers(valueLine, />/);
+    const rawMarkerCount = countRawLeadingBloackquoteMarkers(rawLine);
+    const valueMarkerCount = countValueLeadingBloackquoteMarkers(valueLine);
     const matchesToBeRemoved = rawMarkerCount - valueMarkerCount;
     if (matchesToBeRemoved <= 0) {
       return rawLine;
     }
     return rawLine.replace(
       new RegExp(
-        String.raw`^[ \t]*(?:(?:${rawBlockquoteMarker.source})[ \t]*){${matchesToBeRemoved}}`,
-        "u",
+        String.raw`^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*){${matchesToBeRemoved}}`,
       ),
       "",
     );
@@ -280,11 +277,16 @@ function getBlockquoteRawText(text, node) {
   return resultLines.join("\n");
 }
 
-function countLeadingMarkers(text, marker) {
+function countRawLeadingBloackquoteMarkers(text) {
   const [prefix] = text.match(
-    new RegExp(String.raw`^[ \t]*(?:(?:${marker.source})[ \t]*)*`, "u"),
+    /^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*)*/,
   );
-  return prefix.match(new RegExp(marker.source, "gu"))?.length ?? 0;
+  return prefix.match(/>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/g)?.length ?? 0;
+}
+
+function countValueLeadingBloackquoteMarkers(text) {
+  const [prefix] = text.match(/^[ \t]*(?:>[ \t]*)*/);
+  return prefix.match(/>/g)?.length ?? 0;
 }
 
 function transformIndentedCodeblock(ast, options) {
