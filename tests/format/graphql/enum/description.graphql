@@ -1,4 +1,4 @@
-"singleline description"
+"single line description"
 enum E1 { A }
 
 """
