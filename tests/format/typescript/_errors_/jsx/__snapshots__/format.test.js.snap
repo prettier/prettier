@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`invalid-jsx-1.tsx format[babel-ts] 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (3:45)
+  1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
+  2 |
+> 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
+    |                                             ^
+  4 |
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (3:44)"
+`;
+
+exports[`invalid-jsx-1.tsx format[oxc-ts] 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
+  1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
+  2 |
+> 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
+    |                                             ^
+  4 |"
+`;
+
+exports[`invalid-jsx-1.tsx format[typescript] 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
+  1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
+  2 |
+> 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
+    |                                             ^
+  4 |
+Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
+`;
