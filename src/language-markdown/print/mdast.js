@@ -301,7 +301,12 @@ function printMdast(path, options, print) {
       const { ancestors } = path;
       const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
-        return path.isFirst && path.parent.type === "root" ? "***" : "---";
+        // Prevent it from becoming a "front matter"
+        if (path.isFirst && path.parent.type === "root") {
+          return "***";
+        }
+
+        return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
         ancestors[counter],
