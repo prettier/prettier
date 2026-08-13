@@ -5,7 +5,7 @@ exports[`description.graphql format 1`] = `
 parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-"sigleline description"
+"single line description"
 union U1 = A | B
 
 """
@@ -15,7 +15,7 @@ description
 union U2 = A | B
 
 =====================================output=====================================
-"sigleline description"
+"single line description"
 union U1 = A | B
 
 """
