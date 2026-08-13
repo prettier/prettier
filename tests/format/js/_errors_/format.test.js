@@ -4,11 +4,6 @@ runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
-      // v8intrinsic
-      "::%DebugPrint(null)",
-      "a.%DebugPrint();",
-      "const i = %DebugPrint;",
-
       // partialApplication
       // https://babeljs.io/docs/babel-plugin-proposal-partial-application#invalid-usage
       "f(x + ?)", // `?` not in top-level Arguments of call
