@@ -80,7 +80,12 @@
     },
     {
       groupName: "Markdown dependencies",
-      matchPackageNames: ["micromark-*", "mdast-"],
+      matchPackageNames: [
+        "micromark-*",
+        "mdast-",
+        "@braindb/mdast-util-wiki-link",
+        "@braindb/micromark-extension-wiki-link",
+      ],
     },
     {
       groupName: "Docusaurus",

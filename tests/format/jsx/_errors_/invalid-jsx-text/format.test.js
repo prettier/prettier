@@ -19,7 +19,7 @@ runFormatTest(
     "acorn",
     "espree",
     "flow",
-    // "meriyah",
+    "meriyah",
     "typescript",
     // "hermes",
     "oxc",

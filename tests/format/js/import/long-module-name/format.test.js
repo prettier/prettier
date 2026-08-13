@@ -4,5 +4,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     espree: ["import-defer.js", "import-source.js"],
     flow: ["import-defer.js", "import-source.js"],
     hermes: ["import-defer.js", "import-source.js"],
+    typescript: ["import-source.js"],
   },
 });
