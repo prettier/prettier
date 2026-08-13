@@ -261,8 +261,8 @@ function getBlockquoteRawText(text, node) {
     if (index === 0) {
       return rawLine;
     }
-    const rawMarkerCount = countRawLeadingBloackquoteMarkers(rawLine);
-    const valueMarkerCount = countValueLeadingBloackquoteMarkers(valueLine);
+    const rawMarkerCount = countRawLeadingBlockquoteMarkers(rawLine);
+    const valueMarkerCount = countValueLeadingBlockquoteMarkers(valueLine);
     const matchesToBeRemoved = rawMarkerCount - valueMarkerCount;
     if (matchesToBeRemoved <= 0) {
       return rawLine;
@@ -277,14 +277,14 @@ function getBlockquoteRawText(text, node) {
   return resultLines.join("\n");
 }
 
-function countRawLeadingBloackquoteMarkers(text) {
+function countRawLeadingBlockquoteMarkers(text) {
   const [prefix] = text.match(
     /^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*)*/,
   );
   return prefix.match(/>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/g)?.length ?? 0;
 }
 
-function countValueLeadingBloackquoteMarkers(text) {
+function countValueLeadingBlockquoteMarkers(text) {
   const [prefix] = text.match(/^[ \t]*(?:>[ \t]*)*/);
   return prefix.match(/>/g)?.length ?? 0;
 }
