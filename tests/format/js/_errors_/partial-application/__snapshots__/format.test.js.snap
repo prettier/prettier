@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`partial-template-strings.js format[acorn] 1`] = `
+"Unexpected token (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Unexpected token (6:41)"
+`;
+
+exports[`partial-template-strings.js format[babel] 1`] = `
+"Unexpected token (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Unexpected token (6:41)"
+`;
+
+exports[`partial-template-strings.js format[babel-ts] 1`] = `
+"Unexpected token (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Unexpected token (6:41)"
+`;
+
+exports[`partial-template-strings.js format[espree] 1`] = `
+"Unexpected token ? (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Unexpected token ?"
+`;
+
+exports[`partial-template-strings.js format[flow] 1`] = `
+"Unexpected token \`?\` (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Unexpected token \`?\` (6:41)"
+`;
+
+exports[`partial-template-strings.js format[hermes] 1`] = `
+"invalid expression (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: invalid expression (6:41)
+  unexpected_token: \`Unexpected token: \${?}\`,
+                                         ^"
+`;
+
+exports[`partial-template-strings.js format[meriyah] 1`] = `
+"Unexpected token: '?' (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: [6:41-6:42]: Unexpected token: '?'"
+`;
+
+exports[`partial-template-strings.js format[oxc] 1`] = `
+"Unexpected token (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
+`;
+
+exports[`partial-template-strings.js format[oxc-ts] 1`] = `
+"Unexpected token (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
+`;
+
+exports[`partial-template-strings.js format[typescript] 1`] = `
+"Expression expected. (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found."
+Cause: Expression expected."
+`;
+
+exports[`partial-template-strings.js format[yuku] 1`] = `
+"Unexpected token '?' (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
+`;
+
+exports[`partial-template-strings.js format[yuku-ts] 1`] = `
+"Unexpected token '?' (6:42)
+  4 |
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
+    |                                          ^
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
+`;
