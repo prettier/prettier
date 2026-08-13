@@ -1,0 +1,8 @@
+"sigleline description"
+scalar S1
+
+"""
+multiline
+description
+"""
+scalar S2
