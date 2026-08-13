@@ -2,16 +2,16 @@ runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
-      "import();",
-      "import(/* comment */);",
-      "new import('./a.mjs');",
-      "new import();",
+      // v8intrinsic
+      "::%DebugPrint(null)",
+      "a.%DebugPrint();",
+      "const i = %DebugPrint;",
     ],
   },
   [
     "babel",
-    // "acorn",
-    // "espree",
+    "acorn",
+    "espree",
     "meriyah",
     "typescript",
     "babel-ts",
@@ -20,6 +20,6 @@ runFormatTest(
     "yuku",
     "yuku-ts",
     "flow",
-    // "hermes",
+    "hermes",
   ],
 );

@@ -1,0 +1,4 @@
+alert(
+<!-- comment
+'hello world'
+)
