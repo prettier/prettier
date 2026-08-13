@@ -141,3 +141,249 @@ exports[`partial-template-strings.js format[yuku-ts] 1`] = `
   8 | };
   9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
 `;
+
+exports[`snippet: #0 format[acorn] 1`] = `
+"Unexpected token (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #0 format[babel] 1`] = `
+"Unexpected token (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #0 format[babel-ts] 1`] = `
+"Unexpected token (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #0 format[espree] 1`] = `
+"Unexpected token ? (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Unexpected token ?"
+`;
+
+exports[`snippet: #0 format[flow] 1`] = `
+"Unexpected token \`?\` (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Unexpected token \`?\` (1:6)"
+`;
+
+exports[`snippet: #0 format[hermes] 1`] = `
+"invalid expression (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: invalid expression (1:6)
+f(x + ?)
+      ^"
+`;
+
+exports[`snippet: #0 format[meriyah] 1`] = `
+"Unexpected token: '?' (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: [1:6-1:7]: Unexpected token: '?'"
+`;
+
+exports[`snippet: #0 format[oxc] 1`] = `
+"Unexpected token (1:7)
+> 1 | f(x + ?)
+    |       ^"
+`;
+
+exports[`snippet: #0 format[oxc-ts] 1`] = `
+"Unexpected token (1:7)
+> 1 | f(x + ?)
+    |       ^"
+`;
+
+exports[`snippet: #0 format[typescript] 1`] = `
+"Expression expected. (1:7)
+> 1 | f(x + ?)
+    |       ^
+Cause: Expression expected."
+`;
+
+exports[`snippet: #0 format[yuku] 1`] = `
+"Unexpected token '?' (1:7)
+> 1 | f(x + ?)
+    |       ^"
+`;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Unexpected token '?' (1:7)
+> 1 | f(x + ?)
+    |       ^"
+`;
+
+exports[`snippet: #1 format[acorn] 1`] = `
+"Unexpected token (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Unexpected token (1:4)"
+`;
+
+exports[`snippet: #1 format[babel] 1`] = `
+"Unexpected token (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Unexpected token (1:4)"
+`;
+
+exports[`snippet: #1 format[babel-ts] 1`] = `
+"Unexpected token (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Unexpected token (1:4)"
+`;
+
+exports[`snippet: #1 format[espree] 1`] = `
+"Unexpected token ? (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Unexpected token ?"
+`;
+
+exports[`snippet: #1 format[flow] 1`] = `
+"Unexpected token \`?\` (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Unexpected token \`?\` (1:4)"
+`;
+
+exports[`snippet: #1 format[hermes] 1`] = `
+"invalid expression (1:5)
+> 1 | x + ?
+    |     ^
+Cause: invalid expression (1:4)
+x + ?
+    ^"
+`;
+
+exports[`snippet: #1 format[meriyah] 1`] = `
+"Unexpected token: '?' (1:5)
+> 1 | x + ?
+    |     ^
+Cause: [1:4-1:5]: Unexpected token: '?'"
+`;
+
+exports[`snippet: #1 format[oxc] 1`] = `
+"Unexpected token (1:5)
+> 1 | x + ?
+    |     ^"
+`;
+
+exports[`snippet: #1 format[oxc-ts] 1`] = `
+"Unexpected token (1:5)
+> 1 | x + ?
+    |     ^"
+`;
+
+exports[`snippet: #1 format[typescript] 1`] = `
+"Expression expected. (1:5)
+> 1 | x + ?
+    |     ^
+Cause: Expression expected."
+`;
+
+exports[`snippet: #1 format[yuku] 1`] = `
+"Unexpected token '?' (1:5)
+> 1 | x + ?
+    |     ^"
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Unexpected token '?' (1:5)
+> 1 | x + ?
+    |     ^"
+`;
+
+exports[`snippet: #2 format[acorn] 1`] = `
+"Unexpected token (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #2 format[babel] 1`] = `
+"Unexpected token (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #2 format[babel-ts] 1`] = `
+"Unexpected token (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #2 format[espree] 1`] = `
+"Unexpected token ?. (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Unexpected token ?."
+`;
+
+exports[`snippet: #2 format[flow] 1`] = `
+"Unexpected token \`?.\`, expected the start of a statement (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Unexpected token \`?.\`, expected the start of a statement (1:0)"
+`;
+
+exports[`snippet: #2 format[hermes] 1`] = `
+"invalid expression (1:1)
+> 1 | ?.f()
+    | ^
+Cause: invalid expression (1:0)
+?.f()
+^"
+`;
+
+exports[`snippet: #2 format[meriyah] 1`] = `
+"Unexpected token: '?.' (1:1)
+> 1 | ?.f()
+    | ^^
+Cause: [1:0-1:2]: Unexpected token: '?.'"
+`;
+
+exports[`snippet: #2 format[oxc] 1`] = `
+"Unexpected token (1:1)
+> 1 | ?.f()
+    | ^^"
+`;
+
+exports[`snippet: #2 format[oxc-ts] 1`] = `
+"Unexpected token (1:1)
+> 1 | ?.f()
+    | ^^"
+`;
+
+exports[`snippet: #2 format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | ?.f()
+    | ^
+Cause: Declaration or statement expected."
+`;
+
+exports[`snippet: #2 format[yuku] 1`] = `
+"Unexpected token '?.' (1:1)
+> 1 | ?.f()
+    | ^^"
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Unexpected token '?.' (1:1)
+> 1 | ?.f()
+    | ^^"
+`;
