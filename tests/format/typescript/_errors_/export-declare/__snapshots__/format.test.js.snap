@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`export-declare.ts format[babel-ts] 1`] = `
+"'export declare' must be followed by an ambient declaration. (1:16)
+> 1 | export declare foo;
+    |                ^
+  2 |
+Cause: 'export declare' must be followed by an ambient declaration. (1:15)"
+`;
+
+exports[`export-declare.ts format[oxc-ts] 1`] = `
+"Unexpected token (1:16)
+> 1 | export declare foo;
+    |                ^^^
+  2 |"
+`;
+
+exports[`export-declare.ts format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export declare foo;
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
