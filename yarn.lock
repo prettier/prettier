@@ -476,6 +476,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bybrave/json5@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@bybrave/json5@npm:3.1.0"
+  bin:
+    json5: lib/cli.js
+  checksum: 10/167c928e5abb6993d8e2748549d878773e583c9dee911959f495872be2f32219979e4f82e26f1e3e11cdf1e6874f0e3827da7f987cde627dc142c9e1bcaa90c1
+  languageName: node
+  linkType: hard
+
 "@cacheable/memory@npm:^2.2.0":
   version: 2.2.0
   resolution: "@cacheable/memory@npm:2.2.0"
@@ -6524,7 +6533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:2.2.3, json5@npm:^2.2.3":
+"json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -8208,6 +8217,7 @@ __metadata:
     "@babel/types": "npm:8.0.4"
     "@braindb/mdast-util-wiki-link": "npm:0.2.0"
     "@braindb/micromark-extension-wiki-link": "npm:0.1.0"
+    "@bybrave/json5": "npm:3.1.0"
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.12.0"
@@ -8286,7 +8296,6 @@ __metadata:
     jest-watch-typeahead: "npm:3.0.1"
     jsesc: "npm:3.1.0"
     json-test-suite: "npm:1.0.0"
-    json5: "npm:2.2.3"
     jsx-test-suite: "npm:0.0.2"
     knip: "npm:6.32.0"
     less-test-suite: "npm:0.0.1"
