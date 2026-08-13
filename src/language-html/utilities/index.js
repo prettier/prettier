@@ -338,6 +338,26 @@ function hasNonTextChild(node) {
   return node.children?.some((child) => child.kind !== "text");
 }
 
+// https://mimesniff.spec.whatwg.org/#javascript-mime-type
+const javascriptMimeTypeEssences = new Set([
+  "application/ecmascript",
+  "application/javascript",
+  "application/x-ecmascript",
+  "application/x-javascript",
+  "text/ecmascript",
+  "text/javascript",
+  "text/javascript1.0",
+  "text/javascript1.1",
+  "text/javascript1.2",
+  "text/javascript1.3",
+  "text/javascript1.4",
+  "text/javascript1.5",
+  "text/jscript",
+  "text/livescript",
+  "text/x-ecmascript",
+  "text/x-javascript",
+]);
+
 function inferParserByTypeAttribute(type) {
   if (!type) {
     return;
@@ -389,6 +409,21 @@ function inferScriptParser(node, options) {
 
   return (
     inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function shouldParseScriptAsModule(node) {
+  const { type, lang, "data-type": dataType } = node.attrMap;
+  const normalizedType = type?.toLowerCase();
+
+  return (
+    normalizedType === "module" ||
+    ((normalizedType === "text/babel" || normalizedType === "text/jsx") &&
+      dataType === "module") ||
+    (lang &&
+      type &&
+      !javascriptMimeTypeEssences.has(normalizedType) &&
+      !inferParserByTypeAttribute(normalizedType))
   );
 }
 
@@ -648,6 +683,7 @@ export {
   isVueSlotAttribute,
   isWhitespaceSensitiveNode,
   preferHardlineAsLeadingSpaces,
+  shouldParseScriptAsModule,
   shouldPreserveContent,
   shouldUnquoteAttributeValue,
   unescapeQuoteEntities,

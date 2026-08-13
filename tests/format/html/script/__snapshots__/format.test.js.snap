@@ -234,3 +234,123 @@ End Function
 
 ================================================================================
 `;
+
+exports[`script-source-type.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script lang="js" type="text/javascript">
+  return
+</script>
+
+<script lang="js" type="text/javascript">
+  await    Promise.resolve(1)
+</script>
+
+<script lang="js" type="application/javascript">
+  import.meta . url
+</script>
+
+<script lang="js" type="application/ecmascript">
+  return
+</script>
+
+<script lang="js" type="APPLICATION/X-JAVASCRIPT">
+  await    Promise.resolve(1)
+</script>
+
+<script lang="js" type="text/javascript; charset=utf-8">
+  await    Promise.resolve(1)
+</script>
+
+<script type="module">
+  import    x from "x";
+  await    x;
+</script>
+
+<script lang="js" type="module-shim">
+  import    x from "x";
+  await    x;
+</script>
+
+<script lang="js" type="unknown">
+  const promise
+  = Promise.resolve(42)
+  await    promise
+</script>
+
+<script lang="json" type="unknown">
+  {"answer":            42}
+</script>
+
+<script type="application/json">
+  {"answer":            42}
+</script>
+
+<script type="importmap">
+  {"imports":            {}}
+</script>
+
+<script type="speculationrules">
+  {"prerender":            []}
+</script>
+
+=====================================output=====================================
+<script lang="js" type="text/javascript">
+  return;
+</script>
+
+<script lang="js" type="text/javascript">
+  await    Promise.resolve(1)
+</script>
+
+<script lang="js" type="application/javascript">
+  import.meta . url
+</script>
+
+<script lang="js" type="application/ecmascript">
+  return;
+</script>
+
+<script lang="js" type="APPLICATION/X-JAVASCRIPT">
+  await    Promise.resolve(1)
+</script>
+
+<script lang="js" type="text/javascript; charset=utf-8">
+  await Promise.resolve(1);
+</script>
+
+<script type="module">
+  import x from "x";
+  await x;
+</script>
+
+<script lang="js" type="module-shim">
+  import x from "x";
+  await x;
+</script>
+
+<script lang="js" type="unknown">
+  const promise = Promise.resolve(42);
+  await promise;
+</script>
+
+<script lang="json" type="unknown">
+  { "answer": 42 }
+</script>
+
+<script type="application/json">
+  { "answer": 42 }
+</script>
+
+<script type="importmap">
+  { "imports": {} }
+</script>
+
+<script type="speculationrules">
+  { "prerender": [] }
+</script>
+
+================================================================================
+`;
