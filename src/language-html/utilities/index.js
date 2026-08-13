@@ -414,16 +414,16 @@ function inferScriptParser(node, options) {
 
 function shouldParseScriptAsModule(node) {
   const { type, lang, "data-type": dataType } = node.attrMap;
-  const normalizedType = type?.toLowerCase();
+  const typeEssence = type?.toLowerCase().split(";", 1)[0].trim();
 
   return (
-    normalizedType === "module" ||
-    ((normalizedType === "text/babel" || normalizedType === "text/jsx") &&
+    typeEssence === "module" ||
+    ((typeEssence === "text/babel" || typeEssence === "text/jsx") &&
       dataType === "module") ||
     (lang &&
       type &&
-      !javascriptMimeTypeEssences.has(normalizedType) &&
-      !inferParserByTypeAttribute(normalizedType))
+      !javascriptMimeTypeEssences.has(typeEssence) &&
+      !inferParserByTypeAttribute(typeEssence))
   );
 }
 

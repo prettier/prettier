@@ -318,7 +318,7 @@ parsers: ["html"]
 </script>
 
 <script lang="js" type="text/javascript; charset=utf-8">
-  await Promise.resolve(1);
+  await    Promise.resolve(1)
 </script>
 
 <script type="module">
