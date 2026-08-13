@@ -1,21 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import-attributes-for-export-without-from.js format 1`] = `
-"Unexpected token, expected "(" (1:32)
-> 1 | export { default as foo } with { type: "json" };
-    |                                ^
-  2 |
-Cause: Unexpected token, expected "(" (1:31)"
-`;
-
-exports[`import-attributes-with-parens.js format 1`] = `
-"Unexpected token, expected "{" (1:17)
-> 1 | import "x" with ({type: 'json'});
-    |                 ^
-  2 |
-Cause: Unexpected token, expected "{" (1:16)"
-`;
-
 exports[`invalid-escape-in-identifier.js format 1`] = `
 "Invalid Unicode escape. (1:7)
 > 1 | const \\u{20} = 1
@@ -31,14 +15,6 @@ exports[`invalid-escape-in-identifier-2.js format 1`] = `
     |   ^
   2 |
 Cause: Expecting Unicode escape sequence \\uXXXX. (1:2)"
-`;
-
-exports[`module-attributes.js format 1`] = `
-"Unexpected token, expected "{" (1:33)
-> 1 | import foo from "foo.json" with type: "json";
-    |                                 ^
-  2 |
-Cause: Unexpected token, expected "{" (1:32)"
 `;
 
 exports[`no-for-in-init-concise-binary-in.js format 1`] = `
