@@ -5,8 +5,6 @@ import {
   // @ts-expect-error -- Private
   _isWide as isWide,
 } from "get-east-asian-width";
-import { isNarrowEmojiCharacter } from "narrow-emojis";
-
 const notAsciiRegex = /[^\x20-\x7F]/;
 // Exclude [`Spacing Mark`](https://www.compart.com/en/unicode/category/Mc) because spacing marks contribute horizontal width.
 const zeroWidthMarkRegex = /[\p{Nonspacing_Mark}\p{Enclosing_Mark}]/u;
@@ -29,7 +27,8 @@ function getStringWidth(text) {
 
   let width = 0;
   text = text.replace(emojiRegex(), (character) => {
-    width += isNarrowEmojiCharacter(character) ? 1 : 2;
+    const isNarrow = !/^\p{Emoji_Presentation}/u.test(character) && character !== "️" && !character.endsWith("\uFE0F");
+    width += isNarrow ? 1 : 2;
     return "";
   });
 
