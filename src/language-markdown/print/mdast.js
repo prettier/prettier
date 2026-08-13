@@ -30,6 +30,7 @@ import {
 import { printChildren } from "./children.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
+import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
@@ -431,14 +432,7 @@ function printMdast(path, options, print) {
     }
 
     case "mdxJsxAttribute":
-      return [
-        node.name,
-        node.value === null
-          ? ""
-          : typeof node.value === "string"
-            ? ['="', node.value, '"']
-            : ["=", path.call(print, "value")],
-      ];
+      return printMdxJsxAttribute(path, options, print);
     case "mdxJsxAttributeValueExpression":
       return ["{", node.value, "}"];
     case "math":
