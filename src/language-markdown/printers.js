@@ -2,7 +2,7 @@ import embed from "./embed.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import { printMdast, printPrettierIgnored } from "./print/index.js";
-import preprocess from "./print-preprocess/preprocess.js";
+import preprocess from "./print/preprocess.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 import { hasPrettierIgnore } from "./utilities.js";
 
