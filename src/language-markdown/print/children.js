@@ -1,3 +1,5 @@
+import { htmlTags } from "@prettier/html-tags";
+import htmlBlockElements from "remark-parse/lib/block-elements.js";
 import { hardline } from "../../document/index.js";
 import {
   INLINE_NODE_TYPES,
@@ -51,6 +53,16 @@ function shouldPrePrintHardline({ node, parent }) {
 }
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
+const htmlBlockElementSet = new Set(htmlBlockElements.map(String));
+const htmlInlineTagSet = new Set(
+  htmlTags.filter((tagName) => !htmlBlockElementSet.has(tagName)).map(String),
+);
+const htmlTagNameStartRegex = /^<\/?\s*([a-z][\w:-]*)/u;
+
+function startsWithInlineHtmlTag(value) {
+  const tagName = htmlTagNameStartRegex.exec(value)?.[1]?.toLowerCase();
+  return tagName !== undefined && htmlInlineTagSet.has(tagName);
+}
 
 /**
  * @param {AstPath} path
@@ -114,6 +126,12 @@ function shouldPrePrintDoubleHardline(path, options) {
     node.type === "html" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
+  const isMdxInlineHtmlWithoutBlankLineBetweenPrevParagraph =
+    options.parser === "mdx" &&
+    node.type === "jsx" &&
+    previous.type === "paragraph" &&
+    previous.position.end.line + 1 === node.position.start.line &&
+    startsWithInlineHtmlTag(node.value);
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     parent.type === "listItem" &&
@@ -126,6 +144,7 @@ function shouldPrePrintDoubleHardline(path, options) {
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
+    isMdxInlineHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
   );
 }
