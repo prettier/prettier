@@ -129,6 +129,22 @@ function isFakeTableDelimiterRow(path, options) {
 }
 
 /**
+ * Whether `value` alone, if it started a printed line, would already read
+ * as a GFM table delimiter row (e.g. `|---|---|`, `-|-`, `:-:`). Same shape
+ * test as `isFakeTableDelimiterRow` above, just applied to a single word
+ * instead of a reconstructed source line.
+ *
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isFakeTableDelimiterRowShape(value) {
+  return (
+    tableDelimiterRowStartRegex.test(value) &&
+    splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
+  );
+}
+
+/**
  * @param {*[]} line
  * @param {*} options
  * @returns {string | undefined} `undefined` if the line can't be read as text
@@ -273,4 +289,4 @@ function printWordLegacy(path) {
   return escapedValue;
 }
 
-export { printWord, printWordLegacy };
+export { isFakeTableDelimiterRowShape, printWord, printWordLegacy };

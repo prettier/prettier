@@ -7,6 +7,7 @@ import {
   KIND_K_LETTER,
   KIND_NON_CJK,
 } from "../utilities.js";
+import { isFakeTableDelimiterRowShape } from "./word.js";
 
 /**
  * @import {WordNode, WhitespaceValue, WordKind} from "../utilities.js"
@@ -297,7 +298,12 @@ function shouldPreventBreak(path, options) {
     return true;
   }
 
-  return false;
+  // A wrap-introduced line start never goes through word.js's source-based
+  // `isFakeTableDelimiterRow` escape (there's no original line break to
+  // detect), so keep a delimiter-row-shaped word off the start of a printed
+  // line in the first place. Only needed outside `preserve`, where that
+  // escape already runs.
+  return proseWrap !== "preserve" && isNextTokenFakeTableDelimiterRow(path);
 }
 
 /**
@@ -320,6 +326,16 @@ function isNextTokenFakeSetextH2Line(path) {
 
   const afterNext = path.siblings[path.index + 2];
   return !afterNext || isNewLine(afterNext);
+}
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isNextTokenFakeTableDelimiterRow(path) {
+  return (
+    path.next.type === "word" && isFakeTableDelimiterRowShape(path.next.value)
+  );
 }
 
 export { printWhitespace, printWhitespaceNode };
