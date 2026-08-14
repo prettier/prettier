@@ -1,17 +1,19 @@
+const rawLeadingMarkerRegexp = />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/g;
 function countRawLeadingBlockquoteMarkers(text) {
   const [prefix] = text.match(
     /^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*)*/,
   );
-  return prefix.match(/>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/g)?.length ?? 0;
+  return prefix.match(rawLeadingMarkerRegexp)?.length ?? 0;
 }
 
+const leadingMarkerRegexp = />/g;
 function countValueLeadingBlockquoteMarkers(text) {
   const [prefix] = text.match(/^[ \t]*(?:>[ \t]*)*/);
-  return prefix.match(/>/g)?.length ?? 0;
+  return prefix.match(leadingMarkerRegexp)?.length ?? 0;
 }
 
+const newLineRegexp = /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/g;
 function getBlockquoteRawText(text, node) {
-  const newLineRegexp = /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/g;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   let valueIndex = 0;
