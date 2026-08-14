@@ -88,6 +88,15 @@ function printWord(path, options) {
  * The indentation of a line is dropped when the paragraph is printed, so a
  * delimiter row that was too indented to start a table becomes one.
  *
+ * This only checks that the line's own cells have the shape of a delimiter
+ * row (e.g. `---`, `:-:`); it doesn't require the previous line to have a
+ * matching cell count. A dedented `|---|---|` gets escaped even after a
+ * one-cell line like `foo`, which isn't a real GFM table, but that's an
+ * acceptable false positive: escaping it is harmless, and requiring a
+ * pairing header would also let through lines that merely *contain* dashes
+ * and pipes without a preceding row at all (e.g. a `:::` container fence),
+ * which must never be escaped.
+ *
  * @param {AstPath} path
  * @param {*} options
  * @returns {boolean}
@@ -109,16 +118,13 @@ function isFakeTableDelimiterRow(path, options) {
     return false;
   }
 
-  const delimiterRow = getRowText(lines[index], options);
-  const headerRow = getRowText(lines[index - 1], options);
-  if (delimiterRow === undefined || headerRow === undefined) {
+  const rowText = getRowText(lines[index], options);
+  if (rowText === undefined) {
     return false;
   }
 
-  const delimiterCells = splitCells(delimiterRow);
-  return (
-    delimiterCells.every((cell) => tableDelimiterCellRegex.test(cell)) &&
-    splitCells(headerRow).length === delimiterCells.length
+  return splitCells(rowText).every((cell) =>
+    tableDelimiterCellRegex.test(cell),
   );
 }
 
