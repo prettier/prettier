@@ -2,6 +2,8 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+const tableDelimiterCellRegex = /^ *:?-+:? *$/;
+const tableDelimiterRowStartRegex = /^[|:-]+$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -28,6 +30,17 @@ function printWord(path, options) {
       (path.isLast || isNewLine(path.next))
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
+      return `\\${text}`;
+    }
+
+    if (
+      options.proseWrap === "preserve" &&
+      path.parent.type === "sentence" &&
+      tableDelimiterRowStartRegex.test(text) &&
+      isNewLine(path.previous) &&
+      isFakeTableDelimiterRow(path, options)
+    ) {
+      // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣|---|---|`
       return `\\${text}`;
     }
 
@@ -69,6 +82,98 @@ function printWord(path, options) {
   );
 
   return text;
+}
+
+/**
+ * The indentation of a line is dropped when the paragraph is printed, so a
+ * delimiter row that was too indented to start a table becomes one.
+ *
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {boolean}
+ */
+function isFakeTableDelimiterRow(path, options) {
+  const lines = [[]];
+  for (const child of path.grandparent.children) {
+    for (const node of child.type === "sentence" ? child.children : [child]) {
+      if (isNewLine(node)) {
+        lines.push([]);
+      } else {
+        lines.at(-1).push(node);
+      }
+    }
+  }
+
+  const index = lines.findIndex((line) => line[0] === path.node);
+  if (index < 1) {
+    return false;
+  }
+
+  const delimiterRow = getRowText(lines[index], options);
+  const headerRow = getRowText(lines[index - 1], options);
+  if (delimiterRow === undefined || headerRow === undefined) {
+    return false;
+  }
+
+  const delimiterCells = splitCells(delimiterRow);
+  return (
+    delimiterCells.every((cell) => tableDelimiterCellRegex.test(cell)) &&
+    splitCells(headerRow).length === delimiterCells.length
+  );
+}
+
+/**
+ * @param {*[]} line
+ * @param {*} options
+ * @returns {string | undefined} `undefined` if the line can't be read as text
+ */
+function getRowText(line, options) {
+  let text = "";
+  for (const node of line) {
+    if (node.type === "word" || node.type === "whitespace") {
+      text += node.value;
+      continue;
+    }
+    const source = options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+    if (source.includes("\n")) {
+      return;
+    }
+    text += source;
+  }
+  return text;
+}
+
+/**
+ * @param {string} row
+ * @returns {string[]}
+ */
+function splitCells(row) {
+  // https://github.github.com/gfm/#tables-extension-
+  const cells = [""];
+  for (let index = 0; index < row.length; index++) {
+    const character = row[index];
+    if (character === "\\") {
+      cells[cells.length - 1] += row.slice(index, index + 2);
+      index++;
+    } else if (character === "|") {
+      cells.push("");
+    } else {
+      cells[cells.length - 1] += character;
+    }
+  }
+
+  // The leading and trailing pipes are optional
+  if (cells.length > 1 && cells[0] === "") {
+    cells.shift();
+  }
+  if (cells.length > 1 && cells.at(-1) === "") {
+    cells.pop();
+  }
+
+  return cells;
 }
 
 /**
