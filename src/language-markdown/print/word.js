@@ -88,51 +88,49 @@ function printWord(path, options) {
  * The indentation of a line is dropped when the paragraph is printed, so a
  * delimiter row that was too indented to start a table becomes one.
  *
- * This only checks that the line's own cells have the shape of a delimiter
- * row (e.g. `---`, `:-:`); it doesn't require the previous line to have a
- * matching cell count. A dedented `|---|---|` gets escaped even after a
- * one-cell line like `foo`, which isn't a real GFM table, but that's an
- * acceptable false positive: escaping it is harmless, and requiring a
- * pairing header would also let through lines that merely *contain* dashes
- * and pipes without a preceding row at all (e.g. a `:::` container fence),
- * which must never be escaped.
+ * The whole rest of the line has to match, not just this word, since
+ * `|---|---| foo` is not a delimiter row and must not be escaped. The
+ * previous line isn't checked, so a dedented `|---|---|` is escaped even
+ * after a one-cell line like `foo`, which isn't a real GFM table.
  *
  * @param {AstPath} path
  * @param {*} options
  * @returns {boolean}
  */
 function isFakeTableDelimiterRow(path, options) {
-  const lines = [[]];
-  for (const child of path.grandparent.children) {
-    for (const node of child.type === "sentence" ? child.children : [child]) {
-      if (isNewLine(node)) {
-        lines.push([]);
-      } else {
-        lines.at(-1).push(node);
-      }
-    }
-  }
-
-  const index = lines.findIndex((line) => line[0] === path.node);
-  if (index < 1) {
-    return false;
-  }
-
-  const rowText = getRowText(lines[index], options);
-  if (rowText === undefined) {
-    return false;
-  }
-
-  return splitCells(rowText).every((cell) =>
-    tableDelimiterCellRegex.test(cell),
+  const nodes = path.grandparent.children.flatMap((child) =>
+    child.type === "sentence" ? child.children : [child],
   );
+
+  let row = "";
+  for (const node of nodes.slice(nodes.indexOf(path.node))) {
+    if (isNewLine(node)) {
+      break;
+    }
+    if (node.type === "word" || node.type === "whitespace") {
+      row += node.value;
+      continue;
+    }
+    // read `inlineCode`, `emphasis`, etc. from the source, so a pipe inside
+    // them counts the way GFM counts it
+    const source = options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+    if (source.includes("\n")) {
+      return false;
+    }
+    row += source;
+  }
+
+  return splitCells(row).every((cell) => tableDelimiterCellRegex.test(cell));
 }
 
 /**
  * Whether `value` alone, if it started a printed line, would already read
  * as a GFM table delimiter row (e.g. `|---|---|`, `-|-`, `:-:`). Same shape
  * test as `isFakeTableDelimiterRow` above, just applied to a single word
- * instead of a reconstructed source line.
+ * instead of a whole source line.
  *
  * @param {string} value
  * @returns {boolean}
@@ -142,30 +140,6 @@ function isFakeTableDelimiterRowShape(value) {
     tableDelimiterRowStartRegex.test(value) &&
     splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
   );
-}
-
-/**
- * @param {*[]} line
- * @param {*} options
- * @returns {string | undefined} `undefined` if the line can't be read as text
- */
-function getRowText(line, options) {
-  let text = "";
-  for (const node of line) {
-    if (node.type === "word" || node.type === "whitespace") {
-      text += node.value;
-      continue;
-    }
-    const source = options.originalText.slice(
-      node.position.start.offset,
-      node.position.end.offset,
-    );
-    if (source.includes("\n")) {
-      return;
-    }
-    text += source;
-  }
-  return text;
 }
 
 /**
