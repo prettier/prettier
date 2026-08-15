@@ -24,7 +24,8 @@ proseWrap: "always"
 
 {%
  if user
-%} Hello, {{ user }}! {% endif %}
+%} Hello, {{ user }}!
+{% endif %}
 
 ================================================================================
 `;
@@ -84,7 +85,8 @@ where does it end }}
 
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
-{% css userscripts %} {% js userscripts %}
+{% css userscripts %}
+{% js userscripts %}
 
 {{ foo
 multiline
@@ -167,7 +169,7 @@ bar  baz %}
 
 {{ foo
 
-bar baz
+bar   baz
 
 qux }}
 
@@ -177,7 +179,7 @@ qux }}
 
 {% foo %
 
-bar baz %}
+bar  baz %}
 
 ================================================================================
 `;
@@ -220,7 +222,7 @@ bar  baz %}
 
 {{ foo
 
-bar baz
+bar   baz
 
 qux }}
 
@@ -230,7 +232,7 @@ qux }}
 
 {% foo %
 
-bar baz %}
+bar  baz %}
 
 ================================================================================
 `;
@@ -402,6 +404,109 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 
 {{ blocks/cover
 %}}
+
+================================================================================
+`;
+
+exports[`issue-19724.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+=====================================output=====================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+================================================================================
+`;
+
+exports[`issue-19724.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+=====================================output=====================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
 
 ================================================================================
 `;
