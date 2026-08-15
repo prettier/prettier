@@ -2,7 +2,7 @@
 
 exports[`test.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 x =
@@ -228,4 +228,16 @@ third = (
 );
 
 ================================================================================
+`;
+
+exports[`test.js format[meriyah] 1`] = `
+"Unexpected token: '-' (64:19)
+  62 |   <fbt desc="example 3">
+  63 |     Count Chocula knows the the number
+> 64 |     <fbt:enum enum-range={['one', 'two', 'three']} value={getValue()} />
+     |                   ^
+  65 |     is awesome
+  66 |   </fbt>
+  67 |
+Cause: [64:18-64:19]: Unexpected token: '-'"
 `;

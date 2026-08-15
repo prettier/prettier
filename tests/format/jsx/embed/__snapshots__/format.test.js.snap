@@ -2,7 +2,7 @@
 
 exports[`css-embed.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <style {...spread}>{\`.{}\`}</style>;

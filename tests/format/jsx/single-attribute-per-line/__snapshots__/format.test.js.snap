@@ -2,7 +2,7 @@
 
 exports[`single-attribute-per-line.js - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 singleAttributePerLine: true
                                                       printWidth: 80 (default) |
 =====================================input======================================
@@ -86,7 +86,7 @@ const Component = () => (
 
 exports[`single-attribute-per-line.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 import React from "react";
