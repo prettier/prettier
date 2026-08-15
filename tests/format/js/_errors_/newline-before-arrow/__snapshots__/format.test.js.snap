@@ -27,15 +27,6 @@ exports[`newline-before-arrow.js format[babel-ts] 1`] = `
 Cause: No line break is allowed before '=>'. (2:2)"
 `;
 
-exports[`newline-before-arrow.js format[babel-ts] 2`] = `
-"No line break is allowed before '=>'. (2:3)
-  1 | async x
-> 2 | => x
-    |   ^
-  3 |
-Cause: No line break is allowed before '=>'. (2:2)"
-`;
-
 exports[`newline-before-arrow.js format[espree] 1`] = `
 "Unexpected token => (2:1)
   1 | async x
