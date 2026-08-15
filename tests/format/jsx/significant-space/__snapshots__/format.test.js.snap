@@ -2,7 +2,7 @@
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div>
@@ -27,7 +27,7 @@ parsers: ["flow", "typescript"]
 
 exports[`test.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 after =

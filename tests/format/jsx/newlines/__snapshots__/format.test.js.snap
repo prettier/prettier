@@ -2,7 +2,7 @@
 
 exports[`test.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 keep = <p>
@@ -164,7 +164,7 @@ regression_extra_newline_2 = (
 
 exports[`windows.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div>

@@ -60,13 +60,14 @@ const disabledTests = new Map(
     yuku: ["js/await/await-with-parens.js"],
     "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
-      // Different result
-      "js/await/like-call.js",
+      "js/await/like-call.js", // Different result
+      "jsx/top-level-await/test.jsx",
     ],
     flow: [
       "js/decorators/member-expression.js", // Parsing to different ASTs
       "js/await/await-with-parens.js",
       "js/await/like-call.js",
+      "jsx/top-level-await/test.jsx",
     ],
     typescript: [],
     yaml: [
