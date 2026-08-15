@@ -1,15 +1,40 @@
-const rawLeadingMarkerRegexp = />|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];/g;
-function countRawLeadingBlockquoteMarkers(text) {
-  const [prefix] = text.match(
-    /^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*)*/,
-  );
-  return prefix.match(rawLeadingMarkerRegexp)?.length ?? 0;
+/**
+ * @param line {string}
+ * @returns {number}
+ */
+function countValueLeadingGreaterThan(line) {
+  const [leadingGreaterThanPart] = line.match(/^[ \t]*(?:>[ \t]*)*/);
+  return leadingGreaterThanPart
+    .split("")
+    .filter((character) => character === ">").length;
 }
 
-const leadingMarkerRegexp = />/g;
-function countValueLeadingBlockquoteMarkers(text) {
-  const [prefix] = text.match(/^[ \t]*(?:>[ \t]*)*/);
-  return prefix.match(leadingMarkerRegexp)?.length ?? 0;
+/**
+ * @param line {string}
+ * @param greaterThanToKeep {number}
+ * @returns {string}
+ */
+function removeBlockquoteMarkers(line, greaterThanToKeep) {
+  const rawBlockquoteRegexp =
+    /[ \t]*(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*/y;
+  /** @type {Array<number>} */
+  const greaterThanIndexes = [];
+  let { lastIndex } = rawBlockquoteRegexp;
+
+  let match;
+  while ((match = rawBlockquoteRegexp.exec(line))) {
+    greaterThanIndexes.push(match.index);
+    lastIndex = rawBlockquoteRegexp.lastIndex;
+  }
+
+  if (greaterThanToKeep === 0) {
+    return line.slice(lastIndex);
+  }
+  const firstGreaterThanToKeep = greaterThanIndexes.at(-greaterThanToKeep);
+  if (firstGreaterThanToKeep === null) {
+    return line;
+  }
+  return line.slice(firstGreaterThanToKeep);
 }
 
 const newLineRegexp = /(?<!\\)(?:\\\\)*(?:&NewLine;|&#0*10;|&#[Xx]0*[Aa];)/g;
@@ -25,18 +50,8 @@ function getBlockquoteRawText(text, node) {
     if (index === 0) {
       return rawLine;
     }
-    const rawMarkerCount = countRawLeadingBlockquoteMarkers(rawLine);
-    const valueMarkerCount = countValueLeadingBlockquoteMarkers(valueLine);
-    const matchesToBeRemoved = rawMarkerCount - valueMarkerCount;
-    if (matchesToBeRemoved <= 0) {
-      return rawLine;
-    }
-    return rawLine.replace(
-      new RegExp(
-        String.raw`^[ \t]*(?:(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*){${matchesToBeRemoved}}`,
-      ),
-      "",
-    );
+    const valueMarkerCount = countValueLeadingGreaterThan(valueLine);
+    return removeBlockquoteMarkers(rawLine, valueMarkerCount);
   });
   return resultLines.join("\n");
 }
