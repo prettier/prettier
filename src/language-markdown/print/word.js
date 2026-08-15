@@ -36,9 +36,8 @@ function printWord(path, options) {
     if (
       options.proseWrap === "preserve" &&
       path.parent.type === "sentence" &&
-      tableDelimiterRowStartRegex.test(text) &&
       isNewLine(path.previous) &&
-      isFakeTableDelimiterRow(path, options)
+      isFakeTableDelimiterRow(text)
     ) {
       // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣|---|---|`
       return `\\${text}`;
@@ -88,54 +87,14 @@ function printWord(path, options) {
  * The indentation of a line is dropped when the paragraph is printed, so a
  * delimiter row that was too indented to start a table becomes one.
  *
- * The whole rest of the line has to match, not just this word, since
- * `|---|---| foo` is not a delimiter row and must not be escaped. The
- * previous line isn't checked, so a dedented `|---|---|` is escaped even
- * after a one-cell line like `foo`, which isn't a real GFM table.
- *
- * @param {AstPath} path
- * @param {*} options
- * @returns {boolean}
- */
-function isFakeTableDelimiterRow(path, options) {
-  const nodes = path.grandparent.children.flatMap((child) =>
-    child.type === "sentence" ? child.children : [child],
-  );
-
-  let row = "";
-  for (const node of nodes.slice(nodes.indexOf(path.node))) {
-    if (isNewLine(node)) {
-      break;
-    }
-    if (node.type === "word" || node.type === "whitespace") {
-      row += node.value;
-      continue;
-    }
-    // read `inlineCode`, `emphasis`, etc. from the source, so a pipe inside
-    // them counts the way GFM counts it
-    const source = options.originalText.slice(
-      node.position.start.offset,
-      node.position.end.offset,
-    );
-    if (source.includes("\n")) {
-      return false;
-    }
-    row += source;
-  }
-
-  return splitCells(row).every((cell) => tableDelimiterCellRegex.test(cell));
-}
-
-/**
- * Whether `value` alone, if it started a printed line, would already read
- * as a GFM table delimiter row (e.g. `|---|---|`, `-|-`, `:-:`). Same shape
- * test as `isFakeTableDelimiterRow` above, just applied to a single word
- * instead of a whole source line.
+ * Only the word's own shape is checked, so a dedented `|---|---|` is escaped
+ * even where GFM wouldn't have made a table out of it anyway, e.g. after a
+ * one-cell line like `foo`. The extra backslash renders the same.
  *
  * @param {string} value
  * @returns {boolean}
  */
-function isFakeTableDelimiterRowShape(value) {
+function isFakeTableDelimiterRow(value) {
   return (
     tableDelimiterRowStartRegex.test(value) &&
     splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
@@ -263,4 +222,4 @@ function printWordLegacy(path) {
   return escapedValue;
 }
 
-export { isFakeTableDelimiterRowShape, printWord, printWordLegacy };
+export { isFakeTableDelimiterRow, printWord, printWordLegacy };
