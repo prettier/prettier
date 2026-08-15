@@ -28,13 +28,7 @@ function embed(path, options) {
       }
 
       return async (textToDoc) => {
-        const textToDocOptions = {
-          parser,
-          useTabs: options.useTabs,
-          tabWidth: options.tabWidth,
-          printWidth: options.printWidth,
-          proseWrap: options.proseWrap,
-        };
+        const textToDocOptions = { parser };
 
         // Override the filepath option.
         // This is because whether the trailing comma of type parameters
