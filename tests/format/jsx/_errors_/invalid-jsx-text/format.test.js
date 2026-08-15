@@ -24,5 +24,8 @@ runFormatTest(
     // "hermes",
     "oxc",
     "oxc-ts",
+    "yuku",
+    "yuku-ts",
+    "__babel_estree",
   ],
 );
