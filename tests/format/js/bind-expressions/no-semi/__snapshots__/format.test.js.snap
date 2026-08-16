@@ -9,27 +9,9 @@ semi: false
 a
 ;::b.c
 
-class A {
-  a = b;
-  in
-  c
-
-  a = b;
-  instanceof(){}
-}
-
 =====================================output=====================================
 a
 ;::b.c
-
-class A {
-  a = b;
-  in
-  c
-
-  a = b;
-  instanceof() {}
-}
 
 ================================================================================
 `;
@@ -40,8 +22,6 @@ exports[`no-semi.js - {"semi":false} format[acorn] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: Unexpected token (2:1)"
 `;
 
@@ -51,8 +31,6 @@ exports[`no-semi.js - {"semi":false} format[espree] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: Unexpected token :"
 `;
 
@@ -62,8 +40,6 @@ exports[`no-semi.js - {"semi":false} format[meriyah] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: [2:1-2:2]: Unexpected token: ':'"
 `;
 
@@ -72,9 +48,7 @@ exports[`no-semi.js - {"semi":false} format[oxc] 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
+  3 |"
 `;
 
 exports[`no-semi.js - {"semi":false} format[yuku] 1`] = `
@@ -82,9 +56,7 @@ exports[`no-semi.js - {"semi":false} format[yuku] 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
+  3 |"
 `;
 
 exports[`no-semi.js format 1`] = `
@@ -95,27 +67,9 @@ parsers: ["babel"]
 a
 ;::b.c
 
-class A {
-  a = b;
-  in
-  c
-
-  a = b;
-  instanceof(){}
-}
-
 =====================================output=====================================
 a;
 ::b.c;
-
-class A {
-  a = b;
-  in;
-  c;
-
-  a = b;
-  instanceof() {}
-}
 
 ================================================================================
 `;
@@ -126,8 +80,6 @@ exports[`no-semi.js format[acorn] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: Unexpected token (2:1)"
 `;
 
@@ -137,8 +89,6 @@ exports[`no-semi.js format[espree] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: Unexpected token :"
 `;
 
@@ -148,8 +98,6 @@ exports[`no-semi.js format[meriyah] 1`] = `
 > 2 | ;::b.c
     |  ^
   3 |
-  4 | class A {
-  5 |   a = b;
 Cause: [2:1-2:2]: Unexpected token: ':'"
 `;
 
@@ -158,9 +106,7 @@ exports[`no-semi.js format[oxc] 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
+  3 |"
 `;
 
 exports[`no-semi.js format[yuku] 1`] = `
@@ -168,7 +114,5 @@ exports[`no-semi.js format[yuku] 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
+  3 |"
 `;

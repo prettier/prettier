@@ -22,7 +22,7 @@
     "@codemirror/language-data": "6.5.2",
     "@codemirror/lint": "6.9.7",
     "@codemirror/state": "6.7.1",
-    "@codemirror/view": "6.43.6",
+    "@codemirror/view": "6.43.8",
     "@docusaurus/preset-classic": "3.10.2",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
@@ -35,11 +35,11 @@
     "graphql": "17.0.2",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "react-markdown": "10.1.0",
     "react-tweet": "3.3.1",
-    "vue": "3.5.40"
+    "vue": "3.5.41"
   },
   "devDependencies": {
     "@docusaurus/core": "3.10.2",
@@ -49,10 +49,10 @@
     "@types/react": "19.2.17",
     "@vitejs/plugin-vue": "6.0.8",
     "@vitejs/plugin-vue-jsx": "5.1.6",
-    "concurrently": "10.0.3",
+    "concurrently": "10.0.4",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.0.1",
-    "vite": "8.1.5",
+    "vite": "8.2.1",
     "yaml": "2.9.0"
   },
   "browserslist": {
@@ -67,5 +67,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.17.1"
+  "packageManager": "yarn@4.18.0"
 }

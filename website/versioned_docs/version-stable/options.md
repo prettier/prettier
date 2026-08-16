@@ -318,9 +318,9 @@ Valid options:
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"jsonc"` (same parser as `"json"`, but outputs as "JSON with Comments") _First available in v3.2.0_
 - `"json-stringify"` (parse like `JSON.parse()` except it's less strict, whitespace resembles `JSON.stringify()`) _First available in v1.13.0_
-- `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
+- `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/main/src/language)) _First available in v1.5.0_
 - `"markdown"` (via [micromark](https://github.com/micromark/micromark)) _First available in v1.8.0_
-- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _First available in v1.15.0_
+- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [remark-mdx](https://github.com/mdx-js/mdx/tree/main/packages/remark-mdx)) _First available in v1.15.0_
 - `"html"` (via [angular-html-parser](https://github.com/ikatyang/angular-html-parser/tree/master/packages/angular-html-parser)) _First available in 1.15.0_
 - `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _First available in 1.10.0_
 - `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_

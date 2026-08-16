@@ -24,7 +24,7 @@ title: Related Projects
 
 - [parallel-prettier](https://github.com/microsoft/parallel-prettier) is an alternative CLI that formats files in parallel to speed up large projects
 - [prettier_d](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
-- [pretty-quick](https://github.com/azz/pretty-quick) formats changed files with Prettier
+- [pretty-quick](https://github.com/prettier/pretty-quick) formats changed files with Prettier
 - [rollup-plugin-prettier](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [jest-runner-prettier](https://github.com/keplersj/jest-runner-prettier) is Prettier as a Jest runner
 - [prettier-chrome](https://github.com/u3u/prettier-chrome) is an extension that runs Prettier in the browser
@@ -32,4 +32,5 @@ title: Related Projects
 - [csharpier](https://github.com/belav/csharpier) is a port of Prettier for C#
 - [Prettier](https://github.com/jaywcjlove/Prettier) is a Swift version based on Prettier
 - [reviewdog-action-prettier](https://github.com/EPMatt/reviewdog-action-prettier) runs Prettier in GitHub Actions CI/CD workflows
+- [MegaLinter](https://megalinter.io/) is an open-source linters aggregator for CI that runs [Prettier](https://megalinter.io/latest/descriptors/javascript_prettier/) out of the box
 - [monaco-prettier](https://github.com/remcohaszing/monaco-prettier) integrates Prettier into [Monaco editor](https://microsoft.github.io/monaco-editor/)

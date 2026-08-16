@@ -9,7 +9,6 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
   errors: {
     acorn: importDeferTests,
     espree: importDeferTests,
-    meriyah: importDeferTests,
     flow: importDeferTests,
     hermes: importDeferTests,
   },

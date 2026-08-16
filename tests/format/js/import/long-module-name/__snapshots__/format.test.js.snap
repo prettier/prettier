@@ -66,16 +66,6 @@ import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/pa
 ^"
 `;
 
-exports[`import-defer.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-    |        ^^^^^
-  2 | import.defer(
-  3 |   // Comment
-  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
-`;
-
 exports[`import-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -166,12 +156,12 @@ import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/p
 ^"
 `;
 
-exports[`import-source.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
+exports[`import-source.js format[typescript] 1`] = `
+"'source' is not a valid meta-property for keyword 'import'. (1:1)
 > 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-    |        ^^^^^^
+    | ^^^^^^^^^^^^^
   2 | import.source(
   3 |   // Comment
   4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
+Cause: 'source' is not a valid meta-property for keyword 'import'."
 `;

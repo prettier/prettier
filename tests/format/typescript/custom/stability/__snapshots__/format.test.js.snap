@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`moduleBlock.ts format 1`] = `
+exports[`module-block.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -52,4 +52,14 @@ module m2 {
 }
 
 ================================================================================
+`;
+
+exports[`module-block.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module m2 {
+    | ^
+  2 |     function fn() {
+  3 |         return 1;
+  4 |     }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
 `;

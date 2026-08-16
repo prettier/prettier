@@ -40,6 +40,17 @@ declare namespace global {}
 ================================================================================
 `;
 
+exports[`global.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:1)
+  1 | namespace global {}
+> 2 | module global {}
+    | ^
+  3 | global {}
+  4 | declare global {}
+  5 | declare /* module */ global {}
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:0)"
+`;
+
 exports[`keyword.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -121,7 +132,17 @@ module /* namespace */ "x" {}
 ================================================================================
 `;
 
-exports[`module_nested.ts format 1`] = `
+exports[`keyword.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module X {}
+    | ^
+  2 |
+  3 | module X {
+  4 |   const x = 1;
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
+`;
+
+exports[`module-nested.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -162,7 +183,17 @@ module abc4.def.ghi {}
 ================================================================================
 `;
 
-exports[`namespace_function.ts format 1`] = `
+exports[`module-nested.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:16)
+> 1 | declare module abc1.def {}
+    |                ^
+  2 |
+  3 | export declare module abc2.def {}
+  4 |
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:15)"
+`;
+
+exports[`namespace-function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
@@ -179,7 +210,7 @@ namespace X {
 ================================================================================
 `;
 
-exports[`namespace_nested.ts format 1`] = `
+exports[`namespace-nested.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |

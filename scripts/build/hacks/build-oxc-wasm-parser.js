@@ -13,7 +13,7 @@ const runYarn = (command, options) =>
   spawn("yarn", command.split(" "), options);
 
 async function install(version) {
-  const directory = new URL(`./installing.${Date.now()}/`, TEMPORARY_DIRECTORY);
+  const directory = new URL(`./working.${Date.now()}/`, TEMPORARY_DIRECTORY);
 
   await fs.rm(directory, { force: true, recursive: true });
   await fs.mkdir(directory, { recursive: true });
@@ -87,12 +87,27 @@ async function buildEntry(directory) {
 
   text = text.replace(wasmUrlPattern, "");
   text = text.replace(
-    "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
+    "const __wasmResponse = await globalThis.fetch(__wasmUrl);",
+    "const __wasmResponse = {ok: true};",
+  );
+  text = text.replace(
+    "await __wasmResponse.arrayBuffer();",
     outdent`
       __base64ToArrayBuffer(
         /* "${wasmUrl}" */ ${JSON.stringify(wasmBase64String)}
       )
     `,
+  );
+
+  text = text.replace("await __rollbackWasiInitialization()", "[]");
+
+  text = text.replace(
+    "await instantiateNapiModule(",
+    "instantiateNapiModuleSync(",
+  );
+  text = text.replace(
+    "reuseWorker: { size: __asyncWorkPoolSize + __workerPoolSize },",
+    "",
   );
 
   text = text.replaceAll(
