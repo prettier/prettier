@@ -22,7 +22,6 @@ import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
-  isNewLine,
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
@@ -32,7 +31,7 @@ import { printList, printListLegacy } from "./list.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
-import { printWhitespace } from "./whitespace.js";
+import { printWhitespace, printWhitespaceNode } from "./whitespace.js";
 import { printWord, printWordLegacy } from "./word.js";
 
 /**
@@ -55,28 +54,6 @@ function prevOrNextWord(path) {
       !next.children[0].hasLeadingPunctuation &&
       !/^[\p{Space_Separator}\t\n\f\r]/u.test(next.children[0].value));
   return hasPrevOrNextWord;
-}
-
-function hasFakeWhitespaceAfterNextToken(path) {
-  const { siblings, index } = path;
-  if (!siblings || typeof index !== "number") {
-    return false;
-  }
-  const afterNext = siblings[index + 2];
-  return afterNext?.type === "whitespace" && afterNext.value === "";
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function isNextTokenFakeSetextH2Line(path) {
-  if (!isNewLine(path.node) || path.next?.value !== "-") {
-    return false;
-  }
-
-  const afterNext = path.siblings[path.index + 2];
-  return !afterNext || isNewLine(afterNext);
 }
 
 function printMdast(path, options, print) {
@@ -133,22 +110,8 @@ function printMdast(path, options, print) {
       return options.parser !== "mdx"
         ? printWord(path, options)
         : printWordLegacy(path);
-    case "whitespace": {
-      const { next } = path;
-
-      const proseWrap =
-        // leading char that may cause different syntax
-        next &&
-        /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
-        // Avoid https://github.com/prettier/prettier/issues/18861
-        !hasFakeWhitespaceAfterNextToken(path) &&
-        // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
-        !(options.proseWrap === "preserve" && isNextTokenFakeSetextH2Line(path))
-          ? "never"
-          : options.proseWrap;
-
-      return printWhitespace(path, node.value, proseWrap, false, options);
-    }
+    case "whitespace":
+      return printWhitespaceNode(path, options);
     case "emphasis": {
       let style;
       if (isAutolink(node.children[0])) {
