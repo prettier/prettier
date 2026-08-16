@@ -21,3 +21,109 @@ color:     'red'}}></Foo>
 
 ================================================================================
 `;
+
+exports[`spread.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<C {...props} />
+
+<C {...   props} />
+
+<C {...call(   a, b)} />
+
+<C { ...props } />
+
+<C {...props}>text</C>
+
+<C {...a.b.c} />
+
+<C {/* comment */ ...props} />
+
+<C a="1" {...rest} b={2} />
+
+<C {...(a,b)} />
+
+<C {...functionCallWithVeryLongName(argumentNumberOne, argumentNumberTwo, argumentNumberThree)} />
+
+<C {...{longPropertyNameOne: valueNumberOne, longPropertyNameTwo: valueNumberTwo, longPropertyNameThree: valueNumberThree}} />
+
+<C {...{
+  a: 1, b: 2 }} />
+
+a <b {...c} /> d
+
+- item
+  <C {...props} />
+
+=====================================output=====================================
+<C {...props} />
+
+<C {...props} />
+
+<C {...call(a, b)} />
+
+<C {...props} />
+
+<C {...props}>text</C>
+
+<C {...a.b.c} />
+
+<C {/* comment */ ...props} />
+
+<C a="1" {...rest} b={2} />
+
+<C {...(a, b)} />
+
+<C
+  {...functionCallWithVeryLongName(
+    argumentNumberOne,
+    argumentNumberTwo,
+    argumentNumberThree,
+  )}
+/>
+
+<C
+  {...{
+    longPropertyNameOne: valueNumberOne,
+    longPropertyNameTwo: valueNumberTwo,
+    longPropertyNameThree: valueNumberThree,
+  }}
+/>
+
+<C
+  {...{
+    a: 1,
+    b: 2,
+  }}
+/>
+
+a <b {...c} /> d
+
+- item
+  <C {...props} />
+
+================================================================================
+`;
+
+exports[`spread-attribute-error-recovery.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* These are not valid, but the parser won't throw during parse. */}
+
+<a {...b, ...another} />
+
+<a {   ...   b, ...   another   } />
+
+=====================================output=====================================
+{/* These are not valid, but the parser won't throw during parse. */}
+
+<a {...b, ...another} />
+
+<a {   ...   b, ...   another   } />
+
+================================================================================
+`;
