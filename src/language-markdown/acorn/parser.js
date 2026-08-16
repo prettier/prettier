@@ -62,10 +62,7 @@ const parseExpressionAt = createParse({
   result: {
     type: "ObjectExpression",
     properties: [
-      {
-        type: "SpreadElement",
-        argument: { type: "Identifier", name: "_" },
-      },
+      { type: "SpreadElement", argument: { type: "Identifier", name: "_" } },
     ],
     isExpressionRoot: true,
   },

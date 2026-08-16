@@ -381,8 +381,8 @@ function printMdast(path, options, print) {
     case "mdxjsEsm":
       return node.value.trimEnd();
     case "mdxFlowExpression":
-    case "mdxJsxExpressionAttribute":
     case "mdxTextExpression":
+    case "mdxJsxExpressionAttribute":
       return ["{", node.value.trim(), "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
