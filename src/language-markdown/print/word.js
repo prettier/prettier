@@ -3,7 +3,7 @@ import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 const tableDelimiterCellRegex = /^ *:?-+:? *$/;
-const tableDelimiterRowStartRegex = /^[|:-]+$/;
+const tableDelimiterRowStartRegex = /^[ |:-]+$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -37,9 +37,9 @@ function printWord(path, options) {
       options.proseWrap === "preserve" &&
       path.parent.type === "sentence" &&
       isNewLine(path.previous) &&
-      isFakeTableDelimiterRow(text)
+      isFakeTableDelimiterRowLine(path)
     ) {
-      // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣|---|---|`
+      // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣| --- | --- |`
       return `\\${text}`;
     }
 
@@ -99,6 +99,38 @@ function isFakeTableDelimiterRow(value) {
     tableDelimiterRowStartRegex.test(value) &&
     splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
   );
+}
+
+/**
+ * A delimiter row with spaces around its cells, e.g. `| --- | --- |`, is
+ * split into several sibling word nodes by the whitespace in between, so
+ * checking the first word alone (`|`) misses it. Rebuild the line the word
+ * starts and check that instead; escaping the leading word is still enough
+ * to keep the whole line from parsing as a delimiter row.
+ *
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isFakeTableDelimiterRowLine(path) {
+  const { siblings, index } = path;
+  const words = [];
+  for (let i = index; i < siblings.length; i++) {
+    const sibling = siblings[i];
+    if (sibling.type === "whitespace") {
+      if (isNewLine(sibling)) {
+        break;
+      }
+      continue;
+    }
+    if (
+      sibling.type !== "word" ||
+      !tableDelimiterRowStartRegex.test(sibling.value)
+    ) {
+      break;
+    }
+    words.push(sibling.value);
+  }
+  return isFakeTableDelimiterRow(words.join(" "));
 }
 
 /**
