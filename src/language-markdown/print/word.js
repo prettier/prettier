@@ -134,23 +134,15 @@ function isFakeTableDelimiterRowLine(path) {
 }
 
 /**
+ * Callers only ever pass a value that already matched `tableDelimiterRowStartRegex`
+ * (space, `|`, `:`, `-`), so there's no `\` in it to escape a `|` with.
+ *
  * @param {string} row
  * @returns {string[]}
  */
 function splitCells(row) {
   // https://github.github.com/gfm/#tables-extension-
-  const cells = [""];
-  for (let index = 0; index < row.length; index++) {
-    const character = row[index];
-    if (character === "\\") {
-      cells[cells.length - 1] += row.slice(index, index + 2);
-      index++;
-    } else if (character === "|") {
-      cells.push("");
-    } else {
-      cells[cells.length - 1] += character;
-    }
-  }
+  const cells = row.split("|");
 
   // The leading and trailing pipes are optional
   if (cells.length > 1 && cells[0] === "") {
