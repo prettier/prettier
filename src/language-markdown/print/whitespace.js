@@ -282,8 +282,11 @@ function shouldPreventBreak(path, options) {
     return true;
   }
 
+  if (path.isLast) {
+    return false;
+  }
+
   if (
-    !path.isLast &&
     // leading char that may cause different syntax
     /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(path.next.value) &&
     // Avoid https://github.com/prettier/prettier/issues/18861
@@ -297,12 +300,12 @@ function shouldPreventBreak(path, options) {
   return false;
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function hasFakeWhitespaceAfterNextToken(path) {
-  const { siblings, index } = path;
-  if (!siblings || typeof index !== "number") {
-    return false;
-  }
-  const afterNext = siblings[index + 2];
+  const afterNext = path.siblings[path.index + 2];
   return afterNext?.type === "whitespace" && afterNext.value === "";
 }
 
@@ -311,7 +314,7 @@ function hasFakeWhitespaceAfterNextToken(path) {
  * @returns {boolean}
  */
 function isNextTokenFakeSetextH2Line(path) {
-  if (!isNewLine(path.node) || path.next?.value !== "-") {
+  if (!isNewLine(path.node) || path.next.value !== "-") {
     return false;
   }
 
