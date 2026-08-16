@@ -16,7 +16,7 @@ const tests = [
     options: { trailingComma: "all" },
   },
   {
-    code: "<C   {...   props} />",
+    code: "<C   {   ...   props   } />",
     options: { embeddedLanguageFormatting: "off" },
   },
 ];
