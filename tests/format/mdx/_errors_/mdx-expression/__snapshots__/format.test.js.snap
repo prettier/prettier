@@ -15,7 +15,9 @@ exports[`snippet: #1 format 1`] = `
 Cause: Unexpected lazy line in expression in container, expected line to be prefixed with \`>\` when in a block quote, whitespace when in a list, etc"
 `;
 
-exports[`snippet: #2 format 1`] = `
+exports[`snippet: #2 format 1`] = `"Expected a closing tag for \`<a>\` (1:1-1:15)"`;
+
+exports[`snippet: #3 format 1`] = `
 "Could not parse expression with acorn (1:7)
 > 1 | a {"b" "c"} d
     |       ^
@@ -23,7 +25,7 @@ Cause: Could not parse expression with acorn
 Cause: Unexpected content after expression"
 `;
 
-exports[`snippet: #3 format 1`] = `
+exports[`snippet: #4 format 1`] = `
 "Could not parse expression with acorn (1:4)
 > 1 | a {var b = "c"} d
     |    ^
