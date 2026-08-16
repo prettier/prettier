@@ -333,9 +333,7 @@ function isNextTokenFakeSetextH2Line(path) {
  * @returns {boolean}
  */
 function isNextTokenFakeTableDelimiterRow(path) {
-  return (
-    path.next.type === "word" && isFakeTableDelimiterRow(path.next.value)
-  );
+  return path.next.type === "word" && isFakeTableDelimiterRow(path.next.value);
 }
 
 export { printWhitespace, printWhitespaceNode };

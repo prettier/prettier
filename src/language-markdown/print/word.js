@@ -2,9 +2,8 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+const tableDelimiterCellRegex = /^ *:?-+:? *$/;
 const tableDelimiterRowStartRegex = /^[ |:-]+$/;
-// https://github.github.com/gfm/#tables-extension-
-const tableDelimiterRowRegex = /^\|?(?: *:?-+:? *\|)* *:?-+:? *\|?$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -96,7 +95,10 @@ function printWord(path, options) {
  * @returns {boolean}
  */
 function isFakeTableDelimiterRow(value) {
-  return tableDelimiterRowRegex.test(value);
+  return (
+    tableDelimiterRowStartRegex.test(value) &&
+    splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
+  );
 }
 
 /**
@@ -129,6 +131,28 @@ function isFakeTableDelimiterRowLine(path) {
     words.push(sibling.value);
   }
   return isFakeTableDelimiterRow(words.join(" "));
+}
+
+/**
+ * Callers only ever pass a value that already matched `tableDelimiterRowStartRegex`
+ * (space, `|`, `:`, `-`), so there's no `\` in it to escape a `|` with.
+ *
+ * @param {string} row
+ * @returns {string[]}
+ */
+function splitCells(row) {
+  // https://github.github.com/gfm/#tables-extension-
+  const cells = row.split("|");
+
+  // The leading and trailing pipes are optional
+  if (cells.length > 1 && cells[0] === "") {
+    cells.shift();
+  }
+  if (cells.length > 1 && cells.at(-1) === "") {
+    cells.pop();
+  }
+
+  return cells;
 }
 
 /**
