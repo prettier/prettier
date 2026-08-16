@@ -1,24 +1,24 @@
-<C {...props} />
+<C {...(a   .b.c)} />
 
 <C {...   props} />
 
 <C {...call(   a, b)} />
 
-<C { ...props } />
+<C { ...(a   .b.c) } />
 
-<C {...props}>text</C>
+<C {...(a   .b.c)}>text</C>
 
-<C {...a.b.c} />
+<C {...a  .b.c} />
 
-<C {/* comment */ ...props} />
+<C {/* comment */ ...(a   .b.c)} />
 
-<C a="1" {...rest} b={2} />
+<C a="1" {...(a   .b.c)} b={2} />
 
-<C {...(a,b)} />
+<C {...(a,b   +c)} />
 
-<C {...functionCallWithVeryLongName(argumentNumberOne, argumentNumberTwo, argumentNumberThree)} />
+<C {...functionCallWithVeryLongName(   argumentNumberOne, argumentNumberTwo, argumentNumberThree)} />
 
-<C {...{longPropertyNameOne: valueNumberOne, longPropertyNameTwo: valueNumberTwo, longPropertyNameThree: valueNumberThree}} />
+<C {...{   longPropertyNameOne: valueNumberOne, longPropertyNameTwo: valueNumberTwo, longPropertyNameThree: valueNumberThree}} />
 
 <C {...{
   a: 1, b: 2 }} />
@@ -26,4 +26,4 @@
 a <b {...c} /> d
 
 - item
-  <C {...props} />
+  <C {...(a   .b.c)} />
