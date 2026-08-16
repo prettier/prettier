@@ -111,13 +111,13 @@ proseWrap: "always"
 [link](<https://www.google.fr/()foo-\\>bar>)
 [link](https://www.google.fr/foo->bar) [link](https://www.google.fr/foo-%3Ebar)
 [link](https://www.google.fr/foo-<bar) [link](https://www.google.fr/foo-%3Cbar)
-[link](<\\<>) [link](<(>) [link](\\\\) [link](<	>)
+[link](\\<) [link](\\() [link](\\\\) [link](<	>)
 
-![link](<https://www.google.fr/()foo-\\>bar>)
+![link](https://www.google.fr/()foo->bar)
 ![link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
-![link](https://www.google.fr/foo-%3Cbar) ![link](<\\<>) ![link](<(>) ![link](\\\\)
+![link](https://www.google.fr/foo-%3Cbar) ![link](\\<) ![link](\\() ![link](\\\\)
 ![link](<	>)
 
 [link]: https://www.google.fr/()foo->bar
@@ -185,6 +185,56 @@ https://www.example.com/
 
 =====================================output=====================================
 https://www.example.com/
+
+================================================================================
+`;
+
+exports[`url-escape-idempotency.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# https://github.com/prettier/prettier/issues/19588
+
+[test](/hello?foo&quot\\;bar)
+
+[test](/hello?foo&quot;bar)
+
+[normal](/path/to/page?q=1&r=2)
+
+[with title](/url "title")
+
+[autolink](https://example.com)
+
+[spaced](<url with spaces>)
+
+[paren](/url(foo)bar)
+
+[nested](/url(a(b)c)d)
+
+![image](https://example.com/img.png)
+
+=====================================output=====================================
+# https://github.com/prettier/prettier/issues/19588
+
+[test](/hello?foo&quot\\;bar)
+
+[test](/hello?foo"bar)
+
+[normal](/path/to/page?q=1&r=2)
+
+[with title](/url "title")
+
+[autolink](https://example.com)
+
+[spaced](<url with spaces>)
+
+[paren](</url(foo)bar>)
+
+[nested](</url(a(b)c)d>)
+
+![image](https://example.com/img.png)
 
 ================================================================================
 `;

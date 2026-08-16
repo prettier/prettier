@@ -225,7 +225,7 @@ function printMdast(path, options, print) {
             "](",
             options.parser !== "mdx" && node.url === ""
               ? "<>"
-              : printUrl(node.url, false),
+              : printLinkUrl(node),
             printTitle(node.title, options),
             ")",
           ];
@@ -242,7 +242,7 @@ function printMdast(path, options, print) {
         "](",
         options.parser !== "mdx" && node.url === ""
           ? "<>"
-          : printUrl(node.url, false),
+          : printLinkUrl(node, true),
         printTitle(node.title, options),
         ")",
       ];
@@ -513,6 +513,31 @@ function shouldRemainTheSameContent(path) {
   return (
     node && (node.type !== "linkReference" || node.referenceType !== "full")
   );
+}
+
+/**
+ * Print the URL portion of a link/image. When the original source contained
+ * a backslash escape sequence (e.g. `\;`), the parser unescapes it at parse
+ * time, which breaks idempotency — a URL like `&quot\;bar` becomes
+ * `&quot;bar` on the first pass and then `"bar` on the second. We recover
+ * the raw URL substring during preprocessing and prefer it here so the
+ * formatter round-trips such URLs unchanged.
+ *
+ * For URLs without backslash escapes this falls back to `printUrl(node.url)`
+ * to preserve prettier's existing behavior for HTML entity decoding
+ * (`&amp;` → `&` etc.) and other URL transformations.
+ *
+ * @param {import("../../utils/ast.js").AstNode} node
+ * @param {boolean} [unwrapBalancedParens]
+ * @returns {string}
+ */
+function printLinkUrl(node, unwrapBalancedParens = false) {
+  if (node.originalUrl !== undefined && node.originalUrl.includes("\\")) {
+    // Raw source already includes `<...>` wrapping when the user wrote it,
+    // so emit it as-is instead of letting `printUrl` re-wrap.
+    return node.originalUrl;
+  }
+  return printUrl(node.url, unwrapBalancedParens);
 }
 
 /**

@@ -312,6 +312,9 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
 }
 
 // remark 11 removes nested links so we need to recover the original alt text
+// Also recover the original URL because remark/micromark decodes HTML entities
+// (`&quot;` → `"`) and unescapes backslash sequences (`\;` → `;`) at parse
+// time, which breaks idempotency for URLs that intentionally contain those.
 function markOriginalImageAndLinkAlt(ast, options) {
   const { originalText } = options;
   return mapAst(ast, (node) => {
@@ -321,6 +324,16 @@ function markOriginalImageAndLinkAlt(ast, options) {
         node.position.start.offset,
         node.position.end.offset,
       );
+      if (node.url) {
+        const originalUrl = getLinkUrlContent(
+          originalText,
+          node.position.start.offset,
+          node.position.end.offset,
+        );
+        if (originalUrl !== null) {
+          node.originalUrl = originalUrl;
+        }
+      }
       return node;
     }
 
@@ -338,8 +351,79 @@ function markOriginalImageAndLinkAlt(ast, options) {
       node.originalLabelText = originalAlt;
     }
 
+    const originalUrl = getLinkUrlContent(
+      originalText,
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+    if (originalUrl !== null) {
+      node.originalUrl = originalUrl;
+    }
+
     return node;
   });
+}
+
+// Find the URL portion of an inline link/image `[text](url)` in the original
+// source. Returns the raw URL substring (including any `<...>` wrapping), or
+// `null` if it cannot be located. Mirrors `getBracketContent` for the URL
+// side. The URL ends at the first unescaped whitespace character or the
+// closing `)`, since the remainder would be parsed as the link title.
+function getLinkUrlContent(text, startOffset, endOffset) {
+  const closeParenIndex = text.indexOf("](", startOffset);
+  if (closeParenIndex === -1 || closeParenIndex + 2 >= endOffset) {
+    return null;
+  }
+  const urlStart = closeParenIndex + 2;
+
+  // `<...>`-wrapped URL: scan for the matching `>` (ignoring escapes).
+  if (text[urlStart] === "<") {
+    let i = urlStart + 1;
+    while (i < endOffset) {
+      const char = text[i];
+      if (char === "\\" && i + 1 < endOffset) {
+        i += 2;
+        continue;
+      }
+      if (char === ">") {
+        return text.slice(urlStart, i + 1);
+      }
+      i++;
+    }
+    return null;
+  }
+
+  // Bare URL: ends at whitespace or an un-balanced `)`. CommonMark allows
+  // up to three levels of balanced parentheses inside a URL, so we have to
+  // track depth to avoid bailing out on the first closing paren.
+  let i = urlStart;
+  let depth = 0;
+  while (i < endOffset) {
+    const char = text[i];
+    if (char === "\\" && i + 1 < endOffset) {
+      i += 2;
+      continue;
+    }
+    if (char === "(") {
+      depth++;
+      if (depth > 3) {
+        // CommonMark only guarantees three levels of nesting.
+        return null;
+      }
+    } else if (char === ")") {
+      if (depth === 0) {
+        return text.slice(urlStart, i);
+      }
+      depth--;
+    } else if (
+      depth === 0 &&
+      (char === " " || char === "\t" || char === "\n" || char === "\r")
+    ) {
+      return text.slice(urlStart, i);
+    }
+    i++;
+  }
+  return null;
 }
 
 function getBracketContent(text, startOffset, endOffset) {
