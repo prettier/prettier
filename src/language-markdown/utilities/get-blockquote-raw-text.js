@@ -38,6 +38,7 @@ function removeBlockquoteMarkers(line, greaterThanToKeep) {
     return line.slice(lastIndex);
   }
   const firstGreaterThanToKeep = greaterThanIndexes.at(-greaterThanToKeep);
+  /* c8 ignore next 3 */
   if (firstGreaterThanToKeep === null) {
     return line;
   }
