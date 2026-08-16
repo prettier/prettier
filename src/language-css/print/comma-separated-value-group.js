@@ -509,7 +509,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Add `space` before next math operation
     // Note: `grid` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
-    if (isNextMathOperator) {
+    if (isNextMathOperator && iNode.type !== "value-comment") {
       parts.push([parts.pop(), " "]);
 
       continue;

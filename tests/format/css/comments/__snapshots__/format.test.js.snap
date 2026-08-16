@@ -76,6 +76,33 @@ parsers: ["css"]
 ================================================================================
 `;
 
+exports[`18311.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.foo {
+  box-shadow:
+    2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */ -1px -1px 2px lightgray;
+
+  margin: 1px /* long long long long long long long long long long long long comment */ -1px -1px;
+}
+=====================================output=====================================
+.foo {
+  box-shadow:
+    2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    -1px -1px 2px lightgray;
+
+  margin: 1px
+    /* long long long long long long long long long long long long comment */
+    -1px -1px;
+}
+
+================================================================================
+`;
+
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
