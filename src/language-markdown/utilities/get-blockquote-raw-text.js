@@ -3,10 +3,17 @@
  * @returns {number}
  */
 function countValueLeadingGreaterThan(line) {
-  const [leadingGreaterThanPart] = line.match(/^[ \t]*(?:>[ \t]*)*/);
-  return leadingGreaterThanPart
-    .split("")
-    .filter((character) => character === ">").length;
+  let count = 0;
+
+  for (const character of line) {
+    if (character === ">") {
+      count++;
+    } else if (character !== " " && character !== "\t") {
+      break;
+    }
+  }
+
+  return count;
 }
 
 /**
