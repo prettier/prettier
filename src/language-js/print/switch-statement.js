@@ -6,21 +6,37 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
+import { locEnd, locStart } from "../location/index.js";
 import { isLineComment } from "../utilities/comment-types.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
 
 function printSwitchStatement(path, options, print) {
-  const commentsBeforeBody = printDanglingComments(path, options, {
-    marker: "body",
-  });
-  // A line comment would otherwise swallow the brace that follows it.
-  const bodyOnNextLine = hasComment(
+  const bodyComments = getComments(
     path.node,
     CommentCheckFlags.Dangling,
-    (comment) => comment.marker === "body" && isLineComment(comment),
+    (comment) => comment.marker === "body",
   );
+  const [firstBodyComment] = bodyComments;
+  const text = options.originalText;
+  // Same condition `printClause` uses for the other block statements.
+  const bodyCommentOnOwnLine =
+    firstBodyComment &&
+    (hasNewlineInRange(
+      text,
+      locStart(firstBodyComment),
+      locEnd(firstBodyComment),
+    ) ||
+      hasNewline(text, locStart(firstBodyComment), { backwards: true }));
+  // A line comment would otherwise swallow the brace that follows it.
+  const bodyOnNextLine = bodyComments.some((comment) => isLineComment(comment));
 
   return [
     group([
@@ -29,8 +45,12 @@ function printSwitchStatement(path, options, print) {
       softline,
       ")",
     ]),
-    commentsBeforeBody
-      ? [" ", commentsBeforeBody, bodyOnNextLine ? hardline : " "]
+    firstBodyComment
+      ? [
+          bodyCommentOnOwnLine ? hardline : " ",
+          printDanglingComments(path, options, { marker: "body" }),
+          bodyOnNextLine ? hardline : " ",
+        ]
       : " ",
     "{",
     path.node.cases.length > 0
