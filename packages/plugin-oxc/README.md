@@ -1,7 +1,7 @@
 # @prettier/plugin-oxc
 
 [![Npm Version](https://img.shields.io/npm/v/@prettier/plugin-oxc.svg?style=flat-square)](https://www.npmjs.com/package/@prettier/plugin-oxc)
-[![MIT License](https://img.shields.io/npm/l/@prettier/plugin-oxc.svg?style=flat-square)](https://github.com/prettier/prettier/blob/main/license)
+[![MIT License](https://img.shields.io/npm/l/@prettier/plugin-oxc.svg?style=flat-square)](https://github.com/prettier/prettier/blob/main/LICENSE)
 
 > Prettier [Oxc](https://oxc.rs/) plugin.
 
