@@ -3006,103 +3006,103 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-android-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-android-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-android-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-android-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-darwin-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-darwin-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-darwin-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-darwin-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-darwin-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-darwin-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-darwin-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-freebsd-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-freebsd-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-freebsd-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-freebsd-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-arm-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-arm-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-arm-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-arm-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-arm-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-arm-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-arm64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-arm64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-arm64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-arm64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-arm64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-arm64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-arm64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-x64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-x64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-x64-gnu@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-linux-x64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-linux-x64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-linux-x64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-linux-x64-musl@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-win32-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-win32-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-win32-arm64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-parser/binding-win32-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-parser/binding-win32-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-parser/binding-win32-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-parser/binding-win32-x64@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-parser/wasm@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz":
+"@yuku-parser/wasm@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz":
   version: 0.8.7
-  resolution: "@yuku-parser/wasm@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz"
+  resolution: "@yuku-parser/wasm@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz"
   dependencies:
-    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    yuku-ast: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-  checksum: 10/e785f22b8d860d3c3d3be46931e4c0e8abb6f31d11a040dae31cac8218ec5640e88a3c9b7e3534dac35ec9e1d18dd3715c2d795fbdaa4564c725a50ab8b3ae27
+    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    yuku-ast: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+  checksum: 10/aa363a38c1f0be376d83d9f0c483af8cff7c492bc993eea015c515b9706316755d96697808fcbab3c64e5fdd4a3e73fe85d924402ae3ec32ad8fd5c44b41be60
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/types@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"@yuku-toolchain/types@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "@yuku-toolchain/types@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "@yuku-toolchain/types@https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   checksum: 10/4bb3f7e82fd6e1e6b5404ce850580c36f1a93bf4d5e953e459b5910b1f282e8219c8f02c4ef40f0efc33679d275a70c7620c957c0193408f9f04a4f78b98265c
   languageName: node
   linkType: hard
@@ -8217,7 +8217,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.67.0"
     "@typescript-eslint/typescript-estree": "npm:8.67.0"
     "@typescript-eslint/visitor-keys": "npm:8.67.0"
-    "@yuku-parser/wasm": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz"
+    "@yuku-parser/wasm": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz"
     acorn: "npm:8.18.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
@@ -8344,7 +8344,7 @@ __metadata:
     yaml: "npm:2.9.0"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.0"
-    yuku-parser: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz"
+    yuku-parser: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -10077,33 +10077,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku-ast@https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@3cf5dec6701a209df84bb44182bf8a5e8856b991":
+"yuku-ast@https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@bef307c7d6771638ac27011cc8b1b55a055e5dd7":
   version: 0.8.7
-  resolution: "yuku-ast@https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+  resolution: "yuku-ast@https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   dependencies:
-    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-  checksum: 10/a711ae56f5ef8236eed9c00b8c49dd07910d06f9003b9bceffc62dbfb5fc9ef7c0280c67ae66b978562058aac4ae963fc0f9db7b5969b54c9f66193ddea50f03
+    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+  checksum: 10/95fcd08db05a43463a03220e326b6b1a2e0ed45902fb820bf14fdc83a9ddc2413f65b5ab5ccc3b5cf61ce1354e29ae7a2ad56de3e6cc8f15a44f0f401bc996ea
   languageName: node
   linkType: hard
 
-"yuku-parser@https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz":
+"yuku-parser@https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz":
   version: 0.8.7
-  resolution: "yuku-parser@https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz"
+  resolution: "yuku-parser@https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz"
   dependencies:
-    "@yuku-parser/binding-android-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-darwin-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-darwin-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-freebsd-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-arm-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-arm-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-arm64-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-arm64-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-x64-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-linux-x64-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-win32-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-parser/binding-win32-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@3cf5dec6701a209df84bb44182bf8a5e8856b991"
-    yuku-ast: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@3cf5dec6701a209df84bb44182bf8a5e8856b991"
+    "@yuku-parser/binding-android-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-android-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-darwin-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-darwin-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-darwin-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-freebsd-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-freebsd-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-arm-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-arm-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-arm64-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-arm64-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-arm64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-x64-gnu": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-gnu@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-linux-x64-musl": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-linux-x64-musl@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-win32-arm64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-arm64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-parser/binding-win32-x64": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/binding-win32-x64@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    "@yuku-toolchain/types": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-toolchain/types@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
+    yuku-ast: "https://pkg.pr.new/yuku-toolchain/yuku/yuku-ast@bef307c7d6771638ac27011cc8b1b55a055e5dd7"
   dependenciesMeta:
     "@yuku-parser/binding-android-arm64":
       optional: true
@@ -10129,7 +10129,7 @@ __metadata:
       optional: true
     "@yuku-parser/binding-win32-x64":
       optional: true
-  checksum: 10/8c0abad37436a49bf0e1997ecb51fb9beeb7ac5eecb3682474e16dea9c382b4991aa4b5bc884a6c90ada9c94065205f0f6bfeabe9235c1376dfc636aee91834a
+  checksum: 10/3be8438742d5f88cf8f87503a71eab8895a3d430b46adb05bb8dc9818315d78a3322e93f741f87f8bb2e00b51ad16bb56b8979d923099910d4305d9d85e2a5fe
   languageName: node
   linkType: hard
 

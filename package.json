@@ -131,7 +131,7 @@
     "wcwidth.js": "2.0.0",
     "yaml": "2.9.0",
     "yaml-unist-parser": "3.2.0",
-    "yuku-parser": "https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz"
+    "yuku-parser": "https://pkg.pr.new/yuku-toolchain/yuku/yuku-parser@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz"
   },
   "devDependencies": {
     "@babel/generator": "8.0.0",
@@ -140,7 +140,7 @@
     "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.67.0",
     "@typescript-eslint/parser": "8.67.0",
-    "@yuku-parser/wasm": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@3cf5dec6701a209df84bb44182bf8a5e8856b991.tgz",
+    "@yuku-parser/wasm": "https://pkg.pr.new/yuku-toolchain/yuku/@yuku-parser/wasm@bef307c7d6771638ac27011cc8b1b55a055e5dd7.tgz",
     "base64-arraybuffer-es6": "3.1.0",
     "browserslist": "4.28.8",
     "browserslist-to-esbuild": "2.1.1",
