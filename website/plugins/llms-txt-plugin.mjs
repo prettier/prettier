@@ -1,5 +1,5 @@
 // https://github.com/facebook/docusaurus/issues/10899
-// https://github.com/defi-wonderland/handbook/blob/dev/plugins/llmsTxtPlugin.ts
+// https://github.com/defi-wonderland/handbook/blob/dev/packages/common-config/plugins/llmsTxtPlugin.ts
 import fs from "node:fs/promises";
 import path from "node:path";
 
