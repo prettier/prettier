@@ -181,7 +181,7 @@ export default function getCodeSamples(parser) {
         "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.",
       ].join("\n");
     case "mdx":
-      // modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx/test/fixtures/blog-post.md
+      // modified from https://github.com/mdx-js/mdx/blob/v1/packages/mdx/test/fixtures/blog-post.mdx
       return [
         "import     {     Baz } from     './Fixture'",
         "import { Buz  }   from './Fixture'",
