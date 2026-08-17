@@ -6,11 +6,20 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import { isLineComment } from "../utilities/comment-types.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
 
 function printSwitchStatement(path, options, print) {
+  const commentsBeforeBody = printDanglingComments(path, options, {
+    marker: "body",
+  });
+  // A line comment would otherwise swallow the brace that follows it.
+  const bodyOnNextLine = path.node.comments?.some(
+    (comment) => comment.marker === "body" && isLineComment(comment),
+  );
+
   return [
     group([
       "switch (",
@@ -18,7 +27,10 @@ function printSwitchStatement(path, options, print) {
       softline,
       ")",
     ]),
-    " {",
+    commentsBeforeBody
+      ? [" ", commentsBeforeBody, bodyOnNextLine ? hardline : " "]
+      : " ",
+    "{",
     path.node.cases.length > 0
       ? indent([
           hardline,

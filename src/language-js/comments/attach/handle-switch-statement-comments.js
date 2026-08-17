@@ -16,12 +16,10 @@ function handleSwitchStatementComments({
   followingNode,
   text,
 }) {
-  if (!(
-    enclosingNode?.type === "SwitchStatement" &&
-    enclosingNode.cases.length === 0 &&
-    !followingNode &&
-    precedingNode === enclosingNode.discriminant
-  )) {
+  if (
+    enclosingNode?.type !== "SwitchStatement" ||
+    precedingNode !== enclosingNode.discriminant
+  ) {
     return false;
   }
 
@@ -30,7 +28,19 @@ function handleSwitchStatementComments({
     locEnd(comment),
   );
 
-  if (nextCharacter === "}") {
+  // Between the discriminant and the body, where every other block statement
+  // keeps it: `switch (a) /* comment */ {`. Without this the comment attaches
+  // to the discriminant and is printed inside the parentheses.
+  if (nextCharacter === "{") {
+    addDanglingComment(enclosingNode, comment, "body");
+    return true;
+  }
+
+  if (
+    nextCharacter === "}" &&
+    enclosingNode.cases.length === 0 &&
+    !followingNode
+  ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
