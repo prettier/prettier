@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`snippet: #0 format 1`] = `
+"'extends' list cannot be empty. (1:13)
+> 1 | interface F extends implements {}
+    |             ^^^^^^^
+Cause: 'extends' list cannot be empty."
+`;
+
 exports[`snippet: #0 format[babel-ts] 1`] = `
 "'extends' list cannot be empty. (1:23)
 > 1 | interface Foo extends {}
@@ -76,11 +83,4 @@ exports[`snippet: #2 format[yuku-ts] 1`] = `
 "Expected '{' to start an interface body, but found 'implements' (1:13)
 > 1 | interface F implements A {}
     |             ^^^^^^^^^^"
-`;
-
-exports[`snippet: #3 format[typescript] 1`] = `
-"'extends' list cannot be empty. (1:13)
-> 1 | interface F extends implements {}
-    |             ^^^^^^^
-Cause: 'extends' list cannot be empty."
 `;
