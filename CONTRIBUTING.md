@@ -123,7 +123,7 @@ In the above commands:
 - `NODE_ENV=production` ensures Prettier and its dependencies run in production mode.
 - `node --inspect-brk` pauses the script execution until Inspector is connected to the Node process.
 
-In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
+In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/learn/getting-started/profiling), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
 The script [`scripts/benchmark/compare.sh`](scripts/benchmark/compare.sh) can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
 
