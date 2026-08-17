@@ -16,7 +16,9 @@ function printSwitchStatement(path, options, print) {
     marker: "body",
   });
   // A line comment would otherwise swallow the brace that follows it.
-  const bodyOnNextLine = path.node.comments?.some(
+  const bodyOnNextLine = hasComment(
+    path.node,
+    CommentCheckFlags.Dangling,
     (comment) => comment.marker === "body" && isLineComment(comment),
   );
 
