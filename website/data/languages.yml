@@ -1,7 +1,7 @@
 - name: JavaScript
   image: /images/languages/tools_js.svg
   variants:
-    - "[JSX](https://facebook.github.io/jsx/)"
+    - "[JSX](https://github.com/facebook/jsx)"
     - "[Flow](https://flow.org/)"
     - "[TypeScript](https://www.typescriptlang.org/)"
     - "[JSON](https://json.org/)"
