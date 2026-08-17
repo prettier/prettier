@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: Declarations with definite assignment assertions must also have type annotations."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"A declaration with a definite assignment assertion must also have a type annotation (1:5)
+> 1 | let x!
+    |     ^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Declarations with initializers cannot also have definite assignment assertions. (1:5)
 > 1 | let x! = 1
@@ -38,6 +44,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 > 1 | let x! = 1
     |     ^^^^^^
 Cause: Declarations with initializers cannot also have definite assignment assertions."
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"A declaration with an initializer cannot also have a definite assignment assertion (1:5)
+> 1 | let x! = 1
+    |     ^"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
@@ -60,6 +72,12 @@ exports[`snippet: #2 format[typescript] 1`] = `
 Cause: Declarations with definite assignment assertions must also have type annotations."
 `;
 
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"A declaration with a definite assignment assertion must also have a type annotation (1:10)
+> 1 | class C {x!}
+    |          ^"
+`;
+
 exports[`snippet: #3 format[babel-ts] 1`] = `
 "Declarations with initializers cannot also have definite assignment assertions. (1:10)
 > 1 | class C {x! = 1}
@@ -78,6 +96,12 @@ exports[`snippet: #3 format[typescript] 1`] = `
 > 1 | class C {x! = 1}
     |          ^^^^^^
 Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
+"A declaration with an initializer cannot also have a definite assignment assertion (1:10)
+> 1 | class C {x! = 1}
+    |          ^"
 `;
 
 exports[`snippet: #4 format[babel-ts] 1`] = `
@@ -100,6 +124,12 @@ exports[`snippet: #4 format[typescript] 1`] = `
 Cause: Declarations with definite assignment assertions must also have type annotations."
 `;
 
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"A declaration with a definite assignment assertion must also have a type annotation (1:19)
+> 1 | class C {accessor x!}
+    |                   ^"
+`;
+
 exports[`snippet: #5 format[babel-ts] 1`] = `
 "Declarations with initializers cannot also have definite assignment assertions. (1:10)
 > 1 | class C {accessor x! = 1}
@@ -118,4 +148,10 @@ exports[`snippet: #5 format[typescript] 1`] = `
 > 1 | class C {accessor x! = 1}
     |          ^^^^^^^^^^^^^^^
 Cause: Declarations with definite assignment assertions must also have type annotations."
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
+"A declaration with an initializer cannot also have a definite assignment assertion (1:19)
+> 1 | class C {accessor x! = 1}
+    |                   ^"
 `;

@@ -1930,6 +1930,14 @@ exports[`snippet: #56 format[typescript] 1`] = `
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
 `;
 
+exports[`snippet: #56 format[yuku-ts] 1`] = `
+"A 'readonly' modifier can only appear on a property declaration or index signature (2:3)
+  1 | interface Foo {
+> 2 |   readonly method();
+    |   ^^^^^^^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #57 format[babel-ts] 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
@@ -2606,6 +2614,14 @@ exports[`snippet: #82 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
+exports[`snippet: #82 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:11)
+  1 | class Foo {
+> 2 |   declare method() {}
+    |           ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #83 format[babel-ts] 1`] = `
 "Class methods cannot have the 'readonly' modifier. (2:3)
   1 | class Foo {
@@ -2630,6 +2646,14 @@ exports[`snippet: #83 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | }
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #83 format[yuku-ts] 1`] = `
+"A 'readonly' modifier can only appear on a property declaration or index signature (2:12)
+  1 | class Foo {
+> 2 |   readonly method() {}
+    |            ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #84 format[babel-ts] 1`] = `
@@ -2658,6 +2682,14 @@ exports[`snippet: #84 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
+exports[`snippet: #84 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+  1 | class Foo {
+> 2 |   declare get getter() {}
+    |               ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #85 format[babel-ts] 1`] = `
 "'declare' is not allowed in setters. (2:3)
   1 | class Foo {
@@ -2682,6 +2714,14 @@ exports[`snippet: #85 format[typescript] 1`] = `
     |   ^^^^^^^
   3 | }
 Cause: 'declare' modifier cannot appear on class elements of this kind."
+`;
+
+exports[`snippet: #85 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+  1 | class Foo {
+> 2 |   declare set setter(v) {}
+    |               ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #86 format[babel-ts] 1`] = `
@@ -6300,6 +6340,12 @@ exports[`snippet: #224 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #224 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(override []){}}
+    |                               ^^"
+`;
+
 exports[`snippet: #225 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(override {}){}}
@@ -6318,6 +6364,12 @@ exports[`snippet: #225 format[typescript] 1`] = `
 > 1 | class A {constructor(override {}){}}
     |                      ^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #225 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(override {}){}}
+    |                               ^^"
 `;
 
 exports[`snippet: #226 format[babel-ts] 1`] = `
@@ -6366,6 +6418,12 @@ exports[`snippet: #227 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #227 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:30)
+> 1 | class A {constructor(private []){}}
+    |                              ^^"
+`;
+
 exports[`snippet: #228 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(private {}){}}
@@ -6384,6 +6442,12 @@ exports[`snippet: #228 format[typescript] 1`] = `
 > 1 | class A {constructor(private {}){}}
     |                      ^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #228 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:30)
+> 1 | class A {constructor(private {}){}}
+    |                              ^^"
 `;
 
 exports[`snippet: #229 format[babel-ts] 1`] = `
@@ -6432,6 +6496,12 @@ exports[`snippet: #230 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #230 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:32)
+> 1 | class A {constructor(protected []){}}
+    |                                ^^"
+`;
+
 exports[`snippet: #231 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(protected {}){}}
@@ -6450,6 +6520,12 @@ exports[`snippet: #231 format[typescript] 1`] = `
 > 1 | class A {constructor(protected {}){}}
     |                      ^^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #231 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:32)
+> 1 | class A {constructor(protected {}){}}
+    |                                ^^"
 `;
 
 exports[`snippet: #232 format[babel-ts] 1`] = `
@@ -6498,6 +6574,12 @@ exports[`snippet: #233 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #233 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:29)
+> 1 | class A {constructor(public []){}}
+    |                             ^^"
+`;
+
 exports[`snippet: #234 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(public {}){}}
@@ -6516,6 +6598,12 @@ exports[`snippet: #234 format[typescript] 1`] = `
 > 1 | class A {constructor(public {}){}}
     |                      ^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #234 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:29)
+> 1 | class A {constructor(public {}){}}
+    |                             ^^"
 `;
 
 exports[`snippet: #235 format[babel-ts] 1`] = `
@@ -6564,6 +6652,12 @@ exports[`snippet: #236 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #236 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(readonly []){}}
+    |                               ^^"
+`;
+
 exports[`snippet: #237 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(readonly {}){}}
@@ -6582,6 +6676,12 @@ exports[`snippet: #237 format[typescript] 1`] = `
 > 1 | class A {constructor(readonly {}){}}
     |                      ^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #237 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(readonly {}){}}
+    |                               ^^"
 `;
 
 exports[`snippet: #238 format[babel-ts] 1`] = `
