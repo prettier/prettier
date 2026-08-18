@@ -39,7 +39,7 @@ You can disable this conditional behavior with the [`objectWrap`](options.md#obj
 ```js
 const user = {
   name: "John Doe",
-  age: 30,
+  age: 30
 };
 ```
 
