@@ -480,7 +480,6 @@ function shouldRemainTheSameContent(path) {
 
 // https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
 const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/gi;
-
 const escapeCharacterReferences = (value) =>
   value.replaceAll(characterReferenceRegex, String.raw`\&`);
 
