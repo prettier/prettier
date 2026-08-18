@@ -525,21 +525,23 @@ function printTitle(title, options, printSpace = true) {
     title = title.replaceAll(/\\(?=["')])/g, "");
   }
 
-  title = title.replaceAll("\\", "\\\\");
-  title = escapeCharacterReferences(title);
-
-  if (
+  const quote =
+    // avoid escaped quotes
     title.includes('"') &&
     title.includes("'") &&
     !title.includes("(") &&
     !title.includes(")")
-  ) {
-    title = `(${title})`; // avoid escaped quotes
-  } else {
-    const quote = getPreferredQuote(title, options.singleQuote);
+      ? undefined
+      : getPreferredQuote(title, options.singleQuote);
+
+  title = title.replaceAll("\\", "\\\\");
+
+  if (quote) {
     title = title.replaceAll(quote, `\\${quote}`);
-    title = `${quote}${title}${quote}`;
   }
+
+  title = escapeCharacterReferences(title);
+  title = quote ? `${quote}${title}${quote}` : `(${title})`;
 
   return title;
 }
