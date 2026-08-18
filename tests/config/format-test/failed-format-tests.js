@@ -56,10 +56,7 @@ const disabledTests = new Map(
     meriyah: [],
     "babel-ts": [],
     oxc: [],
-    "oxc-ts": [
-      "js/decorators/rest-parameters/constructor.js",
-      "js/decorators/rest-parameters/method.js",
-    ],
+    "oxc-ts": [],
     yuku: ["js/await/await-with-parens.js"],
     "yuku-ts": [
       "js/await/await-with-parens.js",
