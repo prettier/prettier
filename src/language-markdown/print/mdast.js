@@ -384,6 +384,8 @@ function printMdast(path, options, print) {
     case "mdxFlowExpression":
     case "mdxTextExpression":
       return ["{", node.value.trim(), "}"];
+    case "mdxJsxExpressionAttribute":
+      return ["{", node.value, "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const isFragment = !node.name;

@@ -31,9 +31,8 @@ const createPlugin = (mdxParserName, jsParserName, transform) => {
 };
 
 const createPrint =
-  ({ jsParserName, getParseResult, transform }) =>
+  ({ jsParserName, mdxParserName, getParseResult, transform }) =>
   async (textToDoc, print, path, options) => {
-    const mdxParserName = `__mdx_${jsParserName.startsWith("__") ? jsParserName.slice(2) : jsParserName}`;
     const program = path.node.data.estree;
     const parseResult = getParseResult(program);
     const plugin = createPlugin(mdxParserName, jsParserName, transform);
@@ -45,29 +44,64 @@ const createPrint =
     });
   };
 
+const getExpressionParseResult = (program) => {
+  if (program.isProgram) {
+    return program.parseResult;
+  }
+
+  const { body } = program;
+
+  /* c8 ignore next */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(
+      body.length === 1 &&
+        body[0].type === "ExpressionStatement" &&
+        body[0].expression.isExpressionRoot &&
+        body[0].expression.parseResult &&
+        body[0].expression.type === "ObjectExpression" &&
+        body[0].expression.properties.length === 1 &&
+        body[0].expression.properties[0].type === "SpreadElement" &&
+        body[0].expression.properties[0].argument.type === "Identifier" &&
+        body[0].expression.properties[0].argument.name === "_",
+    );
+  }
+
+  return body[0].expression.parseResult;
+};
+
 const printJsExpression = createPrint({
   jsParserName: "__js_expression",
-  getParseResult(program) {
-    if (program.isProgram) {
-      return program.parseResult;
-    }
-
-    const { body } = program;
-
-    /* c8 ignore next */
-    if (process.env.NODE_ENV !== "production") {
-      assert.ok(
-        body.length === 1 &&
-          body[0].type === "ExpressionStatement" &&
-          body[0].expression.type === "ThisExpression" &&
-          body[0].expression.isExpressionRoot &&
-          body[0].expression.parseResult,
-      );
-    }
-
-    return body[0].expression.parseResult;
-  },
+  mdxParserName: "__mdx_js_expression",
+  getParseResult: getExpressionParseResult,
   transform: transformJsExpression,
 });
 
-export { printJsExpression };
+const printJsxSpreadAttribute = createPrint({
+  jsParserName: "__js_expression",
+  mdxParserName: "__mdx_jsx_spread_attribute",
+  getParseResult: getExpressionParseResult,
+  transform({ text, comments, ast }) {
+    if (!(
+      ast.type === "ParenthesizedExpression" &&
+      ast.expression.type === "ObjectExpression" &&
+      ast.expression.properties.length === 1 &&
+      ast.expression.properties[0].type === "SpreadElement"
+    )) {
+      throw new Error("Unexpected result in JSX spread attribute.");
+    }
+
+    const { expression } = ast;
+
+    return transformJsExpression({
+      text,
+      comments,
+      ast: {
+        type: "JSXSpreadAttribute",
+        argument: expression.properties[0].argument,
+        range: ast.range,
+      },
+    });
+  },
+});
+
+export { printJsExpression, printJsxSpreadAttribute };

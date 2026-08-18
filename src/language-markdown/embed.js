@@ -1,7 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
-import { printJsExpression } from "./acorn/printer.js";
+import { printJsExpression, printJsxSpreadAttribute } from "./acorn/printer.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -76,6 +76,9 @@ function embed(path, options) {
         await printJsExpression(textToDoc, print, path, options),
         "}",
       ];
+
+    case "mdxJsxExpressionAttribute":
+      return printJsxSpreadAttribute;
   }
 }
 
