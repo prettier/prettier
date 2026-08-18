@@ -47,7 +47,7 @@ const user = {
 <!-- prettier-ignore -->
 ```js
 const user = {  name: "John Doe",
-  age: 30
+  age: 30,
 };
 ```
 
