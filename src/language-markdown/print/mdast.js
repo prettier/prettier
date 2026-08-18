@@ -478,6 +478,11 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+// https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
+const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/gi;
+const escapeCharacterReferences = (value) =>
+  value.replaceAll(characterReferenceRegex, String.raw`\&`);
+
 /**
  * @param {string} url
  * @param {boolean} unwrapBalancedParens
@@ -487,6 +492,7 @@ function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+  url = escapeCharacterReferences(url);
 
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
   // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
@@ -526,11 +532,13 @@ function printTitle(title, options, printSpace = true) {
     !title.includes(")")
   ) {
     title = title.replaceAll("\\", "\\\\");
+    title = escapeCharacterReferences(title);
     return `(${title})`; // avoid escaped quotes
   }
   const quote = getPreferredQuote(title, options.singleQuote);
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(quote, `\\${quote}`);
+  title = escapeCharacterReferences(title);
   return `${quote}${title}${quote}`;
 }
 
