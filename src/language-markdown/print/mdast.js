@@ -492,7 +492,6 @@ function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
-
   url = escapeCharacterReferences(url);
 
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
