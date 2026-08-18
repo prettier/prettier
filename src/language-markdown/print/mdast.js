@@ -478,9 +478,6 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-// The parser resolves character references in link destinations and titles, so
-// printing a resolved value verbatim lets it be resolved a second time and the
-// original text is lost. Escaping the `&` keeps it literal.
 // https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
 const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/gi;
 
@@ -497,7 +494,6 @@ function printUrl(url, unwrapBalancedParens) {
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
 
-  // After the escaping above, so the backslash this adds is not doubled in turn.
   url = escapeCharacterReferences(url);
 
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
@@ -538,14 +534,12 @@ function printTitle(title, options, printSpace = true) {
     !title.includes(")")
   ) {
     title = title.replaceAll("\\", "\\\\");
-    // after the backslash doubling above, so this escape is not doubled too
     title = escapeCharacterReferences(title);
     return `(${title})`; // avoid escaped quotes
   }
   const quote = getPreferredQuote(title, options.singleQuote);
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(quote, `\\${quote}`);
-  // after the backslash doubling above, so this escape is not doubled too
   title = escapeCharacterReferences(title);
   return `${quote}${title}${quote}`;
 }
