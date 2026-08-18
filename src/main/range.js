@@ -25,9 +25,9 @@ function dropRootParents(parents) {
 function findSiblingAncestors(
   startNodeAndAncestors,
   endNodeAndAncestors,
-  opts,
+  options,
 ) {
-  const { locStart, locEnd } = opts;
+  const { locStart, locEnd } = options;
   let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
 
@@ -47,7 +47,7 @@ function findSiblingAncestors(
   const endNodeEnd = locEnd(resultEndNode);
   for (const startAncestor of dropRootParents(startNodeAncestors)) {
     if (locEnd(startAncestor) <= endNodeEnd) {
-      if (isSourceElement(opts, startAncestor)) {
+      if (isSourceElement(options, startAncestor)) {
         resultStartNode = startAncestor;
       }
     } else {
