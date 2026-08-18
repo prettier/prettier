@@ -26,14 +26,6 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: An abstract accessor cannot have an implementation."
 `;
 
-exports[`snippet: #0 format[yuku-ts] 1`] = `
-"An abstract accessor cannot have an implementation (2:25)
-  1 | abstract class Foo  {
-> 2 |   abstract get getter() { }
-    |                         ^^^
-  3 | }"
-`;
-
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Method 'setter' cannot have an implementation because it is marked abstract. (2:3)
   1 | abstract class Foo  {
@@ -58,12 +50,4 @@ exports[`snippet: #1 format[typescript] 1`] = `
     |                ^^^^^^
   3 | }
 Cause: An abstract accessor cannot have an implementation."
-`;
-
-exports[`snippet: #1 format[yuku-ts] 1`] = `
-"An abstract accessor cannot have an implementation (2:26)
-  1 | abstract class Foo  {
-> 2 |   abstract set setter(v) { }
-    |                          ^^^
-  3 | }"
 `;
