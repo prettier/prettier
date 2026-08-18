@@ -71,3 +71,9 @@ exports[`snippet: #2 format[typescript] 1`] = `
     |            ^
 Cause: '{' expected."
 `;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"A namespace declaration requires a body (1:1)
+> 1 | namespace a;
+    | ^^^^^^^^^^^"
+`;

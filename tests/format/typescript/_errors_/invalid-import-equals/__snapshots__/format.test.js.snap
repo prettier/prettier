@@ -19,3 +19,9 @@ exports[`snippet: #0 format[typescript] 1`] = `
     | ^^^^^^^^^^^^^^^^^^
 Cause: An import alias cannot use 'import type'"
 `;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"An import alias cannot use 'import type' (1:1)
+> 1 | import type F = T;
+    | ^^^^^^^^^^^^^^^^^"
+`;
