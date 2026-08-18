@@ -105,10 +105,6 @@ async function buildEntry(directory) {
     "await instantiateNapiModule(",
     "instantiateNapiModuleSync(",
   );
-  text = text.replace(
-    "reuseWorker: { size: __asyncWorkPoolSize + __workerPoolSize },",
-    "",
-  );
 
   text = text.replaceAll(
     /new URL\((?<url>".*?"), import\.meta\.url\)/g,

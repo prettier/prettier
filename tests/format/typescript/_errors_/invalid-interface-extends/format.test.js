@@ -18,5 +18,5 @@ runFormatTest(
       "interface L extends M().N { }",
     ],
   },
-  ["typescript", "babel-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );

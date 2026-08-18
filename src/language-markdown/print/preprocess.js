@@ -104,8 +104,11 @@ function splitTextIntoSentences(ast) {
     // Using `node.value`, we don't need to care about markers like `\n > ` in `blockquote`s.
     let text = node.raw;
 
+    // A setext heading's text can span multiple raw source lines too, e.g.
+    // `> Title\n> continued\n> ===`.
     const paragraphIndex = parentStack.findIndex(
-      (ancestor) => ancestor?.type === "paragraph",
+      (ancestor) =>
+        ancestor?.type === "paragraph" || ancestor?.type === "heading",
     );
 
     const paragraphNode =

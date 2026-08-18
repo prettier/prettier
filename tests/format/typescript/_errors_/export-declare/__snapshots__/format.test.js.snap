@@ -22,3 +22,10 @@ exports[`export-declare.ts format[typescript] 1`] = `
   2 |
 Cause: Declaration or statement expected."
 `;
+
+exports[`export-declare.ts format[yuku-ts] 1`] = `
+"Expected declaration after 'export', but found 'declare' (1:8)
+> 1 | export declare foo;
+    |        ^^^^^^^
+  2 |"
+`;

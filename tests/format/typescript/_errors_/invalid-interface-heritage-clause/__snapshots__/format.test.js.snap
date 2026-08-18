@@ -27,6 +27,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: 'extends' list cannot be empty."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected an identifier, but found '{' (1:23)
+> 1 | interface Foo extends {}
+    |                       ^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Unexpected token, expected "{" (1:13)
 > 1 | interface F implements {}
@@ -47,6 +53,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 Cause: Interface declaration cannot have 'implements' clause."
 `;
 
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found 'implements' (1:13)
+> 1 | interface F implements {}
+    |             ^^^^^^^^^^"
+`;
+
 exports[`snippet: #2 format[babel-ts] 1`] = `
 "Unexpected token, expected "{" (1:13)
 > 1 | interface F implements A {}
@@ -65,4 +77,10 @@ exports[`snippet: #2 format[typescript] 1`] = `
 > 1 | interface F implements A {}
     |             ^^^^^^^^^^^^
 Cause: Interface declaration cannot have 'implements' clause."
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found 'implements' (1:13)
+> 1 | interface F implements A {}
+    |             ^^^^^^^^^^"
 `;
