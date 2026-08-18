@@ -28,10 +28,10 @@ runFormatTest(
   [
     "typescript",
     "babel-ts",
-    // `oxc-ts` and `yuku-ts` not rejecting
+    // `oxc-ts` not rejecting
     // https://github.com/microsoft/TypeScript/issues/61834
     // https://github.com/microsoft/TypeScript/issues/42468
     // "oxc-ts",
-    // "yuku-ts",
+    "yuku-ts",
   ],
 );
