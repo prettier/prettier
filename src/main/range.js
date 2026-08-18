@@ -22,7 +22,11 @@ function dropRootParents(parents) {
   return parents.slice(0, index + 1);
 }
 
-function findSiblingAncestors(startNodeAndAncestors, endNodeAndAncestors, opts) {
+function findSiblingAncestors(
+  startNodeAndAncestors,
+  endNodeAndAncestors,
+  opts,
+) {
   const { locStart, locEnd } = opts;
   let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
