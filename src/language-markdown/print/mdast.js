@@ -32,8 +32,8 @@ import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
-import { printWord } from "./word.js";
 import { printWhitespace, printWhitespaceNode } from "./whitespace.js";
+import { printWord } from "./word.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js";
@@ -295,13 +295,7 @@ function printMdast(path, options, print) {
         ":",
         indent([
           lineOrSpace,
-<<<<<<< HEAD
-          node.url === "" ? "<>" : printUrl(node.url),
-=======
-          options.parser !== "mdx" && node.url === ""
-            ? "<>"
-            : printUrl(node.url, true),
->>>>>>> main
+          node.url === "" ? "<>" : printUrl(node.url, true),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
@@ -555,14 +549,6 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-<<<<<<< HEAD
-=======
-  // title is escaped before `remark-parse` v10
-  if (options.parser === "mdx") {
-    title = title.replaceAll(/\\(?=["')])/g, "");
-  }
-
->>>>>>> main
   if (
     title.includes('"') &&
     title.includes("'") &&
