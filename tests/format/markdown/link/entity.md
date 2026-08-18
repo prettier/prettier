@@ -13,3 +13,9 @@
 [escaped reference in a destination with a space](</a b?x&quot\;c>)
 
 [escaped reference in a definition]: /a?x&quot\;b
+
+[escaped ampersand](/a?x\&amp;b)
+
+[escaped ampersand in a title](/a "x\&amp;b")
+
+[unescaped named reference](/a?x&amp;b)
