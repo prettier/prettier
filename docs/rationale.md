@@ -35,6 +35,7 @@ You can disable this conditional behavior with the [`objectWrap`](options.md#obj
 
 **Tip:** If you have a multi-line object that you’d like to join up into a single line:
 
+<!-- prettier-ignore -->
 ```js
 const user = {
   name: "John Doe",
@@ -47,7 +48,7 @@ const user = {
 <!-- prettier-ignore -->
 ```js
 const user = {  name: "John Doe",
-  age: 30,
+  age: 30
 };
 ```
 
