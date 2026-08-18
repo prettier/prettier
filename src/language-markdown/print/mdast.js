@@ -525,21 +525,23 @@ function printTitle(title, options, printSpace = true) {
     title = title.replaceAll(/\\(?=["')])/g, "");
   }
 
+  title = title.replaceAll("\\", "\\\\");
+  title = escapeCharacterReferences(title);
+
   if (
     title.includes('"') &&
     title.includes("'") &&
     !title.includes("(") &&
     !title.includes(")")
   ) {
-    title = title.replaceAll("\\", "\\\\");
-    title = escapeCharacterReferences(title);
-    return `(${title})`; // avoid escaped quotes
+    title = `(${title})`; // avoid escaped quotes
+  } else {
+    const quote = getPreferredQuote(title, options.singleQuote);
+    title = title.replaceAll(quote, `\\${quote}`);
+    title = `${quote}${title}${quote}`;
   }
-  const quote = getPreferredQuote(title, options.singleQuote);
-  title = title.replaceAll("\\", "\\\\");
-  title = title.replaceAll(quote, `\\${quote}`);
-  title = escapeCharacterReferences(title);
-  return `${quote}${title}${quote}`;
+
+  return title;
 }
 
 function printLinkReference(node, options) {
