@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`newline-before-arrow.ts format[babel-ts] 1`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
+exports[`newline-before-arrow.ts format[oxc-ts] 1`] = `
+"Line terminator not permitted before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 |"
+`;
+
+exports[`newline-before-arrow.ts format[typescript] 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | async x
+    | ^
+  2 | => x
+  3 |
+Cause: Unexpected keyword or identifier."
+`;

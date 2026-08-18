@@ -87,11 +87,6 @@ const mainModule = {
           },
         },
         {
-          module: getPackageFile("json5/dist/index.mjs"),
-          find: "export default lib;",
-          replacement: "export default { parse };",
-        },
-        {
           module: resolveEsmModulePath("@babel/code-frame"),
           process(text) {
             text = text.replace(

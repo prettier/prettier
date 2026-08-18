@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declare-getter.ts format[babel-ts] 1`] = `
+"'declare' is not allowed in getters. (2:3)
+  1 | class Foo {
+> 2 |   declare get foo()
+    |   ^
+  3 | }
+  4 |
+Cause: 'declare' is not allowed in getters. (2:2)"
+`;
+
+exports[`declare-getter.ts format[oxc-ts] 1`] = `
+"'declare' modifier cannot be used here. (2:3)
+  1 | class Foo {
+> 2 |   declare get foo()
+    |   ^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`declare-getter.ts format[typescript] 1`] = `
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
+> 2 |   declare get foo()
+    |   ^^^^^^^
+  3 | }
+  4 |
+Cause: 'declare' modifier cannot appear on class elements of this kind."
+`;
+
+exports[`declare-setter.ts format[babel-ts] 1`] = `
+"'declare' is not allowed in setters. (2:3)
+  1 | class Foo {
+> 2 |   declare set foo(v)
+    |   ^
+  3 | }
+  4 |
+Cause: 'declare' is not allowed in setters. (2:2)"
+`;
+
+exports[`declare-setter.ts format[oxc-ts] 1`] = `
+"'declare' modifier cannot be used here. (2:3)
+  1 | class Foo {
+> 2 |   declare set foo(v)
+    |   ^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`declare-setter.ts format[typescript] 1`] = `
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
+> 2 |   declare set foo(v)
+    |   ^^^^^^^
+  3 | }
+  4 |
+Cause: 'declare' modifier cannot appear on class elements of this kind."
+`;

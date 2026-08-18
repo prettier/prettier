@@ -2,15 +2,15 @@ runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
-      "let x1 = <div>}</div>;",
-      "let x2 = <div>></div>;",
-      "let x2 = <div><</div>;",
-      'let x3 = <div>{"foo"}}</div>;',
-      'let x4 = <div>{"foo"}></div>;',
-      'let x4 = <div>{"foo"}<</div>;',
-      'let x5 = <div>}{"foo"}</div>;',
-      'let x6 = <div>>{"foo"}</div>;',
-      'let x6 = <div><{"foo"}</div>;',
+      "_ = <div>}</div>",
+      "_ = <div>></div>",
+      "_ = <div><</div>",
+      '_ = <div>{"foo"}}</div>',
+      '_ = <div>{"foo"}></div>',
+      '_ = <div>{"foo"}<</div>',
+      '_ = <div>}{"foo"}</div>',
+      '_ = <div>>{"foo"}</div>',
+      '_ = <div><{"foo"}</div>',
     ],
   },
   [
@@ -24,5 +24,8 @@ runFormatTest(
     // "hermes",
     "oxc",
     "oxc-ts",
+    "yuku",
+    "yuku-ts",
+    "__babel_estree",
   ],
 );
