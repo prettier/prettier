@@ -140,7 +140,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isHeadOfLongChain ||
     (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
-    hasLeadingOwnLineComment(options.originalText, rightNode) ||
+    startsWithOwnLineComment(options.originalText, rightNode) ||
     hasComment(rightNode, CommentCheckFlags.Leading, isIndentableBlockComment)
   ) {
     return "break-after-operator";
@@ -195,6 +195,26 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   }
 
   return "fluid";
+}
+
+/**
+ * A comment on the object of a member chain is printed before the whole chain, so
+ * the assignment has to break as if the comment led the right-hand side itself.
+ * Otherwise the next format sees a comment that does lead it and picks a different
+ * layout, and the output never settles.
+ */
+function startsWithOwnLineComment(text, node) {
+  for (
+    let current = node;
+    current;
+    current = isMemberExpression(current) ? current.object : undefined
+  ) {
+    if (hasLeadingOwnLineComment(text, current)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function shouldBreakAfterOperator(path, options, print, hasShortKey) {
