@@ -482,7 +482,7 @@ function shouldRemainTheSameContent(path) {
 // printing a resolved value verbatim lets it be resolved a second time and the
 // original text is lost. Escaping the `&` keeps it literal.
 // https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
-const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/giu;
+const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/gi;
 
 const escapeCharacterReferences = (value) =>
   value.replaceAll(characterReferenceRegex, String.raw`\&`);
