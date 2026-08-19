@@ -1,4 +1,7 @@
-import { addLeadingComment } from "../../../main/comments/utilities.js";
+import {
+  addLeadingComment,
+  addTrailingComment,
+} from "../../../main/comments/utilities.js";
 import { locStart } from "../../location/index.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 
@@ -29,4 +32,28 @@ function handleForXStatementComments({
   return false;
 }
 
-export { handleForXStatementComments };
+/*
+The head of a for-in or for-of statement has no line to put an own line comment
+on, so printing one moves it to the end of the line anyway. Attaching it to
+`left` gets there in one format instead of two.
+*/
+function handleForXStatementHeadComments({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+}) {
+  if (
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    precedingNode === enclosingNode.left &&
+    followingNode === enclosingNode.right
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+export { handleForXStatementComments, handleForXStatementHeadComments };

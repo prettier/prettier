@@ -31,7 +31,10 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
-import { handleForXStatementComments } from "./attach/handle-for-x-statement-comments.js";
+import {
+  handleForXStatementComments,
+  handleForXStatementHeadComments,
+} from "./attach/handle-for-x-statement-comments.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
 import { handleSwitchStatementComments } from "./attach/handle-switch-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
@@ -93,6 +96,7 @@ function handleOwnLineComment(context) {
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleForXStatementHeadComments,
   ].some((fn) => fn(context));
 }
 

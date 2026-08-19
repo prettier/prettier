@@ -87,33 +87,33 @@ for(x of
 y);
 
 =====================================output=====================================
-for (x in /*1a*/ //1b
-y) //1c
+for (x in y) //1c
+/*1a*/ //1b
 ;
 
 for (x /*2a*/ in y); //2b //2c
 
 for (x /*3a*/ in y); //3b //3c
 
-for (x in //4a
-y);
+for (x in y);
+//4a
 
-for (x in //5a
-y);
+for (x in y);
+//5a
 
-for (x of /*6a*/ //6b
-y) //6c
+for (x of y) //6c
+/*6a*/ //6b
 ;
 
 for (x /*7a*/ of y); //7b //7c
 
 for (x /*8a*/ of y); //8b //8c
 
-for (x of //9a
-y);
+for (x of y);
+//9a
 
-for (x of //10a
-y);
+for (x of y);
+//10a
 
 ================================================================================
 `;

@@ -19,7 +19,6 @@ const unstableTests = new Map(
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
-    "js/for-of/comments.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
