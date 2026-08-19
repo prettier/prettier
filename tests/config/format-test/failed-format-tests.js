@@ -31,7 +31,6 @@ const unstableTests = new Map(
     "typescript/call/callee-comments.ts",
     "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
-    "js/sequence-expression/parenthesized-trailing-comment-unstable.js",
     "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
