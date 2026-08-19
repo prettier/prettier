@@ -93,6 +93,7 @@ function handleOwnLineComment(context) {
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -127,6 +128,7 @@ function handleEndOfLineComment(context) {
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleTaggedTemplateExpressionComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -154,6 +156,7 @@ function handleRemainingComment(context) {
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -1168,6 +1171,28 @@ function handleArrowExpressionComments({
 
   if (!isBeforeArrow) {
     addBlockOrNotComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleSequenceExpressionLeadingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+}) {
+  // A `SequenceExpression` starts at the parentheses of its first element, so
+  // a comment written before that element is inside the sequence now, but ends
+  // up outside it once the parentheses are dropped. Attach it to the sequence
+  // right away, where the next format would move it anyway.
+  if (
+    !precedingNode &&
+    enclosingNode?.type === "SequenceExpression" &&
+    followingNode === enclosingNode.expressions[0]
+  ) {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
 
