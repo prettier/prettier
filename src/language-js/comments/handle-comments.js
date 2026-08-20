@@ -123,6 +123,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
     handleParenthesizedExpressionTrailingComment,
@@ -993,22 +994,27 @@ function handleCommentsInDestructuringPattern({
     (followingNode?.type === "TSTypeAnnotation" ||
       followingNode?.type === "TypeAnnotation")
   ) {
-    if (precedingNode) {
-      addTrailingComment(precedingNode, comment);
+    if (
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !==
+      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
+    ) {
+      // const {foo}
+      //   // bar
+      //   : Foo = expr;
+      addLeadingComment(followingNode, comment);
       return true;
     }
 
-    if (
-      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
-      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
-    ) {
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+    } else {
       // const {
       //   // bar
       //   // baz
       // }: Foo = expr;
       addDanglingComment(enclosingNode, comment);
-      return true;
     }
+    return true;
   }
 }
 
