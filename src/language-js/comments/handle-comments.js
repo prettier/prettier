@@ -1183,10 +1183,6 @@ function handleSequenceExpressionLeadingComment({
   precedingNode,
   followingNode,
 }) {
-  // A `SequenceExpression` starts at the parentheses of its first element, so
-  // a comment written before that element is inside the sequence now, but ends
-  // up outside it once the parentheses are dropped. Attach it to the sequence
-  // right away, where the next format would move it anyway.
   if (
     !precedingNode &&
     enclosingNode?.type === "SequenceExpression" &&
