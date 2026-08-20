@@ -1,10 +1,16 @@
-function doSomething(first, second) {
-  	combineLatest([
-            first.watchIt().pipe(
-                  // tap(x => console.log(x))
-                ),
-            second.watchIt().pipe(
-              tap((x) => console.log(x))
-            ),
-        ])
+class C11 {
+    constructor(
+        //a
+        //b
+    ){}
+
+    method(
+        //a
+        //b
+    ){}
+
+    get getter(
+        //a
+        //b
+    ){}
 }
