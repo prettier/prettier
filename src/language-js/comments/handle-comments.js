@@ -1207,7 +1207,6 @@ function handleParenthesizedExpressionTrailingComment({
       return true;
     }
 
-    const isSequence = precedingNode.type === "SequenceExpression";
     const isAssignment = precedingNode.type === "AssignmentExpression";
 
     // `a = (b = c /* comment */);` drops the parentheses, so the comment ends
@@ -1228,6 +1227,8 @@ function handleParenthesizedExpressionTrailingComment({
         return true;
       }
     }
+
+    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
