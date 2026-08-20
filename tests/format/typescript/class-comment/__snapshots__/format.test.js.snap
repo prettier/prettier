@@ -263,6 +263,39 @@ class G4<
 ================================================================================
 `;
 
+exports[`issue-16228.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class MyClass1 extends MySuperClass implements /* foo */ ISomething, /* bar */ IOtherThing, /* baz */ IThirdThing {
+}
+
+class MyClass2
+  extends MySuperClass
+  implements
+    /* foo */ ISomething,
+    /* bar */ IOtherThing,
+    /* baz */ IThirdThing {}
+
+=====================================output=====================================
+class MyClass1
+  extends MySuperClass
+  implements
+    /* foo */ ISomething,
+    /* bar */ IOtherThing,
+    /* baz */ IThirdThing {}
+
+class MyClass2
+  extends MySuperClass
+  implements
+    /* foo */ ISomething,
+    /* bar */ IOtherThing,
+    /* baz */ IThirdThing {}
+
+================================================================================
+`;
+
 exports[`misc.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]

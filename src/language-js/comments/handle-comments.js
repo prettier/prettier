@@ -316,6 +316,7 @@ function handleClassComments({
   precedingNode,
   enclosingNode,
   followingNode,
+  text,
 }) {
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
@@ -348,6 +349,18 @@ function handleClassComments({
 
       for (const prop of ["implements", "extends", "mixins"]) {
         if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
+          // A comment glued to the first heritage clause element (e.g.,
+          // `implements /* foo */ Foo`) documents that element specifically,
+          // the same way a comment before the second, third, etc. element
+          // would. Keep it there instead of bouncing it to the previous
+          // node/the clause keyword, which isn't idempotent: reformatting
+          // moves the keyword onto its own line, turning this into an
+          // own-line comment and changing which branch below handles it.
+          if (!hasNewline(text, locEnd(comment))) {
+            addLeadingComment(followingNode, comment);
+            return true;
+          }
+
           if (
             precedingNode &&
             (precedingNode === enclosingNode.id ||
