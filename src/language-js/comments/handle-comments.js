@@ -328,13 +328,12 @@ function handleClassComments({
 
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
-    if (followingNode) {
+    if (followingNode && precedingNode) {
       // @ts-expect-error -- Safe
       const { superClass } = enclosingNode;
       if (
         superClass &&
         followingNode === superClass &&
-        precedingNode &&
         (precedingNode === enclosingNode.id ||
           precedingNode === enclosingNode.typeParameters)
       ) {
@@ -342,17 +341,20 @@ function handleClassComments({
         return true;
       }
 
-      for (const prop of ["implements", "extends", "mixins"]) {
-        if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
+      for (const property of ["implements", "extends", "mixins"]) {
+        const heritageClauses = enclosingNode[property];
+        if (
+          Array.isArray(heritageClauses) &&
+          followingNode === heritageClauses[0]
+        ) {
           if (
-            precedingNode &&
-            (precedingNode === enclosingNode.id ||
-              precedingNode === enclosingNode.typeParameters ||
-              precedingNode === superClass)
+            precedingNode === enclosingNode.id ||
+            precedingNode === enclosingNode.typeParameters ||
+            precedingNode === superClass
           ) {
             addTrailingComment(precedingNode, comment);
           } else {
-            addDanglingComment(enclosingNode, comment, prop);
+            addDanglingComment(enclosingNode, comment, property);
           }
           return true;
         }
