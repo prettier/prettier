@@ -94,6 +94,7 @@ function handleOwnLineComment(context) {
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -128,6 +129,7 @@ function handleEndOfLineComment(context) {
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleTaggedTemplateExpressionComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -155,6 +157,7 @@ function handleRemainingComment(context) {
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
+    handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
 }
 
@@ -1189,6 +1192,24 @@ function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
       ? ancestor
       : undefined;
   }
+}
+
+function handleSequenceExpressionLeadingComment({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+}) {
+  if (
+    !precedingNode &&
+    enclosingNode?.type === "SequenceExpression" &&
+    followingNode === enclosingNode.expressions[0]
+  ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+
+  return false;
 }
 
 function handleParenthesizedExpressionTrailingComment({
