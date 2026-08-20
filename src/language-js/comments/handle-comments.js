@@ -989,7 +989,8 @@ function handleCommentsInDestructuringPattern({
   if (
     (enclosingNode?.type === "ObjectPattern" ||
       enclosingNode?.type === "ArrayPattern") &&
-    followingNode?.type === "TSTypeAnnotation"
+    (followingNode?.type === "TSTypeAnnotation" ||
+      followingNode?.type === "TypeAnnotation")
   ) {
     if (precedingNode) {
       addTrailingComment(precedingNode, comment);

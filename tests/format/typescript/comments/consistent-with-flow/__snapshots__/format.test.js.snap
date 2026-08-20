@@ -1,5 +1,166 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`11639.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const foo = forwardRef<any>(({
+      // foo
+      size,
+      // onClose,
+      // onOpen,
+    }: PopoverProps,
+) => {})
+
+export function Component({
+  prop,
+  // comment
+}: Type) {
+  return div;
+}
+
+=====================================output=====================================
+const foo = forwardRef<any>(
+  ({
+    // foo
+    size,
+    // onClose,
+    // onOpen,
+  }: PopoverProps) => {},
+);
+
+export function Component({
+  prop,
+  // comment
+}: Type) {
+  return div;
+}
+
+================================================================================
+`;
+
+exports[`15707.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const {
+  foo11,
+  // bar
+  // baz
+}: Foo = expr;
+
+const {
+  foo21,
+  // bar
+  foo22,
+  // baz
+}: Foo = expr;
+
+const [
+  foo31,
+  // bar
+  // baz
+]: Foo = expr;
+
+const [
+  foo41,
+  // bar
+  foo42,
+  // baz
+]: Foo = expr;
+
+function method({
+  foo,
+  // bar = "bar",
+  // bazz = "bazz",
+}: Foo) {}
+
+function method({
+  foo1,
+  // bar = "bar",
+  foo2
+  // bazz = "bazz",
+}: Foo) {}
+
+function method([
+  foo,
+  // bar = "bar",
+  foo2
+  // bazz = "bazz",
+]: Foo) {}
+
+const {
+  // bar
+  // baz
+}: Foo = expr;
+
+const [
+  // bar
+  // baz
+]: Foo = expr;
+
+=====================================output=====================================
+const {
+  foo11,
+  // bar
+  // baz
+}: Foo = expr;
+
+const {
+  foo21,
+  // bar
+  foo22,
+  // baz
+}: Foo = expr;
+
+const [
+  foo31,
+  // bar
+  // baz
+]: Foo = expr;
+
+const [
+  foo41,
+  // bar
+  foo42,
+  // baz
+]: Foo = expr;
+
+function method({
+  foo,
+  // bar = "bar",
+  // bazz = "bazz",
+}: Foo) {}
+
+function method({
+  foo1,
+  // bar = "bar",
+  foo2,
+  // bazz = "bazz",
+}: Foo) {}
+
+function method([
+  foo,
+  // bar = "bar",
+  foo2,
+  // bazz = "bazz",
+]: Foo) {}
+
+const {
+  // bar
+  // baz
+}: Foo = expr;
+
+const [
+  // bar
+  // baz
+]: Foo = expr;
+
+================================================================================
+`;
+
 exports[`after-jsx-generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
