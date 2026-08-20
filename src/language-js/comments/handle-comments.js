@@ -55,7 +55,7 @@ import {
   precedingNode: Node,
   enclosingNode: Node,
   followingNode: Node,
-  ancestors: Node[],
+  ancestors: readonly Node[],
   text: string,
   options: any,
   ast: NodeMap["File"] | NodeMap["Program"],
