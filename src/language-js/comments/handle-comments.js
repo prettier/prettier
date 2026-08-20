@@ -55,7 +55,6 @@ import {
   precedingNode: Node,
   enclosingNode: Node,
   followingNode: Node,
-  // `enclosingNode` first, then its parents up to the root.
   ancestors: Node[],
   text: string,
   options: any,
@@ -1176,11 +1175,7 @@ function handleArrowExpressionComments({
   return false;
 }
 
-/*
-Find the statement an assignment chain belongs to, walking up from `node`
-through the right hand side of every enclosing assignment.
-*/
-function getEnclosingAssignmentChainStatement(node, ancestors) {
+function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
@@ -1223,7 +1218,7 @@ function handleParenthesizedExpressionTrailingComment({
       enclosingNode.type === "AssignmentExpression" &&
       enclosingNode.right === precedingNode
     ) {
-      const statement = getEnclosingAssignmentChainStatement(
+      const statement = getEnclosingAssignmentChainExpressionStatement(
         enclosingNode,
         ancestors.slice(1),
       );
