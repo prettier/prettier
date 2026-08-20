@@ -69,6 +69,46 @@ type D2 =
 ================================================================================
 `;
 
+exports[`11639.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const foo = forwardRef<any>(({
+      // foo
+      size,
+      // onClose,
+      // onOpen,
+    }: PopoverProps,
+) => {})
+
+export function Component({
+  prop,
+  // comment
+}: Type) {
+  return div;
+}
+
+=====================================output=====================================
+const foo = forwardRef<any>(
+  ({
+    // foo
+    size,
+    // onClose,
+    // onOpen,
+  }: PopoverProps) => {},
+);
+
+export function Component({
+  prop,
+  // comment
+}: Type) {
+  return div;
+}
+
+================================================================================
+`;
+
 exports[`11662.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
