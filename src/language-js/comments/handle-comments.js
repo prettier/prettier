@@ -985,6 +985,7 @@ function handleCommentsInDestructuringPattern({
   enclosingNode,
   precedingNode,
   followingNode,
+  text,
 }) {
   if (
     (enclosingNode?.type === "ObjectPattern" ||
@@ -994,14 +995,20 @@ function handleCommentsInDestructuringPattern({
   ) {
     if (precedingNode) {
       addTrailingComment(precedingNode, comment);
-    } else {
+      return true;
+    }
+
+    if (
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
+      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
+    ) {
       // const {
       //   // bar
       //   // baz
       // }: Foo = expr;
       addDanglingComment(enclosingNode, comment);
+      return true;
     }
-    return true;
   }
 }
 
