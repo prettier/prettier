@@ -312,6 +312,7 @@ function handleClassComments({
   precedingNode,
   enclosingNode,
   followingNode,
+  options,
 }) {
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
@@ -342,21 +343,25 @@ function handleClassComments({
       }
 
       for (const property of ["implements", "extends", "mixins"]) {
-        const heritageClauses = enclosingNode[property];
-        if (
-          Array.isArray(heritageClauses) &&
-          followingNode === heritageClauses[0]
-        ) {
+        const firstHeritageClause = enclosingNode[property]?.[0];
+        if (followingNode === firstHeritageClause) {
           if (
             precedingNode === enclosingNode.id ||
             precedingNode === enclosingNode.typeParameters ||
             precedingNode === superClass
           ) {
-            addTrailingComment(precedingNode, comment);
+            if (
+              stripComments(options)
+                .slice(locEnd(comment), locStart(firstHeritageClause))
+                .trim() === property
+            ) {
+              addTrailingComment(precedingNode, comment);
+              return true;
+            }
           } else {
             addDanglingComment(enclosingNode, comment, property);
+            return true;
           }
-          return true;
         }
       }
     }
