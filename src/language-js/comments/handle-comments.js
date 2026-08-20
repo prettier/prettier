@@ -55,6 +55,7 @@ import {
   precedingNode: Node,
   enclosingNode: Node,
   followingNode: Node,
+  ancestors: readonly Node[],
   text: string,
   options: any,
   ast: NodeMap["File"] | NodeMap["Program"],
@@ -1177,6 +1178,22 @@ function handleArrowExpressionComments({
   return false;
 }
 
+function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
+  let child = node;
+
+  for (const ancestor of ancestors) {
+    if (ancestor.type === "AssignmentExpression" && ancestor.right === child) {
+      child = ancestor;
+      continue;
+    }
+
+    return ancestor.type === "ExpressionStatement" &&
+      ancestor.expression === child
+      ? ancestor
+      : undefined;
+  }
+}
+
 function handleSequenceExpressionLeadingComment({
   comment,
   enclosingNode,
@@ -1200,6 +1217,7 @@ function handleParenthesizedExpressionTrailingComment({
   enclosingNode,
   precedingNode,
   followingNode,
+  ancestors,
 }) {
   if (!followingNode && enclosingNode && precedingNode) {
     if (
@@ -1210,8 +1228,29 @@ function handleParenthesizedExpressionTrailingComment({
       return true;
     }
 
-    const isSequence = precedingNode.type === "SequenceExpression";
     const isAssignment = precedingNode.type === "AssignmentExpression";
+
+    // `a = (b = c /* comment */);` drops the parentheses, so the comment ends
+    // up trailing the whole statement anyway. Attach it there right away
+    // instead of leaving it on `c` for the next format to move.
+    if (
+      isAssignment &&
+      enclosingNode.type === "AssignmentExpression" &&
+      enclosingNode.right === precedingNode
+    ) {
+      const expressionStatement =
+        getEnclosingAssignmentChainExpressionStatement(
+          enclosingNode,
+          ancestors.slice(1),
+        );
+
+      if (expressionStatement) {
+        addTrailingComment(expressionStatement, comment);
+        return true;
+      }
+    }
+
+    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
