@@ -1217,13 +1217,14 @@ function handleParenthesizedExpressionTrailingComment({
       enclosingNode.type === "AssignmentExpression" &&
       enclosingNode.right === precedingNode
     ) {
-      const statement = getEnclosingAssignmentChainExpressionStatement(
-        enclosingNode,
-        ancestors.slice(1),
-      );
+      const expressionStatement =
+        getEnclosingAssignmentChainExpressionStatement(
+          enclosingNode,
+          ancestors.slice(1),
+        );
 
-      if (statement) {
-        addTrailingComment(statement, comment);
+      if (expressionStatement) {
+        addTrailingComment(expressionStatement, comment);
         return true;
       }
     }
