@@ -1,5 +1,16 @@
-import { group, indent, softline, willBreak } from "../../document/index.js";
+import { group, indent, softline } from "../../document/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { printForXStatementBody } from "./clause.js";
+
+// A line comment on either side of the head has to be followed by a newline, so a flat head cannot
+// hold it and it ends up after the closing parenthesis instead. Comments nested deeper print inside
+// whatever holds them, so they leave the head alone.
+function headHasLineComment(node) {
+  return (
+    hasComment(node.left, CommentCheckFlags.Line) ||
+    hasComment(node.right, CommentCheckFlags.Line)
+  );
+}
 
 function printForXStatement(path, options, print) {
   const { node } = path;
@@ -16,11 +27,7 @@ function printForXStatement(path, options, print) {
     "for",
     isForOfStatement && node.await ? " await" : "",
     " (",
-    // Only make the head breakable when something in it forces a break, such as
-    // a trailing line comment. Left flat, that comment has nowhere to go and is
-    // printed after the closing parenthesis instead. Everything else keeps the
-    // flat head so a breaking argument can still hug it.
-    willBreak(headParts)
+    headHasLineComment(node)
       ? group([indent([softline, headParts]), softline])
       : headParts,
     ")",
