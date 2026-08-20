@@ -303,7 +303,11 @@ function shouldPreventBreak(path, options) {
   // detect), so keep a delimiter-row-shaped word off the start of a printed
   // line in the first place. Only needed outside `preserve`, where that
   // escape already runs.
-  return proseWrap !== "preserve" && isNextTokenFakeTableDelimiterRow(path);
+  if (proseWrap !== "preserve" && isNextTokenFakeTableDelimiterRow(path)) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
