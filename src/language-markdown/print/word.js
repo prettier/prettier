@@ -1,9 +1,11 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
+import {
+  isFakeTableDelimiterRow,
+  tableDelimiterRowStartRegex,
+} from "../utilities/is-fake-table-delimiter-row.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
-const tableDelimiterCellRegex = /^ *:?-+:? *$/;
-const tableDelimiterRowStartRegex = /^[ |:-]+$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -84,24 +86,6 @@ function printWord(path, options) {
 }
 
 /**
- * The indentation of a line is dropped when the paragraph is printed, so a
- * delimiter row that was too indented to start a table becomes one.
- *
- * Only the word's own shape is checked, so a dedented `|---|---|` is escaped
- * even where GFM wouldn't have made a table out of it anyway, e.g. after a
- * one-cell line like `foo`. The extra backslash renders the same.
- *
- * @param {string} value
- * @returns {boolean}
- */
-function isFakeTableDelimiterRow(value) {
-  return (
-    tableDelimiterRowStartRegex.test(value) &&
-    splitCells(value).every((cell) => tableDelimiterCellRegex.test(cell))
-  );
-}
-
-/**
  * A delimiter row with spaces around its cells, e.g. `| --- | --- |`, is
  * split into several sibling word nodes by the whitespace in between, so
  * checking the first word alone (`|`) misses it. Rebuild the line the word
@@ -131,28 +115,6 @@ function isFakeTableDelimiterRowLine(path) {
     words.push(sibling.value);
   }
   return isFakeTableDelimiterRow(words.join(" "));
-}
-
-/**
- * Callers only ever pass a value that already matched `tableDelimiterRowStartRegex`
- * (space, `|`, `:`, `-`), so there's no `\` in it to escape a `|` with.
- *
- * @param {string} row
- * @returns {string[]}
- */
-function splitCells(row) {
-  // https://github.github.com/gfm/#tables-extension-
-  const cells = row.split("|");
-
-  // The leading and trailing pipes are optional
-  if (cells.length > 1 && cells[0] === "") {
-    cells.shift();
-  }
-  if (cells.length > 1 && cells.at(-1) === "") {
-    cells.pop();
-  }
-
-  return cells;
 }
 
 /**
@@ -246,4 +208,4 @@ function printWordLegacy(path) {
   return escapedValue;
 }
 
-export { isFakeTableDelimiterRow, printWord, printWordLegacy };
+export { printWord, printWordLegacy };
