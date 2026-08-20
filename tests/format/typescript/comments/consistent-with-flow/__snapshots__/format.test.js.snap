@@ -192,6 +192,14 @@ const {
   }
   : Foo = expr;
 
+const [ // bar
+  ]
+  : Foo = expr;
+
+const { // bar
+  }
+  : Foo = expr;
+
 =====================================output=====================================
 const [] // bar
 : Foo = expr;
@@ -206,6 +214,14 @@ const {
   foo2,
 } // bar
 : Foo = expr;
+
+const [
+  // bar
+]: Foo = expr;
+
+const {
+  // bar
+}: Foo = expr;
 
 const [
   // bar
