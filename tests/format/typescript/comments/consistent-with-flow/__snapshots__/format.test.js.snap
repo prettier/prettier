@@ -101,6 +101,12 @@ const [
   // baz
 ]: Foo = expr;
 
+const { // bar
+}: Foo = expr;
+
+const [ // bar
+]: Foo = expr;
+
 =====================================output=====================================
 const {
   foo11,
@@ -158,6 +164,14 @@ const [
   // baz
 ]: Foo = expr;
 
+const {
+  // bar
+}: Foo = expr;
+
+const [
+  // bar
+]: Foo = expr;
+
 ================================================================================
 `;
 
@@ -182,24 +196,6 @@ const {foo2}
   // bar
   : Foo = expr;
 
-const [
-  // bar
-  ]
-  : Foo = expr;
-
-const {
-  // bar
-  }
-  : Foo = expr;
-
-const [ // bar
-  ]
-  : Foo = expr;
-
-const { // bar
-  }
-  : Foo = expr;
-
 =====================================output=====================================
 const [] // bar
 : Foo = expr;
@@ -214,22 +210,6 @@ const {
   foo2,
 } // bar
 : Foo = expr;
-
-const [
-  // bar
-]: Foo = expr;
-
-const {
-  // bar
-}: Foo = expr;
-
-const [
-  // bar
-]: Foo = expr;
-
-const {
-  // bar
-}: Foo = expr;
 
 ================================================================================
 `;

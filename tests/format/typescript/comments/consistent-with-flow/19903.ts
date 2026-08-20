@@ -13,21 +13,3 @@ const [foo1]
 const {foo2}
   // bar
   : Foo = expr;
-
-const [
-  // bar
-  ]
-  : Foo = expr;
-
-const {
-  // bar
-  }
-  : Foo = expr;
-
-const [ // bar
-  ]
-  : Foo = expr;
-
-const { // bar
-  }
-  : Foo = expr;
