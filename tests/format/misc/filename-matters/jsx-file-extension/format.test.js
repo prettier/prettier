@@ -10,11 +10,14 @@ runFormatTest(
       ".cts",
       ".tsx",
       ".unset-filepath",
-    ].map((extension) => ({
-      code: "<div />",
-      filepath: `test${extension}`,
-      name: extension,
-    })),
+    ].map((extension) => {
+      const filename = `test${extension}`;
+      return {
+        name: filename,
+        code: "<div />",
+        filename,
+      };
+    }),
     importMeta: import.meta,
   },
   [
@@ -32,4 +35,9 @@ runFormatTest(
     "yuku-ts",
     "__babel_estree",
   ],
+  {
+    errors: {
+      typescript: ["test.ts", "test.mts", "test.cts"],
+    },
+  },
 );

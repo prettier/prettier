@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: .cjs format 1`] = `
+exports[`snippet: test.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -12,7 +12,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .cts format 1`] = `
+exports[`snippet: test.cts format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -24,7 +24,14 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .js format 1`] = `
+exports[`snippet: test.cts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -36,7 +43,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .jsx format 1`] = `
+exports[`snippet: test.jsx format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -48,7 +55,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .mjs format 1`] = `
+exports[`snippet: test.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -60,7 +67,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .mts format 1`] = `
+exports[`snippet: test.mts format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -72,7 +79,14 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .ts format 1`] = `
+exports[`snippet: test.mts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -84,7 +98,14 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .tsx format 1`] = `
+exports[`snippet: test.ts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
@@ -96,7 +117,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
-exports[`snippet: .unset-filepath format 1`] = `
+exports[`snippet: test.unset-filepath format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
