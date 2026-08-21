@@ -24,11 +24,23 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
+exports[`snippet: test.cts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
 exports[`snippet: test.cts format[typescript] 1`] = `
 "'>' expected. (1:6)
 > 1 | <div />
     |      ^
 Cause: '>' expected."
+`;
+
+exports[`snippet: test.cts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
 `;
 
 exports[`snippet: test.js format 1`] = `
@@ -79,11 +91,23 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
+exports[`snippet: test.mts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
 exports[`snippet: test.mts format[typescript] 1`] = `
 "'>' expected. (1:6)
 > 1 | <div />
     |      ^
 Cause: '>' expected."
+`;
+
+exports[`snippet: test.mts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
 `;
 
 exports[`snippet: test.ts format 1`] = `
@@ -98,11 +122,23 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 ================================================================================
 `;
 
+exports[`snippet: test.ts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
 exports[`snippet: test.ts format[typescript] 1`] = `
 "'>' expected. (1:6)
 > 1 | <div />
     |      ^
 Cause: '>' expected."
+`;
+
+exports[`snippet: test.ts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
 `;
 
 exports[`snippet: test.tsx format 1`] = `

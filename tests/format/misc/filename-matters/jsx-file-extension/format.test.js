@@ -38,6 +38,8 @@ runFormatTest(
   {
     errors: {
       typescript: ["test.ts", "test.mts", "test.cts"],
+      "oxc-ts": ["test.ts", "test.mts", "test.cts"],
+      "yuku-ts": ["test.ts", "test.mts", "test.cts"],
     },
   },
 );
