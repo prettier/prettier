@@ -54,8 +54,14 @@ const [
   // baz
 ]: Foo = expr;
 
-const { // bar
+const { // foo
+}: Foo = expr;
+const { // foo
+  bar61
 }: Foo = expr;
 
 const [ // bar
+]: Foo = expr;
+const [ // bar
+  bar71
 ]: Foo = expr;
