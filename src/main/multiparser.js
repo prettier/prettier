@@ -60,48 +60,79 @@ async function printEmbeddedLanguages(
   }
 
   function recurse() {
-    const { node } = path;
-    if (
-      node === null ||
-      typeof node !== "object" ||
-      hasPrettierIgnore?.(path)
-    ) {
-      return;
+    // Iterative post-order walk, mirroring path.call/path.each push+pop of
+    // path.stack by hand. A recursive walk here would blow the call stack on
+    // ASTs that nest thousands of levels deep (e.g. long `+` chains), since
+    // recursion depth would be proportional to AST depth.
+    const { stack } = path;
+    const frames = [createFrame()];
+
+    function createFrame() {
+      const { node } = path;
+      const skip =
+        node === null ||
+        typeof node !== "object" ||
+        Boolean(hasPrettierIgnore?.(path));
+      return { skip, keys: skip ? [] : getVisitorKeys(node), keyIndex: 0, array: null };
     }
 
-    for (const key of getVisitorKeys(node)) {
-      if (Array.isArray(node[key])) {
-        path.each(recurse, key);
-      } else {
-        path.call(recurse, key);
+    while (frames.length > 0) {
+      const frame = frames.at(-1);
+
+      if (frame.array) {
+        const { value, index } = frame.array;
+        if (index < value.length) {
+          frame.array.index++;
+          stack.push(index, value[index]);
+          frames.push(createFrame());
+          continue;
+        }
+        stack.length -= 2; // pop the array's own (key, value) entry
+        frame.array = null;
+        continue;
+      }
+
+      if (frame.keyIndex < frame.keys.length) {
+        const key = frame.keys[frame.keyIndex++];
+        const value = path.node[key];
+        stack.push(key, value);
+        if (Array.isArray(value)) {
+          frame.array = { value, index: 0 };
+        } else {
+          frames.push(createFrame());
+        }
+        continue;
+      }
+
+      if (!frame.skip) {
+        const { node } = path;
+        const result = embed(path, options);
+
+        if (result) {
+          if (typeof result === "function") {
+            embedCallResults.push({
+              print: result,
+              node,
+              pathStack: [...stack],
+            });
+          } else if (
+            process.env.NODE_ENV !== "production" &&
+            typeof result.then === "function"
+          ) {
+            throw new Error(
+              "`embed` should return an async function instead of Promise.",
+            );
+          } else {
+            embeds.set(node, result);
+          }
+        }
+      }
+
+      frames.pop();
+      if (frames.length > 0) {
+        stack.length -= 2; // pop this node's own (key, value) entry
       }
     }
-
-    const result = embed(path, options);
-
-    if (!result) {
-      return;
-    }
-
-    if (typeof result === "function") {
-      embedCallResults.push({
-        print: result,
-        node,
-        pathStack: [...path.stack],
-      });
-      return;
-    }
-
-    if (
-      process.env.NODE_ENV !== "production" &&
-      typeof result.then === "function"
-    ) {
-      throw new Error(
-        "`embed` should return an async function instead of Promise.",
-      );
-    }
-
-    embeds.set(node, result);
   }
 }
 

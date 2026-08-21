@@ -199,15 +199,12 @@ function printBinaryishExpressions(
   isNested,
   isInsideParenthesis,
 ) {
-  const { node } = path;
+  const { node: rootNode } = path;
 
   // Simply print the node normally.
-  if (!isBinaryish(node)) {
+  if (!isBinaryish(rootNode)) {
     return [group(print())];
   }
-
-  /** @type{Doc[]} */
-  let parts = [];
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
 
@@ -220,141 +217,168 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
-  // @ts-expect-error -- FIXME
-  if (shouldFlatten(node.operator, node.left.operator)) {
-    // Flatten them out by recursively calling this function.
-    parts = path.call(
-      () =>
-        printBinaryishExpressions(
-          path,
-          options,
-          print,
-          /* isNested */ true,
-          isInsideParenthesis,
-        ),
-      "left",
+  //
+  // Walk down the flattenable left-spine iteratively (instead of
+  // recursively calling this function) and then build the doc for each
+  // level on the way back up. A long chain (`a + b + c + ...`) nests as
+  // deeply as it is long, so recursing here would make call-stack depth
+  // proportional to chain length.
+  /** @type{Doc[]} */
+  let parts;
+  let depth = 0;
+  {
+    let current = rootNode;
+    // `shouldFlatten` only compares operator strings, so it doesn't by
+    // itself guarantee `current.left` is a binaryish node (with its own
+    // `.left`/`.right`) — confirm that before descending into it, same as
+    // the `isBinaryish` guard the (now-inlined) recursive call used to have.
+    // @ts-expect-error -- FIXME
+    while (
+      isBinaryish(current.left) &&
+      shouldFlatten(current.operator, current.left.operator)
+    ) {
+      path.stack.push("left", current.left);
+      current = current.left;
+      depth++;
+    }
+    parts = [group(print("left"))];
+  }
+
+  for (let level = depth; level >= 0; level--) {
+    const { node } = path;
+
+    const shouldInline = shouldInlineLogicalExpression(node);
+    const rightNodeToCheckComments =
+      node.right.type === "ChainExpression"
+        ? node.right.expression
+        : node.right;
+    const lineBeforeOperator =
+      (node.type === "NGPipeExpression" ||
+        node.operator === "|>" ||
+        isVueFilterSequenceExpression(path, options)) &&
+      !hasLeadingOwnLineComment(
+        options.originalText,
+        rightNodeToCheckComments,
+      );
+    const hasTypeCastComment = hasComment(
+      rightNodeToCheckComments,
+      CommentCheckFlags.Leading,
+      isTypeCastComment,
     );
-  } else {
-    parts.push(group(print("left")));
-  }
+    const commentBeforeOperator =
+      !hasTypeCastComment &&
+      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
 
-  const shouldInline = shouldInlineLogicalExpression(node);
-  const rightNodeToCheckComments =
-    node.right.type === "ChainExpression" ? node.right.expression : node.right;
-  const lineBeforeOperator =
-    (node.type === "NGPipeExpression" ||
-      node.operator === "|>" ||
-      isVueFilterSequenceExpression(path, options)) &&
-    !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
-  const hasTypeCastComment = hasComment(
-    rightNodeToCheckComments,
-    CommentCheckFlags.Leading,
-    isTypeCastComment,
-  );
-  const commentBeforeOperator =
-    !hasTypeCastComment &&
-    hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
+    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
+    const rightSuffix =
+      node.type === "NGPipeExpression" && node.arguments.length > 0
+        ? group(
+            indent([
+              softline,
+              ": ",
+              join(
+                [line, ": "],
+                path.map(() => align(2, group(print())), "arguments"),
+              ),
+            ]),
+          )
+        : "";
 
-  const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
-  const rightSuffix =
-    node.type === "NGPipeExpression" && node.arguments.length > 0
-      ? group(
-          indent([
-            softline,
-            ": ",
-            join(
-              [line, ": "],
-              path.map(() => align(2, group(print())), "arguments"),
-            ),
-          ]),
-        )
-      : "";
-
-  /** @type {Doc} */
-  let right;
-  if (shouldInline) {
-    right = [
-      operator,
-      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
-        ? indent([line, print("right"), rightSuffix])
-        : [" ", print("right"), rightSuffix],
-    ];
-  } else {
-    const isHackPipeline =
-      operator === "|>" && path.root.extra?.__isUsingHackPipeline;
-    const rightContent = isHackPipeline
-      ? path.call(
-          () =>
-            printBinaryishExpressions(
-              path,
-              options,
-              print,
-              /* isNested */ true,
-              isInsideParenthesis,
-            ),
-          "right",
-        )
-      : print("right");
-    if (options.experimentalOperatorPosition === "start") {
-      let comment = "";
-      if (commentBeforeOperator) {
-        switch (getDocType(rightContent)) {
-          case DOC_TYPE_ARRAY:
-            comment = rightContent[0];
-            rightContent.shift();
-            break;
-          case DOC_TYPE_LABEL:
-            comment = rightContent.contents[0];
-            rightContent.contents.shift();
-            break;
-        }
-      }
-      right = [line, comment, operator, " ", rightContent, rightSuffix];
-    } else {
+    /** @type {Doc} */
+    let right;
+    if (shouldInline) {
       right = [
-        lineBeforeOperator ? line : "",
         operator,
-        lineBeforeOperator ? " " : line,
-        rightContent,
-        rightSuffix,
+        hasLeadingOwnLineComment(
+          options.originalText,
+          rightNodeToCheckComments,
+        )
+          ? indent([line, print("right"), rightSuffix])
+          : [" ", print("right"), rightSuffix],
       ];
+    } else {
+      const isHackPipeline =
+        operator === "|>" && path.root.extra?.__isUsingHackPipeline;
+      const rightContent = isHackPipeline
+        ? path.call(
+            () =>
+              printBinaryishExpressions(
+                path,
+                options,
+                print,
+                /* isNested */ true,
+                isInsideParenthesis,
+              ),
+            "right",
+          )
+        : print("right");
+      if (options.experimentalOperatorPosition === "start") {
+        let comment = "";
+        if (commentBeforeOperator) {
+          switch (getDocType(rightContent)) {
+            case DOC_TYPE_ARRAY:
+              comment = rightContent[0];
+              rightContent.shift();
+              break;
+            case DOC_TYPE_LABEL:
+              comment = rightContent.contents[0];
+              rightContent.contents.shift();
+              break;
+          }
+        }
+        right = [line, comment, operator, " ", rightContent, rightSuffix];
+      } else {
+        right = [
+          lineBeforeOperator ? line : "",
+          operator,
+          lineBeforeOperator ? " " : line,
+          rightContent,
+          rightSuffix,
+        ];
+      }
     }
-  }
 
-  // If there's only a single binary expression, we want to create a group
-  // in order to avoid having a small right part like -1 be on its own line.
-  const { parent } = path;
-  const shouldBreak = hasComment(
-    node.left,
-    CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-  );
-  const shouldGroup =
-    shouldBreak ||
-    (!(isInsideParenthesis && node.type === "LogicalExpression") &&
-      parent.type !== node.type &&
-      node.left.type !== node.type &&
-      node.right.type !== node.type);
-  if (shouldGroup) {
-    right = group(right, { shouldBreak });
-  }
-
-  if (options.experimentalOperatorPosition === "start") {
-    parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
-  } else {
-    parts.push(lineBeforeOperator ? "" : " ", right);
-  }
-
-  // The root comments are already printed, but we need to manually print
-  // the other ones since we don't call the normal print on BinaryExpression,
-  // only for the left and right parts
-  if (isNested && hasComment(node)) {
-    const printed = cleanDoc(printComments(path, parts, options));
-    /* c8 ignore next 3 */
-    if (printed.type === DOC_TYPE_FILL) {
-      return printed.parts;
+    // If there's only a single binary expression, we want to create a group
+    // in order to avoid having a small right part like -1 be on its own line.
+    const { parent } = path;
+    const shouldBreak = hasComment(
+      node.left,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+    );
+    const shouldGroup =
+      shouldBreak ||
+      (!(isInsideParenthesis && node.type === "LogicalExpression") &&
+        parent.type !== node.type &&
+        node.left.type !== node.type &&
+        node.right.type !== node.type);
+    if (shouldGroup) {
+      right = group(right, { shouldBreak });
     }
 
-    return Array.isArray(printed) ? printed : [printed];
+    if (options.experimentalOperatorPosition === "start") {
+      parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
+    } else {
+      parts.push(lineBeforeOperator ? "" : " ", right);
+    }
+
+    // The root comments are already printed, but we need to manually print
+    // the other ones since we don't call the normal print on BinaryExpression,
+    // only for the left and right parts
+    const nodeIsNested = level === 0 ? isNested : true;
+    if (nodeIsNested && hasComment(node)) {
+      const printed = cleanDoc(printComments(path, parts, options));
+      /* c8 ignore next 3 */
+      parts =
+        printed.type === DOC_TYPE_FILL
+          ? printed.parts
+          : Array.isArray(printed)
+            ? printed
+            : [printed];
+    }
+
+    if (level > 0) {
+      path.stack.length -= 2;
+    }
   }
 
   return parts;
