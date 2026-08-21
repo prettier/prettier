@@ -316,6 +316,7 @@ function handleClassComments({
   precedingNode,
   enclosingNode,
   followingNode,
+  options,
 }) {
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
@@ -332,13 +333,12 @@ function handleClassComments({
 
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
-    if (followingNode) {
+    if (followingNode && precedingNode) {
       // @ts-expect-error -- Safe
       const { superClass } = enclosingNode;
       if (
         superClass &&
         followingNode === superClass &&
-        precedingNode &&
         (precedingNode === enclosingNode.id ||
           precedingNode === enclosingNode.typeParameters)
       ) {
@@ -346,19 +346,26 @@ function handleClassComments({
         return true;
       }
 
-      for (const prop of ["implements", "extends", "mixins"]) {
-        if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
+      for (const property of ["implements", "extends", "mixins"]) {
+        const firstHeritageClause = enclosingNode[property]?.[0];
+        if (followingNode === firstHeritageClause) {
           if (
-            precedingNode &&
-            (precedingNode === enclosingNode.id ||
-              precedingNode === enclosingNode.typeParameters ||
-              precedingNode === superClass)
+            precedingNode === enclosingNode.id ||
+            precedingNode === enclosingNode.typeParameters ||
+            precedingNode === superClass
           ) {
-            addTrailingComment(precedingNode, comment);
+            if (
+              stripComments(options)
+                .slice(locEnd(comment), locStart(firstHeritageClause))
+                .trim() === property
+            ) {
+              addTrailingComment(precedingNode, comment);
+              return true;
+            }
           } else {
-            addDanglingComment(enclosingNode, comment, prop);
+            addDanglingComment(enclosingNode, comment, property);
+            return true;
           }
-          return true;
         }
       }
     }
@@ -982,7 +989,8 @@ function handleCommentsInDestructuringPattern({
   if (
     (enclosingNode?.type === "ObjectPattern" ||
       enclosingNode?.type === "ArrayPattern") &&
-    followingNode?.type === "TSTypeAnnotation"
+    (followingNode?.type === "TSTypeAnnotation" ||
+      followingNode?.type === "TypeAnnotation")
   ) {
     if (precedingNode) {
       addTrailingComment(precedingNode, comment);
