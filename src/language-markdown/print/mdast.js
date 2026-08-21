@@ -13,12 +13,12 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
+  getCodeFence,
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
@@ -224,10 +224,7 @@ function printMdast(path, options, print) {
       }
 
       // fenced code block
-      const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-      );
+      const style = getCodeFence(node.value, options);
       return [
         style,
         node.lang || "",

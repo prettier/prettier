@@ -1,7 +1,6 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
-import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utilities.js";
+import { getCodeFence, getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -47,10 +46,7 @@ function embed(path, options) {
           textToDocOptions,
         );
 
-        const styleUnit = options.__inJsTemplate ? "~" : "`";
-        const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-        );
+        const style = getCodeFence(node.value, options);
 
         return markAsRoot([
           style,

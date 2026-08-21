@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
 
@@ -228,6 +229,23 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
 // TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
+function getCodeFence(value, options) {
+  if (!options.__inJsTemplate) {
+    return "`".repeat(Math.max(3, getMaxContinuousCount(value, "`") + 1));
+  }
+
+  // A nested code block is fenced with `~` here too, and its backticks are escaped for the
+  // template literal. Both lose their backslashes and turn into tildes when printed, so the run
+  // they will occupy has to be cleared by this fence as well.
+  const escapedBacktickRuns = value.match(/(?:\\?`)+/gu) ?? [];
+  const count = Math.max(
+    getMaxContinuousCount(value, "~"),
+    ...escapedBacktickRuns.map((run) => run.replaceAll("\\", "").length),
+  );
+
+  return "~".repeat(Math.max(3, count + 1));
+}
+
 function getFencedCodeBlockValue(node, originalText) {
   const { value } = node;
   if (
@@ -324,6 +342,7 @@ function isSetextHeading(node) {
 const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
 export {
+  getCodeFence,
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   getOrderedListItemInfo,

@@ -10,10 +10,6 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
     "flow/hook/declare-hook.js",
     "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
