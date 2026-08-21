@@ -989,15 +989,13 @@ function handleCommentsInDestructuringPattern({
   text,
 }) {
   if (
-    (enclosingNode?.type === "ObjectPattern" ||
-      enclosingNode?.type === "ArrayPattern") &&
-    (followingNode?.type === "TSTypeAnnotation" ||
-      followingNode?.type === "TypeAnnotation") &&
-    // The comment can be after the pattern, since the type annotation is
-    // part of the pattern node range:
-    //   const {foo}
-    //     // bar
-    //     : Foo = expr;
+    enclosingNode &&
+    followingNode &&
+    (enclosingNode.type === "ObjectPattern" ||
+      enclosingNode.type === "ArrayPattern") &&
+    enclosingNode.typeAnnotation === followingNode &&
+    (followingNode.type === "TSTypeAnnotation" ||
+      followingNode.type === "TypeAnnotation") &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
       (enclosingNode.type === "ObjectPattern" ? "}" : "]")
   ) {
