@@ -995,19 +995,26 @@ function handleCommentsInDestructuringPattern({
       enclosingNode.type === "ArrayPattern") &&
     enclosingNode.typeAnnotation === followingNode &&
     (followingNode.type === "TSTypeAnnotation" ||
-      followingNode.type === "TypeAnnotation") &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
-      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
+      followingNode.type === "TypeAnnotation")
   ) {
-    if (precedingNode) {
-      addTrailingComment(precedingNode, comment);
-    } else {
+    if (
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
+      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
+    ) {
+      if (precedingNode) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
       // const {
       //   // bar
       //   // baz
       // }: Foo = expr;
       addDanglingComment(enclosingNode, comment);
+      return true;
     }
+
+    addLeadingComment(followingNode, comment);
     return true;
   }
 }
