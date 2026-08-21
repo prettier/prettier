@@ -142,6 +142,15 @@ exports[`keyword.ts format[babel-ts] 1`] = `
 Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
 `;
 
+exports[`keyword.ts format[oxc-ts] 1`] = `
+"Only ambient modules can use quoted names. (35:24)
+  33 | namespace /* module */ X {}
+  34 | module /* namespace */ X {}
+> 35 | module /* namespace */ "x" {}
+     |                        ^^^
+  36 |"
+`;
+
 exports[`module-nested.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
