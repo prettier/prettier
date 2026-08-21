@@ -1,0 +1,35 @@
+runFormatTest(
+  {
+    snippets: [
+      ".js",
+      ".cjs",
+      ".mjs",
+      ".jsx",
+      ".ts",
+      ".mts",
+      ".cts",
+      ".tsx",
+      ".unset-filepath",
+    ].map((extension) => ({
+      code: "<div />",
+      filepath: `test${extension}`,
+      name: extension,
+    })),
+    importMeta: import.meta,
+  },
+  [
+    "babel",
+    "babel-ts",
+    "acorn",
+    "espree",
+    "flow",
+    "meriyah",
+    "typescript",
+    "hermes",
+    "oxc",
+    "oxc-ts",
+    "yuku",
+    "yuku-ts",
+    "__babel_estree",
+  ],
+);
