@@ -319,7 +319,7 @@ function hasPrettierIgnore(path) {
 function isSetextHeading(node) {
   return (
     node.type === "heading" &&
-    node.position.start.line !== node.position.end.line
+    node.position.start.line < node.position.end.line
   );
 }
 
