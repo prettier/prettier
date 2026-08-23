@@ -317,8 +317,10 @@ function hasPrettierIgnore(path) {
 }
 
 function isSetextHeading(node) {
-  const { start, end } = node.position;
-  return start.line !== end.line;
+  return (
+    node.type === "heading" &&
+    node.position.start.line !== node.position.end.line
+  );
 }
 
 const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
