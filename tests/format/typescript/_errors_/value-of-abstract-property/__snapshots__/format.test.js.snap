@@ -28,3 +28,12 @@ exports[`value-of-abstract-property.ts format[typescript] 1`] = `
   4 |
 Cause: Abstract property cannot have an initializer."
 `;
+
+exports[`value-of-abstract-property.ts format[yuku-ts] 1`] = `
+"An abstract property cannot have an initializer (2:19)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |                   ^
+  3 | }
+  4 |"
+`;

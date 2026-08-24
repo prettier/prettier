@@ -478,6 +478,13 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+// https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
+// https://github.com/micromark/micromark/blob/774a70c6bae6dd94486d3385dbd9a0f14550b709/packages/micromark-util-decode-string/dev/index.js#L6
+const characterReferenceRegex =
+  /&(?=(?:#\d{1,7}|#x[\da-f]{1,6}|[\da-z]{1,31});)/gi;
+const escapeCharacterReferences = (value) =>
+  value.replaceAll(characterReferenceRegex, String.raw`\&`);
+
 /**
  * @param {string} url
  * @param {boolean} unwrapBalancedParens
@@ -487,6 +494,7 @@ function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+  url = escapeCharacterReferences(url);
 
   // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
   // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
@@ -519,19 +527,25 @@ function printTitle(title, options, printSpace = true) {
     title = title.replaceAll(/\\(?=["')])/g, "");
   }
 
-  if (
+  const quote =
+    // avoid escaped quotes
     title.includes('"') &&
     title.includes("'") &&
     !title.includes("(") &&
     !title.includes(")")
-  ) {
-    title = title.replaceAll("\\", "\\\\");
-    return `(${title})`; // avoid escaped quotes
-  }
-  const quote = getPreferredQuote(title, options.singleQuote);
+      ? undefined
+      : getPreferredQuote(title, options.singleQuote);
+
   title = title.replaceAll("\\", "\\\\");
-  title = title.replaceAll(quote, `\\${quote}`);
-  return `${quote}${title}${quote}`;
+
+  if (quote) {
+    title = title.replaceAll(quote, `\\${quote}`);
+  }
+
+  title = escapeCharacterReferences(title);
+  title = quote ? `${quote}${title}${quote}` : `(${title})`;
+
+  return title;
 }
 
 function printLinkReference(node, options) {
