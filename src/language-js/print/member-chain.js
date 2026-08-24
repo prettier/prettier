@@ -251,6 +251,9 @@ function printMemberChain(path, options, print) {
     currentGroup.push(printedNodes[i]);
 
     if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
+      while (printedNodes[i + 1]?.node.type === "TSNonNullExpression") {
+        currentGroup.push(printedNodes[++i]);
+      }
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
