@@ -56,11 +56,7 @@ const disabledTests = new Map(
     oxc: [],
     "oxc-ts": [],
     yuku: ["js/await/await-with-parens.js"],
-    "yuku-ts": [
-      "js/await/await-with-parens.js",
-      "js/decorators/rest-parameters/constructor.js",
-      "js/decorators/rest-parameters/method.js",
-    ],
+    "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
       "js/await/like-call.js", // Different result
       "jsx/top-level-await/test.jsx",
