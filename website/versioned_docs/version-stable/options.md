@@ -57,6 +57,8 @@ In other words, don’t try to use printWidth as if it was ESLint’s [max-len](
 
 Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
 
+Valid values are a positive integer, `off`, or `unset`. A positive integer sets `printWidth` to that value; `unset` (per the EditorConfig spec) and `off` (for backward compatibility) both mean no line wrapping, mapping to `printWidth: Infinity`.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width

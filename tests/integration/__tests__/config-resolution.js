@@ -133,6 +133,18 @@ test("API resolveConfig with file arg and .editorconfig (key = unset)", async ()
   ).resolves.not.toMatchObject({ tabWidth: "unset" });
 });
 
+test("API resolveConfig with file arg and .editorconfig (max_line_length = unset)", async () => {
+  const file = new URL(
+    "../cli/config/editorconfig/max_line_length=unset.js",
+    import.meta.url,
+  );
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true }),
+  ).resolves.toMatchObject({
+    printWidth: Number.POSITIVE_INFINITY,
+  });
+});
+
 test("API resolveConfig with nested file arg and .editorconfig", async () => {
   const file = new URL(
     "../cli/config/editorconfig/lib/file.js",

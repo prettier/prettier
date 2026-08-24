@@ -130,6 +130,15 @@ test("editorconfigToPrettier", () => {
   ).toStrictEqual({
     useTabs: false,
     tabWidth: 2,
+    printWidth: Number.POSITIVE_INFINITY,
+  });
+
+  expect(
+    editorconfigToPrettier({
+      max_line_length: "unset",
+    }),
+  ).toStrictEqual({
+    printWidth: Number.POSITIVE_INFINITY,
   });
 
   expect(editorconfigToPrettier({})).toBeUndefined();

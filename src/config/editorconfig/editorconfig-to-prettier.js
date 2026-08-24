@@ -29,7 +29,7 @@ function editorConfigToPrettier(editorConfig) {
     result.tabWidth = tab_width;
   }
 
-  if (max_line_length === "off") {
+  if (max_line_length === "off" || max_line_length === "unset") {
     result.printWidth = Number.POSITIVE_INFINITY;
   } else if (isPositiveInteger(max_line_length)) {
     result.printWidth = max_line_length;
