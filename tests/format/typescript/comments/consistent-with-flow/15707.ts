@@ -1,26 +1,26 @@
 const {
-  foo,
+  foo11,
   // bar
   // baz
 }: Foo = expr;
 
 const {
-  foo1,
+  foo21,
   // bar
-  foo2,
+  foo22,
   // baz
 }: Foo = expr;
 
 const [
-  foo,
+  foo31,
   // bar
   // baz
 ]: Foo = expr;
 
 const [
-  foo1,
+  foo41,
   // bar
-  foo2,
+  foo42,
   // baz
 ]: Foo = expr;
 
@@ -52,4 +52,16 @@ const {
 const [
   // bar
   // baz
+]: Foo = expr;
+
+const { // foo
+}: Foo = expr;
+const { // foo
+  bar61
+}: Foo = expr;
+
+const [ // bar
+]: Foo = expr;
+const [ // bar
+  bar71
 ]: Foo = expr;
