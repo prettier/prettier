@@ -28,6 +28,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isTypeAlias,
+  isTypeAnnotation,
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
@@ -994,8 +995,7 @@ function handleCommentsInDestructuringPattern({
     (enclosingNode.type === "ObjectPattern" ||
       enclosingNode.type === "ArrayPattern") &&
     enclosingNode.typeAnnotation === followingNode &&
-    (followingNode.type === "TSTypeAnnotation" ||
-      followingNode.type === "TypeAnnotation")
+    isTypeAnnotation(followingNode)
   ) {
     if (
       getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
