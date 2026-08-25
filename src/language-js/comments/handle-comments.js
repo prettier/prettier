@@ -223,11 +223,15 @@ function handleTryStatementComments({
 function handleMemberExpressionComments({
   comment,
   enclosingNode,
+  precedingNode,
   followingNode,
 }) {
   if (
     isMemberExpression(enclosingNode) &&
-    followingNode?.type === "Identifier"
+    (followingNode?.type === "Identifier" ||
+      (enclosingNode.computed &&
+        precedingNode?.type === "TSNonNullExpression" &&
+        followingNode === enclosingNode.property))
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;

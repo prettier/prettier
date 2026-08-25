@@ -13,5 +13,24 @@ xyz.a(/a/!).a(/a/!).a(/a/!)
 
 obj[l] /* c */!.substring(0);
 obj.aaa /* c */!.substring(0);
+(obj.aaa
+// c
+)!.substring(0);
+(obj.aaa
+/* c1
+c2 */
+)!.substring(0);
+(obj.aaa
+// c
+)![key].substring(0);
+(obj.aaa
+// c
+)![0].substring(0);
+(obj.aaa
+// c
+)!["str"].substring(0);
+(obj.aaa
+// c
+)!?.[key].substring(0);
 wrapper.foo() /* c1 */!.bar() /* c2 */!.baz() /* c3 */!.qux();
 wrapper.foo() /* c */!!.bar();

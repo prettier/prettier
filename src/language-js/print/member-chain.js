@@ -245,6 +245,16 @@ function printMemberChain(path, options, print) {
     }
 
     if (
+      currentGroup.length > 0 &&
+      isMemberExpression(printedNodes[i].node) &&
+      hasComment(printedNodes[i].node, CommentCheckFlags.Leading)
+    ) {
+      groups.push(currentGroup);
+      currentGroup = [];
+      hasSeenCallExpression = false;
+    }
+
+    if (
       isCallExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ImportExpression"
     ) {
