@@ -24,6 +24,7 @@ import {
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
+import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
@@ -132,7 +133,8 @@ function printMemberChain(path, options, print) {
       path.call(rec, "expression");
     } else if (
       node.type === "TSNonNullExpression" &&
-      !needsParentheses(path, options)
+      !needsParentheses(path, options) &&
+      !shouldAddParenthesesToNonNullOperand(node.expression, options)
     ) {
       printedNodes.unshift({
         node,
