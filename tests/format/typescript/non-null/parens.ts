@@ -38,3 +38,9 @@ c5 */)!.bar();
 c6 */)!.substring(0);
 ((a as B) /*
 c7 */)!.c();
+((a, b) /*
+c8 */)!.substring(0);
+async function f2() {
+  return (await foo() /*
+c9 */)!;
+}

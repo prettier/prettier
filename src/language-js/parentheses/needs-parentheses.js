@@ -18,6 +18,7 @@ import {
   isReturnOrThrowStatement,
   isUnionType,
 } from "../utilities/node-types.js";
+import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
@@ -52,6 +53,10 @@ function needsParentheses(path, options) {
   // Only statements don't need parentheses.
   if (isStatement(node)) {
     return false;
+  }
+
+  if (shouldAddParenthesesToNonNullOperand(path, options)) {
+    return true;
   }
 
   if (node.type === "Identifier") {

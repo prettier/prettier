@@ -1,7 +1,6 @@
 import { group } from "../../document/index.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import isTsKeywordType from "../utilities/is-ts-keyword-type.js";
-import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
@@ -139,9 +138,7 @@ function printTypescript(path, options, print, args) {
     case "TSTypePredicate":
       return printTypePredicate(path, print);
     case "TSNonNullExpression":
-      return shouldAddParenthesesToNonNullOperand(node.expression, options)
-        ? ["(", print("expression"), ")", "!"]
-        : [print("expression"), "!"];
+      return [print("expression"), "!"];
     case "TSImportType":
       return [
         printCallExpression(path, options, print),

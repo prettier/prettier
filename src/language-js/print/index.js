@@ -6,6 +6,7 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
+import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
@@ -76,6 +77,10 @@ function print(path, options, print, args) {
   }
 
   doc = printCommentsForFunction(path, options, doc);
+
+  if (shouldAddParenthesesToNonNullOperand(path, options)) {
+    doc = printComments(path, doc, options);
+  }
 
   const decoratorsDoc =
     // `ClassExpression` prints own decorators

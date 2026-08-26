@@ -134,7 +134,10 @@ function printMemberChain(path, options, print) {
     } else if (
       node.type === "TSNonNullExpression" &&
       !needsParentheses(path, options) &&
-      !shouldAddParenthesesToNonNullOperand(node.expression, options)
+      !path.call(
+        () => shouldAddParenthesesToNonNullOperand(path, options),
+        "expression",
+      )
     ) {
       printedNodes.unshift({
         node,
