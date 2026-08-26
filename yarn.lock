@@ -2399,10 +2399,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/html-attributes@npm:0.0.3":
-  version: 0.0.3
-  resolution: "@prettier/html-attributes@npm:0.0.3"
-  checksum: 10/38672d28fd613a11f28f0f96facb3da4851b1fa4dcf8dc6ae5bb880a2434f8c288d54e213e2acfd176b1a44cb60c3fa9bf76af01ee208c9650a792b7e144830b
+"@prettier/html-attributes@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@prettier/html-attributes@npm:0.1.0"
+  checksum: 10/774d1b790366dd0e2952cc52b79baaaf8f18bfabb7aa55604399695e04f1b052d51c5279314c3d0c952c8b372b4306c7a1191d2f897fe1816435e57b4d2e6aae
   languageName: node
   linkType: hard
 
@@ -8207,7 +8207,7 @@ __metadata:
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.12.0"
-    "@prettier/html-attributes": "npm:0.0.3"
+    "@prettier/html-attributes": "npm:0.1.0"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
