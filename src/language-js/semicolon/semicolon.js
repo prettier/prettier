@@ -77,6 +77,12 @@ function expressionNeedsAsiProtection(path, options) {
       }
       break;
 
+    case "ConditionalExpression":
+      if (options.experimentalTernaries) {
+        return true;
+      }
+      break;
+
     default:
       if (isJsxElement(node)) {
         return true;
