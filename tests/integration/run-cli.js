@@ -188,6 +188,13 @@ function runCli(dir, args = [], options = {}) {
             /\r/g,
             options.ignoreLineEndings ? "" : "/*CR*/",
           );
+
+          // Node.js 26 appends the path to the `read` error raised when reading a
+          // directory; earlier versions stop at the syscall name.
+          value = value.replace(
+            /(?<=EISDIR: illegal operation on a directory, read) '[^'\n]*'/g,
+            "",
+          );
         }
 
         if (name in testOptions) {
