@@ -1,6 +1,10 @@
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
-import { isObjectType, isUnionType } from "../utilities/node-types.js";
+import {
+  isObjectType,
+  isTypeAnnotation,
+  isUnionType,
+} from "../utilities/node-types.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**
@@ -40,10 +44,7 @@ function printTypeAnnotationProperty(
 
   let shouldPrintLeadingSpace = false;
 
-  if (
-    typeAnnotation.type === "TSTypeAnnotation" ||
-    typeAnnotation.type === "TypeAnnotation"
-  ) {
+  if (isTypeAnnotation(typeAnnotation)) {
     const firstToken = path.call(getTypeAnnotationFirstToken, propertyName);
 
     if (
