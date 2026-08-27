@@ -7,7 +7,7 @@ import {
   KIND_K_LETTER,
   KIND_NON_CJK,
 } from "../utilities.js";
-import { isFakeTableDelimiterRow } from "../utilities/is-fake-table-delimiter-row.js";
+import { isFakeTableDelimiterRowLine } from "../utilities/is-fake-table-delimiter-row.js";
 
 /**
  * @import {WordNode, WhitespaceValue, WordKind} from "../utilities.js"
@@ -337,7 +337,10 @@ function isNextTokenFakeSetextH2Line(path) {
  * @returns {boolean}
  */
 function isNextTokenFakeTableDelimiterRow(path) {
-  return path.next.type === "word" && isFakeTableDelimiterRow(path.next.value);
+  return (
+    path.next.type === "word" &&
+    isFakeTableDelimiterRowLine(path.siblings, path.index + 1)
+  );
 }
 
 export { printWhitespace, printWhitespaceNode };
