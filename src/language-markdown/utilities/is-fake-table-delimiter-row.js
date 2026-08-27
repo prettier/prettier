@@ -75,8 +75,4 @@ function isFakeTableDelimiterRowLine(siblings, startIndex) {
   return isFakeTableDelimiterRow(words.join(" "));
 }
 
-export {
-  isFakeTableDelimiterRow,
-  isFakeTableDelimiterRowLine,
-  tableDelimiterRowStartRegex,
-};
+export { isFakeTableDelimiterRowLine };
