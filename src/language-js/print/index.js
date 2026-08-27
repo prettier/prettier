@@ -4,9 +4,10 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
-import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
+import { isJsxElement } from "../utilities/node-types.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
@@ -63,7 +64,7 @@ function print(path, options, print, args) {
     options.__onHtmlBindingRoot?.(path.node, options);
   }
 
-  const { node } = path;
+  const { node, key, parent } = path;
 
   let doc = isIgnored(path)
     ? printIgnored(path, options)
@@ -78,7 +79,15 @@ function print(path, options, print, args) {
 
   doc = printCommentsForFunction(path, options, doc);
 
-  if (shouldAddParenthesesToNonNullOperand(path, options)) {
+  const needsParens = needsParentheses(path, options);
+
+  if (
+    key === "expression" &&
+    parent.type === "TSNonNullExpression" &&
+    !isJsxElement(node) &&
+    !hasNodeIgnoreComment(node) &&
+    needsParens
+  ) {
     doc = printComments(path, doc, options);
   }
 
@@ -87,8 +96,6 @@ function print(path, options, print, args) {
     node.type !== "ClassExpression" && isNonEmptyArray(node.decorators)
       ? printDecorators(path, options, print)
       : "";
-
-  const needsParens = needsParentheses(path, options);
 
   if (!decoratorsDoc && !needsParens) {
     return doc;

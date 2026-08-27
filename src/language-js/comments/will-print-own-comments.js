@@ -1,8 +1,8 @@
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
 import { isJsxElement, isUnionType } from "../utilities/node-types.js";
-import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import { shouldUnionTypePrintOwnComments } from "../utilities/union-type-print.js";
 
@@ -50,7 +50,11 @@ function willPrintOwnComments(path, options) {
     return false;
   }
 
-  if (shouldAddParenthesesToNonNullOperand(path, options)) {
+  if (
+    key === "expression" &&
+    parent.type === "TSNonNullExpression" &&
+    needsParentheses(path, options)
+  ) {
     return true;
   }
 
