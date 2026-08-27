@@ -141,6 +141,28 @@ const wrapInParens = (doc) => [
   ifBreak(")"),
 ];
 
+// The wrapping parens around the test are printed with `ifBreak`, so they only
+// appear when the group breaks. When such a parenthesized test is printed as an
+// expression statement with `semi: false`, the `(` lands at the start of a line
+// and would be parsed as a function call on the previous statement (ASI hazard).
+// Tie the leading `;` to the same `ifBreak` as the `(` so the two always
+// appear (or disappear) together.
+function getLeadingSemicolonForStatementTernary(path, options) {
+  const { node, parent, key, grandparent } = path;
+  return (
+    node.type === "ConditionalExpression" &&
+    parent.type === "ExpressionStatement" &&
+    !options.semi &&
+    options.experimentalTernaries &&
+    ((key === "expression" &&
+      (grandparent.type === "Program" ||
+        grandparent.type === "BlockStatement" ||
+        grandparent.type === "StaticBlock" ||
+        grandparent.type === "TSModuleBlock")) ||
+      (grandparent.type === "SwitchCase" && key === "expression"))
+  );
+}
+
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression,
@@ -297,7 +319,12 @@ function printTernary(path, options, print, args) {
 
   const printedTest = isConditionalExpression
     ? [
-        wrapInParens(print("test")),
+        [
+          ifBreak(
+            getLeadingSemicolonForStatementTernary(path, options) ? ";" : "",
+          ),
+          ...wrapInParens(print("test")),
+        ],
         node.test.type === "ConditionalExpression" ? breakParent : "",
       ]
     : [
