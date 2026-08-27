@@ -18,11 +18,11 @@ import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
-  getCodeFence,
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
+  printCodeFence,
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
@@ -224,7 +224,7 @@ function printMdast(path, options, print) {
       }
 
       // fenced code block
-      const style = getCodeFence(node.value, options);
+      const style = printCodeFence(node.value, options);
       return [
         style,
         node.lang || "",

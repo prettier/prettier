@@ -229,7 +229,7 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
 // TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
-function getCodeFence(value, options) {
+function printCodeFence(value, options) {
   if (!options.__inJsTemplate) {
     return "`".repeat(Math.max(3, getMaxContinuousCount(value, "`") + 1));
   }
@@ -237,10 +237,9 @@ function getCodeFence(value, options) {
   // A nested code block is fenced with `~` here too, and its backticks are escaped for the
   // template literal. Both lose their backslashes and turn into tildes when printed, so the run
   // they will occupy has to be cleared by this fence as well.
-  const escapedBacktickRuns = value.match(/(?:\\?`)+/gu) ?? [];
   const count = Math.max(
     getMaxContinuousCount(value, "~"),
-    ...escapedBacktickRuns.map((run) => run.replaceAll("\\", "").length),
+    getMaxContinuousCount(value.replaceAll("\\", ""), "`"),
   );
 
   return "~".repeat(Math.max(3, count + 1));
@@ -342,7 +341,6 @@ function isSetextHeading(node) {
 const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
 export {
-  getCodeFence,
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   getOrderedListItemInfo,
@@ -359,5 +357,6 @@ export {
   KIND_K_LETTER,
   KIND_NON_CJK,
   mapAst,
+  printCodeFence,
   splitText,
 };

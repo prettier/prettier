@@ -1,6 +1,6 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import inferParser from "../utilities/infer-parser.js";
-import { getCodeFence, getFencedCodeBlockValue } from "./utilities.js";
+import { getFencedCodeBlockValue, printCodeFence } from "./utilities.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -46,7 +46,7 @@ function embed(path, options) {
           textToDocOptions,
         );
 
-        const style = getCodeFence(node.value, options);
+        const style = printCodeFence(node.value, options);
 
         return markAsRoot([
           style,
