@@ -6,6 +6,7 @@ import {
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,
   KIND_NON_CJK,
+  LINE_LEADING_MARKER_REGEXP,
 } from "../utilities.js";
 
 /**
@@ -288,7 +289,7 @@ function shouldPreventBreak(path, options) {
 
   if (
     // leading char that may cause different syntax
-    /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(path.next.value) &&
+    LINE_LEADING_MARKER_REGEXP.test(path.next.value) &&
     // Avoid https://github.com/prettier/prettier/issues/18861
     !hasFakeWhitespaceAfterNextToken(path) &&
     // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
