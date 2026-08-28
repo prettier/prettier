@@ -86,12 +86,3 @@ exports[`throw error with invalid config precedence option (configPrecedence)  1
   "write": [],
 }
 `;
-
-exports[`throw error with invalid config target (directory)  1`] = `
-{
-  "stderr": "[error] Invalid configuration:
-[error] Unable to read '<cli>/config/invalid/folder/.prettierrc': EISDIR: illegal operation on a directory, read",
-  "stdout": "",
-  "write": [],
-}
-`;

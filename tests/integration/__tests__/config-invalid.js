@@ -35,6 +35,22 @@ describe("throw error with invalid config target (directory)", () => {
     "folder/.prettierrc", // this is a directory
   ]).test({
     status: "non-zero",
+    stderr:
+      /*
+      On Node.js<26
+
+      ```
+      EISDIR: illegal operation on a directory, read
+      ```
+
+      On Node.js>=26
+      ```
+      EISDIR: illegal operation on a directory, read '<cli>/config/invalid/folder/.prettierrc'
+      ```
+      */
+      expect.stringContaining("EISDIR: illegal operation on a directory, read"),
+    stdout: "",
+    write: [],
   });
 });
 
