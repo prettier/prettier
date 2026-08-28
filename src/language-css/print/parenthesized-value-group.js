@@ -28,18 +28,26 @@ import {
 } from "../utilities/index.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
-function hasComma({ node, parent }, options) {
+function hasTrailingComma({ parent }, options) {
   return Boolean(
-    node.source &&
+    parent.open?.source &&
+    parent.close?.source &&
     options.originalText
-      .slice(locStart(node), locStart(parent.close))
+      .slice(locStart(parent.open), locStart(parent.close))
       .trimEnd()
       .endsWith(","),
   );
 }
 
 function printTrailingComma(path, options) {
-  if (isVarFunctionNode(path.grandparent) && hasComma(path, options)) {
+  if (
+    (isVarFunctionNode(path.grandparent) ||
+      (options.parser === "scss" &&
+        path.grandparent?.type !== "value-func" &&
+        path.parent.groups.length === 1 &&
+        !isKeyValuePairNode(path.parent.groups[0]))) &&
+    hasTrailingComma(path, options)
+  ) {
     return ",";
   }
 

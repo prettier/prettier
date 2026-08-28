@@ -1,0 +1,9 @@
+$single-string: ("a",);
+$single-space-list: (1 2 3,);
+$single-nested-list: ((1, 2),);
+@include assert-equal(daff-string-split(".a", "."), ("a",));
+
+$multiple-items: (1, 2,);
+$single-argument: foo(1,);
+
+$single-entry-map: (a: 1,);
