@@ -194,6 +194,12 @@ function printDocToString(doc, options) {
 
   const result = new PrintResult();
 
+  function flushLineSuffix() {
+    while (lineSuffix.length > 0) {
+      commands.push(lineSuffix.pop());
+    }
+  }
+
   propagateBreaks(doc);
 
   while (commands.length > 0) {
@@ -493,8 +499,8 @@ function printDocToString(doc, options) {
 
           case MODE_BREAK:
             if (lineSuffix.length > 0) {
-              commands.push({ indent, mode, doc }, ...lineSuffix.reverse());
-              lineSuffix.length = 0;
+              commands.push({ indent, mode, doc });
+              flushLineSuffix();
               break;
             }
 
@@ -531,8 +537,7 @@ function printDocToString(doc, options) {
     // Flush remaining line-suffix contents at the end of the document, in case
     // there is no new line after the line-suffix.
     if (commands.length === 0 && lineSuffix.length > 0) {
-      commands.push(...lineSuffix.reverse());
-      lineSuffix.length = 0;
+      flushLineSuffix();
     }
   }
 

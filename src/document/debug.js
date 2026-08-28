@@ -23,7 +23,9 @@ function flattenDoc(doc) {
     const res = [];
     for (const part of doc) {
       if (Array.isArray(part)) {
-        res.push(...flattenDoc(part));
+        for (const flattened of flattenDoc(part)) {
+          res.push(flattened);
+        }
       } else {
         const flattened = flattenDoc(part);
         if (flattened !== "") {
