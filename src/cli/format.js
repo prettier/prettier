@@ -93,7 +93,7 @@ async function listDifferent(context, input, options, filename) {
       process.exitCode = 1;
     }
   } catch (error) {
-    context.logger.error(error.message);
+    handleError(context, filename, error);
   }
 
   return true;
@@ -278,6 +278,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
   let numberOfFilesWithError = 0;
+  let hasPatternError = false;
   const { performanceTestFlag } = context;
 
   if (context.argv.check && !performanceTestFlag) {
@@ -308,6 +309,7 @@ async function formatFiles(context) {
   )) {
     if (error) {
       context.logger.error(error);
+      hasPatternError = true;
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
@@ -352,6 +354,8 @@ async function formatFiles(context) {
 
       // Don't exit the process if one file failed
       process.exitCode = 2;
+
+      numberOfFilesWithError += 1;
 
       continue;
       /* c8 ignore stop */
@@ -430,6 +434,7 @@ async function formatFiles(context) {
 
           // Don't exit the process if one file failed
           process.exitCode = 2;
+          numberOfFilesWithError += 1;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${picocolors.gray(fileNameToDisplay)} ${timeToDisplay} (unchanged)`;
@@ -470,7 +475,9 @@ async function formatFiles(context) {
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    if (numberOfFilesWithError > 0) {
+    if (hasPatternError) {
+      context.logger.log("Error occurred when checking code style.");
+    } else if (numberOfFilesWithError > 0) {
       const files =
         numberOfFilesWithError === 1
           ? "the above file"
