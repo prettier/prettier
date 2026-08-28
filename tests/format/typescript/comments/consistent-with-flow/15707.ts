@@ -53,3 +53,15 @@ const [
   // bar
   // baz
 ]: Foo = expr;
+
+const { // foo
+}: Foo = expr;
+const { // foo
+  bar61
+}: Foo = expr;
+
+const [ // bar
+]: Foo = expr;
+const [ // bar
+  bar71
+]: Foo = expr;

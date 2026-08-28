@@ -5,6 +5,7 @@ import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
+import { shouldEnableJsx } from "./utilities/jsx-support.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
@@ -102,18 +103,24 @@ function parseJs(text, options) {
 function getLanguageCombinations(text, options) {
   const filepath = options?.filepath;
 
-  if (typeof filepath === "string") {
-    if (/\.(?:jsx|tsx)$/i.test(filepath)) {
-      return ["tsx"];
-    }
-
-    if (filepath.toLowerCase().endsWith(".d.ts")) {
-      return ["dts"];
-    }
+  if (
+    typeof filepath === "string" &&
+    filepath.toLowerCase().endsWith(".d.ts")
+  ) {
+    return ["dts"];
   }
 
-  const shouldEnableJsx = jsxRegexp.test(text);
-  return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
+  const isTsx = shouldEnableJsx(filepath);
+
+  if (isTsx === true) {
+    return ["tsx"];
+  }
+
+  if (isTsx === false) {
+    return ["ts"];
+  }
+
+  return jsxRegexp.test(text) ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
 }
 
 function parseTs(text, options) {

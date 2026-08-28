@@ -84,6 +84,16 @@ const {
 ================================================================================
 `;
 
+exports[`invalid.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
+"A rest parameter or binding pattern may not have a trailing comma. (5:10)
+  3 |   longKeySoThisWillGoOnMultipleLines2,
+  4 |   longKeySoThisWillGoOnMultipleLines3,
+> 5 |   ...rest,
+    |          ^
+  6 | } = something;
+  7 |"
+`;
+
 exports[`invalid.ts - {"trailingComma":"all"} format[yuku-ts] 1`] = `
 "Rest element cannot have a trailing comma in object destructuring. (1:7)
 > 1 | const {
@@ -125,6 +135,16 @@ const {
 ================================================================================
 `;
 
+exports[`invalid.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
+"A rest parameter or binding pattern may not have a trailing comma. (5:10)
+  3 |   longKeySoThisWillGoOnMultipleLines2,
+  4 |   longKeySoThisWillGoOnMultipleLines3,
+> 5 |   ...rest,
+    |          ^
+  6 | } = something;
+  7 |"
+`;
+
 exports[`invalid.ts - {"trailingComma":"es5"} format[yuku-ts] 1`] = `
 "Rest element cannot have a trailing comma in object destructuring. (1:7)
 > 1 | const {
@@ -164,6 +184,16 @@ const {
 } = something;
 
 ================================================================================
+`;
+
+exports[`invalid.ts - {"trailingComma":"none"} format[oxc-ts] 1`] = `
+"A rest parameter or binding pattern may not have a trailing comma. (5:10)
+  3 |   longKeySoThisWillGoOnMultipleLines2,
+  4 |   longKeySoThisWillGoOnMultipleLines3,
+> 5 |   ...rest,
+    |          ^
+  6 | } = something;
+  7 |"
 `;
 
 exports[`invalid.ts - {"trailingComma":"none"} format[yuku-ts] 1`] = `

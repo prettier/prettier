@@ -28,6 +28,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isTypeAlias,
+  isTypeAnnotation,
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
@@ -123,6 +124,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleArrowExpressionComments,
     handleParenthesizedExpressionTrailingComment,
@@ -985,22 +987,34 @@ function handleCommentsInDestructuringPattern({
   enclosingNode,
   precedingNode,
   followingNode,
+  text,
 }) {
   if (
-    (enclosingNode?.type === "ObjectPattern" ||
-      enclosingNode?.type === "ArrayPattern") &&
-    (followingNode?.type === "TSTypeAnnotation" ||
-      followingNode?.type === "TypeAnnotation")
+    enclosingNode &&
+    followingNode &&
+    (enclosingNode.type === "ObjectPattern" ||
+      enclosingNode.type === "ArrayPattern") &&
+    enclosingNode.typeAnnotation === followingNode &&
+    isTypeAnnotation(followingNode)
   ) {
-    if (precedingNode) {
-      addTrailingComment(precedingNode, comment);
-    } else {
+    if (
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) ===
+      (enclosingNode.type === "ObjectPattern" ? "}" : "]")
+    ) {
+      if (precedingNode) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
       // const {
       //   // bar
       //   // baz
       // }: Foo = expr;
       addDanglingComment(enclosingNode, comment);
+      return true;
     }
+
+    addLeadingComment(followingNode, comment);
     return true;
   }
 }

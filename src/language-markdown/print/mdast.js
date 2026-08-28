@@ -476,7 +476,9 @@ function shouldRemainTheSameContent(path) {
 }
 
 // https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
-const characterReferenceRegex = /&(?=(?:#x[\da-f]+|#\d+|[\da-z]+);)/gi;
+// https://github.com/micromark/micromark/blob/774a70c6bae6dd94486d3385dbd9a0f14550b709/packages/micromark-util-decode-string/dev/index.js#L6
+const characterReferenceRegex =
+  /&(?=(?:#\d{1,7}|#x[\da-f]{1,6}|[\da-z]{1,31});)/gi;
 const escapeCharacterReferences = (value) =>
   value.replaceAll(characterReferenceRegex, String.raw`\&`);
 
