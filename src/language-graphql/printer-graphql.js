@@ -74,20 +74,7 @@ function genericPrint(path, options, print) {
       return group([
         node.alias ? [print("alias"), ": "] : "",
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         printDirectives(path, print),
         node.selectionSet ? " " : "",
         print("selectionSet"),
@@ -115,6 +102,7 @@ function genericPrint(path, options, print) {
         '"',
         node.value
           .replaceAll(/["\\]/g, String.raw`\$&`)
+          .replaceAll("\r", String.raw`\r`)
           .replaceAll("\n", String.raw`\n`),
         '"',
       ];
@@ -246,20 +234,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         ": ",
         print("type"),
         printDirectives(path, print),
@@ -271,20 +246,7 @@ function genericPrint(path, options, print) {
         "directive ",
         "@",
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         printDirectives(path, print),
         node.repeatable ? " repeatable" : "",
         " on ",
