@@ -139,6 +139,23 @@ async function run() {
     packagesToBuild = packageConfigs;
   }
 
+  if (cliOptions.files) {
+    const availableFiles = new Set(
+      packagesToBuild.flatMap(({ distDirectory, modules }) =>
+        modules.flatMap(({ files }) =>
+          files.map(({ output }) => path.join(distDirectory, output)),
+        ),
+      ),
+    );
+    for (const file of cliOptions.files) {
+      if (!availableFiles.has(file)) {
+        throw new Error(
+          `Unknown output file '${path.relative(DIST_DIR, file)}'`,
+        );
+      }
+    }
+  }
+
   // TODO: Clear package dist directory instead
   if (cliOptions.clean) {
     let stat;

@@ -42,17 +42,23 @@ function parseArguments() {
     throw new Error("'--package' should be unique.");
   }
 
-  if (result.saveAs) {
+  if (result.saveAs !== undefined) {
     if (result.files?.size !== 1) {
       throw new Error(
         "'--save-as' can only use together with one '--file' flag.",
       );
     }
 
-    // TODO: Support package name
-    const distDirectory = path.join(DIST_DIR, "prettier");
-    if (!path.join(distDirectory, result.saveAs).startsWith(distDirectory)) {
-      throw new Error("'--save-as' can only relative path.");
+    const normalized = path.normalize(result.saveAs);
+    if (
+      path.isAbsolute(normalized) ||
+      normalized === "." ||
+      normalized === ".." ||
+      normalized.startsWith(`..${path.sep}`)
+    ) {
+      throw new Error(
+        "'--save-as' must be a relative file path inside the package output directory.",
+      );
     }
   }
 

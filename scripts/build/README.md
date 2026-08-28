@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node.js version `>= 16.16`.
+- Node.js version `>= 22` (see the repository's `package.json`).
 
 ## Usage
 
@@ -56,22 +56,25 @@ yarn build --compare-size
 
 ### `--file`
 
-To build specific file(s):
+To build specific file(s), use paths relative to `dist/`, including the package
+directory. Unknown output paths are rejected:
 
 ```sh
-yarn build --file=esm/parser-babel.mjs
+yarn build --file=prettier/plugins/babel.mjs
 ```
 
 ```sh
-yarn build --file=standalone.js --file=parser-meriyah.js
+yarn build --file=prettier/standalone.js --file=prettier/plugins/meriyah.js
 ```
 
 ### `--save-as`
 
-To save bundled file to a different location, this flag can only use together with ONE `--file` flag
+To save a JavaScript bundle to a different location, use this flag with exactly
+one `--file` flag. The destination must be a relative file path inside that
+package's output directory:
 
 ```sh
-yarn build --file=parser-babel.js --save-as=babel-for-test.js
+yarn build --file=prettier/plugins/babel.js --save-as=babel-for-test.js
 ```
 
 ### `--report`
@@ -91,18 +94,19 @@ yarn build --report=stdout --report=text --report=html
 
 ### `--minify` and `--no-minify`
 
-By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override that behavior.
+By default, file minification is controlled by the package build configuration.
+These flags override that behavior.
 
 These should only be used for debugging purposes, suggest to use them together with the `--file` flag.
 
 Force minify files:
 
 ```sh
-yarn build --file=index.js --minify
+yarn build --file=prettier/index.mjs --minify
 ```
 
 Disable minify files:
 
 ```sh
-yarn build --file=parser-babel.js --no-minify
+yarn build --file=prettier/plugins/babel.js --no-minify
 ```
