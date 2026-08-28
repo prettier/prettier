@@ -233,6 +233,10 @@ prettier . --write --cache
 
 Running Prettier without `--cache` will delete the cache.
 
+Diagnostic and performance modes bypass the formatting cache. Requests with
+`--cursor-offset` also recompute formatting because cached entries do not contain
+cursor positions.
+
 Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
 :::warning

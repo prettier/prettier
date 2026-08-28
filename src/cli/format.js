@@ -279,6 +279,13 @@ async function formatFiles(context) {
   let numberOfUnformattedFilesFound = 0;
   let numberOfFilesWithError = 0;
   const { performanceTestFlag } = context;
+  const useCache =
+    context.argv.cache &&
+    !context.argv.debugCheck &&
+    !context.argv.debugPrintDoc &&
+    !context.argv.debugPrintAst &&
+    !context.argv.debugPrintComments &&
+    !performanceTestFlag;
 
   if (context.argv.check && !performanceTestFlag) {
     context.logger.log("Checking formatting...");
@@ -286,12 +293,12 @@ async function formatFiles(context) {
 
   let formatResultsCache;
   const cacheFilePath = await findCacheFile(context.argv.cacheLocation);
-  if (context.argv.cache) {
+  if (useCache) {
     formatResultsCache = new FormatResultsCache(
       cacheFilePath,
       context.argv.cacheStrategy || "content",
     );
-  } else if (!context.argv.cacheLocation) {
+  } else if (!context.argv.cache && !context.argv.cacheLocation) {
     const stat = await statSafe(cacheFilePath);
     if (stat) {
       await fs.unlink(cacheFilePath);
@@ -365,10 +372,10 @@ async function formatFiles(context) {
 
     const start = mockable.getTimestamp();
 
-    const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
-      filename,
-      options,
-    );
+    // Cache entries only establish that the text is formatted, not its cursor position.
+    const isCacheExists =
+      !(options.cursorOffset >= 0) &&
+      formatResultsCache?.existsAvailableFormatResultsCache(filename, options);
 
     let result;
     let output;
