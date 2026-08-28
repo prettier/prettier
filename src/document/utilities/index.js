@@ -308,7 +308,8 @@ function cleanDocFn(doc) {
         if (!part) {
           continue;
         }
-        const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
+        const isArray = Array.isArray(part);
+        const currentPart = isArray ? part[0] : part;
         if (
           typeof currentPart === "string" &&
           typeof parts.at(-1) === "string"
@@ -317,7 +318,11 @@ function cleanDocFn(doc) {
         } else {
           parts.push(currentPart);
         }
-        parts.push(...restParts);
+        if (isArray) {
+          for (let index = 1; index < part.length; index++) {
+            parts.push(part[index]);
+          }
+        }
       }
 
       if (parts.length === 0) {
