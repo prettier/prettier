@@ -157,7 +157,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
 
       return {
         module: path.join(sourceDirectory, bundle.input),
-        external: getRelativePath(file.output, output),
+        external: getRelativePath(cliOptions.saveAs ?? file.output, output),
       };
     });
     replaceModule.push(...replacements);

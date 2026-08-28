@@ -71,7 +71,8 @@ yarn build --file=prettier/standalone.js --file=prettier/plugins/meriyah.js
 
 To save a JavaScript bundle to a different location, use this flag with exactly
 one `--file` flag. The destination must be a relative file path inside that
-package's output directory:
+package's output directory. Relative imports to other bundled files are adjusted
+when moving a bundle into a nested directory:
 
 ```sh
 yarn build --file=prettier/plugins/babel.js --save-as=babel-for-test.js
