@@ -185,7 +185,10 @@ function getFlowScalarLineContents(nodeType, content, options) {
         nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\")
       )
     ) {
-      lines[lines.length - 1] = [...lines.at(-1), ...words];
+      const previousWords = lines.at(-1);
+      for (const word of words) {
+        previousWords.push(word);
+      }
     } else {
       lines.push(words);
     }
@@ -244,12 +247,13 @@ function getBlockValueLineContents(
       words.length > 0 &&
       rawLineContents[index - 1].length > 0 &&
       !/^\s/.test(words[0]) &&
-      // This test against a `string[]`, should be a mistake
-      // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
-      // @ts-expect-error -- see comment above
-      !/^\s|\s$/.test(lines.at(-1))
+      !/^\s/.test(lines.at(-1)[0]) &&
+      !/\s$/.test(lines.at(-1).at(-1))
     ) {
-      lines[lines.length - 1] = [...lines.at(-1), ...words];
+      const previousWords = lines.at(-1);
+      for (const word of words) {
+        previousWords.push(word);
+      }
     } else {
       lines.push(words);
     }
