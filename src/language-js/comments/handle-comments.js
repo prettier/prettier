@@ -1204,7 +1204,10 @@ function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
-    if (ancestor.type === "AssignmentExpression" && ancestor.right === child) {
+    if (
+      (ancestor.type === "AssignmentExpression" && ancestor.right === child) ||
+      (ancestor.type === "ArrowFunctionExpression" && ancestor.body === child)
+    ) {
       child = ancestor;
       continue;
     }
@@ -1255,10 +1258,16 @@ function handleParenthesizedExpressionTrailingComment({
     // `a = (b = c /* comment */);` drops the parentheses, so the comment ends
     // up trailing the whole statement anyway. Attach it there right away
     // instead of leaving it on `c` for the next format to move.
+    const isArrowBody =
+      enclosingNode.type === "ArrowFunctionExpression" &&
+      enclosingNode.body === precedingNode &&
+      precedingNode.type === "ArrowFunctionExpression";
+
     if (
-      isAssignment &&
-      enclosingNode.type === "AssignmentExpression" &&
-      enclosingNode.right === precedingNode
+      (isAssignment &&
+        enclosingNode.type === "AssignmentExpression" &&
+        enclosingNode.right === precedingNode) ||
+      isArrowBody
     ) {
       const expressionStatement =
         getEnclosingAssignmentChainExpressionStatement(
