@@ -5166,21 +5166,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
+"@types/react@npm:*, @types/react@npm:19.2.18":
   version: 19.2.18
   resolution: "@types/react@npm:19.2.18"
   dependencies:
     csstype: "npm:^3.2.2"
   checksum: 10/c718ec5c5272ef5c1c77fcdd07f567c77197b593583539459b4bdaea89ca55ad7c814b7eb2151dccfa459b2c384b599a45e7e35550b789883d66b363d30c94d8
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:19.2.17":
-  version: 19.2.17
-  resolution: "@types/react@npm:19.2.17"
-  dependencies:
-    csstype: "npm:^3.2.2"
-  checksum: 10/8debb092bd0bb9c99176a31824c7587c27c775a6526b60060e7b9e8dc2af53aee2ffadc7a1e3845953792437db5699d34a9054e198c9d4e54a74728ff47c6725
   languageName: node
   linkType: hard
 
@@ -12939,7 +12930,7 @@ __metadata:
     "@lezer/highlight": "npm:1.2.3"
     "@mdx-js/react": "npm:3.1.1"
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
-    "@types/react": "npm:19.2.17"
+    "@types/react": "npm:19.2.18"
     "@vitejs/plugin-vue": "npm:6.0.8"
     "@vitejs/plugin-vue-jsx": "npm:5.1.6"
     "@xiechao/codemirror-lang-handlebars": "npm:1.0.4"

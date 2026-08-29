@@ -46,7 +46,7 @@
     "@docusaurus/faster": "3.10.2",
     "@docusaurus/module-type-aliases": "3.10.2",
     "@docusaurus/types": "3.10.2",
-    "@types/react": "19.2.17",
+    "@types/react": "19.2.18",
     "@vitejs/plugin-vue": "6.0.8",
     "@vitejs/plugin-vue-jsx": "5.1.6",
     "concurrently": "10.0.5",
