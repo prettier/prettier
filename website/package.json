@@ -49,10 +49,10 @@
     "@types/react": "19.2.17",
     "@vitejs/plugin-vue": "6.0.8",
     "@vitejs/plugin-vue-jsx": "5.1.6",
-    "concurrently": "10.0.4",
+    "concurrently": "10.0.5",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.1.1",
-    "vite": "8.2.1",
+    "vite": "8.2.2",
     "yaml": "2.9.0"
   },
   "browserslist": {
