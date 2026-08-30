@@ -594,6 +594,11 @@ function handleLastFunctionParameterComments({
       ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
         enclosingNode?.type === "MethodDefinition") &&
         enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
+    getFunctionParameters(
+      isRealFunctionLikeNode(enclosingNode)
+        ? enclosingNode
+        : enclosingNode.value,
+    ).at(-1) === precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -1200,20 +1205,24 @@ function handleArrowExpressionComments({
   return false;
 }
 
-function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
+function getEnclosingAssignmentChainStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
     if (
       (ancestor.type === "AssignmentExpression" && ancestor.right === child) ||
-      (ancestor.type === "ArrowFunctionExpression" && ancestor.body === child)
+      (ancestor.type === "ArrowFunctionExpression" &&
+        ancestor.body === child) ||
+      (ancestor.type === "VariableDeclarator" && ancestor.init === child)
     ) {
       child = ancestor;
       continue;
     }
 
-    return ancestor.type === "ExpressionStatement" &&
-      ancestor.expression === child
+    return (ancestor.type === "ExpressionStatement" &&
+      ancestor.expression === child) ||
+      (ancestor.type === "VariableDeclaration" &&
+        ancestor.declarations.at(-1) === child)
       ? ancestor
       : undefined;
   }
@@ -1254,32 +1263,31 @@ function handleParenthesizedExpressionTrailingComment({
     }
 
     const isAssignment = precedingNode.type === "AssignmentExpression";
+    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
-      // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
+      // `a = (b = c /* comment */);` and `var a = () => (c /* comment */);` drop
       // the parentheses, so the comment ends up trailing the whole statement
       // anyway. Attach it there right away instead of leaving it on `c` for the
       // next format to move.
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      (precedingNode.type === "ArrowFunctionExpression" &&
+      (!isAssignment &&
+        !isSequence &&
         enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode)
     ) {
-      const expressionStatement =
-        getEnclosingAssignmentChainExpressionStatement(
-          enclosingNode,
-          ancestors.slice(1),
-        );
+      const statement = getEnclosingAssignmentChainStatement(
+        enclosingNode,
+        ancestors.slice(1),
+      );
 
-      if (expressionStatement) {
-        addTrailingComment(expressionStatement, comment);
+      if (statement) {
+        addTrailingComment(statement, comment);
         return true;
       }
     }
-
-    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
