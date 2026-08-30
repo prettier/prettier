@@ -1263,8 +1263,8 @@ function handleParenthesizedExpressionTrailingComment({
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      (enclosingNode.type === "ArrowFunctionExpression" &&
-        precedingNode.type === "ArrowFunctionExpression" &&
+      (precedingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode)
     ) {
       const expressionStatement =
