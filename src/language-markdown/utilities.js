@@ -226,9 +226,6 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   );
 }
 
-// The final new line should not include in value
-// https://github.com/remarkjs/remark/issues/512
-// TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
 function printCodeFence(value, options) {
   if (!options.__inJsTemplate) {
     return "`".repeat(Math.max(3, getMaxContinuousCount(value, "`") + 1));
@@ -238,13 +235,17 @@ function printCodeFence(value, options) {
   // template literal. Both lose their backslashes and turn into tildes when printed, so the run
   // they will occupy has to be cleared by this fence as well.
   const count = Math.max(
-    getMaxContinuousCount(value, "~"),
-    getMaxContinuousCount(value.replaceAll("\\", ""), "`"),
+    3,
+    getMaxContinuousCount(value, "~") + 1,
+    getMaxContinuousCount(value.replaceAll("\\", ""), "`") + 1,
   );
 
-  return "~".repeat(Math.max(3, count + 1));
+  return "~".repeat(count);
 }
 
+// The final new line should not include in value
+// https://github.com/remarkjs/remark/issues/512
+// TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
 function getFencedCodeBlockValue(node, originalText) {
   const { value } = node;
   if (
