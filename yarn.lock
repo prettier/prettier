@@ -6604,10 +6604,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"linguist-languages@npm:9.4.0":
-  version: 9.4.0
-  resolution: "linguist-languages@npm:9.4.0"
-  checksum: 10/bec2b916cdb482eb597a11f35d99a7585d72cc1ebb8498b14f8e6e677cf6b9b479401e6d40d22afdd12b0c5fd516d42f8053c50d5bbc88eaeda45a02c54207e8
+"linguist-languages@npm:9.5.0":
+  version: 9.5.0
+  resolution: "linguist-languages@npm:9.5.0"
+  checksum: 10/0477024914923006164a424a8401b76543209806662860899a7f3c98937ca9d57877faee12ac6ebf668377fbeb4c8232e982eb254a4e81d7fecd915f4db24039
   languageName: node
   linkType: hard
 
@@ -8160,7 +8160,7 @@ __metadata:
     knip: "npm:6.33.0"
     less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
-    linguist-languages: "npm:9.4.0"
+    linguist-languages: "npm:9.5.0"
     magic-string: "npm:1.2.3"
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.3"
