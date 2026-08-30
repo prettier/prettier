@@ -1,19 +1,24 @@
-x2 = (a) => (a /* ! */ // K
+_ = (a) => (a /* ! */ // K
 )
 
-var x2 = (a) => (a /* ! */ // K
+var x11 = (a) => (a /* ! */ // K
 )
 
-var x2 = (a) => ((b) => {
+_ = (a) => ((b) => {
   c();
 } /* ! */ // K
 )
 
-var x2 = (a) => ((b) => {
+var x21 = (a) => ((b) => {
+  c();
+} /* ! */ // K
+)
+
+var x22 = (a) => ((b) => {
   c();
 } /* ! */ // K
 ),
-  x3 = (a) => ((b) => {
+  x23 = (a) => ((b) => {
   c();
 } /* ! */ // K
 )
@@ -26,9 +31,14 @@ function f() {
 throw (a) => (a /* ! */ // K
 )
 
-var x2 = (a) => (b ? c : d /* ! */)
-
-var x2 = (a) => ((b, c) /* ! */)
-
 export default (a) => (a /* ! */ // K
 )
+
+// The parentheses are printed, so the comment stays inside them.
+var x31 = (a) => (b ? c : d /* ! */)
+
+var x32 = (a) => ((b, c) /* ! */)
+
+_ = (a = c /* ! */)
+
+var x33 = (a = c /* ! */)
