@@ -1,5 +1,9 @@
 import { group, hardline, indent, softline } from "../../document/index.js";
-import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd } from "../location/index.js";
+import { isLineComment } from "../utilities/comment-types.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isIndentableBlockComment } from "../utilities/indentable-block-comment.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
@@ -16,7 +20,13 @@ function printBinaryCastExpression(path, options, print) {
 
   const keepTypeOnOwnLine =
     !isUnionType(node.typeAnnotation) &&
-    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation);
+    hasComment(
+      node.typeAnnotation,
+      CommentCheckFlags.Leading,
+      (comment) =>
+        hasNewline(options.originalText, locEnd(comment)) &&
+        (isLineComment(comment) || isIndentableBlockComment(comment)),
+    );
 
   const parts = [
     print("expression"),
