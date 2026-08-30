@@ -1255,20 +1255,17 @@ function handleParenthesizedExpressionTrailingComment({
 
     const isAssignment = precedingNode.type === "AssignmentExpression";
 
-    const isArrowBody =
-      enclosingNode.type === "ArrowFunctionExpression" &&
-      enclosingNode.body === precedingNode &&
-      precedingNode.type === "ArrowFunctionExpression";
-
-    // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
-    // the parentheses, so the comment ends up trailing the whole statement
-    // anyway. Attach it there right away instead of leaving it on `c` for the
-    // next format to move.
     if (
+      // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
+      // the parentheses, so the comment ends up trailing the whole statement
+      // anyway. Attach it there right away instead of leaving it on `c` for the
+      // next format to move.
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      isArrowBody
+      (enclosingNode.type === "ArrowFunctionExpression" &&
+        precedingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.body === precedingNode)
     ) {
       const expressionStatement =
         getEnclosingAssignmentChainExpressionStatement(
