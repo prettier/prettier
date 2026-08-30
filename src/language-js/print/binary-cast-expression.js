@@ -14,18 +14,21 @@ function printBinaryCastExpression(path, options, print) {
     ? "const"
     : print("typeAnnotation");
 
-  const keepTypeOnOwnLine =
-    !isUnionType(node.typeAnnotation) &&
-    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation);
-
   const parts = [
     print("expression"),
     " ",
     isSatisfiesExpression(node) ? "satisfies" : "as",
-    keepTypeOnOwnLine
-      ? indent([hardline, typeAnnotationDoc])
-      : [" ", typeAnnotationDoc],
   ];
+
+  if (
+    // Union type already indented
+    !isUnionType(node.typeAnnotation) &&
+    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation)
+  ) {
+    parts.push(indent([hardline, typeAnnotationDoc]));
+  } else {
+    parts.push(" ", typeAnnotationDoc);
+  }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
