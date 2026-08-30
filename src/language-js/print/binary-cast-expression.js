@@ -1,7 +1,5 @@
 import { group, hardline, indent, softline } from "../../document/index.js";
-import hasNewline from "../../utilities/has-newline.js";
-import { locEnd } from "../location/index.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
@@ -16,17 +14,13 @@ function printBinaryCastExpression(path, options, print) {
     ? "const"
     : print("typeAnnotation");
 
-  // A line comment written on its own line before the type has to stay there.
-  // Printing it after the operator makes it a trailing comment, and the next format
-  // then moves it to the end of the statement. A union already prints its members on
-  // their own lines, so it does not need the break and would be indented twice.
+  // A comment written on its own line before the type has to stay there. Printing it
+  // after the operator makes it a trailing comment, and the next format then moves it
+  // to the end of the statement. A union already prints its members on their own
+  // lines, so it does not need the break and would be indented twice.
   const keepTypeOnOwnLine =
     !isUnionType(node.typeAnnotation) &&
-    hasComment(
-      node.typeAnnotation,
-      CommentCheckFlags.Leading | CommentCheckFlags.Line,
-      (comment) => hasNewline(options.originalText, locEnd(comment)),
-    );
+    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation);
 
   const parts = [
     print("expression"),
