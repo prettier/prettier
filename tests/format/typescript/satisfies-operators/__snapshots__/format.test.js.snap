@@ -381,11 +381,25 @@ parsers: ["typescript"]
 semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
+const t1 = {
+    prop1: 1,
+    prop2: 2,
+    prop3: 3
+} satisfies
+// Comment
+Record<string, number>;
 const t2 = {} /* comment */ satisfies {};
 const t3 = {} satisfies /* comment */ {};
 const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 =====================================output=====================================
+const t1 = {
+  prop1: 1,
+  prop2: 2,
+  prop3: 3,
+} satisfies
+  // Comment
+  Record<string, number>
 const t2 = {} /* comment */ satisfies {}
 const t3 = {} satisfies /* comment */ {}
 const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
@@ -398,24 +412,6 @@ exports[`comments.ts format 1`] = `
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-const t2 = {} /* comment */ satisfies {};
-const t3 = {} satisfies /* comment */ {};
-const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
-
-=====================================output=====================================
-const t2 = {} /* comment */ satisfies {};
-const t3 = {} satisfies /* comment */ {};
-const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
-
-================================================================================
-`;
-
-exports[`comments-unstable.ts - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-semi: false
-                                                      printWidth: 80 (default) |
-=====================================input======================================
 const t1 = {
     prop1: 1,
     prop2: 2,
@@ -423,31 +419,9 @@ const t1 = {
 } satisfies
 // Comment
 Record<string, number>;
-
-=====================================output=====================================
-const t1 = {
-  prop1: 1,
-  prop2: 2,
-  prop3: 3,
-} satisfies
-  // Comment
-  Record<string, number>
-
-================================================================================
-`;
-
-exports[`comments-unstable.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-const t1 = {
-    prop1: 1,
-    prop2: 2,
-    prop3: 3
-} satisfies
-// Comment
-Record<string, number>;
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 =====================================output=====================================
 const t1 = {
@@ -457,6 +431,9 @@ const t1 = {
 } satisfies
   // Comment
   Record<string, number>;
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 ================================================================================
 `;
