@@ -594,10 +594,13 @@ function handleLastFunctionParameterComments({
       ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
         enclosingNode?.type === "MethodDefinition") &&
         enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
+    // The node before the `)` is not always a parameter. In `(a) => (b /* c */)`
+    // it is the arrow function body, and that comment does not belong to `a`.
     getFunctionParameters(
-      isRealFunctionLikeNode(enclosingNode)
-        ? enclosingNode
-        : enclosingNode.value,
+      enclosingNode.type === "MethodDefinition" ||
+        enclosingNode.type === "TSAbstractMethodDefinition"
+        ? enclosingNode.value
+        : enclosingNode,
     ).at(-1) === precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
@@ -1205,6 +1208,15 @@ function handleArrowExpressionComments({
   return false;
 }
 
+// Parentheses around these arrow function bodies are printed, so a comment
+// before the closing parenthesis stays inside them.
+const isArrowFunctionBodyKeepingParentheses = createTypeCheckFunction([
+  "ConditionalExpression",
+  "JSXElement",
+  "JSXFragment",
+  "SequenceExpression",
+]);
+
 function getEnclosingAssignmentChainStatement(node, ancestors) {
   let child = node;
 
@@ -1219,12 +1231,25 @@ function getEnclosingAssignmentChainStatement(node, ancestors) {
       continue;
     }
 
-    return (ancestor.type === "ExpressionStatement" &&
-      ancestor.expression === child) ||
-      (ancestor.type === "VariableDeclaration" &&
-        ancestor.declarations.at(-1) === child)
-      ? ancestor
-      : undefined;
+    return isStatementEndingWith(ancestor, child) ? ancestor : undefined;
+  }
+}
+
+// A statement whose last token before the semicolon is `child`, so a comment
+// trailing `child` also trails the statement.
+function isStatementEndingWith(node, child) {
+  switch (node.type) {
+    case "ExpressionStatement":
+      return node.expression === child;
+    case "VariableDeclaration":
+      return node.declarations.at(-1) === child;
+    case "ExportDefaultDeclaration":
+      return node.declaration === child;
+    case "ReturnStatement":
+    case "ThrowStatement":
+      return node.argument === child;
+    default:
+      return false;
   }
 }
 
@@ -1274,7 +1299,7 @@ function handleParenthesizedExpressionTrailingComment({
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
       (!isAssignment &&
-        !isSequence &&
+        !isArrowFunctionBodyKeepingParentheses(precedingNode) &&
         enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode)
     ) {
