@@ -61,8 +61,12 @@ Foo;
 /**
  * jsdoc
  */
+const;
+1 as
+/**
+ * jsdoc
+ */
 Foo;
-
 1 satisfies
 /**
  * jsdoc

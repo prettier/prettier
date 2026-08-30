@@ -95,8 +95,12 @@ Foo;
 /**
  * jsdoc
  */
+const;
+1 as
+/**
+ * jsdoc
+ */
 Foo;
-
 1 satisfies
 /**
  * jsdoc
@@ -158,12 +162,15 @@ comment
 1 as Foo; // comment
 1 satisfies Foo; // comment
 
+1 as const;
+/**
+ * jsdoc
+ */
 1 as
   /**
    * jsdoc
    */
   Foo;
-
 1 satisfies
   /**
    * jsdoc
