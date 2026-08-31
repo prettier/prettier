@@ -159,8 +159,12 @@ comment
   Foo;
 
 1 as const; // comment
-1 as Foo; // comment
-1 satisfies Foo; // comment
+1 as
+  // comment
+  Foo;
+1 satisfies
+  // comment
+  Foo;
 
 1 as const;
 /**

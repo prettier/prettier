@@ -1125,12 +1125,14 @@ function handleBinaryCastExpressionComment({
   followingNode,
   comment,
   text,
+  placement,
 }) {
   // Avoid break before `as` and `satisfies`
   if (
     isBinaryCastExpression(enclosingNode) &&
     precedingNode === enclosingNode.expression &&
-    !isSingleLineComment(comment, text)
+    // `endOfLine` single-line comments still need reattaching, otherwise they get deferred past the type and semicolon
+    (!isSingleLineComment(comment, text) || placement === "endOfLine")
   ) {
     if (followingNode) {
       addLeadingComment(followingNode, comment);
