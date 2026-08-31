@@ -30,6 +30,7 @@ import { shouldPrintTrailingComma } from "./misc.js";
 
 function hasTrailingComma({ parent }, options) {
   return Boolean(
+    parent.type === "value-paren_group" &&
     parent.open?.source &&
     parent.close?.source &&
     options.originalText
