@@ -12,6 +12,57 @@ import {
 } from "../print/template-literal.js";
 import { hasLanguageComment, isAngularComponentTemplate } from "./utilities.js";
 
+function getVariableName(expression) {
+  if (
+    expression.trailingComments ||
+    expression.leadingComments ||
+    expression.comments
+  ) {
+    return;
+  }
+
+  if (expression.type === "Identifier") {
+    return expression.name;
+  }
+
+  if (expression.type === "ThisExpression") {
+    return "this";
+  }
+
+  if (
+    expression.type === "MemberExpression" &&
+    !expression.computed &&
+    !expression.optional
+  ) {
+    const objectName = getVariableName(expression.object);
+    const propertyName = getVariableName(expression.property);
+    if (objectName && propertyName) {
+      return objectName + "." + propertyName;
+    }
+  }
+
+  if (expression.type === "CallExpression") {
+    const fn = getVariableName(expression.callee);
+    if (fn) {
+      let hasNonParsableArgs = false;
+      const args = [];
+      for (const argument of expression.arguments) {
+        const argName = getVariableName(argument);
+        if (argName) {
+          args.push(argName);
+        } else {
+          hasNonParsableArgs = true;
+          break;
+        }
+      }
+
+      if (!hasNonParsableArgs) {
+        return fn + "(" + args.join(",") + ")";
+      }
+    }
+  }
+}
+
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
@@ -19,8 +70,25 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
-  const composePlaceholder = (index) =>
-    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
+  const variableNameIndexLookup = {};
+  const composePlaceholder = (index) => {
+    let placeholder = index;
+
+    const nextExpression = node.expressions[index];
+    if (nextExpression) {
+      const variableName = getVariableName(nextExpression);
+
+      if (variableName) {
+        if (Object.hasOwn(variableNameIndexLookup, variableName)) {
+          placeholder = variableNameIndexLookup[variableName];
+        } else {
+          variableNameIndexLookup[variableName] = index;
+        }
+      }
+    }
+
+    return `PRETTIER_HTML_PLACEHOLDER_${placeholder}_${counter}_IN_JS`;
+  };
 
   const text = node.quasis
     .map((quasi, index, quasis) =>
@@ -83,8 +151,8 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     options.htmlWhitespaceSensitivity === "ignore"
       ? hardline
       : leadingWhitespace && trailingWhitespace
-        ? line
-        : null;
+      ? line
+      : null;
 
   if (linebreak) {
     return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
