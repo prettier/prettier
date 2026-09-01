@@ -41,11 +41,11 @@ function hasTrailingComma({ node, parent }, options) {
     return false;
   }
 
-  const endChar = getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     options.originalText,
     locEnd(lastValue),
   );
-  return endChar === ",";
+  return nextCharacter === ",";
 }
 
 function printTrailingComma(path, options) {
