@@ -255,6 +255,10 @@ deno eval "Deno.writeTextFileSync('.husky/pre-commit','deno x lint-staged\n')"
 
 ```json
 {
+  ...
+  "scripts": {
+  ...
+  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   }
