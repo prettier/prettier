@@ -89,6 +89,7 @@ $x: "!default"   !global // trailing comment
 ;
 $x: "!default"   !default // trailing comment
 ;
+
 =====================================output=====================================
 $x: "!default";
 $x: "   !default";
