@@ -226,21 +226,15 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   );
 }
 
-function printCodeFence(value, options) {
+function printCodeFence(value, options, printedValue = value) {
   if (!options.__inJsTemplate) {
     return "`".repeat(Math.max(3, getMaxContinuousCount(value, "`") + 1));
   }
 
-  // A nested code block is fenced with `~` here too, and its backticks are escaped for the
-  // template literal. Both lose their backslashes and turn into tildes when printed, so the run
-  // they will occupy has to be cleared by this fence as well.
-  const count = Math.max(
-    3,
-    getMaxContinuousCount(value, "~") + 1,
-    getMaxContinuousCount(value.replaceAll("\\", ""), "`") + 1,
-  );
-
-  return "~".repeat(count);
+  // In a JS template a nested code block is fenced with `~` as well, and how wide that fence
+  // ends up is a property of the printed output rather than of the source text. Measuring the
+  // printed value is exact where counting escaped backticks in the source only approximates it.
+  return "~".repeat(Math.max(3, getMaxContinuousCount(printedValue, "~") + 1));
 }
 
 // The final new line should not include in value

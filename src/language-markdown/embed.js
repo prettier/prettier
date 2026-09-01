@@ -1,4 +1,9 @@
-import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
+import {
+  hardline,
+  markAsRoot,
+  printDocToString,
+  replaceEndOfLine,
+} from "../document/index.js";
 import inferParser from "../utilities/infer-parser.js";
 import { getFencedCodeBlockValue, printCodeFence } from "./utilities.js";
 
@@ -46,7 +51,13 @@ function embed(path, options) {
           textToDocOptions,
         );
 
-        const style = printCodeFence(node.value, options);
+        // The fence has to clear the longest run of tildes the block will actually contain,
+        // and a nested block's own fence is only known once its doc is printed.
+        const style = printCodeFence(
+          node.value,
+          options,
+          printDocToString(doc, options).formatted,
+        );
 
         return markAsRoot([
           style,
