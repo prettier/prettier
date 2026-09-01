@@ -15,7 +15,7 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd } from "../loc.js";
@@ -41,11 +41,11 @@ function hasTrailingComma({ node, parent }, options) {
     return false;
   }
 
-  const index = getNextNonSpaceNonCommentCharacterIndex(
+  const endChar = getNextNonSpaceNonCommentCharacter(
     options.originalText,
     locEnd(lastValue),
   );
-  return index !== false && options.originalText[index] === ",";
+  return endChar === ",";
 }
 
 function printTrailingComma(path, options) {

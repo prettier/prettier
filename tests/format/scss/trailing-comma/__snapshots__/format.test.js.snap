@@ -313,6 +313,7 @@ $comment-without-comma: ("a"
 $empty-comment-after-comma: ("a",
   //
 );
+
 =====================================output=====================================
 $single-string: ("a",);
 $single-space-list: (1 2 3,);
@@ -364,6 +365,7 @@ $comment-without-comma: ("a"
 $empty-comment-after-comma: ("a",
   //
 );
+
 =====================================output=====================================
 $single-string: ("a",);
 $single-space-list: (1 2 3,);
