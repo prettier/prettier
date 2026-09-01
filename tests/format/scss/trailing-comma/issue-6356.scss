@@ -7,3 +7,13 @@ $multiple-items: (1, 2,);
 $single-argument: foo(1,);
 
 $single-entry-map: (a: 1,);
+
+$comment-after-comma: ("a",
+  // ,
+);
+$comment-without-comma: ("a"
+  // ,
+);
+$empty-comment-after-comma: ("a",
+  //
+);

@@ -179,7 +179,7 @@ $z-indexes: (
 =====================================output=====================================
 .simplification {
   foo: (
-    calc() // It is a comment
+    calc(), // It is a comment
   );
 }
 
@@ -230,7 +230,7 @@ $z-indexes: (
 =====================================output=====================================
 .simplification {
   foo: (
-    calc() // It is a comment
+    calc(), // It is a comment
   );
 }
 
@@ -304,6 +304,15 @@ $single-argument: foo(1,);
 
 $single-entry-map: (a: 1,);
 
+$comment-after-comma: ("a",
+  // ,
+);
+$comment-without-comma: ("a"
+  // ,
+);
+$empty-comment-after-comma: ("a",
+  //
+);
 =====================================output=====================================
 $single-string: ("a",);
 $single-space-list: (1 2 3,);
@@ -315,6 +324,16 @@ $single-argument: foo(1);
 
 $single-entry-map: (
   a: 1,
+);
+
+$comment-after-comma: (
+  "a", // ,
+);
+$comment-without-comma: (
+  "a" // ,
+);
+$empty-comment-after-comma: (
+  "a", //
 );
 
 ================================================================================
@@ -336,6 +355,15 @@ $single-argument: foo(1,);
 
 $single-entry-map: (a: 1,);
 
+$comment-after-comma: ("a",
+  // ,
+);
+$comment-without-comma: ("a"
+  // ,
+);
+$empty-comment-after-comma: ("a",
+  //
+);
 =====================================output=====================================
 $single-string: ("a",);
 $single-space-list: (1 2 3,);
@@ -347,6 +375,16 @@ $single-argument: foo(1);
 
 $single-entry-map: (
   a: 1
+);
+
+$comment-after-comma: (
+  "a", // ,
+);
+$comment-without-comma: (
+  "a" // ,
+);
+$empty-comment-after-comma: (
+  "a", //
 );
 
 ================================================================================

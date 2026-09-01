@@ -15,9 +15,10 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd } from "../loc.js";
 import {
   isConfigurationNode,
   isKeyInValuePairNode,
@@ -28,16 +29,23 @@ import {
 } from "../utilities/index.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
-function hasTrailingComma({ parent }, options) {
-  return Boolean(
-    parent.type === "value-paren_group" &&
-    parent.open &&
-    parent.close &&
-    options.originalText
-      .slice(locStart(parent.open), locStart(parent.close))
-      .trimEnd()
-      .endsWith(","),
+function hasTrailingComma({ node, parent }, options) {
+  if (parent.type !== "value-paren_group") {
+    return false;
+  }
+
+  const nodes = node.type === "value-comma_group" ? node.groups : [node];
+  const lastValue = nodes.findLast((child) => child.type !== "value-comment");
+
+  if (!lastValue) {
+    return false;
+  }
+
+  const index = getNextNonSpaceNonCommentCharacterIndex(
+    options.originalText,
+    locEnd(lastValue),
   );
+  return index !== false && options.originalText[index] === ",";
 }
 
 function printTrailingComma(path, options) {
