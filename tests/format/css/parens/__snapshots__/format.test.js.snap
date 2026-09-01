@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`empty-line-after-function.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  clip-path: polygon(
+    0 calc(100% - 1px),
+
+    100% 100%
+  );
+  background: linear-gradient(
+    to right,
+
+    rgba(0, 0, 0, 0.5) calc(50% - 1px),
+
+
+
+    transparent
+  );
+}
+
+=====================================output=====================================
+a {
+  clip-path: polygon(
+    0 calc(100% - 1px),
+
+    100% 100%
+  );
+  background: linear-gradient(
+    to right,
+
+    rgba(0, 0, 0, 0.5) calc(50% - 1px),
+
+    transparent
+  );
+}
+
+================================================================================
+`;
+
 exports[`empty-lines.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
