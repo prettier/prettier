@@ -22,3 +22,10 @@ exports[`module-attributes-static.ts format[typescript] 1`] = `
   2 |
 Cause: '{' expected."
 `;
+
+exports[`module-attributes-static.ts format[yuku-ts] 1`] = `
+"Expected '{' after 'with' in import attributes, but found 'type' (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;
