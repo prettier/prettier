@@ -5760,10 +5760,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-es5-identifier-name@npm:1.0.1":
-  version: 1.0.1
-  resolution: "is-es5-identifier-name@npm:1.0.1"
-  checksum: 10/36fdd594189e636d2f8f25bd12eddc560c5a8d8836b76672a7749eda68a992e4548933106ff06fc0eb100ed9d08b9d37c515c53e332063128e17ef1e457eaa91
+"is-es5-identifier-name@npm:1.1.0":
+  version: 1.1.0
+  resolution: "is-es5-identifier-name@npm:1.1.0"
+  checksum: 10/6a7c3ec30638e5e10d484d6595dda3021b9e7af1855f1bebb8318441b48ec1579e0a93c7cb9f28ae01cd90e0366788dde7c3006ecda4c0acaca0c54a9d8dc44b
   languageName: node
   linkType: hard
 
@@ -8354,7 +8354,7 @@ __metadata:
     import-meta-resolve: "npm:4.2.0"
     imurmurhash-esm: "npm:0.0.2"
     index-to-position: "npm:1.2.0"
-    is-es5-identifier-name: "npm:1.0.1"
+    is-es5-identifier-name: "npm:1.1.0"
     jest: "npm:30.5.0"
     jest-docblock: "npm:30.5.0"
     jest-light-runner: "npm:0.8.1"
