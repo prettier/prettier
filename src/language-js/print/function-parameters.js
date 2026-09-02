@@ -8,14 +8,15 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
+import { getChildren } from "../../utilities/ast.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import { hasComment } from "../utilities/comments.js";
 import {
   getFunctionParameters,
   hasRestParameter,
   iterateFunctionParametersPath,
 } from "../utilities/function-parameters.js";
-import { getTypeParametersFromTypeReference } from "../utilities/get-type-parameters-from-type-reference.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
@@ -264,21 +265,26 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    (isObjectTypeLike(returnTypeNode) || willBreak(returnTypeDoc))
+    (hasHuggableObjectType(returnTypeNode) || willBreak(returnTypeDoc))
   );
 }
 
-function isObjectTypeLike(node) {
+function hasHuggableObjectType(node) {
   if (isObjectType(node)) {
     return true;
   }
 
-  if (isUnionType(node)) {
-    return shouldHugUnionType(node) && node.types.some(isObjectTypeLike);
+  if (isUnionType(node) && !shouldHugUnionType(node)) {
+    return false;
   }
 
-  const typeArguments = getTypeParametersFromTypeReference(node);
-  return typeArguments?.length === 1 && isObjectType(typeArguments[0]);
+  for (const child of getChildren(node, { getVisitorKeys })) {
+    if (hasHuggableObjectType(child)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**

@@ -24,9 +24,7 @@ async function case1(row: BingConnectionRow): Promise<{
   return null as never;
 }
 
-function case2(
-  row: BingConnectionRow,
-): Record<
+function case2(row: BingConnectionRow): Record<
   string,
   {
     row: BingConnectionRow;
@@ -64,9 +62,7 @@ async function case1(row: BingConnectionRow): Promise<{
   return null as never;
 }
 
-function case2(
-  row: BingConnectionRow,
-): Record<
+function case2(row: BingConnectionRow): Record<
   string,
   {
     row: BingConnectionRow;

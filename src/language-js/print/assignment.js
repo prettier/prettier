@@ -12,7 +12,6 @@ import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
-import { getTypeParametersFromTypeReference } from "../utilities/get-type-parameters-from-type-reference.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isIndentableBlockComment } from "../utilities/indentable-block-comment.js";
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
@@ -341,6 +340,19 @@ function isArrowFunctionVariableDeclarator(node) {
     node.type === "VariableDeclarator" &&
     node.init?.type === "ArrowFunctionExpression"
   );
+}
+
+function getTypeParametersFromTypeReference(node) {
+  let typeArguments;
+  switch (node.type) {
+    case "GenericTypeAnnotation":
+      typeArguments = node.typeParameters;
+      break;
+    case "TSTypeReference":
+      typeArguments = node.typeArguments;
+      break;
+  }
+  return typeArguments?.params;
 }
 
 /**
