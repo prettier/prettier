@@ -25,6 +25,7 @@ import {
   isObjectType,
   isTypeAnnotation,
 } from "../utilities/node-types.js";
+import { willBreakWithoutPreservedObjectWrap } from "../utilities/preserved-object-wrap.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
   printDanglingCommentsInList,
@@ -261,7 +262,8 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+    (isObjectType(returnTypeNode) ||
+      willBreakWithoutPreservedObjectWrap(returnTypeDoc))
   );
 }
 

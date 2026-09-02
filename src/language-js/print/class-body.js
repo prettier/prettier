@@ -18,6 +18,7 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { markPreservedObjectWrap } from "../utilities/preserved-object-wrap.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
@@ -103,15 +104,19 @@ function printClassBody(path, options, print) {
   }
 
   if (isObjectType) {
-    const shouldBreak =
-      hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line) ||
-      (options.objectWrap === "preserve" &&
-        firstMember &&
-        hasNewlineInRange(
-          options.originalText,
-          locStart(node),
-          locStart(firstMember),
-        ));
+    const hasBreakingComment = hasComment(
+      node,
+      CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+    );
+    const shouldPreserveWrap =
+      options.objectWrap === "preserve" &&
+      firstMember &&
+      hasNewlineInRange(
+        options.originalText,
+        locStart(node),
+        locStart(firstMember),
+      );
+    const shouldBreak = hasBreakingComment || shouldPreserveWrap;
 
     let content;
     if (parts.length === 0) {
@@ -147,7 +152,13 @@ function printClassBody(path, options, print) {
       return content;
     }
 
-    return group(content, { shouldBreak });
+    const doc = group(content, { shouldBreak });
+
+    if (shouldPreserveWrap && !hasBreakingComment) {
+      markPreservedObjectWrap(doc);
+    }
+
+    return doc;
   }
 
   return [

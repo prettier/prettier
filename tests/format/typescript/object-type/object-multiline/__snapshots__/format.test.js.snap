@@ -1,5 +1,90 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`19968.ts - {"objectWrap":"collapse"} format 1`] = `
+====================================options=====================================
+objectWrap: "collapse"
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function case1(row: BingConnectionRow): Promise<{ row: BingConnectionRow; bundle: BingCredentialBundle; accessToken: string; authorizationVersion: number }> {
+  return null as never;
+}
+
+function case2(row: BingConnectionRow): Record<string, { row: BingConnectionRow; bundle: BingCredentialBundle; accessToken: string; authorizationVersion: number }> {
+  return null as never;
+}
+
+=====================================output=====================================
+async function case1(
+  row: BingConnectionRow,
+): Promise<{
+  row: BingConnectionRow;
+  bundle: BingCredentialBundle;
+  accessToken: string;
+  authorizationVersion: number;
+}> {
+  return null as never;
+}
+
+function case2(
+  row: BingConnectionRow,
+): Record<
+  string,
+  {
+    row: BingConnectionRow;
+    bundle: BingCredentialBundle;
+    accessToken: string;
+    authorizationVersion: number;
+  }
+> {
+  return null as never;
+}
+
+================================================================================
+`;
+
+exports[`19968.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function case1(row: BingConnectionRow): Promise<{ row: BingConnectionRow; bundle: BingCredentialBundle; accessToken: string; authorizationVersion: number }> {
+  return null as never;
+}
+
+function case2(row: BingConnectionRow): Record<string, { row: BingConnectionRow; bundle: BingCredentialBundle; accessToken: string; authorizationVersion: number }> {
+  return null as never;
+}
+
+=====================================output=====================================
+async function case1(
+  row: BingConnectionRow,
+): Promise<{
+  row: BingConnectionRow;
+  bundle: BingCredentialBundle;
+  accessToken: string;
+  authorizationVersion: number;
+}> {
+  return null as never;
+}
+
+function case2(
+  row: BingConnectionRow,
+): Record<
+  string,
+  {
+    row: BingConnectionRow;
+    bundle: BingCredentialBundle;
+    accessToken: string;
+    authorizationVersion: number;
+  }
+> {
+  return null as never;
+}
+
+================================================================================
+`;
+
 exports[`multiline.ts - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
