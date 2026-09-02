@@ -2,8 +2,9 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.join(__dirname, "../../");
+const NODE_JS_MAJOR_VERSION = Number(process.versions.node.split(".", 1)[0]);
 
-function setupVscode() {
+async function setupVscode() {
   const vscodeDirectory = path.join(root, ".vscode/");
   const settingsFile = path.join(vscodeDirectory, "settings.json");
   const settingsExampleFile = path.join(
@@ -15,14 +16,7 @@ function setupVscode() {
     return;
   }
 
-  fs.copyFileSync(settingsExampleFile, settingsFile);
-}
-
-async function buildBabelCodeFrameForTest() {
-  const { buildBabelCodeFrameForTest } =
-    await import("../../scripts/build-babel-code-frame-for-test.js");
-
-  await buildBabelCodeFrameForTest();
+  await fs.promises.copyFile(settingsExampleFile, settingsFile);
 }
 
 module.exports = {
@@ -45,10 +39,11 @@ module.exports = {
           return;
         }
 
-        setupVscode();
-        try {
-          await buildBabelCodeFrameForTest();
-        } catch {}
+        await Promise[NODE_JS_MAJOR_VERSION < 20 ? "allSettled" : "all"]([
+          setupVscode(),
+          import("../../scripts/build-babel-code-frame-for-test.js"),
+          import("../../scripts/generate-flow-estree-type-definition.js"),
+        ]);
       },
     },
   }),
