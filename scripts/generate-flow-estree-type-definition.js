@@ -87,8 +87,8 @@ function toDts(text) {
 
   // `{[string]: T}` -> `{[key: string]: T}`
   text = text.replaceAll(
-    /(?<=\n)(?<indention>[ {2}]+)\[(?<type>string)\](?=: )/g,
-    "$<indention>[key: $<type>]",
+    /(?<=\n[ {2}]+\[)(?<type>string)(?=\]: )/g,
+    "key: $<type>",
   );
 
   return text;
