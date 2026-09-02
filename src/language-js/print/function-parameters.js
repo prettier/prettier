@@ -15,6 +15,7 @@ import {
   hasRestParameter,
   iterateFunctionParametersPath,
 } from "../utilities/function-parameters.js";
+import { getTypeParametersFromTypeReference } from "../utilities/get-type-parameters-from-type-reference.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
@@ -24,8 +25,10 @@ import {
   isObjectExpression,
   isObjectType,
   isTypeAnnotation,
+  isUnionType,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
+import { shouldHugUnionType } from "../utilities/union-type-print.js";
 import {
   printDanglingCommentsInList,
   printTrailingComma,
@@ -261,8 +264,21 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+    (isObjectTypeLike(returnTypeNode) || willBreak(returnTypeDoc))
   );
+}
+
+function isObjectTypeLike(node) {
+  if (isObjectType(node)) {
+    return true;
+  }
+
+  if (isUnionType(node)) {
+    return shouldHugUnionType(node) && node.types.some(isObjectTypeLike);
+  }
+
+  const typeArguments = getTypeParametersFromTypeReference(node);
+  return typeArguments?.length === 1 && isObjectType(typeArguments[0]);
 }
 
 /**
