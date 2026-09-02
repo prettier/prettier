@@ -70,7 +70,7 @@ function toDts(text) {
   text = text.replaceAll("'use strict';", "");
 
   // `{foo: interface {}}` -> `{foo: {}}`
-  text = text.replaceAll(": interface {", ": {");
+  text = text.replaceAll(/(?<=: )interface(?= \{)/g, "");
 
   // `{foo: interface extends T {}}` -> `{foo: T & {}}`
   text = text.replaceAll(
