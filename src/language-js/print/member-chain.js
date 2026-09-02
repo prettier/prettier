@@ -9,10 +9,13 @@ import {
   willBreak,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
+import { hasDescendant } from "../../utilities/ast.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
-import { locEnd } from "../location/index.js";
+import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isLongCurriedCallExpression } from "../utilities/is-long-curried-call-expression.js";
 import { isMemberish } from "../utilities/is-memberish.js";
@@ -23,6 +26,7 @@ import {
   isFunctionOrArrowExpression,
   isMemberExpression,
   isNumericLiteral,
+  isObjectExpression,
 } from "../utilities/node-types.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
@@ -372,7 +376,29 @@ function printMemberChain(path, options, print) {
   const callExpressions = printedNodes
     .map(({ node }) => node)
     .filter(isCallExpression);
-
+  const isMultilineObject = (node) =>
+    isObjectExpression(node) &&
+    node.properties.length > 0 &&
+    hasNewlineInRange(
+      options.originalText,
+      locStart(node),
+      locStart(node.properties[0]),
+    );
+  const hasMultilineObjectArgument =
+    !isExpressionStatement &&
+    callExpressions.some((callExpression) =>
+      callExpression.arguments.some(
+        (argument) =>
+          isMultilineObject(argument) ||
+          hasDescendant(argument, {
+            getVisitorKeys: (node) =>
+              isCallExpression(node) || isMemberish(node)
+                ? []
+                : getVisitorKeys(node),
+            predicate: isMultilineObject,
+          }),
+      ),
+    );
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
     const lastGroupNode = groups.at(-1).at(-1).node;
     const lastGroupDoc = printedGroups.at(-1);
@@ -399,6 +425,7 @@ function printMemberChain(path, options, print) {
       callExpressions.some((expr) =>
         expr.arguments.some((arg) => !isSimpleCallArgument(arg)),
       )) ||
+    hasMultilineObjectArgument ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
