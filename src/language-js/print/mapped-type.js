@@ -3,7 +3,6 @@ import {
   hardline,
   ifBreak,
   indent,
-  label,
   line,
   softline,
 } from "../../document/index.js";
@@ -15,6 +14,7 @@ import { isLineComment } from "../utilities/comment-types.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { printClassMemberSemicolon } from "./class.js";
+import { markPreservedObjectWrap } from "./function-parameters.js";
 
 /**
 @import {Doc} from "../../document/index.js"
@@ -141,7 +141,7 @@ function printTypeScriptMappedType(path, options, print) {
     { shouldBreak },
   );
 
-  return label(shouldBreak && { preservedObjectWrap: true }, doc);
+  return shouldBreak ? markPreservedObjectWrap(doc) : doc;
 }
 
 export { printFlowMappedTypeProperty, printTypeScriptMappedType };

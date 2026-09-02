@@ -8,6 +8,7 @@ import {
   group,
   hardline,
   indent,
+  label,
   line,
   removeLines,
   softline,
@@ -244,12 +245,15 @@ function getReturnTypeNode(functionNode) {
   return returnTypeNode;
 }
 
-// When parameters are grouped, the return type annotation breaks first.
 /*
 `objectWrap: "preserve"` breaks an object type when the original text has a line
 break after `{`. Prettier adds that line break itself when the type doesn't fit,
 so a decision made from such a break isn't the same on the next run.
 */
+function markPreservedObjectWrap(doc) {
+  return label({ preservedObjectWrap: true }, doc);
+}
+
 function willBreakWithoutPreservedObjectWrap(doc) {
   const preservedObjectWraps = new WeakSet();
 
@@ -280,6 +284,7 @@ function willBreakWithoutPreservedObjectWrap(doc) {
   );
 }
 
+// When parameters are grouped, the return type annotation breaks first.
 function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
   if (!returnTypeNode) {
@@ -375,6 +380,7 @@ function shouldHugTheOnlyParameter(node, name) {
 }
 
 export {
+  markPreservedObjectWrap,
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,

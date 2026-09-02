@@ -3,7 +3,6 @@ import {
   hardline,
   ifBreak,
   indent,
-  label,
   line,
   softline,
 } from "../../document/index.js";
@@ -19,7 +18,10 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-import { shouldHugTheOnlyParameter } from "./function-parameters.js";
+import {
+  markPreservedObjectWrap,
+  shouldHugTheOnlyParameter,
+} from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
@@ -155,7 +157,7 @@ function printClassBody(path, options, print) {
     const doc = group(content, { shouldBreak });
 
     return shouldPreserveWrap && !hasBreakingComment
-      ? label({ preservedObjectWrap: true }, doc)
+      ? markPreservedObjectWrap(doc)
       : doc;
   }
 
