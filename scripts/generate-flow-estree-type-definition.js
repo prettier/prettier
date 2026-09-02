@@ -69,9 +69,6 @@ function toDts(text) {
   // Useless directive
   text = text.replaceAll("'use strict';", "");
 
-  // `{+foo: string}` -> `{foo: string}`
-  text = text.replaceAll(/(?<=\n)(?<indention>[ {2}]+)\+/g, "$<indention>");
-
   // `{foo: interface {}}` -> `{foo: {}}`
   text = text.replaceAll(": interface {", ": {");
 
