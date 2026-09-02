@@ -6,9 +6,7 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import { locEnd, locStart } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
@@ -265,18 +263,6 @@ function printEstree(path, options, print, args) {
       return parts;
     }
     case "UpdateExpression":
-      /*
-      A postfix update expression is a restricted production, a line terminator
-      is not allowed between the argument and the operator. A trailing comment
-      spanning lines would introduce one, so parentheses have to be restored.
-      */
-      if (
-        !node.prefix &&
-        hasNewlineSpanningTrailingComment(node.argument, options)
-      ) {
-        return ["(", print("argument"), ")", node.operator];
-      }
-
       return [
         node.prefix ? node.operator : "",
         print("argument"),
@@ -373,12 +359,6 @@ function printEstree(path, options, print, args) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
-}
-
-function hasNewlineSpanningTrailingComment(node, options) {
-  return hasComment(node, CommentCheckFlags.Trailing, (comment) =>
-    hasNewlineInRange(options.originalText, locStart(comment), locEnd(comment)),
-  );
 }
 
 export { printEstree };
