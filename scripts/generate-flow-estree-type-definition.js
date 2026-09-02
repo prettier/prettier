@@ -70,12 +70,13 @@ function toDts(text) {
   text = text.replaceAll("'use strict';", "");
 
   // `{foo: interface {}}` -> `{foo: {}}`
-  text = text.replaceAll(/(?<=: )interface(?= \{)/g, "");
-
   // `{foo: interface extends T {}}` -> `{foo: T & {}}`
   text = text.replaceAll(
-    /(?<=: )interface extends (?<type>\w+)(?= \{)/g,
-    "$<type> & ",
+    /(?<=: )interface(?: extends (?<type>\w+))?(?= \{)/g,
+    (...args) => {
+      const { type } = args.at(-1);
+      return type ? `${type} & ` : "";
+    },
   );
 
   // `ReadonlyArray<?T>` -> `ReadonlyArray<T | null>`
