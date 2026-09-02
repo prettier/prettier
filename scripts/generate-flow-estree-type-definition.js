@@ -6,6 +6,7 @@ import { codeFrameColumns } from "@babel/code-frame";
 import * as ts from "typescript";
 import * as prettier from "../node_modules/prettier/index.mjs";
 
+const buildScriptVersion = "1";
 const PROJECT_ROOT = new URL("../", import.meta.url);
 const FLOW_TYPES = new URL(
   "./node_modules/flow-estree/dist/types.js.flow",
@@ -15,9 +16,29 @@ const FLOW_TYPES_DTS = new URL(
   "./src/language-js/types/flow-estree.d.ts",
   PROJECT_ROOT,
 );
+const IS_CI = Boolean(process.env.CI);
 
 async function generateFlowEstreeTypeDefinition() {
+  const {
+    default: { version },
+  } = await import("flow-estree/package.json", {
+    with: { type: "json" },
+  });
+  const versionComment = `// flow-estree:v${version}, build-script:v${buildScriptVersion}`;
+
+  if (!IS_CI) {
+    try {
+      const dtsText = await fs.readFile(FLOW_TYPES_DTS, "utf8");
+      if (dtsText.includes(versionComment + "\n")) {
+        return;
+      }
+    } catch {
+      // No op
+    }
+  }
+
   let text = await fs.readFile(FLOW_TYPES, "utf8");
+
   text = toDts(text);
 
   const getRelativePath = (url) =>
@@ -26,6 +47,7 @@ async function generateFlowEstreeTypeDefinition() {
 // ! Do NOT edit !
 // Generated from '${getRelativePath(FLOW_TYPES)}'
 // Run \`node ${getRelativePath(import.meta.url)}\` to update
+${versionComment}
 // spell-checker: disable
 
 ${text}

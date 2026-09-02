@@ -1,6 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
+// flow-estree:v0.330.0, build-script:v1
 // spell-checker: disable
 
 /**
