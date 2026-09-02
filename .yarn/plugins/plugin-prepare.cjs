@@ -2,7 +2,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.join(__dirname, "../../");
-const NODE_JS_MAJOR_VERSION = Number(process.versions.node.split(".", 1)[0]);
 
 async function setupVscode() {
   const vscodeDirectory = path.join(root, ".vscode/");
@@ -39,7 +38,7 @@ module.exports = {
           return;
         }
 
-        await Promise[NODE_JS_MAJOR_VERSION < 20 ? "allSettled" : "all"]([
+        await Promise.allSettled([
           setupVscode(),
           import("../../scripts/build-babel-code-frame-for-test.js"),
           import("../../scripts/generate-flow-estree-type-definition.js"),
