@@ -38,11 +38,15 @@ module.exports = {
           return;
         }
 
-        await Promise.allSettled([
-          setupVscode(),
-          import("../../scripts/build-babel-code-frame-for-test.js"),
-          import("../../scripts/generate-flow-estree-type-definition.js"),
-        ]);
+        try {
+          await Promise.all([
+            setupVscode(),
+            import("../../scripts/build-babel-code-frame-for-test.js"),
+            import("../../scripts/generate-flow-estree-type-definition.js"),
+          ]);
+        } catch (error) {
+          console.error(error);
+        }
       },
     },
   }),
