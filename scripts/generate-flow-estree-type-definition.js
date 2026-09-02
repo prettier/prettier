@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "node:fs/promises";
 import url from "node:url";
 import { codeFrameColumns } from "@babel/code-frame";
@@ -14,12 +16,13 @@ const FLOW_TYPES_DTS = new URL(
   PROJECT_ROOT,
 );
 
-let text = await fs.readFile(FLOW_TYPES, "utf8");
-text = toDts(text);
+async function generateFlowEstreeTypeDefinition() {
+  let text = await fs.readFile(FLOW_TYPES, "utf8");
+  text = toDts(text);
 
-const getRelativePath = (url) =>
-  new URL(url).href.slice(PROJECT_ROOT.href.length);
-text = `
+  const getRelativePath = (url) =>
+    new URL(url).href.slice(PROJECT_ROOT.href.length);
+  text = `
 // ! Do NOT edit !
 // Generated from '${getRelativePath(FLOW_TYPES)}'
 // Run \`node ${getRelativePath(import.meta.url)}\` to update
@@ -28,37 +31,38 @@ text = `
 ${text}
 `;
 
-text = await prettier.format(text, {
-  // Bug? should accept URL
-  filepath: "flow-estree.d.ts",
-  parser: "typescript",
-});
+  text = await prettier.format(text, {
+    // Bug? should accept URL
+    filepath: "flow-estree.d.ts",
+    parser: "typescript",
+  });
 
-await fs.writeFile(FLOW_TYPES_DTS, text);
+  await fs.writeFile(FLOW_TYPES_DTS, text);
 
-const program = ts.createProgram([url.fileURLToPath(FLOW_TYPES_DTS)], {
-  strict: true,
-});
-const diagnostics = ts.getPreEmitDiagnostics(program);
+  const program = ts.createProgram([url.fileURLToPath(FLOW_TYPES_DTS)], {
+    strict: true,
+  });
+  const diagnostics = ts.getPreEmitDiagnostics(program);
 
-if (diagnostics.length > 0) {
-  await fs.rm(FLOW_TYPES_DTS);
-  const [diagnostic] = diagnostics;
-  const { line, character: column } = ts.getLineAndCharacterOfPosition(
-    diagnostic.file,
-    diagnostic.start,
-  );
-  throw new Error(
-    diagnostic.messageText +
-      ":\n" +
-      codeFrameColumns(
-        text,
-        { start: { line: line + 1, column } },
-        {
-          message: `TS${diagnostic.code}: ${diagnostic.messageText}`,
-        },
-      ),
-  );
+  if (diagnostics.length > 0) {
+    await fs.rm(FLOW_TYPES_DTS);
+    const [diagnostic] = diagnostics;
+    const { line, character: column } = ts.getLineAndCharacterOfPosition(
+      diagnostic.file,
+      diagnostic.start,
+    );
+    throw new Error(
+      diagnostic.messageText +
+        ":\n" +
+        codeFrameColumns(
+          text,
+          { start: { line: line + 1, column } },
+          {
+            message: `TS${diagnostic.code}: ${diagnostic.messageText}`,
+          },
+        ),
+    );
+  }
 }
 
 function toDts(text) {
@@ -91,3 +95,5 @@ function toDts(text) {
 
   return text;
 }
+
+await generateFlowEstreeTypeDefinition();
