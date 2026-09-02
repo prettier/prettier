@@ -3,6 +3,7 @@ import {
   hardline,
   ifBreak,
   indent,
+  label,
   line,
   softline,
 } from "../../document/index.js";
@@ -101,7 +102,7 @@ function printTypeScriptMappedType(path, options, print) {
     );
   }
 
-  return group(
+  const doc = group(
     [
       "{",
       indent([
@@ -139,6 +140,8 @@ function printTypeScriptMappedType(path, options, print) {
     ],
     { shouldBreak },
   );
+
+  return label(shouldBreak && { preservedObjectWrap: true }, doc);
 }
 
 export { printFlowMappedTypeProperty, printTypeScriptMappedType };

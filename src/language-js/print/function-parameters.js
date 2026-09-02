@@ -1,5 +1,10 @@
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
+  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_LINE,
+  findInDoc,
   group,
   hardline,
   indent,
@@ -25,7 +30,6 @@ import {
   isObjectType,
   isTypeAnnotation,
 } from "../utilities/node-types.js";
-import { willBreakWithoutPreservedObjectWrap } from "../utilities/preserved-object-wrap.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
   printDanglingCommentsInList,
@@ -241,6 +245,41 @@ function getReturnTypeNode(functionNode) {
 }
 
 // When parameters are grouped, the return type annotation breaks first.
+/*
+`objectWrap: "preserve"` breaks an object type when the original text has a line
+break after `{`. Prettier adds that line break itself when the type doesn't fit,
+so a decision made from such a break isn't the same on the next run.
+*/
+function willBreakWithoutPreservedObjectWrap(doc) {
+  const preservedObjectWraps = new WeakSet();
+
+  return findInDoc(
+    doc,
+    (doc) => {
+      switch (doc.type) {
+        case DOC_TYPE_LABEL:
+          if (doc.label.preservedObjectWrap) {
+            preservedObjectWraps.add(doc.contents);
+          }
+          break;
+        case DOC_TYPE_GROUP:
+          if (doc.break && !preservedObjectWraps.has(doc)) {
+            return true;
+          }
+          break;
+        case DOC_TYPE_LINE:
+          if (doc.hard) {
+            return true;
+          }
+          break;
+        case DOC_TYPE_BREAK_PARENT:
+          return true;
+      }
+    },
+    false,
+  );
+}
+
 function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
   if (!returnTypeNode) {
