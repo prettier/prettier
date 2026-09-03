@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`footnote-definition.md - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# Footnote definition
+
+Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+
+	Subsequent paragraphs are indented to show that they belong to the previous footnote.
+
+		{ some.code }
+
+	The whole paragraph can be indented, or just the first line.
+
+=====================================output=====================================
+# Footnote definition
+
+Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+
+	Subsequent paragraphs are indented to show that they belong to the previous footnote.
+
+		{ some.code }
+
+	The whole paragraph can be indented, or just the first line.
+
+================================================================================
+`;
+
+exports[`indented-code-block.md - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# Indented code block
+
+	first line
+	second line
+	third line
+
+Trailing paragraph.
+
+=====================================output=====================================
+# Indented code block
+
+	first line
+	second line
+	third line
+
+Trailing paragraph.
+
+================================================================================
+`;
