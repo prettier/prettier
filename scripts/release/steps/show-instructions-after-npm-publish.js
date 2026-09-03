@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import outdent from "outdent";
-import semver from "semver";
+import * as verkit from "verkit";
 import {
   getBlogPostInfo,
   getChangelogContent,
@@ -9,8 +9,7 @@ import {
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
 export function getReleaseUrl(version, previousVersion) {
-  const semverDiff = semver.diff(version, previousVersion);
-  const isPatch = semverDiff === "patch";
+  const isPatch = verkit.difference(version, previousVersion) === "patch";
   const tag = version;
   let body;
   if (isPatch) {

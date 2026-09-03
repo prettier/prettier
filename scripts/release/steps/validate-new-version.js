@@ -1,24 +1,24 @@
 import styleText from "node-style-text";
-import semver from "semver";
+import * as verkit from "verkit";
 
 export default function validateNewVersion({ version, previousVersion, next }) {
   if (!version) {
     throw new Error("'--version' is required");
   }
 
-  if (!semver.valid(version)) {
+  if (!verkit.isValid(version)) {
     throw new Error(
       `Invalid version '${styleText.red.underline(version)}' specified`,
     );
   }
 
-  if (!semver.gt(version, previousVersion)) {
+  if (!verkit.isGreater(version, previousVersion)) {
     throw new Error(
       `Version '${styleText.yellow.underline(version)}' has already been published`,
     );
   }
 
-  if (next && semver.prerelease(version) === null) {
+  if (next && !verkit.isPrerelease(version)) {
     throw new Error(
       `Version '${styleText.yellow.underline(
         version,
