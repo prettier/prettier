@@ -9,11 +9,16 @@ const getExpectedReleaseUrl = (parameters) => {
   return `${RELEASE_URL_BASE}${parameters}`;
 };
 
-const getDateParts = () => [
-  new Date().getFullYear(),
-  String(new Date().getMonth() + 1).padStart(2, "0"),
-  String(new Date().getDate()).padStart(2, "0"),
-];
+const getDateParts = () => {
+  const date = new Date();
+  const isoStr = date.toISOString();
+
+  const year = isoStr.slice(0, 4);
+  const month = isoStr.slice(5, 7);
+  const day = isoStr.slice(8, 10);
+
+  return [year, month, day];
+};
 
 describe("publish-to-npm", () => {
   describe("getReleaseUrl", () => {
