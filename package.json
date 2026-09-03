@@ -135,6 +135,7 @@
   },
   "devDependencies": {
     "@babel/generator": "8.0.0",
+    "@clack/prompts": "1.7.0",
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/jsesc": "3.0.3",
@@ -149,7 +150,6 @@
     "commonmark-test-suite": "0.1.0",
     "cross-env": "10.1.0",
     "cspell": "10.1.1",
-    "enquirer": "2.4.1",
     "esbuild": "0.28.2",
     "esbuild-visualizer": "0.7.0",
     "eslint": "10.9.1",
