@@ -233,7 +233,9 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 function printCodeFence(doc, options) {
   const styleUnit = options.__inJsTemplate ? "~" : "`";
   const value = printDocToString(doc, options).formatted;
-  return styleUnit.repeat(Math.max(3, getMaxContinuousCount(value, styleUnit) + 1));
+  return styleUnit.repeat(
+    Math.max(3, getMaxContinuousCount(value, styleUnit) + 1),
+  );
 }
 
 // The final new line should not include in value
