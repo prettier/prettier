@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import { printDocToString } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
@@ -226,15 +227,13 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   );
 }
 
-function printCodeFence(value, options, printedValue = value) {
-  if (!options.__inJsTemplate) {
-    return "`".repeat(Math.max(3, getMaxContinuousCount(value, "`") + 1));
-  }
-
-  // In a JS template a nested code block is fenced with `~` as well, and how wide that fence
-  // ends up is a property of the printed output rather than of the source text. Measuring the
-  // printed value is exact where counting escaped backticks in the source only approximates it.
-  return "~".repeat(Math.max(3, getMaxContinuousCount(printedValue, "~") + 1));
+// `doc` is what the block will contain once printed. A nested block is re-fenced when it is
+// printed, at a width the source text does not carry, so the run to clear has to be measured
+// on the output rather than counted in the input.
+function printCodeFence(doc, options) {
+  const styleUnit = options.__inJsTemplate ? "~" : "`";
+  const value = printDocToString(doc, options).formatted;
+  return styleUnit.repeat(Math.max(3, getMaxContinuousCount(value, styleUnit) + 1));
 }
 
 // The final new line should not include in value
