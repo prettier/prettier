@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { URLSearchParams } from "node:url";
+import getFormattedDate from "../get-formatted-date.js";
 import { getReleaseUrl } from "../steps/show-instructions-after-npm-publish.js";
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
@@ -10,13 +11,7 @@ const getExpectedReleaseUrl = (parameters) => {
 };
 
 const getDateParts = () => {
-  const date = new Date();
-  const isoStr = date.toISOString();
-
-  const year = isoStr.slice(0, 4);
-  const month = isoStr.slice(5, 7);
-  const day = isoStr.slice(8, 10);
-
+  const { year, month, day } = getFormattedDate();
   return [year, month, day];
 };
 
