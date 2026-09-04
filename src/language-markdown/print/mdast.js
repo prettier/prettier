@@ -287,13 +287,12 @@ function printMdast(path, options, print) {
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
 
       if (parent.type === "listItem") {
-        // mdast-util-from-markdown keeps the indentation beyond the list
-        // marker width baked into the html node's value, so strip it here
-        // or the list item's own alignment doc double-counts it.
-        const indent = /^ */.exec(value)[0];
-        if (indent) {
+        // Strip the indentation past the marker width mdast-util-from-markdown
+        // bakes into the value, or the list item's align doc double-counts it.
+        const leadingSpaces = /^ */.exec(value)?.[0] ?? "";
+        if (leadingSpaces) {
           value = value.replaceAll(
-            new RegExp(`^ {1,${indent.length}}`, "gm"),
+            new RegExp(`^ {1,${leadingSpaces.length}}`, "gm"),
             "",
           );
         }
