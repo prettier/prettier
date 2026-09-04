@@ -8,7 +8,9 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
+import { getChildren } from "../../utilities/ast.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import { hasComment } from "../utilities/comments.js";
 import {
   getFunctionParameters,
@@ -24,8 +26,10 @@ import {
   isObjectExpression,
   isObjectType,
   isTypeAnnotation,
+  isUnionType,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
+import { shouldHugUnionType } from "../utilities/union-type-print.js";
 import {
   printDanglingCommentsInList,
   printTrailingComma,
@@ -261,8 +265,26 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+    (hasHuggableObjectType(returnTypeNode) || willBreak(returnTypeDoc))
   );
+}
+
+function hasHuggableObjectType(node) {
+  if (isObjectType(node)) {
+    return true;
+  }
+
+  if (isUnionType(node) && !shouldHugUnionType(node)) {
+    return false;
+  }
+
+  for (const child of getChildren(node, { getVisitorKeys })) {
+    if (hasHuggableObjectType(child)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
