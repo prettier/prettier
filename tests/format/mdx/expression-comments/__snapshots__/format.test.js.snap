@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comment-only.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+// only a line comment
+}
+
+{
+// first
+// second
+}
+
+{/* block */
+// then line
+}
+
+{// line
+/* then block */}
+
+text {
+// line comment in text expression
+} text
+
+{/* block comment only */}
+
+=====================================output=====================================
+{
+// only a line comment
+}
+
+{
+// first
+// second
+}
+
+{
+/* block */
+// then line
+}
+
+{
+// line
+/* then block */
+}
+
+text {
+// line comment in text expression
+} text
+
+{/* block comment only */}
+
+================================================================================
+`;
+
+exports[`comment-only.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+// only a line comment
+}
+
+{
+// first
+// second
+}
+
+{/* block */
+// then line
+}
+
+{// line
+/* then block */}
+
+text {
+// line comment in text expression
+} text
+
+{/* block comment only */}
+
+=====================================output=====================================
+{
+  // only a line comment
+}
+
+{
+  // first
+  // second
+}
+
+{
+  /* block */
+  // then line
+}
+
+{
+  // line
+  /* then block */
+}
+
+text {
+  // line comment in text expression
+} text
+
+{/* block comment only */}
+
+================================================================================
+`;
+
+exports[`leading-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+/**
+ * leading JSDoc
+ */
+foo()}
+
+{// leading line comment
+foo()}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
+=====================================output=====================================
+{/**
+* leading JSDoc
+*/
+foo()}
+
+{
+// leading line comment
+foo()
+}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
+================================================================================
+`;
+
+exports[`leading-comment.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+/**
+ * leading JSDoc
+ */
+foo()}
+
+{// leading line comment
+foo()}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
+=====================================output=====================================
+{
+  /**
+   * leading JSDoc
+   */
+  foo()
+}
+
+{
+  // leading line comment
+  foo()
+}
+
+text {/* leading */ foo()} text
+
+text {
+  // leading line comment in text expression
+  foo()
+} text
+
+================================================================================
+`;
+
+exports[`trailing-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+/**
+ * some JSDoc
+ */
+here.is.some.expression()
+
+/**
+ * @param {unknown} x
+ */}
+export function f(x) {}
+
+{foo()
+// trailing line comment
+}
+
+{foo() // same line comment
+}
+
+<A b={foo()
+// trailing in attribute
+} />
+
+text {foo()
+// trailing in text expression
+} text
+
+{foo() /* same line block comment stays */}
+
+<Wrapper>
+{foo()
+// trailing inside JSX children
+}
+</Wrapper>
+
+=====================================output=====================================
+{/**
+* some JSDoc
+*/
+here.is.some.expression()
+
+/**
+* @param {unknown} x
+*/}
+
+export function f(x) {}
+
+{
+foo()
+// trailing line comment
+}
+
+{
+foo() // same line comment
+}
+
+<A b={foo()
+// trailing in attribute
+} />
+
+text {
+foo()
+// trailing in text expression
+} text
+
+{foo() /* same line block comment stays */}
+
+<Wrapper>
+  {
+  foo()
+// trailing inside JSX children
+  }
+</Wrapper>
+
+================================================================================
+`;
+
+exports[`trailing-comment.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+/**
+ * some JSDoc
+ */
+here.is.some.expression()
+
+/**
+ * @param {unknown} x
+ */}
+export function f(x) {}
+
+{foo()
+// trailing line comment
+}
+
+{foo() // same line comment
+}
+
+<A b={foo()
+// trailing in attribute
+} />
+
+text {foo()
+// trailing in text expression
+} text
+
+{foo() /* same line block comment stays */}
+
+<Wrapper>
+{foo()
+// trailing inside JSX children
+}
+</Wrapper>
+
+=====================================output=====================================
+{
+  /**
+   * some JSDoc
+   */
+  here.is.some.expression()
+
+  /**
+   * @param {unknown} x
+   */
+}
+
+export function f(x) {}
+
+{
+  foo()
+  // trailing line comment
+}
+
+{
+  foo() // same line comment
+}
+
+<A
+  b={
+    foo()
+    // trailing in attribute
+  }
+/>
+
+text {
+  foo()
+  // trailing in text expression
+} text
+
+{foo() /* same line block comment stays */}
+
+<Wrapper>
+  {
+    foo()
+    // trailing inside JSX children
+  }
+</Wrapper>
+
+================================================================================
+`;
