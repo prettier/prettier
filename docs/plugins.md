@@ -77,7 +77,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-marko`](https://github.com/marko-js/prettier) by [**@marko-js**](https://github.com/marko-js)
 - [`prettier-plugin-motoko`](https://github.com/dfinity/prettier-plugin-motoko) by [**@dfinity**](https://github.com/dfinity)
 - [`prettier-plugin-mustache`](https://github.com/Poliklot/prettier-plugin-mustache) by [**@Poliklot**](https://github.com/Poliklot)
-- [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
+- [`prettier-plugin-nginx`](https://github.com/jxddk/prettier-plugin-nginx) by [**@jxddk**](https://github.com/jxddk)
 - [`prettier-plugin-nunjucks`](https://github.com/Poliklot/prettier-plugin-nunjucks) by [**@Poliklot**](https://github.com/Poliklot)
 - [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
