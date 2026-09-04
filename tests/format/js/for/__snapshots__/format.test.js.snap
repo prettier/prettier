@@ -916,25 +916,25 @@ Cause: ',' expected."
 `;
 
 exports[`for-in-with-initializer.js format[yuku] 1`] = `
-"Expected ';' after for-loop init, but found ')' (4:33)
+"for-in loop variable declaration may not have an initializer (3:10)
+  1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
   2 |
-  3 | for (var a = (b in c) in {});
-> 4 | for (var a = 1 || (b in c) in {});
-    |                                 ^
+> 3 | for (var a = (b in c) in {});
+    |          ^^^^^^^^^^^^
+  4 | for (var a = 1 || (b in c) in {});
   5 | for (var a = 1 + (2 || (b in c)) in {});
-  6 | for (var a = (() => b in c) in {});
-  7 | for (var a = 1 || (() => b in c) in {});"
+  6 | for (var a = (() => b in c) in {});"
 `;
 
 exports[`for-in-with-initializer.js format[yuku-ts] 1`] = `
-"Expected ';' after for-loop init, but found ')' (4:33)
+"for-in loop variable declaration may not have an initializer (3:10)
+  1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
   2 |
-  3 | for (var a = (b in c) in {});
-> 4 | for (var a = 1 || (b in c) in {});
-    |                                 ^
+> 3 | for (var a = (b in c) in {});
+    |          ^^^^^^^^^^^^
+  4 | for (var a = 1 || (b in c) in {});
   5 | for (var a = 1 + (2 || (b in c)) in {});
-  6 | for (var a = (() => b in c) in {});
-  7 | for (var a = 1 || (() => b in c) in {});"
+  6 | for (var a = (() => b in c) in {});"
 `;
 
 exports[`in.js format 1`] = `

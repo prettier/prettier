@@ -101,6 +101,10 @@
         "@catppuccin/codemirror",
       ],
     },
+    {
+      groupName: "Jest",
+      matchPackageNames: ["jest", "@jest/*", "jest-*"],
+    },
   ],
   ignoreDeps: [
     // It will be updated by release script

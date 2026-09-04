@@ -5,7 +5,7 @@ import { hasSameLocStart } from "../location/index.js";
 // var f: (a) => void;
 function isTypeAnnotationAFunction(node) {
   return (
-    (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
+    node.type === "TypeAnnotation" &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
     !hasSameLocStart(node, node.typeAnnotation)
