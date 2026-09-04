@@ -18,7 +18,6 @@ import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
-  getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
@@ -26,6 +25,7 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
+import { printCode } from "./code.js";
 import { printHeading } from "./heading.js";
 import { printList, printListLegacy } from "./list.js";
 import { printParagraph } from "./paragraph.js";
@@ -213,33 +213,8 @@ function printMdast(path, options, print) {
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
       return printHeading(path, options, print);
-    case "code": {
-      if (node.isIndented) {
-        // indented code block
-        const alignment = " ".repeat(4);
-        return align(alignment, [
-          alignment,
-          replaceEndOfLine(node.value, hardline),
-        ]);
-      }
-
-      // fenced code block
-      const style = printCodeFence(node.value, options);
-      return [
-        style,
-        node.lang || "",
-        node.meta ? " " + node.meta : "",
-        hardline,
-        replaceEndOfLine(
-          options.parser === "mdx"
-            ? getFencedCodeBlockValue(node, options.originalText)
-            : node.value,
-          hardline,
-        ),
-        hardline,
-        style,
-      ];
-    }
+    case "code":
+      return printCode(path, options);
     case "html": {
       const { parent, isLast } = path;
       const value =

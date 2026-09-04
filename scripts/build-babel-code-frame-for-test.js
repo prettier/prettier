@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import url from "node:url";
 import esbuild from "esbuild";
 import {
@@ -21,4 +23,4 @@ async function buildBabelCodeFrameForTest() {
   });
 }
 
-export { buildBabelCodeFrameForTest };
+await buildBabelCodeFrameForTest();

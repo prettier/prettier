@@ -1,14 +1,15 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import inferParser from "../utilities/infer-parser.js";
-import { getFencedCodeBlockValue, printCodeFence } from "./utilities.js";
+import { printCodeFences } from "./print/code.js";
+import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
   const { node } = path;
 
   switch (node.type) {
     case "code": {
-      const { lang: language } = node;
-      if (!language) {
+      const { isIndented, lang: language } = node;
+      if (isIndented || !language) {
         return;
       }
 
@@ -46,7 +47,7 @@ function embed(path, options) {
           textToDocOptions,
         );
 
-        const style = printCodeFence(doc, options);
+        const style = printCodeFences(doc, options);
 
         return markAsRoot([
           style,
