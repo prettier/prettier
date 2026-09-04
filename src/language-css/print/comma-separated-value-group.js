@@ -433,10 +433,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
     if (isInlineValueCommentNode(iNode)) {
-      if (parentNode.type === "value-paren_group") {
-        parts.push(dedent(hardline), "");
-        continue;
-      }
       parts.push(hardline, "");
       continue;
     }
@@ -587,6 +583,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
   // when type is value-comma_group
   // example @import url("verylongurl") projection,tv
   if (insideURLFunctionInImportAtRuleNode(path)) {
+    return group(fill(parts));
+  }
+
+  // A paren group indents its own contents, so another level here would nest
+  // everything after the comment one step too deep.
+  if (hasInlineComment && parentNode.type === "value-paren_group") {
     return group(fill(parts));
   }
 
