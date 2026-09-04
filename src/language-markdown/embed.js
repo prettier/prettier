@@ -47,7 +47,7 @@ function embed(path, options) {
           textToDocOptions,
         );
 
-        const style = printCodeFences(path, options);
+        const style = printCodeFences(doc, options);
 
         return markAsRoot([
           style,
