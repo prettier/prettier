@@ -73,6 +73,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-jinja-template`](https://github.com/davidodenwald/prettier-plugin-jinja-template) by [**@davidodenwald**](https://github.com/davidodenwald)
 - [`prettier-plugin-jte`](https://github.com/sgruendel/prettier-plugin-jte) by [**@sgruendel**](https://github.com/sgruendel)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-markdown-compact-tables`](https://github.com/cudoment/prettier-plugin-markdown-compact-tables) by [**@cudoment**](https://github.com/cudoment)
 - [`prettier-plugin-markdown-html`](https://github.com/porada/prettier-plugin-markdown-html) by [**@porada**](https://github.com/porada)
 - [`prettier-plugin-marko`](https://github.com/marko-js/prettier) by [**@marko-js**](https://github.com/marko-js)
 - [`prettier-plugin-motoko`](https://github.com/dfinity/prettier-plugin-motoko) by [**@dfinity**](https://github.com/dfinity)
