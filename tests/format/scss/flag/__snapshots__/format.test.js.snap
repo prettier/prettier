@@ -83,3 +83,63 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 
 ================================================================================
 `;
+
+exports[`19203.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: 'single !default';
+$e: "it's !default" !default;
+$f: "a" !default;
+$g: 1px !default;
+$h: 1px !global;
+$i: "escaped \\" !default";
+
+=====================================output=====================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "single !default";
+$e: "it's !default" !default;
+$f: "a" !default;
+$g: 1px !default;
+$h: 1px !global;
+$i: 'escaped " !default';
+
+================================================================================
+`;
+
+exports[`19203.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: 'single !default';
+$e: "it's !default" !default;
+$f: "a" !default;
+$g: 1px !default;
+$h: 1px !global;
+$i: "escaped \\" !default";
+
+=====================================output=====================================
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: "single !default";
+$e: "it's !default" !default;
+$f: "a" !default;
+$g: 1px !default;
+$h: 1px !global;
+$i: 'escaped " !default';
+
+================================================================================
+`;
