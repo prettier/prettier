@@ -239,7 +239,7 @@ function printCodeFence(doc, options) {
       : printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
-          endOfLine: "\n",
+          endOfLine: "lf",
         }).formatted;
   return styleUnit.repeat(
     Math.max(3, getMaxContinuousCount(value, styleUnit) + 1),
