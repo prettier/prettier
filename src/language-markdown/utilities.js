@@ -232,7 +232,15 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 // on the output rather than counted in the input.
 function printCodeFence(doc, options) {
   const styleUnit = options.__inJsTemplate ? "~" : "`";
-  const value = printDocToString(doc, options).formatted;
+  // Only the runs of the fence character matter, so the doc can be printed unwrapped.
+  const value =
+    typeof doc === "string"
+      ? doc
+      : printDocToString(doc, {
+          ...options,
+          printWidth: Infinity,
+          endOfLine: "\n",
+        }).formatted;
   return styleUnit.repeat(
     Math.max(3, getMaxContinuousCount(value, styleUnit) + 1),
   );
