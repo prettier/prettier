@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   replaceEndOfLine,
   softline,
@@ -156,30 +157,32 @@ function printEstree(path, options, print, args) {
       return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
-    case "YieldExpression":
+    case "YieldExpression": {
+      const keyword = `yield${node.delegate ? "*" : ""}`;
       if (!node.argument) {
-        return `yield${node.delegate ? "*" : ""}`;
+        return keyword;
       }
 
-      /*
-      `yield` is a restricted production, a line terminator is not allowed
-      between `yield` and its argument. A leading comment spanning lines would
-      introduce one, so parentheses have to be restored. `yield*` is not
-      affected, the restriction only applies before the `*`.
-      */
+      // A line terminator is not allowed between `yield` and its argument, so a
+      // comment spanning lines has to stay inside parentheses. `yield*` is safe.
       if (
         !node.delegate &&
         returnArgumentHasLeadingComment(node.argument, options)
       ) {
         return [
-          "yield (",
-          indent([hardline, print("argument")]),
-          hardline,
-          ")",
+          keyword,
+          " ",
+          group([
+            ifBreak("("),
+            indent([softline, print("argument")]),
+            softline,
+            ifBreak(")"),
+          ]),
         ];
       }
 
-      return [`yield${node.delegate ? "*" : ""}`, " ", print("argument")];
+      return [keyword, " ", print("argument")];
+    }
     case "AwaitExpression":
       return printAwaitExpression(path, options, print);
 

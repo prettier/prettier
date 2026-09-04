@@ -7,12 +7,19 @@ function* f() {
   yield (// comment
   a);
 
-  yield (/* comment */
-  a);
-
   yield (/*
   */ a + b);
 
-  // Safe, the comment doesn't span lines.
+  yield (/*
+  */ a, b);
+
+  // Safe, the comment is printed on one line.
   yield (/* comment */ a);
+
+  yield (/* comment */
+  a);
+
+  // Safe, the restriction only applies before the `*`.
+  yield* (/*
+  */ a);
 }
