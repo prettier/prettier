@@ -238,7 +238,7 @@ function printCodeFence(doc, options) {
       ? doc
       : printDocToString(doc, {
           ...options,
-          printWidth: Infinity,
+          printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "\n",
         }).formatted;
   return styleUnit.repeat(
