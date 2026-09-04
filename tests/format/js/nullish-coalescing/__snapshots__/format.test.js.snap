@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`array-chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$var = $abilities ?? ["foo", "bar", "bar"] ?? ["foo", "bar", "bar", "veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey"];
+
+const x = $abilities ?? ["foo", "bar", "bar"] ?? ["foo", "bar", "bar", "veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey"];
+
+const y = $abilities ?? { a: 1, b: 2 } ?? { a: 1, b: 2, c: 3, veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey: true };
+
+=====================================output=====================================
+$var = $abilities ?? ["foo", "bar", "bar"] ?? [
+  "foo",
+  "bar",
+  "bar",
+  "veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey",
+];
+
+const x = $abilities ?? ["foo", "bar", "bar"] ?? [
+  "foo",
+  "bar",
+  "bar",
+  "veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey",
+];
+
+const y = $abilities ?? { a: 1, b: 2 } ?? {
+  a: 1,
+  b: 2,
+  c: 3,
+  veryVeryVeryVeryVeryVeryVeryVeryVeryLongKey: true,
+};
+
+================================================================================
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
