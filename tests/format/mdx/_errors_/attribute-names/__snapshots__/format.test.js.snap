@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+"Unexpected character \`"\` (U+0022) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo "='' />
+    |      ^
+Cause: Unexpected character \`"\` (U+0022) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #1 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &quot;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #2 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &34;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #3 format 1`] = `
+"Unexpected character \`'\` (U+0027) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo '='' />
+    |      ^
+Cause: Unexpected character \`'\` (U+0027) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #4 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &apos;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #5 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &39;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #6 format 1`] = `
+"Unexpected character \`=\` (U+003D) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo =='' />
+    |      ^
+Cause: Unexpected character \`=\` (U+003D) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #7 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &equals;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #8 format 1`] = `
+"Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag (1:6)
+> 1 | <Foo &#61;='' />
+    |      ^
+Cause: Unexpected character \`&\` (U+0026) after name, expected a character that can start an attribute name, such as a letter, \`$\`, or \`_\`; whitespace before attributes; or the end of the tag"
+`;
+
+exports[`snippet: #9 format 1`] = `
+"Unexpected character \`v\` (U+0076) before attribute value, expected a character that can start an attribute value, such as \`"\`, \`'\`, or \`{\` (1:11)
+> 1 | <Foo name=value />
+    |           ^
+Cause: Unexpected character \`v\` (U+0076) before attribute value, expected a character that can start an attribute value, such as \`"\`, \`'\`, or \`{\`"
+`;
