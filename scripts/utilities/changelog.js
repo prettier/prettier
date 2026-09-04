@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import semver from "semver";
+import * as verkit from "verkit";
 
 export const changelogUnreleasedDirectory = new URL(
   "../../changelog_unreleased/",
@@ -85,7 +85,7 @@ export function printEntries(entries) {
 }
 
 export function replaceVersions(data, prevVer, newVer, isPatch = false) {
-  if (semver.compare(prevVer, newVer) >= 0) {
+  if (!verkit.isGreater(newVer, prevVer)) {
     throw new Error(
       `[INVALID VERSION] Next version(${newVer}) should be greater than previous version(${prevVer}).`,
     );
@@ -103,7 +103,7 @@ export function replaceVersions(data, prevVer, newVer, isPatch = false) {
 }
 
 function formatVersion(version) {
-  return `${semver.major(version)}.${semver.minor(version)}`;
+  return `${verkit.getMajor(version)}.${verkit.getMinor(version)}`;
 }
 
 function processTitle(title) {

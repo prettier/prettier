@@ -4,7 +4,7 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import fg from "fast-glob";
-import semver from "semver";
+import * as verkit from "verkit";
 import {
   categories,
   changelogUnreleasedDirectory,
@@ -26,9 +26,7 @@ if (!fs.existsSync(introFile)) {
 
 const prevVersion = require("../node_modules/prettier/package.json").version;
 const { version } = require("../package.json");
-const nextVersion = `${semver.major(version)}.${semver.minor(
-  version,
-)}.${semver.patch(version)}`;
+const nextVersion = verkit.truncate(version, "patch");
 
 const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
