@@ -1,6 +1,4 @@
 import * as assert from "#universal/assert";
-import { printDocToString } from "../document/index.js";
-import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
 
@@ -227,25 +225,6 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   );
 }
 
-// `doc` is what the block will contain once printed. A nested block is re-fenced when it is
-// printed, at a width the source text does not carry, so the run to clear has to be measured
-// on the output rather than counted in the input.
-function printCodeFence(doc, options) {
-  const styleUnit = options.__inJsTemplate ? "~" : "`";
-  // Only the runs of the fence character matter, so the doc can be printed unwrapped.
-  const value =
-    typeof doc === "string"
-      ? doc
-      : printDocToString(doc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-          endOfLine: "lf",
-        }).formatted;
-  return styleUnit.repeat(
-    Math.max(3, getMaxContinuousCount(value, styleUnit) + 1),
-  );
-}
-
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
 // TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
@@ -362,6 +341,5 @@ export {
   KIND_K_LETTER,
   KIND_NON_CJK,
   mapAst,
-  printCodeFence,
   splitText,
 };
