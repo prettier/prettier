@@ -28,6 +28,7 @@ import {
 import { printChildren } from "./children.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
+import { printRawMdxExpression } from "./mdx-expression.js";
 import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
@@ -350,7 +351,7 @@ function printMdast(path, options, print) {
       return node.value.trimEnd();
     case "mdxFlowExpression":
     case "mdxTextExpression":
-      return ["{", node.value.trim(), "}"];
+      return printRawMdxExpression(node);
     case "mdxJsxExpressionAttribute":
       return ["{", node.value, "}"];
     case "mdxJsxFlowElement":
