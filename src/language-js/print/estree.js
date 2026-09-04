@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   replaceEndOfLine,
   softline,
@@ -15,6 +16,7 @@ import {
   isLiteral,
   isObjectExpression,
 } from "../utilities/node-types.js";
+import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -155,11 +157,32 @@ function printEstree(path, options, print, args) {
       return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
-    case "YieldExpression":
-      return [
-        `yield${node.delegate ? "*" : ""}`,
-        node.argument ? [" ", print("argument")] : "",
-      ];
+    case "YieldExpression": {
+      const keyword = `yield${node.delegate ? "*" : ""}`;
+      if (!node.argument) {
+        return keyword;
+      }
+
+      // A line terminator is not allowed between `yield` and its argument, so a
+      // comment spanning lines has to stay inside parentheses. `yield*` is safe.
+      if (
+        !node.delegate &&
+        returnArgumentHasLeadingComment(node.argument, options)
+      ) {
+        return [
+          keyword,
+          " ",
+          group([
+            ifBreak("("),
+            indent([softline, print("argument")]),
+            softline,
+            ifBreak(")"),
+          ]),
+        ];
+      }
+
+      return [keyword, " ", print("argument")];
+    }
     case "AwaitExpression":
       return printAwaitExpression(path, options, print);
 
