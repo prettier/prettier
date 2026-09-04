@@ -21,7 +21,6 @@ import {
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
-  printCodeFence,
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";

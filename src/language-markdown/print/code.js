@@ -1,6 +1,10 @@
-import { align, hardline, replaceEndOfLine } from "../../document/index.js";
+import {
+  align,
+  hardline,
+  printDocToString,
+  replaceEndOfLine,
+} from "../../document/index.js";
 import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
-import { printDocToString } from "../document/index.js";
 import { getFencedCodeBlockValue } from "../utilities.js";
 
 function printCodeFences(valueDoc, options) {
