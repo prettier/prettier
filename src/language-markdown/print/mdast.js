@@ -289,7 +289,7 @@ function printMdast(path, options, print) {
       if (parent.type === "listItem") {
         // Strip the indentation past the marker width mdast-util-from-markdown
         // bakes into the value, or the list item's align doc double-counts it.
-        const leadingSpaces = /^ */.exec(value)?.[0] ?? "";
+        const leadingSpaces = /^ */.exec(value)[0];
         if (leadingSpaces) {
           value = value.replaceAll(
             new RegExp(`^ {1,${leadingSpaces.length}}`, "gm"),
