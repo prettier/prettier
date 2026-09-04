@@ -132,7 +132,8 @@ function printMemberChain(path, options, print) {
       path.call(rec, "expression");
     } else if (
       node.type === "TSNonNullExpression" &&
-      !needsParentheses(path, options)
+      !needsParentheses(path, options) &&
+      !path.call(() => needsParentheses(path, options), "expression")
     ) {
       printedNodes.unshift({
         node,
@@ -243,6 +244,16 @@ function printMemberChain(path, options, print) {
     }
 
     if (
+      currentGroup.length > 0 &&
+      isMemberExpression(printedNodes[i].node) &&
+      hasComment(printedNodes[i].node, CommentCheckFlags.Leading)
+    ) {
+      groups.push(currentGroup);
+      currentGroup = [];
+      hasSeenCallExpression = false;
+    }
+
+    if (
       isCallExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ImportExpression"
     ) {
@@ -251,6 +262,9 @@ function printMemberChain(path, options, print) {
     currentGroup.push(printedNodes[i]);
 
     if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
+      while (printedNodes[i + 1]?.node.type === "TSNonNullExpression") {
+        currentGroup.push(printedNodes[++i]);
+      }
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;

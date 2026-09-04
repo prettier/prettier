@@ -10,6 +10,7 @@ import {
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+import { shouldAddParenthesesToNonNullOperand } from "../utilities/should-add-parentheses-to-non-null-operand.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
@@ -124,6 +125,11 @@ function parentNeedsParentheses(path, options, needsParentheses) {
         return true;
       }
 
+      break;
+    case "TSNonNullExpression":
+      if (shouldAddParenthesesToNonNullOperand(path, options)) {
+        return true;
+      }
       break;
   }
 }
