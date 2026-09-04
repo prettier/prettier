@@ -216,8 +216,21 @@ function printMdast(path, options, print) {
       return printCode(path, options);
     case "html": {
       const { parent, isLast } = path;
-      const value =
+      let value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
+
+      if (parent.type === "listItem") {
+        // Strip the indentation past the marker width mdast-util-from-markdown
+        // bakes into the value, or the list item's align doc double-counts it.
+        const leadingSpaces = /^ */.exec(value)[0];
+        if (leadingSpaces) {
+          value = value.replaceAll(
+            new RegExp(`^ {1,${leadingSpaces.length}}`, "gm"),
+            "",
+          );
+        }
+      }
+
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
