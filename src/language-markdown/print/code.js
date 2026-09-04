@@ -10,7 +10,7 @@ function printCodeFences(path, options) {
   );
 }
 
-function printFencedCode(path, options) {
+function printFencedCodeBlock(path, options) {
   const { node } = path;
 
   const styleUnit = options.__inJsTemplate ? "~" : "`";
@@ -45,7 +45,7 @@ function printCode(path, options) {
     ]);
   }
 
-  return printFencedCode(path, options);
+  return printFencedCodeBlock(path, options);
 }
 
 export { printCode, printCodeFences };
