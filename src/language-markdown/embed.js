@@ -8,12 +8,8 @@ function embed(path, options) {
 
   switch (node.type) {
     case "code": {
-      if (node.isIndented) {
-        return;
-      }
-
-      const { lang: language } = node;
-      if (!language) {
+      const { isIndented, lang: language } = node;
+      if (isIndented || !language) {
         return;
       }
 
