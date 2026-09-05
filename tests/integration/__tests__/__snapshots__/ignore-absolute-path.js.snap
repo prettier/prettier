@@ -2,7 +2,7 @@
 
 exports[`support absolute filename  1`] = `
 {
-  "stderr": "",
+  "stderr": "[warn] All files matching the pattern "depth1/ignored/*.js" are ignored.",
   "stdout": "regular-module.js",
   "write": [],
 }
