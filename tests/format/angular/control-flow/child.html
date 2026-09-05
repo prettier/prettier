@@ -1,0 +1,77 @@
+<span>@if (test) {text}</span>
+<div>@if (test) {text}</div>
+
+<span>Foo@if(true) {bar}</span>baz
+
+<span>@if (cond) {text} @else {other}</span>
+
+<span>@if (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongCondition) {bar}</span>
+
+<span>@switch (color) { @case ("red") {red} @case ("blue") {blue} @default {other}}</span>
+<div>@switch (color) { @case ("red") {red} @case ("blue") {blue} @default {other}}</div>
+
+<span>@for (item of items; track item) {{{item}}} @empty {none}</span>
+<div>@for (item of items; track item) {{{item}}} @empty {none}</div>
+
+<span>@defer (on viewport) {<heavy-cmp />} @placeholder {loading...}</span>
+<div>@defer (on viewport) {<heavy-cmp />} @placeholder {loading...}</div>
+
+<span>@if (a) {@if (b) {nested}}</span>
+
+<span>You have {{ count }} item@if (count !== 1) { <span>s</span> }.</span>
+
+<span class="cu-billing-ai__column__title">{{ column.title }}@if (column.graySuffix) {<span class="gray-suffix">{{ column.graySuffix }}</span>}</span>
+
+<p [id]="labelId" class="field-label">{{ label }}@if (isRequired) {<span class="required">*</span>}</p>
+
+<span>@if(foo) {<foo />} @else {}</span>
+
+<span>@if(foo) {} @else { <bar /> }</span>
+
+<custom-element>@if (cond) { <span>text</span> } @else {}</custom-element>
+
+<span>{{ item }}@if (!last) {, }</span>
+
+foo@if(condition){bar}
+
+foo @if(condition){bar}
+
+<div>@if(condition){bar}</div>
+
+<span>@if(condition){bar}</span>
+
+@if(condition){<span>bar</span>}
+
+@if(condition){<span>bar</span>bam}
+
+@if(condition){bar}bam
+
+@if(condition){bar}<span>bam</span>
+
+@if(condition){bar}<div>bam</div>
+
+<div>foo@if (true){bar}bam</div>
+
+foo @if(condition){bar}bam
+
+foo@if(condition){bar} bam
+
+<a class="logo" href="/">
+  @if (branding) {
+    <ng-container [ngTemplateOutlet]="customLogo"></ng-container>
+  } @else {
+    <ng-container [ngTemplateOutlet]="defaultLogo"></ng-container>
+  }
+</a>
+
+@if (cond) {
+  {{ listItem.label }}
+} @else {
+  {{ other.label }}
+}
+
+<span>Foo@if (true) {bar}@else {baz}</span>
+
+<span>Foo@if (true) {bar} @else {baz}</span>
+
+<div>Foo@if (true) {bar}@else {baz}</div>baz
