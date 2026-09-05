@@ -83,18 +83,9 @@ function fun3() {
 
 <>text</>;
 
-<>
-  <Component />
-  <Component />
-</>;
+<><Component /><Component /></>;
 
-<>
-  text
-  <h2>heading</h2>
-  text
-  <h2>heading</h2>
-  text
-</>;
+<>text<h2>heading</h2>text<h2>heading</h2>text</>;
 
 <div>
   <>
@@ -114,10 +105,7 @@ foo = (
   <></>
 );
 
-</* open fragment */>
-  <Component />
-  <Component />
-</ /* close fragment */>;
+</* open fragment */><Component /><Component /></ /* close fragment */>;
 
 <
   // open fragment
@@ -137,9 +125,7 @@ function fun2(param = <></>) {}
 fun2(<></>);
 test ? <></> : x;
 <></>;
-<a>
-  <></>
-</a>;
+<a><></></a>;
 const obj = {
   foo: <></>,
 };

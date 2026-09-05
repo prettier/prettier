@@ -4338,10 +4338,7 @@ onClick={() => {}}>
   {children}
 </div>
 
-;<Wrapper>
-  {}
-  <Component />
-</Wrapper>
+;<Wrapper>{}<Component /></Wrapper>
 
 ================================================================================
 `;
@@ -4577,10 +4574,7 @@ onClick={() => {}}>
   {children}
 </div>;
 
-<Wrapper>
-  {}
-  <Component />
-</Wrapper>;
+<Wrapper>{}<Component /></Wrapper>;
 
 ================================================================================
 `;
