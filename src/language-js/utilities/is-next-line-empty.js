@@ -4,11 +4,12 @@ import { locEnd, locEndWithFullText } from "../location/index.js";
 /**
 @import {
   Node,
+  Comment,
 } from "../types/estree.js";
 */
 
 /**
- * @param {Node} node
+ * @param {Node | Comment} node
  * @returns {boolean}
  */
 const isNextLineEmpty = (node, { originalText }) => {
