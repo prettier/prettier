@@ -1,11 +1,11 @@
 // TODO: Implement this in `utilities.js` when jest.importActual is landed.
 export default function getFormattedDate() {
   const date = new Date();
-  const isoStr = date.toISOString();
+  const isoString = date.toISOString();
 
-  const year = isoStr.slice(0, 4);
-  const month = isoStr.slice(5, 7);
-  const day = isoStr.slice(8, 10);
+  const year = isoString.slice(0, 4);
+  const month = isoString.slice(5, 7);
+  const day = isoString.slice(8, 10);
 
   return { year, month, day };
 }
