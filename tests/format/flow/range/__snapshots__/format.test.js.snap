@@ -25,7 +25,9 @@ exports[`declare-export-declaration.js format 1`] = `
     : >(
     :   query: GQLDocument,
     :   config?: Config<Props, QueryConfigOptions<Variables>>,
-    : ): (Component: Component) => React$ComponentType<
+    : ): (
+    :   Component: Component,
+    : ) => React$ComponentType<
     :   $Diff<
     :     React$ElementConfig<Component>,
     :     {
@@ -65,7 +67,9 @@ exports[`type-parameter-declaration.js format 1`] = `
     : >(
     :   query: GQLDocument,
     :   config?: Config<Props, QueryConfigOptions<Variables>>,
-    : ): (Component: Component) => React$ComponentType<
+    : ): (
+    :   Component: Component,
+    : ) => React$ComponentType<
     :   $Diff<
     :     React$ElementConfig<Component>,
     :     {
