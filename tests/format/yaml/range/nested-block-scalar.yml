@@ -1,0 +1,6 @@
+obj:
+  key: |
+      line 1
+      <<<PRETTIER_RANGE_START>>>line   2
+      line   3<<<PRETTIER_RANGE_END>>>
+      line 4
