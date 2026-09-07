@@ -1,5 +1,3 @@
-import { isNewLine } from "../utilities.js";
-
 const tableDelimiterRowStartRegex = /^[ |:-]+$/;
 const tableDelimiterRowRegex = /^\|?(?: *:?-+:? *\|)* *:?-+:? *\|?$/;
 
@@ -7,8 +5,8 @@ const tableDelimiterRowRegex = /^\|?(?: *:?-+:? *\|)* *:?-+:? *\|?$/;
  * A delimiter row with spaces around its cells, e.g. `| --- | --- |`, is
  * split into several sibling word nodes by the whitespace in between, so
  * checking a single word alone (`|`) misses it. Starting at `startIndex`,
- * collect consecutive delimiter-row-shaped words up to the next newline and
- * check the reconstructed line against GFM's delimiter row grammar
+ * rebuild the line until a part can no longer belong to a delimiter row, then
+ * check it against GFM's delimiter row grammar
  * (https://github.github.com/gfm/#delimiter-row).
  *
  * @param {import("../utilities.js").TextNode[]} siblings
@@ -16,24 +14,18 @@ const tableDelimiterRowRegex = /^\|?(?: *:?-+:? *\|)* *:?-+:? *\|?$/;
  * @returns {boolean}
  */
 function isFakeTableDelimiterRowLine(siblings, startIndex) {
-  const words = [];
+  let line = "";
   for (let i = startIndex; i < siblings.length; i++) {
-    const sibling = siblings[i];
-    if (sibling.type === "whitespace") {
-      if (isNewLine(sibling)) {
-        break;
-      }
-      continue;
-    }
+    const { type, value } = siblings[i];
     if (
-      sibling.type !== "word" ||
-      !tableDelimiterRowStartRegex.test(sibling.value)
+      (type !== "word" && type !== "whitespace") ||
+      !tableDelimiterRowStartRegex.test(line + value)
     ) {
       break;
     }
-    words.push(sibling.value);
+    line += value;
   }
-  return tableDelimiterRowRegex.test(words.join(" "));
+  return tableDelimiterRowRegex.test(line.trim());
 }
 
 export { isFakeTableDelimiterRowLine };
