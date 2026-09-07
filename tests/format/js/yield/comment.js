@@ -13,13 +13,16 @@ function* f() {
   yield (/*
   */ a, b);
 
-  // Safe, the comment is printed on one line.
-  yield (/* comment */ a);
-
   yield (/* comment */
   a);
+
+  // Safe, the comment is printed on one line.
+  yield (/* comment */ a);
 
   // Safe, the restriction only applies before the `*`.
   yield* (/*
   */ a);
+
+  // No leading comment, so the argument is not wrapped, unlike `return`.
+  yield aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb && cccccccccccccccc;
 }

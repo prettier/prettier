@@ -1,7 +1,6 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   replaceEndOfLine,
   softline,
@@ -57,6 +56,7 @@ import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
 import {
+  printReturnOrThrowArgument,
   printReturnStatement,
   printThrowStatement,
 } from "./return-statement.js";
@@ -164,7 +164,8 @@ function printEstree(path, options, print, args) {
       }
 
       // A line terminator is not allowed between `yield` and its argument, so a
-      // comment spanning lines has to stay inside parentheses. `yield*` is safe.
+      // leading comment has to stay inside parentheses, same as `return` and
+      // `throw`. `yield*` is safe, the restriction only applies before the `*`.
       if (
         !node.delegate &&
         returnArgumentHasLeadingComment(node.argument, options)
@@ -172,12 +173,10 @@ function printEstree(path, options, print, args) {
         return [
           keyword,
           " ",
-          group([
-            ifBreak("("),
-            indent([softline, print("argument")]),
-            softline,
-            ifBreak(")"),
-          ]),
+          path.call(
+            () => printReturnOrThrowArgument(path, options, print),
+            "argument",
+          ),
         ];
       }
 

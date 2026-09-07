@@ -58,6 +58,7 @@ function printReturnOrThrowStatement(path, options, print) {
 }
 
 export {
+  printReturnOrThrowArgument,
   printReturnOrThrowStatement as printReturnStatement,
   printReturnOrThrowStatement as printThrowStatement,
 };
