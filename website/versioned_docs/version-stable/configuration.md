@@ -171,7 +171,7 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
-Patterns are matched against the path of each file relative to the directory that contains the configuration file, so `legacy/**/*.js` only covers files below that directory. A pattern without a `/`, such as `*.test.js`, is matched against the file name alone and therefore applies at any depth.
+`files` patterns are matched against the file path relative to the directory containing the configuration file, not the current working directory, so `legacy/**/*.js` only matches files inside the `legacy` directory next to that configuration file. A pattern without a `/`, such as `*.test.js`, is matched against the file name alone, so it applies at any depth.
 
 ## Setting the [parser](options.md#parser) option
 
