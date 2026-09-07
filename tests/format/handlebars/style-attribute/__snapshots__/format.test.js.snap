@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div style="   color : red;
+            display    :inline "></div>
+
+<div style="color:red;display:inline"></div>
+
+<div style="all: initial;display: block;
+contain: content;text-align: center;
+background: linear-gradient(to left, hotpink, #FFF00F, #ccc, hsla(240, 100%, 50%, .05), transparent);
+max-width: 500px;margin: 0 auto;
+border-radius: 8px;transition: transform .2s ease-out;"></div>
+
+<div style=" "></div>
+<div style=""></div>
+<div style></div>
+
+<div style="color: red; {{otherStyles}}"></div>
+<div style="{{styles}}"></div>
+
+<div style="font-family: 'stampfont'"></div>
+
+=====================================output=====================================
+<div style="color: red; display: inline"></div>
+
+<div style="color: red; display: inline"></div>
+
+<div
+  style="
+    all: initial;
+    display: block;
+    contain: content;
+    text-align: center;
+    background: linear-gradient(
+      to left,
+      hotpink,
+      #fff00f,
+      #ccc,
+      hsla(240, 100%, 50%, 0.05),
+      transparent
+    );
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 8px;
+    transition: transform 0.2s ease-out;
+  "
+></div>
+
+<div style=""></div>
+<div style=""></div>
+<div style></div>
+
+<div style="color: red; {{otherStyles}}"></div>
+<div style="{{styles}}"></div>
+
+<div style="font-family: &quot;stampfont&quot;"></div>
+================================================================================
+`;
