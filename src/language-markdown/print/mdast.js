@@ -203,7 +203,7 @@ function printMdast(path, options, print) {
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
       return printHeading(path, options, print);
-    case "code": 
+    case "code":
       return printCode(path, options);
     case "comment": {
       const value = node.commentValue;
