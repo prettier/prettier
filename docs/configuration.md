@@ -172,6 +172,8 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
+Patterns are matched against the path of each file relative to the directory that contains the configuration file, so `legacy/**/*.js` only covers files below that directory. A pattern without a `/`, such as `*.test.js`, is matched against the file name alone and therefore applies at any depth.
+
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
