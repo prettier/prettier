@@ -1,9 +1,6 @@
 import { group, indent, mapDoc, softline } from "../document/index.js";
 import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 
-// Same helper as `language-html`'s `embed/utilities.js`: kept local instead
-// of imported so the `glimmer` plugin bundle doesn't pull in `language-html`
-// for a single 3-line helper.
 function printExpand(doc) {
   return [indent([softline, doc]), softline];
 }
@@ -58,27 +55,13 @@ function embedStyleElement(path) {
   };
 }
 
-// Format `style="..."` attribute values as CSS, the same way `language-html`
-// does. Only applies when the whole attribute value is plain text (i.e. it
-// contains no `{{ ... }}` interpolation), since a partial CSS string can't
-// be parsed on its own.
 function embedStyleAttribute(path, options) {
   const { node } = path;
-
-  // `printer-glimmer.js`'s `AttrNode` case picks the surrounding quote
-  // character from this same raw text (before CSS reformatting). The CSS
-  // printer is free to introduce its own quote characters (e.g. turning
-  // `'stampfont'` into `"stampfont"`), so below we escape any occurrence of
-  // whichever quote character ends up surrounding the attribute, exactly
-  // like `language-html`'s attribute embedding does.
   const quote = getPreferredQuote(node.chars, options.singleQuote);
 
   return async (textToDoc) => {
     const context = node.chars;
     if (!context.trim()) {
-      // An empty string is falsy, and `multiparser.js` only registers a doc
-      // for a node when the returned doc is truthy, so use an empty array
-      // (an empty doc that's still truthy) instead of `""` here.
       return [];
     }
     const doc = await textToDoc(context, {

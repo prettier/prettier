@@ -189,8 +189,6 @@ function print(path, options, print) {
       const attrName = getCurrentAttributeName(path);
 
       if (attrName) {
-        // `style` is formatted as CSS via `embed.js`. This sync branch is
-        // only reached for other attributes since `embed` short-circuits it.
         // TODO: format srcset attributes
         if (attrName === "class") {
           const formattedClasses = text.trim().replaceAll(/\s+/g, " ");
