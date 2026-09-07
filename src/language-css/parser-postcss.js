@@ -21,6 +21,7 @@ import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+const LESS_VARIABLE_PARAMS = /^(?:\/\/[^\r\n]*|\/\*.*?\*\/|\s)*:/s;
 
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
@@ -275,20 +276,25 @@ function parseNestedCSS(node, options) {
         }
 
         // `@color :blue;`
+        const lessVariableParams = node.params?.match(LESS_VARIABLE_PARAMS);
         if (
           !["page", "nest", "keyframes"].includes(node.name) &&
-          node.params?.[0] === ":"
+          lessVariableParams
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
-          if (text) {
-            node.value = parseValue(text, options);
+          if (lessVariableParams[0].includes("/")) {
+            node.raws.lessVariableParams = true;
+          } else {
+            const text = node.params.slice(lessVariableParams[0].length);
+            if (text) {
+              node.value = parseValue(text, options);
+            }
+            node.raws.afterName += ":";
           }
-          node.raws.afterName += ":";
         }
 
         // Less variable
-        if (node.variable) {
+        if (node.variable && !node.raws.lessVariableParams) {
           delete node.params;
 
           if (!node.value) {
