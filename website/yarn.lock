@@ -1913,24 +1913,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/state@npm:6.7.1, @codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.5.4, @codemirror/state@npm:^6.7.0":
-  version: 6.7.1
-  resolution: "@codemirror/state@npm:6.7.1"
+"@codemirror/state@npm:6.7.4, @codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.5.4, @codemirror/state@npm:^6.7.0":
+  version: 6.7.4
+  resolution: "@codemirror/state@npm:6.7.4"
   dependencies:
     "@marijn/find-cluster-break": "npm:^1.0.0"
-  checksum: 10/71493cc2061ba0c89fd675fa350a9cd91538caeccaac7ba318e631a5f1b43bf52c2a165042600414b4441952af555a75e4d4258ef7897cfec8d9c82a4674ddd1
+  checksum: 10/429b7ff6b617d3934eea001165228c3ed77df1943c0b2fdaf019ef3a6b616ada482c344ec46edf5c83121afe6973e9ce4931446922cc2b35f1dad2525eff5300
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:6.43.9, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
-  version: 6.43.9
-  resolution: "@codemirror/view@npm:6.43.9"
+"@codemirror/view@npm:6.43.11, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.37.0, @codemirror/view@npm:^6.39.15, @codemirror/view@npm:^6.42.0":
+  version: 6.43.11
+  resolution: "@codemirror/view@npm:6.43.11"
   dependencies:
     "@codemirror/state": "npm:^6.7.0"
     crelt: "npm:^1.0.6"
     style-mod: "npm:^4.1.0"
     w3c-keyname: "npm:^2.2.4"
-  checksum: 10/b653dddf81278311985a8f7723f6b0ac50f4ff019725dc4020c40c4d4707f209067e6edbd1f022cb40176d8a0b327c72d3234d2a5c815be689ca2cc1272466d6
+  checksum: 10/a540de0b5f56750c90ef4bef985aa51765166e6459d93d4c364415f98e673fa8976e2817a451e7cbf22781bd21959aebda42ebbdca546cfb390a592e7cb6be3b
   languageName: node
   linkType: hard
 
@@ -6503,20 +6503,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cm6-graphql@npm:0.2.1":
-  version: 0.2.1
-  resolution: "cm6-graphql@npm:0.2.1"
+"cm6-graphql@npm:0.2.2":
+  version: 0.2.2
+  resolution: "cm6-graphql@npm:0.2.2"
   dependencies:
-    graphql-language-service: "npm:^5.3.0"
+    graphql-language-service: "npm:^5.7.0"
   peerDependencies:
     "@codemirror/autocomplete": ^6.0.0
     "@codemirror/language": ^6.0.0
-    "@codemirror/lint": ^6.0.0
+    "@codemirror/lint": ^6.9.7
     "@codemirror/state": ^6.0.0
     "@codemirror/view": ^6.0.0
     "@lezer/highlight": ^1.0.0
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/7a73a8d0cf92cf2cd4e7f993aecd498ce56ed03f924be5d2709d982e492d5eb215e74277469388c2e2cf5323d2cd76a56393ca152e704e523136d567c090cbe6
+  checksum: 10/b78620d7c97b3802f5eadfaad79e92a8fae971087d259ef1781d416caf6a662d56ee9c1b64c91fbe2a8a82b471f432a2f246f86558c2c9beb1fab8060fc8eff1
   languageName: node
   linkType: hard
 
@@ -8284,9 +8284,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:^5.3.0":
-  version: 5.6.0
-  resolution: "graphql-language-service@npm:5.6.0"
+"graphql-language-service@npm:^5.7.0":
+  version: 5.7.0
+  resolution: "graphql-language-service@npm:5.7.0"
   dependencies:
     debounce-promise: "npm:^3.1.2"
     nullthrows: "npm:^1.0.0"
@@ -8295,7 +8295,7 @@ __metadata:
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
   bin:
     graphql: dist/temp-bin.js
-  checksum: 10/7be1bb9b5e4b0903364fcacb447817e1ddb1ba4f07620db9b02dc483ba3ccb2cec7531b8d0ef857b0d46dc656ed79b866837a1d1f32c9b2f86de28bb37f4e3e5
+  checksum: 10/7e0620aa09910326b0ab81da54bb4571d09e5de08816efd26740f3daa977abf0cbc4ee1145d4b57f32b580be88a80fb66eebf315b7fe9e6c504bf8730843b824
   languageName: node
   linkType: hard
 
@@ -12894,8 +12894,8 @@ __metadata:
     "@codemirror/language": "npm:6.12.4"
     "@codemirror/language-data": "npm:6.5.2"
     "@codemirror/lint": "npm:6.9.7"
-    "@codemirror/state": "npm:6.7.1"
-    "@codemirror/view": "npm:6.43.9"
+    "@codemirror/state": "npm:6.7.4"
+    "@codemirror/view": "npm:6.43.11"
     "@docusaurus/core": "npm:3.10.2"
     "@docusaurus/faster": "npm:3.10.2"
     "@docusaurus/module-type-aliases": "npm:3.10.2"
@@ -12910,7 +12910,7 @@ __metadata:
     "@xiechao/codemirror-lang-handlebars": "npm:1.0.4"
     clipboard: "npm:2.0.11"
     clsx: "npm:2.1.1"
-    cm6-graphql: "npm:0.2.1"
+    cm6-graphql: "npm:0.2.2"
     concurrently: "npm:10.0.5"
     github-buttons: "npm:2.33.0"
     graphql: "npm:17.0.2"
