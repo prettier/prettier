@@ -1,15 +1,15 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
-import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
 import { printJsExpression, printJsxSpreadAttribute } from "./acorn/printer.js";
+import { printCodeFences } from "./print/code.js";
 
 function embed(path, options) {
   const { node } = path;
 
   switch (node.type) {
     case "code": {
-      const { lang: language } = node;
-      if (!language) {
+      const { isIndented, lang: language } = node;
+      if (isIndented || !language) {
         return;
       }
 
@@ -41,11 +41,7 @@ function embed(path, options) {
         }
 
         const doc = await textToDoc(node.value, textToDocOptions);
-
-        const styleUnit = options.__inJsTemplate ? "~" : "`";
-        const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-        );
+        const style = printCodeFences(doc, options);
 
         return markAsRoot([
           style,

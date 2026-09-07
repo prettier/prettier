@@ -549,8 +549,8 @@ const pluginFiles = [
             "const entities = undefined &&",
           );
           text = text.replaceAll(
-            "parser.tokenValue = decodeHTMLStrict(raw);",
-            "parser.tokenValue = raw;",
+            "parser.tokenValue = decodeHTMLStrict(",
+            "parser.tokenValue = (",
           );
 
           return text;
