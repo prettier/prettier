@@ -81,6 +81,16 @@ function printCssDeclaration(path, options, print) {
 
   parts.push(value);
 
+  // The value parser drops the final empty comma group, but its comma is
+  // significant in a custom property.
+  if (
+    node.prop.startsWith("--") &&
+    node.value.type === "value-root" &&
+    node.value.text.trimEnd().endsWith(",")
+  ) {
+    parts.push(",");
+  }
+
   if (node.raws.important) {
     parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
   } else if (node.important) {
