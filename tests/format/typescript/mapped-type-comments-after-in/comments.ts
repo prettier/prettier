@@ -1,0 +1,87 @@
+type OwnLine = {
+  [Key in
+    // keys
+    keyof Source
+  ]: Value;
+};
+
+type EndOfLine = {
+  [Key in // keys
+    keyof Source]: Value;
+};
+
+type Block = { [Key in /* keys */ keyof Source]: Value };
+
+type Multiple = {
+  [Key in /* first */
+    // second
+    /* third */ keyof Source]: Value;
+};
+
+type Parenthesized = {
+  [Key in (
+    // keys
+    keyof Source
+  )]: Value;
+};
+
+type Union = {
+  [Key in
+    // keys
+    "a" | "b"]: Value;
+};
+
+type IgnoreUnion = {
+  [Key in // prettier-ignore
+    "a"  |  "b"]: Value;
+};
+
+type IgnoreReference = {
+  [Key in
+    /* prettier-ignore */
+    Keys<  Source  >]: Value;
+};
+
+type ModifiersAndRemapping = {
+  -readonly [Key in // keys
+    keyof Source as `get${Capitalize<Key>}`]-?: Value;
+};
+
+type KeywordInComment = {
+  [Key /* in this comment */ in // keys
+    keyof Source]: Value;
+};
+
+type KeywordInName = {
+  [input in // keys
+    keyof Source]: Value;
+};
+
+type BeforeKeyword = {
+  [Key /* before in */ in keyof Source]: Value;
+};
+
+type MultipleBlocksBeforeUnion = {
+  [input /* in before keyword */ in /* first */
+    /* second */
+    "a" | "b"]: Value;
+};
+
+type OwnLineBlocksBeforeUnion = {
+  [Key in
+    /* first */
+    /* second */
+    "a" | "b"]: Value;
+};
+
+type IgnoredUnionWithBlocks = {
+  [Key in /* first */
+    /* prettier-ignore */
+    "a"  |  "b"]: Value;
+};
+
+type ObjectUnionWithBlock = {
+  [Key in
+    /* keys */
+    Source | null]: Value;
+};

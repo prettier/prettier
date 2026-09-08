@@ -11,8 +11,15 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../location/index.js";
 import { isLineComment } from "../utilities/comment-types.js";
-import { CommentCheckFlags, getComments } from "../utilities/comments.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
+import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
+import { isUnionType } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
+import { shouldHugUnionType } from "../utilities/union-type-print.js";
 import { printClassMemberSemicolon } from "./class.js";
 
 /**
@@ -101,6 +108,23 @@ function printTypeScriptMappedType(path, options, print) {
     );
   }
 
+  // Unions normally print their own leading line break. Ignored or hugged
+  // unions need the same explicit break as other constraints.
+  const shouldBreakBeforeConstraint =
+    (!isUnionType(node.constraint) ||
+      shouldHugUnionType(node.constraint) ||
+      hasNodeIgnoreComment(node.constraint)) &&
+    hasComment(
+      node.constraint,
+      CommentCheckFlags.Leading |
+        CommentCheckFlags.Block |
+        CommentCheckFlags.First,
+      (comment) =>
+        hasNewline(options.originalText, locStart(comment), {
+          backwards: true,
+        }) && hasNewline(options.originalText, locEnd(comment)),
+    );
+
   return group(
     [
       "{",
@@ -119,7 +143,8 @@ function printTypeScriptMappedType(path, options, print) {
             indent([
               softline,
               print("key"),
-              " in ",
+              " in",
+              shouldBreakBeforeConstraint ? hardline : " ",
               print("constraint"),
               node.nameType ? [" as ", print("nameType")] : "",
             ]),

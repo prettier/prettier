@@ -73,6 +73,7 @@ function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
+    handleTSMappedTypeComments,
     handleClosureTypeCastComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
@@ -92,7 +93,6 @@ function handleOwnLineComment(context) {
     handleLabeledStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
-    handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
     handleSequenceExpressionLeadingComment,
@@ -894,13 +894,27 @@ function isBeforeMappedTypeOpeningBracket(node, comment, options) {
   return locEnd(comment) < bracketIndex;
 }
 
-function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
+function handleTSMappedTypeComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
   if (enclosingNode?.type !== "TSMappedType") {
     return;
   }
 
   if (isBeforeMappedTypeOpeningBracket(enclosingNode, comment, options)) {
     addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
+  if (
+    followingNode === enclosingNode.constraint &&
+    locStart(comment) >
+      stripComments(options).indexOf("in", locEnd(enclosingNode.key))
+  ) {
+    addLeadingComment(followingNode, comment);
     return true;
   }
 }
