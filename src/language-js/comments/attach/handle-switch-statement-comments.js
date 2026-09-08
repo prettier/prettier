@@ -18,8 +18,6 @@ function handleSwitchStatementComments({
 }) {
   if (!(
     enclosingNode?.type === "SwitchStatement" &&
-    enclosingNode.cases.length === 0 &&
-    !followingNode &&
     precedingNode === enclosingNode.discriminant
   )) {
     return false;
@@ -30,7 +28,16 @@ function handleSwitchStatementComments({
     locEnd(comment),
   );
 
-  if (nextCharacter === "}") {
+  if (nextCharacter === "{") {
+    addDanglingComment(enclosingNode, comment, "commentAfterDiscriminant");
+    return true;
+  }
+
+  if (
+    nextCharacter === "}" &&
+    enclosingNode.cases.length === 0 &&
+    !followingNode
+  ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
