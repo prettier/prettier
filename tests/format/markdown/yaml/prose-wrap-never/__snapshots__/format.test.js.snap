@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`folded.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown", "mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+description: >
+  first
+  second
+
+  another paragraph
+teaser: >-
+  first
+  second
+kept: >+
+  first
+  second
+
+title: Example
+---
+
+# Heading
+
+=====================================output=====================================
+---
+description: >
+  first second
+
+  another paragraph
+teaser: >-
+  first second
+kept: >+
+  first second
+
+title: Example
+---
+
+# Heading
+
+================================================================================
+`;
