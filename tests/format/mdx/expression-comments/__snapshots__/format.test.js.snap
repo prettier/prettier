@@ -113,7 +113,7 @@ text {
 ================================================================================
 `;
 
-exports[`leading-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+exports[`expression-comments.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["mdx"]
@@ -135,118 +135,6 @@ text {
 foo()
 } text
 
-=====================================output=====================================
-{/**
-* leading JSDoc
-*/
-foo()}
-
-{
-// leading line comment
-foo()
-}
-
-text {/* leading */ foo()} text
-
-text {
-// leading line comment in text expression
-foo()
-} text
-
-================================================================================
-`;
-
-exports[`leading-comment.mdx format 1`] = `
-====================================options=====================================
-parsers: ["mdx"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-{
-/**
- * leading JSDoc
- */
-foo()}
-
-{// leading line comment
-foo()}
-
-text {/* leading */ foo()} text
-
-text {
-// leading line comment in text expression
-foo()
-} text
-
-=====================================output=====================================
-{
-  /**
-   * leading JSDoc
-   */
-  foo()
-}
-
-{
-  // leading line comment
-  foo()
-}
-
-text {/* leading */ foo()} text
-
-text {
-  // leading line comment in text expression
-  foo()
-} text
-
-================================================================================
-`;
-
-exports[`nested-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
-====================================options=====================================
-embeddedLanguageFormatting: "off"
-parsers: ["mdx"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-{foo(
-// nested comment
-bar
-)}
-
-=====================================output=====================================
-{
-foo(
-// nested comment
-bar
-)
-}
-
-================================================================================
-`;
-
-exports[`nested-comment.mdx format 1`] = `
-====================================options=====================================
-parsers: ["mdx"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-{foo(
-// nested comment
-bar
-)}
-
-=====================================output=====================================
-{foo(
-  // nested comment
-  bar,
-)}
-
-================================================================================
-`;
-
-exports[`trailing-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
-====================================options=====================================
-embeddedLanguageFormatting: "off"
-parsers: ["mdx"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
 {
 /**
  * some JSDoc
@@ -285,6 +173,23 @@ text {foo()
 } />
 
 =====================================output=====================================
+{/**
+* leading JSDoc
+*/
+foo()}
+
+{
+// leading line comment
+foo()
+}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
 {/**
 * some JSDoc
 */
@@ -329,11 +234,27 @@ foo()
 ================================================================================
 `;
 
-exports[`trailing-comment.mdx format 1`] = `
+exports[`expression-comments.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+{
+/**
+ * leading JSDoc
+ */
+foo()}
+
+{// leading line comment
+foo()}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
 {
 /**
  * some JSDoc
@@ -372,6 +293,25 @@ text {foo()
 } />
 
 =====================================output=====================================
+{
+  /**
+   * leading JSDoc
+   */
+  foo()
+}
+
+{
+  // leading line comment
+  foo()
+}
+
+text {/* leading */ foo()} text
+
+text {
+  // leading line comment in text expression
+  foo()
+} text
+
 {
   /**
    * some JSDoc
@@ -420,6 +360,136 @@ text {
     foo?.bar // trailing comment after optional chain
   }
 />
+
+================================================================================
+`;
+
+exports[`nested-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{foo(
+// nested comment
+bar
+)}
+
+{/**
+ * leading
+ */ [/* inner */]}
+
+{[/* inner */] /**
+ * trailing
+ */}
+
+{/**
+ * leading
+ */ foo(/* inner */)}
+
+{({/* inner */}) /**
+ * trailing
+ */}
+
+{[// inner
+]}
+
+=====================================output=====================================
+{
+foo(
+// nested comment
+bar
+)
+}
+
+{/**
+* leading
+*/ [/* inner */]}
+
+{[/* inner */] /**
+* trailing
+*/}
+
+{/**
+* leading
+*/ foo(/* inner */)}
+
+{({/* inner */}) /**
+* trailing
+*/}
+
+{
+[// inner
+]
+}
+
+================================================================================
+`;
+
+exports[`nested-comment.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{foo(
+// nested comment
+bar
+)}
+
+{/**
+ * leading
+ */ [/* inner */]}
+
+{[/* inner */] /**
+ * trailing
+ */}
+
+{/**
+ * leading
+ */ foo(/* inner */)}
+
+{({/* inner */}) /**
+ * trailing
+ */}
+
+{[// inner
+]}
+
+=====================================output=====================================
+{foo(
+  // nested comment
+  bar,
+)}
+
+{
+  /**
+   * leading
+   */ [/* inner */]
+}
+
+{
+  [/* inner */] /**
+   * trailing
+   */
+}
+
+{
+  /**
+   * leading
+   */ foo(/* inner */)
+}
+
+{
+  {/* inner */} /**
+   * trailing
+   */
+}
+
+{
+  [
+    // inner
+  ]
+}
 
 ================================================================================
 `;

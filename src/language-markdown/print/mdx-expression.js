@@ -22,27 +22,24 @@ async function printMdxExpressionContainer(textToDoc, print, path, options) {
     },
   });
 
-  if (!hasComment(expression)) {
+  // Comments that affect the outer braces:
+  // - `{ // comment\n }`
+  // - `{ /* comment */ fn() }`  
+  // - `{ fn() /* comment */ }`  
+  if (
+    !hasComment(
+      expression,
+      (comment) =>
+        isLineComment(comment) || comment.leading || comment.trailing,
+    )
+  ) {
     return ["{", doc, lineSuffixBoundary, "}"];
   }
 
-  if (hasComment(expression, CommentCheckFlags.Dangling)) {
-    return [
-      "{",
-      hasComment(expression, CommentCheckFlags.Line)
-        ? [indent([hardline, doc]), hardline]
-        : doc,
-      "}",
-    ];
-  }
-
-  return group([
-    "{",
-    indent([softline, doc]),
-    softline,
-    lineSuffixBoundary,
-    "}",
-  ]);
+  return group(
+    ["{", indent([softline, doc]), softline, lineSuffixBoundary, "}"],
+    { shouldBreak: hasComment(expression, CommentCheckFlags.Line) },
+  );
 }
 
 function printRawMdxExpression(node) {
