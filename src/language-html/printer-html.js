@@ -3,6 +3,7 @@
  */
 
 import {
+  breakParent,
   fill,
   group,
   hardline,
@@ -30,6 +31,7 @@ import { printChildren } from "./print/children.js";
 import { printElement } from "./print/element.js";
 import { printStartTagComment } from "./print/start-tag-comment.js";
 import {
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEnd,
   printClosingTagSuffix,
   printOpeningTagPrefix,
@@ -96,7 +98,16 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
+        return [
+          replaceEndOfLine(value),
+          hasTrailingNewline
+            ? node.parent.next &&
+              needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+              ? // The interpolation's trailing softline already prints this newline.
+                breakParent
+              : hardline
+            : "",
+        ];
       }
 
       const prefix = printOpeningTagPrefix(node, options);

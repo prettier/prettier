@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`trailing-newline.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <div>
+    {{
+      (
+        something.something.very.long.code ??
+        fail("this is even longer to enforce multiple lines")
+      ).toUpperCase()
+    }}.
+  </div>
+  <div>({{ a
+  }})</div>
+  <div>{{ a
+  }}</div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    {{
+      (
+        something.something.very.long.code ??
+        fail("this is even longer to enforce multiple lines")
+      ).toUpperCase()
+    }}.
+  </div>
+  <div>
+    ({{ a
+    }})
+  </div>
+  <div>
+    {{ a
+    }}
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`trailing-newline.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <div>
+    {{
+      (
+        something.something.very.long.code ??
+        fail("this is even longer to enforce multiple lines")
+      ).toUpperCase()
+    }}.
+  </div>
+  <div>({{ a
+  }})</div>
+  <div>{{ a
+  }}</div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    {{
+      (
+        something.something.very.long.code ??
+        fail("this is even longer to enforce multiple lines")
+      ).toUpperCase()
+    }}.
+  </div>
+  <div>({{ a }})</div>
+  <div>{{ a }}</div>
+</template>
+
+================================================================================
+`;

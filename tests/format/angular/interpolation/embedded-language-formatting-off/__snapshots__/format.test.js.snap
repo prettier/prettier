@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`siblings.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>{{ a
+}}</div>
+<div>{{ a
+}} text</div>
+<div>{{ a
+}}<span>text</span></div>
+<div>{{ a
+}}<!-- comment --></div>
+<div>{{ a
+}}{{ b }}</div>
+<div>({{ a
+
+}})</div>
+
+=====================================output=====================================
+<div>
+  {{ a
+  }}
+</div>
+<div>
+  {{ a
+  }}
+  text
+</div>
+<div>
+  {{ a
+  }}<span>text</span>
+</div>
+<div>
+  {{ a
+  }}<!-- comment -->
+</div>
+<div>
+  {{ a
+  }}{{ b }}
+</div>
+<div>
+  ({{ a
+
+  }})
+</div>
+
+================================================================================
+`;
+
+exports[`siblings.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>{{ a
+}}</div>
+<div>{{ a
+}} text</div>
+<div>{{ a
+}}<span>text</span></div>
+<div>{{ a
+}}<!-- comment --></div>
+<div>{{ a
+}}{{ b }}</div>
+<div>({{ a
+
+}})</div>
+
+=====================================output=====================================
+<div>{{ a }}</div>
+<div>{{ a }} text</div>
+<div>{{ a }}<span>text</span></div>
+<div>{{ a }}<!-- comment --></div>
+<div>{{ a }}{{ b }}</div>
+<div>({{ a }})</div>
+
+================================================================================
+`;
+
+exports[`trailing-newline.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a }})
+</div>
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a
+  }})
+</div>
+<div>
+  ({{ a
+  }})
+</div>
+
+=====================================output=====================================
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a
+  }})
+</div>
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a
+  }})
+</div>
+<div>
+  ({{ a
+  }})
+</div>
+
+================================================================================
+`;
+
+exports[`trailing-newline.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a }})
+</div>
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{ a
+  }})
+</div>
+<div>
+  ({{ a
+  }})
+</div>
+
+=====================================output=====================================
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{
+    a
+  }})
+</div>
+<div>
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ({{
+    a
+  }})
+</div>
+<div>({{ a }})</div>
+
+================================================================================
+`;
