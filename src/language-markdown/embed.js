@@ -1,7 +1,8 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import inferParser from "../utilities/infer-parser.js";
-import { printJsExpression, printJsxSpreadAttribute } from "./acorn/printer.js";
+import { printJsxSpreadAttribute } from "./acorn/printer.js";
 import { printCodeFences } from "./print/code.js";
+import { printMdxExpressionContainer } from "./print/mdx-expression.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -67,11 +68,7 @@ function embed(path, options) {
     case "mdxFlowExpression":
     case "mdxJsxAttributeValueExpression":
     case "mdxTextExpression":
-      return async (textToDoc, print, path, options) => [
-        "{",
-        await printJsExpression(textToDoc, print, path, options),
-        "}",
-      ];
+      return printMdxExpressionContainer;
 
     case "mdxJsxExpressionAttribute":
       return printJsxSpreadAttribute;
