@@ -1,0 +1,8 @@
+foo:
+<<<PRETTIER_RANGE_START>>>  # first we check this
+  - condition: foobar
+    output:      true<<<PRETTIER_RANGE_END>>>
+
+  # then we check that
+  - condition: barbar
+    output:      true
