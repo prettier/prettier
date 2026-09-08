@@ -63,16 +63,10 @@ function f() {
 
 =====================================output=====================================
 // this should remain as-is
-<div>
-  {/* prettier-ignore */}
-  <style jsx global>{ComponentStyles}</style>
-</div>;
+<div>{/* prettier-ignore */}<style jsx global>{ComponentStyles}</style></div>;
 
 // this should remain as-is
-<div>
-  {/* prettier-ignore */}
-  <span     ugly  format=''   />
-</div>;
+<div>{/* prettier-ignore */}<span     ugly  format=''   /></div>;
 
 // this should remain as-is
 f(
@@ -83,10 +77,7 @@ f(
 );
 
 // this be formatted
-<div>
-  {/* prettier-ignore */} foo
-  <Bar excessive spaces />
-</div>;
+<div>{/* prettier-ignore */} foo<Bar excessive spaces /></div>;
 
 // this should remain as-is
 <div>

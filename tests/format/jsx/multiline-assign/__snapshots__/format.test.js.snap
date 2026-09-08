@@ -38,11 +38,7 @@ const comp2 = (
   </div>
 );
 
-comp2A = (
-  <div style={styles} key="something">
-    Create wrapping parens.
-  </div>
-);
+comp2A = <div style={styles} key="something">Create wrapping parens.</div>;
 
 const comp3 = (
   <div style={styles} key="something">
