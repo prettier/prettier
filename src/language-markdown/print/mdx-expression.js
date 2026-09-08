@@ -24,8 +24,8 @@ async function printMdxExpressionContainer(textToDoc, print, path, options) {
 
   // Comments that affect the outer braces:
   // - `{ // comment\n }`
-  // - `{ /* comment */ fn() }`  
-  // - `{ fn() /* comment */ }`  
+  // - `{ /* comment */ fn() }`
+  // - `{ fn() /* comment */ }`
   if (
     !hasComment(
       expression,
