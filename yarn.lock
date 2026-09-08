@@ -5,12 +5,12 @@ __metadata:
   version: 10
   cacheKey: 10
 
-"@angular/compiler@npm:22.1.4":
-  version: 22.1.4
-  resolution: "@angular/compiler@npm:22.1.4"
+"@angular/compiler@npm:22.1.5":
+  version: 22.1.5
+  resolution: "@angular/compiler@npm:22.1.5"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/5f6b669019d2276b4cfcd8da29d6744d0cfd26ab9052d9a2e9336ea33d33b19609f05e65ee54ea77ecc420a1d29380957bc1953912e8cce05f997540e21a51d6
+  checksum: 10/543c98c6a18ece1f72956b09879b1ded5debc41787e99c6361607ace8b20964e113637bffd7f3b8201706673eb23348705ca45547dd1ada0e1eecea4140bfb76
   languageName: node
   linkType: hard
 
@@ -5254,19 +5254,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-estree@npm:0.330.0":
-  version: 0.330.0
-  resolution: "flow-estree@npm:0.330.0"
-  checksum: 10/7d3795c5542215f0250bef387aec547c3a5ff9da963ef5da3aae4034f14508919771c625f9d461c12a79f4281da868141da00bbfdd19ffb4fc30263bb8747441
+"flow-estree@npm:0.331.0":
+  version: 0.331.0
+  resolution: "flow-estree@npm:0.331.0"
+  checksum: 10/ab19ede3a0a9aa3b03140df7e9a7732ed28f987b7b556a874968bc3d1bf7a952be3545e73117875a2f47bae319a758365b692d2fa25feae5ba1cfe4cc5663635
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.330.0":
-  version: 0.330.0
-  resolution: "flow-parser@npm:0.330.0"
+"flow-parser@npm:0.331.0":
+  version: 0.331.0
+  resolution: "flow-parser@npm:0.331.0"
   dependencies:
-    flow-estree: "npm:0.330.0"
-  checksum: 10/844074956dc82879d72bf60b406c7d97a2615a4a647495bb2fc50c5361962f6f7ef03137ef55edb83cf0686c14c6b2e5d5358fa0014ebe7cef2f838643000170
+    flow-estree: "npm:0.331.0"
+  checksum: 10/3ac27e2ad45e3fea263e7f915fafc7d6857001f5bb962ff411eb6856b29a922e601ebc803339c8139a6f2f36f342f86907bfd1cb48955d50cc3171b4d55ba0fa
   languageName: node
   linkType: hard
 
@@ -7123,10 +7123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:7.3.2":
-  version: 7.3.2
-  resolution: "meriyah@npm:7.3.2"
-  checksum: 10/54b13bc5920957be63215776c13cc44df4466bcdd9ca6e68efbbdc4903a2a227fbd5accd01c5d9823b4ef3b10ed76a5d44fa9ab8bd5b6ebf92202ec14c296e65
+"meriyah@npm:7.3.3":
+  version: 7.3.3
+  resolution: "meriyah@npm:7.3.3"
+  checksum: 10/79e90fc9e0c511120248723f0484c165fb75e2d60f2d61bbeb2024a7af485632ec8d5c98b8662280e055aafbacf72941adca2be169e76e4ce17a378bb51f900f
   languageName: node
   linkType: hard
 
@@ -7700,7 +7700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.17":
+"nanoid@npm:^3.3.18":
   version: 3.3.18
   resolution: "nanoid@npm:3.3.18"
   bin:
@@ -8408,14 +8408,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.26":
-  version: 8.5.26
-  resolution: "postcss@npm:8.5.26"
+"postcss@npm:8.5.28":
+  version: 8.5.28
+  resolution: "postcss@npm:8.5.28"
   dependencies:
-    nanoid: "npm:^3.3.17"
+    nanoid: "npm:^3.3.18"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10/842a624f822f77cb37264cc24f0cf97c0a69dd8d6f7b4a6d76b5a8dc95355899dd044f33a2d4e890da858293de570fce18dff453f3b629ff14cac67a3591895a
+  checksum: 10/c34814c1da499f370cd3b02a085a2d866989a966629b7bd4025f4a2a10d538a2ec83dc3181e1008550edb4cf44e49a0c40ec82332b08d9600877e6841240ad05
   languageName: node
   linkType: hard
 
@@ -8453,7 +8453,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:22.1.4"
+    "@angular/compiler": "npm:22.1.5"
     "@babel/code-frame": "npm:8.0.0"
     "@babel/generator": "npm:8.0.0"
     "@babel/parser": "npm:8.0.4"
@@ -8516,8 +8516,8 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:11.1.5"
     find-cache-directory: "npm:6.0.0"
-    flow-estree: "npm:0.330.0"
-    flow-parser: "npm:0.330.0"
+    flow-estree: "npm:0.331.0"
+    flow-parser: "npm:0.331.0"
     get-east-asian-width: "npm:1.6.0"
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"
@@ -8551,7 +8551,7 @@ __metadata:
     mdast-util-gfm: "npm:3.1.0"
     mdast-util-math: "npm:3.0.0"
     mdast-util-mdx: "npm:3.0.0"
-    meriyah: "npm:7.3.2"
+    meriyah: "npm:7.3.3"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-extension-mdx-expression: "npm:3.0.1"
@@ -8573,7 +8573,7 @@ __metadata:
     oxc-parser: "npm:0.148.0"
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
-    postcss: "npm:8.5.26"
+    postcss: "npm:8.5.28"
     postcss-less: "npm:6.0.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"

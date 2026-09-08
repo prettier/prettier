@@ -14,7 +14,6 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
@@ -26,6 +25,7 @@ import {
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
+import { printCode } from "./code.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
 import { printRawMdxExpression } from "./mdx-expression.js";
@@ -204,31 +204,8 @@ function printMdast(path, options, print) {
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
       return printHeading(path, options, print);
-    case "code": {
-      if (node.isIndented) {
-        // indented code block
-        const alignment = " ".repeat(4);
-        return align(alignment, [
-          alignment,
-          replaceEndOfLine(node.value, hardline),
-        ]);
-      }
-
-      // fenced code block
-      const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-      );
-      return [
-        style,
-        node.lang || "",
-        node.meta ? " " + node.meta : "",
-        hardline,
-        replaceEndOfLine(node.value, hardline),
-        hardline,
-        style,
-      ];
-    }
+    case "code":
+      return printCode(path, options);
     case "comment": {
       const value = node.commentValue;
       return ["<!--", replaceEndOfLine(value, hardline), "-->"];
