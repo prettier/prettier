@@ -1,5 +1,5 @@
 // There is no way to disable autolink
-// Hackly find and replace `gfm-autolink-literal`
+// Hacky find and replace `gfm-autolink-literal`
 // https://github.com/remarkjs/remark-gfm/issues/16#issuecomment-899046315
 
 import { gfmFromMarkdown as originalGfmFromMarkdown } from "mdast-util-gfm";

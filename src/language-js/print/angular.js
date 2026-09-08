@@ -107,8 +107,8 @@ const hasSideEffect = createTypeCheckFunction([
   "OptionalCallExpression",
   "AssignmentExpression",
 ]);
-/** identify if an angular expression seems to have side effects */
 /**
+ * Identify if an angular expression seems to have side effects.
  * @param {AstPath} path
  * @returns {boolean}
  */
