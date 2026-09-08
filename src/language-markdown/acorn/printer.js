@@ -32,12 +32,13 @@ const createPlugin = (mdxParserName, jsParserName, transform) => {
 
 const createPrint =
   ({ jsParserName, mdxParserName, getParseResult, transform }) =>
-  async (textToDoc, print, path, options) => {
+  async (textToDoc, print, path, options, textToDocOptions) => {
     const program = path.node.data.estree;
     const parseResult = getParseResult(program);
     const plugin = createPlugin(mdxParserName, jsParserName, transform);
 
     return await textToDoc(parseResult.text, {
+      ...textToDocOptions,
       parser: mdxParserName,
       plugins: [...options.plugins, plugin],
       __mdx_parse_result: parseResult,

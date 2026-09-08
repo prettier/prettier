@@ -5,32 +5,40 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import { isLineComment } from "../../language-js/utilities/comment-types.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+} from "../../language-js/utilities/comments.js";
+import { stripChainElementWrappers } from "../../language-js/utilities/strip-chain-element-wrappers.js";
+import { printJsExpression } from "../acorn/printer.js";
 import { getExpressionParseResult } from "../utilities/get-expression-parse-result.js";
 
-function hasLineComment(comments) {
-  return comments.some((comment) => comment.type === "Line");
-}
+async function printMdxExpressionContainer(textToDoc, print, path, options) {
+  let expression;
+  const doc = await printJsExpression(textToDoc, print, path, options, {
+    __onHtmlBindingRoot(ast) {
+      expression = stripChainElementWrappers(ast.node);
+    },
+  });
 
-function printMdxExpressionContainer(node, expressionDoc) {
-  const { comments } = getExpressionParseResult(node.data.estree);
-
-  if (comments.length === 0) {
-    return ["{", expressionDoc, "}"];
+  if (!hasComment(expression)) {
+    return ["{", doc, lineSuffixBoundary, "}"];
   }
 
-  if (node.data.estree.isProgram) {
+  if (hasComment(expression, CommentCheckFlags.Dangling)) {
     return [
       "{",
-      hasLineComment(comments)
-        ? [indent([hardline, expressionDoc]), hardline]
-        : expressionDoc,
+      hasComment(expression, CommentCheckFlags.Line)
+        ? [indent([hardline, doc]), hardline]
+        : doc,
       "}",
     ];
   }
 
   return group([
     "{",
-    indent([softline, expressionDoc]),
+    indent([softline, doc]),
     softline,
     lineSuffixBoundary,
     "}",
@@ -41,7 +49,7 @@ function printRawMdxExpression(node) {
   const { comments } = getExpressionParseResult(node.data.estree);
   const value = node.value.trim();
 
-  if (hasLineComment(comments)) {
+  if (comments.some(isLineComment)) {
     return ["{", hardline, value, hardline, "}"];
   }
 

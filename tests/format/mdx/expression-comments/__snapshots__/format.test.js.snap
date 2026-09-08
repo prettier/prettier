@@ -200,6 +200,47 @@ text {
 ================================================================================
 `;
 
+exports[`nested-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{foo(
+// nested comment
+bar
+)}
+
+=====================================output=====================================
+{
+foo(
+// nested comment
+bar
+)
+}
+
+================================================================================
+`;
+
+exports[`nested-comment.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{foo(
+// nested comment
+bar
+)}
+
+=====================================output=====================================
+{foo(
+  // nested comment
+  bar,
+)}
+
+================================================================================
+`;
+
 exports[`trailing-comment.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
@@ -240,6 +281,9 @@ text {foo()
 }
 </Wrapper>
 
+<A prop={foo?.bar // trailing comment after optional chain
+} />
+
 =====================================output=====================================
 {/**
 * some JSDoc
@@ -278,6 +322,9 @@ foo()
 // trailing inside JSX children
   }
 </Wrapper>
+
+<A prop={foo?.bar // trailing comment after optional chain
+} />
 
 ================================================================================
 `;
@@ -320,6 +367,9 @@ text {foo()
 // trailing inside JSX children
 }
 </Wrapper>
+
+<A prop={foo?.bar // trailing comment after optional chain
+} />
 
 =====================================output=====================================
 {
@@ -364,6 +414,12 @@ text {
     // trailing inside JSX children
   }
 </Wrapper>
+
+<A
+  prop={
+    foo?.bar // trailing comment after optional chain
+  }
+/>
 
 ================================================================================
 `;
