@@ -98,16 +98,21 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [
-          replaceEndOfLine(value),
-          hasTrailingNewline
-            ? node.parent.next &&
-              needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-              ? // The interpolation's trailing softline already prints this newline.
-                breakParent
-              : hardline
-            : "",
-        ];
+        const parts = [replaceEndOfLine(value)];
+
+        if (hasTrailingNewline) {
+          // The interpolation's trailing softline already prints this newline.
+          if (
+            node.parent.next &&
+            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+          ) {
+            parts.push(breakParent);
+          } else {
+            parts.push(hardline);
+          }
+        }
+
+        return parts;
       }
 
       const prefix = printOpeningTagPrefix(node, options);
