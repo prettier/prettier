@@ -15,7 +15,6 @@ import {
   isLiteral,
   isObjectExpression,
 } from "../utilities/node-types.js";
-import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -157,31 +156,19 @@ function printEstree(path, options, print, args) {
       return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
-    case "YieldExpression": {
-      const keyword = `yield${node.delegate ? "*" : ""}`;
-      if (!node.argument) {
-        return keyword;
-      }
-
-      // A line terminator is not allowed between `yield` and its argument, so a
-      // leading comment has to stay inside parentheses, same as `return` and
-      // `throw`. `yield*` is safe, the restriction only applies before the `*`.
-      if (
-        !node.delegate &&
-        returnArgumentHasLeadingComment(node.argument, options)
-      ) {
-        return [
-          keyword,
-          " ",
-          path.call(
-            () => printReturnOrThrowArgument(path, options, print),
-            "argument",
-          ),
-        ];
-      }
-
-      return [keyword, " ", print("argument")];
-    }
+    case "YieldExpression":
+      return [
+        `yield${node.delegate ? "*" : ""}`,
+        node.argument
+          ? [
+              " ",
+              path.call(
+                () => printReturnOrThrowArgument(path, options, print),
+                "argument",
+              ),
+            ]
+          : "",
+      ];
     case "AwaitExpression":
       return printAwaitExpression(path, options, print);
 

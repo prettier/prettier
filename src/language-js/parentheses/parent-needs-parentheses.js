@@ -131,17 +131,15 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
 function willArgumentBreakAndAddParentheses(path, options) {
   const { key, parent } = path;
-  const isRestrictedProduction =
-    isReturnOrThrowStatement(parent) ||
-    // `yield*` is not restricted, the rule only applies before the `*`
-    (parent.type === "YieldExpression" && !parent.delegate);
-
-  if (key !== "argument" || !isRestrictedProduction) {
+  if (
+    key !== "argument" ||
+    !(isReturnOrThrowStatement(parent) || parent.type === "YieldExpression")
+  ) {
     return false;
   }
 
   /*
-  When `ReturnStatement`, `ThrowStatement` or `YieldExpression` breaks, parentheses will be added around it's argument.
+  When `ReturnStatement`, `ThrowStatement`, or `YieldExpression` breaks, parentheses will be added around it's argument.
   So don't need add parentheses again.
   But we can't know how the argument printed, so only matches cases that will break for sure
   */
