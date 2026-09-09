@@ -228,6 +228,7 @@ function printTemplateExpression(
     const renderedExpression = printDocToString(expressionDoc, {
       ...options,
       printWidth: Number.POSITIVE_INFINITY,
+      endOfLine: "lf",
     }).formatted;
 
     // ... unless one will be introduced anyway, e.g. by a nested function.

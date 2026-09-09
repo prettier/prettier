@@ -1,3 +1,1 @@
-runFormatTest(import.meta, ["babel", "flow", "typescript"], {
-  errors: { meriyah: ["async-identifier.js"] },
-});
+runFormatTest(import.meta, ["babel", "flow", "typescript"]);
