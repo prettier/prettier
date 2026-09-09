@@ -10,17 +10,12 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
     "flow/hook/declare-hook.js",
     "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
     "js/for-of/comments.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     [
@@ -28,7 +23,6 @@ const unstableTests = new Map(
       (options) => options.objectWrap !== "collapse",
     ],
     "typescript/call/callee-comments.ts",
-    "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
     "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {

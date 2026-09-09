@@ -96,6 +96,10 @@
         "@catppuccin/codemirror",
       ],
     },
+    {
+      groupName: "Jest",
+      matchPackageNames: ["jest", "@jest/*", "jest-*"],
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size

@@ -1,0 +1,27 @@
+$map: (
+  a: calc(1px + 2px),
+
+  b: rgba(0, 0, 0, 0.5),
+
+  c: 1px,
+
+  d: fn(fn(1)),
+
+  e: 2px
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+  b: 2px,
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+
+
+
+  b: 2px,
+);
+
