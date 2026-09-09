@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`18496.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
-====================================options=====================================
-embeddedLanguageFormatting: "off"
-parsers: ["angular"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-<template>
-  <div>
-    {{
-      (
-        something.something.very.long.code ??
-        fail("this is even longer to enforce multiple lines")
-      ).toUpperCase()
-    }}.
-  </div>
-</template>
-
-=====================================output=====================================
-<template>
-  <div>
-    {{
-      (
-        something.something.very.long.code ??
-        fail("this is even longer to enforce multiple lines")
-      ).toUpperCase()
-    }}.
-  </div>
-</template>
-
-================================================================================
-`;
-
 exports[`siblings.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
