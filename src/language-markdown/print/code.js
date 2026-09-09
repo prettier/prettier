@@ -5,7 +5,6 @@ import {
   replaceEndOfLine,
 } from "../../document/index.js";
 import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
-import { getFencedCodeBlockValue } from "../utilities.js";
 
 function printCodeFences(valueDoc, options) {
   const styleUnit = options.__inJsTemplate ? "~" : "`";
@@ -25,11 +24,7 @@ function printCodeFences(valueDoc, options) {
 
 function printFencedCodeBlock(path, options) {
   const { node } = path;
-
-  const value =
-    options.parser === "mdx"
-      ? getFencedCodeBlockValue(node, options.originalText)
-      : node.value;
+  const { value } = node;
   const style = printCodeFences(value, options);
 
   return [
