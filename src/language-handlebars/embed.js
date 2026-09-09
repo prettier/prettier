@@ -21,12 +21,8 @@ function inferScriptParser(node) {
   }
 
   switch (getTextValue(typeAttribute)) {
-    case "":
     case "module":
     case "text/javascript":
-    case "text/babel":
-    case "text/jsx":
-    case "application/javascript":
       return "babel";
   }
 }
