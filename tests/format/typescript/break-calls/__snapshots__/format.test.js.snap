@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`issue-5399.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const response = await TheBackendEndpoint.EligibleCategories.get().json<
+  IApiPaymentResponse<IApiEligibleCategories>
+>();
+
+const shortResponse = await endpoint.get().json<Response>();
+
+=====================================output=====================================
+const response = await TheBackendEndpoint.EligibleCategories.get()
+  .json<IApiPaymentResponse<IApiEligibleCategories>>();
+
+const shortResponse = await endpoint.get().json<Response>();
+
+================================================================================
+`;
+
 exports[`type_args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
