@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`script-tag.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script></script>
+
+<script type="text/javascript">
+  const interval = setInterval( function() {
+    var timestamp = Date.now();
+    console.log(timestamp);
+  }, 1000
+  ); var a = 5;
+</script>
+
+<script type="module">
+  import a from "a"; export const b = a
+</script>
+
+<script type="application/ld+json">
+  { "@context": "https://schema.org" }
+</script>
+
+<script>
+  var user = "{{user.name}}";
+  {{#if debug}}console.log("debug");{{/if}}
+</script>
+
+<script>
+  const template = html\`<div><script>a<\\/script></div>\`;
+</script>
+
+<script type="text/plain">\\{{foo}}</script>
+
+<script>\\{{bar}}</script>
+
+=====================================output=====================================
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+></script>
+<script></script>
+
+<script type="text/javascript">
+  const interval = setInterval( function() {
+    var timestamp = Date.now();
+    console.log(timestamp);
+  }, 1000
+  ); var a = 5;
+</script>
+
+<script type="module">
+  import a from "a"; export const b = a
+</script>
+
+<script type="application/ld+json">
+  { "@context": "https://schema.org" }
+</script>
+
+<script>
+  var user = "{{user.name}}";
+  {{#if debug}}console.log("debug");{{/if}}
+</script>
+
+<script>
+  const template = html\`<div><script>a<\\/script></div>\`;
+</script>
+
+<script type="text/plain">
+  \\{{foo}}
+</script>
+
+<script>
+  \\{{bar}}
+</script>
+================================================================================
+`;
+
+exports[`script-tag.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script></script>
+
+<script type="text/javascript">
+  const interval = setInterval( function() {
+    var timestamp = Date.now();
+    console.log(timestamp);
+  }, 1000
+  ); var a = 5;
+</script>
+
+<script type="module">
+  import a from "a"; export const b = a
+</script>
+
+<script type="application/ld+json">
+  { "@context": "https://schema.org" }
+</script>
+
+<script>
+  var user = "{{user.name}}";
+  {{#if debug}}console.log("debug");{{/if}}
+</script>
+
+<script>
+  const template = html\`<div><script>a<\\/script></div>\`;
+</script>
+
+<script type="text/plain">\\{{foo}}</script>
+
+<script>\\{{bar}}</script>
+
+=====================================output=====================================
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+></script>
+<script></script>
+
+<script type="text/javascript">
+  const interval = setInterval(function () {
+    var timestamp = Date.now();
+    console.log(timestamp);
+  }, 1000);
+  var a = 5;
+</script>
+
+<script type="module">
+  import a from "a";
+  export const b = a;
+</script>
+
+<script type="application/ld+json">
+  { "@context": "https://schema.org" }
+</script>
+
+<script>
+  var user = "{{user.name}}";
+  {{#if debug}}console.log("debug");{{/if}}
+</script>
+
+<script>
+  const template = html\`<div>
+    <script>
+      a;
+    <\\/script>
+  </div>\`;
+</script>
+
+<script type="text/plain">
+  \\{{foo}}
+</script>
+
+<script>
+  \\{{bar}}
+</script>
+================================================================================
+`;

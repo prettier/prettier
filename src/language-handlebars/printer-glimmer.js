@@ -60,10 +60,11 @@ function print(path, options, print) {
 
       const endingTag = ["</", node.tag, ">"];
       const isStyle = node.tag === "style";
+      const isScript = node.tag === "script" && node.children.length === 1;
 
       if (
         node.children.length === 0 ||
-        ((!isWhitespaceSensitive || isStyle) &&
+        ((!isWhitespaceSensitive || isStyle || isScript) &&
           node.children.every((node) => isWhitespaceNode(node)))
       ) {
         return [startingTag, endingTag];
@@ -71,7 +72,7 @@ function print(path, options, print) {
 
       const parts = path.map(print, "children");
 
-      if (isStyle || !isWhitespaceSensitive) {
+      if (isStyle || isScript || !isWhitespaceSensitive) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
@@ -160,11 +161,15 @@ function print(path, options, print) {
       return [node.key, "=", print("value")];
 
     case "TextNode": {
+      /* if `{{my-component}}` (or any text containing "{{")
+       * makes it to the TextNode, it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      let text = node.chars.replaceAll("{{", String.raw`\{{`);
+
       // Don't format content:
       // 1. in `<pre>`,
-      // 2. in `<style>`
-
-      let text = node.chars;
+      // 2. in `<style>`,
+      // 3. in `<script>`
 
       const { parent } = path;
       if (parent.type === "ElementNode") {
@@ -172,7 +177,10 @@ function print(path, options, print) {
           return replaceEndOfLine(text);
         }
 
-        if (parent.tag === "style") {
+        if (
+          parent.tag === "style" ||
+          (parent.tag === "script" && parent.children.length === 1)
+        ) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
           text = htmlWhitespace.dedentString(text);
@@ -180,11 +188,6 @@ function print(path, options, print) {
           return replaceEndOfLine(text, hardline);
         }
       }
-
-      /* if `{{my-component}}` (or any text containing "{{")
-       * makes it to the TextNode, it means it was escaped,
-       * so let's print it escaped, ie.; `\{{my-component}}` */
-      text = text.replaceAll("{{", String.raw`\{{`);
 
       const attrName = getCurrentAttributeName(path);
 

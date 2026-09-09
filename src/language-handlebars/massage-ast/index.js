@@ -1,4 +1,5 @@
 import htmlWhitespace from "../../utilities/html-whitespace.js";
+import { isWhitespaceNode } from "../utilities.js";
 
 function massageAstNode(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode
@@ -8,11 +9,11 @@ function massageAstNode(original, cloned, parent) {
       return null;
     }
 
-    // CSS will be formatted
     if (
-      parent.tag === "style" &&
-      parent.children.length === 1 &&
-      parent.children[0] === original
+      (parent.tag === "style" || parent.tag === "script") &&
+      parent.children.every(
+        (child) => child === original || isWhitespaceNode(child),
+      )
     ) {
       cloned.chars = "";
     } else {
