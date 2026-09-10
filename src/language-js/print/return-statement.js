@@ -39,10 +39,8 @@ function printArgumentNode(path, options, print) {
   return argumentDoc;
 }
 
-function printArgument(path, options, print) {
-  const { node } = path;
-  const argumentNode = node.argument;
-  if (!argumentNode) {
+function printArgument(path, options, print) {;
+  if (!path.node.argument) {
     return "";
   }
 
