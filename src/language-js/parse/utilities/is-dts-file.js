@@ -1,15 +1,5 @@
 function isDtsFile(filepath) {
-  if (typeof filepath !== "string") {
-    return false;
-  }
-
-  filepath = filepath.toLowerCase();
-
-  return (
-    filepath.endsWith(".d.ts") ||
-    filepath.endsWith(".d.mts") ||
-    filepath.endsWith(".d.cts")
-  );
+  return typeof filepath === "string" && /\.d\.(?:ts|mts|cts)$/i.test(filepath);
 }
 
 export { isDtsFile };
