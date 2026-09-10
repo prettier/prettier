@@ -68,7 +68,8 @@ function printThrowStatement(path, options, print) {
 
 function printYieldExpression(path, options, print) {
   return [
-    `yield${path.node.delegate ? "*" : ""}`,
+    "yield",
+    path.node.delegate ? "*" : "",
     printArgument(path, options, print),
   ];
 }
