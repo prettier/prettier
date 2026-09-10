@@ -29,14 +29,8 @@ function inferScriptParser(node) {
 
 function inferStyleParser(node) {
   const langAttribute = getAttribute(node, "lang");
-  if (!langAttribute) {
+  if (!langAttribute || getTextValue(langAttribute) === "css") {
     return "css";
-  }
-
-  switch (getTextValue(langAttribute)) {
-    case "":
-    case "css":
-      return "css";
   }
 }
 
