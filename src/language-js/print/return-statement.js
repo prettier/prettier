@@ -13,7 +13,7 @@ import { printSemicolon } from "./miscellaneous.js";
 @import {Doc} from "../../document/index.js";
 */
 
-function printArgument(path, options, print) {
+function printArgumentNode(path, options, print) {
   const { node } = path;
   const argumentDoc = print();
 
@@ -39,30 +39,40 @@ function printArgument(path, options, print) {
   return argumentDoc;
 }
 
-// `ReturnStatement` and `ThrowStatement`
-function printReturnOrThrowStatement(path, options, print) {
+function printArgument(path, options, print) {
   const { node } = path;
+  const argumentNode = node.argument;
+  if (!argumentNode) {
+    return "";
+  }
+
   return [
-    node.type === "ThrowStatement" ? "throw" : "return",
-    node.argument
-      ? [" ", path.call(() => printArgument(path, options, print), "argument")]
-      : "",
+    " ",
+    path.call(() => printArgumentNode(path, options, print), "argument"),
+  ];
+}
+
+function printReturnStatement(path, options, print) {
+  return [
+    "return",
+    printArgument(path, options, print),
+    printSemicolon(options),
+  ];
+}
+
+function printThrowStatement(path, options, print) {
+  return [
+    "throw",
+    printArgument(path, options, print),
     printSemicolon(options),
   ];
 }
 
 function printYieldExpression(path, options, print) {
-  const { node } = path;
   return [
-    `yield${node.delegate ? "*" : ""}`,
-    node.argument
-      ? [" ", path.call(() => printArgument(path, options, print), "argument")]
-      : "",
+    `yield${path.node.delegate ? "*" : ""}`,
+    printArgument(path, options, print),
   ];
 }
 
-export {
-  printReturnOrThrowStatement as printReturnStatement,
-  printReturnOrThrowStatement as printThrowStatement,
-  printYieldExpression,
-};
+export { printReturnStatement, printThrowStatement, printYieldExpression };
