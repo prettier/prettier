@@ -1,0 +1,82 @@
+<section>
+@boundary {
+<app-promotional-widget/>
+}
+@error {
+<app-default-promo-widget/>
+}
+<app-cart-summary/>
+</section>
+
+@boundary {
+Main Content
+} @error {
+Fallback Content
+}
+
+@boundary {
+Main Content
+} @error (let err) {
+Error: {{err.message}}
+}
+
+@boundary {
+Main Content
+} @error (let err; when err.message === '404') {
+Not Found
+} @error (let err) {
+Generic Error
+}
+
+@boundary {
+Outer Main
+@boundary {
+Inner Main
+} @error {
+Inner Fallback
+}
+} @error {
+Outer Fallback
+}
+
+@boundary {
+Main Content
+} @error (let err, retry = $reset) {
+<button (click)="retry()">Retry</button>
+}
+
+@boundary {
+Main Content
+} @error {
+<button (click)="$reset()">Retry</button>
+}
+
+@boundary {
+Main Content
+} @error (let err; when err.message === '404') {
+Not Found
+}
+
+@boundary {}
+@boundary {} @error {}
+
+<div>
+@if (ready) {
+@boundary {
+<complex-chart [data]="data"/>
+} @error (let err = $error; let r = $reset) {
+<p>Failed to load chart: {{err.message}}</p>
+<button (click)="r()">Retry</button>
+}
+}
+</div>
+
+@defer {
+@boundary {
+<app-c1/>
+} @error {
+<span>Render error</span>
+}
+} @error {
+<span>Load error</span>
+}
