@@ -66,11 +66,20 @@ function embed(path /* , options*/) {
     return;
   }
 
+  const textToDocOptions = { parser, __embeddedInHtml: true };
+  if (parser === "babel") {
+    const typeAttribute = getAttribute(parent, "type");
+    textToDocOptions.__babelSourceType =
+      typeAttribute && getTextValue(typeAttribute) === "module"
+        ? "module"
+        : "script";
+  }
+
   return async (textToDoc) => {
     if (!content.trim()) {
       return "";
     }
-    return await textToDoc(content, { parser, __embeddedInHtml: true });
+    return await textToDoc(content, textToDocOptions);
   };
 }
 

@@ -21,6 +21,20 @@ parsers: ["glimmer"]
   import a from "a"; export const b = a
 </script>
 
+<script>
+  import a from "a"; export const b = a
+</script>
+
+<script>
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
+<script type="module">
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
 <script type="application/ld+json">
   { "@context": "https://schema.org" }
 </script>
@@ -50,6 +64,20 @@ parsers: ["glimmer"]
 
 <script type="module">
   import a from "a"; export const b = a
+</script>
+
+<script>
+  import a from "a"; export const b = a
+</script>
+
+<script>
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
+<script type="module">
+  const a = await fetch("a");
+  console.log( a );
 </script>
 
 <script type="application/ld+json">
@@ -87,6 +115,20 @@ parsers: ["glimmer"]
   import a from "a"; export const b = a
 </script>
 
+<script>
+  import a from "a"; export const b = a
+</script>
+
+<script>
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
+<script type="module">
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
 <script type="application/ld+json">
   { "@context": "https://schema.org" }
 </script>
@@ -117,6 +159,21 @@ parsers: ["glimmer"]
 <script type="module">
   import a from "a";
   export const b = a;
+</script>
+
+<script>
+  import a from "a";
+  export const b = a;
+</script>
+
+<script>
+  const a = await fetch("a");
+  console.log( a );
+</script>
+
+<script type="module">
+  const a = await fetch("a");
+  console.log(a);
 </script>
 
 <script type="application/ld+json">
