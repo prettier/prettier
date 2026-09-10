@@ -4,6 +4,11 @@ function* f() {
   yield (/*
   */ a);
 
+  foo(
+  yield (/*
+  */ a)
+  );
+
   yield (// comment
   a);
 
