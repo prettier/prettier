@@ -43,6 +43,7 @@ function parseWithOptions(text, options) {
     preserveParens: true,
     semanticErrors: false,
     attachComments: false,
+    tokens: false,
     ...options,
   });
 
