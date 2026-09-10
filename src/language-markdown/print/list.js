@@ -103,8 +103,6 @@ function printListItem(path, options, print, listPrefix) {
           return align(" ".repeat(prefix.length), print());
         }
 
-        // An indented code block would swallow the alignment as part of its
-        // content, so it grows deeper on every format.
         if (node.type === "code" && node.isIndented) {
           return print();
         }
@@ -214,8 +212,6 @@ function printListItemLegacy(path, options, print, listPrefix) {
           return align(" ".repeat(prefix.length), print());
         }
 
-        // An indented code block would swallow the alignment as part of its
-        // content, so it grows deeper on every format.
         if (node.type === "code" && node.isIndented) {
           return print();
         }
