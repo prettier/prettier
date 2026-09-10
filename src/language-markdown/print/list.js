@@ -101,7 +101,8 @@ function printListItem(path, options, print, listPrefix) {
       processor({ node, isFirst }) {
         if (
           (isFirst && node.type !== "list") ||
-          (node.type === "code" && node.isIndented)
+          (node.type === "code" && node.isIndented) ||
+          node.type === "html"
         ) {
           return align(" ".repeat(prefix.length), print());
         }

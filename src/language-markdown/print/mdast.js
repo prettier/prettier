@@ -283,26 +283,8 @@ function printMdast(path, options, print) {
     }
     case "html": {
       const { parent, isLast } = path;
-      let value =
+      const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-
-      if (parent.type === "listItem") {
-        // Strip the indentation past the marker width mdast-util-from-markdown
-        // bakes into the value, or the list item's align doc double-counts it.
-        // Use the smallest indentation across all lines, not just the first,
-        // since the first line isn't always the least-indented one (e.g. a
-        // preceding sibling can absorb a more-indented opening line).
-        const lines = value.split("\n");
-        const minIndent = Math.min(
-          ...lines
-            .filter((line) => line.trim() !== "")
-            .map((line) => /^ */.exec(line)[0].length),
-        );
-        if (Number.isFinite(minIndent) && minIndent > 0) {
-          value = lines.map((line) => line.slice(minIndent)).join("\n");
-        }
-      }
-
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(

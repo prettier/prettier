@@ -58,9 +58,42 @@ parsers: ["markdown"]
    {}
    \`\`\`
 
-   <p align="center">
-     <img alt="example">
-   </p>
+    <p align="center">
+      <img alt="example">
+    </p>
+
+2. Continue.
+
+================================================================================
+`;
+
+exports[`issue-19986.md format 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1. Enable images:
+
+    \`\`\`json
+    {}
+    \`\`\`
+
+    <p align="center">
+      <img alt="example">
+    </p>
+
+2. Continue.
+
+=====================================output=====================================
+1. Enable images:
+
+   \`\`\`json
+   {}
+   \`\`\`
+
+    <p align="center">
+      <img alt="example">
+    </p>
 
 2. Continue.
 
@@ -106,8 +139,30 @@ parsers: ["markdown"]
 
         <p align="center">
 
-     <img alt="example">
-   </p>
+      <img alt="example">
+    </p>
+
+================================================================================
+`;
+
+exports[`issue-19986-uneven-indent.md format 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1. Enable images:
+
+        <p align="center">
+      <img alt="example">
+    </p>
+
+=====================================output=====================================
+1. Enable images:
+
+        <p align="center">
+
+      <img alt="example">
+    </p>
 
 ================================================================================
 `;
