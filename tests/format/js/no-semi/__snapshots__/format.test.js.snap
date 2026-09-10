@@ -2104,10 +2104,38 @@ class C {
   ["method"]() {}
 }
 
+class PrivateKeywordFields {
+  a = {};
+  #in = {};
+  b = {};
+  #instanceof = {};
+}
+
+class PrivateKeywordMethods {
+  a = {};
+  #in() {}
+  b = {};
+  #instanceof() {}
+}
+
 =====================================output=====================================
 class C {
   #field = "value";
   ["method"]() {}
+}
+
+class PrivateKeywordFields {
+  a = {}
+  #in = {}
+  b = {}
+  #instanceof = {}
+}
+
+class PrivateKeywordMethods {
+  a = {}
+  #in() {}
+  b = {}
+  #instanceof() {}
 }
 
 ================================================================================
@@ -2123,10 +2151,38 @@ class C {
   ["method"]() {}
 }
 
+class PrivateKeywordFields {
+  a = {};
+  #in = {};
+  b = {};
+  #instanceof = {};
+}
+
+class PrivateKeywordMethods {
+  a = {};
+  #in() {}
+  b = {};
+  #instanceof() {}
+}
+
 =====================================output=====================================
 class C {
   #field = "value";
   ["method"]() {}
+}
+
+class PrivateKeywordFields {
+  a = {};
+  #in = {};
+  b = {};
+  #instanceof = {};
+}
+
+class PrivateKeywordMethods {
+  a = {};
+  #in() {}
+  b = {};
+  #instanceof() {}
 }
 
 ================================================================================
