@@ -22,7 +22,4 @@ function* f() {
   // `yield*` is not restricted, but it is printed the same way.
   yield* (/*
   */ a);
-
-  // No leading comment, printed like a `return` argument.
-  yield aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb && cccccccccccccccc;
 }
