@@ -131,10 +131,10 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
 function willArgumentBreakAndAddParentheses(path, options) {
   const { key, parent } = path;
-  if (
-    key !== "argument" ||
-    !(isReturnOrThrowStatement(parent) || parent.type === "YieldExpression")
-  ) {
+  if (!(
+    key === "argument" &&
+    (isReturnOrThrowStatement(parent) || parent.type === "YieldExpression")
+  )) {
     return false;
   }
 
