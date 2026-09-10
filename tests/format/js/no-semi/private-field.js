@@ -9,10 +9,3 @@ class PrivateKeywordFields {
   b = {};
   #instanceof = {};
 }
-
-class PrivateKeywordMethods {
-  a = {};
-  #in() {}
-  b = {};
-  #instanceof() {}
-}
