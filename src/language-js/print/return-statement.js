@@ -39,7 +39,7 @@ function printArgumentNode(path, options, print) {
   return argumentDoc;
 }
 
-function printArgument(path, options, print) {;
+function printArgument(path, options, print) {
   if (!path.node.argument) {
     return "";
   }
