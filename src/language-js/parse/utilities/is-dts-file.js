@@ -1,6 +1,6 @@
 function isDtsFile(filepath) {
   if (typeof filepath !== "string") {
-    return;
+    return false;
   }
 
   filepath = filepath.toLowerCase();
