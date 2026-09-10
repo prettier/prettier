@@ -103,6 +103,10 @@ function printListItem(path, options, print, listPrefix) {
           return align(" ".repeat(prefix.length), print());
         }
 
+        if (node.type === "code" && node.isIndented) {
+          return print();
+        }
+
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
         );
@@ -206,6 +210,10 @@ function printListItemLegacy(path, options, print, listPrefix) {
       processor({ node, isFirst }) {
         if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
+        }
+
+        if (node.type === "code" && node.isIndented) {
+          return print();
         }
 
         const alignment = " ".repeat(
