@@ -151,16 +151,25 @@ const wrapInParens = (doc) => [
  * @returns {Doc}
  */
 function printTernary(path, options, print, args) {
-  if (!options.experimentalTernaries) {
-    return printTernaryOld(path, options, print);
-  }
-
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional = isConditionalType(node);
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
+  const consequentComments = printDanglingComments(path, options, {
+    marker: "commentBeforeTernaryConsequent",
+  });
+  const printedConsequent = [
+    consequentComments,
+    consequentComments ? line : "",
+    print(consequentNodePropertyName),
+  ];
+
+  if (!options.experimentalTernaries) {
+    return printTernaryOld(path, options, print, printedConsequent);
+  }
+
+  const isTSConditional = isConditionalType(node);
   const alternateNodePropertyName = isConditionalExpression
     ? "alternate"
     : "falseType";
@@ -287,7 +296,9 @@ function printTernary(path, options, print, args) {
       alternateComments.push(printDanglingComments(path, options));
     }, "test");
   }
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (
+    hasComment(node, CommentCheckFlags.Dangling, (comment) => !comment.printed)
+  ) {
     alternateComments.push(printDanglingComments(path, options));
   }
 
@@ -314,7 +325,6 @@ function printTernary(path, options, print, args) {
     id: testId,
   });
 
-  const printedConsequent = print(consequentNodePropertyName);
   const consequent = indent([
     isConsequentTernary ||
     (isInJsx && (isJsxElement(consequentNode) || isParentTernary || isInChain))
