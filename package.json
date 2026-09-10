@@ -44,8 +44,8 @@
   "dependencies": {
     "@angular/compiler": "22.1.6",
     "@babel/code-frame": "8.0.0",
-    "@babel/parser": "8.0.4",
-    "@babel/types": "8.0.4",
+    "@babel/parser": "8.0.5",
+    "@babel/types": "8.0.5",
     "@braindb/mdast-util-wiki-link": "0.2.0",
     "@braindb/micromark-extension-wiki-link": "0.1.0",
     "@bybrave/json5": "3.1.0",
@@ -134,7 +134,7 @@
     "yuku-parser": "0.9.5"
   },
   "devDependencies": {
-    "@babel/generator": "8.0.0",
+    "@babel/generator": "8.0.5",
     "@clack/prompts": "1.7.0",
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
