@@ -10,7 +10,7 @@ function massageAstNode(original, cloned, parent) {
     }
 
     // CSS will be formatted
-    if (isPlainTextStyleElement(parent)) {
+    if (isPlainTextStyleElement(parent) && parent.children[0] === original) {
       cloned.chars = "";
     } else {
       cloned.chars = htmlWhitespace.split(trimmed).join(" ");
