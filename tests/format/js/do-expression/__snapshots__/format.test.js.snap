@@ -184,10 +184,6 @@ function foo() {
   );
 }
 
-(do {});
-(do {} + 1);
-(1 + do {});
-() => do {};
 
 (do {
   switch(0) {
@@ -254,11 +250,6 @@ function foo() {
     </nav>
   );
 }
-
-(do {});
-(do {}) + 1;
-1 + do {};
-() => do {};
 
 (do {
   switch (0) {
