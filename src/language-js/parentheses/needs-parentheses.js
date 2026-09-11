@@ -778,19 +778,17 @@ function needsParentheses(path, options) {
         default:
           return false;
       }
+
+    case "TSInstantiationExpression":
+      if (key === "object" && isMemberExpression(parent)) {
+        return true;
+      }
+
+    // fallthrough
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
     case "ChainExpression":
     case "TSNonNullExpression":
-    case "TSInstantiationExpression":
-      if (
-        key === "object" &&
-        node.type === "TSInstantiationExpression" &&
-        isMemberExpression(parent)
-      ) {
-        return true;
-      }
-
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
