@@ -787,7 +787,7 @@ Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:19)
+"Expected ';' after for-loop init, but found 'void' (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
@@ -796,7 +796,7 @@ exports[`discard-binding-for-await-using-binding.js format[yuku] 1`] = `
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:19)
+"Expected ';' after for-loop init, but found 'void' (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
@@ -1080,7 +1080,7 @@ Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-using-binding.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:13)
+"Expected ';' after for-loop init, but found 'void' (2:13)
   1 | {
 > 2 |   for(using void of []);
     |             ^^^^
@@ -1089,7 +1089,7 @@ exports[`discard-binding-for-using-binding.js format[yuku] 1`] = `
 `;
 
 exports[`discard-binding-for-using-binding.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:13)
+"Expected ';' after for-loop init, but found 'void' (2:13)
   1 | {
 > 2 |   for(using void of []);
     |             ^^^^
@@ -1763,7 +1763,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:9)
+"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (2:9)
   1 | {
 > 2 |   using void = f();
     |         ^^^^
@@ -1773,7 +1773,7 @@ exports[`using.js format[yuku] 1`] = `
 `;
 
 exports[`using.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (2:9)
+"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (2:9)
   1 | {
 > 2 |   using void = f();
     |         ^^^^
@@ -1962,7 +1962,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using-variable-declarator.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (3:9)
+"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (3:9)
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();
@@ -1973,7 +1973,7 @@ exports[`using-variable-declarator.js format[yuku] 1`] = `
 `;
 
 exports[`using-variable-declarator.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (3:9)
+"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (3:9)
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();

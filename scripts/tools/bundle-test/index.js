@@ -41,6 +41,7 @@ const exclude = new Map([
     ],
   ],
   ["@prettier/plugin-oxc", ["index.mjs"]],
+  ["@prettier/plugin-yuku", ["index.mjs"]],
 ]);
 
 for (const packageConfig of packageBuildConfigs) {

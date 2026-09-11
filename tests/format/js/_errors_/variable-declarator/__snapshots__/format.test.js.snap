@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`invalid-const.js format[acorn] 1`] = `
+exports[`const-without-initializer.js format[acorn] 1`] = `
 "Unexpected token (1:10)
 > 1 | const foo;
     |          ^
@@ -8,7 +8,7 @@ exports[`invalid-const.js format[acorn] 1`] = `
 Cause: Unexpected token (1:9)"
 `;
 
-exports[`invalid-const.js format[espree] 1`] = `
+exports[`const-without-initializer.js format[espree] 1`] = `
 "Unexpected token ; (1:10)
 > 1 | const foo;
     |          ^
@@ -16,10 +16,42 @@ exports[`invalid-const.js format[espree] 1`] = `
 Cause: Unexpected token ;"
 `;
 
-exports[`invalid-const.js format[meriyah] 1`] = `
+exports[`const-without-initializer.js format[flow] 1`] = `
+"Const must be initialized (1:7)
+> 1 | const foo;
+    |       ^
+  2 |
+Cause: Const must be initialized (1:6)"
+`;
+
+exports[`const-without-initializer.js format[hermes] 1`] = `
+"missing initializer in const declaration (1:7)
+> 1 | const foo;
+    |       ^
+  2 |
+Cause: missing initializer in const declaration (1:6)
+const foo;
+      ^~~"
+`;
+
+exports[`const-without-initializer.js format[meriyah] 1`] = `
 "Missing initializer in const declaration (1:10)
 > 1 | const foo;
     |          ^
   2 |
 Cause: [1:9-1:10]: Missing initializer in const declaration"
+`;
+
+exports[`const-without-initializer.js format[oxc] 1`] = `
+"Missing initializer in const declaration (1:7)
+> 1 | const foo;
+    |       ^^^
+  2 |"
+`;
+
+exports[`const-without-initializer.js format[yuku] 1`] = `
+"'const' declarations must be initialized (1:7)
+> 1 | const foo;
+    |       ^^^
+  2 |"
 `;

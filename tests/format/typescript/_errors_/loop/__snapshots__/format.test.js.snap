@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: Only a single variable declaration is allowed in a 'for...of' statement."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected ';' after for-loop init, but found 'X' (1:13)
+> 1 | for (var of X);
+    |             ^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Unexpected token (1:15)
 > 1 | for (var of of);
@@ -40,6 +46,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 Cause: Only a single variable declaration is allowed in a 'for...of' statement."
 `;
 
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Unexpected token ')' (1:15)
+> 1 | for (var of of);
+    |               ^"
+`;
+
 exports[`snippet: #2 format[babel-ts] 1`] = `
 "Unexpected keyword 'in'. (1:10)
 > 1 | for (var in X);
@@ -58,4 +70,10 @@ exports[`snippet: #2 format[typescript] 1`] = `
 > 1 | for (var in X);
     |      ^^^
 Cause: Only a single variable declaration is allowed in a 'for...in' statement."
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:10)
+> 1 | for (var in X);
+    |          ^^"
 `;

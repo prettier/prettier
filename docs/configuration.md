@@ -139,7 +139,7 @@ JSON:
   "semi": false,
   "overrides": [
     {
-      "files": "*.test.js",
+      "files": ["*.test.js"],
       "options": {
         "semi": true
       }
@@ -159,7 +159,8 @@ YAML:
 ```yaml title=".prettierrc"
 semi: false
 overrides:
-  - files: "*.test.js"
+  - files:
+      - "*.test.js"
     options:
       semi: true
   - files:
@@ -181,8 +182,10 @@ For example, to get Prettier to format its own `.prettierrc` file, you can do:
 {
   "overrides": [
     {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
+      "files": [".prettierrc"],
+      "options": {
+        "parser": "json"
+      }
     }
   ]
 }
@@ -194,7 +197,7 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 {
   "overrides": [
     {
-      "files": "*.js",
+      "files": ["*.js"],
       "options": {
         "parser": "flow"
       }

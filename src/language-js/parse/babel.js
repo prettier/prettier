@@ -198,6 +198,7 @@ const allowedReasonCodesArray = [
   "StrictEvalArgumentsBinding",
   "StrictFunction",
   "ForInOfLoopInitializer",
+  "IllegalBreakContinue",
 
   "ParamDupe",
   "RestTrailingComma",

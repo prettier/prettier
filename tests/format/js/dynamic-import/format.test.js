@@ -4,6 +4,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     hermes: ["template-literal.js", "import-phase.js"],
     acorn: ["import-phase.js"],
     espree: ["import-phase.js"],
-    meriyah: ["import-phase.js"],
+    typescript: ["import-phase.js"],
   },
 });

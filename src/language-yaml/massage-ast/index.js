@@ -21,23 +21,6 @@ function massageAstNode(original, cloned /* , parent */) {
         delete cloned.documentEndMarker;
       }
       break;
-
-    case "blockLiteral":
-    case "blockFolded":
-      // The doc printer currently have bug when print trailing space/tab, they get wiped.
-      // But at least we can still make sure the new lines doesn't change in `value` property.
-      if (original.chomping === "keep") {
-        cloned.value = original.value
-          .split("\n")
-          .map((line) => line.replace(/[ \t]+$/, ""))
-          .join("\n");
-      }
-
-      // TODO: Fix this
-      else if (original.chomping === "clip" || original.chomping === "strip") {
-        cloned.value = original.value.trimEnd();
-      }
-      break;
   }
 }
 massageAstNode.ignoredProperties = new Set(["position"]);

@@ -54,7 +54,7 @@ const printers = [
         (name.startsWith("[") && name.endsWith("]")) ||
         /^bind(?:on)?-/.test(name) ||
         // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-        /^ng-(?:if|show|hide|class|style)$/.test(name)
+        /^ng-(?:if|show|hide|class|style|model-options)$/.test(name)
       );
     },
     print: createAngularPrinter("__ng_binding"),

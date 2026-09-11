@@ -1,4 +1,4 @@
-import { markdownLineEnding } from "micromark-util-character";
+import { markdownLineEnding, markdownSpace } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
 
 /**
@@ -7,6 +7,7 @@ import { codes, types } from "micromark-util-symbol";
  * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Handle} Handle
  * @typedef {import('micromark-util-types').State} State
+ * @typedef {import('micromark-util-types').TokenizeContext} TokenizeContext
  */
 
 const nodeType = "liquidNode";
@@ -46,15 +47,37 @@ function liquidFromMarkdown() {
  */
 function liquidSyntax() {
   return {
+    flow: {
+      [codes.leftCurlyBrace]: {
+        name: "liquidFlow",
+        tokenize: tokenizeFlow,
+      },
+    },
     text: {
       [codes.leftCurlyBrace]: {
-        name: "liquid",
-        tokenize,
+        name: "liquidText",
+        tokenize: tokenizeText,
       },
     },
   };
 
-  function tokenize(effects, ok, nok) {
+  /** @this {TokenizeContext} */
+  function tokenizeFlow(effects, ok, nok) {
+    return tokenize.call(this, effects, ok, nok, "flow");
+  }
+
+  /** @this {TokenizeContext} */
+  function tokenizeText(effects, ok, nok) {
+    return tokenize.call(this, effects, ok, nok, "text");
+  }
+
+  /**
+   * @this {TokenizeContext}
+   * @param mode {"text" | "flow"}
+   */
+  function tokenize(effects, ok, nok, mode) {
+    const isFlow = mode === "flow";
+    const { interrupt, now, parser } = this;
     /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
     let closingCode;
 
@@ -74,7 +97,7 @@ function liquidSyntax() {
                 ? codes.percentSign
                 : codes.rightCurlyBrace;
             effects.consume(code);
-            return inside;
+            return isFlow && interrupt ? ok : inside;
           default:
             return nok(code);
         }
@@ -95,6 +118,9 @@ function liquidSyntax() {
             effects.enter(types.lineEnding);
             effects.consume(code);
             effects.exit(types.lineEnding);
+            if (isFlow) {
+              return afterLineEnding;
+            }
             effects.enter(types.data);
             return inside;
           }
@@ -104,15 +130,61 @@ function liquidSyntax() {
     }
 
     /** @type {State} */
+    function afterLineEnding(code) {
+      if (parser.lazy[now().line]) {
+        return nok(code);
+      }
+
+      if (markdownLineEnding(code)) {
+        effects.enter(types.lineEnding);
+        effects.consume(code);
+        effects.exit(types.lineEnding);
+        return afterLineEnding;
+      }
+
+      effects.enter(types.data);
+      return inside(code);
+    }
+
+    /** @type {State} */
     function mayClose(code) {
       if (code === codes.rightCurlyBrace) {
         effects.consume(code);
         effects.exit(types.data);
         effects.exit(nodeType);
-        return ok;
+        return isFlow ? afterClose : ok;
       }
 
       return inside;
+    }
+
+    /** @type {State} */
+    function afterClose(code) {
+      if (markdownSpace(code)) {
+        effects.enter(types.whitespace);
+        effects.consume(code);
+        return afterWhitespace;
+      }
+
+      return after(code);
+    }
+
+    /** @type {State} */
+    function afterWhitespace(code) {
+      if (markdownSpace(code)) {
+        effects.consume(code);
+        return afterWhitespace;
+      }
+
+      effects.exit(types.whitespace);
+      return after(code);
+    }
+
+    /** @type {State} */
+    function after(code) {
+      return code === codes.eof || markdownLineEnding(code)
+        ? ok(code)
+        : nok(code);
     }
   }
 }

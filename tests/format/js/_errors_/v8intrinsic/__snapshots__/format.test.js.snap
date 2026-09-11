@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format[acorn] 1`] = `
+"Unexpected token (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #0 format[babel] 1`] = `
+"Binding should be performed on object property. (1:3)
+> 1 | ::%DebugPrint(null)
+    |   ^
+Cause: Binding should be performed on object property. (1:2)"
+`;
+
+exports[`snippet: #0 format[babel-ts] 1`] = `
+"Binding should be performed on object property. (1:3)
+> 1 | ::%DebugPrint(null)
+    |   ^
+Cause: Binding should be performed on object property. (1:2)"
+`;
+
+exports[`snippet: #0 format[espree] 1`] = `
+"Unexpected token : (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: Unexpected token :"
+`;
+
+exports[`snippet: #0 format[flow] 1`] = `
+"Unexpected token \`:\`, expected the start of a statement (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: Unexpected token \`:\`, expected the start of a statement (1:0)"
+`;
+
+exports[`snippet: #0 format[hermes] 1`] = `
+"invalid expression (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: invalid expression (1:0)
+::%DebugPrint(null)
+^"
+`;
+
+exports[`snippet: #0 format[meriyah] 1`] = `
+"Unexpected token: ':' (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: [1:0-1:1]: Unexpected token: ':'"
+`;
+
+exports[`snippet: #0 format[oxc] 1`] = `
+"Unexpected token (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^"
+`;
+
+exports[`snippet: #0 format[oxc-ts] 1`] = `
+"Unexpected token (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^"
+`;
+
+exports[`snippet: #0 format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^
+Cause: Declaration or statement expected."
+`;
+
+exports[`snippet: #0 format[yuku] 1`] = `
+"Unexpected token ':' (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^"
+`;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Unexpected token ':' (1:1)
+> 1 | ::%DebugPrint(null)
+    | ^"
+`;
+
+exports[`snippet: #1 format[acorn] 1`] = `
+"Unexpected token (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Unexpected token (1:2)"
+`;
+
+exports[`snippet: #1 format[babel] 1`] = `
+"Unexpected token (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Unexpected token (1:2)"
+`;
+
+exports[`snippet: #1 format[babel-ts] 1`] = `
+"Unexpected token (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Unexpected token (1:2)"
+`;
+
+exports[`snippet: #1 format[espree] 1`] = `
+"Unexpected token % (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Unexpected token %"
+`;
+
+exports[`snippet: #1 format[flow] 1`] = `
+"Unexpected token \`%\`, expected an identifier (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Unexpected token \`%\`, expected an identifier (1:2)"
+`;
+
+exports[`snippet: #1 format[hermes] 1`] = `
+"'identifier' expected after '.' or '?.' in member expression (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: 'identifier' expected after '.' or '?.' in member expression (1:2)
+a.%DebugPrint();
+~~^"
+`;
+
+exports[`snippet: #1 format[meriyah] 1`] = `
+"Dot property must be an identifier (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: [1:2-1:3]: Dot property must be an identifier"
+`;
+
+exports[`snippet: #1 format[oxc] 1`] = `
+"Unexpected token (1:3)
+> 1 | a.%DebugPrint();
+    |   ^"
+`;
+
+exports[`snippet: #1 format[oxc-ts] 1`] = `
+"Unexpected token (1:3)
+> 1 | a.%DebugPrint();
+    |   ^"
+`;
+
+exports[`snippet: #1 format[typescript] 1`] = `
+"Identifier expected. (1:3)
+> 1 | a.%DebugPrint();
+    |   ^
+Cause: Identifier expected."
+`;
+
+exports[`snippet: #1 format[yuku] 1`] = `
+"Expected property name after '.', but found '%' (1:3)
+> 1 | a.%DebugPrint();
+    |   ^"
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected property name after '.', but found '%' (1:3)
+> 1 | a.%DebugPrint();
+    |   ^"
+`;
+
+exports[`snippet: #2 format[acorn] 1`] = `
+"Unexpected token (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Unexpected token (1:10)"
+`;
+
+exports[`snippet: #2 format[babel] 1`] = `
+"Unexpected token (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Unexpected token (1:10)"
+`;
+
+exports[`snippet: #2 format[babel-ts] 1`] = `
+"Unexpected token (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Unexpected token (1:10)"
+`;
+
+exports[`snippet: #2 format[espree] 1`] = `
+"Unexpected token % (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Unexpected token %"
+`;
+
+exports[`snippet: #2 format[flow] 1`] = `
+"Unexpected token \`%\` (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Unexpected token \`%\` (1:10)"
+`;
+
+exports[`snippet: #2 format[hermes] 1`] = `
+"invalid expression (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: invalid expression (1:10)
+const i = %DebugPrint;
+          ^"
+`;
+
+exports[`snippet: #2 format[meriyah] 1`] = `
+"Unexpected token: '%' (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: [1:10-1:11]: Unexpected token: '%'"
+`;
+
+exports[`snippet: #2 format[oxc] 1`] = `
+"Unexpected token (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^"
+`;
+
+exports[`snippet: #2 format[oxc-ts] 1`] = `
+"Unexpected token (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^"
+`;
+
+exports[`snippet: #2 format[typescript] 1`] = `
+"Expression expected. (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^
+Cause: Expression expected."
+`;
+
+exports[`snippet: #2 format[yuku] 1`] = `
+"Unexpected token '%' (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^"
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Unexpected token '%' (1:11)
+> 1 | const i = %DebugPrint;
+    |           ^"
+`;

@@ -7,6 +7,22 @@ const { __dirname } = createEsmUtils(import.meta);
 describe("throw error with invalid ignore", () => {
   runCli("cli/invalid-ignore", ["something.js"]).test({
     status: "non-zero",
+    stderr:
+      /*
+      On Node.js<26
+
+      ```
+      EISDIR: illegal operation on a directory, read
+      ```
+
+      On Node.js>=26
+      ```
+      EISDIR: illegal operation on a directory, read '...'
+      ```
+      */
+      expect.stringContaining("EISDIR: illegal operation on a directory, read"),
+    stdout: "",
+    write: [],
   });
 
   test("sync api", async () => {
@@ -17,6 +33,6 @@ describe("throw error with invalid ignore", () => {
           "../cli/invalid-ignore/.prettierignore",
         ),
       }),
-    ).rejects.toThrow(/EISDIR: illegal operation on a directory/);
+    ).rejects.toThrow(/EISDIR: illegal operation on a directory, read/);
   });
 });

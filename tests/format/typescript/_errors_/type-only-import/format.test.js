@@ -8,6 +8,7 @@ runFormatTest(
     // `babel-ts` didn't reject
     // "babel-ts",
     "oxc-ts",
+    "yuku-ts",
   ],
 );
 runFormatTest(
@@ -18,5 +19,5 @@ runFormatTest(
       'import type foo, * as namespace from "foo"',
     ],
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );

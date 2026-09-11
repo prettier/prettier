@@ -12,7 +12,10 @@ runFormatTest(
     "meriyah",
     // "typescript",
     "hermes",
-    // "oxc",
-    // "oxc-ts",
+    "oxc",
+    "oxc-ts",
+    "yuku",
+    "yuku-ts",
+    "__babel_estree",
   ],
 );

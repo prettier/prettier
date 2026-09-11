@@ -42,7 +42,11 @@ function printChildren(path, options, print, events = {}) {
 }
 
 function shouldPrePrintHardline({ node, parent }) {
-  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
+  const isInlineNode =
+    INLINE_NODE_TYPES.has(node.type) &&
+    !(
+      node.type === "liquidNode" && !INLINE_NODE_WRAPPER_TYPES.has(parent.type)
+    );
 
   const isInlineHTML =
     node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
@@ -119,6 +123,9 @@ function shouldPrePrintDoubleHardline(path, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
+  const isBlockLiquidWithoutBlankLine =
+    (node.type === "liquidNode" || previous.type === "liquidNode") &&
+    previous.position.end.line + 1 === node.position.start.line;
 
   return !(
     isSiblingNode ||
@@ -126,7 +133,8 @@ function shouldPrePrintDoubleHardline(path, options) {
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
-    isHtmlDirectAfterListItem
+    isHtmlDirectAfterListItem ||
+    isBlockLiquidWithoutBlankLine
   );
 }
 

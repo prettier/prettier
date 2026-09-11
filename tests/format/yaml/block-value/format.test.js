@@ -25,3 +25,32 @@ runFormatTest(
   },
   ["yaml"],
 );
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      {
+        name: "preserves trailing spaces in a stripped block literal",
+        code: "foo: |-\n  value  \n",
+        output: "foo: |-\n  value  \n",
+      },
+      {
+        name: "preserves trailing spaces before the next mapping item",
+        code: "foo: |-\n  value  \nbar: baz\n",
+        output: "foo: |-\n  value  \nbar: baz\n",
+      },
+      {
+        name: "preserves a trailing tab before the next sequence item",
+        code: "- >-\n  value\t\n- next\n",
+        output: "- >-\n  value\t\n- next\n",
+      },
+      {
+        name: "preserves trailing spaces before the next document",
+        code: "foo: |-\n  value  \n---\nbar: baz\n",
+        output: "foo: |-\n  value  \n---\nbar: baz\n",
+      },
+    ],
+  },
+  ["yaml"],
+);

@@ -16,7 +16,7 @@ let markdownParseOptions;
 function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
     extensions: [
-      gfmSyntax(),
+      gfmSyntax({ singleTilde: false }),
       mathSyntax(),
       wikiLinkSyntax({
         // We don't need support alias, use a fake string to bypass

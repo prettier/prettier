@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comment.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface A {
+  [key: string]: /** Comment */
+  B;
+}
+
+interface A {
+  [key: string]: /** Comment */ B;
+}
+
+=====================================output=====================================
+interface A {
+  [key: string]: /** Comment */ B;
+}
+
+interface A {
+  [key: string]: /** Comment */ B;
+}
+
+================================================================================
+`;
+
 exports[`index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -100,7 +100,6 @@ const categoryParsers = new Map([
         "meriyah",
         "acorn",
         "espree",
-        "espree",
         "hermes",
         "oxc",
         "oxc-ts",
@@ -116,7 +115,6 @@ const categoryParsers = new Map([
         "flow",
         "meriyah",
         "acorn",
-        "espree",
         "espree",
         "hermes",
         "oxc",
@@ -190,7 +188,11 @@ const verifyParsers = (context) => {
   const { explicitParsers: parsers, dirname } = context;
 
   if (!Array.isArray(parsers) || parsers.length === 0) {
-    throw new Error(`No parsers were specified for ${dirname}`);
+    throw new Error(`No parsers were specified for '${dirname}'.`);
+  }
+
+  if (new Set(parsers).size !== parsers.length) {
+    throw new Error(`Parsers should be unique for '${dirname}'.`);
   }
 
   const category = getCategory(dirname);

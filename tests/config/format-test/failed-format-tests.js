@@ -10,31 +10,20 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    "js/comments/tagged-template-literal.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
     "flow/hook/declare-hook.js",
     "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
     "js/for-of/comments.js",
-    "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
-    // Unstable due to lack of indent information
-    "js/multiparser-comments/comment-inside.js",
     [
       "typescript/method-chain/object/issue-17239.ts",
       (options) => options.objectWrap !== "collapse",
     ],
     "typescript/call/callee-comments.ts",
-    "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
-    "js/sequence-expression/parenthesized-trailing-comment-unstable.js",
     "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
@@ -54,63 +43,25 @@ const commentClosureTypecaseTests = [
 
 const disabledTests = new Map(
   Object.entries({
-    espree: [
-      ...commentClosureTypecaseTests,
-      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
-    ],
-    acorn: [
-      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
-    ],
-    meriyah: [
-      // Parsing to different ASTs
-      "js/decorators/member-expression.js",
-    ],
-    "babel-ts": [
-      "typescript/conformance/types/moduleDeclaration/kind-detection.ts",
-      // https://github.com/babel/babel/pull/17659
-      "typescript/conformance/internalModules/importDeclarations/circularImportAlias.ts",
-      "typescript/conformance/internalModules/importDeclarations/exportImportAlias.ts",
-      "typescript/conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
-      "typescript/conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
-      "typescript/conformance/types/moduleDeclaration/moduleDeclaration.ts",
-      "typescript/conformance/types/ambient/ambientDeclarations.ts",
-      "typescript/compiler/declareDottedModuleName.ts",
-      "typescript/compiler/privacyGloImport.ts",
-      "typescript/declare/declare_module.ts",
-      "typescript/const/initializer-ambient-context.ts",
-      "typescript/keywords/keywords.ts",
-      "typescript/keywords/module.ts",
-      "typescript/module/global.ts",
-      "typescript/module/keyword.ts",
-      "typescript/module/module_nested.ts",
-      "typescript/custom/stability/moduleBlock.ts",
-      "typescript/interface2/module.ts",
-    ],
+    espree: commentClosureTypecaseTests,
+    acorn: [],
+    meriyah: [],
+    "babel-ts": [],
     oxc: [],
     "oxc-ts": [],
     yuku: ["js/await/await-with-parens.js"],
     "yuku-ts": ["js/await/await-with-parens.js"],
     hermes: [
-      ...commentClosureTypecaseTests,
-
-      // Not supported
-      "flow/comments/",
-      "flow/flow-repo/union_new/",
-
-      // Different result
-      "flow/hook/comments-before-arrow.js",
-      "js/await/like-call.js",
+      "js/await/like-call.js", // Different result
+      "jsx/top-level-await/test.jsx",
     ],
     flow: [
       "js/decorators/member-expression.js", // Parsing to different ASTs
       "js/await/await-with-parens.js",
       "js/await/like-call.js",
+      "jsx/top-level-await/test.jsx",
     ],
-    typescript: [
-      // https://github.com/typescript-eslint/typescript-eslint/issues/11389
-      "js/import/long-module-name/import-defer.js",
-      "js/import/long-module-name/import-source.js",
-    ],
+    typescript: [],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646
       "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",

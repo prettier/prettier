@@ -627,6 +627,14 @@ exports[`valid-lhs-eq.js format[espree] 1`] = `
 Cause: Optional chaining cannot appear in left-hand side"
 `;
 
+exports[`valid-lhs-eq.js format[meriyah] 1`] = `
+"Invalid left-hand side in assignment (1:8)
+> 1 | a?.b.c = d;
+    |        ^
+  2 |
+Cause: [1:7-1:8]: Invalid left-hand side in assignment"
+`;
+
 exports[`valid-lhs-eq.js format[oxc] 1`] = `
 "Cannot assign to this expression (1:1)
 > 1 | a?.b.c = d;
@@ -668,6 +676,14 @@ exports[`valid-lhs-plus-eq.js format[espree] 1`] = `
     | ^
   2 |
 Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`valid-lhs-plus-eq.js format[meriyah] 1`] = `
+"Invalid left-hand side in assignment (1:8)
+> 1 | a?.b.c += d;
+    |        ^^
+  2 |
+Cause: [1:7-1:9]: Invalid left-hand side in assignment"
 `;
 
 exports[`valid-lhs-plus-eq.js format[oxc] 1`] = `

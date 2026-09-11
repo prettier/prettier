@@ -70,6 +70,16 @@ module YYY4 {
 ================================================================================
 `;
 
+exports[`keywords.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module Y4 {
+    | ^
+  2 |     enum Color { Blue, Red }
+  3 | }
+  4 |
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
+`;
+
 exports[`keywords-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -169,4 +179,14 @@ module Y3 {
 }
 
 ================================================================================
+`;
+
+exports[`module.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module Y3 {
+    | ^
+  2 |   module Module {
+  3 |       class A { s: string }
+  4 |   }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
 `;

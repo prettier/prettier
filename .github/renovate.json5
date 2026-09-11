@@ -4,17 +4,24 @@
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
   postUpdateOptions: ["yarnDedupeHighest"],
+  extends: [
+    ":pinDependencies",
+    ":pinDevDependencies",
+    "helpers:pinGitHubActionDigests",
+  ],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
+  abandonmentThreshold: "2 years",
   packageRules: [
     {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
     },
     {
-      groupName: "devDependencies",
+      groupName: "non-major dev-dependencies",
       matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["minor", "patch"],
     },
     {
       groupName: "React",
@@ -88,6 +95,10 @@
         "@xiechao/codemirror-lang-handlebars",
         "@catppuccin/codemirror",
       ],
+    },
+    {
+      groupName: "Jest",
+      matchPackageNames: ["jest", "@jest/*", "jest-*"],
     },
   ],
   ignoreDeps: [

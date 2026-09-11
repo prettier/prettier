@@ -13,7 +13,7 @@ const runYarn = (command, options) =>
   spawn("yarn", command.split(" "), options);
 
 async function install(version) {
-  const directory = new URL(`./installing.${Date.now()}/`, TEMPORARY_DIRECTORY);
+  const directory = new URL(`./working.${Date.now()}/`, TEMPORARY_DIRECTORY);
 
   await fs.rm(directory, { force: true, recursive: true });
   await fs.mkdir(directory, { recursive: true });
@@ -40,7 +40,7 @@ async function install(version) {
 }
 
 const wasmUrlPattern =
-  /const __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
+  /const __wasmUrl = new URL\("(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
 async function buildEntry(directory) {
   const packageDirectory = new URL(
     "./node_modules/@oxc-parser/binding-wasm32-wasi/",
@@ -70,15 +70,14 @@ async function buildEntry(directory) {
     ${text.slice(moduleEnd)}
   `;
 
-  const { wasmFile } = text.match(wasmUrlPattern).groups;
+  const { wasmUrl } = text.match(wasmUrlPattern).groups;
+  const wasmFile = new URL(wasmUrl, entryFile);
 
-  const wasmBase64String = await fs.readFile(
-    new URL(wasmFile, entryFile),
-    "base64",
-  );
+  const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
+
     const __base64ToArrayBuffer = Uint8Array.fromBase64
       ? (string) => Uint8Array.fromBase64(string).buffer
       : __decode;
@@ -88,8 +87,23 @@ async function buildEntry(directory) {
 
   text = text.replace(wasmUrlPattern, "");
   text = text.replace(
-    "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
-    `/* "${wasmFile}" */ __base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
+    "const __wasmResponse = await globalThis.fetch(__wasmUrl);",
+    "const __wasmResponse = {ok: true};",
+  );
+  text = text.replace(
+    "await __wasmResponse.arrayBuffer();",
+    outdent`
+      __base64ToArrayBuffer(
+        /* "${wasmUrl}" */ ${JSON.stringify(wasmBase64String)}
+      )
+    `,
+  );
+
+  text = text.replace("await __rollbackWasiInitialization()", "[]");
+
+  text = text.replace(
+    "await instantiateNapiModule(",
+    "instantiateNapiModuleSync(",
   );
 
   text = text.replaceAll(

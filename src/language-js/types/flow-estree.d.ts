@@ -1,6 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
+// flow-estree:v0.331.0, build-script:v1
 // spell-checker: disable
 
 /**
@@ -61,7 +62,7 @@
  *
  * IMPORTANT NOTE
  *
- * This file intentionally uses interfaces and `+` for readonly.
+ * This file intentionally uses interfaces and `readonly` fields.
  *
  * - `$ReadOnly` is an "evaluated" utility type in flow; meaning that flow does
  *    not actually calculate the resulting type until it is used. This creates
@@ -71,7 +72,7 @@
  *    - but in this giant circular-referencing graph that is the AST types, this
  *    causes check times for consumers to be awful.
  *
- *    Thus instead we manually annotate properties with `+` to avoid the `$ReadOnly` type.
+ *    Thus instead we manually annotate properties with `readonly` to avoid the `$ReadOnly` type.
  *
  * - `...Type` spreads do not preserve the readonly-ness of the properties. If
  *   we used object literal types then we would have to `$ReadOnly` all spreads
@@ -86,15 +87,15 @@
 export type Range = [number, number];
 
 export interface ObjectWithLoc {
-  loc: SourceLocation;
+  readonly loc: SourceLocation;
 }
 export interface BaseToken extends ObjectWithLoc {
-  loc: SourceLocation;
-  range: Range;
+  readonly loc: SourceLocation;
+  readonly range: Range;
 }
 export interface BaseNode extends BaseToken {
   // this is added by ESLint and is not part of the ESTree spec
-  parent: ESNode;
+  readonly parent: ESNode;
 }
 
 /*
@@ -106,7 +107,7 @@ export interface BaseNode extends BaseToken {
  */
 
 export interface MostTokens extends BaseToken {
-  type:
+  readonly type:
     | "Boolean"
     | "Identifier"
     | "JSXIdentifier"
@@ -122,37 +123,37 @@ export interface MostTokens extends BaseToken {
     // comment types
     | "Block"
     | "Line";
-  value: string;
+  readonly value: string;
 }
 export interface RegexToken extends BaseToken {
-  type: "RegularExpression";
-  value: string;
-  regex: {
-    pattern: string;
-    flags: string;
+  readonly type: "RegularExpression";
+  readonly value: string;
+  readonly regex: {
+    readonly pattern: string;
+    readonly flags: string;
   };
 }
 export interface LineComment extends BaseToken {
-  type: "Line";
-  value: string;
+  readonly type: "Line";
+  readonly value: string;
 }
 export interface BlockComment extends BaseToken {
-  type: "Block";
-  value: string;
+  readonly type: "Block";
+  readonly value: string;
 }
 export type Comment = LineComment | BlockComment;
 export type Token = MostTokens | RegexToken | Comment;
 
 export interface SourceLocation {
-  start: Position;
-  end: Position;
+  readonly start: Position;
+  readonly end: Position;
 }
 
 export interface Position {
   /** >= 1 */
-  line: number;
+  readonly line: number;
   /** >= 0 */
-  column: number;
+  readonly column: number;
 }
 
 // note: this is only ever present on Program.interpreter, never in the body
@@ -176,16 +177,16 @@ export type DocblockMetadata = Readonly<{
 }>;
 
 export interface Program extends BaseNode {
-  type: "Program";
-  sourceType: "script" | "module";
-  body: ReadonlyArray<Statement | ModuleDeclaration>;
-  tokens: ReadonlyArray<Token>;
-  comments: ReadonlyArray<Comment>;
-  loc: SourceLocation;
-  interpreter: null | InterpreterDirective;
-  docblock: null | DocblockMetadata;
+  readonly type: "Program";
+  readonly sourceType: "script" | "module";
+  readonly body: ReadonlyArray<Statement | ModuleDeclaration>;
+  readonly tokens: ReadonlyArray<Token>;
+  readonly comments: ReadonlyArray<Comment>;
+  readonly loc: SourceLocation;
+  readonly interpreter: null | InterpreterDirective;
+  readonly docblock: null | DocblockMetadata;
   // program is the only node without a parent - but typing it as such is _super_ annoying and difficult
-  parent: ESNode;
+  readonly parent: ESNode;
 }
 
 // Flow declares a "Node" type as part of its HTML typedefs.
@@ -276,12 +277,12 @@ export type DestructuringPattern =
   BindingName | AssignmentPattern | MemberExpression | RestElement;
 
 interface BaseFunction extends BaseNode {
-  params: ReadonlyArray<FunctionParameter>;
-  async: boolean;
+  readonly params: ReadonlyArray<FunctionParameter>;
+  readonly async: boolean;
 
-  predicate: null | InferredPredicate;
-  returnType: null | TypeAnnotation;
-  typeParameters: null | TypeParameterDeclaration;
+  readonly predicate: null | InferredPredicate;
+  readonly returnType: null | TypeAnnotation;
+  readonly typeParameters: null | TypeParameterDeclaration;
 }
 
 export type AFunction =
@@ -346,165 +347,165 @@ export type StatementParentArray =
 export type StatementParent = StatementParentSingle | StatementParentArray;
 
 export interface EmptyStatement extends BaseNode {
-  type: "EmptyStatement";
+  readonly type: "EmptyStatement";
 }
 
 export interface BlockStatement extends BaseNode {
-  type: "BlockStatement";
-  body: ReadonlyArray<Statement>;
+  readonly type: "BlockStatement";
+  readonly body: ReadonlyArray<Statement>;
 }
 
 export interface StaticBlock extends BaseNode {
-  type: "StaticBlock";
-  body: ReadonlyArray<Statement>;
+  readonly type: "StaticBlock";
+  readonly body: ReadonlyArray<Statement>;
 }
 
 export interface ExpressionStatement extends BaseNode {
-  type: "ExpressionStatement";
-  expression: Expression;
-  directive: string | null;
+  readonly type: "ExpressionStatement";
+  readonly expression: Expression;
+  readonly directive: string | null;
 }
 
 export interface IfStatement extends BaseNode {
-  type: "IfStatement";
-  test: Expression;
-  consequent: Statement;
-  alternate?: Statement | null;
+  readonly type: "IfStatement";
+  readonly test: Expression;
+  readonly consequent: Statement;
+  readonly alternate?: Statement | null;
 }
 
 export interface LabeledStatement extends BaseNode {
-  type: "LabeledStatement";
-  label: Identifier;
-  body: Statement;
+  readonly type: "LabeledStatement";
+  readonly label: Identifier;
+  readonly body: Statement;
 }
 
 export interface BreakStatement extends BaseNode {
-  type: "BreakStatement";
-  label?: Identifier | null;
+  readonly type: "BreakStatement";
+  readonly label?: Identifier | null;
 }
 
 export interface ContinueStatement extends BaseNode {
-  type: "ContinueStatement";
-  label?: Identifier | null;
+  readonly type: "ContinueStatement";
+  readonly label?: Identifier | null;
 }
 
 export interface WithStatement extends BaseNode {
-  type: "WithStatement";
-  object: Expression;
-  body: Statement;
+  readonly type: "WithStatement";
+  readonly object: Expression;
+  readonly body: Statement;
 }
 
 export interface SwitchStatement extends BaseNode {
-  type: "SwitchStatement";
-  discriminant: Expression;
-  cases: ReadonlyArray<SwitchCase>;
+  readonly type: "SwitchStatement";
+  readonly discriminant: Expression;
+  readonly cases: ReadonlyArray<SwitchCase>;
 }
 
 export interface ReturnStatement extends BaseNode {
-  type: "ReturnStatement";
-  argument?: Expression | null;
+  readonly type: "ReturnStatement";
+  readonly argument?: Expression | null;
 }
 
 export interface ThrowStatement extends BaseNode {
-  type: "ThrowStatement";
-  argument: Expression;
+  readonly type: "ThrowStatement";
+  readonly argument: Expression;
 }
 
 export interface TryStatement extends BaseNode {
-  type: "TryStatement";
-  block: BlockStatement;
-  handler?: CatchClause | null;
-  finalizer?: BlockStatement | null;
+  readonly type: "TryStatement";
+  readonly block: BlockStatement;
+  readonly handler?: CatchClause | null;
+  readonly finalizer?: BlockStatement | null;
 }
 
 export interface WhileStatement extends BaseNode {
-  type: "WhileStatement";
-  test: Expression;
-  body: Statement;
+  readonly type: "WhileStatement";
+  readonly test: Expression;
+  readonly body: Statement;
 }
 
 export interface DoWhileStatement extends BaseNode {
-  type: "DoWhileStatement";
-  body: Statement;
-  test: Expression;
+  readonly type: "DoWhileStatement";
+  readonly body: Statement;
+  readonly test: Expression;
 }
 
 export interface ForStatement extends BaseNode {
-  type: "ForStatement";
-  init?: VariableDeclaration | Expression | null;
-  test?: Expression | null;
-  update?: Expression | null;
-  body: Statement;
+  readonly type: "ForStatement";
+  readonly init?: VariableDeclaration | Expression | null;
+  readonly test?: Expression | null;
+  readonly update?: Expression | null;
+  readonly body: Statement;
 }
 
 interface BaseForXStatement extends BaseNode {
-  left: VariableDeclaration | BindingName | MemberExpression;
-  right: Expression;
-  body: Statement;
+  readonly left: VariableDeclaration | BindingName | MemberExpression;
+  readonly right: Expression;
+  readonly body: Statement;
 }
 
 export interface ForInStatement extends BaseForXStatement {
-  type: "ForInStatement";
+  readonly type: "ForInStatement";
 }
 
 export interface ForOfStatement extends BaseForXStatement {
-  type: "ForOfStatement";
-  await: boolean;
+  readonly type: "ForOfStatement";
+  readonly await: boolean;
 }
 
 export interface DebuggerStatement extends BaseNode {
-  type: "DebuggerStatement";
+  readonly type: "DebuggerStatement";
 }
 
 type ComponentParameterAndRestElement = ComponentParameter | RestElement;
 
 export interface ComponentParameter extends BaseNode {
-  type: "ComponentParameter";
-  name: Identifier | StringLiteral;
-  local: BindingName | AssignmentPattern;
-  shorthand: boolean;
+  readonly type: "ComponentParameter";
+  readonly name: Identifier | StringLiteral;
+  readonly local: BindingName | AssignmentPattern;
+  readonly shorthand: boolean;
 }
 
 export interface ComponentDeclaration extends BaseNode {
-  type: "ComponentDeclaration";
-  async: boolean;
-  body: BlockStatement;
-  id: Identifier;
-  params: ReadonlyArray<ComponentParameterAndRestElement>;
-  rendersType: null | RendersType;
-  typeParameters: null | TypeParameterDeclaration;
+  readonly type: "ComponentDeclaration";
+  readonly async: boolean;
+  readonly body: BlockStatement;
+  readonly id: Identifier;
+  readonly params: ReadonlyArray<ComponentParameterAndRestElement>;
+  readonly rendersType: null | RendersType;
+  readonly typeParameters: null | TypeParameterDeclaration;
 }
 
 export interface HookDeclaration extends BaseNode {
-  type: "HookDeclaration";
-  async: boolean;
-  id: Identifier;
-  body: BlockStatement;
-  params: ReadonlyArray<FunctionParameter>;
-  returnType: null | TypeAnnotation;
-  typeParameters: null | TypeParameterDeclaration;
+  readonly type: "HookDeclaration";
+  readonly async: boolean;
+  readonly id: Identifier;
+  readonly body: BlockStatement;
+  readonly params: ReadonlyArray<FunctionParameter>;
+  readonly returnType: null | TypeAnnotation;
+  readonly typeParameters: null | TypeParameterDeclaration;
 }
 
 export interface FunctionDeclaration extends BaseFunction {
-  type: "FunctionDeclaration";
+  readonly type: "FunctionDeclaration";
   /** It is null when a function declaration is a part of the `export default function` statement */
-  id: Identifier | null;
-  body: BlockStatement;
-  generator: boolean;
+  readonly id: Identifier | null;
+  readonly body: BlockStatement;
+  readonly generator: boolean;
 }
 
 export interface VariableDeclaration extends BaseNode {
-  type: "VariableDeclaration";
-  declarations: ReadonlyArray<VariableDeclarator>;
-  kind: "var" | "let" | "const";
+  readonly type: "VariableDeclaration";
+  readonly declarations: ReadonlyArray<VariableDeclarator>;
+  readonly kind: "var" | "let" | "const";
 }
 
 export interface VariableDeclarator extends BaseNode {
-  type: "VariableDeclarator";
-  id: BindingName;
-  init?: Expression | null;
+  readonly type: "VariableDeclarator";
+  readonly id: BindingName;
+  readonly init?: Expression | null;
 
-  parent: VariableDeclaration;
+  readonly parent: VariableDeclaration;
 }
 
 export type Expression =
@@ -542,19 +543,19 @@ export type Expression =
   | JSXElement;
 
 export interface ThisExpression extends BaseNode {
-  type: "ThisExpression";
+  readonly type: "ThisExpression";
 }
 
 export interface ArrayExpression extends BaseNode {
-  type: "ArrayExpression";
-  elements: ReadonlyArray<Expression | SpreadElement>;
+  readonly type: "ArrayExpression";
+  readonly elements: ReadonlyArray<Expression | SpreadElement>;
   // this is not part of the ESTree spec, but hermes emits it
-  trailingComma: boolean;
+  readonly trailingComma: boolean;
 }
 
 export interface ObjectExpression extends BaseNode {
-  type: "ObjectExpression";
-  properties: ReadonlyArray<ObjectProperty | SpreadElement>;
+  readonly type: "ObjectExpression";
+  readonly properties: ReadonlyArray<ObjectProperty | SpreadElement>;
 }
 
 // This is the complete type of a "Property"
@@ -570,39 +571,40 @@ export type ObjectProperty =
   | ObjectPropertyWithShorthandStaticName
   | ObjectPropertyWithComputedName;
 interface ObjectPropertyBase extends BaseNode {
-  parent: ObjectExpression | ObjectPattern | RecordExpressionProperties;
+  readonly parent:
+    ObjectExpression | ObjectPattern | RecordExpressionProperties;
 }
 export interface ObjectPropertyWithNonShorthandStaticName extends ObjectPropertyBase {
-  type: "Property";
-  computed: false;
+  readonly type: "Property";
+  readonly computed: false;
   // non-computed, non-shorthand names are constrained significantly
-  key: ObjectPropertyKey;
-  value: Expression;
-  kind: "init" | "get" | "set";
-  method: boolean;
-  shorthand: false;
+  readonly key: ObjectPropertyKey;
+  readonly value: Expression;
+  readonly kind: "init" | "get" | "set";
+  readonly method: boolean;
+  readonly shorthand: false;
 }
 export interface ObjectPropertyWithShorthandStaticName extends ObjectPropertyBase {
-  type: "Property";
-  computed: false;
+  readonly type: "Property";
+  readonly computed: false;
   // shorthand keys *must* be identifiers
-  key: Identifier;
+  readonly key: Identifier;
   // shorthand values *must* be identifiers (that look the same as the key)
-  value: Identifier;
-  kind: "init";
-  method: false;
-  shorthand: true;
+  readonly value: Identifier;
+  readonly kind: "init";
+  readonly method: false;
+  readonly shorthand: true;
 }
 export interface ObjectPropertyWithComputedName extends ObjectPropertyBase {
-  type: "Property";
-  computed: true;
+  readonly type: "Property";
+  readonly computed: true;
   // computed names can be any expression
-  key: Expression;
-  value: Expression;
-  kind: "init" | "get" | "set";
-  method: boolean;
+  readonly key: Expression;
+  readonly value: Expression;
+  readonly kind: "init" | "get" | "set";
+  readonly method: boolean;
   // cannot have a shorthand computed name
-  shorthand: false;
+  readonly shorthand: false;
 }
 
 export type DestructuringObjectProperty =
@@ -611,167 +613,167 @@ export type DestructuringObjectProperty =
   | DestructuringObjectPropertyWithComputedName;
 interface DestructuringObjectPropertyBase extends BaseNode {
   // destructuring properties cannot be methods
-  kind: "init";
-  method: false;
+  readonly kind: "init";
+  readonly method: false;
 
-  parent: ObjectExpression | ObjectPattern;
+  readonly parent: ObjectExpression | ObjectPattern;
 }
 export interface DestructuringObjectPropertyWithNonShorthandStaticName extends DestructuringObjectPropertyBase {
-  type: "Property";
-  computed: false;
+  readonly type: "Property";
+  readonly computed: false;
   // non-computed, non-shorthand names are constrained significantly
-  key: ObjectPropertyKey;
+  readonly key: ObjectPropertyKey;
   // destructuring properties cannot have any value
-  value: DestructuringPattern;
-  shorthand: false;
+  readonly value: DestructuringPattern;
+  readonly shorthand: false;
 }
 export interface DestructuringObjectPropertyWithShorthandStaticName extends DestructuringObjectPropertyBase {
-  type: "Property";
-  computed: false;
+  readonly type: "Property";
+  readonly computed: false;
   // shorthand keys *must* be identifiers
-  key: Identifier;
+  readonly key: Identifier;
   // shorthand values *must* be identifiers or assignments (that look the same as the key)
-  value: Identifier | AssignmentPattern;
-  shorthand: true;
+  readonly value: Identifier | AssignmentPattern;
+  readonly shorthand: true;
 }
 export interface DestructuringObjectPropertyWithComputedName extends DestructuringObjectPropertyBase {
-  type: "Property";
-  computed: true;
+  readonly type: "Property";
+  readonly computed: true;
   // computed names can be any expression
-  key: Expression;
+  readonly key: Expression;
   // destructuring properties cannot have any value
-  value: DestructuringPattern;
+  readonly value: DestructuringPattern;
   // cannot have a shorthand computed name
-  shorthand: false;
+  readonly shorthand: false;
 }
 
 export interface FunctionExpression extends BaseFunction {
-  id?: Identifier | null;
-  type: "FunctionExpression";
-  body: BlockStatement;
-  generator: boolean;
+  readonly id?: Identifier | null;
+  readonly type: "FunctionExpression";
+  readonly body: BlockStatement;
+  readonly generator: boolean;
 }
 
 export interface SequenceExpression extends BaseNode {
-  type: "SequenceExpression";
-  expressions: ReadonlyArray<Expression>;
+  readonly type: "SequenceExpression";
+  readonly expressions: ReadonlyArray<Expression>;
 }
 
 export interface UnaryExpression extends BaseNode {
-  type: "UnaryExpression";
-  operator: UnaryOperator;
-  prefix: true;
-  argument: Expression;
+  readonly type: "UnaryExpression";
+  readonly operator: UnaryOperator;
+  readonly prefix: true;
+  readonly argument: Expression;
 }
 
 export interface BinaryExpressionWithoutIn extends BaseNode {
-  type: "BinaryExpression";
-  operator: BinaryOperatorWithoutIn;
-  left: Expression;
-  right: Expression;
+  readonly type: "BinaryExpression";
+  readonly operator: BinaryOperatorWithoutIn;
+  readonly left: Expression;
+  readonly right: Expression;
 }
 
 // Private brand checks (#foo in bar) are a special case
 // other binary expressions do not allow PrivateIdentifier in the left
 export interface BinaryExpressionIn extends BaseNode {
-  type: "BinaryExpression";
-  operator: "in";
-  left: Expression | PrivateIdentifier;
-  right: Expression;
+  readonly type: "BinaryExpression";
+  readonly operator: "in";
+  readonly left: Expression | PrivateIdentifier;
+  readonly right: Expression;
 }
 
 export type BinaryExpression = BinaryExpressionWithoutIn | BinaryExpressionIn;
 
 export interface AssignmentExpression extends BaseNode {
-  type: "AssignmentExpression";
-  operator: AssignmentOperator;
-  left: BindingName | MemberExpression;
-  right: Expression;
+  readonly type: "AssignmentExpression";
+  readonly operator: AssignmentOperator;
+  readonly left: BindingName | MemberExpression;
+  readonly right: Expression;
 }
 
 export interface UpdateExpression extends BaseNode {
-  type: "UpdateExpression";
-  operator: UpdateOperator;
-  argument: Expression;
-  prefix: boolean;
+  readonly type: "UpdateExpression";
+  readonly operator: UpdateOperator;
+  readonly argument: Expression;
+  readonly prefix: boolean;
 }
 
 export interface LogicalExpression extends BaseNode {
-  type: "LogicalExpression";
-  operator: LogicalOperator;
-  left: Expression;
-  right: Expression;
+  readonly type: "LogicalExpression";
+  readonly operator: LogicalOperator;
+  readonly left: Expression;
+  readonly right: Expression;
 }
 
 export interface ConditionalExpression extends BaseNode {
-  type: "ConditionalExpression";
-  test: Expression;
-  alternate: Expression;
-  consequent: Expression;
+  readonly type: "ConditionalExpression";
+  readonly test: Expression;
+  readonly alternate: Expression;
+  readonly consequent: Expression;
 }
 
 interface BaseCallExpression extends BaseNode {
-  callee: Expression | Super;
-  arguments: ReadonlyArray<Expression | SpreadElement>;
-  typeArguments: null | TypeParameterInstantiation;
+  readonly callee: Expression | Super;
+  readonly arguments: ReadonlyArray<Expression | SpreadElement>;
+  readonly typeArguments: null | TypeParameterInstantiation;
 }
 export interface CallExpression extends BaseCallExpression {
-  type: "CallExpression";
-  optional: boolean;
+  readonly type: "CallExpression";
+  readonly optional: boolean;
 }
 
 export interface NewExpression extends BaseCallExpression {
-  type: "NewExpression";
+  readonly type: "NewExpression";
 }
 
 export type MemberExpression =
   MemberExpressionWithComputedName | MemberExpressionWithNonComputedName;
 export interface MemberExpressionWithComputedName extends BaseNode {
-  type: "MemberExpression";
-  object: Expression | Super;
-  property: Expression;
-  computed: true;
-  optional: boolean;
+  readonly type: "MemberExpression";
+  readonly object: Expression | Super;
+  readonly property: Expression;
+  readonly computed: true;
+  readonly optional: boolean;
 }
 export interface MemberExpressionWithNonComputedName extends BaseNode {
-  type: "MemberExpression";
-  object: Expression | Super;
-  property: Identifier | PrivateIdentifier;
-  computed: false;
-  optional: boolean;
+  readonly type: "MemberExpression";
+  readonly object: Expression | Super;
+  readonly property: Identifier | PrivateIdentifier;
+  readonly computed: false;
+  readonly optional: boolean;
 }
 
 export type ChainElement = CallExpression | MemberExpression;
 
 export interface ChainExpression extends BaseNode {
-  type: "ChainExpression";
-  expression: ChainElement;
+  readonly type: "ChainExpression";
+  readonly expression: ChainElement;
 }
 
 export interface SwitchCase extends BaseNode {
-  type: "SwitchCase";
-  test?: Expression | null;
-  consequent: ReadonlyArray<Statement>;
+  readonly type: "SwitchCase";
+  readonly test?: Expression | null;
+  readonly consequent: ReadonlyArray<Statement>;
 }
 
 export interface CatchClause extends BaseNode {
-  type: "CatchClause";
-  param: BindingName | null;
-  body: BlockStatement;
+  readonly type: "CatchClause";
+  readonly param: BindingName | null;
+  readonly body: BlockStatement;
 }
 
 export interface Identifier extends BaseNode {
-  type: "Identifier";
-  name: string;
+  readonly type: "Identifier";
+  readonly name: string;
 
-  typeAnnotation: TypeAnnotation | null;
+  readonly typeAnnotation: TypeAnnotation | null;
   // only applies to function arguments
-  optional: boolean;
+  readonly optional: boolean;
 }
 
 export interface PrivateIdentifier extends BaseNode {
-  type: "PrivateIdentifier";
-  name: string;
+  readonly type: "PrivateIdentifier";
+  readonly name: string;
 }
 
 export type Literal =
@@ -783,50 +785,50 @@ export type Literal =
   | StringLiteral;
 
 export interface BigIntLiteral extends BaseNode {
-  type: "Literal";
-  value: bigint;
-  bigint: string;
-  raw: string;
-  literalType: "bigint";
+  readonly type: "Literal";
+  readonly value: bigint;
+  readonly bigint: string;
+  readonly raw: string;
+  readonly literalType: "bigint";
 }
 
 export interface BooleanLiteral extends BaseNode {
-  type: "Literal";
-  value: boolean;
-  raw: "true" | "false";
-  literalType: "boolean";
+  readonly type: "Literal";
+  readonly value: boolean;
+  readonly raw: "true" | "false";
+  readonly literalType: "boolean";
 }
 
 export interface NullLiteral extends BaseNode {
-  type: "Literal";
-  value: null;
-  raw: "null";
-  literalType: "null";
+  readonly type: "Literal";
+  readonly value: null;
+  readonly raw: "null";
+  readonly literalType: "null";
 }
 
 export interface NumericLiteral extends BaseNode {
-  type: "Literal";
-  value: number;
-  raw: string;
-  literalType: "numeric";
+  readonly type: "Literal";
+  readonly value: number;
+  readonly raw: string;
+  readonly literalType: "numeric";
 }
 
 export interface RegExpLiteral extends BaseNode {
-  type: "Literal";
-  value: RegExp | null;
-  regex: {
-    pattern: string;
-    flags: string;
+  readonly type: "Literal";
+  readonly value: RegExp | null;
+  readonly regex: {
+    readonly pattern: string;
+    readonly flags: string;
   };
-  raw: string;
-  literalType: "regexp";
+  readonly raw: string;
+  readonly literalType: "regexp";
 }
 
 export interface StringLiteral extends BaseNode {
-  type: "Literal";
-  value: string;
-  raw: string;
-  literalType: "string";
+  readonly type: "Literal";
+  readonly value: string;
+  readonly raw: string;
+  readonly literalType: "string";
 }
 
 export type UnaryOperator =
@@ -881,85 +883,85 @@ export type AssignmentOperator =
 export type UpdateOperator = "++" | "--";
 
 export interface Super extends BaseNode {
-  type: "Super";
+  readonly type: "Super";
 }
 
 export interface SpreadElement extends BaseNode {
-  type: "SpreadElement";
-  argument: Expression;
+  readonly type: "SpreadElement";
+  readonly argument: Expression;
 }
 
 export interface ArrowFunctionExpression extends BaseFunction {
-  type: "ArrowFunctionExpression";
-  expression: boolean;
-  body: BlockStatement | Expression;
+  readonly type: "ArrowFunctionExpression";
+  readonly expression: boolean;
+  readonly body: BlockStatement | Expression;
   // hermes emits this - but it's always null
-  id: null;
+  readonly id: null;
   // note - arrow functions cannot be generators
 }
 
 export interface YieldExpression extends BaseNode {
-  type: "YieldExpression";
-  argument?: Expression | null;
-  delegate: boolean;
+  readonly type: "YieldExpression";
+  readonly argument?: Expression | null;
+  readonly delegate: boolean;
 }
 
 export interface TemplateLiteral extends BaseNode {
-  type: "TemplateLiteral";
-  quasis: ReadonlyArray<TemplateElement>;
-  expressions: ReadonlyArray<Expression>;
+  readonly type: "TemplateLiteral";
+  readonly quasis: ReadonlyArray<TemplateElement>;
+  readonly expressions: ReadonlyArray<Expression>;
 }
 
 export interface TaggedTemplateExpression extends BaseNode {
-  type: "TaggedTemplateExpression";
-  tag: Expression;
-  quasi: TemplateLiteral;
+  readonly type: "TaggedTemplateExpression";
+  readonly tag: Expression;
+  readonly quasi: TemplateLiteral;
 }
 
 export interface TemplateElement extends BaseNode {
-  type: "TemplateElement";
-  tail: boolean;
-  value: {
-    cooked: string;
-    raw: string;
+  readonly type: "TemplateElement";
+  readonly tail: boolean;
+  readonly value: {
+    readonly cooked: string;
+    readonly raw: string;
   };
 }
 
 export interface ObjectPattern extends BaseNode {
-  type: "ObjectPattern";
-  properties: ReadonlyArray<DestructuringObjectProperty | RestElement>;
+  readonly type: "ObjectPattern";
+  readonly properties: ReadonlyArray<DestructuringObjectProperty | RestElement>;
   // if used as a VariableDeclarator.id
-  typeAnnotation: TypeAnnotation | null;
+  readonly typeAnnotation: TypeAnnotation | null;
 }
 
 export interface ArrayPattern extends BaseNode {
-  type: "ArrayPattern";
+  readonly type: "ArrayPattern";
   // an element will be null if the pattern contains a hole: `[a,,b]`
-  elements: ReadonlyArray<DestructuringPattern | null>;
-  typeAnnotation: TypeAnnotation | null;
+  readonly elements: ReadonlyArray<DestructuringPattern | null>;
+  readonly typeAnnotation: TypeAnnotation | null;
 }
 
 export interface RestElement extends BaseNode {
-  type: "RestElement";
-  argument: RestElementPattern;
+  readonly type: "RestElement";
+  readonly argument: RestElementPattern;
   // the Pattern owns the typeAnnotation
 }
 
 export interface AssignmentPattern extends BaseNode {
-  type: "AssignmentPattern";
-  left: BindingName;
-  right: Expression;
+  readonly type: "AssignmentPattern";
+  readonly left: BindingName;
+  readonly right: Expression;
 }
 
 export type AClass = ClassDeclaration | ClassExpression;
 interface BaseClass extends BaseNode {
-  superClass?: Expression | null;
-  body: ClassBody;
+  readonly superClass?: Expression | null;
+  readonly body: ClassBody;
 
-  typeParameters: null | TypeParameterDeclaration;
-  superTypeArguments: null | TypeParameterInstantiation;
-  implements: ReadonlyArray<ClassImplements>;
-  decorators: ReadonlyArray<Decorator>;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly superTypeArguments: null | TypeParameterInstantiation;
+  readonly implements: ReadonlyArray<ClassImplements>;
+  readonly decorators: ReadonlyArray<Decorator>;
 }
 
 export type PropertyName =
@@ -974,10 +976,10 @@ export type ClassMemberWithNonComputedName =
   | MethodDefinitionConstructor
   | MethodDefinitionWithNonComputedName;
 export interface ClassBody extends BaseNode {
-  type: "ClassBody";
-  body: ReadonlyArray<ClassMember>;
+  readonly type: "ClassBody";
+  readonly body: ReadonlyArray<ClassMember>;
 
-  parent: AClass;
+  readonly parent: AClass;
 }
 
 export type MethodDefinition =
@@ -985,76 +987,76 @@ export type MethodDefinition =
   | MethodDefinitionWithComputedName
   | MethodDefinitionWithNonComputedName;
 interface MethodDefinitionBase extends BaseNode {
-  value: FunctionExpression;
+  readonly value: FunctionExpression;
 
-  parent: ClassBody;
+  readonly parent: ClassBody;
 }
 export interface MethodDefinitionConstructor extends MethodDefinitionBase {
-  type: "MethodDefinition";
-  key: Identifier | StringLiteral;
-  kind: "constructor";
-  computed: false;
-  static: false;
-  decorators: ReadonlyArray<Decorator>;
+  readonly type: "MethodDefinition";
+  readonly key: Identifier | StringLiteral;
+  readonly kind: "constructor";
+  readonly computed: false;
+  readonly static: false;
+  readonly decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithComputedName extends MethodDefinitionBase {
-  type: "MethodDefinition";
-  key: ClassPropertyNameComputed;
-  kind: "method" | "get" | "set";
-  computed: true;
-  static: boolean;
-  decorators: ReadonlyArray<Decorator>;
+  readonly type: "MethodDefinition";
+  readonly key: ClassPropertyNameComputed;
+  readonly kind: "method" | "get" | "set";
+  readonly computed: true;
+  readonly static: boolean;
+  readonly decorators: ReadonlyArray<Decorator>;
 }
 export interface MethodDefinitionWithNonComputedName extends MethodDefinitionBase {
-  type: "MethodDefinition";
-  key: ClassPropertyNameNonComputed;
-  kind: "method" | "get" | "set";
-  computed: false;
-  static: boolean;
-  decorators: ReadonlyArray<Decorator>;
+  readonly type: "MethodDefinition";
+  readonly key: ClassPropertyNameNonComputed;
+  readonly kind: "method" | "get" | "set";
+  readonly computed: false;
+  readonly static: boolean;
+  readonly decorators: ReadonlyArray<Decorator>;
 }
 
 // `PropertyDefinition` is the new standard for all class properties
 export type PropertyDefinition =
   PropertyDefinitionWithComputedName | PropertyDefinitionWithNonComputedName;
 interface PropertyDefinitionBase extends BaseNode {
-  value: null | Expression;
-  typeAnnotation: null | TypeAnnotation;
-  static: boolean;
-  decorators: ReadonlyArray<Decorator>;
-  variance: null | Variance;
-  declare: boolean;
+  readonly value: null | Expression;
+  readonly typeAnnotation: null | TypeAnnotation;
+  readonly static: boolean;
+  readonly decorators: ReadonlyArray<Decorator>;
+  readonly variance: null | Variance;
+  readonly declare: boolean;
   // hermes always emit this as false
-  optional: false;
+  readonly optional: false;
 
-  parent: ClassBody;
+  readonly parent: ClassBody;
 }
 export interface PropertyDefinitionWithComputedName extends PropertyDefinitionBase {
-  type: "PropertyDefinition";
-  key: ClassPropertyNameComputed;
-  computed: true;
+  readonly type: "PropertyDefinition";
+  readonly key: ClassPropertyNameComputed;
+  readonly computed: true;
 }
 export interface PropertyDefinitionWithNonComputedName extends PropertyDefinitionBase {
-  type: "PropertyDefinition";
-  key: ClassPropertyNameNonComputed;
-  computed: false;
+  readonly type: "PropertyDefinition";
+  readonly key: ClassPropertyNameNonComputed;
+  readonly computed: false;
 }
 
 export interface ClassDeclaration extends BaseClass {
-  type: "ClassDeclaration";
+  readonly type: "ClassDeclaration";
   /** It is null when a class declaration is a part of the `export default class` statement */
-  id: Identifier | null;
+  readonly id: Identifier | null;
 }
 
 export interface ClassExpression extends BaseClass {
-  type: "ClassExpression";
-  id?: Identifier | null;
+  readonly type: "ClassExpression";
+  readonly id?: Identifier | null;
 }
 
 export interface MetaProperty extends BaseNode {
-  type: "MetaProperty";
-  meta: Identifier;
-  property: Identifier;
+  readonly type: "MetaProperty";
+  readonly meta: Identifier;
+  readonly property: Identifier;
 }
 
 export type ModuleDeclaration =
@@ -1073,50 +1075,50 @@ export type ModuleSpecifier =
   | ExportSpecifier;
 
 export interface ImportDeclaration extends BaseNode {
-  type: "ImportDeclaration";
-  specifiers: ReadonlyArray<
+  readonly type: "ImportDeclaration";
+  readonly specifiers: ReadonlyArray<
     ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier
   >;
-  source: StringLiteral;
-  attributes: ReadonlyArray<ImportAttribute>;
+  readonly source: StringLiteral;
+  readonly attributes: ReadonlyArray<ImportAttribute>;
 
-  importKind: "value" | "type" | "typeof";
+  readonly importKind: "value" | "type" | "typeof";
 }
 export interface ImportAttribute extends BaseNode {
-  type: "ImportAttribute";
-  key: Identifier;
-  value: StringLiteral;
+  readonly type: "ImportAttribute";
+  readonly key: Identifier;
+  readonly value: StringLiteral;
 
-  parent: ImportDeclaration;
+  readonly parent: ImportDeclaration;
 }
 
 export interface ImportSpecifier extends BaseNode {
-  type: "ImportSpecifier";
-  imported: Identifier;
-  local: Identifier;
-  importKind: null | "type" | "typeof";
+  readonly type: "ImportSpecifier";
+  readonly imported: Identifier;
+  readonly local: Identifier;
+  readonly importKind: null | "type" | "typeof";
 
-  parent: ImportDeclaration;
+  readonly parent: ImportDeclaration;
 }
 
 export interface ImportExpression extends BaseNode {
-  type: "ImportExpression";
-  source: Expression;
-  options: Expression | null;
+  readonly type: "ImportExpression";
+  readonly source: Expression;
+  readonly options: Expression | null;
 }
 
 export interface ImportDefaultSpecifier extends BaseNode {
-  type: "ImportDefaultSpecifier";
-  local: Identifier;
+  readonly type: "ImportDefaultSpecifier";
+  readonly local: Identifier;
 
-  parent: ImportDeclaration;
+  readonly parent: ImportDeclaration;
 }
 
 export interface ImportNamespaceSpecifier extends BaseNode {
-  type: "ImportNamespaceSpecifier";
-  local: Identifier;
+  readonly type: "ImportNamespaceSpecifier";
+  readonly local: Identifier;
 
-  parent: ImportDeclaration;
+  readonly parent: ImportDeclaration;
 }
 
 export type DefaultDeclaration =
@@ -1134,48 +1136,48 @@ export type NamedDeclaration =
   | RecordDeclaration;
 
 interface ExportNamedDeclarationBase extends BaseNode {
-  type: "ExportNamedDeclaration";
-  declaration?: NamedDeclaration | null;
-  specifiers: ReadonlyArray<ExportSpecifier>;
-  source?: StringLiteral | null;
-  exportKind: "value" | "type";
+  readonly type: "ExportNamedDeclaration";
+  readonly declaration?: NamedDeclaration | null;
+  readonly specifiers: ReadonlyArray<ExportSpecifier>;
+  readonly source?: StringLiteral | null;
+  readonly exportKind: "value" | "type";
 }
 export interface ExportNamedDeclarationWithSpecifiers extends ExportNamedDeclarationBase {
-  type: "ExportNamedDeclaration";
-  declaration: null;
-  source?: StringLiteral | null;
-  specifiers: ReadonlyArray<ExportSpecifier>;
+  readonly type: "ExportNamedDeclaration";
+  readonly declaration: null;
+  readonly source?: StringLiteral | null;
+  readonly specifiers: ReadonlyArray<ExportSpecifier>;
 }
 export interface ExportNamedDeclarationWithDeclaration extends ExportNamedDeclarationBase {
-  type: "ExportNamedDeclaration";
-  declaration: NamedDeclaration;
-  source: null;
-  specifiers: [];
+  readonly type: "ExportNamedDeclaration";
+  readonly declaration: NamedDeclaration;
+  readonly source: null;
+  readonly specifiers: [];
 }
 export type ExportNamedDeclaration =
   ExportNamedDeclarationWithSpecifiers | ExportNamedDeclarationWithDeclaration;
 
 export interface ExportSpecifier extends BaseNode {
-  type: "ExportSpecifier";
-  exported: Identifier;
-  local: Identifier;
+  readonly type: "ExportSpecifier";
+  readonly exported: Identifier;
+  readonly local: Identifier;
 }
 
 export interface ExportDefaultDeclaration extends BaseNode {
-  type: "ExportDefaultDeclaration";
-  declaration: DefaultDeclaration | Expression;
+  readonly type: "ExportDefaultDeclaration";
+  readonly declaration: DefaultDeclaration | Expression;
 }
 
 export interface ExportAllDeclaration extends BaseNode {
-  type: "ExportAllDeclaration";
-  source: StringLiteral;
-  exportKind: "value" | "type";
-  exported?: Identifier | null;
+  readonly type: "ExportAllDeclaration";
+  readonly source: StringLiteral;
+  readonly exportKind: "value" | "type";
+  readonly exported?: Identifier | null;
 }
 
 export interface AwaitExpression extends BaseNode {
-  type: "AwaitExpression";
-  argument: Expression;
+  readonly type: "AwaitExpression";
+  readonly argument: Expression;
 }
 
 /***********************
@@ -1227,189 +1229,189 @@ export type TypeAnnotationType =
   | OptionalIndexedAccessType;
 
 export interface Variance extends BaseNode {
-  type: "Variance";
-  kind: "plus" | "minus" | "readonly" | "writeonly" | "in" | "out";
+  readonly type: "Variance";
+  readonly kind: "plus" | "minus" | "readonly" | "writeonly" | "in" | "out";
 }
 
 interface BaseTypeAlias extends BaseNode {
-  id: Identifier;
-  typeParameters: null | TypeParameterDeclaration;
-  right: TypeAnnotationType;
+  readonly id: Identifier;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly right: TypeAnnotationType;
 }
 
 export interface TypeAnnotation extends BaseNode {
-  type: "TypeAnnotation";
-  typeAnnotation: TypeAnnotationType;
+  readonly type: "TypeAnnotation";
+  readonly typeAnnotation: TypeAnnotationType;
 }
 
 export interface TypeAlias extends BaseTypeAlias {
-  type: "TypeAlias";
+  readonly type: "TypeAlias";
 }
 
 interface BaseOpaqueType extends BaseNode {
-  id: Identifier;
-  supertype: TypeAnnotationType | null;
-  lowerBound: TypeAnnotationType | null;
-  upperBound: TypeAnnotationType | null;
-  typeParameters: TypeParameterDeclaration | null;
+  readonly id: Identifier;
+  readonly supertype: TypeAnnotationType | null;
+  readonly lowerBound: TypeAnnotationType | null;
+  readonly upperBound: TypeAnnotationType | null;
+  readonly typeParameters: TypeParameterDeclaration | null;
 }
 export interface OpaqueType extends BaseOpaqueType {
-  type: "OpaqueType";
-  impltype: TypeAnnotationType;
+  readonly type: "OpaqueType";
+  readonly impltype: TypeAnnotationType;
 }
 
 export interface NumberTypeAnnotation extends BaseNode {
-  type: "NumberTypeAnnotation";
+  readonly type: "NumberTypeAnnotation";
 }
 export interface StringTypeAnnotation extends BaseNode {
-  type: "StringTypeAnnotation";
+  readonly type: "StringTypeAnnotation";
 }
 export interface BigIntTypeAnnotation extends BaseNode {
-  type: "BigIntTypeAnnotation";
+  readonly type: "BigIntTypeAnnotation";
 }
 export interface BooleanTypeAnnotation extends BaseNode {
-  type: "BooleanTypeAnnotation";
+  readonly type: "BooleanTypeAnnotation";
 }
 export interface NullLiteralTypeAnnotation extends BaseNode {
-  type: "NullLiteralTypeAnnotation";
+  readonly type: "NullLiteralTypeAnnotation";
 }
 export interface AnyTypeAnnotation extends BaseNode {
-  type: "AnyTypeAnnotation";
+  readonly type: "AnyTypeAnnotation";
 }
 export interface EmptyTypeAnnotation extends BaseNode {
-  type: "EmptyTypeAnnotation";
+  readonly type: "EmptyTypeAnnotation";
 }
 export interface SymbolTypeAnnotation extends BaseNode {
-  type: "SymbolTypeAnnotation";
+  readonly type: "SymbolTypeAnnotation";
 }
 export interface ThisTypeAnnotation extends BaseNode {
-  type: "ThisTypeAnnotation";
+  readonly type: "ThisTypeAnnotation";
 }
 export interface MixedTypeAnnotation extends BaseNode {
-  type: "MixedTypeAnnotation";
+  readonly type: "MixedTypeAnnotation";
 }
 export interface VoidTypeAnnotation extends BaseNode {
-  type: "VoidTypeAnnotation";
+  readonly type: "VoidTypeAnnotation";
 }
 export interface UnknownTypeAnnotation extends BaseNode {
-  type: "UnknownTypeAnnotation";
+  readonly type: "UnknownTypeAnnotation";
 }
 export interface NeverTypeAnnotation extends BaseNode {
-  type: "NeverTypeAnnotation";
+  readonly type: "NeverTypeAnnotation";
 }
 export interface UndefinedTypeAnnotation extends BaseNode {
-  type: "UndefinedTypeAnnotation";
+  readonly type: "UndefinedTypeAnnotation";
 }
 export interface StringLiteralTypeAnnotation extends BaseNode {
-  type: "StringLiteralTypeAnnotation";
-  value: string;
-  raw: string;
+  readonly type: "StringLiteralTypeAnnotation";
+  readonly value: string;
+  readonly raw: string;
 }
 export interface NumberLiteralTypeAnnotation extends BaseNode {
-  type: "NumberLiteralTypeAnnotation";
-  value: number;
-  raw: string;
+  readonly type: "NumberLiteralTypeAnnotation";
+  readonly value: number;
+  readonly raw: string;
 }
 export interface BigIntLiteralTypeAnnotation extends BaseNode {
-  type: "BigIntLiteralTypeAnnotation";
-  bigint: string;
-  value: bigint;
-  raw: string;
+  readonly type: "BigIntLiteralTypeAnnotation";
+  readonly bigint: string;
+  readonly value: bigint;
+  readonly raw: string;
 }
 export interface BooleanLiteralTypeAnnotation extends BaseNode {
-  type: "BooleanLiteralTypeAnnotation";
-  value: boolean;
-  raw: "true" | "false";
+  readonly type: "BooleanLiteralTypeAnnotation";
+  readonly value: boolean;
+  readonly raw: "true" | "false";
 }
 export interface ArrayTypeAnnotation extends BaseNode {
-  type: "ArrayTypeAnnotation";
-  elementType: TypeAnnotationType;
+  readonly type: "ArrayTypeAnnotation";
+  readonly elementType: TypeAnnotationType;
 }
 export interface NullableTypeAnnotation extends BaseNode {
-  type: "NullableTypeAnnotation";
-  typeAnnotation: TypeAnnotationType;
+  readonly type: "NullableTypeAnnotation";
+  readonly typeAnnotation: TypeAnnotationType;
 }
 export interface ExistsTypeAnnotation extends BaseNode {
-  type: "ExistsTypeAnnotation";
+  readonly type: "ExistsTypeAnnotation";
 }
 export interface GenericTypeAnnotation extends BaseNode {
-  type: "GenericTypeAnnotation";
-  id: Identifier | QualifiedTypeIdentifier;
-  typeParameters: null | TypeParameterInstantiation;
+  readonly type: "GenericTypeAnnotation";
+  readonly id: Identifier | QualifiedTypeIdentifier;
+  readonly typeParameters: null | TypeParameterInstantiation;
 }
 export interface QualifiedTypeIdentifier extends BaseNode {
-  type: "QualifiedTypeIdentifier";
-  id: Identifier;
-  qualification: QualifiedTypeIdentifier | Identifier;
+  readonly type: "QualifiedTypeIdentifier";
+  readonly id: Identifier;
+  readonly qualification: QualifiedTypeIdentifier | Identifier;
 }
 export interface QualifiedTypeofIdentifier extends BaseNode {
-  type: "QualifiedTypeofIdentifier";
-  id: Identifier;
-  qualification: QualifiedTypeofIdentifier | Identifier;
+  readonly type: "QualifiedTypeofIdentifier";
+  readonly id: Identifier;
+  readonly qualification: QualifiedTypeofIdentifier | Identifier;
 }
 export interface TypeofTypeAnnotation extends BaseNode {
-  type: "TypeofTypeAnnotation";
-  argument: QualifiedTypeofIdentifier | Identifier;
-  typeArguments?: TypeParameterInstantiation;
+  readonly type: "TypeofTypeAnnotation";
+  readonly argument: QualifiedTypeofIdentifier | Identifier;
+  readonly typeArguments?: TypeParameterInstantiation;
 }
 export interface KeyofTypeAnnotation extends BaseNode {
-  type: "KeyofTypeAnnotation";
-  argument: TypeAnnotationType;
+  readonly type: "KeyofTypeAnnotation";
+  readonly argument: TypeAnnotationType;
 }
 export interface TupleTypeAnnotation extends BaseNode {
-  type: "TupleTypeAnnotation";
-  elementTypes: ReadonlyArray<TypeAnnotationType>;
-  inexact: boolean;
+  readonly type: "TupleTypeAnnotation";
+  readonly elementTypes: ReadonlyArray<TypeAnnotationType>;
+  readonly inexact: boolean;
 }
 export interface TupleTypeSpreadElement extends BaseNode {
-  type: "TupleTypeSpreadElement";
-  label?: Identifier | null;
-  typeAnnotation: TypeAnnotationType;
+  readonly type: "TupleTypeSpreadElement";
+  readonly label?: Identifier | null;
+  readonly typeAnnotation: TypeAnnotationType;
 }
 export interface TupleTypeLabeledElement extends BaseNode {
-  type: "TupleTypeLabeledElement";
-  label: Identifier;
-  elementType: TypeAnnotationType;
-  optional: boolean;
-  variance: Variance | null;
+  readonly type: "TupleTypeLabeledElement";
+  readonly label: Identifier;
+  readonly elementType: TypeAnnotationType;
+  readonly optional: boolean;
+  readonly variance: Variance | null;
 }
 
 export interface InferTypeAnnotation extends BaseNode {
-  type: "InferTypeAnnotation";
-  typeParameter: TypeParameter;
+  readonly type: "InferTypeAnnotation";
+  readonly typeParameter: TypeParameter;
 }
 
 // type T = { [[foo]]: number };
 export interface ObjectTypeInternalSlot extends BaseNode {
-  type: "ObjectTypeInternalSlot";
-  id: Identifier;
-  optional: boolean;
-  static: boolean;
-  method: boolean;
-  value: TypeAnnotation;
+  readonly type: "ObjectTypeInternalSlot";
+  readonly id: Identifier;
+  readonly optional: boolean;
+  readonly static: boolean;
+  readonly method: boolean;
+  readonly value: TypeAnnotation;
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 
 export interface InterfaceTypeAnnotation extends BaseInterfaceNode {
-  type: "InterfaceTypeAnnotation";
+  readonly type: "InterfaceTypeAnnotation";
 }
 
 export interface UnionTypeAnnotation extends BaseNode {
-  type: "UnionTypeAnnotation";
-  types: ReadonlyArray<TypeAnnotationType>;
+  readonly type: "UnionTypeAnnotation";
+  readonly types: ReadonlyArray<TypeAnnotationType>;
 }
 export interface IntersectionTypeAnnotation extends BaseNode {
-  type: "IntersectionTypeAnnotation";
-  types: ReadonlyArray<TypeAnnotationType>;
+  readonly type: "IntersectionTypeAnnotation";
+  readonly types: ReadonlyArray<TypeAnnotationType>;
 }
 
 export interface ConditionalTypeAnnotation extends BaseNode {
-  type: "ConditionalTypeAnnotation";
-  checkType: TypeAnnotationType;
-  extendsType: TypeAnnotationType;
-  trueType: TypeAnnotationType;
-  falseType: TypeAnnotationType;
+  readonly type: "ConditionalTypeAnnotation";
+  readonly checkType: TypeAnnotationType;
+  readonly extendsType: TypeAnnotationType;
+  readonly trueType: TypeAnnotationType;
+  readonly falseType: TypeAnnotationType;
 }
 
 export type TypeOperator =
@@ -1419,128 +1421,128 @@ export type RendersType =
   RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
 
 interface TypeOperatorBase extends BaseNode {
-  type: "TypeOperator";
-  typeAnnotation: TypeAnnotationType;
+  readonly type: "TypeOperator";
+  readonly typeAnnotation: TypeAnnotationType;
 }
 export interface RendersTypeOperator extends TypeOperatorBase {
-  type: "TypeOperator";
-  operator: "renders";
+  readonly type: "TypeOperator";
+  readonly operator: "renders";
 }
 export interface RendersStarTypeOperator extends TypeOperatorBase {
-  type: "TypeOperator";
-  operator: "renders*";
+  readonly type: "TypeOperator";
+  readonly operator: "renders*";
 }
 export interface RendersQuestionTypeOperator extends TypeOperatorBase {
-  type: "TypeOperator";
-  operator: "renders?";
+  readonly type: "TypeOperator";
+  readonly operator: "renders?";
 }
 
 export interface TypePredicate extends BaseNode {
-  type: "TypePredicate";
-  parameterName: Identifier;
-  typeAnnotation: TypeAnnotationType | null;
-  kind: null | "asserts" | "implies";
+  readonly type: "TypePredicate";
+  readonly parameterName: Identifier;
+  readonly typeAnnotation: TypeAnnotationType | null;
+  readonly kind: null | "asserts" | "implies";
 }
 
 export interface FunctionTypeAnnotation extends BaseNode {
-  type: "FunctionTypeAnnotation";
-  params: ReadonlyArray<FunctionTypeParam>;
-  returnType: TypeAnnotationType;
-  rest: null | FunctionTypeParam;
-  typeParameters: null | TypeParameterDeclaration;
-  this: FunctionTypeParam | null;
+  readonly type: "FunctionTypeAnnotation";
+  readonly params: ReadonlyArray<FunctionTypeParam>;
+  readonly returnType: TypeAnnotationType;
+  readonly rest: null | FunctionTypeParam;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly this: FunctionTypeParam | null;
 }
 export interface FunctionTypeParam extends BaseNode {
-  type: "FunctionTypeParam";
-  name: Identifier | null;
-  typeAnnotation: TypeAnnotationType;
-  optional: boolean;
+  readonly type: "FunctionTypeParam";
+  readonly name: Identifier | null;
+  readonly typeAnnotation: TypeAnnotationType;
+  readonly optional: boolean;
 
-  parent: FunctionTypeAnnotation;
+  readonly parent: FunctionTypeAnnotation;
 }
 export interface HookTypeAnnotation extends BaseNode {
-  type: "HookTypeAnnotation";
-  params: ReadonlyArray<FunctionTypeParam>;
-  returnType: TypeAnnotationType;
-  rest: null | FunctionTypeParam;
-  typeParameters: null | TypeParameterDeclaration;
+  readonly type: "HookTypeAnnotation";
+  readonly params: ReadonlyArray<FunctionTypeParam>;
+  readonly returnType: TypeAnnotationType;
+  readonly rest: null | FunctionTypeParam;
+  readonly typeParameters: null | TypeParameterDeclaration;
 }
 
 export interface ComponentTypeAnnotation extends BaseNode {
-  type: "ComponentTypeAnnotation";
-  params: ReadonlyArray<ComponentTypeParameter>;
-  rest: null | ComponentTypeParameter;
-  typeParameters: null | TypeParameterDeclaration;
-  rendersType: null | RendersType;
+  readonly type: "ComponentTypeAnnotation";
+  readonly params: ReadonlyArray<ComponentTypeParameter>;
+  readonly rest: null | ComponentTypeParameter;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly rendersType: null | RendersType;
 }
 export interface ComponentTypeParameter extends BaseNode {
-  type: "ComponentTypeParameter";
-  name: Identifier | StringLiteral | null;
-  typeAnnotation: TypeAnnotationType;
-  optional: boolean;
+  readonly type: "ComponentTypeParameter";
+  readonly name: Identifier | StringLiteral | null;
+  readonly typeAnnotation: TypeAnnotationType;
+  readonly optional: boolean;
 
-  parent: ComponentTypeAnnotation | DeclareComponent;
+  readonly parent: ComponentTypeAnnotation | DeclareComponent;
 }
 
 export interface InferredPredicate extends BaseNode {
-  type: "InferredPredicate";
+  readonly type: "InferredPredicate";
 
-  parent: AFunction | DeclareFunction;
+  readonly parent: AFunction | DeclareFunction;
 }
 
 export interface ObjectTypeAnnotation extends BaseNode {
-  type: "ObjectTypeAnnotation";
-  inexact: boolean;
-  exact: boolean;
-  properties: ReadonlyArray<
+  readonly type: "ObjectTypeAnnotation";
+  readonly inexact: boolean;
+  readonly exact: boolean;
+  readonly properties: ReadonlyArray<
     ObjectTypeProperty | ObjectTypeSpreadProperty | ObjectTypeMappedTypeProperty
   >;
-  indexers: ReadonlyArray<ObjectTypeIndexer>;
-  callProperties: ReadonlyArray<ObjectTypeCallProperty>;
-  internalSlots: ReadonlyArray<ObjectTypeInternalSlot>;
+  readonly indexers: ReadonlyArray<ObjectTypeIndexer>;
+  readonly callProperties: ReadonlyArray<ObjectTypeCallProperty>;
+  readonly internalSlots: ReadonlyArray<ObjectTypeInternalSlot>;
 }
 interface ObjectTypePropertyBase extends BaseNode {
-  type: "ObjectTypeProperty";
-  key: ObjectPropertyKey;
-  value: TypeAnnotationType;
-  method: boolean;
-  optional: boolean;
-  static: boolean; // only applies to the "declare class" case
-  proto: boolean; // only applies to the "declare class" case
-  variance: Variance | null;
-  kind: "init" | "get" | "set";
+  readonly type: "ObjectTypeProperty";
+  readonly key: ObjectPropertyKey;
+  readonly value: TypeAnnotationType;
+  readonly method: boolean;
+  readonly optional: boolean;
+  readonly static: boolean; // only applies to the "declare class" case
+  readonly proto: boolean; // only applies to the "declare class" case
+  readonly variance: Variance | null;
+  readonly kind: "init" | "get" | "set";
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export interface ObjectTypeMethodSignature extends ObjectTypePropertyBase {
-  type: "ObjectTypeProperty";
-  value: FunctionTypeAnnotation;
-  method: true;
-  optional: false;
-  variance: null;
-  kind: "init";
+  readonly type: "ObjectTypeProperty";
+  readonly value: FunctionTypeAnnotation;
+  readonly method: true;
+  readonly optional: false;
+  readonly variance: null;
+  readonly kind: "init";
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export interface ObjectTypePropertySignature extends ObjectTypePropertyBase {
-  type: "ObjectTypeProperty";
-  value: TypeAnnotationType;
-  method: false;
-  optional: boolean;
-  variance: Variance | null;
-  kind: "init";
+  readonly type: "ObjectTypeProperty";
+  readonly value: TypeAnnotationType;
+  readonly method: false;
+  readonly optional: boolean;
+  readonly variance: Variance | null;
+  readonly kind: "init";
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export interface ObjectTypeAccessorSignature extends ObjectTypePropertyBase {
-  type: "ObjectTypeProperty";
-  value: FunctionTypeAnnotation;
-  method: false;
-  optional: false;
-  variance: null;
-  kind: "get" | "set";
+  readonly type: "ObjectTypeProperty";
+  readonly value: FunctionTypeAnnotation;
+  readonly method: false;
+  readonly optional: false;
+  readonly variance: null;
+  readonly kind: "get" | "set";
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export type ObjectTypeProperty =
   | ObjectTypeMethodSignature
@@ -1548,128 +1550,128 @@ export type ObjectTypeProperty =
   | ObjectTypeAccessorSignature;
 
 export interface ObjectTypeCallProperty extends BaseNode {
-  type: "ObjectTypeCallProperty";
-  value: FunctionTypeAnnotation;
-  static: boolean; // can only be static when defined on a declare class
+  readonly type: "ObjectTypeCallProperty";
+  readonly value: FunctionTypeAnnotation;
+  readonly static: boolean; // can only be static when defined on a declare class
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export interface ObjectTypeIndexer extends BaseNode {
-  type: "ObjectTypeIndexer";
-  id: null | Identifier;
-  key: TypeAnnotationType;
-  value: TypeAnnotationType;
-  static: boolean; // can only be static when defined on a declare class
-  variance: null | Variance;
+  readonly type: "ObjectTypeIndexer";
+  readonly id: null | Identifier;
+  readonly key: TypeAnnotationType;
+  readonly value: TypeAnnotationType;
+  readonly static: boolean; // can only be static when defined on a declare class
+  readonly variance: null | Variance;
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 export interface ObjectTypeMappedTypeProperty extends BaseNode {
-  type: "ObjectTypeMappedTypeProperty";
-  keyTparam: TypeParameter;
-  propType: TypeAnnotationType;
-  sourceType: TypeAnnotationType;
-  variance: null | Variance;
-  optional: null | "PlusOptional" | "MinusOptional" | "Optional";
+  readonly type: "ObjectTypeMappedTypeProperty";
+  readonly keyTparam: TypeParameter;
+  readonly propType: TypeAnnotationType;
+  readonly sourceType: TypeAnnotationType;
+  readonly variance: null | Variance;
+  readonly optional: null | "PlusOptional" | "MinusOptional" | "Optional";
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 
 export interface ObjectTypeSpreadProperty extends BaseNode {
-  type: "ObjectTypeSpreadProperty";
-  argument: TypeAnnotationType;
+  readonly type: "ObjectTypeSpreadProperty";
+  readonly argument: TypeAnnotationType;
 
-  parent: ObjectTypeAnnotation;
+  readonly parent: ObjectTypeAnnotation;
 }
 
 export interface IndexedAccessType extends BaseNode {
-  type: "IndexedAccessType";
-  objectType: TypeAnnotationType;
-  indexType: TypeAnnotationType;
+  readonly type: "IndexedAccessType";
+  readonly objectType: TypeAnnotationType;
+  readonly indexType: TypeAnnotationType;
 }
 export interface OptionalIndexedAccessType extends BaseNode {
-  type: "OptionalIndexedAccessType";
-  objectType: TypeAnnotationType;
-  indexType: TypeAnnotationType;
-  optional: boolean;
+  readonly type: "OptionalIndexedAccessType";
+  readonly objectType: TypeAnnotationType;
+  readonly indexType: TypeAnnotationType;
+  readonly optional: boolean;
 }
 
 export interface TypeCastExpression extends BaseNode {
-  type: "TypeCastExpression";
-  expression: Expression;
-  typeAnnotation: TypeAnnotation;
+  readonly type: "TypeCastExpression";
+  readonly expression: Expression;
+  readonly typeAnnotation: TypeAnnotation;
 }
 export interface AsExpression extends BaseNode {
-  type: "AsExpression";
-  expression: Expression;
-  typeAnnotation: TypeAnnotationType;
+  readonly type: "AsExpression";
+  readonly expression: Expression;
+  readonly typeAnnotation: TypeAnnotationType;
 }
 export interface AsConstExpression extends BaseNode {
-  type: "AsConstExpression";
-  expression: Expression;
+  readonly type: "AsConstExpression";
+  readonly expression: Expression;
 }
 
 interface BaseInterfaceNode extends BaseNode {
-  body: ObjectTypeAnnotation;
-  extends: ReadonlyArray<InterfaceExtends>;
+  readonly body: ObjectTypeAnnotation;
+  readonly extends: ReadonlyArray<InterfaceExtends>;
 }
 interface BaseInterfaceDeclaration extends BaseInterfaceNode {
-  id: Identifier;
-  typeParameters: null | TypeParameterDeclaration;
+  readonly id: Identifier;
+  readonly typeParameters: null | TypeParameterDeclaration;
 }
 
 export interface InterfaceDeclaration extends BaseInterfaceDeclaration {
-  type: "InterfaceDeclaration";
+  readonly type: "InterfaceDeclaration";
 }
 
 export interface InterfaceExtends extends BaseNode {
-  type: "InterfaceExtends";
-  id: Identifier | QualifiedTypeIdentifier;
-  typeParameters: null | TypeParameterInstantiation;
+  readonly type: "InterfaceExtends";
+  readonly id: Identifier | QualifiedTypeIdentifier;
+  readonly typeParameters: null | TypeParameterInstantiation;
 
-  parent: InterfaceDeclaration | DeclareInterface;
+  readonly parent: InterfaceDeclaration | DeclareInterface;
 }
 
 export interface ClassImplements extends BaseNode {
-  type: "ClassImplements";
-  id: Identifier;
-  typeParameters: null | TypeParameterInstantiation;
+  readonly type: "ClassImplements";
+  readonly id: Identifier;
+  readonly typeParameters: null | TypeParameterInstantiation;
 
-  parent: AClass | DeclareClass;
+  readonly parent: AClass | DeclareClass;
 }
 
 export interface Decorator extends BaseNode {
-  type: "Decorator";
-  expression: Expression;
+  readonly type: "Decorator";
+  readonly expression: Expression;
 
-  parent: AClass;
+  readonly parent: AClass;
 }
 
 export interface TypeParameterDeclaration extends BaseNode {
-  type: "TypeParameterDeclaration";
-  params: ReadonlyArray<TypeParameter>;
+  readonly type: "TypeParameterDeclaration";
+  readonly params: ReadonlyArray<TypeParameter>;
 }
 export interface TypeParameter extends BaseNode {
-  type: "TypeParameter";
-  name: string;
-  const: boolean;
-  bound: null | TypeAnnotation;
-  variance: null | Variance;
-  default: null | TypeAnnotationType;
-  usesExtendsBound: boolean;
-  parent: TypeParameterDeclaration;
+  readonly type: "TypeParameter";
+  readonly name: string;
+  readonly const: boolean;
+  readonly bound: null | TypeAnnotation;
+  readonly variance: null | Variance;
+  readonly default: null | TypeAnnotationType;
+  readonly usesExtendsBound: boolean;
+  readonly parent: TypeParameterDeclaration;
 }
 export interface TypeParameterInstantiation extends BaseNode {
-  type: "TypeParameterInstantiation";
-  params: ReadonlyArray<TypeAnnotationType>;
+  readonly type: "TypeParameterInstantiation";
+  readonly params: ReadonlyArray<TypeAnnotationType>;
 
-  parent: GenericTypeAnnotation | CallExpression | NewExpression;
+  readonly parent: GenericTypeAnnotation | CallExpression | NewExpression;
 }
 
 export interface EnumDeclaration extends BaseNode {
-  type: "EnumDeclaration";
-  id: Identifier;
-  body:
+  readonly type: "EnumDeclaration";
+  readonly id: Identifier;
+  readonly body:
     | EnumNumberBody
     | EnumBigIntBody
     | EnumStringBody
@@ -1678,90 +1680,90 @@ export interface EnumDeclaration extends BaseNode {
 }
 
 interface BaseEnumBody extends BaseNode {
-  hasUnknownMembers: boolean;
+  readonly hasUnknownMembers: boolean;
 }
 interface BaseInferrableEnumBody extends BaseEnumBody {
-  explicitType: boolean;
+  readonly explicitType: boolean;
 }
 
 export interface EnumNumberBody extends BaseInferrableEnumBody {
-  type: "EnumNumberBody";
+  readonly type: "EnumNumberBody";
   // enum number members cannot be defaulted
-  members: ReadonlyArray<EnumNumberMember>;
-  explicitType: boolean;
+  readonly members: ReadonlyArray<EnumNumberMember>;
+  readonly explicitType: boolean;
 
-  parent: EnumDeclaration;
+  readonly parent: EnumDeclaration;
 }
 
 export interface EnumNumberMember extends BaseNode {
-  type: "EnumNumberMember";
-  id: Identifier;
-  init: NumericLiteral;
+  readonly type: "EnumNumberMember";
+  readonly id: Identifier;
+  readonly init: NumericLiteral;
 
-  parent: EnumNumberBody;
+  readonly parent: EnumNumberBody;
 }
 
 export interface EnumBigIntBody extends BaseInferrableEnumBody {
-  type: "EnumBigIntBody";
+  readonly type: "EnumBigIntBody";
   // enum bigint members cannot be defaulted
-  members: ReadonlyArray<EnumBigIntMember>;
-  explicitType: boolean;
+  readonly members: ReadonlyArray<EnumBigIntMember>;
+  readonly explicitType: boolean;
 
-  parent: EnumDeclaration;
+  readonly parent: EnumDeclaration;
 }
 
 export interface EnumBigIntMember extends BaseNode {
-  type: "EnumBigIntMember";
-  id: Identifier;
-  init: BigIntLiteral;
+  readonly type: "EnumBigIntMember";
+  readonly id: Identifier;
+  readonly init: BigIntLiteral;
 
-  parent: EnumBigIntBody;
+  readonly parent: EnumBigIntBody;
 }
 
 export interface EnumStringBody extends BaseInferrableEnumBody {
-  type: "EnumStringBody";
-  members: ReadonlyArray<EnumStringMember | EnumDefaultedMember>;
+  readonly type: "EnumStringBody";
+  readonly members: ReadonlyArray<EnumStringMember | EnumDefaultedMember>;
 
-  parent: EnumDeclaration;
+  readonly parent: EnumDeclaration;
 }
 
 export interface EnumStringMember extends BaseNode {
-  type: "EnumStringMember";
-  id: Identifier;
-  init: StringLiteral;
+  readonly type: "EnumStringMember";
+  readonly id: Identifier;
+  readonly init: StringLiteral;
 
-  parent: EnumStringBody;
+  readonly parent: EnumStringBody;
 }
 
 export interface EnumBooleanBody extends BaseInferrableEnumBody {
-  type: "EnumBooleanBody";
+  readonly type: "EnumBooleanBody";
   // enum boolean members cannot be defaulted
-  members: ReadonlyArray<EnumBooleanMember>;
+  readonly members: ReadonlyArray<EnumBooleanMember>;
 
-  parent: EnumDeclaration;
+  readonly parent: EnumDeclaration;
 }
 
 export interface EnumBooleanMember extends BaseNode {
-  type: "EnumBooleanMember";
-  id: Identifier;
-  init: BooleanLiteral;
+  readonly type: "EnumBooleanMember";
+  readonly id: Identifier;
+  readonly init: BooleanLiteral;
 
-  parent: EnumBooleanBody;
+  readonly parent: EnumBooleanBody;
 }
 
 export interface EnumSymbolBody extends BaseEnumBody {
-  type: "EnumSymbolBody";
+  readonly type: "EnumSymbolBody";
   // enum symbol members can only be defaulted
-  members: ReadonlyArray<EnumDefaultedMember>;
+  readonly members: ReadonlyArray<EnumDefaultedMember>;
 
-  parent: EnumDeclaration;
+  readonly parent: EnumDeclaration;
 }
 
 export interface EnumDefaultedMember extends BaseNode {
-  type: "EnumDefaultedMember";
-  id: Identifier;
+  readonly type: "EnumDefaultedMember";
+  readonly id: Identifier;
 
-  parent: EnumStringBody | EnumSymbolBody;
+  readonly parent: EnumStringBody | EnumSymbolBody;
 }
 
 /*****************
@@ -1785,116 +1787,125 @@ export type DeclaredNode =
   | DeclaredPredicate;
 
 export interface DeclareClass extends BaseNode {
-  type: "DeclareClass";
-  id: Identifier;
-  typeParameters: null | TypeParameterDeclaration;
-  extends: ReadonlyArray<InterfaceExtends>;
-  implements: ReadonlyArray<ClassImplements>;
-  body: ObjectTypeAnnotation;
-  mixins: ReadonlyArray<InterfaceExtends>;
+  readonly type: "DeclareClass";
+  readonly id: Identifier;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly extends: ReadonlyArray<InterfaceExtends>;
+  readonly implements: ReadonlyArray<ClassImplements>;
+  readonly body: ObjectTypeAnnotation;
+  readonly mixins: ReadonlyArray<InterfaceExtends>;
 }
 
 export interface DeclareComponent extends BaseNode {
-  type: "DeclareComponent";
-  id: Identifier;
-  params: Array<ComponentTypeParameter>;
-  rest: null | ComponentTypeParameter;
-  typeParameters: null | TypeParameterDeclaration;
-  rendersType: null | RendersType;
+  readonly type: "DeclareComponent";
+  readonly id: Identifier;
+  // The Flow parser emits the same param shape it uses for
+  // `ComponentDeclaration` — `ComponentParameter`/`RestElement` in `params`,
+  // with `rest` always null. Detached nodes built by `flow-transform` may
+  // instead use the `ComponentTypeParameter` + `rest` shape, which is what
+  // `ComponentTypeAnnotation` uses and what the printer emits.
+  readonly params: ReadonlyArray<
+    ComponentParameterAndRestElement | ComponentTypeParameter
+  >;
+  readonly rest: null | ComponentTypeParameter;
+  readonly typeParameters: null | TypeParameterDeclaration;
+  readonly rendersType: null | RendersType;
+  readonly implicitDeclare: boolean;
 }
 
 export interface DeclareHook extends BaseNode {
-  type: "DeclareHook";
+  readonly type: "DeclareHook";
   // the hook signature is stored as a type annotation on the ID
-  id: Identifier & {
-    typeAnnotation: TypeAnnotation & {
-      typeAnnotation: HookTypeAnnotation;
+  readonly id: Identifier & {
+    readonly typeAnnotation: TypeAnnotation & {
+      readonly typeAnnotation: HookTypeAnnotation;
     };
   };
-  implicitDeclare: boolean;
+  readonly implicitDeclare: boolean;
 }
 
 export interface DeclareVariable extends BaseNode {
-  type: "DeclareVariable";
-  declarations: ReadonlyArray<VariableDeclarator>;
-  kind: "var" | "let" | "const";
-  implicitDeclare: boolean;
+  readonly type: "DeclareVariable";
+  readonly declarations: ReadonlyArray<VariableDeclarator>;
+  readonly kind: "var" | "let" | "const";
+  readonly implicitDeclare: boolean;
 }
 
 export interface DeclareEnum extends BaseNode {
-  type: "DeclareEnum";
-  id: Identifier;
-  body: EnumNumberBody | EnumStringBody | EnumBooleanBody | EnumSymbolBody;
+  readonly type: "DeclareEnum";
+  readonly id: Identifier;
+  readonly body:
+    EnumNumberBody | EnumStringBody | EnumBooleanBody | EnumSymbolBody;
 }
 
 export interface DeclareFunction extends BaseNode {
-  type: "DeclareFunction";
+  readonly type: "DeclareFunction";
   // the function signature is stored as a type annotation on the ID
-  id: Identifier & {
-    typeAnnotation: TypeAnnotation & {
-      typeAnnotation: FunctionTypeAnnotation;
+  readonly id: Identifier & {
+    readonly typeAnnotation: TypeAnnotation & {
+      readonly typeAnnotation: FunctionTypeAnnotation;
     };
   };
-  implicitDeclare: boolean;
-  predicate: InferredPredicate | DeclaredPredicate | null;
+  readonly implicitDeclare: boolean;
+  readonly predicate: InferredPredicate | DeclaredPredicate | null;
 }
 
 export interface DeclareModule extends BaseNode {
-  type: "DeclareModule";
-  id: StringLiteral | Identifier;
-  body: BlockStatement;
+  readonly type: "DeclareModule";
+  readonly id: StringLiteral | Identifier;
+  readonly body: BlockStatement;
 }
 
 export interface DeclareNamespace extends BaseNode {
-  type: "DeclareNamespace";
-  global: boolean;
-  id: Identifier;
-  body: BlockStatement;
-  implicitDeclare: boolean;
-  keyword: "namespace" | "module";
+  readonly type: "DeclareNamespace";
+  readonly global: boolean;
+  readonly id: Identifier;
+  readonly body: BlockStatement;
+  readonly implicitDeclare: boolean;
+  readonly keyword: "namespace" | "module";
 }
 
 export interface DeclareInterface extends BaseInterfaceDeclaration {
-  type: "DeclareInterface";
+  readonly type: "DeclareInterface";
 }
 
 export interface DeclareTypeAlias extends BaseTypeAlias {
-  type: "DeclareTypeAlias";
+  readonly type: "DeclareTypeAlias";
 }
 
 export interface DeclareOpaqueType extends BaseOpaqueType {
-  type: "DeclareOpaqueType";
-  impltype: null;
+  readonly type: "DeclareOpaqueType";
+  readonly impltype: null;
 }
 
 export interface DeclareExportAllDeclaration extends BaseNode {
-  type: "DeclareExportAllDeclaration";
-  source: StringLiteral;
+  readonly type: "DeclareExportAllDeclaration";
+  readonly source: StringLiteral;
 }
 
 interface DeclareExportDeclarationBase extends BaseNode {
-  type: "DeclareExportDeclaration";
-  specifiers: ReadonlyArray<ExportSpecifier>;
-  source: StringLiteral | null;
-  default: boolean;
+  readonly type: "DeclareExportDeclaration";
+  readonly specifiers: ReadonlyArray<ExportSpecifier>;
+  readonly source: StringLiteral | null;
+  readonly default: boolean;
 }
 export interface DeclareExportDefaultDeclaration extends DeclareExportDeclarationBase {
-  type: "DeclareExportDeclaration";
-  declaration:
+  readonly type: "DeclareExportDeclaration";
+  readonly declaration:
     | DeclareClass
     | DeclareFunction
     | DeclareComponent
     | DeclareHook
     | TypeAnnotationType;
-  default: true;
+  readonly default: true;
   // default cannot have a source
-  source: null;
+  readonly source: null;
   // default cannot have specifiers
-  specifiers: [];
+  readonly specifiers: [];
 }
 export interface DeclareExportDeclarationNamedWithDeclaration extends DeclareExportDeclarationBase {
-  type: "DeclareExportDeclaration";
-  declaration:
+  readonly type: "DeclareExportDeclaration";
+  readonly declaration:
     | DeclareClass
     | DeclareFunction
     | DeclareComponent
@@ -1903,18 +1914,18 @@ export interface DeclareExportDeclarationNamedWithDeclaration extends DeclareExp
     | DeclareOpaqueType
     | DeclareVariable
     | DeclareEnum;
-  default: false;
-  source: null;
+  readonly default: false;
+  readonly source: null;
   // default cannot have specifiers and a declaration
-  specifiers: [];
+  readonly specifiers: [];
 }
 export interface DeclareExportDeclarationNamedWithSpecifiers extends DeclareExportDeclarationBase {
-  type: "DeclareExportDeclaration";
+  readonly type: "DeclareExportDeclaration";
   // with a source you can't have a declaration
-  declaration: null;
-  default: false;
-  source: StringLiteral;
-  specifiers: ReadonlyArray<ExportSpecifier>;
+  readonly declaration: null;
+  readonly default: false;
+  readonly source: StringLiteral;
+  readonly specifiers: ReadonlyArray<ExportSpecifier>;
 }
 export type DeclareExportDeclaration =
   | DeclareExportDefaultDeclaration
@@ -1922,13 +1933,13 @@ export type DeclareExportDeclaration =
   | DeclareExportDeclarationNamedWithSpecifiers;
 
 export interface DeclareModuleExports extends BaseNode {
-  type: "DeclareModuleExports";
-  typeAnnotation: TypeAnnotation;
+  readonly type: "DeclareModuleExports";
+  readonly typeAnnotation: TypeAnnotation;
 }
 
 export interface DeclaredPredicate extends BaseNode {
-  type: "DeclaredPredicate";
-  value: Expression;
+  readonly type: "DeclaredPredicate";
+  readonly value: Expression;
 }
 
 /**********************
@@ -1959,98 +1970,98 @@ export type JSXNode =
   | JSXSpreadChild;
 
 export interface JSXAttribute extends BaseNode {
-  type: "JSXAttribute";
-  name: JSXIdentifier;
-  value: Literal | JSXExpression | null;
+  readonly type: "JSXAttribute";
+  readonly name: JSXIdentifier;
+  readonly value: Literal | JSXExpression | null;
 
-  parent: JSXOpeningElement;
+  readonly parent: JSXOpeningElement;
 }
 
 export interface JSXClosingElement extends BaseNode {
-  type: "JSXClosingElement";
-  name: JSXTagNameExpression;
+  readonly type: "JSXClosingElement";
+  readonly name: JSXTagNameExpression;
 
-  parent: JSXElement;
+  readonly parent: JSXElement;
 }
 
 export interface JSXClosingFragment extends BaseNode {
-  type: "JSXClosingFragment";
+  readonly type: "JSXClosingFragment";
 
-  parent: JSXFragment;
+  readonly parent: JSXFragment;
 }
 
 export interface JSXElement extends BaseNode {
-  type: "JSXElement";
-  openingElement: JSXOpeningElement;
-  closingElement: JSXClosingElement | null;
-  children: ReadonlyArray<JSXChild>;
+  readonly type: "JSXElement";
+  readonly openingElement: JSXOpeningElement;
+  readonly closingElement: JSXClosingElement | null;
+  readonly children: ReadonlyArray<JSXChild>;
 }
 
 export interface JSXEmptyExpression extends BaseNode {
-  type: "JSXEmptyExpression";
+  readonly type: "JSXEmptyExpression";
 }
 
 export interface JSXExpressionContainer extends BaseNode {
-  type: "JSXExpressionContainer";
-  expression: Expression | JSXEmptyExpression;
+  readonly type: "JSXExpressionContainer";
+  readonly expression: Expression | JSXEmptyExpression;
 }
 
 export interface JSXFragment extends BaseNode {
-  type: "JSXFragment";
-  openingFragment: JSXOpeningFragment;
-  closingFragment: JSXClosingFragment;
-  children: ReadonlyArray<JSXChild>;
+  readonly type: "JSXFragment";
+  readonly openingFragment: JSXOpeningFragment;
+  readonly closingFragment: JSXClosingFragment;
+  readonly children: ReadonlyArray<JSXChild>;
 }
 
 export interface JSXIdentifier extends BaseNode {
-  type: "JSXIdentifier";
-  name: string;
+  readonly type: "JSXIdentifier";
+  readonly name: string;
 }
 
 export interface JSXMemberExpression extends BaseNode {
-  type: "JSXMemberExpression";
-  object: JSXTagNameExpression;
-  property: JSXIdentifier;
+  readonly type: "JSXMemberExpression";
+  readonly object: JSXTagNameExpression;
+  readonly property: JSXIdentifier;
 }
 
 export interface JSXNamespacedName extends BaseNode {
-  type: "JSXNamespacedName";
-  namespace: JSXIdentifier;
-  name: JSXIdentifier;
+  readonly type: "JSXNamespacedName";
+  readonly namespace: JSXIdentifier;
+  readonly name: JSXIdentifier;
 }
 
 export interface JSXOpeningElement extends BaseNode {
-  type: "JSXOpeningElement";
-  selfClosing: boolean;
-  name: JSXTagNameExpression;
-  attributes: ReadonlyArray<JSXAttribute | JSXSpreadAttribute>;
-  typeArguments?: TypeParameterInstantiation | null;
+  readonly type: "JSXOpeningElement";
+  readonly selfClosing: boolean;
+  readonly name: JSXTagNameExpression;
+  readonly attributes: ReadonlyArray<JSXAttribute | JSXSpreadAttribute>;
+  readonly typeArguments?: TypeParameterInstantiation | null;
 
-  parent: JSXElement;
+  readonly parent: JSXElement;
 }
 
 export interface JSXOpeningFragment extends BaseNode {
-  type: "JSXOpeningFragment";
+  readonly type: "JSXOpeningFragment";
 
-  parent: JSXFragment;
+  readonly parent: JSXFragment;
 }
 
 export interface JSXSpreadAttribute extends BaseNode {
-  type: "JSXSpreadAttribute";
-  argument: Expression;
+  readonly type: "JSXSpreadAttribute";
+  readonly argument: Expression;
 
-  parent: JSXOpeningElement;
+  readonly parent: JSXOpeningElement;
 }
 
 export interface JSXText extends BaseNode {
-  type: "JSXText";
-  value: string;
-  raw: string;
+  readonly type: "JSXText";
+  readonly value: string;
+  readonly raw: string;
 }
 
 export interface JSXSpreadChild extends BaseNode {
-  type: "JSXSpreadChild";
-  expression: Expression;
+  readonly type: "JSXSpreadChild";
+  readonly expression: Expression;
 }
 
 /************************************
@@ -2058,27 +2069,27 @@ export interface JSXSpreadChild extends BaseNode {
  ************************************/
 
 export interface MatchExpression extends BaseNode {
-  type: "MatchExpression";
-  argument: Expression;
-  cases: ReadonlyArray<MatchExpressionCase>;
+  readonly type: "MatchExpression";
+  readonly argument: Expression;
+  readonly cases: ReadonlyArray<MatchExpressionCase>;
 }
 export interface MatchExpressionCase extends BaseNode {
-  type: "MatchExpressionCase";
-  pattern: MatchPattern;
-  body: Expression;
-  guard: Expression | null;
+  readonly type: "MatchExpressionCase";
+  readonly pattern: MatchPattern;
+  readonly body: Expression;
+  readonly guard: Expression | null;
 }
 
 export interface MatchStatement extends BaseNode {
-  type: "MatchStatement";
-  argument: Expression;
-  cases: ReadonlyArray<MatchStatementCase>;
+  readonly type: "MatchStatement";
+  readonly argument: Expression;
+  readonly cases: ReadonlyArray<MatchStatementCase>;
 }
 export interface MatchStatementCase extends BaseNode {
-  type: "MatchStatementCase";
-  pattern: MatchPattern;
-  body: BlockStatement;
-  guard: Expression | null;
+  readonly type: "MatchStatementCase";
+  readonly pattern: MatchPattern;
+  readonly body: BlockStatement;
+  readonly guard: Expression | null;
 }
 
 /******************
@@ -2099,91 +2110,92 @@ export type MatchPattern =
   | MatchArrayPattern;
 
 export interface MatchOrPattern extends BaseNode {
-  type: "MatchOrPattern";
-  patterns: ReadonlyArray<MatchPattern>;
+  readonly type: "MatchOrPattern";
+  readonly patterns: ReadonlyArray<MatchPattern>;
 }
 export interface MatchAsPattern extends BaseNode {
-  type: "MatchAsPattern";
-  pattern: MatchPattern;
-  target: Identifier | MatchBindingPattern;
+  readonly type: "MatchAsPattern";
+  readonly pattern: MatchPattern;
+  readonly target: Identifier | MatchBindingPattern;
 }
 export interface MatchWildcardPattern extends BaseNode {
-  type: "MatchWildcardPattern";
+  readonly type: "MatchWildcardPattern";
 }
 export interface MatchLiteralPattern extends BaseNode {
-  type: "MatchLiteralPattern";
-  literal: Literal;
+  readonly type: "MatchLiteralPattern";
+  readonly literal: Literal;
 }
 export interface MatchUnaryPattern extends BaseNode {
-  type: "MatchUnaryPattern";
-  argument: Literal;
-  operator: "-" | "+";
+  readonly type: "MatchUnaryPattern";
+  readonly argument: Literal;
+  readonly operator: "-" | "+";
 }
 export interface MatchIdentifierPattern extends BaseNode {
-  type: "MatchIdentifierPattern";
-  id: Identifier;
+  readonly type: "MatchIdentifierPattern";
+  readonly id: Identifier;
 }
 export interface MatchMemberPattern extends BaseNode {
-  type: "MatchMemberPattern";
-  base: MatchIdentifierPattern | MatchMemberPattern;
-  property: Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
+  readonly type: "MatchMemberPattern";
+  readonly base: MatchIdentifierPattern | MatchMemberPattern;
+  readonly property:
+    Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
 }
 export interface MatchBindingPattern extends BaseNode {
-  type: "MatchBindingPattern";
-  id: Identifier;
-  kind: "let" | "const" | "var";
+  readonly type: "MatchBindingPattern";
+  readonly id: Identifier;
+  readonly kind: "let" | "const" | "var";
 }
 export interface MatchObjectPattern extends BaseNode {
-  type: "MatchObjectPattern";
-  properties: ReadonlyArray<MatchObjectPatternProperty>;
-  rest: MatchRestPattern | null;
+  readonly type: "MatchObjectPattern";
+  readonly properties: ReadonlyArray<MatchObjectPatternProperty>;
+  readonly rest: MatchRestPattern | null;
 }
 export interface MatchObjectPatternProperty extends BaseNode {
-  type: "MatchObjectPatternProperty";
-  key: ObjectPropertyKey;
-  pattern: MatchPattern;
-  shorthand: boolean;
+  readonly type: "MatchObjectPatternProperty";
+  readonly key: ObjectPropertyKey;
+  readonly pattern: MatchPattern;
+  readonly shorthand: boolean;
 }
 export interface MatchInstancePattern extends BaseNode {
-  type: "MatchInstancePattern";
-  targetConstructor: MatchIdentifierPattern | MatchMemberPattern;
-  properties: MatchInstanceObjectPattern;
+  readonly type: "MatchInstancePattern";
+  readonly targetConstructor: MatchIdentifierPattern | MatchMemberPattern;
+  readonly properties: MatchInstanceObjectPattern;
 }
 export interface MatchInstanceObjectPattern extends BaseNode {
-  type: "MatchInstanceObjectPattern";
-  properties: ReadonlyArray<MatchObjectPatternProperty>;
-  rest: MatchRestPattern | null;
+  readonly type: "MatchInstanceObjectPattern";
+  readonly properties: ReadonlyArray<MatchObjectPatternProperty>;
+  readonly rest: MatchRestPattern | null;
 }
 export interface MatchArrayPattern extends BaseNode {
-  type: "MatchArrayPattern";
-  elements: ReadonlyArray<MatchPattern>;
-  rest: MatchRestPattern | null;
+  readonly type: "MatchArrayPattern";
+  readonly elements: ReadonlyArray<MatchPattern>;
+  readonly rest: MatchRestPattern | null;
 }
 export interface MatchRestPattern extends BaseNode {
-  type: "MatchRestPattern";
-  argument: MatchBindingPattern | null;
+  readonly type: "MatchRestPattern";
+  readonly argument: MatchBindingPattern | null;
 }
 
 /***********
  * Records *
  ***********/
 export interface RecordDeclaration extends BaseNode {
-  type: "RecordDeclaration";
-  id: Identifier;
-  typeParameters: TypeParameterDeclaration | null;
-  implements: ReadonlyArray<RecordDeclarationImplements>;
-  body: RecordDeclarationBody;
+  readonly type: "RecordDeclaration";
+  readonly id: Identifier;
+  readonly typeParameters: TypeParameterDeclaration | null;
+  readonly implements: ReadonlyArray<RecordDeclarationImplements>;
+  readonly body: RecordDeclarationBody;
 }
 
 export interface RecordDeclarationImplements extends BaseNode {
-  type: "RecordDeclarationImplements";
-  id: Identifier;
-  typeArguments: TypeParameterInstantiation | null;
+  readonly type: "RecordDeclarationImplements";
+  readonly id: Identifier;
+  readonly typeArguments: TypeParameterInstantiation | null;
 }
 
 export interface RecordDeclarationBody extends BaseNode {
-  type: "RecordDeclarationBody";
-  elements: ReadonlyArray<
+  readonly type: "RecordDeclarationBody";
+  readonly elements: ReadonlyArray<
     | RecordDeclarationProperty
     | RecordDeclarationStaticProperty
     | MethodDefinition
@@ -2191,29 +2203,29 @@ export interface RecordDeclarationBody extends BaseNode {
 }
 
 export interface RecordDeclarationProperty extends BaseNode {
-  type: "RecordDeclarationProperty";
-  key: ObjectPropertyKey;
-  typeAnnotation: TypeAnnotation;
-  defaultValue: Expression | null;
+  readonly type: "RecordDeclarationProperty";
+  readonly key: ObjectPropertyKey;
+  readonly typeAnnotation: TypeAnnotation;
+  readonly defaultValue: Expression | null;
 }
 
 export interface RecordDeclarationStaticProperty extends BaseNode {
-  type: "RecordDeclarationStaticProperty";
-  key: ObjectPropertyKey;
-  typeAnnotation: TypeAnnotation;
-  value: Expression;
+  readonly type: "RecordDeclarationStaticProperty";
+  readonly key: ObjectPropertyKey;
+  readonly typeAnnotation: TypeAnnotation;
+  readonly value: Expression;
 }
 
 export interface RecordExpression extends BaseNode {
-  type: "RecordExpression";
-  recordConstructor: Expression;
-  typeArguments: TypeParameterInstantiation | null;
-  properties: RecordExpressionProperties;
+  readonly type: "RecordExpression";
+  readonly recordConstructor: Expression;
+  readonly typeArguments: TypeParameterInstantiation | null;
+  readonly properties: RecordExpressionProperties;
 }
 
 export interface RecordExpressionProperties extends BaseNode {
-  type: "RecordExpressionProperties";
-  properties: ReadonlyArray<ObjectProperty | SpreadElement>;
+  readonly type: "RecordExpressionProperties";
+  readonly properties: ReadonlyArray<ObjectProperty | SpreadElement>;
 }
 
 /******************************************************

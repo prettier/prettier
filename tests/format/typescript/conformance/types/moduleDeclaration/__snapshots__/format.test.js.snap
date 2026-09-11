@@ -39,3 +39,13 @@ declare module "B" {
 
 ================================================================================
 `;
+
+exports[`moduleDeclaration.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:1)
+> 1 | module A {
+    | ^
+  2 |     export class A {
+  3 |     }
+  4 | }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:0)"
+`;

@@ -1,8 +1,25 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`jsx_namespaced_name.js format 1`] = `
+exports[`namespaced-attribute.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<foo namespaced:attribte />;
+<foo namespaced:attribte="1" />;
+<foo namespaced:attribte={1} />;
+
+=====================================output=====================================
+<foo namespaced:attribte />;
+<foo namespaced:attribte="1" />;
+<foo namespaced:attribte={1} />;
+
+================================================================================
+`;
+
+exports[`namespaced-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <jsx:namespacedname />;

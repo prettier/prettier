@@ -119,6 +119,13 @@ function installPrettier(packageDirectory) {
       runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
+      runNpmClient([
+        "config",
+        "set",
+        "blockExoticSubdeps",
+        "false",
+        "--location=project",
+      ]);
       // fails engine mismatch
       runNpmClient(["add", packed, "--engine-strict"]);
       break;

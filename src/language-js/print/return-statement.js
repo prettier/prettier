@@ -13,7 +13,7 @@ import { printSemicolon } from "./miscellaneous.js";
 @import {Doc} from "../../document/index.js";
 */
 
-function printReturnOrThrowArgument(path, options, print) {
+function printArgument(path, options, print) {
   const { node } = path;
   const argumentDoc = print();
 
@@ -45,19 +45,24 @@ function printReturnOrThrowStatement(path, options, print) {
   return [
     node.type === "ThrowStatement" ? "throw" : "return",
     node.argument
-      ? [
-          " ",
-          path.call(
-            () => printReturnOrThrowArgument(path, options, print),
-            "argument",
-          ),
-        ]
+      ? [" ", path.call(() => printArgument(path, options, print), "argument")]
       : "",
     printSemicolon(options),
+  ];
+}
+
+function printYieldExpression(path, options, print) {
+  const { node } = path;
+  return [
+    `yield${node.delegate ? "*" : ""}`,
+    node.argument
+      ? [" ", path.call(() => printArgument(path, options, print), "argument")]
+      : "",
   ];
 }
 
 export {
   printReturnOrThrowStatement as printReturnStatement,
   printReturnOrThrowStatement as printThrowStatement,
+  printYieldExpression,
 };

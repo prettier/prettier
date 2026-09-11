@@ -1,2 +1,6 @@
-runFormatTest(import.meta, ["flow", "typescript"], { bracketSameLine: true });
-runFormatTest(import.meta, ["flow", "typescript"], { bracketSameLine: false });
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
+  bracketSameLine: true,
+});
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
+  bracketSameLine: false,
+});

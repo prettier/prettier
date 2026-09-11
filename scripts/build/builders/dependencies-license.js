@@ -45,6 +45,8 @@ function getDependencies(results) {
 function getLicenseText(packageConfig, dependencies, packageDisplayName) {
   dependencies = dependencies.filter(
     (dependency, index) =>
+      // Exclude Prettier
+      dependency.name !== "prettier" &&
       // Exclude self
       dependency.name !== packageConfig.packageName &&
       // Unique by `name` and `version`
@@ -143,7 +145,7 @@ function createDependenciesLicenseBuilder({ packageDisplayName }) {
     const dependencies = getDependencies(results);
 
     if (dependencies.length === 0) {
-      throw new Error("Fail to collect dependencies.");
+      throw new Error("Failed to collect dependencies.");
     }
 
     const text = getLicenseText(

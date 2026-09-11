@@ -355,6 +355,7 @@ const configs = [
       "unicorn/prefer-unicode-code-point-escapes": "off",
       "unicorn/relative-url-style": "off",
       "unicorn/require-array-sort-compare": "off",
+      "unicorn/single-line-block-comment-style": "off",
       "unicorn/switch-case-braces": ["error", "avoid"],
       "unicorn/template-indent": "error",
     },
@@ -564,6 +565,8 @@ const configs = [
     rules: {
       "no-var": "off",
       "prefer-arrow-callback": "off",
+      "object-shorthand": "off",
+      "no-console": "off",
     },
   },
   {

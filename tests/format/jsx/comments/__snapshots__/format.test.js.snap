@@ -3,7 +3,7 @@
 exports[`eslint-disable.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 const render = items => (
@@ -29,7 +29,7 @@ const render = (items) => (
 exports[`in-attributes.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div
@@ -84,7 +84,7 @@ parsers: ["flow", "babel", "typescript"]
 exports[`in-end-tag.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 /* =========== before slash =========== */
@@ -212,7 +212,7 @@ Cause: Identifier expected."
 exports[`in-tags.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div
@@ -279,7 +279,7 @@ parsers: ["flow", "babel", "typescript"]
 exports[`jsx-tag-comment-after-prop.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/typescript-eslint/typescript-eslint/pull/703
@@ -314,7 +314,7 @@ const pure = () => {
 exports[`like-a-comment-in-jsx-text.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <Foo

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`expression.tsx format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Component
+  onChange={(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+/>;
+
+<Component>
+  {(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+</Component>;
+
+=====================================output=====================================
+<Component
+  onChange={(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value),
+    });
+  }}
+/>;
+
+<Component>
+  {(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value),
+    });
+  }}
+</Component>;
+
+================================================================================
+`;

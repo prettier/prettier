@@ -7,7 +7,7 @@ import {
   mapDoc,
 } from "../../document/index.js";
 import {
-  printTemplateExpressions,
+  printEmbeddedTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
 import { hasLanguageComment, isAngularComponentTemplate } from "./utilities.js";
@@ -30,7 +30,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, options, print);
+  const expressionDocs = printEmbeddedTemplateExpressions(path, options, print);
 
   const placeholderRegex = new RegExp(
     composePlaceholder(String.raw`(\d+)`),

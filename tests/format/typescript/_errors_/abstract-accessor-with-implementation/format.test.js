@@ -16,5 +16,5 @@ runFormatTest(
       `,
     ],
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );
