@@ -594,7 +594,15 @@ function handleLastFunctionParameterComments({
       ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
         enclosingNode?.type === "MethodDefinition") &&
         enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")" &&
+    // That `)` also closes a parenthesized arrow body, where the preceding node
+    // is the body rather than a parameter and the comment is not ours.
+    getFunctionParameters(
+      enclosingNode.type === "MethodDefinition" ||
+        enclosingNode.type === "TSAbstractMethodDefinition"
+        ? enclosingNode.value
+        : enclosingNode,
+    ).at(-1) === precedingNode
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -1200,20 +1208,32 @@ function handleArrowExpressionComments({
   return false;
 }
 
-function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
+function getEnclosingAssignmentChainStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
     if (
       (ancestor.type === "AssignmentExpression" && ancestor.right === child) ||
-      (ancestor.type === "ArrowFunctionExpression" && ancestor.body === child)
+      (ancestor.type === "ArrowFunctionExpression" &&
+        ancestor.body === child) ||
+      (ancestor.type === "VariableDeclarator" && ancestor.init === child)
     ) {
       child = ancestor;
       continue;
     }
 
-    return ancestor.type === "ExpressionStatement" &&
+    if (
+      ancestor.type === "ExpressionStatement" &&
       ancestor.expression === child
+    ) {
+      return ancestor;
+    }
+
+    // Only with a single declarator does the end of the statement still follow
+    // the comment; otherwise it would jump the declarators that come after.
+    return ancestor.type === "VariableDeclaration" &&
+      ancestor.declarations.length === 1 &&
+      ancestor.declarations[0] === child
       ? ancestor
       : undefined;
   }
@@ -1254,6 +1274,7 @@ function handleParenthesizedExpressionTrailingComment({
     }
 
     const isAssignment = precedingNode.type === "AssignmentExpression";
+    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
@@ -1263,23 +1284,23 @@ function handleParenthesizedExpressionTrailingComment({
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      (precedingNode.type === "ArrowFunctionExpression" &&
-        enclosingNode.type === "ArrowFunctionExpression" &&
-        enclosingNode.body === precedingNode)
+      // A sequence or assignment body keeps its parentheses, so a comment
+      // inside them stays put and the branch below places it.
+      (enclosingNode.type === "ArrowFunctionExpression" &&
+        enclosingNode.body === precedingNode &&
+        !isAssignment &&
+        !isSequence)
     ) {
-      const expressionStatement =
-        getEnclosingAssignmentChainExpressionStatement(
-          enclosingNode,
-          ancestors.slice(1),
-        );
+      const statement = getEnclosingAssignmentChainStatement(
+        enclosingNode,
+        ancestors.slice(1),
+      );
 
-      if (expressionStatement) {
-        addTrailingComment(expressionStatement, comment);
+      if (statement) {
+        addTrailingComment(statement, comment);
         return true;
       }
     }
-
-    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
