@@ -778,7 +778,6 @@ function needsParentheses(path, options) {
         default:
           return false;
       }
-
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
     case "ChainExpression":
