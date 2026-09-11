@@ -70,4 +70,4 @@ function shouldAddParenthesesToChainElement(path) {
   );
 }
 
-export { isChainExpressionRoot, shouldAddParenthesesToChainElement };
+export { shouldAddParenthesesToChainElement };
