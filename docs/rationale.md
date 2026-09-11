@@ -22,7 +22,7 @@ Prettier maintains the way your string is escaped. For example, `"🙂"` won’t
 
 ### Empty lines
 
-It turns out that empty lines are very hard to automatically generate. The approach that Prettier takes is to preserve empty lines the way they were in the original source code. There are two additional rules:
+It turns out that empty lines are very hard to automatically generate. The approach that Prettier takes is to preserve empty lines the way they were in the original source code, in a similar fashion to preserving [comments](#comments). There are two additional rules:
 
 - Prettier collapses multiple blank lines into a single blank line.
 - Empty lines at the start and end of blocks (and whole files) are removed. (Files always end with a single newline, though.)
