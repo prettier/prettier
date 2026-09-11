@@ -1,5 +1,108 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`async-do-expressions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async do {
+  1;
+};
+
+(async do {});
+
+let x = async do {
+  if (foo()) { f() }
+  else if (bar()) { g() }
+  else { h() }
+};
+
+async do {
+  await 42
+}
+
+let x = async do {
+  let tmp = f();
+  tmp * tmp + 1
+};
+
+=====================================output=====================================
+(async do {
+  1;
+});
+
+(async do {});
+
+let x = async do {
+  if (foo()) {
+    f();
+  } else if (bar()) {
+    g();
+  } else {
+    h();
+  }
+};
+
+(async do {
+  await 42;
+});
+
+let x = async do {
+  let tmp = f();
+  tmp * tmp + 1;
+};
+
+================================================================================
+`;
+
+exports[`async-do-expressions.js format[acorn] 1`] = `
+"Unexpected token (1:7)
+> 1 | async do {
+    |       ^
+  2 |   1;
+  3 | };
+  4 |
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`async-do-expressions.js format[espree] 1`] = `
+"Unexpected token do (1:7)
+> 1 | async do {
+    |       ^
+  2 |   1;
+  3 | };
+  4 |
+Cause: Unexpected token do"
+`;
+
+exports[`async-do-expressions.js format[meriyah] 1`] = `
+"Unexpected token: 'do' (1:7)
+> 1 | async do {
+    |       ^^
+  2 |   1;
+  3 | };
+  4 |
+Cause: [1:6-1:8]: Unexpected token: 'do'"
+`;
+
+exports[`async-do-expressions.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+> 1 | async do {
+    |      ^
+  2 |   1;
+  3 | };
+  4 |"
+`;
+
+exports[`async-do-expressions.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
+> 1 | async do {
+    |       ^^
+  2 |   1;
+  3 | };
+  4 |"
+`;
+
 exports[`call-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -143,7 +246,7 @@ exports[`call-arguments.js format[yuku] 1`] = `
   6 |       "unreachable""
 `;
 
-exports[`do.js format 1`] = `
+exports[`do-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -293,7 +396,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`do.js format[acorn] 1`] = `
+exports[`do-expression.js format[acorn] 1`] = `
 "Unexpected token (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -305,7 +408,7 @@ exports[`do.js format[acorn] 1`] = `
 Cause: Unexpected token (3:4)"
 `;
 
-exports[`do.js format[espree] 1`] = `
+exports[`do-expression.js format[espree] 1`] = `
 "Unexpected token do (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -317,7 +420,7 @@ exports[`do.js format[espree] 1`] = `
 Cause: Unexpected token do"
 `;
 
-exports[`do.js format[meriyah] 1`] = `
+exports[`do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -329,7 +432,7 @@ exports[`do.js format[meriyah] 1`] = `
 Cause: [3:4-3:6]: Unexpected token: 'do'"
 `;
 
-exports[`do.js format[oxc] 1`] = `
+exports[`do-expression.js format[oxc] 1`] = `
 "Unexpected token (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -340,7 +443,7 @@ exports[`do.js format[oxc] 1`] = `
   6 |     }"
 `;
 
-exports[`do.js format[yuku] 1`] = `
+exports[`do-expression.js format[yuku] 1`] = `
 "'do' is reserved and cannot be used as an identifier (3:5)
   1 | const envSpecific = {
   2 |   domain:

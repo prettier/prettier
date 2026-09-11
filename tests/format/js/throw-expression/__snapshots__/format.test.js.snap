@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`throw_expression.js format 1`] = `
+exports[`throw-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -53,7 +53,7 @@ class Product {
 ================================================================================
 `;
 
-exports[`throw_expression.js format[acorn] 1`] = `
+exports[`throw-expression.js format[acorn] 1`] = `
 "Unexpected token (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^
@@ -63,7 +63,7 @@ exports[`throw_expression.js format[acorn] 1`] = `
 Cause: Unexpected token (1:25)"
 `;
 
-exports[`throw_expression.js format[espree] 1`] = `
+exports[`throw-expression.js format[espree] 1`] = `
 "Unexpected token throw (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^
@@ -73,7 +73,7 @@ exports[`throw_expression.js format[espree] 1`] = `
 Cause: Unexpected token throw"
 `;
 
-exports[`throw_expression.js format[meriyah] 1`] = `
+exports[`throw-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'throw' (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^^^^^
@@ -83,7 +83,7 @@ exports[`throw_expression.js format[meriyah] 1`] = `
 Cause: [1:25-1:30]: Unexpected token: 'throw'"
 `;
 
-exports[`throw_expression.js format[oxc] 1`] = `
+exports[`throw-expression.js format[oxc] 1`] = `
 "Unexpected token (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^^^^^
@@ -92,7 +92,7 @@ exports[`throw_expression.js format[oxc] 1`] = `
   4 |   with: () => throw new Error("avoid using 'with' statements.")"
 `;
 
-exports[`throw_expression.js format[yuku] 1`] = `
+exports[`throw-expression.js format[yuku] 1`] = `
 "'throw' is reserved and cannot be used as an identifier (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^^^^^
