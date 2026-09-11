@@ -6,68 +6,88 @@ parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 (do {});
+(async do {});
 (throw error);
 
 (do {}) || fallback;
+(async do {}) || fallback;
 (throw error) || fallback;
 
 (do {}).message;
+(async do {}).message;
 (throw error).message;
 
-((do {}), (throw error), other);
+((do {}), (async do {}), (throw error), other);
 
 (do {}) + 1;
+(async do {}) + 1;
 (throw error) + 1;
 
 1 + do {};
+1 + async do {};
 1 + throw error;
 
 () => do {};
+() => async do {};
 () => throw error;
 
 if (condition) (do {});
+if (condition) (async do {});
 if (condition) (throw error);
 
 for (;;) (do {});
+for (;;) (async do {});
 for (;;) (throw error);
 
 label: (do {});
+label: (async do {});
 label: (throw error);
 
 value = do {};
+value = async do {};
 value = throw error;
 
 =====================================output=====================================
 (do {});
+(async do {});
 (throw error);
 
 (do {}) || fallback;
+(async do {}) || fallback;
 (throw error) || fallback;
 
 (do {}).message;
+(async do {}).message;
 (throw error).message;
 
-((do {}), throw error, other);
+((do {}), async do {}, throw error, other);
 
 (do {}) + 1;
+(async do {}) + 1;
 (throw error) + 1;
 
 1 + do {};
+1 + async do {};
 1 + throw error;
 
 () => do {};
+() => async do {};
 () => throw error;
 
 if (condition) (do {});
+if (condition) (async do {});
 if (condition) (throw error);
 
 for (;;) (do {});
+for (;;) (async do {});
 for (;;) (throw error);
 
 label: (do {});
+label: (async do {});
 label: (throw error);
 
 value = do {};
+value = async do {};
 value = throw error;
 
 ================================================================================
@@ -77,9 +97,9 @@ exports[`do-expression.js format[acorn] 1`] = `
 "Unexpected token (1:2)
 > 1 | (do {});
     |  ^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: Unexpected token (1:1)"
 `;
 
@@ -87,9 +107,9 @@ exports[`do-expression.js format[espree] 1`] = `
 "Unexpected token do (1:2)
 > 1 | (do {});
     |  ^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: Unexpected token do"
 `;
 
@@ -97,9 +117,9 @@ exports[`do-expression.js format[flow] 1`] = `
 "Unexpected token \`do\` (1:2)
 > 1 | (do {});
     |  ^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: Unexpected token \`do\` (1:1)"
 `;
 
@@ -107,9 +127,9 @@ exports[`do-expression.js format[hermes] 1`] = `
 "invalid expression (1:2)
 > 1 | (do {});
     |  ^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: invalid expression (1:1)
 (do {});
  ^"
@@ -119,9 +139,9 @@ exports[`do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (1:2)
 > 1 | (do {});
     |  ^^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: [1:1-1:3]: Unexpected token: 'do'"
 `;
 
@@ -129,27 +149,27 @@ exports[`do-expression.js format[oxc] 1`] = `
 "Unexpected token (1:2)
 > 1 | (do {});
     |  ^^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;"
+  2 | (async do {});
+  3 | (throw error);
+  4 |"
 `;
 
 exports[`do-expression.js format[oxc-ts] 1`] = `
 "Unexpected token (1:2)
 > 1 | (do {});
     |  ^^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;"
+  2 | (async do {});
+  3 | (throw error);
+  4 |"
 `;
 
 exports[`do-expression.js format[typescript] 1`] = `
 "Expression expected. (1:2)
 > 1 | (do {});
     |  ^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;
+  2 | (async do {});
+  3 | (throw error);
+  4 |
 Cause: Expression expected."
 `;
 
@@ -157,16 +177,16 @@ exports[`do-expression.js format[yuku] 1`] = `
 "'do' is reserved and cannot be used as an identifier (1:2)
 > 1 | (do {});
     |  ^^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;"
+  2 | (async do {});
+  3 | (throw error);
+  4 |"
 `;
 
 exports[`do-expression.js format[yuku-ts] 1`] = `
 "'do' is reserved and cannot be used as an identifier (1:2)
 > 1 | (do {});
     |  ^^
-  2 | (throw error);
-  3 |
-  4 | (do {}) || fallback;"
+  2 | (async do {});
+  3 | (throw error);
+  4 |"
 `;
