@@ -881,13 +881,11 @@ function needsParentheses(path, options) {
       );
 
     case "TSInstantiationExpression":
-      if (key === "object" && isMemberExpression(parent)) {
-        return true;
-      }
       if (
-        ((key === "callee" && parent.type === "NewExpression") ||
-          (key === "tag" && parent.type === "TaggedTemplateExpression")) &&
-        path.call(() => isChainExpressionRoot(path), "expression")
+        (key === "object" && isMemberExpression(parent)) ||
+        (key === "callee" && parent.type === "CallExpression") ||
+        (key === "callee" && parent.type === "NewExpression") ||
+        (key === "tag" && parent.type === "TaggedTemplateExpression")
       ) {
         return true;
       }

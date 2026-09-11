@@ -158,7 +158,7 @@ a?.b()!?.();
 
 // \`TSInstantiationExpression\`
 a<b>();
-a<b>();
+(a<b>)();
 a?.b<c>;
 a?.b<c>;
 a?.b!<c>;
@@ -643,12 +643,12 @@ new ((a?.b)!?.c)();
 
 // \`TSInstantiationExpression\`
 new a<b>();
-new a<b>();
-new a.b<c>();
+new (a<b>)();
+new (a.b<c>)();
 new a.b<c>();
 new (a?.b<c>)();
 new (a?.b)<c>();
-new (a?.b)!<c>();
+new ((a?.b)!<c>)();
 new (a?.b)!<c>();
 new (a?.b!<c>)();
 new (a?.b!)<c>();
@@ -808,12 +808,12 @@ a(b?.c!)\`\`;
 
 // \`TSInstantiationExpression\`
 a<b>\`\`;
-a<b>\`\`;
-a.b<c>\`\`;
+(a<b>)\`\`;
+(a.b<c>)\`\`;
 a.b<c>\`\`;
 (a?.b<c>)\`\`;
 (a?.b)<c>\`\`;
-(a?.b)!<c>\`\`;
+((a?.b)!<c>)\`\`;
 (a?.b)!<c>\`\`;
 (a?.b!<c>)\`\`;
 (a?.b!)<c>\`\`;

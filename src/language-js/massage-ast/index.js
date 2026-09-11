@@ -186,28 +186,6 @@ function massageAstNode(original, cloned, parent) {
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }
-
-  /*
-  `(a<B>)()` and `(a)<B>()` are the same
-  `new (A<B>)()` and `new (A)<B>()` are the same
-  ``` (a<B>)`` ``` and ``` (a)<B>`` ``` are the same
-  */
-  for (const { type, property } of [
-    { type: "CallExpression", property: "callee" },
-    { type: "NewExpression", property: "callee" },
-    { type: "TaggedTemplateExpression", property: "tag" },
-  ]) {
-    if (
-      original.type === type &&
-      original[property].type === "TSInstantiationExpression" &&
-      // @ts-expect-error -- safe
-      !original.typeArguments
-    ) {
-      const { expression, typeArguments } = cloned[property];
-      cloned.typeArguments = typeArguments;
-      cloned[property] = expression;
-    }
-  }
 }
 
 massageAstNode.ignoredProperties = ignoredProperties;
