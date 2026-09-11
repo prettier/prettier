@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`pipeline_own_line.js format 1`] = `
+exports[`pipeline-own-line.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -87,7 +87,7 @@ bifornCringerMoshedPerplexSawder[
 ================================================================================
 `;
 
-exports[`pipeline_own_line.js format[acorn] 1`] = `
+exports[`pipeline-own-line.js format[acorn] 1`] = `
 "Unexpected token (4:3)
   2 | 	0
   3 | 	// Comment
@@ -99,7 +99,7 @@ exports[`pipeline_own_line.js format[acorn] 1`] = `
 Cause: Unexpected token (4:2)"
 `;
 
-exports[`pipeline_own_line.js format[espree] 1`] = `
+exports[`pipeline-own-line.js format[espree] 1`] = `
 "Unexpected token > (4:3)
   2 | 	0
   3 | 	// Comment
@@ -111,7 +111,7 @@ exports[`pipeline_own_line.js format[espree] 1`] = `
 Cause: Unexpected token >"
 `;
 
-exports[`pipeline_own_line.js format[meriyah] 1`] = `
+exports[`pipeline-own-line.js format[meriyah] 1`] = `
 "Unexpected token: '>' (4:3)
   2 | 	0
   3 | 	// Comment
@@ -123,7 +123,7 @@ exports[`pipeline_own_line.js format[meriyah] 1`] = `
 Cause: [4:2-4:3]: Unexpected token: '>'"
 `;
 
-exports[`pipeline_own_line.js format[oxc] 1`] = `
+exports[`pipeline-own-line.js format[oxc] 1`] = `
 "Unexpected token (4:3)
   2 | 	0
   3 | 	// Comment
@@ -134,7 +134,7 @@ exports[`pipeline_own_line.js format[oxc] 1`] = `
   7 | bifornCringerMoshedPerplexSawder("
 `;
 
-exports[`pipeline_own_line.js format[yuku] 1`] = `
+exports[`pipeline-own-line.js format[yuku] 1`] = `
 "Unexpected token '>' (4:3)
   2 | 	0
   3 | 	// Comment

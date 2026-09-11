@@ -177,3 +177,21 @@ fn(function f() {
 
 ================================================================================
 `;
+
+exports[`return-outside-function.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
+
+=====================================output=====================================
+return (
+  someVeryLongStringA &&
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
+);
+
+================================================================================
+`;
