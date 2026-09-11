@@ -783,6 +783,14 @@ function needsParentheses(path, options) {
     case "ChainExpression":
     case "TSNonNullExpression":
     case "TSInstantiationExpression":
+      if (
+        key === "object" &&
+        node.type === "TSInstantiationExpression" &&
+        isMemberExpression(parent)
+      ) {
+        return true;
+      }
+
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
@@ -813,6 +821,7 @@ function needsParentheses(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
+            case "TSInstantiationExpression":
               object = object.expression;
               break;
             default:
