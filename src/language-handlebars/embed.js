@@ -9,7 +9,7 @@ function embed(path /* , options*/) {
 
   const { parent } = path;
 
-  if (!isPlainTextStyleElement(parent) && parent.children[0] === node) {
+  if (!(isPlainTextStyleElement(parent) && parent.children[0] === node)) {
     return;
   }
 
