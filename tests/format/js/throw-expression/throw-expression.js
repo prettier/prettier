@@ -15,14 +15,3 @@ class Product {
   get id() { return this._id; }
   set id(value) { this._id = value || throw new Error("Invalid value"); }
 }
-
-
-(throw error);
-(throw error) || fallback;
-(throw error).message;
-(throw error, other);
-if (condition) (throw error);
-for (;;) (throw error);
-label: (throw error);
-value = (throw error);
-() => (throw error);

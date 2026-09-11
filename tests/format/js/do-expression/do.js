@@ -34,10 +34,6 @@ function foo() {
   );
 }
 
-(do {});
-(do {} + 1);
-(1 + do {});
-() => do {};
 
 (do {
   switch(0) {
