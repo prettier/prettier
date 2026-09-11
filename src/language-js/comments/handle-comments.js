@@ -594,6 +594,14 @@ function handleLastFunctionParameterComments({
       ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
         enclosingNode?.type === "MethodDefinition") &&
         enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
+    // The node before the `)` is not always a parameter. In `(a) => (b /* c */)`
+    // it is the arrow function body, and that comment does not belong to `a`.
+    getFunctionParameters(
+      enclosingNode.type === "MethodDefinition" ||
+        enclosingNode.type === "TSAbstractMethodDefinition"
+        ? enclosingNode.value
+        : enclosingNode,
+    ).at(-1) === precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -1200,22 +1208,48 @@ function handleArrowExpressionComments({
   return false;
 }
 
-function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
+// Parentheses around these arrow function bodies are printed, so a comment
+// before the closing parenthesis stays inside them.
+const isArrowFunctionBodyKeepingParentheses = createTypeCheckFunction([
+  "ConditionalExpression",
+  "JSXElement",
+  "JSXFragment",
+  "SequenceExpression",
+]);
+
+function getEnclosingAssignmentChainStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
     if (
       (ancestor.type === "AssignmentExpression" && ancestor.right === child) ||
-      (ancestor.type === "ArrowFunctionExpression" && ancestor.body === child)
+      (ancestor.type === "ArrowFunctionExpression" &&
+        ancestor.body === child) ||
+      (ancestor.type === "VariableDeclarator" && ancestor.init === child)
     ) {
       child = ancestor;
       continue;
     }
 
-    return ancestor.type === "ExpressionStatement" &&
-      ancestor.expression === child
-      ? ancestor
-      : undefined;
+    return isStatementEndingWith(ancestor, child) ? ancestor : undefined;
+  }
+}
+
+// A statement whose last token before the semicolon is `child`, so a comment
+// trailing `child` also trails the statement.
+function isStatementEndingWith(node, child) {
+  switch (node.type) {
+    case "ExpressionStatement":
+      return node.expression === child;
+    case "VariableDeclaration":
+      return node.declarations.at(-1) === child;
+    case "ExportDefaultDeclaration":
+      return node.declaration === child;
+    case "ReturnStatement":
+    case "ThrowStatement":
+      return node.argument === child;
+    default:
+      return false;
   }
 }
 
@@ -1254,32 +1288,31 @@ function handleParenthesizedExpressionTrailingComment({
     }
 
     const isAssignment = precedingNode.type === "AssignmentExpression";
+    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
-      // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
+      // `a = (b = c /* comment */);` and `var a = () => (c /* comment */);` drop
       // the parentheses, so the comment ends up trailing the whole statement
       // anyway. Attach it there right away instead of leaving it on `c` for the
       // next format to move.
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      (precedingNode.type === "ArrowFunctionExpression" &&
+      (!isAssignment &&
+        !isArrowFunctionBodyKeepingParentheses(precedingNode) &&
         enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode)
     ) {
-      const expressionStatement =
-        getEnclosingAssignmentChainExpressionStatement(
-          enclosingNode,
-          ancestors.slice(1),
-        );
+      const statement = getEnclosingAssignmentChainStatement(
+        enclosingNode,
+        ancestors.slice(1),
+      );
 
-      if (expressionStatement) {
-        addTrailingComment(expressionStatement, comment);
+      if (statement) {
+        addTrailingComment(statement, comment);
         return true;
       }
     }
-
-    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
