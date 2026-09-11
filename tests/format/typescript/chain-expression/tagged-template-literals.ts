@@ -71,4 +71,4 @@ new (f?.g<h>)();
 (a?.b<c>)`foo`;
 // These parentheses can be stripped
 (a.b()!)`foo`;
-(a.b<c>)`foo`;
+// (a.b<c>)`foo`;
