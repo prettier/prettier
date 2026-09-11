@@ -10,7 +10,22 @@
 (async do {}).message;
 (throw error).message;
 
-((do {}), (async do {}), (throw error), other);
+// Head, bug
+((do {}), _);
+((async do {}), _);
+((throw error), _);
+// Tail
+(_, (do {}));
+(_, (async do {}));
+(_, (throw error));
+// Middle
+(
+  _,
+  (do {}),
+  (async do {}),
+  (throw error),
+  _
+);
 
 (do {}) + 1;
 (async do {}) + 1;
