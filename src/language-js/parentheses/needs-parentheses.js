@@ -812,7 +812,6 @@ function needsParentheses(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
-            case "TSInstantiationExpression":
               object = object.expression;
               break;
             default:
