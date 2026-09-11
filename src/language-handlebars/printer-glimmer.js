@@ -60,11 +60,11 @@ function print(path, options, print) {
       }
 
       const endingTag = ["</", node.tag, ">"];
-      const isStyle = isPlainTextStyleElement(node);
+      const isPlainStyle = isPlainTextStyleElement(node);
 
       if (
         node.children.length === 0 ||
-        ((!isWhitespaceSensitive || isStyle) &&
+        ((!isWhitespaceSensitive || isPlainStyle) &&
           node.children.every((node) => isWhitespaceNode(node)))
       ) {
         return [startingTag, endingTag];
@@ -72,7 +72,7 @@ function print(path, options, print) {
 
       const parts = path.map(print, "children");
 
-      if (isStyle || !isWhitespaceSensitive) {
+      if (isPlainStyle || !isWhitespaceSensitive) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
