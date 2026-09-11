@@ -303,9 +303,12 @@ async function formatFiles(context) {
   // See https://github.com/prettier/prettier/issues/5801
   const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
 
-  for await (const { error, filename, ignoreUnknown } of expandPatterns(
-    context,
-  )) {
+  for await (const {
+    error,
+    filename,
+    ignoreUnknown,
+    ignoredGlob,
+  } of expandPatterns(context, isIgnored)) {
     if (error) {
       context.logger.error(error);
       // Don't exit, but set the exit code to 2
@@ -313,7 +316,21 @@ async function formatFiles(context) {
       continue;
     }
 
+    // A glob matched files, but every one of them is filtered out by an ignore
+    // file. Decided per-glob in `expandPatterns` against the glob's complete
+    // match set, so overlapping globs can't mask each other.
+    if (ignoredGlob !== undefined) {
+      const patternToDisplay = normalizeToPosix(
+        path.relative(cwd, path.resolve(ignoredGlob)),
+      );
+      context.logger.warn(
+        `All files matching the pattern "${patternToDisplay}" are ignored.`,
+      );
+      continue;
+    }
+
     const isFileIgnored = isIgnored(filename);
+
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
