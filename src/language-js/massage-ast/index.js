@@ -198,6 +198,7 @@ function massageAstNode(original, cloned, parent) {
     if (
       original.type === type &&
       original[property].type === "TSInstantiationExpression" &&
+      // @ts-expect-error -- safe
       !original.typeArguments
     ) {
       const { expression, typeArguments } = cloned[property];
