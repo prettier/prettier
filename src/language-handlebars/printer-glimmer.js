@@ -60,8 +60,8 @@ function print(path, options, print) {
 
       const endingTag = ["</", node.tag, ">"];
       const isScriptLike =
-        node.tag === "style" ||
-        (node.tag === "script" && node.children.length === 1);
+        (node.tag === "style" || node.tag === "script") &&
+        node.children.length === 1;
 
       if (
         node.children.length === 0 ||
@@ -176,8 +176,8 @@ function print(path, options, print) {
         }
 
         if (
-          parent.tag === "style" ||
-          (parent.tag === "script" && parent.children.length === 1)
+          (parent.tag === "style" || parent.tag === "script") &&
+          parent.children.length === 1
         ) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
