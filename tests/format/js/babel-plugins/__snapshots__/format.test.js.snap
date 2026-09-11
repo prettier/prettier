@@ -8,9 +8,9 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 async do { await requestAPI().json() };
 
 =====================================output=====================================
-async do {
+(async do {
   await requestAPI().json();
-};
+});
 
 ================================================================================
 `;
