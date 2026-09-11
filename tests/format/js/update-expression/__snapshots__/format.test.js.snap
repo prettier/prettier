@@ -26,6 +26,10 @@ f(++(a/*
 // Safe, the comment doesn't span lines.
 (a /* comment */)++;
 
+// Safe, a line comment moves to the end of the line.
+(a//
+)++;
+
 =====================================output=====================================
 // Line terminators are not allowed between the argument and a postfix operator,
 // so the parentheses must be kept.
@@ -51,6 +55,9 @@ f(
 
 // Safe, the comment doesn't span lines.
 a /* comment */++;
+
+// Safe, a line comment moves to the end of the line.
+a++; //
 
 ================================================================================
 `;

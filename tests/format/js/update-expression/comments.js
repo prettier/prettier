@@ -18,3 +18,7 @@ f(++(a/*
 
 // Safe, the comment doesn't span lines.
 (a /* comment */)++;
+
+// Safe, a line comment moves to the end of the line.
+(a//
+)++;
