@@ -42,10 +42,10 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "22.1.5",
+    "@angular/compiler": "22.1.6",
     "@babel/code-frame": "8.0.0",
-    "@babel/parser": "8.0.4",
-    "@babel/types": "8.0.4",
+    "@babel/parser": "8.0.5",
+    "@babel/types": "8.0.5",
     "@braindb/mdast-util-wiki-link": "0.2.0",
     "@braindb/micromark-extension-wiki-link": "0.1.0",
     "@bybrave/json5": "3.1.0",
@@ -83,7 +83,7 @@
     "graphql": "17.0.2",
     "hermes-parser": "0.37.0",
     "html-ua-styles": "0.5.0",
-    "ignore": "7.0.8",
+    "ignore": "7.0.9",
     "import-meta-resolve": "4.2.0",
     "imurmurhash-esm": "0.0.2",
     "index-to-position": "1.2.0",
@@ -134,7 +134,7 @@
     "yuku-parser": "0.9.5"
   },
   "devDependencies": {
-    "@babel/generator": "8.0.0",
+    "@babel/generator": "8.0.5",
     "@clack/prompts": "1.7.0",
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",

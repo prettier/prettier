@@ -15,7 +15,7 @@ const unstableTests = new Map(
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
-    "js/for-of/comments.js",
+    "js/for-of-statement/comments.js",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     [
@@ -49,16 +49,16 @@ const disabledTests = new Map(
     "babel-ts": [],
     oxc: [],
     "oxc-ts": [],
-    yuku: ["js/await/await-with-parens.js"],
-    "yuku-ts": ["js/await/await-with-parens.js"],
+    yuku: ["js/await-expression/await-with-parens.js"],
+    "yuku-ts": ["js/await-expression/await-with-parens.js"],
     hermes: [
-      "js/await/like-call.js", // Different result
+      "js/await-expression/like-call.js", // Different result
       "jsx/top-level-await/test.jsx",
     ],
     flow: [
       "js/decorators/member-expression.js", // Parsing to different ASTs
-      "js/await/await-with-parens.js",
-      "js/await/like-call.js",
+      "js/await-expression/await-with-parens.js",
+      "js/await-expression/like-call.js",
       "jsx/top-level-await/test.jsx",
     ],
     typescript: [],
