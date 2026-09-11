@@ -59,7 +59,7 @@ function print(path, options, print) {
       }
 
       const endingTag = ["</", node.tag, ">"];
-      const isStyle = node.tag === "style";
+      const isStyle = node.tag === "style" && node.children.length === 1;
 
       if (
         node.children.length === 0 ||
@@ -172,7 +172,7 @@ function print(path, options, print) {
           return replaceEndOfLine(text);
         }
 
-        if (parent.tag === "style") {
+        if (parent.tag === "style" && parent.children.length === 1) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
           text = htmlWhitespace.dedentString(text);
