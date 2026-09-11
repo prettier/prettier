@@ -16,8 +16,7 @@ function shouldAddParenthesesToChainExpression(path) {
       !parent.optional) ||
     (key === "callee" && parent.type === "NewExpression") ||
     (key === "tag" && parent.type === "TaggedTemplateExpression") ||
-    (key === "expression" && parent.type === "TSNonNullExpression") ||
-    (key === "expression" && parent.type === "TSInstantiationExpression")
+    (key === "expression" && parent.type === "TSNonNullExpression")
   );
 }
 
@@ -71,4 +70,4 @@ function shouldAddParenthesesToChainElement(path) {
   );
 }
 
-export { shouldAddParenthesesToChainElement };
+export { isChainExpressionRoot, shouldAddParenthesesToChainElement };

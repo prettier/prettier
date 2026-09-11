@@ -20,7 +20,10 @@ import {
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
-import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
+import {
+  isChainExpressionRoot,
+  shouldAddParenthesesToChainElement,
+} from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
 
@@ -878,7 +881,18 @@ function needsParentheses(path, options) {
       );
 
     case "TSInstantiationExpression":
-      return key === "object" && isMemberExpression(parent);
+      if (key === "object" && isMemberExpression(parent)) {
+        return true;
+      }
+      if (
+        ((key === "callee" && parent.type === "NewExpression") ||
+          (key === "tag" && parent.type === "TaggedTemplateExpression")) &&
+        path.call(() => isChainExpressionRoot(path), "expression")
+      ) {
+        return true;
+      }
+
+      break;
 
     case "MatchOrPattern":
       return parent.type === "MatchAsPattern";
