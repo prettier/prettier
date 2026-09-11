@@ -71,4 +71,5 @@ new (f?.g<h>)();
 (a?.b<c>)`foo`;
 // These parentheses can be stripped
 (a.b()!)`foo`;
+// https://github.com/typescript-eslint/typescript-eslint/issues/12863
 // (a.b<c>)`foo`;
