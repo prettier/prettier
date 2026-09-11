@@ -188,10 +188,12 @@ function massageAstNode(original, cloned, parent) {
   }
 
   /*
+  `(a<B>)()` and `(a)<B>()` are the same
   `new (A<B>)()` and `new (A)<B>()` are the same
-  ``` (A<B>)`` ``` and ``` (A)<B>`` ``` are the same
+  ``` (a<B>)`` ``` and ``` (a)<B>`` ``` are the same
   */
   for (const { type, property } of [
+    { type: "CallExpression", property: "callee" },
     { type: "NewExpression", property: "callee" },
     { type: "TaggedTemplateExpression", property: "tag" },
   ]) {
