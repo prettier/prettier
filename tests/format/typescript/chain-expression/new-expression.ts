@@ -66,3 +66,9 @@ new Foo(a?.b!);
 // In optional chaining
 new ((a?.b!)?.c)();
 new ((a?.b)!?.c)();
+
+// `TSInstantiationExpression`
+// new (a?.b<c>)();
+// new (a?.b)<c>();
+new (a.b<c>)();
+new (a.b)<c>();

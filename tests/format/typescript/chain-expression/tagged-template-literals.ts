@@ -65,11 +65,7 @@
 ((a?.b)!?.c)``;
 
 // `TSInstantiationExpression`
-new (f?.g<h>)();
-// These parentheses should be reserved
-(a?.b()!)`foo`;
-(a?.b<c>)`foo`;
-// These parentheses can be stripped
-(a.b()!)`foo`;
-// https://github.com/typescript-eslint/typescript-eslint/issues/12863
-// (a.b<c>)`foo`;
+// (a?.b<c>)``;
+// (a?.b)<c>``;
+(a.b<c>)``;
+(a.b)<c>``;
