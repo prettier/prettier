@@ -879,7 +879,7 @@ function needsParentheses(path, options) {
 
     case "TSInstantiationExpression":
       /*
-      There are cases not really needed
+      There are cases not really needed parentheses
       - `(a<B>)()`
       - `new (A<B>)()`
       - ``` (a<B>)`` ```
