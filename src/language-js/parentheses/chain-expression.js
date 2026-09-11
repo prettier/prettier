@@ -72,4 +72,4 @@ function isChainExpressionRoot(path) {
   return path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path);
 }
 
-export { isChainExpressionRoot, shouldAddParenthesesToChainElement };
+export { shouldAddParenthesesToChainElement };
