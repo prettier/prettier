@@ -218,6 +218,15 @@ If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prett
 
 :::note
 
+`editorconfig` is **not** a Prettier configuration-file option. Adding `editorconfig: true` to `.prettierrc` (or similar) produces an “Ignored unknown option” warning.
+
+- **CLI:** reads `.editorconfig` by default. Disable with [`--no-editorconfig`](cli.md#--no-editorconfig).
+- **Node.js API:** pass `{ editorconfig: true }` to [`prettier.resolveConfig()`](api.md#prettierresolveconfigfileurlorpath--options) when you want EditorConfig settings included. The option defaults to `false` in the API.
+
+:::
+
+:::note
+
 Unlike the EditorConfig spec, the search for `.editorconfig` file will stop on the project root and won't proceed further.
 
 :::
