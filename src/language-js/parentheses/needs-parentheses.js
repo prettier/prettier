@@ -785,6 +785,7 @@ function needsParentheses(path, options) {
     case "OptionalCallExpression":
     case "ChainExpression":
     case "TSNonNullExpression":
+    case "TSInstantiationExpression":
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
@@ -879,21 +880,6 @@ function needsParentheses(path, options) {
             key === "declaration" && parent.type === "ExportDefaultDeclaration"
           ))
       );
-
-    case "TSInstantiationExpression":
-      if (key === "object" && isMemberExpression(parent)) {
-        return true;
-      }
-
-      if (
-        ((key === "callee" && parent.type === "NewExpression") ||
-          (key === "tag" && parent.type === "TaggedTemplateExpression")) &&
-        path.call(() => isChainExpressionRoot(path), "expression")
-      ) {
-        return true;
-      }
-
-      break;
 
     case "MatchOrPattern":
       return parent.type === "MatchAsPattern";

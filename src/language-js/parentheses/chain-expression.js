@@ -8,7 +8,9 @@ function shouldAddParenthesesToChainExpression(path) {
   const { key, parent } = path;
 
   return (
-    (key === "expression" && parent.type === "TSNonNullExpression") ||
+    (key === "expression" &&
+      (parent.type === "TSNonNullExpression" ||
+        parent.type === "TSInstantiationExpression")) ||
     (key === "object" &&
       parent.type === "MemberExpression" &&
       !parent.optional) ||
