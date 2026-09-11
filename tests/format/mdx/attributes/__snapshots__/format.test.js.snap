@@ -66,6 +66,51 @@ parsers: ["mdx"]
 ================================================================================
 `;
 
+exports[`jsx-element.md format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<CodeBlock
+  language="yaml"
+  title={
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+      <span>
+        <code>ReactNode</code> title
+      </span>{' '}
+      <span className="badge badge--primary">YAML</span>
+    </div>
+  }>
+  abc
+</CodeBlock>
+
+=====================================output=====================================
+<CodeBlock
+  language="yaml"
+  title={<div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    <span>
+      <code>ReactNode</code> title
+    </span>{" "}
+    <span className="badge badge--primary">YAML</span>
+  </div>}
+>
+  abc
+</CodeBlock>
+
+================================================================================
+`;
+
 exports[`space-around-equal-sign.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
