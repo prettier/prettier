@@ -20,10 +20,7 @@ import {
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
-import {
-  isChainExpressionRoot,
-  shouldAddParenthesesToChainElement,
-} from "./chain-expression.js";
+import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
 
