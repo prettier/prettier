@@ -779,12 +779,6 @@ function needsParentheses(path, options) {
           return false;
       }
 
-    case "TSInstantiationExpression":
-      if (key === "object" && isMemberExpression(parent)) {
-        return true;
-      }
-
-    // fallthrough
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
     case "ChainExpression":
@@ -884,6 +878,9 @@ function needsParentheses(path, options) {
             key === "declaration" && parent.type === "ExportDefaultDeclaration"
           ))
       );
+
+    case "TSInstantiationExpression":
+      return key === "object" && isMemberExpression(parent);
 
     case "MatchOrPattern":
       return parent.type === "MatchAsPattern";
