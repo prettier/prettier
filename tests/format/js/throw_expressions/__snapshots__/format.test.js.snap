@@ -1,5 +1,82 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`parentheses.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(throw error);
+(throw error) || fallback;
+(throw error).message;
+(throw error, other);
+if (condition) (throw error);
+for (;;) (throw error);
+label: (throw error);
+value = (throw error);
+() => (throw error);
+
+=====================================output=====================================
+(throw error);
+(throw error) || fallback;
+(throw error).message;
+((throw error), other);
+if (condition) (throw error);
+for (;;) (throw error);
+label: (throw error);
+value = throw error;
+() => throw error;
+
+================================================================================
+`;
+
+exports[`parentheses.js format[acorn] 1`] = `
+"Unexpected token (1:2)
+> 1 | (throw error);
+    |  ^
+  2 | (throw error) || fallback;
+  3 | (throw error).message;
+  4 | (throw error, other);
+Cause: Unexpected token (1:1)"
+`;
+
+exports[`parentheses.js format[espree] 1`] = `
+"Unexpected token throw (1:2)
+> 1 | (throw error);
+    |  ^
+  2 | (throw error) || fallback;
+  3 | (throw error).message;
+  4 | (throw error, other);
+Cause: Unexpected token throw"
+`;
+
+exports[`parentheses.js format[meriyah] 1`] = `
+"Unexpected token: 'throw' (1:2)
+> 1 | (throw error);
+    |  ^^^^^
+  2 | (throw error) || fallback;
+  3 | (throw error).message;
+  4 | (throw error, other);
+Cause: [1:1-1:6]: Unexpected token: 'throw'"
+`;
+
+exports[`parentheses.js format[oxc] 1`] = `
+"Unexpected token (1:2)
+> 1 | (throw error);
+    |  ^^^^^
+  2 | (throw error) || fallback;
+  3 | (throw error).message;
+  4 | (throw error, other);"
+`;
+
+exports[`parentheses.js format[yuku] 1`] = `
+"'throw' is reserved and cannot be used as an identifier (1:2)
+> 1 | (throw error);
+    |  ^^^^^
+  2 | (throw error) || fallback;
+  3 | (throw error).message;
+  4 | (throw error, other);"
+`;
+
 exports[`throw_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
