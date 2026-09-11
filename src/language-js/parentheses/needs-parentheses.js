@@ -882,7 +882,10 @@ function needsParentheses(path, options) {
         (key === "object" && isMemberExpression(parent)) ||
         (key === "callee" && parent.type === "CallExpression") ||
         (key === "callee" && parent.type === "NewExpression") ||
-        (key === "tag" && parent.type === "TaggedTemplateExpression")
+        (key === "tag" && parent.type === "TaggedTemplateExpression") ||
+        (key === "superClass" &&
+          (parent.type === "ClassDeclaration" ||
+            parent.type === "ClassExpression"))
       ) {
         return true;
       }
