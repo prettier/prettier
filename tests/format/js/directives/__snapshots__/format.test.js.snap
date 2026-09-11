@@ -179,6 +179,21 @@ a;
 ================================================================================
 `;
 
+exports[`string-literal.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Parentheses around expression statement should be preserved in this case.
+("use strict");
+
+=====================================output=====================================
+// Parentheses around expression statement should be preserved in this case.
+("use strict");
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -233,6 +248,21 @@ function f4() {
 
   Object.assign(this, { $log, $uibModal });
 }
+
+================================================================================
+`;
+
+exports[`use-strict.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Ensure no regression.
+"use strict";
+
+=====================================output=====================================
+// Ensure no regression.
+"use strict";
 
 ================================================================================
 `;
