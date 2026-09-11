@@ -208,7 +208,7 @@ function printListItemLegacy(path, options, print, listPrefix) {
     prefix,
     printChildren(path, options, print, {
       processor({ node, isFirst }) {
-        if ((isFirst && node.type !== "list") || node.type === "html") {
+        if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
