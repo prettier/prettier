@@ -62,9 +62,6 @@ function embed(path /* , options*/) {
   }
 
   const content = node.chars;
-  if (content.includes("{{")) {
-    return;
-  }
 
   const textToDocOptions = { parser, __embeddedInHtml: true };
   if (parser === "babel") {

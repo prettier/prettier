@@ -9,12 +9,12 @@ parsers: ["glimmer"]
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script></script>
 
+<script>
+   shouldFormat   (   );
+</script>
+
 <script type="text/javascript">
-  const interval = setInterval( function() {
-    var timestamp = Date.now();
-    console.log(timestamp);
-  }, 1000
-  ); var a = 5;
+   shouldFormat   (   );
 </script>
 
 <script type="module">
@@ -27,25 +27,25 @@ parsers: ["glimmer"]
 
 <script>
   const a = await fetch("a");
-  console.log( a );
+  shouldNotFormat   (   a   );
 </script>
 
 <script type="module">
   const a = await fetch("a");
-  console.log( a );
+  shouldFormat   (   a   );
 </script>
 
 <script type="application/ld+json">
-  { "@context": "https://schema.org" }
+  {    "should"   :    "not format" }
 </script>
 
 <script>
-  var user = "{{user.name}}";
-  {{#if debug}}console.log("debug");{{/if}}
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
 </script>
 
 <script>
-  const template = html\`<div><script>a<\\/script></div>\`;
+  const template = html\`<div><script>shouldFormat   (   )<\\/script></div>\`;
 </script>
 
 =====================================output=====================================
@@ -54,12 +54,12 @@ parsers: ["glimmer"]
 ></script>
 <script></script>
 
+<script>
+  shouldFormat   (   );
+</script>
+
 <script type="text/javascript">
-  const interval = setInterval( function() {
-    var timestamp = Date.now();
-    console.log(timestamp);
-  }, 1000
-  ); var a = 5;
+  shouldFormat   (   );
 </script>
 
 <script type="module">
@@ -72,25 +72,25 @@ parsers: ["glimmer"]
 
 <script>
   const a = await fetch("a");
-  console.log( a );
+  shouldNotFormat   (   a   );
 </script>
 
 <script type="module">
   const a = await fetch("a");
-  console.log( a );
+  shouldFormat   (   a   );
 </script>
 
 <script type="application/ld+json">
-  { "@context": "https://schema.org" }
+  {    "should"   :    "not format" }
 </script>
 
 <script>
-  var user = "{{user.name}}";
-  {{#if debug}}console.log("debug");{{/if}}
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
 </script>
 
 <script>
-  const template = html\`<div><script>a<\\/script></div>\`;
+  const template = html\`<div><script>shouldFormat   (   )<\\/script></div>\`;
 </script>
 ================================================================================
 `;
@@ -103,12 +103,12 @@ parsers: ["glimmer"]
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script></script>
 
+<script>
+   shouldFormat   (   );
+</script>
+
 <script type="text/javascript">
-  const interval = setInterval( function() {
-    var timestamp = Date.now();
-    console.log(timestamp);
-  }, 1000
-  ); var a = 5;
+   shouldFormat   (   );
 </script>
 
 <script type="module">
@@ -121,25 +121,25 @@ parsers: ["glimmer"]
 
 <script>
   const a = await fetch("a");
-  console.log( a );
+  shouldNotFormat   (   a   );
 </script>
 
 <script type="module">
   const a = await fetch("a");
-  console.log( a );
+  shouldFormat   (   a   );
 </script>
 
 <script type="application/ld+json">
-  { "@context": "https://schema.org" }
+  {    "should"   :    "not format" }
 </script>
 
 <script>
-  var user = "{{user.name}}";
-  {{#if debug}}console.log("debug");{{/if}}
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
 </script>
 
 <script>
-  const template = html\`<div><script>a<\\/script></div>\`;
+  const template = html\`<div><script>shouldFormat   (   )<\\/script></div>\`;
 </script>
 
 =====================================output=====================================
@@ -148,12 +148,12 @@ parsers: ["glimmer"]
 ></script>
 <script></script>
 
+<script>
+  shouldFormat();
+</script>
+
 <script type="text/javascript">
-  const interval = setInterval(function () {
-    var timestamp = Date.now();
-    console.log(timestamp);
-  }, 1000);
-  var a = 5;
+  shouldFormat();
 </script>
 
 <script type="module">
@@ -168,27 +168,27 @@ parsers: ["glimmer"]
 
 <script>
   const a = await fetch("a");
-  console.log( a );
+  shouldNotFormat   (   a   );
 </script>
 
 <script type="module">
   const a = await fetch("a");
-  console.log(a);
+  shouldFormat(a);
 </script>
 
 <script type="application/ld+json">
-  { "@context": "https://schema.org" }
+  {    "should"   :    "not format" }
 </script>
 
 <script>
-  var user = "{{user.name}}";
-  {{#if debug}}console.log("debug");{{/if}}
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
 </script>
 
 <script>
   const template = html\`<div>
     <script>
-      a;
+      shouldFormat();
     <\\/script>
   </div>\`;
 </script>
