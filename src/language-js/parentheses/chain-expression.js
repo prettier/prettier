@@ -62,9 +62,12 @@ function isBabelOptionalChainRoot(path) {
 */
 function shouldAddParenthesesToChainElement(path) {
   return (
-    (path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path)) &&
-    shouldAddParenthesesToChainExpression(path)
+    isChainExpressionRoot(path) && shouldAddParenthesesToChainExpression(path)
   );
 }
 
-export { shouldAddParenthesesToChainElement };
+function isChainExpressionRoot(path) {
+  return path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path);
+}
+
+export { isChainExpressionRoot, shouldAddParenthesesToChainElement };
