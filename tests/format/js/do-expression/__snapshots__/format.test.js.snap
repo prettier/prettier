@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`async-do-expressions.js format 1`] = `
+exports[`async-do-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -55,7 +55,7 @@ let x = async do {
 ================================================================================
 `;
 
-exports[`async-do-expressions.js format[acorn] 1`] = `
+exports[`async-do-expression.js format[acorn] 1`] = `
 "Unexpected token (1:7)
 > 1 | async do {
     |       ^
@@ -65,7 +65,7 @@ exports[`async-do-expressions.js format[acorn] 1`] = `
 Cause: Unexpected token (1:6)"
 `;
 
-exports[`async-do-expressions.js format[espree] 1`] = `
+exports[`async-do-expression.js format[espree] 1`] = `
 "Unexpected token do (1:7)
 > 1 | async do {
     |       ^
@@ -75,7 +75,7 @@ exports[`async-do-expressions.js format[espree] 1`] = `
 Cause: Unexpected token do"
 `;
 
-exports[`async-do-expressions.js format[meriyah] 1`] = `
+exports[`async-do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (1:7)
 > 1 | async do {
     |       ^^
@@ -85,7 +85,7 @@ exports[`async-do-expressions.js format[meriyah] 1`] = `
 Cause: [1:6-1:8]: Unexpected token: 'do'"
 `;
 
-exports[`async-do-expressions.js format[oxc] 1`] = `
+exports[`async-do-expression.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
 > 1 | async do {
     |      ^
@@ -94,7 +94,7 @@ exports[`async-do-expressions.js format[oxc] 1`] = `
   4 |"
 `;
 
-exports[`async-do-expressions.js format[yuku] 1`] = `
+exports[`async-do-expression.js format[yuku] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
 > 1 | async do {
     |       ^^
