@@ -20,7 +20,7 @@ import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import {
   hasPrettierIgnore,
-  isPlainStyle,
+  isPlainTextStyleElement,
   isVoidElement,
   isWhitespaceNode,
 } from "./utilities.js";
@@ -60,7 +60,7 @@ function print(path, options, print) {
       }
 
       const endingTag = ["</", node.tag, ">"];
-      const isStyle = isPlainStyle(node);
+      const isStyle = isPlainTextStyleElement(node);
 
       if (
         node.children.length === 0 ||
@@ -173,7 +173,7 @@ function print(path, options, print) {
           return replaceEndOfLine(text);
         }
 
-        if (isPlainStyle(parent)) {
+        if (isPlainTextStyleElement(parent)) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
           text = htmlWhitespace.dedentString(text);

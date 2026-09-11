@@ -1,4 +1,4 @@
-import { isPlainStyle } from "./utilities.js";
+import { isPlainTextStyleElement } from "./utilities.js";
 
 function embed(path /* , options*/) {
   const { node } = path;
@@ -9,7 +9,7 @@ function embed(path /* , options*/) {
 
   const { parent } = path;
 
-  if (!isPlainStyle(parent)) {
+  if (!isPlainTextStyleElement(parent)) {
     return;
   }
 

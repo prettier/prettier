@@ -1,5 +1,5 @@
 import htmlWhitespace from "../../utilities/html-whitespace.js";
-import { isPlainStyle } from "../utilities.js";
+import { isPlainTextStyleElement } from "../utilities.js";
 
 function massageAstNode(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode
@@ -10,7 +10,7 @@ function massageAstNode(original, cloned, parent) {
     }
 
     // CSS will be formatted
-    if (isPlainStyle(parent)) {
+    if (isPlainTextStyleElement(parent)) {
       cloned.chars = "";
     } else {
       cloned.chars = htmlWhitespace.split(trimmed).join(" ");
