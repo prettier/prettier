@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`duplicate_bindings.js format 1`] = `
+exports[`duplicate-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -14,7 +14,7 @@ class A {}
 ================================================================================
 `;
 
-exports[`duplicate_bindings.js format[acorn] 1`] = `
+exports[`duplicate-bindings.js format[acorn] 1`] = `
 "Identifier 'A' has already been declared (1:19)
 > 1 | class A{}   class A{}
     |                   ^
@@ -22,7 +22,7 @@ exports[`duplicate_bindings.js format[acorn] 1`] = `
 Cause: Identifier 'A' has already been declared (1:18)"
 `;
 
-exports[`duplicate_bindings.js format[espree] 1`] = `
+exports[`duplicate-bindings.js format[espree] 1`] = `
 "Identifier 'A' has already been declared (1:19)
 > 1 | class A{}   class A{}
     |                   ^

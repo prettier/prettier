@@ -350,7 +350,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`multiple_standalones.js - {"bracketSpacing":false} format 1`] = `
+exports[`multiple-standalones.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -364,7 +364,7 @@ import a, * as b from "a";
 ================================================================================
 `;
 
-exports[`multiple_standalones.js format 1`] = `
+exports[`multiple-standalones.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
