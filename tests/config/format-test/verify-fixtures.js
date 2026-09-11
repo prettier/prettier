@@ -1,9 +1,8 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 import { FORMAT_TEST_DIRECTORY, FULL_TEST } from "./constants.js";
 
-const { __filename } = createEsmUtils(import.meta);
+const __filename = import.meta.filename;
 
 const getCategory = (dirname) =>
   path.relative(FORMAT_TEST_DIRECTORY, dirname).split(path.sep).shift();

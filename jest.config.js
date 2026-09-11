@@ -1,9 +1,8 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import installBrowser from "./tests/config/install-browser.js";
 import installPrettier from "./tests/config/install-prettier.js";
 
-const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
+const PROJECT_ROOT = import.meta.dirname;
 const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);

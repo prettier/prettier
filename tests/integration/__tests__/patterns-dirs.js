@@ -1,10 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import { projectRoot } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 expect.addSnapshotSerializer(jestPathSerializer);
 

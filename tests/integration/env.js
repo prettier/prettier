@@ -1,7 +1,8 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 
-const { __dirname, require } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
+const { require } = createEsmUtils(import.meta);
 
 const isProduction = process.env.NODE_ENV === "production";
 const { PRETTIER_DIR } = process.env;

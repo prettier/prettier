@@ -1,8 +1,7 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import { normalizeDirectory } from "./utilities.js";
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 export const FORMAT_TEST_SCRIPT_FILENAME = "format.test.js";
 
