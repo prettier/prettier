@@ -8,9 +8,6 @@ function shouldAddParenthesesToChainExpression(path) {
   const { key, parent } = path;
 
   return (
-    (key === "expression" &&
-      (parent.type === "TSNonNullExpression" ||
-        parent.type === "TSInstantiationExpression")) ||
     (key === "object" &&
       parent.type === "MemberExpression" &&
       !parent.optional) ||
@@ -18,7 +15,9 @@ function shouldAddParenthesesToChainExpression(path) {
       parent.type === "CallExpression" &&
       !parent.optional) ||
     (key === "callee" && parent.type === "NewExpression") ||
-    (key === "tag" && parent.type === "TaggedTemplateExpression")
+    (key === "tag" && parent.type === "TaggedTemplateExpression") ||
+    (key === "expression" && parent.type === "TSNonNullExpression") ||
+    (key === "expression" && parent.type === "TSInstantiationExpression")
   );
 }
 
@@ -58,6 +57,10 @@ function isBabelOptionalChainRoot(path) {
   );
 }
 
+function isChainExpressionRoot(path) {
+  return path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path);
+}
+
 /**
 @param {AstPath} path
 @returns {boolean}
@@ -66,10 +69,6 @@ function shouldAddParenthesesToChainElement(path) {
   return (
     isChainExpressionRoot(path) && shouldAddParenthesesToChainExpression(path)
   );
-}
-
-function isChainExpressionRoot(path) {
-  return path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path);
 }
 
 export { shouldAddParenthesesToChainElement };
