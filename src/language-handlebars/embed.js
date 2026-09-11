@@ -1,3 +1,5 @@
+import { isPlainTextStyleOrScriptElement } from "./utilities.js";
+
 function getAttribute(node, name) {
   return node.attributes.find(
     (attribute) => attribute.type === "AttrNode" && attribute.name === name,
@@ -42,20 +44,17 @@ function embed(path /* , options*/) {
   }
 
   const { parent } = path;
-  if (
-    parent.type !== "ElementNode" ||
-    parent.children.length !== 1 ||
-    parent.children[0] !== node
-  ) {
+
+  if (!(
+    isPlainTextStyleOrScriptElement(parent) && parent.children[0] === node
+  )) {
     return;
   }
 
-  let parser;
-  if (parent.tag === "style") {
-    parser = inferStyleParser(parent);
-  } else if (parent.tag === "script") {
-    parser = inferScriptParser(parent);
-  }
+  const parser =
+    parent.tag === "style"
+      ? inferStyleParser(parent)
+      : inferScriptParser(parent);
 
   if (!parser) {
     return;
