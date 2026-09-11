@@ -143,7 +143,7 @@ exports[`call-arguments.js format[yuku] 1`] = `
   6 |       "unreachable""
 `;
 
-exports[`do.js format 1`] = `
+exports[`do-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -284,7 +284,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`do.js format[acorn] 1`] = `
+exports[`do-expression.js format[acorn] 1`] = `
 "Unexpected token (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -296,7 +296,7 @@ exports[`do.js format[acorn] 1`] = `
 Cause: Unexpected token (3:4)"
 `;
 
-exports[`do.js format[espree] 1`] = `
+exports[`do-expression.js format[espree] 1`] = `
 "Unexpected token do (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -308,7 +308,7 @@ exports[`do.js format[espree] 1`] = `
 Cause: Unexpected token do"
 `;
 
-exports[`do.js format[meriyah] 1`] = `
+exports[`do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -320,7 +320,7 @@ exports[`do.js format[meriyah] 1`] = `
 Cause: [3:4-3:6]: Unexpected token: 'do'"
 `;
 
-exports[`do.js format[oxc] 1`] = `
+exports[`do-expression.js format[oxc] 1`] = `
 "Unexpected token (3:5)
   1 | const envSpecific = {
   2 |   domain:
@@ -331,7 +331,7 @@ exports[`do.js format[oxc] 1`] = `
   6 |     }"
 `;
 
-exports[`do.js format[yuku] 1`] = `
+exports[`do-expression.js format[yuku] 1`] = `
 "'do' is reserved and cannot be used as an identifier (3:5)
   1 | const envSpecific = {
   2 |   domain:
