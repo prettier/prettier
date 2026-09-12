@@ -257,7 +257,7 @@ function shouldPrintSemicolonAfterClassProperty(
   }
 
   if (!nextNode.computed && nextNode.key?.type === "Identifier") {
-    const name = nextNode.key.name;
+    const { name } = nextNode.key;
     if (name === "in" || name === "instanceof") {
       return true;
     }
