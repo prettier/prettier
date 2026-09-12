@@ -4,11 +4,15 @@ import {
   group,
   hardline,
   indent,
+  inheritLabel,
   join,
   label,
   willBreak,
 } from "../../document/index.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../location/index.js";
@@ -65,6 +69,12 @@ function printMemberChain(path, options, print) {
   /** @type {PrintedNode[]}} */
   const printedNodes = [];
 
+  // Leading comments on intermediate chain nodes (CallExpression,
+  // MemberExpression) need to be moved to the base node so they don't
+  // end up between a member lookup and its call arguments.
+  /** @type {Doc[]} */
+  const chainLeadingComments = [];
+
   // Here we try to retain one typed empty line after each call expression or
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
@@ -96,19 +106,22 @@ function printMemberChain(path, options, print) {
       !needsParentheses(path, options)
     ) {
       const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
+      const { leading, trailing } = printCommentsSeparately(path, options);
+      if (leading) {
+        chainLeadingComments.unshift(leading);
+      }
+      const callDoc = [
+        printOptionalToken(path),
+        print("typeArguments"),
+        printCallArguments(path, options, print),
+      ];
       printedNodes.unshift({
         node,
         hasTrailingEmptyLine,
         printed: [
-          printComments(
-            path,
-            [
-              printOptionalToken(path),
-              print("typeArguments"),
-              printCallArguments(path, options, print),
-            ],
-            options,
-          ),
+          trailing
+            ? inheritLabel(callDoc, (doc) => [doc, trailing])
+            : callDoc,
           hasTrailingEmptyLine ? hardline : "",
         ],
       });
@@ -161,6 +174,14 @@ function printMemberChain(path, options, print) {
 
   if (node.callee) {
     path.call(rec, "callee");
+  }
+
+  // Prepend any leading comments from intermediate chain nodes to the base node
+  if (chainLeadingComments.length > 0) {
+    printedNodes[0].printed = [
+      ...chainLeadingComments,
+      printedNodes[0].printed,
+    ];
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out
