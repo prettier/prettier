@@ -174,7 +174,10 @@ function print(path, options, print) {
           return replaceEndOfLine(text);
         }
 
-        if (isPlainTextStyleOrScriptElement(parent)) {
+        if (
+          isPlainTextStyleOrScriptElement(parent) &&
+          parent.children[0] === node
+        ) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
           text = htmlWhitespace.dedentString(text);
