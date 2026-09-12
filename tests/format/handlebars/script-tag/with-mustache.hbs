@@ -1,0 +1,8 @@
+<script>
+  shouldNotFormat(   {{foo}} )
+</script>
+<script>
+  shouldNotFormat(   '{{user.name}}' )
+  {{#if debug}}shouldNotFormat(   'debug' ){{/if}}
+</script>
+<script>{{foo}}</script>

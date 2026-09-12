@@ -1,6 +1,42 @@
 import { group, indent, mapDoc, softline } from "../document/index.js";
 import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
-import { isPlainTextStyleElement } from "./utilities.js";
+import { isPlainTextStyleOrScriptElement } from "./utilities.js";
+
+function getAttribute(node, name) {
+  return node.attributes.find(
+    (attribute) => attribute.type === "AttrNode" && attribute.name === name,
+  );
+}
+
+function getTextValue(attribute) {
+  return attribute.value.type === "TextNode"
+    ? attribute.value.chars
+    : undefined;
+}
+
+function getScriptTextToDocOptions(node) {
+  if (getAttribute(node, "src")) {
+    return;
+  }
+
+  const typeAttribute = getAttribute(node, "type");
+  const type = typeAttribute ? getTextValue(typeAttribute) : undefined;
+
+  if (!typeAttribute || type === "module" || type === "text/javascript") {
+    return {
+      parser: "babel",
+      __embeddedInHtml: true,
+      __babelSourceType: type === "module" ? "module" : "script",
+    };
+  }
+}
+
+function getStyleTextToDocOptions(node) {
+  const langAttribute = getAttribute(node, "lang");
+  if (!langAttribute || getTextValue(langAttribute) === "css") {
+    return { parser: "css" };
+  }
+}
 
 function printExpand(doc) {
   return [indent([softline, doc]), softline];
@@ -15,8 +51,11 @@ function embed(path, options) {
 
   const { parent } = path;
 
-  if (isPlainTextStyleElement(parent) && parent.children[0] === node) {
-    return embedStyleElement(path);
+  if (
+    isPlainTextStyleOrScriptElement(parent) &&
+    parent.children[0] === node
+  ) {
+    return embedStyleOrScriptElement(path);
   }
 
   if (parent.type === "AttrNode" && parent.name.toLowerCase() === "style") {
@@ -24,29 +63,24 @@ function embed(path, options) {
   }
 }
 
-function embedStyleElement(path) {
+function embedStyleOrScriptElement(path) {
   const { node, parent } = path;
 
-  const languageAttribute = parent.attributes.find(
-    (attribute) => attribute.type === "AttrNode" && attribute.name === "lang",
-  );
-  if (
-    languageAttribute &&
-    !(
-      languageAttribute.value.type === "TextNode" &&
-      languageAttribute.value.chars === "css"
-    )
-  ) {
+  const textToDocOptions =
+    parent.tag === "style"
+      ? getStyleTextToDocOptions(parent)
+      : getScriptTextToDocOptions(parent);
+
+  if (!textToDocOptions) {
     return;
   }
 
   return async (textToDoc) => {
-    const context = node.chars;
-    if (!context.trim()) {
+    const content = node.chars;
+    if (!content.trim()) {
       return "";
     }
-    const doc = await textToDoc(context, { parser: "css" });
-    return doc;
+    return await textToDoc(content, textToDocOptions);
   };
 }
 
