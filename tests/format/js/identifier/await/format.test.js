@@ -8,6 +8,9 @@ const testCases = [
   "await()",
   "(await)()",
 
+  "await?.(1)",
+  "(await)?.()",
+
   "await + 1",
   "(await) + 1",
 
@@ -16,6 +19,12 @@ const testCases = [
 
   "await[0]",
   "(await)[0]",
+
+  "await.all [0]",
+  "(await).all [0]",
+
+  "await?.x",
+  "(await)?.x",
 ].map((code) => ({ code, filepath: "test.cjs" }));
 
 runFormatTest(
