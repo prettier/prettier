@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ng-non-bindable.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span ngNonBindable>{{foo   +bar}}</span>
+
+=====================================output=====================================
+<span ngNonBindable>{{foo   +bar}}</span>
+
+================================================================================
+`;
