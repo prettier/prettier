@@ -5,9 +5,9 @@ exports[`script-tag.hbs format 1`] = `
 parsers: ["glimmer"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script></script>
 
+<script>   </script>
 
 <script type="module">
   import    a   from   "a"   ;
@@ -37,9 +37,8 @@ parsers: ["glimmer"]
 </script>
 
 =====================================output=====================================
-<script
-  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-></script>
+<script></script>
+
 <script></script>
 
 <script type="module">
@@ -152,5 +151,29 @@ parsers: ["glimmer"]
   {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
 </script>
 <script>{{foo}}</script>
+================================================================================
+`;
+
+exports[`with-src.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script src="main.js"></script>
+<script src="main.js">shouldNotFormat   (      );</script>
+<script src>shouldNotFormat   (      );</script>
+<script src="">shouldNotFormat   (      );</script>
+
+=====================================output=====================================
+<script src="main.js"></script>
+<script src="main.js">
+  shouldNotFormat   (      );
+</script>
+<script src>
+  shouldNotFormat   (      );
+</script>
+<script src="">
+  shouldNotFormat   (      );
+</script>
 ================================================================================
 `;
