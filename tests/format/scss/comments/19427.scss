@@ -1,0 +1,11 @@
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // THIS
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))));
+}
+
+.bar {
+  margin: fn(1,
+  // leading comment
+  2, 3);
+}
