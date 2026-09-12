@@ -107,6 +107,7 @@ export namespace builders {
     id?: symbol | undefined;
   }
 
+  /** @see [addAlignmentToDoc](https://github.com/prettier/prettier/blob/main/commands.md#addalignmenttodoc) */
   function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
 
   /** @see [align](https://github.com/prettier/prettier/blob/main/commands.md#align) */
