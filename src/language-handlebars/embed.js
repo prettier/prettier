@@ -12,27 +12,27 @@ function getTextValue(attribute) {
     : undefined;
 }
 
-function inferScriptParser(node) {
+function getScriptTextToDocOptions(node) {
   if (getAttribute(node, "src")) {
     return;
   }
 
   const typeAttribute = getAttribute(node, "type");
-  if (!typeAttribute) {
-    return "babel";
-  }
+  const type = typeAttribute ? getTextValue(typeAttribute) : undefined;
 
-  switch (getTextValue(typeAttribute)) {
-    case "module":
-    case "text/javascript":
-      return "babel";
+  if (!typeAttribute || type === "module" || type === "text/javascript") {
+    return {
+      parser: "babel",
+      __embeddedInHtml: true,
+      __babelSourceType: type === "module" ? "module" : "script",
+    };
   }
 }
 
-function inferStyleParser(node) {
+function getStyleTextToDocOptions(node) {
   const langAttribute = getAttribute(node, "lang");
   if (!langAttribute || getTextValue(langAttribute) === "css") {
-    return "css";
+    return { parser: "css", __embeddedInHtml: true };
   }
 }
 
@@ -51,26 +51,16 @@ function embed(path /* , options*/) {
     return;
   }
 
-  const parser =
+  const textToDocOptions =
     parent.tag === "style"
-      ? inferStyleParser(parent)
-      : inferScriptParser(parent);
+      ? getStyleTextToDocOptions(parent)
+      : getScriptTextToDocOptions(parent);
 
-  if (!parser) {
+  if (!textToDocOptions) {
     return;
   }
 
   const content = node.chars;
-
-  const textToDocOptions = { parser, __embeddedInHtml: true };
-  if (parser === "babel") {
-    const typeAttribute = getAttribute(parent, "type");
-    textToDocOptions.__babelSourceType =
-      typeAttribute && getTextValue(typeAttribute) === "module"
-        ? "module"
-        : "script";
-  }
-
   return async (textToDoc) => {
     if (!content.trim()) {
       return "";
