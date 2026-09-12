@@ -72,7 +72,7 @@ function print(path, options, print) {
 
       const parts = path.map(print, "children");
 
-      if (isPlainStyleOrScript || !isWhitespaceSensitive) {
+      if (!isWhitespaceSensitive || isPlainStyleOrScript) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
