@@ -93,6 +93,23 @@ function shouldAddParenthesesToIdentifier(path) {
     }
   }
 
+  if (node.name === "await") {
+    const statement = path.findAncestor(
+      (node) => node.type === "ExpressionStatement",
+    );
+    if (statement) {
+      const { expression } = statement;
+      if (
+        startsWithNoLookaheadToken(
+          expression,
+          (leftmostNode) => leftmostNode === node,
+        )
+      ) {
+        return true;
+      }
+    }
+  }
+
   // `(type) satisfies never;` and similar cases
   if (
     key === "expression" &&

@@ -7,8 +7,8 @@ import createBabelParseError from "./utilities/create-babel-parse-error.js";
 import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
   SOURCE_TYPE_COMMONJS,
-  SOURCE_TYPE_MODULE,
 } from "./utilities/source-types.js";
 import wrapExpression from "./utilities/wrap-expression.js";
 
@@ -22,7 +22,6 @@ const createBabelParser = (options) => createParser(createParse(options));
 
 /** @type {ParserOptions} */
 const parseOptions = {
-  sourceType: SOURCE_TYPE_MODULE,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowNewTargetOutsideFunction: true,
@@ -132,8 +131,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(filepath);
-    if (sourceType && sourceType !== SOURCE_TYPE_MODULE) {
-      combinations = combinations.map((options) => ({
+
+    combinations = (
+      sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+    ).flatMap((sourceType) =>
+      combinations.map((options) => ({
         ...options,
         sourceType,
         // `sourceType: "commonjs"` does not allow these two properties
@@ -143,8 +145,8 @@ function createParse({ isExpression = false, optionsCombinations }) {
               allowNewTargetOutsideFunction: undefined,
             }
           : undefined),
-      }));
-    }
+      })),
+    );
 
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
