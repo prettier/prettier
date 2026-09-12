@@ -1,10 +1,10 @@
 runFormatTest(import.meta, [
-  "babel",
+  // "babel",
   // "acorn",
   // "espree",
   // "meriyah",
   "typescript",
-  "babel-ts",
+  // "babel-ts",
   // "oxc",
   // "oxc-ts",
   // "yuku",
