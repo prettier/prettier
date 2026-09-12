@@ -1,0 +1,17 @@
+a {
+  color: rgb(from red r g +130);
+  color: rgba(from red r g +130 / +.5);
+  color: hsl(from red +130 s l);
+  color: hsla(from red +130 s l / +.5);
+  color: hwb(from red h w +30%);
+  color: lab(from red l a +20);
+  color: lch(from red l c +130);
+  color: oklab(from red l a +.2);
+  color: oklch(from rgb(255, 0, 0) l c +130);
+  color: color(from red srgb r g +.5);
+  color: color(srgb +.5 +.2 +.1 / +.5);
+  color: oklch(from red l c -130);
+  color: OKLCH(from red l c +130deg);
+  color: oklch(from red l c calc(h + 130));
+  color: oklch(from red l c min(h + 130, 360));
+}
