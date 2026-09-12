@@ -3,7 +3,7 @@
 exports[`ng-non-bindable.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
-parsers: ["mdx"]
+parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <span ngNonBindable>{{foo   +bar}}</span>

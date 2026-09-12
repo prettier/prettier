@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["mdx"], { embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["angular"], { embeddedLanguageFormatting: "off" });
