@@ -36,13 +36,20 @@ const embeddedAngularControlFlowBlocks = new Set([
 
 const angularNonBindableCache = new WeakMap();
 function isInsideAngularNonBindable(node) {
-  return getOrInsertComputed(angularNonBindableCache, node, (node) =>
-    node.kind === "element" && Object.hasOwn(node.attrMap, "ngNonBindable")
-      ? true
-      : node.parent
-        ? isInsideAngularNonBindable(node.parent)
-        : false,
-  );
+  return getOrInsertComputed(angularNonBindableCache, node, (node) => {
+    if (
+      node.kind === "element" &&
+      Object.hasOwn(node.attrMap, "ngNonBindable")
+    ) {
+      return true;
+    }
+
+    if (!node.parent) {
+      return false;
+    }
+
+    return isInsideAngularNonBindable(node.parent);
+  });
 }
 
 function embed(path, options) {
