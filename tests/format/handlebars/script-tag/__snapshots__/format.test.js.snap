@@ -8,13 +8,6 @@ parsers: ["glimmer"]
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script></script>
 
-<script>
-   shouldFormat   (   );
-</script>
-
-<script type="text/javascript">
-   shouldFormat   (   );
-</script>
 
 <script type="module">
   import    a   from   "a"   ;
@@ -39,15 +32,6 @@ parsers: ["glimmer"]
 -->
 </script>
 
-<script type="application/ld+json">
-  {   "should"   :   "not format" }
-</script>
-
-<script>
-  shouldNotFormat(   '{{user.name}}' )
-  {{#if debug}}shouldNotFormat(   'debug' ){{/if}}
-</script>
-
 <script>
   const template = html\`<div><script>shouldFormat   (   )<\\/script></div>\`;
 </script>
@@ -57,14 +41,6 @@ parsers: ["glimmer"]
   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 ></script>
 <script></script>
-
-<script>
-  shouldFormat();
-</script>
-
-<script type="text/javascript">
-  shouldFormat();
-</script>
 
 <script type="module">
   import a from "a";
@@ -89,15 +65,6 @@ parsers: ["glimmer"]
   -->
 </script>
 
-<script type="application/ld+json">
-  {   "should"   :   "not format" }
-</script>
-
-<script>
-  shouldNotFormat( '{{user.name}}' )
-  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
-</script>
-
 <script>
   const template = html\`<div>
     <script>
@@ -105,5 +72,85 @@ parsers: ["glimmer"]
     <\\/script>
   </div>\`;
 </script>
+================================================================================
+`;
+
+exports[`type-attribute.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+   shouldFormat   (   );
+</script>
+
+<script type="text/javascript">
+   shouldFormat   (   );
+</script>
+
+<script type>
+   shouldNotFormat   (   );
+</script>
+<script type="">
+   shouldNotFormat   (   );
+</script>
+<script type="unknown">
+   shouldNotFormat   (   );
+</script>
+
+<script type="application/ld+json">
+  {   "should"   :   "not format" }
+</script>
+
+=====================================output=====================================
+<script>
+  shouldFormat();
+</script>
+
+<script type="text/javascript">
+  shouldFormat();
+</script>
+
+<script type>
+  shouldNotFormat   (   );
+</script>
+<script type="">
+  shouldNotFormat   (   );
+</script>
+<script type="unknown">
+  shouldNotFormat   (   );
+</script>
+
+<script type="application/ld+json">
+  {   "should"   :   "not format" }
+</script>
+================================================================================
+`;
+
+exports[`with-mustache.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+  shouldNotFormat(   {{foo}} )
+</script>
+<script>
+  shouldNotFormat(   '{{user.name}}' )
+  {{#if debug}}shouldNotFormat(   'debug' ){{/if}}
+</script>
+<script>{{foo}}</script>
+
+=====================================output=====================================
+<script>
+  shouldNotFormat(
+  {{foo}}
+  )
+</script>
+<script>
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
+</script>
+<script>{{foo}}</script>
 ================================================================================
 `;
