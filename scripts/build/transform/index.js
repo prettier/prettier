@@ -28,7 +28,7 @@ const packageTransforms = new Map([
     transforms["method-at"],
     ["@glimmer/syntax", "angular-estree-parser", "espree"],
   ],
-  [transforms["object-has-own"], ["@babel/parser", "graphql"]],
+  [transforms["object-has-own"], ["@babel/parser", "graphql", "angular-html-parser"]],
   [transforms["string-raw"], ["camelcase", "@angular/compiler", "js-yaml"]],
   [transforms["method-is-well-formed"], ["meriyah"]],
   /* spell-checker: enable */
