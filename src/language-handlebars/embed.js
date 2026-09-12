@@ -60,8 +60,8 @@ function embed(path /* , options*/) {
     return;
   }
 
-  const content = node.chars;
   return async (textToDoc) => {
+    const content = node.chars;
     if (!content.trim()) {
       return "";
     }
