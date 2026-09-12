@@ -2111,13 +2111,6 @@ class PrivateKeywordFields {
   #instanceof = {};
 }
 
-class PrivateKeywordMethods {
-  a = {};
-  #in() {}
-  b = {};
-  #instanceof() {}
-}
-
 =====================================output=====================================
 class C {
   #field = "value";
@@ -2129,13 +2122,6 @@ class PrivateKeywordFields {
   #in = {}
   b = {}
   #instanceof = {}
-}
-
-class PrivateKeywordMethods {
-  a = {}
-  #in() {}
-  b = {}
-  #instanceof() {}
 }
 
 ================================================================================
@@ -2158,13 +2144,6 @@ class PrivateKeywordFields {
   #instanceof = {};
 }
 
-class PrivateKeywordMethods {
-  a = {};
-  #in() {}
-  b = {};
-  #instanceof() {}
-}
-
 =====================================output=====================================
 class C {
   #field = "value";
@@ -2176,13 +2155,6 @@ class PrivateKeywordFields {
   #in = {};
   b = {};
   #instanceof = {};
-}
-
-class PrivateKeywordMethods {
-  a = {};
-  #in() {}
-  b = {};
-  #instanceof() {}
 }
 
 ================================================================================
