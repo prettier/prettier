@@ -32,7 +32,7 @@ function getScriptTextToDocOptions(node) {
 function getStyleTextToDocOptions(node) {
   const langAttribute = getAttribute(node, "lang");
   if (!langAttribute || getTextValue(langAttribute) === "css") {
-    return { parser: "css", __embeddedInHtml: true };
+    return { parser: "css" };
   }
 }
 
