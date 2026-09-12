@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ng-non-bindable.component.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span ngNonBindable>{{foo+bar}}</span>
+
+<div ngNonBindable>
+  {{foo+bar}}
+  <span>{{baz+qux}}</span>
+</div>
+
+<span>{{foo+bar}}</span>
+
+=====================================output=====================================
+<span ngNonBindable>{{foo+bar}}</span>
+
+<div ngNonBindable>
+  {{foo+bar}}
+  <span>{{baz+qux}}</span>
+</div>
+
+<span>{{ foo + bar }}</span>
+
+================================================================================
+`;

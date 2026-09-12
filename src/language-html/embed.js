@@ -5,6 +5,7 @@ import {
   indent,
   line,
 } from "../document/index.js";
+import { getOrInsertComputed } from "../utilities/get-or-insert.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
@@ -32,6 +33,17 @@ const embeddedAngularControlFlowBlocks = new Set([
   "switch",
   "case",
 ]);
+
+const angularNonBindableCache = new WeakMap();
+function isInsideAngularNonBindable(node) {
+  return getOrInsertComputed(angularNonBindableCache, node, (node) =>
+    node.kind === "element" && Object.hasOwn(node.attrMap, "ngNonBindable")
+      ? true
+      : node.parent
+        ? isInsideAngularNonBindable(node.parent)
+        : false,
+  );
+}
 
 function embed(path, options) {
   const { node } = path;
@@ -110,6 +122,13 @@ function embed(path, options) {
           };
         }
       } else if (node.parent.kind === "interpolation") {
+        if (
+          options.parser === "angular" &&
+          isInsideAngularNonBindable(node.parent)
+        ) {
+          return;
+        }
+
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
