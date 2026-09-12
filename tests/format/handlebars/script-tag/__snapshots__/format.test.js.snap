@@ -14,10 +14,11 @@ parsers: ["glimmer"]
 </script>
 
 <script>
-  // Shuold not support TLA in script without \`[type="module"]\`
+  // Should not support TLA in script without \`[type="module"]\`
   await shouldNotFormat   (   a   );
 </script>
 <script type="module">
+  // TLA
   await shouldFormat   (   a   );
 </script>
 
@@ -46,10 +47,11 @@ parsers: ["glimmer"]
 </script>
 
 <script>
-  // Shuold not support TLA in script without \`[type="module"]\`
+  // Should not support TLA in script without \`[type="module"]\`
   await shouldNotFormat   (   a   );
 </script>
 <script type="module">
+  // TLA
   await shouldFormat(a);
 </script>
 
