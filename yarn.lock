@@ -8413,7 +8413,7 @@ __metadata:
     wcwidth.js: "npm:2.0.0"
     yaml: "npm:2.9.1"
     yaml-test-suite: "npm:0.1.0"
-    yaml-unist-parser: "npm:3.2.0"
+    yaml-unist-parser: "npm:3.2.1"
     yuku-parser: "npm:0.10.1"
   bin:
     prettier: ./bin/prettier.cjs
@@ -10018,16 +10018,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml-unist-parser@npm:3.2.0":
-  version: 3.2.0
-  resolution: "yaml-unist-parser@npm:3.2.0"
+"yaml-unist-parser@npm:3.2.1":
+  version: 3.2.1
+  resolution: "yaml-unist-parser@npm:3.2.1"
   dependencies:
-    yaml: "npm:^2.8.2"
-  checksum: 10/85db8f1460b1fbae29cd02363fb9a862d66ed26519466b169b1cd0f31a51a8cfda42192a2bec6ad455459d249eec823eb62c0ea19399549be930efb53384185e
+    yaml: "npm:^2.9.1"
+  checksum: 10/4dc66d40b53dad54c0e2440af557ad02f35ab06af6746b79e4a3a3cdac1606c5ba6fbf91a6f19633c36ef6aabd7021e652106d3a8a92653f750e1d835a122989
   languageName: node
   linkType: hard
 
-"yaml@npm:2.9.1, yaml@npm:^2.8.2, yaml@npm:^2.9.0":
+"yaml@npm:2.9.1, yaml@npm:^2.9.0, yaml@npm:^2.9.1":
   version: 2.9.1
   resolution: "yaml@npm:2.9.1"
   bin:
