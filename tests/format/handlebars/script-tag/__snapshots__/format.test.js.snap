@@ -29,12 +29,12 @@ parsers: ["glimmer"]
 </script>
 
 <script type="module">
-<--Should not support HTML comment in \`script[type="module"]\`
+<!--Should not support HTML comment in \`script[type="module"]\`
   shouldNotFormat   (   a   );
 -->
 </script>
 <script>
-<--html comment
+<!--html comment
   shouldFormat   (   a   );
 -->
 </script>
@@ -79,13 +79,13 @@ parsers: ["glimmer"]
 </script>
 
 <script type="module">
-  <--Should not support HTML comment in \`script[type="module"]\`
+  <!--Should not support HTML comment in \`script[type="module"]\`
     shouldNotFormat   (   a   );
   -->
 </script>
 <script>
-  <--html comment
-    shouldFormat   (   a   );
+  <!--html comment
+  shouldFormat(a);
   -->
 </script>
 
