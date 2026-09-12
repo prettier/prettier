@@ -10,30 +10,25 @@
 </script>
 
 <script type="module">
-  import a from "a"; export const b = a
+  import    a   from   "a"   ;
 </script>
 
 <script>
-  import a from "a"; export const b = a
-</script>
-
-<script>
-  const a = await fetch("a");
-  shouldNotFormat   (   a   );
+  // Shuold not support TLA in script without `[type="module"]`
+  await shouldNotFormat   (   a   );
 </script>
 
 <script type="module">
-  const a = await fetch("a");
-  shouldFormat   (   a   );
+  await shouldFormat   (   a   );
 </script>
 
 <script type="application/ld+json">
-  {    "should"   :    "not format" }
+  {   "should"   :   "not format" }
 </script>
 
 <script>
-  shouldNotFormat( '{{user.name}}' )
-  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
+  shouldNotFormat(   '{{user.name}}' )
+  {{#if debug}}shouldNotFormat(   'debug' ){{/if}}
 </script>
 
 <script>
