@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`indented-code-block.md - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown", "mdx"]
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- [x] task item
+
+      indented code
+
+- unordered item
+
+      indented code
+
+- outer item
+
+  - nested item
+
+        indented code
+
+- item with extra code indentation
+
+          indented code
+
+=====================================output=====================================
+- [x] task item
+
+      indented code
+
+- unordered item
+
+      indented code
+
+- outer item
+
+    - nested item
+
+          indented code
+
+- item with extra code indentation
+
+          indented code
+
+================================================================================
+`;

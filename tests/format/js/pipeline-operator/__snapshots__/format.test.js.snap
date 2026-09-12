@@ -76,7 +76,7 @@ exports[`block-comments.js format[yuku] 1`] = `
   5 | |> kochabCooieGameOnOboleUnweave"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format 1`] = `
+exports[`fsharp-style-pipeline-operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -170,7 +170,7 @@ const f = x |> (f) => f |> f;
 ================================================================================
 `;
 
-exports[`fsharp_style_pipeline_operator.js format[acorn] 1`] = `
+exports[`fsharp-style-pipeline-operator.js format[acorn] 1`] = `
 "Unexpected token (2:4)
   1 | promise
 > 2 |   |> await
@@ -181,7 +181,7 @@ exports[`fsharp_style_pipeline_operator.js format[acorn] 1`] = `
 Cause: Unexpected token (2:3)"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format[espree] 1`] = `
+exports[`fsharp-style-pipeline-operator.js format[espree] 1`] = `
 "Unexpected token > (2:4)
   1 | promise
 > 2 |   |> await
@@ -192,7 +192,7 @@ exports[`fsharp_style_pipeline_operator.js format[espree] 1`] = `
 Cause: Unexpected token >"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format[meriyah] 1`] = `
+exports[`fsharp-style-pipeline-operator.js format[meriyah] 1`] = `
 "Unexpected token: '>' (2:4)
   1 | promise
 > 2 |   |> await
@@ -203,7 +203,7 @@ exports[`fsharp_style_pipeline_operator.js format[meriyah] 1`] = `
 Cause: [2:3-2:4]: Unexpected token: '>'"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format[oxc] 1`] = `
+exports[`fsharp-style-pipeline-operator.js format[oxc] 1`] = `
 "Unexpected token (2:4)
   1 | promise
 > 2 |   |> await
@@ -213,7 +213,7 @@ exports[`fsharp_style_pipeline_operator.js format[oxc] 1`] = `
   5 |   |> x => x + '!'"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format[yuku] 1`] = `
+exports[`fsharp-style-pipeline-operator.js format[yuku] 1`] = `
 "Unexpected token '>' (2:4)
   1 | promise
 > 2 |   |> await
@@ -223,7 +223,7 @@ exports[`fsharp_style_pipeline_operator.js format[yuku] 1`] = `
   5 |   |> x => x + '!'"
 `;
 
-exports[`hack_pipeline_operator.js format 1`] = `
+exports[`hack-pipeline-operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -336,7 +336,7 @@ async function* f() {
 ================================================================================
 `;
 
-exports[`hack_pipeline_operator.js format[acorn] 1`] = `
+exports[`hack-pipeline-operator.js format[acorn] 1`] = `
 "Unexpected token (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
@@ -346,7 +346,7 @@ exports[`hack_pipeline_operator.js format[acorn] 1`] = `
 Cause: Unexpected token (1:3)"
 `;
 
-exports[`hack_pipeline_operator.js format[espree] 1`] = `
+exports[`hack-pipeline-operator.js format[espree] 1`] = `
 "Unexpected token > (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
@@ -356,7 +356,7 @@ exports[`hack_pipeline_operator.js format[espree] 1`] = `
 Cause: Unexpected token >"
 `;
 
-exports[`hack_pipeline_operator.js format[meriyah] 1`] = `
+exports[`hack-pipeline-operator.js format[meriyah] 1`] = `
 "Unexpected token: '>' (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
@@ -366,7 +366,7 @@ exports[`hack_pipeline_operator.js format[meriyah] 1`] = `
 Cause: [1:3-1:4]: Unexpected token: '>'"
 `;
 
-exports[`hack_pipeline_operator.js format[oxc] 1`] = `
+exports[`hack-pipeline-operator.js format[oxc] 1`] = `
 "Unexpected token (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
@@ -375,7 +375,7 @@ exports[`hack_pipeline_operator.js format[oxc] 1`] = `
   4 |   |> await %"
 `;
 
-exports[`hack_pipeline_operator.js format[yuku] 1`] = `
+exports[`hack-pipeline-operator.js format[yuku] 1`] = `
 "Unexpected token '>' (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
@@ -384,7 +384,7 @@ exports[`hack_pipeline_operator.js format[yuku] 1`] = `
   4 |   |> await %"
 `;
 
-exports[`minimal_pipeline_operator.js format 1`] = `
+exports[`minimal-pipeline-operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
                                                       printWidth: 80 (default) |
@@ -494,7 +494,7 @@ const result2 = [4, 9].map((x) => x |> inc |> double);
 ================================================================================
 `;
 
-exports[`minimal_pipeline_operator.js format[acorn] 1`] = `
+exports[`minimal-pipeline-operator.js format[acorn] 1`] = `
 "Unexpected token (1:4)
 > 1 | a |> b |> c;
     |    ^
@@ -504,7 +504,7 @@ exports[`minimal_pipeline_operator.js format[acorn] 1`] = `
 Cause: Unexpected token (1:3)"
 `;
 
-exports[`minimal_pipeline_operator.js format[espree] 1`] = `
+exports[`minimal-pipeline-operator.js format[espree] 1`] = `
 "Unexpected token > (1:4)
 > 1 | a |> b |> c;
     |    ^
@@ -514,7 +514,7 @@ exports[`minimal_pipeline_operator.js format[espree] 1`] = `
 Cause: Unexpected token >"
 `;
 
-exports[`minimal_pipeline_operator.js format[meriyah] 1`] = `
+exports[`minimal-pipeline-operator.js format[meriyah] 1`] = `
 "Unexpected token: '>' (1:4)
 > 1 | a |> b |> c;
     |    ^
@@ -524,7 +524,7 @@ exports[`minimal_pipeline_operator.js format[meriyah] 1`] = `
 Cause: [1:3-1:4]: Unexpected token: '>'"
 `;
 
-exports[`minimal_pipeline_operator.js format[oxc] 1`] = `
+exports[`minimal-pipeline-operator.js format[oxc] 1`] = `
 "Unexpected token (1:4)
 > 1 | a |> b |> c;
     |    ^
@@ -533,7 +533,7 @@ exports[`minimal_pipeline_operator.js format[oxc] 1`] = `
   4 |"
 `;
 
-exports[`minimal_pipeline_operator.js format[yuku] 1`] = `
+exports[`minimal-pipeline-operator.js format[yuku] 1`] = `
 "Unexpected token '>' (1:4)
 > 1 | a |> b |> c;
     |    ^

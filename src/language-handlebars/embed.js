@@ -1,5 +1,6 @@
 import { group, indent, mapDoc, softline } from "../document/index.js";
 import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
+import { isPlainTextStyleElement } from "./utilities.js";
 
 function printExpand(doc) {
   return [indent([softline, doc]), softline];
@@ -14,12 +15,7 @@ function embed(path, options) {
 
   const { parent } = path;
 
-  if (
-    parent.type === "ElementNode" &&
-    parent.tag === "style" &&
-    parent.children.length === 1 &&
-    parent.children[0] === node
-  ) {
+  if (isPlainTextStyleElement(parent) && parent.children[0] === node) {
     return embedStyleElement(path);
   }
 
@@ -38,8 +34,7 @@ function embedStyleElement(path) {
     languageAttribute &&
     !(
       languageAttribute.value.type === "TextNode" &&
-      (languageAttribute.value.chars === "" ||
-        languageAttribute.value.chars === "css")
+      languageAttribute.value.chars === "css"
     )
   ) {
     return;

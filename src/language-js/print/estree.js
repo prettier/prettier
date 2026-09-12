@@ -57,6 +57,7 @@ import { printRestElement, printSpreadElement } from "./rest-element.js";
 import {
   printReturnStatement,
   printThrowStatement,
+  printYieldExpression,
 } from "./return-statement.js";
 import { printSequenceExpression } from "./sequence-expression.js";
 import { printSwitchCase, printSwitchStatement } from "./switch-statement.js";
@@ -156,10 +157,8 @@ function printEstree(path, options, print, args) {
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
-      return [
-        `yield${node.delegate ? "*" : ""}`,
-        node.argument ? [" ", print("argument")] : "",
-      ];
+      return printYieldExpression(path, options, print);
+
     case "AwaitExpression":
       return printAwaitExpression(path, options, print);
 

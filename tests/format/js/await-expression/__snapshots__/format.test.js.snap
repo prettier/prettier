@@ -1,0 +1,353 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`async-iteration.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+async function * a() {
+    yield* b();
+}
+
+class X {
+    async * b() {
+        yield* a();
+    }
+}
+
+=====================================output=====================================
+async function* a() {
+  yield* b();
+}
+
+class X {
+  async *b() {
+    yield* a();
+  }
+}
+
+================================================================================
+`;
+
+exports[`async-shorthand-method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+({
+  async get() {},
+  async set() {}
+});
+
+=====================================output=====================================
+({
+  async get() {},
+  async set() {},
+});
+
+================================================================================
+`;
+
+exports[`await-parse.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function f1() { (await f()).length }
+async function g() {
+  invariant(
+    (await driver.navigator.getUrl()).substr(-7)
+  );
+}
+function *f2(){
+  !(yield a);
+}
+async function f3() {
+  a = !await f();
+}
+async () => {
+  new A(await x);
+  obj[await x];
+}
+
+=====================================output=====================================
+async function f1() {
+  (await f()).length;
+}
+async function g() {
+  invariant((await driver.navigator.getUrl()).substr(-7));
+}
+function* f2() {
+  !(yield a);
+}
+async function f3() {
+  a = !(await f());
+}
+async () => {
+  new A(await x);
+  obj[await x];
+};
+
+================================================================================
+`;
+
+exports[`await-with-parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function foo(promise) { await (promise); }
+
+function a() {
+  return await (1)
+}
+
+() => { await (x) };
+
+function foo2() {
+  await
+  (foo);
+}
+
+export class C {
+  p = await (0);
+}
+
+await (0);
+
+=====================================output=====================================
+function foo(promise) {
+  (await)(promise);
+}
+
+function a() {
+  return await(1);
+}
+
+() => {
+  (await)(x);
+};
+
+function foo2() {
+  (await)(foo);
+}
+
+export class C {
+  p = await(0);
+}
+
+await 0;
+
+================================================================================
+`;
+
+exports[`await-with-parens.js format[espree] 1`] = `
+"Cannot use keyword 'await' outside an async function (1:25)
+> 1 | function foo(promise) { await (promise); }
+    |                         ^
+  2 |
+  3 | function a() {
+  4 |   return await (1)
+Cause: Cannot use keyword 'await' outside an async function"
+`;
+
+exports[`await-with-parens.js format[hermes] 1`] = `
+"'await' not in an async function (15:7)
+  13 |
+  14 | export class C {
+> 15 |   p = await (0);
+     |       ^
+  16 | }
+  17 |
+  18 | await (0);
+Cause: 'await' not in an async function (15:6)
+  p = await (0);
+      ^~~~~~~~~"
+`;
+
+exports[`await-with-parens.js format[meriyah] 1`] = `
+"Await is only valid in async functions (1:25)
+> 1 | function foo(promise) { await (promise); }
+    |                         ^^^^^
+  2 |
+  3 | function a() {
+  4 |   return await (1)
+Cause: [1:24-1:29]: Await is only valid in async functions"
+`;
+
+exports[`conditional-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function f() {
+  const result = typeof fn === 'function' ? await fn() : null;
+}
+
+(async function() {
+  console.log(
+    await (true ? Promise.resolve("A") : Promise.resolve("B"))
+  );
+})()
+
+async function f2() {
+  await (spellcheck && spellcheck.setChecking(false));
+  await spellcheck && spellcheck.setChecking(false)
+}
+
+=====================================output=====================================
+async function f() {
+  const result = typeof fn === "function" ? await fn() : null;
+}
+
+(async function () {
+  console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
+})();
+
+async function f2() {
+  await (spellcheck && spellcheck.setChecking(false));
+  (await spellcheck) && spellcheck.setChecking(false);
+}
+
+================================================================================
+`;
+
+exports[`exponentiation.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async () => (await 5) ** 6;
+
+=====================================output=====================================
+async () => (await 5) ** 6;
+
+================================================================================
+`;
+
+exports[`inline-await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+=====================================output=====================================
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+
+================================================================================
+`;
+
+exports[`like-call.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+await (1)
+
+=====================================output=====================================
+await 1;
+
+================================================================================
+`;
+
+exports[`nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    (await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await (
+      await (
+        await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+      ).findItem("My bookmarks")
+    ).getChildren()
+  ).length;
+
+================================================================================
+`;
+
+exports[`nested2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function f() {
+await Promise.all(
+  (await readdir("src")).map(async (path) => {
+    import(\`./\${path}\`);
+  })
+);}
+
+=====================================output=====================================
+async function f() {
+  await Promise.all(
+    (await readdir("src")).map(async (path) => {
+      import(\`./\${path}\`);
+    }),
+  );
+}
+
+================================================================================
+`;
+
+exports[`parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function *f(){ await (yield x); }
+
+async function f2(){ await (() => {}); }
+
+=====================================output=====================================
+async function* f() {
+  await (yield x);
+}
+
+async function f2() {
+  await (() => {});
+}
+
+================================================================================
+`;
+
+exports[`simple-nested-await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
+}
+
+=====================================output=====================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
+}
+
+================================================================================
+`;

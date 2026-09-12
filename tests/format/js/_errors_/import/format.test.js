@@ -6,6 +6,12 @@ runFormatTest(
       "import(/* comment */);",
       "new import('./a.mjs');",
       "new import();",
+      'new import("foo").bar;',
+      'new import("foo")[bar];',
+      'new import("foo")`bar`;',
+      'new import("foo").bar(qux);',
+      'new import("foo")[bar](qux);',
+      'new import("foo")`bar`(qux);',
     ],
   },
   [

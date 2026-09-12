@@ -511,6 +511,42 @@ Inline {{ liquid }} stays inline.
 ================================================================================
 `;
 
+exports[`issue-19985.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+=====================================output=====================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private
+address is 10.0.0.1.
+{% /callout %}
+
+================================================================================
+`;
+
+exports[`issue-19985.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+=====================================output=====================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+================================================================================
+`;
+
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
