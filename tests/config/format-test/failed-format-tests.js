@@ -33,7 +33,18 @@ const unstableTests = new Map(
   }),
 );
 
-const unstableAstTests = new Map();
+const unstableAstTests = new Map(
+  [
+    "handlebars/style-attribute/test.hbs",
+    "handlebars/whitespace/fill.hbs",
+    "handlebars/escape/numeric-entities.hbs",
+  ].map((fixture) => {
+    const [file, isUnstable = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(FORMAT_TEST_DIRECTORY, file), isUnstable];
+  }),
+);
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
 const commentClosureTypecaseTests = [
