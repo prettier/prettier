@@ -3,7 +3,6 @@ import {
   ParseLocation,
   ParseSourceFile,
   ParseSourceSpan,
-  SUPPORTED_ANGULAR_BLOCKS,
 } from "angular-html-parser";
 import createError from "../../common/parser-create-error.js";
 import { parseFrontMatter } from "../../main/front-matter/index.js";
@@ -13,21 +12,6 @@ import {
   toAngularHtmlParserParseOptions,
 } from "./parse-options.js";
 import { postprocess } from "./postprocess.js";
-
-// angular-html-parser@10.11.0 tokenizes only known blocks. Angular 22.2 added
-// `@boundary` (https://github.com/prettier/prettier/issues/20014). Keep until
-// angular-html-parser syncs with upstream.
-const supportedAngularBlocks = /** @type {string[]} */ (
-  /** @type {unknown} */ (SUPPORTED_ANGULAR_BLOCKS)
-);
-if (!supportedAngularBlocks.includes("@boundary")) {
-  const errorIndex = supportedAngularBlocks.indexOf("@error");
-  supportedAngularBlocks.splice(
-    errorIndex === -1 ? supportedAngularBlocks.length : errorIndex,
-    0,
-    "@boundary",
-  );
-}
 
 /**
 @import {HtmlParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
