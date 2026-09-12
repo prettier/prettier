@@ -17,9 +17,19 @@
   // Shuold not support TLA in script without `[type="module"]`
   await shouldNotFormat   (   a   );
 </script>
-
 <script type="module">
   await shouldFormat   (   a   );
+</script>
+
+<script type="module">
+<--Should not support HTML comment in `script[type="module"]`
+  shouldNotFormat   (   a   );
+-->
+</script>
+<script>
+<--html comment
+  shouldFormat   (   a   );
+-->
 </script>
 
 <script type="application/ld+json">
