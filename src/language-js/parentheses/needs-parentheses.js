@@ -878,7 +878,32 @@ function needsParentheses(path, options) {
       );
 
     case "TSInstantiationExpression":
-      return key === "object" && isMemberExpression(parent);
+      /*
+      There are cases not really needed parentheses
+      - `(a<B>)()`
+      - `new (A<B>)()`
+      - ``` (a<B>)`` ```
+      - `class A extends (A<B>) {}`
+
+      However, `typescript-eslint` produces different AST,
+      we simply add parentheses without checking the shape of the expression.
+
+      See https://github.com/typescript-eslint/typescript-eslint/issues/12863
+      See https://github.com/typescript-eslint/typescript-eslint/issues/12012
+      */
+      if (
+        (key === "object" && isMemberExpression(parent)) ||
+        (key === "callee" && parent.type === "CallExpression") ||
+        (key === "callee" && parent.type === "NewExpression") ||
+        (key === "tag" && parent.type === "TaggedTemplateExpression") ||
+        (key === "superClass" &&
+          (parent.type === "ClassDeclaration" ||
+            parent.type === "ClassExpression"))
+      ) {
+        return true;
+      }
+
+      break;
 
     case "MatchOrPattern":
       return parent.type === "MatchAsPattern";
