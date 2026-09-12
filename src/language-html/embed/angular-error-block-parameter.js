@@ -4,7 +4,7 @@ import { formatAttributeValue } from "./utilities.js";
 /** @see https://github.com/angular/angular/blob/main/packages/compiler/src/render3/r3_boundaries.ts */
 const LET_PATTERN = /^let\s+(.*)$/s;
 const WHEN_PATTERN = /^when\s+(.*)$/s;
-const NAMED_BINDING_PATTERN = /^([$A-Z_][\w$]*)\s*=\s*(.*)$/is;
+const NAMED_BINDING_PATTERN = /^[$A-Z_][\w$]*\s*=.*$/is;
 
 function formatExpression(textToDoc, expression) {
   return formatAttributeValue(expression, textToDoc, {
@@ -13,7 +13,7 @@ function formatExpression(textToDoc, expression) {
   });
 }
 
-async function printLetBindings(textToDoc, bindingsText) {
+async function printBindings(textToDoc, bindingsText, prefix) {
   const bindings = [];
 
   for (const part of bindingsText.split(",")) {
@@ -30,7 +30,7 @@ async function printLetBindings(textToDoc, bindingsText) {
     );
   }
 
-  return ["let ", join(", ", bindings)];
+  return prefix ? [prefix, join(", ", bindings)] : join(", ", bindings);
 }
 
 async function printAngularErrorBlockParameter(
@@ -41,22 +41,18 @@ async function printAngularErrorBlockParameter(
   const expression = path.node.expression.trim();
   const letMatch = expression.match(LET_PATTERN);
 
+  // Match Angular: `let` and `name =` aliases are parsed before `when`.
   if (letMatch) {
-    return (await printLetBindings(textToDoc, letMatch[1])) ?? expression;
+    return (await printBindings(textToDoc, letMatch[1], "let ")) ?? expression;
+  }
+
+  if (NAMED_BINDING_PATTERN.test(expression)) {
+    return (await printBindings(textToDoc, expression)) ?? expression;
   }
 
   const whenMatch = expression.match(WHEN_PATTERN);
   if (whenMatch?.[1].trim()) {
     return ["when ", await formatExpression(textToDoc, whenMatch[1].trim())];
-  }
-
-  const namedMatch = expression.match(NAMED_BINDING_PATTERN);
-  if (namedMatch?.[2].trim()) {
-    return [
-      namedMatch[1],
-      " = ",
-      await formatExpression(textToDoc, namedMatch[2].trim()),
-    ];
   }
 
   return expression;

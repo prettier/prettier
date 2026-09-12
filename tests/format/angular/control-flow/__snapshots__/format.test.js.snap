@@ -57,117 +57,54 @@ exports[`boundary.html format 1`] = `
 parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<section>
 @boundary {
-<app-promotional-widget/>
-}
-@error {
-<app-default-promo-widget/>
-}
-<app-cart-summary/>
-</section>
-
-@boundary {
-Main Content
+  <app-risky-component />
 } @error {
-Fallback Content
+  <p>Something went wrong!</p>
 }
 
 @boundary {
-Main Content
-} @error (let err) {
-Error: {{err.message}}
-}
-
-@boundary {
-Main Content
-} @error (let err; when err.message === '404') {
-Not Found
-} @error (let err) {
-Generic Error
-}
-
-@boundary {
-Outer Main
-@boundary {
-Inner Main
+  <app-risky-component />
 } @error {
-Inner Fallback
+  <p>Error occurred: {{ $error.message }}</p>
 }
+
+@boundary {
+  <app-flaky-component />
 } @error {
-Outer Fallback
+  <p>Loading failed.</p>
+  <button (click)="$reset()">Try again</button>
 }
 
 @boundary {
-Main Content
-} @error (let err, retry = $reset) {
-<button (click)="retry()">Retry</button>
-}
-
-@boundary {
-Main Content
+  <app-risky-component />
 } @error {
-<button (click)="$reset()">Retry</button>
+  <app-error-fallback [error]="err" />
 }
 
 @boundary {
-Main Content
-} @error (let err; when err.message === '404') {
-Not Found
+  <app-risky-component />
+} @error (let err; retry = $reset; when isNetworkError(err)) {
+  <app-network-error [error]="err" />
+  <button (click)="retry()">Retry</button>
+} @error {
+  <app-generic-error />
 }
 
-@boundary {}
-@boundary {} @error {}
-
-<div>
-@if (ready) {
 @boundary {
-<complex-chart [data]="data"/>
+  <app-chart-dashboard />
+} @error (let err; reset = $reset; when isRenderError(err)) {
+  <p>Network issue. Check your connection.</p>
+  <button (click)="reset()">Retry</button>
+} @error {
+  <p>An unexpected error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <complex-chart [data]="data"/>
 } @error (let err = $error; let r = $reset) {
-<p>Failed to load chart: {{err.message}}</p>
-<button (click)="r()">Retry</button>
-}
-}
-</div>
-
-@defer {
-@boundary {
-<app-c1/>
-} @error {
-<span>Render error</span>
-}
-} @error {
-<span>Load error</span>
-}
-
-=====================================output=====================================
-<section>
-  @boundary {
-    <app-promotional-widget />
-  } @error {
-    <app-default-promo-widget />
-  }
-  <app-cart-summary />
-</section>
-
-@boundary {
-  Main Content
-} @error {
-  Fallback Content
-}
-
-@boundary {
-  Main Content
-} @error (let err) {
-  Error: {{ err.message }}
-}
-
-@boundary {
-  Main Content
-} @error (let err; when err.message === '404') {
-  Not Found
-} @error (let err) {
-  Generic Error
+  <p>Failed to load chart: {{err.message}}</p>
+  <button (click)="r()">Retry</button>
 }
 
 @boundary {
@@ -181,38 +118,77 @@ Not Found
   Outer Fallback
 }
 
-@boundary {
-  Main Content
-} @error (let err, retry = $reset) {
-  <button (click)="retry()">Retry</button>
-}
-
-@boundary {
-  Main Content
-} @error {
-  <button (click)="$reset()">Retry</button>
-}
-
-@boundary {
-  Main Content
-} @error (let err; when err.message === '404') {
-  Not Found
-}
-
-@boundary {}
-@boundary {
-} @error {}
-
-<div>
-  @if (ready) {
-    @boundary {
-      <complex-chart [data]="data" />
-    } @error (let err = $error; let r = $reset) {
-      <p>Failed to load chart: {{ err.message }}</p>
-      <button (click)="r()">Retry</button>
-    }
+@defer {
+  @boundary {
+    <app-c1/>
+  } @error {
+    <span>Render error</span>
   }
-</div>
+} @error {
+  <span>Load error</span>
+}
+
+=====================================output=====================================
+@boundary {
+  <app-risky-component />
+} @error {
+  <p>Something went wrong!</p>
+}
+
+@boundary {
+  <app-risky-component />
+} @error {
+  <p>Error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <app-flaky-component />
+} @error {
+  <p>Loading failed.</p>
+  <button (click)="$reset()">Try again</button>
+}
+
+@boundary {
+  <app-risky-component />
+} @error {
+  <app-error-fallback [error]="err" />
+}
+
+@boundary {
+  <app-risky-component />
+} @error (let err; retry = $reset; when isNetworkError(err)) {
+  <app-network-error [error]="err" />
+  <button (click)="retry()">Retry</button>
+} @error {
+  <app-generic-error />
+}
+
+@boundary {
+  <app-chart-dashboard />
+} @error (let err; reset = $reset; when isRenderError(err)) {
+  <p>Network issue. Check your connection.</p>
+  <button (click)="reset()">Retry</button>
+} @error {
+  <p>An unexpected error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <complex-chart [data]="data" />
+} @error (let err = $error; let r = $reset) {
+  <p>Failed to load chart: {{ err.message }}</p>
+  <button (click)="r()">Retry</button>
+}
+
+@boundary {
+  Outer Main
+  @boundary {
+    Inner Main
+  } @error {
+    Inner Fallback
+  }
+} @error {
+  Outer Fallback
+}
 
 @defer {
   @boundary {
@@ -222,6 +198,98 @@ Not Found
   }
 } @error {
   <span>Load error</span>
+}
+
+================================================================================
+`;
+
+exports[`boundary-error-parameters.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@boundary {
+  <app-risky-component />
+} @error (let err; retry 
+
+= $reset; when 
+isNetworkError(err)) {
+  <app-network-error [error]="err" />
+  <button (click)="retry()">Retry</button>
+} @error {
+  <app-generic-error />
+}
+
+@boundary {
+  <app-chart-dashboard />
+} @error (let
+err; reset
+=
+$reset; when
+isRenderError(err)) {
+  <p>Network issue. Check your connection.</p>
+  <button (click)="reset()">Retry</button>
+} @error {
+  <p>An unexpected error occurred: {{$error.message}}</p>
+}
+
+@boundary {
+  <complex-chart [data]="data"/>
+} @error (let err=$error; let r=$reset) {
+  <p>Failed to load chart: {{err.message}}</p>
+  <button (click)="r()">Retry</button>
+}
+
+@boundary {
+  Main
+} @error (let err; when err.message === '404') {
+  Not Found
+}
+
+@boundary {
+  Main
+} @error (err = $error, retry
+=
+$reset) {
+  <button (click)="retry()">Retry</button>
+}
+
+=====================================output=====================================
+@boundary {
+  <app-risky-component />
+} @error (let err; retry = $reset; when isNetworkError(err)) {
+  <app-network-error [error]="err" />
+  <button (click)="retry()">Retry</button>
+} @error {
+  <app-generic-error />
+}
+
+@boundary {
+  <app-chart-dashboard />
+} @error (let err; reset = $reset; when isRenderError(err)) {
+  <p>Network issue. Check your connection.</p>
+  <button (click)="reset()">Retry</button>
+} @error {
+  <p>An unexpected error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <complex-chart [data]="data" />
+} @error (let err = $error; let r = $reset) {
+  <p>Failed to load chart: {{ err.message }}</p>
+  <button (click)="r()">Retry</button>
+}
+
+@boundary {
+  Main
+} @error (let err; when err.message === "404") {
+  Not Found
+}
+
+@boundary {
+  Main
+} @error (err = $error, retry = $reset) {
+  <button (click)="retry()">Retry</button>
 }
 
 ================================================================================

@@ -35,3 +35,11 @@ isRenderError(err)) {
 } @error (let err; when err.message === '404') {
   Not Found
 }
+
+@boundary {
+  Main
+} @error (err = $error, retry
+=
+$reset) {
+  <button (click)="retry()">Retry</button>
+}
