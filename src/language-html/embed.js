@@ -5,7 +5,6 @@ import {
   indent,
   line,
 } from "../document/index.js";
-import { getOrInsertComputed } from "../utilities/get-or-insert.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
@@ -24,6 +23,7 @@ import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
 } from "./utilities/index.js";
+import { isInNgNonBindable } from "./utilities/is-in-ng-non-bindable.js";
 import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
@@ -33,24 +33,6 @@ const embeddedAngularControlFlowBlocks = new Set([
   "switch",
   "case",
 ]);
-
-const angularNonBindableCache = new WeakMap();
-function isInsideAngularNonBindable(node) {
-  return getOrInsertComputed(angularNonBindableCache, node, (node) => {
-    if (
-      node.kind === "element" &&
-      Object.hasOwn(node.attrMap, "ngNonBindable")
-    ) {
-      return true;
-    }
-
-    if (!node.parent) {
-      return false;
-    }
-
-    return isInsideAngularNonBindable(node.parent);
-  });
-}
 
 function embed(path, options) {
   const { node } = path;
@@ -128,14 +110,10 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (node.parent.kind === "interpolation") {
-        if (
-          options.parser === "angular" &&
-          isInsideAngularNonBindable(node.parent)
-        ) {
-          return;
-        }
-
+      } else if (
+        node.parent.kind === "interpolation" &&
+        !isInNgNonBindable(path, options)
+      ) {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
