@@ -118,7 +118,7 @@ await (0);
 
 =====================================output=====================================
 function foo(promise) {
-  await(promise);
+  (await)(promise);
 }
 
 function a() {
@@ -126,11 +126,11 @@ function a() {
 }
 
 () => {
-  await(x);
+  (await)(x);
 };
 
 function foo2() {
-  await(foo);
+  (await)(foo);
 }
 
 export class C {
