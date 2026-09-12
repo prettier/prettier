@@ -77,7 +77,10 @@ function massageAstNode(original, cloned, parent) {
     original.parameters?.children
   ) {
     for (const parameter of cloned.parameters.children) {
-      if (embeddedAngularControlFlowBlocks.has(original.name)) {
+      if (
+        embeddedAngularControlFlowBlocks.has(original.name) ||
+        original.name === "error"
+      ) {
         delete parameter.expression;
       } else {
         parameter.expression = parameter.expression.trim();
