@@ -48,7 +48,7 @@ function printCallExpression(path, options, print) {
     isCommonsJsOrAmdModuleDefinition(path) ||
     // Keep test declarations on a single line
     // e.g. `it('long name', () => {`
-    isTestCall(node, path.parent)
+    (isTestCall(node, path.parent) && args.every((arg) => !hasComment(arg)))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {
