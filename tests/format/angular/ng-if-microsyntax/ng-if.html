@@ -1,0 +1,7 @@
+<div *ngIf="item$ | async; let item; else loadingTemplate"></div>
+<div *ngIf="value; let item; then content; else loading"></div>
+<div *ngIf="value; let first; let second; else loading"></div>
+
+@if (tab.eventCount$ | async; as count) {
+  <x />
+}
