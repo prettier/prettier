@@ -3,7 +3,6 @@ import {
   fill,
   group,
   hardline,
-  ifBreak,
   indent,
   join,
   line,
@@ -18,6 +17,7 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
+import { printBlockParams, printStartingTag } from "./print/tag.js";
 import {
   hasPrettierIgnore,
   isPlainTextStyleOrScriptElement,
@@ -48,12 +48,7 @@ function print(path, options, print) {
       const isWhitespaceSensitive =
         options.htmlWhitespaceSensitivity !== "ignore";
 
-      const startingTag = [
-        !isWhitespaceSensitive && path.previous?.type === "ElementNode"
-          ? softline
-          : "",
-        group([printStartingTag(path, print)]),
-      ];
+      const startingTag = printStartingTag(path, options, print);
 
       if (isVoidElement(node)) {
         return [startingTag];
@@ -424,42 +419,6 @@ function print(path, options, print) {
   }
 }
 
-/* ElementNode print helpers */
-
-function sortByLoc(a, b) {
-  return locStart(a) - locStart(b);
-}
-
-function printStartingTag(path, print) {
-  const { node } = path;
-
-  const types = ["attributes", "modifiers", "comments"].filter((property) =>
-    isNonEmptyArray(node[property]),
-  );
-  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
-
-  for (const attributeType of types) {
-    path.each(({ node }) => {
-      const index = attributes.indexOf(node);
-      attributes[index] = [line, print()];
-    }, attributeType);
-  }
-
-  if (isNonEmptyArray(node.blockParams)) {
-    attributes.push(line, printBlockParams(node));
-  }
-
-  return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
-}
-
-function printStartingTagEndMarker(node) {
-  if (isVoidElement(node)) {
-    return ifBreak([softline, "/>"], [" />", softline]);
-  }
-
-  return ifBreak([softline, ">"], ">");
-}
-
 /* MustacheStatement print helpers */
 
 function printOpeningMustache(node) {
@@ -799,10 +758,6 @@ function printParams(path, print) {
   }
 
   return join(line, parts);
-}
-
-function printBlockParams(node) {
-  return ["as |", node.blockParams.join(" "), "|"];
 }
 
 // https://handlebarsjs.com/guide/expressions.html#literal-segments
