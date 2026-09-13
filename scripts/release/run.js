@@ -1,4 +1,4 @@
-import semver from "semver";
+import * as verkit from "verkit";
 import parseArguments from "./parse-arguments.js";
 import * as steps from "./steps/index.js";
 import { logPromise, readJson } from "./utilities.js";
@@ -6,10 +6,8 @@ import { logPromise, readJson } from "./utilities.js";
 const params = parseArguments();
 const {
   default: { version: previousVersion },
-} = await import("prettier/package.json", {
-  with: { type: "json" },
-});
-if (semver.parse(previousVersion) === null) {
+} = await import("prettier/package.json", { with: { type: "json" } });
+if (!verkit.isValid(previousVersion)) {
   throw new Error(`Unexpected previousVersion: ${previousVersion}`);
 }
 

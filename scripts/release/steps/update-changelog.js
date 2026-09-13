@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import spawn from "nano-spawn";
 import styleText from "node-style-text";
-import semver from "semver";
+import * as verkit from "verkit";
 import {
   getBlogPostInfo,
   getChangelogContent,
@@ -37,9 +37,7 @@ export default async function updateChangelog({
     return;
   }
 
-  const semverDiff = semver.diff(version, previousVersion);
-
-  if (semverDiff !== "patch") {
+  if (verkit.difference(version, previousVersion) !== "patch") {
     const blogPost = getBlogPostInfo(version);
     writeChangelog({
       version,
