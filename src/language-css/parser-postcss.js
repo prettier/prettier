@@ -19,8 +19,42 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+// A Sass flag follows the value, so it only counts outside a quoted span --
+// `$a: "!default"` is a string, not a flagged declaration.
+function findScssDirective(value, directive) {
+  let quote;
+  let index = -1;
+
+  for (let i = 0; i < value.length; i++) {
+    const character = value[i];
+
+    if (quote) {
+      if (character === "\\") {
+        i++;
+      } else if (character === quote) {
+        quote = undefined;
+      }
+      continue;
+    }
+
+    if (character === '"' || character === "'") {
+      quote = character;
+    } else if (character === "!" && value.startsWith(directive, i)) {
+      index = i;
+    }
+  }
+
+  if (index === -1) {
+    return null;
+  }
+
+  let start = index;
+  while (start > 0 && /\s/u.test(value[start - 1])) {
+    start--;
+  }
+
+  return { index: start, text: value.slice(start) };
+}
 
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
@@ -163,25 +197,25 @@ function parseNestedCSS(node, options) {
     }
 
     if (value.trim().length > 0) {
-      const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+      const defaultSCSSDirective = findScssDirective(value, "!default");
 
-      if (defaultSCSSDirectiveIndex) {
-        value = value.slice(0, defaultSCSSDirectiveIndex.index);
+      if (defaultSCSSDirective) {
+        value = value.slice(0, defaultSCSSDirective.index);
         node.scssDefault = true;
 
-        if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+        if (defaultSCSSDirective.text.trim() !== "!default") {
+          node.raws.scssDefault = defaultSCSSDirective.text;
         }
       }
 
-      const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+      const globalSCSSDirective = findScssDirective(value, "!global");
 
-      if (globalSCSSDirectiveIndex) {
-        value = value.slice(0, globalSCSSDirectiveIndex.index);
+      if (globalSCSSDirective) {
+        value = value.slice(0, globalSCSSDirective.index);
         node.scssGlobal = true;
 
-        if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+        if (globalSCSSDirective.text.trim() !== "!global") {
+          node.raws.scssGlobal = globalSCSSDirective.text;
         }
       }
 
