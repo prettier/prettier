@@ -40,6 +40,19 @@ import {
   isWordNode,
 } from "../utilities/index.js";
 
+const colorFunctions = new Set([
+  "rgb",
+  "rgba",
+  "hsl",
+  "hsla",
+  "hwb",
+  "lab",
+  "lch",
+  "oklab",
+  "oklch",
+  "color",
+]);
+
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
@@ -363,6 +376,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
         isSubtractionNode(iNode) ||
         isSubtractionNode(iNextNode)) &&
       hasEmptyRawBefore(iNextNode)
+    ) {
+      continue;
+    }
+
+    // A signed color component is one number, not a binary operation.
+    if (
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      iNextNode.type === "value-number" &&
+      hasEmptyRawBefore(iNextNode) &&
+      parentParentNode?.type === "value-func" &&
+      colorFunctions.has(parentParentNode.value.toLowerCase())
     ) {
       continue;
     }
