@@ -1,2 +1,1 @@
-import source fooSource from "foo";
-import.source("x");
+import source x from "./x"

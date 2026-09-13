@@ -1,3 +1,1 @@
-class C extends HTMLElement {
-  accessor clicked = false;
-}
+class Example { @reactive accessor myBool = false; }

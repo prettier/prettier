@@ -1,1 +1,1 @@
-const [a, void] = iter;
+using void = new Lock(mutex)

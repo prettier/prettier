@@ -61,6 +61,7 @@ const disabledTests = new Map(
       "js/await-expression/like-call.js",
       "jsx/top-level-await/test.jsx",
     ],
+    "babel-flow": ["js/babel-plugins/flow-comments.js"],
     typescript: [],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646

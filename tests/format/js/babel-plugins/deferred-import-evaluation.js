@@ -1,1 +1,1 @@
-import defer * as ns from "x";
+import defer * as ns from "dep";
