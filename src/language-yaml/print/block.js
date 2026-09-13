@@ -20,9 +20,12 @@ import { alignWithSpaces } from "./misc.js";
 
 function printBlock(path, options, print) {
   const { node } = path;
-  const parentIndent = path.ancestors.filter(
-    (node) => node.type === "sequence" || node.type === "mapping",
-  ).length;
+  const parent = path.findAncestor(
+    (node) => node.type === "sequenceItem" || node.type === "mappingItem",
+  );
+  // Read the scalar relative to its original parent indentation. The parent
+  // may move when we normalize indentation, for example an indentless sequence.
+  const parentIndent = parent ? parent.position.start.column - 1 : 0;
   const isLastDescendant = isLastDescendantNode(path);
   /** @type {Doc[]} */
   const parts = [node.type === "blockFolded" ? ">" : "|"];
@@ -68,11 +71,7 @@ function printBlock(path, options, print) {
   if (node.indent === null) {
     parts.push(dedent(alignWithSpaces(options.tabWidth, contentsParts)));
   } else {
-    parts.push(
-      dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts),
-      ),
-    );
+    parts.push(dedent(alignWithSpaces(node.indent, contentsParts)));
   }
 
   return parts;
