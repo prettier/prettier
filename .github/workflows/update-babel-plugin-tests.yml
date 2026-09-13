@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   run:
-    name: Cleanup cspell.json
+    name: Update Babel plugin tests
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     runs-on: ubuntu-latest
     steps:
