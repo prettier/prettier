@@ -10,3 +10,42 @@
 </style>
 
 <style>{{foo}}</style>
+
+<style>
+  .{{className}} { width:{{width}}px;background:url({{url}}) }
+</style>
+
+<style>
+  a::after { content:   "{{content}}" }
+</style>
+
+<style>
+  /* {{comment}} */
+  a { color:red }
+</style>
+
+<style>
+  @media (max-width: {{breakpoint}}px) { a { color: red } }
+</style>
+
+<style>
+  a {
+    {{mixin}}
+    color:    red;
+  }
+</style>
+
+<style>
+  a {
+    {{mixin}};
+    color:    red;
+  }
+</style>
+
+<style>
+  .a { color:red }
+  {{#if debug}}
+    .b {color:red}
+        .c {color:red}
+  {{/if}}
+</style>

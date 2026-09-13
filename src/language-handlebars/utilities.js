@@ -69,6 +69,7 @@ function hasPrettierIgnore(path) {
 
 export {
   hasPrettierIgnore,
+  isPlainTextElement,
   isPlainTextStyleOrScriptElement,
   isVoidElement,
   isWhitespaceNode,

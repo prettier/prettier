@@ -171,4 +171,4 @@ const isEmbedCss = (path /* , options*/) =>
   isCssProp(path) ||
   isAngularComponentStyles(path);
 
-export { isEmbedCss, printEmbedCss };
+export { isEmbedCss, printEmbedCss, replacePlaceholders };
