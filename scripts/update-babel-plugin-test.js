@@ -8,7 +8,43 @@ import { gfmFromMarkdown } from "mdast-util-gfm";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { outdent } from "outdent";
 
-const directory = new URL("../tests/format/js/babel-plugins/", import.meta.url);
+const testDirectory = new URL(
+  "../tests/format/js/babel-plugins/",
+  import.meta.url,
+);
+const docUrl =
+  "https://raw.githubusercontent.com/babel/website/HEAD/docs/parser.md";
+const cacheFile = new URL("../.tmp/babel-parser-plugins.md", import.meta.url);
+
+async function getDoc() {
+  let stat;
+
+  try {
+    stat = await fs.stat(cacheFile);
+  } catch {
+    // No op
+  }
+
+  if (stat) {
+    if (Date.now() - stat.mtimeMs < /* 10 hours */ 10 * 60 * 60 * 1000) {
+      return fs.readFile(cacheFile, "utf8");
+    }
+
+    await fs.rm(cacheFile);
+  }
+
+  const response = await fetch(docUrl);
+
+  if (!response.ok) {
+    throw new Error(`Fetch '${docUrl}' failed.`);
+  }
+
+  const text = await response.text();
+
+  await fs.writeFile(cacheFile, text);
+
+  return text;
+}
 
 function* parseCodeExample(nodes) {
   for (let index = 0; index < nodes.length; index++) {
@@ -73,14 +109,14 @@ function* parsePluginTable(text) {
 }
 
 async function clean() {
-  const files = await fs.readdir(directory);
+  const files = await fs.readdir(testDirectory);
 
   await Promise.all(
     files
       .filter(
         (file) => !(file === "format.test.js" || file === "__snapshots__"),
       )
-      .map((file) => fs.rm(new URL(file, directory))),
+      .map((file) => fs.rm(new URL(file, testDirectory))),
   );
 }
 
@@ -100,19 +136,12 @@ function* getExamples(text) {
 }
 
 async function updateBabelPluginTests() {
-  // const response = await fetch(
-  //   "https://raw.githubusercontent.com/babel/website/HEAD/docs/parser.md",
-  // );
-  // const text = await response.text();
-  const text = await fs.readFile(
-    new URL("./parser.md", import.meta.url),
-    "utf8",
-  );
+  const text = await getDoc();
 
   await Promise.all(
     getExamples(text).map(({ filename, comment, code }) =>
       fs.writeFile(
-        new URL(filename, directory),
+        new URL(filename, testDirectory),
         outdent`
           /*
           ${comment}
