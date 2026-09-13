@@ -79,7 +79,13 @@ function printCssDeclaration(path, options, print) {
     );
   }
 
-  parts.push(value);
+  // Custom properties whose only content is `!important` parse with a
+  // whitespace-only `value` (the space after `:`) plus `raws.important`.
+  // Printing that whitespace and then ` !important` adds a space on every
+  // format, so skip whitespace-only values.
+  if (!isValueAllSpace) {
+    parts.push(value);
+  }
 
   if (node.raws.important) {
     parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));

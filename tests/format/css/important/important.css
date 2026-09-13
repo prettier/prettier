@@ -1,3 +1,17 @@
 div {
   max-height: none !important;
 }
+
+a {
+  --x: !important;
+}
+
+@media (min-width: 1px) {
+  a {
+    --y: !important;
+  }
+}
+
+b {
+  --color: red !important;
+}

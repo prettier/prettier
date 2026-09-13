@@ -2,16 +2,44 @@
 
 exports[`important.css format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["css", "less", "scss"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 div {
   max-height: none !important;
 }
 
+a {
+  --x: !important;
+}
+
+@media (min-width: 1px) {
+  a {
+    --y: !important;
+  }
+}
+
+b {
+  --color: red !important;
+}
+
 =====================================output=====================================
 div {
   max-height: none !important;
+}
+
+a {
+  --x: !important;
+}
+
+@media (min-width: 1px) {
+  a {
+    --y: !important;
+  }
+}
+
+b {
+  --color: red !important;
 }
 
 ================================================================================
