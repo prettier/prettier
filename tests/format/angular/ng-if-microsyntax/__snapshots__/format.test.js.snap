@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ng-if.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div *ngIf="item$ | async; let item; else loadingTemplate"></div>
+<div *ngIf="value; let item; then content; else loading"></div>
+<div *ngIf="value; let first; let second; else loading"></div>
+
+@if (tab.eventCount$ | async; as count) {
+  <x />
+}
+
+=====================================output=====================================
+<div *ngIf="item$ | async; let item; else loadingTemplate"></div>
+<div *ngIf="value; let item; then content; else loading"></div>
+<div *ngIf="value; let first; let second; else loading"></div>
+
+@if (tab.eventCount$ | async; as count) {
+  <x />
+}
+
+================================================================================
+`;
