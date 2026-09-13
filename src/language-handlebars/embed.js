@@ -51,10 +51,7 @@ function embed(path, options) {
 
   const { parent } = path;
 
-  if (
-    isPlainTextStyleOrScriptElement(parent) &&
-    parent.children[0] === node
-  ) {
+  if (isPlainTextStyleOrScriptElement(parent) && parent.children[0] === node) {
     return embedStyleOrScriptElement(path);
   }
 
