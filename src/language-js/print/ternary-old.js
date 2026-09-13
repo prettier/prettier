@@ -7,13 +7,14 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import { needsParenthesesInConditionalExpression } from "../parentheses/needs-parentheses.js";
 import {
   isBinaryCastExpression,
   isCallExpression,
   isChainElementWrapper,
-  isJsxElement,
   isMemberExpression,
 } from "../utilities/node-types.js";
+import { shouldPrintTernaryInJsxMode } from "../utilities/should-print-ternary-in-jsx-mode.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
@@ -21,82 +22,6 @@ import {
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
-
-// If we have nested conditional expressions, we want to print them in JSX mode
-// if there's at least one JSXElement somewhere in the tree.
-//
-// A conditional expression chain like this should be printed in normal mode,
-// because there aren't JSXElements anywhere in it:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : "Unknown";
-//
-// But a conditional expression chain like this should be printed in JSX mode,
-// because there is a JSXElement in the last ConditionalExpression:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : <span className="warning">Unknown</span>;
-//
-// This type of ConditionalExpression chain is structured like this in the AST:
-//
-// ConditionalExpression {
-//   test: ...,
-//   consequent: ...,
-//   alternate: ConditionalExpression {
-//     test: ...,
-//     consequent: ...,
-//     alternate: ConditionalExpression {
-//       test: ...,
-//       consequent: ...,
-//       alternate: ...,
-//     }
-//   }
-// }
-function conditionalExpressionChainContainsJsx(node) {
-  // Given this code:
-  //
-  // // Using a ConditionalExpression as the consequent is uncommon, but should
-  // // be handled.
-  // A ? B : C ? D : E ? F ? G : H : I
-  //
-  // which has this AST:
-  //
-  // ConditionalExpression {
-  //   test: Identifier(A),
-  //   consequent: Identifier(B),
-  //   alternate: ConditionalExpression {
-  //     test: Identifier(C),
-  //     consequent: Identifier(D),
-  //     alternate: ConditionalExpression {
-  //       test: Identifier(E),
-  //       consequent: ConditionalExpression {
-  //         test: Identifier(F),
-  //         consequent: Identifier(G),
-  //         alternate: Identifier(H),
-  //       },
-  //       alternate: Identifier(I),
-  //     }
-  //   }
-  // }
-  //
-  // We don't care about whether each node was the test, consequent, or alternate
-  // We are only checking if there's any JSXElements inside.
-  const conditionalExpressions = [node];
-  for (let index = 0; index < conditionalExpressions.length; index++) {
-    const conditionalExpression = conditionalExpressions[index];
-    for (const property of ["test", "consequent", "alternate"]) {
-      const node = conditionalExpression[property];
-
-      if (isJsxElement(node)) {
-        return true;
-      }
-
-      if (node.type === "ConditionalExpression") {
-        conditionalExpressions.push(node);
-      }
-    }
-  }
-
-  return false;
-}
 
 function printTernaryTest(path, options, print) {
   const { node } = path;
@@ -210,9 +135,7 @@ function printTernaryOld(path, options, print) {
     testNodePropertyNames.some((prop) => parent[prop] === node);
   let forceNoIndent = parent.type === node.type && !isParentTest;
 
-  // Find the outermost non-ConditionalExpression parent, and the outermost
-  // ConditionalExpression parent. We'll use these to determine if we should
-  // print in JSX mode.
+  // Find the outermost non-ConditionalExpression parent.
   let currentParent;
   let previousParent;
   let i = 0;
@@ -228,26 +151,23 @@ function printTernaryOld(path, options, print) {
     )
   );
   const firstNonConditionalParent = currentParent || parent;
-  const lastConditionalParent = previousParent;
 
-  if (
-    isConditionalExpression &&
-    (isJsxElement(node[testNodePropertyNames[0]]) ||
-      isJsxElement(consequentNode) ||
-      isJsxElement(alternateNode) ||
-      conditionalExpressionChainContainsJsx(lastConditionalParent))
-  ) {
+  if (isConditionalExpression && shouldPrintTernaryInJsxMode(path)) {
     jsxMode = true;
     forceNoIndent = true;
 
     // Even though they don't need parens, we wrap (almost) everything in
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
-    const wrap = (doc) => [
-      ifBreak("("),
+    //
+    // Nodes that would print parentheses of their own get them from here
+    // instead, so that they don't end up wrapped in two pairs of parens.
+    // See `needsParentheses`.
+    const wrap = (doc, keepParenthesesWhenFlat) => [
+      keepParenthesesWhenFlat ? "(" : ifBreak("("),
       indent([softline, doc]),
       softline,
-      ifBreak(")"),
+      keepParenthesesWhenFlat ? ")" : ifBreak(")"),
     ];
 
     // The only things we don't wrap are:
@@ -263,11 +183,17 @@ function printTernaryOld(path, options, print) {
       " ? ",
       isNil(consequentNode)
         ? print(consequentNodePropertyName)
-        : wrap(print(consequentNodePropertyName)),
+        : wrap(
+            print(consequentNodePropertyName),
+            needsParenthesesInConditionalExpression(consequentNode),
+          ),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName)),
+        : wrap(
+            print(alternateNodePropertyName),
+            needsParenthesesInConditionalExpression(alternateNode),
+          ),
     );
   } else {
     /*

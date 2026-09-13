@@ -87,7 +87,7 @@ _ = (
            * with zero data rows, the DataTable
            * displays the empty component.
            */
-          (empty ?? null)
+          empty ?? null
         ) : (
           /**
            * After the initial load, if the data for the list
@@ -108,6 +108,71 @@ _ = (
       </OptionalResourceContextProvider>
     </DataTableConfigContext.Provider>
   </DataTableStoreContext.Provider>
+);
+
+================================================================================
+`;
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
+
+const b = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" + "bravo"
+);
+
+const c = condition ? <Example /> : "alpha" ?? "bravo";
+
+const d = condition ? (
+  <Example />
+) : (
+  someVeryLongNullableValueNameHere ?? someOtherEvenLongerFallbackValueNameHere
+);
+
+const e = someNullableValue ?? someFallbackValue ? <Example /> : <Other />;
+
+const f = condition ? (
+  "alpha" ?? "bravo"
+) : (
+  <Example /> // comment
+);
+
+=====================================output=====================================
+const a = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
+
+const b = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" + "bravo"
+);
+
+const c = condition ? <Example /> : ("alpha" ?? "bravo");
+
+const d = condition ? (
+  <Example />
+) : (
+  someVeryLongNullableValueNameHere ?? someOtherEvenLongerFallbackValueNameHere
+);
+
+const e = (someNullableValue ?? someFallbackValue) ? <Example /> : <Other />;
+
+const f = condition ? (
+  "alpha" ?? "bravo"
+) : (
+  <Example /> // comment
 );
 
 ================================================================================
