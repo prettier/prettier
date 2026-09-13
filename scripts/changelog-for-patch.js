@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import semver from "semver";
+import * as verkit from "verkit";
 import {
   categories,
   changelogUnreleasedDirectory,
@@ -49,7 +49,7 @@ function parseArguments() {
   if (
     !previousVersion ||
     !newVersion ||
-    semver.compare(previousVersion, newVersion) !== -1
+    !verkit.isGreater(newVersion, previousVersion)
   ) {
     throw new Error(
       `Invalid argv, prev-version: ${previousVersion}, new-version: ${newVersion}`,
