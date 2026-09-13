@@ -3,11 +3,12 @@
 
 runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
-    babel: ["typescript.js"],
-    __babel_estree: ["typescript.js"],
+    babel: ["flow.js", "typescript.js"],
+    __babel_estree: ["flow.js", "typescript.js"],
     "babel-flow": [],
     "babel-ts": [],
     acorn: [
+      "async-do-expressions.js",
       "decorator-auto-accessors.js",
       "decorators.js",
       "deferred-import-evaluation.js",
@@ -16,6 +17,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "do-expressions.js",
       "export-default-from.js",
       // "flow-comments.js",
+      "flow.js",
       "function-bind.js",
       "function-bind-2.js",
       "function-sent.js",
@@ -29,6 +31,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
     ],
     espree: [
+      "async-do-expressions.js",
       "decorator-auto-accessors.js",
       "decorators.js",
       "deferred-import-evaluation.js",
@@ -37,6 +40,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "do-expressions.js",
       "export-default-from.js",
       // "flow-comments.js",
+      "flow.js",
       "function-bind.js",
       "function-bind-2.js",
       "function-sent.js",
@@ -50,6 +54,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
     ],
     meriyah: [
+      "async-do-expressions.js",
       // "decorator-auto-accessors.js",
       // "decorators.js",
       // "deferred-import-evaluation.js",
@@ -58,6 +63,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "do-expressions.js",
       "export-default-from.js",
       // "flow-comments.js",
+      "flow.js",
       "function-bind.js",
       "function-bind-2.js",
       "function-sent.js",
@@ -71,6 +77,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
     ],
     oxc: [
+      "async-do-expressions.js",
       // "decorator-auto-accessors.js",
       // "decorators.js",
       // "deferred-import-evaluation.js",
@@ -79,6 +86,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "do-expressions.js",
       "export-default-from.js",
       // "flow-comments.js",
+      "flow.js",
       "function-bind.js",
       "function-bind-2.js",
       "function-sent.js",
@@ -92,6 +100,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
     ],
     yuku: [
+      "async-do-expressions.js",
       // "decorator-auto-accessors.js",
       // "decorators.js",
       // "deferred-import-evaluation.js",
@@ -100,6 +109,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "do-expressions.js",
       "export-default-from.js",
       // "flow-comments.js",
+      "flow.js",
       "function-bind.js",
       "function-bind-2.js",
       "function-sent.js",

@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`async-do-expressions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async do { await requestAPI().json() }
+
+=====================================output=====================================
+(async do {
+  await requestAPI().json();
+});
+
+================================================================================
+`;
+
+exports[`async-do-expressions.js format[acorn] 1`] = `
+"Unexpected token (1:7)
+> 1 | async do { await requestAPI().json() }
+    |       ^
+  2 |
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`async-do-expressions.js format[espree] 1`] = `
+"Unexpected token do (1:7)
+> 1 | async do { await requestAPI().json() }
+    |       ^
+  2 |
+Cause: Unexpected token do"
+`;
+
+exports[`async-do-expressions.js format[meriyah] 1`] = `
+"Unexpected token: 'do' (1:7)
+> 1 | async do { await requestAPI().json() }
+    |       ^^
+  2 |
+Cause: [1:6-1:8]: Unexpected token: 'do'"
+`;
+
+exports[`async-do-expressions.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+> 1 | async do { await requestAPI().json() }
+    |      ^
+  2 |"
+`;
+
+exports[`async-do-expressions.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
+> 1 | async do { await requestAPI().json() }
+    |       ^^
+  2 |"
+`;
+
 exports[`decorator-auto-accessors.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -300,6 +353,73 @@ exports[`export-default-from.js format[yuku] 1`] = `
 "Expected declaration after 'export', but found 'v' (1:8)
 > 1 | export v from "mod"
     |        ^
+  2 |"
+`;
+
+exports[`flow.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+var a: string = "";
+
+=====================================output=====================================
+var a: string = "";
+
+================================================================================
+`;
+
+exports[`flow.js format[__babel_estree] 1`] = `
+"Unexpected token (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |
+Cause: Unexpected token (1:5)"
+`;
+
+exports[`flow.js format[acorn] 1`] = `
+"Unexpected token (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |
+Cause: Unexpected token (1:5)"
+`;
+
+exports[`flow.js format[babel] 1`] = `
+"Unexpected token (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |
+Cause: Unexpected token (1:5)"
+`;
+
+exports[`flow.js format[espree] 1`] = `
+"Unexpected token : (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |
+Cause: Unexpected token :"
+`;
+
+exports[`flow.js format[meriyah] 1`] = `
+"Unexpected token: ':' (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |
+Cause: [1:5-1:6]: Unexpected token: ':'"
+`;
+
+exports[`flow.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+> 1 | var a: string = "";
+    |      ^
+  2 |"
+`;
+
+exports[`flow.js format[yuku] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:6)
+> 1 | var a: string = "";
+    |      ^
   2 |"
 `;
 

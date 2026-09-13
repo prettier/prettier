@@ -42,11 +42,13 @@ function* parsePluginTable(text) {
 
   assert.ok(table.children.length > 2);
 
-  for (const row of table.children.slice(2)) {
+  for (const row of table.children.slice(1)) {
     const [nameCell, exampleCell] = row.children;
 
     assert.equal(nameCell.children[0].type, "inlineCode");
     const name = nameCell.children[0].value;
+
+    assert.ok(/^[a-z\d]+$/i.test(name), name);
 
     if (
       // https://github.com/babel/website/pull/3244
