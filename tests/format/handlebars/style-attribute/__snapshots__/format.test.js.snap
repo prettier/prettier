@@ -7,6 +7,8 @@ parsers: ["glimmer"]
 =====================================input======================================
 <div style="   color : red;
             display    :inline "></div>
+<div STYle="   color : red;
+            display    :inline "></div>
 
 <div style="color:red;display:inline"></div>
 
@@ -16,17 +18,21 @@ background: linear-gradient(to left, hotpink, #FFF00F, #ccc, hsla(240, 100%, 50%
 max-width: 500px;margin: 0 auto;
 border-radius: 8px;transition: transform .2s ease-out;"></div>
 
-<div style=" "></div>
+<div style="   "></div>
+<div style="
+"></div>
 <div style=""></div>
 <div style></div>
 
-<div style="color: red; {{otherStyles}}"></div>
-<div style="{{styles}}"></div>
+<div style="   color:   red;    {{   otherStyles}}"></div>
+<div style="{{   styles}}"></div>
 
 <div style="font-family: 'stampfont'"></div>
+<div not-style="   color:   red;   "></div>
 
 =====================================output=====================================
 <div style="color: red; display: inline"></div>
+<div STYle="color: red; display: inline"></div>
 
 <div style="color: red; display: inline"></div>
 
@@ -53,11 +59,13 @@ border-radius: 8px;transition: transform .2s ease-out;"></div>
 
 <div style=""></div>
 <div style=""></div>
+<div style=""></div>
 <div style></div>
 
-<div style="color: red; {{otherStyles}}"></div>
+<div style="   color:   red;    {{otherStyles}}"></div>
 <div style="{{styles}}"></div>
 
 <div style="font-family: &quot;stampfont&quot;"></div>
+<div not-style="   color:   red;   "></div>
 ================================================================================
 `;
