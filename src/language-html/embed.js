@@ -7,7 +7,6 @@ import {
 } from "../document/index.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
-import printAngularErrorBlockParameter from "./embed/angular-error-block-parameter.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
@@ -149,13 +148,6 @@ function embed(path, options) {
       }
 
       return printAngularControlFlowBlockParameters;
-
-    case "angularControlFlowBlockParameter":
-      if (path.grandparent?.name !== "error") {
-        return;
-      }
-
-      return printAngularErrorBlockParameter;
 
     case "angularLetDeclarationInitializer":
       return (textToDoc) =>
