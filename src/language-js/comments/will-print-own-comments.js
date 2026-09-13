@@ -1,7 +1,13 @@
+import { locEnd, locStart } from "../location/index.js";
+import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
-import { isJsxElement, isUnionType } from "../utilities/node-types.js";
+import {
+  isJsxElement,
+  isMemberExpression,
+  isUnionType,
+} from "../utilities/node-types.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import { shouldUnionTypePrintOwnComments } from "../utilities/union-type-print.js";
 
@@ -58,6 +64,19 @@ function willPrintOwnComments(path, options) {
   }
 
   if (isJsxElement(node)) {
+    return true;
+  }
+
+  if (
+    isMemberExpression(node) &&
+    hasComment(
+      node,
+      (comment) =>
+        !comment.trailing &&
+        locStart(comment) > locEnd(node.object) &&
+        locEnd(comment) < locStart(node.property),
+    )
+  ) {
     return true;
   }
 
