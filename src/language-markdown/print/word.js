@@ -1,5 +1,6 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
+import { isFakeTableDelimiterRowLine } from "../utilities/is-fake-table-delimiter-row.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 
@@ -28,6 +29,16 @@ function printWord(path, options) {
       (path.isLast || isNewLine(path.next))
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
+      return `\\${text}`;
+    }
+
+    if (
+      options.proseWrap === "preserve" &&
+      path.parent.type === "sentence" &&
+      isNewLine(path.previous) &&
+      isFakeTableDelimiterRowLine(path.siblings, path.index)
+    ) {
+      // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣| --- | --- |`
       return `\\${text}`;
     }
 
