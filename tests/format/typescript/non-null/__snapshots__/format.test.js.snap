@@ -61,6 +61,30 @@ xyz.a(b!).a(b!).a(b!)
 xyz.a(/a/).a(/a/).a(/a/)
 xyz.a(/a/!).a(/a/!).a(/a/!)
 
+obj[l] /* c */!.substring(0);
+obj.aaa /* c */!.substring(0);
+(obj.aaa
+// c
+)!.substring(0);
+(obj.aaa
+/* c1
+c2 */
+)!.substring(0);
+(obj.aaa
+// c
+)![key].substring(0);
+(obj.aaa
+// c
+)![0].substring(0);
+(obj.aaa
+// c
+)!["str"].substring(0);
+(obj.aaa
+// c
+)!?.[key].substring(0);
+wrapper.foo() /* c1 */!.bar() /* c2 */!.baz() /* c3 */!.qux();
+wrapper.foo() /* c */!!.bar();
+
 =====================================output=====================================
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } =
   this.props.imReallySureAboutThis!;
@@ -76,6 +100,46 @@ xyz.a(b).a(b).a(b);
 xyz.a(b!).a(b!).a(b!);
 xyz.a(/a/).a(/a/).a(/a/);
 xyz.a(/a/!).a(/a/!).a(/a/!);
+
+obj
+  [l] /* c */!
+  .substring(0);
+obj
+  .aaa /* c */!
+  .substring(0);
+obj
+  .aaa!
+  // c
+  .substring(0);
+obj
+  .aaa!
+  /* c1
+c2 */
+  .substring(0);
+obj
+  .aaa!
+  // c
+  [key].substring(0);
+obj
+  .aaa!
+  // c
+  [0].substring(0);
+obj
+  .aaa!
+  // c
+  ["str"].substring(0);
+obj
+  .aaa!
+  // c
+  ?.[key].substring(0);
+wrapper
+  .foo() /* c1 */!
+  .bar() /* c2 */!
+  .baz() /* c3 */!
+  .qux();
+wrapper
+  .foo() /* c */!!
+  .bar();
 
 ================================================================================
 `;
@@ -162,6 +226,32 @@ new (x!()\`\`.y)();
 
 xyz.a(b!).a(b!).a(b!)
 
+const x1 = (a /*
+c1 */)!;
+(obj.aaa /*
+c2 */)!.substring(0);
+(a.b /*
+c3 */)!.c;
+(obj.aaa /*
+c4 */)!!.substring(0);
+(wrapper.foo() /*
+c5 */)!.bar();
+(obj[key] /*
+c6 */)!.substring(0);
+((a as B) /*
+c7 */)!.c();
+((a, b) /*
+c8 */)!.substring(0);
+(a as B) /* c10 */!.c();
+async function f2() {
+  return (await foo() /*
+c9 */)!;
+}
+(
+  // prettier-ignore
+  (a, b)
+)!.foo;
+
 =====================================output=====================================
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
@@ -188,6 +278,30 @@ new (x()!\`\`.y)();
 new (x!()\`\`.y)();
 
 xyz.a(b!).a(b!).a(b!);
+
+const x1 = (a /*
+c1 */)!;
+(obj.aaa /*
+c2 */)!.substring(0);
+(a.b /*
+c3 */)!.c;
+(obj.aaa /*
+c4 */)!!.substring(0);
+(wrapper.foo() /*
+c5 */)!.bar();
+(obj[key] /*
+c6 */)!.substring(0);
+(a as B /*
+c7 */)!.c();
+(a, b /*
+c8 */)!.substring(0);
+(a as B /* c10 */)!.c();
+async function f2() {
+  return (await foo() /*
+c9 */)!;
+}
+// prettier-ignore
+(a, b)!.foo;
 
 ================================================================================
 `;
