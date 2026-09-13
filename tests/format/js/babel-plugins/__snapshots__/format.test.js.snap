@@ -5,9 +5,17 @@ exports[`async-do-expressions.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`asyncDoExpressions\` ([proposal](https://github.com/tc39/proposal-async-do-expressions))
+*/
+
 async do { await requestAPI().json() }
 
 =====================================output=====================================
+/*
+\`asyncDoExpressions\` ([proposal](https://github.com/tc39/proposal-async-do-expressions))
+*/
+
 (async do {
   await requestAPI().json();
 });
@@ -16,41 +24,51 @@ async do { await requestAPI().json() }
 `;
 
 exports[`async-do-expressions.js format[acorn] 1`] = `
-"Unexpected token (1:7)
-> 1 | async do { await requestAPI().json() }
+"Unexpected token (5:7)
+  3 | */
+  4 |
+> 5 | async do { await requestAPI().json() }
     |       ^
-  2 |
-Cause: Unexpected token (1:6)"
+  6 |
+Cause: Unexpected token (5:6)"
 `;
 
 exports[`async-do-expressions.js format[espree] 1`] = `
-"Unexpected token do (1:7)
-> 1 | async do { await requestAPI().json() }
+"Unexpected token do (5:7)
+  3 | */
+  4 |
+> 5 | async do { await requestAPI().json() }
     |       ^
-  2 |
+  6 |
 Cause: Unexpected token do"
 `;
 
 exports[`async-do-expressions.js format[meriyah] 1`] = `
-"Unexpected token: 'do' (1:7)
-> 1 | async do { await requestAPI().json() }
+"Unexpected token: 'do' (5:7)
+  3 | */
+  4 |
+> 5 | async do { await requestAPI().json() }
     |       ^^
-  2 |
-Cause: [1:6-1:8]: Unexpected token: 'do'"
+  6 |
+Cause: [5:6-5:8]: Unexpected token: 'do'"
 `;
 
 exports[`async-do-expressions.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
-> 1 | async do { await requestAPI().json() }
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:6)
+  3 | */
+  4 |
+> 5 | async do { await requestAPI().json() }
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`async-do-expressions.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
-> 1 | async do { await requestAPI().json() }
+"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (5:7)
+  3 | */
+  4 |
+> 5 | async do { await requestAPI().json() }
     |       ^^
-  2 |"
+  6 |"
 `;
 
 exports[`decorator-auto-accessors.js format 1`] = `
@@ -58,9 +76,17 @@ exports[`decorator-auto-accessors.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`decoratorAutoAccessors\` ([proposal](https://github.com/tc39/proposal-decorators))
+*/
+
 class Example { @reactive accessor myBool = false; }
 
 =====================================output=====================================
+/*
+\`decoratorAutoAccessors\` ([proposal](https://github.com/tc39/proposal-decorators))
+*/
+
 class Example {
   @reactive accessor myBool = false;
 }
@@ -69,18 +95,22 @@ class Example {
 `;
 
 exports[`decorator-auto-accessors.js format[acorn] 1`] = `
-"Unexpected character '@' (1:17)
-> 1 | class Example { @reactive accessor myBool = false; }
+"Unexpected character '@' (5:17)
+  3 | */
+  4 |
+> 5 | class Example { @reactive accessor myBool = false; }
     |                 ^
-  2 |
-Cause: Unexpected character '@' (1:16)"
+  6 |
+Cause: Unexpected character '@' (5:16)"
 `;
 
 exports[`decorator-auto-accessors.js format[espree] 1`] = `
-"Unexpected character '@' (1:17)
-> 1 | class Example { @reactive accessor myBool = false; }
+"Unexpected character '@' (5:17)
+  3 | */
+  4 |
+> 5 | class Example { @reactive accessor myBool = false; }
     |                 ^
-  2 |
+  6 |
 Cause: Unexpected character '@'"
 `;
 
@@ -89,9 +119,17 @@ exports[`decorators.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`decorators\` ([proposal](https://github.com/tc39/proposal-decorators)) <br/> \`decorators-legacy\`
+*/
+
 @a class A {}
 
 =====================================output=====================================
+/*
+\`decorators\` ([proposal](https://github.com/tc39/proposal-decorators)) <br/> \`decorators-legacy\`
+*/
+
 @a
 class A {}
 
@@ -99,18 +137,22 @@ class A {}
 `;
 
 exports[`decorators.js format[acorn] 1`] = `
-"Unexpected character '@' (1:1)
-> 1 | @a class A {}
+"Unexpected character '@' (5:1)
+  3 | */
+  4 |
+> 5 | @a class A {}
     | ^
-  2 |
-Cause: Unexpected character '@' (1:0)"
+  6 |
+Cause: Unexpected character '@' (5:0)"
 `;
 
 exports[`decorators.js format[espree] 1`] = `
-"Unexpected character '@' (1:1)
-> 1 | @a class A {}
+"Unexpected character '@' (5:1)
+  3 | */
+  4 |
+> 5 | @a class A {}
     | ^
-  2 |
+  6 |
 Cause: Unexpected character '@'"
 `;
 
@@ -119,27 +161,39 @@ exports[`deferred-import-evaluation.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`deferredImportEvaluation\` ([proposal](https://github.com/tc39/proposal-defer-import-eval))
+*/
+
 import defer * as ns from "dep";
 
 =====================================output=====================================
+/*
+\`deferredImportEvaluation\` ([proposal](https://github.com/tc39/proposal-defer-import-eval))
+*/
+
 import defer * as ns from "dep";
 
 ================================================================================
 `;
 
 exports[`deferred-import-evaluation.js format[acorn] 1`] = `
-"Unexpected token (1:14)
-> 1 | import defer * as ns from "dep";
+"Unexpected token (5:14)
+  3 | */
+  4 |
+> 5 | import defer * as ns from "dep";
     |              ^
-  2 |
-Cause: Unexpected token (1:13)"
+  6 |
+Cause: Unexpected token (5:13)"
 `;
 
 exports[`deferred-import-evaluation.js format[espree] 1`] = `
-"Unexpected token * (1:14)
-> 1 | import defer * as ns from "dep";
+"Unexpected token * (5:14)
+  3 | */
+  4 |
+> 5 | import defer * as ns from "dep";
     |              ^
-  2 |
+  6 |
 Cause: Unexpected token *"
 `;
 
@@ -148,9 +202,17 @@ exports[`destructuring-private.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`destructuringPrivate\` ([proposal](https://github.com/tc39/proposal-destructuring-private))
+*/
+
 class Example { #x = 1; method() { const { #x: x } = this; } }
 
 =====================================output=====================================
+/*
+\`destructuringPrivate\` ([proposal](https://github.com/tc39/proposal-destructuring-private))
+*/
+
 class Example {
   #x = 1;
   method() {
@@ -162,41 +224,51 @@ class Example {
 `;
 
 exports[`destructuring-private.js format[acorn] 1`] = `
-"Unexpected token (1:44)
-> 1 | class Example { #x = 1; method() { const { #x: x } = this; } }
+"Unexpected token (5:44)
+  3 | */
+  4 |
+> 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
     |                                            ^
-  2 |
-Cause: Unexpected token (1:43)"
+  6 |
+Cause: Unexpected token (5:43)"
 `;
 
 exports[`destructuring-private.js format[espree] 1`] = `
-"Unexpected token #x (1:44)
-> 1 | class Example { #x = 1; method() { const { #x: x } = this; } }
+"Unexpected token #x (5:44)
+  3 | */
+  4 |
+> 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
     |                                            ^
-  2 |
+  6 |
 Cause: Unexpected token #x"
 `;
 
 exports[`destructuring-private.js format[meriyah] 1`] = `
-"Unexpected token: 'PrivateField' (1:44)
-> 1 | class Example { #x = 1; method() { const { #x: x } = this; } }
+"Unexpected token: 'PrivateField' (5:44)
+  3 | */
+  4 |
+> 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
     |                                            ^
-  2 |
-Cause: [1:43-1:44]: Unexpected token: 'PrivateField'"
+  6 |
+Cause: [5:43-5:44]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`destructuring-private.js format[oxc] 1`] = `
-"Private identifier '#x' is not allowed in property names (1:44)
-> 1 | class Example { #x = 1; method() { const { #x: x } = this; } }
+"Private identifier '#x' is not allowed in property names (5:44)
+  3 | */
+  4 |
+> 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
     |                                            ^^
-  2 |"
+  6 |"
 `;
 
 exports[`destructuring-private.js format[yuku] 1`] = `
-"Unexpected token '#x' as property key (1:44)
-> 1 | class Example { #x = 1; method() { const { #x: x } = this; } }
+"Unexpected token '#x' as property key (5:44)
+  3 | */
+  4 |
+> 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
     |                                            ^^
-  2 |"
+  6 |"
 `;
 
 exports[`discard-binding.js format 1`] = `
@@ -204,50 +276,68 @@ exports[`discard-binding.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`discardBinding\` ([proposal](https://github.com/tc39/proposal-discard-binding))
+*/
+
 using void = new Lock(mutex)
 
 =====================================output=====================================
+/*
+\`discardBinding\` ([proposal](https://github.com/tc39/proposal-discard-binding))
+*/
+
 using void = new Lock(mutex);
 
 ================================================================================
 `;
 
 exports[`discard-binding.js format[acorn] 1`] = `
-"Unexpected keyword 'void' (1:7)
-> 1 | using void = new Lock(mutex)
+"Unexpected keyword 'void' (5:7)
+  3 | */
+  4 |
+> 5 | using void = new Lock(mutex)
     |       ^
-  2 |
-Cause: Unexpected keyword 'void' (1:6)"
+  6 |
+Cause: Unexpected keyword 'void' (5:6)"
 `;
 
 exports[`discard-binding.js format[espree] 1`] = `
-"Unexpected keyword 'void' (1:7)
-> 1 | using void = new Lock(mutex)
+"Unexpected keyword 'void' (5:7)
+  3 | */
+  4 |
+> 5 | using void = new Lock(mutex)
     |       ^
-  2 |
+  6 |
 Cause: Unexpected keyword 'void'"
 `;
 
 exports[`discard-binding.js format[meriyah] 1`] = `
-"Unexpected token: 'void' (1:7)
-> 1 | using void = new Lock(mutex)
+"Unexpected token: 'void' (5:7)
+  3 | */
+  4 |
+> 5 | using void = new Lock(mutex)
     |       ^^^^
-  2 |
-Cause: [1:6-1:10]: Unexpected token: 'void'"
+  6 |
+Cause: [5:6-5:10]: Unexpected token: 'void'"
 `;
 
 exports[`discard-binding.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
-> 1 | using void = new Lock(mutex)
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:6)
+  3 | */
+  4 |
+> 5 | using void = new Lock(mutex)
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`discard-binding.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (1:7)
-> 1 | using void = new Lock(mutex)
+"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (5:7)
+  3 | */
+  4 |
+> 5 | using void = new Lock(mutex)
     |       ^^^^
-  2 |"
+  6 |"
 `;
 
 exports[`do-expressions.js format 1`] = `
@@ -255,9 +345,17 @@ exports[`do-expressions.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`doExpressions\` ([proposal](https://github.com/tc39/proposal-do-expressions))
+*/
+
 var a = do { if (true) { 'hi'; } };
 
 =====================================output=====================================
+/*
+\`doExpressions\` ([proposal](https://github.com/tc39/proposal-do-expressions))
+*/
+
 var a = do {
   if (true) {
     ("hi");
@@ -268,41 +366,51 @@ var a = do {
 `;
 
 exports[`do-expressions.js format[acorn] 1`] = `
-"Unexpected token (1:9)
-> 1 | var a = do { if (true) { 'hi'; } };
+"Unexpected token (5:9)
+  3 | */
+  4 |
+> 5 | var a = do { if (true) { 'hi'; } };
     |         ^
-  2 |
-Cause: Unexpected token (1:8)"
+  6 |
+Cause: Unexpected token (5:8)"
 `;
 
 exports[`do-expressions.js format[espree] 1`] = `
-"Unexpected token do (1:9)
-> 1 | var a = do { if (true) { 'hi'; } };
+"Unexpected token do (5:9)
+  3 | */
+  4 |
+> 5 | var a = do { if (true) { 'hi'; } };
     |         ^
-  2 |
+  6 |
 Cause: Unexpected token do"
 `;
 
 exports[`do-expressions.js format[meriyah] 1`] = `
-"Unexpected token: 'do' (1:9)
-> 1 | var a = do { if (true) { 'hi'; } };
+"Unexpected token: 'do' (5:9)
+  3 | */
+  4 |
+> 5 | var a = do { if (true) { 'hi'; } };
     |         ^^
-  2 |
-Cause: [1:8-1:10]: Unexpected token: 'do'"
+  6 |
+Cause: [5:8-5:10]: Unexpected token: 'do'"
 `;
 
 exports[`do-expressions.js format[oxc] 1`] = `
-"Unexpected token (1:9)
-> 1 | var a = do { if (true) { 'hi'; } };
+"Unexpected token (5:9)
+  3 | */
+  4 |
+> 5 | var a = do { if (true) { 'hi'; } };
     |         ^^
-  2 |"
+  6 |"
 `;
 
 exports[`do-expressions.js format[yuku] 1`] = `
-"'do' is reserved and cannot be used as an identifier (1:9)
-> 1 | var a = do { if (true) { 'hi'; } };
+"'do' is reserved and cannot be used as an identifier (5:9)
+  3 | */
+  4 |
+> 5 | var a = do { if (true) { 'hi'; } };
     |         ^^
-  2 |"
+  6 |"
 `;
 
 exports[`export-default-from.js format 1`] = `
@@ -310,50 +418,68 @@ exports[`export-default-from.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`exportDefaultFrom\` ([proposal](https://github.com/tc39/ecmascript-export-default-from))
+*/
+
 export v from "mod"
 
 =====================================output=====================================
+/*
+\`exportDefaultFrom\` ([proposal](https://github.com/tc39/ecmascript-export-default-from))
+*/
+
 export v from "mod";
 
 ================================================================================
 `;
 
 exports[`export-default-from.js format[acorn] 1`] = `
-"Unexpected token (1:8)
-> 1 | export v from "mod"
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export v from "mod"
     |        ^
-  2 |
-Cause: Unexpected token (1:7)"
+  6 |
+Cause: Unexpected token (5:7)"
 `;
 
 exports[`export-default-from.js format[espree] 1`] = `
-"Unexpected token v (1:8)
-> 1 | export v from "mod"
+"Unexpected token v (5:8)
+  3 | */
+  4 |
+> 5 | export v from "mod"
     |        ^
-  2 |
+  6 |
 Cause: Unexpected token v"
 `;
 
 exports[`export-default-from.js format[meriyah] 1`] = `
-"Unexpected token: 'identifier' (1:8)
-> 1 | export v from "mod"
+"Unexpected token: 'identifier' (5:8)
+  3 | */
+  4 |
+> 5 | export v from "mod"
     |        ^
-  2 |
-Cause: [1:7-1:8]: Unexpected token: 'identifier'"
+  6 |
+Cause: [5:7-5:8]: Unexpected token: 'identifier'"
 `;
 
 exports[`export-default-from.js format[oxc] 1`] = `
-"Unexpected token (1:8)
-> 1 | export v from "mod"
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export v from "mod"
     |        ^
-  2 |"
+  6 |"
 `;
 
 exports[`export-default-from.js format[yuku] 1`] = `
-"Expected declaration after 'export', but found 'v' (1:8)
-> 1 | export v from "mod"
+"Expected declaration after 'export', but found 'v' (5:8)
+  3 | */
+  4 |
+> 5 | export v from "mod"
     |        ^
-  2 |"
+  6 |"
 `;
 
 exports[`flow.js format 1`] = `
@@ -361,66 +487,88 @@ exports[`flow.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`flow\` ([repo](https://github.com/facebook/flow))
+*/
+
 var a: string = "";
 
 =====================================output=====================================
+/*
+\`flow\` ([repo](https://github.com/facebook/flow))
+*/
+
 var a: string = "";
 
 ================================================================================
 `;
 
 exports[`flow.js format[__babel_estree] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`flow.js format[acorn] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`flow.js format[babel] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`flow.js format[espree] 1`] = `
-"Unexpected token : (1:6)
-> 1 | var a: string = "";
+"Unexpected token : (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
+  6 |
 Cause: Unexpected token :"
 `;
 
 exports[`flow.js format[meriyah] 1`] = `
-"Unexpected token: ':' (1:6)
-> 1 | var a: string = "";
+"Unexpected token: ':' (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: [1:5-1:6]: Unexpected token: ':'"
+  6 |
+Cause: [5:5-5:6]: Unexpected token: ':'"
 `;
 
 exports[`flow.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
-> 1 | var a: string = "";
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`flow.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:6)
-> 1 | var a: string = "";
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`flow-comments.js format 1`] = `
@@ -428,9 +576,17 @@ exports[`flow-comments.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`flowComments\` ([docs](https://flow.org/en/docs/types/comments/))
+*/
+
 /*:: type Foo = {...}; */
 
 =====================================output=====================================
+/*
+\`flowComments\` ([docs](https://flow.org/en/docs/types/comments/))
+*/
+
 /*:: type Foo = {...}; */
 
 ================================================================================
@@ -441,50 +597,68 @@ exports[`function-bind.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`functionBind\` ([proposal](https://github.com/zenparsing/es-function-bind))
+*/
+
 a::b
 
 =====================================output=====================================
+/*
+\`functionBind\` ([proposal](https://github.com/zenparsing/es-function-bind))
+*/
+
 a::b;
 
 ================================================================================
 `;
 
 exports[`function-bind.js format[acorn] 1`] = `
-"Unexpected token (1:3)
-> 1 | a::b
+"Unexpected token (5:3)
+  3 | */
+  4 |
+> 5 | a::b
     |   ^
-  2 |
-Cause: Unexpected token (1:2)"
+  6 |
+Cause: Unexpected token (5:2)"
 `;
 
 exports[`function-bind.js format[espree] 1`] = `
-"Unexpected token : (1:3)
-> 1 | a::b
+"Unexpected token : (5:3)
+  3 | */
+  4 |
+> 5 | a::b
     |   ^
-  2 |
+  6 |
 Cause: Unexpected token :"
 `;
 
 exports[`function-bind.js format[meriyah] 1`] = `
-"Unexpected token: ':' (1:3)
-> 1 | a::b
+"Unexpected token: ':' (5:3)
+  3 | */
+  4 |
+> 5 | a::b
     |   ^
-  2 |
-Cause: [1:2-1:3]: Unexpected token: ':'"
+  6 |
+Cause: [5:2-5:3]: Unexpected token: ':'"
 `;
 
 exports[`function-bind.js format[oxc] 1`] = `
-"Unexpected token (1:3)
-> 1 | a::b
+"Unexpected token (5:3)
+  3 | */
+  4 |
+> 5 | a::b
     |   ^
-  2 |"
+  6 |"
 `;
 
 exports[`function-bind.js format[yuku] 1`] = `
-"Unexpected token ':' (1:3)
-> 1 | a::b
+"Unexpected token ':' (5:3)
+  3 | */
+  4 |
+> 5 | a::b
     |   ^
-  2 |"
+  6 |"
 `;
 
 exports[`function-bind-2.js format 1`] = `
@@ -492,50 +666,68 @@ exports[`function-bind-2.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`functionBind\` ([proposal](https://github.com/zenparsing/es-function-bind))
+*/
+
 ::console.log
 
 =====================================output=====================================
+/*
+\`functionBind\` ([proposal](https://github.com/zenparsing/es-function-bind))
+*/
+
 ::console.log;
 
 ================================================================================
 `;
 
 exports[`function-bind-2.js format[acorn] 1`] = `
-"Unexpected token (1:1)
-> 1 | ::console.log
+"Unexpected token (5:1)
+  3 | */
+  4 |
+> 5 | ::console.log
     | ^
-  2 |
-Cause: Unexpected token (1:0)"
+  6 |
+Cause: Unexpected token (5:0)"
 `;
 
 exports[`function-bind-2.js format[espree] 1`] = `
-"Unexpected token : (1:1)
-> 1 | ::console.log
+"Unexpected token : (5:1)
+  3 | */
+  4 |
+> 5 | ::console.log
     | ^
-  2 |
+  6 |
 Cause: Unexpected token :"
 `;
 
 exports[`function-bind-2.js format[meriyah] 1`] = `
-"Unexpected token: ':' (1:1)
-> 1 | ::console.log
+"Unexpected token: ':' (5:1)
+  3 | */
+  4 |
+> 5 | ::console.log
     | ^
-  2 |
-Cause: [1:0-1:1]: Unexpected token: ':'"
+  6 |
+Cause: [5:0-5:1]: Unexpected token: ':'"
 `;
 
 exports[`function-bind-2.js format[oxc] 1`] = `
-"Unexpected token (1:1)
-> 1 | ::console.log
+"Unexpected token (5:1)
+  3 | */
+  4 |
+> 5 | ::console.log
     | ^
-  2 |"
+  6 |"
 `;
 
 exports[`function-bind-2.js format[yuku] 1`] = `
-"Unexpected token ':' (1:1)
-> 1 | ::console.log
+"Unexpected token ':' (5:1)
+  3 | */
+  4 |
+> 5 | ::console.log
     | ^
-  2 |"
+  6 |"
 `;
 
 exports[`jsx.js format 1`] = `
@@ -543,9 +735,17 @@ exports[`jsx.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`jsx\` ([repo](https://facebook.github.io/jsx/))
+*/
+
 <a attr="b">{s}</a>
 
 =====================================output=====================================
+/*
+\`jsx\` ([repo](https://facebook.github.io/jsx/))
+*/
+
 <a attr="b">{s}</a>;
 
 ================================================================================
@@ -556,9 +756,17 @@ exports[`module-blocks.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`moduleBlocks\` ([proposal](https://github.com/tc39/proposal-js-module-blocks))
+*/
+
 let m = module { export let y = 1; };
 
 =====================================output=====================================
+/*
+\`moduleBlocks\` ([proposal](https://github.com/tc39/proposal-js-module-blocks))
+*/
+
 let m = module {
   export let y = 1;
 };
@@ -567,41 +775,51 @@ let m = module {
 `;
 
 exports[`module-blocks.js format[acorn] 1`] = `
-"Unexpected token (1:16)
-> 1 | let m = module { export let y = 1; };
+"Unexpected token (5:16)
+  3 | */
+  4 |
+> 5 | let m = module { export let y = 1; };
     |                ^
-  2 |
-Cause: Unexpected token (1:15)"
+  6 |
+Cause: Unexpected token (5:15)"
 `;
 
 exports[`module-blocks.js format[espree] 1`] = `
-"Unexpected token { (1:16)
-> 1 | let m = module { export let y = 1; };
+"Unexpected token { (5:16)
+  3 | */
+  4 |
+> 5 | let m = module { export let y = 1; };
     |                ^
-  2 |
+  6 |
 Cause: Unexpected token {"
 `;
 
 exports[`module-blocks.js format[meriyah] 1`] = `
-"Unexpected token: '{' (1:16)
-> 1 | let m = module { export let y = 1; };
+"Unexpected token: '{' (5:16)
+  3 | */
+  4 |
+> 5 | let m = module { export let y = 1; };
     |                ^
-  2 |
-Cause: [1:15-1:16]: Unexpected token: '{'"
+  6 |
+Cause: [5:15-5:16]: Unexpected token: '{'"
 `;
 
 exports[`module-blocks.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:15)
-> 1 | let m = module { export let y = 1; };
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:15)
+  3 | */
+  4 |
+> 5 | let m = module { export let y = 1; };
     |               ^
-  2 |"
+  6 |"
 `;
 
 exports[`module-blocks.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '{' (1:16)
-> 1 | let m = module { export let y = 1; };
+"Expected a semicolon or an implicit semicolon after a statement, but found '{' (5:16)
+  3 | */
+  4 |
+> 5 | let m = module { export let y = 1; };
     |                ^
-  2 |"
+  6 |"
 `;
 
 exports[`optional-chaining-assign.js format 1`] = `
@@ -609,50 +827,68 @@ exports[`optional-chaining-assign.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`optionalChainingAssign\` ([proposal](https://github.com/tc39/proposal-optional-chaining-assignment))
+*/
+
 x?.prop = 2
 
 =====================================output=====================================
+/*
+\`optionalChainingAssign\` ([proposal](https://github.com/tc39/proposal-optional-chaining-assignment))
+*/
+
 x?.prop = 2;
 
 ================================================================================
 `;
 
 exports[`optional-chaining-assign.js format[acorn] 1`] = `
-"Optional chaining cannot appear in left-hand side (1:1)
-> 1 | x?.prop = 2
+"Optional chaining cannot appear in left-hand side (5:1)
+  3 | */
+  4 |
+> 5 | x?.prop = 2
     | ^
-  2 |
-Cause: Optional chaining cannot appear in left-hand side (1:0)"
+  6 |
+Cause: Optional chaining cannot appear in left-hand side (5:0)"
 `;
 
 exports[`optional-chaining-assign.js format[espree] 1`] = `
-"Optional chaining cannot appear in left-hand side (1:1)
-> 1 | x?.prop = 2
+"Optional chaining cannot appear in left-hand side (5:1)
+  3 | */
+  4 |
+> 5 | x?.prop = 2
     | ^
-  2 |
+  6 |
 Cause: Optional chaining cannot appear in left-hand side"
 `;
 
 exports[`optional-chaining-assign.js format[meriyah] 1`] = `
-"Invalid left-hand side in assignment (1:9)
-> 1 | x?.prop = 2
+"Invalid left-hand side in assignment (5:9)
+  3 | */
+  4 |
+> 5 | x?.prop = 2
     |         ^
-  2 |
-Cause: [1:8-1:9]: Invalid left-hand side in assignment"
+  6 |
+Cause: [5:8-5:9]: Invalid left-hand side in assignment"
 `;
 
 exports[`optional-chaining-assign.js format[oxc] 1`] = `
-"Cannot assign to this expression (1:1)
-> 1 | x?.prop = 2
+"Cannot assign to this expression (5:1)
+  3 | */
+  4 |
+> 5 | x?.prop = 2
     | ^^^^^^^
-  2 |"
+  6 |"
 `;
 
 exports[`optional-chaining-assign.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:1)
-> 1 | x?.prop = 2
+"Optional chaining is not allowed in assignment pattern (5:1)
+  3 | */
+  4 |
+> 5 | x?.prop = 2
     | ^^^^^^^
-  2 |"
+  6 |"
 `;
 
 exports[`partial-application.js format 1`] = `
@@ -660,50 +896,68 @@ exports[`partial-application.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`partialApplication\` ([proposal](https://github.com/babel/proposals/issues/32))
+*/
+
 f(?, a)
 
 =====================================output=====================================
+/*
+\`partialApplication\` ([proposal](https://github.com/babel/proposals/issues/32))
+*/
+
 f(?, a);
 
 ================================================================================
 `;
 
 exports[`partial-application.js format[acorn] 1`] = `
-"Unexpected token (1:3)
-> 1 | f(?, a)
+"Unexpected token (5:3)
+  3 | */
+  4 |
+> 5 | f(?, a)
     |   ^
-  2 |
-Cause: Unexpected token (1:2)"
+  6 |
+Cause: Unexpected token (5:2)"
 `;
 
 exports[`partial-application.js format[espree] 1`] = `
-"Unexpected token ? (1:3)
-> 1 | f(?, a)
+"Unexpected token ? (5:3)
+  3 | */
+  4 |
+> 5 | f(?, a)
     |   ^
-  2 |
+  6 |
 Cause: Unexpected token ?"
 `;
 
 exports[`partial-application.js format[meriyah] 1`] = `
-"Unexpected token: '?' (1:3)
-> 1 | f(?, a)
+"Unexpected token: '?' (5:3)
+  3 | */
+  4 |
+> 5 | f(?, a)
     |   ^
-  2 |
-Cause: [1:2-1:3]: Unexpected token: '?'"
+  6 |
+Cause: [5:2-5:3]: Unexpected token: '?'"
 `;
 
 exports[`partial-application.js format[oxc] 1`] = `
-"Unexpected token (1:3)
-> 1 | f(?, a)
+"Unexpected token (5:3)
+  3 | */
+  4 |
+> 5 | f(?, a)
     |   ^
-  2 |"
+  6 |"
 `;
 
 exports[`partial-application.js format[yuku] 1`] = `
-"Unexpected token '?' (1:3)
-> 1 | f(?, a)
+"Unexpected token '?' (5:3)
+  3 | */
+  4 |
+> 5 | f(?, a)
     |   ^
-  2 |"
+  6 |"
 `;
 
 exports[`pipeline-operator.js format 1`] = `
@@ -711,50 +965,68 @@ exports[`pipeline-operator.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`pipelineOperator\` ([proposal](https://github.com/babel/proposals/issues/29))
+*/
+
 a |> b
 
 =====================================output=====================================
+/*
+\`pipelineOperator\` ([proposal](https://github.com/babel/proposals/issues/29))
+*/
+
 a |> b;
 
 ================================================================================
 `;
 
 exports[`pipeline-operator.js format[acorn] 1`] = `
-"Unexpected token (1:4)
-> 1 | a |> b
+"Unexpected token (5:4)
+  3 | */
+  4 |
+> 5 | a |> b
     |    ^
-  2 |
-Cause: Unexpected token (1:3)"
+  6 |
+Cause: Unexpected token (5:3)"
 `;
 
 exports[`pipeline-operator.js format[espree] 1`] = `
-"Unexpected token > (1:4)
-> 1 | a |> b
+"Unexpected token > (5:4)
+  3 | */
+  4 |
+> 5 | a |> b
     |    ^
-  2 |
+  6 |
 Cause: Unexpected token >"
 `;
 
 exports[`pipeline-operator.js format[meriyah] 1`] = `
-"Unexpected token: '>' (1:4)
-> 1 | a |> b
+"Unexpected token: '>' (5:4)
+  3 | */
+  4 |
+> 5 | a |> b
     |    ^
-  2 |
-Cause: [1:3-1:4]: Unexpected token: '>'"
+  6 |
+Cause: [5:3-5:4]: Unexpected token: '>'"
 `;
 
 exports[`pipeline-operator.js format[oxc] 1`] = `
-"Unexpected token (1:4)
-> 1 | a |> b
+"Unexpected token (5:4)
+  3 | */
+  4 |
+> 5 | a |> b
     |    ^
-  2 |"
+  6 |"
 `;
 
 exports[`pipeline-operator.js format[yuku] 1`] = `
-"Unexpected token '>' (1:4)
-> 1 | a |> b
+"Unexpected token '>' (5:4)
+  3 | */
+  4 |
+> 5 | a |> b
     |    ^
-  2 |"
+  6 |"
 `;
 
 exports[`source-phase-imports.js format 1`] = `
@@ -762,27 +1034,39 @@ exports[`source-phase-imports.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`sourcePhaseImports\` ([proposal](https://github.com/tc39/proposal-source-phase-imports))
+*/
+
 import source x from "./x"
 
 =====================================output=====================================
+/*
+\`sourcePhaseImports\` ([proposal](https://github.com/tc39/proposal-source-phase-imports))
+*/
+
 import source x from "./x";
 
 ================================================================================
 `;
 
 exports[`source-phase-imports.js format[acorn] 1`] = `
-"Unexpected token (1:15)
-> 1 | import source x from "./x"
+"Unexpected token (5:15)
+  3 | */
+  4 |
+> 5 | import source x from "./x"
     |               ^
-  2 |
-Cause: Unexpected token (1:14)"
+  6 |
+Cause: Unexpected token (5:14)"
 `;
 
 exports[`source-phase-imports.js format[espree] 1`] = `
-"Unexpected token x (1:15)
-> 1 | import source x from "./x"
+"Unexpected token x (5:15)
+  3 | */
+  4 |
+> 5 | import source x from "./x"
     |               ^
-  2 |
+  6 |
 Cause: Unexpected token x"
 `;
 
@@ -791,50 +1075,68 @@ exports[`throw-expressions.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`throwExpressions\` ([proposal](https://github.com/babel/proposals/issues/23))
+*/
+
 () => throw new Error("")
 
 =====================================output=====================================
+/*
+\`throwExpressions\` ([proposal](https://github.com/babel/proposals/issues/23))
+*/
+
 () => throw new Error("");
 
 ================================================================================
 `;
 
 exports[`throw-expressions.js format[acorn] 1`] = `
-"Unexpected token (1:7)
-> 1 | () => throw new Error("")
+"Unexpected token (5:7)
+  3 | */
+  4 |
+> 5 | () => throw new Error("")
     |       ^
-  2 |
-Cause: Unexpected token (1:6)"
+  6 |
+Cause: Unexpected token (5:6)"
 `;
 
 exports[`throw-expressions.js format[espree] 1`] = `
-"Unexpected token throw (1:7)
-> 1 | () => throw new Error("")
+"Unexpected token throw (5:7)
+  3 | */
+  4 |
+> 5 | () => throw new Error("")
     |       ^
-  2 |
+  6 |
 Cause: Unexpected token throw"
 `;
 
 exports[`throw-expressions.js format[meriyah] 1`] = `
-"Unexpected token: 'throw' (1:7)
-> 1 | () => throw new Error("")
+"Unexpected token: 'throw' (5:7)
+  3 | */
+  4 |
+> 5 | () => throw new Error("")
     |       ^^^^^
-  2 |
-Cause: [1:6-1:11]: Unexpected token: 'throw'"
+  6 |
+Cause: [5:6-5:11]: Unexpected token: 'throw'"
 `;
 
 exports[`throw-expressions.js format[oxc] 1`] = `
-"Unexpected token (1:7)
-> 1 | () => throw new Error("")
+"Unexpected token (5:7)
+  3 | */
+  4 |
+> 5 | () => throw new Error("")
     |       ^^^^^
-  2 |"
+  6 |"
 `;
 
 exports[`throw-expressions.js format[yuku] 1`] = `
-"'throw' is reserved and cannot be used as an identifier (1:7)
-> 1 | () => throw new Error("")
+"'throw' is reserved and cannot be used as an identifier (5:7)
+  3 | */
+  4 |
+> 5 | () => throw new Error("")
     |       ^^^^^
-  2 |"
+  6 |"
 `;
 
 exports[`typescript.js format 1`] = `
@@ -842,66 +1144,88 @@ exports[`typescript.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`typescript\` ([repo](https://github.com/Microsoft/TypeScript))
+*/
+
 var a: string = "";
 
 =====================================output=====================================
+/*
+\`typescript\` ([repo](https://github.com/Microsoft/TypeScript))
+*/
+
 var a: string = "";
 
 ================================================================================
 `;
 
 exports[`typescript.js format[__babel_estree] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`typescript.js format[acorn] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`typescript.js format[babel] 1`] = `
-"Unexpected token (1:6)
-> 1 | var a: string = "";
+"Unexpected token (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: Unexpected token (1:5)"
+  6 |
+Cause: Unexpected token (5:5)"
 `;
 
 exports[`typescript.js format[espree] 1`] = `
-"Unexpected token : (1:6)
-> 1 | var a: string = "";
+"Unexpected token : (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
+  6 |
 Cause: Unexpected token :"
 `;
 
 exports[`typescript.js format[meriyah] 1`] = `
-"Unexpected token: ':' (1:6)
-> 1 | var a: string = "";
+"Unexpected token: ':' (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |
-Cause: [1:5-1:6]: Unexpected token: ':'"
+  6 |
+Cause: [5:5-5:6]: Unexpected token: ':'"
 `;
 
 exports[`typescript.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
-> 1 | var a: string = "";
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`typescript.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found ':' (1:6)
-> 1 | var a: string = "";
+"Expected a semicolon or an implicit semicolon after a statement, but found ':' (5:6)
+  3 | */
+  4 |
+> 5 | var a: string = "";
     |      ^
-  2 |"
+  6 |"
 `;
 
 exports[`v8intrinsic.js format 1`] = `
@@ -909,48 +1233,66 @@ exports[`v8intrinsic.js format 1`] = `
 parsers: ["babel", "babel-ts", "babel-flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
+/*
+\`v8intrinsic\`
+*/
+
 %DebugPrint(foo);
 
 =====================================output=====================================
+/*
+\`v8intrinsic\`
+*/
+
 %DebugPrint(foo);
 
 ================================================================================
 `;
 
 exports[`v8intrinsic.js format[acorn] 1`] = `
-"Unexpected token (1:1)
-> 1 | %DebugPrint(foo);
+"Unexpected token (5:1)
+  3 | */
+  4 |
+> 5 | %DebugPrint(foo);
     | ^
-  2 |
-Cause: Unexpected token (1:0)"
+  6 |
+Cause: Unexpected token (5:0)"
 `;
 
 exports[`v8intrinsic.js format[espree] 1`] = `
-"Unexpected token % (1:1)
-> 1 | %DebugPrint(foo);
+"Unexpected token % (5:1)
+  3 | */
+  4 |
+> 5 | %DebugPrint(foo);
     | ^
-  2 |
+  6 |
 Cause: Unexpected token %"
 `;
 
 exports[`v8intrinsic.js format[meriyah] 1`] = `
-"Unexpected token: '%' (1:1)
-> 1 | %DebugPrint(foo);
+"Unexpected token: '%' (5:1)
+  3 | */
+  4 |
+> 5 | %DebugPrint(foo);
     | ^
-  2 |
-Cause: [1:0-1:1]: Unexpected token: '%'"
+  6 |
+Cause: [5:0-5:1]: Unexpected token: '%'"
 `;
 
 exports[`v8intrinsic.js format[oxc] 1`] = `
-"Unexpected token (1:1)
-> 1 | %DebugPrint(foo);
+"Unexpected token (5:1)
+  3 | */
+  4 |
+> 5 | %DebugPrint(foo);
     | ^
-  2 |"
+  6 |"
 `;
 
 exports[`v8intrinsic.js format[yuku] 1`] = `
-"Unexpected token '%' (1:1)
-> 1 | %DebugPrint(foo);
+"Unexpected token '%' (5:1)
+  3 | */
+  4 |
+> 5 | %DebugPrint(foo);
     | ^
-  2 |"
+  6 |"
 `;

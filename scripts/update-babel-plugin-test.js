@@ -6,6 +6,7 @@ import dashify from "dashify";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
+import { outdent } from "outdent";
 
 const directory = new URL("../tests/format/js/babel-plugins/", import.meta.url);
 
@@ -59,7 +60,15 @@ function* parsePluginTable(text) {
       continue;
     }
 
-    yield { name, examples: [...parseCodeExample(exampleCell.children)] };
+    const comment = text
+      .slice(nameCell.position.start.offset + 1, nameCell.position.end.offset)
+      .trim();
+
+    yield {
+      name,
+      comment,
+      examples: [...parseCodeExample(exampleCell.children)],
+    };
   }
 }
 
@@ -81,10 +90,10 @@ function* getExamples(text) {
   );
 
   for (const [text] of matches) {
-    for (const { name, examples } of parsePluginTable(text)) {
+    for (const { name, comment, examples } of parsePluginTable(text)) {
       for (const [index, code] of examples.entries()) {
-        const file = `${dashify(name)}${index === 0 ? "" : `-${index + 1}`}.js`;
-        yield { file, name, code };
+        const filename = `${dashify(name)}${index === 0 ? "" : `-${index + 1}`}.js`;
+        yield { filename, name, comment, code };
       }
     }
   }
@@ -101,8 +110,17 @@ async function updateBabelPluginTests() {
   );
 
   await Promise.all(
-    getExamples(text).map(({ file, code }) =>
-      fs.writeFile(new URL(file, directory), `${code}\n`),
+    getExamples(text).map(({ filename, comment, code }) =>
+      fs.writeFile(
+        new URL(filename, directory),
+        outdent`
+          /*
+          ${comment}
+          */
+
+          ${code}
+        ` + "\n",
+      ),
     ),
   );
 }
