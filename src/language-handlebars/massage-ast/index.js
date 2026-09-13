@@ -38,8 +38,12 @@ function massageAstNode(original, cloned, parent) {
     delete cloned.params;
   }
 
-  // `class` is reformatted
-  if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
+  // `class` and `style` are reformatted
+  if (
+    original.type === "AttrNode" &&
+    (original.name.toLowerCase() === "class" ||
+      original.name.toLowerCase() === "style")
+  ) {
     delete cloned.value;
   }
 
