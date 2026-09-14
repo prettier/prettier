@@ -759,7 +759,7 @@ Cause: [2:18-2:22]: Expected ';'"
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[oxc] 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
+"Expected \`;\` but found \`void\` (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
@@ -768,7 +768,7 @@ exports[`discard-binding-for-await-using-binding.js format[oxc] 1`] = `
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[oxc-ts] 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
+"Expected \`;\` but found \`void\` (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
