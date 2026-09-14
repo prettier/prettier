@@ -121,9 +121,14 @@ function printMdast(path, options, print) {
           path.callParent(
             ({ node }) => node.type === "strong" && prevOrNextWord(path),
           );
+        // `_**b**_` inside strong does not round-trip: the inner `**` pairs
+        // with the outer strong delimiters on re-parse, so keep `*` (#20048)
+        const inStrongAndStartsWithStrong =
+          path.parent?.type === "strong" && node.children[0]?.type === "strong";
         style =
           hasPrevOrNextWord ||
           inStrongAndHasPrevOrNextWord ||
+          inStrongAndStartsWithStrong ||
           path.hasAncestor((node) => node.type === "emphasis")
             ? "*"
             : "_";
