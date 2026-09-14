@@ -1,0 +1,52 @@
+{
+/**
+ * leading JSDoc
+ */
+foo()}
+
+{// leading line comment
+foo()}
+
+text {/* leading */ foo()} text
+
+text {
+// leading line comment in text expression
+foo()
+} text
+
+{
+/**
+ * some JSDoc
+ */
+here.is.some.expression()
+
+/**
+ * @param {unknown} x
+ */}
+export function f(x) {}
+
+{foo()
+// trailing line comment
+}
+
+{foo() // same line comment
+}
+
+<A b={foo()
+// trailing in attribute
+} />
+
+text {foo()
+// trailing in text expression
+} text
+
+{foo() /* same line block comment stays */}
+
+<Wrapper>
+{foo()
+// trailing inside JSX children
+}
+</Wrapper>
+
+<A prop={foo?.bar // trailing comment after optional chain
+} />

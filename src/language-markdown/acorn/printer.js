@@ -1,7 +1,7 @@
-import * as assert from "#universal/assert";
 import postprocess from "../../language-js/parse/postprocess/index.js";
 import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
+import { getExpressionParseResult } from "../utilities/get-expression-parse-result.js";
 
 const transformJsExpression = ({ text, ast, comments }) => {
   const expressionRoot = wrapExpression({
@@ -32,42 +32,18 @@ const createPlugin = (mdxParserName, jsParserName, transform) => {
 
 const createPrint =
   ({ jsParserName, mdxParserName, getParseResult, transform }) =>
-  async (textToDoc, print, path, options) => {
+  async (textToDoc, print, path, options, textToDocOptions) => {
     const program = path.node.data.estree;
     const parseResult = getParseResult(program);
     const plugin = createPlugin(mdxParserName, jsParserName, transform);
 
     return await textToDoc(parseResult.text, {
+      ...textToDocOptions,
       parser: mdxParserName,
       plugins: [...options.plugins, plugin],
       __mdx_parse_result: parseResult,
     });
   };
-
-const getExpressionParseResult = (program) => {
-  if (program.isProgram) {
-    return program.parseResult;
-  }
-
-  const { body } = program;
-
-  /* c8 ignore next */
-  if (process.env.NODE_ENV !== "production") {
-    assert.ok(
-      body.length === 1 &&
-        body[0].type === "ExpressionStatement" &&
-        body[0].expression.isExpressionRoot &&
-        body[0].expression.parseResult &&
-        body[0].expression.type === "ObjectExpression" &&
-        body[0].expression.properties.length === 1 &&
-        body[0].expression.properties[0].type === "SpreadElement" &&
-        body[0].expression.properties[0].argument.type === "Identifier" &&
-        body[0].expression.properties[0].argument.name === "_",
-    );
-  }
-
-  return body[0].expression.parseResult;
-};
 
 const printJsExpression = createPrint({
   jsParserName: "__js_expression",

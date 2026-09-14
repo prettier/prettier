@@ -1,0 +1,23 @@
+{foo(
+// nested comment
+bar
+)}
+
+{/**
+ * leading
+ */ [/* inner */]}
+
+{[/* inner */] /**
+ * trailing
+ */}
+
+{/**
+ * leading
+ */ foo(/* inner */)}
+
+{({/* inner */}) /**
+ * trailing
+ */}
+
+{[// inner
+]}
