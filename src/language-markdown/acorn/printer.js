@@ -1,7 +1,9 @@
 import * as assert from "#universal/assert";
+import { indent, softline } from "../../document/index.js";
 import postprocess from "../../language-js/parse/postprocess/index.js";
 import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
+import { shouldInlineJsxExpressionContainer } from "../../language-js/utilities/should-inline-jsx-expression-container.js";
 
 const transformJsExpression = ({ text, ast, comments }) => {
   const expressionRoot = wrapExpression({
@@ -104,4 +106,4 @@ const printJsxSpreadAttribute = createPrint({
   },
 });
 
-export { printJsExpression, printJsxSpreadAttribute };
+export { printJsExpression, printJsxSpreadAttribute, getExpressionParseResult };
