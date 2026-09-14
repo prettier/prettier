@@ -1657,7 +1657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/expect@npm:30.5.1, @jest/expect@npm:^30.4.1":
+"@jest/expect@npm:30.5.1, @jest/expect@npm:^30.5.1":
   version: 30.5.1
   resolution: "@jest/expect@npm:30.5.1"
   dependencies:
@@ -1667,7 +1667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/fake-timers@npm:30.5.1, @jest/fake-timers@npm:^30.4.1":
+"@jest/fake-timers@npm:30.5.1, @jest/fake-timers@npm:^30.5.1":
   version: 30.5.1
   resolution: "@jest/fake-timers@npm:30.5.1"
   dependencies:
@@ -6040,7 +6040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-circus@npm:30.5.1, jest-circus@npm:^30.4.2":
+"jest-circus@npm:30.5.1, jest-circus@npm:^30.5.1":
   version: 30.5.1
   resolution: "jest-circus@npm:30.5.1"
   dependencies:
@@ -6156,7 +6156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-each@npm:30.5.1, jest-each@npm:^30.4.1":
+"jest-each@npm:30.5.1, jest-each@npm:^30.5.1":
   version: 30.5.1
   resolution: "jest-each@npm:30.5.1"
   dependencies:
@@ -6213,22 +6213,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.8.1":
-  version: 0.8.1
-  resolution: "jest-light-runner@npm:0.8.1"
+"jest-light-runner@npm:0.8.2":
+  version: 0.8.2
+  resolution: "jest-light-runner@npm:0.8.2"
   dependencies:
-    "@jest/expect": "npm:^30.4.1"
-    "@jest/fake-timers": "npm:^30.4.1"
-    jest-circus: "npm:^30.4.2"
-    jest-each: "npm:^30.4.1"
-    jest-mock: "npm:^30.4.1"
-    jest-snapshot: "npm:^30.4.1"
-    p-limit: "npm:^7.3.0"
-    supports-color: "npm:^10.2.2"
-    tinypool: "npm:^2.1.0"
+    "@jest/expect": "npm:^30.5.1"
+    "@jest/fake-timers": "npm:^30.5.1"
+    jest-circus: "npm:^30.5.1"
+    jest-each: "npm:^30.5.1"
+    jest-mock: "npm:^30.5.1"
+    jest-snapshot: "npm:^30.5.1"
+    p-limit: "npm:^7.3.2"
+    supports-color: "npm:^11.0.0"
+    tinypool: "npm:^2.2.0"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0
-  checksum: 10/9ef08a3aa92208c95b8fe6e72cf4d0d4047330f1bd92ab810c919bb306db7bc349ef11c641ac109725def142e85a8caf9785c25eaba97d4158f631f549b4388f
+  checksum: 10/ef640c35e33c141075b56216c8c593deb7193fd4530a1ecc9a7694b8af3785fafc8a5062bc6b08989682a37e4925b5f4e9410dfa70d4a66378a9504f37353662
   languageName: node
   linkType: hard
 
@@ -6262,7 +6262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-mock@npm:30.5.1, jest-mock@npm:^30.4.1":
+"jest-mock@npm:30.5.1, jest-mock@npm:^30.5.1":
   version: 30.5.1
   resolution: "jest-mock@npm:30.5.1"
   dependencies:
@@ -6384,7 +6384,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot@npm:30.5.1, jest-snapshot@npm:^30.4.1":
+"jest-snapshot@npm:30.5.1, jest-snapshot@npm:^30.5.1":
   version: 30.5.1
   resolution: "jest-snapshot@npm:30.5.1"
   dependencies:
@@ -7962,12 +7962,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^7.3.0":
-  version: 7.3.1
-  resolution: "p-limit@npm:7.3.1"
+"p-limit@npm:^7.3.2":
+  version: 7.3.2
+  resolution: "p-limit@npm:7.3.2"
   dependencies:
     yocto-queue: "npm:^1.2.1"
-  checksum: 10/ba8830e0780f994cb5ada4073cd905d1111c3443ec971286cadbe09e65c8753466939c883d70f64d371f5dee5c7a124accc3cc0b42f52a08b2e2c78323bb2d6b
+  checksum: 10/a1240c17778f27911e3f3e0bfeb4874fc1cd103818980d986c59a30bfafb637c85bc50408c1fa109fef5cc27d4ad2b3904f9bf386dae1731dd22a3956c85d60a
   languageName: node
   linkType: hard
 
@@ -8352,7 +8352,7 @@ __metadata:
     is-es5-identifier-name: "npm:1.1.0"
     jest: "npm:30.5.1"
     jest-docblock: "npm:30.5.0"
-    jest-light-runner: "npm:0.8.1"
+    jest-light-runner: "npm:0.8.2"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:3.0.1"
@@ -9107,10 +9107,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^10.2.2":
-  version: 10.2.2
-  resolution: "supports-color@npm:10.2.2"
-  checksum: 10/bd132705fc07213a4024131fb061f0a46a48b49ecaf434bb029c0a5aa0339b969236d496d63969e3c248a90fdcac16d4f9c5bf187e7be0bfb5e804ed13bef6b0
+"supports-color@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "supports-color@npm:11.0.0"
+  checksum: 10/6480981c00359da2cd22a25543e8bee3cea248a32194e98fade18ac5ada178bcb950fa225d262ff4dbf23c81caaed65660eb4093302bbdd0d1f1d93a18768854
   languageName: node
   linkType: hard
 
@@ -9338,10 +9338,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinypool@npm:^2.1.0":
-  version: 2.1.2
-  resolution: "tinypool@npm:2.1.2"
-  checksum: 10/0493f5c4eef99272e888d9e8a973a0472671f88fbe474d5964ececfc5426a86c84f617efba514765039c851fa7abb6a5a8a18f92116405dce676eac1406830cb
+"tinypool@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "tinypool@npm:2.2.0"
+  checksum: 10/170460a7dc9c0610ea87731ead55bbb9935bd4793b9d4f0563cf40c1a5f11621b5d37810cc27347815f68e195bf3e758756dc879c6833c91e000dd4179c63375
   languageName: node
   linkType: hard
 
