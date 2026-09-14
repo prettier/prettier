@@ -174,15 +174,15 @@ Cause: [1:12-1:20]: 'for-in' loop head declarations can not have an initializer"
 `;
 
 exports[`snippet: #2 format[oxc] 1`] = `
-"Expected \`;\` but found \`)\` (1:23)
+"The left-hand side of a for...in statement cannot be an using declaration. (1:7)
 > 1 | {for (using a = 1 in b);}
-    |                       ^"
+    |       ^^^^^^^^^^^"
 `;
 
 exports[`snippet: #2 format[oxc-ts] 1`] = `
-"Expected \`;\` but found \`)\` (1:23)
+"The left-hand side of a for...in statement cannot be an using declaration. (1:7)
 > 1 | {for (using a = 1 in b);}
-    |                       ^"
+    |       ^^^^^^^^^^^"
 `;
 
 exports[`snippet: #2 format[typescript] 1`] = `
