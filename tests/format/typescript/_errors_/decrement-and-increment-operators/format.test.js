@@ -22,12 +22,18 @@ runFormatTest(
       "++(x + x)",
       "--(x + x)",
 
-      "a()++",
       "x?.y++",
       "x?.y.z++",
       "x?.y().z++",
-      "(a())++",
     ],
   },
   ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
+);
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: ["a()++", "(a())++"],
+  },
+  ["typescript", "oxc-ts", "yuku-ts"],
 );

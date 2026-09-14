@@ -1,3 +1,5 @@
-// https://babeljs.io/docs/babel-preset-typescript
+/*
+`typescript` ([repo](https://github.com/Microsoft/TypeScript))
+*/
 
-const x: number = 0;
+var a: string = "";

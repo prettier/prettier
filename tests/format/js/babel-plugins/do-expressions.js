@@ -1,11 +1,5 @@
-// https://babeljs.io/docs/babel-plugin-proposal-do-expressions
+/*
+`doExpressions` ([proposal](https://github.com/tc39/proposal-do-expressions))
+*/
 
-let a = do {
-  if(x > 10) {
-    'big';
-  } else {
-    'small';
-  }
-};
-// is equivalent to:
-let a = x > 10 ? 'big' : 'small';
+var a = do { if (true) { 'hi'; } };

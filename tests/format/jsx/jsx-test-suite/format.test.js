@@ -14,9 +14,6 @@ runFormatTest(
   ["babel", "typescript", "flow"],
   {
     errors: {
-      babel: htmlComments,
-      "babel-ts": htmlComments,
-      __babel_estree: htmlComments,
       typescript: htmlComments,
       flow: [
         ...htmlComments,
