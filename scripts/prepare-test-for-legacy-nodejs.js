@@ -97,18 +97,15 @@ const jestLightRunnerVersion =
       ? "0.8.1"
       : undefined;
 
-const overrides = [];
 if (jestVersion) {
-  overrides.push(jestDependencies.map((name) => [name, jestVersion]));
+  packageJson.resolutions = {
+    ...packageJson.resolutions,
+    ...Object.fromEntries(jestDependencies.map((name) => [name, jestVersion])),
+  };
 }
 if (jestLightRunnerVersion) {
-  overrides.push(["jest-light-runner", jestLightRunnerVersion]);
+  packageJson.devDependencies["jest-light-runner"] = jestLightRunnerVersion;
 }
-
-packageJson.resolutions = {
-  ...packageJson.resolutions,
-  ...Object.fromEntries(overrides),
-};
 
 const content = JSON.stringify(packageJson, undefined, 2);
 
