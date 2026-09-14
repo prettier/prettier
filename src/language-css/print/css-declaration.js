@@ -86,7 +86,7 @@ function printCssDeclaration(path, options, print) {
 
     if (node.raws.important) {
       parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
-    } else if (node.important) {
+    } else {
       parts.push(directive);
     }
   }
