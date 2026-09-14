@@ -38,10 +38,6 @@ function getStyleTextToDocOptions(node) {
   }
 }
 
-function printExpand(doc) {
-  return [indent([softline, doc]), softline];
-}
-
 function embed(path, options) {
   const { node } = path;
 
@@ -55,7 +51,11 @@ function embed(path, options) {
     return embedStyleOrScriptElement(path);
   }
 
-  if (parent.type === "AttrNode" && parent.name.toLowerCase() === "style") {
+  if (
+    parent.type === "AttrNode" &&
+    parent.value === node &&
+    parent.name.toLowerCase() === "style"
+  ) {
     return embedStyleAttribute(path, options);
   }
 }
@@ -99,7 +99,7 @@ function embedStyleAttribute(path, options) {
         ? doc.replaceAll(quote, quote === '"' ? "&quot;" : "&#39;")
         : doc,
     );
-    return group(printExpand(escapedDoc));
+    return group([indent([softline, escapedDoc]), softline]);
   };
 }
 
