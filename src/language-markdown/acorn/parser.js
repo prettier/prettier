@@ -2,7 +2,6 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 import * as assert from "#universal/assert";
-import { shouldInlineJsxExpressionContainer } from "../../language-js/utilities/should-inline-jsx-expression-container.js";
 
 let acorn;
 const createParse =

@@ -33,7 +33,6 @@ import {
   isStringLiteral,
 } from "../utilities/node-types.js";
 import { shouldInlineJsxExpressionContainer } from "../utilities/should-inline-jsx-expression-container.js";
-import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";
@@ -850,4 +849,4 @@ function isJsxWhitespaceExpression(node) {
   );
 }
 
-export { printJsx, shouldInlineJsxExpressionContainer };
+export { printJsx };
