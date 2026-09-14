@@ -79,12 +79,18 @@ function printCssDeclaration(path, options, print) {
     );
   }
 
-  if (!isValueAllSpace) {
-    parts.push(value);
-  }
+  parts.push(value);
 
   if (node.raws.important) {
-    parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
+    // When the value is whitespace-only (e.g. custom property `--x: !important`),
+    // the space before `!important` is part of `value` — adding one here would
+    // grow the output on every format. Non-whitespace values need the space.
+    parts.push(
+      node.raws.important.replace(
+        /\s*!\s*important/i,
+        isValueAllSpace && node.value !== "" ? "!important" : " !important",
+      ),
+    );
   } else if (node.important) {
     parts.push(" !important");
   }

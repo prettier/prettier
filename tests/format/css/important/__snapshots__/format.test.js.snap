@@ -23,6 +23,16 @@ b {
   --color: red !important;
 }
 
+/* Whitespace-only values keep their spacing — no space is added before \`!important\` */
+c {
+  --x:  !important;
+}
+
+/* Whitespace-only values without \`!important\` are untouched */
+d {
+  --x: ;
+}
+
 =====================================output=====================================
 div {
   max-height: none !important;
@@ -40,6 +50,16 @@ a {
 
 b {
   --color: red !important;
+}
+
+/* Whitespace-only values keep their spacing — no space is added before \`!important\` */
+c {
+  --x:  !important;
+}
+
+/* Whitespace-only values without \`!important\` are untouched */
+d {
+  --x: ;
 }
 
 ================================================================================
