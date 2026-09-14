@@ -28,11 +28,14 @@ import { isMeaningfulJsxText } from "../utilities/is-meaningful-jsx-text.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { jsxWhitespace } from "../utilities/jsx-whitespace.js";
 import {
+  isArrayExpression,
+  isBinaryish,
   isCallExpression,
   isJsxElement,
+  isObjectExpression,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { shouldInlineJsxExpressionContainer } from "../utilities/should-inline-jsx-expression-container.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";
@@ -570,7 +573,24 @@ function printJsxAttribute(path, options, print) {
 function printJsxExpressionContainer(path, options, print) {
   const { node } = path;
 
-  if (shouldInlineJsxExpressionContainer(node.expression, path.parent)) {
+  const shouldInline = (node, parent) =>
+    node.type === "JSXEmptyExpression" ||
+    (!hasComment(node) &&
+      (isArrayExpression(node) ||
+        isObjectExpression(node) ||
+        node.type === "ArrowFunctionExpression" ||
+        (node.type === "AwaitExpression" &&
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
+        isCallExpression(stripChainElementWrappers(node)) ||
+        node.type === "FunctionExpression" ||
+        node.type === "TemplateLiteral" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "DoExpression" ||
+        (isJsxElement(parent) &&
+          (node.type === "ConditionalExpression" || isBinaryish(node)))));
+
+  if (shouldInline(node.expression, path.parent)) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 

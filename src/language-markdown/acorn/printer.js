@@ -69,11 +69,29 @@ const getExpressionParseResult = (program) => {
   return body[0].expression.parseResult;
 };
 
-const printJsExpression = createPrint({
+const printJsxExpressionContainer = createPrint({
   jsParserName: "__js_expression",
   mdxParserName: "__mdx_js_expression",
   getParseResult: getExpressionParseResult,
-  transform: transformJsExpression,
+  transform({ text, comments, ast }) {
+    let expression = ast;
+    if (ast.type === "Program") {
+      /* c8 ignore next */
+      if (ast.body.length > 0) {
+        throw new Error("Unexpected Program in JSX expression container.");
+      }
+      expression = { type: "JSXEmptyExpression", range: ast.range };
+    }
+    return transformJsExpression({
+      text,
+      comments,
+      ast: {
+        type: "JSXExpressionContainer",
+        expression,
+        range: [0, text.length],
+      },
+    });
+  },
 });
 
 const printJsxSpreadAttribute = createPrint({
@@ -104,4 +122,4 @@ const printJsxSpreadAttribute = createPrint({
   },
 });
 
-export { getExpressionParseResult, printJsExpression, printJsxSpreadAttribute };
+export { printJsxExpressionContainer, printJsxSpreadAttribute };

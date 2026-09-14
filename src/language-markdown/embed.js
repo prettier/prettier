@@ -1,16 +1,7 @@
-import {
-  group,
-  hardline,
-  indent,
-  markAsRoot,
-  replaceEndOfLine,
-  softline,
-} from "../document/index.js";
-import { shouldInlineJsxExpressionContainer } from "../language-js/utilities/should-inline-jsx-expression-container.js";
+import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import inferParser from "../utilities/infer-parser.js";
 import {
-  getExpressionParseResult,
-  printJsExpression,
+  printJsxExpressionContainer,
   printJsxSpreadAttribute,
 } from "./acorn/printer.js";
 import { printCodeFences } from "./print/code.js";
@@ -79,19 +70,7 @@ function embed(path, options) {
     case "mdxFlowExpression":
     case "mdxJsxAttributeValueExpression":
     case "mdxTextExpression":
-      return async (textToDoc, print, path, options) => {
-        const parseResult = getExpressionParseResult(node.data.estree);
-        const expressionDoc = await printJsExpression(
-          textToDoc,
-          print,
-          path,
-          options,
-        );
-        if (shouldInlineJsxExpressionContainer(parseResult.ast)) {
-          return ["{", expressionDoc, "}"];
-        }
-        return group(["{", indent([softline, expressionDoc]), softline, "}"]);
-      };
+      return printJsxExpressionContainer;
 
     case "mdxJsxExpressionAttribute":
       return printJsxSpreadAttribute;
