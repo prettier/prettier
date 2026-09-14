@@ -26,7 +26,7 @@ async function getDoc() {
   }
 
   if (stat) {
-    if (Date.now() - stat.mtimeMs < /* 10 hours */ 10 * 60 * 60 * 1000) {
+    if (Date.now() - stat.mtimeMs < /* 60 minutes */ 60 * 60 * 1000) {
       return fs.readFile(cacheFile, "utf8");
     }
 
@@ -84,17 +84,7 @@ function* parsePluginTable(text) {
 
     assert.equal(nameCell.children[0].type, "inlineCode");
     const name = nameCell.children[0].value;
-
     assert.ok(/^[a-z\d]+$/i.test(name), name);
-
-    if (
-      // https://github.com/babel/website/pull/3244
-      name === "deprecatedImportAssert" ||
-      // FIXME[@fisker]
-      name === "functionSent"
-    ) {
-      continue;
-    }
 
     const comment = text
       .slice(nameCell.position.start.offset + 1, nameCell.position.end.offset)
@@ -103,7 +93,7 @@ function* parsePluginTable(text) {
     yield {
       name,
       comment,
-      examples: [...parseCodeExample(exampleCell.children)],
+      examples: parseCodeExample(exampleCell.children).toArray(),
     };
   }
 }
