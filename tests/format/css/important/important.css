@@ -3,25 +3,11 @@ div {
 }
 
 a {
-  --x: !important;
-}
-
-@media (min-width: 1px) {
-  a {
-    --y: !important;
-  }
-}
-
-b {
   --color: red !important;
-}
-
-/* Whitespace-only values keep their spacing — no space is added before `!important` */
-c {
-  --x:  !important;
-}
-
-/* Whitespace-only values without `!important` are untouched */
-d {
-  --x: ;
+  --x11:!important;
+  --x12: !important;
+  --x13:          !important;
+  --x21:;
+  --x22: ;
+  --x23:          ;
 }

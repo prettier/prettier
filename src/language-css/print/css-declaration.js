@@ -81,15 +81,10 @@ function printCssDeclaration(path, options, print) {
 
   parts.push(value);
 
-  // When the value is whitespace-only (e.g. custom property `--x: !important`),
-  // the space before `!important` is part of `value` — adding one here would
-  // grow the output on every format. Non-whitespace values need the space.
-  const important =
-    isValueAllSpace && node.value !== "" ? "!important" : " !important";
-  if (node.raws.important) {
-    parts.push(node.raws.important.replace(/\s*!\s*important/i, important));
+  if (node.raw.important) {
+    parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
   } else if (node.important) {
-    parts.push(important);
+    parts.push(isValueAllSpace ? "!important" : " !important");
   }
 
   if (node.raws.scssDefault) {
