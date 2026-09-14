@@ -27,9 +27,9 @@ div {
 }
 
 a {
-  --x11: !important;
-  --x12:  !important;
-  --x13:           !important;
+  --x11:!important;
+  --x12: !important;
+  --x13:          !important;
   --x21:;
   --x22: ;
   --x23:          ;

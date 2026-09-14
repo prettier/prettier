@@ -81,10 +81,14 @@ function printCssDeclaration(path, options, print) {
 
   parts.push(value);
 
-  if (node.raws.important) {
-    parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
-  } else if (node.important) {
-    parts.push(`${isValueAllSpace ? "" : " "}!important`);
+  if (node.important) {
+    const directive = `${isValueAllSpace ? "" : " "}!important`;
+
+    if (node.raws.important) {
+      parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
+    } else if (node.important) {
+      parts.push(directive);
+    }
   }
 
   if (node.raws.scssDefault) {
