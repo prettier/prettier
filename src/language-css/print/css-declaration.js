@@ -84,7 +84,7 @@ function printCssDeclaration(path, options, print) {
   if (node.raw.important) {
     parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
   } else if (node.important) {
-    parts.push(isValueAllSpace ? "!important" : " !important");
+    parts.push("${isValueAllSpace ? '':' '}!important");
   }
 
   if (node.raws.scssDefault) {
