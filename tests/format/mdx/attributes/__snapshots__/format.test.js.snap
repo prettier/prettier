@@ -66,7 +66,7 @@ parsers: ["mdx"]
 ================================================================================
 `;
 
-exports[`jsx-element.md format 1`] = `
+exports[`jsx-element.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
