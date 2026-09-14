@@ -157,6 +157,8 @@ const graphqlSourceElements = new Set([
   "UnionTypeDefinition",
   "ScalarTypeDefinition",
 ]);
+const yamlSourceElements = new Set(["mappingItem", "sequenceItem"]);
+
 function isSourceElement(opts, node, parentNode) {
   /* c8 ignore next 3 */
   if (!node) {
@@ -187,6 +189,8 @@ function isSourceElement(opts, node, parentNode) {
       return graphqlSourceElements.has(node.kind);
     case "vue":
       return node.tag !== "root";
+    case "yaml":
+      return yamlSourceElements.has(node.type);
   }
   return false;
 }
