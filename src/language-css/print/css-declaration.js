@@ -81,14 +81,11 @@ function printCssDeclaration(path, options, print) {
 
   parts.push(value);
 
-  if (node.important) {
+  if (node.raws.important) {
     const directive = `${isValueAllSpace ? "" : " "}!important`;
-
-    if (node.raws.important) {
-      parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
-    } else {
-      parts.push(directive);
-    }
+    parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
+  } else if (node.important) {
+    parts.push(" !important");
   }
 
   if (node.raws.scssDefault) {
