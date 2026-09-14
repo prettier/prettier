@@ -122,7 +122,8 @@ function printMdast(path, options, print) {
             ({ node }) => node.type === "strong" && prevOrNextWord(path),
           );
         // `_**b**_` inside strong does not round-trip: the inner `**` pairs
-        // with the outer strong delimiters on re-parse, so keep `*` (#20048)
+        // with the outer strong delimiters on re-parse, so keep `*`
+        // https://github.com/prettier/prettier/issues/20048
         const inStrongAndStartsWithStrong =
           path.parent?.type === "strong" && node.children[0]?.type === "strong";
         style =
