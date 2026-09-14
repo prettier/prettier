@@ -31,8 +31,14 @@ const parseOptions = {
   createParenthesizedExpressions: true,
   attachComment: false,
   plugins: [
-    // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
-    // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
+    /*
+    Add a plugin:
+      Please make sure a simple syntax test added in `tests/format/js/babel-plugins/`,
+      Run `node scripts/update-babel-plugin-tests.js` will add examples
+      from https://babel.dev/docs/babel-parser#plugins
+    Remove a plugin:
+      Remove it here and run `yarn test tests/format/js/babel-plugins` to verify
+    */
     "doExpressions",
     "exportDefaultFrom",
     "functionBind",
