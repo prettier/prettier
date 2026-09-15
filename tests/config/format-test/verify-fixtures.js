@@ -138,7 +138,10 @@ const categoryParsers = new Map([
     "markdown",
     { parsers: ["markdown"], verifyParsers: ["mdx"], extensions: [".md"] },
   ],
-  ["mdx", { parsers: ["mdx"], verifyParsers: [], extensions: [".mdx"] }],
+  [
+    "mdx",
+    { parsers: ["mdx"], verifyParsers: ["markdown"], extensions: [".mdx"] },
+  ],
   [
     "scss",
     {
