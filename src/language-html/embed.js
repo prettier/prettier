@@ -147,13 +147,20 @@ function embed(path, options) {
       return printAttribute(path, options);
 
     case "angularControlFlowBlockParameters":
-      if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
+      if (
+        isInNgNonBindable(path, options) ||
+        !embeddedAngularControlFlowBlocks.has(path.parent.name)
+      ) {
         return;
       }
 
       return printAngularControlFlowBlockParameters;
 
     case "angularLetDeclarationInitializer":
+      if (isInNgNonBindable(path, options)) {
+        return;
+      }
+
       return (textToDoc) =>
         formatAttributeValue(node.value, textToDoc, {
           parser: "__ng_binding",

@@ -102,6 +102,8 @@ function printClosingTagEndMarker(node, options) {
       return "}}";
     case "angularIcuExpression":
       return "}";
+    case "angularLetDeclaration":
+      return "";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
