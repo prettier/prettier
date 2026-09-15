@@ -1,0 +1,497 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`conditional.js - {"experimentalTernaries":true,"printWidth":40,"semi":false} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 40
+semi: false
+                        printWidth: 40 |
+=====================================input======================================
+before();
+firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+before();
+condition ? yes() : no();
+
+before();
+condition ? veryLongConsequent() : veryLongAlternate();
+
+before();
+(firstCondition, secondCondition, thirdCondition) ? yes() : no();
+
+before();
+[firstCondition, secondCondition, thirdCondition] ? yes() : no();
+
+before();
+(firstCondition && secondCondition && thirdCondition ? yes() : no()), after();
+
+before();
+first(), (firstCondition && secondCondition && thirdCondition ? yes() : no());
+
+before();
+(firstCondition && secondCondition && thirdCondition ? yes() : no()) ? yes() : no();
+
+before();
+condition ? yes() : firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+before();
+// Leading comment
+firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+=====================================output=====================================
+before()
+;(
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no()
+
+before()
+condition ? yes() : no()
+
+before()
+condition ?
+  veryLongConsequent()
+: veryLongAlternate()
+
+before()
+;(
+  (firstCondition,
+  secondCondition,
+  thirdCondition)
+) ?
+  yes()
+: no()
+
+before()
+;(
+  [
+    firstCondition,
+    secondCondition,
+    thirdCondition,
+  ]
+) ?
+  yes()
+: no()
+
+before()
+;((
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no(),
+  after())
+
+before()
+;(first(),
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no())
+
+before()
+;(
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+) ?
+  yes()
+: no()
+
+before()
+condition ? yes()
+: (
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no()
+
+before()
+// Leading comment
+;(
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no()
+
+================================================================================
+`;
+
+exports[`conditional.js - {"experimentalTernaries":true,"printWidth":40,"semi":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 40
+semi: true
+                        printWidth: 40 |
+=====================================input======================================
+before();
+firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+before();
+condition ? yes() : no();
+
+before();
+condition ? veryLongConsequent() : veryLongAlternate();
+
+before();
+(firstCondition, secondCondition, thirdCondition) ? yes() : no();
+
+before();
+[firstCondition, secondCondition, thirdCondition] ? yes() : no();
+
+before();
+(firstCondition && secondCondition && thirdCondition ? yes() : no()), after();
+
+before();
+first(), (firstCondition && secondCondition && thirdCondition ? yes() : no());
+
+before();
+(firstCondition && secondCondition && thirdCondition ? yes() : no()) ? yes() : no();
+
+before();
+condition ? yes() : firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+before();
+// Leading comment
+firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+=====================================output=====================================
+before();
+(
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no();
+
+before();
+condition ? yes() : no();
+
+before();
+condition ?
+  veryLongConsequent()
+: veryLongAlternate();
+
+before();
+(
+  (firstCondition,
+  secondCondition,
+  thirdCondition)
+) ?
+  yes()
+: no();
+
+before();
+(
+  [
+    firstCondition,
+    secondCondition,
+    thirdCondition,
+  ]
+) ?
+  yes()
+: no();
+
+before();
+((
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no(),
+  after());
+
+before();
+(first(),
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no());
+
+before();
+(
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+) ?
+  yes()
+: no();
+
+before();
+condition ? yes()
+: (
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no();
+
+before();
+// Leading comment
+(
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no();
+
+================================================================================
+`;
+
+exports[`statements.js - {"experimentalTernaries":true,"printWidth":40,"semi":false} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 40
+semi: false
+                        printWidth: 40 |
+=====================================input======================================
+function foo() {
+  before();
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+}
+
+switch (condition) {
+  case 1:
+    before();
+    firstCondition && secondCondition && thirdCondition ? yes() : no();
+}
+
+class Foo {
+  static {
+    before();
+    firstCondition && secondCondition && thirdCondition ? yes() : no();
+  }
+}
+
+if (condition)
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+while (condition)
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+do
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+while (condition);
+
+label:
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+=====================================output=====================================
+function foo() {
+  before()
+  ;(
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+}
+
+switch (condition) {
+  case 1:
+    before()
+    ;(
+      firstCondition &&
+      secondCondition &&
+      thirdCondition
+    ) ?
+      yes()
+    : no()
+}
+
+class Foo {
+  static {
+    before()
+    ;(
+      firstCondition &&
+      secondCondition &&
+      thirdCondition
+    ) ?
+      yes()
+    : no()
+  }
+}
+
+if (condition)
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+
+while (condition)
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+
+do
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no()
+while (condition)
+
+label: (
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no()
+
+================================================================================
+`;
+
+exports[`statements.js - {"experimentalTernaries":true,"printWidth":40,"semi":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 40
+semi: true
+                        printWidth: 40 |
+=====================================input======================================
+function foo() {
+  before();
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+}
+
+switch (condition) {
+  case 1:
+    before();
+    firstCondition && secondCondition && thirdCondition ? yes() : no();
+}
+
+class Foo {
+  static {
+    before();
+    firstCondition && secondCondition && thirdCondition ? yes() : no();
+  }
+}
+
+if (condition)
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+while (condition)
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+do
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+while (condition);
+
+label:
+  firstCondition && secondCondition && thirdCondition ? yes() : no();
+
+=====================================output=====================================
+function foo() {
+  before();
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no();
+}
+
+switch (condition) {
+  case 1:
+    before();
+    (
+      firstCondition &&
+      secondCondition &&
+      thirdCondition
+    ) ?
+      yes()
+    : no();
+}
+
+class Foo {
+  static {
+    before();
+    (
+      firstCondition &&
+      secondCondition &&
+      thirdCondition
+    ) ?
+      yes()
+    : no();
+  }
+}
+
+if (condition)
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no();
+
+while (condition)
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no();
+
+do
+  (
+    firstCondition &&
+    secondCondition &&
+    thirdCondition
+  ) ?
+    yes()
+  : no();
+while (condition);
+
+label: (
+  firstCondition &&
+  secondCondition &&
+  thirdCondition
+) ?
+  yes()
+: no();
+
+================================================================================
+`;
