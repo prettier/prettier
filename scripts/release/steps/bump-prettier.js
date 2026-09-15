@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import semver from "semver";
+import * as verkit from "verkit";
 import {
   logPromise,
   readJson,
@@ -45,10 +45,10 @@ async function bump({
   previousVersionOnDefaultBranch,
 }) {
   const pkg = await readJson("package.json");
-  if (semver.diff(version, previousVersion) === "patch") {
+  if (verkit.difference(version, previousVersion) === "patch") {
     pkg.version = previousVersionOnDefaultBranch; // restore the `-dev` version
   } else {
-    pkg.version = semver.inc(version, "minor") + "-dev";
+    pkg.version = verkit.increment(version, "minor") + "-dev";
   }
   await writeJson("package.json", pkg);
 }
