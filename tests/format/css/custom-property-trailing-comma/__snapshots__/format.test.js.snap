@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`trailing-comma.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.foo {
+  --single: red,;
+  --multiple: red, blue,;
+  --empty: ,;
+  --empty-items: ,,;
+  --function: var(--fallback,),;
+  --before-comment: red, /* comment */;
+  --after-comment: red /* comment */,;
+  --important: in oklab, !important;
+  --no-semicolon: red,
+}
+
+.unchanged {
+  --no-comma: red;
+  --string: ",";
+  --function: var(--fallback,);
+  font-family: Arial, sans-serif,;
+  background-image: url("image.png"),;
+}
+
+=====================================output=====================================
+.foo {
+  --single: red,;
+  --multiple: red, blue,;
+  --empty: ,;
+  --empty-items: , ,;
+  --function: var(--fallback,),;
+  --before-comment: red, /* comment */;
+  --after-comment: red /* comment */,;
+  --important: in oklab, !important;
+  --no-semicolon: red,;
+}
+
+.unchanged {
+  --no-comma: red;
+  --string: ",";
+  --function: var(--fallback,);
+  font-family: Arial, sans-serif;
+  background-image: url("image.png");
+}
+
+================================================================================
+`;
