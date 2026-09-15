@@ -21,11 +21,9 @@ function printWord(path, options) {
   let text = node.value;
   if (!emphasisOrStrong) {
     if (
-      options.proseWrap === "preserve" &&
       path.parent.type === "sentence" &&
       fakeSetextHeaderRegex.test(text) &&
-      isNewLine(path.previous) &&
-      (path.isLast || isNewLine(path.next))
+      isAloneOnLine(path, options)
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
       return `\\${text}`;
@@ -69,6 +67,31 @@ function printWord(path, options) {
   );
 
   return text;
+}
+
+/**
+ * Whether the word is printed on a line of its own. Line breaks inside a
+ * paragraph are only kept with `proseWrap: "preserve"`, but a hard line break
+ * is always printed as a line break.
+ *
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {boolean}
+ */
+function isAloneOnLine(path, options) {
+  const isPreserve = options.proseWrap === "preserve";
+
+  const startsLine =
+    (isPreserve && isNewLine(path.previous)) ||
+    (path.isFirst && path.callParent(() => path.previous)?.type === "break");
+
+  const endsLine =
+    (isPreserve && (path.isLast || isNewLine(path.next))) ||
+    (path.isLast &&
+      (path.callParent(() => path.isLast) ||
+        path.callParent(() => path.next)?.type === "break"));
+
+  return startsLine && endsLine;
 }
 
 /**
