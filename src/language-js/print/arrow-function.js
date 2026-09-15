@@ -14,7 +14,6 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
@@ -26,7 +25,7 @@ import {
   isJsxElement,
   isObjectExpression,
 } from "../utilities/node-types.js";
-import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
+import { shouldAddParensIfNotBreak } from "../utilities/should-add-parens-if-not-break.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printTrailingComma } from "./miscellaneous.js";
@@ -35,23 +34,6 @@ import { printTrailingComma } from "./miscellaneous.js";
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
  */
-
-// In order to avoid confusion between
-// a => a ? a : a
-// a <= a ? a : a
-const shouldAddParensIfNotBreakCache = new WeakMap();
-function shouldAddParensIfNotBreak(node) {
-  return getOrInsertComputed(
-    shouldAddParensIfNotBreakCache,
-    node,
-    (node) =>
-      node.type === "ConditionalExpression" &&
-      !startsWithNoLookaheadToken(
-        node,
-        (node) => node.type === "ObjectExpression",
-      ),
-  );
-}
 
 // We handle sequence expressions as the body of arrows specially,
 // so that the required parentheses end up on their own lines.
