@@ -6,6 +6,7 @@ import {
   indent,
   join,
   label,
+  removeLines,
   willBreak,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
@@ -31,7 +32,7 @@ import { printOptionalToken } from "./miscellaneous.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
- * @typedef {{ node: any, printed: Doc, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
+ * @typedef {{ node: any, printed: Doc, printedWithTypeArgumentsFlat?: Doc, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 
 // We detect calls on member expressions specially to format a
@@ -96,21 +97,30 @@ function printMemberChain(path, options, print) {
       !needsParentheses(path, options)
     ) {
       const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
+      const optional = printOptionalToken(path);
+      const typeArguments = print("typeArguments");
+      const callArguments = printCallArguments(path, options, print);
+      const trailingEmptyLine = hasTrailingEmptyLine ? hardline : "";
       printedNodes.unshift({
         node,
         hasTrailingEmptyLine,
         printed: [
           printComments(
             path,
-            [
-              printOptionalToken(path),
-              print("typeArguments"),
-              printCallArguments(path, options, print),
-            ],
+            [optional, typeArguments, callArguments],
             options,
           ),
-          hasTrailingEmptyLine ? hardline : "",
+          trailingEmptyLine,
         ],
+        printedWithTypeArgumentsFlat:
+          node.typeArguments && node.arguments.length === 0 && !hasComment(node)
+            ? [
+                optional,
+                removeLines(typeArguments),
+                callArguments,
+                trailingEmptyLine,
+              ]
+            : undefined,
       });
       path.call(rec, "callee");
     } else if (isMemberish(node) && !needsParentheses(path, options)) {
@@ -150,13 +160,18 @@ function printMemberChain(path, options, print) {
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
   const { node } = path;
+  const optional = printOptionalToken(path);
+  const typeArguments = print("typeArguments");
+  const callArguments = printCallArguments(path, options, print);
   printedNodes.unshift({
     node,
-    printed: [
-      printOptionalToken(path),
-      print("typeArguments"),
-      printCallArguments(path, options, print),
-    ],
+    printed: [optional, typeArguments, callArguments],
+    printedWithTypeArgumentsFlat:
+      node.typeArguments &&
+      node.arguments.length === 0 &&
+      !hasComment(node.typeArguments)
+        ? [optional, removeLines(typeArguments), callArguments]
+        : undefined,
   });
 
   if (node.callee) {
@@ -314,8 +329,12 @@ function printMemberChain(path, options, print) {
     !hasComment(groups[1][0].node) &&
     shouldNotWrap(groups);
 
-  function printGroup(printedGroup) {
-    return printedGroup.map((tuple) => tuple.printed);
+  function printGroup(printedGroup, flattenTypeArguments = false) {
+    return printedGroup.map((tuple) =>
+      flattenTypeArguments && tuple.printedWithTypeArgumentsFlat
+        ? tuple.printedWithTypeArgumentsFlat
+        : tuple.printed,
+    );
   }
 
   function printIndentedGroup(groups) {
@@ -323,14 +342,23 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent([hardline, join(hardline, groups.map(printGroup))]);
+    return indent([
+      hardline,
+      join(
+        hardline,
+        groups.map((group) => printGroup(group)),
+      ),
+    ]);
   }
 
-  const printedGroups = groups.map(printGroup);
-  const oneLine = printedGroups;
+  const printedGroups = groups.map((group) => printGroup(group));
+  const oneLine = groups.map((group) => printGroup(group, true));
 
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = groups.flat();
+  const hasTypeArgumentsToFlatten = flatGroups.some(
+    (node) => node.printedWithTypeArgumentsFlat,
+  );
 
   const nodeHasComment =
     flatGroups
@@ -346,6 +374,7 @@ function printMemberChain(path, options, print) {
   // render everything concatenated together.
   if (
     groups.length <= cutoff &&
+    !hasTypeArgumentsToFlatten &&
     !nodeHasComment &&
     groups.every((g) => !g.at(-1).hasTrailingEmptyLine)
   ) {
@@ -364,7 +393,7 @@ function printMemberChain(path, options, print) {
 
   const expanded = [
     printGroup(groups[0]),
-    shouldMerge ? groups.slice(1, 2).map(printGroup) : "",
+    shouldMerge ? groups.slice(1, 2).map((group) => printGroup(group)) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ];
