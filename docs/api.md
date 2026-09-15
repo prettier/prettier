@@ -55,7 +55,11 @@ const formatted = await prettier.format(text, {
 });
 ```
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+
+This option exists only on `prettier.resolveConfig()` (default `false`). It is **not** valid in a Prettier config file such as `.prettierrc`. The CLI reads `.editorconfig` by default; see [`--no-editorconfig`](cli.md#--no-editorconfig) and [EditorConfig](configuration.md#editorconfig).
+
+Currently, the following EditorConfig properties are supported:
 
 - `end_of_line`
 - `indent_style`
