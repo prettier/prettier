@@ -33,6 +33,26 @@ import { shouldFlatten } from "../utilities/should-flatten.js";
 /** @import {Doc} from "../../document/index.js" */
 
 let uid = 0;
+
+function isInlineLogicalExpression(node) {
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+
+  if (!shouldInlineLogicalExpression(node)) {
+    return false;
+  }
+
+  if (
+    isBinaryish(node.left) &&
+    shouldFlatten(node.operator, node.left.operator)
+  ) {
+    return isInlineLogicalExpression(node.left);
+  }
+
+  return true;
+}
+
 /*
 - `BinaryExpression`
 - `LogicalExpression`
@@ -122,12 +142,9 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "ClassPrivateProperty" ||
     isObjectProperty(parent);
 
-  const samePrecedenceSubExpression =
-    isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
-
   if (
     shouldNotIndent ||
-    (shouldInlineLogicalExpression(node) && !samePrecedenceSubExpression) ||
+    isInlineLogicalExpression(node) ||
     (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
   ) {
     return group(parts);
