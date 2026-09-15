@@ -143,7 +143,7 @@
     "@typescript-eslint/parser": "8.70.0",
     "@yuku-parser/wasm": "0.10.1",
     "base64-arraybuffer-es6": "3.1.0",
-    "browserslist": "4.28.9",
+    "browserslist": "4.29.0",
     "browserslist-to-esbuild": "2.1.1",
     "buffer": "6.0.3",
     "c8": "12.0.0",
