@@ -2,6 +2,29 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+const tableDelimiterRowRegex =
+  /^\|?[\t ]*:?-+:?[\t ]*(?:\|[\t ]*:?-+:?[\t ]*)*\|?$/;
+
+// The line `path.node` starts, or undefined if it runs past the end of the
+// sentence and so cannot be read from these siblings alone.
+function getLineStartedByWord(path) {
+  const { children } = path.parent;
+  const { index: start } = path;
+  let text = "";
+  for (let index = start; index < children.length; index++) {
+    const child = children[index];
+    if (child.type === "whitespace") {
+      if (isNewLine(child)) {
+        return text;
+      }
+      text += " ";
+      continue;
+    }
+    text += child.value;
+  }
+
+  return path.callParent(() => path.isLast) ? text : undefined;
+}
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -29,6 +52,19 @@ function printWord(path, options) {
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
       return `\\${text}`;
+    }
+
+    if (
+      options.proseWrap === "preserve" &&
+      path.parent.type === "sentence" &&
+      /^[|:-]/.test(text) &&
+      isNewLine(path.previous)
+    ) {
+      const line = getLineStartedByWord(path);
+      if (line?.includes("|") && tableDelimiterRowRegex.test(line)) {
+        // escape indented pseudo table delimiter row, e.g. `| x | y |↵␣␣␣␣|---|---|`
+        return `\\${text}`;
+      }
     }
 
     return text;
