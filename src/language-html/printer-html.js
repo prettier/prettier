@@ -43,6 +43,7 @@ import {
   shouldUnquoteAttributeValue,
   unescapeQuoteEntities,
 } from "./utilities/index.js";
+import { isInNgNonBindable } from "./utilities/is-in-ng-non-bindable.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -65,6 +66,14 @@ function genericPrint(path, options, print) {
       return htmlWhitespace.trim(node.expression);
 
     case "angularLetDeclaration":
+      if (isInNgNonBindable(path, options)) {
+        return [
+          printOpeningTagPrefix(node, options),
+          replaceEndOfLine(node.sourceSpan.toString()),
+          printClosingTagSuffix(node, options),
+        ];
+      }
+
       // print like "break-after-operator" layout assignment in estree printer
       return group([
         "@let ",

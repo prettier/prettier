@@ -4,14 +4,23 @@ import {
   indent,
   join,
   line,
+  replaceEndOfLine,
   softline,
 } from "../../document/index.js";
+import { locEnd, locStart } from "../loc.js";
 import { hasPrettierIgnore } from "../utilities/index.js";
+import { isInNgNonBindable } from "../utilities/is-in-ng-non-bindable.js";
 import { ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS } from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
+import { printClosingTagSuffix, printOpeningTagPrefix } from "./tag.js";
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
+
+  if (isInNgNonBindable(path, options)) {
+    return printNgNonBindableControlFlowBlock(path, options, print);
+  }
+
   const docs = [];
 
   if (isPreviousBlockUnClosed(path)) {
@@ -54,6 +63,47 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   return group(docs, { shouldBreak: true });
+}
+
+function printNgNonBindableControlFlowBlock(path, options, print) {
+  const { node } = path;
+  const endOffset = node.endSourceSpan?.start.offset ?? locEnd(node);
+  const parts = [
+    printOpeningTagPrefix(node, options),
+    replaceEndOfLine(node.startSourceSpan.toString()),
+  ];
+
+  if (node.children.length === 0) {
+    parts.push(
+      replaceEndOfLine(
+        options.originalText.slice(node.startSourceSpan.end.offset, endOffset),
+      ),
+    );
+  } else {
+    node.firstChild.hasLeadingSpaces = true;
+    node.lastChild.hasTrailingSpaces = true;
+
+    parts.push(
+      replaceEndOfLine(
+        options.originalText.slice(
+          node.startSourceSpan.end.offset,
+          locStart(node.firstChild),
+        ),
+      ),
+      printChildren(path, options, print),
+      replaceEndOfLine(
+        options.originalText.slice(locEnd(node.lastChild), endOffset),
+      ),
+    );
+  }
+
+  if (node.endSourceSpan) {
+    parts.push(replaceEndOfLine(node.endSourceSpan.toString()));
+  }
+
+  parts.push(printClosingTagSuffix(node, options));
+
+  return parts;
 }
 
 function shouldCloseBlock(node) {
