@@ -58,7 +58,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: yarn --immutable
 
       - name: Run Tests
         if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
