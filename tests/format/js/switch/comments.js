@@ -56,3 +56,21 @@ switch(x) {
   default: /* comment */ {
     break;}
 }
+
+switch (a) /* comment */ {
+}
+
+switch (a) // comment
+{
+}
+
+switch (a) /* comment */ {
+  case 1:
+    break;
+}
+
+switch (a) // comment
+{
+  case 1:
+    break;
+}
