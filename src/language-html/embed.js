@@ -22,6 +22,7 @@ import {
   inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
+  shouldParseScriptAsModule,
 } from "./utilities/index.js";
 import { isInNgNonBindable } from "./utilities/is-in-ng-non-bindable.js";
 import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
@@ -88,18 +89,11 @@ function embed(path, options) {
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {
-              let sourceType = "script";
-              const { attrMap } = node.parent;
-              if (
-                attrMap &&
-                (attrMap.type === "module" ||
-                  ((attrMap.type === "text/babel" ||
-                    attrMap.type === "text/jsx") &&
-                    attrMap["data-type"] === "module"))
-              ) {
-                sourceType = "module";
-              }
-              textToDocOptions.__babelSourceType = sourceType;
+              textToDocOptions.__babelSourceType = shouldParseScriptAsModule(
+                node.parent,
+              )
+                ? "module"
+                : "script";
             }
 
             return [
