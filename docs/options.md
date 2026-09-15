@@ -546,7 +546,14 @@ _First available in v2.1.0_
 
 Control whether Prettier formats quoted code embedded in the file.
 
-When Prettier identifies cases where it looks like you've placed some code it knows how to format within a string in another file, like in a tagged template in JavaScript with a tag named `html` or in code blocks in Markdown, it will by default try to format that code.
+When Prettier identifies cases where it looks like you've placed some code it knows how to format within a string in another file, like in code blocks in Markdown, it will by default try to format that code.
+
+In JavaScript and TypeScript, Prettier also formats HTML inside template literals when the literal uses the `html` tag or a leading `/* HTML */` block comment:
+
+```js
+html`<div class="foo">${content}</div>`;
+/* HTML */ `<div class="foo">${content}</div>`;
+```
 
 Sometimes this behavior is undesirable, particularly in cases where you might not have intended the string to be interpreted as code. This option allows you to switch between the default behavior (`auto`) and disabling this feature entirely (`off`).
 
