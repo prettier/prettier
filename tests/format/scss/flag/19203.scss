@@ -1,0 +1,9 @@
+$a: "!default";
+$b: unquote("!default");
+$c: url("x!global");
+$d: 'single !default';
+$e: "it's !default" !default;
+$f: "a" !default;
+$g: 1px !default;
+$h: 1px !global;
+$i: "escaped \" !default";
