@@ -1891,7 +1891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.5.0, @jridgewell/sourcemap-codec@npm:^1.5.5, @jridgewell/sourcemap-codec@npm:^1.6.0-beta.0":
+"@jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.5.0, @jridgewell/sourcemap-codec@npm:^1.5.5, @jridgewell/sourcemap-codec@npm:^1.6.0, @jridgewell/sourcemap-codec@npm:^1.6.0-beta.0":
   version: 1.6.0
   resolution: "@jridgewell/sourcemap-codec@npm:1.6.0"
   checksum: 10/eb53fbf7eb4051302a599d6b91425f381168b2856f321336fb00852cea1e0c1904af2610c157b1535e94a61caa98f0bd068d1d0394dd46adf9e9c45c4e11af91
@@ -6816,12 +6816,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:1.2.3":
-  version: 1.2.3
-  resolution: "magic-string@npm:1.2.3"
+"magic-string@npm:1.4.1":
+  version: 1.4.1
+  resolution: "magic-string@npm:1.4.1"
   dependencies:
-    "@jridgewell/sourcemap-codec": "npm:^1.5.5"
-  checksum: 10/d1a943913fad82733704cc6b4ff327a1ee9dcdbaa1475931f03368aa0ac54305eb37f591ff1478c36e7f9c62dabc335d6dc5d28744e632f62d42f350031d758f
+    "@jridgewell/sourcemap-codec": "npm:^1.6.0"
+  checksum: 10/e24599bdd37e2bd4d3bed3e52739791d47652ce16a13f31c2fc7cc760912549a3af4db2625c4a26d4d7cd9ef573fea96c9470fea5b9deddd296ada896b6c44a3
   languageName: node
   linkType: hard
 
@@ -8364,7 +8364,7 @@ __metadata:
     less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.5.0"
-    magic-string: "npm:1.2.3"
+    magic-string: "npm:1.4.1"
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.3"
     mdast-util-gfm: "npm:3.1.0"
