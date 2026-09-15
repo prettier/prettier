@@ -215,7 +215,7 @@ function getBlockValueLineContents(
 
   /** @type {number} */
   let leadingSpaceCount;
-  if (node.indent === null) {
+  if (node.indent === null || node.value === "") {
     const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
     leadingSpaceCount = matches
       ? matches.groups.leadingSpace.length
@@ -269,7 +269,7 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    lines = lines.map((words) => [words.join(" ")]);
+    lines = lines.map((words) => (words.length > 0 ? [words.join(" ")] : []));
   }
 
   return removeUnnecessaryTrailingNewlines(lines);
