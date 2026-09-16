@@ -277,6 +277,8 @@ const configs = [
       "unicorn/no-for-loop": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/no-hex-escape": "off",
+      // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/3700
+      "unicorn/no-immediate-mutation": "off",
       // Bug on `"\u{3000}"`
       "unicorn/no-incorrect-template-string-interpolation": "off",
       "unicorn/no-invalid-argument-count": "off",
@@ -322,6 +324,7 @@ const configs = [
       "unicorn/prefer-await": "off",
       "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-combined-guards": "off",
       "unicorn/prefer-continue": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
