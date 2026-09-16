@@ -322,6 +322,7 @@ const configs = [
       "unicorn/prefer-await": "off",
       "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-combined-guards": "off",
       "unicorn/prefer-continue": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
