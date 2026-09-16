@@ -107,8 +107,10 @@ function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
 
 /**
  * @param {NamedOptionInfo} optionInfo
- * @param {any} param1
- * @returns
+ * @param {object} options
+ * @param {boolean} options.isCLI
+ * @param {Map} options.optionInfos
+ * @param {typeof FlagSchema} options.FlagSchema
  */
 function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
   const { name } = optionInfo;
