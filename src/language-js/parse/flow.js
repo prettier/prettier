@@ -4,7 +4,7 @@ import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 
 // https://github.com/facebook/flow/blob/7c64d4b077bc6fc45c12cee3cfa7368fdb2186ce/packages/flow-parser/oxidized-src/ParserOptions.js#L15
-// Keep this sync with `/scripts/sync-flow-test.js`
+// Keep this in sync with `/scripts/sync-flow-tests.cjs`
 const parseOptions = {
   flow: "all",
   babel: false,
