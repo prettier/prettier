@@ -1480,7 +1480,7 @@ tabWidth: 4
 
 - foo
 
-        indented code block in bullet
+      indented code block in bullet
 
 ---
 
@@ -1516,7 +1516,7 @@ tabWidth: 4
 
 - [ ] foo
 
-        indented code block in checkbox item
+      indented code block in checkbox item
 
 ---
 
@@ -1758,7 +1758,7 @@ tabWidth: 999
 
 - foo
 
-         indented code block in bullet
+      indented code block in bullet
 
 ---
 
@@ -1782,7 +1782,7 @@ tabWidth: 999
 
 1. foo
 
-          indented code block in numbered item
+       indented code block in numbered item
 
 ---
 
@@ -1794,7 +1794,7 @@ tabWidth: 999
 
 - [ ] foo
 
-         indented code block in checkbox item
+      indented code block in checkbox item
 
 ---
 
@@ -1861,7 +1861,7 @@ tabWidth: 999
         -    item 1-1
         -    item 1-2
 
-            indented code block
+         indented code block
 
     top level indented code block
 
@@ -4128,8 +4128,8 @@ tabWidth: 4
 =====================================output=====================================
 - [x] short first line.
 
-        second paragraph at six spaces that wraps
-        onto another line here.
+      second paragraph at six spaces that wraps
+      onto another line here.
 
 ================================================================================
 `;
@@ -4149,8 +4149,8 @@ tabWidth: 999
 =====================================output=====================================
 - [x] short first line.
 
-         second paragraph at six spaces that wraps
-         onto another line here.
+      second paragraph at six spaces that wraps
+      onto another line here.
 
 ================================================================================
 `;
