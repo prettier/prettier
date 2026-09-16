@@ -97,7 +97,10 @@ function liquidSyntax() {
                 ? codes.percentSign
                 : codes.rightCurlyBrace;
             effects.consume(code);
-            return isFlow && interrupt ? ok : inside;
+            if (isFlow && interrupt) {
+              return closingCode === codes.percentSign ? ok : nok(code);
+            }
+            return inside;
           default:
             return nok(code);
         }
