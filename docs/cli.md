@@ -154,7 +154,7 @@ CLI options take precedence over config file
 
 **file-override**
 
-Config file take precedence over CLI options
+Config file takes precedence over CLI options
 
 **prefer-file**
 

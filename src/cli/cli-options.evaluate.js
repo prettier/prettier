@@ -119,7 +119,7 @@ const options = {
         value: "cli-override",
       },
       {
-        description: "Config file take precedence over CLI options",
+        description: "Config file takes precedence over CLI options",
         value: "file-override",
       },
       {
