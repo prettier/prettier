@@ -54,7 +54,7 @@ function embed(path, options) {
   if (
     parent.type === "AttrNode" &&
     parent.value === node &&
-    parent.name.toLowerCase() === "style"
+    parent.name === "style"
   ) {
     return embedStyleAttribute(path, options);
   }

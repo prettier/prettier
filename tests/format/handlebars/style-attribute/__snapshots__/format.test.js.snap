@@ -32,7 +32,10 @@ border-radius: 8px;transition: transform .2s ease-out;"></div>
 
 =====================================output=====================================
 <div style="color: red; display: inline"></div>
-<div STYle="color: red; display: inline"></div>
+<div
+  STYle="   color : red;
+            display    :inline "
+></div>
 
 <div style="color: red; display: inline"></div>
 
