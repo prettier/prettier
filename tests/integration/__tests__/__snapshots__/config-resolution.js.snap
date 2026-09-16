@@ -12,7 +12,7 @@ exports[`accepts configuration from --config  1`] = `
 
 exports[`prints error message when no file found with --find-config-path  1`] = `
 {
-  "stderr": "[error] Can not find configure file for "../--non-exits-filename--".",
+  "stderr": "[error] Cannot find config file for "../--non-exits-filename--".",
   "write": [],
 }
 `;
