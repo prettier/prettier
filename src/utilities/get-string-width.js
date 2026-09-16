@@ -10,6 +10,11 @@ import { isNarrowEmojiCharacter } from "narrow-emojis";
 const notAsciiRegex = /[^\x20-\x7F]/;
 // Exclude [`Spacing Mark`](https://www.compart.com/en/unicode/category/Mc) because spacing marks contribute horizontal width.
 const zeroWidthMarkRegex = /[\p{Nonspacing_Mark}\p{Enclosing_Mark}]/u;
+// Zero-width format characters (ZWSP, ZWJ, tags, BOM, ...) per
+// [`Default_Ignorable_Code_Point`](https://unicode.org/reports/tr44/#Default_Ignorable_Code_Point).
+// `\p{Format}` is deliberately not used: it also matches visible or wide
+// characters such as U+0600-U+0605, U+070F, U+115F, U+17A4 and U+3164.
+const zeroWidthFormatRegex = /\p{Default_Ignorable_Code_Point}/u;
 
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
@@ -46,6 +51,11 @@ function getStringWidth(text) {
 
     // Ignore zero-width marks, including combining marks and variation selectors
     if (zeroWidthMarkRegex.test(character)) {
+      continue;
+    }
+
+    // Ignore zero-width format characters
+    if (zeroWidthFormatRegex.test(character)) {
       continue;
     }
 
