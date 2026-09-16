@@ -45,9 +45,9 @@ function foo2(
 =====================================output=====================================
 /* @flow */
 
-function foo0(
-  x: Array<{ [key: string]: mixed }>,
-): Array<{ [key: string]: mixed }> {
+function foo0(x: Array<{ [key: string]: mixed }>): Array<{
+  [key: string]: mixed,
+}> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
   x[0].fooBar = "foobar";
@@ -591,15 +591,15 @@ function subtype_mix_with_declared_props_invariant_r(
   (xc.p: C); // not true
 }
 
-function unification_dict_to_obj(
-  x: Array<{ [k: string]: X }>,
-): Array<{ p: X }> {
+function unification_dict_to_obj(x: Array<{ [k: string]: X }>): Array<{
+  p: X,
+}> {
   return x; // error: if allowed, could write {p:X,q:Y} into \`x\`
 }
 
-function unification_obj_to_dict(
-  x: Array<{ p: X }>,
-): Array<{ [k: string]: X }> {
+function unification_obj_to_dict(x: Array<{ p: X }>): Array<{
+  [k: string]: X,
+}> {
   return x; // error: if allowed, could write {p:X,q:Y} into returned array
 }
 
@@ -748,22 +748,24 @@ var b: { [key: string]: string } = a; // 2 errors (null & undefined)
 var c: { [key: string]: ?string } = b; // 2 errors, since c['x'] = null updates b
 
 // 2 errors (number !~> string, string !~> number)
-function foo0(
-  x: Array<{ [key: string]: number }>,
-): Array<{ [key: string]: string }> {
+function foo0(x: Array<{ [key: string]: number }>): Array<{
+  [key: string]: string,
+}> {
   return x;
 }
 
 // error, fooBar:string !~> number (x's dictionary)
-function foo1(
-  x: Array<{ [key: string]: number }>,
-): Array<{ [key: string]: number, fooBar: string }> {
+function foo1(x: Array<{ [key: string]: number }>): Array<{
+  [key: string]: number,
+  fooBar: string,
+}> {
   return x;
 }
 
-function foo2(
-  x: Array<{ [key: string]: mixed }>,
-): Array<{ [key: string]: mixed, fooBar: string }> {
+function foo2(x: Array<{ [key: string]: mixed }>): Array<{
+  [key: string]: mixed,
+  fooBar: string,
+}> {
   x[0].fooBar = 123; // OK, since number ~> mixed (x elem's dictionary)
   return x; // error: mixed ~> string
 }
