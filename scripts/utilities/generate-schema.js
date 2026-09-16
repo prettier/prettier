@@ -115,7 +115,7 @@ function optionTypeToSchemaType(optionType) {
 }
 
 function choiceToSchema(choice) {
-  return { enum: [choice.value], description: choice.description };
+  return { const: choice.value, description: choice.description };
 }
 
 async function generateSchema() {
