@@ -517,8 +517,8 @@ parsers: ["markdown"]
 proseWrap: "always"
                                                       printWidth: 80 (default) |
 =====================================input======================================
-**ASCII** is a {{glossary("character encoding")}} standard using 7-bit to represent 128
-{{glossary("character", "characters")}} used by computers.
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
 
 ---
 
@@ -526,8 +526,9 @@ text
 {% tag %}
 
 =====================================output=====================================
-**ASCII** is a {{glossary("character encoding")}} standard using 7-bit to
-represent 128 {{glossary("character", "characters")}} used by computers.
+If \`module\` is not a
+[\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module)
+object instance, a {{jsxref("TypeError")}} is thrown.
 
 ---
 
@@ -542,8 +543,8 @@ exports[`issue-20083.md format 1`] = `
 parsers: ["markdown"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-**ASCII** is a {{glossary("character encoding")}} standard using 7-bit to represent 128
-{{glossary("character", "characters")}} used by computers.
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
 
 ---
 
@@ -551,8 +552,8 @@ text
 {% tag %}
 
 =====================================output=====================================
-**ASCII** is a {{glossary("character encoding")}} standard using 7-bit to represent 128
-{{glossary("character", "characters")}} used by computers.
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
 
 ---
 
