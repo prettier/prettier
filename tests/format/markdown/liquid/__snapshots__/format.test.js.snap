@@ -525,6 +525,21 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 text
 {% tag %}
 
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
+
 =====================================output=====================================
 If \`module\` is not a
 [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module)
@@ -534,6 +549,22 @@ object instance, a {{jsxref("TypeError")}} is thrown.
 
 text
 {% tag %}
+
+---
+
+abcdefg abcdefg
+
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg {{abc}}
 
 ================================================================================
 `;
@@ -551,6 +582,21 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 text
 {% tag %}
 
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
+
 =====================================output=====================================
 If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
 {{jsxref("TypeError")}} is thrown.
@@ -559,6 +605,23 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 
 text
 {% tag %}
+
+---
+
+abcdefg abcdefg
+
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
 
 ================================================================================
 `;
