@@ -1,3 +1,25 @@
+# 3.9.8
+
+[diff](https://github.com/prettier/prettier/compare/3.9.7...3.9.8)
+
+#### Markdown: Don't let Liquid objects interrupt paragraphs ([#20087](https://github.com/prettier/prettier/pull/20087) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+
+<!-- Prettier 3.9.7 -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+
+{{jsxref("TypeError")}} is thrown.
+
+<!-- Prettier 3.9.8 -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+```
+
 # 3.9.7
 
 [diff](https://github.com/prettier/prettier/compare/3.9.6...3.9.7)
