@@ -522,6 +522,21 @@ Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5
 If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
 {{jsxref("TypeError")}} is thrown.
 
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
+
 =====================================output=====================================
 Taken from
 https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
@@ -529,6 +544,19 @@ https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/fil
 If \`module\` is not a
 [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module)
 object instance, a {{jsxref("TypeError")}} is thrown.
+
+---
+
+abcdefg abcdefg {% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg {% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
 
 ================================================================================
 `;
@@ -543,11 +571,41 @@ Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5
 If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
 {{jsxref("TypeError")}} is thrown.
 
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
+
 =====================================output=====================================
 Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
 
 If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
 {{jsxref("TypeError")}} is thrown.
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{% comment %} here is comment {% endcomment %}
+
+---
+
+abcdefg abcdefg
+{{abc}}
 
 ================================================================================
 `;
