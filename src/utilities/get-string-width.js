@@ -1,9 +1,9 @@
 import emojiRegex from "emoji-regex";
 import {
   // @ts-expect-error -- Private
-  _isWide as isWide,
-  // @ts-expect-error -- Private
   _isFullwidth as isFullwidth,
+  // @ts-expect-error -- Private
+  _isWide as isWide,
 } from "get-east-asian-width";
 import { isNarrowEmojiCharacter } from "narrow-emojis";
 
