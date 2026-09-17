@@ -537,6 +537,11 @@ abcdefg abcdefg
 abcdefg abcdefg
 {{abc}}
 
+---
+
+text
+{% tag %}
+
 =====================================output=====================================
 Taken from
 https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
@@ -557,6 +562,11 @@ abcdefg abcdefg {% comment %} here is comment {% endcomment %}
 
 abcdefg abcdefg
 {{abc}}
+
+---
+
+text
+{% tag %}
 
 ================================================================================
 `;
@@ -586,6 +596,11 @@ abcdefg abcdefg
 abcdefg abcdefg
 {{abc}}
 
+---
+
+text
+{% tag %}
+
 =====================================output=====================================
 Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
 
@@ -606,6 +621,11 @@ abcdefg abcdefg
 
 abcdefg abcdefg
 {{abc}}
+
+---
+
+text
+{% tag %}
 
 ================================================================================
 `;
