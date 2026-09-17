@@ -77,7 +77,7 @@
     "file-entry-cache": "11.1.5",
     "find-cache-directory": "6.0.0",
     "flow-parser": "0.331.0",
-    "get-east-asian-width": "1.6.0",
+    "get-east-asian-width": "1.7.0",
     "get-stdin": "9.0.0",
     "graphql": "17.0.2",
     "hermes-parser": "0.37.0",
