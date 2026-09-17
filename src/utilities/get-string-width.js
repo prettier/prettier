@@ -1,9 +1,9 @@
 import emojiRegex from "emoji-regex";
 import {
   // @ts-expect-error -- Private
-  _isFullWidth as isFullWidth,
-  // @ts-expect-error -- Private
   _isWide as isWide,
+  // @ts-expect-error -- Private
+  isFullwidth as isFullwidth,
 } from "get-east-asian-width";
 import { isNarrowEmojiCharacter } from "narrow-emojis";
 
@@ -49,7 +49,7 @@ function getStringWidth(text) {
       continue;
     }
 
-    width += isFullWidth(codePoint) || isWide(codePoint) ? 2 : 1;
+    width += isFullwidth(codePoint) || isWide(codePoint) ? 2 : 1;
   }
 
   return width;
