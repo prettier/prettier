@@ -524,17 +524,27 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 
 ---
 
-abcdefg abcdefg
+text
 {% comment %} here is comment {% endcomment %}
 
 ---
 
-abcdefg abcdefg
-{% comment %} here is comment {% endcomment %}
+text
+{{ comment }} here is comment {{ endcomment }}
 
 ---
 
-abcdefg abcdefg
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
 {{abc}}
 
 ---
@@ -552,15 +562,23 @@ object instance, a {{jsxref("TypeError")}} is thrown.
 
 ---
 
-abcdefg abcdefg {% comment %} here is comment {% endcomment %}
+text {% comment %} here is comment {% endcomment %}
 
 ---
 
-abcdefg abcdefg {% comment %} here is comment {% endcomment %}
+text {{ comment }} here is comment {{ endcomment }}
 
 ---
 
-abcdefg abcdefg
+text {% comment %} text
+
+---
+
+text {{ comment }} text
+
+---
+
+text
 {{abc}}
 
 ---
@@ -583,17 +601,27 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 
 ---
 
-abcdefg abcdefg
+text
 {% comment %} here is comment {% endcomment %}
 
 ---
 
-abcdefg abcdefg
-{% comment %} here is comment {% endcomment %}
+text
+{{ comment }} here is comment {{ endcomment }}
 
 ---
 
-abcdefg abcdefg
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
 {{abc}}
 
 ---
@@ -609,17 +637,27 @@ If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Referenc
 
 ---
 
-abcdefg abcdefg
+text
 {% comment %} here is comment {% endcomment %}
 
 ---
 
-abcdefg abcdefg
-{% comment %} here is comment {% endcomment %}
+text
+{{ comment }} here is comment {{ endcomment }}
 
 ---
 
-abcdefg abcdefg
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
 {{abc}}
 
 ---
