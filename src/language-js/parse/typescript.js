@@ -77,6 +77,24 @@ function getParseOptionsCombinations(text, filepath) {
   );
 }
 
+function removeDuplicateLastStatement(ast) {
+  const { body } = ast;
+  const previous = body.at(-2);
+  const last = body.at(-1);
+
+  // TypeScript's top-level await reparse can duplicate the final statement.
+  // https://github.com/microsoft/TypeScript/issues/59777
+  if (
+    previous &&
+    last &&
+    previous.type === last.type &&
+    previous.range[0] === last.range[0] &&
+    previous.range[1] === last.range[1]
+  ) {
+    body.pop();
+  }
+}
+
 function parse(text, options) {
   let filepath = options?.filepath;
   if (typeof filepath !== "string") {
@@ -102,6 +120,8 @@ function parse(text, options) {
   }) {
     throw createParseError(error);
   }
+
+  removeDuplicateLastStatement(ast);
 
   return postprocess(ast, { text, astType: "typescript" });
 }
