@@ -77,7 +77,7 @@ function liquidSyntax() {
    */
   function tokenize(effects, ok, nok, mode) {
     const isFlow = mode === "flow";
-    const { interrupt, now, parser } = this;
+    const { now, parser } = this;
     /** @type {typeof codes.rightCurlyBrace | typeof codes.percentSign} */
     let closingCode;
 
@@ -97,7 +97,7 @@ function liquidSyntax() {
                 ? codes.percentSign
                 : codes.rightCurlyBrace;
             effects.consume(code);
-            return isFlow && interrupt ? ok : inside;
+            return inside;
           default:
             return nok(code);
         }
