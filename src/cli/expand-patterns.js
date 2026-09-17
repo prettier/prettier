@@ -15,9 +15,13 @@ async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
 
-  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
-    context,
-  )) {
+  for await (const {
+    filePath,
+    ignoreUnknown,
+    error,
+    isExplicitFile,
+    isIgnoredByDirectory,
+  } of expandPatternsInternal(context)) {
     noResults = false;
     if (error) {
       yield { error };
@@ -32,7 +36,7 @@ async function* expandPatterns(context) {
     }
 
     seen.add(filename);
-    yield { filename, ignoreUnknown };
+    yield { filename, ignoreUnknown, isExplicitFile, isIgnoredByDirectory };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -58,17 +62,24 @@ async function* expandPatternsInternal(context) {
   };
   const cwd = process.cwd();
 
-  /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
+  /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; ignoreUnknown?: boolean; }>} */
   const entries = [];
 
   for (const pattern of context.filePatterns) {
     const absolutePath = path.resolve(pattern);
+    const stat = await lstatSafe(absolutePath);
 
     if (directoryIgnorer.shouldIgnore(absolutePath)) {
+      if (stat?.isFile()) {
+        yield {
+          filePath: pattern,
+          isExplicitFile: true,
+          isIgnoredByDirectory: true,
+        };
+      }
       continue;
     }
 
-    const stat = await lstatSafe(absolutePath);
     if (stat) {
       if (stat.isSymbolicLink()) {
         if (context.argv.errorOnUnmatchedPattern !== false) {
@@ -131,7 +142,11 @@ async function* expandPatternsInternal(context) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      yield* sortPaths(result).map((filePath) => ({ filePath, ignoreUnknown }));
+      yield* sortPaths(result).map((filePath) => ({
+        filePath,
+        ignoreUnknown,
+        isExplicitFile: type === "file",
+      }));
     }
   }
 }
