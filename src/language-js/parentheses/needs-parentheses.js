@@ -39,6 +39,26 @@ function needsParentheses(path, options) {
 
   const { node, key, parent } = path;
 
+  // Do not wrap concise arrow function body in parentheses when
+  // nullish coalescing operator has an optional chain on the left-hand side.
+  // ECMAScript precedence guarantees no syntactic ambiguity.
+  if (
+    parent.type === "ArrowFunctionExpression" &&
+    key === "body" &&
+    node.type === "LogicalExpression" &&
+    node.operator === "??"
+  ) {
+    const left = node.left;
+    if (
+      left &&
+      (left.type === "ChainExpression" ||
+        left.type === "OptionalCallExpression" ||
+        left.type === "OptionalMemberExpression")
+    ) {
+      return false;
+    }
+  }
+
   // to avoid unexpected `}}` in HTML interpolations
   if (
     options.__isInHtmlInterpolation &&
