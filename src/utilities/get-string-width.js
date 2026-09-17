@@ -3,7 +3,7 @@ import {
   // @ts-expect-error -- Private
   _isWide as isWide,
   // @ts-expect-error -- Private
-  isFullwidth as isFullwidth,
+  _isFullwidth as isFullwidth,
 } from "get-east-asian-width";
 import { isNarrowEmojiCharacter } from "narrow-emojis";
 
