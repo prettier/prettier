@@ -55,7 +55,6 @@ for (let step of [
     name: "Merge release notes PR",
     process: steps.mergeBlogPost,
   },
-  steps.updateDependentsCount,
   {
     name: "Cleaning changelog",
     process: steps.cleanChangelog,

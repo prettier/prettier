@@ -1,5 +1,29 @@
-import styleText from "node-style-text";
-import { fetchText, logPromise, processFile, runGit } from "../utilities.js";
+import fs from "node:fs/promises";
+
+async function fetchText(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  return response.text();
+}
+
+async function processFile(filename, transform) {
+  const content = await fs.readFile(filename, "utf8");
+  await fs.writeFile(filename, transform(content));
+}
+
+async function logPromise(name, promise) {
+  process.stdout.write(`${name} ... `);
+  try {
+    const result = await promise;
+    console.log("done");
+    return result;
+  } catch (error) {
+    console.log("failed");
+    throw error;
+  }
+}
 
 async function getNpmDependentsCount() {
   const npmPage = await logPromise(
@@ -41,7 +65,7 @@ async function getGithubDependentsCount() {
   return dependentsCountGithub;
 }
 
-async function update({ repo }) {
+async function update() {
   const [
     { value: dependentsCountNpm, reason: dependentsNpmError },
     { value: dependentsCountGithub, reason: dependentsGithubError },
@@ -51,7 +75,7 @@ async function update({ repo }) {
   ]);
 
   if (dependentsCountNpm || dependentsCountGithub) {
-    processFile("website/src/pages/index.jsx", (content) => {
+    await processFile("website/src/pages/index.jsx", (content) => {
       if (dependentsCountNpm) {
         content = content.replace(
           /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
@@ -68,21 +92,6 @@ async function update({ repo }) {
 
       return content;
     });
-
-    const isUpdated = await logPromise(
-      "Checking if dependents count has been updated",
-      async () =>
-        (await runGit(["diff", "--name-only"])).stdout ===
-        "website/src/pages/index.jsx",
-    );
-
-    if (isUpdated) {
-      await logPromise("Committing and pushing to remote", async () => {
-        await runGit(["add", "."]);
-        await runGit(["commit", "-m", "Update dependents count"]);
-        await runGit(["push", "--repo", repo]);
-      });
-    }
   }
 
   if (dependentsNpmError) {
@@ -104,14 +113,8 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry, next, repo }) {
-  if (dry || next) {
-    return;
-  }
-
-  try {
-    await update({ repo });
-  } catch (error) {
-    console.log(styleText.red.bold(error.message));
-  }
+try {
+  await update();
+} catch (error) {
+  console.error(error.message);
 }
