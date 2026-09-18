@@ -284,6 +284,27 @@ function handleConditionalExpressionComments({
       isConditionalType(enclosingNode)) &&
     followingNode
   ) {
+    const consequentNode =
+      enclosingNode.type === "ConditionalExpression"
+        ? enclosingNode.consequent
+        : enclosingNode.trueType;
+    if (
+      followingNode === consequentNode &&
+      isBlockComment(comment) &&
+      !hasNewlineInRange(
+        options.originalText,
+        locStart(comment),
+        locEnd(comment),
+      )
+    ) {
+      addDanglingComment(
+        enclosingNode,
+        comment,
+        "commentBeforeTernaryConsequent",
+      );
+      return true;
+    }
+
     if (
       options.experimentalTernaries &&
       enclosingNode.alternate === followingNode &&
