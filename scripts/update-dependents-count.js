@@ -10,7 +10,10 @@ async function fetchText(url) {
 
 async function processFile(filename, transform) {
   const content = await fs.readFile(filename, "utf8");
-  await fs.writeFile(filename, transform(content));
+  const newContent = transform(content);
+  if (newContent !== content) {
+    await fs.writeFile(filename, newContent);
+  }
 }
 
 async function logPromise(name, promise) {
@@ -75,23 +78,26 @@ async function update() {
   ]);
 
   if (dependentsCountNpm || dependentsCountGithub) {
-    await processFile("website/src/pages/index.jsx", (content) => {
-      if (dependentsCountNpm) {
-        content = content.replace(
-          /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
-          `$1${formatNumber(dependentsCountNpm)}$3`,
-        );
-      }
+    await processFile(
+      new URL("../website/src/pages/index.jsx", import.meta.url),
+      (content) => {
+        if (dependentsCountNpm) {
+          content = content.replace(
+            /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
+            `$1${formatNumber(dependentsCountNpm)}$3`,
+          );
+        }
 
-      if (dependentsCountGithub) {
-        content = content.replace(
-          /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
-          `$1${formatNumber(dependentsCountGithub)}$3`,
-        );
-      }
+        if (dependentsCountGithub) {
+          content = content.replace(
+            /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
+            `$1${formatNumber(dependentsCountGithub)}$3`,
+          );
+        }
 
-      return content;
-    });
+        return content;
+      },
+    );
   }
 
   if (dependentsNpmError) {
