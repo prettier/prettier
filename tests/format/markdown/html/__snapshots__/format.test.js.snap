@@ -204,6 +204,136 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
+exports[`comment-in-list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+=====================================output=====================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+================================================================================
+`;
+
+exports[`comment-in-list.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+=====================================output=====================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+================================================================================
+`;
+
+exports[`comment-in-list.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+=====================================output=====================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Item
+  <!--
+    Line 1
+      Line 2 (more indented)
+    Line 3
+  -->
+
+- Item
+  <!-- single line comment -->
+
+================================================================================
+`;
+
 exports[`inline-html.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
