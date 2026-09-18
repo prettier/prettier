@@ -1,10 +1,9 @@
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 
 async function fetchText(url) {
   const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.status}`);
-  }
+  assert.ok(response.ok, `Failed to fetch ${url}: ${response.status}`);
   return response.text();
 }
 
@@ -24,7 +23,7 @@ async function logPromise(name, promise) {
     return result;
   } catch (error) {
     console.log("failed");
-    throw error;
+    assert.ifError(error);
   }
 }
 
@@ -37,11 +36,10 @@ async function getNpmDependentsCount() {
     npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/).groups
       .dependentsCount,
   );
-  if (Number.isNaN(dependentsCountNpm)) {
-    throw new TypeError(
-      "Invalid data from https://www.npmjs.com/package/prettier",
-    );
-  }
+  assert.ok(
+    !Number.isNaN(dependentsCountNpm),
+    "Invalid data from https://www.npmjs.com/package/prettier",
+  );
 
   return dependentsCountNpm;
 }
@@ -59,11 +57,10 @@ async function getGithubDependentsCount() {
       )
       .groups.dependentsCount.replaceAll(",", ""),
   );
-  if (Number.isNaN(dependentsCountGithub)) {
-    throw new TypeError(
-      "Invalid data from https://github.com/prettier/prettier/network/dependents",
-    );
-  }
+  assert.ok(
+    !Number.isNaN(dependentsCountGithub),
+    "Invalid data from https://github.com/prettier/prettier/network/dependents",
+  );
 
   return dependentsCountGithub;
 }
@@ -100,13 +97,8 @@ async function update() {
     );
   }
 
-  if (dependentsNpmError) {
-    throw dependentsNpmError;
-  }
-
-  if (dependentsGithubError) {
-    throw dependentsGithubError;
-  }
+  assert.ifError(dependentsNpmError);
+  assert.ifError(dependentsGithubError);
 }
 
 function formatNumber(value) {
