@@ -443,6 +443,23 @@ class A {
 ================================================================================
 `;
 
+exports[`18121.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+blablablablablablablabla.hellohellohellohellohellohellohellohellohellohello
+  // @ts-expect-error
+  .dayOfWeek
+
+=====================================output=====================================
+blablablablablablablabla.hellohellohellohellohellohellohellohellohellohello
+  // @ts-expect-error
+  .dayOfWeek;
+
+================================================================================
+`;
+
 exports[`abstract-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
