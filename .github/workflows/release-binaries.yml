@@ -1,0 +1,86 @@
+name: Release Binaries
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach binaries to
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-x64
+            runner: ubuntu-latest
+            target: bun-linux-x64
+            artifact: prettier-linux-x64
+          - name: linux-arm64
+            runner: ubuntu-latest
+            target: bun-linux-arm64
+            artifact: prettier-linux-arm64
+          - name: darwin-x64
+            runner: macos-latest
+            target: bun-darwin-x64
+            artifact: prettier-darwin-x64
+          - name: darwin-arm64
+            runner: macos-latest
+            target: bun-darwin-arm64
+            artifact: prettier-darwin-arm64
+          - name: windows-x64
+            runner: windows-latest
+            target: bun-windows-x64
+            artifact: prettier-windows-x64.exe
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          cache: "yarn"
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build prettier
+        run: yarn build
+
+      - name: Compile standalone binary
+        shell: bash
+        run: |
+          bun build --compile --minify \
+            --target=${{ matrix.target }} \
+            ./scripts/compile-entry.mjs \
+            --outfile ${{ matrix.artifact }}
+
+      - name: Smoke test
+        shell: bash
+        run: ./${{ matrix.artifact }} --version
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}
+          if-no-files-found: error
+
+      - name: Attach to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        shell: bash
+        run: gh release upload "$TAG" "${{ matrix.artifact }}" --clobber --repo "$GITHUB_REPOSITORY"
