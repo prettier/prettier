@@ -88,7 +88,10 @@ const jestVersion =
     : nodeVersion === 16
       ? // `jest@30.0.0-alpha.7` is the last version that supports Node.js v16
         "30.0.0-alpha.7"
-      : undefined;
+      : nodeVersion === 18
+        ? // ??
+          "30.4.1"
+        : undefined;
 
 const jestLightRunnerVersion =
   nodeVersion === 14 || nodeVersion === 16
