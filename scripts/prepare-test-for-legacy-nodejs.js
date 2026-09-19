@@ -107,7 +107,7 @@ if (jestLightRunnerVersion) {
   packageJson.devDependencies["jest-light-runner"] = jestLightRunnerVersion;
   packageJson.resolutions = {
     ...packageJson.resolutions,
-    "p-limit": "7.3.2",
+    "jest-light-runner/p-limit": "7.3.2",
   };
 }
 
