@@ -9,33 +9,24 @@ async function fetchText(url) {
 
 async function processFile(filename, transform) {
   const content = await fs.readFile(filename, "utf8");
-  const newContent = transform(content);
-  if (newContent !== content) {
-    await fs.writeFile(filename, newContent);
+  const updated = transform(content);
+  if (updated === content) {
+    return;
   }
-}
 
-async function logPromise(name, promise) {
-  process.stdout.write(`${name} ... `);
-  try {
-    const result = await promise;
-    console.log("done");
-    return result;
-  } catch (error) {
-    console.log("failed");
-    assert.ifError(error);
-  }
+  await fs.writeFile(filename, updated);
 }
 
 async function getNpmDependentsCount() {
-  const npmPage = await logPromise(
-    "Fetching npm dependents count",
-    fetchText("https://www.npmjs.com/package/prettier"),
+  const npmPage = await fetchText("https://www.npmjs.com/package/prettier");
+  const matches = npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/);
+
+  assert.ok(
+    matches,
+    "Invalid data from https://www.npmjs.com/package/prettier",
   );
-  const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/).groups
-      .dependentsCount,
-  );
+
+  const dependentsCountNpm = Number(matches.groups.dependentsCount);
   assert.ok(
     !Number.isNaN(dependentsCountNpm),
     "Invalid data from https://www.npmjs.com/package/prettier",
@@ -45,9 +36,8 @@ async function getNpmDependentsCount() {
 }
 
 async function getGithubDependentsCount() {
-  const githubPage = await logPromise(
-    "Fetching github dependents count",
-    fetchText("https://github.com/prettier/prettier/network/dependents"),
+  const githubPage = await fetchText(
+    "https://github.com/prettier/prettier/network/dependents",
   );
   const dependentsCountGithub = Number(
     githubPage
@@ -97,8 +87,22 @@ async function update() {
     );
   }
 
-  assert.ifError(dependentsNpmError);
-  assert.ifError(dependentsGithubError);
+  for (const { name, error } of [
+    { name: "NPM dependents count", error: dependentsNpmError },
+    { name: "GitHub dependents count", error: dependentsGithubError },
+  ]) {
+    console.log(error ? `❌ Failed to update ${name}.` : `✅ ${name} updated.`);
+  }
+
+  if (dependentsNpmError) {
+    console.log();
+    console.error(dependentsNpmError);
+  }
+
+  if (dependentsGithubError) {
+    console.log();
+    console.error(dependentsGithubError);
+  }
 }
 
 function formatNumber(value) {
@@ -111,8 +115,4 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-try {
-  await update();
-} catch (error) {
-  console.error(error.message);
-}
+await update();
