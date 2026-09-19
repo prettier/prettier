@@ -97,7 +97,11 @@ function liquidSyntax() {
                 ? codes.percentSign
                 : codes.rightCurlyBrace;
             effects.consume(code);
-            return isFlow && interrupt ? ok : inside;
+            // `{{...}}` is an inline expression and should never interrupt a
+            // paragraph. Only `{%...%}` can interrupt a paragraph as a block.
+            return isFlow && interrupt && code === codes.percentSign
+              ? ok
+              : inside;
           default:
             return nok(code);
         }

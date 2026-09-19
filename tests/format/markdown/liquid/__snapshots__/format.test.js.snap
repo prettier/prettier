@@ -547,6 +547,51 @@ For the sake of example, the router's public address is 5.6.7.8 and its private 
 ================================================================================
 `;
 
+exports[`issue-20083.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+{{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+a {{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+=====================================output=====================================
+**ASCII** (_American Standard Code for Information Interchange_) is a
+{{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+{{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices
+for encoding letters, numbers, punctuation, and control codes into digital form.
+
+**ASCII** (_American Standard Code for Information Interchange_) is a
+{{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128 a
+{{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices
+for encoding letters, numbers, punctuation, and control codes into digital form.
+
+================================================================================
+`;
+
+exports[`issue-20083.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+{{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+a {{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+=====================================output=====================================
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+{{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+
+**ASCII** (_American Standard Code for Information Interchange_) is a {{glossary(\\"character encoding\\")}} standard using 7-bit to represent 128
+a {{glossary(\\"character\\", \\"characters\\")}} used by computers and other devices for encoding letters, numbers, punctuation, and control codes into digital form.
+
+================================================================================
+`;
+
 exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
