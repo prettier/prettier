@@ -7,16 +7,6 @@ async function fetchText(url) {
   return response.text();
 }
 
-async function processFile(filename, transform) {
-  const content = await fs.readFile(filename, "utf8");
-  const updated = transform(content);
-  if (updated === content) {
-    return;
-  }
-
-  await fs.writeFile(filename, updated);
-}
-
 async function getNpmDependentsCount() {
   const npmPage = await fetchText("https://www.npmjs.com/package/prettier");
   const matches = npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/);
@@ -64,34 +54,42 @@ async function update() {
     getGithubDependentsCount(),
   ]);
 
-  if (dependentsCountNpm || dependentsCountGithub) {
-    await processFile(
-      new URL("../website/src/pages/index.jsx", import.meta.url),
-      (content) => {
-        if (dependentsCountNpm) {
-          content = content.replace(
-            /(?<=<strong data-placeholder="dependent-npm">).*?(?=<\/strong>)/,
-            formatNumber(dependentsCountNpm),
-          );
-        }
+  const file = new URL("../website/src/pages/index.jsx", import.meta.url);
+  const original = await fs.readFile(file, "utf8");
 
-        if (dependentsCountGithub) {
-          content = content.replace(
-            /(?<=<strong data-placeholder="dependent-github">).*?(?=<\/strong>)/,
-            formatNumber(dependentsCountGithub),
-          );
-        }
-
-        return content;
-      },
-    );
+  let content = original;
+  for (const { name, error, value, update } of [
+    {
+      name: "NPM dependents count",
+      error: dependentsNpmError,
+      value: dependentsCountNpm,
+      update: (text, value) =>
+        text.replace(
+          /(?<=<strong data-placeholder="dependent-npm">).*?(?=<\/strong>)/,
+          formatNumber(value),
+        ),
+    },
+    {
+      name: "GitHub dependents count",
+      error: dependentsGithubError,
+      value: dependentsCountGithub,
+      update: (text, value) =>
+        text.replace(
+          /(?<=<strong data-placeholder="dependent-github">).*?(?=<\/strong>)/,
+          formatNumber(value),
+        ),
+    },
+  ]) {
+    if (error) {
+      console.log(`❌ Failed to update ${name}.`);
+    } else {
+      console.log(`✅ ${name} updated.`);
+      content = update(content, value);
+    }
   }
 
-  for (const { name, error } of [
-    { name: "NPM dependents count", error: dependentsNpmError },
-    { name: "GitHub dependents count", error: dependentsGithubError },
-  ]) {
-    console.log(error ? `❌ Failed to update ${name}.` : `✅ ${name} updated.`);
+  if (original !== content) {
+    await fs.writeFile(file, content);
   }
 
   if (dependentsNpmError) {
