@@ -529,9 +529,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspell/cspell-bundled-dicts@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-bundled-dicts@npm:10.3.2"
+"@cspell/cspell-bundled-dicts@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-bundled-dicts@npm:10.3.3"
   dependencies:
     "@cspell/dict-ada": "npm:^4.1.1"
     "@cspell/dict-al": "npm:^1.1.1"
@@ -592,62 +592,62 @@ __metadata:
     "@cspell/dict-typescript": "npm:^3.2.3"
     "@cspell/dict-vue": "npm:^3.0.5"
     "@cspell/dict-zig": "npm:^1.0.0"
-  checksum: 10/bed92995d7fac18c3bff9b9e92199e912d5de841b3bfa809a42f1896355c6e2ae144f2cc178f8ca26233ad62f6813e3139fc41cf7bcd8a5a058ebc046b368856
+  checksum: 10/3b27e39353db9ea3ab2cf56ba0c808c417d6c8097d31dd03b63d5db764e1325ece5c274b8cc5be2ee342aa945a389cb1cf12c3b5b779fa9b87ce130b78920ad8
   languageName: node
   linkType: hard
 
-"@cspell/cspell-json-reporter@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-json-reporter@npm:10.3.2"
+"@cspell/cspell-json-reporter@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-json-reporter@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-types": "npm:10.3.2"
-  checksum: 10/20c1d2808fa4c5ccd61548e3e3fe64c1967b134e858f68555176dd49702784318aefd1f6b803e319d0028f7af62a65b1dca95dc96996d3d9e8b002b722af94b3
+    "@cspell/cspell-types": "npm:10.3.3"
+  checksum: 10/6961d0c1643d2ad6ed24d1348266fe0972082be685c269b55f9c9b0e5fb3c8f514b8824df4ee8fae905250fb04e57baecae254a2989a7ed366ae84f6b7c638fa
   languageName: node
   linkType: hard
 
-"@cspell/cspell-performance-monitor@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-performance-monitor@npm:10.3.2"
-  checksum: 10/70513b4e78322a4198680980b15ec6866172d00784d09345096b0dac78cf5345d3dbf159243156b09b941cca8e52c80fbc27d07ae03d2e1ec7655512d10104dc
+"@cspell/cspell-performance-monitor@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-performance-monitor@npm:10.3.3"
+  checksum: 10/a776eb22d3314f077d63af1596199b40590ca54e036eed167f1651a7bb0aa3c0729348f117673e39c43cdef51143b86174e26aa75cdfc0fece0fd3defc0a1a22
   languageName: node
   linkType: hard
 
-"@cspell/cspell-pipe@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-pipe@npm:10.3.2"
-  checksum: 10/2ebdb02e5e43eb7bad59dbeb35273e0bf3be63e21faedfc8775153a2b67928fc00a68ee08ae35056a6fd49cde27226c99656c99ed576114b52a05ca08015f7e0
+"@cspell/cspell-pipe@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-pipe@npm:10.3.3"
+  checksum: 10/aba038817a1df78f194f92810c91f5188279087e8e8db23db303c856d99459609e7655799c77d86068e8f1932d7ebff7f0c5aed2afc2901257ae80535437a297
   languageName: node
   linkType: hard
 
-"@cspell/cspell-resolver@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-resolver@npm:10.3.2"
+"@cspell/cspell-resolver@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-resolver@npm:10.3.3"
   dependencies:
     global-directory: "npm:^5.0.0"
-  checksum: 10/f55098242e56572606e5de8256eb451dc3ec5f521c33ecc807c9687f830218f5de8d028121a851e6abede048a48eb9e0b0bbe6d88ce3e635f97b40d52fc3fa7e
+  checksum: 10/53ae19cc3a8b62f74a2592f68cec557c1af1d3dd6b8b9b087bd973624b3fb8b4a370f4b769fc3642c1828401f9e2cbb4b13b478b091515c568aeea1cdba55618
   languageName: node
   linkType: hard
 
-"@cspell/cspell-service-bus@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-service-bus@npm:10.3.2"
-  checksum: 10/1fb52fe6e0b4ef5a1eac2ae282575cea756a639b2f20efe754eb0380daed084a0e3d3474ee2697760df804500aadcc00d8dd1a9b65f6b2a33f8b0a1cb13c7fe1
+"@cspell/cspell-service-bus@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-service-bus@npm:10.3.3"
+  checksum: 10/28d4b044b4d3247fe88ec33b20ee9a51365d8dd4c6066ca87160bc0381815e7341f08fb3513dbe6c9becc00437c632f3da653f55fa45d131f456f0b34cc3d00e
   languageName: node
   linkType: hard
 
-"@cspell/cspell-types@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-types@npm:10.3.2"
-  checksum: 10/c7ca4577f5bba35c258a7deb0aeb649d415ee5a3a9729635a6ab53765ad3e24a40766b3b61287bc343ecf0f112ef98a1a05a96f5d15a733177b32c9c3077c281
+"@cspell/cspell-types@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-types@npm:10.3.3"
+  checksum: 10/f2f06ba19be1dc62a12e801ffdb88f6d36ff587eb9d76c18b4d35874cca6f5c5cacf0036b5d337fc399eaa8e1f6e741e3a4afeec7a6bd5eb82cb7d23af059abd
   languageName: node
   linkType: hard
 
-"@cspell/cspell-worker@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/cspell-worker@npm:10.3.2"
+"@cspell/cspell-worker@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/cspell-worker@npm:10.3.3"
   dependencies:
-    cspell-lib: "npm:10.3.2"
-  checksum: 10/94763d7a849627c6f08c6667812cb6656f99e99a0f6de4eb29c92abbf570445283475d161b1231b6d58d8b0d0bcb9fbd0661ee90f07ac15533aea3febb3c30c9
+    cspell-lib: "npm:10.3.3"
+  checksum: 10/aacffe94ec5fb4b0b9b1b1051223368c7cf74039a854848a9a638cfdfeba3e87010d7f73b9213d9e1ad4848a22cb644eb62693c10a621daf7d628e761886295f
   languageName: node
   linkType: hard
 
@@ -1073,41 +1073,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspell/dynamic-import@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/dynamic-import@npm:10.3.2"
+"@cspell/dynamic-import@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/dynamic-import@npm:10.3.3"
   dependencies:
-    "@cspell/url": "npm:10.3.2"
+    "@cspell/url": "npm:10.3.3"
     import-meta-resolve: "npm:^4.2.0"
-  checksum: 10/53f0116482b388027de0816296f7c0458ee63071d509a60af37c9b0fff4357bd6cf472e04e5ad00bf7b408a44e6922a5e176b8586a8c5b73f61aea3801e3e7ff
+  checksum: 10/a1c9710b2f0ac4545328ada17197f2a0c9ece3aa30ac685112ee048523d96617c9f9519ea05d6af0894a4b7271fa5dbfd3fa19662c640ab49b424c3a06b03d5c
   languageName: node
   linkType: hard
 
-"@cspell/filetypes@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/filetypes@npm:10.3.2"
-  checksum: 10/bb88d44fcdb338eb57a2af0fe0726598a2a44c898079a728952c7ca32152dc662fe5fd73f0259cb66f77cdd9b702751238a1a5d78c759188383da27f5460c100
+"@cspell/filetypes@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/filetypes@npm:10.3.3"
+  checksum: 10/6686bdfa65accdc01a8e627d6e66aa2d659c97a72395a2628faaabedc54069cc17a169204ef98bbfbcd82571b1b71db790521cc4a123007cb2c3808fce54655f
   languageName: node
   linkType: hard
 
-"@cspell/rpc@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/rpc@npm:10.3.2"
-  checksum: 10/c7f672511c45ac9f2ee81fdb66a0e612244aa06ff4cf2b7f4e9a61fc8ebd299861094957ce293f1958bfe1e1bda93b76097f277c86996e4f2e0ff2ddcb78407d
+"@cspell/rpc@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/rpc@npm:10.3.3"
+  checksum: 10/28db458e395e61c695a6f7a02212aab854a05536cf272a680555410fa020be132761dca933a08115b1142aeead22a429045826a4ec68bee1e1622a78ea356664
   languageName: node
   linkType: hard
 
-"@cspell/strong-weak-map@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/strong-weak-map@npm:10.3.2"
-  checksum: 10/2aefbd2f4abd212fa7c8cb5649a211912401edc5f73b2468b57a4e9eeb37602227fa831554a32077fc827ef56d5eb6bb60b5f35ffc0a73490619a4d79423d4b8
+"@cspell/strong-weak-map@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/strong-weak-map@npm:10.3.3"
+  checksum: 10/13ba482ce8036e6c2bc914c31708d896a97967c0ec02e7dac44c9d9298c7a5844abd091a6034aed7749ad8647cd43c31a1388ea0d7f59fbbb1dcbcced20dc037
   languageName: node
   linkType: hard
 
-"@cspell/url@npm:10.3.2":
-  version: 10.3.2
-  resolution: "@cspell/url@npm:10.3.2"
-  checksum: 10/6796521833ec92238d809a5e52bafcf960fb2f64aad308b755142cb2e7f1f0e9d0d569bcbb78734e5c048760100305a433da7fd6c7fc1850ef84faa6615c4eaf
+"@cspell/url@npm:10.3.3":
+  version: 10.3.3
+  resolution: "@cspell/url@npm:10.3.3"
+  checksum: 10/436b4f83483e9e4fe5a5088bebf8190e61d222a69f833358f598498bb5b7f991c6429a0523c2c5287449cc8cff0d30bb62ab17593dab625443a2a44feb3aeeb4
   languageName: node
   linkType: hard
 
@@ -1980,24 +1980,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-android-arm-eabi@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-android-arm-eabi@npm:0.148.0"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-android-arm-eabi@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-android-arm-eabi@npm:0.150.0"
   conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-android-arm64@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-android-arm64@npm:0.148.0"
-  conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -2008,24 +1994,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-darwin-arm64@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-darwin-arm64@npm:0.148.0"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-darwin-arm64@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-darwin-arm64@npm:0.150.0"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-darwin-x64@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-darwin-x64@npm:0.148.0"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2036,13 +2008,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-freebsd-x64@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-freebsd-x64@npm:0.148.0"
-  conditions: os=freebsd & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-freebsd-x64@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-freebsd-x64@npm:0.150.0"
@@ -2050,23 +2015,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-linux-arm-gnueabihf@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-arm-gnueabihf@npm:0.148.0"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-linux-arm-gnueabihf@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-linux-arm-gnueabihf@npm:0.150.0"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-linux-arm-musleabihf@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-arm-musleabihf@npm:0.148.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
@@ -2078,24 +2029,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-linux-arm64-gnu@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-arm64-gnu@npm:0.148.0"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-linux-arm64-gnu@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-linux-arm64-gnu@npm:0.150.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-linux-arm64-musl@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-arm64-musl@npm:0.148.0"
-  conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -2106,24 +2043,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-linux-ppc64-gnu@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-ppc64-gnu@npm:0.148.0"
-  conditions: os=linux & cpu=ppc64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-linux-ppc64-gnu@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-linux-ppc64-gnu@npm:0.150.0"
   conditions: os=linux & cpu=ppc64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-linux-riscv64-gnu@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-riscv64-gnu@npm:0.148.0"
-  conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -2134,24 +2057,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-linux-riscv64-musl@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-riscv64-musl@npm:0.148.0"
-  conditions: os=linux & cpu=riscv64 & libc=musl
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-linux-riscv64-musl@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-linux-riscv64-musl@npm:0.150.0"
   conditions: os=linux & cpu=riscv64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-linux-s390x-gnu@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-s390x-gnu@npm:0.148.0"
-  conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
 
@@ -2162,24 +2071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-linux-x64-gnu@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-x64-gnu@npm:0.148.0"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-linux-x64-gnu@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-linux-x64-gnu@npm:0.150.0"
   conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-linux-x64-musl@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-linux-x64-musl@npm:0.148.0"
-  conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -2190,24 +2085,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-openharmony-arm64@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-openharmony-arm64@npm:0.148.0"
-  conditions: os=openharmony & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-openharmony-arm64@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-openharmony-arm64@npm:0.150.0"
   conditions: os=openharmony & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@oxc-parser/binding-win32-arm64-msvc@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-win32-arm64-msvc@npm:0.148.0"
-  conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -2218,13 +2099,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-win32-ia32-msvc@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-win32-ia32-msvc@npm:0.148.0"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-win32-ia32-msvc@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-win32-ia32-msvc@npm:0.150.0"
@@ -2232,24 +2106,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-parser/binding-win32-x64-msvc@npm:0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-parser/binding-win32-x64-msvc@npm:0.148.0"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-win32-x64-msvc@npm:0.150.0":
   version: 0.150.0
   resolution: "@oxc-parser/binding-win32-x64-msvc@npm:0.150.0"
   conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@oxc-project/types@npm:^0.148.0":
-  version: 0.148.0
-  resolution: "@oxc-project/types@npm:0.148.0"
-  checksum: 10/835b0479161cd80c7dee653b77d31f6d5239e20530cda8a10466bcbb17de08363777939c29670e82fb9d9eca89dc49030e50742051418d987ec70f62faa3317b
   languageName: node
   linkType: hard
 
@@ -4068,96 +3928,96 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-config-lib@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-config-lib@npm:10.3.2"
+"cspell-config-lib@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-config-lib@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-types": "npm:10.3.2"
+    "@cspell/cspell-types": "npm:10.3.3"
     comment-json: "npm:^5.0.0"
     smol-toml: "npm:^1.8.0"
     yaml: "npm:^2.9.0"
-  checksum: 10/8d5e543c45ab7c0ff882647e7bfe48ca7caeec6ef7b143be4ca4f666cbb42f40ada6c754769d93b81a8a311bf407d0040be982071ba01837dc22383d2c92e24a
+  checksum: 10/6dcf55e0a41bb99bd5a82204db2b9709dccf7d7397319ebd4a8737809c39adae1efbdd843f643a6b15601e61d631208a27021b49f9bdf55b8364d9cce8abdbc4
   languageName: node
   linkType: hard
 
-"cspell-dictionary@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-dictionary@npm:10.3.2"
+"cspell-dictionary@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-dictionary@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-performance-monitor": "npm:10.3.2"
-    "@cspell/cspell-pipe": "npm:10.3.2"
-    "@cspell/cspell-types": "npm:10.3.2"
-    cspell-trie-lib: "npm:10.3.2"
+    "@cspell/cspell-performance-monitor": "npm:10.3.3"
+    "@cspell/cspell-pipe": "npm:10.3.3"
+    "@cspell/cspell-types": "npm:10.3.3"
+    cspell-trie-lib: "npm:10.3.3"
     fast-equals: "npm:^6.0.2"
-  checksum: 10/6f21eca0a9ce2a788b29be38f3ed53e4e617e76fbd49b06438767f348ac4c76e9a80535c6bec8654f66ae84b7e083861df3a14483958f61ec8add36560adc8d2
+  checksum: 10/ab77e72734d11ff23f06591eaf94f6d0441ab0b04affc83e788689b187db3f524b7d39f4dd66f271cf3bf8edd1122e1eed832ff0b8f6561924c7e6ace8a5b7d5
   languageName: node
   linkType: hard
 
-"cspell-gitignore@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-gitignore@npm:10.3.2"
+"cspell-gitignore@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-gitignore@npm:10.3.3"
   dependencies:
-    "@cspell/url": "npm:10.3.2"
-    cspell-glob: "npm:10.3.2"
-    cspell-io: "npm:10.3.2"
+    "@cspell/url": "npm:10.3.3"
+    cspell-glob: "npm:10.3.3"
+    cspell-io: "npm:10.3.3"
   bin:
     cspell-gitignore: bin.mjs
-  checksum: 10/54dcad35839dce3fcb3fe5b5d45cb5440c31a49ed6dd3032751ff6e1499945d1113753cf08e2545da2971c57c1e6cdc504035eb03d677a1f4c26275a1d6f3267
+  checksum: 10/5118d41350115cb6dafef71bd7631580db4fa758bf6d108163341e5192e93f91e667e233e9aaef073abc356bb62895d3f2ca5e054dc9b7705e6878b5350f7a86
   languageName: node
   linkType: hard
 
-"cspell-glob@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-glob@npm:10.3.2"
+"cspell-glob@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-glob@npm:10.3.3"
   dependencies:
-    "@cspell/url": "npm:10.3.2"
+    "@cspell/url": "npm:10.3.3"
     picomatch: "npm:^4.0.7"
-  checksum: 10/e1c3529cc69ac8120613d642d946cca642150becb305aa4c8cb87734378f200740c5c7c1982c79b44a899dea1d1a1e391acfd45755ef450c43ca42df4d555456
+  checksum: 10/d990de7ec85e04aa473eabebe0c0a116708c38c9c99d0dab3b95a3e24f2aab1fa743b851b25ee3e1cc2bd59114dc303b15012fee7da8ad227de5d7c1eb467887
   languageName: node
   linkType: hard
 
-"cspell-grammar@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-grammar@npm:10.3.2"
+"cspell-grammar@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-grammar@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-pipe": "npm:10.3.2"
-    "@cspell/cspell-types": "npm:10.3.2"
+    "@cspell/cspell-pipe": "npm:10.3.3"
+    "@cspell/cspell-types": "npm:10.3.3"
   bin:
     cspell-grammar: bin.mjs
-  checksum: 10/b44d33c58f581ccba0e5b8a3025b10b996dd19bae3ede73ea96d71e859eb4dff053252edcae82856c17dcfe4efc2b0d9a14b6da52968af80fbfad05d218d2b8b
+  checksum: 10/7d4b413722cd4bca55dba7559b2609dc959b30c0f72679e738782e2a01b068a5effd456315cb4c0f07d64b755d4b3c3a7ab34dfc11513ec2cf22a98b230990a0
   languageName: node
   linkType: hard
 
-"cspell-io@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-io@npm:10.3.2"
+"cspell-io@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-io@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-service-bus": "npm:10.3.2"
-    "@cspell/url": "npm:10.3.2"
-  checksum: 10/12b62995d5239692062a67c8e8d361f16eb0f8163acc7e0fa66822e58101f4e3ea871dae70ac8ec8648880dba823b7dd360a05ebfe4d35f8b344bc3e16bce7af
+    "@cspell/cspell-service-bus": "npm:10.3.3"
+    "@cspell/url": "npm:10.3.3"
+  checksum: 10/9d803757b768d9f48c01eb0672f68c5892543b267c8b865f2a0b5f9f950e5ec4b48b216836bb52ac6d42941a131adf207dc54f0e5da2a18bca09e980bd7feb19
   languageName: node
   linkType: hard
 
-"cspell-lib@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-lib@npm:10.3.2"
+"cspell-lib@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-lib@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-bundled-dicts": "npm:10.3.2"
-    "@cspell/cspell-performance-monitor": "npm:10.3.2"
-    "@cspell/cspell-pipe": "npm:10.3.2"
-    "@cspell/cspell-resolver": "npm:10.3.2"
-    "@cspell/cspell-types": "npm:10.3.2"
-    "@cspell/dynamic-import": "npm:10.3.2"
-    "@cspell/filetypes": "npm:10.3.2"
-    "@cspell/rpc": "npm:10.3.2"
-    "@cspell/strong-weak-map": "npm:10.3.2"
-    "@cspell/url": "npm:10.3.2"
-    cspell-config-lib: "npm:10.3.2"
-    cspell-dictionary: "npm:10.3.2"
-    cspell-glob: "npm:10.3.2"
-    cspell-grammar: "npm:10.3.2"
-    cspell-io: "npm:10.3.2"
-    cspell-trie-lib: "npm:10.3.2"
+    "@cspell/cspell-bundled-dicts": "npm:10.3.3"
+    "@cspell/cspell-performance-monitor": "npm:10.3.3"
+    "@cspell/cspell-pipe": "npm:10.3.3"
+    "@cspell/cspell-resolver": "npm:10.3.3"
+    "@cspell/cspell-types": "npm:10.3.3"
+    "@cspell/dynamic-import": "npm:10.3.3"
+    "@cspell/filetypes": "npm:10.3.3"
+    "@cspell/rpc": "npm:10.3.3"
+    "@cspell/strong-weak-map": "npm:10.3.3"
+    "@cspell/url": "npm:10.3.3"
+    cspell-config-lib: "npm:10.3.3"
+    cspell-dictionary: "npm:10.3.3"
+    cspell-glob: "npm:10.3.3"
+    cspell-grammar: "npm:10.3.3"
+    cspell-io: "npm:10.3.3"
+    cspell-trie-lib: "npm:10.3.3"
     env-paths: "npm:^4.0.0"
     gensequence: "npm:^8.0.8"
     import-fresh: "npm:^4.0.0"
@@ -4165,47 +4025,47 @@ __metadata:
     vscode-languageserver-textdocument: "npm:^1.0.14"
     vscode-uri: "npm:^3.2.0"
     xdg-basedir: "npm:^5.1.0"
-  checksum: 10/17ee892fcc959f1c724345d3e50e94a7a31f294d0b884dc80acfea7efa2dceb3eed94556d74c2cb4d57f53c777b222cd9379831217e7b8353be2b77c3198e171
+  checksum: 10/2361546f7bd4c6e27e491272c037752633c999afb816b3844687a788e360772a6be83a8871077f114810a391c0ae8d6f45dc9a26cd6e302d43f3f890b1a8751f
   languageName: node
   linkType: hard
 
-"cspell-trie-lib@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell-trie-lib@npm:10.3.2"
+"cspell-trie-lib@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell-trie-lib@npm:10.3.3"
   peerDependencies:
-    "@cspell/cspell-types": 10.3.2
-  checksum: 10/0f03c58d8d76122cca71914c58451b61c092aef97cb11d83c824a043ba42e3500867e9fb00e7728453f0daeb7c5a29726da130fdd8d024da5ad5758ea0f1855a
+    "@cspell/cspell-types": 10.3.3
+  checksum: 10/84834d6b1d10efa13f927a625d16cdd6b38e51b05c6681276b6d3adf69c33a3f359aca0f425104de3c4091450cf9cadea76fef5c96b4aeadedd264c357898a08
   languageName: node
   linkType: hard
 
-"cspell@npm:10.3.2":
-  version: 10.3.2
-  resolution: "cspell@npm:10.3.2"
+"cspell@npm:10.3.3":
+  version: 10.3.3
+  resolution: "cspell@npm:10.3.3"
   dependencies:
-    "@cspell/cspell-json-reporter": "npm:10.3.2"
-    "@cspell/cspell-performance-monitor": "npm:10.3.2"
-    "@cspell/cspell-pipe": "npm:10.3.2"
-    "@cspell/cspell-types": "npm:10.3.2"
-    "@cspell/cspell-worker": "npm:10.3.2"
-    "@cspell/dynamic-import": "npm:10.3.2"
-    "@cspell/url": "npm:10.3.2"
+    "@cspell/cspell-json-reporter": "npm:10.3.3"
+    "@cspell/cspell-performance-monitor": "npm:10.3.3"
+    "@cspell/cspell-pipe": "npm:10.3.3"
+    "@cspell/cspell-types": "npm:10.3.3"
+    "@cspell/cspell-worker": "npm:10.3.3"
+    "@cspell/dynamic-import": "npm:10.3.3"
+    "@cspell/url": "npm:10.3.3"
     ansi-regex: "npm:^6.3.0"
     chalk: "npm:^6.0.0"
     chalk-template: "npm:^1.1.2"
     commander: "npm:^15.0.0"
-    cspell-config-lib: "npm:10.3.2"
-    cspell-dictionary: "npm:10.3.2"
-    cspell-gitignore: "npm:10.3.2"
-    cspell-glob: "npm:10.3.2"
-    cspell-io: "npm:10.3.2"
-    cspell-lib: "npm:10.3.2"
+    cspell-config-lib: "npm:10.3.3"
+    cspell-dictionary: "npm:10.3.3"
+    cspell-gitignore: "npm:10.3.3"
+    cspell-glob: "npm:10.3.3"
+    cspell-io: "npm:10.3.3"
+    cspell-lib: "npm:10.3.3"
     flatted: "npm:^3.4.4"
     semver: "npm:^7.8.5"
     tinyglobby: "npm:^0.2.17"
   bin:
     cspell: bin.mjs
     cspell-esm: bin.mjs
-  checksum: 10/bafde9a758f1216a2b81b583c1e639847cadcfd6cabce404de5ebca82290c123ee2c21c38e203dd8c571b19635f4452bad91aee97f02771597a169172db748e9
+  checksum: 10/fd02edbc349a11b31b0b606d628885b6be5b77a88981f8262b351b2ae6ea4d730bbc7a55b37e247700793d97bea1c76ace3577d2b4525a3e89679db6da6896db
   languageName: node
   linkType: hard
 
@@ -6645,27 +6505,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.35.1":
-  version: 6.35.1
-  resolution: "knip@npm:6.35.1"
+"knip@npm:6.37.0":
+  version: 6.37.0
+  resolution: "knip@npm:6.37.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.7.0"
     get-tsconfig: "npm:4.14.3"
     jiti: "npm:^2.7.0"
-    oxc-parser: "npm:^0.148.0"
+    oxc-parser: "npm:^0.150.0"
     oxc-resolver: "npm:11.24.2"
     picomatch: "npm:^4.0.7"
     smol-toml: "npm:^1.8.0"
     strip-json-comments: "npm:5.0.3"
     tinyglobby: "npm:^0.2.17"
     unbash: "npm:^4.0.11"
-    yaml: "npm:^2.9.0"
+    yaml: "npm:^2.9.1"
     zod: "npm:^4.4.3"
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/9f1cf5eafcbe685c58440c6d306ba2f7fdafb4fc835511455be800a698ecd0071eda90f7183bd2749086da46a062460292a52c2162225f1114371f8b606d4066
+  checksum: 10/14135bf24972ac137b1afd1476b1f40907152d5441c269a2d6a721d3bca53d18944bda67a47f76256d947b1f200564e73974bbb34cca9a1d3e4860ccf25150b5
   languageName: node
   linkType: hard
 
@@ -7707,7 +7567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxc-parser@npm:0.150.0":
+"oxc-parser@npm:0.150.0, oxc-parser@npm:^0.150.0":
   version: 0.150.0
   resolution: "oxc-parser@npm:0.150.0"
   dependencies:
@@ -7771,73 +7631,6 @@ __metadata:
     "@oxc-parser/binding-win32-x64-msvc":
       optional: true
   checksum: 10/2bd13ba2ebab236c61c8b8e0a5d62b9d4f3fea5289c8b3f30ae85d7dcccfe996bf0fdaeefaebdf47697ba5ea00a5087eea81735a026420d00a7def5f6fe0856f
-  languageName: node
-  linkType: hard
-
-"oxc-parser@npm:^0.148.0":
-  version: 0.148.0
-  resolution: "oxc-parser@npm:0.148.0"
-  dependencies:
-    "@oxc-parser/binding-android-arm-eabi": "npm:0.148.0"
-    "@oxc-parser/binding-android-arm64": "npm:0.148.0"
-    "@oxc-parser/binding-darwin-arm64": "npm:0.148.0"
-    "@oxc-parser/binding-darwin-x64": "npm:0.148.0"
-    "@oxc-parser/binding-freebsd-x64": "npm:0.148.0"
-    "@oxc-parser/binding-linux-arm-gnueabihf": "npm:0.148.0"
-    "@oxc-parser/binding-linux-arm-musleabihf": "npm:0.148.0"
-    "@oxc-parser/binding-linux-arm64-gnu": "npm:0.148.0"
-    "@oxc-parser/binding-linux-arm64-musl": "npm:0.148.0"
-    "@oxc-parser/binding-linux-ppc64-gnu": "npm:0.148.0"
-    "@oxc-parser/binding-linux-riscv64-gnu": "npm:0.148.0"
-    "@oxc-parser/binding-linux-riscv64-musl": "npm:0.148.0"
-    "@oxc-parser/binding-linux-s390x-gnu": "npm:0.148.0"
-    "@oxc-parser/binding-linux-x64-gnu": "npm:0.148.0"
-    "@oxc-parser/binding-linux-x64-musl": "npm:0.148.0"
-    "@oxc-parser/binding-openharmony-arm64": "npm:0.148.0"
-    "@oxc-parser/binding-win32-arm64-msvc": "npm:0.148.0"
-    "@oxc-parser/binding-win32-ia32-msvc": "npm:0.148.0"
-    "@oxc-parser/binding-win32-x64-msvc": "npm:0.148.0"
-    "@oxc-project/types": "npm:^0.148.0"
-  dependenciesMeta:
-    "@oxc-parser/binding-android-arm-eabi":
-      optional: true
-    "@oxc-parser/binding-android-arm64":
-      optional: true
-    "@oxc-parser/binding-darwin-arm64":
-      optional: true
-    "@oxc-parser/binding-darwin-x64":
-      optional: true
-    "@oxc-parser/binding-freebsd-x64":
-      optional: true
-    "@oxc-parser/binding-linux-arm-gnueabihf":
-      optional: true
-    "@oxc-parser/binding-linux-arm-musleabihf":
-      optional: true
-    "@oxc-parser/binding-linux-arm64-gnu":
-      optional: true
-    "@oxc-parser/binding-linux-arm64-musl":
-      optional: true
-    "@oxc-parser/binding-linux-ppc64-gnu":
-      optional: true
-    "@oxc-parser/binding-linux-riscv64-gnu":
-      optional: true
-    "@oxc-parser/binding-linux-riscv64-musl":
-      optional: true
-    "@oxc-parser/binding-linux-s390x-gnu":
-      optional: true
-    "@oxc-parser/binding-linux-x64-gnu":
-      optional: true
-    "@oxc-parser/binding-linux-x64-musl":
-      optional: true
-    "@oxc-parser/binding-openharmony-arm64":
-      optional: true
-    "@oxc-parser/binding-win32-arm64-msvc":
-      optional: true
-    "@oxc-parser/binding-win32-ia32-msvc":
-      optional: true
-    "@oxc-parser/binding-win32-x64-msvc":
-      optional: true
-  checksum: 10/452fe0114afe61198f05a4e15acb60047167eb485958b6d66b98bb3c6bf968cf67c928737ab97b64824c27916835744a504d9f6e546b65fc0e76b48800f9fc51
   languageName: node
   linkType: hard
 
@@ -8267,7 +8060,7 @@ __metadata:
     collapse-white-space: "npm:1.0.6"
     commonmark-test-suite: "npm:0.1.0"
     cross-env: "npm:10.1.0"
-    cspell: "npm:10.3.2"
+    cspell: "npm:10.3.3"
     css-units-list: "npm:2.2.0"
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.7"
@@ -8316,7 +8109,7 @@ __metadata:
     json-stringify-stable-replacer: "npm:0.0.1"
     json-test-suite: "npm:1.0.0"
     jsx-test-suite: "npm:0.0.2"
-    knip: "npm:6.35.1"
+    knip: "npm:6.37.0"
     less-test-suite: "npm:0.0.1"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.5.0"
