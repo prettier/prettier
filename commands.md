@@ -234,6 +234,22 @@ For example:
     - `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
     - `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
+### `addAlignmentToDoc`
+
+```ts
+declare function addAlignmentToDoc(
+  doc: Doc,
+  size: number,
+  tabWidth: number,
+): Doc;
+```
+
+Align `doc` as if it starts at column `size` from the left edge of the document, using `tabWidth` to choose how many indent levels versus remaining spaces to apply.
+
+Unlike [`align`](#align) and [`indent`](#indent), which adjust relative to the current indentation, `addAlignmentToDoc` resets indentation to the root and then applies the equivalent of `floor(size / tabWidth)` indents plus `size % tabWidth` spaces.
+
+This is useful when a nested document should line up with content elsewhere on the page, for example aligning an interpolated expression in a template literal with the `${` that opens it.
+
 ### `markAsRoot`
 
 ```ts
