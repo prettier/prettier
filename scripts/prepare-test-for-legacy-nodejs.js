@@ -109,7 +109,7 @@ if (jestLightRunnerVersion) {
   if (nodeVersion === 18) {
     packageJson.resolutions = {
       ...packageJson.resolutions,
-      // Avoid different copy installed
+      // Avoid different versions installed
       "jest-snapshot": packageJson.devDependencies.jest,
     };
   }
