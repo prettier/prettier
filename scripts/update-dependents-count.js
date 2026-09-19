@@ -70,15 +70,15 @@ async function update() {
       (content) => {
         if (dependentsCountNpm) {
           content = content.replace(
-            /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
-            `$1${formatNumber(dependentsCountNpm)}$3`,
+            /(?<=<strong data-placeholder="dependent-npm">).*?(?=<\/strong>)/,
+            formatNumber(dependentsCountNpm),
           );
         }
 
         if (dependentsCountGithub) {
           content = content.replace(
-            /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
-            `$1${formatNumber(dependentsCountGithub)}$3`,
+            /(?<=<strong data-placeholder="dependent-github">).*?(?=<\/strong>)/,
+            formatNumber(dependentsCountGithub),
           );
         }
 
