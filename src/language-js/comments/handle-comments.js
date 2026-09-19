@@ -1219,6 +1219,177 @@ function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
   }
 }
 
+/**
+ * Parentheses around assignment/sequence inits are kept when printing, so those
+ * comments stay stable without hoisting. Every other wrapped node here is
+ * dropped, which would otherwise move the comment past the semicolon on pass 2.
+ */
+function isAssignmentOrSequenceExpression(node) {
+  return (
+    node.type === "AssignmentExpression" || node.type === "SequenceExpression"
+  );
+}
+
+/**
+ * True when `precedingNode` is followed (ignoring the trailing comment) by `)`,
+ * i.e. the comment sits inside a paren group. Used instead of
+ * `extra.parenthesized`, which only babel/meriyah set when unwrapping
+ * `ParenthesizedExpression` nodes.
+ *
+ * @param {Node} precedingNode
+ * @param {string} text
+ * @returns {boolean}
+ */
+function isFollowedByClosingParen(precedingNode, text) {
+  return (
+    getNextNonSpaceNonCommentCharacter(text, locEnd(precedingNode)) === ")"
+  );
+}
+
+/**
+ * When a trailing comment sits inside parentheses that Prettier will drop, and
+ * that comment is at the end of a variable init / return argument / assignment
+ * RHS, attach it to the statement so it prints after the semicolon in one pass
+ * (same attachment the bare, un-parenthesized source already gets).
+ *
+ * @param {Node} enclosingNode
+ * @param {Node} precedingNode
+ * @param {readonly Node[]} ancestors
+ * @param {string} text
+ * @returns {Node | undefined}
+ */
+function getStatementForDroppedParenthesizedTrailingComment(
+  enclosingNode,
+  precedingNode,
+  ancestors,
+  text,
+) {
+  if (
+    !isFollowedByClosingParen(precedingNode, text) ||
+    isAssignmentOrSequenceExpression(precedingNode)
+  ) {
+    return;
+  }
+
+  // `ancestors[0]` is the enclosing node when present (see decorateComment).
+  const chain =
+    ancestors[0] === enclosingNode ? ancestors : [enclosingNode, ...ancestors];
+
+  /** @type {Node} */
+  let child;
+  if (
+    (enclosingNode.type === "VariableDeclarator" &&
+      enclosingNode.init === precedingNode) ||
+    (enclosingNode.type === "ReturnStatement" &&
+      enclosingNode.argument === precedingNode) ||
+    (enclosingNode.type === "AssignmentExpression" &&
+      enclosingNode.right === precedingNode) ||
+    (enclosingNode.type === "ExpressionStatement" &&
+      enclosingNode.expression === precedingNode) ||
+    (enclosingNode.type === "ArrowFunctionExpression" &&
+      enclosingNode.body === precedingNode)
+  ) {
+    // `const A = (1 * 2 /* c */);` — comment trails the whole init.
+    child = precedingNode;
+  } else if (isEndChildOfExpression(enclosingNode, precedingNode)) {
+    // `const A = (a) - (b /* c */);` — comment trails the right operand inside
+    // the outer expression that still spans the dropped parentheses.
+    child = enclosingNode;
+  } else {
+    return;
+  }
+
+  for (const ancestor of chain) {
+    if (ancestor === child) {
+      continue;
+    }
+
+    if (ancestor.type === "VariableDeclarator" && ancestor.init === child) {
+      child = ancestor;
+      continue;
+    }
+
+    if (
+      ancestor.type === "VariableDeclaration" &&
+      ancestor.declarations.includes(child)
+    ) {
+      return ancestor;
+    }
+
+    if (ancestor.type === "ReturnStatement" && ancestor.argument === child) {
+      return ancestor;
+    }
+
+    if (
+      ancestor.type === "ExpressionStatement" &&
+      ancestor.expression === child
+    ) {
+      return ancestor;
+    }
+
+    if (ancestor.type === "AssignmentExpression" && ancestor.right === child) {
+      child = ancestor;
+      continue;
+    }
+
+    if (
+      ancestor.type === "ArrowFunctionExpression" &&
+      ancestor.body === child
+    ) {
+      child = ancestor;
+      continue;
+    }
+
+    if (
+      (ancestor.type === "BinaryExpression" ||
+        ancestor.type === "LogicalExpression") &&
+      ancestor.right === child
+    ) {
+      child = ancestor;
+      continue;
+    }
+
+    if (
+      ancestor.type === "ConditionalExpression" &&
+      ancestor.alternate === child
+    ) {
+      child = ancestor;
+      continue;
+    }
+
+    if (
+      ancestor.type === "SequenceExpression" &&
+      ancestor.expressions.at(-1) === child
+    ) {
+      child = ancestor;
+      continue;
+    }
+
+    // e.g. `!(… /* comment */)` — parens around a unary/`void` argument are
+    // kept, so stop without hoisting (see tests/format/js/comments/15661.js).
+    return;
+  }
+}
+
+/**
+ * @param {Node} enclosingNode
+ * @param {Node} precedingNode
+ * @returns {boolean}
+ */
+function isEndChildOfExpression(enclosingNode, precedingNode) {
+  switch (enclosingNode.type) {
+    case "BinaryExpression":
+    case "LogicalExpression":
+      return enclosingNode.right === precedingNode;
+    case "ConditionalExpression":
+      return enclosingNode.alternate === precedingNode;
+    case "SequenceExpression":
+      return enclosingNode.expressions.at(-1) === precedingNode;
+    default:
+      return false;
+  }
+}
+
 function handleSequenceExpressionLeadingComment({
   comment,
   enclosingNode,
@@ -1243,6 +1414,7 @@ function handleParenthesizedExpressionTrailingComment({
   precedingNode,
   followingNode,
   ancestors,
+  text,
 }) {
   if (!followingNode && enclosingNode && precedingNode) {
     if (
@@ -1277,6 +1449,20 @@ function handleParenthesizedExpressionTrailingComment({
         addTrailingComment(expressionStatement, comment);
         return true;
       }
+    }
+
+    // `const A = (1 * 2 /* c */);`, `return (1 * 2 /* c */);`, `A = (1 * 2 /* c */);`
+    // and the nested form from #15537 — hoist onto the statement so the first
+    // format already matches the bare-source attachment (comment after `;`).
+    const statement = getStatementForDroppedParenthesizedTrailingComment(
+      enclosingNode,
+      precedingNode,
+      ancestors,
+      text,
+    );
+    if (statement) {
+      addTrailingComment(statement, comment);
+      return true;
     }
 
     const isSequence = precedingNode.type === "SequenceExpression";
