@@ -90,7 +90,7 @@ const jestVersion =
         "30.0.0-alpha.7"
       : nodeVersion === 18
         ? // ??
-          "30.4.1"
+          "30.4.0"
         : undefined;
 
 const jestLightRunnerVersion =
