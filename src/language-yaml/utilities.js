@@ -221,7 +221,7 @@ function getBlockValueLineContents(
       ? matches.groups.leadingSpace.length
       : Number.POSITIVE_INFINITY;
   } else {
-    leadingSpaceCount = node.indent - 1 + parentIndent;
+    leadingSpaceCount = node.indent + parentIndent;
   }
 
   const rawLineContents = content
