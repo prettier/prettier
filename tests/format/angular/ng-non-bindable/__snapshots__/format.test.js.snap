@@ -20,6 +20,14 @@ parsers: ["angular"]
   }
 </span>
 
+<span ngNonBindable>@if(foo){bar}</span>
+
+<span ngNonBindable>@let foo=bar+baz;</span>
+
+<pre ngNonBindable>@let   foo   =    bar+baz;</pre>
+
+<pre ngNonBindable>{{foo   +bar}}</pre>
+
 =====================================output=====================================
 <span ngNonBindable>{{foo   +bar}}</span>
 
@@ -32,9 +40,17 @@ parsers: ["angular"]
 
 <span ngNonBindable>
   @if (A) {
-    <span>{{foo   +bar}}</span>
+  <span>{{foo   +bar}}</span>
   }
 </span>
+
+<span ngNonBindable>@if(foo){bar}</span>
+
+<span ngNonBindable>@let foo=bar+baz;</span>
+
+<pre ngNonBindable>@let   foo   =    bar+baz;</pre>
+
+<pre ngNonBindable>{{foo   +bar}}</pre>
 
 ================================================================================
 `;
