@@ -114,7 +114,9 @@ jobs:
 
       - name: Install Dependencies(mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' || matrix.node == '18' }}
-        run: yarn --no-immutable
+        run: |
+          yarn --no-immutable
+          yarn dedupe
 
       - name: Install Dependencies
         run: yarn --immutable
