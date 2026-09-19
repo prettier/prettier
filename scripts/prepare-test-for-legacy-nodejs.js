@@ -91,7 +91,7 @@ const jestVersion =
       : nodeVersion === 18
         ? // It's not really necessary to pin a specific version of Jest
           // But adding resolutions prevent Yarn install multiple version of Jest
-          "^30"
+          `^${packageJson.devDependencies.jest}`
         : undefined;
 
 const jestLightRunnerVersion =
