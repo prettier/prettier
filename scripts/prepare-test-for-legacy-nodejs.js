@@ -89,8 +89,9 @@ const jestVersion =
       ? // `jest@30.0.0-alpha.7` is the last version that supports Node.js v16
         "30.0.0-alpha.7"
       : nodeVersion === 18
-        ? // ??
-          "30.4.0"
+        ? // It's not really necessary to pin a specific version of Jest
+          // But adding resolutions prevent Yarn install multiple version of Jest
+          packageJson.devDependencies.jest
         : undefined;
 
 const jestLightRunnerVersion =
