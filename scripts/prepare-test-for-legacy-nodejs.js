@@ -105,11 +105,14 @@ if (jestVersion) {
 }
 if (jestLightRunnerVersion) {
   packageJson.devDependencies["jest-light-runner"] = jestLightRunnerVersion;
-  packageJson.resolutions = {
-    ...packageJson.resolutions,
-    // Avoid different copy installed
-    "jest-snapshot": packageJson.devDependencies.jest,
-  };
+
+  if (nodeVersion === 18) {
+    packageJson.resolutions = {
+      ...packageJson.resolutions,
+      // Avoid different copy installed
+      "jest-snapshot": packageJson.devDependencies.jest,
+    };
+  }
 }
 
 const content = JSON.stringify(packageJson, undefined, 2);
