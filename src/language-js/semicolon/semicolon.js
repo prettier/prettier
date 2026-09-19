@@ -7,11 +7,15 @@ import {
 import { isJsxElement } from "../utilities/node-types.js";
 
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
-  if (options.semi) {
-    return false;
-  }
+  return (
+    !options.semi &&
+    isExpressionStatementInStatementList(path, options) &&
+    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
+  );
+}
 
-  const { node } = path;
+function isExpressionStatementInStatementList(path, options) {
+  const { node, key, parent } = path;
 
   if (
     node.type !== "ExpressionStatement" ||
@@ -22,21 +26,27 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
     return false;
   }
 
-  const { key, parent } = path;
-  if (
+  return (
     // `Program.directives` don't need leading semicolon
-    ((key === "body" &&
+    (key === "body" &&
       (parent.type === "Program" ||
         parent.type === "BlockStatement" ||
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
-      (key === "consequent" && parent.type === "SwitchCase")) &&
-    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
-  ) {
-    return true;
-  }
+    (key === "consequent" && parent.type === "SwitchCase")
+  );
+}
 
-  return false;
+function shouldConditionalExpressionPrintLeadingSemicolon(path, options) {
+  return (
+    !options.semi &&
+    path.parent.type === "ExpressionStatement" &&
+    path.callParent(
+      () =>
+        isExpressionStatementInStatementList(path, options) &&
+        !shouldExpressionStatementPrintLeadingSemicolon(path, options),
+    )
+  );
 }
 
 function expressionNeedsAsiProtection(path, options) {
@@ -131,5 +141,6 @@ export {
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
+  shouldConditionalExpressionPrintLeadingSemicolon,
   shouldExpressionStatementPrintLeadingSemicolon,
 };
