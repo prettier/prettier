@@ -13,11 +13,11 @@ import {
 } from "./utilities/index.js";
 
 const PREPROCESS_PIPELINE = [
+  convertAngularNonBindableNodesToText,
   removeIgnorableFirstLf,
   mergeIfConditionalStartEndCommentIntoElementOpeningTag,
   mergeCdataIntoText,
   extractInterpolation,
-  convertAngularNonBindableNodesToText,
   extractWhitespaces,
   addCssDisplay,
   addIsSelfClosing,
