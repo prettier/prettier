@@ -161,15 +161,15 @@ parsers: ["mdx"]
  importing something
 
 =====================================output=====================================
-import a
+ import a
 
 ---
 
-import a
+ import a
 
 ---
 
-export a
+ export a
 
 ---
 

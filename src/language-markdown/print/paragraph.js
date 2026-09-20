@@ -18,7 +18,11 @@ import {
  */
 function printParagraph(path, options, print) {
   const parts = path.map(print, "children");
-  return flattenFill(parts);
+  const doc = flattenFill(parts);
+  if (needsLeadingWhitespace(path, options)) {
+    return [" ", doc];
+  }
+  return doc;
 }
 
 /**
@@ -53,6 +57,27 @@ function flattenFill(docs) {
   })(docs);
 
   return fill(parts);
+}
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {boolean}
+ */
+function needsLeadingWhitespace(path, options) {
+  if (options.parser !== "mdx") {
+    return false;
+  }
+  if (path.parent.type !== "root") {
+    return false;
+  }
+  const { node } = path;
+  return (
+    node.children[0]?.type === "sentence" &&
+    node.children[0].children[0]?.type === "word" &&
+    ["import", "export"].includes(node.children[0].children[0].value) &&
+    node.position?.start !== 1
+  );
 }
 
 export { printParagraph };
