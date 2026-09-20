@@ -96,6 +96,7 @@ function handleOwnLineComment(context) {
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
     handleSequenceExpressionLeadingComment,
+    handleOptionalMarkerComments,
   ].some((fn) => fn(context));
 }
 
@@ -132,6 +133,7 @@ function handleEndOfLineComment(context) {
     handleBinaryCastExpressionComment,
     handleTaggedTemplateExpressionComments,
     handleSequenceExpressionLeadingComment,
+    handleOptionalMarkerComments,
   ].some((fn) => fn(context));
 }
 
@@ -160,6 +162,7 @@ function handleRemainingComment(context) {
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
     handleSequenceExpressionLeadingComment,
+    handleOptionalMarkerComments,
   ].some((fn) => fn(context));
 }
 
@@ -714,6 +717,27 @@ function handleMatchOrPatternComments({
   ) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
+  }
+
+  return false;
+}
+
+function handleOptionalMarkerComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  // The `?` of an optional parameter is a flag on the identifier, not a child, so a comment
+  // written before it has no node to attach to and would be dropped. Trail it on the
+  // identifier, which is where it already ends up when a type annotation follows the marker.
+  // Nodes with children, such as a method signature, already place such comments themselves.
+  if (
+    !followingNode &&
+    enclosingNode?.type === "Identifier" &&
+    enclosingNode.optional
+  ) {
+    addTrailingComment(enclosingNode, comment);
+    return true;
   }
 
   return false;
