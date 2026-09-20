@@ -78,23 +78,37 @@ parsers: ["angular"]
 
 <pre ngNonBindable>{{foo   +bar}}</pre>
 
+<div ngNonBindable>   {{   foo   +   bar   }}   </div>
+<div ngNonBindable>   [[   foo   +   bar   ]]   </div>
+<span ngNonBindable>   {{   foo   +   bar   }}   </span>
+<span ngNonBindable>   [[   foo   +   bar   ]]   </span>
+<pre ngNonBindable>   {{   foo   +   bar   }}   </pre>
+<pre ngNonBindable>   [[   foo   +   bar   ]]   </pre>
+
 =====================================output=====================================
-<span ngNonBindable>{{foo   +bar}}</span>
+<span ngNonBindable>{{foo +bar}}</span>
 
 <div ngNonBindable>
-  {{foo   +bar}}
-  <span>{{baz   +qux}}</span>
+  {{foo +bar}}
+  <span>{{baz +qux}}</span>
 </div>
 
 <span>{{ foo + bar }}</span>
 
 <span ngNonBindable>
   @if (A) {
-  <span>{{foo   +bar}}</span>
+  <span>{{foo +bar}}</span>
   }
 </span>
 
 <pre ngNonBindable>{{foo   +bar}}</pre>
+
+<div ngNonBindable>{{ foo + bar }}</div>
+<div ngNonBindable>[[ foo + bar ]]</div>
+<span ngNonBindable> {{ foo + bar }} </span>
+<span ngNonBindable> [[ foo + bar ]] </span>
+<pre ngNonBindable>   {{   foo   +   bar   }}   </pre>
+<pre ngNonBindable>   [[   foo   +   bar   ]]   </pre>
 
 ================================================================================
 `;

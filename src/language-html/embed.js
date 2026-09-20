@@ -23,7 +23,6 @@ import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
 } from "./utilities/index.js";
-import { isInNgNonBindable } from "./utilities/is-in-ng-non-bindable.js";
 import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
@@ -110,10 +109,7 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (
-        node.parent.kind === "interpolation" &&
-        !isInNgNonBindable(path, options)
-      ) {
+      } else if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
