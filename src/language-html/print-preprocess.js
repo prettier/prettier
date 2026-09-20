@@ -116,6 +116,7 @@ function convertAngularNonBindableNodesToText(ast, options) {
   });
 }
 
+// TODO: Avoid recursive call
 function convertAngularNonBindableChildren(node, options) {
   const { children } = node;
   if (!children) {
