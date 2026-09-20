@@ -6,11 +6,11 @@ parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div ngNonBindable>   @if   (   foo   ){   bar   }   </div>
-<div ngNonBindable>   if   (   foo   )[   bar   ]   </div>
+<div ngNonBindable>   _if   (   foo   )[   bar   ]   </div>
 <span ngNonBindable>   @if   (   foo   ){   bar   }   </span>
-<span ngNonBindable>   if   (   foo   )[   bar   ]   </span>
+<span ngNonBindable>   _if   (   foo   )[   bar   ]   </span>
 <pre ngNonBindable>   @if   (   foo   ){   bar   }   </pre>
-<pre ngNonBindable>   if   (   foo   )[  bar   ]   </pre>
+<pre ngNonBindable>   _if   (   foo   )[  bar   ]   </pre>
 
 <div ngNonBindable>   text  @if   (   foo   ){   bar   }  text </div>
 <span ngNonBindable>   text  @if   (   foo   ){   bar   }  text </span>
@@ -26,11 +26,11 @@ parsers: ["angular"]
 
 =====================================output=====================================
 <div ngNonBindable>@if ( foo ){ bar }</div>
-<div ngNonBindable>if ( foo )[ bar ]</div>
+<div ngNonBindable>_if ( foo )[ bar ]</div>
 <span ngNonBindable> @if ( foo ){ bar } </span>
-<span ngNonBindable> if ( foo )[ bar ] </span>
+<span ngNonBindable> _if ( foo )[ bar ] </span>
 <pre ngNonBindable>   @if   (   foo   ){   bar   }   </pre>
-<pre ngNonBindable>   if   (   foo   )[  bar   ]   </pre>
+<pre ngNonBindable>   _if   (   foo   )[  bar   ]   </pre>
 
 <div ngNonBindable>text @if ( foo ){ bar } text</div>
 <span ngNonBindable> text @if ( foo ){ bar } text </span>
@@ -96,11 +96,11 @@ parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div ngNonBindable>   @let   foo   =    bar+baz;   </div>
-<div ngNonBindable>   let   foo   =    bar+baz;   </div>
+<div ngNonBindable>   _let   foo   =    bar+baz;   </div>
 <span ngNonBindable>   @let   foo   =    bar+baz;   </span>
-<span ngNonBindable>   let   foo   =    bar+baz;   </span>
+<span ngNonBindable>   _let   foo   =    bar+baz;   </span>
 <pre ngNonBindable>   @let   foo   =    bar+baz;   </pre>
-<pre ngNonBindable>   let   foo   =    bar+baz;   </pre>
+<pre ngNonBindable>   _let   foo   =    bar+baz;   </pre>
 
 <div ngNonBindable>   text  @let   foo   =    bar+baz;  text </div>
 <span ngNonBindable>   text  @let   foo   =    bar+baz;  text </span>
@@ -110,11 +110,11 @@ parsers: ["angular"]
 
 =====================================output=====================================
 <div ngNonBindable>@let foo = bar+baz;</div>
-<div ngNonBindable>let foo = bar+baz;</div>
+<div ngNonBindable>_let foo = bar+baz;</div>
 <span ngNonBindable> @let foo = bar+baz; </span>
-<span ngNonBindable> let foo = bar+baz; </span>
+<span ngNonBindable> _let foo = bar+baz; </span>
 <pre ngNonBindable>   @let   foo   =    bar+baz;   </pre>
-<pre ngNonBindable>   let   foo   =    bar+baz;   </pre>
+<pre ngNonBindable>   _let   foo   =    bar+baz;   </pre>
 
 <div ngNonBindable>text @let foo = bar+baz; text</div>
 <span ngNonBindable> text @let foo = bar+baz; text </span>
