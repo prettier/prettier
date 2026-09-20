@@ -23,6 +23,10 @@ parsers: ["angular"]
 "
 />
 </span>   }   </div>
+
+<div ngNonBindable>   @if   (foo   ){<span>text
+</span>}   </div>
+
 <div ngNonBindable>  <div>   @if   (   foo   ){   bar   }   </div></div>
 
 =====================================output=====================================
@@ -44,6 +48,9 @@ parsers: ["angular"]
   </span>
   }
 </div>
+
+<div ngNonBindable>@if (foo ){<span>text </span>}</div>
+
 <div ngNonBindable><div>@if ( foo ){ bar }</div></div>
 
 ================================================================================
