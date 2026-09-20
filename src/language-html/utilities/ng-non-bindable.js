@@ -1,29 +1,20 @@
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 
+const isElementWithNgNonBindable = (node) =>
+  node?.kind === "element" && Object.hasOwn(node.attrMap, "ngNonBindable");
+
 const angularNonBindableCache = new WeakMap();
-function hasOrInNgNonBindableInternal(node) {
-  if (!node) {
-    return false;
-  }
+const hasOrInNgNonBindableInternal = (node) =>
+  Boolean(node) &&
+  getOrInsertComputed(
+    angularNonBindableCache,
+    node,
+    (node) =>
+      isElementWithNgNonBindable(node) ||
+      hasOrInNgNonBindableInternal(node.parent),
+  );
 
-  return getOrInsertComputed(angularNonBindableCache, node, (node) => {
-    if (
-      node.kind === "element" &&
-      Object.hasOwn(node.attrMap, "ngNonBindable")
-    ) {
-      return true;
-    }
-
-    return hasOrInNgNonBindableInternal(node.parent);
-  });
-}
-
-function hasOrInNgNonBindable(node, options) {
-  if (options.parser !== "angular") {
-    return false;
-  }
-
-  return hasOrInNgNonBindableInternal(node);
-}
+const hasOrInNgNonBindable = (node, options) =>
+  options.parser === "angular" && hasOrInNgNonBindableInternal(node);
 
 export { hasOrInNgNonBindable };
