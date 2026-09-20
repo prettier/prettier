@@ -1,7 +1,7 @@
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 
 const angularNonBindableCache = new WeakMap();
-function hasOrInNgNonBindable(node) {
+function hasOrInNgNonBindableInternal(node) {
   return getOrInsertComputed(angularNonBindableCache, node, (node) => {
     if (
       node.kind === "element" &&
@@ -14,16 +14,16 @@ function hasOrInNgNonBindable(node) {
       return false;
     }
 
-    return hasOrInNgNonBindable(node.parent);
+    return hasOrInNgNonBindableInternal(node.parent);
   });
 }
 
-function isInNgNonBindable(path, options) {
+function hasOrInNgNonBindable(node, options) {
   if (options.parser !== "angular") {
     return false;
   }
 
-  return hasOrInNgNonBindable(path.node.parent);
+  return hasOrInNgNonBindableInternal(node);
 }
 
-export { isInNgNonBindable };
+export { hasOrInNgNonBindable };
