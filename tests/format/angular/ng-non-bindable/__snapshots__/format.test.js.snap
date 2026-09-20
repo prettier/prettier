@@ -1,6 +1,62 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ng-non-bindable.html format 1`] = `
+exports[`control-flow.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div ngNonBindable>   @if   (   foo   ){   bar   }   </div>
+<div ngNonBindable>   _if   (   foo   )[   bar   ]   </div>
+<span ngNonBindable>   @if   (   foo   ){   bar   }   </span>
+<span ngNonBindable>   _if   (   foo   )[   bar   ]   </span>
+<pre ngNonBindable>   @if   (   foo   ){   bar   }   </pre>
+<pre ngNonBindable>   _if   (   foo   )[  bar   ]   </pre>
+
+<div ngNonBindable>   text  @if   (   foo   ){   bar   }  text </div>
+<span ngNonBindable>   text  @if   (   foo   ){   bar   }  text </span>
+<pre ngNonBindable>   text  @if   (   foo   ){   bar   }  text </pre>
+
+<div ngNonBindable>   @if   (   foo   ){   <span>
+<IMG
+     src="./foo.png" style="    color:     red
+
+"
+/>
+</span>   }   </div>
+
+<div ngNonBindable>   @if   (foo   ){<span>text
+</span>}   </div>
+
+<div ngNonBindable>  <div>   @if   (   foo   ){   bar   }   </div></div>
+
+=====================================output=====================================
+<div ngNonBindable>@if ( foo ){ bar }</div>
+<div ngNonBindable>_if ( foo )[ bar ]</div>
+<span ngNonBindable> @if ( foo ){ bar } </span>
+<span ngNonBindable> _if ( foo )[ bar ] </span>
+<pre ngNonBindable>   @if   (   foo   ){   bar   }   </pre>
+<pre ngNonBindable>   _if   (   foo   )[  bar   ]   </pre>
+
+<div ngNonBindable>text @if ( foo ){ bar } text</div>
+<span ngNonBindable> text @if ( foo ){ bar } text </span>
+<pre ngNonBindable>   text  @if   (   foo   ){   bar   }  text </pre>
+
+<div ngNonBindable>
+  @if ( foo ){
+  <span>
+    <IMG src="./foo.png" style="color: red" />
+  </span>
+  }
+</div>
+
+<div ngNonBindable>@if (foo ){<span>text </span>}</div>
+
+<div ngNonBindable><div>@if ( foo ){ bar }</div></div>
+
+================================================================================
+`;
+
+exports[`interpolation.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
                                                       printWidth: 80 (default) |
@@ -20,6 +76,8 @@ parsers: ["angular"]
   }
 </span>
 
+<pre ngNonBindable>{{foo   +bar}}</pre>
+
 =====================================output=====================================
 <span ngNonBindable>{{foo   +bar}}</span>
 
@@ -32,9 +90,48 @@ parsers: ["angular"]
 
 <span ngNonBindable>
   @if (A) {
-    <span>{{foo   +bar}}</span>
+  <span>{{foo   +bar}}</span>
   }
 </span>
+
+<pre ngNonBindable>{{foo   +bar}}</pre>
+
+================================================================================
+`;
+
+exports[`let-declaration.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div ngNonBindable>   @let   foo   =    bar+baz;   </div>
+<div ngNonBindable>   _let   foo   =    bar+baz;   </div>
+<span ngNonBindable>   @let   foo   =    bar+baz;   </span>
+<span ngNonBindable>   _let   foo   =    bar+baz;   </span>
+<pre ngNonBindable>   @let   foo   =    bar+baz;   </pre>
+<pre ngNonBindable>   _let   foo   =    bar+baz;   </pre>
+
+<div ngNonBindable>   text  @let   foo   =    bar+baz;  text </div>
+<span ngNonBindable>   text  @let   foo   =    bar+baz;  text </span>
+<pre ngNonBindable>   text  @let   foo   =    bar+baz;  text </pre>
+
+<span ngNonBindable>@if(foo){bar}</span>
+<div ngNonBindable> <div>   @let   foo   =    bar+baz;   </div></div>
+
+=====================================output=====================================
+<div ngNonBindable>@let foo = bar+baz;</div>
+<div ngNonBindable>_let foo = bar+baz;</div>
+<span ngNonBindable> @let foo = bar+baz; </span>
+<span ngNonBindable> _let foo = bar+baz; </span>
+<pre ngNonBindable>   @let   foo   =    bar+baz;   </pre>
+<pre ngNonBindable>   _let   foo   =    bar+baz;   </pre>
+
+<div ngNonBindable>text @let foo = bar+baz; text</div>
+<span ngNonBindable> text @let foo = bar+baz; text </span>
+<pre ngNonBindable>   text  @let   foo   =    bar+baz;  text </pre>
+
+<span ngNonBindable>@if(foo){bar}</span>
+<div ngNonBindable><div>@let foo = bar+baz;</div></div>
 
 ================================================================================
 `;
