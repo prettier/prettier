@@ -420,6 +420,22 @@ test(".mjs config file", async () => {
   }
 });
 
+test(".json config file with leading BOM", async () => {
+  const file = new URL("../cli/config/rc-json-bom/file.js", import.meta.url);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
+    trailingComma: "all",
+    singleQuote: true,
+  });
+});
+
+test(".toml config file with leading BOM", async () => {
+  const file = new URL("../cli/config/rc-toml-bom/file.js", import.meta.url);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
+    trailingComma: "all",
+    singleQuote: true,
+  });
+});
+
 test(".json5 config file", async () => {
   const parentDirectory = new URL("../cli/config/rc-json5/", import.meta.url);
   const config = {

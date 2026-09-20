@@ -4,10 +4,12 @@ import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
 import readFile from "../../utilities/read-file.js";
 
+const stripBom = (content) => content?.replace(/^\uFEFF/, "");
+
 async function readJson(file) {
   const content = await readFile(file);
   try {
-    return parseJson(content);
+    return parseJson(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `JSON Error in ${file}:\n${error.message}`;
     throw error;
@@ -72,7 +74,7 @@ async function loadYaml(file) {
 async function loadToml(file) {
   const content = await readFile(file);
   try {
-    return parseToml(content);
+    return parseToml(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `TOML Error in ${file}:\n${error.message}`;
     throw error;
