@@ -23,6 +23,7 @@ parsers: ["angular"]
 "
 />
 </span>   }   </div>
+<div ngNonBindable>  <div>   @if   (   foo   ){   bar   }   </div></div>
 
 =====================================output=====================================
 <div ngNonBindable>@if ( foo ){ bar }</div>
@@ -43,6 +44,7 @@ parsers: ["angular"]
   </span>
   }
 </div>
+<div ngNonBindable><div>@if ( foo ){ bar }</div></div>
 
 ================================================================================
 `;
@@ -107,6 +109,7 @@ parsers: ["angular"]
 <pre ngNonBindable>   text  @let   foo   =    bar+baz;  text </pre>
 
 <span ngNonBindable>@if(foo){bar}</span>
+<div ngNonBindable> <div>   @let   foo   =    bar+baz;   </div></div>
 
 =====================================output=====================================
 <div ngNonBindable>@let foo = bar+baz;</div>
@@ -121,6 +124,7 @@ parsers: ["angular"]
 <pre ngNonBindable>   text  @let   foo   =    bar+baz;  text </pre>
 
 <span ngNonBindable>@if(foo){bar}</span>
+<div ngNonBindable><div>@let foo = bar+baz;</div></div>
 
 ================================================================================
 `;
