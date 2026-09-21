@@ -2,10 +2,12 @@ import { pathToFileURL } from "node:url";
 import { parse as parseJson5 } from "@bybrave/json5";
 import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
+import { stripBom } from "../../utilities/bom.js";
 import readFile from "../../utilities/read-file.js";
 
 async function readJson(file) {
-  const content = await readFile(file);
+  let content = await readFile(file);
+  content = stripBom(content);
   try {
     return parseJson(content);
   } catch (/** @type {any} */ error) {
@@ -70,7 +72,8 @@ async function loadYaml(file) {
 }
 
 async function loadToml(file) {
-  const content = await readFile(file);
+  let content = await readFile(file);
+  content = stripBom(content);
   try {
     return parseToml(content);
   } catch (/** @type {any} */ error) {
