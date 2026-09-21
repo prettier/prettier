@@ -12,7 +12,7 @@ import {
   printDocToDebug,
   printDocToString as printDocToStringWithoutNormalizeOptions,
 } from "../document/index.js";
-import { BOM, hasBom as stringHasBom } from "../utilities/bom.js";
+import { addBom, hasBom as stringHasBom } from "../utilities/bom.js";
 import getAlignmentSize from "../utilities/get-alignment-size.js";
 import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorLocation from "./get-cursor-node.js";
@@ -353,7 +353,7 @@ async function formatWithCursor(originalText, originalOptions) {
   }
 
   if (hasBom) {
-    result.formatted = BOM + result.formatted;
+    result.formatted = addBom(result.formatted);
 
     if (result.cursorOffset >= 0) {
       result.cursorOffset++;
