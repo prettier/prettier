@@ -5,6 +5,7 @@ import loadConfig from "../../src/config/prettier-config/load-config.js";
 
 describe("Support BOM", () => {
   const files = [
+    { filename: "package.json", content: '{"prettier": {"tabWidth": 5}}' },
     { filename: ".prettierrc", content: "tabWidth: 5" },
     { filename: ".prettierrc.json", content: '{"tabWidth": 5}' },
     { filename: ".prettierrc.yml", content: "tabWidth: 5" },
@@ -20,6 +21,9 @@ describe("Support BOM", () => {
         fs.writeFile(path.join(directory, filename), `\ufeff${content}`),
       ),
     );
+  });
+  afterAll(async () => {
+    await fs.rm(directory, { recursive: true, force: true });
   });
 
   for (const { filename } of files) {
