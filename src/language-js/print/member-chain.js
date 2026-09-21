@@ -191,7 +191,20 @@ function printMemberChain(path, options, print) {
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
+
+  // A trailing line comment is printed at the end of the line, so the node it
+  // is attached to has to be the last node of its group, otherwise the comment
+  // is moved away from where the author put it.
+  const endsWithLineComment = (group) =>
+    hasComment(
+      group.at(-1).node,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+    );
+
   for (; i < printedNodes.length; ++i) {
+    if (endsWithLineComment(currentGroup)) {
+      break;
+    }
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
       printedNodes[i].node.type === "ChainExpression" ||
@@ -207,6 +220,9 @@ function printMemberChain(path, options, print) {
   }
   if (!isCallExpression(printedNodes[0].node)) {
     for (; i + 1 < printedNodes.length; ++i) {
+      if (endsWithLineComment(currentGroup)) {
+        break;
+      }
       if (
         isMemberish(printedNodes[i].node) &&
         isMemberish(printedNodes[i + 1].node)
@@ -309,9 +325,13 @@ function printMemberChain(path, options, print) {
     );
   }
 
+  // Merging `groups[1]` into `groups[0]` prints them on the same line, which
+  // would move a line comment at the end of the first group to the end of the
+  // merged line.
   const shouldMerge =
     groups.length >= 2 &&
     !hasComment(groups[1][0].node) &&
+    !endsWithLineComment(groups[0]) &&
     shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
