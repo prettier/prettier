@@ -140,6 +140,24 @@ function printImportKind(node, spaceBeforeKind) {
   return printImportOrExportKind(node.importKind, spaceBeforeKind);
 }
 
+function printImportEqualsDeclaration(path, options, print) {
+  const { node } = path;
+
+  return [
+    node.type === "ImportEqualsDeclaration" && node.isExport ? "export " : "",
+    "import ",
+    printImportKind(node, /* spaceBeforeKind */ false),
+    print("id"),
+    " = ",
+    print("moduleReference"),
+    printSemicolon(options),
+  ];
+}
+
+function printExportAssignment(path, options, print) {
+  return ["export = ", print("expression"), printSemicolon(options)];
+}
+
 function printExportKind(node) {
   return printImportOrExportKind(node.exportKind);
 }
@@ -353,8 +371,9 @@ function printModuleSpecifier(path, options, print) {
 }
 
 export {
+  printExportAssignment,
   printExportDeclaration,
   printImportDeclaration,
-  printImportKind,
+  printImportEqualsDeclaration,
   printModuleSpecifier,
 };

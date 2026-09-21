@@ -20,6 +20,7 @@ import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
+  isAbstractMethodDefinition,
   isArrayType,
   isBinaryCastExpression,
   isCallLikeExpression,
@@ -379,6 +380,8 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "ClassProperty",
   "PropertyDefinition",
+  "AbstractPropertyDefinition",
+  "AbstractMethodDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractMethodDefinition",
   "TSDeclareMethod",
@@ -406,7 +409,7 @@ function handleMethodNameComments({
     // "MethodDefinition" is handled in `canAttachComment`
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
-      enclosingNode.type === "TSAbstractMethodDefinition") &&
+      isAbstractMethodDefinition(enclosingNode)) &&
     precedingNode.type === "Identifier" &&
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
@@ -531,7 +534,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     enclosingNode.type === "HookTypeAnnotation"
       ? enclosingNode
       : enclosingNode.type === "MethodDefinition" ||
-          enclosingNode.type === "TSAbstractMethodDefinition" ||
+          isAbstractMethodDefinition(enclosingNode) ||
           (enclosingNode.type === "Property" && isMethod(enclosingNode))
         ? enclosingNode.value
         : undefined;
@@ -558,7 +561,8 @@ function handleLastFunctionParameterComments({
   // Flow function type definitions
   if (
     precedingNode?.type === "FunctionTypeParam" &&
-    enclosingNode?.type === "FunctionTypeAnnotation" &&
+    (enclosingNode?.type === "FunctionTypeAnnotation" ||
+      enclosingNode?.type === "ConstructorTypeAnnotation") &&
     followingNode?.type !== "FunctionTypeParam"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -863,7 +867,7 @@ function handleTSFunctionTrailingComments({
     !followingNode &&
     (enclosingNode?.type === "TSMethodSignature" ||
       enclosingNode?.type === "TSDeclareFunction" ||
-      enclosingNode?.type === "TSAbstractMethodDefinition") &&
+      isAbstractMethodDefinition(enclosingNode)) &&
     (!precedingNode || precedingNode !== enclosingNode.returnType) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ";"
   ) {
@@ -1090,7 +1094,7 @@ function handlePropertySignatureComments(context) {
       valueNode = enclosingNode.value;
       break;
     case "ObjectTypeMappedTypeProperty":
-      keyNode = enclosingNode.sourceType;
+      keyNode = enclosingNode.nameType ?? enclosingNode.sourceType;
       valueNode = enclosingNode.propType;
       break;
     default:
@@ -1330,6 +1334,7 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSConstructSignatureDeclaration",
   "TSMethodSignature",
   "TSConstructorType",
+  "ConstructorTypeAnnotation",
   "TSFunctionType",
   "TSDeclareMethod",
   "HookDeclaration",

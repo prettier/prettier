@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declare-global.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare global {
+  declare var value: string;
+}
+
+=====================================output=====================================
+declare global {
+  declare var value: string;
+}
+
+================================================================================
+`;
+
+exports[`declare-global.js format[hermes] 1`] = `
+"'export', 'interface', 'function', 'class' or 'var' expected in declared type (1:9)
+> 1 | declare global {
+    |         ^
+  2 |   declare var value: string;
+  3 | }
+  4 |
+Cause: 'export', 'interface', 'function', 'class' or 'var' expected in declared type (1:8)
+declare global {
+~~~~~~~~^"
+`;

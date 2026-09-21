@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`constructor-types.js - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+// @flow
+
+type Minimal = new () => Instance;
+type Abstract = abstract new () => Instance;
+type Generic = new <T>(value:T, optional?:T, ...rest:Array<T>)=>Container<T>;
+type ObjectReturn = new () => { value: string, anotherVeryLongPropertyName: number };
+type UnionReturn = new () => First | Second;
+type Nested = (new () => First) | (abstract new () => Second);
+type Commented = abstract new /* after new */ <T>(
+  /* before parameter */ value: T /* after parameter */,
+) /* before arrow */ => /* after arrow */ Result<T>;
+type EmptyComments = new (/* inside */) => Result;
+type CommentBeforeNew = abstract // before new
+new () => Result;
+type CommentAfterNew = new // after new
+() => Result;
+type CommentBeforeArrow = new () // before arrow
+=> Result;
+
+=====================================output=====================================
+// @flow
+
+type Minimal = new () => Instance;
+type Abstract = abstract new () => Instance;
+type Generic = new <T>(
+  value: T,
+  optional?: T,
+  ...rest: Array<T>
+) => Container<T>;
+type ObjectReturn = new () => {
+  value: string,
+  anotherVeryLongPropertyName: number,
+};
+type UnionReturn = new () => First | Second;
+type Nested =
+  (new () => First) | (abstract new () => Second);
+type Commented = abstract new /* after new */ <T>(
+  /* before parameter */ value: T /* after parameter */ /* before arrow */,
+) => /* after arrow */ Result<T>;
+type EmptyComments = new (/* inside */) => Result;
+type CommentBeforeNew =
+  abstract new () => // before new
+  Result;
+type CommentAfterNew = new () => // after new
+Result;
+type CommentBeforeArrow =
+  new () => // before arrow
+  Result;
+
+================================================================================
+`;
+
+exports[`constructor-types.js - {"printWidth":50} format[hermes] 1`] = `
+"';' expected (3:20)
+  1 | // @flow
+  2 |
+> 3 | type Minimal = new () => Instance;
+    |                    ^
+  4 | type Abstract = abstract new () => Instance;
+  5 | type Generic = new <T>(value:T, optional?:T, ...rest:Array<T>)=>Container<T>;
+  6 | type ObjectReturn = new () => { value: string, anotherVeryLongPropertyName: number };
+Cause: ';' expected (3:19)
+type Minimal = new () => Instance;
+                   ^"
+`;

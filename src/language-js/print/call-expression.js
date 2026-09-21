@@ -8,7 +8,12 @@ import { hasComment } from "../utilities/comments.js";
 import { isMemberish } from "../utilities/is-memberish.js";
 import { isNodeMatches } from "../utilities/is-node-matches.js";
 import { isTemplateOnItsOwnLine } from "../utilities/is-template-on-its-own-line.js";
-import { isCallExpression, isStringLiteral } from "../utilities/node-types.js";
+import {
+  isCallExpression,
+  isExternalModuleReference,
+  isImportType,
+  isStringLiteral,
+} from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
@@ -21,6 +26,8 @@ import { printOptionalToken } from "./miscellaneous.js";
 - `CallExpression`
 - `TSImportType` (TypeScript)
 - `TSExternalModuleReference` (TypeScript)
+- `ImportType` (Flow)
+- `ExternalModuleReference` (Flow)
 */
 function printCallExpression(path, options, print) {
   const { node } = path;
@@ -33,7 +40,6 @@ function printCallExpression(path, options, print) {
     node.type !== "TSImportType" && node.typeArguments
       ? [print("typeArguments"), lineSuffixBoundary]
       : "";
-
   const isTemplateLiteralSingleArg =
     args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
 
@@ -68,8 +74,8 @@ function printCallExpression(path, options, print) {
 
   const isDynamicImportLike =
     node.type === "ImportExpression" ||
-    node.type === "TSImportType" ||
-    node.type === "TSExternalModuleReference";
+    isImportType(node) ||
+    isExternalModuleReference(node);
 
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
@@ -109,11 +115,11 @@ function printCallee(path, print) {
     return `import${node.phase ? `.${node.phase}` : ""}`;
   }
 
-  if (node.type === "TSImportType") {
+  if (isImportType(node)) {
     return "import";
   }
 
-  if (node.type === "TSExternalModuleReference") {
+  if (isExternalModuleReference(node)) {
     return "require";
   }
 
@@ -137,9 +143,9 @@ function isSimpleModuleImport(path) {
     // `import("foo")` and `import.{defer,source}("foo")`
     node.type === "ImportExpression" ||
     // `type foo = import("foo")`
-    node.type === "TSImportType" ||
+    isImportType(node) ||
     // `import type A = require("foo")`
-    node.type === "TSExternalModuleReference" ||
+    isExternalModuleReference(node) ||
     // `require("foo")`
     // `require.resolve("foo")`
     // `require.resolve.paths("foo")`

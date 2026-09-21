@@ -22,6 +22,7 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isMemberExpression } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
+import { printClassBody, printClassMemberSemicolon } from "./class-body.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -286,13 +287,15 @@ function printClassMethod(path, options, print) {
     parts.push("static ");
   }
 
-  parts.push(printAbstractToken(path));
+  parts.push(
+    printAbstractToken(path),
+    node.override ? "override " : "",
+    printMethod(path, options, print),
+  );
 
-  if (node.override) {
-    parts.push("override ");
+  if (node.type === "AbstractMethodDefinition") {
+    parts.push(printClassMemberSemicolon(path, options));
   }
-
-  parts.push(printMethod(path, options, print));
 
   return parts;
 }
@@ -305,6 +308,7 @@ function printClassMethod(path, options, print) {
 - `AccessorProperty`
 - `TSAbstractAccessorProperty` (TypeScript)
 - `TSAbstractPropertyDefinition` (TypeScript)
+- `AbstractPropertyDefinition` (Flow)
 */
 function printClassProperty(path, options, print) {
   const { node } = path;
@@ -320,11 +324,7 @@ function printClassProperty(path, options, print) {
     parts.push("static ");
   }
 
-  parts.push(printAbstractToken(path));
-
-  if (node.override) {
-    parts.push("override ");
-  }
+  parts.push(printAbstractToken(path), node.override ? "override " : "");
   if (node.readonly) {
     parts.push("readonly ");
   }
@@ -342,10 +342,13 @@ function printClassProperty(path, options, print) {
     printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotationProperty(path, print),
+    node.type === "AbstractPropertyDefinition"
+      ? printTypeAnnotationProperty(path, print, "value")
+      : printTypeAnnotationProperty(path, print),
   );
 
   const isAbstractProperty =
+    node.type === "AbstractPropertyDefinition" ||
     node.type === "TSAbstractPropertyDefinition" ||
     node.type === "TSAbstractAccessorProperty";
 
@@ -363,4 +366,4 @@ function printClassProperty(path, options, print) {
 }
 
 export { printClass, printClassMethod, printClassProperty };
-export { printClassBody, printClassMemberSemicolon } from "./class-body.js";
+export { printClassBody, printClassMemberSemicolon };

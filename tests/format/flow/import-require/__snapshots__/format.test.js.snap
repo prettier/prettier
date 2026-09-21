@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`import-require.js - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+// @flow
+
+import Value=require('value-module');
+import type TypeValue = require("type-module");
+export import Exported = require("exported-module");
+import Long = require("a/very/long/module/path/that/stays/together");
+export /* after export */ import /* after import */ type /* after kind */ Commented /* after name */ = /* before require */ require("commented-module" /* after source */);
+export // after export line
+import // after import line
+type // after kind line
+LineCommented // after name line
+= // after equals line
+require // after require line
+("line-commented-module");
+
+export = /* after equals */ Value;
+export = condition ? first : second;
+export = () => ({ value: true });
+
+=====================================output=====================================
+// @flow
+
+import Value = require("value-module");
+import type TypeValue = require("type-module");
+export import Exported = require("exported-module");
+import Long = require("a/very/long/module/path/that/stays/together");
+export import type /* after export */ /* after import */ /* after kind */ Commented /* after name */ /* before require */ = require("commented-module") /* after source */;
+export import type // after export line
+// after import line
+// after kind line
+LineCommented = require("line-commented-module"); // after name line
+// after equals line
+// after require line
+
+export = /* after equals */ Value;
+export = condition ? first : second;
+export = () => ({ value: true });
+
+================================================================================
+`;
+
+exports[`import-require.js - {"printWidth":50} format[hermes] 1`] = `
+"'from' expected (3:13)
+  1 | // @flow
+  2 |
+> 3 | import Value=require('value-module');
+    |             ^
+  4 | import type TypeValue = require("type-module");
+  5 | export import Exported = require("exported-module");
+  6 | import Long = require("a/very/long/module/path/that/stays/together");
+Cause: 'from' expected (3:12)
+import Value=require('value-module');
+            ^"
+`;

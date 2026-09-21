@@ -178,10 +178,13 @@ function isClassBody(path) {
 }
 
 function printClassMemberSemicolon(path, options) {
-  const { parent } = path;
+  const { node, parent } = path;
 
   if (path.callParent(isClassBody)) {
-    return parent.type === "ObjectTypeAnnotation"
+    return parent.type === "ObjectTypeAnnotation" ||
+      // Flow parses an unterminated abstract method's class-closing brace as
+      // the method's implementation, which abstract methods cannot have.
+      node.type === "AbstractMethodDefinition"
       ? ";"
       : printSemicolon(options);
   }
@@ -213,6 +216,7 @@ const isClassProperty = createTypeCheckFunction([
   "ClassPrivateProperty",
   "ClassAccessorProperty",
   "AccessorProperty",
+  "AbstractPropertyDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
 ]);
@@ -267,6 +271,9 @@ function shouldPrintSemicolonAfterClassProperty(
   // "declare" or "static" keyword before it.
   if (
     isClassProperty(nextNode) &&
+    // Flow abstract properties cannot have variance or static modifiers, and
+    // their AST nodes do not have a `static` field.
+    nextNode.type !== "AbstractPropertyDefinition" &&
     !nextNode.static &&
     // @ts-expect-error -- Safe
     nextNode.variance &&
@@ -279,9 +286,11 @@ function shouldPrintSemicolonAfterClassProperty(
   switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
+    case "AbstractPropertyDefinition":
     case "TSAbstractPropertyDefinition":
       return nextNode.computed;
     case "MethodDefinition":
+    case "AbstractMethodDefinition":
     case "TSAbstractMethodDefinition":
     case "ClassMethod":
     case "ClassPrivateMethod": {
