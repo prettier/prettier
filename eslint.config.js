@@ -277,8 +277,6 @@ const configs = [
       "unicorn/no-for-loop": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/no-hex-escape": "off",
-      // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/3700
-      "unicorn/no-immediate-mutation": "off",
       // Bug on `"\u{3000}"`
       "unicorn/no-incorrect-template-string-interpolation": "off",
       "unicorn/no-invalid-argument-count": "off",
