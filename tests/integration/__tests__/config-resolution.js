@@ -16,6 +16,24 @@ test("resolves configuration from external files and overrides by extname", asyn
   ).resolves.toStrictEqual({ tabWidth: 3, semi: true });
 });
 
+test("resolves configuration files that start with a UTF-8 BOM", async () => {
+  // A BOM is legal at the start of a config file, and editors on Windows
+  // add one without asking, but it is not part of any text format's
+  // syntax: without stripping it, every parser below rejects the file.
+  for (const name of [
+    "rc-json-bom",
+    "rc-toml-bom",
+    "rc-yaml-bom",
+    "rc-json5-bom",
+  ]) {
+    await expect(
+      prettier.resolveConfig(
+        new URL(`../cli/config/${name}/file.js`, import.meta.url),
+      ),
+    ).resolves.toMatchObject({ singleQuote: true });
+  }
+});
+
 describe("accepts configuration from --config", () => {
   runCli("cli/config/", ["--config", ".prettierrc", "./js/file.js"]).test({
     status: 0,

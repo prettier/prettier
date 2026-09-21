@@ -4,10 +4,17 @@ import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
 import readFile from "../../utilities/read-file.js";
 
+// A UTF-8 BOM is legal at the start of a config file but is not part of
+// the syntax any of the text parsers below accept, and editors on Windows
+// add one without asking. Strip it before parsing.
+function stripBom(content) {
+  return content.codePointAt(0) === 0xfeff ? content.slice(1) : content;
+}
+
 async function readJson(file) {
   const content = await readFile(file);
   try {
-    return parseJson(content);
+    return parseJson(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `JSON Error in ${file}:\n${error.message}`;
     throw error;
@@ -62,7 +69,7 @@ async function loadYaml(file) {
   }
 
   try {
-    return parseYaml(content);
+    return parseYaml(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `YAML Error in ${file}:\n${error.message}`;
     throw error;
@@ -72,7 +79,7 @@ async function loadYaml(file) {
 async function loadToml(file) {
   const content = await readFile(file);
   try {
-    return parseToml(content);
+    return parseToml(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `TOML Error in ${file}:\n${error.message}`;
     throw error;
@@ -82,7 +89,7 @@ async function loadToml(file) {
 async function loadJson5(file) {
   const content = await readFile(file);
   try {
-    return parseJson5(content);
+    return parseJson5(stripBom(content));
   } catch (/** @type {any} */ error) {
     error.message = `JSON5 Error in ${file}:\n${error.message}`;
     throw error;
