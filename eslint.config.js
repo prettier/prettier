@@ -341,6 +341,7 @@ const configs = [
       // TODO: Enable
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
+      "unicorn/prefer-logical-operator-over-ternary": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-number-properties": [
         "error",
