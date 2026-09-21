@@ -293,13 +293,12 @@ function printMemberChain(path, options, print) {
     if (groups[0].length === 1) {
       const firstNode = groups[0][0].node;
       return (
-        firstNode.type === "ThisExpression" ||
-        (firstNode.type === "Identifier" &&
-          (isFactory(firstNode.name) ||
-            (isExpressionStatement &&
-              isShort(firstNode.name) &&
-              !hasComment(firstNode, CommentCheckFlags.Trailing)) ||
-            hasComputed))
+        (firstNode.type === "ThisExpression" ||
+          (firstNode.type === "Identifier" &&
+            (isFactory(firstNode.name) ||
+              (isExpressionStatement && isShort(firstNode.name)) ||
+              hasComputed))) &&
+        !hasComment(firstNode, CommentCheckFlags.Trailing)
       );
     }
 

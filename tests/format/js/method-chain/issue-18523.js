@@ -3,3 +3,6 @@ a //
 
 abc //
   .bla()
+
+this //
+  .bla()
