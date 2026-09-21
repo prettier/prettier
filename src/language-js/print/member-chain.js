@@ -296,7 +296,9 @@ function printMemberChain(path, options, print) {
         firstNode.type === "ThisExpression" ||
         (firstNode.type === "Identifier" &&
           (isFactory(firstNode.name) ||
-            (isExpressionStatement && isShort(firstNode.name)) ||
+            (isExpressionStatement &&
+              isShort(firstNode.name) &&
+              !hasComment(firstNode, CommentCheckFlags.Trailing)) ||
             hasComputed))
       );
     }
