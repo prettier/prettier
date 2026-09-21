@@ -277,8 +277,6 @@ const configs = [
       "unicorn/no-for-loop": "off",
       "unicorn/no-global-object-property-assignment": "off",
       "unicorn/no-hex-escape": "off",
-      // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/3700
-      "unicorn/no-immediate-mutation": "off",
       // Bug on `"\u{3000}"`
       "unicorn/no-incorrect-template-string-interpolation": "off",
       "unicorn/no-invalid-argument-count": "off",
@@ -292,6 +290,8 @@ const configs = [
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-unnecessary-boolean-comparison": "off",
+      // Too slow and not useful
+      "unicorn/no-unnecessary-polyfills": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
       "unicorn/no-unreadable-for-of-expression": "off",
       "unicorn/no-unreadable-new-expression": "off",
@@ -341,6 +341,7 @@ const configs = [
       // TODO: Enable
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
+      "unicorn/prefer-logical-operator-over-ternary": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-number-properties": [
         "error",
