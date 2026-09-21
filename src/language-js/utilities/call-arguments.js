@@ -10,6 +10,8 @@
   | NodeMap["CallExpression"]
   | NodeMap["TSImportType"]
   | NodeMap["TSExternalModuleReference"]
+  | NodeMap["ImportType"]
+  | NodeMap["ExternalModuleReference"]
 } CallLikeNode
 */
 
@@ -22,16 +24,24 @@ const callArgumentsCache = new WeakMap();
 */
 function getCallArgumentsWithoutCache(node) {
   let args;
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    args = [node.source];
+  switch (node.type) {
+    case "ImportExpression":
+    case "TSImportType":
+      args = [node.source];
 
-    if (node.options) {
-      args.push(node.options);
-    }
-  } else if (node.type === "TSExternalModuleReference") {
-    args = [node.expression];
-  } else {
-    args = node.arguments;
+      if (node.options) {
+        args.push(node.options);
+      }
+      break;
+    case "ImportType":
+      args = [node.source];
+      break;
+    case "TSExternalModuleReference":
+    case "ExternalModuleReference":
+      args = [node.expression];
+      break;
+    default:
+      args = node.arguments;
   }
 
   return args;
@@ -51,16 +61,24 @@ function getCallArguments(node) {
 function iterateCallArgumentsPath(path, iteratee) {
   const { node } = path;
 
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    path.call(() => iteratee(path, 0), "source");
+  switch (node.type) {
+    case "ImportExpression":
+    case "TSImportType":
+      path.call(() => iteratee(path, 0), "source");
 
-    if (node.options) {
-      path.call(() => iteratee(path, 1), "options");
-    }
-  } else if (node.type === "TSExternalModuleReference") {
-    path.call(() => iteratee(path, 0), "expression");
-  } else {
-    path.each(iteratee, "arguments");
+      if (node.options) {
+        path.call(() => iteratee(path, 1), "options");
+      }
+      break;
+    case "ImportType":
+      path.call(() => iteratee(path, 0), "source");
+      break;
+    case "TSExternalModuleReference":
+    case "ExternalModuleReference":
+      path.call(() => iteratee(path, 0), "expression");
+      break;
+    default:
+      path.each(iteratee, "arguments");
   }
 }
 
@@ -81,7 +99,18 @@ function getCallArgumentSelector(node, index) {
     throw new RangeError("Invalid argument index");
   }
 
-  if (node.type === "TSExternalModuleReference") {
+  if (node.type === "ImportType") {
+    if (index === 0 || index === -1) {
+      return ["source"];
+    }
+
+    throw new RangeError("Invalid argument index");
+  }
+
+  if (
+    node.type === "TSExternalModuleReference" ||
+    node.type === "ExternalModuleReference"
+  ) {
     if (index === 0 || index === -1) {
       return ["expression"];
     }

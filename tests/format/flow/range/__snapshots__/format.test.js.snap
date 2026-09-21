@@ -40,6 +40,44 @@ exports[`declare-export-declaration.js format 1`] = `
     : ================================================================================
 `;
 
+exports[`export-assignment.js format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["flow"]
+    : rangeEnd: 52
+    : rangeStart: 30
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const   before = 1;
+  2 |
+> 3 | export = condition?first:second;
+    |          ^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | const   after = 2;
+  6 |
+    : =====================================output=====================================
+    : const   before = 1;
+    :
+    : export = condition ? first : second;
+    :
+    : const   after = 2;
+    :
+    : ================================================================================
+`;
+
+exports[`export-assignment.js format[hermes] 1`] = `
+"expected declaration in export (3:8)
+  1 | const   before = 1;
+  2 |
+> 3 | export = condition?first:second;
+    |        ^
+  4 |
+  5 | const   after = 2;
+  6 |
+Cause: expected declaration in export (3:7)
+export = condition?first:second;
+       ^"
+`;
+
 exports[`type-parameter-declaration.js format 1`] = `
     : ====================================options=====================================
     : parsers: ["flow"]

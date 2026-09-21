@@ -47,6 +47,21 @@ export const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+export const isTemplateLiteralType = createTypeCheckFunction([
+  "TSTemplateLiteralType",
+  "TemplateLiteralTypeAnnotation",
+]);
+
+export const isImportType = createTypeCheckFunction([
+  "TSImportType",
+  "ImportType",
+]);
+
+export const isExternalModuleReference = createTypeCheckFunction([
+  "TSExternalModuleReference",
+  "ExternalModuleReference",
+]);
+
 export const isTypeAlias = createTypeCheckFunction([
   "TSTypeAliasDeclaration",
   "TypeAlias",
@@ -63,6 +78,21 @@ export const isExportDeclaration = createTypeCheckFunction([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
   "DeclareExportAllDeclaration",
+]);
+
+export const isExportAssignment = createTypeCheckFunction([
+  "TSExportAssignment",
+  "ExportAssignment",
+]);
+
+export const isAbstractMethodDefinition = createTypeCheckFunction([
+  "AbstractMethodDefinition",
+  "TSAbstractMethodDefinition",
+]);
+
+export const isAbstractPropertyDefinition = createTypeCheckFunction([
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
 ]);
 
 // These two functions exists because we used support `recordAndTuple`

@@ -501,6 +501,7 @@ function needsParentheses(path, options) {
       break;
 
     case "ComponentTypeAnnotation":
+    case "ConstructorTypeAnnotation":
     case "FunctionTypeAnnotation": {
       if (
         node.type === "ComponentTypeAnnotation" &&
@@ -958,6 +959,7 @@ const isStatement = createTypeCheckFunction([
   "TryStatement",
   "TSDeclareFunction",
   "TSEnumDeclaration",
+  "ImportEqualsDeclaration",
   "TSImportEqualsDeclaration",
   "TSInterfaceDeclaration",
   "TSModuleDeclaration",

@@ -19,17 +19,12 @@ type PrettierCommentAdditionalProperties = {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
+  marker?: string | symbol;
 };
 
-type FlowAdditionalNode =
-  | {
-      type: "SatisfiesExpression";
-      expression: FlowESTree.Expression;
-      typeAnnotation: FlowESTree.TypeAnnotationType;
-    }
-  | ({
-      type: "EnumBody";
-    } & Omit<FlowESTree.EnumDeclaration["body"], "type">);
+type FlowAdditionalNode = {
+  type: "EnumBody";
+} & Omit<FlowESTree.EnumDeclaration["body"], "type">;
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
