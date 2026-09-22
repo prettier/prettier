@@ -299,7 +299,14 @@ function handleConditionalExpressionComments({
       addDanglingComment(enclosingNode, comment);
       return true;
     }
-    addLeadingComment(followingNode, comment);
+    // A comment before a parenthesized test, `(/* comment */ a) ? b : c`,
+    // should be attached to the whole expression, as when the parens are gone
+    addLeadingComment(
+      !precedingNode && followingNode === enclosingNode.test
+        ? enclosingNode
+        : followingNode,
+      comment,
+    );
     return true;
   }
   return false;

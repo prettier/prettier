@@ -516,6 +516,109 @@ c */
 ================================================================================
 `;
 
+exports[`issue-1207.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a = {
+  b: (
+    // Comment
+    c
+  ) ? d : e,
+};
+
+const x = (
+  // Comment
+  c
+) ? d : e;
+
+foo(
+  (
+    // Comment
+    c
+  ) ? d : e,
+);
+
+y = ( // Comment
+  c
+) ? d : e;
+
+=====================================output=====================================
+a = {
+  b:
+    // Comment
+    c ? d : e,
+};
+
+const x =
+  // Comment
+  c ? d : e;
+
+foo(
+  // Comment
+  c ? d : e,
+);
+
+y =
+  // Comment
+  c ? d : e;
+
+================================================================================
+`;
+
+exports[`issue-1207.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a = {
+  b: (
+    // Comment
+    c
+  ) ? d : e,
+};
+
+const x = (
+  // Comment
+  c
+) ? d : e;
+
+foo(
+  (
+    // Comment
+    c
+  ) ? d : e,
+);
+
+y = ( // Comment
+  c
+) ? d : e;
+
+=====================================output=====================================
+a = {
+  b:
+    // Comment
+    c ? d : e,
+};
+
+const x =
+  // Comment
+  c ? d : e;
+
+foo(
+  // Comment
+  c ? d : e,
+);
+
+y =
+  // Comment
+  c ? d : e;
+
+================================================================================
+`;
+
 exports[`issue-18944.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
