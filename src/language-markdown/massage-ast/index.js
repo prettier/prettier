@@ -26,7 +26,7 @@ function massageAstNode(original, cloned, parent) {
     delete cloned.spread;
   }
 
-  // texts can be splitted or merged
+  // texts can be split or merged
   if (original.type === "text") {
     return null;
   }
