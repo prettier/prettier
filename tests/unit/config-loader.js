@@ -15,22 +15,16 @@ describe("Support BOM", () => {
 
   const directory = getTemporaryDirectory();
   const expected = { tabWidth: 5 };
-  beforeAll(async () => {
-    await Promise.all(
-      files.map(({ filename, content }) =>
-        fs.writeFile(path.join(directory, filename), `\ufeff${content}`),
-      ),
-    );
-  });
   afterAll(async () => {
     await fs.rm(directory, { recursive: true, force: true });
   });
 
-  for (const { filename } of files) {
+  for (const { filename, content } of files) {
     test(filename, async () => {
-      expect(await loadConfig(path.join(directory, filename))).toStrictEqual(
-        expected,
-      );
+      const file = path.join(directory, filename);
+      await fs.writeFile(file, `\ufeff${content}`);
+      const config = await loadConfig(file);
+      expect(config).toStrictEqual(expected);
     });
   }
 });
