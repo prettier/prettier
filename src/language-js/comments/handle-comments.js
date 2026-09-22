@@ -84,6 +84,7 @@ function handleOwnLineComment(context) {
     handleClassComments,
     handleForXStatementComments,
     handleUnionTypeComments,
+    handleIntersectionTypeFirstElementComments,
     handleMatchOrPatternComments,
     handleOnlyComments,
     handleModuleSpecifiersComments,
@@ -121,6 +122,7 @@ function handleEndOfLineComment(context) {
     handlePropertyComments,
     handleOnlyComments,
     handleAssignmentLikeComments,
+    handleIntersectionTypeFirstElementComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
@@ -684,6 +686,32 @@ function handleUnionTypeComments({
     // @ts-expect-error -- Fix me
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
+  }
+
+  return false;
+}
+
+// type A = ( // comment
+//   | B
+//   | C
+// ) & D;
+// The comment is printed before the parentheses, attach it to the intersection
+// so it is placed the same way as a comment before the parentheses
+function handleIntersectionTypeFirstElementComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
+  if (
+    isIntersectionType(enclosingNode) &&
+    !precedingNode &&
+    followingNode === enclosingNode.types[0] &&
+    hasNewline(text, locEnd(comment))
+  ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
   }
 
   return false;

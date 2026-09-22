@@ -16,6 +16,70 @@ type A1 = /* 4 */ (A & B)[];
 ================================================================================
 `;
 
+exports[`comment-in-first-type-parens.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type A = ( // comment
+  | Foo
+  | Bar
+) & Baz;
+
+type B = (
+  // comment
+  | Foo
+  | Bar
+) & Baz;
+
+type C = ( // comment
+  Foo
+) & Baz;
+
+type D = ( // comment
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+  | Foo
+) &
+  Foo;
+
+let e: ( // comment
+  | Foo
+  | Bar
+) & Baz;
+
+=====================================output=====================================
+type A =
+  // comment
+  (Foo | Bar) & Baz;
+
+type B =
+  // comment
+  (Foo | Bar) & Baz;
+
+type C =
+  // comment
+  Foo & Baz;
+
+type D =
+  // comment
+  (Foo | Foo | Foo | Foo | Foo | Foo | Foo | Foo | Foo | Foo | Foo | Foo) & Foo;
+
+let e: // comment
+(Foo | Bar) & Baz;
+
+================================================================================
+`;
+
 exports[`intersection-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
