@@ -96,6 +96,7 @@ function handleOwnLineComment(context) {
     handleBinaryCastExpressionComment,
     handleUnionTypeLeadingComments,
     handleSequenceExpressionLeadingComment,
+    handleJsxAttributeValueComments,
   ].some((fn) => fn(context));
 }
 
@@ -132,6 +133,7 @@ function handleEndOfLineComment(context) {
     handleBinaryCastExpressionComment,
     handleTaggedTemplateExpressionComments,
     handleSequenceExpressionLeadingComment,
+    handleJsxAttributeValueComments,
   ].some((fn) => fn(context));
 }
 
@@ -717,6 +719,33 @@ function handleMatchOrPatternComments({
   }
 
   return false;
+}
+
+function handleJsxAttributeValueComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    enclosingNode?.type !== "JSXAttribute" ||
+    !followingNode ||
+    followingNode !== enclosingNode.value
+  ) {
+    return false;
+  }
+
+  // `attr=\n  // comment\n  {value}`, a line comment can't stay between `=`
+  // and the value, so move it inside `{}`, or before the attribute
+  if (
+    followingNode.type === "JSXExpressionContainer" &&
+    followingNode.expression.type !== "JSXEmptyExpression"
+  ) {
+    addLeadingComment(followingNode.expression, comment);
+  } else {
+    addLeadingComment(enclosingNode, comment);
+  }
+
+  return true;
 }
 
 function handlePropertyComments({ comment, enclosingNode }) {

@@ -26,6 +26,58 @@ const render = (items) => (
 ================================================================================
 `;
 
+exports[`in-attribute-value.js - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div
+  radiusEditorHelpTextAlignment=
+    // $FlowFixMe found when converting React.createClass to ES6
+    {this.props.radiusEditorHelpTextAlignment}
+/>;
+
+<div
+  attr= // comment
+  {foo}
+></div>;
+
+<div
+  attr=
+  /* comment */
+  {foo}
+></div>;
+
+<div
+  attr=/* comment */{foo}
+></div>;
+
+=====================================output=====================================
+<div
+  radiusEditorHelpTextAlignment={
+    // $FlowFixMe found when converting React.createClass to ES6
+    this.props.radiusEditorHelpTextAlignment
+  }
+/>;
+
+<div
+  attr={
+    // comment
+    foo
+  }></div>;
+
+<div
+  attr={
+    /* comment */
+    foo
+  }></div>;
+
+<div attr=/* comment */ {foo}></div>;
+
+================================================================================
+`;
+
 exports[`in-attributes.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
@@ -66,17 +118,21 @@ parsers: ["babel", "typescript", "flow"]
 =====================================output=====================================
 <div attr=/* comment */ "foo"></div>;
 
-<div attr=/* comment */
-"foo"></div>;
+<div
+  /* comment */
+  attr="foo"></div>;
 
-<div attr /* comment */="foo"></div>;
+<div /* comment */ attr="foo"></div>;
 
-<div attr=/* comment */ "foo"></div>;
+<div /* comment */ attr="foo"></div>;
 
-<div attr=// comment
-"foo"></div>;
+<div
+  // comment
+  attr="foo"></div>;
 
-<div attr="foo"></div>; // comment
+<div
+  // comment
+  attr="foo"></div>;
 
 ================================================================================
 `;

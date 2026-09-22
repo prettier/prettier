@@ -16,7 +16,6 @@ const unstableTests = new Map(
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
     "js/for-of-statement/comments.js",
-    "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     [
       "typescript/method-chain/object/issue-17239.ts",
