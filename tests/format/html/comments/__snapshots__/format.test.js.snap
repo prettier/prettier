@@ -1115,6 +1115,146 @@ parsers: ["html"]
 ================================================================================
 `;
 
+exports[`conditional-no-whitespace.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--[if !mso]><!--><div>content</div><!--<![endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span><a></a><!--[if IE]></div><![endif]--></span>
+
+=====================================output=====================================
+<!--[if !mso]><!-->
+<div>content</div>
+<!--<![endif]-->
+<!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span>
+  <a></a>
+  <!--[if IE]></div><![endif]-->
+</span>
+
+================================================================================
+`;
+
+exports[`conditional-no-whitespace.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--[if !mso]><!--><div>content</div><!--<![endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span><a></a><!--[if IE]></div><![endif]--></span>
+
+=====================================output=====================================
+<!--[if !mso]><!--><div>content</div><!--<!
+[endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span
+  ><a></a
+  ><!--[if IE]></div><![endif]--></span
+>
+
+================================================================================
+`;
+
+exports[`conditional-no-whitespace.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<!--[if !mso]><!--><div>content</div><!--<![endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span><a></a><!--[if IE]></div><![endif]--></span>
+
+=====================================output=====================================
+<!--[if !mso]><!-->
+<div>content</div>
+<!--<!
+[endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span
+  ><a></a
+  ><!--[if IE]></div><![endif]--></span
+>
+
+================================================================================
+`;
+
+exports[`conditional-no-whitespace.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<!--[if !mso]><!--><div>content</div><!--<![endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span><a></a><!--[if IE]></div><![endif]--></span>
+
+=====================================output=====================================
+<!--[if !mso]><!-->
+<div>
+  content
+</div>
+<!--<!
+[endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span
+  ><!--[if IE]></div><![endif]--></span
+>
+
+<span
+  ><a></a
+  ><!--[if IE]></div><![endif]--></span
+>
+
+================================================================================
+`;
+
+exports[`conditional-no-whitespace.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!--[if !mso]><!--><div>content</div><!--<![endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span><a></a><!--[if IE]></div><![endif]--></span>
+
+=====================================output=====================================
+<!--[if !mso]><!-->
+<div>content</div>
+<!--<!
+[endif]--><!--[if mso]></td></tr></table><![endif]-->
+
+<span><!--[if IE]></div><![endif]--></span>
+
+<span
+  ><a></a
+  ><!--[if IE]></div><![endif]--></span
+>
+
+================================================================================
+`;
+
 exports[`for_debugging.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
