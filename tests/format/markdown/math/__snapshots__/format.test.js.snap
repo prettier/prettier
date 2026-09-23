@@ -66,6 +66,19 @@ $$ \\textrm{p-value} = 1 - \\sum_{x \\leq a} H(x | N, r_1, m_1) $$
 ================================================================================
 `;
 
+exports[`issue-20135.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Use $FOO from \`a.sh\`, plus \`$BAR\` from \`b.sh\`, before anything else runs here.
+
+=====================================output=====================================
+Use $FOO from \`a.sh\`, plus \`$BAR\` from \`b.sh\`, before anything else runs here.
+
+================================================================================
+`;
+
 exports[`math-like.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -78,7 +91,7 @@ Paragraph with $14 million.    But if more $dollars on the same line...
 =====================================output=====================================
 $10 - $20
 
-Paragraph with $14 million.    But if more $dollars on the same line...
+Paragraph with $14 million. But if more $dollars on the same line...
 
 ================================================================================
 `;
