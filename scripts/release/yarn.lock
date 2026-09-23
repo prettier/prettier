@@ -196,7 +196,7 @@ __metadata:
     nano-spawn: "npm:2.1.0"
     node-style-text: "npm:2.1.2"
     outdent: "npm:0.8.0"
-    verkit: "npm:0.4.0"
+    verkit: "npm:0.5.0"
   languageName: unknown
   linkType: soft
 
@@ -227,9 +227,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verkit@npm:0.4.0":
-  version: 0.4.0
-  resolution: "verkit@npm:0.4.0"
-  checksum: 10/1575da3123f6ed87e303569fe003764a4d8022f38dcc8c3f415bd5ff5e17b718ea532e84211401301b683797534323a4bb62889e1b0e1b7b0614d3b6ab1fdbab
+"verkit@npm:0.5.0":
+  version: 0.5.0
+  resolution: "verkit@npm:0.5.0"
+  checksum: 10/82efcb8da3d8e20d8745a51ab6500046651297ff6446ea83ca83ee4d1f610347a4d4553adf9c74d483814ad6752e3eec8250313c32912f853ea34fd31203dbec
   languageName: node
   linkType: hard

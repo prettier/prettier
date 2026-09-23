@@ -12,7 +12,7 @@ export default function validateNewVersion({ version, previousVersion, next }) {
     );
   }
 
-  if (!verkit.isGreater(version, previousVersion)) {
+  if (!verkit.isGreaterThan(version, previousVersion)) {
     throw new Error(
       `Version '${styleText.yellow.underline(version)}' has already been published`,
     );
