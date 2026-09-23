@@ -279,9 +279,7 @@ function extractInterpolation(ast, options) {
       return;
     }
 
-    const { children } = node;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
+    for (const child of node.children) {
       if (child.kind !== "text") {
         continue;
       }
@@ -292,19 +290,18 @@ function extractInterpolation(ast, options) {
         options.parser === "angular"
           ? splitAngularInterpolation(child, interpolationRegex)
           : child.value.split(interpolationRegex);
-      const replacements = [];
 
       for (
-        let j = 0;
-        j < components.length;
-        j++, startSourceSpan = endSourceSpan
+        let i = 0;
+        i < components.length;
+        i++, startSourceSpan = endSourceSpan
       ) {
-        const value = components[j];
+        const value = components[i];
 
-        if (j % 2 === 0) {
+        if (i % 2 === 0) {
           endSourceSpan = startSourceSpan.moveBy(value.length);
           if (value.length > 0) {
-            replacements.push({
+            node.insertChildBefore(child, {
               kind: "text",
               value,
               sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
@@ -314,7 +311,7 @@ function extractInterpolation(ast, options) {
         }
 
         endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
-        replacements.push({
+        node.insertChildBefore(child, {
           kind: "interpolation",
           sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
@@ -333,12 +330,7 @@ function extractInterpolation(ast, options) {
         });
       }
 
-      children.splice(
-        i,
-        1,
-        ...replacements.map((replacement) => node.createChild(replacement)),
-      );
-      i += replacements.length - 1;
+      node.removeChild(child);
     }
   });
 }
