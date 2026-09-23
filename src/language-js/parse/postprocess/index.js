@@ -214,6 +214,32 @@ function postprocess(ast, options) {
     },
   });
 
+  // Workaround for TypeScript parser bug (microsoft/TypeScript#59777)
+  // After top-level await reparse, the last statement can be duplicated.
+  // Remove adjacent duplicate trailing statements with identical type and range.
+  if (astType === "typescript") {
+    const programNode = ast.type === "File" ? ast.program : ast;
+    if (programNode?.body?.length >= 2) {
+      const { body } = programNode;
+      // Walk backwards from the end, removing consecutive duplicates
+      for (let i = body.length - 1; i >= 1; i--) {
+        const a = body[i - 1];
+        const b = body[i];
+        if (
+          a.type === b.type &&
+          a.range &&
+          b.range &&
+          a.range[0] === b.range[0] &&
+          a.range[1] === b.range[1]
+        ) {
+          body.splice(i, 1);
+        } else {
+          break;
+        }
+      }
+    }
+  }
+
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
     assertComments(comments, text);
