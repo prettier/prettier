@@ -8360,7 +8360,7 @@ __metadata:
     rollup-plugin-license: "npm:3.7.1"
     search-closest: "npm:3.1.0"
     serialize-javascript: "npm:7.1.1"
-    smol-toml: "npm:1.8.0"
+    smol-toml: "npm:1.9.0"
     strip-ansi: "npm:7.2.0"
     tempy: "npm:3.2.0"
     tinybench: "npm:6.2.0"
@@ -8789,10 +8789,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.8.0, smol-toml@npm:^1.6.1, smol-toml@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "smol-toml@npm:1.8.0"
-  checksum: 10/eb8aeeebd1c3e5de6069922c9a44bb40b9b3c534e685ccd0aa299b4d7307f1ec49471da57812bdbf1d21a0c09f1dd47eb0e814d0d34c892142187ccce2487ea9
+"smol-toml@npm:1.9.0, smol-toml@npm:^1.6.1, smol-toml@npm:^1.8.0":
+  version: 1.9.0
+  resolution: "smol-toml@npm:1.9.0"
+  checksum: 10/b9953e9b6470eed13c368e0e6674b21fd7a3917c1cdb492570d8dfa568b36e9705b5d072a64052e4375895bc6daef4e76528016c9f13045e81c0d3e092d53e3b
   languageName: node
   linkType: hard
 
