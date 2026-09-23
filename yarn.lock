@@ -8298,12 +8298,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.9.8":
-  version: 3.9.8
-  resolution: "prettier@npm:3.9.8"
+"prettier@npm:3.9.9":
+  version: 3.9.9
+  resolution: "prettier@npm:3.9.9"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/4ac262aaf9a5e221b02cc17447ebe7aa9689be59b85ab9de8152cd7422fb363ed3e09da6df585fa19ab1fc6cffebdc3ea34db1a75c978536aeba3f87bfd06ab3
+  checksum: 10/3d11a8095a7db50f0fbc8086ad96be676401154b63a2e9023e1274893457dccab19a9c211f4fb2cae7244e800bea2d5185d9bb6fc510f48a53017815e47d4e6d
   languageName: node
   linkType: hard
 
@@ -8433,7 +8433,7 @@ __metadata:
     postcss-scss: "npm:4.0.9"
     postcss-selector-parser: "npm:2.2.3"
     postcss-values-parser: "npm:2.0.1"
-    prettier: "npm:3.9.8"
+    prettier: "npm:3.9.9"
     pretty-bytes: "npm:7.1.0"
     pretty-ms: "npm:9.3.0"
     puppeteer: "npm:25.3.0"
