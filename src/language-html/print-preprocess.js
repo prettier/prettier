@@ -336,7 +336,14 @@ function extractInterpolation(ast, options) {
 }
 
 function splitAngularInterpolation(child, interpolationRegex) {
-  if (!child.tokens) {
+  if (
+    !child.tokens?.some(
+      (token) =>
+        token.type === TokenType.INTERPOLATION &&
+        token.parts.length === 3 &&
+        token.parts[1].includes("}}"),
+    )
+  ) {
     return child.value.split(interpolationRegex);
   }
 
