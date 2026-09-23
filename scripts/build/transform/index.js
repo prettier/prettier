@@ -22,6 +22,7 @@ const packageTransforms = new Map([
       "jest-docblock",
       "kasi",
       "meriyah",
+      "smol-toml",
     ],
   ],
   [
