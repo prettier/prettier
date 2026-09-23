@@ -251,7 +251,10 @@ function isBreakable(path, value, proseWrap, isLink, options) {
  * normalized form of link labels. https://spec.commonmark.org/0.30/#matches
  */
 function printWhitespace(path, value, proseWrap, isLink, options) {
-  if (proseWrap === "preserve" && value === "\n") {
+  if (
+    (proseWrap === "preserve" || isLineBreakAmbiguous(path)) &&
+    value === "\n"
+  ) {
     return hardline;
   }
 
@@ -273,6 +276,35 @@ function printWhitespaceNode(path, options) {
     shouldPreventBreak(path, options) ? "never" : options.proseWrap,
     false,
     options,
+  );
+}
+
+/**
+ * Determines if a line break around a CJ character can be handled differently by browsers.
+ *
+ * If `true`, since Prettier is just a formatter, which should not change the semantics of the code, it should leave such an ambiguous line break as-is
+ * and let the browser decide how to interpret it regardless of `proseWrap`.
+ *
+ * Once all browsers behave consistently in the future, this function will no longer be needed.
+ *
+ * @param {AstPath} path
+ * @returns {boolean} `true` if a line break around a CJ character are removed by some browsers but converted to a space by others.
+ */
+function isLineBreakAmbiguous(path) {
+  const { previous, next } = path;
+  // All browsers treat a line break between a CJ letter and a non-CJ character as
+  // equivalent to a space. However, Prettier v3 intentionally decided that, in
+  // some cases, such a line break is equivalent to removing it without
+  // converting it to a space, so in v3 we leave it as-is instead of converting it
+  // to a space or removing it.
+  // See also: https://github.com/prettier/prettier/pull/16805
+  return (
+    (Boolean(previous?.isCJ) || Boolean(next?.isCJ)) &&
+    // A line break between a CJ letter and a Korean letter has already been interchangeable with a space since Prettier v3.0.0.
+    !(
+      (previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
+      (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER)
+    )
   );
 }
 
