@@ -24,7 +24,14 @@ describe("Support BOM", () => {
       const file = path.join(directory, filename);
       await fs.writeFile(file, `\ufeff${content}`);
       const config = await loadConfig(file);
-      expect(config).toStrictEqual(expected);
+
+      // `smol-toml` uses a `null` prototype object
+      if (filename.endsWith(".toml")) {
+        // eslint-disable-next-line jest/prefer-strict-equal
+        expect(config).toEqual(expected);
+      } else {
+        expect(config).toStrictEqual(expected);
+      }
     });
   }
 });
