@@ -1,0 +1,42 @@
+# https://github.com/prettier/prettier/issues/9112
+query Browse(
+  $offset: Int
+  $limit: Int
+  $categories: [String!]
+  $search: String
+  # $foo: Int
+  # $bar: Int
+) {
+  t
+}
+
+query OnlyComment(
+  $a: Int
+  # trailing
+) {
+  t
+}
+
+{
+  field(
+    a: 1
+    # trailing argument comment
+  ) {
+    t
+  }
+}
+
+{
+  fieldWithoutSelectionSet(
+    a: 1
+    # trailing argument comment
+  )
+}
+
+query CommentBetweenIsUnchanged(
+  $a: Int
+  # between
+  $b: Int
+) {
+  t
+}

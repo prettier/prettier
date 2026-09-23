@@ -1,0 +1,50 @@
+# https://github.com/prettier/prettier/issues/9112#issuecomment-673204742
+{
+  a # (b: C)
+  {
+    d
+  }
+}
+
+{
+  fieldWithOwnLineComment
+  # note
+  {
+    d
+  }
+}
+
+{
+  fieldWithArguments(x: 1) # note
+  {
+    d
+  }
+}
+
+query OperationBeforeSelectionSet # note
+{
+  t
+}
+
+{
+  fieldWithDirective @dir # note
+  {
+    d
+  }
+}
+
+query CommentAfterClosingParenthesis(
+  $a: Int
+) # note
+{
+  t
+}
+
+{
+  inlineFragment {
+    ... on Foo # note
+    {
+      d
+    }
+  }
+}

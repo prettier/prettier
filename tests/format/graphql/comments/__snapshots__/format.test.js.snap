@@ -24,6 +24,114 @@ query (
 ================================================================================
 `;
 
+exports[`before-selection-set.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# https://github.com/prettier/prettier/issues/9112#issuecomment-673204742
+{
+  a # (b: C)
+  {
+    d
+  }
+}
+
+{
+  fieldWithOwnLineComment
+  # note
+  {
+    d
+  }
+}
+
+{
+  fieldWithArguments(x: 1) # note
+  {
+    d
+  }
+}
+
+query OperationBeforeSelectionSet # note
+{
+  t
+}
+
+{
+  fieldWithDirective @dir # note
+  {
+    d
+  }
+}
+
+query CommentAfterClosingParenthesis(
+  $a: Int
+) # note
+{
+  t
+}
+
+{
+  inlineFragment {
+    ... on Foo # note
+    {
+      d
+    }
+  }
+}
+
+=====================================output=====================================
+# https://github.com/prettier/prettier/issues/9112#issuecomment-673204742
+{
+  a {
+    # (b: C)
+    d
+  }
+}
+
+{
+  fieldWithOwnLineComment {
+    # note
+    d
+  }
+}
+
+{
+  fieldWithArguments(x: 1) {
+    # note
+    d
+  }
+}
+
+query OperationBeforeSelectionSet {
+  # note
+  t
+}
+
+{
+  fieldWithDirective @dir {
+    # note
+    d
+  }
+}
+
+query CommentAfterClosingParenthesis($a: Int) {
+  # note
+  t
+}
+
+{
+  inlineFragment {
+    ... on Foo {
+      # note
+      d
+    }
+  }
+}
+
+================================================================================
+`;
+
 exports[`dangling.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -60,6 +168,101 @@ query {
       # only comment
     ]
   )
+}
+
+================================================================================
+`;
+
+exports[`end-of-parenthesized-list.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+# https://github.com/prettier/prettier/issues/9112
+query Browse(
+  $offset: Int
+  $limit: Int
+  $categories: [String!]
+  $search: String
+  # $foo: Int
+  # $bar: Int
+) {
+  t
+}
+
+query OnlyComment(
+  $a: Int
+  # trailing
+) {
+  t
+}
+
+{
+  field(
+    a: 1
+    # trailing argument comment
+  ) {
+    t
+  }
+}
+
+{
+  fieldWithoutSelectionSet(
+    a: 1
+    # trailing argument comment
+  )
+}
+
+query CommentBetweenIsUnchanged(
+  $a: Int
+  # between
+  $b: Int
+) {
+  t
+}
+
+=====================================output=====================================
+# https://github.com/prettier/prettier/issues/9112
+query Browse(
+  $offset: Int
+  $limit: Int
+  $categories: [String!]
+  $search: String
+  # $foo: Int
+  # $bar: Int
+) {
+  t
+}
+
+query OnlyComment(
+  $a: Int
+  # trailing
+) {
+  t
+}
+
+{
+  field(
+    a: 1
+    # trailing argument comment
+  ) {
+    t
+  }
+}
+
+{
+  fieldWithoutSelectionSet(
+    a: 1
+    # trailing argument comment
+  )
+}
+
+query CommentBetweenIsUnchanged(
+  $a: Int
+  # between
+  $b: Int
+) {
+  t
 }
 
 ================================================================================
