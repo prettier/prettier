@@ -34,7 +34,6 @@ const config = {
         "ts-expect",
         "buffer",
         "base64-arraybuffer-es6",
-        "flow-estree",
         "@yuku-parser/wasm",
       ],
       ignoreBinaries: [],

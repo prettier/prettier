@@ -39,7 +39,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: yarn --immutable
 
       - name: Test
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules

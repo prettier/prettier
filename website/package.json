@@ -35,8 +35,8 @@
     "graphql": "17.0.2",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-markdown": "10.1.0",
     "react-tweet": "3.3.1",
     "vue": "3.5.42"
@@ -46,14 +46,14 @@
     "@docusaurus/faster": "3.10.2",
     "@docusaurus/module-type-aliases": "3.10.2",
     "@docusaurus/types": "3.10.2",
-    "@types/react": "19.2.18",
-    "@vitejs/plugin-vue": "6.0.8",
+    "@types/react": "19.3.0",
+    "@vitejs/plugin-vue": "6.0.9",
     "@vitejs/plugin-vue-jsx": "5.1.6",
     "concurrently": "10.0.5",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.1.1",
-    "vite": "8.2.2",
-    "yaml": "2.9.0"
+    "vite": "8.3.0",
+    "yaml": "2.9.1"
   },
   "browserslist": {
     "production": [

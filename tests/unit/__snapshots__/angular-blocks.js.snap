@@ -12,6 +12,7 @@ exports[`angular blocks 1`] = `
   "@defer",
   "@placeholder",
   "@loading",
+  "@boundary",
   "@error",
   "@content",
 ]
