@@ -71,10 +71,10 @@ exports[`issue-20135.md format 1`] = `
 parsers: ["markdown"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-Use $FOO from \`a.sh\`, plus \`$BAR\` from \`b.sh\`, before anything else runs here.
+**Uses $FOO** from \`a.sh\` and \`b.sh\`, plus \`$BAR\` from \`c.sh\`, before anything else runs here.
 
 =====================================output=====================================
-Use $FOO from \`a.sh\`, plus \`$BAR\` from \`b.sh\`, before anything else runs here.
+**Uses $FOO** from \`a.sh\` and \`b.sh\`, plus \`$BAR\` from \`c.sh\`, before anything else runs here.
 
 ================================================================================
 `;
