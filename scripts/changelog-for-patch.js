@@ -49,7 +49,7 @@ function parseArguments() {
   if (
     !previousVersion ||
     !newVersion ||
-    !verkit.isGreater(newVersion, previousVersion)
+    !verkit.isGreaterThan(newVersion, previousVersion)
   ) {
     throw new Error(
       `Invalid argv, prev-version: ${previousVersion}, new-version: ${newVersion}`,

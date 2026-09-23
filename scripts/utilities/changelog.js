@@ -85,7 +85,7 @@ export function printEntries(entries) {
 }
 
 export function replaceVersions(data, prevVer, newVer, isPatch = false) {
-  if (!verkit.isGreater(newVer, prevVer)) {
+  if (!verkit.isGreaterThan(newVer, prevVer)) {
     throw new Error(
       `[INVALID VERSION] Next version(${newVer}) should be greater than previous version(${prevVer}).`,
     );
