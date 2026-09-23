@@ -71,7 +71,7 @@ Cause: Expected property name or '}' in JSON at position 1 (line 1 column 2)"
       loadConfigFile({ filename: ".prettierrc.toml", content: "a=\n  b!=" }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
 "TOML Error in "<dir>/.prettierrc.toml":
-Invalid TOML document: incomplete declaration: value expected
+Invalid TOML document: invalid value
 
 1:  a=
       ^
