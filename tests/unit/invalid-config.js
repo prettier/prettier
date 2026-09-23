@@ -52,7 +52,7 @@ describe("Invalid configs", () => {
     await expect(() =>
       loadConfigFile({ filename: ".prettierrc.json", content: "{a':}" }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-"JSON Error in <dir>/.prettierrc.json:
+"JSON Error in '<dir>/.prettierrc.json':
 Expected property name or '}' in JSON at position 1 (line 1 column 2)
 
 > 1 | {a':}
@@ -70,7 +70,7 @@ Cause: Expected property name or '}' in JSON at position 1 (line 1 column 2)"
     await expect(() =>
       loadConfigFile({ filename: ".prettierrc.toml", content: "a=\n  b!=" }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-"TOML Error in <dir>/.prettierrc.toml:
+"TOML Error in '<dir>/.prettierrc.toml':
 Invalid TOML document: incomplete declaration: value expected
 
 1:  a=
@@ -84,12 +84,21 @@ Invalid TOML document: incomplete declaration: value expected
     await expect(() =>
       loadConfigFile({ filename: ".prettierrc.yaml", content: "a:\na:" }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-"YAML Error in <dir>/.prettierrc.yaml:
+"YAML Error in '<dir>/.prettierrc.yaml':
 Map keys must be unique at line 1, column 3:
 
 a:
   ^
 "
+`);
+  });
+
+  test("Invalid JSON5 file", async () => {
+    await expect(() =>
+      loadConfigFile({ filename: ".prettierrc.json5", content: "a:" }),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`
+"JSON5 Error in '<dir>/.prettierrc.json5':
+JSON5: invalid character 'a' at 1:1"
 `);
   });
 });
