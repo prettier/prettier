@@ -11,7 +11,7 @@ async function readJson(file) {
   try {
     return parseJson(content);
   } catch (/** @type {any} */ error) {
-    error.message = `JSON Error in ${file}:\n${error.message}`;
+    error.message = `JSON Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
@@ -66,7 +66,7 @@ async function loadYaml(file) {
   try {
     return parseYaml(content);
   } catch (/** @type {any} */ error) {
-    error.message = `YAML Error in ${file}:\n${error.message}`;
+    error.message = `YAML Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
@@ -77,7 +77,7 @@ async function loadToml(file) {
   try {
     return parseToml(content);
   } catch (/** @type {any} */ error) {
-    error.message = `TOML Error in ${file}:\n${error.message}`;
+    error.message = `TOML Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
@@ -87,7 +87,7 @@ async function loadJson5(file) {
   try {
     return parseJson5(content);
   } catch (/** @type {any} */ error) {
-    error.message = `JSON5 Error in ${file}:\n${error.message}`;
+    error.message = `JSON5 Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
