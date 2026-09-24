@@ -20,6 +20,7 @@ import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js"
 import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
+  isAbstractPropertyDefinition,
   isArrayExpression,
   isBinaryish,
   isCallOrNewExpression,
@@ -118,7 +119,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
     parent.type === "PropertyDefinition" ||
-    parent.type === "TSAbstractPropertyDefinition" ||
+    isAbstractPropertyDefinition(parent) ||
     parent.type === "ClassPrivateProperty" ||
     isObjectProperty(parent);
 

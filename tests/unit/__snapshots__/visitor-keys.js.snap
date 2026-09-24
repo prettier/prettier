@@ -2,6 +2,15 @@
 
 exports[`visitor keys estree 1`] = `
 {
+  "AbstractMethodDefinition": [
+    "key",
+    "value",
+  ],
+  "AbstractPropertyDefinition": [
+    "key",
+    "value",
+    "variance",
+  ],
   "AccessorProperty": [
     "decorators",
     "key",
@@ -176,6 +185,12 @@ exports[`visitor keys estree 1`] = `
     "falseType",
     "trueType",
   ],
+  "ConstructorTypeAnnotation": [
+    "params",
+    "rest",
+    "returnType",
+    "typeParameters",
+  ],
   "ContinueStatement": [
     "label",
   ],
@@ -315,6 +330,9 @@ exports[`visitor keys estree 1`] = `
     "exported",
     "source",
   ],
+  "ExportAssignment": [
+    "expression",
+  ],
   "ExportDefaultDeclaration": [
     "declaration",
   ],
@@ -335,6 +353,9 @@ exports[`visitor keys estree 1`] = `
     "local",
   ],
   "ExpressionStatement": [
+    "expression",
+  ],
+  "ExternalModuleReference": [
     "expression",
   ],
   "File": [
@@ -421,6 +442,10 @@ exports[`visitor keys estree 1`] = `
   "ImportDefaultSpecifier": [
     "local",
   ],
+  "ImportEqualsDeclaration": [
+    "id",
+    "moduleReference",
+  ],
   "ImportExpression": [
     "options",
     "source",
@@ -431,6 +456,9 @@ exports[`visitor keys estree 1`] = `
   "ImportSpecifier": [
     "imported",
     "local",
+  ],
+  "ImportType": [
+    "source",
   ],
   "IndexedAccessType": [
     "indexType",
@@ -690,6 +718,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ObjectTypeMappedTypeProperty": [
     "keyTparam",
+    "nameType",
     "propType",
     "sourceType",
     "variance",
@@ -1096,6 +1125,10 @@ exports[`visitor keys estree 1`] = `
   "TemplateLiteral": [
     "expressions",
     "quasis",
+  ],
+  "TemplateLiteralTypeAnnotation": [
+    "quasis",
+    "types",
   ],
   "ThisExpression": [],
   "ThisTypeAnnotation": [],

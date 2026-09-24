@@ -71,6 +71,7 @@ const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareTypeAlias",
   "DeclareEnum",
   "DeclareInterface",
+  "DeclareNamespace",
 ]);
 
 const shouldPrintDeclareToken = (path) => {
@@ -96,7 +97,9 @@ function printDeclareToken(path) {
   return shouldPrintDeclareToken(path) ? "declare " : "";
 }
 
-const isTsAbstractNode = createTypeCheckFunction([
+const isAbstractMemberNode = createTypeCheckFunction([
+  "AbstractMethodDefinition",
+  "AbstractPropertyDefinition",
   "TSAbstractMethodDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
@@ -107,11 +110,12 @@ const isTsAbstractNode = createTypeCheckFunction([
  * @returns {Doc}
  */
 function printAbstractToken({ node }) {
-  return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
+  return node.abstract || isAbstractMemberNode(node) ? "abstract " : "";
 }
 
 function printTypeScriptAccessibilityToken(node) {
-  return node.accessibility ? node.accessibility + " " : "";
+  const accessibility = node.accessibility ?? node.tsAccessibility;
+  return accessibility ? accessibility + " " : "";
 }
 
 const isLogicalNot = (node) =>

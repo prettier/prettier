@@ -95,7 +95,8 @@ type Type = {
 };
 
 type Type = {
-  +[/* bar */ T in number]: number, // foo
+  + // foo
+  [/* bar */ T in number]: number,
 };
 
 type Type<T> = { [K in keyof T]: /** Comment */ B };
@@ -270,6 +271,155 @@ exports[`mapped-types.js format[yuku-ts] 1`] = `
   6 | type MappedWithVarianceLong = {-[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
   7 | type MappedWithPlusOptional = {[key in keyof O]+?: number};
   8 | type MappedWithMinusOptional = {[key in keyof O]-?: number};"
+`;
+
+exports[`modifiers-and-key-remapping.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+type ReadonlyMapped<T> = {readonly [K in keyof T]: T[K]};
+type AddReadonlyMapped<T> = {+readonly [K in keyof T]+?: T[K]};
+type RemoveReadonlyMapped<T> = {-readonly [K in keyof T]-?: T[K]};
+type Remapped<T> = {[K in keyof T as \`get\${K}\`]: T[K]};
+type LongRemapped<T> = {-readonly [ExtremelyLongPropertyName in keyof T as \`get\${ExtremelyLongPropertyName}\`]-?: T[ExtremelyLongPropertyName]};
+
+type Commented<T> = {
+  /* before readonly */ -readonly /* after readonly */ [
+    K /* before in */ in /* after in */ keyof T /* before as */ as /* after as */ \`get\${K}\` /* after remapping */
+  ] /* before optional */ -? /* before colon */ : /* after colon */ T[K]
+};
+
+type LineCommentBeforeOptional<T> = {
+  [K in keyof T] // before optional
+  -?: T[K]
+};
+type LineCommentBeforeColon<T> = {
+  [K in keyof T] // before colon
+  : T[K]
+};
+type ConstructorValue<T> = {
+  [K in keyof T]: new /* after new */ () => T[K]
+};
+
+opaque type FlowOnly = mixed;
+
+type BlockCommented<T> = {
+  - /* between sign and readonly */ readonly [K in keyof T]: T[K]
+};
+
+type LineCommented<T> = {
+  - // between sign and readonly
+  readonly [K in keyof T]: T[K]
+};
+
+=====================================output=====================================
+// @flow
+
+type ReadonlyMapped<T> = { readonly [K in keyof T]: T[K] };
+type AddReadonlyMapped<T> = { +readonly [K in keyof T]+?: T[K] };
+type RemoveReadonlyMapped<T> = { -readonly [K in keyof T]-?: T[K] };
+type Remapped<T> = { [K in keyof T as \`get\${K}\`]: T[K] };
+type LongRemapped<T> = {
+  -readonly [
+    ExtremelyLongPropertyName in keyof T as \`get\${ExtremelyLongPropertyName}\`
+  ]-?: T[ExtremelyLongPropertyName],
+};
+
+type Commented<T> = {
+  /* before readonly */ -readonly /* after readonly */ [
+    K /* before in */ in /* after in */ keyof T /* before as */ as /* after as */ \`get\${K}\` /* after remapping */ /* before optional */ /* before colon */
+  ]-?: /* after colon */ T[K],
+};
+
+type LineCommentBeforeOptional<T> = {
+  [
+    K in keyof T // before optional
+  ]-?: T[K],
+};
+type LineCommentBeforeColon<T> = {
+  [
+    K in keyof T // before colon
+  ]: T[K],
+};
+type ConstructorValue<T> = {
+  [K in keyof T]: new () => /* after new */ T[K],
+};
+
+opaque type FlowOnly = mixed;
+
+type BlockCommented<T> = {
+  -/* between sign and readonly */ readonly [K in keyof T]: T[K],
+};
+
+type LineCommented<T> = {
+  -// between sign and readonly
+  readonly [K in keyof T]: T[K],
+};
+
+================================================================================
+`;
+
+exports[`modifiers-and-key-remapping.js format[babel-ts] 1`] = `
+"Missing semicolon. (27:7)
+  25 | };
+  26 |
+> 27 | opaque type FlowOnly = mixed;
+     |       ^
+  28 |
+  29 | type BlockCommented<T> = {
+  30 |   - /* between sign and readonly */ readonly [K in keyof T]: T[K]
+Cause: Missing semicolon. (27:6)"
+`;
+
+exports[`modifiers-and-key-remapping.js format[hermes] 1`] = `
+"':' or '?' expected in property type annotation (4:40)
+  2 |
+  3 | type ReadonlyMapped<T> = {readonly [K in keyof T]: T[K]};
+> 4 | type AddReadonlyMapped<T> = {+readonly [K in keyof T]+?: T[K]};
+    |                                        ^
+  5 | type RemoveReadonlyMapped<T> = {-readonly [K in keyof T]-?: T[K]};
+  6 | type Remapped<T> = {[K in keyof T as \`get\${K}\`]: T[K]};
+  7 | type LongRemapped<T> = {-readonly [ExtremelyLongPropertyName in keyof T as \`get\${ExtremelyLongPropertyName}\`]-?: T[ExtremelyLongPropertyName]};
+Cause: ':' or '?' expected in property type annotation (4:39)
+type AddReadonlyMapped<T> = {+readonly [K in keyof T]+?: T[K]};
+                             ~~~~~~~~~~^"
+`;
+
+exports[`modifiers-and-key-remapping.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (27:7)
+  25 | };
+  26 |
+> 27 | opaque type FlowOnly = mixed;
+     |       ^
+  28 |
+  29 | type BlockCommented<T> = {
+  30 |   - /* between sign and readonly */ readonly [K in keyof T]: T[K]"
+`;
+
+exports[`modifiers-and-key-remapping.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (27:1)
+  25 | };
+  26 |
+> 27 | opaque type FlowOnly = mixed;
+     | ^
+  28 |
+  29 | type BlockCommented<T> = {
+  30 |   - /* between sign and readonly */ readonly [K in keyof T]: T[K]
+Cause: Unexpected keyword or identifier."
+`;
+
+exports[`modifiers-and-key-remapping.js format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'type' (27:8)
+  25 | };
+  26 |
+> 27 | opaque type FlowOnly = mixed;
+     |        ^^^^
+  28 |
+  29 | type BlockCommented<T> = {
+  30 |   - /* between sign and readonly */ readonly [K in keyof T]: T[K]"
 `;
 
 exports[`ts-compatibility.js format 1`] = `

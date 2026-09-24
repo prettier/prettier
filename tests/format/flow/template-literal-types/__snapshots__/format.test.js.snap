@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`template-literal-types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced=\`value:\${ string|number }\`;
+type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+
+=====================================output=====================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced = \`value:\${string | number}\`;
+type Long =
+  \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+
+================================================================================
+`;
+
+exports[`template-literal-types.js format[hermes] 1`] = `
+"unexpected token in type annotation (3:17)
+  1 | // @flow
+  2 |
+> 3 | type Greeting = \`hello \${string}\`;
+    |                 ^
+  4 | type PoorlySpaced=\`value:\${ string|number }\`;
+  5 | type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+  6 | type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+Cause: unexpected token in type annotation (3:16)
+type Greeting = \`hello \${string}\`;
+                ^"
+`;

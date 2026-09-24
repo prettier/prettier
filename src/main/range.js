@@ -120,6 +120,7 @@ function isJsSourceElement(type, parentType) {
     type !== "TypeParameterDeclaration" &&
     (type === "Directive" ||
       type === "TypeAlias" ||
+      type === "ExportAssignment" ||
       type === "TSExportAssignment" ||
       type.startsWith("Declare") ||
       type.startsWith("TSDeclare") ||

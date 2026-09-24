@@ -10,6 +10,7 @@ const isSimpleTypeAnnotation = createTypeCheckFunction([
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
   "TSTemplateLiteralType",
+  "TemplateLiteralTypeAnnotation",
 ]);
 
 export { isSimpleTypeAnnotation };

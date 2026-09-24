@@ -10,10 +10,13 @@ import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
+import { printCallExpression } from "./call-expression.js";
 import {
   printClass,
   printClassBody,
   printClassMemberSemicolon,
+  printClassMethod,
+  printClassProperty,
 } from "./class.js";
 import {
   printComponent,
@@ -37,15 +40,23 @@ import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
 import {
+  printAbstractToken,
   printDeclareToken,
   printOptionalToken,
   printSemicolon,
+  printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import { printExportDeclaration } from "./module.js";
+import {
+  printExportAssignment,
+  printExportDeclaration,
+  printImportEqualsDeclaration,
+} from "./module.js";
+import { printModuleDeclaration } from "./module-declaration.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
 import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
+import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
@@ -99,7 +110,7 @@ function printFlow(path, options, print, args) {
         printSemicolon(options),
       ];
     case "DeclareNamespace":
-      return ["declare namespace ", print("id"), " ", print("body")];
+      return printModuleDeclaration(path, options, print);
     case "DeclareVariable":
       if (Array.isArray(node.declarations)) {
         return printVariableDeclaration(path, options, print);
@@ -134,7 +145,10 @@ function printFlow(path, options, print, args) {
     case "InferTypeAnnotation":
       return printInferType(path, options, print);
     case "FunctionTypeAnnotation":
+    case "ConstructorTypeAnnotation":
       return printFunctionType(path, options, print);
+    case "TemplateLiteralTypeAnnotation":
+      return printTemplateLiteral(path, options, print);
     case "TupleTypeAnnotation":
       return printArray(path, options, print);
     case "TupleTypeLabeledElement":
@@ -205,6 +219,10 @@ function printFlow(path, options, print, args) {
     case "InterfaceTypeAnnotation":
     case "RecordDeclaration":
       return printClass(path, options, print);
+    case "AbstractMethodDefinition":
+      return printClassMethod(path, options, print);
+    case "AbstractPropertyDefinition":
+      return printClassProperty(path, options, print);
     case "ObjectTypeAnnotation":
     case "RecordDeclarationBody":
       return printClassBody(path, options, print);
@@ -226,7 +244,13 @@ function printFlow(path, options, print, args) {
           kind === "in" ||
           kind === "out",
       );
-      return kind === "plus" ? "+" : kind === "minus" ? "-" : `${kind} `;
+      if (kind === "plus" || kind === "minus") {
+        return kind === "plus" ? "+" : "-";
+      }
+
+      return path.parent.type === "ObjectTypeMappedTypeProperty"
+        ? kind
+        : `${kind} `;
     }
     case "KeyofTypeAnnotation":
       return ["keyof ", print("argument")];
@@ -264,7 +288,10 @@ function printFlow(path, options, print, args) {
 
       return [
         group([
+          printTypeScriptAccessibilityToken(node),
           modifier,
+          printAbstractToken(path),
+          node.override ? "override " : "",
           node.kind !== "init" ? node.kind + " " : "",
           node.variance ? print("variance") : "",
           printKey(path, options, print),
@@ -294,6 +321,15 @@ function printFlow(path, options, print, args) {
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
+    case "ImportType":
+      return printCallExpression(path, options, print);
+
+    case "ImportEqualsDeclaration":
+      return printImportEqualsDeclaration(path, options, print);
+    case "ExternalModuleReference":
+      return printCallExpression(path, options, print);
+    case "ExportAssignment":
+      return printExportAssignment(path, options, print);
 
     case "NullLiteralTypeAnnotation":
       return "null";
