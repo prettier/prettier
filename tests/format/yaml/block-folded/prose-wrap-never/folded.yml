@@ -1,0 +1,55 @@
+clip: >
+  first
+  second
+
+  another paragraph
+next: value
+
+strip: >-
+  first
+  second
+next-strip: value
+
+keep: >+
+  first
+  second
+
+
+next-keep: value
+
+nested:
+  - value: >-
+      first
+      second
+    next: value
+  - >+
+    first
+
+    another paragraph
+
+  - last
+
+empty: >+
+
+
+next-empty: value
+
+literal: |-
+  first
+  second
+next-literal: value
+---
+>1
+ 
+ 
+---
+>2-
+     
+---
+|1
+ 
+ 
+---
+>+
+  last document
+

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`folded.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+clip: >
+  first
+  second
+
+  another paragraph
+next: value
+
+strip: >-
+  first
+  second
+next-strip: value
+
+keep: >+
+  first
+  second
+
+
+next-keep: value
+
+nested:
+  - value: >-
+      first
+      second
+    next: value
+  - >+
+    first
+
+    another paragraph
+
+  - last
+
+empty: >+
+
+
+next-empty: value
+
+literal: |-
+  first
+  second
+next-literal: value
+---
+>1
+ 
+ 
+---
+>2-
+     
+---
+|1
+ 
+ 
+---
+>+
+  last document
+
+
+=====================================output=====================================
+clip: >
+  first second
+
+  another paragraph
+next: value
+
+strip: >-
+  first second
+next-strip: value
+
+keep: >+
+  first second
+
+
+next-keep: value
+
+nested:
+  - value: >-
+      first second
+    next: value
+  - >+
+    first
+
+    another paragraph
+
+  - last
+
+empty: >+
+
+
+next-empty: value
+
+literal: |-
+  first
+  second
+next-literal: value
+---
+>1
+
+---
+>2-
+
+---
+|1
+
+---
+>+
+  last document
+
+
+================================================================================
+`;
