@@ -1,4 +1,4 @@
-import { ParseSourceSpan } from "angular-html-parser";
+import { ParseSourceSpan, TokenType } from "angular-html-parser";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import {
@@ -286,7 +286,11 @@ function extractInterpolation(ast, options) {
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan;
-      const components = child.value.split(interpolationRegex);
+      const components =
+        options.parser === "angular"
+          ? splitAngularInterpolation(child, interpolationRegex)
+          : child.value.split(interpolationRegex);
+
       for (
         let i = 0;
         i < components.length;
@@ -329,6 +333,37 @@ function extractInterpolation(ast, options) {
       node.removeChild(child);
     }
   });
+}
+
+function splitAngularInterpolation(child, interpolationRegex) {
+  const interpolationTokens = child.tokens?.filter(
+    (token) =>
+      token.type === TokenType.INTERPOLATION && token.parts.length === 3,
+  );
+
+  if (!interpolationTokens?.some((token) => token.parts[1].includes("}}"))) {
+    return child.value.split(interpolationRegex);
+  }
+
+  const components = [];
+  const { content } = child.sourceSpan.start.file;
+  let startOffset = child.sourceSpan.start.offset;
+
+  for (const { parts, sourceSpan } of interpolationTokens) {
+    components.push(
+      content.slice(startOffset, sourceSpan.start.offset),
+      content.slice(
+        sourceSpan.start.offset + parts[0].length,
+        sourceSpan.end.offset - parts[2].length,
+      ),
+    );
+
+    startOffset = sourceSpan.end.offset;
+  }
+
+  components.push(content.slice(startOffset, child.sourceSpan.end.offset));
+
+  return components;
 }
 
 /**
