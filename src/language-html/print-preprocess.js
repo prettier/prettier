@@ -336,40 +336,34 @@ function extractInterpolation(ast, options) {
 }
 
 function splitAngularInterpolation(child, interpolationRegex) {
+  const interpolationTokens = child.tokens?.filter(
+    (token) =>
+      token.type === TokenType.INTERPOLATION && token.parts.length === 3,
+  );
+
   if (
-    !child.tokens?.some(
-      (token) =>
-        token.type === TokenType.INTERPOLATION &&
-        token.parts.length === 3 &&
-        token.parts[1].includes("}}"),
-    )
+    !interpolationTokens?.some((token) => token.parts[1].includes("}}"))
   ) {
     return child.value.split(interpolationRegex);
   }
 
-  const interpolationTokens = child.tokens.filter(
-    (token) =>
-      token.type === TokenType.INTERPOLATION &&
-      token.parts.length === 3 &&
-      token.parts[1].length > 0,
-  );
-
   const components = [];
   const { content } = child.sourceSpan.start.file;
-  let startSourceSpan = child.sourceSpan.start;
+  let startOffset = child.sourceSpan.start.offset;
 
-  for (const { sourceSpan } of interpolationTokens) {
+  for (const { parts, sourceSpan } of interpolationTokens) {
     components.push(
-      content.slice(startSourceSpan.offset, sourceSpan.start.offset),
-      content.slice(sourceSpan.start.offset + 2, sourceSpan.end.offset - 2),
+      content.slice(startOffset, sourceSpan.start.offset),
+      content.slice(
+        sourceSpan.start.offset + parts[0].length,
+        sourceSpan.end.offset - parts[2].length,
+      ),
     );
 
-    startSourceSpan = sourceSpan.end;
+    startOffset = sourceSpan.end.offset;
   }
 
-  components.push(
-    content.slice(startSourceSpan.offset, child.sourceSpan.end.offset),
-  );
+  components.push(content.slice(startOffset, child.sourceSpan.end.offset));
 
   return components;
 }
