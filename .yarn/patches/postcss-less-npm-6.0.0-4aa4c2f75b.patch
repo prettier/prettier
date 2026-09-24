@@ -1,0 +1,47 @@
+diff --git a/lib/LessParser.js b/lib/LessParser.js
+index 098cc4e6fa627bc2ee214c0b42da08790ff8a0b4..1388af718aed90dea9a1124a00575d1c6ca2aae0 100644
+--- a/lib/LessParser.js
++++ b/lib/LessParser.js
+@@ -23,11 +23,42 @@ module.exports = class LessParser extends Parser {
+       return;
+     }
+ 
++    this.mergeParamsInterpolation();
++
+     super.atrule(token);
+     importNode(this.lastNode);
+     variableNode(this.lastNode);
+   }
+ 
++  // #180: `@media @{mq}` - merge `@{…}` sequences in the prelude into single word tokens,
++  // otherwise the interpolation's `{` is mistaken for the start of the at-rule block
++  mergeParamsInterpolation() {
++    const tokens = [];
++    let token = this.tokenizer.nextToken();
++
++    while (token) {
++      if (token[0] === 'at-word' && token[1] === '@' && interpolation.bind(this)(token)) {
++        token = this.tokenizer.nextToken();
++
++        if (!token) {
++          break;
++        }
++      }
++
++      tokens.push(token);
++
++      if (token[0] === '{' || token[0] === '}' || token[0] === ';') {
++        break;
++      }
++
++      token = this.tokenizer.nextToken();
++    }
++
++    for (const tokn of tokens.reverse()) {
++      this.tokenizer.back(tokn);
++    }
++  }
++
+   decl(...args) {
+     super.decl(...args);
+ 
