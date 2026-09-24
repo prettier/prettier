@@ -94,6 +94,7 @@
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
         "@catppuccin/codemirror",
+        "@lezer/highlight",
       ],
     },
     {
