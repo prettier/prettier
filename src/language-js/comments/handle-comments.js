@@ -26,11 +26,13 @@ import {
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
+  isJsxElement,
   isMemberExpression,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
 } from "../utilities/node-types.js";
+import { shouldAddParensIfNotBreak } from "../utilities/should-add-parens-if-not-break.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { handleForXStatementComments } from "./attach/handle-for-x-statement-comments.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
@@ -577,6 +579,21 @@ function handleLastFunctionParameterComments({
   }
 
   // Real functions and TypeScript function type definitions
+  //
+  // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so the
+  // comment walker bubbles up to its wrapper. Three wrappers occur:
+  // `TSAbstractMethodDefinition` (always), and `MethodDefinition` in
+  // `declare class` or overload position. A plain `MethodDefinition` with a
+  // body is a normal method and must not match here, so the
+  // `MethodDefinition` branch checks `value.type` to skip it.
+  const functionLikeNode = isRealFunctionLikeNode(enclosingNode)
+    ? enclosingNode
+    : (enclosingNode?.type === "TSAbstractMethodDefinition" ||
+          enclosingNode?.type === "MethodDefinition") &&
+        enclosingNode.value.type === "TSEmptyBodyFunctionExpression"
+      ? enclosingNode.value
+      : undefined;
+
   if (
     (precedingNode?.type === "Identifier" ||
       precedingNode?.type === "AssignmentPattern" ||
@@ -584,17 +601,14 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
-    (isRealFunctionLikeNode(enclosingNode) ||
-      // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
-      // the comment walker bubbles up to its wrapper. Three wrappers occur:
-      // `TSAbstractMethodDefinition` (always), and `MethodDefinition` in
-      // `declare class` or overload position. A plain `MethodDefinition` with
-      // a body is a normal method and must not match here, so the
-      // `MethodDefinition` branch checks `value.type` to skip it.
-      ((enclosingNode?.type === "TSAbstractMethodDefinition" ||
-        enclosingNode?.type === "MethodDefinition") &&
-        enclosingNode.value.type === "TSEmptyBodyFunctionExpression")) &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+    functionLikeNode &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")" &&
+    // An arrow function's expression body can have one of the node types
+    // above, and a parenthesized body is followed by `)` too, so the checks
+    // above alone also match `(a) => (b /* comment */)`. Requiring the
+    // comment to really trail the last parameter keeps a body comment out of
+    // the parameter list.
+    getFunctionParameters(functionLikeNode).at(-1) === precedingNode
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -1200,22 +1214,51 @@ function handleArrowExpressionComments({
   return false;
 }
 
-function getEnclosingAssignmentChainExpressionStatement(node, ancestors) {
+/**
+ * Walks out of an expression that sits at the tail of a statement, following
+ * the positions a trailing comment is carried through, and returns that
+ * statement. Returns `undefined` when anything is printed after the
+ * expression, because the comment then stays inside the statement.
+ */
+function getEnclosingTailStatement(node, ancestors) {
   let child = node;
 
   for (const ancestor of ancestors) {
-    if (
-      (ancestor.type === "AssignmentExpression" && ancestor.right === child) ||
-      (ancestor.type === "ArrowFunctionExpression" && ancestor.body === child)
-    ) {
-      child = ancestor;
-      continue;
+    switch (ancestor.type) {
+      case "AssignmentExpression":
+        if (ancestor.right !== child) {
+          return;
+        }
+        break;
+
+      case "ArrowFunctionExpression":
+        if (ancestor.body !== child) {
+          return;
+        }
+        break;
+
+      case "VariableDeclarator":
+        if (ancestor.init !== child) {
+          return;
+        }
+        break;
+
+      case "ExpressionStatement":
+        return ancestor.expression === child ? ancestor : undefined;
+
+      case "ReturnStatement":
+        return ancestor.argument === child ? ancestor : undefined;
+
+      // Only the last declarator ends the statement; an earlier one is
+      // followed by a comma.
+      case "VariableDeclaration":
+        return ancestor.declarations.at(-1) === child ? ancestor : undefined;
+
+      default:
+        return;
     }
 
-    return ancestor.type === "ExpressionStatement" &&
-      ancestor.expression === child
-      ? ancestor
-      : undefined;
+    child = ancestor;
   }
 }
 
@@ -1254,32 +1297,44 @@ function handleParenthesizedExpressionTrailingComment({
     }
 
     const isAssignment = precedingNode.type === "AssignmentExpression";
+    const isSequence = precedingNode.type === "SequenceExpression";
+
+    // A sequence expression and a JSX element are printed with their
+    // parentheses on their own lines, so a comment written inside them is
+    // printed inside them too, and stays where it is attached. The other
+    // bodies printed with parentheses keep them on a single line, so only a
+    // block comment stays inside; a line comment is printed at the end of the
+    // line, past the closing parenthesis. Every remaining body loses its
+    // parentheses, and then a trailing comment of any kind ends up after the
+    // arrow.
+    const isCommentPrintedInsideParentheses =
+      isSequence ||
+      isJsxElement(precedingNode) ||
+      ((isAssignment || shouldAddParensIfNotBreak(precedingNode)) &&
+        isBlockComment(comment));
 
     if (
-      // `a = (b = c /* comment */);` and `a = () => () => c /* comment */;` drop
-      // the parentheses, so the comment ends up trailing the whole statement
+      // `a = (b = c /* comment */);` and `a = () => c /* comment */;` drop the
+      // parentheses, so the comment ends up trailing the whole statement
       // anyway. Attach it there right away instead of leaving it on `c` for the
       // next format to move.
       (isAssignment &&
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
-      (precedingNode.type === "ArrowFunctionExpression" &&
+      (!isCommentPrintedInsideParentheses &&
         enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode)
     ) {
-      const expressionStatement =
-        getEnclosingAssignmentChainExpressionStatement(
-          enclosingNode,
-          ancestors.slice(1),
-        );
+      const statement = getEnclosingTailStatement(
+        enclosingNode,
+        ancestors.slice(1),
+      );
 
-      if (expressionStatement) {
-        addTrailingComment(expressionStatement, comment);
+      if (statement) {
+        addTrailingComment(statement, comment);
         return true;
       }
     }
-
-    const isSequence = precedingNode.type === "SequenceExpression";
 
     if (
       (isSequence || isAssignment) &&
