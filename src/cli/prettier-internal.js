@@ -7,6 +7,7 @@ export const {
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,
+  optionInfoToSchema,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
   vnopts,
