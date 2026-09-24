@@ -1,6 +1,9 @@
 import dashify from "dashify";
 import { resolveConfig } from "../../index.js";
-import { normalizeOptions as normalizeApiOptions } from "../prettier-internal.js";
+import {
+  normalizeOptions as normalizeApiOptions,
+  optionCategories,
+} from "../prettier-internal.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import minimist from "./minimist.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
@@ -9,6 +12,21 @@ function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]]),
+  );
+}
+
+// Editor options (`--cursor-offset`, `--range-start`, `--range-end`) describe a
+// single invocation rather than a project's style, so they cannot meaningfully
+// be set in a config file. They are kept even when `--config-precedence
+// prefer-file` would otherwise discard all CLI options in favor of the config.
+function getEditorOptions(argv, detailedOptions) {
+  return Object.fromEntries(
+    detailedOptions
+      .filter(
+        ({ forwardToApi, category }) =>
+          forwardToApi && category === optionCategories.CATEGORY_EDITOR,
+      )
       .map(({ forwardToApi, name }) => [forwardToApi, argv[name]]),
   );
 }
@@ -34,12 +52,16 @@ function createApiDetailedOptionMap(detailedOptions) {
   );
 }
 
-function parseArgsToOptions(context, overrideDefaults) {
+function parseArgsToOptions(
+  context,
+  overrideDefaults,
+  extractOptions = getOptions,
+) {
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const apiDetailedOptionMap = createApiDetailedOptionMap(
     context.detailedOptions,
   );
-  return getOptions(
+  return extractOptions(
     normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
@@ -92,7 +114,12 @@ function applyConfigPrecedence(context, options) {
       case "file-override":
         return { ...parseArgsToOptions(context), ...options };
       case "prefer-file":
-        return options || parseArgsToOptions(context);
+        return options
+          ? {
+              ...options,
+              ...parseArgsToOptions(context, undefined, getEditorOptions),
+            }
+          : parseArgsToOptions(context);
     }
   } catch (error) {
     /* c8 ignore start */
