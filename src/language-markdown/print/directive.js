@@ -1,4 +1,4 @@
-import { hardline } from "../../document/index.js";
+import { hardline, replaceEndOfLine } from "../../document/index.js";
 import { printChildren } from "./children.js";
 
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L480
@@ -6,137 +6,176 @@ function isInlineDirectiveLabel(node) {
   return Boolean(node?.type === "paragraph" && node.data?.directiveLabel);
 }
 
-// https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L136
-function printDirectiveLabel(path, options, print) {
-  const { node } = path;
-
-  if (
-    (node.type === "containerDirective" &&
-      isInlineDirectiveLabel(node.children[0])) ||
-    (node.type !== "containerDirective" && node.children.length === 1)
-  ) {
-    return ["[", print(["children", 0]), "]"];
+function getNameEnd(node, text) {
+  let index = node.position.start.offset;
+  while (text[index] === ":") {
+    index++;
   }
-
-  return "";
+  return index + node.name.length;
 }
 
-// https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L196
-function printDirectiveAttributes(path, options) {
+/**
+ * Returns the offset right after the label (`[…]`), or right after the name if
+ * there is no label.
+ */
+function getLabelEnd(node, text) {
+  const nameEnd = getNameEnd(node, text);
+  if (text[nameEnd] !== "[") {
+    return nameEnd;
+  }
+
+  if (node.type === "containerDirective") {
+    // The label paragraph includes the brackets
+    return isInlineDirectiveLabel(node.children[0])
+      ? node.children[0].position.end.offset
+      : text.indexOf("]", nameEnd) + 1;
+  }
+
+  const searchStart = node.children.at(-1)?.position.end.offset ?? nameEnd + 1;
+  return text.indexOf("]", searchStart) + 1;
+}
+
+// `}` can only appear in attributes inside quoted values
+function getAttributesEnd(text, start) {
+  let quote;
+  for (let index = start + 1; index < text.length; index++) {
+    const character = text[index];
+    if (quote) {
+      if (character === quote) {
+        quote = undefined;
+      }
+    } else if (character === '"' || character === "'") {
+      quote = character;
+    } else if (character === "}") {
+      return index + 1;
+    }
+  }
+
+  /* c8 ignore next */
+  return text.length;
+}
+
+function printDirectiveLabel(path, options, print) {
   const { node } = path;
-  const { attributes } = node;
-  if (Object.keys(attributes).length === 0) {
+  const text = options.originalText;
+  if (text[getNameEnd(node, text)] !== "[") {
     return "";
   }
 
-  let start = node.position.start.offset;
-  start = options.originalText.indexOf("{", start);
-  const end = options.originalText.indexOf("\n", start);
-  const text = options.originalText.slice(start, end).trimEnd();
-
-  return text;
-
-  console.log({ text, node });
-
-  const values = Object.entries(attributes).map(([key, value]) => {
-    if (key === "id") {
-      return `#${value}`;
-    }
-    if (key === "class") {
-      return value
-        .split(/[\t\n\r ]+/)
-        .map((className) => `.${className}`)
-        .join("");
-    }
-
-    if (!value) {
-      return key;
-    }
-
-    return `${key}="${value}"`;
-  });
-
-  return values.length > 0 ? "{" + values.join(" ") + "}" : "";
-}
-
-function printDirectiveChildren(path, options, print) {
-  let hasChildren = false;
-
-  const parts = printChildren(path, options, print, {
-    processor({ isFirst, node }) {
-      if (isFirst && isInlineDirectiveLabel(node)) {
-        return false;
-      }
-
-      hasChildren = true;
-
-      return print();
-    },
-  });
-
-  return hasChildren ? parts : "";
-}
-
-// https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L490
-function printDirectiveFence(path) {
-  let size = 0;
-
-  const { node } = path;
   if (node.type === "containerDirective") {
-    const { ancestors } = path;
-
-    let nesting = 0;
-    for (let level = 0; level < ancestors.length; level++) {
-      if (ancestors[level].type === "containerDirective") {
-        nesting++;
-      }
-
-      if (nesting > size) {
-        size = nesting;
-      }
-    }
-
-    size += 3;
-  } else if (node.type === "leafDirective") {
-    size = 2;
-  } else {
-    size = 1;
+    return [
+      "[",
+      isInlineDirectiveLabel(node.children[0]) ? print(["children", 0]) : "",
+      "]",
+    ];
   }
 
-  return ":".repeat(size);
+  return ["[", printChildren(path, options, print), "]"];
 }
 
-function printDirectiveContainer(path, options, print) {
+const CONTAINER_WITH_LINE_PREFIX_TYPES = new Set([
+  "blockquote",
+  "listItem",
+  "footnoteDefinition",
+]);
+
+const escapeAttributeValue = (value) =>
+  value.replaceAll(
+    /["&\n\r]/g,
+    (character) => `&#x${character.codePointAt(0).toString(16)};`,
+  );
+
+// Attributes are printed as-is
+function printDirectiveAttributes(path, options) {
   const { node } = path;
-  const fence = printDirectiveFence(path);
-  const parts = [
+  const text = options.originalText;
+  const start = getLabelEnd(node, text);
+  if (text[start] !== "{") {
+    return "";
+  }
+
+  const raw = text.slice(start, getAttributesEnd(text, start));
+
+  if (!raw.includes("\n")) {
+    return raw;
+  }
+
+  // Continuation lines contain the prefixes (`>`, indentation) of the
+  // enclosing blocks, which will be printed again, so print from the parsed values
+  if (
+    path.ancestors.some((ancestor) =>
+      CONTAINER_WITH_LINE_PREFIX_TYPES.has(ancestor.type),
+    )
+  ) {
+    const attributes = Object.entries(node.attributes).map(([name, value]) =>
+      value ? `${name}="${escapeAttributeValue(value)}"` : name,
+    );
+    return ["{", attributes.join(" "), "}"];
+  }
+
+  return replaceEndOfLine(raw, hardline);
+}
+
+// The fence must be longer than the fences of nested container directives
+// https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L490
+function getContainerDirectiveFenceSize(node) {
+  let maxNesting = 0;
+
+  const visit = (node, nesting) => {
+    for (const child of node.children ?? []) {
+      if (child.type === "containerDirective") {
+        maxNesting = Math.max(maxNesting, nesting + 1);
+        visit(child, nesting + 1);
+      } else {
+        visit(child, nesting);
+      }
+    }
+  };
+  visit(node, 0);
+
+  return maxNesting + 3;
+}
+
+function printDirectiveOpening(path, options, print, fence) {
+  const { node } = path;
+  return [
     fence,
     node.name,
     printDirectiveLabel(path, options, print),
     printDirectiveAttributes(path, options),
   ];
-
-  const childrenDocs = printDirectiveChildren(path, options, print);
-
-  if (childrenDocs) {
-    parts.push(hardline, childrenDocs);
-  }
-
-  if (fence === ":::") {
-    parts.push(hardline, fence);
-  }
-
-  return parts;
 }
 
-function printLeafDirective(path, options, print) {
+function printContainerDirective(path, options, print) {
   const { node } = path;
+  const fence = ":".repeat(getContainerDirectiveFenceSize(node));
+
+  let hasContent = false;
+  const content = printChildren(path, options, print, {
+    processor({ isFirst, node }) {
+      if (isFirst && isInlineDirectiveLabel(node)) {
+        return false;
+      }
+
+      hasContent = true;
+      return print();
+    },
+  });
+
   return [
-    printDirectiveFence(path),
-    node.name,
-    printDirectiveLabel(path, options, print),
-    printDirectiveAttributes(path, options),
+    printDirectiveOpening(path, options, print, fence),
+    hasContent ? [hardline, content] : "",
+    hardline,
+    fence,
   ];
 }
 
-export { printDirectiveContainer, printLeafDirective };
+function printLeafDirective(path, options, print) {
+  return printDirectiveOpening(path, options, print, "::");
+}
+
+function printTextDirective(path, options, print) {
+  return printDirectiveOpening(path, options, print, ":");
+}
+
+export { printContainerDirective, printLeafDirective, printTextDirective };
