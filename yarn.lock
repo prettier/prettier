@@ -8145,6 +8145,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-less@patch:postcss-less@npm%3A6.0.0#~/.yarn/patches/postcss-less-npm-6.0.0-4aa4c2f75b.patch":
+  version: 6.0.0
+  resolution: "postcss-less@patch:postcss-less@npm%3A6.0.0#~/.yarn/patches/postcss-less-npm-6.0.0-4aa4c2f75b.patch::version=6.0.0&hash=c600cb"
+  peerDependencies:
+    postcss: ^8.3.5
+  checksum: 10/7599b7f84b61152ddabdfeae2a7d617135562327b9789550ddae0b71a304386226a9557e1ba235ce40ca6df64b693f290b19fe9e403e11821487cb061ed8df36
+  languageName: node
+  linkType: hard
+
 "postcss-media-query-parser@npm:0.2.3":
   version: 0.2.3
   resolution: "postcss-media-query-parser@npm:0.2.3"
@@ -8343,7 +8352,7 @@ __metadata:
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
     postcss: "npm:8.5.28"
-    postcss-less: "npm:6.0.0"
+    postcss-less: "patch:postcss-less@npm%3A6.0.0#~/.yarn/patches/postcss-less-npm-6.0.0-4aa4c2f75b.patch"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
     postcss-selector-parser: "npm:2.2.3"

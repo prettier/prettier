@@ -109,7 +109,7 @@
     "parse-json": "8.3.0",
     "picocolors": "1.1.1",
     "postcss": "8.5.28",
-    "postcss-less": "6.0.0",
+    "postcss-less": "patch:postcss-less@npm%3A6.0.0#~/.yarn/patches/postcss-less-npm-6.0.0-4aa4c2f75b.patch",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.9",
     "postcss-selector-parser": "2.2.3",
