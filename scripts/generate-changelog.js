@@ -10,46 +10,70 @@
  */
 
 import fs from "node:fs/promises";
-import enquirer from "enquirer";
+import * as prompts from "@clack/prompts";
 import openEditor from "open-editor";
-import { CHANGELOG_CATEGORIES } from "./utilities/changelog.js";
+import { categories } from "./utilities/changelog.js";
 
-const prNumberPrompt = new enquirer.NumberPrompt({
-  message: "Input your Pull Request number:",
-});
-const prNumber = await prNumberPrompt.run();
+async function generateChangelog() {
+  let prNumber = await prompts.text({
+    message: "Pull request number:",
+    initialValue: "",
+    validate(value) {
+      value = value.trim();
 
-const categoryPrompt = new enquirer.AutoComplete({
-  message: "Input category of your Pull Request:",
-  limit: CHANGELOG_CATEGORIES.length,
-  // The array passed to `choices` will be broken, so copy it.
-  choices: [...CHANGELOG_CATEGORIES],
-});
-const category = (await categoryPrompt.run()).trim();
+      if (!value) {
+        return "Pull request number is required.";
+      }
 
-if (!prNumber || !category) {
-  throw new Error("Two args are required.");
-}
-assertCategory(category);
+      if (!/^\d{4,}$/.test(value)) {
+        return "Invalid pull request number.";
+      }
+    },
+    withGuide: false,
+  });
 
-const { title, user } = await getPr(prNumber);
+  if (prompts.isCancel(prNumber)) {
+    return;
+  }
 
-const content = await createChangelog(title, user, prNumber, category);
+  const category = await prompts.autocomplete({
+    message: "Category:",
+    options: categories.map((category) => ({
+      value: category.dir,
+      label: category.title,
+    })),
+    withGuide: false,
+  });
 
-const file = await addNewChangelog(prNumber, category, content);
+  if (prompts.isCancel(category)) {
+    return;
+  }
 
-const relativePath = file.href.slice(
-  new URL("../", import.meta.url).href.length,
-);
+  prNumber = prNumber.trim();
 
-console.log("Generated changelog file: " + relativePath);
+  const { title, user } = await getPr(prNumber);
 
-const shouldOpenChangelog = await new enquirer.Confirm({
-  message: "Open changelog file?",
-  initial: true,
-}).run();
+  const content = await createChangelog(title, user, prNumber, category);
 
-if (shouldOpenChangelog) {
+  const file = await addNewChangelog(prNumber, category, content);
+
+  const relativePath = file.href.slice(
+    new URL("../", import.meta.url).href.length,
+  );
+
+  console.log("Generated changelog file: " + relativePath);
+
+  const shouldOpenChangelog = await prompts.confirm({
+    message: "Open changelog file?",
+    initialValue: true,
+    vertical: true,
+    withGuide: false,
+  });
+
+  if (prompts.isCancel(shouldOpenChangelog) || !shouldOpenChangelog) {
+    return;
+  }
+
   try {
     openEditor([file]);
   } catch (error) {
@@ -58,7 +82,7 @@ if (shouldOpenChangelog) {
 }
 
 /**
- * @param {number} prNumber
+ * @param {string} prNumber
  * @returns {Promise<{ title: string; user: string }>}
  */
 async function getPr(prNumber) {
@@ -199,12 +223,4 @@ function generateComment(syntax, comment) {
   }
 }
 
-/**
- * @param {unknown}
- * @returns {void}
- */
-function assertCategory(category) {
-  if (!CHANGELOG_CATEGORIES.includes(category)) {
-    throw new Error(`${category} is invalid category`);
-  }
-}
+await generateChangelog();

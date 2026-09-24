@@ -15314,7 +15314,7 @@ parsers: ["less"]
   my-prop: prop-value;
 }
 .test-prop-interp {
-  value: #namespace[$ @prop-name];
+  value: #namespace[$@prop-name];
 }
 
 // Lines 43-47: Variable not found error path

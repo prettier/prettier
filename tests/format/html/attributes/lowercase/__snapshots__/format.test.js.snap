@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div
+  CLASS="should print as lowercase"
+  UNKNOWN="should print as UPPERCASE"
+>
+  Tag with attributes
+</div>
+<span
+  CLASS="should print as lowercase"
+  UNKNOWN="should print as UPPERCASE"
+>
+  Tag without attributes
+</span>
+<unknown
+  CLASS="should print as UPPERCASE"
+  UNKNOWN="should print as UPPERCASE"
+>
+  Non-html element
+</unknown>
+=====================================output=====================================
+<div class="should print as lowercase" UNKNOWN="should print as UPPERCASE">
+  Tag with attributes
+</div>
+<span class="should print as lowercase" UNKNOWN="should print as UPPERCASE">
+  Tag without attributes
+</span>
+<unknown CLASS="should print as UPPERCASE" UNKNOWN="should print as UPPERCASE">
+  Non-html element
+</unknown>
+
+================================================================================
+`;

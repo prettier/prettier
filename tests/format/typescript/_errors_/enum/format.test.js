@@ -11,7 +11,7 @@ runFormatTest(
       `,
     ),
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );
 
 runFormatTest(
@@ -32,5 +32,6 @@ runFormatTest(
     // https://github.com/microsoft/TypeScript/issues/61834
     // https://github.com/microsoft/TypeScript/issues/42468
     // "oxc-ts",
+    "yuku-ts",
   ],
 );

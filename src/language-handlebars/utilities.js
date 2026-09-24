@@ -34,6 +34,20 @@ function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
+function isPlainTextElement(node) {
+  return (
+    node.type === "ElementNode" &&
+    node.children.length === 1 &&
+    node.children[0].type === "TextNode"
+  );
+}
+
+function isPlainTextStyleOrScriptElement(node) {
+  return (
+    isPlainTextElement(node) && (node.tag === "style" || node.tag === "script")
+  );
+}
+
 function isPrettierIgnoreNode(node) {
   return (
     node?.type === "MustacheCommentStatement" &&
@@ -53,4 +67,9 @@ function hasPrettierIgnore(path) {
   );
 }
 
-export { hasPrettierIgnore, isVoidElement, isWhitespaceNode };
+export {
+  hasPrettierIgnore,
+  isPlainTextStyleOrScriptElement,
+  isVoidElement,
+  isWhitespaceNode,
+};

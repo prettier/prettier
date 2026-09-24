@@ -5,7 +5,7 @@ const packageJsonFile = new URL("../package.json", import.meta.url);
 const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
 
 const argv = process.argv.slice(2);
-/** @type {14 | 16} */
+/** @type {14 | 16 | 18} */
 const nodeVersion = Number(argv[1]);
 
 assert.ok(
@@ -14,7 +14,7 @@ assert.ok(
 );
 
 assert.ok(
-  nodeVersion === 14 || nodeVersion === 16,
+  nodeVersion === 14 || nodeVersion === 16 || nodeVersion === 18,
   "Unexpected `--node-version`.",
 );
 
@@ -85,15 +85,41 @@ const jestVersion =
   nodeVersion === 14
     ? // `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
       "30.0.0-alpha.2"
-    : // `jest@30.0.0-alpha.7` is the last version that supports Node.js v16
-      "30.0.0-alpha.7";
+    : nodeVersion === 16
+      ? // `jest@30.0.0-alpha.7` is the last version that supports Node.js v16
+        "30.0.0-alpha.7"
+      : undefined;
 
-packageJson.resolutions = {
-  ...packageJson.resolutions,
-  ...Object.fromEntries(jestDependencies.map((name) => [name, jestVersion])),
-};
-packageJson.devDependencies["jest-light-runner"] = "0.7.13";
+const jestLightRunnerVersion =
+  nodeVersion === 14 || nodeVersion === 16
+    ? "0.7.13"
+    : nodeVersion === 18
+      ? "0.8.1"
+      : undefined;
 
-const content = JSON.stringify(packageJson, undefined, 2);
+const resolutions = { ...packageJson.resolutions };
+const devDependencies = { ...packageJson.devDependencies };
+if (jestVersion) {
+  Object.assign(
+    resolutions,
+    Object.fromEntries(jestDependencies.map((name) => [name, jestVersion])),
+  );
+}
+if (jestLightRunnerVersion) {
+  devDependencies["jest-light-runner"] = jestLightRunnerVersion;
+
+  if (nodeVersion === 18) {
+    Object.assign(resolutions, {
+      // Avoid different versions installed
+      "jest-snapshot": devDependencies.jest,
+    });
+  }
+}
+
+const content = JSON.stringify(
+  { ...packageJson, resolutions, devDependencies },
+  undefined,
+  2,
+);
 
 fs.writeFileSync(packageJsonFile, content);

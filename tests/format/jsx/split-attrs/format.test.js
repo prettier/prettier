@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["flow", "babel", "typescript"]);
+runFormatTest(import.meta, ["babel", "typescript", "flow"]);

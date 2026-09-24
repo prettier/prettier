@@ -1,4 +1,4 @@
-import stringify from "fast-json-stable-stringify";
+import { stringify } from "json-stringify-stable-replacer";
 import { format, getSupportInfo } from "../index.js";
 import { omit, printToScreen } from "./utilities.js";
 

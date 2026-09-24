@@ -33,6 +33,43 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`empty-line-after-function.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  clip-path: polygon(
+    0 calc(100% - 1px),
+
+    100% 100%
+  );
+  width: fn(
+    1px calc(1px + 2px),
+
+
+
+    2px 3px
+  );
+}
+
+=====================================output=====================================
+a {
+  clip-path: polygon(
+    0 calc(100% - 1px),
+
+    100% 100%
+  );
+  width: fn(
+    1px calc(1px + 2px),
+
+    2px 3px
+  );
+}
+
+================================================================================
+`;
+
 exports[`parens.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -284,22 +321,6 @@ a {
     ;
 }
 
-.bar {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
-    filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
-}
-
-.unicode-ranges
-{
-    /* <unicode-range> values */
-    unicode-range: U+26;               /* single codepoint */
-    unicode-range: U+0-7F;
-    unicode-range: U+0025-00FF;        /* codepoint range */
-    unicode-range: U+4??;              /* wildcard range */
-    unicode-range: U+0025-00FF, U+4??; /* multiple values */
-}
-
 // no space after unary minus when followed by opening parenthesis, #13998
 .unary_minus_single {
   margin: -(@a);
@@ -470,21 +491,6 @@ a {
   prop23: attr(data-size em, 20);
   prop24: attr(data-size em, 20);
   prop25: attr(data-size em, 20);
-}
-
-.bar {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
-  filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
-}
-
-.unicode-ranges {
-  /* <unicode-range> values */
-  unicode-range: U+26; /* single codepoint */
-  unicode-range: U+0-7F;
-  unicode-range: U+0025-00FF; /* codepoint range */
-  unicode-range: U+4??; /* wildcard range */
-  unicode-range: U+0025-00FF, U+4??; /* multiple values */
 }
 
 // no space after unary minus when followed by opening parenthesis, #13998

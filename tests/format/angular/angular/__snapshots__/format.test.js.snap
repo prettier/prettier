@@ -3938,6 +3938,82 @@ trailingComma: "none"
 ================================================================================
 `;
 
+exports[`ng-model-options.html - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<input ng-model-options="   {    debounce : 1000 , 'updateOn' : 'blur' }" />
+
+=====================================output=====================================
+<input ng-model-options="{debounce: 1000, updateOn: 'blur'}" />
+
+================================================================================
+`;
+
+exports[`ng-model-options.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<input ng-model-options="   {    debounce : 1000 , 'updateOn' : 'blur' }" />
+
+=====================================output=====================================
+<input ng-model-options="{ debounce: 1000, updateOn: 'blur' }" />
+
+================================================================================
+`;
+
+exports[`ng-model-options.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<input ng-model-options="   {    debounce : 1000 , 'updateOn' : 'blur' }" />
+
+=====================================output=====================================
+<input
+  ng-model-options="{
+    debounce: 1000,
+    updateOn:
+      'blur',
+  }"
+/>
+
+================================================================================
+`;
+
+exports[`ng-model-options.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<input ng-model-options="   {    debounce : 1000 , 'updateOn' : 'blur' }" />
+
+=====================================output=====================================
+<input ng-model-options="{ debounce: 1000, updateOn: 'blur' }" />
+
+================================================================================
+`;
+
+exports[`ng-model-options.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<input ng-model-options="   {    debounce : 1000 , 'updateOn' : 'blur' }" />
+
+=====================================output=====================================
+<input ng-model-options="{ debounce: 1000, updateOn: 'blur' }" />
+
+================================================================================
+`;
+
 exports[`real-world.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false

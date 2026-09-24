@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Type<T> = { [K in keyof T]: /** Comment */ B };
+
+type Type<T> = {
+  [K in keyof T]: /** Comment */
+    B;
+};
+
+type Type<T> = { [K in keyof T]: /** Comment */ | B };
+
+type Type<T> = { [K in keyof T] /** Comment */: B | C };
+
+type Type<T> = { [K in keyof T as \`get\${K}\`]: /** Comment */ B };
+
+type Type<T> = { [K in keyof T as \`get\${K}\`]: /** Comment */ | B };
+
+type Type<T> = { [K in keyof T as K extends string ? K : never]: /** Comment */ B };
+
+type Type<T> = {
+  [K in keyof T as K extends string ? K : never] /** Comment */: B | C;
+};
+
+=====================================output=====================================
+type Type<T> = { [K in keyof T]: /** Comment */ B };
+
+type Type<T> = {
+  [K in keyof T]: /** Comment */ B;
+};
+
+type Type<T> = { [K in keyof T]: /** Comment */ B };
+
+type Type<T> = { [K in keyof T /** Comment */]: B | C };
+
+type Type<T> = { [K in keyof T as \`get\${K}\`]: /** Comment */ B };
+
+type Type<T> = { [K in keyof T as \`get\${K}\`]: /** Comment */ B };
+
+type Type<T> = {
+  [K in keyof T as K extends string ? K : never]: /** Comment */ B;
+};
+
+type Type<T> = {
+  [K in keyof T as K extends string ? K : never /** Comment */]: B | C;
+};
+
+================================================================================
+`;
+
 exports[`intersection.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

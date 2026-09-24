@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+"Unexpected token (1:7)
+> 1 | const #{ a, b } = #{ a: 1, b: 2 };
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #1 format 1`] = `
+"Unexpected token (1:7)
+> 1 | const #[a, b] = #[1, 2];
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #2 format 1`] = `
+"Unexpected token (1:2)
+> 1 | [| 1 |]
+    |  ^
+Cause: Unexpected token (1:1)"
+`;
+
+exports[`snippet: #3 format 1`] = `
+"Identifier directly after number. (1:12)
+> 1 | 0b101011101m;
+    |            ^
+Cause: Identifier directly after number. (1:11)"
+`;
+
+exports[`snippet: #4 format 1`] = `
+"Identifier directly after number. (1:8)
+> 1 | 0x16432m;
+    |        ^
+Cause: Identifier directly after number. (1:7)"
+`;
+
+exports[`snippet: #5 format 1`] = `
+"Identifier directly after number. (1:8)
+> 1 | 0o16432m;
+    |        ^
+Cause: Identifier directly after number. (1:7)"
+`;

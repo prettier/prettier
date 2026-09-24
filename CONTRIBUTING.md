@@ -63,17 +63,17 @@ A list of parser names.
 
 The tests verify that the parsers in this list produce the same output.
 
-If the list includes `typescript`, then `babel-ts`, and `oxc-ts` are included implicitly.
+If the list includes `typescript`, then `babel-ts`, `oxc-ts`, and `yuku-ts` are included implicitly.
 
 If the list includes `flow`, then `hermes` is included implicitly.
 
-If the list includes `babel`, and the current directory is inside `tests/format/js` or `tests/format/jsx`, then `acorn`, `espree`, `meriyah`, and `oxc` are included implicitly.
+If the list includes `babel`, and the current directory is inside `tests/format/js` or `tests/format/jsx`, then `acorn`, `espree`, `meriyah`, `oxc`, and `yuku` are included implicitly.
 
 ### **`options`**
 
 In addition to Prettier's formatting options, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
-The implementation of `runFormatTest` can be found in [`tests/config/run-format-test.js`](tests/config/run-format-test.js).
+The implementation of `runFormatTest` can be found in [`tests/config/format-test/run-format-test.js`](tests/config/format-test/index.js).
 
 `tests/format/flow/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.cjs ../flow/tests/`.
 

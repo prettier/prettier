@@ -15,4 +15,4 @@ const jsonStringify = /* @__PURE__ */ createParser({
   astFormat: "estree-json",
 });
 
-export { json, json5, jsonc, jsonStringify as "json-stringify" };
+export { json, jsonStringify as "json-stringify", json5, jsonc };

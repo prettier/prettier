@@ -1,4 +1,5 @@
-let m = module {
-  export let m = 2;
-  export let n = 3;
-};
+/*
+`moduleBlocks` ([proposal](https://github.com/tc39/proposal-js-module-blocks))
+*/
+
+let m = module { export let y = 1; };

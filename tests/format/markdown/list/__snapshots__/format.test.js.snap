@@ -679,6 +679,26 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-19644.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- [x] short first line.
+
+      second paragraph at six spaces that wraps
+      onto another line here.
+
+=====================================output=====================================
+- [x] short first line.
+
+      second paragraph at six spaces that wraps
+      onto another line here.
+
+================================================================================
+`;
+
 exports[`long-paragraph.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

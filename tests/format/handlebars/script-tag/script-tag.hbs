@@ -1,0 +1,31 @@
+<script></script>
+
+<script>   </script>
+
+<script type="module">
+  import    a   from   "a"   ;
+</script>
+
+<script>
+  // Should not support TLA in script without `[type="module"]`
+  await shouldNotFormat   (   a   );
+</script>
+<script type="module">
+  // TLA
+  await shouldFormat   (   a   );
+</script>
+
+<script type="module">
+<!--Should not support HTML comment in `script[type="module"]`
+  shouldNotFormat   (   a   );
+-->
+</script>
+<script>
+<!--html comment
+  shouldFormat   (   a   );
+-->
+</script>
+
+<script>
+  const template = html`<div><script>shouldFormat   (   )<\/script></div>`;
+</script>

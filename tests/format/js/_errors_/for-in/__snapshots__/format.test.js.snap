@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`no-for-in-init-concise-binary-in.js format[babel] 1`] = `
+"Unexpected token, expected ")" (3:18)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |                  ^
+  4 |
+Cause: Unexpected token, expected ")" (3:17)"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[babel-ts] 1`] = `
+"Unexpected token, expected ")" (3:18)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |                  ^
+  4 |
+Cause: Unexpected token, expected ")" (3:17)"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[flow] 1`] = `
+"Invalid left-hand side in for-in (3:6)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |      ^
+  4 |
+Cause: Invalid left-hand side in for-in (3:5)"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[hermes] 1`] = `
+"')' expected after 'for(... in/of ...' (3:18)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |                  ^
+  4 |
+Cause: ')' expected after 'for(... in/of ...' (3:17)
+for (() => x in y;;);
+    ~~~~~~~~~~~~~^"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[oxc] 1`] = `
+"Cannot assign to this expression (3:6)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |      ^^^^^^^
+  4 |"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[oxc-ts] 1`] = `
+"Cannot assign to this expression (3:6)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |      ^^^^^^^
+  4 |"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[typescript] 1`] = `
+"')' expected. (3:18)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |                  ^
+  4 |
+Cause: ')' expected."
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[yuku] 1`] = `
+"Invalid element in assignment pattern (3:6)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |      ^^^^^^^
+  4 |"
+`;
+
+exports[`no-for-in-init-concise-binary-in.js format[yuku-ts] 1`] = `
+"Invalid element in assignment pattern (3:6)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 |
+> 3 | for (() => x in y;;);
+    |      ^^^^^^^
+  4 |"
+`;

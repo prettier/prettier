@@ -2,7 +2,7 @@
 
 exports[`relational-operators.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 (<div />) < 5;
@@ -47,4 +47,14 @@ parsers: ["babel", "typescript"]
 <div></div> >= <div></div>;
 
 ================================================================================
+`;
+
+exports[`relational-operators.js format[flow] 1`] = `
+"Unexpected token <. Remember, adjacent JSX elements must be wrapped in an enclosing parent tag (1:11)
+> 1 | (<div />) < 5;
+    |           ^
+  2 | <div /> > 5;
+  3 | (<div></div>) < 5;
+  4 | <div></div> > 5;
+Cause: Unexpected token <. Remember, adjacent JSX elements must be wrapped in an enclosing parent tag (1:10)"
 `;

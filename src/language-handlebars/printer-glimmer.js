@@ -20,6 +20,7 @@ import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import {
   hasPrettierIgnore,
+  isPlainTextStyleOrScriptElement,
   isVoidElement,
   isWhitespaceNode,
 } from "./utilities.js";
@@ -59,11 +60,11 @@ function print(path, options, print) {
       }
 
       const endingTag = ["</", node.tag, ">"];
-      const isStyle = node.tag === "style";
+      const isPlainStyleOrScript = isPlainTextStyleOrScriptElement(node);
 
       if (
         node.children.length === 0 ||
-        ((!isWhitespaceSensitive || isStyle) &&
+        ((!isWhitespaceSensitive || isPlainStyleOrScript) &&
           node.children.every((node) => isWhitespaceNode(node)))
       ) {
         return [startingTag, endingTag];
@@ -71,7 +72,7 @@ function print(path, options, print) {
 
       const parts = path.map(print, "children");
 
-      if (isStyle || !isWhitespaceSensitive) {
+      if (!isWhitespaceSensitive || isPlainStyleOrScript) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
@@ -162,7 +163,8 @@ function print(path, options, print) {
     case "TextNode": {
       // Don't format content:
       // 1. in `<pre>`,
-      // 2. in `<style>`
+      // 2. in `<style>`,
+      // 3. in `<script>`
 
       let text = node.chars;
 
@@ -172,7 +174,10 @@ function print(path, options, print) {
           return replaceEndOfLine(text);
         }
 
-        if (parent.tag === "style") {
+        if (
+          isPlainTextStyleOrScriptElement(parent) &&
+          parent.children[0] === node
+        ) {
           text = text.replaceAll(/^\n+/g, "");
           text = htmlWhitespace.trimEnd(text);
           text = htmlWhitespace.dedentString(text);

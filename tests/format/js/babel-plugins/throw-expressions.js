@@ -1,5 +1,5 @@
-// https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
+/*
+`throwExpressions` ([proposal](https://github.com/babel/proposals/issues/23))
+*/
 
-function test(param = throw new Error('required!')) {
-  const test = param === true || throw new Error('Falsy!');
-}
+() => throw new Error("")

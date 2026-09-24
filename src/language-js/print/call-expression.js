@@ -134,7 +134,7 @@ function isSimpleModuleImport(path) {
   const { node } = path;
 
   if (!(
-    // `import("foo")`
+    // `import("foo")` and `import.{defer,source}("foo")`
     node.type === "ImportExpression" ||
     // `type foo = import("foo")`
     node.type === "TSImportType" ||

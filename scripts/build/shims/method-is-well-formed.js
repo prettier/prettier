@@ -1,36 +1,19 @@
 import { createMethodShim } from "./shared.js";
 
-const LeadSurrogateMin = 0xd800;
-const LeadSurrogateMax = 0xdbff;
-const TrailSurrogateMin = 0xdc00;
+const loneSurrogate = /[\uD800-\uDFFF]/u;
 
 const stringIsWellFormed =
   String.prototype.isWellFormed ??
   /*
   This implementation is not verified, should only apply to meriyah package
   https://github.com/meriyah/meriyah/pull/527
+
+  Update: acorn and babel just use `/[\uD800-\uDFFF]/u.test()`, aligned with them
+  https://github.com/acornjs/acorn/blob/c8d515c7f9c8baa62bf5ccffba98507b7be46218/acorn/src/statement.js#L1228
+  https://github.com/babel/babel/blob/e74e391f324d1e63533e75c118a02689cb8aeeb4/packages/babel-parser/src/parser/statement.ts#L2679
   */
   function () {
-    const { length } = this;
-    for (let index = 0; index < length; index++) {
-      const code = this.charCodeAt(index);
-
-      // Single UTF-16 unit
-      if ((code & 0xfc00) !== LeadSurrogateMin) {
-        continue;
-      }
-
-      // unpaired surrogate
-      if (
-        code > LeadSurrogateMax ||
-        ++index >= length ||
-        (this.charCodeAt(index) & 0xfc00) !== TrailSurrogateMin
-      ) {
-        return false;
-      }
-    }
-
-    return true;
+    return !loneSurrogate.test(this);
   };
 
 const isWellFormed = /* @__PURE__ */ createMethodShim(

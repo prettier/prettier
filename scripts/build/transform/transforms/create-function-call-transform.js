@@ -9,7 +9,7 @@ import { createIdentifier, isIdentifier } from "./utilities.js";
  * @returns {boolean}
  */
 function isFunctionCall(node, { function: name, argumentsLength }) {
-  const [objectName, methodName] = name.split(".");
+  const [objectName, methodName] = name.split(".", 2);
 
   return (
     node.type === "CallExpression" &&

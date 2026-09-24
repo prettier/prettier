@@ -548,3 +548,12 @@ exports[`readonlyReadonly.ts format[oxc-ts] 1`] = `
   3 |     constructor(readonly readonly y: number) {}
   4 | }"
 `;
+
+exports[`readonlyReadonly.ts format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'x' (2:23)
+  1 | class C {
+> 2 |     readonly readonly x: number;
+    |                       ^
+  3 |     constructor(readonly readonly y: number) {}
+  4 | }"
+`;

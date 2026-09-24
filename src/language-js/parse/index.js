@@ -7,3 +7,4 @@ export * from "./hermes.js";
 export * from "./meriyah.js";
 export * from "./oxc.js";
 export * from "./typescript.js";
+export * from "./yuku.js";

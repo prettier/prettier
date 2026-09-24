@@ -59,7 +59,7 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "acorn", "espree", "meriyah", "oxc"],
+      parsers: ["babel", "acorn", "espree", "meriyah", "oxc", "yuku"],
       verifyParsers: [
         "babel",
         "acorn",
@@ -67,6 +67,8 @@ const categoryParsers = new Map([
         "meriyah",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
         "flow",
         "babel-flow",
         "typescript",
@@ -98,10 +100,11 @@ const categoryParsers = new Map([
         "meriyah",
         "acorn",
         "espree",
-        "espree",
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
       ],
       verifyParsers: [
         "babel",
@@ -113,10 +116,11 @@ const categoryParsers = new Map([
         "meriyah",
         "acorn",
         "espree",
-        "espree",
         "hermes",
         "oxc",
         "oxc-ts",
+        "yuku",
+        "yuku-ts",
       ],
       extensions: [".js", ".jsx"],
     },
@@ -149,8 +153,15 @@ const categoryParsers = new Map([
   [
     "typescript",
     {
-      parsers: ["typescript", "babel-ts", "oxc-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow", "oxc-ts"],
+      parsers: ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
+      verifyParsers: [
+        "typescript",
+        "babel-ts",
+        "flow",
+        "babel-flow",
+        "oxc-ts",
+        "yuku-ts",
+      ],
       extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],
@@ -180,7 +191,11 @@ const verifyParsers = (context) => {
   const { explicitParsers: parsers, dirname } = context;
 
   if (!Array.isArray(parsers) || parsers.length === 0) {
-    throw new Error(`No parsers were specified for ${dirname}`);
+    throw new Error(`No parsers were specified for '${dirname}'.`);
+  }
+
+  if (new Set(parsers).size !== parsers.length) {
+    throw new Error(`Parsers should be unique for '${dirname}'.`);
   }
 
   const category = getCategory(dirname);

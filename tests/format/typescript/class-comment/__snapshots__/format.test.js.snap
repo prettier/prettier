@@ -94,8 +94,10 @@ class a2 extends b implements z {
 
 class a3
   extends b
-  // comment
-  implements z, y
+  implements
+    // comment
+    z,
+    y
 {
   constructor() {}
 }
@@ -121,8 +123,8 @@ class a5
 
 class a6
   extends b
-  // comment-z1
   implements
+    // comment-z1
     z, // comment-z2
     // comment-y1
     y
@@ -133,8 +135,8 @@ class a6
 
 class a7
   extends b
-  // comment-z1
   implements
+    // comment-z1
     z, // comment-z2
     // comment-y1
     y
@@ -147,8 +149,8 @@ class a7
 
 class a8
   extends b // comment-b
-  // comment-z1
   implements
+    // comment-z1
     z, // comment-z2
     // comment-y1
     y
@@ -161,8 +163,8 @@ class a9
   // comment-b1
   extends b // comment-b2
   // comment-b3
-  // comment-z1
   implements
+    // comment-z1
     z, // comment-z2
     // comment-y1
     y
@@ -259,6 +261,40 @@ class G4<
 {
   x: T;
 }
+
+================================================================================
+`;
+
+exports[`issue-16228.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C11 extends S implements /* foo */ Foo, /* bar */ Bar {
+}
+class C12 extends S implements /* foo */ Foo, /* bar */ Bar, /* baz */ Baz__________________________________ {
+}
+
+interface I11 extends /* foo */ Foo, /* bar */ Bar {
+}
+interface I12 extends /* foo */ Foo, /* bar */ Bar, /* baz */ Baz__________________________________ {
+}
+
+=====================================output=====================================
+class C11 extends S implements /* foo */ Foo, /* bar */ Bar {}
+class C12
+  extends S
+  implements
+    /* foo */ Foo,
+    /* bar */ Bar,
+    /* baz */ Baz__________________________________ {}
+
+interface I11 extends /* foo */ Foo, /* bar */ Bar {}
+interface I12
+  extends
+    /* foo */ Foo,
+    /* bar */ Bar,
+    /* baz */ Baz__________________________________ {}
 
 ================================================================================
 `;

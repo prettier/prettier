@@ -5,6 +5,8 @@
 # See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt
 
 # Prettier bump after release
+# 3.9.8
+88470cb79ca3b757dd6b93906d9a992aa1a456c3
 # 3.9.0
 bb817b1bd04c04e0a8d89cb52c256a38e17fd0f5
 # 3.7.0
@@ -59,3 +61,6 @@ cdb149417068f3de364fd8db5e9baaf9d2ff4f8c
 
 # Format test file rename (#16259)
 16449ce9140cac682eab3fb11e15beed14960da6
+
+# Move JS tests (#20032)
+2a68c62ea937b5b4904b66ab157efa7f35ea632e

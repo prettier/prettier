@@ -30,3 +30,15 @@ declare namespace f {}
 
 ================================================================================
 `;
+
+exports[`ambientDeclarations.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (8:16)
+   6 | declare interface c {}
+   7 | declare class d {}
+>  8 | declare module e {}
+     |                ^
+   9 | declare module "g" {}
+  10 | declare namespace f {}
+  11 |
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (8:15)"
+`;

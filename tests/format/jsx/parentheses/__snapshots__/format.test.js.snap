@@ -2,7 +2,7 @@
 
 exports[`argument.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 new A(
@@ -59,7 +59,7 @@ A(
 
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default <></>
@@ -71,7 +71,7 @@ export default <></>;
 
 exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default <div/>

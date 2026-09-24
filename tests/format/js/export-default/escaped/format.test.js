@@ -7,5 +7,7 @@ runFormatTest(import.meta, ["babel", "flow"], {
     hermes: true,
     oxc: true,
     "oxc-ts": true,
+    yuku: true,
+    "yuku-ts": true,
   },
 });

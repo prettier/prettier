@@ -2,7 +2,7 @@
 
 exports[`test.jsx format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 await(1);

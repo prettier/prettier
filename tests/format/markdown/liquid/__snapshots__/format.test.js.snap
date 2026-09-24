@@ -24,7 +24,8 @@ proseWrap: "always"
 
 {%
  if user
-%} Hello, {{ user }}! {% endif %}
+%} Hello, {{ user }}!
+{% endif %}
 
 ================================================================================
 `;
@@ -84,7 +85,8 @@ where does it end }}
 
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
-{% css userscripts %} {% js userscripts %}
+{% css userscripts %}
+{% js userscripts %}
 
 {{ foo
 multiline
@@ -167,7 +169,7 @@ bar  baz %}
 
 {{ foo
 
-bar baz
+bar   baz
 
 qux }}
 
@@ -177,7 +179,7 @@ qux }}
 
 {% foo %
 
-bar baz %}
+bar  baz %}
 
 ================================================================================
 `;
@@ -220,7 +222,7 @@ bar  baz %}
 
 {{ foo
 
-bar baz
+bar   baz
 
 qux }}
 
@@ -230,7 +232,7 @@ qux }}
 
 {% foo %
 
-bar baz %}
+bar  baz %}
 
 ================================================================================
 `;
@@ -402,6 +404,302 @@ This input uses Hugo shortcode. Prettier doesn't support this explicitly but it 
 
 {{ blocks/cover
 %}}
+
+================================================================================
+`;
+
+exports[`issue-19724.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+=====================================output=====================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+================================================================================
+`;
+
+exports[`issue-19724.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+=====================================output=====================================
+{% macro param_table(params=None) -%}
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+{% endmacro %}
+
+---
+
+> abc
+{% abc %}
+
+---
+
+Inline {{ liquid }} stays inline.
+
+---
+
+{% liquid %} followed by text
+
+================================================================================
+`;
+
+exports[`issue-19985.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+=====================================output=====================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private
+address is 10.0.0.1.
+{% /callout %}
+
+================================================================================
+`;
+
+exports[`issue-19985.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+=====================================output=====================================
+{% callout type="info" %}
+For the sake of example, the router's public address is 5.6.7.8 and its private address is 10.0.0.1.
+{% /callout %}
+
+================================================================================
+`;
+
+exports[`issue-20083.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
+
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+
+---
+
+text
+{% comment %} here is comment {% endcomment %}
+
+---
+
+text
+{{ comment }} here is comment {{ endcomment }}
+
+---
+
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
+{{abc}}
+
+---
+
+text
+{% tag %}
+
+=====================================output=====================================
+Taken from
+https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
+
+If \`module\` is not a
+[\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module)
+object instance, a {{jsxref("TypeError")}} is thrown.
+
+---
+
+text {% comment %} here is comment {% endcomment %}
+
+---
+
+text {{ comment }} here is comment {{ endcomment }}
+
+---
+
+text {% comment %} text
+
+---
+
+text {{ comment }} text
+
+---
+
+text
+{{abc}}
+
+---
+
+text
+{% tag %}
+
+================================================================================
+`;
+
+exports[`issue-20083.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
+
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+
+---
+
+text
+{% comment %} here is comment {% endcomment %}
+
+---
+
+text
+{{ comment }} here is comment {{ endcomment }}
+
+---
+
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
+{{abc}}
+
+---
+
+text
+{% tag %}
+
+=====================================output=====================================
+Taken from https://github.com/mdn/content/blob/3f221b9845703eb21db70cdc321f843d5c1c072b/files/en-us/webassembly/reference/javascript_interface/module/customsections_static/index.md?plain=1#L32-L33
+
+If \`module\` is not a [\`WebAssembly.Module\`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+
+---
+
+text
+{% comment %} here is comment {% endcomment %}
+
+---
+
+text
+{{ comment }} here is comment {{ endcomment }}
+
+---
+
+text
+{% comment %} text
+
+---
+
+text
+{{ comment }} text
+
+---
+
+text
+{{abc}}
+
+---
+
+text
+{% tag %}
 
 ================================================================================
 `;

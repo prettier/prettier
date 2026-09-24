@@ -37,6 +37,19 @@ function isWideKeywords(value) {
   return wideKeywords.has(value.toLowerCase());
 }
 
+const nthPseudoClasses = new Set([
+  ":nth-child",
+  ":nth-last-child",
+  ":nth-of-type",
+  ":nth-last-of-type",
+]);
+function isNthPseudoClassNode(node) {
+  return (
+    node?.type === "selector-pseudo" &&
+    nthPseudoClasses.has(node.value.toLowerCase())
+  );
+}
+
 function isKeyframeAtRuleKeywords(path, value) {
   const atRuleAncestorNode = path.findAncestor(
     (node) => node.type === "css-atrule",
@@ -441,6 +454,7 @@ export {
   isMathOperatorNode,
   isMediaAndSupportsKeywords,
   isMultiplicationNode,
+  isNthPseudoClassNode,
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,

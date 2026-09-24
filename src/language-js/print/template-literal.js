@@ -203,7 +203,12 @@ function getTemplateLiteralExpressionIndent(path, options) {
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
 */
-function printTemplateExpression(path, options, print) {
+function printTemplateExpression(
+  path,
+  options,
+  print,
+  shouldPreserveIndentation = true,
+) {
   const { node, index } = path;
   let expressionDoc = print();
 
@@ -223,6 +228,7 @@ function printTemplateExpression(path, options, print) {
     const renderedExpression = printDocToString(expressionDoc, {
       ...options,
       printWidth: Number.POSITIVE_INFINITY,
+      endOfLine: "lf",
     }).formatted;
 
     // ... unless one will be introduced anyway, e.g. by a nested function.
@@ -247,6 +253,11 @@ function printTemplateExpression(path, options, print) {
       isBinaryish(node))
   ) {
     expressionDoc = [indent([softline, expressionDoc]), softline];
+  }
+
+  // There is no way to know how the quasis will be printed
+  if (!shouldPreserveIndentation) {
+    return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
   }
 
   // For a template literal of the following form:
@@ -280,6 +291,19 @@ function printTemplateExpressions(path, options, print) {
   return path.map(
     () => printTemplateExpression(path, options, print),
     path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
+  );
+}
+
+function printEmbeddedTemplateExpressions(path, options, print) {
+  return path.map(
+    () =>
+      printTemplateExpression(
+        path,
+        options,
+        print,
+        /* shouldPreserveIndentation */ false,
+      ),
+    "expressions",
   );
 }
 
@@ -331,8 +355,8 @@ function isJestEachTemplateLiteral({ node, parent }) {
 
 export {
   escapeTemplateCharacters,
+  printEmbeddedTemplateExpressions,
   printTaggedTemplateExpression,
-  printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,
 };

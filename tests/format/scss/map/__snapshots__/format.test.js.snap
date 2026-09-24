@@ -1114,6 +1114,134 @@ $map: (
 ================================================================================
 `;
 
+exports[`empty-line-after-function.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (
+  a: calc(1px + 2px),
+
+  b: rgba(0, 0, 0, 0.5),
+
+  c: 1px,
+
+  d: fn(fn(1)),
+
+  e: 2px
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+  b: 2px,
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+
+
+
+  b: 2px,
+);
+
+
+=====================================output=====================================
+$map: (
+  a: calc(1px + 2px),
+
+  b: rgba(0, 0, 0, 0.5),
+
+  c: 1px,
+
+  d: fn(fn(1)),
+
+  e: 2px,
+);
+
+$map: (
+  a: calc(1px + 2px),
+
+  // comment
+  b: 2px,
+);
+
+$map: (
+  a: calc(1px + 2px),
+
+  // comment
+  b: 2px,
+);
+
+================================================================================
+`;
+
+exports[`empty-line-after-function.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (
+  a: calc(1px + 2px),
+
+  b: rgba(0, 0, 0, 0.5),
+
+  c: 1px,
+
+  d: fn(fn(1)),
+
+  e: 2px
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+  b: 2px,
+);
+
+$map: (
+  a: calc(1px + 2px), // comment
+
+
+
+
+  b: 2px,
+);
+
+
+=====================================output=====================================
+$map: (
+  a: calc(1px + 2px),
+
+  b: rgba(0, 0, 0, 0.5),
+
+  c: 1px,
+
+  d: fn(fn(1)),
+
+  e: 2px
+);
+
+$map: (
+  a: calc(1px + 2px),
+
+  // comment
+  b: 2px
+);
+
+$map: (
+  a: calc(1px + 2px),
+
+  // comment
+  b: 2px
+);
+
+================================================================================
+`;
+
 exports[`key-values.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

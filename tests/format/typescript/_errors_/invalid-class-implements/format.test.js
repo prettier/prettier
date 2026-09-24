@@ -6,5 +6,5 @@ runFormatTest(
       'class Foo implements "thing" {}',
     ].flatMap((code) => [code, `(${code})`]),
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );

@@ -97,7 +97,7 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 
 ```js
 import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
-import * as prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%1/plugins/graphql.mjs";
+import * as prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.mjs";
 
 const formatted = await prettier.format("type Query { hello: String }", {
   parser: "graphql",

@@ -26,6 +26,14 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: 'abstract' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:12)
+  1 | interface Foo {
+> 2 |   abstract method();
+    |            ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "'abstract' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -50,6 +58,14 @@ exports[`snippet: #1 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | }
 Cause: 'abstract' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:12)
+  1 | interface Foo {
+> 2 |   abstract property;
+    |            ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
@@ -78,6 +94,14 @@ exports[`snippet: #2 format[typescript] 1`] = `
 Cause: 'abstract' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | interface Foo {
+> 2 |   abstract [index: string]: number
+    |            ^
+  3 | }"
+`;
+
 exports[`snippet: #3 format[babel-ts] 1`] = `
 "'abstract' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -102,6 +126,14 @@ exports[`snippet: #3 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | } = {};
 Cause: 'abstract' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | const foo: {
+> 2 |   abstract [index: string] : string
+    |            ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #4 format[babel-ts] 1`] = `
@@ -130,6 +162,14 @@ exports[`snippet: #4 format[typescript] 1`] = `
 Cause: 'accessor' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:12)
+  1 | interface Foo {
+> 2 |   accessor method();
+    |            ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #5 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:12)
   1 | interface Foo {
@@ -154,6 +194,14 @@ exports[`snippet: #5 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | }
 Cause: 'accessor' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:12)
+  1 | interface Foo {
+> 2 |   accessor property;
+    |            ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #6 format[babel-ts] 1`] = `
@@ -182,6 +230,14 @@ exports[`snippet: #6 format[typescript] 1`] = `
 Cause: 'accessor' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #6 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | interface Foo {
+> 2 |   accessor [index: string]: number
+    |            ^
+  3 | }"
+`;
+
 exports[`snippet: #7 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:12)
   1 | const foo: {
@@ -206,6 +262,14 @@ exports[`snippet: #7 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | } = {};
 Cause: 'accessor' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #7 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | const foo: {
+> 2 |   accessor [index: string] : string
+    |            ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #8 format[babel-ts] 1`] = `
@@ -234,6 +298,14 @@ exports[`snippet: #8 format[typescript] 1`] = `
 Cause: 'async' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #8 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:9)
+  1 | interface Foo {
+> 2 |   async method();
+    |         ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #9 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:9)
   1 | interface Foo {
@@ -258,6 +330,14 @@ exports[`snippet: #9 format[typescript] 1`] = `
     |   ^^^^^
   3 | }
 Cause: 'async' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #9 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:9)
+  1 | interface Foo {
+> 2 |   async property;
+    |         ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #10 format[babel-ts] 1`] = `
@@ -286,6 +366,14 @@ exports[`snippet: #10 format[typescript] 1`] = `
 Cause: 'async' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #10 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:9)
+  1 | interface Foo {
+> 2 |   async [index: string]: number
+    |         ^
+  3 | }"
+`;
+
 exports[`snippet: #11 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:9)
   1 | const foo: {
@@ -310,6 +398,14 @@ exports[`snippet: #11 format[typescript] 1`] = `
     |   ^^^^^
   3 | } = {};
 Cause: 'async' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #11 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:9)
+  1 | const foo: {
+> 2 |   async [index: string] : string
+    |         ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #12 format[babel-ts] 1`] = `
@@ -338,6 +434,14 @@ exports[`snippet: #12 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #12 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:9)
+  1 | interface Foo {
+> 2 |   const method();
+    |         ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #13 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:9)
   1 | interface Foo {
@@ -362,6 +466,14 @@ exports[`snippet: #13 format[typescript] 1`] = `
     |         ^
   3 | }
 Cause: ';' expected."
+`;
+
+exports[`snippet: #13 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:9)
+  1 | interface Foo {
+> 2 |   const property;
+    |         ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #14 format[babel-ts] 1`] = `
@@ -390,6 +502,14 @@ exports[`snippet: #14 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #14 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:9)
+  1 | interface Foo {
+> 2 |   const [index: string]: number
+    |         ^
+  3 | }"
+`;
+
 exports[`snippet: #15 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:9)
   1 | const foo: {
@@ -414,6 +534,14 @@ exports[`snippet: #15 format[typescript] 1`] = `
     |         ^
   3 | } = {};
 Cause: ';' expected."
+`;
+
+exports[`snippet: #15 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:9)
+  1 | const foo: {
+> 2 |   const [index: string] : string
+    |         ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #16 format[babel-ts] 1`] = `
@@ -442,6 +570,14 @@ exports[`snippet: #16 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #16 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:11)
+  1 | interface Foo {
+> 2 |   declare method();
+    |           ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #17 format[babel-ts] 1`] = `
 "'declare' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -466,6 +602,14 @@ exports[`snippet: #17 format[typescript] 1`] = `
     |   ^^^^^^^
   3 | }
 Cause: 'declare' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #17 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:11)
+  1 | interface Foo {
+> 2 |   declare property;
+    |           ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #18 format[babel-ts] 1`] = `
@@ -494,6 +638,14 @@ exports[`snippet: #18 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #18 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | interface Foo {
+> 2 |   declare [index: string]: number
+    |           ^
+  3 | }"
+`;
+
 exports[`snippet: #19 format[babel-ts] 1`] = `
 "'declare' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -518,6 +670,14 @@ exports[`snippet: #19 format[typescript] 1`] = `
     |   ^^^^^^^
   3 | } = {};
 Cause: 'declare' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #19 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | const foo: {
+> 2 |   declare [index: string] : string
+    |           ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #20 format[babel-ts] 1`] = `
@@ -546,6 +706,14 @@ exports[`snippet: #20 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #20 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:11)
+  1 | interface Foo {
+> 2 |   default method();
+    |           ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #21 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:11)
   1 | interface Foo {
@@ -570,6 +738,14 @@ exports[`snippet: #21 format[typescript] 1`] = `
     |           ^
   3 | }
 Cause: ';' expected."
+`;
+
+exports[`snippet: #21 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:11)
+  1 | interface Foo {
+> 2 |   default property;
+    |           ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #22 format[babel-ts] 1`] = `
@@ -598,6 +774,14 @@ exports[`snippet: #22 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #22 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | interface Foo {
+> 2 |   default [index: string]: number
+    |           ^
+  3 | }"
+`;
+
 exports[`snippet: #23 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:11)
   1 | const foo: {
@@ -622,6 +806,14 @@ exports[`snippet: #23 format[typescript] 1`] = `
     |           ^
   3 | } = {};
 Cause: ';' expected."
+`;
+
+exports[`snippet: #23 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | const foo: {
+> 2 |   default [index: string] : string
+    |           ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #24 format[babel-ts] 1`] = `
@@ -650,6 +842,14 @@ exports[`snippet: #24 format[typescript] 1`] = `
 Cause: 'export' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #24 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:10)
+  1 | interface Foo {
+> 2 |   export method();
+    |          ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #25 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:10)
   1 | interface Foo {
@@ -674,6 +874,14 @@ exports[`snippet: #25 format[typescript] 1`] = `
     |   ^^^^^^
   3 | }
 Cause: 'export' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #25 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:10)
+  1 | interface Foo {
+> 2 |   export property;
+    |          ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #26 format[babel-ts] 1`] = `
@@ -702,6 +910,14 @@ exports[`snippet: #26 format[typescript] 1`] = `
 Cause: 'export' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #26 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | interface Foo {
+> 2 |   export [index: string]: number
+    |          ^
+  3 | }"
+`;
+
 exports[`snippet: #27 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:10)
   1 | const foo: {
@@ -726,6 +942,14 @@ exports[`snippet: #27 format[typescript] 1`] = `
     |   ^^^^^^
   3 | } = {};
 Cause: 'export' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #27 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | const foo: {
+> 2 |   export [index: string] : string
+    |          ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #28 format[babel-ts] 1`] = `
@@ -754,6 +978,14 @@ exports[`snippet: #28 format[typescript] 1`] = `
 Cause: 'in' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #28 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:6)
+  1 | interface Foo {
+> 2 |   in method();
+    |      ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #29 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:6)
   1 | interface Foo {
@@ -778,6 +1010,14 @@ exports[`snippet: #29 format[typescript] 1`] = `
     |   ^^
   3 | }
 Cause: 'in' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #29 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:6)
+  1 | interface Foo {
+> 2 |   in property;
+    |      ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #30 format[babel-ts] 1`] = `
@@ -806,6 +1046,14 @@ exports[`snippet: #30 format[typescript] 1`] = `
 Cause: 'in' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #30 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:6)
+  1 | interface Foo {
+> 2 |   in [index: string]: number
+    |      ^
+  3 | }"
+`;
+
 exports[`snippet: #31 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:6)
   1 | const foo: {
@@ -830,6 +1078,14 @@ exports[`snippet: #31 format[typescript] 1`] = `
     |   ^^
   3 | } = {};
 Cause: 'in' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #31 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:6)
+  1 | const foo: {
+> 2 |   in [index: string] : string
+    |      ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #32 format[babel-ts] 1`] = `
@@ -858,6 +1114,14 @@ exports[`snippet: #32 format[typescript] 1`] = `
 Cause: 'out' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #32 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:7)
+  1 | interface Foo {
+> 2 |   out method();
+    |       ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #33 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:7)
   1 | interface Foo {
@@ -882,6 +1146,14 @@ exports[`snippet: #33 format[typescript] 1`] = `
     |   ^^^
   3 | }
 Cause: 'out' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #33 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:7)
+  1 | interface Foo {
+> 2 |   out property;
+    |       ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #34 format[babel-ts] 1`] = `
@@ -910,6 +1182,14 @@ exports[`snippet: #34 format[typescript] 1`] = `
 Cause: 'out' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #34 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:7)
+  1 | interface Foo {
+> 2 |   out [index: string]: number
+    |       ^
+  3 | }"
+`;
+
 exports[`snippet: #35 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (2:7)
   1 | const foo: {
@@ -934,6 +1214,14 @@ exports[`snippet: #35 format[typescript] 1`] = `
     |   ^^^
   3 | } = {};
 Cause: 'out' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #35 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:7)
+  1 | const foo: {
+> 2 |   out [index: string] : string
+    |       ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #36 format[babel-ts] 1`] = `
@@ -962,6 +1250,14 @@ exports[`snippet: #36 format[typescript] 1`] = `
 Cause: 'override' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #36 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:12)
+  1 | interface Foo {
+> 2 |   override method();
+    |            ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #37 format[babel-ts] 1`] = `
 "'override' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -986,6 +1282,14 @@ exports[`snippet: #37 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | }
 Cause: 'override' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #37 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:12)
+  1 | interface Foo {
+> 2 |   override property;
+    |            ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #38 format[babel-ts] 1`] = `
@@ -1014,6 +1318,14 @@ exports[`snippet: #38 format[typescript] 1`] = `
 Cause: 'override' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #38 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | interface Foo {
+> 2 |   override [index: string]: number
+    |            ^
+  3 | }"
+`;
+
 exports[`snippet: #39 format[babel-ts] 1`] = `
 "'override' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -1038,6 +1350,14 @@ exports[`snippet: #39 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | } = {};
 Cause: 'override' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #39 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:12)
+  1 | const foo: {
+> 2 |   override [index: string] : string
+    |            ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #40 format[babel-ts] 1`] = `
@@ -1066,6 +1386,14 @@ exports[`snippet: #40 format[typescript] 1`] = `
 Cause: 'private' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #40 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:11)
+  1 | interface Foo {
+> 2 |   private method();
+    |           ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #41 format[babel-ts] 1`] = `
 "'private' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -1090,6 +1418,14 @@ exports[`snippet: #41 format[typescript] 1`] = `
     |   ^^^^^^^
   3 | }
 Cause: 'private' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #41 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:11)
+  1 | interface Foo {
+> 2 |   private property;
+    |           ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #42 format[babel-ts] 1`] = `
@@ -1118,6 +1454,14 @@ exports[`snippet: #42 format[typescript] 1`] = `
 Cause: 'private' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #42 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | interface Foo {
+> 2 |   private [index: string]: number
+    |           ^
+  3 | }"
+`;
+
 exports[`snippet: #43 format[babel-ts] 1`] = `
 "'private' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -1142,6 +1486,14 @@ exports[`snippet: #43 format[typescript] 1`] = `
     |   ^^^^^^^
   3 | } = {};
 Cause: 'private' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #43 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:11)
+  1 | const foo: {
+> 2 |   private [index: string] : string
+    |           ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #44 format[babel-ts] 1`] = `
@@ -1170,6 +1522,14 @@ exports[`snippet: #44 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #44 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:13)
+  1 | interface Foo {
+> 2 |   protected method();
+    |             ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #45 format[babel-ts] 1`] = `
 "'protected' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -1194,6 +1554,14 @@ exports[`snippet: #45 format[typescript] 1`] = `
     |   ^^^^^^^^^
   3 | }
 Cause: 'protected' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #45 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:13)
+  1 | interface Foo {
+> 2 |   protected property;
+    |             ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #46 format[babel-ts] 1`] = `
@@ -1222,6 +1590,14 @@ exports[`snippet: #46 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #46 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:13)
+  1 | interface Foo {
+> 2 |   protected [index: string]: number
+    |             ^
+  3 | }"
+`;
+
 exports[`snippet: #47 format[babel-ts] 1`] = `
 "'protected' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -1246,6 +1622,14 @@ exports[`snippet: #47 format[typescript] 1`] = `
     |   ^^^^^^^^^
   3 | } = {};
 Cause: 'protected' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #47 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:13)
+  1 | const foo: {
+> 2 |   protected [index: string] : string
+    |             ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #48 format[babel-ts] 1`] = `
@@ -1274,6 +1658,14 @@ exports[`snippet: #48 format[typescript] 1`] = `
 Cause: 'public' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #48 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:10)
+  1 | interface Foo {
+> 2 |   public method();
+    |          ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #49 format[babel-ts] 1`] = `
 "'public' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -1298,6 +1690,14 @@ exports[`snippet: #49 format[typescript] 1`] = `
     |   ^^^^^^
   3 | }
 Cause: 'public' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #49 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:10)
+  1 | interface Foo {
+> 2 |   public property;
+    |          ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #50 format[babel-ts] 1`] = `
@@ -1326,6 +1726,14 @@ exports[`snippet: #50 format[typescript] 1`] = `
 Cause: 'public' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #50 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | interface Foo {
+> 2 |   public [index: string]: number
+    |          ^
+  3 | }"
+`;
+
 exports[`snippet: #51 format[babel-ts] 1`] = `
 "'public' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -1350,6 +1758,14 @@ exports[`snippet: #51 format[typescript] 1`] = `
     |   ^^^^^^
   3 | } = {};
 Cause: 'public' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #51 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | const foo: {
+> 2 |   public [index: string] : string
+    |          ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #52 format[babel-ts] 1`] = `
@@ -1378,6 +1794,14 @@ exports[`snippet: #52 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #52 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'method' (2:10)
+  1 | interface Foo {
+> 2 |   static method();
+    |          ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #53 format[babel-ts] 1`] = `
 "'static' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
@@ -1402,6 +1826,14 @@ exports[`snippet: #53 format[typescript] 1`] = `
     |   ^^^^^^
   3 | }
 Cause: 'static' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #53 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'property' (2:10)
+  1 | interface Foo {
+> 2 |   static property;
+    |          ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #54 format[babel-ts] 1`] = `
@@ -1430,6 +1862,14 @@ exports[`snippet: #54 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #54 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | interface Foo {
+> 2 |   static [index: string]: number
+    |          ^
+  3 | }"
+`;
+
 exports[`snippet: #55 format[babel-ts] 1`] = `
 "'static' modifier cannot appear on a type member. (2:3)
   1 | const foo: {
@@ -1454,6 +1894,14 @@ exports[`snippet: #55 format[typescript] 1`] = `
     |   ^^^^^^
   3 | } = {};
 Cause: 'static' modifier cannot appear on an index signature"
+`;
+
+exports[`snippet: #55 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '[' (2:10)
+  1 | const foo: {
+> 2 |   static [index: string] : string
+    |          ^
+  3 | } = {};"
 `;
 
 exports[`snippet: #56 format[babel-ts] 1`] = `
@@ -1482,6 +1930,14 @@ exports[`snippet: #56 format[typescript] 1`] = `
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
 `;
 
+exports[`snippet: #56 format[yuku-ts] 1`] = `
+"A 'readonly' modifier can only appear on a property declaration or index signature (2:3)
+  1 | interface Foo {
+> 2 |   readonly method();
+    |   ^^^^^^^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #57 format[babel-ts] 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
@@ -1500,6 +1956,12 @@ exports[`snippet: #57 format[typescript] 1`] = `
 > 1 | abstract interface Foo {}
     | ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #57 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:10)
+> 1 | abstract interface Foo {}
+    |          ^^^^^^^^^"
 `;
 
 exports[`snippet: #58 format[babel-ts] 1`] = `
@@ -1522,6 +1984,12 @@ exports[`snippet: #58 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #58 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:10)
+> 1 | accessor interface Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #59 format[babel-ts] 1`] = `
 "Missing semicolon. (1:6)
 > 1 | async interface Foo {}
@@ -1540,6 +2008,12 @@ exports[`snippet: #59 format[typescript] 1`] = `
 > 1 | async interface Foo {}
     | ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #59 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:7)
+> 1 | async interface Foo {}
+    |       ^^^^^^^^^"
 `;
 
 exports[`snippet: #60 format[babel-ts] 1`] = `
@@ -1562,6 +2036,12 @@ exports[`snippet: #60 format[typescript] 1`] = `
 Cause: ',' expected."
 `;
 
+exports[`snippet: #60 format[yuku-ts] 1`] = `
+"'const' declarations must be initialized (1:7)
+> 1 | const interface Foo {}
+    |       ^^^^^^^^^"
+`;
+
 exports[`snippet: #61 format[babel-ts] 1`] = `
 "Unexpected token (1:1)
 > 1 | default interface Foo {}
@@ -1580,6 +2060,12 @@ exports[`snippet: #61 format[typescript] 1`] = `
 > 1 | default interface Foo {}
     | ^
 Cause: 'export' expected."
+`;
+
+exports[`snippet: #61 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as an identifier (1:1)
+> 1 | default interface Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #62 format[babel-ts] 1`] = `
@@ -1602,6 +2088,12 @@ exports[`snippet: #62 format[typescript] 1`] = `
 Cause: Expression expected."
 `;
 
+exports[`snippet: #62 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as an identifier (1:1)
+> 1 | in interface Foo {}
+    | ^^"
+`;
+
 exports[`snippet: #63 format[babel-ts] 1`] = `
 "Missing semicolon. (1:4)
 > 1 | out interface Foo {}
@@ -1620,6 +2112,12 @@ exports[`snippet: #63 format[typescript] 1`] = `
 > 1 | out interface Foo {}
     | ^
 Cause: Unexpected keyword or identifier."
+`;
+
+exports[`snippet: #63 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:5)
+> 1 | out interface Foo {}
+    |     ^^^^^^^^^"
 `;
 
 exports[`snippet: #64 format[babel-ts] 1`] = `
@@ -1642,6 +2140,12 @@ exports[`snippet: #64 format[typescript] 1`] = `
 Cause: Unexpected keyword or identifier."
 `;
 
+exports[`snippet: #64 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:10)
+> 1 | override interface Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #65 format[babel-ts] 1`] = `
 "Missing semicolon. (1:8)
 > 1 | private interface Foo {}
@@ -1660,6 +2164,12 @@ exports[`snippet: #65 format[typescript] 1`] = `
 > 1 | private interface Foo {}
     | ^^^^^^^
 Cause: 'private' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #65 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:9)
+> 1 | private interface Foo {}
+    |         ^^^^^^^^^"
 `;
 
 exports[`snippet: #66 format[babel-ts] 1`] = `
@@ -1682,6 +2192,12 @@ exports[`snippet: #66 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #66 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:11)
+> 1 | protected interface Foo {}
+    |           ^^^^^^^^^"
+`;
+
 exports[`snippet: #67 format[babel-ts] 1`] = `
 "Missing semicolon. (1:7)
 > 1 | public interface Foo {}
@@ -1700,6 +2216,12 @@ exports[`snippet: #67 format[typescript] 1`] = `
 > 1 | public interface Foo {}
     | ^^^^^^
 Cause: 'public' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #67 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:8)
+> 1 | public interface Foo {}
+    |        ^^^^^^^^^"
 `;
 
 exports[`snippet: #68 format[babel-ts] 1`] = `
@@ -1722,6 +2244,12 @@ exports[`snippet: #68 format[typescript] 1`] = `
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
 `;
 
+exports[`snippet: #68 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:10)
+> 1 | readonly interface Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #69 format[babel-ts] 1`] = `
 "Missing semicolon. (1:7)
 > 1 | static interface Foo {}
@@ -1740,6 +2268,12 @@ exports[`snippet: #69 format[typescript] 1`] = `
 > 1 | static interface Foo {}
     | ^^^^^^
 Cause: 'static' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #69 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'interface' (1:8)
+> 1 | static interface Foo {}
+    |        ^^^^^^^^^"
 `;
 
 exports[`snippet: #70 format[babel-ts] 1`] = `
@@ -1762,6 +2296,12 @@ exports[`snippet: #70 format[typescript] 1`] = `
 Cause: 'abstract' modifier cannot appear on a type parameter"
 `;
 
+exports[`snippet: #70 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:24)
+> 1 | interface Foo<abstract T> {}
+    |                        ^"
+`;
+
 exports[`snippet: #71 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:24)
 > 1 | interface Foo<accessor T> {}
@@ -1780,6 +2320,12 @@ exports[`snippet: #71 format[typescript] 1`] = `
 > 1 | interface Foo<accessor T> {}
     |               ^^^^^^^^
 Cause: 'accessor' modifier cannot appear on a type parameter"
+`;
+
+exports[`snippet: #71 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:24)
+> 1 | interface Foo<accessor T> {}
+    |                        ^"
 `;
 
 exports[`snippet: #72 format[babel-ts] 1`] = `
@@ -1802,6 +2348,12 @@ exports[`snippet: #72 format[typescript] 1`] = `
 Cause: 'async' modifier cannot appear on a type parameter"
 `;
 
+exports[`snippet: #72 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:21)
+> 1 | interface Foo<async T> {}
+    |                     ^"
+`;
+
 exports[`snippet: #73 format[babel-ts] 1`] = `
 "'declare' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<declare T> {}
@@ -1820,6 +2372,12 @@ exports[`snippet: #73 format[typescript] 1`] = `
 > 1 | interface Foo<declare T> {}
     |               ^^^^^^^
 Cause: 'declare' modifier cannot appear on a type parameter"
+`;
+
+exports[`snippet: #73 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:23)
+> 1 | interface Foo<declare T> {}
+    |                       ^"
 `;
 
 exports[`snippet: #74 format[babel-ts] 1`] = `
@@ -1842,6 +2400,12 @@ exports[`snippet: #74 format[typescript] 1`] = `
 Cause: Type parameter declaration expected."
 `;
 
+exports[`snippet: #74 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:15)
+> 1 | interface Foo<default T> {}
+    |               ^^^^^^^"
+`;
+
 exports[`snippet: #75 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<export T> {}
@@ -1860,6 +2424,12 @@ exports[`snippet: #75 format[typescript] 1`] = `
 > 1 | interface Foo<export T> {}
     |               ^
 Cause: Type parameter declaration expected."
+`;
+
+exports[`snippet: #75 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:15)
+> 1 | interface Foo<export T> {}
+    |               ^^^^^^"
 `;
 
 exports[`snippet: #76 format[babel-ts] 1`] = `
@@ -1882,6 +2452,12 @@ exports[`snippet: #76 format[typescript] 1`] = `
 Cause: 'override' modifier cannot appear on a type parameter"
 `;
 
+exports[`snippet: #76 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:24)
+> 1 | interface Foo<override T> {}
+    |                        ^"
+`;
+
 exports[`snippet: #77 format[babel-ts] 1`] = `
 "'private' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<private T> {}
@@ -1900,6 +2476,12 @@ exports[`snippet: #77 format[typescript] 1`] = `
 > 1 | interface Foo<private T> {}
     |               ^^^^^^^
 Cause: 'private' modifier cannot appear on a type parameter"
+`;
+
+exports[`snippet: #77 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:23)
+> 1 | interface Foo<private T> {}
+    |                       ^"
 `;
 
 exports[`snippet: #78 format[babel-ts] 1`] = `
@@ -1922,6 +2504,12 @@ exports[`snippet: #78 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on a type parameter"
 `;
 
+exports[`snippet: #78 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:25)
+> 1 | interface Foo<protected T> {}
+    |                         ^"
+`;
+
 exports[`snippet: #79 format[babel-ts] 1`] = `
 "'public' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<public T> {}
@@ -1940,6 +2528,12 @@ exports[`snippet: #79 format[typescript] 1`] = `
 > 1 | interface Foo<public T> {}
     |               ^^^^^^
 Cause: 'public' modifier cannot appear on a type parameter"
+`;
+
+exports[`snippet: #79 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:22)
+> 1 | interface Foo<public T> {}
+    |                      ^"
 `;
 
 exports[`snippet: #80 format[babel-ts] 1`] = `
@@ -1962,6 +2556,12 @@ exports[`snippet: #80 format[typescript] 1`] = `
 Cause: 'readonly' modifier cannot appear on a type parameter"
 `;
 
+exports[`snippet: #80 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:24)
+> 1 | interface Foo<readonly T> {}
+    |                        ^"
+`;
+
 exports[`snippet: #81 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<static T> {}
@@ -1980,6 +2580,12 @@ exports[`snippet: #81 format[typescript] 1`] = `
 > 1 | interface Foo<static T> {}
     |               ^^^^^^
 Cause: 'static' modifier cannot appear on a type parameter"
+`;
+
+exports[`snippet: #81 format[yuku-ts] 1`] = `
+"Expected '>' to close a type parameter list, but found 'T' (1:22)
+> 1 | interface Foo<static T> {}
+    |                      ^"
 `;
 
 exports[`snippet: #82 format[babel-ts] 1`] = `
@@ -2008,6 +2614,14 @@ exports[`snippet: #82 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
+exports[`snippet: #82 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:11)
+  1 | class Foo {
+> 2 |   declare method() {}
+    |           ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #83 format[babel-ts] 1`] = `
 "Class methods cannot have the 'readonly' modifier. (2:3)
   1 | class Foo {
@@ -2032,6 +2646,14 @@ exports[`snippet: #83 format[typescript] 1`] = `
     |   ^^^^^^^^
   3 | }
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #83 format[yuku-ts] 1`] = `
+"A 'readonly' modifier can only appear on a property declaration or index signature (2:12)
+  1 | class Foo {
+> 2 |   readonly method() {}
+    |            ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #84 format[babel-ts] 1`] = `
@@ -2060,6 +2682,14 @@ exports[`snippet: #84 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
+exports[`snippet: #84 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+  1 | class Foo {
+> 2 |   declare get getter() {}
+    |               ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #85 format[babel-ts] 1`] = `
 "'declare' is not allowed in setters. (2:3)
   1 | class Foo {
@@ -2086,6 +2716,14 @@ exports[`snippet: #85 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
+exports[`snippet: #85 format[yuku-ts] 1`] = `
+"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+  1 | class Foo {
+> 2 |   declare set setter(v) {}
+    |               ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #86 format[babel-ts] 1`] = `
 "Unexpected token, expected "class" (1:10)
 > 1 | abstract module Foo {}
@@ -2104,6 +2742,12 @@ exports[`snippet: #86 format[typescript] 1`] = `
 > 1 | abstract module Foo {}
     | ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #86 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:10)
+> 1 | abstract module Foo {}
+    |          ^^^^^^"
 `;
 
 exports[`snippet: #87 format[babel-ts] 1`] = `
@@ -2126,6 +2770,12 @@ exports[`snippet: #87 format[typescript] 1`] = `
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
 `;
 
+exports[`snippet: #87 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:10)
+> 1 | abstract namespace Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #88 format[babel-ts] 1`] = `
 "Missing semicolon. (1:9)
 > 1 | accessor module Foo {}
@@ -2144,6 +2794,12 @@ exports[`snippet: #88 format[typescript] 1`] = `
 > 1 | accessor module Foo {}
     | ^^^^^^^^
 Cause: 'accessor' modifier can only appear on a property declaration."
+`;
+
+exports[`snippet: #88 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:10)
+> 1 | accessor module Foo {}
+    |          ^^^^^^"
 `;
 
 exports[`snippet: #89 format[babel-ts] 1`] = `
@@ -2166,6 +2822,12 @@ exports[`snippet: #89 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #89 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:10)
+> 1 | accessor namespace Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #90 format[babel-ts] 1`] = `
 "Missing semicolon. (1:6)
 > 1 | async module Foo {}
@@ -2184,6 +2846,12 @@ exports[`snippet: #90 format[typescript] 1`] = `
 > 1 | async module Foo {}
     | ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #90 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:7)
+> 1 | async module Foo {}
+    |       ^^^^^^"
 `;
 
 exports[`snippet: #91 format[babel-ts] 1`] = `
@@ -2206,6 +2874,12 @@ exports[`snippet: #91 format[typescript] 1`] = `
 Cause: 'async' modifier cannot be used here."
 `;
 
+exports[`snippet: #91 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:7)
+> 1 | async namespace Foo {}
+    |       ^^^^^^^^^"
+`;
+
 exports[`snippet: #92 format[babel-ts] 1`] = `
 "Missing semicolon. (1:13)
 > 1 | const module Foo {}
@@ -2224,6 +2898,12 @@ exports[`snippet: #92 format[typescript] 1`] = `
 > 1 | const module Foo {}
     |              ^
 Cause: ',' expected."
+`;
+
+exports[`snippet: #92 format[yuku-ts] 1`] = `
+"'const' declarations must be initialized (1:7)
+> 1 | const module Foo {}
+    |       ^^^^^^"
 `;
 
 exports[`snippet: #93 format[babel-ts] 1`] = `
@@ -2246,6 +2926,12 @@ exports[`snippet: #93 format[typescript] 1`] = `
 Cause: ',' expected."
 `;
 
+exports[`snippet: #93 format[yuku-ts] 1`] = `
+"'const' declarations must be initialized (1:7)
+> 1 | const namespace Foo {}
+    |       ^^^^^^^^^"
+`;
+
 exports[`snippet: #94 format[babel-ts] 1`] = `
 "Unexpected token (1:1)
 > 1 | default module Foo {}
@@ -2264,6 +2950,12 @@ exports[`snippet: #94 format[typescript] 1`] = `
 > 1 | default module Foo {}
     | ^
 Cause: 'export' expected."
+`;
+
+exports[`snippet: #94 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as an identifier (1:1)
+> 1 | default module Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #95 format[babel-ts] 1`] = `
@@ -2286,6 +2978,12 @@ exports[`snippet: #95 format[typescript] 1`] = `
 Cause: 'export' expected."
 `;
 
+exports[`snippet: #95 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as an identifier (1:1)
+> 1 | default namespace Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #96 format[babel-ts] 1`] = `
 "Unexpected token (1:1)
 > 1 | in module Foo {}
@@ -2304,6 +3002,12 @@ exports[`snippet: #96 format[typescript] 1`] = `
 > 1 | in module Foo {}
     | ^
 Cause: Expression expected."
+`;
+
+exports[`snippet: #96 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as an identifier (1:1)
+> 1 | in module Foo {}
+    | ^^"
 `;
 
 exports[`snippet: #97 format[babel-ts] 1`] = `
@@ -2326,6 +3030,12 @@ exports[`snippet: #97 format[typescript] 1`] = `
 Cause: Expression expected."
 `;
 
+exports[`snippet: #97 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as an identifier (1:1)
+> 1 | in namespace Foo {}
+    | ^^"
+`;
+
 exports[`snippet: #98 format[babel-ts] 1`] = `
 "Missing semicolon. (1:4)
 > 1 | out module Foo {}
@@ -2344,6 +3054,12 @@ exports[`snippet: #98 format[typescript] 1`] = `
 > 1 | out module Foo {}
     | ^
 Cause: Unexpected keyword or identifier."
+`;
+
+exports[`snippet: #98 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:5)
+> 1 | out module Foo {}
+    |     ^^^^^^"
 `;
 
 exports[`snippet: #99 format[babel-ts] 1`] = `
@@ -2366,6 +3082,12 @@ exports[`snippet: #99 format[typescript] 1`] = `
 Cause: Unexpected keyword or identifier."
 `;
 
+exports[`snippet: #99 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:5)
+> 1 | out namespace Foo {}
+    |     ^^^^^^^^^"
+`;
+
 exports[`snippet: #100 format[babel-ts] 1`] = `
 "Missing semicolon. (1:9)
 > 1 | override module Foo {}
@@ -2384,6 +3106,12 @@ exports[`snippet: #100 format[typescript] 1`] = `
 > 1 | override module Foo {}
     | ^
 Cause: Unexpected keyword or identifier."
+`;
+
+exports[`snippet: #100 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:10)
+> 1 | override module Foo {}
+    |          ^^^^^^"
 `;
 
 exports[`snippet: #101 format[babel-ts] 1`] = `
@@ -2406,6 +3134,12 @@ exports[`snippet: #101 format[typescript] 1`] = `
 Cause: Unexpected keyword or identifier."
 `;
 
+exports[`snippet: #101 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:10)
+> 1 | override namespace Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #102 format[babel-ts] 1`] = `
 "Missing semicolon. (1:8)
 > 1 | private module Foo {}
@@ -2424,6 +3158,12 @@ exports[`snippet: #102 format[typescript] 1`] = `
 > 1 | private module Foo {}
     | ^^^^^^^
 Cause: 'private' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #102 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:9)
+> 1 | private module Foo {}
+    |         ^^^^^^"
 `;
 
 exports[`snippet: #103 format[babel-ts] 1`] = `
@@ -2446,6 +3186,12 @@ exports[`snippet: #103 format[typescript] 1`] = `
 Cause: 'private' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #103 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:9)
+> 1 | private namespace Foo {}
+    |         ^^^^^^^^^"
+`;
+
 exports[`snippet: #104 format[babel-ts] 1`] = `
 "Missing semicolon. (1:10)
 > 1 | protected module Foo {}
@@ -2464,6 +3210,12 @@ exports[`snippet: #104 format[typescript] 1`] = `
 > 1 | protected module Foo {}
     | ^^^^^^^^^
 Cause: 'protected' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #104 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:11)
+> 1 | protected module Foo {}
+    |           ^^^^^^"
 `;
 
 exports[`snippet: #105 format[babel-ts] 1`] = `
@@ -2486,6 +3238,12 @@ exports[`snippet: #105 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #105 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:11)
+> 1 | protected namespace Foo {}
+    |           ^^^^^^^^^"
+`;
+
 exports[`snippet: #106 format[babel-ts] 1`] = `
 "Missing semicolon. (1:7)
 > 1 | public module Foo {}
@@ -2504,6 +3262,12 @@ exports[`snippet: #106 format[typescript] 1`] = `
 > 1 | public module Foo {}
     | ^^^^^^
 Cause: 'public' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #106 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:8)
+> 1 | public module Foo {}
+    |        ^^^^^^"
 `;
 
 exports[`snippet: #107 format[babel-ts] 1`] = `
@@ -2526,6 +3290,12 @@ exports[`snippet: #107 format[typescript] 1`] = `
 Cause: 'public' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #107 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:8)
+> 1 | public namespace Foo {}
+    |        ^^^^^^^^^"
+`;
+
 exports[`snippet: #108 format[babel-ts] 1`] = `
 "Missing semicolon. (1:9)
 > 1 | readonly module Foo {}
@@ -2544,6 +3314,12 @@ exports[`snippet: #108 format[typescript] 1`] = `
 > 1 | readonly module Foo {}
     | ^^^^^^^^
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #108 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:10)
+> 1 | readonly module Foo {}
+    |          ^^^^^^"
 `;
 
 exports[`snippet: #109 format[babel-ts] 1`] = `
@@ -2566,6 +3342,12 @@ exports[`snippet: #109 format[typescript] 1`] = `
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
 `;
 
+exports[`snippet: #109 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:10)
+> 1 | readonly namespace Foo {}
+    |          ^^^^^^^^^"
+`;
+
 exports[`snippet: #110 format[babel-ts] 1`] = `
 "Missing semicolon. (1:7)
 > 1 | static module Foo {}
@@ -2584,6 +3366,12 @@ exports[`snippet: #110 format[typescript] 1`] = `
 > 1 | static module Foo {}
     | ^^^^^^
 Cause: 'static' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #110 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'module' (1:8)
+> 1 | static module Foo {}
+    |        ^^^^^^"
 `;
 
 exports[`snippet: #111 format[babel-ts] 1`] = `
@@ -2606,6 +3394,12 @@ exports[`snippet: #111 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #111 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'namespace' (1:8)
+> 1 | static namespace Foo {}
+    |        ^^^^^^^^^"
+`;
+
 exports[`snippet: #112 format[babel-ts] 1`] = `
 "Unexpected token, expected "class" (1:10)
 > 1 | abstract enum Foo {}
@@ -2624,6 +3418,12 @@ exports[`snippet: #112 format[typescript] 1`] = `
 > 1 | abstract enum Foo {}
     | ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #112 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:10)
+> 1 | abstract enum Foo {}
+    |          ^^^^"
 `;
 
 exports[`snippet: #113 format[babel-ts] 1`] = `
@@ -2646,6 +3446,12 @@ exports[`snippet: #113 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #113 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:10)
+> 1 | accessor enum Foo {}
+    |          ^^^^"
+`;
+
 exports[`snippet: #114 format[babel-ts] 1`] = `
 "Missing semicolon. (1:6)
 > 1 | async enum Foo {}
@@ -2664,6 +3470,12 @@ exports[`snippet: #114 format[typescript] 1`] = `
 > 1 | async enum Foo {}
     | ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #114 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:7)
+> 1 | async enum Foo {}
+    |       ^^^^"
 `;
 
 exports[`snippet: #115 format[babel-ts] 1`] = `
@@ -2686,6 +3498,12 @@ exports[`snippet: #115 format[typescript] 1`] = `
 Cause: 'export' expected."
 `;
 
+exports[`snippet: #115 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as an identifier (1:1)
+> 1 | default enum Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #116 format[babel-ts] 1`] = `
 "Unexpected token (1:1)
 > 1 | in enum Foo {}
@@ -2704,6 +3522,12 @@ exports[`snippet: #116 format[typescript] 1`] = `
 > 1 | in enum Foo {}
     | ^
 Cause: Expression expected."
+`;
+
+exports[`snippet: #116 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as an identifier (1:1)
+> 1 | in enum Foo {}
+    | ^^"
 `;
 
 exports[`snippet: #117 format[babel-ts] 1`] = `
@@ -2726,6 +3550,12 @@ exports[`snippet: #117 format[typescript] 1`] = `
 Cause: Unexpected keyword or identifier."
 `;
 
+exports[`snippet: #117 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:5)
+> 1 | out enum Foo {}
+    |     ^^^^"
+`;
+
 exports[`snippet: #118 format[babel-ts] 1`] = `
 "Missing semicolon. (1:9)
 > 1 | override enum Foo {}
@@ -2744,6 +3574,12 @@ exports[`snippet: #118 format[typescript] 1`] = `
 > 1 | override enum Foo {}
     | ^
 Cause: Unexpected keyword or identifier."
+`;
+
+exports[`snippet: #118 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:10)
+> 1 | override enum Foo {}
+    |          ^^^^"
 `;
 
 exports[`snippet: #119 format[babel-ts] 1`] = `
@@ -2766,6 +3602,12 @@ exports[`snippet: #119 format[typescript] 1`] = `
 Cause: 'private' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #119 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:9)
+> 1 | private enum Foo {}
+    |         ^^^^"
+`;
+
 exports[`snippet: #120 format[babel-ts] 1`] = `
 "Missing semicolon. (1:10)
 > 1 | protected enum Foo {}
@@ -2784,6 +3626,12 @@ exports[`snippet: #120 format[typescript] 1`] = `
 > 1 | protected enum Foo {}
     | ^^^^^^^^^
 Cause: 'protected' modifier cannot appear on a module or namespace element."
+`;
+
+exports[`snippet: #120 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:11)
+> 1 | protected enum Foo {}
+    |           ^^^^"
 `;
 
 exports[`snippet: #121 format[babel-ts] 1`] = `
@@ -2806,6 +3654,12 @@ exports[`snippet: #121 format[typescript] 1`] = `
 Cause: 'public' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #121 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:8)
+> 1 | public enum Foo {}
+    |        ^^^^"
+`;
+
 exports[`snippet: #122 format[babel-ts] 1`] = `
 "Missing semicolon. (1:9)
 > 1 | readonly enum Foo {}
@@ -2824,6 +3678,12 @@ exports[`snippet: #122 format[typescript] 1`] = `
 > 1 | readonly enum Foo {}
     | ^^^^^^^^
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #122 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:10)
+> 1 | readonly enum Foo {}
+    |          ^^^^"
 `;
 
 exports[`snippet: #123 format[babel-ts] 1`] = `
@@ -2846,6 +3706,12 @@ exports[`snippet: #123 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a module or namespace element."
 `;
 
+exports[`snippet: #123 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'enum' (1:8)
+> 1 | static enum Foo {}
+    |        ^^^^"
+`;
+
 exports[`snippet: #124 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:23)
 > 1 | function foo(abstract parameter) {}
@@ -2864,6 +3730,12 @@ exports[`snippet: #124 format[typescript] 1`] = `
 > 1 | function foo(abstract parameter) {}
     |              ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #124 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:23)
+> 1 | function foo(abstract parameter) {}
+    |                       ^^^^^^^^^"
 `;
 
 exports[`snippet: #125 format[babel-ts] 1`] = `
@@ -2886,6 +3758,12 @@ exports[`snippet: #125 format[typescript] 1`] = `
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
 `;
 
+exports[`snippet: #125 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:29)
+> 1 | class Foo { method(abstract parameter) {} }
+    |                             ^^^^^^^^^"
+`;
+
 exports[`snippet: #126 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:23)
 > 1 | function foo(accessor parameter) {}
@@ -2904,6 +3782,12 @@ exports[`snippet: #126 format[typescript] 1`] = `
 > 1 | function foo(accessor parameter) {}
     |              ^^^^^^^^
 Cause: 'accessor' modifier can only appear on a property declaration."
+`;
+
+exports[`snippet: #126 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:23)
+> 1 | function foo(accessor parameter) {}
+    |                       ^^^^^^^^^"
 `;
 
 exports[`snippet: #127 format[babel-ts] 1`] = `
@@ -2926,6 +3810,12 @@ exports[`snippet: #127 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #127 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:29)
+> 1 | class Foo { method(accessor parameter) {} }
+    |                             ^^^^^^^^^"
+`;
+
 exports[`snippet: #128 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:20)
 > 1 | function foo(async parameter) {}
@@ -2944,6 +3834,12 @@ exports[`snippet: #128 format[typescript] 1`] = `
 > 1 | function foo(async parameter) {}
     |              ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #128 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:20)
+> 1 | function foo(async parameter) {}
+    |                    ^^^^^^^^^"
 `;
 
 exports[`snippet: #129 format[babel-ts] 1`] = `
@@ -2966,6 +3862,12 @@ exports[`snippet: #129 format[typescript] 1`] = `
 Cause: 'async' modifier cannot be used here."
 `;
 
+exports[`snippet: #129 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:26)
+> 1 | class Foo { method(async parameter) {} }
+    |                          ^^^^^^^^^"
+`;
+
 exports[`snippet: #130 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:20)
 > 1 | function foo(const parameter) {}
@@ -2984,6 +3886,12 @@ exports[`snippet: #130 format[typescript] 1`] = `
 > 1 | function foo(const parameter) {}
     |              ^
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
+`;
+
+exports[`snippet: #130 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:14)
+> 1 | function foo(const parameter) {}
+    |              ^^^^^"
 `;
 
 exports[`snippet: #131 format[babel-ts] 1`] = `
@@ -3006,6 +3914,12 @@ exports[`snippet: #131 format[typescript] 1`] = `
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #131 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:20)
+> 1 | class Foo { method(const parameter) {} }
+    |                    ^^^^^"
+`;
+
 exports[`snippet: #132 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | function foo(declare parameter) {}
@@ -3024,6 +3938,12 @@ exports[`snippet: #132 format[typescript] 1`] = `
 > 1 | function foo(declare parameter) {}
     |              ^^^^^^^
 Cause: 'declare' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #132 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:22)
+> 1 | function foo(declare parameter) {}
+    |                      ^^^^^^^^^"
 `;
 
 exports[`snippet: #133 format[babel-ts] 1`] = `
@@ -3046,6 +3966,12 @@ exports[`snippet: #133 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #133 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:28)
+> 1 | class Foo { method(declare parameter) {} }
+    |                            ^^^^^^^^^"
+`;
+
 exports[`snippet: #134 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | function foo(default parameter) {}
@@ -3064,6 +3990,12 @@ exports[`snippet: #134 format[typescript] 1`] = `
 > 1 | function foo(default parameter) {}
     |              ^
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
+`;
+
+exports[`snippet: #134 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:14)
+> 1 | function foo(default parameter) {}
+    |              ^^^^^^^"
 `;
 
 exports[`snippet: #135 format[babel-ts] 1`] = `
@@ -3086,6 +4018,12 @@ exports[`snippet: #135 format[typescript] 1`] = `
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #135 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:20)
+> 1 | class Foo { method(default parameter) {} }
+    |                    ^^^^^^^"
+`;
+
 exports[`snippet: #136 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:21)
 > 1 | function foo(export parameter) {}
@@ -3104,6 +4042,12 @@ exports[`snippet: #136 format[typescript] 1`] = `
 > 1 | function foo(export parameter) {}
     |              ^^^^^^
 Cause: 'export' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #136 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:14)
+> 1 | function foo(export parameter) {}
+    |              ^^^^^^"
 `;
 
 exports[`snippet: #137 format[babel-ts] 1`] = `
@@ -3126,6 +4070,12 @@ exports[`snippet: #137 format[typescript] 1`] = `
 Cause: 'export' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #137 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:20)
+> 1 | class Foo { method(export parameter) {} }
+    |                    ^^^^^^"
+`;
+
 exports[`snippet: #138 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:17)
 > 1 | function foo(in parameter) {}
@@ -3144,6 +4094,12 @@ exports[`snippet: #138 format[typescript] 1`] = `
 > 1 | function foo(in parameter) {}
     |              ^^
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #138 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:14)
+> 1 | function foo(in parameter) {}
+    |              ^^"
 `;
 
 exports[`snippet: #139 format[babel-ts] 1`] = `
@@ -3166,6 +4122,12 @@ exports[`snippet: #139 format[typescript] 1`] = `
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #139 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:20)
+> 1 | class Foo { method(in parameter) {} }
+    |                    ^^"
+`;
+
 exports[`snippet: #140 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:18)
 > 1 | function foo(out parameter) {}
@@ -3184,6 +4146,12 @@ exports[`snippet: #140 format[typescript] 1`] = `
 > 1 | function foo(out parameter) {}
     |              ^^^
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #140 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:18)
+> 1 | function foo(out parameter) {}
+    |                  ^^^^^^^^^"
 `;
 
 exports[`snippet: #141 format[babel-ts] 1`] = `
@@ -3206,6 +4174,12 @@ exports[`snippet: #141 format[typescript] 1`] = `
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #141 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:24)
+> 1 | class Foo { method(out parameter) {} }
+    |                        ^^^^^^^^^"
+`;
+
 exports[`snippet: #142 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(override parameter) {}
@@ -3224,6 +4198,12 @@ exports[`snippet: #142 format[typescript] 1`] = `
 > 1 | function foo(override parameter) {}
     |              ^^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #142 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:23)
+> 1 | function foo(override parameter) {}
+    |                       ^^^^^^^^^"
 `;
 
 exports[`snippet: #143 format[babel-ts] 1`] = `
@@ -3246,6 +4226,12 @@ exports[`snippet: #143 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #143 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:29)
+> 1 | class Foo { method(override parameter) {} }
+    |                             ^^^^^^^^^"
+`;
+
 exports[`snippet: #144 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(private parameter) {}
@@ -3264,6 +4250,12 @@ exports[`snippet: #144 format[typescript] 1`] = `
 > 1 | function foo(private parameter) {}
     |              ^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #144 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:22)
+> 1 | function foo(private parameter) {}
+    |                      ^^^^^^^^^"
 `;
 
 exports[`snippet: #145 format[babel-ts] 1`] = `
@@ -3286,6 +4278,12 @@ exports[`snippet: #145 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #145 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:28)
+> 1 | class Foo { method(private parameter) {} }
+    |                            ^^^^^^^^^"
+`;
+
 exports[`snippet: #146 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(protected parameter) {}
@@ -3304,6 +4302,12 @@ exports[`snippet: #146 format[typescript] 1`] = `
 > 1 | function foo(protected parameter) {}
     |              ^^^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #146 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:24)
+> 1 | function foo(protected parameter) {}
+    |                        ^^^^^^^^^"
 `;
 
 exports[`snippet: #147 format[babel-ts] 1`] = `
@@ -3326,6 +4330,12 @@ exports[`snippet: #147 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #147 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:30)
+> 1 | class Foo { method(protected parameter) {} }
+    |                              ^^^^^^^^^"
+`;
+
 exports[`snippet: #148 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(public parameter) {}
@@ -3344,6 +4354,12 @@ exports[`snippet: #148 format[typescript] 1`] = `
 > 1 | function foo(public parameter) {}
     |              ^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #148 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:21)
+> 1 | function foo(public parameter) {}
+    |                     ^^^^^^^^^"
 `;
 
 exports[`snippet: #149 format[babel-ts] 1`] = `
@@ -3366,6 +4382,12 @@ exports[`snippet: #149 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #149 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:27)
+> 1 | class Foo { method(public parameter) {} }
+    |                           ^^^^^^^^^"
+`;
+
 exports[`snippet: #150 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(readonly parameter) {}
@@ -3384,6 +4406,12 @@ exports[`snippet: #150 format[typescript] 1`] = `
 > 1 | function foo(readonly parameter) {}
     |              ^^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #150 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:23)
+> 1 | function foo(readonly parameter) {}
+    |                       ^^^^^^^^^"
 `;
 
 exports[`snippet: #151 format[babel-ts] 1`] = `
@@ -3406,6 +4434,12 @@ exports[`snippet: #151 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #151 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:29)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                             ^^^^^^^^^"
+`;
+
 exports[`snippet: #152 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:21)
 > 1 | function foo(static parameter) {}
@@ -3424,6 +4458,12 @@ exports[`snippet: #152 format[typescript] 1`] = `
 > 1 | function foo(static parameter) {}
     |              ^^^^^^
 Cause: 'static' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #152 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:21)
+> 1 | function foo(static parameter) {}
+    |                     ^^^^^^^^^"
 `;
 
 exports[`snippet: #153 format[babel-ts] 1`] = `
@@ -3446,6 +4486,12 @@ exports[`snippet: #153 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #153 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:27)
+> 1 | class Foo { method(static parameter) {} }
+    |                           ^^^^^^^^^"
+`;
+
 exports[`snippet: #154 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:34)
 > 1 | class Foo { constructor(abstract parameter) {} }
@@ -3464,6 +4510,12 @@ exports[`snippet: #154 format[typescript] 1`] = `
 > 1 | class Foo { constructor(abstract parameter) {} }
     |                         ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #154 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:34)
+> 1 | class Foo { constructor(abstract parameter) {} }
+    |                                  ^^^^^^^^^"
 `;
 
 exports[`snippet: #155 format[babel-ts] 1`] = `
@@ -3486,6 +4538,12 @@ exports[`snippet: #155 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #155 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:34)
+> 1 | class Foo { constructor(accessor parameter) {} }
+    |                                  ^^^^^^^^^"
+`;
+
 exports[`snippet: #156 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:31)
 > 1 | class Foo { constructor(async parameter) {} }
@@ -3504,6 +4562,12 @@ exports[`snippet: #156 format[typescript] 1`] = `
 > 1 | class Foo { constructor(async parameter) {} }
     |                         ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #156 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:31)
+> 1 | class Foo { constructor(async parameter) {} }
+    |                               ^^^^^^^^^"
 `;
 
 exports[`snippet: #157 format[babel-ts] 1`] = `
@@ -3526,6 +4590,12 @@ exports[`snippet: #157 format[typescript] 1`] = `
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #157 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:25)
+> 1 | class Foo { constructor(const parameter) {} }
+    |                         ^^^^^"
+`;
+
 exports[`snippet: #158 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:33)
 > 1 | class Foo { constructor(declare parameter) {} }
@@ -3544,6 +4614,12 @@ exports[`snippet: #158 format[typescript] 1`] = `
 > 1 | class Foo { constructor(declare parameter) {} }
     |                         ^^^^^^^
 Cause: 'declare' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #158 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:33)
+> 1 | class Foo { constructor(declare parameter) {} }
+    |                                 ^^^^^^^^^"
 `;
 
 exports[`snippet: #159 format[babel-ts] 1`] = `
@@ -3566,6 +4642,12 @@ exports[`snippet: #159 format[typescript] 1`] = `
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #159 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:25)
+> 1 | class Foo { constructor(default parameter) {} }
+    |                         ^^^^^^^"
+`;
+
 exports[`snippet: #160 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:32)
 > 1 | class Foo { constructor(export parameter) {} }
@@ -3584,6 +4666,12 @@ exports[`snippet: #160 format[typescript] 1`] = `
 > 1 | class Foo { constructor(export parameter) {} }
     |                         ^^^^^^
 Cause: 'export' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #160 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:25)
+> 1 | class Foo { constructor(export parameter) {} }
+    |                         ^^^^^^"
 `;
 
 exports[`snippet: #161 format[babel-ts] 1`] = `
@@ -3606,6 +4694,12 @@ exports[`snippet: #161 format[typescript] 1`] = `
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #161 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:25)
+> 1 | class Foo { constructor(in parameter) {} }
+    |                         ^^"
+`;
+
 exports[`snippet: #162 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class Foo { constructor(out parameter) {} }
@@ -3624,6 +4718,12 @@ exports[`snippet: #162 format[typescript] 1`] = `
 > 1 | class Foo { constructor(out parameter) {} }
     |                         ^^^
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #162 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:29)
+> 1 | class Foo { constructor(out parameter) {} }
+    |                             ^^^^^^^^^"
 `;
 
 exports[`snippet: #163 format[babel-ts] 1`] = `
@@ -3646,6 +4746,12 @@ exports[`snippet: #163 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #163 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:32)
+> 1 | class Foo { constructor(static parameter) {} }
+    |                                ^^^^^^^^^"
+`;
+
 exports[`snippet: #164 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:28)
 > 1 | class Foo {["constructor"](private parameter) {}}
@@ -3664,6 +4770,12 @@ exports[`snippet: #164 format[typescript] 1`] = `
 > 1 | class Foo {["constructor"](private parameter) {}}
     |                            ^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #164 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:36)
+> 1 | class Foo {["constructor"](private parameter) {}}
+    |                                    ^^^^^^^^^"
 `;
 
 exports[`snippet: #165 format[babel-ts] 1`] = `
@@ -3686,6 +4798,12 @@ exports[`snippet: #165 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #165 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:36)
+> 1 | class Foo {['constructor'](private parameter) {}}
+    |                                    ^^^^^^^^^"
+`;
+
 exports[`snippet: #166 format[babel-ts] 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:28)
 > 1 | class Foo {[\`constructor\`](private parameter) {}}
@@ -3704,6 +4822,12 @@ exports[`snippet: #166 format[typescript] 1`] = `
 > 1 | class Foo {[\`constructor\`](private parameter) {}}
     |                            ^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
+`;
+
+exports[`snippet: #166 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:36)
+> 1 | class Foo {[\`constructor\`](private parameter) {}}
+    |                                    ^^^^^^^^^"
 `;
 
 exports[`snippet: #167 format[babel-ts] 1`] = `
@@ -3726,6 +4850,12 @@ exports[`snippet: #167 format[typescript] 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
 
+exports[`snippet: #167 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found 'parameter' (1:41)
+> 1 | class Foo {['construct' + 'or'](private parameter) {}}
+    |                                         ^^^^^^^^^"
+`;
+
 exports[`snippet: #168 format[babel-ts] 1`] = `
 "'abstract' modifier cannot appear on a type member. (1:13)
 > 1 | type Foo = {abstract bar};
@@ -3744,6 +4874,12 @@ exports[`snippet: #168 format[typescript] 1`] = `
 > 1 | type Foo = {abstract bar};
     |             ^^^^^^^^
 Cause: 'abstract' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #168 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:22)
+> 1 | type Foo = {abstract bar};
+    |                      ^^^"
 `;
 
 exports[`snippet: #169 format[babel-ts] 1`] = `
@@ -3766,6 +4902,12 @@ exports[`snippet: #169 format[typescript] 1`] = `
 Cause: 'accessor' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #169 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:22)
+> 1 | type Foo = {accessor bar};
+    |                      ^^^"
+`;
+
 exports[`snippet: #170 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (1:19)
 > 1 | type Foo = {async bar};
@@ -3784,6 +4926,12 @@ exports[`snippet: #170 format[typescript] 1`] = `
 > 1 | type Foo = {async bar};
     |             ^^^^^
 Cause: 'async' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #170 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:19)
+> 1 | type Foo = {async bar};
+    |                   ^^^"
 `;
 
 exports[`snippet: #171 format[babel-ts] 1`] = `
@@ -3806,6 +4954,12 @@ exports[`snippet: #171 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #171 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:19)
+> 1 | type Foo = {const bar};
+    |                   ^^^"
+`;
+
 exports[`snippet: #172 format[babel-ts] 1`] = `
 "'declare' modifier cannot appear on a type member. (1:13)
 > 1 | type Foo = {declare bar};
@@ -3824,6 +4978,12 @@ exports[`snippet: #172 format[typescript] 1`] = `
 > 1 | type Foo = {declare bar};
     |             ^^^^^^^
 Cause: 'declare' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #172 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:21)
+> 1 | type Foo = {declare bar};
+    |                     ^^^"
 `;
 
 exports[`snippet: #173 format[babel-ts] 1`] = `
@@ -3846,6 +5006,12 @@ exports[`snippet: #173 format[typescript] 1`] = `
 Cause: ';' expected."
 `;
 
+exports[`snippet: #173 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:21)
+> 1 | type Foo = {default bar};
+    |                     ^^^"
+`;
+
 exports[`snippet: #174 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (1:20)
 > 1 | type Foo = {export bar};
@@ -3864,6 +5030,12 @@ exports[`snippet: #174 format[typescript] 1`] = `
 > 1 | type Foo = {export bar};
     |             ^^^^^^
 Cause: 'export' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #174 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:20)
+> 1 | type Foo = {export bar};
+    |                    ^^^"
 `;
 
 exports[`snippet: #175 format[babel-ts] 1`] = `
@@ -3886,6 +5058,12 @@ exports[`snippet: #175 format[typescript] 1`] = `
 Cause: 'in' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #175 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:16)
+> 1 | type Foo = {in bar};
+    |                ^^^"
+`;
+
 exports[`snippet: #176 format[babel-ts] 1`] = `
 "Unexpected token, expected ";" (1:17)
 > 1 | type Foo = {out bar};
@@ -3904,6 +5082,12 @@ exports[`snippet: #176 format[typescript] 1`] = `
 > 1 | type Foo = {out bar};
     |             ^^^
 Cause: 'out' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #176 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:17)
+> 1 | type Foo = {out bar};
+    |                 ^^^"
 `;
 
 exports[`snippet: #177 format[babel-ts] 1`] = `
@@ -3926,6 +5110,12 @@ exports[`snippet: #177 format[typescript] 1`] = `
 Cause: 'override' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #177 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:22)
+> 1 | type Foo = {override bar};
+    |                      ^^^"
+`;
+
 exports[`snippet: #178 format[babel-ts] 1`] = `
 "'private' modifier cannot appear on a type member. (1:13)
 > 1 | type Foo = {private bar};
@@ -3944,6 +5134,12 @@ exports[`snippet: #178 format[typescript] 1`] = `
 > 1 | type Foo = {private bar};
     |             ^^^^^^^
 Cause: 'private' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #178 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:21)
+> 1 | type Foo = {private bar};
+    |                     ^^^"
 `;
 
 exports[`snippet: #179 format[babel-ts] 1`] = `
@@ -3966,6 +5162,12 @@ exports[`snippet: #179 format[typescript] 1`] = `
 Cause: 'protected' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #179 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:23)
+> 1 | type Foo = {protected bar};
+    |                       ^^^"
+`;
+
 exports[`snippet: #180 format[babel-ts] 1`] = `
 "'public' modifier cannot appear on a type member. (1:13)
 > 1 | type Foo = {public bar};
@@ -3986,6 +5188,12 @@ exports[`snippet: #180 format[typescript] 1`] = `
 Cause: 'public' modifier cannot appear on a type member"
 `;
 
+exports[`snippet: #180 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:20)
+> 1 | type Foo = {public bar};
+    |                    ^^^"
+`;
+
 exports[`snippet: #181 format[babel-ts] 1`] = `
 "'static' modifier cannot appear on a type member. (1:13)
 > 1 | type Foo = {static bar};
@@ -4004,6 +5212,12 @@ exports[`snippet: #181 format[typescript] 1`] = `
 > 1 | type Foo = {static bar};
     |             ^^^^^^
 Cause: 'static' modifier cannot appear on a type member"
+`;
+
+exports[`snippet: #181 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found 'bar' (1:20)
+> 1 | type Foo = {static bar};
+    |                    ^^^"
 `;
 
 exports[`snippet: #182 format[babel-ts] 1`] = `
@@ -4032,6 +5246,14 @@ exports[`snippet: #182 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on an index signature"
 `;
 
+exports[`snippet: #182 format[yuku-ts] 1`] = `
+"Index signatures only accept 'readonly', 'static', and accessibility modifiers (2:3)
+  1 | class Foo {
+> 2 |   declare [index: string]: number
+    |   ^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #183 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:12)
 > 1 | ({abstract method(){}})
@@ -4050,6 +5272,12 @@ exports[`snippet: #183 format[typescript] 1`] = `
 > 1 | ({abstract method(){}})
     |   ^^^^^^^^
 Cause: 'abstract' modifier cannot be used here."
+`;
+
+exports[`snippet: #183 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:12)
+> 1 | ({abstract method(){}})
+    |            ^^^^^^"
 `;
 
 exports[`snippet: #184 format[babel-ts] 1`] = `
@@ -4072,6 +5300,12 @@ exports[`snippet: #184 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #184 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:12)
+> 1 | ({accessor method(){}})
+    |            ^^^^^^"
+`;
+
 exports[`snippet: #185 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:9)
 > 1 | ({const method(){}})
@@ -4090,6 +5324,12 @@ exports[`snippet: #185 format[typescript] 1`] = `
 > 1 | ({const method(){}})
     |         ^
 Cause: ':' expected."
+`;
+
+exports[`snippet: #185 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as an identifier (1:3)
+> 1 | ({const method(){}})
+    |   ^^^^^"
 `;
 
 exports[`snippet: #186 format[babel-ts] 1`] = `
@@ -4112,6 +5352,12 @@ exports[`snippet: #186 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot be used here."
 `;
 
+exports[`snippet: #186 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:11)
+> 1 | ({declare method(){}})
+    |           ^^^^^^"
+`;
+
 exports[`snippet: #187 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:11)
 > 1 | ({default method(){}})
@@ -4130,6 +5376,12 @@ exports[`snippet: #187 format[typescript] 1`] = `
 > 1 | ({default method(){}})
     |           ^
 Cause: ':' expected."
+`;
+
+exports[`snippet: #187 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as an identifier (1:3)
+> 1 | ({default method(){}})
+    |   ^^^^^^^"
 `;
 
 exports[`snippet: #188 format[babel-ts] 1`] = `
@@ -4152,6 +5404,12 @@ exports[`snippet: #188 format[typescript] 1`] = `
 Cause: 'export' modifier cannot be used here."
 `;
 
+exports[`snippet: #188 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as an identifier (1:3)
+> 1 | ({export method(){}})
+    |   ^^^^^^"
+`;
+
 exports[`snippet: #189 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:6)
 > 1 | ({in method(){}})
@@ -4170,6 +5428,12 @@ exports[`snippet: #189 format[typescript] 1`] = `
 > 1 | ({in method(){}})
     |   ^^
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #189 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as an identifier (1:3)
+> 1 | ({in method(){}})
+    |   ^^"
 `;
 
 exports[`snippet: #190 format[babel-ts] 1`] = `
@@ -4192,6 +5456,12 @@ exports[`snippet: #190 format[typescript] 1`] = `
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #190 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:7)
+> 1 | ({out method(){}})
+    |       ^^^^^^"
+`;
+
 exports[`snippet: #191 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:12)
 > 1 | ({override method(){}})
@@ -4210,6 +5480,12 @@ exports[`snippet: #191 format[typescript] 1`] = `
 > 1 | ({override method(){}})
     |   ^^^^^^^^
 Cause: 'override' modifier cannot be used here."
+`;
+
+exports[`snippet: #191 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:12)
+> 1 | ({override method(){}})
+    |            ^^^^^^"
 `;
 
 exports[`snippet: #192 format[babel-ts] 1`] = `
@@ -4232,6 +5508,12 @@ exports[`snippet: #192 format[typescript] 1`] = `
 Cause: 'private' modifier cannot be used here."
 `;
 
+exports[`snippet: #192 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:11)
+> 1 | ({private method(){}})
+    |           ^^^^^^"
+`;
+
 exports[`snippet: #193 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:13)
 > 1 | ({protected method(){}})
@@ -4250,6 +5532,12 @@ exports[`snippet: #193 format[typescript] 1`] = `
 > 1 | ({protected method(){}})
     |   ^^^^^^^^^
 Cause: 'protected' modifier cannot be used here."
+`;
+
+exports[`snippet: #193 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:13)
+> 1 | ({protected method(){}})
+    |             ^^^^^^"
 `;
 
 exports[`snippet: #194 format[babel-ts] 1`] = `
@@ -4272,6 +5560,12 @@ exports[`snippet: #194 format[typescript] 1`] = `
 Cause: 'public' modifier cannot be used here."
 `;
 
+exports[`snippet: #194 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:10)
+> 1 | ({public method(){}})
+    |          ^^^^^^"
+`;
+
 exports[`snippet: #195 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:12)
 > 1 | ({readonly method(){}})
@@ -4290,6 +5584,12 @@ exports[`snippet: #195 format[typescript] 1`] = `
 > 1 | ({readonly method(){}})
     |   ^^^^^^^^
 Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #195 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:12)
+> 1 | ({readonly method(){}})
+    |            ^^^^^^"
 `;
 
 exports[`snippet: #196 format[babel-ts] 1`] = `
@@ -4312,6 +5612,12 @@ exports[`snippet: #196 format[typescript] 1`] = `
 Cause: 'static' modifier cannot be used here."
 `;
 
+exports[`snippet: #196 format[yuku-ts] 1`] = `
+"Expected ',' or '}' in object, but found 'method' (1:10)
+> 1 | ({static method(){}})
+    |          ^^^^^^"
+`;
+
 exports[`snippet: #197 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:31)
 > 1 | class A {constructor(abstract []){}}
@@ -4330,6 +5636,12 @@ exports[`snippet: #197 format[typescript] 1`] = `
 > 1 | class A {constructor(abstract []){}}
     |                      ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #197 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:31)
+> 1 | class A {constructor(abstract []){}}
+    |                               ^"
 `;
 
 exports[`snippet: #198 format[babel-ts] 1`] = `
@@ -4352,6 +5664,12 @@ exports[`snippet: #198 format[typescript] 1`] = `
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
 `;
 
+exports[`snippet: #198 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:31)
+> 1 | class A {constructor(abstract {}){}}
+    |                               ^"
+`;
+
 exports[`snippet: #199 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:31)
 > 1 | class A {constructor(abstract ...a){}}
@@ -4370,6 +5688,12 @@ exports[`snippet: #199 format[typescript] 1`] = `
 > 1 | class A {constructor(abstract ...a){}}
     |                      ^^^^^^^^
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration."
+`;
+
+exports[`snippet: #199 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:31)
+> 1 | class A {constructor(abstract ...a){}}
+    |                               ^^^"
 `;
 
 exports[`snippet: #200 format[babel-ts] 1`] = `
@@ -4392,6 +5716,12 @@ exports[`snippet: #200 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #200 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:31)
+> 1 | class A {constructor(accessor []){}}
+    |                               ^"
+`;
+
 exports[`snippet: #201 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:31)
 > 1 | class A {constructor(accessor {}){}}
@@ -4410,6 +5740,12 @@ exports[`snippet: #201 format[typescript] 1`] = `
 > 1 | class A {constructor(accessor {}){}}
     |                      ^^^^^^^^
 Cause: 'accessor' modifier can only appear on a property declaration."
+`;
+
+exports[`snippet: #201 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:31)
+> 1 | class A {constructor(accessor {}){}}
+    |                               ^"
 `;
 
 exports[`snippet: #202 format[babel-ts] 1`] = `
@@ -4432,6 +5768,12 @@ exports[`snippet: #202 format[typescript] 1`] = `
 Cause: 'accessor' modifier can only appear on a property declaration."
 `;
 
+exports[`snippet: #202 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:31)
+> 1 | class A {constructor(accessor ...a){}}
+    |                               ^^^"
+`;
+
 exports[`snippet: #203 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:28)
 > 1 | class A {constructor(async []){}}
@@ -4450,6 +5792,12 @@ exports[`snippet: #203 format[typescript] 1`] = `
 > 1 | class A {constructor(async []){}}
     |                      ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #203 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:28)
+> 1 | class A {constructor(async []){}}
+    |                            ^"
 `;
 
 exports[`snippet: #204 format[babel-ts] 1`] = `
@@ -4472,6 +5820,12 @@ exports[`snippet: #204 format[typescript] 1`] = `
 Cause: 'async' modifier cannot be used here."
 `;
 
+exports[`snippet: #204 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:28)
+> 1 | class A {constructor(async {}){}}
+    |                            ^"
+`;
+
 exports[`snippet: #205 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:28)
 > 1 | class A {constructor(async ...a){}}
@@ -4490,6 +5844,12 @@ exports[`snippet: #205 format[typescript] 1`] = `
 > 1 | class A {constructor(async ...a){}}
     |                      ^^^^^
 Cause: 'async' modifier cannot be used here."
+`;
+
+exports[`snippet: #205 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:28)
+> 1 | class A {constructor(async ...a){}}
+    |                            ^^^"
 `;
 
 exports[`snippet: #206 format[babel-ts] 1`] = `
@@ -4512,6 +5872,12 @@ exports[`snippet: #206 format[typescript] 1`] = `
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #206 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(const []){}}
+    |                      ^^^^^"
+`;
+
 exports[`snippet: #207 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:28)
 > 1 | class A {constructor(const {}){}}
@@ -4530,6 +5896,12 @@ exports[`snippet: #207 format[typescript] 1`] = `
 > 1 | class A {constructor(const {}){}}
     |                      ^
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
+`;
+
+exports[`snippet: #207 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(const {}){}}
+    |                      ^^^^^"
 `;
 
 exports[`snippet: #208 format[babel-ts] 1`] = `
@@ -4552,6 +5924,12 @@ exports[`snippet: #208 format[typescript] 1`] = `
 Cause: Identifier expected. 'const' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #208 format[yuku-ts] 1`] = `
+"'const' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(const ...a){}}
+    |                      ^^^^^"
+`;
+
 exports[`snippet: #209 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:30)
 > 1 | class A {constructor(declare []){}}
@@ -4570,6 +5948,12 @@ exports[`snippet: #209 format[typescript] 1`] = `
 > 1 | class A {constructor(declare []){}}
     |                      ^^^^^^^
 Cause: 'declare' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #209 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:30)
+> 1 | class A {constructor(declare []){}}
+    |                              ^"
 `;
 
 exports[`snippet: #210 format[babel-ts] 1`] = `
@@ -4592,6 +5976,12 @@ exports[`snippet: #210 format[typescript] 1`] = `
 Cause: 'declare' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #210 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:30)
+> 1 | class A {constructor(declare {}){}}
+    |                              ^"
+`;
+
 exports[`snippet: #211 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:30)
 > 1 | class A {constructor(declare ...a){}}
@@ -4610,6 +6000,12 @@ exports[`snippet: #211 format[typescript] 1`] = `
 > 1 | class A {constructor(declare ...a){}}
     |                      ^^^^^^^
 Cause: 'declare' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #211 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:30)
+> 1 | class A {constructor(declare ...a){}}
+    |                              ^^^"
 `;
 
 exports[`snippet: #212 format[babel-ts] 1`] = `
@@ -4632,6 +6028,12 @@ exports[`snippet: #212 format[typescript] 1`] = `
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #212 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(default []){}}
+    |                      ^^^^^^^"
+`;
+
 exports[`snippet: #213 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:30)
 > 1 | class A {constructor(default {}){}}
@@ -4650,6 +6052,12 @@ exports[`snippet: #213 format[typescript] 1`] = `
 > 1 | class A {constructor(default {}){}}
     |                      ^
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
+`;
+
+exports[`snippet: #213 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(default {}){}}
+    |                      ^^^^^^^"
 `;
 
 exports[`snippet: #214 format[babel-ts] 1`] = `
@@ -4672,6 +6080,12 @@ exports[`snippet: #214 format[typescript] 1`] = `
 Cause: Identifier expected. 'default' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #214 format[yuku-ts] 1`] = `
+"'default' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(default ...a){}}
+    |                      ^^^^^^^"
+`;
+
 exports[`snippet: #215 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class A {constructor(export []){}}
@@ -4690,6 +6104,12 @@ exports[`snippet: #215 format[typescript] 1`] = `
 > 1 | class A {constructor(export []){}}
     |                      ^^^^^^
 Cause: 'export' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #215 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(export []){}}
+    |                      ^^^^^^"
 `;
 
 exports[`snippet: #216 format[babel-ts] 1`] = `
@@ -4712,6 +6132,12 @@ exports[`snippet: #216 format[typescript] 1`] = `
 Cause: Identifier expected. 'export' is a reserved word that cannot be used here."
 `;
 
+exports[`snippet: #216 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(export {}){}}
+    |                      ^^^^^^"
+`;
+
 exports[`snippet: #217 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class A {constructor(export ...a){}}
@@ -4730,6 +6156,12 @@ exports[`snippet: #217 format[typescript] 1`] = `
 > 1 | class A {constructor(export ...a){}}
     |                      ^^^^^^
 Cause: 'export' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #217 format[yuku-ts] 1`] = `
+"'export' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(export ...a){}}
+    |                      ^^^^^^"
 `;
 
 exports[`snippet: #218 format[babel-ts] 1`] = `
@@ -4752,6 +6184,12 @@ exports[`snippet: #218 format[typescript] 1`] = `
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #218 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(in []){}}
+    |                      ^^"
+`;
+
 exports[`snippet: #219 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:25)
 > 1 | class A {constructor(in {}){}}
@@ -4770,6 +6208,12 @@ exports[`snippet: #219 format[typescript] 1`] = `
 > 1 | class A {constructor(in {}){}}
     |                      ^^
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #219 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(in {}){}}
+    |                      ^^"
 `;
 
 exports[`snippet: #220 format[babel-ts] 1`] = `
@@ -4792,6 +6236,12 @@ exports[`snippet: #220 format[typescript] 1`] = `
 Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #220 format[yuku-ts] 1`] = `
+"'in' is reserved and cannot be used as a binding identifier (1:22)
+> 1 | class A {constructor(in ...a){}}
+    |                      ^^"
+`;
+
 exports[`snippet: #221 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:26)
 > 1 | class A {constructor(out []){}}
@@ -4810,6 +6260,12 @@ exports[`snippet: #221 format[typescript] 1`] = `
 > 1 | class A {constructor(out []){}}
     |                      ^^^
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #221 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:26)
+> 1 | class A {constructor(out []){}}
+    |                          ^"
 `;
 
 exports[`snippet: #222 format[babel-ts] 1`] = `
@@ -4832,6 +6288,12 @@ exports[`snippet: #222 format[typescript] 1`] = `
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
 `;
 
+exports[`snippet: #222 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:26)
+> 1 | class A {constructor(out {}){}}
+    |                          ^"
+`;
+
 exports[`snippet: #223 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:26)
 > 1 | class A {constructor(out ...a){}}
@@ -4850,6 +6312,12 @@ exports[`snippet: #223 format[typescript] 1`] = `
 > 1 | class A {constructor(out ...a){}}
     |                      ^^^
 Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #223 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:26)
+> 1 | class A {constructor(out ...a){}}
+    |                          ^^^"
 `;
 
 exports[`snippet: #224 format[babel-ts] 1`] = `
@@ -4872,6 +6340,12 @@ exports[`snippet: #224 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #224 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(override []){}}
+    |                               ^^"
+`;
+
 exports[`snippet: #225 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(override {}){}}
@@ -4890,6 +6364,12 @@ exports[`snippet: #225 format[typescript] 1`] = `
 > 1 | class A {constructor(override {}){}}
     |                      ^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #225 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(override {}){}}
+    |                               ^^"
 `;
 
 exports[`snippet: #226 format[babel-ts] 1`] = `
@@ -4912,6 +6392,12 @@ exports[`snippet: #226 format[typescript] 1`] = `
 Cause: A parameter property cannot be a rest parameter."
 `;
 
+exports[`snippet: #226 format[yuku-ts] 1`] = `
+"Unexpected token '...' in binding pattern (1:31)
+> 1 | class A {constructor(override ...a){}}
+    |                               ^^^"
+`;
+
 exports[`snippet: #227 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(private []){}}
@@ -4930,6 +6416,12 @@ exports[`snippet: #227 format[typescript] 1`] = `
 > 1 | class A {constructor(private []){}}
     |                      ^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #227 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:30)
+> 1 | class A {constructor(private []){}}
+    |                              ^^"
 `;
 
 exports[`snippet: #228 format[babel-ts] 1`] = `
@@ -4952,6 +6444,12 @@ exports[`snippet: #228 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #228 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:30)
+> 1 | class A {constructor(private {}){}}
+    |                              ^^"
+`;
+
 exports[`snippet: #229 format[babel-ts] 1`] = `
 "Unexpected token (1:30)
 > 1 | class A {constructor(private ...a){}}
@@ -4970,6 +6468,12 @@ exports[`snippet: #229 format[typescript] 1`] = `
 > 1 | class A {constructor(private ...a){}}
     |                      ^^^^^^^
 Cause: A parameter property cannot be a rest parameter."
+`;
+
+exports[`snippet: #229 format[yuku-ts] 1`] = `
+"Unexpected token '...' in binding pattern (1:30)
+> 1 | class A {constructor(private ...a){}}
+    |                              ^^^"
 `;
 
 exports[`snippet: #230 format[babel-ts] 1`] = `
@@ -4992,6 +6496,12 @@ exports[`snippet: #230 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #230 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:32)
+> 1 | class A {constructor(protected []){}}
+    |                                ^^"
+`;
+
 exports[`snippet: #231 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(protected {}){}}
@@ -5010,6 +6520,12 @@ exports[`snippet: #231 format[typescript] 1`] = `
 > 1 | class A {constructor(protected {}){}}
     |                      ^^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #231 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:32)
+> 1 | class A {constructor(protected {}){}}
+    |                                ^^"
 `;
 
 exports[`snippet: #232 format[babel-ts] 1`] = `
@@ -5032,6 +6548,12 @@ exports[`snippet: #232 format[typescript] 1`] = `
 Cause: A parameter property cannot be a rest parameter."
 `;
 
+exports[`snippet: #232 format[yuku-ts] 1`] = `
+"Unexpected token '...' in binding pattern (1:32)
+> 1 | class A {constructor(protected ...a){}}
+    |                                ^^^"
+`;
+
 exports[`snippet: #233 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(public []){}}
@@ -5050,6 +6572,12 @@ exports[`snippet: #233 format[typescript] 1`] = `
 > 1 | class A {constructor(public []){}}
     |                      ^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #233 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:29)
+> 1 | class A {constructor(public []){}}
+    |                             ^^"
 `;
 
 exports[`snippet: #234 format[babel-ts] 1`] = `
@@ -5072,6 +6600,12 @@ exports[`snippet: #234 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #234 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:29)
+> 1 | class A {constructor(public {}){}}
+    |                             ^^"
+`;
+
 exports[`snippet: #235 format[babel-ts] 1`] = `
 "Unexpected token (1:29)
 > 1 | class A {constructor(public ...a){}}
@@ -5090,6 +6624,12 @@ exports[`snippet: #235 format[typescript] 1`] = `
 > 1 | class A {constructor(public ...a){}}
     |                      ^^^^^^
 Cause: A parameter property cannot be a rest parameter."
+`;
+
+exports[`snippet: #235 format[yuku-ts] 1`] = `
+"Unexpected token '...' in binding pattern (1:29)
+> 1 | class A {constructor(public ...a){}}
+    |                             ^^^"
 `;
 
 exports[`snippet: #236 format[babel-ts] 1`] = `
@@ -5112,6 +6652,12 @@ exports[`snippet: #236 format[typescript] 1`] = `
 Cause: A parameter property may not be declared using a binding pattern."
 `;
 
+exports[`snippet: #236 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(readonly []){}}
+    |                               ^^"
+`;
+
 exports[`snippet: #237 format[babel-ts] 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(readonly {}){}}
@@ -5130,6 +6676,12 @@ exports[`snippet: #237 format[typescript] 1`] = `
 > 1 | class A {constructor(readonly {}){}}
     |                      ^^^^^^^^
 Cause: A parameter property may not be declared using a binding pattern."
+`;
+
+exports[`snippet: #237 format[yuku-ts] 1`] = `
+"A parameter property may not be declared using a binding pattern (1:31)
+> 1 | class A {constructor(readonly {}){}}
+    |                               ^^"
 `;
 
 exports[`snippet: #238 format[babel-ts] 1`] = `
@@ -5152,6 +6704,12 @@ exports[`snippet: #238 format[typescript] 1`] = `
 Cause: A parameter property cannot be a rest parameter."
 `;
 
+exports[`snippet: #238 format[yuku-ts] 1`] = `
+"Unexpected token '...' in binding pattern (1:31)
+> 1 | class A {constructor(readonly ...a){}}
+    |                               ^^^"
+`;
+
 exports[`snippet: #239 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class A {constructor(static []){}}
@@ -5170,6 +6728,12 @@ exports[`snippet: #239 format[typescript] 1`] = `
 > 1 | class A {constructor(static []){}}
     |                      ^^^^^^
 Cause: 'static' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #239 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '[' (1:29)
+> 1 | class A {constructor(static []){}}
+    |                             ^"
 `;
 
 exports[`snippet: #240 format[babel-ts] 1`] = `
@@ -5192,6 +6756,12 @@ exports[`snippet: #240 format[typescript] 1`] = `
 Cause: 'static' modifier cannot appear on a parameter."
 `;
 
+exports[`snippet: #240 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '{' (1:29)
+> 1 | class A {constructor(static {}){}}
+    |                             ^"
+`;
+
 exports[`snippet: #241 format[babel-ts] 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class A {constructor(static ...a){}}
@@ -5210,4 +6780,10 @@ exports[`snippet: #241 format[typescript] 1`] = `
 > 1 | class A {constructor(static ...a){}}
     |                      ^^^^^^
 Cause: 'static' modifier cannot appear on a parameter."
+`;
+
+exports[`snippet: #241 format[yuku-ts] 1`] = `
+"Expected ')' to close parameter list, but found '...' (1:29)
+> 1 | class A {constructor(static ...a){}}
+    |                             ^^^"
 `;

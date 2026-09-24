@@ -5,5 +5,5 @@ runFormatTest(
     importMeta: import.meta,
     snippets: testCases.map((code) => `abstract ${code}`),
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );

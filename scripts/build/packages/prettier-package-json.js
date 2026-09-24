@@ -36,7 +36,7 @@ function generatePackageJson(packageJson, { packageConfig }) {
           }),
       ),
       // Legacy entries
-      // TODO: Remove bellow in v4
+      // TODO: Remove below in v4
       "./esm/standalone.mjs": "./standalone.mjs",
       ...Object.fromEntries(
         files

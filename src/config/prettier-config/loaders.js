@@ -1,15 +1,17 @@
 import { pathToFileURL } from "node:url";
-import json5 from "json5";
+import { parse as parseJson5 } from "@bybrave/json5";
 import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
+import { stripBom } from "../../utilities/bom.js";
 import readFile from "../../utilities/read-file.js";
 
 async function readJson(file) {
-  const content = await readFile(file);
+  let content = await readFile(file);
+  content = stripBom(content);
   try {
     return parseJson(content);
   } catch (/** @type {any} */ error) {
-    error.message = `JSON Error in ${file}:\n${error.message}`;
+    error.message = `JSON Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
@@ -64,17 +66,18 @@ async function loadYaml(file) {
   try {
     return parseYaml(content);
   } catch (/** @type {any} */ error) {
-    error.message = `YAML Error in ${file}:\n${error.message}`;
+    error.message = `YAML Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
 
 async function loadToml(file) {
-  const content = await readFile(file);
+  let content = await readFile(file);
+  content = stripBom(content);
   try {
     return parseToml(content);
   } catch (/** @type {any} */ error) {
-    error.message = `TOML Error in ${file}:\n${error.message}`;
+    error.message = `TOML Error in "${file}":\n${error.message}`;
     throw error;
   }
 }
@@ -82,9 +85,9 @@ async function loadToml(file) {
 async function loadJson5(file) {
   const content = await readFile(file);
   try {
-    return json5.parse(content);
+    return parseJson5(content);
   } catch (/** @type {any} */ error) {
-    error.message = `JSON5 Error in ${file}:\n${error.message}`;
+    error.message = `JSON5 Error in "${file}":\n${error.message}`;
     throw error;
   }
 }

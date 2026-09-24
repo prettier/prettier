@@ -240,6 +240,96 @@ interface I2 {
 ================================================================================
 `;
 
+exports[`issue-19618.ts - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface Container {
+  "new"(id: string): number;
+  "method"(): void;
+}
+
+type ContainerType = {
+  'new'(id: string): number;
+  'method'(): void;
+};
+
+=====================================output=====================================
+interface Container {
+  "new"(id: string): number;
+  method(): void;
+}
+
+type ContainerType = {
+  "new"(id: string): number;
+  method(): void;
+};
+
+================================================================================
+`;
+
+exports[`issue-19618.ts - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface Container {
+  "new"(id: string): number;
+  "method"(): void;
+}
+
+type ContainerType = {
+  'new'(id: string): number;
+  'method'(): void;
+};
+
+=====================================output=====================================
+interface Container {
+  "new"(id: string): number;
+  "method"(): void;
+}
+
+type ContainerType = {
+  "new"(id: string): number;
+  "method"(): void;
+};
+
+================================================================================
+`;
+
+exports[`issue-19618.ts - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface Container {
+  "new"(id: string): number;
+  "method"(): void;
+}
+
+type ContainerType = {
+  'new'(id: string): number;
+  'method'(): void;
+};
+
+=====================================output=====================================
+interface Container {
+  "new"(id: string): number;
+  "method"(): void;
+}
+
+type ContainerType = {
+  "new"(id: string): number;
+  "method"(): void;
+};
+
+================================================================================
+`;
+
 exports[`type-literal.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

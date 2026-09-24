@@ -179,7 +179,7 @@ $z-indexes: (
 =====================================output=====================================
 .simplification {
   foo: (
-    calc() // It is a comment
+    calc(), // It is a comment
   );
 }
 
@@ -230,7 +230,7 @@ $z-indexes: (
 =====================================output=====================================
 .simplification {
   foo: (
-    calc() // It is a comment
+    calc(), // It is a comment
   );
 }
 
@@ -284,6 +284,110 @@ a {
 a {
   margin: $bar;
 }
+
+================================================================================
+`;
+
+exports[`issue-6356.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$single-string: ("a",);
+$single-space-list: (1 2 3,);
+$single-nested-list: ((1, 2),);
+@include assert-equal(daff-string-split(".a", "."), ("a",));
+
+$multiple-items: (1, 2,);
+$single-argument: foo(1,);
+
+$single-entry-map: (a: 1,);
+
+$comment-after-comma: ("a",
+  // ,
+);
+$comment-without-comma: ("a"
+  // ,
+);
+$empty-comment-after-comma: ("a",
+  //
+);
+
+=====================================output=====================================
+$single-string: ("a",);
+$single-space-list: (1 2 3,);
+$single-nested-list: ((1, 2),);
+@include assert-equal(daff-string-split(".a", "."), ("a",));
+
+$multiple-items: (1, 2);
+$single-argument: foo(1);
+
+$single-entry-map: (
+  a: 1,
+);
+
+$comment-after-comma: (
+  "a", // ,
+);
+$comment-without-comma: (
+  "a" // ,
+);
+$empty-comment-after-comma: (
+  "a", //
+);
+
+================================================================================
+`;
+
+exports[`issue-6356.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$single-string: ("a",);
+$single-space-list: (1 2 3,);
+$single-nested-list: ((1, 2),);
+@include assert-equal(daff-string-split(".a", "."), ("a",));
+
+$multiple-items: (1, 2,);
+$single-argument: foo(1,);
+
+$single-entry-map: (a: 1,);
+
+$comment-after-comma: ("a",
+  // ,
+);
+$comment-without-comma: ("a"
+  // ,
+);
+$empty-comment-after-comma: ("a",
+  //
+);
+
+=====================================output=====================================
+$single-string: ("a",);
+$single-space-list: (1 2 3,);
+$single-nested-list: ((1, 2),);
+@include assert-equal(daff-string-split(".a", "."), ("a",));
+
+$multiple-items: (1, 2);
+$single-argument: foo(1);
+
+$single-entry-map: (
+  a: 1
+);
+
+$comment-after-comma: (
+  "a", // ,
+);
+$comment-without-comma: (
+  "a" // ,
+);
+$empty-comment-after-comma: (
+  "a", //
+);
 
 ================================================================================
 `;
@@ -387,7 +491,7 @@ $breakpoint-map: (
 
 =====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
-$list: (a);
+$list: (a,);
 $list: ("Helvetica", "Arial", sans-serif);
 $colors: ("red", "blue");
 $config: (
@@ -492,7 +596,7 @@ $breakpoint-map: (
 
 =====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
-$list: (a);
+$list: (a,);
 $list: ("Helvetica", "Arial", sans-serif);
 $colors: ("red", "blue");
 $config: (

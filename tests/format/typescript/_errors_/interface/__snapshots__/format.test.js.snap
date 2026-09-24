@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: A property signature cannot have an initializer."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected ';', ',', or newline between type members, but found '=' (1:25)
+> 1 | interface I { x: number = 1;}
+    |                         ^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Unexpected token, expected "{" (1:13)
 > 1 | interface A mixins B {}
@@ -40,6 +46,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 Cause: '{' expected."
 `;
 
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found 'mixins' (1:13)
+> 1 | interface A mixins B {}
+    |             ^^^^^^"
+`;
+
 exports[`snippet: #2 format[babel-ts] 1`] = `
 "Unexpected token, expected "{" (1:13)
 > 1 | interface A implements B {}
@@ -58,4 +70,10 @@ exports[`snippet: #2 format[typescript] 1`] = `
 > 1 | interface A implements B {}
     |             ^^^^^^^^^^^^
 Cause: Interface declaration cannot have 'implements' clause."
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found 'implements' (1:13)
+> 1 | interface A implements B {}
+    |             ^^^^^^^^^^"
 `;

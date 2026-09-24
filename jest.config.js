@@ -61,7 +61,10 @@ if (TEST_RUNTIME === "browser") {
 
 if (nodejsMajorVersion <= 18) {
   // Uses import attributes and `Array#toSorted()`
-  testPathIgnorePatterns.push("tests/integration/__tests__/help-options.js");
+  testPathIgnorePatterns.push(
+    "tests/integration/__tests__/help-options.js",
+    "tests/format/html/attributes/lowercase/format.test.js",
+  );
 }
 
 if (nodejsMajorVersion <= 14) {

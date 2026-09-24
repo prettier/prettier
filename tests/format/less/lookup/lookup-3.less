@@ -1,0 +1,16 @@
+#ns() {
+  @v: green;
+  color: red;
+}
+
+@p: color;
+
+.box {
+  last: #ns[];
+  bare: #ns[color];
+  prop: #ns[$color];
+  variable: #ns[@v];
+  indirect-prop: #ns[$@p];
+  indirect-prop: #ns[ $@p ];
+  indirect-prop: #ns   [   $@p   ];
+}

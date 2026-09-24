@@ -6,6 +6,8 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     meriyah: ["expression.js"],
     oxc: ["expression.js"],
     "oxc-ts": ["expression.js"],
+    yuku: ["expression.js"],
+    "yuku-ts": ["expression.js"],
     flow: ["expression.js"],
     hermes: ["expression.js"],
   },

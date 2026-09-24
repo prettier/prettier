@@ -1,5 +1,6 @@
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
+import { getBlockquoteRawText } from "../utilities/get-blockquote-raw-text.js";
 
 function preprocess(ast, options) {
   ast = addRawToText(ast, options);
@@ -103,8 +104,11 @@ function splitTextIntoSentences(ast) {
     // Using `node.value`, we don't need to care about markers like `\n > ` in `blockquote`s.
     let text = node.raw;
 
+    // A setext heading's text can span multiple raw source lines too, e.g.
+    // `> Title\n> continued\n> ===`.
     const paragraphIndex = parentStack.findIndex(
-      (ancestor) => ancestor?.type === "paragraph",
+      (ancestor) =>
+        ancestor?.type === "paragraph" || ancestor?.type === "heading",
     );
 
     const paragraphNode =
@@ -167,19 +171,6 @@ function splitTextIntoSentences(ast) {
       }
     }
   }
-}
-
-function getBlockquoteRawText(text, node) {
-  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/;
-  const rawLines = text.split("\n");
-  const valueLines = node.value.split("\n");
-  const resultLines = rawLines.map((rawLine, index) => {
-    const valueLine = valueLines[index] ?? "";
-    const leadingTextAngleBrackets =
-      valueLine.match(angleBracketsRegex)[0] ?? "";
-    return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
-  });
-  return resultLines.join("\n");
 }
 
 function transformIndentedCodeblock(ast, options) {

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ie-filters.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "less", "scss"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+div {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.bar {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
+}
+
+=====================================output=====================================
+div {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.bar {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
+}
+
+================================================================================
+`;
