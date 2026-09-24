@@ -1,0 +1,21 @@
+@media @{a} {
+    .a {
+      color: red;
+    }
+}
+
+@media @{mq-xs}{.a{color:red}}
+
+@media @{mq-xs} and (min-width: 5px) { .a { color: red } }
+
+@media @{a} and @{b} { .a { color: red } }
+
+@media screen and (max-width: @{w}) { .a { color: red } }
+
+@media @mq-xs { .a { color: red } }
+
+.b {
+  @media @{mq-md} {
+    color: blue;
+  }
+}

@@ -29,6 +29,7 @@ package-lock.json
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+!.yarn/patches
 **/.pnp.*
 .nyc_output
 .devcontainer
