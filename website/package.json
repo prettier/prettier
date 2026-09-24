@@ -24,7 +24,6 @@
     "@codemirror/state": "6.7.4",
     "@codemirror/view": "6.43.11",
     "@docusaurus/preset-classic": "3.10.2",
-    "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "@xiechao/codemirror-lang-handlebars": "1.0.4",
