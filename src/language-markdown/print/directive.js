@@ -21,42 +21,78 @@ function printDirectiveLabel(path, options, print) {
   return "";
 }
 
-// https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L196
+/**
+ * Where the attributes begin: the `{` after the name and, when there is one,
+ * after the whole `[label]`. A label can itself contain braces, so the first
+ * `{` in the directive is not necessarily the attributes.
+ * Returns -1 when the directive has no attribute block.
+ */
+function findAttributesStart(text, node) {
+  let index = node.position.start.offset;
+  const end = node.position.end.offset;
+
+  while (text[index] === ":") {
+    index++;
+  }
+  while (index < end && /[\w-]/u.test(text[index])) {
+    index++;
+  }
+
+  if (text[index] === "[") {
+    let depth = 0;
+    for (; index < end; index++) {
+      if (text[index] === "\\") {
+        index++;
+      } else if (text[index] === "[") {
+        depth++;
+      } else if (text[index] === "]" && --depth === 0) {
+        index++;
+        break;
+      }
+    }
+  }
+
+  return text[index] === "{" ? index : -1;
+}
+
+/**
+ * The attributes exactly as they were written, `{`...`}` included.
+ *
+ * They are copied from the original text rather than rebuilt from
+ * `node.attributes`, because the parser keeps only the resolved values:
+ * shorthands (`{#id.class}`), quoting and character references (`&amp;`) are
+ * all lost, and reprinting them would change the document.
+ *
+ * The end is found by matching braces, minding quotes, so an attribute value
+ * containing `}` and anything written after the directive both survive.
+ */
 function printDirectiveAttributes(path, options) {
   const { node } = path;
-  const { attributes } = node;
-  if (Object.keys(attributes).length === 0) {
+  if (Object.keys(node.attributes).length === 0) {
     return "";
   }
 
-  let start = node.position.start.offset;
-  start = options.originalText.indexOf("{", start);
-  const end = options.originalText.indexOf("\n", start);
-  const text = options.originalText.slice(start, end).trimEnd();
+  const { originalText } = options;
+  const start = findAttributesStart(originalText, node);
+  if (start === -1) {
+    return "";
+  }
 
-  return text;
-
-  console.log({ text, node });
-
-  const values = Object.entries(attributes).map(([key, value]) => {
-    if (key === "id") {
-      return `#${value}`;
+  let quote;
+  for (let index = start; index < node.position.end.offset; index++) {
+    const character = originalText[index];
+    if (quote) {
+      if (character === quote) {
+        quote = undefined;
+      }
+    } else if (character === '"' || character === "'") {
+      quote = character;
+    } else if (character === "}") {
+      return originalText.slice(start, index + 1);
     }
-    if (key === "class") {
-      return value
-        .split(/[\t\n\r ]+/)
-        .map((className) => `.${className}`)
-        .join("");
-    }
+  }
 
-    if (!value) {
-      return key;
-    }
-
-    return `${key}="${value}"`;
-  });
-
-  return values.length > 0 ? "{" + values.join(" ") + "}" : "";
+  return "";
 }
 
 function printDirectiveChildren(path, options, print) {

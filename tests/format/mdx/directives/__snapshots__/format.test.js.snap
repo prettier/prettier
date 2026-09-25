@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`attributes.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Text before :abbr[HTML]{title="HyperText Markup Language"} and text after.
+
+One :a{x=1} and two :b{y=2} on one line.
+
+::a{title="a } b"}
+
+:::note[label with {braces}]{#id}
+body
+:::
+
+::a{b=c}
+
+=====================================output=====================================
+Text before :abbr[HTML]{title="HyperText Markup Language"} and text after.
+
+One :a{x=1} and two :b{y=2} on one line.
+
+::a{title="a } b"}
+
+:::note[label with {braces}]{#id}
+body
+:::
+
+::a{b=c}
+
+================================================================================
+`;
+
 exports[`container.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -136,11 +169,12 @@ k"}.
 =====================================output=====================================
 {/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
 
-One :a, two :a[b], three :a{b}, four :a[b]{c}., four :a[b]{c}..
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
 
 :a.
 
-:a{#b.c.d id=e class="f g" h="i &amp; j.
+:a{#b.c.d id=e class="f g" h="i &amp; j
+k"}.
 
 ================================================================================
 `;
