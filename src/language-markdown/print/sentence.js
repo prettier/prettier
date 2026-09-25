@@ -8,9 +8,10 @@ import { DOC_TYPE_STRING, fill, getDocType } from "../../document/index.js";
 /**
  * @param {AstPath} path
  * @param {*} print
+ * @param {*} options
  * @returns {Doc}
  */
-function printSentence(path, print) {
+function printSentence(path, print, options) {
   /** @type {Doc[]} */
   const parts = [""];
 
@@ -20,6 +21,14 @@ function printSentence(path, print) {
     switch (node.type) {
       case "whitespace":
         if (getDocType(doc) !== DOC_TYPE_STRING) {
+          if (
+            options.parser === "mdx" &&
+            path.next?.type === "word" &&
+            ["import", "export"].includes(path.next.value)
+          ) {
+            parts.push([parts.pop(), " "]);
+            break;
+          }
           parts.push(doc, "");
           break;
         }
