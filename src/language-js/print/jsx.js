@@ -348,7 +348,7 @@ function printJsxChildren(
                 isFacebookTranslationTag,
                 words[1],
                 node,
-                next,
+                getNextNonWhitespaceSibling(path),
               ),
             );
           } else {
@@ -473,6 +473,20 @@ function separatorWithWhitespace(
   }
 
   return hardline;
+}
+
+function getNextNonWhitespaceSibling(path) {
+  const { index, siblings } = path;
+  for (let i = index + 1; i < siblings.length; i++) {
+    const candidate = siblings[i];
+    if (
+      candidate.type === "JSXText" &&
+      !jsxWhitespace.hasNonWhitespaceCharacter(getRaw(candidate))
+    ) {
+      continue;
+    }
+    return candidate;
+  }
 }
 
 const isNoWrapParent = createTypeCheckFunction([
