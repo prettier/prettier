@@ -26,6 +26,11 @@ import {
 } from "../utilities.js";
 import { printChildren } from "./children.js";
 import { printCode } from "./code.js";
+import {
+  printContainerDirective,
+  printLeafDirective,
+  printTextDirective,
+} from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
 import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
@@ -395,6 +400,13 @@ function printMdast(path, options, print) {
       return options.originalText.slice(locStart(node), locEnd(node));
     case "text":
       return replaceEndOfLine(node.value, hardline);
+
+    case "containerDirective":
+      return printContainerDirective(path, options, print);
+    case "leafDirective":
+      return printLeafDirective(path, options, print);
+    case "textDirective":
+      return printTextDirective(path, options, print);
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"

@@ -43,6 +43,10 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   mdxJsxAttribute: ["value"],
   mdxJsxAttributeValueExpression: [],
   mdxJsxExpressionAttribute: [],
+
+  containerDirective: ["children"],
+  leafDirective: ["children"],
+  textDirective: ["children"],
 });
 
 export default visitorKeys;
