@@ -71,7 +71,10 @@ parsers: ["glimmer"]
 <a title="&#38;#160;"></a>
 
 =====================================output=====================================
-<span class="stampFont" style="font-family: 'stampfont'">&#xf000;</span>
+<span
+  class="stampFont"
+  style="font-family: &quot;stampfont&quot;"
+>&#xf000;</span>
 
 Σ: &#931; &#0931; &#x3A3; &#x03A3; &#x3a3; [&amp;nbsp;] [&amp;#160;]
 

@@ -43,6 +43,11 @@ function massageAstNode(original, cloned, parent) {
     delete cloned.value;
   }
 
+  // `style` is reformatted
+  if (original.type === "AttrNode" && original.name === "style") {
+    delete cloned.value;
+  }
+
   if (original.type === "PathExpression") {
     cloned.head = original.head.original;
   }

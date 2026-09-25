@@ -194,7 +194,7 @@ function print(path, options, print) {
       const attrName = getCurrentAttributeName(path);
 
       if (attrName) {
-        // TODO: format style and srcset attributes
+        // TODO: format srcset attributes
         if (attrName === "class") {
           const formattedClasses = text.trim().replaceAll(/\s+/g, " ");
 
