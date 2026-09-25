@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`wrap.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+this text text text text text text text text text text will break at width 80, import a from './Fixture'
+
+=====================================output=====================================
+this text text text text text text text text text text will break at width 80,
+import a from './Fixture'
+
+================================================================================
+`;

@@ -160,6 +160,11 @@ parsers: ["mdx"]
 
  importing something
 
+---
+
+ import { Buz  }   from './Fixture'
+----
+
 =====================================output=====================================
  import a
 
@@ -174,6 +179,11 @@ parsers: ["mdx"]
 ---
 
 importing something
+
+---
+
+import {Buz} from './Fixture'
+----
 
 ================================================================================
 `;
