@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`2799.scss - {"trailingComma":"es5"} format 1`] = `
+exports[`2799.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-trailingComma: "es5"
                                                       printWidth: 80 (default) |
 =====================================input======================================
 $default: #111111 !default;
@@ -42,44 +41,105 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 ================================================================================
 `;
 
-exports[`2799.scss - {"trailingComma":"none"} format 1`] = `
+exports[`19203.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-trailingComma: "none"
                                                       printWidth: 80 (default) |
 =====================================input======================================
-$default: #111111 !default;
-$default: #111111   !default;
-$default: #111111
-!default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
-!default;
+$x: "!default";
+$x: "   !default";
+$x: "   !default   ";
 
-$global: #111111 !global;
-$global: #111111   !global;
-$global: #111111
-!global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"
-!global;
+$x: unquote("!default");
+$x: unquote("   !default");
+$x: unquote("   !default   ");
+
+$x: url("x!global");
+$x: url("x   !global");
+$x: url("x   !global   ");
+
+$x: '!default';
+$x: 'single   !default   ';
+$x: 'single   !default   ';
+
+$x: "it's !default"   !default;
+$x: "it's !default"   !default  ;
+$x: "it's !default  "   !default  ;
+
+$x: "a"   !default;
+$x: "a"   !default  ;
+$x: "a"   !default  ;
+$x: 1px   !default;
+$x: 1px   !global;
+$x: "escaped \\"   !default";
+$x: "escaped \\"   !default ";
+
+$x: "!default"   !default /* trailing comment */;
+$x: "!default"   !global /* trailing comment */;
+$x: "!default"   !default /* c1 */ /* c2 */;
+$x: "!default"   !default /* trailing comment */;
+$x: "!default"   !default /* multi
+line comment */;
+$x: "!default"   !default; // trailing comment
+$x: "!default"   !global; // trailing comment
+$x: "!default"   !default; // trailing comment
+$x: "!default"   !default // trailing comment
+;
+$x: "!default"   !global // trailing comment
+;
+$x: "!default"   !default // trailing comment
+;
+$x: "!default"   !default // 1
+// 2
+;
 
 =====================================output=====================================
-$default: #111111 !default;
-$default: #111111 !default;
-$default: #111111 !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$x: "!default";
+$x: "   !default";
+$x: "   !default   ";
 
-$global: #111111 !global;
-$global: #111111 !global;
-$global: #111111 !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$x: unquote("!default");
+$x: unquote("   !default");
+$x: unquote("   !default   ");
+
+$x: url("x!global");
+$x: url("x   !global");
+$x: url("x   !global   ");
+
+$x: "!default";
+$x: "single   !default   ";
+$x: "single   !default   ";
+
+$x: "it's !default" !default;
+$x: "it's !default" !default;
+$x: "it's !default  " !default;
+
+$x: "a" !default;
+$x: "a" !default;
+$x: "a" !default;
+$x: 1px !default;
+$x: 1px !global;
+$x: 'escaped "   !default';
+$x: 'escaped "   !default ';
+
+$x: "!default" !default /* trailing comment */;
+$x: "!default" !global /* trailing comment */;
+$x: "!default" !default /* c1 */ /* c2 */;
+$x: "!default" !default /* trailing comment */;
+$x: "!default" !default /* multi
+line comment */;
+$x: "!default" !default; // trailing comment
+$x: "!default" !global; // trailing comment
+$x: "!default" !default; // trailing comment
+$x: "!default" !default // trailing comment
+;
+$x: "!default" !global // trailing comment
+;
+$x: "!default" !default // trailing comment
+;
+$x: "!default" !default // 1
+// 2
+;
 
 ================================================================================
 `;
