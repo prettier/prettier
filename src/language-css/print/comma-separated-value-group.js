@@ -367,6 +367,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // A signed color component is one number, not a binary operation.
+    if (
+      (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+      iNextNode.type === "value-number" &&
+      hasEmptyRawBefore(iNextNode) &&
+      parentParentNode &&
+      isColorAdjusterFuncNode(parentParentNode)
+    ) {
+      continue;
+    }
+
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
