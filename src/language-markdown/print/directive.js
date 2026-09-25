@@ -150,22 +150,41 @@ function printContainerDirective(path, options, print) {
   const { node } = path;
   const fence = ":".repeat(getContainerDirectiveFenceSize(node));
 
-  let hasContent = false;
+  const contentNodes = node.children.filter(
+    (child, index) => !(index === 0 && isInlineDirectiveLabel(child)),
+  );
+
+  if (contentNodes.length === 0) {
+    return [
+      printDirectiveOpening(path, options, print, fence),
+      hardline,
+      fence,
+    ];
+  }
+
   const content = printChildren(path, options, print, {
     processor({ isFirst, node }) {
       if (isFirst && isInlineDirectiveLabel(node)) {
         return false;
       }
 
-      hasContent = true;
       return print();
     },
   });
 
+  const { start, end } = node.position;
+  const hasBlankLineAfterOpening =
+    contentNodes[0].position.start.line > start.line + 1;
+  const hasBlankLineBeforeClosing =
+    contentNodes.at(-1).position.end.line < end.line - 1;
+
   return [
     printDirectiveOpening(path, options, print, fence),
-    hasContent ? [hardline, content] : "",
     hardline,
+    hasBlankLineAfterOpening ? hardline : "",
+    content,
+    hardline,
+    hasBlankLineBeforeClosing ? hardline : "",
     fence,
   ];
 }
