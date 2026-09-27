@@ -14,11 +14,77 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 _Make sure Prettier is installed and is in your [`devDependencies`](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) before you proceed._
 
+### npm (via mrm)
+
 ```bash
 npx mrm@2 lint-staged
 ```
 
-This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
+This installs [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then adds a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
+
+> `mrm` expects an npm-style project. Under pnpm (and other non-npm package managers) prefer the manual setup below.
+
+### Manual setup (npm / yarn / pnpm / bun / deno)
+
+Install husky and lint-staged, initialize husky, and point the pre-commit hook at lint-staged:
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```bash
+npm install --save-dev husky lint-staged
+npx husky init
+node --eval "fs.writeFileSync('.husky/pre-commit', 'npx lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn add --dev husky lint-staged
+yarn husky init
+node --eval "fs.writeFileSync('.husky/pre-commit', 'yarn lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm add --save-dev husky lint-staged
+pnpm exec husky init
+node --eval "fs.writeFileSync('.husky/pre-commit', 'pnpm exec lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bun add --dev husky lint-staged
+bunx husky init
+bun --eval "fs.writeFileSync('.husky/pre-commit', 'bunx lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="deno">
+
+```bash
+deno install --dev husky lint-staged
+deno x husky init
+deno eval "Deno.writeTextFileSync('.husky/pre-commit', 'deno x lint-staged\n')"
+```
+
+</TabItem>
+</Tabs>
+
+Then add a `lint-staged` configuration to `package.json` (or a dedicated config file) so staged files are formatted with Prettier:
+
+```json title="package.json"
+{
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
+```
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
