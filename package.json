@@ -99,7 +99,7 @@
     "micromark-extension-math": "3.1.0",
     "micromark-util-character": "2.1.1",
     "micromark-util-symbol": "2.0.1",
-    "micromark-util-types": "2.0.2",
+    "micromark-util-types": "2.0.3",
     "micromatch": "4.0.8",
     "minimist": "1.2.8",
     "n-readlines": "3.4.1",
