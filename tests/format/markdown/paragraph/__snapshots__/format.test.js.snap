@@ -166,6 +166,72 @@ IVS 麻󠄁羽󠄀‼️
 ================================================================================
 `;
 
+exports[`import-export.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import/export workaround shouldn't affect markdown
+
+import	a from "a";
+
+export	{ a };
+
+=====================================output=====================================
+import/export workaround shouldn't affect markdown
+
+import a from "a";
+
+export { a };
+
+================================================================================
+`;
+
+exports[`import-export.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import/export workaround shouldn't affect markdown
+
+import	a from "a";
+
+export	{ a };
+
+=====================================output=====================================
+import/export workaround shouldn't affect markdown
+
+import a from "a";
+
+export { a };
+
+================================================================================
+`;
+
+exports[`import-export.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import/export workaround shouldn't affect markdown
+
+import	a from "a";
+
+export	{ a };
+
+=====================================output=====================================
+import/export workaround shouldn't affect markdown
+
+import a from "a";
+
+export { a };
+
+================================================================================
+`;
+
 exports[`inline-nodes.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
