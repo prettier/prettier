@@ -60,7 +60,6 @@ function needsLeadingWhitespace(path, options) {
     path.grandparent.type === "root" &&
     (path.parent.type === "paragraph" || isSetextHeading(path.parent)) &&
     path.isFirst &&
-    path.node.position.start.column !== 1 &&
     firstChild?.type === "word" &&
     ["import", "export"].includes(firstChild.value)
   );
