@@ -296,6 +296,14 @@ parsers: ["html"]
   {"prerender":            []}
 </script>
 
+<style lang="js" type="unknown">
+  await    Promise.resolve(1)
+</style>
+
+<style lang="js" type="module">
+  await    Promise.resolve(1)
+</style>
+
 =====================================output=====================================
 <script lang="js" type="text/javascript">
   return;
@@ -351,6 +359,14 @@ parsers: ["html"]
 <script type="speculationrules">
   { "prerender": [] }
 </script>
+
+<style lang="js" type="unknown">
+  await    Promise.resolve(1)
+</style>
+
+<style lang="js" type="module">
+  await Promise.resolve(1);
+</style>
 
 ================================================================================
 `;

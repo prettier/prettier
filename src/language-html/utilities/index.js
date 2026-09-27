@@ -420,7 +420,8 @@ function shouldParseScriptAsModule(node) {
     typeEssence === "module" ||
     ((typeEssence === "text/babel" || typeEssence === "text/jsx") &&
       dataType === "module") ||
-    (lang &&
+    (node.name === "script" &&
+      lang &&
       type &&
       !javascriptMimeTypeEssences.has(typeEssence) &&
       !inferParserByTypeAttribute(typeEssence))
