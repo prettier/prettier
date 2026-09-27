@@ -24,8 +24,8 @@ proseWrap: "always"
 this text text text text text text text text text text will break at width 80, import a from './Fixture'
 
 =====================================output=====================================
-this text text text text text text text text text text will break at width
-80, import a from './Fixture'
+this text text text text text text text text text text will break at width 80,
+import a from './Fixture'
 
 ================================================================================
 `;

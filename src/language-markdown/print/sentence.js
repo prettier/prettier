@@ -25,15 +25,6 @@ function printSentence(path, options, print) {
     switch (node.type) {
       case "whitespace":
         if (getDocType(doc) !== DOC_TYPE_STRING) {
-          if (
-            options.parser === "mdx" &&
-            options.proseWrap !== "preserve" &&
-            path.next?.type === "word" &&
-            ["import", "export"].includes(path.next.value)
-          ) {
-            parts.push([parts.pop(), " "]);
-            break;
-          }
           parts.push(doc, "");
           break;
         }
