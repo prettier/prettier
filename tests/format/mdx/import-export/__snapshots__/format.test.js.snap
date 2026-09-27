@@ -182,7 +182,7 @@ importing something
 
 ---
 
-import {Buz} from './Fixture'
+ import {Buz} from './Fixture'
 ----
 
 ================================================================================
