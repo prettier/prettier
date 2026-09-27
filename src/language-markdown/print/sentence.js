@@ -27,6 +27,7 @@ function printSentence(path, options, print) {
         if (getDocType(doc) !== DOC_TYPE_STRING) {
           if (
             options.parser === "mdx" &&
+            options.proseWrap !== "preserve" &&
             path.next?.type === "word" &&
             ["import", "export"].includes(path.next.value)
           ) {
