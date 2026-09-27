@@ -8,11 +8,11 @@ import { isSetextHeading } from "../utilities.js";
 
 /**
  * @param {AstPath} path
- * @param {*} print
  * @param {*} options
+ * @param {*} print
  * @returns {Doc}
  */
-function printSentence(path, print, options) {
+function printSentence(path, options, print) {
   /** @type {Doc[]} */
   let parts = [""];
   if (needsLeadingWhitespace(path, options)) {
@@ -54,21 +54,15 @@ function needsLeadingWhitespace(path, options) {
   if (options.parser !== "mdx") {
     return false;
   }
-  if (path.grandparent.type !== "root") {
-    return false;
-  }
-  if (path.parent.type !== "paragraph" && !isSetextHeading(path.parent)) {
-    return false;
-  }
-  if (path.previous != null) {
-    return false;
-  }
 
-  const { node } = path;
+  const firstChild = path.node.children[0];
   return (
-    node.children[0]?.type === "word" &&
-    ["import", "export"].includes(node.children[0].value) &&
-    node.position?.start.column !== 1
+    path.grandparent.type === "root" &&
+    (path.parent.type === "paragraph" || isSetextHeading(path.parent)) &&
+    path.isFirst &&
+    path.node.position.start.column !== 1 &&
+    firstChild?.type === "word" &&
+    ["import", "export"].includes(firstChild.value)
   );
 }
 
