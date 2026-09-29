@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   replaceEndOfLine,
   softline,
@@ -241,12 +242,25 @@ function printEstree(path, options, print, args) {
 
       return parts;
     }
-    case "UpdateExpression":
+    case "UpdateExpression": {
+      if (node.prefix) {
+        return [node.operator, print("argument")];
+      }
+
+      const argumentDoc = print("argument");
+
+      // A postfix operator is a restricted production, no line terminator is
+      // allowed before it, so keep the parentheses when the argument breaks.
       return [
-        node.prefix ? node.operator : "",
-        print("argument"),
-        node.prefix ? "" : node.operator,
+        hasComment(
+          node.argument,
+          CommentCheckFlags.Trailing | CommentCheckFlags.Block,
+        )
+          ? group([ifBreak("("), argumentDoc, ifBreak(")")])
+          : argumentDoc,
+        node.operator,
       ];
+    }
     case "ConditionalExpression":
       return printTernary(path, options, print, args);
     case "VariableDeclaration":
