@@ -183,9 +183,10 @@ function shouldExtraIndentForConditionalExpression(path) {
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
+ * @param {Doc} printedConsequent - The printed consequent and its comments
  * @returns {Doc}
  */
-function printTernaryOld(path, options, print) {
+function printTernaryOld(path, options, print, printedConsequent) {
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const consequentNodePropertyName = isConditionalExpression
@@ -261,9 +262,7 @@ function printTernaryOld(path, options, print) {
 
     parts.push(
       " ? ",
-      isNil(consequentNode)
-        ? print(consequentNodePropertyName)
-        : wrap(print(consequentNodePropertyName)),
+      isNil(consequentNode) ? printedConsequent : wrap(printedConsequent),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
@@ -292,16 +291,14 @@ function printTernaryOld(path, options, print) {
      : alternate
     ```
     */
-    const printBranch = (nodePropertyName) =>
-      options.useTabs
-        ? indent(print(nodePropertyName))
-        : align(2, print(nodePropertyName));
+    const printBranch = (nodePropertyName, doc = print(nodePropertyName)) =>
+      options.useTabs ? indent(doc) : align(2, doc);
     // normal mode
     const part = [
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      printBranch(consequentNodePropertyName),
+      printBranch(consequentNodePropertyName, printedConsequent),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",

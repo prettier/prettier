@@ -124,6 +124,15 @@ T = any instanceof B
      B | C
     : D;
 
+type T = any extends B
+  /* Comment */
+    ? C
+    : D;
+T = any instanceof B
+  /* Comment */
+    ? C
+    : D;
+
 =====================================output=====================================
 type A =
   B extends T ?
@@ -247,6 +256,9 @@ T = any instanceof B ?
   : D;
 type T = any extends B ? /* Comment */ B | C : D;
 T = any instanceof B ? /* Comment */ B | C : D;
+
+type T = any extends B ? /* Comment */ C : D;
+T = any instanceof B ? /* Comment */ C : D;
 
 ================================================================================
 `;
@@ -374,6 +386,15 @@ T = any instanceof B
      B | C
     : D;
 
+type T = any extends B
+  /* Comment */
+    ? C
+    : D;
+T = any instanceof B
+  /* Comment */
+    ? C
+    : D;
+
 =====================================output=====================================
 type A = B extends T
   ? // comment
@@ -488,6 +509,9 @@ T =
     : D;
 type T = any extends B ? /* Comment */ B | C : D;
 T = any instanceof B ? /* Comment */ B | C : D;
+
+type T = any extends B ? /* Comment */ C : D;
+T = any instanceof B ? /* Comment */ C : D;
 
 ================================================================================
 `;
