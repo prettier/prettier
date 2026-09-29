@@ -369,6 +369,58 @@ export default class ProjectStatusComponent extends Component<ProjectStatusSig> 
 ================================================================================
 `;
 
+exports[`export-comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export /* c */ @dec class A {}
+
+export // c
+@dec class B {}
+
+export /* c */
+@dec class C {}
+
+export /* c */
+
+@dec class D {}
+
+export /* c */ @dec1 @dec2 class E {}
+
+export default /* c */ @dec class F {}
+
+export @dec /* c */ class G {}
+
+@dec export class H {}
+
+=====================================output=====================================
+export /* c */ @dec class A {}
+
+export // c
+@dec class B {}
+
+export /* c */
+@dec class C {}
+
+export /* c */
+
+@dec class D {}
+
+export /* c */ @dec1 @dec2 class E {}
+
+export default /* c */ @dec class F {}
+
+export
+@dec /* c */
+class G {}
+
+@dec
+export class H {}
+
+================================================================================
+`;
+
 exports[`inline-decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
