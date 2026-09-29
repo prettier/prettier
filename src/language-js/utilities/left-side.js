@@ -36,7 +36,8 @@ function hasNakedLeftSide(node) {
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
     isBinaryCastExpression(node) ||
-    isChainElementWrapper(node)
+    isChainElementWrapper(node) ||
+    node.type === "TSInstantiationExpression"
   );
 }
 
