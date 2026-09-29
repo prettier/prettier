@@ -164,13 +164,39 @@ function shouldQuoteKey(path, options) {
   );
 }
 
-function shouldUnquoteKey(path, options) {
+function shouldUnquoteKey(path, options, node = path.node) {
   return (
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" &&
         !hasSiblingsRequireQuoted(path, options))) &&
-    isKeySafeToUnquote(path.node, options)
+    isKeySafeToUnquote(node, options)
   );
+}
+
+/**
+Returns the name of a non-computed key that is an identifier, or a string
+literal that `printKey` will print unquoted, so callers can apply the same
+ASI rules to both forms.
+
+`node` defaults to `path.node`, but can be a sibling of it (e.g. the next
+class member), since the quote decision only depends on the siblings.
+
+@returns {string | undefined}
+*/
+function getUnquotedKeyName(path, options, node = path.node) {
+  if (isComputedKey(node)) {
+    return;
+  }
+
+  const key = getKey(node);
+
+  if (key?.type === "Identifier") {
+    return key.name;
+  }
+
+  if (isStringLiteral(key) && shouldUnquoteKey(path, options, node)) {
+    return key.value;
+  }
 }
 
 /*
@@ -232,4 +258,4 @@ function printKey(path, options, print) {
   return print(property);
 }
 
-export { printKey };
+export { getUnquotedKeyName, printKey };
