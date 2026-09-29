@@ -202,6 +202,7 @@ function printArrowFunctionSignature(path, options, print, args) {
 
   const dangling = printDanglingComments(path, options, {
     marker: "commentBeforeArrow",
+    separator: " ",
   });
   if (dangling) {
     parts.push(" ", dangling);
