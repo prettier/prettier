@@ -2,6 +2,11 @@ import { group, hardline, indent, line } from "../../document/index.js";
 import { hasComment } from "../utilities/comments.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
+const isForXStatementInitializerPath = ({ key, parent }) =>
+  (key === "init" && parent.type === "ForStatement") ||
+  (key === "left" &&
+    (parent.type === "ForInStatement" || parent.type === "ForOfStatement"));
+
 function printVariableDeclaration(path, options, print) {
   const { node } = path;
   const printed = path.map(print, "declarations");
@@ -9,11 +14,7 @@ function printVariableDeclaration(path, options, print) {
   // We generally want to terminate all variable declarations with a
   // semicolon, except when they in the () part of for loops.
 
-  const isForXStatementInitializer =
-    (path.key === "init" && path.parent.type === "ForStatement") ||
-    (path.key === "left" &&
-      (path.parent.type === "ForInStatement" ||
-        path.parent.type === "ForOfStatement"));
+  const isForXStatementInitializer = isForXStatementInitializerPath(path);
 
   const hasValue = node.declarations.some((declarator) => declarator.init);
 
@@ -42,4 +43,4 @@ function printVariableDeclaration(path, options, print) {
   ]);
 }
 
-export { printVariableDeclaration };
+export { isForXStatementInitializerPath, printVariableDeclaration };
