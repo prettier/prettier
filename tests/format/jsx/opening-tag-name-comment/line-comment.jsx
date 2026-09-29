@@ -1,0 +1,3 @@
+const a = <
+  // c
+  div />;
