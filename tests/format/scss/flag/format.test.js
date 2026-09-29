@@ -1,2 +1,1 @@
-runFormatTest(import.meta, ["scss"], { trailingComma: "none" });
-runFormatTest(import.meta, ["scss"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["scss"]);
