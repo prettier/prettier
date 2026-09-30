@@ -111,14 +111,22 @@ function printClassWithoutDecorators(path, options, print) {
   }
 
   if (node.superClass) {
-    const printed = [
-      printSuperClass(path, options, print),
-      print("superTypeArguments"),
-    ];
+    const printDirectiveBeforeSuperTypeArguments = hasComment(
+      node.superClass,
+      (comment) => comment.printBeforeSuperTypeArguments,
+    );
+    const superTypeArguments = print("superTypeArguments");
+    const printed = [printSuperClass(path, options, print)];
+    if (!printDirectiveBeforeSuperTypeArguments) {
+      printed.push(superTypeArguments);
+    }
     const printedWithComments = path.call(
       () => ["extends ", printComments(path, printed, options)],
       "superClass",
     );
+    if (printDirectiveBeforeSuperTypeArguments) {
+      printedWithComments.push(hardline, superTypeArguments);
+    }
     if (groupMode) {
       extendsParts.push(line, group(printedWithComments));
     } else {
@@ -183,7 +191,10 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
   if (
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
-    hasComment(node.superClass) ||
+    hasComment(
+      node.superClass,
+      (comment) => !comment.printBeforeSuperTypeArguments,
+    ) ||
     hasMultipleHeritage(node)
   ) {
     return true;
