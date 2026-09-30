@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`superclass.jsx - {"printWidth":20} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 20
+    printWidth: 20 |
+=====================================input======================================
+class Leading extends (/* leading */ <Component />) {}
+
+class Trailing extends (<Component /> /* trailing */) {}
+
+class Both extends (/* before */ <Component /> /* after */) {}
+
+class LeadingLine extends (
+  // leading line
+  <Component />
+) {}
+
+class TrailingLine extends (
+  <Component /> // trailing line
+) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<Component /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Nested extends (
+  /* nested */ <Component><Child /></Component> /* end */
+) {
+  method() {}
+}
+
+class Ordinary extends (/* ordinary */ createClass()) {}
+
+class Ignored extends (/* prettier-ignore */ <Component  unformatted = "value" />) {}
+
+Expression = class extends (/* long before */ <Component attribute="a long attribute that wraps at narrow widths"><Child /></Component> /* long after */) {
+  method() {}
+};
+
+=====================================output=====================================
+class Leading
+  extends (
+    /* leading */ <Component />
+  ) {}
+
+class Trailing
+  extends (
+    <Component /> /* trailing */
+  ) {}
+
+class Both
+  extends (
+    /* before */ <Component /> /* after */
+  ) {}
+
+class LeadingLine
+  extends (
+    // leading line
+    <Component />
+  ) {}
+
+class TrailingLine
+  extends (
+    <Component /> // trailing line
+  ) {}
+
+class Fragment
+  extends (
+    /* fragment */ <>
+      child
+    </>
+  ) {}
+
+let Expression = class
+  extends (
+    <Component /> /* expression */
+  ) {};
+
+Expression = class
+  extends (
+    (
+      /* assignment */ <Component />
+    )
+  ) {};
+
+class Nested
+  extends (
+    /* nested */ <Component>
+      <Child />
+    </Component> /* end */
+  )
+{
+  method() {}
+}
+
+class Ordinary
+  extends /* ordinary */ createClass() {}
+
+class Ignored
+  extends /* prettier-ignore */ (<Component  unformatted = "value" />) {}
+
+Expression = class
+  extends (
+    (
+      /* long before */ <Component attribute="a long attribute that wraps at narrow widths">
+        <Child />
+      </Component> /* long after */
+    )
+  )
+{
+  method() {}
+};
+
+================================================================================
+`;
+
+exports[`superclass.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class Leading extends (/* leading */ <Component />) {}
+
+class Trailing extends (<Component /> /* trailing */) {}
+
+class Both extends (/* before */ <Component /> /* after */) {}
+
+class LeadingLine extends (
+  // leading line
+  <Component />
+) {}
+
+class TrailingLine extends (
+  <Component /> // trailing line
+) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<Component /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Nested extends (
+  /* nested */ <Component><Child /></Component> /* end */
+) {
+  method() {}
+}
+
+class Ordinary extends (/* ordinary */ createClass()) {}
+
+class Ignored extends (/* prettier-ignore */ <Component  unformatted = "value" />) {}
+
+Expression = class extends (/* long before */ <Component attribute="a long attribute that wraps at narrow widths"><Child /></Component> /* long after */) {
+  method() {}
+};
+
+=====================================output=====================================
+class Leading extends (/* leading */ <Component />) {}
+
+class Trailing extends (<Component /> /* trailing */) {}
+
+class Both extends (/* before */ <Component /> /* after */) {}
+
+class LeadingLine
+  extends (
+    // leading line
+    <Component />
+  ) {}
+
+class TrailingLine
+  extends (
+    <Component /> // trailing line
+  ) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<Component /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Nested
+  extends (
+    /* nested */ <Component>
+      <Child />
+    </Component> /* end */
+  )
+{
+  method() {}
+}
+
+class Ordinary extends /* ordinary */ createClass() {}
+
+class Ignored
+  extends /* prettier-ignore */ (<Component  unformatted = "value" />) {}
+
+Expression = class
+  extends (
+    (
+      /* long before */ <Component attribute="a long attribute that wraps at narrow widths">
+        <Child />
+      </Component> /* long after */
+    )
+  )
+{
+  method() {}
+};
+
+================================================================================
+`;
