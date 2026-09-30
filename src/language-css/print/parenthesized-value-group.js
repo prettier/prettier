@@ -15,9 +15,10 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd } from "../loc.js";
 import {
   isConfigurationNode,
   isKeyInValuePairNode,
@@ -28,18 +29,34 @@ import {
 } from "../utilities/index.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
-function hasComma({ node, parent }, options) {
-  return Boolean(
-    node.source &&
-    options.originalText
-      .slice(locStart(node), locStart(parent.close))
-      .trimEnd()
-      .endsWith(","),
+function hasTrailingComma({ node, parent }, options) {
+  if (parent.type !== "value-paren_group") {
+    return false;
+  }
+
+  const nodes = node.type === "value-comma_group" ? node.groups : [node];
+  const lastValue = nodes.findLast((child) => child.type !== "value-comment");
+
+  if (!lastValue) {
+    return false;
+  }
+
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
+    options.originalText,
+    locEnd(lastValue),
   );
+  return nextCharacter === ",";
 }
 
 function printTrailingComma(path, options) {
-  if (isVarFunctionNode(path.grandparent) && hasComma(path, options)) {
+  if (
+    (isVarFunctionNode(path.grandparent) ||
+      (options.parser === "scss" &&
+        path.grandparent?.type !== "value-func" &&
+        path.parent.groups.length === 1 &&
+        !isKeyValuePairNode(path.parent.groups[0]))) &&
+    hasTrailingComma(path, options)
+  ) {
     return ",";
   }
 

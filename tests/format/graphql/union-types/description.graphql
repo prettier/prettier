@@ -1,0 +1,8 @@
+"single line description"
+union U1 = A | B
+
+"""
+multiline
+description
+"""
+union U2 = A | B

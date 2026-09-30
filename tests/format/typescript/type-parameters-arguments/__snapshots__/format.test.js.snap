@@ -565,6 +565,17 @@ exports[`const.ts format[oxc-ts] 1`] = `
   25 | interface L<in const T> {}"
 `;
 
+exports[`const.ts format[yuku-ts] 1`] = `
+"Type parameter modifiers must appear in the order 'const in out' (14:12)
+  12 | class B<const T extends U> {}
+  13 | class C<T, const U> {}
+> 14 | class D<in const T> {}
+     |            ^^^^^
+  15 | class E<const in T> {}
+  16 | (class <const T> {});
+  17 | (class <const T extends U> {});"
+`;
+
 exports[`constraints-and-default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

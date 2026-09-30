@@ -2,7 +2,7 @@
 
 exports[`optional-chaining.jsx format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 function foo() {

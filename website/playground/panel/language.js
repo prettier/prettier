@@ -1,6 +1,6 @@
 /**
 @import {languages} from "@codemirror/language-data";
-@typedef {typeof languages[number]["name"] | "GraphQl"} LanguageNames
+@typedef {typeof languages[number]["name"] | "GraphQL"} LanguageNames
 */
 
 // TODO: we should be able to get this from plugin languages
@@ -15,6 +15,7 @@ function getCodemirrorMode(parser) {
     case "espree":
     case "meriyah":
     case "oxc":
+    case "yuku":
       return "JSX";
 
     case "doc-explorer":
@@ -26,6 +27,7 @@ function getCodemirrorMode(parser) {
     case "typescript":
     case "hermes":
     case "oxc-ts":
+    case "yuku-ts":
       return "TSX";
 
     case "css":
@@ -36,7 +38,7 @@ function getCodemirrorMode(parser) {
       return "SCSS";
 
     case "graphql":
-      return "GraphQl";
+      return "GraphQL";
 
     case "json":
     case "json5":
@@ -72,7 +74,7 @@ function getCodemirrorMode(parser) {
 let languageExtensions;
 /** @param {LanguageNames} mode */
 async function getLanguageExtension(mode) {
-  if (mode === "GraphQl") {
+  if (mode === "GraphQL") {
     const { graphql } = await import("cm6-graphql");
     return graphql();
   }
@@ -92,6 +94,12 @@ async function getLanguageExtension(mode) {
 
   const language =
     languageExtensions.get(mode) ?? languageExtensions.get("TSX");
+
+  if (!language) {
+    throw new Error(
+      `No CodeMirror language extension found for "${mode}", and fallback "TSX" is unavailable.`,
+    );
+  }
 
   return await language.loadFunc();
 }

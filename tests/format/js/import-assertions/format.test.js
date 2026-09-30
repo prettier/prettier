@@ -1,4 +1,4 @@
-runFormatTest(import.meta, ["oxc", "typescript", "hermes"], {
+runFormatTest(import.meta, ["oxc", "yuku", "typescript", "hermes"], {
   errors: {
     "babel-ts": [
       "empty.js",

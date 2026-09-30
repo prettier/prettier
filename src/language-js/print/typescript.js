@@ -1,3 +1,4 @@
+import { group } from "../../document/index.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import isTsKeywordType from "../utilities/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
@@ -111,10 +112,12 @@ function printTypescript(path, options, print, args) {
       return printArrayType(print);
     case "TSPropertySignature":
       return [
-        node.readonly ? "readonly " : "",
-        printKey(path, options, print),
-        printOptionalToken(path),
-        printTypeAnnotationProperty(path, print),
+        group([
+          node.readonly ? "readonly " : "",
+          printKey(path, options, print),
+          printOptionalToken(path),
+          printTypeAnnotationProperty(path, print),
+        ]),
         printClassMemberSemicolon(path, options),
       ];
 

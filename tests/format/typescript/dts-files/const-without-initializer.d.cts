@@ -1,0 +1,1 @@
+const    version: string;

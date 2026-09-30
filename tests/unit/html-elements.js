@@ -1,3 +1,4 @@
+import { elementAttributes, globalAttributes } from "@prettier/html-attributes";
 import { htmlTags } from "@prettier/html-tags";
 import {
   CSS_DISPLAY_DEFAULT,
@@ -12,7 +13,12 @@ test("htmlTagNames", () => {
     tagName,
     display: CSS_DISPLAY_TAGS[tagName] ?? CSS_DISPLAY_DEFAULT,
     whiteSpace: CSS_WHITE_SPACE_TAGS[tagName] ?? CSS_WHITE_SPACE_DEFAULT,
+    attributes: elementAttributes[tagName] ?? [],
   }));
 
   expect(data).toMatchSnapshot();
+});
+
+test("Global attributes", () => {
+  expect(globalAttributes).toMatchSnapshot();
 });

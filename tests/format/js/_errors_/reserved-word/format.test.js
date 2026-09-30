@@ -36,5 +36,7 @@ runFormatTest(
     "hermes",
     "oxc",
     "oxc-ts",
+    "yuku",
+    "yuku-ts",
   ],
 );

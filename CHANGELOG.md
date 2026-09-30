@@ -1,3 +1,302 @@
+# 3.9.9
+
+[diff](https://github.com/prettier/prettier/compare/3.9.8...3.9.9)
+
+#### Markdown: Fix text with `$` been incorrectly parsed as math syntax ([#20140](https://github.com/prettier/prettier/pull/20140) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR` from `c.sh`, before anything else runs here.
+
+<!-- Prettier 3.9.8 -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR`from`c.sh`, before anything else runs here.
+
+<!-- Prettier 3.9.9 -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR` from `c.sh`, before anything else runs here.
+```
+
+# 3.9.8
+
+[diff](https://github.com/prettier/prettier/compare/3.9.7...3.9.8)
+
+#### Markdown: Don't let Liquid objects interrupt paragraphs ([#20087](https://github.com/prettier/prettier/pull/20087) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+
+<!-- Prettier 3.9.7 -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+
+{{jsxref("TypeError")}} is thrown.
+
+<!-- Prettier 3.9.8 -->
+If `module` is not a [`WebAssembly.Module`](/en-US/docs/WebAssembly/Reference/JavaScript_interface/Module) object instance, a
+{{jsxref("TypeError")}} is thrown.
+```
+
+# 3.9.7
+
+[diff](https://github.com/prettier/prettier/compare/3.9.6...3.9.7)
+
+#### Markdown: Prevent indentation drift in list-item code blocks ([#19647](https://github.com/prettier/prettier/pull/19647), [#19990](https://github.com/prettier/prettier/pull/19990) by [@Austin1serb](https://github.com/Austin1serb), [@giaBaoJS](https://github.com/giaBaoJS))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+- [x] short first line.
+
+      second paragraph at six spaces that wraps
+      onto another line here.
+
+<!-- Prettier 3.9.6 -->
+- [x] short first line.
+
+      second paragraph at six spaces that wraps
+          onto another line here.
+
+<!-- Prettier 3.9.7 -->
+- [x] short first line.
+
+      second paragraph at six spaces that wraps
+      onto another line here.
+```
+
+#### JavaScript: Fix embedded template literal idempotency ([#19725](https://github.com/prettier/prettier/pull/19725) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const foo = html`
+            <div>${getText({
+            value,
+            })}</div>
+`;
+
+// Prettier 3.9.6 (first format)
+const foo = html`
+  <div>
+    ${getText({
+              value,
+            })}
+  </div>
+`;
+
+// Prettier 3.9.6 (second format)
+const foo = html`
+  <div>
+    ${getText({
+      value,
+    })}
+  </div>
+`;
+
+// Prettier 3.9.7
+const foo = html`
+  <div>
+    ${getText({
+      value,
+    })}
+  </div>
+`;
+```
+
+#### Markdown: Preserve Liquid blocks after Markdown tables ([#19730](https://github.com/prettier/prettier/pull/19730) by [@wanxiankai](https://github.com/wanxiankai), [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+
+<!-- Prettier 3.9.6 -->
+| Argument                  | Type |
+| ------------------------- | ---- |
+| {% set default_params = { |
+
+    "model": ["str"],
+
+} %}
+
+<!-- Prettier 3.9.7 -->
+| Argument | Type |
+| -------- | ---- |
+{% set default_params = {
+    "model": ["str"],
+} %}
+```
+
+#### Markdown: Preserve single tildes in Markdown ([#19739](https://github.com/prettier/prettier/pull/19739) by [@lazerg](https://github.com/lazerg))
+
+Since 3.9.0, single-tilde spans like `H~2~O` were rewritten to double tildes, turning subscript syntax into strike-through. Only double tildes are treated that way now, matching GitHub.
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+H~2~O
+
+<!-- Prettier 3.9.6 -->
+H~~2~~O
+
+<!-- Prettier 3.9.7 -->
+H~2~O
+```
+
+#### Markdown: Fix Markdown blockquote containing `>` characters ([#19802](https://github.com/prettier/prettier/pull/19802) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+> **test**\>
+
+<!-- Prettier 3.9.6 -->
+> **test**>\>
+
+<!-- Prettier 3.9.7 -->
+> **test**\>
+```
+
+#### Markdown: Strip blockquote markers from a setext heading's continuation lines ([#19878](https://github.com/prettier/prettier/pull/19878) by [@Kjubikstronk](https://github.com/Kjubikstronk))
+
+A setext heading spanning multiple lines inside a blockquote kept the `>` marker of its continuation lines as literal text.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+> Multi
+> Line
+> ===
+
+<!-- Prettier 3.9.6 -->
+> Multi > Line
+> ===
+
+<!-- Prettier 3.9.7 -->
+> Multi
+> Line
+> ===
+```
+
+#### Markdown: Fix HTML block indentation drift in markdown list items ([#19987](https://github.com/prettier/prettier/pull/19987) by [@lazerg](https://github.com/lazerg))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+1. Enable images:
+
+    <p align="center">
+      <img alt="example">
+    </p>
+
+<!-- Prettier 3.9.6 (--tab-width=4) -->
+1. Enable images:
+
+     <p align="center">
+       <img alt="example">
+     </p>
+
+<!-- Prettier 3.9.7 (--tab-width=4) -->
+1. Enable images:
+
+    <p align="center">
+      <img alt="example">
+    </p>
+```
+
+#### Angular: Support `@boundary` error boundaries ([#20014](https://github.com/prettier/prettier/pull/20014) by [@Yahiro025](https://github.com/Yahiro025))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+@boundary {
+<complex-chart [data]="data"/>
+}
+@error (let err) {
+<p>{{err.message}}</p>
+}
+
+<!-- Prettier 3.9.6 -->
+SyntaxError: Unexpected character "EOF" (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.) (6:1)
+
+<!-- Prettier 3.9.7 -->
+@boundary {
+  <complex-chart [data]="data" />
+} @error (let err) {
+  <p>{{ err.message }}</p>
+}
+```
+
+# 3.9.6
+
+[diff](https://github.com/prettier/prettier/compare/3.9.5...3.9.6)
+
+#### TypeScript: Preserve quotes for methods named `new` ([#19621](https://github.com/prettier/prettier/pull/19621) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface Container {
+  "new"(id: string): number;
+}
+
+// Prettier 3.9.5
+interface Container {
+  new(id: string): number;
+}
+
+// Prettier 3.9.6
+interface Container {
+  "new"(id: string): number;
+}
+```
+
+#### TypeScript: Support `import defer` ([#19624](https://github.com/prettier/prettier/pull/19624), [#19675](https://github.com/prettier/prettier/pull/19675) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+import defer * as foo from "foo";
+
+// Prettier 3.9.5
+import * as foo from "foo";
+
+// Prettier 3.9.6
+import defer * as foo from "foo";
+```
+
+#### JavaScript: Added a new official plugin `@prettier/plugin-yuku` ([#19628](https://github.com/prettier/prettier/pull/19628), [#19629](https://github.com/prettier/prettier/pull/19629) by [@fisker](https://github.com/fisker))
+
+`@prettier/plugin-yuku` is powered by [Yuku](https://yuku.fyi/) (A high-performance JavaScript/TypeScript compiler toolchain written in Zig).
+
+This plugin includes two new parsers: `yuku` (JavaScript syntax) and `yuku-ts` (TypeScript syntax).
+
+**To use this plugin:**
+
+1. Install the plugin:
+
+   ```bash
+   yarn add --dev prettier @prettier/plugin-yuku
+   ```
+
+2. Add it to your `.prettierrc`:
+
+   ```yaml
+   plugins:
+     - "@prettier/plugin-yuku"
+   ```
+
+Due to package size limitations, this plugin is not bundled with the main prettier package and must be installed separately.
+
+For more information, check [the package homepage](https://github.com/prettier/prettier/tree/main/packages/plugin-yuku).
+
+Big thanks to [@arshad-yaseen](https://github.com/arshad-yaseen) for his excellent work.
+
 # 3.9.5
 
 [diff](https://github.com/prettier/prettier/compare/3.9.4...3.9.5)

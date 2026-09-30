@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format 1`] = `
+"Unexpected token (5:12)
+  3 |
+  4 |   static isC(obj) {
+> 5 |     return try obj.#brand;
+    |            ^
+  6 |   }
+  7 | }
+Cause: Unexpected token (5:11)"
+`;

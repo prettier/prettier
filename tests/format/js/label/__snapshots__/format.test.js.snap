@@ -44,7 +44,7 @@ parsers: ["babel", "flow", "typescript"]
 ================================================================================
 `;
 
-exports[`empty_label.js format 1`] = `
+exports[`empty-label.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
@@ -65,4 +65,139 @@ a:; /* comment */
 a /* comment */:;
 
 ================================================================================
+`;
+
+exports[`invalid-undefined-label.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for ( ;; ) {
+  continue foo;
+}
+
+=====================================output=====================================
+for (;;) {
+  continue foo;
+}
+
+================================================================================
+`;
+
+exports[`invalid-undefined-label.js format[acorn] 1`] = `
+"Unsyntactic continue (2:3)
+  1 | for ( ;; ) {
+> 2 |   continue foo;
+    |   ^
+  3 | }
+  4 |
+Cause: Unsyntactic continue (2:2)"
+`;
+
+exports[`invalid-undefined-label.js format[espree] 1`] = `
+"Unsyntactic continue (2:3)
+  1 | for ( ;; ) {
+> 2 |   continue foo;
+    |   ^
+  3 | }
+  4 |
+Cause: Unsyntactic continue"
+`;
+
+exports[`invalid-undefined-label.js format[flow] 1`] = `
+"Undefined label 'foo' (2:12)
+  1 | for ( ;; ) {
+> 2 |   continue foo;
+    |            ^
+  3 | }
+  4 |
+Cause: Undefined label 'foo' (2:11)"
+`;
+
+exports[`invalid-undefined-label.js format[hermes] 1`] = `
+"label 'foo' is not defined (2:12)
+  1 | for ( ;; ) {
+> 2 |   continue foo;
+    |            ^
+  3 | }
+  4 |
+Cause: label 'foo' is not defined (2:11)
+  continue foo;
+           ^~~"
+`;
+
+exports[`invalid-undefined-label.js format[meriyah] 1`] = `
+"Undefined label 'foo' (2:15)
+  1 | for ( ;; ) {
+> 2 |   continue foo;
+    |               ^
+  3 | }
+  4 |
+Cause: [2:14-2:15]: Undefined label 'foo'"
+`;
+
+exports[`invalid-unsyntactic-continue.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/tc39/test262/blob/d86b2294eb0a17eaa281ff12c73c473ec864c72f/test/language/statements/block/labeled-continue.js#L20-L24
+
+label: {
+  for ( ;; ) {
+    continue label;
+  }
+}
+
+=====================================output=====================================
+// https://github.com/tc39/test262/blob/d86b2294eb0a17eaa281ff12c73c473ec864c72f/test/language/statements/block/labeled-continue.js#L20-L24
+
+label: {
+  for (;;) {
+    continue label;
+  }
+}
+
+================================================================================
+`;
+
+exports[`invalid-unsyntactic-continue.js format[acorn] 1`] = `
+"Unsyntactic continue (5:5)
+  3 | label: {
+  4 |   for ( ;; ) {
+> 5 |     continue label;
+    |     ^
+  6 |   }
+  7 | }
+  8 |
+Cause: Unsyntactic continue (5:4)"
+`;
+
+exports[`invalid-unsyntactic-continue.js format[espree] 1`] = `
+"Unsyntactic continue (5:5)
+  3 | label: {
+  4 |   for ( ;; ) {
+> 5 |     continue label;
+    |     ^
+  6 |   }
+  7 | }
+  8 |
+Cause: Unsyntactic continue"
+`;
+
+exports[`invalid-unsyntactic-continue.js format[hermes] 1`] = `
+"'continue' label 'label' is not a loop label (5:14)
+  3 | label: {
+  4 |   for ( ;; ) {
+> 5 |     continue label;
+    |              ^
+  6 |   }
+  7 | }
+  8 |
+Cause: 'continue' label 'label' is not a loop label (5:13)
+    continue label;
+             ^~~~~
+note: label defined here (3:0)
+label: {
+^~~~~"
 `;

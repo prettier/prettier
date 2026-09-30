@@ -1,5 +1,4 @@
 import collapseWhiteSpace from "collapse-white-space";
-import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
   DOC_TYPE_STRING,
@@ -15,7 +14,6 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
@@ -23,18 +21,19 @@ import { locEnd, locStart } from "../loc.js";
 import {
   getNthListSiblingIndex,
   isAutolink,
-  isNewLine,
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
+import { printCode } from "./code.js";
 import { printDirectiveContainer, printLeafDirective } from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
+import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
 import { printTable } from "./table.js";
-import { printWhitespace } from "./whitespace.js";
+import { printWhitespace, printWhitespaceNode } from "./whitespace.js";
 import { printWord } from "./word.js";
 
 /**
@@ -57,28 +56,6 @@ function prevOrNextWord(path) {
       !next.children[0].hasLeadingPunctuation &&
       !/^[\p{Space_Separator}\t\n\f\r]/u.test(next.children[0].value));
   return hasPrevOrNextWord;
-}
-
-function hasFakeWhitespaceAfterNextToken(path) {
-  const { siblings, index } = path;
-  if (!siblings || typeof index !== "number") {
-    return false;
-  }
-  const afterNext = siblings[index + 2];
-  return afterNext?.type === "whitespace" && afterNext.value === "";
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function isNextTokenFakeSetextH2Line(path) {
-  if (!isNewLine(path.node) || path.next?.value !== "-") {
-    return false;
-  }
-
-  const afterNext = path.siblings[path.index + 2];
-  return !afterNext || isNewLine(afterNext);
 }
 
 function printMdast(path, options, print) {
@@ -127,22 +104,8 @@ function printMdast(path, options, print) {
       return printSentence(path, print);
     case "word":
       return printWord(path, options);
-    case "whitespace": {
-      const { next } = path;
-
-      const proseWrap =
-        // leading char that may cause different syntax
-        next &&
-        /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
-        // Avoid https://github.com/prettier/prettier/issues/18861
-        !hasFakeWhitespaceAfterNextToken(path) &&
-        // Next fake setext h2 `-` is going to be escaped, so no need to join adjacent words
-        !(options.proseWrap === "preserve" && isNextTokenFakeSetextH2Line(path))
-          ? "never"
-          : options.proseWrap;
-
-      return printWhitespace(path, node.value, proseWrap, false);
-    }
+    case "whitespace":
+      return printWhitespaceNode(path, options);
     case "emphasis": {
       let style;
       if (isAutolink(node.children[0])) {
@@ -216,7 +179,7 @@ function printMdast(path, options, print) {
             "](",
             options.parser !== "mdx" && node.url === ""
               ? "<>"
-              : printUrl(node.url, ")"),
+              : printUrl(node.url, false),
             printTitle(node.title, options),
             ")",
           ];
@@ -233,7 +196,7 @@ function printMdast(path, options, print) {
         "](",
         options.parser !== "mdx" && node.url === ""
           ? "<>"
-          : printUrl(node.url, ")"),
+          : printUrl(node.url, false),
         printTitle(node.title, options),
         ")",
       ];
@@ -241,31 +204,8 @@ function printMdast(path, options, print) {
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
       return printHeading(path, options, print);
-    case "code": {
-      if (node.isIndented) {
-        // indented code block
-        const alignment = " ".repeat(4);
-        return align(alignment, [
-          alignment,
-          replaceEndOfLine(node.value, hardline),
-        ]);
-      }
-
-      // fenced code block
-      const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-      );
-      return [
-        style,
-        node.lang || "",
-        node.meta ? " " + node.meta : "",
-        hardline,
-        replaceEndOfLine(node.value, hardline),
-        hardline,
-        style,
-      ];
-    }
+    case "code":
+      return printCode(path, options);
     case "comment": {
       const value = node.commentValue;
       return ["<!--", replaceEndOfLine(value, hardline), "-->"];
@@ -288,6 +228,11 @@ function printMdast(path, options, print) {
       const { ancestors } = path;
       const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
+        // Prevent it from becoming a "front matter"
+        if (path.isFirst && path.parent.type === "root") {
+          return "***";
+        }
+
         return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
@@ -328,7 +273,7 @@ function printMdast(path, options, print) {
         ":",
         indent([
           lineOrSpace,
-          node.url === "" ? "<>" : printUrl(node.url),
+          node.url === "" ? "<>" : printUrl(node.url, true),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
@@ -384,6 +329,8 @@ function printMdast(path, options, print) {
     case "mdxFlowExpression":
     case "mdxTextExpression":
       return ["{", node.value.trim(), "}"];
+    case "mdxJsxExpressionAttribute":
+      return ["{", node.value, "}"];
     case "mdxJsxFlowElement":
     case "mdxJsxTextElement": {
       const isFragment = !node.name;
@@ -432,14 +379,7 @@ function printMdast(path, options, print) {
     }
 
     case "mdxJsxAttribute":
-      return [
-        node.name,
-        node.value === null
-          ? ""
-          : typeof node.value === "string"
-            ? ['="', node.value, '"']
-            : ["=", path.call(print, "value")],
-      ];
+      return printMdxJsxAttribute(path, options, print);
     case "mdxJsxAttributeValueExpression":
       return ["{", node.value, "}"];
     case "math":
@@ -558,31 +498,40 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-const encodeUrl = (url, characters) => {
-  for (const character of characters) {
-    url = url.replaceAll(character, encodeURIComponent(character));
-  }
-  return url;
-};
+// https://spec.commonmark.org/0.31.2/#entity-and-numeric-character-references
+// https://github.com/micromark/micromark/blob/774a70c6bae6dd94486d3385dbd9a0f14550b709/packages/micromark-util-decode-string/dev/index.js#L6
+const characterReferenceRegex =
+  /&(?=(?:#\d{1,7}|#x[\da-f]{1,6}|[\da-z]{1,31});)/gi;
+const escapeCharacterReferences = (value) =>
+  value.replaceAll(characterReferenceRegex, String.raw`\&`);
 
 /**
  * @param {string} url
- * @param {string[] | string} [dangerousCharOrChars]
+ * @param {boolean} unwrapBalancedParens
  * @returns {string}
  */
-function printUrl(url, dangerousCharOrChars = []) {
-  const dangerousChars = [
-    " ",
-    ...(Array.isArray(dangerousCharOrChars)
-      ? dangerousCharOrChars
-      : [dangerousCharOrChars]),
-  ];
+function printUrl(url, unwrapBalancedParens) {
+  // Backslash followed by ASCII punctuation would be misinterpreted as an
+  // escape sequence, so must itself be escaped.
+  url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
+  url = escapeCharacterReferences(url);
 
-  return new RegExp(
-    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
-  ).test(url)
-    ? `<${encodeUrl(url, "<>")}>`
-    : url;
+  // CommonMark forbids ASCII controls, space, unbalanced parentheses, and
+  // initial <, unless wrapped in <> with any inner < or > escaped. CommonMark
+  // only suggests implementations "should" support at least three levels of
+  // parenthesis nesting, so it's unclear whether we can safely rely on three
+  // levels as we do here, but we certainly can't expect more.
+  if (
+    // eslint-disable-next-line no-control-regex
+    /[\x00-\x1f\x7f ]|^</.test(url) ||
+    (unwrapBalancedParens
+      ? !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
+      : /[()]/.test(url))
+  ) {
+    url = `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`;
+  }
+
+  return url;
 }
 
 function printTitle(title, options, printSpace = true) {
@@ -593,20 +542,25 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-  if (
+  const quote =
+    // avoid escaped quotes
     title.includes('"') &&
     title.includes("'") &&
     !title.includes("(") &&
     !title.includes(")")
-  ) {
-    title = title.replaceAll("\\", "\\\\");
-    return `(${title})`; // avoid escaped quotes
+      ? undefined
+      : getPreferredQuote(title, options.singleQuote);
+
+  title = title.replaceAll("\\", "\\\\");
+
+  if (quote) {
+    title = title.replaceAll(quote, `\\${quote}`);
   }
 
-  const quote = getPreferredQuote(title, options.singleQuote);
-  title = title.replaceAll("\\", "\\\\");
-  title = title.replaceAll(quote, `\\${quote}`);
-  return `${quote}${title}${quote}`;
+  title = escapeCharacterReferences(title);
+  title = quote ? `${quote}${title}${quote}` : `(${title})`;
+
+  return title;
 }
 
 function printLinkReference(node) {

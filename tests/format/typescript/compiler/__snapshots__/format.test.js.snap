@@ -315,6 +315,17 @@ module T.U {
 ================================================================================
 `;
 
+exports[`declareDottedModuleName.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:1)
+  1 | // @declaration: true
+> 2 | module M {
+    | ^
+  3 |     module P.Q { } // This shouldnt be emitted
+  4 | }
+  5 |
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:0)"
+`;
+
 exports[`decrementAndIncrementOperators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -869,4 +880,15 @@ module m2 {
 }
 
 ================================================================================
+`;
+
+exports[`privacyGloImport.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:1)
+  1 | //@declaration: true
+> 2 | module m1 {
+    | ^
+  3 |     export module m1_M1_public {
+  4 |         export class c1 {
+  5 |         }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:0)"
 `;

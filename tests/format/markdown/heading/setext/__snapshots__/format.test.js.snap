@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`blockquote.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> Multi
+> Line
+> ===
+
+> Multi
+> Line
+> Three
+> ---
+
+> > Multi
+> > Line
+> > ===
+
+=====================================output=====================================
+> Multi
+> Line
+> ===
+
+> Multi
+> Line
+> Three
+> ---
+
+> > Multi
+> > Line
+> > ===
+
+================================================================================
+`;
+
 exports[`child.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

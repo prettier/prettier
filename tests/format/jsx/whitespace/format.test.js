@@ -84,5 +84,5 @@ runFormatTest(
       },
     ].map((test) => ({ ...test, output: test.output + "\n" })),
   },
-  ["flow", "typescript"],
+  ["babel", "typescript", "flow"],
 );

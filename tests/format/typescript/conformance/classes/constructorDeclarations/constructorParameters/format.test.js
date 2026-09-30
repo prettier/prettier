@@ -6,5 +6,6 @@ runFormatTest(import.meta, ["typescript"], {
       "constructorOverloadsWithDefaultValues.ts",
     ],
     "oxc-ts": ["readonlyInConstructorParameters.ts", "readonlyReadonly.ts"],
+    "yuku-ts": ["readonlyReadonly.ts"],
   },
 });

@@ -19,3 +19,9 @@ exports[`snippet: #0 format[typescript] 1`] = `
     | ^^^^^^^^^^^^^^^^^^^^^^^^^
 Cause: An implementation cannot be declared in ambient contexts."
 `;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"An implementation cannot be declared in ambient contexts (1:24)
+> 1 | declare function foo() {}
+    |                        ^"
+`;

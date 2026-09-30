@@ -11,7 +11,7 @@ function isScssNestedPropertyNode(node, options) {
   return node.selector
     .replace(/\/\*.*?\*\//, "")
     .replace(/\/\/.*\n/, "")
-    .trim()
+    .trimEnd()
     .endsWith(":");
 }
 

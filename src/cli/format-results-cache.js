@@ -2,8 +2,8 @@
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
 import fs from "node:fs";
-import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
+import { stringify } from "json-stringify-stable-replacer";
 import { version as prettierVersion } from "../index.js";
 import { createHash, getOrInsertComputed } from "./utilities.js";
 

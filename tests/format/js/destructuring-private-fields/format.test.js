@@ -5,5 +5,7 @@ runFormatTest(import.meta, ["babel", "babel-flow", "babel-ts"], {
     meriyah: true,
     oxc: true,
     "oxc-ts": true,
+    yuku: true,
+    "yuku-ts": true,
   },
 });

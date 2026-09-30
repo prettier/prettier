@@ -26,6 +26,7 @@ const baseParseOptions = {
   project: false,
   jsDocParsingMode: "none",
   suppressDeprecatedPropertyWarnings: process.env.NODE_ENV === "production",
+  onUnsupportedTypeScriptVersion: "ignore",
 };
 
 function createParseError(error) {

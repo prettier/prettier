@@ -38,3 +38,14 @@ type Type = {
   + // foo
   /* bar */ [T in number]: number;
 };
+
+type Type<T> = { [K in keyof T]: /** Comment */ B };
+
+type Type<T> = {
+  [K in keyof T]: /** Comment */
+    B,
+};
+
+type Type<T> = { [K in keyof T]: /** Comment */ | B };
+
+type Type<T> = { [K in keyof T] /** Comment */: B | C };

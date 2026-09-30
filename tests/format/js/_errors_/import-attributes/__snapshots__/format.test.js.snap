@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`import-attributes-for-export-without-from.js format[acorn] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default' (1:9)"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[babel] 1`] = `
+"Unexpected token, expected "(" (1:32)
+> 1 | export { default as foo } with { type: "json" };
+    |                                ^
+  2 |
+Cause: Unexpected token, expected "(" (1:31)"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[babel-ts] 1`] = `
+"Unexpected token, expected "(" (1:32)
+> 1 | export { default as foo } with { type: "json" };
+    |                                ^
+  2 |
+Cause: Unexpected token, expected "(" (1:31)"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[espree] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default'"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[flow] 1`] = `
+"Unexpected reserved word (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^
+  2 |
+Cause: Unexpected reserved word (1:9)"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[hermes] 1`] = `
+"Invalid exported name (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^
+  2 |
+Cause: Invalid exported name (1:9)
+export { default as foo } with { type: "json" };
+         ^~~~~~~"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[meriyah] 1`] = `
+"Unexpected token: 'with' (1:27)
+> 1 | export { default as foo } with { type: "json" };
+    |                           ^^^^
+  2 |
+Cause: [1:26-1:30]: Unexpected token: 'with'"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[oxc] 1`] = `
+"A reserved word cannot be used as an exported binding without \`from\` (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[oxc-ts] 1`] = `
+"A reserved word cannot be used as an exported binding without \`from\` (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[typescript] 1`] = `
+"';' expected. (1:27)
+> 1 | export { default as foo } with { type: "json" };
+    |                           ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`import-attributes-for-export-without-from.js format[yuku] 1`] = `
+"A reserved word cannot be used as an exported binding without 'from' (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-attributes-for-export-without-from.js format[yuku-ts] 1`] = `
+"A reserved word cannot be used as an exported binding without 'from' (1:10)
+> 1 | export { default as foo } with { type: "json" };
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-attributes-with-parens.js format[acorn] 1`] = `
+"Unexpected token (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: Unexpected token (1:16)"
+`;
+
+exports[`import-attributes-with-parens.js format[babel] 1`] = `
+"Unexpected token, expected "{" (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: Unexpected token, expected "{" (1:16)"
+`;
+
+exports[`import-attributes-with-parens.js format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: Unexpected token, expected "{" (1:16)"
+`;
+
+exports[`import-attributes-with-parens.js format[espree] 1`] = `
+"Unexpected token ( (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: Unexpected token ("
+`;
+
+exports[`import-attributes-with-parens.js format[flow] 1`] = `
+"Unexpected token \`(\`, expected the token \`{\` (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: Unexpected token \`(\`, expected the token \`{\` (1:16)"
+`;
+
+exports[`import-attributes-with-parens.js format[hermes] 1`] = `
+"'{' expected in import assertion (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: '{' expected in import assertion (1:16)
+import "x" with ({type: 'json'});
+           ~~~~~^"
+`;
+
+exports[`import-attributes-with-parens.js format[meriyah] 1`] = `
+"Expected '{' (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: [1:16-1:17]: Expected '{'"
+`;
+
+exports[`import-attributes-with-parens.js format[oxc] 1`] = `
+"Expected \`{\` but found \`(\` (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |"
+`;
+
+exports[`import-attributes-with-parens.js format[oxc-ts] 1`] = `
+"Expected \`{\` but found \`(\` (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |"
+`;
+
+exports[`import-attributes-with-parens.js format[typescript] 1`] = `
+"'{' expected. (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |
+Cause: '{' expected."
+`;
+
+exports[`import-attributes-with-parens.js format[yuku] 1`] = `
+"Expected '{' after 'with' in import attributes, but found '(' (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |"
+`;
+
+exports[`import-attributes-with-parens.js format[yuku-ts] 1`] = `
+"Expected '{' after 'with' in import attributes, but found '(' (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |"
+`;
+
+exports[`module-attributes.js format[acorn] 1`] = `
+"Unexpected token (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token (1:32)"
+`;
+
+exports[`module-attributes.js format[babel] 1`] = `
+"Unexpected token, expected "{" (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token, expected "{" (1:32)"
+`;
+
+exports[`module-attributes.js format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token, expected "{" (1:32)"
+`;
+
+exports[`module-attributes.js format[espree] 1`] = `
+"Unexpected token type (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token type"
+`;
+
+exports[`module-attributes.js format[flow] 1`] = `
+"Unexpected token \`type\`, expected the token \`{\` (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: Unexpected token \`type\`, expected the token \`{\` (1:32)"
+`;
+
+exports[`module-attributes.js format[hermes] 1`] = `
+"'{' expected in import assertion (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: '{' expected in import assertion (1:32)
+import foo from "foo.json" with type: "json";
+                           ~~~~~^"
+`;
+
+exports[`module-attributes.js format[meriyah] 1`] = `
+"Expected '{' (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |
+Cause: [1:32-1:36]: Expected '{'"
+`;
+
+exports[`module-attributes.js format[oxc] 1`] = `
+"Expected \`{\` but found \`type\` (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;
+
+exports[`module-attributes.js format[oxc-ts] 1`] = `
+"Expected \`{\` but found \`type\` (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;
+
+exports[`module-attributes.js format[typescript] 1`] = `
+"'{' expected. (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^
+  2 |
+Cause: '{' expected."
+`;
+
+exports[`module-attributes.js format[yuku] 1`] = `
+"Expected '{' after 'with' in import attributes, but found 'type' (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;
+
+exports[`module-attributes.js format[yuku-ts] 1`] = `
+"Expected '{' after 'with' in import attributes, but found 'type' (1:33)
+> 1 | import foo from "foo.json" with type: "json";
+    |                                 ^^^^
+  2 |"
+`;

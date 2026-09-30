@@ -2,16 +2,40 @@
 
 exports[`important.css format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["css", "less", "scss"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 div {
   max-height: none !important;
 }
 
+a {
+  --x11:!important;
+  --x12: !important;
+  --x13:          !important;
+  --x21:;
+  --x22: ;
+  --x23:          ;
+  --x31:x!important;
+  --x32:x !important;
+  --x33:x          !important;
+}
+
 =====================================output=====================================
 div {
   max-height: none !important;
+}
+
+a {
+  --x11:!important;
+  --x12: !important;
+  --x13:          !important;
+  --x21:;
+  --x22: ;
+  --x23:          ;
+  --x31: x !important;
+  --x32: x !important;
+  --x33: x !important;
 }
 
 ================================================================================

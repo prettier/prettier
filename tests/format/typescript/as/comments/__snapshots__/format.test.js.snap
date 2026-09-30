@@ -91,6 +91,22 @@ Foo;
 1 satisfies // comment
 Foo;
 
+1 as
+/**
+ * jsdoc
+ */
+const;
+1 as
+/**
+ * jsdoc
+ */
+Foo;
+1 satisfies
+/**
+ * jsdoc
+ */
+Foo;
+
 =====================================output=====================================
 1 as const /*
 comment
@@ -116,31 +132,50 @@ comment
 1 as const /*
 comment
 */;
-1 as /*
+1 as
+  /*
 comment
 */
-Foo;
-1 satisfies /*
+  Foo;
+1 satisfies
+  /*
 comment
 */
-Foo;
+  Foo;
 
 1 as const;
 /*
 comment
 */
-1 as /*
+1 as
+  /*
 comment
 */
-Foo;
-1 satisfies /*
+  Foo;
+1 satisfies
+  /*
 comment
 */
-Foo;
+  Foo;
 
 1 as const; // comment
 1 as Foo; // comment
 1 satisfies Foo; // comment
+
+1 as const;
+/**
+ * jsdoc
+ */
+1 as
+  /**
+   * jsdoc
+   */
+  Foo;
+1 satisfies
+  /**
+   * jsdoc
+   */
+  Foo;
 
 ================================================================================
 `;

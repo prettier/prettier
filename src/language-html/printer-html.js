@@ -3,6 +3,7 @@
  */
 
 import {
+  breakParent,
   fill,
   group,
   hardline,
@@ -30,6 +31,7 @@ import { printChildren } from "./print/children.js";
 import { printElement } from "./print/element.js";
 import { printStartTagComment } from "./print/start-tag-comment.js";
 import {
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEnd,
   printClosingTagSuffix,
   printOpeningTagPrefix,
@@ -90,20 +92,37 @@ function genericPrint(path, options, print) {
       ];
     case "text": {
       if (node.parent.kind === "interpolation") {
+        let { value } = node;
         // replace the trailing literalline with hardline for better readability
         const trailingNewlineRegex = /\n[^\S\n]*$/;
-        const hasTrailingNewline = trailingNewlineRegex.test(node.value);
-        const value = hasTrailingNewline
-          ? node.value.replace(trailingNewlineRegex, "")
-          : node.value;
-        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
+        const hasTrailingNewline = trailingNewlineRegex.test(value);
+
+        if (hasTrailingNewline) {
+          value = value.replace(trailingNewlineRegex, "");
+        }
+
+        const parts = [replaceEndOfLine(value)];
+
+        if (hasTrailingNewline) {
+          // The interpolation's trailing softline already prints this newline.
+          if (
+            node.parent.next &&
+            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+          ) {
+            parts.push(breakParent);
+          } else {
+            parts.push(hardline);
+          }
+        }
+
+        return parts;
       }
 
       const prefix = printOpeningTagPrefix(node, options);
       const printed = getTextValueParts(node);
 
       const suffix = printClosingTagSuffix(node, options);
-      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
+      // We can't use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
       printed[0] = [prefix, printed[0]];
       // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
       printed.push([printed.pop(), suffix]);

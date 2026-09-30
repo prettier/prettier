@@ -1667,6 +1667,7 @@ exports[`visitor keys remark 1`] = `
     "value",
   ],
   "mdxJsxAttributeValueExpression": [],
+  "mdxJsxExpressionAttribute": [],
   "mdxJsxFlowElement": [
     "attributes",
     "children",

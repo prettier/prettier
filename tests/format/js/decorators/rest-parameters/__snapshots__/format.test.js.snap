@@ -1,0 +1,370 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`constructor.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  constructor(@decorator ...args) {}
+}
+
+=====================================output=====================================
+class C {
+  constructor(@decorator ...args) {}
+}
+
+================================================================================
+`;
+
+exports[`constructor.js format[__babel_estree] 1`] = `
+"Unexpected token (2:26)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |                          ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:25)"
+`;
+
+exports[`constructor.js format[acorn] 1`] = `
+"Unexpected character '@' (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected character '@' (2:14)"
+`;
+
+exports[`constructor.js format[babel] 1`] = `
+"Unexpected token (2:26)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |                          ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:25)"
+`;
+
+exports[`constructor.js format[babel-ts] 1`] = `
+"Unexpected token (2:26)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |                          ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:25)"
+`;
+
+exports[`constructor.js format[espree] 1`] = `
+"Unexpected character '@' (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`constructor.js format[flow] 1`] = `
+"Unexpected token \`@\`, expected an identifier (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected token \`@\`, expected an identifier (2:14)"
+`;
+
+exports[`constructor.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |
+Cause: identifier, '{' or '[' expected in binding pattern (2:14)
+  constructor(@decorator ...args) {}
+              ^"
+`;
+
+exports[`constructor.js format[meriyah] 1`] = `
+"Expected ')' (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |
+Cause: [2:14-2:15]: Expected ')'"
+`;
+
+exports[`constructor.js format[oxc] 1`] = `
+"Decorators are not valid here. (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`constructor.js format[yuku] 1`] = `
+"Unexpected token '@' in binding pattern (2:15)
+  1 | class C {
+> 2 |   constructor(@decorator ...args) {}
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  method(@decorator ...args) {}
+}
+
+=====================================output=====================================
+class C {
+  method(@decorator ...args) {}
+}
+
+================================================================================
+`;
+
+exports[`method.js format[__babel_estree] 1`] = `
+"Unexpected token (2:21)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |                     ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:20)"
+`;
+
+exports[`method.js format[acorn] 1`] = `
+"Unexpected character '@' (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |
+Cause: Unexpected character '@' (2:9)"
+`;
+
+exports[`method.js format[babel] 1`] = `
+"Unexpected token (2:21)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |                     ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:20)"
+`;
+
+exports[`method.js format[babel-ts] 1`] = `
+"Unexpected token (2:21)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |                     ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:20)"
+`;
+
+exports[`method.js format[espree] 1`] = `
+"Unexpected character '@' (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`method.js format[flow] 1`] = `
+"Unexpected token \`@\`, expected an identifier (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |
+Cause: Unexpected token \`@\`, expected an identifier (2:9)"
+`;
+
+exports[`method.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |
+Cause: identifier, '{' or '[' expected in binding pattern (2:9)
+  method(@decorator ...args) {}
+         ^"
+`;
+
+exports[`method.js format[meriyah] 1`] = `
+"Expected ')' (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |
+Cause: [2:9-2:10]: Expected ')'"
+`;
+
+exports[`method.js format[oxc] 1`] = `
+"Decorators are not valid here. (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`method.js format[yuku] 1`] = `
+"Unexpected token '@' in binding pattern (2:10)
+  1 | class C {
+> 2 |   method(@decorator ...args) {}
+    |          ^
+  3 | }
+  4 |"
+`;
+
+exports[`setter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  set setter(@decorator ...args) {}
+}
+
+=====================================output=====================================
+class C {
+  set setter(@decorator ...args) {}
+}
+
+================================================================================
+`;
+
+exports[`setter.js format[__babel_estree] 1`] = `
+"Unexpected token (2:25)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |                         ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:24)"
+`;
+
+exports[`setter.js format[acorn] 1`] = `
+"Unexpected character '@' (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |
+Cause: Unexpected character '@' (2:13)"
+`;
+
+exports[`setter.js format[babel] 1`] = `
+"Unexpected token (2:25)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |                         ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:24)"
+`;
+
+exports[`setter.js format[babel-ts] 1`] = `
+"Unexpected token (2:25)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |                         ^
+  3 | }
+  4 |
+Cause: Unexpected token (2:24)"
+`;
+
+exports[`setter.js format[espree] 1`] = `
+"Unexpected character '@' (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`setter.js format[flow] 1`] = `
+"Unexpected token \`@\`, expected an identifier (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |
+Cause: Unexpected token \`@\`, expected an identifier (2:13)"
+`;
+
+exports[`setter.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |
+Cause: identifier, '{' or '[' expected in binding pattern (2:13)
+  set setter(@decorator ...args) {}
+             ^"
+`;
+
+exports[`setter.js format[meriyah] 1`] = `
+"Expected ')' (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |
+Cause: [2:13-2:14]: Expected ')'"
+`;
+
+exports[`setter.js format[oxc] 1`] = `
+"Decorators are not valid here. (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`setter.js format[oxc-ts] 1`] = `
+"A 'set' accessor cannot have rest parameter. (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^^^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`setter.js format[yuku] 1`] = `
+"Unexpected token '@' in binding pattern (2:14)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |              ^
+  3 | }
+  4 |"
+`;
+
+exports[`setter.js format[yuku-ts] 1`] = `
+"Setter must have exactly one parameter (2:13)
+  1 | class C {
+> 2 |   set setter(@decorator ...args) {}
+    |             ^^^^^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
+`;

@@ -40,3 +40,13 @@ declare module N {
 
 ================================================================================
 `;
+
+exports[`initializer-ambient-context.ts format[babel-ts] 1`] = `
+"\`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:16)
+> 1 | declare module N {
+    |                ^
+  2 |   enum E {
+  3 |     ok = 0
+  4 |   }
+Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (1:15)"
+`;

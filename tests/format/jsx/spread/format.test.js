@@ -1,4 +1,4 @@
-runFormatTest(import.meta, ["babel", "flow", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
   errors: {
     acorn: ["child.js"],
     espree: ["child.js"],

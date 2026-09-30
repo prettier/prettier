@@ -1,12 +1,6 @@
 import commonmarkTestSuite from "commonmark-test-suite";
 
-const BUGS = new Set([
-  "example-43.md",
-  "example-47.md",
-  "example-77.md",
-  "example-146.md",
-  "example-349.md",
-]);
+const BUGS = new Set(["example-146.md", "example-349.md"]);
 
 runFormatTest(
   {

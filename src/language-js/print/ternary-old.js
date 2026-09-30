@@ -202,7 +202,7 @@ function printTernaryOld(path, options, print) {
   const parts = [];
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
-  // See `tests/format/jsx/conditional-expression.js` for more info.
+  // See `tests/format/jsx/jsx/conditional-expression.js` for more info.
   let jsxMode = false;
   const { parent } = path;
   const isParentTest =

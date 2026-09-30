@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"single line description"
+union U1 = A | B
+
+"""
+multiline
+description
+"""
+union U2 = A | B
+
+=====================================output=====================================
+"single line description"
+union U1 = A | B
+
+"""
+multiline
+description
+"""
+union U2 = A | B
+
+================================================================================
+`;
+
 exports[`union_types.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]

@@ -22,7 +22,10 @@ function isSimpleNumber(numberString) {
 
 // TODO[@fisker]: `__vue_ts_expression` and `__vue_ts_event_binding`
 const isTypeScript = ({ parser }) =>
-  parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts";
+  parser === "typescript" ||
+  parser === "babel-ts" ||
+  parser === "oxc-ts" ||
+  parser === "yuku-ts";
 
 /**
 @param {Node} node
@@ -96,13 +99,19 @@ function isKeySafeToUnquote(node, options) {
     return false;
   }
 
+  if (node.type === "TSMethodSignature" && value === "new") {
+    return false;
+  }
+
   // Safe to unquote as identifier
   if (
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (parser === "babel-ts" && node.type === "ClassProperty") ||
-      ((parser === "typescript" || parser === "oxc-ts") &&
+      ((parser === "typescript" ||
+        parser === "oxc-ts" ||
+        parser === "yuku-ts") &&
         node.type === "PropertyDefinition")
     ) &&
     isEs5IdentifierName(value)
@@ -118,6 +127,7 @@ function isKeySafeToUnquote(node, options) {
     (parser === "babel" ||
       parser === "acorn" ||
       parser === "oxc" ||
+      parser === "yuku" ||
       parser === "espree" ||
       parser === "meriyah" ||
       parser === "__babel_estree") &&

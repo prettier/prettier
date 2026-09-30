@@ -72,3 +72,13 @@ exports[`export.js format[oxc] 1`] = `
   4 | export c, { foo } from 'mod';
   5 | export * as d from 'mod';"
 `;
+
+exports[`export.js format[yuku] 1`] = `
+"Expected declaration after 'export', but found 'v' (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d from 'mod';"
+`;

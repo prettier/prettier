@@ -1,5 +1,5 @@
 import path from "node:path";
-import stringify from "fast-json-stable-stringify";
+import { stringify } from "json-stringify-stable-replacer";
 import { format, getFileInfo } from "../index.js";
 import { printToScreen } from "./utilities.js";
 

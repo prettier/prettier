@@ -7,7 +7,7 @@ import {
   softline,
 } from "../../document/index.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { printTemplateExpressions } from "../print/template-literal.js";
+import { printEmbeddedTemplateExpressions } from "../print/template-literal.js";
 import { isNodeMatches } from "../utilities/is-node-matches.js";
 import { isAngularComponentStyles } from "./utilities.js";
 
@@ -26,7 +26,7 @@ async function printEmbedCss(textToDoc, print, path, options) {
     text += raw;
   }
   const quasisDoc = await textToDoc(text, { parser: "scss" });
-  const expressionDocs = printTemplateExpressions(path, options, print);
+  const expressionDocs = printEmbeddedTemplateExpressions(path, options, print);
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* c8 ignore next 3 */
   if (!newDoc) {

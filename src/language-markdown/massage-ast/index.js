@@ -17,7 +17,8 @@ function massageAstNode(original, cloned, parent) {
     original.type === "mdxFlowExpression" ||
     original.type === "mdxTextExpression" ||
     original.type === "mdxJsxAttributeValueExpression" ||
-    original.type === "mdxJsxAttribute"
+    original.type === "mdxJsxAttribute" ||
+    original.type === "mdxJsxExpressionAttribute"
   ) {
     delete cloned.value;
     delete cloned.data?.estree;

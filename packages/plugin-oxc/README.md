@@ -46,13 +46,17 @@ const config = {
   overrides: [
     {
       files: ["**/*.{js,mjs,cjs,jsx}"],
-      parser: "oxc",
-      plugins: [prettierPluginOxc],
+      options: {
+        parser: "oxc",
+        plugins: [prettierPluginOxc],
+      },
     },
     {
       files: ["**/*.{ts,mts,cts,tsx}"],
-      parser: "oxc-ts",
-      plugins: [prettierPluginOxc],
+      options: {
+        parser: "oxc-ts",
+        plugins: [prettierPluginOxc],
+      },
     },
   ],
 };

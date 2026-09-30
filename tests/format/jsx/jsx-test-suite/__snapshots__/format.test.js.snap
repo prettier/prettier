@@ -24,27 +24,6 @@ parsers: ["babel", "typescript", "flow"]
 ================================================================================
 `;
 
-exports[`snippet: 0006-e58e.jsx format[__babel_estree] 1`] = `
-"Unexpected token (1:1)
-> 1 | <!--a
-    | ^
-Cause: Unexpected token (1:0)"
-`;
-
-exports[`snippet: 0006-e58e.jsx format[babel] 1`] = `
-"Unexpected token (1:1)
-> 1 | <!--a
-    | ^
-Cause: Unexpected token (1:0)"
-`;
-
-exports[`snippet: 0006-e58e.jsx format[babel-ts] 1`] = `
-"Unexpected token (1:1)
-> 1 | <!--a
-    | ^
-Cause: Unexpected token (1:0)"
-`;
-
 exports[`snippet: 0006-e58e.jsx format[flow] 1`] = `
 "Unexpected token \`!\`, expected the token \`>\` (1:2)
 > 1 | <!--a

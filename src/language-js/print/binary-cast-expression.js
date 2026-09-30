@@ -1,8 +1,10 @@
-import { group, indent, softline } from "../../document/index.js";
+import { group, hardline, indent, softline } from "../../document/index.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
   isSatisfiesExpression,
+  isUnionType,
 } from "../utilities/node-types.js";
 
 function printBinaryCastExpression(path, options, print) {
@@ -16,9 +18,17 @@ function printBinaryCastExpression(path, options, print) {
     print("expression"),
     " ",
     isSatisfiesExpression(node) ? "satisfies" : "as",
-    " ",
-    typeAnnotationDoc,
   ];
+
+  if (
+    // Union type already indented
+    !isUnionType(node.typeAnnotation) &&
+    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation)
+  ) {
+    parts.push(indent([hardline, typeAnnotationDoc]));
+  } else {
+    parts.push(" ", typeAnnotationDoc);
+  }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||

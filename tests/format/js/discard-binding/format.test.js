@@ -7,6 +7,8 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     meriyah: true,
     oxc: true,
     "oxc-ts": true,
+    yuku: true,
+    "yuku-ts": true,
     hermes: true,
   },
 });

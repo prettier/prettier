@@ -18,21 +18,15 @@ const optionalChainingAssignTests = [
   "valid-complex-case.js",
 ];
 
-// meriyah can parse these files
-const meriyahCanParse = new Set(["valid-lhs-eq.js", "valid-lhs-plus-eq.js"]);
-
 runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     espree: [...optionalChainingAssignTests, ...invalidSyntaxTests],
-    meriyah: [
-      ...optionalChainingAssignTests.filter(
-        (test) => !meriyahCanParse.has(test),
-      ),
-      ...invalidSyntaxTests,
-    ],
+    meriyah: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     oxc: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     "oxc-ts": [...optionalChainingAssignTests, ...invalidSyntaxTests],
+    yuku: [...optionalChainingAssignTests, ...invalidSyntaxTests],
+    "yuku-ts": [...optionalChainingAssignTests, ...invalidSyntaxTests],
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },
