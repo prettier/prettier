@@ -110,6 +110,14 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
+          if (
+            warning.id === "package.json" &&
+            warning.location.file ===
+              "node_modules/@tybys/wasm-util/package.json"
+          ) {
+            continue;
+          }
+
           console.log(warning);
           throw new Error(warning.text);
         }
