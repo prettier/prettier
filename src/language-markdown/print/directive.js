@@ -115,7 +115,7 @@ function printDirectiveAttributes(path, options) {
 
 // The fence must be longer than the fences of nested container directives
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L490
-function getFenceSize(node, options) {
+function getContainerDirectiveFence(path, options) {
   let size = 0;
 
   const visit = (node, nesting) => {
@@ -128,15 +128,15 @@ function getFenceSize(node, options) {
       }
     }
   };
-  visit(node, 0);
 
-  return size + 3;
+  visit(path.node, 0);
+
+  return ":".repeat(size + 3);
 }
 
-function printDirectiveOpening(path, options, print, fence) {
+function printDirectiveOpening(path, options, print) {
   const { node } = path;
   return [
-    fence,
     node.name,
     printDirectiveLabel(path, options, print),
     printDirectiveAttributes(path, options),
@@ -145,7 +145,7 @@ function printDirectiveOpening(path, options, print, fence) {
 
 function printContainerDirective(path, options, print) {
   const { node } = path;
-  const fence = ":".repeat(getFenceSize(node, options));
+  const fence = getContainerDirectiveFence(path, options);
 
   const contentNodes = node.children.filter(
     (child, index) => !(index === 0 && isInlineDirectiveLabel(child)),
@@ -153,7 +153,8 @@ function printContainerDirective(path, options, print) {
 
   if (contentNodes.length === 0) {
     return [
-      printDirectiveOpening(path, options, print, fence),
+      fence,
+      printDirectiveOpening(path, options, print),
       hardline,
       fence,
     ];
@@ -176,7 +177,8 @@ function printContainerDirective(path, options, print) {
     contentNodes.at(-1).position.end.line < end.line - 1;
 
   return [
-    printDirectiveOpening(path, options, print, fence),
+    fence,
+    printDirectiveOpening(path, options, print),
     hardline,
     hasBlankLineAfterOpening ? hardline : "",
     content,
@@ -187,11 +189,11 @@ function printContainerDirective(path, options, print) {
 }
 
 function printLeafDirective(path, options, print) {
-  return printDirectiveOpening(path, options, print, "::");
+  return ["::", printDirectiveOpening(path, options, print)];
 }
 
 function printTextDirective(path, options, print) {
-  return printDirectiveOpening(path, options, print, ":");
+  return [":", printDirectiveOpening(path, options, print)];
 }
 
 export { printContainerDirective, printLeafDirective, printTextDirective };
