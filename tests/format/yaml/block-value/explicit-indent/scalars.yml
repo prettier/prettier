@@ -1,0 +1,56 @@
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
