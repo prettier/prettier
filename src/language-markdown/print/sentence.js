@@ -14,10 +14,7 @@ import { isSetextHeading } from "../utilities.js";
  */
 function printSentence(path, options, print) {
   /** @type {Doc[]} */
-  let parts = [""];
-  if (needsLeadingWhitespace(path, options)) {
-    parts = [" "];
-  }
+  const parts = [needsLeadingWhitespace(path, options) ? " " : ""];
 
   path.each(() => {
     const { node } = path;
@@ -47,11 +44,16 @@ function needsLeadingWhitespace(path, options) {
     return false;
   }
 
+  if (!(
+    path.isFirst &&
+    (path.parent.type === "paragraph" || isSetextHeading(path.parent)) &&
+    path.grandparent.type === "root"
+  )) {
+    return false;
+  }
+
   const firstChild = path.node.children[0];
   return (
-    path.grandparent.type === "root" &&
-    (path.parent.type === "paragraph" || isSetextHeading(path.parent)) &&
-    path.isFirst &&
     firstChild?.type === "word" &&
     ["import", "export"].includes(firstChild.value)
   );
