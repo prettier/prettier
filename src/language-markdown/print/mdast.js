@@ -100,7 +100,7 @@ function printMdast(path, options, print) {
     case "paragraph":
       return printParagraph(path, options, print);
     case "sentence":
-      return printSentence(path, print);
+      return printSentence(path, options, print);
     case "word":
       return printWord(path, options);
     case "whitespace":
