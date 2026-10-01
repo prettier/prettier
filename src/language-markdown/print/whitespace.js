@@ -7,6 +7,7 @@ import {
   KIND_K_LETTER,
   KIND_NON_CJK,
 } from "../utilities.js";
+import { startsHtmlBlock } from "../utilities/starts-html-block.js";
 
 /**
  * @import {WordNode, WhitespaceValue, WordKind} from "../utilities.js"
@@ -283,7 +284,9 @@ function shouldPreventBreak(path, options) {
   }
 
   if (path.isLast) {
-    return false;
+    // Inline HTML is a sibling of the `sentence` this whitespace belongs to, so
+    // it can only ever follow the sentence's last token.
+    return proseWrap === "always" && isFollowedByHtmlBlockStart(path);
   }
 
   if (
@@ -298,6 +301,33 @@ function shouldPreventBreak(path, options) {
   }
 
   return false;
+}
+
+/**
+ * Whether the node printed right after this `sentence` is inline HTML that would
+ * start an HTML block, and so end the paragraph, once a line break puts it at the
+ * start of a line.
+ *
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isFollowedByHtmlBlockStart(path) {
+  const { grandparent, parent } = path;
+  const siblings = grandparent?.children;
+
+  if (!siblings) {
+    return false;
+  }
+
+  const index = siblings.indexOf(parent);
+
+  if (index === -1) {
+    return false;
+  }
+
+  const nextNode = siblings[index + 1];
+
+  return nextNode?.type === "html" && startsHtmlBlock(nextNode.value);
 }
 
 /**
