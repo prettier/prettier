@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 import { outdent } from "outdent";
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
@@ -50,7 +49,7 @@ const mainModule = {
               const wasmUrlPattern =
                 /const wasmUrl = new URL\("(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\);/;
               const { wasmUrl } = text.match(wasmUrlPattern).groups;
-              const wasmFile = new URL(wasmUrl, pathToFileURL(file));
+              const wasmFile = path.join(path.dirname(file), wasmUrl);
               const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
               text = outdent`

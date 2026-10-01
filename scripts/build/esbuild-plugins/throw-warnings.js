@@ -71,10 +71,8 @@ const logOverride = Object.fromEntries(
 export default function esbuildPluginThrowWarnings({
   allowDynamicRequire,
   allowDynamicImport,
-  allowedWarnings,
+  isAllowedWarning,
 }) {
-  allowedWarnings = new Set(allowedWarnings);
-
   return {
     name: "throw-warnings",
     setup(build) {
@@ -90,7 +88,7 @@ export default function esbuildPluginThrowWarnings({
         }
 
         for (const warning of result.warnings) {
-          if (allowedWarnings.has(warning.id)) {
+          if (isAllowedWarning?.(warning)) {
             continue;
           }
 
@@ -106,14 +104,6 @@ export default function esbuildPluginThrowWarnings({
           if (
             allowDynamicImport &&
             warning.id === "unsupported-dynamic-import"
-          ) {
-            continue;
-          }
-
-          if (
-            warning.id === "package.json" &&
-            warning.location.file ===
-              "node_modules/@tybys/wasm-util/package.json"
           ) {
             continue;
           }

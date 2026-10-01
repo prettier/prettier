@@ -35,10 +35,9 @@ const mainModule = {
       input: "index.js",
       output: "index.browser.mjs",
       build: createJavascriptModuleBuilder({
-        input: "index.js",
+        format: "esm",
         platform: "universal",
         addDefaultExport: true,
-        format: "esm",
         replaceModule: [
           {
             module: getPackageFile(
@@ -90,13 +89,14 @@ const mainModule = {
               return text;
             },
           },
-          {
-            module: getPackageFile("@emnapi/runtime/dist/emnapi.js"),
-            process(text) {
-              return "var require;\n\n" + text;
-            },
-          },
         ],
+        isAllowedWarning: (warning) =>
+          (warning.id === "package.json" &&
+            warning.location.file ===
+              "node_modules/@tybys/wasm-util/package.json") ||
+          (warning.id === "indirect-require" &&
+            warning.location.file ===
+              "node_modules/@emnapi/runtime/dist/emnapi.js"),
       }),
       playground: true,
     },
