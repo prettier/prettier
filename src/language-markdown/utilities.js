@@ -324,6 +324,10 @@ function isSetextHeading(node) {
 
 const isNewLine = (node) => node?.type === "whitespace" && node.value === "\n";
 
+// A word that starts a line with one of these is joined with the previous line,
+// because dropping the indentation of the line would otherwise change its syntax
+const LINE_LEADING_MARKER_REGEXP = /^>|^(?:[*+-]|#{1,6}|\d+[).])$/;
+
 export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -340,6 +344,7 @@ export {
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,
   KIND_NON_CJK,
+  LINE_LEADING_MARKER_REGEXP,
   mapAst,
   splitText,
 };
