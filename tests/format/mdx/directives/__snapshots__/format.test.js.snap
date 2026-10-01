@@ -1,0 +1,440 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`attrs.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Quoted brace :a{title="}"} and single :a{title='a}b'} then text.
+
+No space :a[b]{c}d after.
+
+=====================================output=====================================
+Quoted brace :a{title="}"} and single :a{title='a}b'} then text.
+
+No space :a[b]{c}d after.
+
+================================================================================
+`;
+
+exports[`blank-lines.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::tip
+
+Text
+
+:::
+
+:::a
+No blank
+:::
+
+:::b
+
+Only after
+:::
+
+:::c
+Only before
+
+:::
+
+:::::outer
+
+::::inner
+
+x
+
+::::
+
+:::::
+
+> :::q
+>
+> quoted
+>
+> :::
+
+:::unclosed
+
+text
+
+
+=====================================output=====================================
+:::tip
+
+Text
+
+:::
+
+:::a
+No blank
+:::
+
+:::b
+
+Only after
+:::
+
+:::c
+Only before
+
+:::
+
+::::outer
+
+:::inner
+
+x
+
+:::
+
+::::
+
+> :::q
+>
+> quoted
+>
+> :::
+
+:::unclosed
+
+text
+
+:::
+
+================================================================================
+`;
+
+exports[`container.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b *c* d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::::
+
+:::::a
+b
+::::c
+d
+:::e
+- - f
+:::
+> g h
+:::::
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+
+:::a
+:::
+
+:::a[b]
+:::
+
+:::a{b}
+:::
+
+:::a[b]{c}
+:::
+
+:::a[b _c_ d **e**]
+:::
+
+:::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+:::
+
+:::::a
+::::b
+:::c
+:::
+::::
+:::::
+
+:::::a
+b
+
+::::c
+d
+
+:::e
+- - f
+:::
+
+> g h
+::::
+:::::
+
+================================================================================
+`;
+
+exports[`docusaurus.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::tip[Did you *know*?]
+
+Use \`prettier\`.
+
+:::
+
+:::info{.shadow .blue}
+
+The class \`shadow\` was added.
+
+:::
+
+:::danger[Take care]{#danger-id}
+Text
+:::
+
+=====================================output=====================================
+:::tip[Did you _know_?]
+
+Use \`prettier\`.
+
+:::
+
+:::info{.shadow .blue}
+
+The class \`shadow\` was added.
+
+:::
+
+:::danger[Take care]{#danger-id}
+Text
+:::
+
+================================================================================
+`;
+
+exports[`empty.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+::a[]
+
+:::b[]
+:::
+
+:::c[Only label]
+:::
+
+=====================================output=====================================
+::a[]
+
+:::b[]
+:::
+
+:::c[Only label]
+:::
+
+================================================================================
+`;
+
+exports[`escape.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Escaped \\:a should stay text, and so should 10:30 and http://localhost:3000.
+
+Also \\::b and a\\:::c.
+
+=====================================output=====================================
+Escaped \\:a should stay text, and so should 10:30 and http://localhost:3000.
+
+Also \\::b and a\\:::c.
+
+================================================================================
+`;
+
+exports[`label.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Label with brackets :a[b [c] d] and escaped :a[x\\]] and brace :a[x{y}]{.z}.
+
+=====================================output=====================================
+Label with brackets :a[b [c] d] and escaped :a[x\\]] and brace :a[x{y}]{.z}.
+
+================================================================================
+`;
+
+exports[`leaf.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b *c* d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+
+::a
+
+::a[b]
+
+::a{b}
+
+::a[b]{c}
+
+::a[b _c_ d **e**]
+
+::a{#b.c.d id=e class="f g" h="i &amp; j k"}
+
+================================================================================
+`;
+
+exports[`long.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Some :abbr[very long label that goes on and on and on for quite a while]{title="Title"} text that also goes on and on past eighty columns.
+
+=====================================output=====================================
+Some :abbr[very long label that goes on and on and on for quite a while]{title="Title"} text that also goes on and on past eighty columns.
+
+================================================================================
+`;
+
+exports[`multiline-attributes.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> multi :a{title="x
+> y"} end
+
+- list :a{title="x
+  y" b} end
+
+> > deep :a{#i
+> > .c}
+
+Top :a{title="x
+    y" h="i &amp; j"} end
+
+=====================================output=====================================
+> multi :a{title="x&#xa;y"} end
+
+- list :a{title="x&#xa;y" b} end
+
+> > deep :a{id="i" class="c"}
+
+Top :a{title="x
+    y" h="i &amp; j"} end
+
+================================================================================
+`;
+
+exports[`nested.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- item :abbr[HTML]{title="x"}  here
+- ::youtube[Cat]{#id}
+
+> quote :a[b]{c} end
+>
+> :::note[Title]{.x}
+> body   text
+> :::
+
+=====================================output=====================================
+- item :abbr[HTML]{title="x"} here
+- ::youtube[Cat]{#id}
+
+> quote :a[b]{c} end
+>
+> :::note[Title]{.x}
+> body text
+> :::
+
+================================================================================
+`;
+
+exports[`text.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+:a[b *c*
+d **e**].
+
+:a{#b.c.d id=e class="f g" h="i &amp; j
+k"}.
+
+=====================================output=====================================
+{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+
+One :a, two :a[b], three :a{b}, four :a[b]{c}.
+
+:a[b _c_
+d **e**].
+
+:a{#b.c.d id=e class="f g" h="i &amp; j
+k"}.
+
+================================================================================
+`;
+
+exports[`url.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+A new blog post is now available at [http://localhost:3000/blog/greetings](http://localhost:3000/blog/greetings).
+
+=====================================output=====================================
+A new blog post is now available at [http://localhost:3000/blog/greetings](http://localhost:3000/blog/greetings).
+
+================================================================================
+`;
