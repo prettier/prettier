@@ -1,6 +1,13 @@
 import { shouldAddContentEnd } from "../location/index.js";
+import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
 
-function shouldIgnoredNodePrintSemicolon(node) {
+function shouldIgnoredNodePrintSemicolon(path) {
+  if (isForXStatementInitializer(path)) {
+    return false;
+  }
+
+  const { node } = path;
+
   if (shouldAddContentEnd(node) && node.__contentEnd) {
     return true;
   }

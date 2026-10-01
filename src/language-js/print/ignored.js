@@ -8,7 +8,7 @@ function printIgnored(path, options /* , print*/) {
   const { node } = path;
   let text = options.originalText.slice(locStart(node), locEnd(node));
 
-  if (options.semi && shouldIgnoredNodePrintSemicolon(node)) {
+  if (options.semi && shouldIgnoredNodePrintSemicolon(path)) {
     text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
     text = `;${text}`;
