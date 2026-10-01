@@ -72,6 +72,10 @@
       matchPackageNames: ["yuku-parser", "@yuku-parser/*"],
     },
     {
+      groupName: "Oxc parser",
+      matchPackageNames: ["oxc-parser", "@oxc-parser/*"],
+    },
+    {
       groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },
