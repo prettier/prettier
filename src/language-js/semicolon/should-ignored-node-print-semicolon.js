@@ -1,13 +1,7 @@
 import { shouldAddContentEnd } from "../location/index.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
 
-function shouldIgnoredNodePrintSemicolon(path) {
-  if (isForXStatementInitializer(path)) {
-    return false;
-  }
-
-  const { node } = path;
-
+function shouldPrintSemicolon(node) {
   if (shouldAddContentEnd(node) && node.__contentEnd) {
     return true;
   }
@@ -24,7 +18,7 @@ function shouldIgnoredNodePrintSemicolon(path) {
   }
 
   if (type === "IfStatement") {
-    return shouldIgnoredNodePrintSemicolon(node.alternate ?? node.consequent);
+    return shouldPrintSemicolon(node.alternate ?? node.consequent);
   }
 
   if (
@@ -35,10 +29,14 @@ function shouldIgnoredNodePrintSemicolon(path) {
     type === "WithStatement" ||
     type === "WhileStatement"
   ) {
-    return shouldIgnoredNodePrintSemicolon(node.body);
+    return shouldPrintSemicolon(node.body);
   }
 
   return false;
+}
+
+function shouldIgnoredNodePrintSemicolon(path) {
+  return !isForXStatementInitializer(path) && shouldPrintSemicolon(path.node);
 }
 
 export { shouldIgnoredNodePrintSemicolon };
