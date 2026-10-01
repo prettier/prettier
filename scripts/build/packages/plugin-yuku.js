@@ -1,6 +1,9 @@
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
+import yukuParserWasmPackageJson from "@yuku-parser/wasm/package.json" with { type: "json" };
 import { outdent } from "outdent";
+import yukuParserPackageJson from "yuku-parser/package.json" with { type: "json" };
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import { getPackageFile } from "../utilities.js";
@@ -8,6 +11,8 @@ import {
   createPackageMetaFilesConfig,
   createTypesConfig,
 } from "./config-helpers.js";
+
+assert.equal(yukuParserPackageJson.version, yukuParserWasmPackageJson.version);
 
 const packageConfig = {
   packageName: "@prettier/plugin-yuku",

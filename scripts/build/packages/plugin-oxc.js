@@ -1,6 +1,9 @@
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
+import oxcParserWasmPackageJson from "@oxc-parser/binding-wasm32-wasip1/package.json" with { type: "json" };
 import { outdent } from "outdent";
+import oxcParserPackageJson from "oxc-parser/package.json" with { type: "json" };
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import { getPackageFile } from "../utilities.js";
@@ -8,6 +11,8 @@ import {
   createPackageMetaFilesConfig,
   createTypesConfig,
 } from "./config-helpers.js";
+
+assert.equal(oxcParserPackageJson.version, oxcParserWasmPackageJson.version);
 
 const packageConfig = {
   packageName: "@prettier/plugin-oxc",
