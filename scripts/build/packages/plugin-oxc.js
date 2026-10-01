@@ -3,7 +3,6 @@ import path from "node:path";
 import { outdent } from "outdent";
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
-import buildOxcWasmParser from "../hacks/build-oxc-wasm-parser.js";
 import { getPackageFile } from "../utilities.js";
 import {
   createPackageMetaFilesConfig,
@@ -52,11 +51,21 @@ const mainModule = {
               const wasmFile = path.join(path.dirname(file), wasmUrl);
               const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
+              text = outdent`
+                import { decode as __decode } from "base64-arraybuffer-es6";
+
+                const __base64ToArrayBuffer = Uint8Array.fromBase64
+                  ? (string) => Uint8Array.fromBase64(string).buffer
+                  : __decode;
+
+                ${text}
+              `;
+
+              text = text.replace(wasmUrlPattern, "");
               text = text.replace(
                 "const __wasmResponse = await globalThis.fetch(__wasmUrl)",
                 "const __wasmResponse = {ok: true}",
               );
-
               text = text.replace(
                 "await __wasmResponse.arrayBuffer()",
                 outdent`
@@ -71,6 +80,11 @@ const mainModule = {
               text = text.replace(
                 "await instantiateNapiModule(",
                 "instantiateNapiModuleSync(",
+              );
+
+              text = text.replaceAll(
+                /new URL\((?<url>".*?"), import\.meta\.url\)/g,
+                "{/* $<url> */}",
               );
 
               return text;
