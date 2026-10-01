@@ -1,4 +1,5 @@
 import { hardline, replaceEndOfLine } from "../../document/index.js";
+import { getChildren } from "../../utilities/ast.js";
 import { printChildren } from "./children.js";
 
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L480
@@ -14,10 +15,6 @@ function getNameEnd(node, text) {
   return index + node.name.length;
 }
 
-/**
- * Returns the offset right after the label (`[…]`), or right after the name if
- * there is no label.
- */
 function getLabelEnd(node, text) {
   const nameEnd = getNameEnd(node, text);
   if (text[nameEnd] !== "[") {
@@ -118,13 +115,13 @@ function printDirectiveAttributes(path, options) {
 
 // The fence must be longer than the fences of nested container directives
 // https://github.com/syntax-tree/mdast-util-directive/blob/a683327fafc4e48f81caf8d09d15fef8dd42a627/lib/index.js#L490
-function getContainerDirectiveFenceSize(node) {
-  let maxNesting = 0;
+function getFenceSize(node, options) {
+  let size = 0;
 
   const visit = (node, nesting) => {
-    for (const child of node.children ?? []) {
+    for (const child of getChildren(node, options)) {
       if (child.type === "containerDirective") {
-        maxNesting = Math.max(maxNesting, nesting + 1);
+        size = Math.max(size, nesting + 1);
         visit(child, nesting + 1);
       } else {
         visit(child, nesting);
@@ -133,7 +130,7 @@ function getContainerDirectiveFenceSize(node) {
   };
   visit(node, 0);
 
-  return maxNesting + 3;
+  return size + 3;
 }
 
 function printDirectiveOpening(path, options, print, fence) {
@@ -148,7 +145,7 @@ function printDirectiveOpening(path, options, print, fence) {
 
 function printContainerDirective(path, options, print) {
   const { node } = path;
-  const fence = ":".repeat(getContainerDirectiveFenceSize(node));
+  const fence = ":".repeat(getFenceSize(node, options));
 
   const contentNodes = node.children.filter(
     (child, index) => !(index === 0 && isInlineDirectiveLabel(child)),
