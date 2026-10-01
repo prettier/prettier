@@ -118,6 +118,16 @@ function isJsSourceElement(type, parentType) {
   return (
     parentType !== "DeclareExportDeclaration" &&
     type !== "TypeParameterDeclaration" &&
+    // The head of a `for` statement is a fragment rather than a statement. If
+    // it is picked as a source element, the extracted range gets parsed on its
+    // own and gains a `;`, which produces code that no longer parses, for
+    // example `for (const f; of items)`.
+    !(
+      type === "VariableDeclaration" &&
+      (parentType === "ForStatement" ||
+        parentType === "ForInStatement" ||
+        parentType === "ForOfStatement")
+    ) &&
     (type === "Directive" ||
       type === "TypeAlias" ||
       type === "TSExportAssignment" ||
