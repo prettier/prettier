@@ -35,6 +35,7 @@ const config = {
         "buffer",
         "base64-arraybuffer-es6",
         "@yuku-parser/wasm",
+        "@oxc-parser/binding-wasm32-wasip1",
       ],
       ignoreBinaries: [],
     },
