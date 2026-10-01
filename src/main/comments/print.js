@@ -117,6 +117,7 @@ function printTrailingComment(path, options, previousComment) {
  * @param {CommentPrintOptions & {
  *  indent?: boolean,
  *  marker?: symbol | string,
+ *  separator?: Doc,
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
@@ -129,6 +130,7 @@ function printDanglingComments(
     indent: shouldIndent = false,
     marker,
     filter = returnTrue,
+    separator = hardline,
   } = danglingCommentsPrintOptions;
   const danglingComments = new Set(
     path.node?.comments?.filter(
@@ -154,7 +156,7 @@ function printDanglingComments(
     )
     .filter(Boolean);
 
-  const doc = join(hardline, parts);
+  const doc = join(separator, parts);
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
