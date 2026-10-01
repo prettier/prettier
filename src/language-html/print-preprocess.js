@@ -149,17 +149,18 @@ function convertAngularNonBindableChildren(node, options) {
         replacements.push(createOriginalTextNode(sourceSpan, options));
       }
 
-      children.splice(
-        i,
-        1,
-        ...replacements.map((replacement) => node.createChild(replacement)),
-      );
+      for (const replacement of replacements) {
+        node.insertChildBefore(child, replacement);
+      }
+      node.removeChild(child);
+
       i += replacements.length - 1;
       continue;
     }
 
     if (child.kind === "angularLetDeclaration") {
-      children[i] = node.createChild(
+      node.replaceChild(
+        child,
         createOriginalTextNode(child.sourceSpan, options),
       );
       continue;
