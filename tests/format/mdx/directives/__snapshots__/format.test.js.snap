@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`attrs.mdx format 1`] = `
+exports[`attributes.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
@@ -9,10 +9,34 @@ Quoted brace :a{title="}"} and single :a{title='a}b'} then text.
 
 No space :a[b]{c}d after.
 
+Text before :abbr[HTML]{title="HyperText Markup Language"} and text after.
+
+One :a{x=1} and two :b{y=2} on one line.
+
+::a{title="a } b"}
+
+:::note[label with {braces}]{#id}
+body
+:::
+
+::a{b=c}
+
 =====================================output=====================================
 Quoted brace :a{title="}"} and single :a{title='a}b'} then text.
 
 No space :a[b]{c}d after.
+
+Text before :abbr[HTML]{title="HyperText Markup Language"} and text after.
+
+One :a{x=1} and two :b{y=2} on one line.
+
+::a{title="a } b"}
+
+:::note[label with {braces}]{#id}
+body
+:::
+
+::a{b=c}
 
 ================================================================================
 `;
@@ -114,7 +138,7 @@ exports[`container.mdx format 1`] = `
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1
 
 :::a
 :::
@@ -150,7 +174,7 @@ d
 :::::
 
 =====================================output=====================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/container/input.md?plain=1
 
 :::a
 :::
@@ -295,7 +319,7 @@ exports[`leaf.mdx format 1`] = `
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1
 
 ::a
 
@@ -310,7 +334,7 @@ parsers: ["mdx"]
 ::a{#b.c.d id=e class="f g" h="i &amp; j k"}
 
 =====================================output=====================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/leaf/input.md?plain=1
 
 ::a
 
@@ -402,7 +426,7 @@ exports[`text.mdx format 1`] = `
 parsers: ["mdx"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1
 
 One :a, two :a[b], three :a{b}, four :a[b]{c}.
 
@@ -413,7 +437,7 @@ d **e**].
 k"}.
 
 =====================================output=====================================
-{/* https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1 */}
+https://github.com/remarkjs/remark-directive/blob/23b8f416da165b6ddaa4c5e7e82addaf6dcb96a9/test/fixtures/text/input.md?plain=1
 
 One :a, two :a[b], three :a{b}, four :a[b]{c}.
 
