@@ -62,17 +62,15 @@ const mainModule = {
               const { wasmUrl } = text.match(wasmUrlPattern).groups;
 
               text = text.replace(wasmUrlPattern, "");
-              text = outdent`
-                import __wasmFile from ${JSON.stringify(wasmUrl)} with {type: "bytes"};
-                ${text}
-              `;
               text = text.replace(
                 "const __wasmFile = await __wasmResponse.arrayBuffer()",
-                "",
+                outdent`
+                  import __wasmFile from ${JSON.stringify(wasmUrl)} with {type: "bytes"};
+                `,
               );
               text = text.replace(
-                "const __wasmResponse = await globalThis.fetch(__wasmUrl)",
-                "const __wasmResponse = {ok: true}",
+                "const __wasmResponse =",
+                "const __wasmResponse = {ok: 1} ||",
               );
 
               text = text.replace("await __rollbackWasiInitialization()", "[]");
