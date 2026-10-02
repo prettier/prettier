@@ -376,7 +376,7 @@ function printMdast(path, options, print) {
       return group([
         open,
         node.children.length > 0
-          ? [indent([hardline, printChildren(path, options, print)]), hardline]
+          ? [indent([softline, printChildren(path, options, print)]), softline]
           : "",
         close,
       ]);

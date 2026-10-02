@@ -428,37 +428,25 @@ A {/* JS-style comment */} comment.
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 234
 
 ---
 
-<>
-  test <World /> test
-</>
+<>test <World /> test</>
 123
 
 ---
@@ -537,37 +525,25 @@ A {/* JS-style comment */} comment.
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 234
 
 ---
 
-<>
-  test <World /> test
-</>
+<>test <World /> test</>
 123
 
 ---

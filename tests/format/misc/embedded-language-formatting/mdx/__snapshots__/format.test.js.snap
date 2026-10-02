@@ -136,43 +136,29 @@ Hello, world!
 Hello, {  javascript .    expression }!
 
 =====================================output=====================================
-<Heading hi="there">
-  Hello, world!
-</Heading>
+<Heading hi="there">Hello, world!</Heading>
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
+<Hello>test <World /> test</Hello>
 123
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 123
-<Hello>
-  test <World /> test
-</Hello>
+<Hello>test <World /> test</Hello>
 234
 
 ---
 
-<>
-  test <World /> test
-</>
+<>test <World /> test</>
 123
 
 ---

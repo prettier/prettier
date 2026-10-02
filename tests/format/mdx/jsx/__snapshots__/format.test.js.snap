@@ -14,9 +14,28 @@ parsers: ["mdx"]
 =====================================output=====================================
 <></>
 
-<>
-  <div></div>
-</>
+<><div></div></>
+
+================================================================================
+`;
+
+exports[`short.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<CodeBlock language="ts">{DependencyConstraint}</CodeBlock>
+<CodeBlock language="ts">{DependencyConstraint_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long}</CodeBlock>
+<CodeBlock language="ts">DependencyConstraint</CodeBlock>
+<CodeBlock language="ts">DependencyConstraint_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long</CodeBlock>
+
+=====================================output=====================================
+<CodeBlock language="ts">{DependencyConstraint}</CodeBlock>
+<CodeBlock language="ts">
+  {DependencyConstraint_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long}
+</CodeBlock>
+<CodeBlock language="ts">DependencyConstraint</CodeBlock>
+<CodeBlock language="ts">DependencyConstraint_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long_Long</CodeBlock>
 
 ================================================================================
 `;
