@@ -1,8 +1,10 @@
 import { indent, softline } from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../location/index.js";
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import { shouldIgnoredNodePrintSemicolon } from "../semicolon/should-ignored-node-print-semicolon.js";
+import { isJsxElement } from "../utilities/node-types.js";
 
 function printIgnored(path, options /* , print*/) {
   const { node } = path;
@@ -12,6 +14,15 @@ function printIgnored(path, options /* , print*/) {
     text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
     text = `;${text}`;
+  }
+
+  if (
+    isJsxElement(node) &&
+    path.key === "superClass" &&
+    (path.parent.type === "ClassDeclaration" ||
+      path.parent.type === "ClassExpression")
+  ) {
+    return [indent([softline, printComments(path, text, options)]), softline];
   }
 
   if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
