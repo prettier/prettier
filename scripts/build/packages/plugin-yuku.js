@@ -1,9 +1,6 @@
-import fs from "node:fs/promises";
 import path from "node:path";
-import { outdent } from "outdent";
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
-import { getPackageFile } from "../utilities.js";
 import {
   createPackageMetaFilesConfig,
   createTypesConfig,
@@ -23,8 +20,6 @@ const mainModule = {
       input: "index.js",
       output: "index.mjs",
       build: createJavascriptModuleBuilder({
-        input: "index.js",
-        output: "index.mjs",
         format: "esm",
         platform: "node",
         external: ["yuku-parser"],

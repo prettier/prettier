@@ -23,8 +23,6 @@ const mainModule = {
       input: "index.js",
       output: "index.mjs",
       build: createJavascriptModuleBuilder({
-        input: "index.js",
-        output: "index.mjs",
         format: "esm",
         platform: "node",
         external: ["oxc-parser"],
