@@ -331,19 +331,19 @@ function extractInterpolation(ast, options) {
   });
 }
 
-function splitInterpolation(child) {
-  const interpolationTokens = child.tokens?.filter(
+function splitInterpolation(node) {
+  const interpolationTokens = node.tokens?.filter(
     (token) =>
       token.type === TokenType.INTERPOLATION && token.parts.length === 3,
   );
 
   if (!interpolationTokens?.some((token) => token.parts[1].includes("}}"))) {
-    return child.value.split(/\{\{(.+?)\}\}/s);
+    return node.value.split(/\{\{(.+?)\}\}/s);
   }
 
   const components = [];
-  const { content } = child.sourceSpan.start.file;
-  let startOffset = child.sourceSpan.start.offset;
+  const { content } = node.sourceSpan.start.file;
+  let startOffset = node.sourceSpan.start.offset;
 
   for (const { parts, sourceSpan } of interpolationTokens) {
     components.push(
@@ -357,7 +357,7 @@ function splitInterpolation(child) {
     startOffset = sourceSpan.end.offset;
   }
 
-  components.push(content.slice(startOffset, child.sourceSpan.end.offset));
+  components.push(content.slice(startOffset, node.sourceSpan.end.offset));
 
   return components;
 }
