@@ -194,7 +194,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       esbuildPluginThrowWarnings({
         allowDynamicRequire: buildOptions.platform === "node",
         allowDynamicImport: buildOptions.platform === "node",
-        allowedWarnings: buildOptions.allowedWarnings,
+        isAllowedWarning: buildOptions.isAllowedWarning,
       }),
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),

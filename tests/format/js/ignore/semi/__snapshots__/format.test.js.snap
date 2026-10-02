@@ -209,6 +209,69 @@ function foo() {
 ================================================================================
 `;
 
+exports[`for-x-initializer.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+=====================================output=====================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo()
+for (/* prettier-ignore */ const  {a,b} of c) foo()
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+================================================================================
+`;
+
+exports[`for-x-initializer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+=====================================output=====================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+================================================================================
+`;
+
 exports[`head-ignored.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
