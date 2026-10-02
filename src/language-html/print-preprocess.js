@@ -273,7 +273,6 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /\{\{(.+?)\}\}/s;
   ast.walk((node) => {
     if (!canHaveInterpolation(node, options)) {
       return;
@@ -286,7 +285,7 @@ function extractInterpolation(ast, options) {
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan;
-      const components = splitInterpolation(child, interpolationRegex);
+      const components = splitInterpolation(child);
 
       for (
         let i = 0;
@@ -332,14 +331,14 @@ function extractInterpolation(ast, options) {
   });
 }
 
-function splitInterpolation(child, interpolationRegex) {
+function splitInterpolation(child) {
   const interpolationTokens = child.tokens?.filter(
     (token) =>
       token.type === TokenType.INTERPOLATION && token.parts.length === 3,
   );
 
   if (!interpolationTokens?.some((token) => token.parts[1].includes("}}"))) {
-    return child.value.split(interpolationRegex);
+    return child.value.split(/\{\{(.+?)\}\}/s);
   }
 
   const components = [];
