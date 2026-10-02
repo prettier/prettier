@@ -321,6 +321,30 @@ function handleClassComments({
   options,
 }) {
   if (isClassLikeNode(enclosingNode)) {
+    if (
+      "superClass" in enclosingNode &&
+      "superTypeArguments" in enclosingNode &&
+      precedingNode === enclosingNode.superClass &&
+      followingNode === enclosingNode.superTypeArguments &&
+      isLineComment(comment)
+    ) {
+      if (
+        /^\s*(?:@|eslint-|oxlint-|biome-|deno-lint-|\$Flow)/u.test(
+          comment.value,
+        ) ||
+        isPrettierIgnoreComment(comment)
+      ) {
+        // Line-scoped directives must stay before the type arguments.
+        comment.printBeforeSuperTypeArguments = true;
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+      // The type arguments print immediately after the superclass. Move the
+      // comment after the whole class so it cannot split the heritage clause.
+      comment.printAsEndOfLine = true;
+      addTrailingComment(enclosingNode, comment);
+      return true;
+    }
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
     if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {

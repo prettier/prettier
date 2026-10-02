@@ -75,7 +75,8 @@ function printTrailingComment(path, options, previousComment) {
 
   if (
     (previousComment?.hasLineSuffix && !previousComment?.isBlock) ||
-    hasNewline(originalText, locStart(comment), { backwards: true })
+    (hasNewline(originalText, locStart(comment), { backwards: true }) &&
+      !comment.printAsEndOfLine)
   ) {
     // This allows comments at the end of nested structures:
     // {

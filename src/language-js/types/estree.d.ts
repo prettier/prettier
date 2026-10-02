@@ -19,6 +19,8 @@ type PrettierCommentAdditionalProperties = {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
+  printAsEndOfLine?: boolean;
+  printBeforeSuperTypeArguments?: boolean;
 };
 
 type FlowAdditionalNode =
