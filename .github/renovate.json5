@@ -69,7 +69,7 @@
     },
     {
       groupName: "Yuku parser",
-      matchPackageNames: ["yuku-parser", "@yuku-parser/*"],
+      matchPackageNames: ["yuku-parser", "@yuku-core/*"],
     },
     {
       groupName: "Oxc parser",
