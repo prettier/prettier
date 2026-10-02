@@ -3319,22 +3319,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-parser/wasm@npm:0.13.0":
-  version: 0.13.0
-  resolution: "@yuku-parser/wasm@npm:0.13.0"
-  dependencies:
-    "@yuku-toolchain/types": "npm:^0.13.0"
-  checksum: 10/3e04ebbc16fb6a47b08fcc13f231dfc29de63c0e6258b33840e94094dd9f0f3280346becc69ade7b7f1f2c8138cc0701022effb4088afcfaeeed7dcb5ff522e2
-  languageName: node
-  linkType: hard
-
-"@yuku-toolchain/types@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "@yuku-toolchain/types@npm:0.13.0"
-  checksum: 10/4f61fccc0cb8357f6f6d097eb989c008521520689c3a2a8ac6c62e657f206207dcfc0384d5a28bd72d76b7f5e1f602ae5e0c0ca4b04cccb461ed8916ea8c3bbb
-  languageName: node
-  linkType: hard
-
 "@yuku-toolchain/types@npm:^0.17.0":
   version: 0.17.0
   resolution: "@yuku-toolchain/types@npm:0.17.0"
@@ -8308,7 +8292,6 @@ __metadata:
     "@typescript-eslint/typescript-estree": "npm:8.70.1"
     "@typescript-eslint/visitor-keys": "npm:8.70.1"
     "@yuku-core/wasm": "npm:0.17.0"
-    "@yuku-parser/wasm": "npm:0.13.0"
     acorn: "npm:8.18.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
