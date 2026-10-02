@@ -286,10 +286,7 @@ function extractInterpolation(ast, options) {
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan;
-      const components =
-        options.parser === "angular"
-          ? splitAngularInterpolation(child, interpolationRegex)
-          : child.value.split(interpolationRegex);
+      const components = splitInterpolation(child, interpolationRegex);
 
       for (
         let i = 0;
@@ -335,7 +332,7 @@ function extractInterpolation(ast, options) {
   });
 }
 
-function splitAngularInterpolation(child, interpolationRegex) {
+function splitInterpolation(child, interpolationRegex) {
   const interpolationTokens = child.tokens?.filter(
     (token) =>
       token.type === TokenType.INTERPOLATION && token.parts.length === 3,

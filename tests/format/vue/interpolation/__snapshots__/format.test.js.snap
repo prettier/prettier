@@ -75,6 +75,27 @@ parsers: ["vue"]
 ================================================================================
 `;
 
+exports[`double-brace-string.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <div>{{"{{first}} / {{second}} files selected"}}</div>
+  <div>{{'{{first}} / {{second}} files selected'}}</div>
+  <div>Before {{ "}}" }} between {{value}} after {{ "{{third}}" }}</div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>{{ "{{first}} / {{second}} files selected" }}</div>
+  <div>{{ "{{first}} / {{second}} files selected" }}</div>
+  <div>Before {{ "}}" }} between {{ value }} after {{ "{{third}}" }}</div>
+</template>
+
+================================================================================
+`;
+
 exports[`ng-non-bindable.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
