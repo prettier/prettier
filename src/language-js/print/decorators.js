@@ -7,7 +7,8 @@ import {
 } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { hasSameLocStart, locEnd } from "../location/index.js";
+import { hasSameLocStart, locEnd, locStart } from "../location/index.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isExportDeclaration } from "../utilities/node-types.js";
 
@@ -50,6 +51,12 @@ function printDecorators(path, options, print) {
     return "";
   }
 
+  // A leading comment between `export` and the first decorator already
+  // supplies their separator. Another hardline here becomes one extra blank
+  // line on each formatting pass.
+  const leadingComment = getComments(node, CommentCheckFlags.Leading).at(-1);
+  const hasCommentBeforeDecorator =
+    leadingComment && locEnd(leadingComment) <= locStart(decorators[0]);
   const shouldBreak =
     node.type === "ClassExpression" ||
     node.type === "ClassDeclaration" ||
@@ -57,7 +64,9 @@ function printDecorators(path, options, print) {
 
   return [
     path.key === "declaration" && isExportDeclaration(parent)
-      ? hardline
+      ? hasCommentBeforeDecorator
+        ? ""
+        : hardline
       : shouldBreak
         ? breakParent
         : "",
