@@ -26,6 +26,7 @@ import {
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
+  isJsxElement,
   isMemberExpression,
   isTypeAlias,
   isTypeAnnotation,
@@ -81,6 +82,7 @@ function handleOwnLineComment(context) {
     handleWhileLikeComments,
     handleSwitchStatementComments,
     handleTryStatementComments,
+    handleJsxSuperClassComments,
     handleClassComments,
     handleForXStatementComments,
     handleUnionTypeComments,
@@ -114,6 +116,7 @@ function handleEndOfLineComment(context) {
     handleWhileLikeComments,
     handleSwitchStatementComments,
     handleTryStatementComments,
+    handleJsxSuperClassComments,
     handleClassComments,
     handleForXStatementComments,
     handleLabeledStatementComments,
@@ -143,6 +146,7 @@ function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
     handleIgnoreComments,
+    handleJsxSuperClassComments,
     handleClosureTypeCastComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -313,6 +317,50 @@ const isClassLikeNode = createTypeCheckFunction([
   "InterfaceDeclaration",
   "TSInterfaceDeclaration",
 ]);
+
+function handleJsxSuperClassComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (
+    (enclosingNode?.type !== "ClassDeclaration" &&
+      enclosingNode?.type !== "ClassExpression") ||
+    !isJsxElement(enclosingNode.superClass) ||
+    (isPrettierIgnoreComment(comment) &&
+      followingNode !== enclosingNode.superClass)
+  ) {
+    return false;
+  }
+
+  const { superClass } = enclosingNode;
+  if (
+    followingNode === superClass &&
+    stripComments(options)
+      .slice(locStart(enclosingNode), locStart(comment))
+      .trimEnd()
+      .endsWith("(")
+  ) {
+    addLeadingComment(superClass, comment);
+    return true;
+  }
+
+  if (
+    precedingNode === superClass &&
+    getNextNonSpaceNonCommentCharacter(
+      options.originalText,
+      locEnd(comment),
+    ) === ")"
+  ) {
+    addTrailingComment(superClass, comment);
+    return true;
+  }
+
+  return false;
+}
+
 function handleClassComments({
   comment,
   precedingNode,

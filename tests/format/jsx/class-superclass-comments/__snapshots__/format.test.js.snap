@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`superclass.jsx - {"printWidth":20} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 20
+    printWidth: 20 |
+=====================================input======================================
+class A extends (/* c */ <div />) {}
+
+class B extends (<div /> /* c */) {}
+
+class Both extends (/* before */ <div /> /* after */) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<div /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Ordinary extends (/* ordinary */ createClass()) {}
+
+class Outside extends /* outside */ (<div />) {}
+
+class Ignored extends (/* prettier-ignore */ <div  unformatted = "value" />) {}
+
+class IgnoredTrailing extends (
+  /* prettier-ignore */ <div  unformatted = "value" /> // trailing
+) {}
+
+class LeadingLine extends (
+  // leading line
+  <Component />
+) {}
+
+class TrailingLine extends (
+  <Component /> // trailing line
+) {}
+
+=====================================output=====================================
+class A
+  extends (
+    /* c */ <div />
+  ) {}
+
+class B
+  extends (
+    <div /> /* c */
+  ) {}
+
+class Both
+  extends (
+    /* before */ <div /> /* after */
+  ) {}
+
+class Fragment
+  extends (
+    /* fragment */ <>
+      child
+    </>
+  ) {}
+
+let Expression = class
+  extends (
+    <div /> /* expression */
+  ) {};
+
+Expression = class
+  extends (
+    (
+      /* assignment */ <Component />
+    )
+  ) {};
+
+class Ordinary
+  extends /* ordinary */ createClass() {}
+
+class Outside
+  extends (
+    /* outside */ <div />
+  ) {}
+
+class Ignored
+  extends (
+    /* prettier-ignore */ <div  unformatted = "value" />
+  ) {}
+
+class IgnoredTrailing
+  extends (
+    /* prettier-ignore */ <div  unformatted = "value" /> // trailing
+  ) {}
+
+class LeadingLine
+  extends (
+    // leading line
+    <Component />
+  ) {}
+
+class TrailingLine
+  extends (
+    <Component /> // trailing line
+  ) {}
+
+================================================================================
+`;
+
+exports[`superclass.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A extends (/* c */ <div />) {}
+
+class B extends (<div /> /* c */) {}
+
+class Both extends (/* before */ <div /> /* after */) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<div /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Ordinary extends (/* ordinary */ createClass()) {}
+
+class Outside extends /* outside */ (<div />) {}
+
+class Ignored extends (/* prettier-ignore */ <div  unformatted = "value" />) {}
+
+class IgnoredTrailing extends (
+  /* prettier-ignore */ <div  unformatted = "value" /> // trailing
+) {}
+
+class LeadingLine extends (
+  // leading line
+  <Component />
+) {}
+
+class TrailingLine extends (
+  <Component /> // trailing line
+) {}
+
+=====================================output=====================================
+class A extends (/* c */ <div />) {}
+
+class B extends (<div /> /* c */) {}
+
+class Both extends (/* before */ <div /> /* after */) {}
+
+class Fragment extends (/* fragment */ <>child</>) {}
+
+let Expression = class extends (<div /> /* expression */) {};
+
+Expression = class extends (/* assignment */ <Component />) {};
+
+class Ordinary extends /* ordinary */ createClass() {}
+
+class Outside extends (/* outside */ <div />) {}
+
+class Ignored extends (/* prettier-ignore */ <div  unformatted = "value" />) {}
+
+class IgnoredTrailing
+  extends (
+    /* prettier-ignore */ <div  unformatted = "value" /> // trailing
+  ) {}
+
+class LeadingLine
+  extends (
+    // leading line
+    <Component />
+  ) {}
+
+class TrailingLine
+  extends (
+    <Component /> // trailing line
+  ) {}
+
+================================================================================
+`;
