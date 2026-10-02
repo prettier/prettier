@@ -784,9 +784,15 @@ function handleModuleSpecifiersComments({
   return false;
 }
 
-function handleAssignmentPatternComments({ comment, enclosingNode }) {
+function handleAssignmentPatternComments({
+  comment,
+  enclosingNode,
+  ancestors,
+}) {
   if (enclosingNode?.type === "AssignmentPattern") {
-    addLeadingComment(enclosingNode, comment);
+    const parameterProperty =
+      ancestors[1]?.type === "TSParameterProperty" ? ancestors[1] : undefined;
+    addLeadingComment(parameterProperty ?? enclosingNode, comment);
     return true;
   }
   return false;
