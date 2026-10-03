@@ -14,8 +14,10 @@ import {
   printClassProperty,
 } from "./class.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printExportAssignment } from "./export-assignment.js";
 import { printFunction, printMethodValue } from "./function.js";
 import { printFunctionType } from "./function-type.js";
+import { printImportEqualsDeclaration } from "./import-equals-declaration.js";
 import { printIndexSignature } from "./index-signature.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
@@ -29,10 +31,6 @@ import {
   printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import {
-  printExportAssignment,
-  printImportEqualsDeclaration,
-} from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
 import { printObject } from "./object.js";
 import { printRestType } from "./rest-type.js";

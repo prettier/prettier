@@ -29,9 +29,11 @@ import {
   printFlowEnumBody,
   printLegacyFlowEnumBody,
 } from "./enum.js";
+import { printExportAssignment } from "./export-assignment.js";
 import { printFunction } from "./function.js";
 import { printFunctionType } from "./function-type.js";
 import { printDeclareHook, printHookTypeAnnotation } from "./hook.js";
+import { printImportEqualsDeclaration } from "./import-equals-declaration.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
@@ -46,11 +48,7 @@ import {
   printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import {
-  printExportAssignment,
-  printExportDeclaration,
-  printImportEqualsDeclaration,
-} from "./module.js";
+import { printExportDeclaration } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
