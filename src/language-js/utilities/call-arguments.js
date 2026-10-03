@@ -75,7 +75,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 @param {number} index
 */
 function getCallArgumentSelector(node, index) {
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression" || isImportType(node)) {
     if (index === 0 || index === (node.options ? -2 : -1)) {
       return ["source"];
     }
@@ -87,18 +87,7 @@ function getCallArgumentSelector(node, index) {
     throw new RangeError("Invalid argument index");
   }
 
-  if (node.type === "ImportType") {
-    if (index === 0 || index === -1) {
-      return ["source"];
-    }
-
-    throw new RangeError("Invalid argument index");
-  }
-
-  if (
-    node.type === "TSExternalModuleReference" ||
-    node.type === "ExternalModuleReference"
-  ) {
+  if (isExternalModuleReference(node)) {
     if (index === 0 || index === -1) {
       return ["expression"];
     }
