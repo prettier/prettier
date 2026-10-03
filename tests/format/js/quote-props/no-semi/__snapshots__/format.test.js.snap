@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quoted-keys.js - {"semi":false,"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+quoteProps: "consistent"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  x = a
+  "in"() {}
+}
+
+class B {
+  x = a
+  "instanceof"() {}
+}
+
+class C {
+  x = a
+  "in" = 1
+}
+
+class D {
+  "get"
+  a = 1
+}
+
+class E {
+  "set"
+  b() {}
+}
+
+class F {
+  "static"
+  c = 1
+}
+
+class G {
+  x = a
+  "in"() {}
+  "a-b"() {}
+}
+
+=====================================output=====================================
+class A {
+  x = a;
+  in() {}
+}
+
+class B {
+  x = a;
+  instanceof() {}
+}
+
+class C {
+  x = a;
+  in = 1
+}
+
+class D {
+  get;
+  a = 1
+}
+
+class E {
+  set;
+  b() {}
+}
+
+class F {
+  static;
+  c = 1
+}
+
+class G {
+  "x" = a
+  "in"() {}
+  "a-b"() {}
+}
+
+================================================================================
+`;
+
+exports[`quoted-keys.js - {"semi":false,"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+quoteProps: "preserve"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  x = a
+  "in"() {}
+}
+
+class B {
+  x = a
+  "instanceof"() {}
+}
+
+class C {
+  x = a
+  "in" = 1
+}
+
+class D {
+  "get"
+  a = 1
+}
+
+class E {
+  "set"
+  b() {}
+}
+
+class F {
+  "static"
+  c = 1
+}
+
+class G {
+  x = a
+  "in"() {}
+  "a-b"() {}
+}
+
+=====================================output=====================================
+class A {
+  x = a
+  "in"() {}
+}
+
+class B {
+  x = a
+  "instanceof"() {}
+}
+
+class C {
+  x = a
+  "in" = 1
+}
+
+class D {
+  "get"
+  a = 1
+}
+
+class E {
+  "set"
+  b() {}
+}
+
+class F {
+  "static"
+  c = 1
+}
+
+class G {
+  x = a
+  "in"() {}
+  "a-b"() {}
+}
+
+================================================================================
+`;
+
+exports[`quoted-keys.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  x = a
+  "in"() {}
+}
+
+class B {
+  x = a
+  "instanceof"() {}
+}
+
+class C {
+  x = a
+  "in" = 1
+}
+
+class D {
+  "get"
+  a = 1
+}
+
+class E {
+  "set"
+  b() {}
+}
+
+class F {
+  "static"
+  c = 1
+}
+
+class G {
+  x = a
+  "in"() {}
+  "a-b"() {}
+}
+
+=====================================output=====================================
+class A {
+  x = a;
+  in() {}
+}
+
+class B {
+  x = a;
+  instanceof() {}
+}
+
+class C {
+  x = a;
+  in = 1
+}
+
+class D {
+  get;
+  a = 1
+}
+
+class E {
+  set;
+  b() {}
+}
+
+class F {
+  static;
+  c = 1
+}
+
+class G {
+  x = a;
+  in() {}
+  "a-b"() {}
+}
+
+================================================================================
+`;
