@@ -7,7 +7,7 @@ function printModuleDeclarationKind(node) {
   }
 
   if (node.type === "DeclareNamespace") {
-    return node.global ? node.keyword : "";
+    return node.global ? "" : (node.keyword ?? "namespace");
   }
 
   if (node.type === "TSModuleDeclaration") {
