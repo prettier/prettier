@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`separator.js format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+let a:
+  /* c */
+  T;
+
+f(...
+  /* c */
+  a);
+
+function g(
+  x:
+    /* c */
+    string,
+) {
+  return x;
+}
+
+=====================================output=====================================
+let a: /* c */ T;
+
+f(.../* c */ a);
+
+function g(x: /* c */ string) {
+  return x;
+}
+
+================================================================================
+`;
