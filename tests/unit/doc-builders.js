@@ -17,6 +17,7 @@ import {
   markAsRoot,
   trim,
 } from "../../src/document/index.js";
+import { builders as publicBuilders } from "../../src/document/public.js";
 
 const invalidDoc = { type: "invalid-type" };
 const validDoc = "string";
@@ -112,5 +113,41 @@ describe("doc builders", () => {
     for (const doc of valid) {
       expect(doc).toBeDefined();
     }
+  });
+
+  test("public builtin docs are frozen", () => {
+    const {
+      breakParent,
+      cursor,
+      hardline,
+      hardlineWithoutBreakParent,
+      line,
+      lineSuffixBoundary,
+      literalline,
+      literallineWithoutBreakParent,
+      softline,
+      trim,
+    } = publicBuilders;
+
+    for (const doc of [
+      breakParent,
+      cursor,
+      hardline,
+      hardlineWithoutBreakParent,
+      line,
+      lineSuffixBoundary,
+      literalline,
+      literallineWithoutBreakParent,
+      softline,
+      trim,
+    ]) {
+      expect(Object.isFrozen(doc)).toBe(true);
+    }
+
+    expect(hardline).toStrictEqual([hardlineWithoutBreakParent, breakParent]);
+    expect(literalline).toStrictEqual([
+      literallineWithoutBreakParent,
+      breakParent,
+    ]);
   });
 });
