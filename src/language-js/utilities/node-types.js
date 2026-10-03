@@ -177,4 +177,10 @@ export const isTypeAnnotation = createTypeCheckFunction([
   "TypeAnnotation",
 ]);
 
+export const isModuleDeclaration = createTypeCheckFunction([
+  "TSModuleDeclaration",
+  "DeclareModule",
+  "DeclareNamespace",
+]);
+
 export * from "./literal.js";

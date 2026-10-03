@@ -1,3 +1,4 @@
+import { isModuleDeclaration } from "typescript";
 import { hardline, indent } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
@@ -47,9 +48,7 @@ function printBlock(path, options, print) {
       parent.type === "DoExpression" ||
       parent.type === "ModuleExpression" ||
       (parent.type === "CatchClause" && !parentParent.finalizer) ||
-      parent.type === "TSModuleDeclaration" ||
-      parent.type === "DeclareModule" ||
-      parent.type === "DeclareNamespace" ||
+      isModuleDeclaration(parent) ||
       parent.type === "MatchStatementCase" ||
       node.type === "StaticBlock"
     )) {
