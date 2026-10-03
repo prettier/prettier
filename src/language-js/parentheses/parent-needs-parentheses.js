@@ -227,7 +227,12 @@ function includesFunctionTypeInObjectType(node) {
     node,
     (node) =>
       node.type === "ObjectTypeAnnotation" &&
-      hasNode(node, (node) => node.type === "FunctionTypeAnnotation"),
+      hasNode(
+        node,
+        (node) =>
+          node.type === "FunctionTypeAnnotation" ||
+          node.type === "ConstructorTypeAnnotation",
+      ),
   );
 }
 

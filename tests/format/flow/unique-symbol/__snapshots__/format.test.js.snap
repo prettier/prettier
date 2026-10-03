@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`unique-symbol.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+type Unique = unique symbol;
+declare const declared: unique symbol;
+const regular: unique symbol = Symbol("regular");
+type Union = unique symbol | string;
+type Intersection = unique symbol & Marker;
+
+type BlockCommented = unique /* between unique and symbol */ symbol;
+type LineCommented = unique // between unique and symbol
+symbol;
+
+=====================================output=====================================
+// @flow
+
+type Unique = unique symbol;
+declare const declared: unique symbol;
+const regular: unique symbol = Symbol("regular");
+type Union = unique symbol | string;
+type Intersection = unique symbol & Marker;
+
+type BlockCommented = unique /* between unique and symbol */ symbol;
+type LineCommented = unique // between unique and symbol
+symbol;
+
+================================================================================
+`;
+
+exports[`unique-symbol.js format[hermes] 1`] = `
+"';' expected (3:22)
+  1 | // @flow
+  2 |
+> 3 | type Unique = unique symbol;
+    |                      ^
+  4 | declare const declared: unique symbol;
+  5 | const regular: unique symbol = Symbol("regular");
+  6 | type Union = unique symbol | string;
+Cause: ';' expected (3:21)
+type Unique = unique symbol;
+                     ^"
+`;

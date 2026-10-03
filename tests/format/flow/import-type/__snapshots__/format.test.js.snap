@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`import-type.js - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+// @flow
+
+type Bare = import("package-name");
+type Qualified = import("package-name").Exported;
+type Nested = import("package-name").Namespace.DeeplyNestedExport<string, number>;
+type TypeofImport = typeof import("package-name").value;
+type Long = import("a/very/long/module/path/that/does/not/need/to/break").AReallyLongExportName;
+type Commented = import(/* before */ 'package-name' /* after */).Exported;
+type Parenthesized = Array<import("package-name").First | import("package-name").Second>;
+
+=====================================output=====================================
+// @flow
+
+type Bare = import("package-name");
+type Qualified = import("package-name").Exported;
+type Nested =
+  import("package-name").Namespace.DeeplyNestedExport<
+    string,
+    number,
+  >;
+type TypeofImport =
+  typeof import("package-name").value;
+type Long =
+  import("a/very/long/module/path/that/does/not/need/to/break").AReallyLongExportName;
+type Commented = import(
+  /* before */ "package-name" /* after */
+).Exported;
+type Parenthesized = Array<
+  | import("package-name").First
+  | import("package-name").Second,
+>;
+
+================================================================================
+`;
+
+exports[`import-type.js - {"printWidth":50} format[hermes] 1`] = `
+"';' expected (3:19)
+  1 | // @flow
+  2 |
+> 3 | type Bare = import("package-name");
+    |                   ^
+  4 | type Qualified = import("package-name").Exported;
+  5 | type Nested = import("package-name").Namespace.DeeplyNestedExport<string, number>;
+  6 | type TypeofImport = typeof import("package-name").value;
+Cause: ';' expected (3:18)
+type Bare = import("package-name");
+                  ^"
+`;

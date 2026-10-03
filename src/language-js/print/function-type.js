@@ -1,6 +1,7 @@
 import { group } from "../../document/index.js";
 import { hasSameLocStart } from "../location/index.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
+import { isConstructorType } from "../utilities/node-types.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
@@ -19,17 +20,15 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 - `TSConstructorType` (TypeScript)
 - `TSConstructSignatureDeclaration` (TypeScript)
 - `FunctionTypeAnnotation` (Flow)
+- `ConstructorTypeAnnotation` (Flow)
 */
 function printFunctionType(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [
-    // `TSConstructorType` only
-    printAbstractToken(path),
-  ];
+  const parts = [printAbstractToken(path)];
 
   if (
-    node.type === "TSConstructorType" ||
+    isConstructorType(node) ||
     node.type === "TSConstructSignatureDeclaration"
   ) {
     parts.push("new ");
@@ -46,9 +45,15 @@ function printFunctionType(path, options, print) {
   const returnTypeDoc = [];
   // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
-  if (node.type === "FunctionTypeAnnotation") {
+  if (
+    node.type === "FunctionTypeAnnotation" ||
+    node.type === "ConstructorTypeAnnotation"
+  ) {
     returnTypeDoc.push(
-      isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
+      node.type === "ConstructorTypeAnnotation" ||
+        isFlowArrowFunctionTypeAnnotation(path)
+        ? " => "
+        : ": ",
       print("returnType"),
     );
   } else {
@@ -79,6 +84,12 @@ function isFlowArrowFunctionTypeAnnotation(path) {
   const { node, parent } = path;
   return (
     node.type === "FunctionTypeAnnotation" &&
+    parent.type !== "AbstractMethodDefinition" &&
+    !(
+      (parent.type === "ObjectTypeProperty" ||
+        parent.type === "ObjectTypeInternalSlot") &&
+      parent.method
+    ) &&
     (isFlowObjectTypePropertyAFunction(parent) ||
       !(
         ((parent.type === "ObjectTypeProperty" ||

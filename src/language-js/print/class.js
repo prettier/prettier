@@ -19,9 +19,13 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { isMemberExpression } from "../utilities/node-types.js";
+import {
+  isAbstractPropertyDefinition,
+  isMemberExpression,
+} from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
+import { printClassMemberSemicolon } from "./class-body.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -294,6 +298,10 @@ function printClassMethod(path, options, print) {
 
   parts.push(printMethod(path, options, print));
 
+  if (node.type === "AbstractMethodDefinition") {
+    parts.push(printClassMemberSemicolon(path, options));
+  }
+
   return parts;
 }
 
@@ -305,9 +313,12 @@ function printClassMethod(path, options, print) {
 - `AccessorProperty`
 - `TSAbstractAccessorProperty` (TypeScript)
 - `TSAbstractPropertyDefinition` (TypeScript)
+- `AbstractPropertyDefinition` (Flow)
 */
 function printClassProperty(path, options, print) {
   const { node } = path;
+  const typeAnnotationProperty =
+    node.type === "AbstractPropertyDefinition" ? "value" : "typeAnnotation";
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
@@ -342,11 +353,11 @@ function printClassProperty(path, options, print) {
     printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotationProperty(path, print),
+    printTypeAnnotationProperty(path, print, typeAnnotationProperty),
   );
 
   const isAbstractProperty =
-    node.type === "TSAbstractPropertyDefinition" ||
+    isAbstractPropertyDefinition(node) ||
     node.type === "TSAbstractAccessorProperty";
 
   return [

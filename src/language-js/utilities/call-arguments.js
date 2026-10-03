@@ -10,10 +10,16 @@
   | NodeMap["CallExpression"]
   | NodeMap["TSImportType"]
   | NodeMap["TSExternalModuleReference"]
+  | NodeMap["ImportType"]
+  | NodeMap["ExternalModuleReference"]
 } CallLikeNode
 */
 
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+import {
+  isExternalModuleReference,
+  isImportType,
+} from "../utilities/node-types.js";
 
 const callArgumentsCache = new WeakMap();
 
@@ -22,13 +28,13 @@ const callArgumentsCache = new WeakMap();
 */
 function getCallArgumentsWithoutCache(node) {
   let args;
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression" || isImportType(node)) {
     args = [node.source];
 
     if (node.options) {
       args.push(node.options);
     }
-  } else if (node.type === "TSExternalModuleReference") {
+  } else if (isExternalModuleReference(node)) {
     args = [node.expression];
   } else {
     args = node.arguments;
@@ -51,13 +57,13 @@ function getCallArguments(node) {
 function iterateCallArgumentsPath(path, iteratee) {
   const { node } = path;
 
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression" || isImportType(node)) {
     path.call(() => iteratee(path, 0), "source");
 
     if (node.options) {
       path.call(() => iteratee(path, 1), "options");
     }
-  } else if (node.type === "TSExternalModuleReference") {
+  } else if (isExternalModuleReference(node)) {
     path.call(() => iteratee(path, 0), "expression");
   } else {
     path.each(iteratee, "arguments");
@@ -69,7 +75,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 @param {number} index
 */
 function getCallArgumentSelector(node, index) {
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression" || isImportType(node)) {
     if (index === 0 || index === (node.options ? -2 : -1)) {
       return ["source"];
     }
@@ -81,7 +87,7 @@ function getCallArgumentSelector(node, index) {
     throw new RangeError("Invalid argument index");
   }
 
-  if (node.type === "TSExternalModuleReference") {
+  if (isExternalModuleReference(node)) {
     if (index === 0 || index === -1) {
       return ["expression"];
     }

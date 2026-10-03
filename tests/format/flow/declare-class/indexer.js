@@ -8,3 +8,7 @@ declare class B {
   +[number]: boolean;
   static +[string]: boolean;
 }
+
+declare class C {
+  [Symbol.iterator]: () => Iterator<number>;
+}

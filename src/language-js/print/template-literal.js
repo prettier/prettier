@@ -25,6 +25,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
+  isTemplateLiteralType,
 } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
@@ -35,6 +36,7 @@ import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrap
 /*
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
+- `TemplateLiteralTypeAnnotation` (Flow)
 */
 function printTemplateLiteral(path, options, print) {
   if (isJestEachTemplateLiteral(path)) {
@@ -202,6 +204,7 @@ function getTemplateLiteralExpressionIndent(path, options) {
 /*
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
+- `TemplateLiteralTypeAnnotation` (Flow)
 */
 function printTemplateExpression(
   path,
@@ -290,7 +293,7 @@ function printTemplateExpression(
 function printTemplateExpressions(path, options, print) {
   return path.map(
     () => printTemplateExpression(path, options, print),
-    path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
+    isTemplateLiteralType(path.node) ? "types" : "expressions",
   );
 }
 
