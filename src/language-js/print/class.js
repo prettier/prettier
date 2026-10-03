@@ -287,11 +287,13 @@ function printClassMethod(path, options, print) {
     parts.push("static ");
   }
 
-  parts.push(
-    printAbstractToken(path),
-    node.override ? "override " : "",
-    printMethod(path, options, print),
-  );
+  parts.push(printAbstractToken(path));
+
+  if (node.override) {
+    parts.push("override ");
+  }
+
+  parts.push(printMethod(path, options, print));
 
   if (node.type === "AbstractMethodDefinition") {
     parts.push(printClassMemberSemicolon(path, options));
