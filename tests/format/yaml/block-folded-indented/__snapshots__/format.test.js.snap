@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`indented.yml - {"proseWrap":"always","printWidth":61} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 61
+proseWrap: "always"
+                                             printWidth: 61 |
+=====================================input======================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+=====================================output=====================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line
+    break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines
+  when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be
+  wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines
+  without changing its value.
+
+================================================================================
+`;
+
+exports[`indented.yml - {"proseWrap":"never","printWidth":61} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 61
+proseWrap: "never"
+                                             printWidth: 61 |
+=====================================input======================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+=====================================output=====================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+
+================================================================================
+`;
+
+exports[`indented.yml - {"proseWrap":"preserve","printWidth":61} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 61
+proseWrap: "preserve"
+                                             printWidth: 61 |
+=====================================input======================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+=====================================output=====================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+================================================================================
+`;
