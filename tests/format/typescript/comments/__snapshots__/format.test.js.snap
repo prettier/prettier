@@ -586,6 +586,104 @@ class Overload {
 ================================================================================
 `;
 
+exports[`constructor_types.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Empty = new /* before */ () => string;
+type Inner = new /* before */ (/* inside */) /* after */ => string;
+type Abstract = abstract new /* before */ (/* inside */) /* after */ => string;
+type Multiple = new /* first */ /* second */ (/* inside */) /* after */ => string;
+
+type EndOfLine = new // before
+() => string;
+
+type OwnLine = new
+/* before */
+(/* inside */) /* after */ => string;
+
+type Mixed = new /* first */ // second
+/* third */ (/* inside */) /* after */ => string;
+
+type InnerLine = new /* before */ (
+// inside
+) /* after */ => string;
+
+interface Factory {
+  new /* before */ () : string;
+  new /* before */ (/* inside */) /* after */ : string;
+  new // before
+  (/* inside */) /* after */ : string;
+  new
+  /* before */
+  (/* inside */) /* after */ : string;
+}
+
+type Nonempty = new /* before */ (value: /* inside */ string) /* after */ => string;
+type Generic = new /* before */ <T> /* between */ (/* inside */) /* after */ => T;
+type AbstractGeneric = abstract /* modifier */ new /* before */ <T> /* between */ (/* inside */) /* after */ => T;
+type Function = /* before */ (/* inside */) /* after */ => string;
+type NestedFunction = new () => /* before */ (/* inside */) => string;
+type NestedConstructor = new () => new /* before */ (/* inside */) => string;
+type AbstractModifier = abstract /* modifier */ new /* before */ (/* inside */) => string;
+
+=====================================output=====================================
+type Empty = new /* before */ () => string;
+type Inner = new /* before */ (/* inside */) /* after */ => string;
+type Abstract = abstract new /* before */ (/* inside */) /* after */ => string;
+type Multiple = new /* first */
+/* second */ (
+  /* inside */
+) /* after */ => string;
+
+type EndOfLine = new // before
+() => string;
+
+type OwnLine = new /* before */ (/* inside */) /* after */ => string;
+
+type Mixed = new /* first */
+// second
+/* third */
+(
+  /* inside */
+) /* after */ => string;
+
+type InnerLine = new /* before */ (
+  // inside
+) /* after */ => string;
+
+interface Factory {
+  new /* before */ (): string;
+  new /* before */ (/* inside */) /* after */ : string;
+  new // before
+  (
+    /* inside */
+  ) /* after */ : string;
+  new /* before */ (/* inside */) /* after */ : string;
+}
+
+type Nonempty = new (
+  /* before */ value: /* inside */ string,
+) /* after */ => string;
+type Generic = new /* before */ <T> /* between */(
+  /* inside */
+) /* after */ => T;
+type AbstractGeneric = abstract new /* modifier */ /* before */ <
+  T,
+> /* between */(
+  /* inside */
+) /* after */ => T;
+type Function = /* before */ (/* inside */) /* after */ => string;
+type NestedFunction = new () => /* before */ (/* inside */) => string;
+type NestedConstructor = new () => new /* before */ (/* inside */) => string;
+type AbstractModifier = abstract new (
+  /* inside */
+) /* modifier */ /* before */ => string;
+
+================================================================================
+`;
+
 exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -1080,14 +1178,14 @@ interface foo5 {
 }
 
 interface foo6 {
-  /* foo */ new (/* baz */) /* bar */ : /* bat */ string;
+  /* foo */ new /* bar */ (/* baz */): /* bat */ string;
 }
 
 type foo7 = /* foo */ (/* bar */) /* baz */ => void;
 
 type foo8 = /* foo */ (a: /* bar */ string) /* baz */ => void;
 
-let foo9: new (/* bar */) /* foo */ /* baz */ => string;
+let foo9: new /* foo */ (/* bar */) /* baz */ => string;
 
 let foo10: new (/* foo */ a: /* bar */ string) /* baz */ => string;
 
