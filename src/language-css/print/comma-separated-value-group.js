@@ -284,12 +284,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Ignore escaped `/`
+    // Ignore escaped operators (i.e. `\/`, `\+`, `\*`)
     if (
       iPrevNode?.value &&
       iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
       iNode.type === "value-operator" &&
-      iNode.value === "/"
+      hasEmptyRawBefore(iNextNode)
     ) {
       continue;
     }
