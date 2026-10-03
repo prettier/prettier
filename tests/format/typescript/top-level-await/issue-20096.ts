@@ -1,0 +1,3 @@
+await { then() {} };
+
+await getPromise;
