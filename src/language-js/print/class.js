@@ -349,9 +349,11 @@ function printClassProperty(path, options, print) {
     printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    node.type === "AbstractPropertyDefinition"
-      ? printTypeAnnotationProperty(path, print, "value")
-      : printTypeAnnotationProperty(path, print),
+    printTypeAnnotationProperty(
+      path,
+      print,
+      node.type === "AbstractPropertyDefinition" ? "value" : "typeAnnotation",
+    ),
   );
 
   const isAbstractProperty =
