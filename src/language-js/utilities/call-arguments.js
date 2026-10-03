@@ -16,6 +16,10 @@
 */
 
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+import {
+  isExternalModuleReference,
+  isImportType,
+} from "../utilities/node-types.js";
 
 const callArgumentsCache = new WeakMap();
 
@@ -24,24 +28,16 @@ const callArgumentsCache = new WeakMap();
 */
 function getCallArgumentsWithoutCache(node) {
   let args;
-  switch (node.type) {
-    case "ImportExpression":
-    case "TSImportType":
-      args = [node.source];
+  if (node.type === "ImportExpression" || isImportType(node)) {
+    args = [node.source];
 
-      if (node.options) {
-        args.push(node.options);
-      }
-      break;
-    case "ImportType":
-      args = [node.source];
-      break;
-    case "TSExternalModuleReference":
-    case "ExternalModuleReference":
-      args = [node.expression];
-      break;
-    default:
-      args = node.arguments;
+    if (node.options) {
+      args.push(node.options);
+    }
+  } else if (isExternalModuleReference(node)) {
+    args = [node.expression];
+  } else {
+    args = node.arguments;
   }
 
   return args;
@@ -61,24 +57,16 @@ function getCallArguments(node) {
 function iterateCallArgumentsPath(path, iteratee) {
   const { node } = path;
 
-  switch (node.type) {
-    case "ImportExpression":
-    case "TSImportType":
-      path.call(() => iteratee(path, 0), "source");
+  if (node.type === "ImportExpression" || isImportType(node)) {
+    path.call(() => iteratee(path, 0), "source");
 
-      if (node.options) {
-        path.call(() => iteratee(path, 1), "options");
-      }
-      break;
-    case "ImportType":
-      path.call(() => iteratee(path, 0), "source");
-      break;
-    case "TSExternalModuleReference":
-    case "ExternalModuleReference":
-      path.call(() => iteratee(path, 0), "expression");
-      break;
-    default:
-      path.each(iteratee, "arguments");
+    if (node.options) {
+      path.call(() => iteratee(path, 1), "options");
+    }
+  } else if (isExternalModuleReference(node)) {
+    path.call(() => iteratee(path, 0), "expression");
+  } else {
+    path.each(iteratee, "arguments");
   }
 }
 
