@@ -326,7 +326,12 @@ function printClassProperty(path, options, print) {
     parts.push("static ");
   }
 
-  parts.push(printAbstractToken(path), node.override ? "override " : "");
+  parts.push(printAbstractToken(path));
+
+  if (node.override) {
+    parts.push("override ");
+  }
+
   if (node.readonly) {
     parts.push("readonly ");
   }
