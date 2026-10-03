@@ -31,7 +31,7 @@ function printComment(path, options) {
 
 function isBlockCommentAfterTypeOrSpreadSeparator(path) {
   const owner = path.parent;
-  const parent = path.getParentNode(1);
+  const parent = path.grandparent;
   if (!owner || !parent) {
     return false;
   }
