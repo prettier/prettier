@@ -3,8 +3,8 @@ import minimist from "minimist";
 const PLACEHOLDER = null;
 
 /**
- * unspecified boolean flag without default value is parsed as `undefined` instead of `false`
- */
+unspecified boolean flag without default value is parsed as `undefined` instead of `false`
+*/
 export default function minimistParse(args, options) {
   /* c8 ignore next */
   const boolean = options.boolean ?? [];

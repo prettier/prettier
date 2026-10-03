@@ -5,9 +5,9 @@ import { createIdentifier, isIdentifier } from "./utilities.js";
 /* Only works for function `Object.hasOwn()` and `Object.groupBy()` */
 
 /**
- * @param {import("@babel/types").Node} node
- * @returns {boolean}
- */
+@param {import("@babel/types").Node} node
+@returns {boolean}
+*/
 function isFunctionCall(node, { function: name, argumentsLength }) {
   const [objectName, methodName] = name.split(".", 2);
 
@@ -25,11 +25,11 @@ function isFunctionCall(node, { function: name, argumentsLength }) {
 }
 
 /**
- * `Object.hasOwn(foo, bar)` -> `__Object_hasOwn(foo, bar)`
- *
- * @param {import("@babel/types").CallExpression | import("@babel/types").OptionalCallExpression} node
- * @returns {import("@babel/types").CallExpression}
- */
+`Object.hasOwn(foo, bar)` -> `__Object_hasOwn(foo, bar)`
+
+@param {import("@babel/types").CallExpression | import("@babel/types").OptionalCallExpression} node
+@returns {import("@babel/types").CallExpression}
+*/
 function transformFunctionCall(node, functionName) {
   return {
     ...node,

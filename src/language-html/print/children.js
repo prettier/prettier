@@ -106,29 +106,29 @@ function printBetweenLine(prevNode, nextNode) {
     (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
       (hasPrettierIgnore(nextNode) ||
         /**
-         *     123<a
-         *          ~
-         *       ><b>
-         */
+            123<a
+                 ~
+              ><b>
+        */
         nextNode.firstChild ||
         /**
-         *     123<!--
-         *            ~
-         *     -->
-         */
+            123<!--
+                   ~
+            -->
+        */
         nextNode.isSelfClosing ||
         /**
-         *     123<span
-         *             ~
-         *       attr
-         */
+            123<span
+                    ~
+              attr
+        */
         (nextNode.kind === "element" && nextNode.attrs.length > 0))) ||
     /**
-     *     <img
-     *       src="long"
-     *                 ~
-     *     />123
-     */
+        <img
+          src="long"
+                    ~
+        />123
+    */
     (prevNode.kind === "element" &&
       prevNode.isSelfClosing &&
       needsToBorrowPrevClosingTagEndMarker(nextNode))
@@ -137,9 +137,9 @@ function printBetweenLine(prevNode, nextNode) {
   }
 
   /**
-   *     <div>{{ x }}<!-- comment --></div>
-   *                 ~
-   */
+      <div>{{ x }}<!-- comment --></div>
+                  ~
+  */
   if (
     nextNode.kind === "comment" &&
     nextNode.isLeadingSpaceSensitive &&
@@ -152,11 +152,11 @@ function printBetweenLine(prevNode, nextNode) {
     !nextNode.isLeadingSpaceSensitive ||
     preferHardlineAsLeadingSpaces(nextNode) ||
     /**
-     *       Want to write us a letter? Use our<a
-     *         ><b><a>mailing address</a></b></a
-     *                                          ~
-     *       >.
-     */
+          Want to write us a letter? Use our<a
+            ><b><a>mailing address</a></b></a
+                                             ~
+          >.
+    */
     (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
       prevNode.lastChild &&
       needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&

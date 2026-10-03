@@ -72,17 +72,17 @@ import { printVariableDeclaration } from "./variable-declaration.js";
 import { printWhileStatement } from "./while-statement.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {*} print
- * @param {*} [args]
- * @returns {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {*} print
+@param {*} [args]
+@returns {Doc}
+*/
 function printEstree(path, options, print, args) {
   const { node } = path;
 

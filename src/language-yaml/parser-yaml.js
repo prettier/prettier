@@ -27,11 +27,11 @@ function parse(text) {
   }
 
   /**
-   * suppress `comment not printed` error
-   *
-   * comments are handled in printer-yaml.js without using `printComment`
-   * so that it'll always throw errors even if we printed it correctly
-   */
+  suppress `comment not printed` error
+
+  comments are handled in printer-yaml.js without using `printComment`
+  so that it'll always throw errors even if we printed it correctly
+  */
   delete root.comments;
 
   return root;

@@ -1,10 +1,10 @@
 /** @import {SkipOptions} from "./skip.js" */
 
 /**
- * Check if a character is a newline character
- * @param {string} character
- * @returns {boolean}
- */
+Check if a character is a newline character
+@param {string} character
+@returns {boolean}
+*/
 const isNewlineCharacter = (character) =>
   character === "\n" ||
   character === "\r" ||
@@ -15,11 +15,11 @@ const isNewlineCharacter = (character) =>
 // test \r\n in order and `skip` doesn't support ordering and we only
 // want to skip one newline. It's simple to implement.
 /**
- * @param {string} text
- * @param {number | false} startIndex
- * @param {SkipOptions=} options
- * @returns {number | false}
- */
+@param {string} text
+@param {number | false} startIndex
+@param {SkipOptions=} options
+@returns {number | false}
+*/
 function skipNewline(text, startIndex, options) {
   if (startIndex === false) {
     return false;

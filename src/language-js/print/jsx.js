@@ -842,9 +842,9 @@ function printJsx(path, options, print) {
 }
 
 /**
- * @param {NodeMap["JSXElement"]} node
- * @returns {boolean}
- */
+@param {NodeMap["JSXElement"]} node
+@returns {boolean}
+*/
 function isEmptyJsxElement(node) {
   if (node.children.length === 0) {
     return true;

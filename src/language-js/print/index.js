@@ -15,9 +15,9 @@ import { printJsx } from "./jsx.js";
 import { printTypescript } from "./typescript.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 function printWithoutParentheses(path, options, print, args) {
   for (const printer of [
@@ -51,12 +51,12 @@ const shouldPrintDirectly = createTypeCheckFunction([
 ]);
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {*} print
- * @param {*} [args]
- * @returns {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {*} print
+@param {*} [args]
+@returns {Doc}
+*/
 function print(path, options, print, args) {
   if (path.isRoot) {
     options.__onHtmlBindingRoot?.(path.node, options);

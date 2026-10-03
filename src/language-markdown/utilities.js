@@ -38,29 +38,29 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
 
 /**
- * @typedef {" " | "\n" | ""} WhitespaceValue
- * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION } WordKind
- * @typedef {{
- *   type: "whitespace",
- *   value: WhitespaceValue,
- *   kind?: never
- * }} WhitespaceNode
- * @typedef {{
- *   type: "word",
- *   value: string,
- *   kind: WordKind,
- *   isCJ: boolean,
- *   hasLeadingPunctuation: boolean,
- *   hasTrailingPunctuation: boolean,
- * }} WordNode
- * Node for a single CJK character or a sequence of non-CJK characters
- * @typedef {WhitespaceNode | WordNode} TextNode
- */
+@typedef {" " | "\n" | ""} WhitespaceValue
+@typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION } WordKind
+@typedef {{
+  type: "whitespace",
+  value: WhitespaceValue,
+  kind?: never
+}} WhitespaceNode
+@typedef {{
+  type: "word",
+  value: string,
+  kind: WordKind,
+  isCJ: boolean,
+  hasLeadingPunctuation: boolean,
+  hasTrailingPunctuation: boolean,
+}} WordNode
+Node for a single CJK character or a sequence of non-CJK characters
+@typedef {WhitespaceNode | WordNode} TextNode
+*/
 
 /**
- * split text into whitespaces and words
- * @param {string} text
- */
+split text into whitespaces and words
+@param {string} text
+*/
 function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];

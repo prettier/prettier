@@ -10,8 +10,8 @@ import { printAbstractToken } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `TSFunctionType` (TypeScript)

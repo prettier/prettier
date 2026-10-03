@@ -1,8 +1,8 @@
 /** @import {Plugin, Settings} from "unified" */
 
 /**
- * @type {Plugin<[], Settings>}
- */
+@type {Plugin<[], Settings>}
+*/
 const wikiLink = function () {
   const entityType = "wikiLink";
   const wikiLinkRegex = /^\[\[(?<linkContents>.+?)\]\]/s;

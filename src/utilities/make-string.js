@@ -7,10 +7,10 @@ import { DOUBLE_QUOTE, SINGLE_QUOTE } from "./get-preferred-quote.js";
 const REGEX = /\\(["'\\])|(["'])/g;
 
 /**
- * @param {string} rawText
- * @param {Quote} enclosingQuote
- * @returns {string}
- */
+@param {string} rawText
+@param {Quote} enclosingQuote
+@returns {string}
+*/
 function makeString(rawText, enclosingQuote) {
   const otherQuote =
     enclosingQuote === DOUBLE_QUOTE ? SINGLE_QUOTE : DOUBLE_QUOTE;

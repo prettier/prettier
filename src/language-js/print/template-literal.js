@@ -29,8 +29,8 @@ import {
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `TemplateLiteral`
@@ -88,11 +88,11 @@ function printTaggedTemplateExpression(path, options, print) {
 
 function printJestEachTemplateLiteral(path, options, print) {
   /**
-   * a    | b    | expected
-   * ${1} | ${1} | ${2}
-   * ${1} | ${2} | ${3}
-   * ${2} | ${1} | ${3}
-   */
+  a    | b    | expected
+  ${1} | ${1} | ${2}
+  ${1} | ${2} | ${3}
+  ${2} | ${1} | ${3}
+  */
   const { node } = path;
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
@@ -212,8 +212,7 @@ function printTemplateExpression(
   const { node, index } = path;
   let expressionDoc = print();
 
-  const templateLiteral = path.parent;
-  const { quasis } = templateLiteral;
+  const { quasis } = path.parent;
   const start = locEnd(quasis[index]);
   const end = locStart(quasis[index + 1]);
 
@@ -324,15 +323,15 @@ function uncookTemplateElementValue(cookedValue) {
 }
 
 /**
- * describe.each`table`(name, fn)
- * describe.only.each`table`(name, fn)
- * describe.skip.each`table`(name, fn)
- * test.each`table`(name, fn)
- * test.only.each`table`(name, fn)
- * test.skip.each`table`(name, fn)
- *
- * Ref: https://github.com/facebook/jest/pull/6102
- */
+describe.each`table`(name, fn)
+describe.only.each`table`(name, fn)
+describe.skip.each`table`(name, fn)
+test.each`table`(name, fn)
+test.only.each`table`(name, fn)
+test.skip.each`table`(name, fn)
+
+Ref: https://github.com/facebook/jest/pull/6102
+*/
 const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
 function isJestEachTemplateLiteral({ node, parent }) {
   return (

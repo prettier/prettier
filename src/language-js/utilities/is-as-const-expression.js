@@ -5,9 +5,9 @@
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 const isTsAsConstExpression = (node) =>
   node?.type === "TSAsExpression" &&
   node.typeAnnotation.type === "TSTypeReference" &&

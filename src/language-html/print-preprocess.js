@@ -61,8 +61,8 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
   ast /* , options */,
 ) {
   /**
-   *     <!--[if ...]><!--><target><!--<![endif]-->
-   */
+      <!--[if ...]><!--><target><!--<![endif]-->
+  */
   const isTarget = (node) =>
     node.kind === "element" &&
     node.prev?.kind === "ieConditionalStartComment" &&
@@ -367,12 +367,12 @@ function splitInterpolation(node) {
 }
 
 /**
- * - add `hasLeadingSpaces` field
- * - add `hasTrailingSpaces` field
- * - add `hasDanglingSpaces` field for parent nodes
- * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
- * - remove insensitive whitespaces
- */
+- add `hasLeadingSpaces` field
+- add `hasTrailingSpaces` field
+- add `hasDanglingSpaces` field for parent nodes
+- add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
+- remove insensitive whitespaces
+*/
 function extractWhitespaces(ast, options) {
   ast.walk((node) => {
     const children = node.$children;
@@ -485,10 +485,10 @@ function addCssDisplay(ast, options) {
 }
 
 /**
- * - add `isLeadingSpaceSensitive` field
- * - add `isTrailingSpaceSensitive` field
- * - add `isDanglingSpaceSensitive` field for parent nodes
- */
+- add `isLeadingSpaceSensitive` field
+- add `isTrailingSpaceSensitive` field
+- add `isDanglingSpaceSensitive` field for parent nodes
+*/
 function addIsSpaceSensitive(ast, options) {
   ast.walk((node) => {
     const { children } = node;

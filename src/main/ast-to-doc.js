@@ -10,26 +10,26 @@ import { printEmbeddedLanguages } from "./multiparser.js";
 import printIgnored from "./print-ignored.js";
 
 /**
- * Takes an abstract syntax tree (AST) and recursively converts it to a
- * document (series of printing primitives).
- *
- * This is done by descending down the AST recursively. The recursion
- * involves two functions that call each other:
- *
- * 1. mainPrint(), which is defined as an inner function here.
- *    It basically takes care of node caching.
- * 2. callPluginPrintFunction(), which checks for some options, and
- *    ultimately calls the print() function provided by the plugin.
- *
- * The plugin function will call mainPrint() again for child nodes
- * of the current node. mainPrint() will do its housekeeping, then call
- * the plugin function again, and so on.
- *
- * All the while, these functions pass a "path" variable around, which
- * is a stack-like data structure (AstPath) that maintains the current
- * state of the recursion. It is called "path", because it represents
- * the path to the current node through the Abstract Syntax Tree.
- */
+Takes an abstract syntax tree (AST) and recursively converts it to a
+document (series of printing primitives).
+
+This is done by descending down the AST recursively. The recursion
+involves two functions that call each other:
+
+1. mainPrint(), which is defined as an inner function here.
+   It basically takes care of node caching.
+2. callPluginPrintFunction(), which checks for some options, and
+   ultimately calls the print() function provided by the plugin.
+
+The plugin function will call mainPrint() again for child nodes
+of the current node. mainPrint() will do its housekeeping, then call
+the plugin function again, and so on.
+
+All the while, these functions pass a "path" variable around, which
+is a stack-like data structure (AstPath) that maintains the current
+state of the recursion. It is called "path", because it represents
+the path to the current node through the Abstract Syntax Tree.
+*/
 async function printAstToDoc(ast, options) {
   ({ ast } = await prepareToPrint(ast, options));
 

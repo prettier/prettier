@@ -11,10 +11,10 @@ const slash =
     : (filePath) => filePath;
 
 /**
- * @param {string | URL} file
- * @param {string | URL | undefined} ignoreFile
- * @returns {string}
- */
+@param {string | URL} file
+@param {string | URL | undefined} ignoreFile
+@returns {string}
+*/
 function getRelativePath(file, ignoreFile) {
   const ignoreFilePath = toPath(ignoreFile);
   const filePath = isUrl(file) ? url.fileURLToPath(file) : path.resolve(file);
@@ -28,10 +28,10 @@ function getRelativePath(file, ignoreFile) {
 }
 
 /**
- * @param {string | URL | undefined} ignoreFile
- * @param {boolean} [withNodeModules]
- * @returns {Promise<(file: string | URL) => boolean>}
- */
+@param {string | URL | undefined} ignoreFile
+@param {boolean} [withNodeModules]
+@returns {Promise<(file: string | URL) => boolean>}
+*/
 async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
   let content = "";
 
@@ -54,10 +54,10 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 }
 
 /**
- * @param {(string | URL)[]} ignoreFiles
- * @param {boolean?} withNodeModules
- * @returns {Promise<(file: string | URL) => boolean>}
- */
+@param {(string | URL)[]} ignoreFiles
+@param {boolean?} withNodeModules
+@returns {Promise<(file: string | URL) => boolean>}
+*/
 async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
   if (ignoreFiles.length === 0 && !withNodeModules) {
@@ -76,10 +76,10 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
 }
 
 /**
- * @param {string | URL} file
- * @param {{ignorePath: string[], withNodeModules?: boolean}} options
- * @returns {Promise<boolean>}
- */
+@param {string | URL} file
+@param {{ignorePath: string[], withNodeModules?: boolean}} options
+@returns {Promise<boolean>}
+*/
 async function isIgnored(file, options) {
   const { ignorePath: ignoreFiles, withNodeModules } = options;
   const isIgnored = await createIsIgnoredFunction(ignoreFiles, withNodeModules);

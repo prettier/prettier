@@ -16,11 +16,11 @@ import {
 } from "../utilities/node-types.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- * @import AstPath from "../../common/ast-path.js"
- *
- * @typedef {any} Options - Prettier options (TBD ...)
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js"
+
+@typedef {any} Options - Prettier options (TBD ...)
+*/
 
 // If we have nested conditional expressions, we want to print them in JSX mode
 // if there's at least one JSXElement somewhere in the tree.
@@ -111,15 +111,15 @@ function printTernaryTest(path, options, print) {
     ? print("test")
     : [print("checkType"), " ", "extends", " ", print("extendsType")];
   /**
-   *     a
-   *       ? b
-   *       : multiline
-   *         test
-   *         node
-   *       ^^ align(2)
-   *       ? d
-   *       : e
-   */
+      a
+        ? b
+        : multiline
+          test
+          node
+        ^^ align(2)
+        ? d
+        : e
+  */
   if (parent.type === node.type && parent[alternateNodePropertyName] === node) {
     return align(2, printed);
   }
@@ -177,14 +177,14 @@ function shouldExtraIndentForConditionalExpression(path) {
 }
 
 /**
- * The following is the shared logic for
- * ternary operators, namely ConditionalExpression,
- * ConditionalTypeAnnotation and TSConditionalType
- * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
- * @param {Options} options - Prettier options
- * @param {Function} print - Print function to call recursively
- * @returns {Doc}
- */
+The following is the shared logic for
+ternary operators, namely ConditionalExpression,
+ConditionalTypeAnnotation and TSConditionalType
+@param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
+@param {Options} options - Prettier options
+@param {Function} print - Print function to call recursively
+@returns {Doc}
+*/
 function printTernaryOld(path, options, print) {
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";

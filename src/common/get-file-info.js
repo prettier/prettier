@@ -4,18 +4,18 @@ import { isIgnored } from "../utilities/ignore.js";
 import inferParser from "../utilities/infer-parser.js";
 
 /**
- * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
- * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
- */
+@typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
+@typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
+*/
 
 /**
- * @param {string | URL} file
- * @param {FileInfoOptions} options
- * @returns {Promise<FileInfoResult>}
- *
- * Please note that prettier.getFileInfo() expects options.plugins to be an array of paths,
- * not an object.
- */
+@param {string | URL} file
+@param {FileInfoOptions} options
+@returns {Promise<FileInfoResult>}
+
+Please note that prettier.getFileInfo() expects options.plugins to be an array of paths,
+not an object.
+*/
 async function getFileInfo(file, options = {}) {
   if (typeof file !== "string" && !(file instanceof URL)) {
     throw new TypeError(

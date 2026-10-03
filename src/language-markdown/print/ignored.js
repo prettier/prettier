@@ -1,13 +1,13 @@
 /**
- * @import AstPath from "../../common/ast-path.js";
- * @import {Doc} from "../../document/index.js";
- */
+@import AstPath from "../../common/ast-path.js";
+@import {Doc} from "../../document/index.js";
+*/
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @returns {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@returns {Doc}
+*/
 function printPrettierIgnored(path, options) {
   const originalText = options.originalText.slice(
     path.node.position.start.offset,

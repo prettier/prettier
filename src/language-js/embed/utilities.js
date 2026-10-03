@@ -13,19 +13,19 @@ const angularComponentObjectExpressionPredicates = [
 ];
 
 /**
- * Angular Components can have:
- * - Inline HTML template
- * - Inline CSS styles
- *
- * ...which are both within template literals somewhere
- * inside of the Component decorator factory.
- *
- * E.g.
- * @Component({
- *  template: `<div>...</div>`,
- *  styles: [`h1 { color: blue; }`]
- * })
- */
+Angular Components can have:
+- Inline HTML template
+- Inline CSS styles
+
+...which are both within template literals somewhere
+inside of the Component decorator factory.
+
+E.g.
+@Component({
+ template: `<div>...</div>`,
+ styles: [`h1 { color: blue; }`]
+})
+*/
 function isAngularComponentStyles(path) {
   const isTemplateLiteral = (node) => node.type === "TemplateLiteral";
   const isObjectPropertyNamedStyles = (node, key) =>

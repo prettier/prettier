@@ -6,20 +6,20 @@ import {
 import { printChildren } from "./children.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 // 999,999,999 is the maximum number that can be parsed as a list item number as intended in CommonMark
 // https://spec.commonmark.org/0.31.2/#ordered-list-marker
 const MAXIMUM_ORDERED_LIST_MARKER = 999_999_999;
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {() => Doc} print
- * @return {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {() => Doc} print
+@return {Doc}
+*/
 function printList(path, options, print) {
   const { node } = path;
   const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
@@ -108,7 +108,7 @@ function printListItem(path, options, print, listPrefix) {
         }
 
         const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
+          clamp(options.tabWidth - listPrefix.length), // 4+ will cause indented code block
         );
         return [alignment, align(alignment, print())];
       },
@@ -117,11 +117,11 @@ function printListItem(path, options, print, listPrefix) {
 }
 
 /**
- * If the list is followed by a indented code block, its content have to be
- * indented deeper than the code block.
- * @param {AstPath} path
- * @return {number}
- */
+If the list is followed by a indented code block, its content have to be
+indented deeper than the code block.
+@param {AstPath} path
+@return {number}
+*/
 function requiredIndent(path) {
   const { node, next } = path;
   if (node.checked === null) {
@@ -143,11 +143,11 @@ function requiredIndent(path) {
 }
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {() => Doc} print
- * @return {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {() => Doc} print
+@return {Doc}
+*/
 function printListLegacy(path, options, print) {
   const { node } = path;
   const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
@@ -217,7 +217,7 @@ function printListItemLegacy(path, options, print, listPrefix) {
         }
 
         const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
+          clamp(options.tabWidth - listPrefix.length), // 4+ will cause indented code block
         );
         return [alignment, align(alignment, print())];
       },
@@ -240,8 +240,8 @@ function alignListPrefix(prefix, options) {
   }
 }
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(value, max));
+function clamp(value) {
+  return Math.max(0, Math.min(value, 3));
 }
 
 export { printList, printListLegacy };

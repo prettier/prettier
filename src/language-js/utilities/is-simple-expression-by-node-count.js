@@ -19,9 +19,9 @@ function getExpressionInnerNodeCount(node, maxCount) {
 }
 
 /**
- * Attempts to gauge the rough complexity of a node, for example
- * to detect deeply-nested booleans, call expressions with lots of arguments, etc.
- */
+Attempts to gauge the rough complexity of a node, for example
+to detect deeply-nested booleans, call expressions with lots of arguments, etc.
+*/
 function isSimpleExpressionByNodeCount(node, maxInnerNodeCount = 5) {
   const count = getExpressionInnerNodeCount(node, maxInnerNodeCount);
   return count <= maxInnerNodeCount;

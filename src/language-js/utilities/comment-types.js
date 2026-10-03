@@ -5,9 +5,9 @@ import { createTypeCheckFunction } from "./create-type-check-function.js";
 */
 
 /**
- * @param {Comment} comment
- * @returns {boolean}
- */
+@param {Comment} comment
+@returns {boolean}
+*/
 const isBlockComment = createTypeCheckFunction([
   "Block",
   "CommentBlock",

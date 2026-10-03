@@ -30,9 +30,9 @@ import { printMemberLookup } from "./member.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- * @typedef {{ node: any, printed: Doc, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
- */
+@import {Doc} from "../../document/index.js"
+@typedef {{ node: any, printed: Doc, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
+*/
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:

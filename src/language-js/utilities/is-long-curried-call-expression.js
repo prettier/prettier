@@ -20,9 +20,9 @@ import { isCallExpression } from "./node-types.js";
 // In the above call expression, the second call is the parent node and the
 // first call is the current node.
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function isLongCurriedCallExpression(path) {
   const { node, parent, key } = path;
   return (

@@ -25,13 +25,13 @@ import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- */
+@import AstPath from "../../common/ast-path.js"
+*/
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function needsParentheses(path, options) {
   if (path.isRoot) {
     return false;
@@ -969,9 +969,9 @@ const isStatement = createTypeCheckFunction([
 ]);
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function isPathInForStatementInitializer(path) {
   let i = 0;
   let { node } = path;
@@ -991,9 +991,9 @@ function endsWithRightBracket(node) {
 }
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function isFollowedByRightBracket(path) {
   const { parent, key } = path;
   switch (parent.type) {

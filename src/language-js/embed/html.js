@@ -103,9 +103,9 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
 }
 
 /**
- *     - html`...`
- *     - HTML comment block
- */
+    - html`...`
+    - HTML comment block
+*/
 function isEmbedHtml(path) {
   return (
     hasLanguageComment(path, "HTML") ||

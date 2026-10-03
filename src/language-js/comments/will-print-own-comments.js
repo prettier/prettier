@@ -22,9 +22,9 @@ const isClassOrInterface = createTypeCheckFunction([
 ]);
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function willPrintOwnComments(path, options) {
   const { key, parent } = path;
   if (

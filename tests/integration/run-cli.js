@@ -38,10 +38,10 @@ const promiseWithResolvers = Promise.withResolvers
     };
 
 /**
- * @param {string} dir
- * @param {string[]} args
- * @param {CliTestOptions} options
- */
+@param {string} dir
+@param {string[]} args
+@param {CliTestOptions} options
+*/
 function runCliWorker(dir, args, options) {
   const result = {
     status: undefined,
@@ -146,10 +146,10 @@ function runPrettierCli(dir, args, options) {
 }
 
 /**
- * @param {string} dir
- * @param {string[]} [args]
- * @param {CliTestOptions} [options]
- */
+@param {string} dir
+@param {string[]} [args]
+@param {CliTestOptions} [options]
+*/
 function runCli(dir, args = [], options = {}) {
   const promise = runPrettierCli(dir, args, options);
   const getters = {

@@ -8,8 +8,8 @@ import {
 import { shouldHugUnionType } from "./union-type.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {

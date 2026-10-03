@@ -20,9 +20,9 @@ import { printClassMemberSemicolon } from "./class.js";
 */
 
 /**
- * @param {string | null} optional
- * @returns {string}
- */
+@param {string | null} optional
+@returns {string}
+*/
 function printFlowMappedTypeOptionalModifier(optional) {
   switch (optional) {
     case null:
@@ -56,10 +56,10 @@ function printFlowMappedTypeProperty(path, options, print) {
 }
 
 /**
- * @param {string} tokenNode
- * @param {string} keyword
- * @returns {string}
- */
+@param {string} tokenNode
+@param {string} keyword
+@returns {string}
+*/
 function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
   if (tokenNode === "+" || tokenNode === "-") {
     return tokenNode + keyword;

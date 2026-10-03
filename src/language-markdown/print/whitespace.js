@@ -9,32 +9,32 @@ import {
 } from "../utilities.js";
 
 /**
- * @import {WordNode, WhitespaceValue, WordKind} from "../utilities.js"
- * @import AstPath from "../../common/ast-path.js"
- * @typedef {"always" | "never" | "preserve"} ProseWrap
- * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
- * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
- * `word`.
- */
+@import {WordNode, WhitespaceValue, WordKind} from "../utilities.js"
+@import AstPath from "../../common/ast-path.js"
+@typedef {"always" | "never" | "preserve"} ProseWrap
+@typedef {{ next?: WordNode | null, previous?: WordNode | null }}
+AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
+`word`.
+*/
 
 const SINGLE_LINE_NODE_TYPES = new Set(["tableCell", "link", "wikiLink"]);
 
 /**
- * A line break between a character from this set and CJ can be converted to a
- * space. Includes only ASCII punctuation marks for now.
- */
+A line break between a character from this set and CJ can be converted to a
+space. Includes only ASCII punctuation marks for now.
+*/
 const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
 );
 
 /**
- * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
- * characters in the parent `sentence` node.
- *
- * @param {AstPath} path
- * @returns {boolean} `true` if Space tends to be inserted between CJ and
- * non-CJK, `false` otherwise.
- */
+Determine the preferred style of spacing between Chinese or Japanese and non-CJK
+characters in the parent `sentence` node.
+
+@param {AstPath} path
+@returns {boolean} `true` if Space tends to be inserted between CJ and
+non-CJK, `false` otherwise.
+*/
 function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
   if (sentenceNode.usesCJSpaces === undefined) {
     const stats = { " ": 0, "": 0 };
@@ -65,25 +65,25 @@ function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
 }
 
 /**
- * Check whether the given `"\n"` node can be converted to a space.
- *
- * For example, if you would like to squash English text
- *
- *     "You might want\nto use Prettier."
- *
- * into a single line, you would replace `"\n"` with `" "`:
- *
- *     "You might want to use Prettier."
- *
- * However, Chinese and Japanese don't use U+0020 Space to divide words, so line
- * breaks shouldn't be replaced with spaces for those languages.
- *
- * PRs are welcome to support line breaking rules for other languages.
- *
- * @param {AstPath} path
- * @param {boolean} isLink
- * @returns {boolean}
- */
+Check whether the given `"\n"` node can be converted to a space.
+
+For example, if you would like to squash English text
+
+    "You might want\nto use Prettier."
+
+into a single line, you would replace `"\n"` with `" "`:
+
+    "You might want to use Prettier."
+
+However, Chinese and Japanese don't use U+0020 Space to divide words, so line
+breaks shouldn't be replaced with spaces for those languages.
+
+PRs are welcome to support line breaking rules for other languages.
+
+@param {AstPath} path
+@param {boolean} isLink
+@returns {boolean}
+*/
 function lineBreakCanBeConvertedToSpace(path, isLink) {
   if (isLink) {
     return true;
@@ -163,22 +163,22 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
 }
 
 /**
- * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is Korean letter or non-CJK
- */
+@param {WordKind | undefined} kind
+@returns {boolean} `true` if `kind` is Korean letter or non-CJK
+*/
 function isNonCJKOrKoreanLetter(kind) {
   return kind === KIND_NON_CJK || kind === KIND_K_LETTER;
 }
 
 /**
- * Check whether whitespace can be printed as a line break.
- *
- * @param {AstPath} path
- * @param {WhitespaceValue} value
- * @param {ProseWrap} proseWrap
- * @param {boolean} isLink
- * @returns {boolean}
- */
+Check whether whitespace can be printed as a line break.
+
+@param {AstPath} path
+@param {WhitespaceValue} value
+@param {ProseWrap} proseWrap
+@param {boolean} isLink
+@returns {boolean}
+*/
 function isBreakable(path, value, proseWrap, isLink, options) {
   if (
     proseWrap !== "always" ||
@@ -243,13 +243,13 @@ function isBreakable(path, value, proseWrap, isLink, options) {
 }
 
 /**
- * @param {AstPath} path
- * @param {WhitespaceValue} value
- * @param {ProseWrap} proseWrap
- * @param {boolean} isLink Special mode of (un)wrapping that preserves the
- * @param {any} options Special mode of (un)wrapping that preserves the
- * normalized form of link labels. https://spec.commonmark.org/0.30/#matches
- */
+@param {AstPath} path
+@param {WhitespaceValue} value
+@param {ProseWrap} proseWrap
+@param {boolean} isLink Special mode of (un)wrapping that preserves the
+@param {any} options Special mode of (un)wrapping that preserves the
+normalized form of link labels. https://spec.commonmark.org/0.30/#matches
+*/
 function printWhitespace(path, value, proseWrap, isLink, options) {
   if (proseWrap === "preserve" && value === "\n") {
     return hardline;
@@ -301,18 +301,18 @@ function shouldPreventBreak(path, options) {
 }
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function hasFakeWhitespaceAfterNextToken(path) {
   const afterNext = path.siblings[path.index + 2];
   return afterNext?.type === "whitespace" && afterNext.value === "";
 }
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function isNextTokenFakeSetextH2Line(path) {
   if (!isNewLine(path.node) || path.next.value !== "-") {
     return false;

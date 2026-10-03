@@ -13,9 +13,9 @@ import { isLiteral, isStringLiteral } from "./node-types.js";
 const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isLoneShortArgument(node, options) {
   const { printWidth } = options;
 

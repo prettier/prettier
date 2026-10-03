@@ -2,19 +2,19 @@ import { markdownLineEnding, markdownSpace } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
 
 /**
- * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
- * @typedef {import('mdast-util-from-markdown').Token} Token
- * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
- * @typedef {import('mdast-util-from-markdown').Handle} Handle
- * @typedef {import('micromark-util-types').State} State
- * @typedef {import('micromark-util-types').TokenizeContext} TokenizeContext
- */
+@typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
+@typedef {import('mdast-util-from-markdown').Token} Token
+@typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+@typedef {import('mdast-util-from-markdown').Handle} Handle
+@typedef {import('micromark-util-types').State} State
+@typedef {import('micromark-util-types').TokenizeContext} TokenizeContext
+*/
 
 const nodeType = "liquidNode";
 
 /**
- * @returns {FromMarkdownExtension}
- */
+@returns {FromMarkdownExtension}
+*/
 function liquidFromMarkdown() {
   return {
     canContainEols: [nodeType],
@@ -43,8 +43,8 @@ function liquidFromMarkdown() {
 }
 
 /**
- * @returns {import('micromark-util-types').Extension}
- */
+@returns {import('micromark-util-types').Extension}
+*/
 function liquidSyntax() {
   return {
     flow: {
@@ -72,9 +72,9 @@ function liquidSyntax() {
   }
 
   /**
-   * @this {TokenizeContext}
-   * @param mode {"text" | "flow"}
-   */
+  @this {TokenizeContext}
+  @param mode {"text" | "flow"}
+  */
   function tokenize(effects, ok, nok, mode) {
     const isFlow = mode === "flow";
     const { now, parser } = this;

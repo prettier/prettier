@@ -1,8 +1,8 @@
 // Copied from https://github.com/sindresorhus/eslint-plugin-unicorn/blob/d53d935951aa815c763fc9441aa452c763294715/rules/utilities/is-node-matches.js
 
 /**
- * @import {Node} from "../types/estree.js"
- */
+@import {Node} from "../types/estree.js"
+*/
 
 /**
 Check if node matches object name or key path.

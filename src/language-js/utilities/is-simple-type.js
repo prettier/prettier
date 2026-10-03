@@ -9,9 +9,9 @@ import isTsKeywordType from "./is-ts-keyword-type.js";
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isSimpleType(node) {
   return (
     isTsKeywordType(node) ||

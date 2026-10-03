@@ -16,10 +16,10 @@ import { templateLiteralHasNewLines } from "./template-literal-has-new-lines.js"
 */
 
 /**
- * @param {NodeMap["TemplateLiteral"] | NodeMap["TaggedTemplateExpression"]} node
- * @param {string} text
- * @returns {boolean}
- */
+@param {NodeMap["TemplateLiteral"] | NodeMap["TaggedTemplateExpression"]} node
+@param {string} text
+@returns {boolean}
+*/
 function isTemplateOnItsOwnLine(node, text) {
   return (
     ((node.type === "TemplateLiteral" && templateLiteralHasNewLines(node)) ||

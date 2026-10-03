@@ -4,18 +4,18 @@ import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescrip
 import { formatAttributeValue } from "./utilities.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- *     v-for="... in ..."
- *     v-for="... of ..."
- *     v-for="(..., ...) in ..."
- *     v-for="(..., ...) of ..."
- *
- * @param {*} options
- * @returns {Promise<Doc>}
- */
+    v-for="... in ..."
+    v-for="... of ..."
+    v-for="(..., ...) in ..."
+    v-for="(..., ...) of ..."
+
+@param {*} options
+@returns {Promise<Doc>}
+*/
 async function printVueVForDirective(textToDoc, print, path, options) {
   const value = getUnescapedAttributeValue(path.node);
   const { left, operator, right } = parseVueVForDirective(value);

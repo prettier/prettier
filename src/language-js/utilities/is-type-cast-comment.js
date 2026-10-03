@@ -8,9 +8,9 @@ import { isBlockComment } from "./comment-types.js";
 const cache = new WeakMap();
 
 /**
- * @param {Comment} comment
- * @returns {boolean}
- */
+@param {Comment} comment
+@returns {boolean}
+*/
 function isTypeCastComment(comment) {
   return getOrInsertComputed(
     cache,

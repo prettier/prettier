@@ -2,9 +2,9 @@ import jsesc from "jsesc";
 import { createStringLiteral, isIdentifier } from "./utilities.js";
 
 /**
- * @param {import("@babel/types").Node} node
- * @returns {boolean}
- */
+@param {import("@babel/types").Node} node
+@returns {boolean}
+*/
 function isStringRaw(node) {
   return (
     node.type === "TaggedTemplateExpression" &&
@@ -17,12 +17,12 @@ function isStringRaw(node) {
 }
 
 /**
- * `` String.raw`foo` `` -> `"foo"`
- * `` String.raw`foo ${"bar"}` `` -> `` `foo ${"bar"}` ``
- *
- * @param {import("@babel/types").TaggedTemplateExpression} node
- * @returns {import("@babel/types").TaggedTemplateExpression}
- */
+`` String.raw`foo` `` -> `"foo"`
+`` String.raw`foo ${"bar"}` `` -> `` `foo ${"bar"}` ``
+
+@param {import("@babel/types").TaggedTemplateExpression} node
+@returns {import("@babel/types").TaggedTemplateExpression}
+*/
 function transformStringRaw(taggedTemplateExpression) {
   const templateLiteral = taggedTemplateExpression.quasi;
 

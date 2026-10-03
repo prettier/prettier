@@ -8,8 +8,8 @@ import { normalizeParseOptions } from "./parse-options.js";
 */
 
 /**
- * @param {ParseOptions} rawParseOptions
- */
+@param {ParseOptions} rawParseOptions
+*/
 function createParser(rawParseOptions) {
   const parseOptions = normalizeParseOptions(rawParseOptions);
   const parser = parseOptions.name === "vue" ? parseVue : parseHtml;

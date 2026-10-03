@@ -8,39 +8,39 @@ import {
 } from "./option-categories.js";
 
 /**
- * @typedef {Object} OptionInfo
- * @property {string} category
- * @property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
- * @property {boolean} [array] - indicate it's an array of the specified type
- * @property {OptionValueInfo} [default]
- * @property {OptionRangeInfo} [range] - for type int
- * @property {string} description
- * @property {string} [deprecated] - deprecated since version
- * @property {OptionRedirectInfo | string} [redirect] - redirect deprecated option
- * @property {(value: any) => boolean} [exception]
- * @property {OptionChoiceInfo[]} [choices] - for type choice
- * @property {string} [cliName]
- * @property {string} [cliCategory]
- * @property {string} [cliDescription]
- *
- * @typedef {number | boolean | string | []} OptionValue
- * @typedef {OptionValue | [{ value: OptionValue }]} OptionValueInfo
- *
- * @typedef {Object} OptionRedirectInfo
- * @property {string} option
- * @property {OptionValue} value
- *
- * @typedef {Object} OptionRangeInfo
- * @property {number} start - recommended range start
- * @property {number} end - recommended range end
- * @property {number} step - recommended range step
- *
- * @typedef {Object} OptionChoiceInfo
- * @property {boolean | string} value - boolean for the option that is originally boolean type
- * @property {string} description
- * @property {string} [deprecated] - deprecated since version
- * @property {OptionValueInfo} [redirect] - redirect deprecated value
- */
+@typedef {Object} OptionInfo
+@property {string} category
+@property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
+@property {boolean} [array] - indicate it's an array of the specified type
+@property {OptionValueInfo} [default]
+@property {OptionRangeInfo} [range] - for type int
+@property {string} description
+@property {string} [deprecated] - deprecated since version
+@property {OptionRedirectInfo | string} [redirect] - redirect deprecated option
+@property {(value: any) => boolean} [exception]
+@property {OptionChoiceInfo[]} [choices] - for type choice
+@property {string} [cliName]
+@property {string} [cliCategory]
+@property {string} [cliDescription]
+
+@typedef {number | boolean | string | []} OptionValue
+@typedef {OptionValue | [{ value: OptionValue }]} OptionValueInfo
+
+@typedef {Object} OptionRedirectInfo
+@property {string} option
+@property {OptionValue} value
+
+@typedef {Object} OptionRangeInfo
+@property {number} start - recommended range start
+@property {number} end - recommended range end
+@property {number} step - recommended range step
+
+@typedef {Object} OptionChoiceInfo
+@property {boolean | string} value - boolean for the option that is originally boolean type
+@property {string} description
+@property {string} [deprecated] - deprecated since version
+@property {OptionValueInfo} [redirect] - redirect deprecated value
+*/
 
 /** @type {{ [name: string]: OptionInfo }} */
 const options = {

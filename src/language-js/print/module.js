@@ -26,8 +26,8 @@ import {
 import { printObject } from "./object.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `ImportDeclaration`

@@ -20,8 +20,8 @@ class DirectoryIgnorer {
   }
 
   /**
-   * @param {string} absolutePathOrPattern
-   */
+  @param {string} absolutePathOrPattern
+  */
   shouldIgnore(absolutePathOrPattern) {
     const directoryNames = path
       .relative(cwd, absolutePathOrPattern)

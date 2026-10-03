@@ -37,8 +37,8 @@ import {
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 const getHeritageGroupId = createGroupIdMapper("heritageGroup");
 

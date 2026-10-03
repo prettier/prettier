@@ -8,9 +8,9 @@ import { locEnd, locEndWithFullText } from "../location/index.js";
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 const isNextLineEmpty = (node, { originalText }) => {
   const end = locEnd(node);
 

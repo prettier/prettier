@@ -1,8 +1,8 @@
 /** @import {Plugin, Settings} from "unified" */
 
 /**
- * @type {Plugin<[], Settings>}
- */
+@type {Plugin<[], Settings>}
+*/
 const liquid = function () {
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;

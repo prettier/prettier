@@ -15,9 +15,9 @@ import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 const isMethodValue = ({ node, key, parent }) =>
   key === "value" &&

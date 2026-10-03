@@ -1,10 +1,10 @@
 import escapeStringRegexp from "escape-string-regexp";
 
 /**
- * @param {string} text
- * @param {string} searchString
- * @returns {number}
- */
+@param {string} text
+@param {string} searchString
+@returns {number}
+*/
 function getMaxContinuousCount(text, searchString) {
   let results = text.matchAll(
     new RegExp(`(?:${escapeStringRegexp(searchString)})+`, "g"),

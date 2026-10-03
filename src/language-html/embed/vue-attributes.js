@@ -74,8 +74,8 @@ const printers = /** @type {AttributeValuePrinter[]} */ ([
 }));
 
 /**
- * @returns {Promise<Doc>}
- */
+@returns {Promise<Doc>}
+*/
 async function printVueVOnDirective(textToDoc, print, path, options) {
   try {
     return await printExpression(textToDoc, print, path, options);
@@ -100,8 +100,8 @@ async function printVueVOnDirective(textToDoc, print, path, options) {
 }
 
 /**
- * @returns {Promise<Doc>}
- */
+@returns {Promise<Doc>}
+*/
 function printVueVBindDirective(textToDoc, print, path, options) {
   const text = getUnescapedAttributeValue(path.node);
   const parser = isVueSfcWithTypescriptScript(path, options)
@@ -117,8 +117,8 @@ function printVueVBindDirective(textToDoc, print, path, options) {
 }
 
 /**
- * @returns {Promise<Doc>}
- */
+@returns {Promise<Doc>}
+*/
 function printExpression(textToDoc, print, path, options) {
   const text = getUnescapedAttributeValue(path.node);
   const parser = isVueSfcWithTypescriptScript(path, options)

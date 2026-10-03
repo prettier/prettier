@@ -1,9 +1,9 @@
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 
 /**
- * @param {any} value
- * @param {string[]=} types
- */
+@param {any} value
+@param {string[]=} types
+*/
 function isNode(value, types) {
   return typeof value?.type === "string" && types.includes(value.type);
 }

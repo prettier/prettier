@@ -35,9 +35,9 @@ function getIndentation(str) {
 }
 
 /**
- * md`...`
- * markdown`...`
- */
+md`...`
+markdown`...`
+*/
 function isEmbedMarkdown({ node, parent }) {
   return (
     parent?.type === "TaggedTemplateExpression" &&

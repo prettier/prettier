@@ -12,9 +12,9 @@ import {
 import { printIfStatementCondition } from "./miscellaneous.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 function printIfStatement(path, options, print) {
   const { node } = path;

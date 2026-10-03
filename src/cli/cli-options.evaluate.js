@@ -2,63 +2,63 @@ import { outdent } from "outdent";
 import { optionCategories } from "./prettier-internal.js";
 
 /**
- * {
- *   [optionName]: {
- *     // The type of the option. For 'choice', see also `choices` below.
- *     // When passing a type other than the ones listed below, the option is
- *     // treated as taking any string as argument, and `--option <${type}>` will
- *     // be displayed in --help.
- *     type: "boolean" | "choice" | "int" | string;
- *
- *     // Default value to be passed to the minimist option `default`.
- *     default?: any;
- *
- *     // Alias name to be passed to the minimist option `alias`.
- *     alias?: string;
- *
- *     // For grouping options by category in --help.
- *     category?: string;
- *
- *     // Description to be displayed in --help. If omitted, the option won't be
- *     // shown at all in --help (but see also `oppositeDescription` below).
- *     description?: string;
- *
- *     // Description for `--no-${name}` to be displayed in --help. If omitted,
- *     // `--no-${name}` won't be shown.
- *     oppositeDescription?: string;
- *
- *     // Indicate if this option is simply passed to the API.
- *     // true: use camelified name as the API option name.
- *     // string: use this value as the API option name.
- *     forwardToApi?: boolean | string;
- *
- *     // Indicate that a CLI flag should be an array when forwarded to the API.
- *     array?: boolean;
- *
- *     // Specify available choices for validation. They will also be displayed
- *     // in --help as <a|b|c>.
- *     // Use an object instead of a string if a choice is deprecated and should
- *     // be treated as `redirect` instead, or if you'd like to add description for
- *     // the choice.
- *     choices?: Array<
- *       | string
- *       | { value: string, description?: string, deprecated?: boolean, redirect?: string }
- *     >;
- *
- *     // If the option has a value that is an exception to the regular value
- *     // constraints, indicate that value here (or use a function for more
- *     // flexibility).
- *     exception?: ((value: any) => boolean);
- *
- *     // Indicate that the option is deprecated. Use a string to add an extra
- *     // message to --help for the option, for example to suggest a replacement
- *     // option.
- *     deprecated?: true | string;
- *   }
- * }
- *
- * Note: The options below are sorted alphabetically.
- */
+{
+  [optionName]: {
+    // The type of the option. For 'choice', see also `choices` below.
+    // When passing a type other than the ones listed below, the option is
+    // treated as taking any string as argument, and `--option <${type}>` will
+    // be displayed in --help.
+    type: "boolean" | "choice" | "int" | string;
+
+    // Default value to be passed to the minimist option `default`.
+    default?: any;
+
+    // Alias name to be passed to the minimist option `alias`.
+    alias?: string;
+
+    // For grouping options by category in --help.
+    category?: string;
+
+    // Description to be displayed in --help. If omitted, the option won't be
+    // shown at all in --help (but see also `oppositeDescription` below).
+    description?: string;
+
+    // Description for `--no-${name}` to be displayed in --help. If omitted,
+    // `--no-${name}` won't be shown.
+    oppositeDescription?: string;
+
+    // Indicate if this option is simply passed to the API.
+    // true: use camelified name as the API option name.
+    // string: use this value as the API option name.
+    forwardToApi?: boolean | string;
+
+    // Indicate that a CLI flag should be an array when forwarded to the API.
+    array?: boolean;
+
+    // Specify available choices for validation. They will also be displayed
+    // in --help as <a|b|c>.
+    // Use an object instead of a string if a choice is deprecated and should
+    // be treated as `redirect` instead, or if you'd like to add description for
+    // the choice.
+    choices?: Array<
+      | string
+      | { value: string, description?: string, deprecated?: boolean, redirect?: string }
+    >;
+
+    // If the option has a value that is an exception to the regular value
+    // constraints, indicate that value here (or use a function for more
+    // flexibility).
+    exception?: ((value: any) => boolean);
+
+    // Indicate that the option is deprecated. Use a string to add an extra
+    // message to --help for the option, for example to suggest a replacement
+    // option.
+    deprecated?: true | string;
+  }
+}
+
+Note: The options below are sorted alphabetically.
+*/
 /* eslint sort-keys: "error" */
 const options = {
   cache: {

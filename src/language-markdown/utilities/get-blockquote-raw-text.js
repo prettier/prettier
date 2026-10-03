@@ -1,7 +1,7 @@
 /**
- * @param line {string}
- * @returns {number}
- */
+@param line {string}
+@returns {number}
+*/
 function countValueLeadingGreaterThan(line) {
   let count = 0;
 
@@ -17,10 +17,10 @@ function countValueLeadingGreaterThan(line) {
 }
 
 /**
- * @param line {string}
- * @param greaterThanToKeep {number}
- * @returns {string}
- */
+@param line {string}
+@param greaterThanToKeep {number}
+@returns {string}
+*/
 function removeBlockquoteMarkers(line, greaterThanToKeep) {
   const rawBlockquoteRegexp =
     /[ \t]*(?:>|\\>|&gt;|&GT;|&#0*62;|&#[xX]0*3[eE];)[ \t]*/y;

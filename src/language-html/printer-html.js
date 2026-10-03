@@ -1,6 +1,6 @@
 /**
- * @import {Doc} from "../document/index.js"
- */
+@import {Doc} from "../document/index.js"
+*/
 
 import {
   breakParent,

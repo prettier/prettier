@@ -8,9 +8,9 @@ import { CommentCheckFlags, getComments } from "./comments.js";
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function needsHardlineAfterDanglingComment(node) {
   return isLineComment(getComments(node, CommentCheckFlags.Dangling).at(-1));
 }

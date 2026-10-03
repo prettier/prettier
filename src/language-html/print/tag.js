@@ -1,6 +1,6 @@
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 import * as assert from "#universal/assert";
 import {
@@ -122,14 +122,14 @@ function shouldNotPrintClosingTag(node, options) {
 
 function needsToBorrowPrevClosingTagEndMarker(node) {
   /**
-   *     <p></p
-   *     >123
-   *     ^
-   *
-   *     <p></p
-   *     ><a
-   *     ^
-   */
+      <p></p
+      >123
+      ^
+
+      <p></p
+      ><a
+      ^
+  */
   return (
     node.prev &&
     node.prev.kind !== "docType" &&
@@ -142,12 +142,12 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
 
 function needsToBorrowLastChildClosingTagEndMarker(node) {
   /**
-   *     <p
-   *       ><a></a
-   *       ></p
-   *       ^
-   *     >
-   */
+      <p
+        ><a></a
+        ></p
+        ^
+      >
+  */
   return (
     node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
@@ -158,16 +158,16 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
 
 function needsToBorrowParentClosingTagStartMarker(node) {
   /**
-   *     <p>
-   *       123</p
-   *          ^^^
-   *     >
-   *
-   *         123</b
-   *       ></a
-   *        ^^^
-   *     >
-   */
+      <p>
+        123</p
+           ^^^
+      >
+
+          123</b
+        ></a
+         ^^^
+      >
+  */
   return (
     !node.next &&
     !node.hasTrailingSpaces &&
@@ -178,10 +178,10 @@ function needsToBorrowParentClosingTagStartMarker(node) {
 
 function needsToBorrowNextOpeningTagStartMarker(node) {
   /**
-   *     123<p
-   *        ^^
-   *     >
-   */
+      123<p
+         ^^
+      >
+  */
   return (
     node.next &&
     !isTextLikeNode(node.next) &&
@@ -207,14 +207,14 @@ function getPrettierIgnoreAttributeCommentData(value) {
 
 function needsToBorrowParentOpeningTagEndMarker(node) {
   /**
-   *     <p
-   *       >123
-   *       ^
-   *
-   *     <p
-   *       ><a
-   *       ^
-   */
+      <p
+        >123
+        ^
+
+      <p
+        ><a
+        ^
+  */
   return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
 }
 
@@ -296,19 +296,19 @@ function printAttributes(path, options, print) {
 
   if (
     /**
-     *     123<a
-     *       attr
-     *           ~
-     *       >456
-     */
+        123<a
+          attr
+              ~
+          >456
+    */
     (node.firstChild &&
       needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
     /**
-     *     <span
-     *       >123<meta
-     *                ~
-     *     /></span>
-     */
+        <span
+          >123<meta
+                   ~
+        /></span>
+    */
     (node.isSelfClosing &&
       needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
     forceNotToBreakAttrContent

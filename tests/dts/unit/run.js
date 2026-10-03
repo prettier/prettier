@@ -35,8 +35,8 @@ describe("Unit tests for dts files", () => {
 });
 
 /**
- * @param {import("typescript").Diagnostic} diagnostic
- */
+@param {import("typescript").Diagnostic} diagnostic
+*/
 function formatDiagnostic({ file, start, code, messageText }) {
   let location = "";
   if (file) {
@@ -47,14 +47,14 @@ function formatDiagnostic({ file, start, code, messageText }) {
 }
 
 /**
- * @param {import("typescript").Diagnostic.messageText} messageText
- * @param Number indent
- *
- * Format the messageText property of a Diagnostic object. This may either
- * simply be a string, or may be a tree of objects each containing a
- * `messageText` string and a `next` property pointing to an array of child
- * nodes. (The tree format gets used when an error is caused by another error.)
- */
+@param {import("typescript").Diagnostic.messageText} messageText
+@param Number indent
+
+Format the messageText property of a Diagnostic object. This may either
+simply be a string, or may be a tree of objects each containing a
+`messageText` string and a `next` property pointing to an array of child
+nodes. (The tree format gets used when an error is caused by another error.)
+*/
 function formatMessageText(messageText) {
   if (typeof messageText === "string") {
     return messageText;

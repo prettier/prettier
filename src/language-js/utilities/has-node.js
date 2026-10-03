@@ -8,10 +8,10 @@ import getVisitorKeys from "../traverse/get-visitor-keys.js";
 */
 
 /**
- * @param {Node} node
- * @param {(node: Node) => boolean} predicate
- * @returns {boolean}
- */
+@param {Node} node
+@param {(node: Node) => boolean} predicate
+@returns {boolean}
+*/
 function hasNode(node, predicate) {
   return predicate(node) || hasDescendant(node, { getVisitorKeys, predicate });
 }

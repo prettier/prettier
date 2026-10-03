@@ -34,9 +34,9 @@ import { printWhitespace, printWhitespaceNode } from "./whitespace.js";
 import { printWord, printWordLegacy } from "./word.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js";
- * @import {Doc} from "../../document/index.js";
- */
+@import AstPath from "../../common/ast-path.js";
+@import {Doc} from "../../document/index.js";
+*/
 
 function prevOrNextWord(path) {
   const { previous, next } = path;
@@ -457,10 +457,10 @@ const escapeCharacterReferences = (value) =>
   value.replaceAll(characterReferenceRegex, String.raw`\&`);
 
 /**
- * @param {string} url
- * @param {boolean} unwrapBalancedParens
- * @returns {string}
- */
+@param {string} url
+@param {boolean} unwrapBalancedParens
+@returns {string}
+*/
 function printUrl(url, unwrapBalancedParens) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
@@ -519,11 +519,11 @@ function printTitle(title, options, printSpace = true) {
   return title;
 }
 
-function printLinkReference(node, options) {
+function printLinkReference(node) {
   // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
   // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
   const label = collapseWhiteSpace(node.label);
-  if (options?.parser === "mdx") {
+  if ((void 0)?.parser === "mdx") {
     return `[${label}]`;
   }
   const name = label.replaceAll(/[\\[\]]/g, (s) => `\\${s}`);

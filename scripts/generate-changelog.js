@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * When you run the script, enter the number and category of the Pull Request at the prompt.
- * Get the PR title and author name via the GitHub API and create a file in ./changelog_unreleased
- *
- *   $ node ./scripts/generate-changelog.js
- *   ✔ Input your Pull Request number: 10961
- *   ✔ Input category of your Pull Request: typescript
- */
+When you run the script, enter the number and category of the Pull Request at the prompt.
+Get the PR title and author name via the GitHub API and create a file in ./changelog_unreleased
+
+  $ node ./scripts/generate-changelog.js
+  ✔ Input your Pull Request number: 10961
+  ✔ Input category of your Pull Request: typescript
+*/
 
 import fs from "node:fs/promises";
 import * as prompts from "@clack/prompts";
@@ -82,9 +82,9 @@ async function generateChangelog() {
 }
 
 /**
- * @param {string} prNumber
- * @returns {Promise<{ title: string; user: string }>}
- */
+@param {string} prNumber
+@returns {Promise<{ title: string; user: string }>}
+*/
 async function getPr(prNumber) {
   // https://docs.github.com/en/rest/reference/pulls#get-a-pull-request
   const url = `https://api.github.com/repos/prettier/prettier/pulls/${prNumber}`;
@@ -108,11 +108,11 @@ async function getPr(prNumber) {
 }
 
 /**
- * @param {number} prNumber
- * @param {string} category
- * @param {string} content
- * @returns {Promise<URL>}
- */
+@param {number} prNumber
+@param {string} category
+@param {string} content
+@returns {Promise<URL>}
+*/
 async function addNewChangelog(prNumber, category, content) {
   const file = new URL(
     `../changelog_unreleased/${category}/${prNumber}.md`,
@@ -123,12 +123,12 @@ async function addNewChangelog(prNumber, category, content) {
 }
 
 /**
- * @param {string} title
- * @param {string} user
- * @param {number} prNumber
- * @param {string} string
- * @returns {Promise<string>}
- */
+@param {string} title
+@param {string} user
+@param {number} prNumber
+@param {string} string
+@returns {Promise<string>}
+*/
 async function createChangelog(title, user, prNumber, category) {
   const templateFile = new URL(
     "../changelog_unreleased/TEMPLATE.md",
@@ -160,9 +160,9 @@ async function createChangelog(title, user, prNumber, category) {
 }
 
 /**
- * @param {string} category
- * @returns {string}
- */
+@param {string} category
+@returns {string}
+*/
 function getSyntaxFromCategory(category) {
   switch (category) {
     case "angular":
@@ -200,10 +200,10 @@ function getSyntaxFromCategory(category) {
 }
 
 /**
- * @param {string} syntax
- * @param {string} comment
- * @returns {string}
- */
+@param {string} syntax
+@param {string} comment
+@returns {string}
+*/
 function generateComment(syntax, comment) {
   switch (syntax) {
     case "md":

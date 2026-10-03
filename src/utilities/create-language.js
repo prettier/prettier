@@ -32,10 +32,10 @@ const arrayTypeFields = new Set([
 ]);
 
 /**
- * @param {LinguistLanguage} linguistLanguage
- * @param {(data: LinguistLanguage) => Partial<Language>} getOverrides
- * @returns {Language}
- */
+@param {LinguistLanguage} linguistLanguage
+@param {(data: LinguistLanguage) => Partial<Language>} getOverrides
+@returns {Language}
+*/
 function createLanguage(linguistLanguage, getOverrides) {
   const language = { ...linguistLanguage, ...getOverrides(linguistLanguage) };
   language.linguistLanguageId = language.languageId;

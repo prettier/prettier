@@ -100,26 +100,26 @@ class Node {
   }
 
   /**
-   * @param {Node} [target]
-   * @param {Object} [node]
-   */
+  @param {Node} [target]
+  @param {Object} [node]
+  */
   insertChildBefore(target, node) {
     const children = this.$children;
     children.splice(children.indexOf(target), 0, this.createChild(node));
   }
 
   /**
-   * @param {Node} [child]
-   */
+  @param {Node} [child]
+  */
   removeChild(child) {
     const children = this.$children;
     children.splice(children.indexOf(child), 1);
   }
 
   /**
-   * @param {Node} [target]
-   * @param {Object} [node]
-   */
+  @param {Node} [target]
+  @param {Object} [node]
+  */
   replaceChild(target, node) {
     const children = this.$children;
     children[children.indexOf(target)] = this.createChild(node);

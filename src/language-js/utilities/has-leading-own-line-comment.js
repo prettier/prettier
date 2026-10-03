@@ -18,10 +18,10 @@ import { isJsxElement } from "./node-types.js";
 */
 
 /**
- * @param {string} text
- * @param {Node} node
- * @returns {boolean}
- */
+@param {string} text
+@param {Node} node
+@returns {boolean}
+*/
 function hasLeadingOwnLineComment(text, node) {
   if (isJsxElement(node)) {
     return hasNodeIgnoreComment(node);

@@ -48,8 +48,8 @@ class WorkerApi {
   }
 
   /**
-   * @param {MetaMessage["version"]} version
-   */
+  @param {MetaMessage["version"]} version
+  */
   getMetadata(version) {
     /** @type {MetaMessage} */
     const message = { type: "meta", version };
@@ -57,11 +57,11 @@ class WorkerApi {
   }
 
   /**
-   * @param {FormatMessage["code"]} code
-   * @param {FormatMessage["options"]} options
-   * @param {FormatMessage["settings"]} settings
-   * @param {FormatMessage["version"]} version
-   */
+  @param {FormatMessage["code"]} code
+  @param {FormatMessage["options"]} options
+  @param {FormatMessage["settings"]} settings
+  @param {FormatMessage["version"]} version
+  */
   format(code, options, settings, version) {
     /** @type {FormatMessage} */
     const message = { type: "format", version, code, options, settings };

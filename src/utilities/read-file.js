@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import { isUrlString } from "url-or-path";
 
 /**
- * @param {string | URL} file
- * @returns {Promise<undefined | string>}
- */
+@param {string | URL} file
+@returns {Promise<undefined | string>}
+*/
 async function readFile(file) {
   if (isUrlString(file)) {
     file = new URL(file);
