@@ -375,4 +375,4 @@ function printClassProperty(path, options, print) {
 }
 
 export { printClass, printClassMethod, printClassProperty };
-export { printClassBody, printClassMemberSemicolon };
+export { printClassBody, printClassMemberSemicolon } from "./class-body.js";
