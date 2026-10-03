@@ -2,12 +2,12 @@ import { getUnescapedAttributeValue } from "../utilities/index.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- * @returns {Promise<Doc>}
- */
+@returns {Promise<Doc>}
+*/
 function printVueScriptGenericAttributeValue(
   textToDoc,
   print,

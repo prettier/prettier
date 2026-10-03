@@ -33,8 +33,8 @@ import { printCallExpression } from "./call-expression.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- */
+@import AstPath from "../../common/ast-path.js"
+*/
 
 function printAssignment(
   path,
@@ -356,9 +356,9 @@ function getTypeParametersFromTypeReference(node) {
 }
 
 /**
- * A chain with no calls at all or whose calls are all without arguments or with lone short arguments,
- * excluding chains printed by `printMemberChain`
- */
+A chain with no calls at all or whose calls are all without arguments or with lone short arguments,
+excluding chains printed by `printMemberChain`
+*/
 function isPoorlyBreakableMemberOrCallChain(
   path,
   options,

@@ -365,23 +365,23 @@ function isHopefullyShortCallArgument(node) {
 }
 
 /**
- * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
- */
+Checks if the arguments of a function are a call to a React Hook with a dependencies array.
+*/
 function isReactHookCallWithDepsArray(args) {
   if (args.length === 2) {
     /**
-     * useEffect(() => {
-     *   // do something
-     * }, [dep1, dep2, dep2])
-     */
+    useEffect(() => {
+      // do something
+    }, [dep1, dep2, dep2])
+    */
     return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
   }
   if (args.length === 3) {
     /**
-     * useImperativeHandle(ref, () => {
-     *   // do something
-     * }, [dep1, dep2, dep2]);
-     */
+    useImperativeHandle(ref, () => {
+      // do something
+    }, [dep1, dep2, dep2]);
+    */
     return (
       args[0].type === "Identifier" &&
       isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)

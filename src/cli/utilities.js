@@ -8,12 +8,12 @@ import { __internal as sharedWithCli } from "../index.js";
 const printToScreen = console.log.bind(console);
 
 /**
- * @template Obj
- * @template Key
- * @param {Array<Obj>} array
- * @param {(value: Obj) => Key} iteratee
- * @returns {{[p in Key]: T}}
- */
+@template Obj
+@template Key
+@param {Array<Obj>} array
+@param {(value: Obj) => Key} iteratee
+@returns {{[p in Key]: T}}
+*/
 function groupBy(array, iteratee) {
   const result = Object.create(null);
 
@@ -31,31 +31,31 @@ function groupBy(array, iteratee) {
 }
 
 /**
- * @template Obj
- * @template {keyof Obj} Keys
- * @param {Obj} object
- * @param {Array<Keys>} keys
- * @returns {{[key in Keys]: Obj[key]}}
- */
+@template Obj
+@template {keyof Obj} Keys
+@param {Obj} object
+@param {Array<Keys>} keys
+@returns {{[key in Keys]: Obj[key]}}
+*/
 function pick(object, keys) {
   const entries = keys.map((key) => [key, object[key]]);
   return Object.fromEntries(entries);
 }
 
 /**
- * @param {string} string
- * @returns {string}
- */
+@param {string} string
+@returns {string}
+*/
 function createHash(string) {
   return MurmurHash3(string).result().toString(36);
 }
 
 /** @import {Stats} from "fs" */
 /**
- * Get stats of a given path.
- * @param {string} filePath The path to target file.
- * @returns {Promise<Stats | undefined>} The stats.
- */
+Get stats of a given path.
+@param {string} filePath The path to target file.
+@returns {Promise<Stats | undefined>} The stats.
+*/
 async function statSafe(filePath) {
   try {
     return await fs.stat(filePath);
@@ -68,10 +68,10 @@ async function statSafe(filePath) {
 }
 
 /**
- * Get stats of a given path without following symbolic links.
- * @param {string} filePath The path to target file.
- * @returns {Promise<Stats | undefined>} The stats.
- */
+Get stats of a given path without following symbolic links.
+@param {string} filePath The path to target file.
+@returns {Promise<Stats | undefined>} The stats.
+*/
 async function lstatSafe(filePath) {
   try {
     return await fs.lstat(filePath);
@@ -84,9 +84,9 @@ async function lstatSafe(filePath) {
 }
 
 /**
- * @param {string} value
- * @returns {boolean}
- */
+@param {string} value
+@returns {boolean}
+*/
 function isJson(value) {
   try {
     JSON.parse(value);
@@ -97,10 +97,10 @@ function isJson(value) {
 }
 
 /**
- * Replace `\` with `/` on Windows
- * @param {string} filepath
- * @returns {string}
- */
+Replace `\` with `/` on Windows
+@param {string} filepath
+@returns {string}
+*/
 const normalizeToPosix =
   path.sep === "\\"
     ? (filepath) => filepath.replaceAll("\\", "/")

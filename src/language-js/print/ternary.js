@@ -32,11 +32,11 @@ import {
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- * @import AstPath from "../../common/ast-path.js"
- *
- * @typedef {any} Options - Prettier options (TBD ...)
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js"
+
+@typedef {any} Options - Prettier options (TBD ...)
+*/
 
 // Break the closing paren to keep the chain right after it:
 // (a
@@ -83,17 +83,17 @@ const ancestorNameMap = new Map([
   ["AwaitExpression", "argument"],
 ]);
 /**
- * Do we want to wrap the entire ternary in its own indent?
- * Eg; for when instead of this:
- *    foo = cond ?
- *      cons
- *    : alt
- * We want this:
- *    foo =
- *      cond ?
- *        cons
- *      : alt
- */
+Do we want to wrap the entire ternary in its own indent?
+Eg; for when instead of this:
+   foo = cond ?
+     cons
+   : alt
+We want this:
+   foo =
+     cond ?
+       cons
+     : alt
+*/
 function shouldExtraIndentForConditionalExpression(path) {
   const { node } = path;
   if (node.type !== "ConditionalExpression") {
@@ -142,14 +142,14 @@ const wrapInParens = (doc) => [
 ];
 
 /**
- * The following is the shared logic for
- * ternary operators, namely ConditionalExpression,
- * ConditionalTypeAnnotation and TSConditionalType
- * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
- * @param {Options} options - Prettier options
- * @param {Function} print - Print function to call recursively
- * @returns {Doc}
- */
+The following is the shared logic for
+ternary operators, namely ConditionalExpression,
+ConditionalTypeAnnotation and TSConditionalType
+@param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
+@param {Options} options - Prettier options
+@param {Function} print - Print function to call recursively
+@returns {Doc}
+*/
 function printTernary(path, options, print, args) {
   if (!options.experimentalTernaries) {
     return printTernaryOld(path, options, print);

@@ -53,11 +53,11 @@ const getCommentTestFunction = (flags, fn) => {
   }
 };
 /**
- * @param {Node} node
- * @param {number | ((comment: Comment) => boolean)} [flags]
- * @param {(comment: Comment) => boolean} [fn]
- * @returns {boolean}
- */
+@param {Node} node
+@param {number | ((comment: Comment) => boolean)} [flags]
+@param {(comment: Comment) => boolean} [fn]
+@returns {boolean}
+*/
 function hasComment(node, flags, fn) {
   if (!isNonEmptyArray(node?.comments)) {
     return false;
@@ -67,11 +67,11 @@ function hasComment(node, flags, fn) {
 }
 
 /**
- * @param {Node} node
- * @param {number | ((comment: Comment) => boolean)} [flags]
- * @param {(comment: Comment) => boolean} [fn]
- * @returns {Comment[]}
- */
+@param {Node} node
+@param {number | ((comment: Comment) => boolean)} [flags]
+@param {(comment: Comment) => boolean} [fn]
+@returns {Comment[]}
+*/
 function getComments(node, flags, fn) {
   if (!Array.isArray(node?.comments)) {
     return [];

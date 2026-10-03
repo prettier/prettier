@@ -65,12 +65,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 }
 
 /**
- * Template literal in these contexts:
- * <style jsx>{`div{color:red}`}</style>
- * css``
- * css.global``
- * css.resolve``
- */
+Template literal in these contexts:
+<style jsx>{`div{color:red}`}</style>
+css``
+css.global``
+css.resolve``
+*/
 function isStyledJsx(path) {
   return (
     path.match(
@@ -108,8 +108,8 @@ function isStyledExtend(node) {
 }
 
 /**
- * styled-components template literals
- */
+styled-components template literals
+*/
 function isStyledComponents({ parent }) {
   if (!parent || parent.type !== "TaggedTemplateExpression") {
     return false;
@@ -154,8 +154,8 @@ function isStyledComponents({ parent }) {
 }
 
 /**
- * JSX element with CSS prop
- */
+JSX element with CSS prop
+*/
 function isCssProp({ parent, grandparent }) {
   return (
     grandparent?.type === "JSXAttribute" &&

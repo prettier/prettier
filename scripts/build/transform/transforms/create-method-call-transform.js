@@ -6,9 +6,9 @@ import { createIdentifier, isIdentifier } from "./utilities.js";
 /* Doesn't work for computed property, and spread arguments */
 
 /**
- * @param {import("@babel/types").Node} node
- * @returns {boolean}
- */
+@param {import("@babel/types").Node} node
+@returns {boolean}
+*/
 function isMethodCall(node, { methodName, argumentsLength }) {
   return (
     (node.type === "CallExpression" ||
@@ -25,12 +25,12 @@ function isMethodCall(node, { methodName, argumentsLength }) {
 }
 
 /**
- * `foo.at(index)` -> `__at(false, foo, index)`
- * `foo?.at(index)` -> `__at(true, foo, index)`
- *
- * @param {import("@babel/types").CallExpression | import("@babel/types").OptionalCallExpression} node
- * @returns {import("@babel/types").CallExpression}
- */
+`foo.at(index)` -> `__at(false, foo, index)`
+`foo?.at(index)` -> `__at(true, foo, index)`
+
+@param {import("@babel/types").CallExpression | import("@babel/types").OptionalCallExpression} node
+@returns {import("@babel/types").CallExpression}
+*/
 function transformMethodCallToFunctionCall(node, functionName) {
   // `__at(isOptionalObject, object, ...arguments)`
 

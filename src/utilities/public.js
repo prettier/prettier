@@ -6,12 +6,12 @@ import isPreviousLineEmptyWithStartIndex from "./is-previous-line-empty.js";
 
 // Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {number | false}
- */
+@template N
+@param {string} text
+@param {N} node
+@param {(node: N) => number} locEnd
+@returns {number | false}
+*/
 function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
@@ -21,10 +21,10 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 
 // TODO: export `getNextNonSpaceNonCommentCharacterIndex` directly in v4
 /**
- * @param {string} text
- * @param {number} startIndex
- * @returns {number | false}
- */
+@param {string} text
+@param {number} startIndex
+@returns {number | false}
+*/
 export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
   return arguments.length === 2 || typeof startIndex === "number"
     ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
@@ -35,21 +35,21 @@ export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
 
 // Legacy version of `isPreviousLineEmpty`
 /**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locStart
- */
+@template N
+@param {string} text
+@param {N} node
+@param {(node: N) => number} locStart
+*/
 function legacyIsPreviousLineEmpty(text, node, locStart) {
   return isPreviousLineEmptyWithStartIndex(text, locStart(node));
 }
 
 // TODO: export `isPreviousLineEmpty` directly in v4
 /**
- * @param {string} text
- * @param {number} startIndex
- * @returns {boolean}
- */
+@param {string} text
+@param {number} startIndex
+@returns {boolean}
+*/
 export function isPreviousLineEmpty(text, startIndex) {
   return arguments.length === 2 || typeof startIndex === "number"
     ? isPreviousLineEmptyWithStartIndex(text, startIndex)
@@ -60,23 +60,23 @@ export function isPreviousLineEmpty(text, startIndex) {
 
 // Legacy version of `isNextLineEmpty`
 /**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {boolean}
- */
+@template N
+@param {string} text
+@param {N} node
+@param {(node: N) => number} locEnd
+@returns {boolean}
+*/
 function legacyIsNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
 // TODO: export `makeString` from `make-string.js` in v4
 /**
- * @param {string} rawText
- * @param {Quote} enclosingQuote
- * @param {boolean=} unescapeUnnecessaryEscapes
- * @returns {string}
- */
+@param {string} rawText
+@param {Quote} enclosingQuote
+@param {boolean=} unescapeUnnecessaryEscapes
+@returns {string}
+*/
 export function makeString(
   rawText,
   enclosingQuote,
@@ -121,10 +121,10 @@ export function makeString(
 
 // TODO: export `isNextLineEmpty` directly in v4
 /**
- * @param {string} text
- * @param {number} startIndex
- * @returns {boolean}
- */
+@param {string} text
+@param {number} startIndex
+@returns {boolean}
+*/
 export function isNextLineEmpty(text, startIndex) {
   return arguments.length === 2 || typeof startIndex === "number"
     ? isNextLineEmptyAfterIndex(text, startIndex)

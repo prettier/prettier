@@ -6,9 +6,9 @@ import {
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 function printAwaitExpression(path, options, print) {
   const { node } = path;

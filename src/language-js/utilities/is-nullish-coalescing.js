@@ -5,9 +5,9 @@
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isNullishCoalescing(node) {
   return node.type === "LogicalExpression" && node.operator === "??";
 }

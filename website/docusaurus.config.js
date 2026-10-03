@@ -13,9 +13,9 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
 const GITHUB_URL = `https://github.com/${packageJson.repository}`;
 
 /**
- *
- * @param {string} fsPath
- */
+
+@param {string} fsPath
+*/
 function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(new URL(fsPath, import.meta.url), "utf8"));
 }

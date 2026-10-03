@@ -2,9 +2,9 @@ import readlines from "n-readlines";
 import { toPath } from "url-or-path";
 
 /**
- * @param {string | URL} file
- * @returns {string | undefined}
- */
+@param {string | URL} file
+@returns {string | undefined}
+*/
 function readFileFirstLine(file) {
   const liner = new readlines(toPath(file));
   const firstLineBuffer = liner.next();
@@ -17,9 +17,9 @@ function readFileFirstLine(file) {
 }
 
 /**
- * @param {string | URL} file
- * @returns {string | undefined}
- */
+@param {string | URL} file
+@returns {string | undefined}
+*/
 function getInterpreter(file) {
   let firstLine;
   try {

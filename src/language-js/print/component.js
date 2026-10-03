@@ -3,9 +3,9 @@ import { printFunctionParameters } from "./function-parameters.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `ComponentDeclaration` (Flow)

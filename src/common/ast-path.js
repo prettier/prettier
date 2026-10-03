@@ -140,11 +140,11 @@ class AstPath {
   }
 
   /**
-   * @template {(path: AstPath) => any} T
-   * @param {T} callback
-   * @param {number} [count=0]
-   * @returns {ReturnType<T>}
-   */
+  @template {(path: AstPath) => any} T
+  @param {T} callback
+  @param {number} [count=0]
+  @returns {ReturnType<T>}
+  */
   callParent(callback, count = 0) {
     const stackIndex = this.#getNodeStackIndex(count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
@@ -195,11 +195,11 @@ class AstPath {
   }
 
   /**
-   * @param {...(
-   *   | ((node: any, name: string | null, number: number | null) => boolean)
-   *   | undefined
-   * )} predicates
-   */
+  @param {...(
+    | ((node: any, name: string | null, number: number | null) => boolean)
+    | undefined
+  )} predicates
+  */
   match(...predicates) {
     let stackPointer = this.stack.length - 1;
 
@@ -232,12 +232,12 @@ class AstPath {
   }
 
   /**
-   * Traverses the ancestors of the current node heading toward the tree root
-   * until it finds a node that matches the provided predicate function. Will
-   * return the first matching ancestor. If no such node exists, returns undefined.
-   * @param {(node: any) => boolean} predicate
-   * @internal Unstable API. Don't use in plugins for now.
-   */
+  Traverses the ancestors of the current node heading toward the tree root
+  until it finds a node that matches the provided predicate function. Will
+  return the first matching ancestor. If no such node exists, returns undefined.
+  @param {(node: any) => boolean} predicate
+  @internal Unstable API. Don't use in plugins for now.
+  */
   findAncestor(predicate) {
     for (const node of this.#getAncestors()) {
       if (predicate(node)) {
@@ -247,13 +247,13 @@ class AstPath {
   }
 
   /**
-   * Traverses the ancestors of the current node heading toward the tree root
-   * until it finds a node that matches the provided predicate function.
-   * returns true if matched node found.
-   * @param {(node: any) => boolean} predicate
-   * @returns {boolean}
-   * @internal Unstable API. Don't use in plugins for now.
-   */
+  Traverses the ancestors of the current node heading toward the tree root
+  until it finds a node that matches the provided predicate function.
+  returns true if matched node found.
+  @param {(node: any) => boolean} predicate
+  @returns {boolean}
+  @internal Unstable API. Don't use in plugins for now.
+  */
   hasAncestor(predicate) {
     for (const node of this.#getAncestors()) {
       if (predicate(node)) {

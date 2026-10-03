@@ -1,8 +1,8 @@
 import { group, indent, softline } from "../../document/index.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {
   return [indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""];
@@ -33,12 +33,12 @@ function shouldHugJsExpression(ast, options) {
 }
 
 /**
- * @param {string} code
- * @param {Function} textToDoc
- * @param {*} options
- * @param {(ast: any, options: any) => boolean} [shouldHugJsExpression]
- * @returns {Promise<Doc>}
- */
+@param {string} code
+@param {Function} textToDoc
+@param {*} options
+@param {(ast: any, options: any) => boolean} [shouldHugJsExpression]
+@returns {Promise<Doc>}
+*/
 async function formatAttributeValue(
   code,
   textToDoc,

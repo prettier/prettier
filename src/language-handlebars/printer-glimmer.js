@@ -722,12 +722,12 @@ function generateHardlines(number = 0) {
 /** @import {Quote} from "../utilities/get-preferred-quote.js" */
 
 /**
- * Prints a string literal with the correct surrounding quotes based on
- * `options.singleQuote` and the number of escaped quotes contained in
- * the string literal. This function is the glimmer equivalent of `printString`
- * in `common/util`, but has differences because of the way escaped characters
- * are treated in hbs string literals.
- */
+Prints a string literal with the correct surrounding quotes based on
+`options.singleQuote` and the number of escaped quotes contained in
+the string literal. This function is the glimmer equivalent of `printString`
+in `common/util`, but has differences because of the way escaped characters
+are treated in hbs string literals.
+*/
 function printStringLiteral(path, options) {
   const {
     node: { value },

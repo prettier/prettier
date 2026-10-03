@@ -1,6 +1,6 @@
 /**
- * @typedef {SINGLE_QUOTE | DOUBLE_QUOTE} Quote
- */
+@typedef {SINGLE_QUOTE | DOUBLE_QUOTE} Quote
+*/
 
 const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
@@ -24,10 +24,10 @@ const DOUBLE_QUOTE_SETTINGS = Object.freeze({
 });
 
 /**
- * @param {string} text
- * @param {Quote | boolean} preferredQuoteOrPreferSingleQuote
- * @returns {Quote}
- */
+@param {string} text
+@param {Quote | boolean} preferredQuoteOrPreferSingleQuote
+@returns {Quote}
+*/
 function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
   const { preferred, alternate } =
     preferredQuoteOrPreferSingleQuote === true ||

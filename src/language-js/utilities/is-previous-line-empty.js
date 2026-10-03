@@ -9,9 +9,9 @@ import { locStart } from "../location/index.js";
 */
 
 /**
- * @param {Node | Comment} node
- * @returns {boolean}
- */
+@param {Node | Comment} node
+@returns {boolean}
+*/
 const isPreviousLineEmpty = (node, { originalText }) =>
   isPreviousLineEmptyBeforeIndex(originalText, locStart(node));
 

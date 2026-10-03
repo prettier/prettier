@@ -9,10 +9,10 @@ import isNonEmptyArray from "./is-non-empty-array.js";
 /** @import {Options, SupportLanguage} from "../index.js" */
 
 /**
- * @param {SupportLanguage[]} languages
- * @param {string | URL | undefined} [file]
- * @returns {SupportLanguage | undefined}
- */
+@param {SupportLanguage[]} languages
+@param {string | URL | undefined} [file]
+@returns {SupportLanguage | undefined}
+*/
 function getLanguageByFileName(languages, file) {
   if (!file) {
     return;
@@ -31,10 +31,10 @@ function getLanguageByFileName(languages, file) {
 }
 
 /**
- * @param {SupportLanguage[]} languages
- * @param {string | undefined} [languageName]
- * @returns {SupportLanguage | undefined}
- */
+@param {SupportLanguage[]} languages
+@param {string | undefined} [languageName]
+@returns {SupportLanguage | undefined}
+*/
 function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
@@ -48,10 +48,10 @@ function getLanguageByLanguageName(languages, languageName) {
 }
 
 /**
- * @param {SupportLanguage[]} languages
- * @param {string | URL | undefined} [file]
- * @returns {SupportLanguage | undefined}
- */
+@param {SupportLanguage[]} languages
+@param {string | URL | undefined} [file]
+@returns {SupportLanguage | undefined}
+*/
 function getLanguageByInterpreterNodejs(languages, file) {
   if (!file || getFileBasename(file).includes(".")) {
     return;
@@ -83,10 +83,10 @@ const getLanguageByInterpreter =
     : getLanguageByInterpreterNodejs;
 
 /**
- * @param {SupportLanguage[]} languages
- * @param {string | URL | undefined} [file]
- * @returns {SupportLanguage | undefined}
- */
+@param {SupportLanguage[]} languages
+@param {string | URL | undefined} [file]
+@returns {SupportLanguage | undefined}
+*/
 function getLanguageByIsSupported(languages, file) {
   if (!file) {
     return;
@@ -108,10 +108,10 @@ function getLanguageByIsSupported(languages, file) {
 }
 
 /**
- * @param {Options} options
- * @param {{physicalFile?: string | URL | undefined, file?: string | URL | undefined, language?: string | undefined}} fileInfo
- * @returns {string | undefined} matched parser name if found
- */
+@param {Options} options
+@param {{physicalFile?: string | URL | undefined, file?: string | URL | undefined, language?: string | undefined}} fileInfo
+@returns {string | undefined} matched parser name if found
+*/
 function inferParser(options, fileInfo) {
   const languages = options.plugins.toReversed().flatMap(
     (plugin) =>

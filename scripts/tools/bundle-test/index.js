@@ -68,8 +68,7 @@ for (const packageConfig of packageBuildConfigs) {
         performance: { hints: false },
         optimization: { minimize: false },
       });
-      const result = stats.toJson();
-      const { warnings, assets } = result;
+      const { warnings, assets } = stats.toJson();
 
       if (warnings.length > 0) {
         console.log(warnings);

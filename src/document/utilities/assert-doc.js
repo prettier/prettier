@@ -87,9 +87,9 @@ const assertAlignType =
       };
 
 /**
- * @param {Doc} doc
- * @returns {boolean}
- */
+@param {Doc} doc
+@returns {boolean}
+*/
 function isValidSeparator(doc) {
   let hasLine = false;
   let hasUnexpectedString = false;

@@ -1,8 +1,8 @@
 /**
- * @param {string} text
- * @param {number | false} startIndex
- * @returns {number | false}
- */
+@param {string} text
+@param {number | false} startIndex
+@returns {number | false}
+*/
 function skipInlineComment(text, startIndex) {
   /* c8 ignore next 3 */
   if (startIndex === false) {

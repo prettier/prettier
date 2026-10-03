@@ -1,6 +1,6 @@
 /**
- * @returns {boolean}
- */
+@returns {boolean}
+*/
 function isTsKeywordType({ type }) {
   return type.startsWith("TS") && type.endsWith("Keyword");
 }

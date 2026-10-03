@@ -5,18 +5,18 @@ import {
 } from "./options/parse-cli-arguments.js";
 
 /**
- * @typedef {Object} Context
- * @property logger
- * @property {string[]} rawArguments
- * @property argv
- * @property {string[]} filePatterns
- * @property {any[]} supportOptions
- * @property detailedOptions
- * @property languages
- * @property {Partial<Context>[]} stack
- * @property pushContextPlugins
- * @property popContextPlugins
- */
+@typedef {Object} Context
+@property logger
+@property {string[]} rawArguments
+@property argv
+@property {string[]} filePatterns
+@property {any[]} supportOptions
+@property detailedOptions
+@property languages
+@property {Partial<Context>[]} stack
+@property pushContextPlugins
+@property popContextPlugins
+*/
 
 class Context {
   #stack = [];
@@ -41,8 +41,8 @@ class Context {
   }
 
   /**
-   * @param {string[]} plugins
-   */
+  @param {string[]} plugins
+  */
   async pushContextPlugins(plugins) {
     const options = await getContextOptions(plugins);
     this.#stack.push(options);

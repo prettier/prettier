@@ -8,8 +8,8 @@ const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
-const runCliWithoutGitignore = (dir, args, options) =>
-  runCli(dir, [...args, "--ignore-path", ".prettierignore"], options);
+const runCliWithoutGitignore = (dir, args) =>
+  runCli(dir, [...args, "--ignore-path", ".prettierignore"], void 0);
 
 // ESLint-like behavior
 //

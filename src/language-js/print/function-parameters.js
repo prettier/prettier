@@ -266,18 +266,18 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 }
 
 /**
- * The "decorated function" pattern.
- * The arrow function should be kept hugged even if its signature breaks.
- *
- * ```
- * const decoratedFn = decorator(param1, param2)((
- *   ...
- * ) => {
- *   ...
- * });
- * ```
- * @param {AstPath} path
- */
+The "decorated function" pattern.
+The arrow function should be kept hugged even if its signature breaks.
+
+```
+const decoratedFn = decorator(param1, param2)((
+  ...
+) => {
+  ...
+});
+```
+@param {AstPath} path
+*/
 function isDecoratedFunction(path) {
   return path.match(
     (node) =>

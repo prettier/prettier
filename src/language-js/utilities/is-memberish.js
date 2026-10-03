@@ -7,9 +7,9 @@ import { isMemberExpression } from "./node-types.js";
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isMemberish(node) {
   return (
     isMemberExpression(node) ||

@@ -5,11 +5,11 @@ import { skipSpaces } from "./skip.js";
 // Not using, but it's public utils
 /* c8 ignore start */
 /**
- * @param {string} text
- * @param {number} startIndex
- * @param {SkipOptions=} options
- * @returns {boolean}
- */
+@param {string} text
+@param {number} startIndex
+@param {SkipOptions=} options
+@returns {boolean}
+*/
 function hasSpaces(text, startIndex, options = {}) {
   const idx = skipSpaces(
     text,

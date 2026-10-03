@@ -19,9 +19,9 @@ import {
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function hasNakedLeftSide(node) {
   return (
     node.type === "AssignmentExpression" ||

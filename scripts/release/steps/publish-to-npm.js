@@ -28,8 +28,8 @@ export default async function publishToNpm({ dry }) {
   };
 
   /**
-   * Retry "npm publish" when to enter OTP is failed.
-   */
+  Retry "npm publish" when to enter OTP is failed.
+  */
   for (let i = 5; i > 0; i--) {
     try {
       return await runNpmPublish();

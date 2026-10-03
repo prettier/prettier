@@ -104,9 +104,9 @@ const hasSideEffect = createTypeCheckFunction([
 ]);
 /** identify if an angular expression seems to have side effects */
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function hasNgSideEffect({ node }) {
   return hasNode(node, hasSideEffect);
 }

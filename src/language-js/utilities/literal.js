@@ -12,9 +12,9 @@
 */
 
 /**
- * @param {Node} node
- * @returns {node is BigIntLiteral}
- */
+@param {Node} node
+@returns {node is BigIntLiteral}
+*/
 function isBigIntLiteral(node) {
   return (
     node.type === "BigIntLiteral" ||
@@ -25,9 +25,9 @@ function isBigIntLiteral(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {node is BooleanLiteral}
- */
+@param {Node} node
+@returns {node is BooleanLiteral}
+*/
 function isBooleanLiteral(node) {
   return (
     node.type === "BooleanLiteral" ||
@@ -36,9 +36,9 @@ function isBooleanLiteral(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {node is NumericLiteral}
- */
+@param {Node} node
+@returns {node is NumericLiteral}
+*/
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -47,9 +47,9 @@ function isNumericLiteral(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {node is RegExpLiteral}
- */
+@param {Node} node
+@returns {node is RegExpLiteral}
+*/
 function isRegExpLiteral(node) {
   return (
     node.type === "RegExpLiteral" ||
@@ -60,9 +60,9 @@ function isRegExpLiteral(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {node is StringLiteral}
- */
+@param {Node} node
+@returns {node is StringLiteral}
+*/
 function isStringLiteral(node) {
   return (
     node?.type === "StringLiteral" ||

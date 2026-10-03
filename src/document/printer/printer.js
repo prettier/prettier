@@ -42,14 +42,14 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
 /**
- * @param {Command} next
- * @param {Command[]} restCommands
- * @param {number} remainingWidth
- * @param {boolean} hasLineSuffix
- * @param {GroupModeMap} groupModeMap
- * @param {boolean} [mustBeFlat]
- * @returns {boolean}
- */
+@param {Command} next
+@param {Command[]} restCommands
+@param {number} remainingWidth
+@param {boolean} hasLineSuffix
+@param {GroupModeMap} groupModeMap
+@param {boolean} [mustBeFlat]
+@returns {boolean}
+*/
 function fits(
   next,
   restCommands,

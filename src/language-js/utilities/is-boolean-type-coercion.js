@@ -5,9 +5,9 @@
 */
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isBooleanTypeCoercion(node) {
   return (
     node.type === "CallExpression" &&

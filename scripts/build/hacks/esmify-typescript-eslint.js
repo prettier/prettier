@@ -134,7 +134,7 @@ function esmifyTypescriptEslint(text) {
   })(FOO ?? {}));
   export {FOO};
   ```
-   */
+  */
   text = text.replaceAll(
     /(?<=\n\}\))\((?<name>\S+) \|\| \(exports\.\k<name> = \k<name> = \{\}\)\);/g,
     outdent`

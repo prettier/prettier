@@ -1,10 +1,10 @@
 import { skipEverythingButNewLine } from "./skip.js";
 
 /**
- * @param {string} text
- * @param {number | false} startIndex
- * @returns {number | false}
- */
+@param {string} text
+@param {number | false} startIndex
+@returns {number | false}
+*/
 function skipTrailingComment(text, startIndex) {
   /* c8 ignore next 3 */
   if (startIndex === false) {

@@ -17,9 +17,9 @@ function DraggableLogo() {
   const [rolling, setRolling] = useState(false);
 
   /**
-   *
-   * @param {DragEvent} event
-   */
+
+  @param {DragEvent} event
+  */
   const onDragStart = (event) => {
     event.preventDefault();
     setRolling(true);
@@ -190,13 +190,13 @@ function LanguagesSection() {
 }
 
 /**
- *
- * @param {object} props
- * @param {string} props.name
- * @param {string?} props.nameLink
- * @param {string} props.image
- * @param {string[]} props.variants
- */
+
+@param {object} props
+@param {string} props.name
+@param {string?} props.nameLink
+@param {string} props.image
+@param {string[]} props.variants
+*/
 function LanguageItem({ name, nameLink, image, variants }) {
   return (
     <div className={styles.languageItem}>
@@ -245,12 +245,12 @@ function EditorSupportSection() {
 }
 
 /**
- *
- * @param {object} props
- * @param {string} props.content
- * @param {string} props.image
- * @param {string} props.name
- */
+
+@param {object} props
+@param {string} props.content
+@param {string} props.image
+@param {string} props.name
+*/
 function Editor({ content = "", image, name }) {
   return (
     <div className={styles.editorItem}>

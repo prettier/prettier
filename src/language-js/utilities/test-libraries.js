@@ -46,17 +46,17 @@ const testCallCalleePatterns = [
 ];
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isTestCallCallee(node) {
   return isNodeMatches(node, testCallCalleePatterns);
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isUnitTestSetupIdentifier(node) {
   return (
     node.type === "Identifier" &&
@@ -68,15 +68,15 @@ function isUnitTestSetupIdentifier(node) {
 }
 
 /**
- * Note: `inject` is used in AngularJS 1.x, `async` and `fakeAsync` in
- * Angular 2+, although `async` is deprecated and replaced by `waitForAsync`
- * since Angular 12.
- *
- * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
- *
- * @param {NodeMap["CallExpression"]} node
- * @returns {boolean}
- */
+Note: `inject` is used in AngularJS 1.x, `async` and `fakeAsync` in
+Angular 2+, although `async` is deprecated and replaced by `waitForAsync`
+since Angular 12.
+
+example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
+
+@param {NodeMap["CallExpression"]} node
+@returns {boolean}
+*/
 function isAngularTestWrapper(node) {
   return (
     isCallExpression(node) &&
@@ -86,9 +86,9 @@ function isAngularTestWrapper(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
+@param {Node} node
+@returns {boolean}
+*/
 function isFunctionOrArrowExpressionWithBody(node) {
   return (
     node.type === "FunctionExpression" ||

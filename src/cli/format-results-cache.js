@@ -15,9 +15,9 @@ const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
 
 /**
- * @param {*} options
- * @returns {string}
- */
+@param {*} options
+@returns {string}
+*/
 function getHashOfOptions(options) {
   return getOrInsertComputed(optionsHashCache, options, (options) =>
     createHash(`${prettierVersion}_${nodeVersion}_${stringify(options)}`),
@@ -25,9 +25,9 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @param {FileDescriptor} fileDescriptor
- * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
- */
+@param {FileDescriptor} fileDescriptor
+@returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
+*/
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
 }
@@ -36,9 +36,9 @@ class FormatResultsCache {
   #fileEntryCache;
 
   /**
-   * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
-   * @param {string} cacheStrategy
-   */
+  @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
+  @param {string} cacheStrategy
+  */
   constructor(cacheFileLocation, cacheStrategy) {
     const useCheckSum = cacheStrategy === "content";
 
@@ -70,9 +70,9 @@ class FormatResultsCache {
   }
 
   /**
-   * @param {string} filePath
-   * @param {any} options
-   */
+  @param {string} filePath
+  @param {any} options
+  */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor.notFound || fileDescriptor.changed) {
@@ -85,9 +85,9 @@ class FormatResultsCache {
   }
 
   /**
-   * @param {string} filePath
-   * @param {any} options
-   */
+  @param {string} filePath
+  @param {any} options
+  */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
@@ -97,8 +97,8 @@ class FormatResultsCache {
   }
 
   /**
-   * @param {string} filePath
-   */
+  @param {string} filePath
+  */
   removeFormatResultsCache(filePath) {
     this.#fileEntryCache.removeEntry(filePath);
   }

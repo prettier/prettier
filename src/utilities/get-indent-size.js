@@ -1,10 +1,10 @@
 import getAlignmentSize from "./get-alignment-size.js";
 
 /**
- * @param {string} value
- * @param {number} tabWidth
- * @returns {number}
- */
+@param {string} value
+@param {number} tabWidth
+@returns {number}
+*/
 function getIndentSize(value, tabWidth) {
   const lastNewlineIndex = value.lastIndexOf("\n");
   /* c8 ignore next 3 */

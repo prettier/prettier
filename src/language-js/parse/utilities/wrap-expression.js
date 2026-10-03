@@ -3,14 +3,14 @@
 */
 
 /**
- * @param {{
- *   text: string,
- *   expression?: Node,
- *   type?: string,
- *   rootMarker?: string,
- *   comments?: Comment[],
- * }} options
- */
+@param {{
+  text: string,
+  expression?: Node,
+  type?: string,
+  rootMarker?: string,
+  comments?: Comment[],
+}} options
+*/
 function wrapExpression(options) {
   const {
     type = "JsExpressionRoot",

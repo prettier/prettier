@@ -41,25 +41,25 @@ function printElement(path, options, print) {
     ];
   }
   /**
-   * do not break:
-   *
-   *     <div>{{
-   *         ~
-   *       interpolation
-   *     }}</div>
-   *            ~
-   *
-   * exception: break if the opening tag breaks
-   *
-   *     <div
-   *       long
-   *           ~
-   *       >{{
-   *         interpolation
-   *       }}</div
-   *              ~
-   *     >
-   */
+  do not break:
+
+      <div>{{
+          ~
+        interpolation
+      }}</div>
+             ~
+
+  exception: break if the opening tag breaks
+
+      <div
+        long
+            ~
+        >{{
+          interpolation
+        }}</div
+               ~
+      >
+  */
   const shouldHugContent =
     node.children.length === 1 &&
     (node.firstChild.kind === "interpolation" ||

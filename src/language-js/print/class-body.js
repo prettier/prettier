@@ -230,8 +230,8 @@ const isKeywordProperty = (node) => {
 };
 
 /**
- * @returns {boolean}
- */
+@returns {boolean}
+*/
 function shouldPrintSemicolonAfterClassProperty(
   { node, next: nextNode },
   options,

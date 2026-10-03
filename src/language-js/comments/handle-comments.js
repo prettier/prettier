@@ -66,9 +66,9 @@ import {
 */
 
 /**
- * @param {CommentContext} context
- * @returns {boolean}
- */
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
@@ -100,9 +100,9 @@ function handleOwnLineComment(context) {
 }
 
 /**
- * @param {CommentContext} context
- * @returns {boolean}
- */
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
@@ -136,9 +136,9 @@ function handleEndOfLineComment(context) {
 }
 
 /**
- * @param {CommentContext} context
- * @returns {boolean}
- */
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
@@ -930,26 +930,26 @@ function handleSwitchDefaultCaseComments({
 }
 
 /**
- * Handle `Comment2`, `Comment4`, `Comment6`.
- *
- *   type Foo = (
- *     | "thing1" // Comment1
- *     | "thing2" // Comment2
- *   )[];
- *
- *   type Foo = (
- *     | "thing1" // Comment3
- *     | "thing2" // Comment4
- *   ) & Bar;
- *
- *   type Foo = (
- *     | "thing1" // Comment5
- *     | "thing2" // Comment6
- *   ) | Bar;
- *
- * @param {CommentContext} context
- * @returns {boolean}
- */
+Handle `Comment2`, `Comment4`, `Comment6`.
+
+  type Foo = (
+    | "thing1" // Comment1
+    | "thing2" // Comment2
+  )[];
+
+  type Foo = (
+    | "thing1" // Comment3
+    | "thing2" // Comment4
+  ) & Bar;
+
+  type Foo = (
+    | "thing1" // Comment5
+    | "thing2" // Comment6
+  ) | Bar;
+
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleLastUnionElementInExpression({
   comment,
   precedingNode,
@@ -969,19 +969,19 @@ function handleLastUnionElementInExpression({
 }
 
 /**
- * const [
- *   foo,
- *   // bar
- *   // baz
- * ]: Foo = foo();
- *
- * const {
- *   foo,
- *   // bar
- *   // baz
- * }: Foo = foo();
- *
- */
+const [
+  foo,
+  // bar
+  // baz
+]: Foo = foo();
+
+const {
+  foo,
+  // bar
+  // baz
+}: Foo = foo();
+
+*/
 function handleCommentsInDestructuringPattern({
   comment,
   enclosingNode,
@@ -1304,9 +1304,9 @@ function handleParenthesizedExpressionTrailingComment({
 }
 
 /**
- * @param {CommentContext} context
- * @returns {boolean}
- */
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleUnionTypeLeadingComments(context) {
   const { followingNode, comment } = context;
 

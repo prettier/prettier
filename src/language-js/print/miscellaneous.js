@@ -21,9 +21,9 @@ import { shouldPrintTrailingComma } from "../utilities/should-print-trailing-com
 */
 
 /**
- * @param {AstPath} path
- * @returns {Doc}
- */
+@param {AstPath} path
+@returns {Doc}
+*/
 function printOptionalToken(path) {
   const { node } = path;
   if (
@@ -45,9 +45,9 @@ function printOptionalToken(path) {
 }
 
 /**
- * @param {AstPath} path
- * @returns {Doc}
- */
+@param {AstPath} path
+@returns {Doc}
+*/
 function printDefiniteToken(path) {
   return path.node.definite ||
     path.match(
@@ -89,9 +89,9 @@ const shouldPrintDeclareToken = (path) => {
 };
 
 /**
- * @param {AstPath} path
- * @returns {Doc}
- */
+@param {AstPath} path
+@returns {Doc}
+*/
 function printDeclareToken(path) {
   return shouldPrintDeclareToken(path) ? "declare " : "";
 }
@@ -103,9 +103,9 @@ const isTsAbstractNode = createTypeCheckFunction([
 ]);
 
 /**
- * @param {AstPath} param0
- * @returns {Doc}
- */
+@param {AstPath} param0
+@returns {Doc}
+*/
 function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
@@ -189,9 +189,9 @@ function printDanglingCommentsInList(path, options, filter) {
 }
 
 /**
- * @param {("es5" | "all")} [level]
- * @returns {Doc}
- */
+@param {("es5" | "all")} [level]
+@returns {Doc}
+*/
 function printTrailingComma(options, level = "es5") {
   return shouldPrintTrailingComma(options, level) ? ifBreak(",") : "";
 }

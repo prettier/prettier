@@ -7,14 +7,14 @@ runFormatTest(
       ...[
         // https://developer.mozilla.org/en-US/docs/Glossary/Whitespace#In_HTML
         // single
-        "\u0009",
-        "\u000A",
-        "\u000C",
-        "\u000D",
-        "\u0020",
+        "\t",
+        "\n",
+        "\f",
+        "\r",
+        " ",
 
         // many
-        "\u0009\u000A\u000C\u000D\u0020",
+        "\t\n\f\r ",
       ].map((textContent) => ({
         code: `<div>${textContent}</div>`,
         name: "should be empty",
@@ -23,14 +23,14 @@ runFormatTest(
 
       ...[
         // single
-        "\u0009",
-        "\u000A",
-        "\u000C",
-        "\u000D",
-        "\u0020",
+        "\t",
+        "\n",
+        "\f",
+        "\r",
+        " ",
 
         // many
-        "\u0009\u000A\u000C\u000D\u0020",
+        "\t\n\f\r ",
       ].map((textContent) => ({
         code: `<span>${textContent}</span>`,
         name: "should keep one space",
@@ -39,11 +39,11 @@ runFormatTest(
 
       ...[
         // single
-        "\u0009",
-        "\u000A",
-        "\u000C",
-        "\u000D",
-        "\u0020",
+        "\t",
+        "\n",
+        "\f",
+        "\r",
+        " ",
       ].map((textContent) => ({
         code: `<img/>${textContent}<img/>`,
         name: "between",
@@ -51,7 +51,7 @@ runFormatTest(
       })),
 
       {
-        code: "<img/>\u0009\u000A\u000C\u000D\u0020<img/>",
+        code: "<img/>\t\n\f\r <img/>",
         output: "<img />\n\n<img />\n",
       },
 

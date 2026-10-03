@@ -28,10 +28,10 @@ const isSingleWordType = createTypeCheckFunction([
 ]);
 
 /**
- * @param {Node} node
- * @param {number} depth
- * @returns {boolean}
- */
+@param {Node} node
+@param {number} depth
+@returns {boolean}
+*/
 function isSimpleCallArgument(node, depth = 2) {
   if (depth <= 0) {
     return false;

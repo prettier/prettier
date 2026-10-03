@@ -11,9 +11,9 @@ const DOC_MODULE_DIRECTORY = path.join(SOURCE_DIR, "document/");
 const PUBLIC_DOC_MODULE_PATH = path.join(SOURCE_DIR, "document/public.js");
 
 /**
- * @param {import("@babel/types").Node} node
- * @returns {boolean}
- */
+@param {import("@babel/types").Node} node
+@returns {boolean}
+*/
 function getImportDeclarationReplacement(node, file) {
   if (node.type !== "ImportDeclaration") {
     return;
@@ -68,9 +68,9 @@ function getImportDeclarationReplacement(node, file) {
 }
 
 /**
- * @param {import("@babel/types").Program} node
- * @returns {import("@babel/types").Program}
- */
+@param {import("@babel/types").Program} node
+@returns {import("@babel/types").Program}
+*/
 function transformProgramWithoutCache(program, file) {
   const replacements = [];
   const body = program.body

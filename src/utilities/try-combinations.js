@@ -1,8 +1,8 @@
 /**
- * @template {function} T
- * @param {T[]} combinations
- * @returns {ReturnType<T>}
- */
+@template {function} T
+@param {T[]} combinations
+@returns {ReturnType<T>}
+*/
 function tryCombinationsSync(combinations) {
   const errors = [];
   for (const fn of combinations) {

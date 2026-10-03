@@ -7,9 +7,9 @@ import { writeFile } from "../../utilities/index.js";
 
 async function typesFileBuilder({ packageConfig, file }) {
   /**
-   * @typedef {{ from: string, to: string }} ImportPathReplacement
-   * @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
-   */
+  @typedef {{ from: string, to: string }} ImportPathReplacement
+  @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
+  */
 
   /** @type {ReplacementMap} */
   const pathReplacementMap = {

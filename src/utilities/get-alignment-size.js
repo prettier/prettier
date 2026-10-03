@@ -1,9 +1,9 @@
 /**
- * @param {string} text
- * @param {number} tabWidth
- * @param {number=} startIndex
- * @returns {number}
- */
+@param {string} text
+@param {number} tabWidth
+@param {number=} startIndex
+@returns {number}
+*/
 function getAlignmentSize(text, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < text.length; ++i) {

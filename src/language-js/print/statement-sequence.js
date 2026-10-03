@@ -2,9 +2,9 @@ import { hardline } from "../../document/index.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- * @import AstPath from "../../common/ast-path.js")
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js")
+*/
 
 /*
 - `Program` ("directives" and "body")

@@ -5,20 +5,20 @@
 */
 
 /**
- * Tests if the leftmost node of the expression matches the predicate. E.g.,
- * used to check whether an expression statement needs to be wrapped in extra
- * parentheses because it starts with:
- *
- * - `{`
- * - `function`, `class`, or `do {}`
- * - `let[`
- *
- * Will be overzealous if there already are necessary grouping parentheses.
- *
- * @param {Node} node
- * @param {(leftmostNode: Node) => boolean} predicate
- * @returns {boolean}
- */
+Tests if the leftmost node of the expression matches the predicate. E.g.,
+used to check whether an expression statement needs to be wrapped in extra
+parentheses because it starts with:
+
+- `{`
+- `function`, `class`, or `do {}`
+- `let[`
+
+Will be overzealous if there already are necessary grouping parentheses.
+
+@param {Node} node
+@param {(leftmostNode: Node) => boolean} predicate
+@returns {boolean}
+*/
 function startsWithNoLookaheadToken(node, predicate) {
   switch (node.type) {
     case "BinaryExpression":

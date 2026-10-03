@@ -4,11 +4,11 @@ import skipNewline from "./skip-newline.js";
 /** @import {SkipOptions} from "./skip.js" */
 
 /**
- * @param {string} text
- * @param {number} startIndex
- * @param {SkipOptions=} options
- * @returns {boolean}
- */
+@param {string} text
+@param {number} startIndex
+@param {SkipOptions=} options
+@returns {boolean}
+*/
 function hasNewline(text, startIndex, options = {}) {
   const idx = skipSpaces(
     text,

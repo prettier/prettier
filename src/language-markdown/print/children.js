@@ -7,17 +7,17 @@ import {
 } from "../utilities.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {() => Doc} print
- * @param {*} [events]
- * @return {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {() => Doc} print
+@param {*} [events]
+@return {Doc}
+*/
 function printChildren(path, options, print, events = {}) {
   const { processor = print } = events;
 
@@ -57,9 +57,9 @@ function shouldPrePrintHardline({ node, parent }) {
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function shouldPrePrintDoubleHardline(path, options) {
   const { node, previous, parent } = path;
 
@@ -159,9 +159,9 @@ function isLooseListItem({ node, parent, next }) {
 }
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function isPreviousNodeLooseListItem(path) {
   if (path.index === 0) {
     return false;

@@ -408,14 +408,14 @@ function isEmptyLocNode(node) {
 }
 
 /**
- * Workaround for a bug: quotes and asterisks in inline comments corrupt loc data of subsequent nodes.
- * This function replaces the quotes and asterisks with spaces. Later, when the comments are printed,
- * their content is extracted from the original text.
- * - https://github.com/prettier/prettier/issues/7780
- * - https://github.com/shellscape/postcss-less/issues/145
- * - https://github.com/prettier/prettier/issues/8130
- * @param text {string}
- */
+Workaround for a bug: quotes and asterisks in inline comments corrupt loc data of subsequent nodes.
+This function replaces the quotes and asterisks with spaces. Later, when the comments are printed,
+their content is extracted from the original text.
+- https://github.com/prettier/prettier/issues/7780
+- https://github.com/shellscape/postcss-less/issues/145
+- https://github.com/prettier/prettier/issues/8130
+@param text {string}
+*/
 function replaceQuotesInInlineComments(text) {
   /** @typedef { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } State */
   /** @type {State} */

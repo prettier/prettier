@@ -8,9 +8,9 @@ import { isJsxElement } from "./node-types.js";
 */
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function hasJsxIgnoreComment(path) {
   const { node, parent } = path;
   if (!isJsxElement(node) || !isJsxElement(parent)) {

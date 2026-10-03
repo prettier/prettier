@@ -3,11 +3,11 @@ import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 
 /**
- *
- * @param {object} props
- * @param {string} props.title
- * @param {ReactNode} props.children
- */
+
+@param {object} props
+@param {string} props.title
+@param {ReactNode} props.children
+*/
 function Card({ title, children }) {
   return (
     <div class="card margin-vert--sm">

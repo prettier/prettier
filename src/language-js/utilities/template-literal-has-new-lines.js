@@ -12,9 +12,9 @@
 */
 
 /**
- * @param {NodeMap["TemplateLiteral"]} template
- * @returns {boolean}
- */
+@param {NodeMap["TemplateLiteral"]} template
+@returns {boolean}
+*/
 function templateLiteralHasNewLines(template) {
   return template.quasis.some((quasi) => quasi.value.raw.includes("\n"));
 }

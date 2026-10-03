@@ -9,8 +9,8 @@ import { lstatSafe, normalizeToPosix } from "./utilities.js";
 /** @import {Context} from './context.js' */
 
 /**
- * @param {Context} context
- */
+@param {Context} context
+*/
 async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
@@ -44,8 +44,8 @@ async function* expandPatterns(context) {
 }
 
 /**
- * @param {Context} context
- */
+@param {Context} context
+*/
 async function* expandPatternsInternal(context) {
   const directoryIgnorer =
     context.argv.withNodeModules === true
@@ -150,18 +150,18 @@ const errorMessages = {
 };
 
 /**
- * @param {string[]} paths
- */
+@param {string[]} paths
+*/
 function sortPaths(paths) {
   return paths.sort((a, b) => a.localeCompare(b));
 }
 
 /**
- * This function should be replaced with `fastGlob.escapePath` when these issues are fixed:
- * - https://github.com/mrmlnc/fast-glob/issues/262
- * - https://github.com/mrmlnc/fast-glob/issues/494
- * @param {string} path
- */
+This function should be replaced with `fastGlob.escapePath` when these issues are fixed:
+- https://github.com/mrmlnc/fast-glob/issues/262
+- https://github.com/mrmlnc/fast-glob/issues/494
+@param {string} path
+*/
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
@@ -172,11 +172,11 @@ function escapePathForGlob(path) {
 }
 
 /**
- * Using backslashes in globs is probably not okay, but not accepting
- * backslashes as path separators on Windows is even more not okay.
- * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
- * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
- */
+Using backslashes in globs is probably not okay, but not accepting
+backslashes as path separators on Windows is even more not okay.
+https://github.com/prettier/prettier/pull/6776#discussion_r380723717
+https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+*/
 const fixWindowsSlashes = normalizeToPosix;
 
 export { expandPatterns };

@@ -14,9 +14,9 @@ const zeroWidthMarkRegex = /[\p{Nonspacing_Mark}\p{Enclosing_Mark}]/u;
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
 /**
- * @param {string} text
- * @returns {number}
- */
+@param {string} text
+@returns {number}
+*/
 function getStringWidth(text) {
   if (!text) {
     return 0;

@@ -28,9 +28,9 @@ import {
 } from "./type-annotation.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import {Doc} from "../../document/index.js"
+@import AstPath from "../../common/ast-path.js"
+*/
 
 // Keep comma if the file extension not `.ts` and
 // has one type parameter that isn't extend with any types.
@@ -147,8 +147,8 @@ function printTypeParameter(path, options, print) {
   const { node } = path;
 
   /**
-   * @type {Doc[]}
-   */
+  @type {Doc[]}
+  */
   const parts = [node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;

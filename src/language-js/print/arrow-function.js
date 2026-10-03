@@ -32,9 +32,9 @@ import { printFunctionParameters } from "./function-parameters.js";
 import { printTrailingComma } from "./miscellaneous.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 // In order to avoid confusion between
 // a => a ? a : a
@@ -210,12 +210,12 @@ function printArrowFunctionSignature(path, options, print, args) {
 }
 
 /**
- *
- * @param {*} functionBody
- * @param {*} bodyDoc
- * @param {*} options
- * @returns {boolean}
- */
+
+@param {*} functionBody
+@param {*} bodyDoc
+@param {*} options
+@returns {boolean}
+*/
 function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
   return (
     isArrayExpression(functionBody) ||
@@ -231,13 +231,13 @@ function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
 }
 
 /**
- * @param {AstPath} path
- * @param {*} args
- * @param {Object} arrowFunctionSignaturesPrintOptions
- * @param {Doc[]} arrowFunctionSignaturesPrintOptions.signatureDocs
- * @param {boolean} arrowFunctionSignaturesPrintOptions.shouldBreak
- * @returns {Doc}
- */
+@param {AstPath} path
+@param {*} args
+@param {Object} arrowFunctionSignaturesPrintOptions
+@param {Doc[]} arrowFunctionSignaturesPrintOptions.signatureDocs
+@param {boolean} arrowFunctionSignaturesPrintOptions.shouldBreak
+@returns {Doc}
+*/
 function printArrowFunctionSignatures(
   path,
   args,
@@ -274,15 +274,15 @@ function printArrowFunctionSignatures(
 }
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {*} args
- * @param {Object} arrowFunctionBodyPrintOptions
- * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
- * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
- * @param {*} arrowFunctionBodyPrintOptions.functionBody
- * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
- */
+@param {AstPath} path
+@param {*} options
+@param {*} args
+@param {Object} arrowFunctionBodyPrintOptions
+@param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
+@param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
+@param {*} arrowFunctionBodyPrintOptions.functionBody
+@param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
+*/
 function printArrowFunctionBody(
   path,
   options,

@@ -9,8 +9,8 @@ import {
 } from "./utilities.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- */
+@import AstPath from "../../common/ast-path.js"
+*/
 
 const childNodesCache = new WeakMap();
 

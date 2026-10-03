@@ -16,10 +16,10 @@ function clearPrettierConfigCache() {
 }
 
 /**
- * @param {string} configFile
- * @param {{shouldCache?: boolean}} param1
- * @returns {Promise<ReturnType<loadConfig>>}
- */
+@param {string} configFile
+@param {{shouldCache?: boolean}} param1
+@returns {Promise<ReturnType<loadConfig>>}
+*/
 function loadPrettierConfig(configFile, { shouldCache }) {
   configFile = path.resolve(configFile);
 
@@ -45,10 +45,10 @@ function getSearchFunction(stopDirectory) {
 }
 
 /**
- * @param {string} startDirectory
- * @param {{shouldCache?: boolean}} options
- * @returns {Promise<string | void>}
- */
+@param {string} startDirectory
+@param {{shouldCache?: boolean}} options
+@returns {Promise<string | void>}
+*/
 function searchPrettierConfig(startDirectory, options = {}) {
   startDirectory = startDirectory
     ? path.resolve(startDirectory)

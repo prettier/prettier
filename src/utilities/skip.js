@@ -1,11 +1,11 @@
 /**
- * @typedef {{backwards?: boolean}} SkipOptions
- */
+@typedef {{backwards?: boolean}} SkipOptions
+*/
 
 /**
- * @param {string | RegExp} characters
- * @returns {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
- */
+@param {string | RegExp} characters
+@returns {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
+*/
 function skip(characters) {
   return (text, startIndex, options) => {
     // Allow `skip` functions to be threaded together without having
@@ -43,20 +43,20 @@ function skip(characters) {
 }
 
 /**
- * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
- */
+@type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
+*/
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
- */
+@type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
+*/
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
- */
+@type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
+*/
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
- */
+@type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
+*/
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 export {

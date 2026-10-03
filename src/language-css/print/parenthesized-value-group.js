@@ -197,11 +197,11 @@ function shouldPrecededBySoftline(path) {
 }
 
 /**
- * @template {*} T
- * @param {T[]} array
- * @param {number} size
- * @returns {T[][]}
- */
+@template {*} T
+@param {T[]} array
+@param {number} size
+@returns {T[][]}
+*/
 function chunk(array, size) {
   const result = [];
   for (let i = 0; i < array.length; i += size) {

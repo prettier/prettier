@@ -134,8 +134,8 @@ function lowerCaseIf(text, fn) {
 }
 
 /**
- * @param {Ast.Attribute | Ast.Element} node
- */
+@param {Ast.Attribute | Ast.Element} node
+*/
 function restoreName(node) {
   const namespace = node.name.startsWith(":")
     ? node.name.slice(1).split(":", 1)[0]
@@ -155,8 +155,8 @@ function restoreName(node) {
 }
 
 /**
- * @param {Ast.Node} node
- */
+@param {Ast.Node} node
+*/
 function restoreNameAndValue(node) {
   switch (node.kind) {
     case "element":
@@ -189,9 +189,9 @@ function restoreNameAndValue(node) {
 }
 
 /**
- * @param {Ast.Node} node
- * @param {ParseOptions} parseOptions
- */
+@param {Ast.Node} node
+@param {ParseOptions} parseOptions
+*/
 function addTagDefinition(node, parseOptions) {
   if (node.kind === "element") {
     const tagDefinition = getHtmlTagDefinition(

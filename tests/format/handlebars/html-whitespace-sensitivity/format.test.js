@@ -10,12 +10,12 @@ runFormatTest(
     snippets: [
       // single
       // https://developer.mozilla.org/en-US/docs/Glossary/Whitespace#In_HTML
-      ...["\u0009", "\u000C", "\u0020"].map((textContent) => ({
+      ...["\t", "\f", " "].map((textContent) => ({
         code: `<div>${textContent}</div>`,
         name: "content",
         output: "<div> </div>",
       })),
-      ...["\u000A", "\u000D"].map((textContent) => ({
+      ...["\n", "\r"].map((textContent) => ({
         code: `<div>${textContent}</div>`,
         name: "content",
         output: "<div>\n</div>",
@@ -23,17 +23,17 @@ runFormatTest(
 
       // many
       {
-        code: "<div>\u0009\u000A\u000C\u000D\u0020</div>",
+        code: "<div>\t\n\f\r </div>",
         output: "<div>\n\n</div>",
       },
 
       // single
-      ...["\u0009", "\u000C", "\u0020"].map((textContent) => ({
+      ...["\t", "\f", " "].map((textContent) => ({
         code: `<img/>${textContent}<img/>`,
         name: "between",
         output: "<img /> <img />",
       })),
-      ...["\u000A", "\u000D"].map((textContent) => ({
+      ...["\n", "\r"].map((textContent) => ({
         code: `<img/>${textContent}<img/>`,
         name: "between",
         output: "<img />\n<img />",
@@ -41,7 +41,7 @@ runFormatTest(
 
       // many
       {
-        code: "<img/>\u0009\u000A\u000C\u000D\u0020<img/>",
+        code: "<img/>\t\n\f\r <img/>",
         output: "<img />\n\n<img />",
       },
 

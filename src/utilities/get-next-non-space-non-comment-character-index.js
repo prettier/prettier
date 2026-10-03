@@ -4,10 +4,10 @@ import skipNewline from "./skip-newline.js";
 import skipTrailingComment from "./skip-trailing-comment.js";
 
 /**
- * @param {string} text
- * @param {number} startIndex
- * @returns {number | false}
- */
+@param {string} text
+@param {number} startIndex
+@returns {number | false}
+*/
 function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;

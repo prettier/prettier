@@ -1,18 +1,18 @@
 import coreOptions from "./core-options.evaluate.js";
 
 /**
- * @import {OptionInfo} from "./core-options.evaluate.js"
- * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
- */
+@import {OptionInfo} from "./core-options.evaluate.js"
+@typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
+*/
 
 /**
- * Strings in `plugins` are handled by a wrapped version
- * of this function created by `withPlugins`. Don't pass them here directly.
- * @param {object} param0
- * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
- * @param {boolean=} param0.showDeprecated
- * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
- */
+Strings in `plugins` are handled by a wrapped version
+of this function created by `withPlugins`. Don't pass them here directly.
+@param {object} param0
+@param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
+@param {boolean=} param0.showDeprecated
+@return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
+*/
 function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
   const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 

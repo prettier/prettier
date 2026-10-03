@@ -15,11 +15,11 @@ const MARKERS = [
 let searcher;
 
 /**
- * Find the directory contains a version control system directory
- * @param {string} startDirectory
- * @param {{shouldCache?: boolean}} options
- * @returns {Promise<string | undefined>}
- */
+Find the directory contains a version control system directory
+@param {string} startDirectory
+@param {{shouldCache?: boolean}} options
+@returns {Promise<string | undefined>}
+*/
 async function findProjectRoot(startDirectory, options) {
   searcher ??= new Searcher(MARKERS, { allowSymlinks: false });
 

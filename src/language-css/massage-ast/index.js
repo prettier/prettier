@@ -24,10 +24,10 @@ function massageAstNode(original, cloned, parent) {
       (isFrontMatter(parent.nodes[0]) && parent.nodes[1] === original)
     ) {
       /**
-       * something
-       *
-       * @format
-       */
+      something
+
+      @format
+      */
       delete cloned.text;
 
       // standalone pragma

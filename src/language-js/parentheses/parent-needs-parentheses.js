@@ -13,8 +13,8 @@ import { returnArgumentHasLeadingComment } from "../utilities/return-statement-h
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- */
+@import AstPath from "../../common/ast-path.js"
+*/
 
 // TODO[@fisker]: Remove `needsParentheses`
 
@@ -158,9 +158,9 @@ function willArgumentBreakAndAddParentheses(path, options) {
 }
 
 /**
- * @param {AstPath} path
- * @returns {boolean}
- */
+@param {AstPath} path
+@returns {boolean}
+*/
 function shouldWrapFunctionForExportDefault(path, options, needsParentheses) {
   const { node, parent } = path;
 

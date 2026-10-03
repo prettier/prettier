@@ -4,15 +4,15 @@ import { isAutolink, isNewLine } from "../utilities.js";
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @return {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@return {Doc}
+*/
 function printWord(path, options) {
   const { node } = path;
   const emphasisOrStrong = path.findAncestor(
@@ -72,11 +72,11 @@ function printWord(path, options) {
 }
 
 /**
- * @param {string | undefined} preceding
- * @param {string} delimiterRun
- * @param {string | undefined} following
- * @returns {boolean | null}
- */
+@param {string | undefined} preceding
+@param {string} delimiterRun
+@param {string | undefined} following
+@returns {boolean | null}
+*/
 function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
   if (!preceding || !following) {
     return null; // cannot determine
@@ -116,9 +116,9 @@ function canOpenOrCloseStrongOrEmphasis(preceding, delimiterRun, following) {
 }
 
 /**
- * @param {AstPath} path
- * @return {Doc}
- */
+@param {AstPath} path
+@return {Doc}
+*/
 function printWordLegacy(path) {
   const { node } = path;
   let escapedValue = node.value

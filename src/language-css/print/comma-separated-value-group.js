@@ -41,16 +41,16 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
- * @param {AstPath} path
- * @param {*} options
- * @param {(...args: *[]) => Doc} print
- * @returns {Doc}
- */
+@param {AstPath} path
+@param {*} options
+@param {(...args: *[]) => Doc} print
+@returns {Doc}
+*/
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;

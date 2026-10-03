@@ -1,16 +1,16 @@
 import * as vnopts from "vnopts";
 
 /**
- * @import {NamedOptionInfo} from "./support.js"
- */
+@import {NamedOptionInfo} from "./support.js"
+*/
 
 let hasDeprecationWarned;
 
 /**
- * @param {*} options
- * @param {*} optionInfos
- * @param {{ logger?: false; isCLI?: boolean; passThrough?: string[] | boolean; FlagSchema?: any; descriptor?: any }} param2
- */
+@param {*} options
+@param {*} optionInfos
+@param {{ logger?: false; isCLI?: boolean; passThrough?: string[] | boolean; FlagSchema?: any; descriptor?: any }} param2
+*/
 function normalizeOptions(
   options,
   optionInfos,
@@ -106,10 +106,10 @@ function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
 }
 
 /**
- * @param {NamedOptionInfo} optionInfo
- * @param {any} param1
- * @returns
- */
+@param {NamedOptionInfo} optionInfo
+@param {any} param1
+@returns
+*/
 function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
   const { name } = optionInfo;
 

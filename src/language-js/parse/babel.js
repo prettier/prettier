@@ -17,8 +17,8 @@ const createBabelParser = (options) => createParser(createParse(options));
 /** @import {ParserOptions, ParserPlugin, ParseError} from "@babel/parser" */
 
 /**
- * @typedef {typeof babelParse | typeof parseExpression} Parse
- */
+@typedef {typeof babelParse | typeof parseExpression} Parse
+*/
 
 /** @type {ParserOptions} */
 const parseOptions = {

@@ -43,16 +43,16 @@ async function getPrettierVersion() {
 }
 
 /**
- * @param {import("fs").PathLike} path
- */
+@param {import("fs").PathLike} path
+*/
 function relativeURL(path) {
   return new URL(path, import.meta.url);
 }
 
 /**
- * @param {import("fs").PathLike} path
- * @param {string} version
- */
+@param {import("fs").PathLike} path
+@param {string} version
+*/
 async function replaceVersionPlaceholder(path, version) {
   let content = await fs.readFile(path, "utf8");
   content = content.replaceAll("%PRETTIER_VERSION%", version);

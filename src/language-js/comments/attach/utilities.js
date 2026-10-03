@@ -31,9 +31,9 @@ const isSingleLineComment = (comment, text) =>
   isLineComment(comment) || isSingleLineBlockComment(comment, text);
 
 /**
- * @param {Node} node
- * @returns {void}
- */
+@param {Node} node
+@returns {void}
+*/
 function addBlockOrNotComment(node, comment) {
   if (node.type === "BlockStatement") {
     addBlockStatementFirstComment(node, comment);
@@ -43,9 +43,9 @@ function addBlockOrNotComment(node, comment) {
 }
 
 /**
- * @param {Node} node
- * @returns {void}
- */
+@param {Node} node
+@returns {void}
+*/
 function addBlockStatementFirstComment(node, comment) {
   // @ts-expect-error
   const firstNonEmptyNode = (node.body || node.properties).find(

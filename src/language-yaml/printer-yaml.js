@@ -385,8 +385,8 @@ function shouldPrintDocumentEndMarker(path) {
   }
 
   /**
-   *... # trailingComment
-   */
+  ... # trailingComment
+  */
   if (hasTrailingComment(document)) {
     return true;
   }
@@ -399,16 +399,16 @@ function shouldPrintDocumentEndMarker(path) {
 
   return (
     /**
-     * ...
-     * %DIRECTIVE
-     * ---
-     */
+    ...
+    %DIRECTIVE
+    ---
+    */
     nextDocument.head.children.length > 0 ||
     /**
-     * ...
-     * # endComment
-     * ---
-     */
+    ...
+    # endComment
+    ---
+    */
     hasEndComments(nextDocument.head)
   );
 }
@@ -417,23 +417,23 @@ function shouldPrintDocumentHeadEndMarker(path) {
   const document = path.node;
   return (
     /**
-     * ---
-     * preserve the first document head end marker
-     */
+    ---
+    preserve the first document head end marker
+    */
     document.directivesEndMarker ||
     /**
-     * %DIRECTIVE
-     * ---
-     */
+    %DIRECTIVE
+    ---
+    */
     document.head.children.length > 0 ||
     /**
-     * # end comment
-     * ---
-     */
+    # end comment
+    ---
+    */
     hasEndComments(document.head) ||
     /**
-     * --- # trailing comment
-     */
+    --- # trailing comment
+    */
     hasTrailingComment(document.head)
   );
 }

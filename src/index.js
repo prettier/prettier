@@ -37,10 +37,10 @@ import inferParserWithoutPlugins from "./utilities/infer-parser.js";
 import omit from "./utilities/object-omit.js";
 
 /**
- * @param {*} fn
- * @param {number} [optionsArgumentIndex]
- * @returns {*}
- */
+@param {*} fn
+@param {number} [optionsArgumentIndex]
+@returns {*}
+*/
 function withPlugins(
   fn,
   optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
