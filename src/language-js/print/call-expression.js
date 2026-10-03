@@ -40,6 +40,7 @@ function printCallExpression(path, options, print) {
     node.type !== "TSImportType" && node.typeArguments
       ? [print("typeArguments"), lineSuffixBoundary]
       : "";
+
   const isTemplateLiteralSingleArg =
     args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
 
