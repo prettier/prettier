@@ -48,7 +48,7 @@ function addBlockOrNotComment(node, comment) {
  */
 function addBlockStatementFirstComment(node, comment) {
   // @ts-expect-error
-  const firstNonEmptyNode = (node.body || node.properties).find(
+  const firstNonEmptyNode = (node.body || node.properties || node.members).find(
     ({ type }) => type !== "EmptyStatement",
   );
   if (firstNonEmptyNode) {
