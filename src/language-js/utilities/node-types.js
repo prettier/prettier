@@ -183,4 +183,9 @@ export const isModuleDeclaration = createTypeCheckFunction([
   "DeclareNamespace",
 ]);
 
+export const isConstructorType = createTypeCheckFunction([
+  "TSConstructorType",
+  "ConstructorTypeAnnotation",
+]);
+
 export * from "./literal.js";

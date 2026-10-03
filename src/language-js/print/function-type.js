@@ -1,6 +1,7 @@
 import { group } from "../../document/index.js";
 import { hasSameLocStart } from "../location/index.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
+import { isConstructorType } from "../utilities/node-types.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
@@ -27,8 +28,7 @@ function printFunctionType(path, options, print) {
   const parts = [printAbstractToken(path)];
 
   if (
-    node.type === "TSConstructorType" ||
-    node.type === "ConstructorTypeAnnotation" ||
+    isConstructorType(node) ||
     node.type === "TSConstructSignatureDeclaration"
   ) {
     parts.push("new ");
