@@ -19,11 +19,13 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { isMemberExpression } from "../utilities/node-types.js";
-import { isAbstractPropertyDefinition } from "../utilities/node-types.js";
+import {
+  isAbstractPropertyDefinition,
+  isMemberExpression,
+} from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
-import { printClassBody, printClassMemberSemicolon } from "./class-body.js";
+import { printClassMemberSemicolon } from "./class-body.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -332,7 +334,6 @@ function printClassProperty(path, options, print) {
   if (node.override) {
     parts.push("override ");
   }
-
   if (node.readonly) {
     parts.push("readonly ");
   }
