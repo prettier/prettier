@@ -179,7 +179,9 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 }
 
 async function formatRange(originalText, opts) {
-  const { ast, text } = await parseText(originalText, opts);
+  let { ast, text } = await parseText(originalText, opts);
+  // Attach comments before choosing the range so ignore directives are visible.
+  ({ ast } = await prepareToPrint(ast, opts));
   const [rangeStart, rangeEnd] = calculateRange(text, opts, ast) ?? [0, 0];
   const rangeString = text.slice(rangeStart, rangeEnd);
 
