@@ -269,6 +269,8 @@ const configs = [
       "unicorn/no-array-reverse": "off",
       "unicorn/no-array-sort": "off",
       "unicorn/no-array-splice": "off",
+      // TODO: enable
+      "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-break-in-nested-loop": "off",
       "unicorn/no-computed-property-existence-check": "off",
