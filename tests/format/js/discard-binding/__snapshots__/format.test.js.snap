@@ -585,9 +585,9 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-async-arrow-params.js format[yuku] 1`] = `
-"Unexpected token ')' (1:12)
+"'void' is reserved and cannot be used as a binding identifier (1:8)
 > 1 | async (void) => {}
-    |            ^
+    |        ^^^^
   2 |"
 `;
 

@@ -1,3 +1,21 @@
+# 3.9.9
+
+[diff](https://github.com/prettier/prettier/compare/3.9.8...3.9.9)
+
+#### Markdown: Fix text with `$` been incorrectly parsed as math syntax ([#20140](https://github.com/prettier/prettier/pull/20140) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR` from `c.sh`, before anything else runs here.
+
+<!-- Prettier 3.9.8 -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR`from`c.sh`, before anything else runs here.
+
+<!-- Prettier 3.9.9 -->
+**Uses $FOO** from `a.sh` and `b.sh`, plus `$BAR` from `c.sh`, before anything else runs here.
+```
+
 # 3.9.8
 
 [diff](https://github.com/prettier/prettier/compare/3.9.7...3.9.8)

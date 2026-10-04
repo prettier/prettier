@@ -97,16 +97,29 @@ const jestLightRunnerVersion =
       ? "0.8.1"
       : undefined;
 
+const resolutions = { ...packageJson.resolutions };
+const devDependencies = { ...packageJson.devDependencies };
 if (jestVersion) {
-  packageJson.resolutions = {
-    ...packageJson.resolutions,
-    ...Object.fromEntries(jestDependencies.map((name) => [name, jestVersion])),
-  };
+  Object.assign(
+    resolutions,
+    Object.fromEntries(jestDependencies.map((name) => [name, jestVersion])),
+  );
 }
 if (jestLightRunnerVersion) {
-  packageJson.devDependencies["jest-light-runner"] = jestLightRunnerVersion;
+  devDependencies["jest-light-runner"] = jestLightRunnerVersion;
+
+  if (nodeVersion === 18) {
+    Object.assign(resolutions, {
+      // Avoid different versions installed
+      "jest-snapshot": devDependencies.jest,
+    });
+  }
 }
 
-const content = JSON.stringify(packageJson, undefined, 2);
+const content = JSON.stringify(
+  { ...packageJson, resolutions, devDependencies },
+  undefined,
+  2,
+);
 
 fs.writeFileSync(packageJsonFile, content);

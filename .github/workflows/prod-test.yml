@@ -112,7 +112,7 @@ jobs:
         if: ${{ matrix.node == '14' || matrix.node == '16' || matrix.node == '18' }}
         run: node ./scripts/prepare-test-for-legacy-nodejs.js --node-version ${{ matrix.node }}
 
-      - name: Install Dependencies(mutable)
+      - name: Install Dependencies (mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' || matrix.node == '18' }}
         run: yarn --no-immutable
 
