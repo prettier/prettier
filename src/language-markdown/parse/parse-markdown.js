@@ -3,7 +3,6 @@ import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
-import { math as mathSyntax } from "micromark-extension-math";
 import parseFrontMatter from "../../main/front-matter/parse.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
@@ -11,13 +10,14 @@ import {
   liquidFromMarkdown,
   liquidSyntax,
 } from "./micromark/micromark-extension-liquid.js";
+import { mathSyntax } from "./micromark/micromark-extension-math.js";
 
 let markdownParseOptions;
 function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
     extensions: [
       gfmSyntax({ singleTilde: false }),
-      mathSyntax({ singleDollarTextMath: false }),
+      mathSyntax(),
       wikiLinkSyntax({
         // We don't need support alias, use a fake string to bypass
         // https://github.com/stereobooster/braindb/blob/66d6cf74d0bad43f20924a14e382a432ff81cdfa/packages/micromark-extension-wiki-link/src/syntax.ts#L81
