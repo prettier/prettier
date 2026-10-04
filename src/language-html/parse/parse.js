@@ -21,11 +21,26 @@ import { postprocess } from "./postprocess.js";
 @typedef {FrontMatter & {kind: "frontMatter", sourceSpan: ParseSourceSpan}} HtmlFrontMatter
 */
 
+const ANGULAR_CONTROL_FLOW_BLOCK_START =
+  /@(?:if|for|switch)\s*\(|@defer(?:\s*\(|\s*\{)/;
+
+function shouldTokenizeAngularControlFlow(input, parseOptions) {
+  return (
+    parseOptions.name === "html" &&
+    !parseOptions.tokenizeAngularBlocks &&
+    ANGULAR_CONTROL_FLOW_BLOCK_START.test(input)
+  );
+}
+
 /**
 @param {string} input
 @param {ParseOptions} parseOptions
 */
 function parseHtml(input, parseOptions) {
+  if (shouldTokenizeAngularControlFlow(input, parseOptions)) {
+    parseOptions = { ...parseOptions, tokenizeAngularBlocks: true };
+  }
+
   const { rootNodes, errors } = angularHtmlParserParse(
     input,
     toAngularHtmlParserParseOptions(parseOptions),

@@ -20,6 +20,31 @@ describe("infers postcss parser with --list-different", () => {
 });
 
 describe("infers parser from filename", () => {
+  test("html with Angular control flow", async () => {
+    expect(
+      await prettier.format(
+        outdent`
+          <div>
+            @for (item of model; track item) { @if (item === 'test') {
+            <div>{{ item }}</div>
+            } }
+          </div>
+        `,
+        { filepath: "x/y/user-input.html" },
+      ),
+    ).toBe(
+      outdent`
+        <div>
+          @for (item of model; track item) {
+            @if (item === "test") {
+              <div>{{ item }}</div>
+            }
+          }
+        </div>
+      ` + "\n",
+    );
+  });
+
   test("json from .prettierrc", async () => {
     expect(
       await prettier.format("  {   }  ", { filepath: "x/y/.prettierrc" }),

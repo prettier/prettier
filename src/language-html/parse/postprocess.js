@@ -63,8 +63,11 @@ function postprocess(rawAst, frontMatter, parseOptions, parseSubHtml) {
       delete node.comments;
     }
 
-    if (isAngular) {
+    if (parseOptions.tokenizeAngularBlocks) {
       normalizeAngularControlFlowBlock(node);
+    }
+
+    if (isAngular) {
       normalizeAngularLetDeclaration(node);
       normalizeAngularIcuExpression(node);
     }
