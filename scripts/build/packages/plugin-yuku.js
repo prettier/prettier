@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import path from "node:path";
-import yukuParserWasmPackageJson from "@yuku-parser/wasm/package.json" with { type: "json" };
+import yukuParserWasmPackageJson from "@yuku-core/wasm/package.json" with { type: "json" };
 import yukuParserPackageJson from "yuku-parser/package.json" with { type: "json" };
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
