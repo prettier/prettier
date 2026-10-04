@@ -14,10 +14,6 @@ function printPrettierIgnored(path, options) {
     path.node.position.end.offset,
   );
 
-  if (options.parser === "mdx") {
-    return originalText;
-  }
-
   switch (path.node.type) {
     case "list":
       if (
