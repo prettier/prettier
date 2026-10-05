@@ -332,7 +332,13 @@ function printMdast(path, options, print) {
       return node.value.trimEnd();
     case "mdxFlowExpression":
     case "mdxTextExpression":
-      return ["{", node.value.trim(), "}"];
+      return [
+        "{",
+        /^[^\S\n]*\n/.test(node.value) ? hardline : "",
+        node.value.trim(),
+        /\n[^\S\n]*$/.test(node.value) ? hardline : "",
+        "}",
+      ];
     case "mdxJsxExpressionAttribute":
       return ["{", node.value, "}"];
     case "mdxJsxFlowElement":
