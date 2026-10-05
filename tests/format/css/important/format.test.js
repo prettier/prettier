@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["css"]);
+runFormatTest(import.meta, ["css", "less", "scss"]);

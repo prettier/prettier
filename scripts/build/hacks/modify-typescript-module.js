@@ -1,6 +1,6 @@
 import path from "node:path";
 import escapeStringRegexp from "escape-string-regexp";
-import MagicString from "magic-string";
+import { MagicString } from "magic-string";
 import { outdent } from "outdent";
 import { PROJECT_ROOT, writeFile } from "../../utilities/index.js";
 import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
@@ -38,23 +38,39 @@ class TypeScriptModuleSource {
     this.modules = [...getModules(text)];
   }
 
-  replaceModule(module, replacement) {
-    if (typeof module === "string") {
-      const found = this.modules.find((searching) => searching.path === module);
+  replaceModule(moduleOrFilter, replacement) {
+    let modules;
+    if (typeof moduleOrFilter === "string") {
+      const modulePath = moduleOrFilter;
+      const found = this.modules.find(
+        (searching) => searching.path === modulePath,
+      );
 
       if (!found) {
-        throw new Error(`Module '${module}' not found`);
+        throw new Error(`Module '${modulePath}' not found`);
       }
 
-      module = found;
+      modules = [found];
+    } else if (typeof moduleOrFilter === "function") {
+      const filter = moduleOrFilter;
+      const matched = this.modules.filter((searching) => filter(searching));
+
+      if (matched.length === 0) {
+        throw new Error("No matched modules found");
+      }
+      modules = matched;
+    } else {
+      modules = [moduleOrFilter];
     }
 
-    this.#source.overwrite(module.start, module.end, replacement);
+    for (const { start, end } of modules) {
+      this.#source.overwrite(start, end, replacement);
+    }
     return this;
   }
 
-  removeModule(module) {
-    return this.replaceModule(module, "");
+  removeModule(moduleOrFilter) {
+    return this.replaceModule(moduleOrFilter, "");
   }
 
   hasModule(module) {
@@ -103,12 +119,6 @@ class TypeScriptModuleSource {
   replaceAll(...args) {
     this.#source.replaceAll(...args);
     return this;
-  }
-
-  applyChanges() {
-    const text = this.#source.toString();
-    this.#source = new MagicString(text);
-    this.modules = getModules(text);
   }
 
   toString() {
@@ -176,18 +186,10 @@ function modifyTypescriptModule(text) {
   source.removeModule(entry);
 
   // Deprecated
-  for (const module of source.modules) {
-    if (module.path.startsWith("src/deprecatedCompat/")) {
-      source.removeModule(module);
-    }
-  }
+  source.removeModule(({ path }) => path.startsWith("src/deprecatedCompat/"));
 
   // jsTyping
-  for (const module of source.modules) {
-    if (module.path.startsWith("src/jsTyping/")) {
-      source.removeModule(module);
-    }
-  }
+  source.removeModule(({ path }) => path.startsWith("src/jsTyping/"));
 
   // services
   for (const module of source.modules) {
@@ -211,26 +213,18 @@ function modifyTypescriptModule(text) {
 
   // server
   source.removeModule("src/typescript/_namespaces/ts.server.ts");
-  for (const module of source.modules) {
-    if (module.path.startsWith("src/server/")) {
-      source.removeModule(module);
-    }
-  }
+  source.removeModule(({ path }) => path.startsWith("src/server/"));
 
   // `transformers`
   source.removeModule("src/compiler/transformer.ts");
-  for (const module of source.modules) {
-    if (module.path.startsWith("src/compiler/transformers/")) {
-      source.removeModule(module);
-    }
-  }
+  source.removeModule(({ path }) =>
+    path.startsWith("src/compiler/transformers/"),
+  );
 
   // `typingsInstaller`
-  for (const module of source.modules) {
-    if (module.path.startsWith("src/typingsInstallerCore/")) {
-      source.removeModule(module);
-    }
-  }
+  source.removeModule(({ path }) =>
+    path.startsWith("src/typingsInstallerCore/"),
+  );
 
   // `ts.moduleSpecifiers`
   source.removeModule("src/compiler/_namespaces/ts.moduleSpecifiers.ts");

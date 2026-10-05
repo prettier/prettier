@@ -12,16 +12,12 @@ exports[`schema 1`] = `
           "description": "Include parentheses around a sole arrow function parameter.",
           "oneOf": [
             {
+              "const": "always",
               "description": "Always include parens. Example: \`(x) => x\`",
-              "enum": [
-                "always",
-              ],
             },
             {
+              "const": "avoid",
               "description": "Omit parens when possible. Example: \`x => x\`",
-              "enum": [
-                "avoid",
-              ],
             },
           ],
         },
@@ -50,16 +46,12 @@ exports[`schema 1`] = `
           "description": "Control how Prettier formats quoted code embedded in the file.",
           "oneOf": [
             {
+              "const": "auto",
               "description": "Format embedded code if Prettier can automatically identify it.",
-              "enum": [
-                "auto",
-              ],
             },
             {
+              "const": "off",
               "description": "Never automatically format embedded code.",
-              "enum": [
-                "off",
-              ],
             },
           ],
         },
@@ -68,29 +60,21 @@ exports[`schema 1`] = `
           "description": "Which end of line characters to apply.",
           "oneOf": [
             {
+              "const": "lf",
               "description": "Line Feed only (\\n), common on Linux and macOS as well as inside git repos",
-              "enum": [
-                "lf",
-              ],
             },
             {
+              "const": "crlf",
               "description": "Carriage Return + Line Feed characters (\\r\\n), common on Windows",
-              "enum": [
-                "crlf",
-              ],
             },
             {
+              "const": "cr",
               "description": "Carriage Return character only (\\r), used very rarely",
-              "enum": [
-                "cr",
-              ],
             },
             {
+              "const": "auto",
               "description": "Maintain existing
 (mixed values within one file are normalised by looking at what's used after the first line)",
-              "enum": [
-                "auto",
-              ],
             },
           ],
         },
@@ -99,16 +83,12 @@ exports[`schema 1`] = `
           "description": "Where to print operators when binary expressions wrap lines.",
           "oneOf": [
             {
+              "const": "start",
               "description": "Print operators at the start of new lines.",
-              "enum": [
-                "start",
-              ],
             },
             {
+              "const": "end",
               "description": "Print operators at the end of previous lines.",
-              "enum": [
-                "end",
-              ],
             },
           ],
         },
@@ -127,22 +107,16 @@ exports[`schema 1`] = `
           "description": "How to handle whitespaces in HTML.",
           "oneOf": [
             {
+              "const": "css",
               "description": "Respect the default value of CSS display property.",
-              "enum": [
-                "css",
-              ],
             },
             {
+              "const": "strict",
               "description": "Whitespaces are considered sensitive.",
-              "enum": [
-                "strict",
-              ],
             },
             {
+              "const": "ignore",
               "description": "Whitespaces are considered insensitive.",
-              "enum": [
-                "ignore",
-              ],
             },
           ],
         },
@@ -161,170 +135,116 @@ exports[`schema 1`] = `
           "description": "How to wrap object literals.",
           "oneOf": [
             {
+              "const": "preserve",
               "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
-              "enum": [
-                "preserve",
-              ],
             },
             {
+              "const": "collapse",
               "description": "Fit to a single line when possible.",
-              "enum": [
-                "collapse",
-              ],
             },
           ],
         },
         "parser": {
           "anyOf": [
             {
+              "const": "flow",
               "description": "Flow",
-              "enum": [
-                "flow",
-              ],
             },
             {
+              "const": "babel",
               "description": "JavaScript",
-              "enum": [
-                "babel",
-              ],
             },
             {
+              "const": "babel-flow",
               "description": "Flow",
-              "enum": [
-                "babel-flow",
-              ],
             },
             {
+              "const": "babel-ts",
               "description": "TypeScript",
-              "enum": [
-                "babel-ts",
-              ],
             },
             {
+              "const": "typescript",
               "description": "TypeScript",
-              "enum": [
-                "typescript",
-              ],
             },
             {
+              "const": "acorn",
               "description": "JavaScript",
-              "enum": [
-                "acorn",
-              ],
             },
             {
+              "const": "espree",
               "description": "JavaScript",
-              "enum": [
-                "espree",
-              ],
             },
             {
+              "const": "meriyah",
               "description": "JavaScript",
-              "enum": [
-                "meriyah",
-              ],
             },
             {
+              "const": "css",
               "description": "CSS",
-              "enum": [
-                "css",
-              ],
             },
             {
+              "const": "less",
               "description": "Less",
-              "enum": [
-                "less",
-              ],
             },
             {
+              "const": "scss",
               "description": "SCSS",
-              "enum": [
-                "scss",
-              ],
             },
             {
+              "const": "json",
               "description": "JSON",
-              "enum": [
-                "json",
-              ],
             },
             {
+              "const": "json5",
               "description": "JSON5",
-              "enum": [
-                "json5",
-              ],
             },
             {
+              "const": "jsonc",
               "description": "JSON with Comments",
-              "enum": [
-                "jsonc",
-              ],
             },
             {
+              "const": "json-stringify",
               "description": "JSON.stringify",
-              "enum": [
-                "json-stringify",
-              ],
             },
             {
+              "const": "graphql",
               "description": "GraphQL",
-              "enum": [
-                "graphql",
-              ],
             },
             {
+              "const": "markdown",
               "description": "Markdown",
-              "enum": [
-                "markdown",
-              ],
             },
             {
+              "const": "mdx",
               "description": "MDX",
-              "enum": [
-                "mdx",
-              ],
             },
             {
+              "const": "vue",
               "description": "Vue",
-              "enum": [
-                "vue",
-              ],
             },
             {
+              "const": "yaml",
               "description": "YAML",
-              "enum": [
-                "yaml",
-              ],
             },
             {
+              "const": "glimmer",
               "description": "Ember / Handlebars",
-              "enum": [
-                "glimmer",
-              ],
             },
             {
+              "const": "html",
               "description": "HTML",
-              "enum": [
-                "html",
-              ],
             },
             {
+              "const": "angular",
               "description": "Angular",
-              "enum": [
-                "angular",
-              ],
             },
             {
+              "const": "lwc",
               "description": "Lightning Web Components",
-              "enum": [
-                "lwc",
-              ],
             },
             {
+              "const": "mjml",
               "description": "MJML",
-              "enum": [
-                "mjml",
-              ],
             },
             {
               "description": "Custom parser",
@@ -352,22 +272,16 @@ exports[`schema 1`] = `
           "description": "How to wrap prose.",
           "oneOf": [
             {
+              "const": "always",
               "description": "Wrap prose if it exceeds the print width.",
-              "enum": [
-                "always",
-              ],
             },
             {
+              "const": "never",
               "description": "Do not wrap prose.",
-              "enum": [
-                "never",
-              ],
             },
             {
+              "const": "preserve",
               "description": "Wrap prose as-is.",
-              "enum": [
-                "preserve",
-              ],
             },
           ],
         },
@@ -376,22 +290,16 @@ exports[`schema 1`] = `
           "description": "Change when properties in objects are quoted.",
           "oneOf": [
             {
+              "const": "as-needed",
               "description": "Only add quotes around object properties where required.",
-              "enum": [
-                "as-needed",
-              ],
             },
             {
+              "const": "consistent",
               "description": "If at least one property in an object requires quotes, quote all properties.",
-              "enum": [
-                "consistent",
-              ],
             },
             {
+              "const": "preserve",
               "description": "Respect the input use of quotes in object properties.",
-              "enum": [
-                "preserve",
-              ],
             },
           ],
         },
@@ -437,22 +345,16 @@ The range will extend backwards to the start of the first line containing the se
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": [
             {
+              "const": "all",
               "description": "Trailing commas wherever possible (including function arguments).",
-              "enum": [
-                "all",
-              ],
             },
             {
+              "const": "es5",
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
-              "enum": [
-                "es5",
-              ],
             },
             {
+              "const": "none",
               "description": "No trailing commas.",
-              "enum": [
-                "none",
-              ],
             },
           ],
         },

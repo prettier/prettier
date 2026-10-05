@@ -1,4 +1,5 @@
-// https://babeljs.io/docs/babel-plugin-proposal-export-default-from
+/*
+`exportDefaultFrom` ([proposal](https://github.com/tc39/ecmascript-export-default-from))
+*/
 
-
-export v from 'mod';
+export v from "mod"

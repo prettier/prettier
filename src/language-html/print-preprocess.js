@@ -13,6 +13,7 @@ import {
 } from "./utilities/index.js";
 
 const PREPROCESS_PIPELINE = [
+  convertAngularNonBindableNodesToText,
   removeIgnorableFirstLf,
   mergeIfConditionalStartEndCommentIntoElementOpeningTag,
   mergeCdataIntoText,
@@ -95,6 +96,89 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
       }
     }
   });
+}
+
+function convertAngularNonBindableNodesToText(ast, options) {
+  if (
+    options.parser !== "angular" ||
+    !options.originalText.includes("ngNonBindable")
+  ) {
+    return;
+  }
+
+  ast.walk((node) => {
+    if (
+      node.kind === "element" &&
+      Object.hasOwn(node.attrMap, "ngNonBindable")
+    ) {
+      convertAngularNonBindableChildren(node, options);
+    }
+  });
+}
+
+// TODO: Avoid recursive call
+function convertAngularNonBindableChildren(node, options) {
+  const { children } = node;
+  if (!children) {
+    return;
+  }
+
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+
+    if (child.kind === "angularControlFlowBlock") {
+      convertAngularNonBindableChildren(child, options);
+
+      const replacements = [];
+      let { start } = child.sourceSpan;
+      for (const blockChild of child.children) {
+        if (start.offset < blockChild.sourceSpan.start.offset) {
+          const sourceSpan = new ParseSourceSpan(
+            start,
+            blockChild.sourceSpan.start,
+          );
+          replacements.push(createOriginalTextNode(sourceSpan, options));
+        }
+
+        replacements.push(blockChild);
+        start = blockChild.sourceSpan.end;
+      }
+
+      if (start.offset < child.sourceSpan.end.offset) {
+        const sourceSpan = new ParseSourceSpan(start, child.sourceSpan.end);
+        replacements.push(createOriginalTextNode(sourceSpan, options));
+      }
+
+      for (const replacement of replacements) {
+        node.insertChildBefore(child, replacement);
+      }
+      node.removeChild(child);
+
+      i += replacements.length - 1;
+      continue;
+    }
+
+    if (child.kind === "angularLetDeclaration") {
+      node.replaceChild(
+        child,
+        createOriginalTextNode(child.sourceSpan, options),
+      );
+      continue;
+    }
+
+    convertAngularNonBindableChildren(child, options);
+  }
+}
+
+function createOriginalTextNode(sourceSpan, options) {
+  return {
+    kind: "text",
+    value: options.originalText.slice(
+      sourceSpan.start.offset,
+      sourceSpan.end.offset,
+    ),
+    sourceSpan,
+  };
 }
 
 function mergeNodeIntoText(ast, shouldMerge, getValue) {

@@ -4,6 +4,7 @@ import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
+import { isDtsFile } from "./utilities/is-dts-file.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import { shouldEnableJsx } from "./utilities/jsx-support.js";
 import {
@@ -103,10 +104,7 @@ function parseJs(text, options) {
 function getLanguageCombinations(text, options) {
   const filepath = options?.filepath;
 
-  if (
-    typeof filepath === "string" &&
-    filepath.toLowerCase().endsWith(".d.ts")
-  ) {
+  if (isDtsFile(filepath)) {
     return ["dts"];
   }
 

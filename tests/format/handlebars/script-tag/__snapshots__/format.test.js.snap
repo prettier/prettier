@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`script-tag.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script></script>
+
+<script>   </script>
+
+<script type="module">
+  import    a   from   "a"   ;
+</script>
+
+<script>
+  // Should not support TLA in script without \`[type="module"]\`
+  await shouldNotFormat   (   a   );
+</script>
+<script type="module">
+  // TLA
+  await shouldFormat   (   a   );
+</script>
+
+<script type="module">
+<!--Should not support HTML comment in \`script[type="module"]\`
+  shouldNotFormat   (   a   );
+-->
+</script>
+<script>
+<!--html comment
+  shouldFormat   (   a   );
+-->
+</script>
+
+<script>
+  const template = html\`<div><script>shouldFormat   (   )<\\/script></div>\`;
+</script>
+
+=====================================output=====================================
+<script></script>
+
+<script></script>
+
+<script type="module">
+  import a from "a";
+</script>
+
+<script>
+  // Should not support TLA in script without \`[type="module"]\`
+  await shouldNotFormat   (   a   );
+</script>
+<script type="module">
+  // TLA
+  await shouldFormat(a);
+</script>
+
+<script type="module">
+  <!--Should not support HTML comment in \`script[type="module"]\`
+    shouldNotFormat   (   a   );
+  -->
+</script>
+<script>
+  <!--html comment
+  shouldFormat(a);
+  -->
+</script>
+
+<script>
+  const template = html\`<div>
+    <script>
+      shouldFormat();
+    <\\/script>
+  </div>\`;
+</script>
+================================================================================
+`;
+
+exports[`type-attribute.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+   shouldFormat   (   );
+</script>
+
+<script type="text/javascript">
+   shouldFormat   (   );
+</script>
+
+<script type>
+   shouldNotFormat   (   );
+</script>
+<script type="">
+   shouldNotFormat   (   );
+</script>
+<script type="unknown">
+   shouldNotFormat   (   );
+</script>
+
+<script type="application/ld+json">
+  {   "should"   :   "not format" }
+</script>
+
+=====================================output=====================================
+<script>
+  shouldFormat();
+</script>
+
+<script type="text/javascript">
+  shouldFormat();
+</script>
+
+<script type>
+  shouldNotFormat   (   );
+</script>
+<script type="">
+  shouldNotFormat   (   );
+</script>
+<script type="unknown">
+  shouldNotFormat   (   );
+</script>
+
+<script type="application/ld+json">
+  {   "should"   :   "not format" }
+</script>
+================================================================================
+`;
+
+exports[`with-mustache.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script>
+  shouldNotFormat(   {{foo}} )
+</script>
+<script>
+  shouldNotFormat(   '{{user.name}}' )
+  {{#if debug}}shouldNotFormat(   'debug' ){{/if}}
+</script>
+<script>{{foo}}</script>
+
+=====================================output=====================================
+<script>
+  shouldNotFormat(
+  {{foo}}
+  )
+</script>
+<script>
+  shouldNotFormat( '{{user.name}}' )
+  {{#if debug}}shouldNotFormat( 'debug' ){{/if}}
+</script>
+<script>{{foo}}</script>
+================================================================================
+`;
+
+exports[`with-src.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script src="main.js"></script>
+<script src="main.js">shouldNotFormat   (      );</script>
+<script src>shouldNotFormat   (      );</script>
+<script src="">shouldNotFormat   (      );</script>
+
+=====================================output=====================================
+<script src="main.js"></script>
+<script src="main.js">
+  shouldNotFormat   (      );
+</script>
+<script src>
+  shouldNotFormat   (      );
+</script>
+<script src="">
+  shouldNotFormat   (      );
+</script>
+================================================================================
+`;

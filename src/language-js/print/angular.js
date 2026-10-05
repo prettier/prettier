@@ -54,16 +54,11 @@ function printAngular(path, options, print) {
       const shouldNotPrintColon =
         isNgForOf(path) ||
         isNgForOfTrack(path) ||
-        (((index === 1 &&
+        (parent.body[0].type === "NGMicrosyntaxExpression" &&
           (node.key.name === "then" ||
             node.key.name === "else" ||
-            node.key.name === "as")) ||
-          (index === 2 &&
-            ((node.key.name === "else" &&
-              parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-              parent.body[index - 1].key.name === "then") ||
-              node.key.name === "track"))) &&
-          parent.body[0].type === "NGMicrosyntaxExpression");
+            node.key.name === "as" ||
+            (index === 2 && node.key.name === "track")));
       return [
         print("key"),
         shouldNotPrintColon ? " " : ": ",

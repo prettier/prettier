@@ -1626,6 +1626,9 @@ exports[`visitor keys remark 1`] = `
   "break": [],
   "code": [],
   "comment": [],
+  "containerDirective": [
+    "children",
+  ],
   "definition": [],
   "delete": [
     "children",
@@ -1648,6 +1651,9 @@ exports[`visitor keys remark 1`] = `
   "imageReference": [],
   "inlineCode": [],
   "inlineMath": [],
+  "leafDirective": [
+    "children",
+  ],
   "link": [
     "children",
   ],
@@ -1700,6 +1706,9 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "text": [],
+  "textDirective": [
+    "children",
+  ],
   "thematicBreak": [],
   "whitespace": [],
   "wikiLink": [],

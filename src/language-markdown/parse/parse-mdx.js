@@ -2,9 +2,11 @@ import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-l
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
 // https://github.com/leebyron/remark-comment/pull/3
 import { comment, commentFromMarkdown } from "@slorber/remark-comment";
+import { directiveFromMarkdown } from "mdast-util-directive";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
+import { directive as directiveSyntax } from "micromark-extension-directive";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { mdxExpression } from "micromark-extension-mdx-expression";
@@ -33,8 +35,8 @@ function getMarkdownParseOptions() {
   };
   return (markdownParseOptions ??= {
     extensions: [
-      gfmSyntax(),
-      mathSyntax(),
+      gfmSyntax({ singleTilde: false }),
+      mathSyntax({ singleDollarTextMath: false }),
       wikiLinkSyntax({
         // We don't need support alias, use a fake string to bypass
         // https://github.com/stereobooster/braindb/blob/66d6cf74d0bad43f20924a14e382a432ff81cdfa/packages/micromark-extension-wiki-link/src/syntax.ts#L81
@@ -45,6 +47,7 @@ function getMarkdownParseOptions() {
       mdxExpression(settings),
       mdxJsx(settings),
       mdxMd(),
+      directiveSyntax(),
       comment,
     ],
     mdastExtensions: [
@@ -52,6 +55,7 @@ function getMarkdownParseOptions() {
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       mdxFromMarkdown(),
+      directiveFromMarkdown(),
       // @ts-expect-error
       commentFromMarkdown({ ast: true }),
     ],

@@ -13,8 +13,6 @@ export function getSourceType(filepath) {
     return;
   }
 
-  filepath = filepath.toLowerCase();
-
   if (/\.(?:mjs|mts)$/i.test(filepath)) {
     return SOURCE_TYPE_MODULE;
   }

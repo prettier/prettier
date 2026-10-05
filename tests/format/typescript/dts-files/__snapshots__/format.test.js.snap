@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`const-without-initializer.d.cts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const    version: string;
+
+=====================================output=====================================
+const version: string;
+
+================================================================================
+`;
+
+exports[`const-without-initializer.d.mts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const    version: string;
+
+=====================================output=====================================
+export const version: string;
+
+================================================================================
+`;
+
+exports[`const-without-initializer.d.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const    version: string;
+
+=====================================output=====================================
+export const version: string;
+
+================================================================================
+`;
+
+exports[`const-without-initializer-in-namespace.d.cts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+namespace builders {
+  const    breakParent: string;
+}
+
+=====================================output=====================================
+namespace builders {
+  const breakParent: string;
+}
+
+================================================================================
+`;
+
+exports[`const-without-initializer-in-namespace.d.mts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export namespace builders {
+  const    breakParent: string;
+}
+
+=====================================output=====================================
+export namespace builders {
+  const breakParent: string;
+}
+
+================================================================================
+`;
+
+exports[`const-without-initializer-in-namespace.d.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export namespace builders {
+  const    breakParent: string;
+}
+
+=====================================output=====================================
+export namespace builders {
+  const breakParent: string;
+}
+
+================================================================================
+`;
