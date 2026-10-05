@@ -33,7 +33,6 @@ import {
 } from "./directive.js";
 import { printHeading } from "./heading.js";
 import { printList } from "./list.js";
-import { printRawMdxExpression } from "./mdx-expression.js";
 import { printMdxJsxAttribute } from "./mdx-jsx-attribute.js";
 import { printParagraph } from "./paragraph.js";
 import { printSentence } from "./sentence.js";
@@ -333,7 +332,13 @@ function printMdast(path, options, print) {
       return node.value.trimEnd();
     case "mdxFlowExpression":
     case "mdxTextExpression":
-      return printRawMdxExpression(node);
+      return [
+        "{",
+        /^[^\S\n]*\n/.test(node.value) ? hardline : "",
+        node.value.trim(),
+        /\n[^\S\n]*$/.test(node.value) ? hardline : "",
+        "}",
+      ];
     case "mdxJsxExpressionAttribute":
       return ["{", node.value, "}"];
     case "mdxJsxFlowElement":

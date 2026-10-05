@@ -38,15 +38,12 @@ text {
 // second
 }
 
-{
-/* block */
+{/* block */
 // then line
 }
 
-{
-// line
-/* then block */
-}
+{// line
+/* then block */}
 
 text {
 // line comment in text expression
@@ -173,15 +170,14 @@ text {foo()
 } />
 
 =====================================output=====================================
-{/**
+{
+/**
 * leading JSDoc
 */
 foo()}
 
-{
-// leading line comment
-foo()
-}
+{// leading line comment
+foo()}
 
 text {/* leading */ foo()} text
 
@@ -190,7 +186,8 @@ text {
 foo()
 } text
 
-{/**
+{
+/**
 * some JSDoc
 */
 here.is.some.expression()
@@ -201,29 +198,25 @@ here.is.some.expression()
 
 export function f(x) {}
 
-{
-foo()
+{foo()
 // trailing line comment
 }
 
-{
-foo() // same line comment
+{foo() // same line comment
 }
 
 <A b={foo()
 // trailing in attribute
 } />
 
-text {
-foo()
+text {foo()
 // trailing in text expression
 } text
 
 {foo() /* same line block comment stays */}
 
 <Wrapper>
-  {
-  foo()
+  {foo()
 // trailing inside JSX children
   }
 </Wrapper>
@@ -395,12 +388,10 @@ bar
 ]}
 
 =====================================output=====================================
-{
-foo(
+{foo(
 // nested comment
 bar
-)
-}
+)}
 
 {/**
 * leading
@@ -418,10 +409,8 @@ bar
 * trailing
 */}
 
-{
-[// inner
-]
-}
+{[// inner
+]}
 
 ================================================================================
 `;
