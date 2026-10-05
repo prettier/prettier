@@ -343,12 +343,17 @@ function printJsxChildren(
         if (words[0] === "") {
           words.shift();
           if (/\n/.test(words[0])) {
+            const trailingWhitespace =
+              jsxWhitespace.getTrailingWhitespace(text);
+
             pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
                 node,
-                getNextNonWhitespaceSibling(path),
+                trailingWhitespace && !/\n/.test(trailingWhitespace)
+                  ? undefined
+                  : next,
               ),
             );
           } else {
@@ -473,20 +478,6 @@ function separatorWithWhitespace(
   }
 
   return hardline;
-}
-
-function getNextNonWhitespaceSibling(path) {
-  const { index, siblings } = path;
-  for (let i = index + 1; i < siblings.length; i++) {
-    const candidate = siblings[i];
-    if (
-      candidate.type === "JSXText" &&
-      !jsxWhitespace.hasNonWhitespaceCharacter(getRaw(candidate))
-    ) {
-      continue;
-    }
-    return candidate;
-  }
 }
 
 const isNoWrapParent = createTypeCheckFunction([
