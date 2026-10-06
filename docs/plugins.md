@@ -563,7 +563,13 @@ export const defaultOptions = {
 
 ### Utility functions
 
-`prettier.util` provides the following limited set of utility functions for plugins:
+`prettier.util` provides the following limited set of utility functions for plugins. Import them from the `prettier` package. There is no separate `util-shared` module.
+
+```js
+import * as prettier from "prettier";
+
+const nextLineIsEmpty = prettier.util.isNextLineEmpty(text, startIndex);
+```
 
 ```ts
 type Quote = '"' | "'";
