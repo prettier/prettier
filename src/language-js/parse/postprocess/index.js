@@ -214,11 +214,42 @@ function postprocess(ast, options) {
     },
   });
 
+  if (astType === "typescript") {
+    removeDuplicateTypeScriptTopLevelStatements(ast);
+  }
+
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
     assertComments(comments, text);
   }
   return ast;
+}
+
+function removeDuplicateTypeScriptTopLevelStatements(ast) {
+  const { body } = ast.type === "File" ? ast.program : ast;
+
+  // TypeScript's top-level await reparse path can append the final
+  // statement twice with the same source range.
+  for (let index = body.length - 1; index > 0; index--) {
+    const node = body[index];
+    const previous = body[index - 1];
+
+    if (!hasSameTypeAndRange(node, previous)) {
+      break;
+    }
+
+    body.splice(index, 1);
+  }
+}
+
+function hasSameTypeAndRange(node, otherNode) {
+  return (
+    node.type === otherNode.type &&
+    Array.isArray(node.range) &&
+    Array.isArray(otherNode.range) &&
+    node.range[0] === otherNode.range[0] &&
+    node.range[1] === otherNode.range[1]
+  );
 }
 
 function isUnbalancedLogicalTree(node) {
