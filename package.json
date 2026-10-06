@@ -58,7 +58,7 @@
     "@typescript-eslint/typescript-estree": "8.70.1",
     "@typescript-eslint/visitor-keys": "8.70.1",
     "@yuku-core/wasm": "0.17.0",
-    "acorn": "8.18.0",
+    "acorn": "8.19.0",
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "15.5.0",
     "angular-html-parser": "10.13.0",
