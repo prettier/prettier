@@ -1946,7 +1946,7 @@ Cause: 'abstract' modifier can only appear on a class, method, or property decla
 `;
 
 exports[`snippet: #57 format[oxc-ts] 1`] = `
-"'abstract' modifier cannot be used here. (1:1)
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
     | ^^^^^^^^"
 `;

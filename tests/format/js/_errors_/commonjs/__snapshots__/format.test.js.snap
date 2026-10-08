@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 format[__babel_estree] 1`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (1:1)
+> 1 | await 1
+    | ^
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (1:0)"
+`;
+
+exports[`snippet: #0 format[acorn] 1`] = `
+"'import' and 'export' may appear only with 'sourceType: module' (1:1)
+> 1 | export {}
+    | ^
+Cause: 'import' and 'export' may appear only with 'sourceType: module' (1:0)"
+`;
+
+exports[`snippet: #0 format[acorn] 2`] = `
+"Unexpected token (1:7)
+> 1 | await 1
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #0 format[babel] 1`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (1:1)
+> 1 | await 1
+    | ^
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (1:0)"
+`;
+
+exports[`snippet: #0 format[babel-ts] 1`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (1:1)
+> 1 | await 1
+    | ^
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (1:0)"
+`;
+
+exports[`snippet: #0 format[espree] 1`] = `
+"'import' and 'export' may appear only with 'sourceType: module' (1:1)
+> 1 | export {}
+    | ^
+Cause: 'import' and 'export' may appear only with 'sourceType: module'"
+`;
+
+exports[`snippet: #0 format[espree] 2`] = `
+"Unexpected token 1 (1:7)
+> 1 | await 1
+    |       ^
+Cause: Unexpected token 1"
+`;
+
+exports[`snippet: #0 format[flow] 1`] = `
+"Unexpected number, expected the end of an expression statement (\`;\`) (1:7)
+> 1 | await 1
+    |       ^
+Cause: Unexpected number, expected the end of an expression statement (\`;\`) (1:6)"
+`;
+
+exports[`snippet: #0 format[hermes] 1`] = `
+"';' expected (1:7)
+> 1 | await 1
+    |       ^
+Cause: ';' expected (1:6)
+await 1
+      ^"
+`;
+
+exports[`snippet: #0 format[meriyah] 1`] = `
+"The export keyword can only be used with the module goal (1:1)
+> 1 | export {}
+    | ^^^^^^
+Cause: [1:0-1:6]: The export keyword can only be used with the module goal"
+`;
+
+exports[`snippet: #0 format[meriyah] 2`] = `
+"Unexpected token: 'number' (1:7)
+> 1 | await 1
+    |       ^
+Cause: [1:6-1:7]: Unexpected token: 'number'"
+`;
+
+exports[`snippet: #0 format[oxc] 1`] = `
+"Cannot use export statement outside a module (1:1)
+> 1 | export {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #0 format[oxc] 2`] = `
+"\`await\` is only allowed within async functions and at the top levels of modules (1:1)
+> 1 | await 1
+    | ^^^^^"
+`;
+
+exports[`snippet: #0 format[oxc-ts] 1`] = `
+"\`await\` is only allowed within async functions and at the top levels of modules (1:1)
+> 1 | await 1
+    | ^^^^^"
+`;
+
+exports[`snippet: #0 format[yuku] 1`] = `
+"Cannot use 'export' declaration outside a module (1:1)
+> 1 | export {}
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: #0 format[yuku] 2`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '1' (1:7)
+> 1 | await 1
+    |       ^"
+`;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Cannot use 'export' declaration outside a module (1:1)
+> 1 | export {}
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: #0 format[yuku-ts] 2`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '1' (1:7)
+> 1 | await 1
+    |       ^"
+`;
+
+exports[`snippet: #1 format[acorn] 1`] = `
+"'import' and 'export' may appear only with 'sourceType: module' (1:1)
+> 1 | import 'foo'
+    | ^
+Cause: 'import' and 'export' may appear only with 'sourceType: module' (1:0)"
+`;
+
+exports[`snippet: #1 format[espree] 1`] = `
+"'import' and 'export' may appear only with 'sourceType: module' (1:1)
+> 1 | import 'foo'
+    | ^
+Cause: 'import' and 'export' may appear only with 'sourceType: module'"
+`;
+
+exports[`snippet: #1 format[meriyah] 1`] = `
+"The import keyword can only be used with the module goal (1:8)
+> 1 | import 'foo'
+    |        ^^^^^
+Cause: [1:7-1:12]: The import keyword can only be used with the module goal"
+`;
+
+exports[`snippet: #1 format[oxc] 1`] = `
+"Cannot use import statement outside a module (1:1)
+> 1 | import 'foo'
+    | ^^^^^^"
+`;
+
+exports[`snippet: #1 format[yuku] 1`] = `
+"Cannot use import statement outside a module (1:1)
+> 1 | import 'foo'
+    | ^^^^^^^^^^^^"
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Cannot use import statement outside a module (1:1)
+> 1 | import 'foo'
+    | ^^^^^^^^^^^^"
+`;
