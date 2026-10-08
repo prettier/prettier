@@ -220,7 +220,7 @@ function printTernary(path, options, print, args) {
   const isInJsx =
     isConditionalExpression &&
     firstNonConditionalParent.type === "JSXExpressionContainer" &&
-    path.grandparent.type !== "JSXAttribute";
+    path.getParentNode(i).type !== "JSXAttribute";
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
   const breakClosingParen = shouldBreakClosingParen(node, parent);

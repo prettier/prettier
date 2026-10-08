@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`nested.jsx - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const withoutComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+    }
+  />
+);
+
+const withComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+      // Keep this comment with the expression.
+    }
+  />
+);
+
+const nestedConsequent = (
+  <Foo
+    prop={
+      bar ?
+        baz ? "baz"
+        : <Bar prop={"This is a really long value to make sure that this wraps"} />
+      : "bar"
+    }
+  />
+);
+
+const childExpression = (
+  <Foo>
+    {
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+    }
+  </Foo>
+);
+
+=====================================output=====================================
+const withoutComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar
+          prop={"This is a really long value to make sure that this wraps"}
+        />
+    }
+  />
+);
+
+const withComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar
+          prop={"This is a really long value to make sure that this wraps"}
+        />
+      // Keep this comment with the expression.
+    }
+  />
+);
+
+const nestedConsequent = (
+  <Foo
+    prop={
+      bar ?
+        baz ? "baz"
+        : <Bar
+            prop={"This is a really long value to make sure that this wraps"}
+          />
+      : "bar"
+    }
+  />
+);
+
+const childExpression = (
+  <Foo>
+    {bar ?
+      "bar"
+    : baz ?
+      "baz"
+    : <Bar prop={"This is a really long value to make sure that this wraps"} />}
+  </Foo>
+);
+
+================================================================================
+`;
+
+exports[`nested.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const withoutComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+    }
+  />
+);
+
+const withComment = (
+  <Foo
+    prop={
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+      // Keep this comment with the expression.
+    }
+  />
+);
+
+const nestedConsequent = (
+  <Foo
+    prop={
+      bar ?
+        baz ? "baz"
+        : <Bar prop={"This is a really long value to make sure that this wraps"} />
+      : "bar"
+    }
+  />
+);
+
+const childExpression = (
+  <Foo>
+    {
+      bar ? "bar"
+      : baz ? "baz"
+      : <Bar prop={"This is a really long value to make sure that this wraps"} />
+    }
+  </Foo>
+);
+
+=====================================output=====================================
+const withoutComment = (
+  <Foo
+    prop={
+      bar ? (
+        "bar"
+      ) : baz ? (
+        "baz"
+      ) : (
+        <Bar
+          prop={"This is a really long value to make sure that this wraps"}
+        />
+      )
+    }
+  />
+);
+
+const withComment = (
+  <Foo
+    prop={
+      bar ? (
+        "bar"
+      ) : baz ? (
+        "baz"
+      ) : (
+        <Bar
+          prop={"This is a really long value to make sure that this wraps"}
+        />
+      )
+      // Keep this comment with the expression.
+    }
+  />
+);
+
+const nestedConsequent = (
+  <Foo
+    prop={
+      bar ? (
+        baz ? (
+          "baz"
+        ) : (
+          <Bar
+            prop={"This is a really long value to make sure that this wraps"}
+          />
+        )
+      ) : (
+        "bar"
+      )
+    }
+  />
+);
+
+const childExpression = (
+  <Foo>
+    {bar ? (
+      "bar"
+    ) : baz ? (
+      "baz"
+    ) : (
+      <Bar prop={"This is a really long value to make sure that this wraps"} />
+    )}
+  </Foo>
+);
+
+================================================================================
+`;
