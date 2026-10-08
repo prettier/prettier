@@ -3590,34 +3590,39 @@ function foo12() {
 foo13 = (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
         baaaaaaaaaaaaaaaaaaaaar
-    :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    :   baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
 const foo15 = (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
         baaaaaaaaaaaaaaaaaaaaar
-    :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    :   baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
     return (
         coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
             baaaaaaaaaaaaaaaaaaaaar
-        :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+        :   baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
 }
 
 function foo17() {
     throw (
         coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
             baaaaaaaaaaaaaaaaaaaaar
-        :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+        :   baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
 }
 
 function foo18() {
     void (
         coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
             baaaaaaaaaaaaaaaaaaaaar
-        :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+        :   baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
 }
 
 foo19 = (
@@ -3698,7 +3703,8 @@ function* foo31() {
     yield (
         coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
             baaaaaaaaaaaaaaaaaaaaar
-        :   baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+        :   baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
     yield (
         coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
             baaaaaaaaaaaaaaaaaaaaar
@@ -3790,7 +3796,8 @@ bifornCringerMoshedPerplexSawder = (
         kochabCooieGameOnOboleUnweave === Math.PI
     ) ?
         averredBathersBoxroomBuggyNurl
-    :   anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+    :   anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
 
@@ -3818,7 +3825,8 @@ const decorated = (arg, ignoreRequestError) => {
             (arg && arg.valueOf && typeof arg.valueOf() === "string")
         ) ?
             $delegate(arg, ignoreRequestError)
-        :   handleAsyncOperations(arg, ignoreRequestError)).foo();
+        :   handleAsyncOperations(arg, ignoreRequestError)
+    ).foo();
 };
 
 bifornCringerMoshedPerplexSawder = fn(
@@ -4221,34 +4229,39 @@ function foo12() {
 foo13 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 		baaaaaaaaaaaaaaaaaaaaar
-	:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+	:	baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
 const foo15 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 		baaaaaaaaaaaaaaaaaaaaar
-	:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+	:	baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
 	return (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 function foo17() {
 	throw (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 function foo18() {
 	void (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 foo19 = (
@@ -4329,7 +4342,8 @@ function* foo31() {
 	yield (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 	yield (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
@@ -4421,7 +4435,8 @@ bifornCringerMoshedPerplexSawder = (
 		kochabCooieGameOnOboleUnweave === Math.PI
 	) ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+	:	anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
 	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
 	.annularCooeedSplicesWalksWayWay();
 
@@ -4449,7 +4464,8 @@ const decorated = (arg, ignoreRequestError) => {
 			(arg && arg.valueOf && typeof arg.valueOf() === "string")
 		) ?
 			$delegate(arg, ignoreRequestError)
-		:	handleAsyncOperations(arg, ignoreRequestError)).foo();
+		:	handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
 };
 
 bifornCringerMoshedPerplexSawder = fn(
@@ -4851,34 +4867,39 @@ function foo12() {
 foo13 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 		baaaaaaaaaaaaaaaaaaaaar
-	:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+	:	baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
 const foo15 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 		baaaaaaaaaaaaaaaaaaaaar
-	:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+	:	baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
 	return (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 function foo17() {
 	throw (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 function foo18() {
 	void (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 }
 
 foo19 = (
@@ -4959,7 +4980,8 @@ function* foo31() {
 	yield (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
-		:	baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+		:	baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 	yield (
 		coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
 			baaaaaaaaaaaaaaaaaaaaar
@@ -5051,7 +5073,8 @@ bifornCringerMoshedPerplexSawder = (
 		kochabCooieGameOnOboleUnweave === Math.PI
 	) ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+	:	anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
 	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
 	.annularCooeedSplicesWalksWayWay();
 
@@ -5079,7 +5102,8 @@ const decorated = (arg, ignoreRequestError) => {
 			(arg && arg.valueOf && typeof arg.valueOf() === "string")
 		) ?
 			$delegate(arg, ignoreRequestError)
-		:	handleAsyncOperations(arg, ignoreRequestError)).foo();
+		:	handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
 };
 
 bifornCringerMoshedPerplexSawder = fn(
@@ -5480,34 +5504,39 @@ function foo12() {
 foo13 = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
     baaaaaaaaaaaaaaaaaaaaar
-  : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
 const foo15 = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
     baaaaaaaaaaaaaaaaaaaaar
-  : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
   return (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
       baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
 }
 
 function foo17() {
   throw (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
       baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
 }
 
 function foo18() {
   void (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
       baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
 }
 
 foo19 = (
@@ -5588,7 +5617,8 @@ function* foo31() {
   yield (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
       baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
   yield (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond ?
       baaaaaaaaaaaaaaaaaaaaar
@@ -5680,7 +5710,8 @@ bifornCringerMoshedPerplexSawder = (
     kochabCooieGameOnOboleUnweave === Math.PI
   ) ?
     averredBathersBoxroomBuggyNurl
-  : anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+  : anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
   .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
   .annularCooeedSplicesWalksWayWay();
 
@@ -5708,7 +5739,8 @@ const decorated = (arg, ignoreRequestError) => {
       (arg && arg.valueOf && typeof arg.valueOf() === "string")
     ) ?
       $delegate(arg, ignoreRequestError)
-    : handleAsyncOperations(arg, ignoreRequestError)).foo();
+    : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
 };
 
 bifornCringerMoshedPerplexSawder = fn(

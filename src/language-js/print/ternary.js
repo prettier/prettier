@@ -398,7 +398,7 @@ function printTernary(path, options, print, args) {
         : shouldExtraIndent || (isTSConditional && isInTest)
           ? group([
               indent([softline, parts]),
-              breakTSClosingParen ? softline : "",
+              breakClosingParen || breakTSClosingParen ? softline : "",
             ])
           : parent === firstNonConditionalParent
             ? group(parts)
