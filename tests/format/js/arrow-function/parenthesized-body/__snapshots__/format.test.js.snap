@@ -126,3 +126,46 @@ withChain = a = (b) => c; /* ! */
 
 ================================================================================
 `;
+
+exports[`keeps-parentheses.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (a) => (<div /> // K
+)
+
+const y = (a) => (<><b /></> // K
+)
+
+x = (a) => (<div className="aaaaaaaaaaaaaaaaaaaaaaaa" id="bbbbbbbbbbbbbbbbbbbbb"><span /></div> /* K */
+)
+
+x = (a) => (a ? b : c /* K */
+)
+
+const z = (a) => (a ? b : c /* K */);
+
+=====================================output=====================================
+x = (a) => (
+  <div /> // K
+);
+
+const y = (a) => (
+  <>
+    <b />
+  </> // K
+);
+
+x = (a) => (
+  <div className="aaaaaaaaaaaaaaaaaaaaaaaa" id="bbbbbbbbbbbbbbbbbbbbb">
+    <span />
+  </div> /* K */
+);
+
+x = (a) => (a ? b : c /* K */);
+
+const z = (a) => (a ? b : c /* K */);
+
+================================================================================
+`;
