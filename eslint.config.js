@@ -292,6 +292,7 @@ const configs = [
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-unnecessary-boolean-comparison": "off",
+      "unicorn/no-unnecessary-parameters": "off",
       // Too slow and not useful
       "unicorn/no-unnecessary-polyfills": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
