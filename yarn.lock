@@ -4247,6 +4247,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cssesc@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "cssesc@npm:3.0.0"
+  bin:
+    cssesc: bin/cssesc
+  checksum: 10/0e161912c1306861d8f46e1883be1cbc8b1b2879f0f509287c0db71796e4ddfb97ac96bdfca38f77f452e2c10554e1bb5678c99b07a5cf947a12778f73e47e12
+  languageName: node
+  linkType: hard
+
 "dashify@npm:2.0.0":
   version: 2.0.0
   resolution: "dashify@npm:2.0.0"
@@ -8194,14 +8203,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:2.2.3":
-  version: 2.2.3
-  resolution: "postcss-selector-parser@npm:2.2.3"
+"postcss-selector-parser@npm:7.1.6":
+  version: 7.1.6
+  resolution: "postcss-selector-parser@npm:7.1.6"
   dependencies:
-    flatten: "npm:^1.0.2"
-    indexes-of: "npm:^1.0.1"
-    uniq: "npm:^1.0.1"
-  checksum: 10/a3d0300117abac9730b3a268c91dae6048770080c42e6504d33b3c6620efd5c60623392ffd2931a74519e10ca72d9e75d24ac25cfc3e1e109cb42993f0373e42
+    cssesc: "npm:^3.0.0"
+    util-deprecate: "npm:^1.0.2"
+  checksum: 10/8b00b63c8ae9eab8567bebf2710971dcd832a7a20a9cae7059d92aee3df38fbcd13ce454bdc09c54e777dbddd0df38966227000091c88002741b8575f3878f05
   languageName: node
   linkType: hard
 
@@ -8379,7 +8387,7 @@ __metadata:
     postcss-less: "npm:6.0.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
-    postcss-selector-parser: "npm:2.2.3"
+    postcss-selector-parser: "npm:7.1.6"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.9.9"
     pretty-bytes: "npm:7.1.3"
@@ -8773,9 +8781,9 @@ __metadata:
   linkType: hard
 
 "shell-quote@npm:^1.8.4":
-  version: 1.10.0
-  resolution: "shell-quote@npm:1.10.0"
-  checksum: 10/d4a22aeefe64919290af753ac6098239d7ffee52a5db62c20edef69794bd10b5f86e298f68be26af9606ac435e890dd391994a5405a90bb8aebef1ff1dde839b
+  version: 1.12.0
+  resolution: "shell-quote@npm:1.12.0"
+  checksum: 10/18b3e382272804e79fd3187c18877cfd4e736b5afb576bf1ab66a561b0a0e26eada4b7c8eb45473d1f17268ffcf12d0aaa90b9235132123eb673df5d0a5df943
   languageName: node
   linkType: hard
 
@@ -8829,9 +8837,9 @@ __metadata:
   linkType: hard
 
 "source-map-js@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "source-map-js@npm:1.2.1"
-  checksum: 10/ff9d8c8bf096d534a5b7707e0382ef827b4dd360a577d3f34d2b9f48e12c9d230b5747974ee7c607f0df65113732711bb701fe9ece3c7edbd43cb2294d707df3
+  version: 1.2.2
+  resolution: "source-map-js@npm:1.2.2"
+  checksum: 10/4807c894bb6280c8b84886159b96080e3996f42c6e8015e647881edfd4f955f6024ceebb8bb40d33ce8b106e24b2e29c133575e1c60c01c8aae57a05fdf17761
   languageName: node
   linkType: hard
 
@@ -9733,6 +9741,13 @@ __metadata:
   version: 2.7.1
   resolution: "url-or-path@npm:2.7.1"
   checksum: 10/38a8015bb45d1437c732b7b378b1859bdafd3303dbe7a98241ef43832a39ae1a574fa1612a9d915fce5d244d7e05a3f83bb6c5a2f5a131e4c0a515bcf2375536
+  languageName: node
+  linkType: hard
+
+"util-deprecate@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "util-deprecate@npm:1.0.2"
+  checksum: 10/474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
   languageName: node
   linkType: hard
 
