@@ -9,7 +9,7 @@ import parseSelector from "./parse-selector.js";
 import { addTypePrefix } from "./utilities.js";
 
 const isClosingParenthesis = (node) =>
-  node.type === "paren" && node.value === ")";
+  node?.type === "paren" && node.value === ")";
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -110,11 +110,22 @@ function parseValueNode(valueNode, options) {
       parenGroupStack.pop();
       parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
-      // Trialing comma
+      let nextNonCommentIndex = i + 1;
+      while (
+        nodes[nextNonCommentIndex]?.type === "comment" &&
+        nodes[nextNonCommentIndex].inline
+      ) {
+        nextNonCommentIndex++;
+      }
+
+      // Keep trailing line comments with the preceding value so the printer
+      // can insert the comma before the whole run of comments.
       if (
-        i === nodes.length - 3 &&
-        nodes[i + 1].type === "comment" &&
-        isClosingParenthesis(nodes[i + 2])
+        (i === nodes.length - 3 &&
+          nodes[i + 1].type === "comment" &&
+          isClosingParenthesis(nodes[i + 2])) ||
+        (nextNonCommentIndex > i + 2 &&
+          isClosingParenthesis(nodes[nextNonCommentIndex]))
       ) {
         continue;
       }

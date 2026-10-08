@@ -6,6 +6,7 @@ import {
   group,
   hardline,
   indent,
+  join,
   line,
   lineSuffix,
   softline,
@@ -72,6 +73,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
   const hasInlineComment = node.groups.some((node) =>
     isInlineValueCommentNode(node),
   );
+  const lastNonCommentIndex = node.groups.findLastIndex(
+    (node) => !isInlineValueCommentNode(node),
+  );
+  const trailingCommentIndex =
+    lastNonCommentIndex === -1
+      ? node.groups.length - 1
+      : lastNonCommentIndex + 1;
 
   const printed = path.map(print, "groups");
   /*
@@ -94,14 +102,25 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
 
-    // If the node is comment and last node print it in a line suffix
-    if (isInlineValueCommentNode(iNode) && !iNextNode) {
+    // Keep trailing comments after the comma printed by the parent group.
+    if (i === trailingCommentIndex) {
       // TODO: Improve this part
       // This `lineSuffix` should be done in `value-comment` print
       // But since we add `line` to groups in `value-paren_group`,
       // The format result looks bad for now
-      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
-      continue;
+      parts.push([
+        parts.pop(),
+        lineSuffix([
+          " ",
+          join(
+            parentNode.type === "value-paren_group"
+              ? dedent(hardline)
+              : hardline,
+            printed.slice(i),
+          ),
+        ]),
+      ]);
+      break;
     }
 
     parts.push([parts.pop(), printed[i]]);
@@ -549,9 +568,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // don't print line when the next node is a comment and last node
-    // it will be printed with the comment in a line suffix
-    if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
+    // Trailing comments supply their own space in the line suffix.
+    if (i + 1 === trailingCommentIndex) {
       continue;
     }
 
