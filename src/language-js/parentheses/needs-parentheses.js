@@ -1,3 +1,4 @@
+import { locEnd, locStart } from "../location/index.js";
 import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
@@ -20,6 +21,7 @@ import {
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
@@ -444,6 +446,14 @@ function needsParentheses(path, options) {
         parent.type === "TSRestType" ||
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
+        // Parenthesizing a mapped `keyof` constraint changes modifier preservation.
+        (key === "constraint" &&
+          node.type === "TSTypeOperator" &&
+          node.operator === "keyof" &&
+          parent.type === "TSMappedType" &&
+          stripComments(options)
+            .slice(locEnd(parent.key), locStart(node))
+            .includes("(")) ||
         (parent.type === "TSTypeAnnotation" &&
           path.grandparent.type.startsWith("TSJSDoc"))
       );
