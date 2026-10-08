@@ -343,6 +343,7 @@ const configs = [
       // TODO: Enable
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
+      "unicorn/prefer-literal-ascii": "off",
       "unicorn/prefer-logical-operator-over-ternary": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-number-properties": [
@@ -354,8 +355,10 @@ const configs = [
       ],
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
+      "unicorn/prefer-short-escape-sequences": "off",
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-simplified-conditions": "off",
+      "unicorn/prefer-single-object-destructuring": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prefer-then-catch": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",
