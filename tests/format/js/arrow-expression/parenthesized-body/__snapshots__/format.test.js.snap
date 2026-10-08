@@ -127,7 +127,7 @@ withChain = a = (b) => c; /* ! */
 ================================================================================
 `;
 
-exports[`keeps-parentheses.jsx format 1`] = `
+exports[`keeps-parentheses.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
                                                       printWidth: 80 (default) |
