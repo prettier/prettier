@@ -26,6 +26,7 @@ import {
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
+  isJsxElement,
   isMemberExpression,
   isTypeAlias,
   isTypeAnnotation,
@@ -1285,11 +1286,15 @@ function handleParenthesizedExpressionTrailingComment({
         enclosingNode.type === "AssignmentExpression" &&
         enclosingNode.right === precedingNode) ||
       // A sequence or assignment body keeps its parentheses, so a comment
-      // inside them stays put and the branch below places it.
+      // inside them stays put and the branch below places it. JSX and
+      // conditional bodies keep theirs depending on the layout, so they are
+      // left as they were.
       (enclosingNode.type === "ArrowFunctionExpression" &&
         enclosingNode.body === precedingNode &&
         !isAssignment &&
-        !isSequence)
+        !isSequence &&
+        !isJsxElement(precedingNode) &&
+        precedingNode.type !== "ConditionalExpression")
     ) {
       const statement = getEnclosingAssignmentChainStatement(
         enclosingNode,
