@@ -19,7 +19,7 @@ import {
   hardlineWithoutBreakParent,
   indent as indentDoc,
 } from "../builders/index.js";
-import { getDocType, propagateBreaks } from "../utilities/index.js";
+import { cleanDoc, getDocType, propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 import PrintResult from "./print-result.js";
@@ -155,7 +155,7 @@ function fits(
         break;
 
       case DOC_TYPE_LINE_SUFFIX:
-        hasLineSuffix = true;
+        hasLineSuffix ||= cleanDoc(doc.contents) !== "";
         break;
 
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
@@ -460,7 +460,9 @@ function printDocToString(doc, options) {
         break;
       }
       case DOC_TYPE_LINE_SUFFIX:
-        lineSuffix.push({ indent, mode, doc: doc.contents });
+        if (cleanDoc(doc.contents) !== "") {
+          lineSuffix.push({ indent, mode, doc: doc.contents });
+        }
         break;
 
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:

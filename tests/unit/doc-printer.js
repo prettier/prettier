@@ -1,5 +1,55 @@
-import { fill, join, line } from "../../src/document/index.js";
+import {
+  cursor,
+  fill,
+  group,
+  indent,
+  join,
+  line,
+  lineSuffix,
+  lineSuffixBoundary,
+} from "../../src/document/index.js";
 import { printDocToString } from "../../src/document/printer/printer.js";
+
+test.each(["", [], ["", [""]], indent("")])(
+  "Empty line suffix %p does not break its group",
+  (contents) => {
+    const doc = group([
+      "a",
+      lineSuffix(contents),
+      lineSuffixBoundary,
+      line,
+      "b",
+    ]);
+
+    expect(
+      printDocToString(doc, { printWidth: 80, tabWidth: 2 }).formatted,
+    ).toBe("a b");
+  },
+);
+
+test("An empty line suffix does not discard a pending comment", () => {
+  const doc = group([
+    "a",
+    lineSuffix(" // comment"),
+    lineSuffix(""),
+    lineSuffixBoundary,
+    "b",
+  ]);
+
+  expect(printDocToString(doc, { printWidth: 80, tabWidth: 2 }).formatted).toBe(
+    "a // comment\nb",
+  );
+});
+
+test("A line suffix containing a cursor is not discarded", () => {
+  const doc = group(["a", lineSuffix(cursor), lineSuffixBoundary, "b", cursor]);
+
+  expect(printDocToString(doc, { printWidth: 80, tabWidth: 2 })).toStrictEqual({
+    formatted: "a\nb",
+    cursorNodeStart: 1,
+    cursorNodeText: "\nb",
+  });
+});
 
 test("`printDocToString` should not manipulate docs", () => {
   const printOptions = { printWidth: 40, tabWidth: 2 };
