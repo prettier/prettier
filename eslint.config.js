@@ -329,6 +329,7 @@ const configs = [
       "unicorn/prefer-code-point": "off",
       "unicorn/prefer-combined-guards": "off",
       "unicorn/prefer-continue": "off",
+      "unicorn/prefer-default-parameters": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
       "unicorn/prefer-early-return": "off",
