@@ -1,5 +1,6 @@
 import {
   dedentToRoot,
+  hardline,
   indent,
   literalline,
   softline,
@@ -23,7 +24,7 @@ async function printEmbedMarkdown(textToDoc, print, path /* , options*/) {
   );
   return [
     "`",
-    hasIndent ? indent([softline, doc]) : [literalline, dedentToRoot(doc)],
+    hasIndent ? indent([hardline, doc]) : [literalline, dedentToRoot(doc)],
     softline,
     "`",
   ];

@@ -224,6 +224,48 @@ text3
 ================================================================================
 `;
 
+exports[`issue-15477.js - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const object = {
+  value: markdown\`
+    # Test
+  \`,
+};
+
+render(md\`
+  A short paragraph.
+\`);
+
+const array = [
+  markdown\`
+    *emphasis*
+  \`,
+];
+
+=====================================output=====================================
+const object = {
+  value: markdown\`
+    # Test
+  \`,
+};
+
+render(md\`
+  A short paragraph.
+\`);
+
+const array = [
+  markdown\`
+    _emphasis_
+  \`,
+];
+
+================================================================================
+`;
+
 exports[`markdown.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
