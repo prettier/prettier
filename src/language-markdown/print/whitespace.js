@@ -316,7 +316,12 @@ function shouldPreventBreak(path, options) {
   }
 
   if (path.isLast) {
-    return false;
+    // An inline tag at the start of a line becomes a JSX block in MDX.
+    return (
+      options.parser === "mdx" &&
+      proseWrap === "always" &&
+      path.callParent(({ next }) => next?.type === "html")
+    );
   }
 
   if (
