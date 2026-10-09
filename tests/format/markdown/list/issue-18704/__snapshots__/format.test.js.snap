@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-18704.md - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- aaa
+- aaa
+  indent should be 4 spaces
+- aaa
+
+=====================================output=====================================
+- aaa
+- aaa
+    indent should be 4 spaces
+- aaa
+
+================================================================================
+`;

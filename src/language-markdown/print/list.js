@@ -100,7 +100,14 @@ function printListItem(path, options, print, listPrefix) {
     printChildren(path, options, print, {
       processor({ node, isFirst }) {
         if ((isFirst && node.type !== "list") || node.type === "html") {
-          return align(" ".repeat(prefix.length), print());
+          const alignment =
+            node.type === "html"
+              ? prefix.length
+              : Math.max(
+                  prefix.length,
+                  clamp(options.tabWidth - listPrefix.length, 0, 3),
+                );
+          return align(" ".repeat(alignment), print());
         }
 
         if (node.type === "code" && node.isIndented) {
