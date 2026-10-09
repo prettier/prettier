@@ -674,7 +674,7 @@ const pluginFiles = [
           );
           text = text.replaceAll(
             "const NAMED_ENTITIES =",
-            "const NAMED_ENTITIES = new Map() || undefined &&",
+            "const NAMED_ENTITIES = new Map();",
           );
 
           return text;
