@@ -8,10 +8,12 @@ parsers: ["angular"]
 <![CDATA[<app-alert>
   Lorem ipsum dolor sit amet consectetur adipisicing elit.
 </app-alert>]]>
+
 =====================================output=====================================
 <![CDATA[<app-alert>
   Lorem ipsum dolor sit amet consectetur adipisicing elit.
 </app-alert>]]>
+
 ================================================================================
 `;
 
@@ -23,9 +25,11 @@ parsers: ["angular"]
 <![CDATA[{{  title     +    subtitle  }}
   <span   class="value">  keep    these  spaces  </span>
 ]]>
+
 =====================================output=====================================
 <![CDATA[{{  title     +    subtitle  }}
   <span   class="value">  keep    these  spaces  </span>
 ]]>
+
 ================================================================================
 `;
