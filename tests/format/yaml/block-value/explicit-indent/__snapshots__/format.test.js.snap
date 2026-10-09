@@ -1,0 +1,868 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`scalars.yml - {"tabWidth":1,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "always"
+tabWidth: 1
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+ - with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+ - >1-
+  hello world
+ - next
+---
+list:
+ - - |2
+     nested sequence
+   - next
+---
+mapping:
+ value: |2 # indentation indicator
+   first line
+     leading spaces
+
+   last line
+ next: value
+---
+mapping:
+ value: >2-
+   first line second line
+
+     indented line
+   last line
+---
+list:
+ - &anchor |2+
+
+   first line
+     leading spaces
+
+ - *anchor
+---
+list:
+ - ? |2
+     multiline
+     key
+   : |1-
+    multiline
+    value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml - {"tabWidth":1,"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "preserve"
+tabWidth: 1
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+ - with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+ - >1-
+  hello
+  world
+ - next
+---
+list:
+ - - |2
+     nested sequence
+   - next
+---
+mapping:
+ value: |2 # indentation indicator
+   first line
+     leading spaces
+
+   last line
+ next: value
+---
+mapping:
+ value: >2-
+   first line
+   second line
+
+     indented line
+   last line
+---
+list:
+ - &anchor |2+
+
+   first line
+     leading spaces
+
+ - *anchor
+---
+list:
+ - ? |2
+     multiline
+     key
+   : |1-
+    multiline
+    value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml - {"tabWidth":4,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "always"
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+    - with:
+          config-yml: |2
+            hello: world
+          next: value
+---
+list:
+    - >1-
+     hello world
+    - next
+---
+list:
+    - - |2
+        nested sequence
+      - next
+---
+mapping:
+    value: |2 # indentation indicator
+      first line
+        leading spaces
+
+      last line
+    next: value
+---
+mapping:
+    value: >2-
+      first line second line
+
+        indented line
+      last line
+---
+list:
+    - &anchor |2+
+
+      first line
+        leading spaces
+
+    - *anchor
+---
+list:
+    - ? |2
+        multiline
+        key
+      : |1-
+       multiline
+       value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml - {"tabWidth":4,"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "preserve"
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+    - with:
+          config-yml: |2
+            hello: world
+          next: value
+---
+list:
+    - >1-
+     hello
+     world
+    - next
+---
+list:
+    - - |2
+        nested sequence
+      - next
+---
+mapping:
+    value: |2 # indentation indicator
+      first line
+        leading spaces
+
+      last line
+    next: value
+---
+mapping:
+    value: >2-
+      first line
+      second line
+
+        indented line
+      last line
+---
+list:
+    - &anchor |2+
+
+      first line
+        leading spaces
+
+    - *anchor
+---
+list:
+    - ? |2
+        multiline
+        key
+      : |1-
+       multiline
+       value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml - {"tabWidth":8,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "always"
+tabWidth: 8
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+        - with:
+                  config-yml: |2
+                    hello: world
+                  next: value
+---
+list:
+        - >1-
+         hello world
+        - next
+---
+list:
+        - - |2
+            nested sequence
+          - next
+---
+mapping:
+        value: |2 # indentation indicator
+          first line
+            leading spaces
+
+          last line
+        next: value
+---
+mapping:
+        value: >2-
+          first line second line
+
+            indented line
+          last line
+---
+list:
+        - &anchor |2+
+
+          first line
+            leading spaces
+
+        - *anchor
+---
+list:
+        - ? |2
+            multiline
+            key
+          : |1-
+           multiline
+           value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml - {"tabWidth":8,"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "preserve"
+tabWidth: 8
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+        - with:
+                  config-yml: |2
+                    hello: world
+                  next: value
+---
+list:
+        - >1-
+         hello
+         world
+        - next
+---
+list:
+        - - |2
+            nested sequence
+          - next
+---
+mapping:
+        value: |2 # indentation indicator
+          first line
+            leading spaces
+
+          last line
+        next: value
+---
+mapping:
+        value: >2-
+          first line
+          second line
+
+            indented line
+          last line
+---
+list:
+        - &anchor |2+
+
+          first line
+            leading spaces
+
+        - *anchor
+---
+list:
+        - ? |2
+            multiline
+            key
+          : |1-
+           multiline
+           value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
+
+exports[`scalars.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+---
+list:
+- with:
+    config-yml: |2
+      hello: world
+    next: value
+---
+list:
+- >1-
+ hello
+ world
+- next
+---
+list:
+- - |2
+    nested sequence
+  - next
+---
+mapping:
+      value: |2 # indentation indicator
+        first line
+          leading spaces
+
+        last line
+      next: value
+---
+mapping:
+      value: >2-
+        first line
+        second line
+
+          indented line
+        last line
+---
+list:
+- &anchor |2+
+
+  first line
+    leading spaces
+
+- *anchor
+---
+list:
+- ? |2
+    multiline
+    key
+  : |1-
+   multiline
+   value
+---
+   root: |2-
+     indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+=====================================output=====================================
+---
+list:
+  - with:
+      config-yml: |2
+        hello: world
+      next: value
+---
+list:
+  - >1-
+   hello
+   world
+  - next
+---
+list:
+  - - |2
+      nested sequence
+    - next
+---
+mapping:
+  value: |2 # indentation indicator
+    first line
+      leading spaces
+
+    last line
+  next: value
+---
+mapping:
+  value: >2-
+    first line
+    second line
+
+      indented line
+    last line
+---
+list:
+  - &anchor |2+
+
+    first line
+      leading spaces
+
+  - *anchor
+---
+list:
+  - ? |2
+      multiline
+      key
+    : |1-
+     multiline
+     value
+---
+root: |2-
+  indented root
+---
+|2-
+  root scalar
+    leading spaces
+
+================================================================================
+`;
