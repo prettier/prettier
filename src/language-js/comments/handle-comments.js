@@ -636,12 +636,37 @@ function handleLastFunctionParameterComments({
   return false;
 }
 
-function handleLabeledStatementComments({ comment, enclosingNode }) {
-  if (enclosingNode?.type === "LabeledStatement") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+function handleLabeledStatementComments({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  ancestors,
+}) {
+  let labeledStatement = enclosingNode;
+  let ancestorIndex = 1;
+
+  // A comment inside parentheses may be enclosed by the expression statement
+  // instead of its label. Attach it to the label before parentheses are printed.
+  if (
+    enclosingNode?.type === "ExpressionStatement" &&
+    !precedingNode &&
+    followingNode
+  ) {
+    labeledStatement = ancestors[ancestorIndex++];
   }
-  return false;
+
+  if (labeledStatement?.type !== "LabeledStatement") {
+    return false;
+  }
+
+  // Avoid moving the comment through one label on each format.
+  while (ancestors[ancestorIndex]?.type === "LabeledStatement") {
+    labeledStatement = ancestors[ancestorIndex++];
+  }
+
+  addLeadingComment(labeledStatement, comment);
+  return true;
 }
 
 function handleCallExpressionComments({
