@@ -128,13 +128,13 @@ formatted by 'parser-name-inferred-from-language-is-supported' parser",
 }
 `;
 
-exports[`stdin no path and no parser --check logs error but exits with 0  1`] = `
+exports[`stdin no path and no parser --check logs error and exits with 2  1`] = `
 {
   "stderr": "[error] No parser and no file path given, couldn't infer a parser.",
 }
 `;
 
-exports[`stdin no path and no parser --list-different logs error but exits with 0  1`] = `
+exports[`stdin no path and no parser --list-different logs error and exits with 2  1`] = `
 {
   "stderr": "[error] No parser and no file path given, couldn't infer a parser.",
 }
@@ -146,13 +146,13 @@ exports[`stdin no path and no parser logs error and exits with 2  1`] = `
 }
 `;
 
-exports[`stdin with unknown path and no parser --check logs error but exits with 0  1`] = `
+exports[`stdin with unknown path and no parser --check logs error and exits with 2  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/foo".",
 }
 `;
 
-exports[`stdin with unknown path and no parser --list-different logs error but exits with 0  1`] = `
+exports[`stdin with unknown path and no parser --list-different logs error and exits with 2  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/foo".",
 }

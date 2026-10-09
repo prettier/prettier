@@ -93,7 +93,15 @@ async function listDifferent(context, input, options, filename) {
       process.exitCode = 1;
     }
   } catch (error) {
+    if (
+      error instanceof errors.UndefinedParserError &&
+      context.argv.ignoreUnknown
+    ) {
+      return true;
+    }
+
     context.logger.error(error.message);
+    process.exitCode = 2;
   }
 
   return true;

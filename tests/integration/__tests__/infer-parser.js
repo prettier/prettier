@@ -13,21 +13,21 @@ describe("stdin no path and no parser", () => {
     });
   });
 
-  describe("--check logs error but exits with 0", () => {
+  describe("--check logs error and exits with 2", () => {
     runCli("cli/infer-parser/", ["--check"], {
       input: "foo",
     }).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
   });
 
-  describe("--list-different logs error but exits with 0", () => {
+  describe("--list-different logs error and exits with 2", () => {
     runCli("cli/infer-parser/", ["--list-different"], {
       input: "foo",
     }).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
@@ -45,23 +45,23 @@ describe("stdin with unknown path and no parser", () => {
     });
   });
 
-  describe("--check logs error but exits with 0", () => {
+  describe("--check logs error and exits with 2", () => {
     runCli("cli/infer-parser/", ["--check", "--stdin-filepath", "foo"], {
       input: "foo",
     }).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
   });
 
-  describe("--list-different logs error but exits with 0", () => {
+  describe("--list-different logs error and exits with 2", () => {
     runCli(
       "cli/infer-parser/",
       ["--list-different", "--stdin-filepath", "foo"],
       { input: "foo" },
     ).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });

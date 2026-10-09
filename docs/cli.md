@@ -101,6 +101,8 @@ If you need to pipe the list of unformatted files to another command, you can u
 | `1`  | Something wasn’t formatted properly |
 | `2`  | Something’s wrong with Prettier     |
 
+When checking standard input with `--check` or `--list-different`, syntax errors and failures to infer a parser return exit code `2`, just as they do when checking files. Unknown input is still ignored when `--ignore-unknown` is set.
+
 ## `--debug-check`
 
 If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command. This will cause Prettier to print an error message if it detects that code correctness might have changed. Note that `--write` cannot be used with `--debug-check`.

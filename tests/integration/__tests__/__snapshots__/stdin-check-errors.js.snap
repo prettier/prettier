@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`checks stdin with --check file syntax error  1`] = `
+{
+  "stderr": "[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |",
+  "stdout": "Checking formatting...
+Error occurred when checking code style in the above file.",
+}
+`;
+
+exports[`checks stdin with --check syntax error  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with --check syntax error is not ignored  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with --check syntax error with --write  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with --list-different file syntax error  1`] = `
+{
+  "stderr": "[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |",
+  "stdout": "",
+}
+`;
+
+exports[`checks stdin with --list-different syntax error  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with --list-different syntax error is not ignored  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with --list-different syntax error with --write  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -c file syntax error  1`] = `
+{
+  "stderr": "[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |",
+  "stdout": "Checking formatting...
+Error occurred when checking code style in the above file.",
+}
+`;
+
+exports[`checks stdin with -c syntax error  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -c syntax error is not ignored  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -c syntax error with --write  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -l file syntax error  1`] = `
+{
+  "stderr": "[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |",
+  "stdout": "",
+}
+`;
+
+exports[`checks stdin with -l syntax error  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -l syntax error is not ignored  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
+
+exports[`checks stdin with -l syntax error with --write  1`] = `
+{
+  "stderr": "[error] Unexpected token, expected "(" (1:13)
+[error] > 1 | function foo) {}
+[error]     |             ^",
+}
+`;
