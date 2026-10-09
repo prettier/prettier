@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    /* comment */
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    // first comment
+    // second comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    // comment
+    bar
+  )
+}
+
+{
+  foo: (
+    // comment
+    bar + baz
+  )
+}
+
+{
+  outer: inner: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    {
+      // property comment
+      bar: "baz",
+    }
+    // trailing comment
+  )
+}
+
+{
+  foo: (/* inline comment */ { bar: "baz" })
+}
+
+{
+  outer:
+  // comment between labels
+  inner: ({ bar: "baz" })
+}
+
+{
+  foo: (
+    bar +
+    // operand comment
+    baz
+  )
+}
+
+{
+  foo: (
+    // optional member comment
+    bar?.baz
+  )
+}
+
+{
+  foo: (
+    // optional call comment
+    bar?.()
+  )
+}
+
+=====================================output=====================================
+{
+  // comment
+  foo: ({
+    bar: "baz",
+  })
+}
+
+{
+  /* comment */
+  foo: ({
+    bar: "baz",
+  })
+}
+
+{
+  // first comment
+  // second comment
+  foo: ({
+    bar: "baz",
+  })
+}
+
+{
+  // comment
+  foo: bar
+}
+
+{
+  // comment
+  foo: bar + baz
+}
+
+{
+  // comment
+  outer: inner: ({
+    bar: "baz",
+  })
+}
+
+{
+  foo: ({
+    // property comment
+    bar: "baz",
+  })
+  // trailing comment
+}
+
+{
+  foo: /* inline comment */ ({ bar: "baz" })
+}
+
+{
+  // comment between labels
+  outer: inner: ({ bar: "baz" })
+}
+
+{
+  foo: bar +
+    // operand comment
+    baz
+}
+
+{
+  // optional member comment
+  foo: bar?.baz
+}
+
+{
+  // optional call comment
+  foo: bar?.()
+}
+
+================================================================================
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    /* comment */
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    // first comment
+    // second comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    // comment
+    bar
+  )
+}
+
+{
+  foo: (
+    // comment
+    bar + baz
+  )
+}
+
+{
+  outer: inner: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    {
+      // property comment
+      bar: "baz",
+    }
+    // trailing comment
+  )
+}
+
+{
+  foo: (/* inline comment */ { bar: "baz" })
+}
+
+{
+  outer:
+  // comment between labels
+  inner: ({ bar: "baz" })
+}
+
+{
+  foo: (
+    bar +
+    // operand comment
+    baz
+  )
+}
+
+{
+  foo: (
+    // optional member comment
+    bar?.baz
+  )
+}
+
+{
+  foo: (
+    // optional call comment
+    bar?.()
+  )
+}
+
+=====================================output=====================================
+{
+  // comment
+  foo: ({
+    bar: "baz",
+  });
+}
+
+{
+  /* comment */
+  foo: ({
+    bar: "baz",
+  });
+}
+
+{
+  // first comment
+  // second comment
+  foo: ({
+    bar: "baz",
+  });
+}
+
+{
+  // comment
+  foo: bar;
+}
+
+{
+  // comment
+  foo: bar + baz;
+}
+
+{
+  // comment
+  outer: inner: ({
+    bar: "baz",
+  });
+}
+
+{
+  foo: ({
+    // property comment
+    bar: "baz",
+  });
+  // trailing comment
+}
+
+{
+  foo: /* inline comment */ ({ bar: "baz" });
+}
+
+{
+  // comment between labels
+  outer: inner: ({ bar: "baz" });
+}
+
+{
+  foo: bar +
+    // operand comment
+    baz;
+}
+
+{
+  // optional member comment
+  foo: bar?.baz;
+}
+
+{
+  // optional call comment
+  foo: bar?.();
+}
+
+================================================================================
+`;
