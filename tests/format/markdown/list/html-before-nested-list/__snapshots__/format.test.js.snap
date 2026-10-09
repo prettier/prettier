@@ -75,6 +75,30 @@ parsers: ["markdown"]
     - dolor
   </details>
 
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+    - Lorem
+    - ipsum
+    - dolor
+  </details>
+
+<details>
+  <summary>Summary title</summary>
+
+  - Lorem
+  - ipsum
+  - dolor
+</details>
+
+<details>
+  <summary>Summary title</summary>
+  - Lorem
+  - ipsum
+  - dolor
+</details>
+
 =====================================output=====================================
 - Some text in an unordered list
 
@@ -86,6 +110,31 @@ parsers: ["markdown"]
   - dolor
 
   </details>
+
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+    - Lorem
+    - ipsum
+    - dolor
+  </details>
+
+<details>
+  <summary>Summary title</summary>
+
+- Lorem
+- ipsum
+- dolor
+
+</details>
+
+<details>
+  <summary>Summary title</summary>
+  - Lorem
+  - ipsum
+  - dolor
+</details>
 
 ================================================================================
 `;
