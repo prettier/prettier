@@ -91,6 +91,16 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "text": {
+      if (node.isCdata) {
+        return [
+          printOpeningTagPrefix(node, options),
+          replaceEndOfLine(
+            options.originalText.slice(locStart(node), locEnd(node)),
+          ),
+          printClosingTagSuffix(node, options),
+        ];
+      }
+
       if (node.parent.kind === "interpolation") {
         let { value } = node;
         // replace the trailing literalline with hardline for better readability
@@ -175,7 +185,7 @@ function genericPrint(path, options, print) {
       return printStartTagComment(path);
 
     case "frontMatter": // Handled in core
-    case "cdata": // Transformed into `text`
+    case "cdata": // Transformed into `text` during preprocessing
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");

@@ -2,39 +2,30 @@
 
 exports[`example.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<span><![CDATA[<sender>John Smith</sender>]]></span>
-
-<span><![CDATA[1]]> a <![CDATA[2]]></span>
-<span><![CDATA[1]]> <br> <![CDATA[2]]></span>
-
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
 =====================================output=====================================
-<span><![CDATA[<sender>John Smith</sender>]]></span>
-
-<span><![CDATA[1]]> a <![CDATA[2]]></span>
-<span
-  ><![CDATA[1]]> <br />
-  <![CDATA[2]]></span
->
-
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
 ================================================================================
 `;
 
-exports[`multiline.html format 1`] = `
+exports[`interpolation.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-<![CDATA[<app-alert>
-  Preserve     all spaces and line breaks.
-  {{ untouched }}
-</app-alert>]]>
+<![CDATA[{{  title     +    subtitle  }}
+  <span   class="value">  keep    these  spaces  </span>
+]]>
 =====================================output=====================================
-<![CDATA[<app-alert>
-  Preserve     all spaces and line breaks.
-  {{ untouched }}
-</app-alert>]]>
+<![CDATA[{{  title     +    subtitle  }}
+  <span   class="value">  keep    these  spaces  </span>
+]]>
 ================================================================================
 `;
