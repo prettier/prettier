@@ -8,9 +8,9 @@ Cause: Unexpected token, expected ";" (1:24)"
 `;
 
 exports[`snippet: #0 format[oxc-ts] 1`] = `
-"Unexpected token (1:25)
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:24)
 > 1 | interface I { x: number = 1;}
-    |                         ^"
+    |                        ^"
 `;
 
 exports[`snippet: #0 format[typescript] 1`] = `
