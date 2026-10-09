@@ -215,9 +215,9 @@ test("public doc functionality", () => {
       "
       import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
       const {
-        align,
-        line
+        align
       } = __doc_builders;
+      import { line } from "./document/index.js";
       "
     `);
   expect(
@@ -229,12 +229,10 @@ test("public doc functionality", () => {
     "
     import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
     const {
-      align: renamedAlign,
-      line,
-      line: renamedLine
+      align: renamedAlign
     } = __doc_builders;
-    import { notExists } from "./document/index.js";
-    import { notExists2 } from "./document/index.js";
+    import { line, notExists } from "./document/index.js";
+    import { line as renamedLine, notExists2 } from "./document/index.js";
     "
   `);
   expect(
@@ -245,8 +243,7 @@ test("public doc functionality", () => {
     "
     import { builders as __doc_builders, printer as __doc_printer, utils as __doc_utils } from "<PUBLIC_DOC_PATH>";
     const {
-        align: renamedAlign,
-        line
+        align: renamedAlign
       } = __doc_builders,
       {
         printDocToString
@@ -255,6 +252,7 @@ test("public doc functionality", () => {
         findInDoc,
         canBreak
       } = __doc_utils;
+    import { line } from "./document/index.js";
     "
   `);
 });
@@ -284,9 +282,9 @@ test("All", () => {
 
     import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
     const {
-      align,
-      line
+      align
     } = __doc_builders;
+    import { line } from "./document/index.js";
     if (__Object_hasOwn(foo, bar)) {
       const a = __replaceAll(/* OPTIONAL_OBJECT: true */1, __at(/* OPTIONAL_OBJECT: true */1, foo, -1), /bar/, ""),
         b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true),
