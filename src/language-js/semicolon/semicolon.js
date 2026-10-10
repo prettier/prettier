@@ -22,21 +22,62 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
     return false;
   }
 
-  const { key, parent } = path;
-  if (
-    // `Program.directives` don't need leading semicolon
-    ((key === "body" &&
+  return (
+    isStatementListItem(path) &&
+    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
+  );
+}
+
+function isStatementListItem({ key, parent }) {
+  // `Program.directives` don't need leading semicolon
+  return (
+    (key === "body" &&
       (parent.type === "Program" ||
         parent.type === "BlockStatement" ||
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
-      (key === "consequent" && parent.type === "SwitchCase")) &&
-    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
-  ) {
-    return true;
+    (key === "consequent" && parent.type === "SwitchCase")
+  );
+}
+
+/**
+With `experimentalTernaries`, the test of a broken ternary is wrapped in
+parentheses, so a ternary at the start of a statement needs a leading
+semicolon when it breaks.
+*/
+function shouldTernaryPrintLeadingSemicolonWhenBreak(path, options) {
+  if (options.semi) {
+    return false;
   }
 
-  return false;
+  const { key, index, parent } = path;
+
+  if (parent.type === "ExpressionStatement") {
+    return path.callParent(
+      () =>
+        isStatementListItem(path) &&
+        !isSingleJsxExpressionStatementInMarkdown(path, options) &&
+        !isSingleVueEventBindingExpressionStatement(path, options) &&
+        !isSingleHtmlEventHandlerExpressionStatement(path, options) &&
+        !shouldExpressionStatementPrintLeadingSemicolon(path, options),
+    );
+  }
+
+  // The parent starts with its left side, and prints it as is
+  if (
+    parent.type === "ConditionalExpression" ||
+    !hasNakedLeftSide(parent) ||
+    needsParentheses(path, options) ||
+    (key === "expressions"
+      ? index !== 0
+      : key !== getLeftSidePathName(parent)[0])
+  ) {
+    return false;
+  }
+
+  return path.callParent(() =>
+    shouldTernaryPrintLeadingSemicolonWhenBreak(path, options),
+  );
 }
 
 function expressionNeedsAsiProtection(path, options) {
@@ -132,4 +173,5 @@ export {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
   shouldExpressionStatementPrintLeadingSemicolon,
+  shouldTernaryPrintLeadingSemicolonWhenBreak,
 };
