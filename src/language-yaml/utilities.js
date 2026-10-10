@@ -237,7 +237,9 @@ function getBlockValueLineContents(
   /** @type {string[][]} */
   let lines = [];
   for (const [index, line] of rawLineContents.entries()) {
-    const words = splitWithSingleSpace(line);
+    // More-indented lines in folded scalars preserve line breaks, so wrapping
+    // them would change the scalar's value.
+    const words = /^\s/.test(line) ? [line] : splitWithSingleSpace(line);
 
     if (
       index > 0 &&
