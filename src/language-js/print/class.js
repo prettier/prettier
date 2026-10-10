@@ -27,7 +27,6 @@ import {
 } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
-import { printClassMemberSemicolon } from "./class-body.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
@@ -301,10 +300,6 @@ function printClassMethod(path, options, print) {
   }
 
   parts.push(printMethod(path, options, print));
-
-  if (node.type === "AbstractMethodDefinition") {
-    parts.push(printClassMemberSemicolon(path, options));
-  }
 
   return parts;
 }
