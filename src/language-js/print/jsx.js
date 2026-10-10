@@ -343,12 +343,17 @@ function printJsxChildren(
         if (words[0] === "") {
           words.shift();
           if (/\n/.test(words[0])) {
+            const trailingWhitespace =
+              jsxWhitespace.getTrailingWhitespace(text);
+
             pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
                 node,
-                next,
+                trailingWhitespace && !/\n/.test(trailingWhitespace)
+                  ? undefined
+                  : next,
               ),
             );
           } else {
