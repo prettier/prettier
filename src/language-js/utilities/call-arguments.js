@@ -31,7 +31,9 @@ function getCallArgumentsWithoutCache(node) {
   if (node.type === "ImportExpression" || isImportType(node)) {
     args = [node.source];
 
+    // @ts-expect-error -- missing
     if (node.options) {
+      // @ts-expect-error -- missing
       args.push(node.options);
     }
   } else if (isExternalModuleReference(node)) {
@@ -76,10 +78,12 @@ function iterateCallArgumentsPath(path, iteratee) {
 */
 function getCallArgumentSelector(node, index) {
   if (node.type === "ImportExpression" || isImportType(node)) {
+    // @ts-expect-error -- missing
     if (index === 0 || index === (node.options ? -2 : -1)) {
       return ["source"];
     }
 
+    // @ts-expect-error -- missing
     if (node.options && (index === 1 || index === -1)) {
       return ["options"];
     }
