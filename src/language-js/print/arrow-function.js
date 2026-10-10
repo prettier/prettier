@@ -202,6 +202,8 @@ function printArrowFunctionSignature(path, options, print, args) {
 
   const dangling = printDanglingComments(path, options, {
     marker: "commentBeforeArrow",
+    // A line break before `=>` is a syntax error
+    separator: " ",
   });
   if (dangling) {
     parts.push(" ", dangling);
