@@ -3086,100 +3086,100 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-android-arm64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-android-arm64@npm:0.18.0"
+"@yuku-core/binding-android-arm64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-android-arm64@npm:0.18.1"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-darwin-arm64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-darwin-arm64@npm:0.18.0"
+"@yuku-core/binding-darwin-arm64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-darwin-arm64@npm:0.18.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-darwin-x64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-darwin-x64@npm:0.18.0"
+"@yuku-core/binding-darwin-x64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-darwin-x64@npm:0.18.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-freebsd-x64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-freebsd-x64@npm:0.18.0"
+"@yuku-core/binding-freebsd-x64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-freebsd-x64@npm:0.18.1"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-arm-gnu@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-arm-gnu@npm:0.18.0"
+"@yuku-core/binding-linux-arm-gnu@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-arm-gnu@npm:0.18.1"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-arm-musl@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-arm-musl@npm:0.18.0"
+"@yuku-core/binding-linux-arm-musl@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-arm-musl@npm:0.18.1"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-arm64-gnu@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-arm64-gnu@npm:0.18.0"
+"@yuku-core/binding-linux-arm64-gnu@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-arm64-gnu@npm:0.18.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-arm64-musl@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-arm64-musl@npm:0.18.0"
+"@yuku-core/binding-linux-arm64-musl@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-arm64-musl@npm:0.18.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-x64-gnu@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-x64-gnu@npm:0.18.0"
+"@yuku-core/binding-linux-x64-gnu@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-x64-gnu@npm:0.18.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-linux-x64-musl@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-linux-x64-musl@npm:0.18.0"
+"@yuku-core/binding-linux-x64-musl@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-linux-x64-musl@npm:0.18.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-win32-arm64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-win32-arm64@npm:0.18.0"
+"@yuku-core/binding-win32-arm64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-win32-arm64@npm:0.18.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-core/binding-win32-x64@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/binding-win32-x64@npm:0.18.0"
+"@yuku-core/binding-win32-x64@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/binding-win32-x64@npm:0.18.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-core/wasm@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@yuku-core/wasm@npm:0.18.0"
+"@yuku-core/wasm@npm:0.18.1":
+  version: 0.18.1
+  resolution: "@yuku-core/wasm@npm:0.18.1"
   dependencies:
-    "@yuku-toolchain/types": "npm:^0.18.0"
-  checksum: 10/3ececd5c4dd21c8a32739158ea0e0081b3c115bfec6f74a244c2ad59f83b23ba8908391d61fda7e8be8c9a968802a414ff09eee71b9ae746fd341423e3cc019d
+    "@yuku-toolchain/types": "npm:^0.18.1"
+  checksum: 10/103defd4f9f9565a477d8562f78238dd6800857fc70eb3140a060b0a318dad0ddca8828ad74aa6d88771c827900356b4208ffc6db505748a6f958ef1ea8759d9
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/types@npm:^0.18.0":
+"@yuku-toolchain/types@npm:^0.18.1":
   version: 0.18.1
   resolution: "@yuku-toolchain/types@npm:0.18.1"
   checksum: 10/d102e8d79c1f6b7cea9d7a09602ff4f1f910f449f54c6ee276713f45c5be0872e9e30404ac34873d9ead236d2be5d5ca696b13e5e0ffce8821799ca19a0eb199
@@ -8083,7 +8083,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.71.1"
     "@typescript-eslint/typescript-estree": "npm:8.71.1"
     "@typescript-eslint/visitor-keys": "npm:8.71.1"
-    "@yuku-core/wasm": "npm:0.18.0"
+    "@yuku-core/wasm": "npm:0.18.1"
     acorn: "npm:8.19.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:15.5.0"
@@ -8208,7 +8208,7 @@ __metadata:
     yaml: "npm:2.9.1"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.1"
-    yuku-parser: "npm:0.18.0"
+    yuku-parser: "npm:0.18.1"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -9874,23 +9874,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku-core@npm:0.18.0":
-  version: 0.18.0
-  resolution: "yuku-core@npm:0.18.0"
+"yuku-core@npm:0.18.1":
+  version: 0.18.1
+  resolution: "yuku-core@npm:0.18.1"
   dependencies:
-    "@yuku-core/binding-android-arm64": "npm:0.18.0"
-    "@yuku-core/binding-darwin-arm64": "npm:0.18.0"
-    "@yuku-core/binding-darwin-x64": "npm:0.18.0"
-    "@yuku-core/binding-freebsd-x64": "npm:0.18.0"
-    "@yuku-core/binding-linux-arm-gnu": "npm:0.18.0"
-    "@yuku-core/binding-linux-arm-musl": "npm:0.18.0"
-    "@yuku-core/binding-linux-arm64-gnu": "npm:0.18.0"
-    "@yuku-core/binding-linux-arm64-musl": "npm:0.18.0"
-    "@yuku-core/binding-linux-x64-gnu": "npm:0.18.0"
-    "@yuku-core/binding-linux-x64-musl": "npm:0.18.0"
-    "@yuku-core/binding-win32-arm64": "npm:0.18.0"
-    "@yuku-core/binding-win32-x64": "npm:0.18.0"
-    "@yuku-toolchain/types": "npm:^0.18.0"
+    "@yuku-core/binding-android-arm64": "npm:0.18.1"
+    "@yuku-core/binding-darwin-arm64": "npm:0.18.1"
+    "@yuku-core/binding-darwin-x64": "npm:0.18.1"
+    "@yuku-core/binding-freebsd-x64": "npm:0.18.1"
+    "@yuku-core/binding-linux-arm-gnu": "npm:0.18.1"
+    "@yuku-core/binding-linux-arm-musl": "npm:0.18.1"
+    "@yuku-core/binding-linux-arm64-gnu": "npm:0.18.1"
+    "@yuku-core/binding-linux-arm64-musl": "npm:0.18.1"
+    "@yuku-core/binding-linux-x64-gnu": "npm:0.18.1"
+    "@yuku-core/binding-linux-x64-musl": "npm:0.18.1"
+    "@yuku-core/binding-win32-arm64": "npm:0.18.1"
+    "@yuku-core/binding-win32-x64": "npm:0.18.1"
+    "@yuku-toolchain/types": "npm:^0.18.1"
   dependenciesMeta:
     "@yuku-core/binding-android-arm64":
       optional: true
@@ -9916,17 +9916,17 @@ __metadata:
       optional: true
     "@yuku-core/binding-win32-x64":
       optional: true
-  checksum: 10/1af95a52b877f66114dcc4021429851cb434684f2e56f10dfa41800af118811dc95deca32402a431ab5817ee1d83e24500ed0c9b8b3310d82721679abf54095b
+  checksum: 10/64e3ba52c5f53bdaa8b795a7cb9eb4a2315060dc594eb744ddf35cc5b5b68e640ace3845bcbcf01f62d698aeaf8c3dd05b738c486aa18d4528d38f2c9aa01e07
   languageName: node
   linkType: hard
 
-"yuku-parser@npm:0.18.0":
-  version: 0.18.0
-  resolution: "yuku-parser@npm:0.18.0"
+"yuku-parser@npm:0.18.1":
+  version: 0.18.1
+  resolution: "yuku-parser@npm:0.18.1"
   dependencies:
-    "@yuku-toolchain/types": "npm:^0.18.0"
-    yuku-core: "npm:0.18.0"
-  checksum: 10/a437c4c563e455b25fde40bdbc7d950b6962d6996faf3c079ee4dda84e70e35bc10e012260818b8f40e6b88c053ec8445cf9f7dfa39794bbc5e6eeca35e78d85
+    "@yuku-toolchain/types": "npm:^0.18.1"
+    yuku-core: "npm:0.18.1"
+  checksum: 10/57bd5616edf0b4161280a55f51dee04d2258235b71a28709c42edfcce44266eb064413be5c58a5145f4a67cae0c0477caf31212160783c27268d742ba906950a
   languageName: node
   linkType: hard
 
