@@ -652,10 +652,24 @@ function printJsxOpeningElement(path, options, print) {
       ? hardline
       : line;
 
+  const printedName = print("name");
+  let nameDoc;
+  if (
+    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+  ) {
+    nameDoc = indent([hardline, printedName]);
+  } else if (
+    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
+  ) {
+    nameDoc = [" ", printedName];
+  } else {
+    nameDoc = printedName;
+  }
+
   return group(
     [
       "<",
-      print("name"),
+      nameDoc,
       print("typeArguments"),
       indent(
         path.map(
