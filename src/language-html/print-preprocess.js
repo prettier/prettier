@@ -201,7 +201,12 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
         }
 
         const prevChild = child.prev;
-        if (!prevChild || prevChild.kind !== "text") {
+        if (
+          !prevChild ||
+          prevChild.kind !== "text" ||
+          prevChild.isCdata ||
+          child.isCdata
+        ) {
           continue;
         }
 
@@ -222,7 +227,10 @@ function mergeCdataIntoText(ast /* , options */) {
   return mergeNodeIntoText(
     ast,
     (node) => node.kind === "cdata",
-    (node) => `<![CDATA[${node.value}]]>`,
+    (node) => {
+      node.isCdata = true;
+      return `<![CDATA[${node.value}]]>`;
+    },
   );
 }
 
@@ -233,6 +241,7 @@ function mergeSimpleElementIntoText(ast /* , options */) {
     !isNonEmptyArray(node.startTagComments) &&
     node.children.length === 1 &&
     node.firstChild.kind === "text" &&
+    !node.firstChild.isCdata &&
     !htmlWhitespace.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
@@ -241,7 +250,9 @@ function mergeSimpleElementIntoText(ast /* , options */) {
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
     node.prev?.kind === "text" &&
-    node.next?.kind === "text";
+    !node.prev.isCdata &&
+    node.next?.kind === "text" &&
+    !node.next.isCdata;
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
@@ -283,7 +294,7 @@ function extractInterpolation(ast, options) {
     }
 
     for (const child of node.children) {
-      if (child.kind !== "text") {
+      if (child.kind !== "text" || child.isCdata) {
         continue;
       }
 
@@ -385,6 +396,7 @@ function extractWhitespaces(ast, options) {
       children.length === 0 ||
       (children.length === 1 &&
         children[0].kind === "text" &&
+        !children[0].isCdata &&
         htmlWhitespace.trim(children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = children.length > 0;
@@ -398,7 +410,7 @@ function extractWhitespaces(ast, options) {
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
-        if (child.kind !== "text") {
+        if (child.kind !== "text" || child.isCdata) {
           continue;
         }
 
