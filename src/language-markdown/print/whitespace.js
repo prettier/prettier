@@ -308,6 +308,14 @@ function isLineBreakAmbiguous(path) {
       ((previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
         (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER))
     )
+  return Boolean(
+    (previous?.isCJ || next?.isCJ) &&
+    // A line break between a CJ letter and a Korean letter has already been interchangeable with a space since Prettier v3.0.0.
+    // A line break between a CJK punctuation character and a Korean letter is handled differently depending on the browser and the content language.
+    !(
+      (previous?.kind === KIND_K_LETTER && next?.kind === KIND_CJ_LETTER) ||
+      (next?.kind === KIND_K_LETTER && previous?.kind === KIND_CJ_LETTER)
+    ),
   );
 }
 
