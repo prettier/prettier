@@ -719,12 +719,19 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 }
 
 function printJsxElementName(path, options, print) {
-  const nameNode = path.node.name;
+  const { node } = path;
+  const nameNode = node.name;
   const printed = print("name");
   if (
     hasComment(nameNode, CommentCheckFlags.Leading | CommentCheckFlags.Line)
   ) {
-    return [indent([hardline, printed]), hardline];
+    return [
+      indent([hardline, printed]),
+      node.type === "JSXClosingElement" ||
+      (node.type === "JSXOpeningElement" && node.attributes.length > 0)
+        ? hardline
+        : "",
+    ];
   }
 
   if (
