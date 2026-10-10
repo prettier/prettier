@@ -10,6 +10,7 @@ function preprocess(ast, options) {
   if (options.parser === "mdx") {
     ast = restoreUnescapedCharacter(ast, options);
   } else {
+    ast = splitHtmlPrettierIgnore(ast, options);
     ast = addRawToText(ast, options);
   }
   ast = mergeContinuousTexts(ast);
@@ -589,6 +590,103 @@ function markAlignedListLegacy(ast, options) {
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
+}
+
+const HTML_IGNORE_REGEX = /<!--\s*prettier-ignore(?:-(?:start|end))?\s*-->/;
+const countNewlines = (text) => (text.match(/\n/g) ?? []).length;
+
+function createHtmlNode(pos, text, start, end) {
+  const line = pos.line + countNewlines(text.slice(pos.offset, start));
+  const value = text.slice(start, end);
+  return {
+    type: "html",
+    value,
+    position: {
+      start: { line, column: pos.column, offset: start },
+      end: { line: line + countNewlines(value), column: 1, offset: end },
+    },
+  };
+}
+
+function splitHtmlChildren(children, options) {
+  if (
+    children.every((c) => c.type !== "html" || !HTML_IGNORE_REGEX.test(c.value))
+  ) {
+    return children;
+  }
+
+  const { originalText: text } = options;
+  const newChildren = [];
+
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    if (
+      child.type !== "html" ||
+      !HTML_IGNORE_REGEX.test(child.value) ||
+      (child.value.trim() === child.value &&
+        /^<!--\s*prettier-ignore(?:-(?:start|end))?\s*-->$/.test(child.value))
+    ) {
+      newChildren.push(child);
+      continue;
+    }
+
+    const match = HTML_IGNORE_REGEX.exec(child.value);
+    const start = child.position.start.offset;
+    const commentStart = start + match.index;
+    const commentEnd = commentStart + match[0].length;
+    const pos = child.position.start;
+
+    const before = child.value.slice(0, match.index);
+    if (/\S/.test(before)) {
+      const beforeEnd = start + before.replace(/[\r\n]+$/, "").length;
+      newChildren.push(createHtmlNode(pos, text, start, beforeEnd));
+    }
+
+    newChildren.push(createHtmlNode(pos, text, commentStart, commentEnd));
+
+    const after = child.value.slice(match.index + match[0].length);
+    const nonWs = after.search(/\S/);
+    if (nonWs === -1) {
+      continue;
+    }
+
+    const afterStart = commentEnd + nonWs;
+    const type1Match = /^<(pre|script|style)(?:\s[^>]*)?>/i.exec(
+      after.slice(nonWs),
+    );
+
+    if (type1Match) {
+      const closeRegex = new RegExp(String.raw`</${type1Match[1]}\s*>`, "i");
+      const closeMatch = closeRegex.exec(text.slice(afterStart));
+
+      if (closeMatch) {
+        const blockEnd = afterStart + closeMatch.index + closeMatch[0].length;
+        newChildren.push(createHtmlNode(pos, text, afterStart, blockEnd));
+        while (
+          i + 1 < children.length &&
+          children[i + 1].position.start.offset < blockEnd
+        ) {
+          i++;
+        }
+        continue;
+      }
+    }
+
+    const afterEnd = start + child.value.replace(/[\r\n]+$/, "").length;
+    newChildren.push(createHtmlNode(pos, text, afterStart, afterEnd));
+  }
+
+  return newChildren;
+}
+
+function splitHtmlPrettierIgnore(ast, options) {
+  if (!ast.children) {
+    return ast;
+  }
+  return {
+    ...ast,
+    children: splitHtmlChildren(ast.children, options),
+  };
 }
 
 export default preprocess;

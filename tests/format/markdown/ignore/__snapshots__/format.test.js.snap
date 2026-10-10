@@ -26,6 +26,54 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-17399.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>this is necessary</div>
+<!-- prettier-ignore -->
+<pre>
+
+the blank line above is also necessary
+  indent this line please
+  and don't invent a blank after my code
+  in fact, don't reformat preformatted text at all
+</pre>
+
+<div>container</div>
+<!-- prettier-ignore -->
+<pre class="highlight">
+
+  preserved indentation
+</pre>
+
+Normal markdown paragraph after ignored preformatted blocks.
+
+=====================================output=====================================
+<div>this is necessary</div>
+<!-- prettier-ignore -->
+<pre>
+
+the blank line above is also necessary
+  indent this line please
+  and don't invent a blank after my code
+  in fact, don't reformat preformatted text at all
+</pre>
+
+<div>container</div>
+<!-- prettier-ignore -->
+<pre class="highlight">
+
+  preserved indentation
+</pre>
+
+Normal markdown paragraph after ignored preformatted blocks.
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
