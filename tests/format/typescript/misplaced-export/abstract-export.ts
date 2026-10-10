@@ -1,0 +1,1 @@
+abstract export class A {}

@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`abstract-export.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract export class A {}
+    |          ^
+  2 |
+Cause: Unexpected token, expected "class" (1:9)"
+`;
+
+exports[`abstract-export.ts format[oxc-ts] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`abstract-export.ts format[typescript] 1`] = `
+"'export' modifier must precede other modifiers. (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`abstract-export.ts format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`declare-export.ts format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export class A {}
+    |        ^
+  2 |
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`declare-export.ts format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export class A {}
+    |         ^^^^^^
+  2 |"
+`;
+
+exports[`declare-export.ts format[typescript] 1`] = `
+"'export' modifier must precede other modifiers. (1:9)
+> 1 | declare export class A {}
+    |         ^^^^^^
+  2 |"
+`;
+
+exports[`declare-export.ts format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export class A {}
+    |         ^^^^^^
+  2 |"
+`;
+
+exports[`default-export.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract export default class C {}
+    |          ^
+  2 |
+Cause: Unexpected token, expected "class" (1:9)"
+`;
+
+exports[`default-export.ts format[oxc-ts] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export default class C {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`default-export.ts format[typescript] 1`] = `
+"'export' modifier must precede other modifiers. (1:10)
+> 1 | abstract export default class C {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`default-export.ts format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:10)
+> 1 | abstract export default class C {}
+    |          ^^^^^^
+  2 |"
+`;
+
+exports[`nested-export.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "class" (2:23)
+  1 | namespace N {
+> 2 |   abstract /* keep */ export class B {}
+    |                       ^
+  3 | }
+  4 |
+Cause: Unexpected token, expected "class" (2:22)"
+`;
+
+exports[`nested-export.ts format[oxc-ts] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (2:23)
+  1 | namespace N {
+> 2 |   abstract /* keep */ export class B {}
+    |                       ^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`nested-export.ts format[typescript] 1`] = `
+"'export' modifier must precede other modifiers. (2:23)
+  1 | namespace N {
+> 2 |   abstract /* keep */ export class B {}
+    |                       ^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`nested-export.ts format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (2:23)
+  1 | namespace N {
+> 2 |   abstract /* keep */ export class B {}
+    |                       ^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export abstract class A {}
+export declare class B {}
+abstract /* export */ class C {}
+
+=====================================output=====================================
+export abstract class A {}
+export declare class B {}
+abstract class /* export */ C {}
+
+================================================================================
+`;
