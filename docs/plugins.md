@@ -187,6 +187,7 @@ export const printers = {
     embed,
     preprocess,
     getVisitorKeys,
+    getRangeNodes,
     insertPragma,
     canAttachComment,
     isBlockComment,
@@ -388,6 +389,28 @@ function getVisitorKeys(node, nonTraversableKeys) {
   );
 }
 ```
+
+#### (optional) `getRangeNodes`
+
+Called if either of the [`--range-start`](options.md#range)/[`--range-end`](options.md#range) options are set. If omitted, Prettier will format the entire file.
+
+```ts
+function getRangeNodes(
+  // The node at the start of the range and its ancestors
+  startNodeAndAncestors: AST[],
+  // The node at the end of the range and its ancestors
+  endNodeAndAncestors: AST[],
+  // The current options
+  options: Options,
+): {
+  // The first node to format
+  startNode: AST;
+  // The last node to format
+  endNode: AST;
+};
+```
+
+Return the start and end nodes of the range to be formatted. `startNode` and `endNode` may be the same node.
 
 #### (optional) `insertPragma`
 
