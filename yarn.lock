@@ -1512,9 +1512,9 @@ __metadata:
   linkType: hard
 
 "@handlebars/parser@npm:~2.2.0":
-  version: 2.2.2
-  resolution: "@handlebars/parser@npm:2.2.2"
-  checksum: 10/509742e08309696979253690da565a5a4435e1cb8a4fa82cefd521fd2153b9bb20849ede12dc3d4e1d5b6938c0c5c0b5a71a9fc1e807c4263579a7cfff0b4828
+  version: 2.2.3
+  resolution: "@handlebars/parser@npm:2.2.3"
+  checksum: 10/6c8ba5b712c2a41c42a946708288b17b09aeb422661bb1ece784475567f799cc3cf73a779a17ec3e447756f6d22ecaea80dffe9be6ca4bbcd699ceff0b2214d3
   languageName: node
   linkType: hard
 
