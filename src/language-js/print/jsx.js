@@ -727,10 +727,7 @@ function printJsxElementName(path, options, print) {
   ) {
     return [
       indent([hardline, printed]),
-      node.type === "JSXClosingElement" ||
-      (node.type === "JSXOpeningElement" && node.attributes.length > 0)
-        ? hardline
-        : "",
+      node.type === "JSXClosingElement" ? hardline : "",
     ];
   }
 
