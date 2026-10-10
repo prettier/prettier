@@ -29,6 +29,24 @@ function printComment(path, options) {
   return options.printer.printComment(path, options);
 }
 
+function isBlockCommentAfterTypeOrSpreadSeparator(path) {
+  const owner = path.parent;
+  const parent = path.grandparent;
+  if (!owner || !parent) {
+    return false;
+  }
+  if (
+    (parent.type === "TSTypeAnnotation" || parent.type === "TypeAnnotation") &&
+    parent.typeAnnotation === owner
+  ) {
+    return true;
+  }
+  return (
+    (parent.type === "SpreadElement" || parent.type === "RestElement") &&
+    parent.argument === owner
+  );
+}
+
 function printLeadingComment(path, options) {
   const comment = path.node;
   const parts = [printComment(path, options)];
@@ -41,7 +59,10 @@ function printLeadingComment(path, options) {
   if (isBlock) {
     /** @type {HardLine | Line | " "} */
     let lineBreak = " ";
-    if (hasNewline(originalText, locEnd(comment))) {
+    const inlineAfterSeparator =
+      !String(comment.value).includes("\n") &&
+      isBlockCommentAfterTypeOrSpreadSeparator(path);
+    if (!inlineAfterSeparator && hasNewline(originalText, locEnd(comment))) {
       if (hasNewline(originalText, locStart(comment), { backwards: true })) {
         lineBreak = hardline;
       } else {
