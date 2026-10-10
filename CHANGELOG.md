@@ -1,3 +1,11 @@
+# 3.9.10
+
+[diff](https://github.com/prettier/prettier/compare/3.9.9...3.9.10)
+
+#### Markdown: Update `micromark-extension-gfm-table` to fix the table parse issue on performance ([#20266](https://github.com/prettier/prettier/pull/20266) by [@fisker](https://github.com/fisker))
+
+See https://github.com/micromark/micromark-extension-gfm-table/commit/4f43ead37b786bc531d924530d4ab4c714886267 for details.
+
 # 3.9.9
 
 [diff](https://github.com/prettier/prettier/compare/3.9.8...3.9.9)
