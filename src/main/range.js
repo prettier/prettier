@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import { isExportAssignment } from "../language-js/utilities/node-types.js";
 import { childNodesCache } from "./comments/attach.js";
 import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
@@ -114,13 +115,14 @@ function findNodeAtOffset(
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(type, parentType) {
+function isJsSourceElement(node, parentNode) {
+  const { type } = node;
   return (
-    parentType !== "DeclareExportDeclaration" &&
+    parentNode?.type !== "DeclareExportDeclaration" &&
     type !== "TypeParameterDeclaration" &&
     (type === "Directive" ||
       type === "TypeAlias" ||
-      type === "TSExportAssignment" ||
+      isExportAssignment(node) ||
       type.startsWith("Declare") ||
       type.startsWith("TSDeclare") ||
       type.endsWith("Statement") ||
@@ -177,7 +179,7 @@ function isSourceElement(opts, node, parentNode) {
     case "yuku":
     case "yuku-ts":
     case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode?.type);
+      return isJsSourceElement(node, parentNode);
     case "json":
     case "json5":
     case "jsonc":

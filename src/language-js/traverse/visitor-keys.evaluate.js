@@ -30,9 +30,6 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
-
-  // `flow@0.332.0`
-  ObjectTypeMappedTypeProperty: ["nameType"],
 };
 
 const excludeNodeTypes = [
@@ -44,15 +41,8 @@ const excludeNodeTypes = [
   "ExperimentalSpreadProperty",
 
   // From flow-parser
-  "AbstractMethodDefinition",
-  "AbstractPropertyDefinition",
-  "ConstructorTypeAnnotation",
   "DeclareClassExtendsCall",
   "DeclareMethodDefinition",
-  "ExportAssignment",
-  "ExternalModuleReference",
-  "ImportEqualsDeclaration",
-  "ImportType",
   "NamespaceExportDeclaration",
   "NonNullExpression",
   "ObjectTypePrivateField",
@@ -60,7 +50,6 @@ const excludeNodeTypes = [
   "RendersMaybeType",
   "RendersStarType",
   "RendersType",
-  "TemplateLiteralTypeAnnotation",
   "TupleTypeElement",
 ];
 

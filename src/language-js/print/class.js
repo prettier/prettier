@@ -20,7 +20,11 @@ import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
-import { isJsxElement, isMemberExpression } from "../utilities/node-types.js";
+import {
+  isAbstractPropertyDefinition,
+  isJsxElement,
+  isMemberExpression,
+} from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators, printDecorators } from "./decorators.js";
@@ -308,6 +312,7 @@ function printClassMethod(path, options, print) {
 - `AccessorProperty`
 - `TSAbstractAccessorProperty` (TypeScript)
 - `TSAbstractPropertyDefinition` (TypeScript)
+- `AbstractPropertyDefinition` (Flow)
 */
 function printClassProperty(path, options, print) {
   const { node } = path;
@@ -349,7 +354,7 @@ function printClassProperty(path, options, print) {
   );
 
   const isAbstractProperty =
-    node.type === "TSAbstractPropertyDefinition" ||
+    isAbstractPropertyDefinition(node) ||
     node.type === "TSAbstractAccessorProperty";
 
   return [

@@ -41,11 +41,13 @@ const shouldPrintDirectly = createTypeCheckFunction([
   "ClassProperty",
   "ClassAccessorProperty",
   "AccessorProperty",
+  "AbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
   "PropertyDefinition",
   "TSAbstractPropertyDefinition",
   "ClassPrivateProperty",
   "MethodDefinition",
+  "AbstractMethodDefinition",
   "TSAbstractMethodDefinition",
   "TSDeclareMethod",
 ]);
