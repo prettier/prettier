@@ -238,3 +238,46 @@ div {
 
 ================================================================================
 `;
+
+exports[`single-line-value.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/* Values written on a single line stay on a single line, functions included. */
+div {
+  grid-template-columns: minmax(1.50em, 1fr) minmax(1em, 80ch) minmax(1em, 1fr) minmax(1em, 1fr);
+  grid-template-rows: repeat(auto-fill, minmax(min(120px, 100%), 1.0fr)) repeat(2, 1fr);
+  grid: repeat(2, 60px) / auto-flow minmax(200px, max-content) minmax(200px, max-content) ;
+  grid-template: "a a a" minmax(40px, calc(100% - 20px)) "b c c" 40px / 1fr minmax(.40ch, 1fr) 1fr;
+}
+
+/* The author's own line breaks are still the ones that are kept. */
+div {
+  grid-template-columns:
+      [full-start] minmax(1em, 1fr)
+      [main-start] minmax(1em, calc(80ch + 2 * var(--gutter, 1.0rem)))
+      [main-end] minmax(1em, 1fr)
+      [full-end];
+}
+
+=====================================output=====================================
+/* Values written on a single line stay on a single line, functions included. */
+div {
+  grid-template-columns: minmax(1.5em, 1fr) minmax(1em, 80ch) minmax(1em, 1fr) minmax(1em, 1fr);
+  grid-template-rows: repeat(auto-fill, minmax(min(120px, 100%), 1fr)) repeat(2, 1fr);
+  grid: repeat(2, 60px) / auto-flow minmax(200px, max-content) minmax(200px, max-content);
+  grid-template: "a a a" minmax(40px, calc(100% - 20px)) "b c c" 40px / 1fr minmax(0.4ch, 1fr) 1fr;
+}
+
+/* The author's own line breaks are still the ones that are kept. */
+div {
+  grid-template-columns:
+    [full-start] minmax(1em, 1fr)
+    [main-start] minmax(1em, calc(80ch + 2 * var(--gutter, 1rem)))
+    [main-end] minmax(1em, 1fr)
+    [full-end];
+}
+
+================================================================================
+`;
