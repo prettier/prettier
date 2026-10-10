@@ -298,16 +298,6 @@ function isLineBreakAmbiguous(path) {
   // converting it to a space, so in v3 we leave it as-is instead of converting it
   // to a space or removing it.
   // See also: https://github.com/prettier/prettier/pull/16805
-  return (
-    (Boolean(previous?.isCJ) || Boolean(next?.isCJ)) &&
-    // A line break between a CJ letter and a Korean letter has already been interchangeable with a space since Prettier v3.0.0.
-    // A line break between a CJK punctuation character and a Korean letter is handled differently depending on the browser and the content language.
-    !(
-      Boolean(previous) &&
-      Boolean(next) &&
-      ((previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
-        (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER))
-    )
   return Boolean(
     (previous?.isCJ || next?.isCJ) &&
     // A line break between a CJ letter and a Korean letter has already been interchangeable with a space since Prettier v3.0.0.
