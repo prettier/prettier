@@ -1,3 +1,4 @@
+import { commentsPropertyInOptions } from "../../constants.js";
 import {
   addDanglingComment,
   addLeadingComment,
@@ -5,6 +6,7 @@ import {
 } from "../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
@@ -82,6 +84,7 @@ function handleOwnLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleEnumOrModuleComments,
     handleForXStatementComments,
     handleUnionTypeComments,
     handleMatchOrPatternComments,
@@ -115,6 +118,7 @@ function handleEndOfLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleEnumOrModuleComments,
     handleForXStatementComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
@@ -148,6 +152,7 @@ function handleRemainingComment(context) {
     handleWhileLikeComments,
     handleSwitchStatementComments,
     handleForXStatementComments,
+    handleEnumOrModuleComments,
     handleMethodNameComments,
     handleOnlyComments,
     handleAssignmentLikeComments,
@@ -313,6 +318,65 @@ const isClassLikeNode = createTypeCheckFunction([
   "InterfaceDeclaration",
   "TSInterfaceDeclaration",
 ]);
+
+const enumOrModuleHeaderCommentsCache = new WeakMap();
+const commentIndicesCache = new WeakMap();
+
+function shouldMoveEnumOrModuleHeaderComments(node, comment, options) {
+  return getOrInsertComputed(enumOrModuleHeaderCommentsCache, node, () => {
+    const comments = options[commentsPropertyInOptions];
+    const commentIndices = getOrInsertComputed(
+      commentIndicesCache,
+      comments,
+      (comments) => new Map(comments.map((comment, index) => [comment, index])),
+    );
+    const start = locEnd(node.id);
+    const end = locStart(node.body);
+    let index = commentIndices.get(comment);
+    while (index > 0 && locStart(comments[index - 1]) >= start) {
+      index--;
+    }
+
+    let hasLineComment = false;
+    for (; index < comments.length; index++) {
+      const comment = comments[index];
+      if (locStart(comment) >= end) {
+        break;
+      }
+      if (locEnd(comment) <= end) {
+        // Preserve the attachment and scope of ignore directives in the header.
+        if (isPrettierIgnoreComment(comment)) {
+          return false;
+        }
+        hasLineComment ||= isLineComment(comment);
+      }
+    }
+    return hasLineComment;
+  });
+}
+
+function handleEnumOrModuleComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (
+    (enclosingNode?.type === "TSEnumDeclaration" ||
+      enclosingNode?.type === "TSModuleDeclaration") &&
+    followingNode === enclosingNode.body &&
+    (followingNode?.type === "TSEnumBody" ||
+      followingNode?.type === "TSModuleBlock") &&
+    locStart(comment) >= locEnd(enclosingNode.id) &&
+    locEnd(comment) <= locStart(followingNode) &&
+    shouldMoveEnumOrModuleHeaderComments(enclosingNode, comment, options)
+  ) {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleClassComments({
   comment,
   precedingNode,
