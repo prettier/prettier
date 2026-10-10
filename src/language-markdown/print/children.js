@@ -89,7 +89,10 @@ function shouldPrePrintDoubleHardline(path, options) {
         parent.type === "listItem" &&
         (previous.type === "code" ||
           // Preserve blank line before nested list within listItem (issue #17746)
-          previous.type === "paragraph") &&
+          previous.type === "paragraph" ||
+          // Most HTML blocks only end at a blank line,
+          // without it the list becomes part of the HTML (issue #17738)
+          previous.type === "html") &&
         previous.position.end.line + 1 < node.position.start.line)
     ) {
       return true;

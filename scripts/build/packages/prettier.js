@@ -673,8 +673,8 @@ const pluginFiles = [
             "const PURE_FUNCTION_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gs,
-            "const NAMED_ENTITIES = {};",
+            "const NAMED_ENTITIES =",
+            "const NAMED_ENTITIES = new Map();",
           );
 
           return text;
@@ -803,10 +803,6 @@ const pluginFiles = [
 
           return text;
         },
-      },
-      {
-        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
-        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
       },
     ],
   },

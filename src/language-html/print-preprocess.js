@@ -48,6 +48,10 @@ function removeIgnorableFirstLf(ast /* , options */) {
         node.removeChild(text);
       } else {
         text.value = text.value.slice(1);
+        text.sourceSpan = new ParseSourceSpan(
+          text.sourceSpan.start.moveBy(1),
+          text.sourceSpan.end,
+        );
       }
     }
   });

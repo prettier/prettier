@@ -19,8 +19,10 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import {
   isAbstractPropertyDefinition,
+  isJsxElement,
   isMemberExpression,
 } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
@@ -115,18 +117,20 @@ function printClassWithoutDecorators(path, options, print) {
   }
 
   if (node.superClass) {
-    const printed = [
+    let printed = [
       printSuperClass(path, options, print),
       print("superTypeArguments"),
     ];
-    const printedWithComments = path.call(
-      () => ["extends ", printComments(path, printed, options)],
-      "superClass",
-    );
+    printed = [
+      "extends ",
+      isJsxElement(node.superClass) && !hasNodeIgnoreComment(node.superClass)
+        ? printed
+        : path.call(() => printComments(path, printed, options), "superClass"),
+    ];
     if (groupMode) {
-      extendsParts.push(line, group(printedWithComments));
+      extendsParts.push(line, group(printed));
     } else {
-      extendsParts.push(" ", printedWithComments);
+      extendsParts.push(" ", printed);
     }
   } else {
     extendsParts.push(printHeritageClauses(path, options, print, "extends"));
