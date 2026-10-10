@@ -2,12 +2,16 @@ import * as assert from "#universal/assert";
 import { childNodesCache } from "./comments/attach.js";
 import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
-function findCommonAncestor(startNodeAndAncestors, endNodeAndAncestors) {
-  endNodeAndAncestors = new Set(endNodeAndAncestors);
-  return startNodeAndAncestors.find(
-    (node) =>
-      jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
+function dropLeafNonSourceElements(nodeAndAncestors, isSourceElement) {
+  const index = nodeAndAncestors.findIndex((node, i, nodes) =>
+    isSourceElement(node, nodes[i + 1]),
   );
+
+  if (index === -1) {
+    return;
+  }
+
+  return nodeAndAncestors.slice(index);
 }
 
 function dropRootParents(parents) {
@@ -25,8 +29,19 @@ function dropRootParents(parents) {
 function findSiblingAncestors(
   startNodeAndAncestors,
   endNodeAndAncestors,
+  isSourceElement,
   options,
 ) {
+  [startNodeAndAncestors, endNodeAndAncestors] = [
+    startNodeAndAncestors,
+    endNodeAndAncestors,
+  ].map((nodeAndAncestors) =>
+    dropLeafNonSourceElements(nodeAndAncestors, isSourceElement),
+  );
+  if (!startNodeAndAncestors || !endNodeAndAncestors) {
+    return;
+  }
+
   const { locStart, locEnd } = options;
   let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
@@ -47,7 +62,7 @@ function findSiblingAncestors(
   const endNodeEnd = locEnd(resultEndNode);
   for (const startAncestor of dropRootParents(startNodeAncestors)) {
     if (locEnd(startAncestor) <= endNodeEnd) {
-      if (isSourceElement(options, startAncestor)) {
+      if (isSourceElement(startAncestor)) {
         resultStartNode = startAncestor;
       }
     } else {
@@ -65,7 +80,6 @@ function findNodeAtOffset(
   node,
   offset,
   options,
-  predicate,
   ancestors = [],
   type,
   locFunctions,
@@ -98,7 +112,6 @@ function findNodeAtOffset(
       child,
       offset,
       options,
-      predicate,
       nodeAndAncestors,
       type,
       locFunctions,
@@ -108,87 +121,7 @@ function findNodeAtOffset(
     }
   }
 
-  if (predicate(node, ancestors[0])) {
-    return nodeAndAncestors;
-  }
-}
-
-// See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(type, parentType) {
-  return (
-    parentType !== "DeclareExportDeclaration" &&
-    type !== "TypeParameterDeclaration" &&
-    (type === "Directive" ||
-      type === "TypeAlias" ||
-      type === "TSExportAssignment" ||
-      type.startsWith("Declare") ||
-      type.startsWith("TSDeclare") ||
-      type.endsWith("Statement") ||
-      type.endsWith("Declaration"))
-  );
-}
-
-const jsonSourceElements = new Set([
-  "JsonRoot",
-  "ObjectExpression",
-  "ArrayExpression",
-  "StringLiteral",
-  "NumericLiteral",
-  "BooleanLiteral",
-  "NullLiteral",
-  "UnaryExpression",
-  "TemplateLiteral",
-]);
-const graphqlSourceElements = new Set([
-  "OperationDefinition",
-  "FragmentDefinition",
-  "VariableDefinition",
-  "TypeExtensionDefinition",
-  "ObjectTypeDefinition",
-  "FieldDefinition",
-  "DirectiveDefinition",
-  "EnumTypeDefinition",
-  "EnumValueDefinition",
-  "InputValueDefinition",
-  "InputObjectTypeDefinition",
-  "SchemaDefinition",
-  "OperationTypeDefinition",
-  "InterfaceTypeDefinition",
-  "UnionTypeDefinition",
-  "ScalarTypeDefinition",
-]);
-function isSourceElement(opts, node, parentNode) {
-  /* c8 ignore next 3 */
-  if (!node) {
-    return false;
-  }
-  switch (opts.parser) {
-    case "flow":
-    case "hermes":
-    case "babel":
-    case "babel-flow":
-    case "babel-ts":
-    case "typescript":
-    case "acorn":
-    case "espree":
-    case "meriyah":
-    case "oxc":
-    case "oxc-ts":
-    case "yuku":
-    case "yuku-ts":
-    case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode?.type);
-    case "json":
-    case "json5":
-    case "jsonc":
-    case "json-stringify":
-      return jsonSourceElements.has(node.type);
-    case "graphql":
-      return graphqlSourceElements.has(node.kind);
-    case "vue":
-      return node.tag !== "root";
-  }
-  return false;
+  return nodeAndAncestors;
 }
 
 /**
@@ -219,7 +152,6 @@ function calculateRange(text, opts, ast) {
     ast,
     start,
     opts,
-    (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
     "rangeStart",
     locFunctions,
@@ -232,35 +164,21 @@ function calculateRange(text, opts, ast) {
     // No need find Node at `end`, it will be the same as `startNodeAndAncestors`
     isAllWhitespace
       ? startNodeAndAncestors
-      : findNodeAtOffset(
-          ast,
-          end,
-          opts,
-          (node) => isSourceElement(opts, node),
-          [],
-          "rangeEnd",
-          locFunctions,
-        );
+      : findNodeAtOffset(ast, end, opts, [], "rangeEnd", locFunctions);
   if (!endNodeAndAncestors) {
     return;
   }
 
-  let startNode;
-  let endNode;
-  if (ast.type === "JsonRoot") {
-    const commonAncestor = findCommonAncestor(
-      startNodeAndAncestors,
-      endNodeAndAncestors,
-    );
-    startNode = commonAncestor;
-    endNode = commonAncestor;
-  } else {
-    [startNode, endNode] = findSiblingAncestors(
-      startNodeAndAncestors,
-      endNodeAndAncestors,
-      opts,
-    );
+  const { getRangeNodes } = opts.printer;
+  if (!getRangeNodes) {
+    return;
   }
+
+  const { startNode, endNode } = getRangeNodes(
+    startNodeAndAncestors,
+    endNodeAndAncestors,
+    opts,
+  );
 
   const { locStart, locEnd } = locFunctions;
   return [
@@ -269,4 +187,4 @@ function calculateRange(text, opts, ast) {
   ];
 }
 
-export { calculateRange };
+export { calculateRange, findSiblingAncestors };
