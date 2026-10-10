@@ -804,10 +804,6 @@ const pluginFiles = [
           return text;
         },
       },
-      {
-        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
-        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
-      },
     ],
   },
   "src/plugins/html.js",
