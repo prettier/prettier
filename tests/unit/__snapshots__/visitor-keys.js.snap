@@ -8,6 +8,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "AbstractPropertyDefinition": [
     "key",
+    "typeAnnotation",
     "value",
     "variance",
   ],

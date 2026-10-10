@@ -321,8 +321,6 @@ function printClassMethod(path, options, print) {
 */
 function printClassProperty(path, options, print) {
   const { node } = path;
-  const typeAnnotationProperty =
-    node.type === "AbstractPropertyDefinition" ? "value" : "typeAnnotation";
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
@@ -357,7 +355,7 @@ function printClassProperty(path, options, print) {
     printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotationProperty(path, print, typeAnnotationProperty),
+    printTypeAnnotationProperty(path, print),
   );
 
   const isAbstractProperty =

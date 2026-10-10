@@ -1,7 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
-// flow-estree:v0.334.0, build-script:v1
+// flow-estree:v0.335.0, build-script:v1
 // spell-checker: disable
 
 /**
@@ -1048,7 +1048,8 @@ export type AbstractPropertyDefinition =
   | AbstractPropertyDefinitionWithComputedName
   | AbstractPropertyDefinitionWithNonComputedName;
 interface AbstractPropertyDefinitionBase extends BaseNode {
-  readonly value: TypeAnnotation | null;
+  readonly value: null;
+  readonly typeAnnotation: TypeAnnotation | null;
   readonly variance: Variance | null;
   readonly override?: true;
   readonly tsAccessibility?: TSAccessibility;
