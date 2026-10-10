@@ -23,9 +23,7 @@ import {
   needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
-  printClosingTagSuffix,
   printOpeningTag,
-  printOpeningTagPrefix,
 } from "./tag.js";
 
 function printElement(path, options, print) {
@@ -33,11 +31,9 @@ function printElement(path, options, print) {
 
   if (shouldPreserveContent(node, options)) {
     return [
-      printOpeningTagPrefix(node, options),
       group(printOpeningTag(path, options, print)),
       replaceEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
-      printClosingTagSuffix(node, options),
     ];
   }
   /**
