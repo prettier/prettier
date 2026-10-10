@@ -102,6 +102,125 @@ const el = ReactDOM.findDOMNode(ref);
 ================================================================================
 `;
 
+exports[`quoted-keys.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  x = a
+  "in"() {}
+}
+
+interface B {
+  "get"
+  a: string
+}
+
+interface C {
+  "set"
+  a: string
+}
+
+type D = {
+  "static"
+  a: string
+}
+
+interface E {
+  "get": string
+  a: string
+}
+
+=====================================output=====================================
+class A {
+  x = a;
+  in() {}
+}
+
+interface B {
+  get;
+  a: string
+}
+
+interface C {
+  set;
+  a: string
+}
+
+type D = {
+  static;
+  a: string
+}
+
+interface E {
+  get: string
+  a: string
+}
+
+================================================================================
+`;
+
+exports[`quoted-keys.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  x = a
+  "in"() {}
+}
+
+interface B {
+  "get"
+  a: string
+}
+
+interface C {
+  "set"
+  a: string
+}
+
+type D = {
+  "static"
+  a: string
+}
+
+interface E {
+  "get": string
+  a: string
+}
+
+=====================================output=====================================
+class A {
+  x = a;
+  in() {}
+}
+
+interface B {
+  get;
+  a: string;
+}
+
+interface C {
+  set;
+  a: string;
+}
+
+type D = {
+  static;
+  a: string;
+};
+
+interface E {
+  get: string;
+  a: string;
+}
+
+================================================================================
+`;
+
 exports[`type-assertion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
