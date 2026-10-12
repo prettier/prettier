@@ -46,7 +46,7 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   );
 }
 
-const ASI_HAZARD_START_CHARACTERS = new Set("[(`+-/");
+const ASI_HAZARD_START_CHARACTERS = new Set("[(`+-/<");
 /*
 `prettier-ignore`d nodes print their original text verbatim, so ASI
 protection can't be decided from the AST alone: parentheses that are
