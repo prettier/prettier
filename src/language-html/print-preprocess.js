@@ -16,7 +16,7 @@ const PREPROCESS_PIPELINE = [
   convertAngularNonBindableNodesToText,
   removeIgnorableFirstLf,
   mergeIfConditionalStartEndCommentIntoElementOpeningTag,
-  mergeCdataIntoText,
+  mergeAdjacentTextNodes,
   extractInterpolation,
   extractWhitespaces,
   addCssDisplay,
@@ -185,28 +185,14 @@ function createOriginalTextNode(sourceSpan, options) {
   };
 }
 
-function mergeNodeIntoText(ast, shouldMerge, getValue) {
+function mergeAdjacentTextNodes(ast /* , options */) {
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
         const child = node.children[i];
 
-        if (child.kind !== "text" && !shouldMerge(child)) {
-          continue;
-        }
-
-        if (child.kind !== "text") {
-          child.kind = "text";
-          child.value = getValue(child);
-        }
-
         const prevChild = child.prev;
-        if (
-          !prevChild ||
-          prevChild.kind !== "text" ||
-          prevChild.isCdata ||
-          child.isCdata
-        ) {
+        if (child.kind !== "text" || prevChild?.kind !== "text") {
           continue;
         }
 
@@ -223,17 +209,6 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
   });
 }
 
-function mergeCdataIntoText(ast /* , options */) {
-  return mergeNodeIntoText(
-    ast,
-    (node) => node.kind === "cdata",
-    (node) => {
-      node.isCdata = true;
-      return `<![CDATA[${node.value}]]>`;
-    },
-  );
-}
-
 function mergeSimpleElementIntoText(ast /* , options */) {
   const isSimpleElement = (node) =>
     node.kind === "element" &&
@@ -241,7 +216,6 @@ function mergeSimpleElementIntoText(ast /* , options */) {
     !isNonEmptyArray(node.startTagComments) &&
     node.children.length === 1 &&
     node.firstChild.kind === "text" &&
-    !node.firstChild.isCdata &&
     !htmlWhitespace.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
@@ -250,9 +224,7 @@ function mergeSimpleElementIntoText(ast /* , options */) {
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
     node.prev?.kind === "text" &&
-    !node.prev.isCdata &&
-    node.next?.kind === "text" &&
-    !node.next.isCdata;
+    node.next?.kind === "text";
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
@@ -294,7 +266,7 @@ function extractInterpolation(ast, options) {
     }
 
     for (const child of node.children) {
-      if (child.kind !== "text" || child.isCdata) {
+      if (child.kind !== "text") {
         continue;
       }
 
@@ -396,7 +368,6 @@ function extractWhitespaces(ast, options) {
       children.length === 0 ||
       (children.length === 1 &&
         children[0].kind === "text" &&
-        !children[0].isCdata &&
         htmlWhitespace.trim(children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = children.length > 0;
@@ -410,7 +381,7 @@ function extractWhitespaces(ast, options) {
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
-        if (child.kind !== "text" || child.isCdata) {
+        if (child.kind !== "text") {
           continue;
         }
 

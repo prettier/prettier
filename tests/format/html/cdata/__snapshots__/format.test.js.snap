@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`adjacent.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span>before<![CDATA[  keep   spaces  ]]>after</span>
+<span><![CDATA[first]]><![CDATA[  second  ]]></span>
+<span><![CDATA[first]]><b>bold</b><![CDATA[second]]></span>
+<span>before<b><![CDATA[  keep   spaces  ]]></b>after</span>
+<span><![CDATA[]]><![CDATA[   ]]></span>
+<span><!-- before --><![CDATA[  keep   spaces  ]]><!-- after --></span>
+
+=====================================output=====================================
+<span>before<![CDATA[  keep   spaces  ]]>after</span>
+<span><![CDATA[first]]><![CDATA[  second  ]]></span>
+<span><![CDATA[first]]><b>bold</b><![CDATA[second]]></span>
+<span
+  >before<b><![CDATA[  keep   spaces  ]]></b>after</span
+>
+<span><![CDATA[]]><![CDATA[   ]]></span>
+<span><!-- before --><![CDATA[  keep   spaces  ]]><!-- after --></span>
+
+================================================================================
+`;
+
 exports[`example.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -37,6 +62,39 @@ parsers: ["html"]
   Preserve     all spaces and line breaks.
   {{ untouched }}
 </app-alert>]]>
+
+================================================================================
+`;
+
+exports[`nested.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <span><![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]></span>
+</div>
+
+<pre>before<![CDATA[
+  keep   this indentation
+]]>after</pre>
+
+=====================================output=====================================
+<div>
+  <span
+    ><![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]></span
+  >
+</div>
+
+<pre>before<![CDATA[
+  keep   this indentation
+]]>after</pre>
 
 ================================================================================
 `;
