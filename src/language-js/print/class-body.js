@@ -18,7 +18,9 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isStringLiteral } from "../utilities/node-types.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
+import { hasSiblingsRequireQuoted, isKeySafeToUnquote } from "./key.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
@@ -42,7 +44,8 @@ function printClassBody(path, options, print) {
   let isEmpty = true;
   let firstMember;
 
-  iterateClassMembersPath(path, ({ node, next, isLast }) => {
+  iterateClassMembersPath(path, (memberPath) => {
+    const { node, isLast } = memberPath;
     firstMember ??= node;
     isEmpty &&= false;
     parts.push(print());
@@ -64,8 +67,8 @@ function printClassBody(path, options, print) {
     if (
       !isFlowRecordDeclaration &&
       !isObjectType &&
-      (shouldPrintSemicolonAfterClassProperty({ node, next }, options) ||
-        shouldPrintSemicolonAfterInterfaceProperty({ node, next }, options))
+      (shouldPrintSemicolonAfterClassProperty(memberPath, options) ||
+        shouldPrintSemicolonAfterInterfaceProperty(memberPath, options))
     ) {
       parts.push(";");
     }
@@ -193,10 +196,7 @@ function printClassMemberSemicolon(path, options) {
 
     if (
       options.semi ||
-      shouldPrintSemicolonAfterInterfaceProperty(
-        { node: path.node, next: path.next },
-        options,
-      )
+      shouldPrintSemicolonAfterInterfaceProperty(path, options)
     ) {
       return ";";
     }
@@ -217,30 +217,56 @@ const isClassProperty = createTypeCheckFunction([
   "TSAbstractAccessorProperty",
 ]);
 
-const isKeywordProperty = (node) => {
+const isKeywordProperty = (node, path, options) => {
   if (node.computed || node.typeAnnotation) {
     return false;
   }
 
-  const { type, name } = node.key;
-  return (
-    type === "Identifier" &&
-    (name === "static" || name === "get" || name === "set")
-  );
+  const name = getPrintedKeyName(node, path, options);
+  return name === "static" || name === "get" || name === "set";
 };
+
+/**
+ * The key name as it will appear in the printed output: the identifier name
+ * for keys written unquoted, or the string value for quoted keys that
+ * `quoteProps` will unquote. Returns `undefined` for computed keys and keys
+ * that print quoted.
+ *
+ * The no-semi ASI checks look at the printed key, not the raw AST key, so a
+ * quoted `"in"` that will be unquoted must be treated like a written-unquoted
+ * `in`.
+ */
+function getPrintedKeyName(node, path, options) {
+  if (node.computed) {
+    return;
+  }
+
+  const { key } = node;
+  if (key?.type === "Identifier") {
+    return key.name;
+  }
+
+  if (
+    isStringLiteral(key) &&
+    isKeySafeToUnquote(node, options) &&
+    (options.quoteProps === "as-needed" ||
+      (options.quoteProps === "consistent" &&
+        !hasSiblingsRequireQuoted(path, options)))
+  ) {
+    return key.value;
+  }
+}
 
 /**
  * @returns {boolean}
  */
-function shouldPrintSemicolonAfterClassProperty(
-  { node, next: nextNode },
-  options,
-) {
+function shouldPrintSemicolonAfterClassProperty(path, options) {
+  const { node, next: nextNode } = path;
   if (options.semi || !isClassProperty(node)) {
     return false;
   }
 
-  if (!node.value && isKeywordProperty(node)) {
+  if (!node.value && isKeywordProperty(node, path, options)) {
     return true;
   }
 
@@ -256,11 +282,9 @@ function shouldPrintSemicolonAfterClassProperty(
     return false;
   }
 
-  if (!nextNode.computed && nextNode.key?.type === "Identifier") {
-    const { name } = nextNode.key;
-    if (name === "in" || name === "instanceof") {
-      return true;
-    }
+  const nextKeyName = getPrintedKeyName(nextNode, path, options);
+  if (nextKeyName === "in" || nextKeyName === "instanceof") {
+    return true;
   }
 
   // Flow variance sigil +/- requires semi if there's no
@@ -309,15 +333,13 @@ function shouldPrintSemicolonAfterClassProperty(
 }
 
 const isInterfaceProperty = createTypeCheckFunction(["TSPropertySignature"]);
-function shouldPrintSemicolonAfterInterfaceProperty(
-  { node, next: nextNode },
-  options,
-) {
+function shouldPrintSemicolonAfterInterfaceProperty(path, options) {
+  const { node, next: nextNode } = path;
   if (options.semi || !isInterfaceProperty(node)) {
     return false;
   }
 
-  if (isKeywordProperty(node)) {
+  if (isKeywordProperty(node, path, options)) {
     return true;
   }
 

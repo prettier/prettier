@@ -2160,6 +2160,93 @@ class PrivateKeywordFields {
 ================================================================================
 `;
 
+exports[`quote-props.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/20170
+// With \`semi: false\`, quoted keys that \`quoteProps\` unquotes must get the same
+// ASI protection as written-unquoted keys.
+class C1 {
+  x = a
+  "in"() {}
+}
+class C2 {
+  x = a
+  "instanceof"() {}
+}
+// Not an ASI hazard, no semicolon needed
+class C3 {
+  x = a
+  "foo"() {}
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/20170
+// With \`semi: false\`, quoted keys that \`quoteProps\` unquotes must get the same
+// ASI protection as written-unquoted keys.
+class C1 {
+  x = a;
+  in() {}
+}
+class C2 {
+  x = a;
+  instanceof() {}
+}
+// Not an ASI hazard, no semicolon needed
+class C3 {
+  x = a
+  foo() {}
+}
+
+================================================================================
+`;
+
+exports[`quote-props.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/20170
+// With \`semi: false\`, quoted keys that \`quoteProps\` unquotes must get the same
+// ASI protection as written-unquoted keys.
+class C1 {
+  x = a
+  "in"() {}
+}
+class C2 {
+  x = a
+  "instanceof"() {}
+}
+// Not an ASI hazard, no semicolon needed
+class C3 {
+  x = a
+  "foo"() {}
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/20170
+// With \`semi: false\`, quoted keys that \`quoteProps\` unquotes must get the same
+// ASI protection as written-unquoted keys.
+class C1 {
+  x = a;
+  in() {}
+}
+class C2 {
+  x = a;
+  instanceof() {}
+}
+// Not an ASI hazard, no semicolon needed
+class C3 {
+  x = a;
+  foo() {}
+}
+
+================================================================================
+`;
+
 exports[`return-statement.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

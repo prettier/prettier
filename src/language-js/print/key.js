@@ -232,4 +232,4 @@ function printKey(path, options, print) {
   return print(property);
 }
 
-export { printKey };
+export { hasSiblingsRequireQuoted, isKeySafeToUnquote, printKey };
