@@ -1,5 +1,7 @@
+import { locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
+import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
@@ -23,15 +25,25 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   }
 
   const { key, parent } = path;
-  if (
-    // `Program.directives` don't need leading semicolon
-    ((key === "body" &&
+  // A leading semicolon is only safe for items in a statement list.
+  const isStatementListItem =
+    (key === "body" &&
       (parent.type === "Program" ||
         parent.type === "BlockStatement" ||
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
-      (key === "consequent" && parent.type === "SwitchCase")) &&
-    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
+    (key === "consequent" && parent.type === "SwitchCase");
+
+  if (
+    isStatementListItem &&
+    (path.call(
+      () => expressionNeedsAsiProtection(path, options),
+      "expression",
+    ) ||
+      // typescript-estree removes ParenthesizedExpression nodes, so an ignored
+      // expression that starts with `(` needs a source-text fallback.
+      (hasNodeIgnoreComment(node) &&
+        options.originalText[locStart(node)] === "("))
   ) {
     return true;
   }
