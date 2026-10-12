@@ -22,7 +22,7 @@ import skipNewline from "../../utilities/skip-newline.js";
 */
 
 const returnTrue = () => true;
-const isDanglingComment = (comment) => !(comment.leading || comment.trailing);
+const isDanglingComment = (comment) => !comment.leading && !comment.trailing;
 
 function printComment(path, options) {
   const comment = path.node;
