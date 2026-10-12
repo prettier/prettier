@@ -6,7 +6,7 @@ import {
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
 
-function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
+function isEligibleForLeadingSemicolon(path, options) {
   if (options.semi) {
     return false;
   }
@@ -23,20 +23,45 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   }
 
   const { key, parent } = path;
-  if (
-    // `Program.directives` don't need leading semicolon
-    ((key === "body" &&
+  // `Program.directives` don't need leading semicolon
+  return (
+    (key === "body" &&
       (parent.type === "Program" ||
         parent.type === "BlockStatement" ||
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
-      (key === "consequent" && parent.type === "SwitchCase")) &&
-    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
-  ) {
-    return true;
-  }
+    (key === "consequent" && parent.type === "SwitchCase")
+  );
+}
 
-  return false;
+function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
+  return (
+    isEligibleForLeadingSemicolon(path, options) &&
+    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
+  );
+}
+
+// The first character of an expression that, printed at the start of a line
+// with `semi: false`, would merge with the previous line (ASI hazard).
+const ASI_HAZARD_START_CHARACTERS = new Set(["(", "[", "`", "+", "-", "/"]);
+
+/**
+ * `prettier-ignore`d nodes print their original text verbatim, so ASI
+ * protection can't be decided from the AST alone: parentheses that are
+ * redundant (and dropped when formatting normally, eg `(new Widget).run()`)
+ * are invisible to `expressionNeedsAsiProtection`, while the verbatim text
+ * still starts with `(`.
+ */
+function shouldIgnoredExpressionStatementPrintLeadingSemicolon(
+  path,
+  options,
+  text,
+) {
+  return (
+    shouldExpressionStatementPrintLeadingSemicolon(path, options) ||
+    (isEligibleForLeadingSemicolon(path, options) &&
+      ASI_HAZARD_START_CHARACTERS.has(text[0]))
+  );
 }
 
 function expressionNeedsAsiProtection(path, options) {
@@ -132,4 +157,5 @@ export {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
   shouldExpressionStatementPrintLeadingSemicolon,
+  shouldIgnoredExpressionStatementPrintLeadingSemicolon,
 };
