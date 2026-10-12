@@ -150,6 +150,21 @@ runFormatTest(
         `class A {constructor(${modifier} {}){}}`,
         `class A {constructor(${modifier} ...a){}}`,
       ]),
+
+      // `export` modifier must precede other modifiers, otherwise it gets
+      // silently dropped by `typescript-estree`
+      // https://github.com/prettier/prettier/issues/20166
+      "abstract export class Foo {}",
+      "async export function foo() {}",
+      ...[
+        "class Foo {}",
+        "interface Foo {}",
+        "enum Foo { A }",
+        "namespace Foo {}",
+        "type Foo = number",
+        "function foo(): void",
+        "const foo = 1",
+      ].map((declaration) => `declare export ${declaration}`),
     ],
   },
   ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],

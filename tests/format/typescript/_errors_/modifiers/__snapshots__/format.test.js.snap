@@ -6787,3 +6787,228 @@ exports[`snippet: #241 format[yuku-ts] 1`] = `
 > 1 | class A {constructor(static ...a){}}
     |                             ^^^"
 `;
+
+exports[`snippet: #242 format[babel-ts] 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract export class Foo {}
+    |          ^
+Cause: Unexpected token, expected "class" (1:9)"
+`;
+
+exports[`snippet: #242 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export class Foo {}
+    |          ^^^^^^"
+`;
+
+exports[`snippet: #242 format[typescript] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export class Foo {}
+    |          ^^^^^^"
+`;
+
+exports[`snippet: #242 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:10)
+> 1 | abstract export class Foo {}
+    |          ^^^^^^"
+`;
+
+exports[`snippet: #243 format[babel-ts] 1`] = `
+"Missing semicolon. (1:6)
+> 1 | async export function foo() {}
+    |      ^
+Cause: Missing semicolon. (1:5)"
+`;
+
+exports[`snippet: #243 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'async' modifier. (1:7)
+> 1 | async export function foo() {}
+    |       ^^^^^^"
+`;
+
+exports[`snippet: #243 format[typescript] 1`] = `
+"'export' modifier must precede 'async' modifier. (1:7)
+> 1 | async export function foo() {}
+    |       ^^^^^^"
+`;
+
+exports[`snippet: #243 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:7)
+> 1 | async export function foo() {}
+    |       ^^^^^^"
+`;
+
+exports[`snippet: #244 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export class Foo {}
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #244 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export class Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #244 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export class Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #244 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export class Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #245 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export interface Foo {}
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #245 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export interface Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #245 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export interface Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #245 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export interface Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #246 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export enum Foo { A }
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #246 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export enum Foo { A }
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #246 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export enum Foo { A }
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #246 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export enum Foo { A }
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #247 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export namespace Foo {}
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #247 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export namespace Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #247 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export namespace Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #247 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export namespace Foo {}
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #248 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export type Foo = number
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #248 format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:8)
+> 1 | declare export type Foo = number
+    |        ^"
+`;
+
+exports[`snippet: #248 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export type Foo = number
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #248 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export type Foo = number
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #249 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export function foo(): void
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #249 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export function foo(): void
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #249 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export function foo(): void
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #249 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export function foo(): void
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #250 format[babel-ts] 1`] = `
+"Missing semicolon. (1:8)
+> 1 | declare export const foo = 1
+    |        ^
+Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #250 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export const foo = 1
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #250 format[typescript] 1`] = `
+"'export' modifier must precede 'declare' modifier. (1:9)
+> 1 | declare export const foo = 1
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #250 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:9)
+> 1 | declare export const foo = 1
+    |         ^^^^^^"
+`;
