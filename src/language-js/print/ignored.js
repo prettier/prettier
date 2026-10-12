@@ -11,7 +11,7 @@ function printIgnored(path, options /* , print*/) {
   if (options.semi && shouldIgnoredNodePrintSemicolon(path)) {
     text += ";";
   } else if (
-    shouldIgnoredExpressionStatementPrintLeadingSemicolon(path, options, text)
+    shouldIgnoredExpressionStatementPrintLeadingSemicolon(path, options)
   ) {
     text = `;${text}`;
   }
