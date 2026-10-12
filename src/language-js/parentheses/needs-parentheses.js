@@ -896,6 +896,7 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "CallExpression") ||
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
+        (key === "expression" && parent.type === "TSNonNullExpression") ||
         (key === "superClass" &&
           (parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression"))
