@@ -1,4 +1,5 @@
 import * as assert from "#universal/assert";
+import AstPath from "../common/ast-path.js";
 import { childNodesCache } from "./comments/attach.js";
 import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
@@ -84,6 +85,10 @@ function findNodeAtOffset(
   }
 
   const nodeAndAncestors = [node, ...ancestors];
+  // An ignored source element must remain intact, even for a range inside it.
+  if (predicate(node, ancestors[0]) && isIgnored(node, options)) {
+    return nodeAndAncestors;
+  }
   const childNodes = getSortedChildNodes(node, nodeAndAncestors, {
     cache: childNodesCache,
     locStart,
@@ -191,6 +196,10 @@ function isSourceElement(opts, node, parentNode) {
   return false;
 }
 
+function isIgnored(node, options) {
+  return options.printer.hasPrettierIgnore?.(new AstPath(node));
+}
+
 /**
 @param {string} text
 @param {*} opts
@@ -263,10 +272,21 @@ function calculateRange(text, opts, ast) {
   }
 
   const { locStart, locEnd } = locFunctions;
-  return [
-    Math.min(locStart(startNode), locStart(endNode)),
-    Math.max(locEnd(startNode), locEnd(endNode)),
-  ];
+  let rangeStart = Math.min(locStart(startNode), locStart(endNode));
+  // The slice is reparsed, so include the comments that make this node ignored.
+  if (isIgnored(startNode, opts)) {
+    // Keep ordinary leading comments too: removing one could change which node
+    // an ignore directive attaches to when this smaller fragment is parsed.
+    for (const comment of startNode.comments ?? []) {
+      // Only leading comments can extend the start; do not pull in trailing ones.
+      if (comment.leading) {
+        rangeStart = Math.min(rangeStart, locStart(comment));
+      }
+    }
+  }
+  // Leave the end boundary unchanged so later selected, nonignored statements
+  // are still formatted, without pulling in code after the requested range.
+  return [rangeStart, Math.max(locEnd(startNode), locEnd(endNode))];
 }
 
 export { calculateRange };
