@@ -22,6 +22,7 @@ import skipNewline from "../../utilities/skip-newline.js";
 */
 
 const returnTrue = () => true;
+const isDanglingComment = (comment) => !(comment.leading || comment.trailing);
 
 function printComment(path, options) {
   const comment = path.node;
@@ -111,8 +112,6 @@ function printTrailingComment(path, options, previousComment) {
 
   return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
-
-const isDanglingComment = (comment) => !(comment.leading || comment.trailing);
 
 /**
  * @param {AstPath} path
