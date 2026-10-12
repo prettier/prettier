@@ -112,6 +112,8 @@ function printTrailingComment(path, options, previousComment) {
   return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
+const isDanglingComment = (comment) => !(comment.leading || comment.trailing);
+
 /**
  * @param {AstPath} path
  * @param {CommentPrintOptions & {
@@ -130,29 +132,22 @@ function printDanglingComments(
     marker,
     filter = returnTrue,
   } = danglingCommentsPrintOptions;
-  const danglingComments = new Set(
-    path.node?.comments?.filter(
-      (comment) =>
-        !(
-          comment.leading ||
-          comment.trailing ||
-          comment.marker !== marker ||
-          !filter(comment)
-        ),
-    ),
-  );
-
-  if (danglingComments.size === 0) {
-    return "";
-  }
 
   const parts = path
-    .map(
-      ({ node: comment }) =>
-        danglingComments.has(comment) ? printComment(path, options) : "",
-      "comments",
-    )
+    .map(({ node: comment }) => {
+      if (
+        isDanglingComment(comment) &&
+        comment.marker === marker &&
+        filter(comment)
+      ) {
+        return printComment(path, options);
+      }
+    }, "comments")
     .filter(Boolean);
+
+  if (parts.length === 0) {
+    return "";
+  }
 
   const doc = join(hardline, parts);
   return shouldIndent ? indent([hardline, doc]) : doc;
