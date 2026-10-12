@@ -1,3 +1,4 @@
+import { locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
@@ -23,15 +24,19 @@ function isEligibleForLeadingSemicolon(path, options) {
   }
 
   const { key, parent } = path;
-  // `Program.directives` don't need leading semicolon
-  return (
+  if (
+    // `Program.directives` don't need leading semicolon
     (key === "body" &&
       (parent.type === "Program" ||
         parent.type === "BlockStatement" ||
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
     (key === "consequent" && parent.type === "SwitchCase")
-  );
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
@@ -41,27 +46,22 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   );
 }
 
-// The first character of an expression that, printed at the start of a line
-// with `semi: false`, would merge with the previous line (ASI hazard).
-const ASI_HAZARD_START_CHARACTERS = new Set(["(", "[", "`", "+", "-", "/"]);
+const ASI_HAZARD_START_CHARACTERS = new Set("([`+-/");
 
-/**
- * `prettier-ignore`d nodes print their original text verbatim, so ASI
- * protection can't be decided from the AST alone: parentheses that are
- * redundant (and dropped when formatting normally, eg `(new Widget).run()`)
- * are invisible to `expressionNeedsAsiProtection`, while the verbatim text
- * still starts with `(`.
- */
-function shouldIgnoredExpressionStatementPrintLeadingSemicolon(
-  path,
-  options,
-  text,
-) {
-  return (
-    shouldExpressionStatementPrintLeadingSemicolon(path, options) ||
-    (isEligibleForLeadingSemicolon(path, options) &&
-      ASI_HAZARD_START_CHARACTERS.has(text[0]))
-  );
+/*
+`prettier-ignore`d nodes print their original text verbatim, so ASI
+protection can't be decided from the AST alone: parentheses that are
+redundant (and dropped when formatting normally, eg `(new Widget).run()`)
+are invisible to `expressionNeedsAsiProtection`, while the verbatim text
+still starts with `(`.
+*/
+function shouldIgnoredExpressionStatementPrintLeadingSemicolon(path, options) {
+  if (!isEligibleForLeadingSemicolon(path, options)) {
+    return false;
+  }
+
+  const leadingCharacter = options.originalText[locStart(path.node)];
+  return ASI_HAZARD_START_CHARACTERS.has(leadingCharacter);
 }
 
 function expressionNeedsAsiProtection(path, options) {
