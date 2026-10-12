@@ -3632,10 +3632,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:9.0.0":
-  version: 9.0.0
-  resolution: "camelcase@npm:9.0.0"
-  checksum: 10/3353142290814db68eaf2880bff094f25ee0d2ded4b99b20373e32758aa533abffe5da6aecba8627b3101ec1919c990c4ba41a981d8652d766273006360995fe
+"camelcase@npm:10.0.0":
+  version: 10.0.0
+  resolution: "camelcase@npm:10.0.0"
+  checksum: 10/cce80adfe9d5466636e985fbc089499a0ae6b8ffa89221f77cee97e1e6157af680ecbfc75b7ac914d848b58400bff9d3d1f40c4cfd52109f9a24e31cd1542315
   languageName: node
   linkType: hard
 
@@ -8092,7 +8092,7 @@ __metadata:
     browserslist-to-esbuild: "npm:2.1.1"
     buffer: "npm:6.0.3"
     c8: "npm:12.0.0"
-    camelcase: "npm:9.0.0"
+    camelcase: "npm:10.0.0"
     ci-info: "npm:4.4.0"
     cjk-regex: "npm:3.5.0"
     collapse-white-space: "npm:1.0.6"
