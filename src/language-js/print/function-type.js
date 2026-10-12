@@ -1,5 +1,7 @@
-import { group } from "../../document/index.js";
+import { group, hardline } from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import { hasSameLocStart } from "../location/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
@@ -33,6 +35,21 @@ function printFunctionType(path, options, print) {
     node.type === "TSConstructSignatureDeclaration"
   ) {
     parts.push("new ");
+    const comments = printDanglingComments(path, options, {
+      marker: "commentBeforeConstructorParameters",
+    });
+    if (comments) {
+      parts.push(
+        comments,
+        hasComment(
+          node,
+          CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+          (comment) => comment.marker === "commentBeforeConstructorParameters",
+        )
+          ? hardline
+          : " ",
+      );
+    }
   }
 
   let parametersDoc = printFunctionParameters(

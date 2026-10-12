@@ -72,6 +72,7 @@ import {
 function handleOwnLineComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentBeforeConstructorParameters,
     handleIgnoreComments,
     handleClosureTypeCastComments,
     handleConditionalExpressionComments,
@@ -106,6 +107,7 @@ function handleOwnLineComment(context) {
 function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentBeforeConstructorParameters,
     handleClosureTypeCastComments,
     handleLastFunctionParameterComments,
     handleConditionalExpressionComments,
@@ -142,6 +144,7 @@ function handleEndOfLineComment(context) {
 function handleRemainingComment(context) {
   return [
     handleCommentInEmptyParens,
+    handleCommentBeforeConstructorParameters,
     handleIgnoreComments,
     handleClosureTypeCastComments,
     handleIfStatementComments,
@@ -542,6 +545,38 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     isInArgumentOrParameterParentheses(functionNode, comment, options)
   ) {
     addDanglingComment(functionNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleCommentBeforeConstructorParameters({
+  comment,
+  enclosingNode,
+  options,
+}) {
+  if (
+    (enclosingNode?.type === "TSConstructorType" ||
+      enclosingNode?.type === "TSConstructSignatureDeclaration") &&
+    !enclosingNode.typeParameters &&
+    getFunctionParameters(enclosingNode).length === 0 &&
+    /^(?:abstract\s+)?new\b/u.test(
+      options.originalText
+        .slice(locStart(enclosingNode), locStart(comment))
+        .trimStart(),
+    ) &&
+    /^(?:abstract\s+)?new$/u.test(
+      stripComments(options)
+        .slice(locStart(enclosingNode), locStart(comment))
+        .trim(),
+    )
+  ) {
+    addDanglingComment(
+      enclosingNode,
+      comment,
+      "commentBeforeConstructorParameters",
+    );
     return true;
   }
 

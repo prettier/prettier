@@ -33,9 +33,10 @@ import {
 
 /** @import AstPath from "../../common/ast-path.js" */
 
-// `ArrowFunctionExpression` has other dangling comments
+// Arrow functions and constructor types have other dangling comments.
 const functionParameterDanglingCommentFilter = (comment) =>
-  comment.mark !== "commentBeforeArrow";
+  comment.mark !== "commentBeforeArrow" &&
+  comment.marker !== "commentBeforeConstructorParameters";
 
 /*
 - `ArrowFunctionExpression`

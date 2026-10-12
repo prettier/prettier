@@ -19,6 +19,7 @@ type PrettierCommentAdditionalProperties = {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
+  marker?: symbol | string;
 };
 
 type FlowAdditionalNode =
