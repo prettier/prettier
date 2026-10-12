@@ -13,6 +13,27 @@ void (<_T extends never>() => {})<never>;
 ================================================================================
 `;
 
+exports[`20167.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a = (make<T>)!;
+const b = (make<T>)!.x;
+const d = delete (make<T>)!;
+export default (make<T>);
+export default (class {})<string>;
+
+=====================================output=====================================
+const a = (make<T>)!;
+const b = (make<T>)!.x;
+const d = delete (make<T>)!;
+export default (make<T>);
+export default (class {}<string>);
+
+================================================================================
+`;
+
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

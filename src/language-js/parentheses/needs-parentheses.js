@@ -898,7 +898,9 @@ function needsParentheses(path, options) {
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "superClass" &&
           (parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression"))
+            parent.type === "ClassExpression")) ||
+        (key === "expression" && parent.type === "TSNonNullExpression") ||
+        (key === "declaration" && parent.type === "ExportDefaultDeclaration")
       ) {
         return true;
       }
