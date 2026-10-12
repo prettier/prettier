@@ -250,8 +250,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
         continue;
       }
 
-      // `foo[$@bar]` or `@foo[$@bar]`
-      //      ^                ^
+      // `foo[$@bar]`
+      //      ^
+      // `@foo[$@bar]`
+      //       ^
       if (
         (iNode.type === "value-word" || iNode.type === "value-atword") &&
         iNode.value.endsWith("[$") &&
@@ -260,8 +262,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
         continue;
       }
 
-      // `foo[ $@bar ]` or `@foo[ $@bar ]`
-      //       ^                  ^
+      // `foo[ $@bar ]`
+      //       ^
+      // `@foo[ $@bar ]`
+      //        ^
       if (
         iNode.type === "value-word" &&
         iNode.value === "$" &&
