@@ -1,14 +1,8 @@
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
-  DOC_TYPE_BREAK_PARENT,
-  DOC_TYPE_GROUP,
-  DOC_TYPE_LABEL,
-  DOC_TYPE_LINE,
-  findInDoc,
   group,
   hardline,
   indent,
-  label,
   line,
   removeLines,
   softline,
@@ -248,47 +242,8 @@ function getReturnTypeNode(functionNode) {
   return returnTypeNode;
 }
 
-/*
-`objectWrap: "preserve"` breaks an object type when the original text has a line
-break after `{`. Prettier adds that line break itself when the type doesn't fit,
-so a decision made from such a break isn't the same on the next run.
-*/
-function markPreservedObjectWrap(doc) {
-  return label({ preservedObjectWrap: true }, doc);
-}
-
-function willBreakWithoutPreservedObjectWrap(doc) {
-  const preservedObjectWraps = new WeakSet();
-
-  return findInDoc(
-    doc,
-    (doc) => {
-      switch (doc.type) {
-        case DOC_TYPE_LABEL:
-          if (doc.label.preservedObjectWrap) {
-            preservedObjectWraps.add(doc.contents);
-          }
-          break;
-        case DOC_TYPE_GROUP:
-          if (doc.break && !preservedObjectWraps.has(doc)) {
-            return true;
-          }
-          break;
-        case DOC_TYPE_LINE:
-          if (doc.hard) {
-            return true;
-          }
-          break;
-        case DOC_TYPE_BREAK_PARENT:
-          return true;
-      }
-    },
-    false,
-  );
-}
-
 // When parameters are grouped, the return type annotation breaks first.
-function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+function shouldGroupFunctionParameters(functionNode) {
   const returnTypeNode = getReturnTypeNode(functionNode);
   if (!returnTypeNode) {
     return false;
@@ -309,8 +264,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    (isObjectType(returnTypeNode) ||
-      willBreakWithoutPreservedObjectWrap(returnTypeDoc))
+    isObjectType(returnTypeNode)
   );
 }
 
@@ -383,7 +337,6 @@ function shouldHugTheOnlyParameter(node, name) {
 }
 
 export {
-  markPreservedObjectWrap,
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,

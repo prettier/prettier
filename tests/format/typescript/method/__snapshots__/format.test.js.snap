@@ -73,7 +73,9 @@ type Bar = {
 
 =====================================output=====================================
 type Foo = {
-  get(key: "foo"): \`
+  get(
+    key: "foo",
+  ): \`
   \`;
 };
 type Foo = {
@@ -118,7 +120,9 @@ type ReleaseToolConfig = {
 };
 
 type ReleaseToolConfig2 = {
-  get(key: "changelog"): \`
+  get(
+    key: "changelog",
+  ): \`
   \`;
 };
 

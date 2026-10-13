@@ -64,10 +64,7 @@ function printFunction(path, options, print, args) {
     shouldExpandParameters,
   );
   const returnTypeDoc = printReturnType(path, print);
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc,
-  );
+  const shouldGroupParameters = shouldGroupFunctionParameters(node);
 
   const isFlowHookDeclaration = node.type === "HookDeclaration";
   const keyword = isFlowHookDeclaration ? "hook" : "function";
@@ -149,10 +146,7 @@ function printMethodValue(path, options, print) {
   const parametersDoc = printFunctionParameters(path, options, print);
   const returnTypeDoc = printReturnType(path, print);
   const shouldBreakParameters = shouldBreakFunctionParameters(node);
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc,
-  );
+  const shouldGroupParameters = shouldGroupFunctionParameters(node);
   const parts = [
     print("typeParameters"),
     group([

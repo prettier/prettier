@@ -56,9 +56,7 @@ function printHookTypeAnnotation(path, options, print) {
 
   return group([
     isDeclareHookTypeAnnotation(path) ? "" : "hook ",
-    shouldGroupFunctionParameters(node, returnTypeDoc)
-      ? group(parametersDoc)
-      : parametersDoc,
+    shouldGroupFunctionParameters(node) ? group(parametersDoc) : parametersDoc,
     returnTypeDoc,
   ]);
 }

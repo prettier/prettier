@@ -60,7 +60,7 @@ function printFunctionType(path, options, print) {
     returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
 
-  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
+  if (shouldGroupFunctionParameters(node)) {
     parametersDoc = group(parametersDoc);
   }
 

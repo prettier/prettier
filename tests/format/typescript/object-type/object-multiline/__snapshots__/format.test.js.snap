@@ -61,7 +61,9 @@ function case3(
   return null as never;
 }
 
-function case4(row: BingConnectionRow): Promise<{
+function case4(
+  row: BingConnectionRow,
+): Promise<{
   // comment
   row: BingConnectionRow;
   bundle: BingCredentialBundle;
@@ -133,7 +135,9 @@ function case3(
   return null as never;
 }
 
-function case4(row: BingConnectionRow): Promise<{
+function case4(
+  row: BingConnectionRow,
+): Promise<{
   // comment
   row: BingConnectionRow;
   bundle: BingCredentialBundle;
