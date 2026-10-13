@@ -105,6 +105,83 @@ declare namespace foo {
 ================================================================================
 `;
 
+exports[`declare_namespace_new.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+=====================================output=====================================
+declare namespace outer {
+  namespace inner {
+    const value: string
+  }
+}
+
+declare export namespace exported {}
+
+================================================================================
+`;
+
+exports[`declare_namespace_new.js - {"semi":false} format[hermes] 1`] = `
+"';' expected (2:13)
+  1 | declare namespace outer {
+> 2 |   namespace inner {
+    |             ^
+  3 |     const value: string;
+  4 |   }
+  5 | }
+Cause: ';' expected (2:12)
+  namespace inner {
+            ^"
+`;
+
+exports[`declare_namespace_new.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+=====================================output=====================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+================================================================================
+`;
+
+exports[`declare_namespace_new.js format[hermes] 1`] = `
+"';' expected (2:13)
+  1 | declare namespace outer {
+> 2 |   namespace inner {
+    |             ^
+  3 |     const value: string;
+  4 |   }
+  5 | }
+Cause: ';' expected (2:12)
+  namespace inner {
+            ^"
+`;
+
 exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
