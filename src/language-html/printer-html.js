@@ -140,12 +140,19 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "comment":
-    case "cdata":
       return [
         printOpeningTagPrefix(node, options),
         replaceEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node)),
         ),
+        printClosingTagSuffix(node, options),
+      ];
+    case "cdata":
+      return [
+        printOpeningTagPrefix(node, options),
+        "<![CDATA[",
+        replaceEndOfLine(node.value),
+        "]]>",
         printClosingTagSuffix(node, options),
       ];
 
