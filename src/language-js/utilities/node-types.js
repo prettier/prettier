@@ -188,4 +188,9 @@ export const isConstructorType = createTypeCheckFunction([
   "ConstructorTypeAnnotation",
 ]);
 
+export const isClass = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ClassExpression",
+]);
+
 export * from "./literal.js";

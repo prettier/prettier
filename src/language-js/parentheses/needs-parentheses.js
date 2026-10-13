@@ -10,6 +10,7 @@ import {
   isBinaryCastExpression,
   isCallExpression,
   isCallOrNewExpression,
+  isClass,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
@@ -898,9 +899,7 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" && parent.type === "TSNonNullExpression") ||
-        (key === "superClass" &&
-          (parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression"))
+        (key === "superClass" && isClass(parent))
       ) {
         return true;
       }
