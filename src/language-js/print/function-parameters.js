@@ -15,6 +15,7 @@ import {
   hasRestParameter,
   iterateFunctionParametersPath,
 } from "../utilities/function-parameters.js";
+import { hasNode } from "../utilities/has-node.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
@@ -26,6 +27,7 @@ import {
   isObjectType,
   isTypeAnnotation,
 } from "../utilities/node-types.js";
+import { templateLiteralHasNewLines } from "../utilities/template-literal-has-new-lines.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
   printDanglingCommentsInList,
@@ -264,7 +266,14 @@ function shouldGroupFunctionParameters(functionNode) {
 
   return (
     getFunctionParameters(functionNode).length === 1 &&
-    isObjectType(returnTypeNode)
+    (isObjectType(returnTypeNode) ||
+      hasNode(
+        returnTypeNode,
+        (node) =>
+          (node.type === "TemplateLiteral" ||
+            node.type === "TSTemplateLiteralType") &&
+          templateLiteralHasNewLines(node),
+      ))
   );
 }
 
