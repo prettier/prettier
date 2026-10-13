@@ -56,6 +56,7 @@ async function buildPlaygroundFiles(version) {
   const pluginFiles = [];
 
   // Builtin plugins
+  // eslint-disable-next-line unicorn/prefer-array-from-map
   for (const fileName of await fastGlob(["plugins/*.mjs"], {
     cwd: path.join(packagesDirectory, "prettier"),
   })) {
