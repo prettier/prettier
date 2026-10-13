@@ -2,7 +2,7 @@
 
 exports[`adjacent.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["html", "angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <span>before<![CDATA[  keep   spaces  ]]>after</span>
@@ -85,7 +85,7 @@ parsers: ["html"]
 
 exports[`example.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["html", "angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <span><![CDATA[<sender>John Smith</sender>]]></span>
@@ -155,7 +155,7 @@ parsers: ["html"]
 
 exports[`multiline.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["html", "angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <![CDATA[<app-alert>
@@ -190,7 +190,7 @@ parsers: ["html"]
 
 exports[`nested.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["html", "angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div>
