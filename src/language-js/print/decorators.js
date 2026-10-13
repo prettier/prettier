@@ -51,26 +51,23 @@ function printDecorators(path, options, print) {
     return "";
   }
 
-  // A leading comment between `export` and the first decorator already
-  // supplies their separator. Another hardline here becomes one extra blank
-  // line on each formatting pass.
-  const hasCommentBeforeDecorator = hasComment(node, CommentCheckFlags.Leading);
-  const shouldBreak =
+  const parts = [];
+
+  if (path.key === "declaration" && isExportDeclaration(parent)) {
+    if (!hasComment(node, CommentCheckFlags.Leading)) {
+      parts.push(hardline);
+    }
+  } else if (
     node.type === "ClassExpression" ||
     node.type === "ClassDeclaration" ||
-    hasNewlineBetweenOrAfterDecorators(node, options);
+    hasNewlineBetweenOrAfterDecorators(node, options)
+  ) {
+    parts.push(breakParent);
+  }
 
-  return [
-    path.key === "declaration" && isExportDeclaration(parent)
-      ? hasCommentBeforeDecorator
-        ? ""
-        : hardline
-      : shouldBreak
-        ? breakParent
-        : "",
-    join(line, path.map(print, "decorators")),
-    line,
-  ];
+  parts.push(join(line, path.map(print, "decorators")), line);
+
+  return parts;
 }
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
