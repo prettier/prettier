@@ -267,13 +267,10 @@ function shouldGroupFunctionParameters(functionNode) {
   return (
     getFunctionParameters(functionNode).length === 1 &&
     (isObjectType(returnTypeNode) ||
-      hasNode(
-        returnTypeNode,
-        (node) =>
-          (node.type === "TemplateLiteral" ||
-            node.type === "TSTemplateLiteralType") &&
-          templateLiteralHasNewLines(node),
-      ))
+      returnTypeNode.type === "TSTemplateLiteralType" ||
+      returnTypeNode.type === "TemplateLiteralTypeAnnotation" ||
+      (returnTypeNode.type === "TSLiteralType" &&
+        returnTypeNode.literal.type === "TemplateLiteral"))
   );
 }
 
