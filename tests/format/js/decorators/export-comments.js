@@ -1,19 +1,22 @@
-export /* c */ @dec class A {}
+export /* c */ @dec class C11 {}
+export /* c */
+@dec class C12 {}
+export
+/* c */ @dec class C13 {}
+export
+/* c */
+@dec class C14 {}
 
 export // c
-@dec class B {}
+@dec class C21 {}
+export
+// c
+@dec class C22 {}
 
-export /* c */
-@dec class C {}
+export /* c */ @dec1 @dec2 class C31 {}
 
-export /* c */
+export default /* c */ @dec class C41 {}
 
-@dec class D {}
+export @dec /* c */ class C51 {}
 
-export /* c */ @dec1 @dec2 class E {}
-
-export default /* c */ @dec class F {}
-
-export @dec /* c */ class G {}
-
-@dec export class H {}
+@dec export class C61 {}
