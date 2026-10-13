@@ -114,12 +114,23 @@ function findNodeAtOffset(
   }
 }
 
+function isForXStatementInitializer(node, parent) {
+  return (
+    (parent?.type === "ForStatement" && parent.init === node) ||
+    ((parent?.type === "ForInStatement" || parent?.type === "ForOfStatement") &&
+      parent.left === node)
+  );
+}
+
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(node, parentNode) {
+function isJsSourceElement(node, parent) {
   const { type } = node;
   return (
-    parentNode?.type !== "DeclareExportDeclaration" &&
+    parent?.type !== "DeclareExportDeclaration" &&
     type !== "TypeParameterDeclaration" &&
+    !(
+      type === "VariableDeclaration" && isForXStatementInitializer(node, parent)
+    ) &&
     (type === "Directive" ||
       type === "TypeAlias" ||
       isExportAssignment(node) ||
