@@ -71,10 +71,8 @@ const logOverride = Object.fromEntries(
 export default function esbuildPluginThrowWarnings({
   allowDynamicRequire,
   allowDynamicImport,
-  allowedWarnings,
+  isAllowedWarning,
 }) {
-  allowedWarnings = new Set(allowedWarnings);
-
   return {
     name: "throw-warnings",
     setup(build) {
@@ -90,7 +88,7 @@ export default function esbuildPluginThrowWarnings({
         }
 
         for (const warning of result.warnings) {
-          if (allowedWarnings.has(warning.id)) {
+          if (isAllowedWarning?.(warning)) {
             continue;
           }
 

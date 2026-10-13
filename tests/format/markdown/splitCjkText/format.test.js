@@ -18,7 +18,10 @@ const snippets = [
     // (39 + 40 + 41) * 2 === 40 * 3 * 2 === 40 * 6
     // lineWidth is 80 and "文" is double-width
     // This is being saved for after Chrome and Safari bug is fixed.
-    output: /* `${"文".repeat(40)}\n`.repeat(6) */ `${"文".repeat(40 * 6)}\n`,
+    get output() {
+      /* `${"文".repeat(40)}\n`.repeat(6) */
+      return this.code.replace(/ (?=\n)/g, "");
+    },
   },
 ];
 
@@ -36,7 +39,13 @@ const snippets = [
     name: "Should remove newline around CJ(K) punctuation(-like)",
     code,
     // Note: replaceAll is not supported in Node 14.
-    output: `${code.replace(/\n/g, "")}\n`,
+    // In CSS, a line break between a CJK and a non-CJK character is always interchangeable
+    // with a space, but Prettier v3 made a design mistake where, in some cases,
+    // it was treated as equivalent to being deleted
+    // (see https://github.com/prettier/prettier/issues/14936).
+    // Therefore, .replace is disabled until it gets fixed in
+    // https://github.com/prettier/prettier/pull/16805.
+    output: code, // `${code.replace(/\n/g, "")}\n`,
   });
 }
 

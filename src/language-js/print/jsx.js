@@ -343,12 +343,17 @@ function printJsxChildren(
         if (words[0] === "") {
           words.shift();
           if (/\n/.test(words[0])) {
+            const trailingWhitespace =
+              jsxWhitespace.getTrailingWhitespace(text);
+
             pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
                 node,
-                next,
+                trailingWhitespace && !/\n/.test(trailingWhitespace)
+                  ? undefined
+                  : next,
               ),
             );
           } else {
@@ -655,7 +660,7 @@ function printJsxOpeningElement(path, options, print) {
   return group(
     [
       "<",
-      print("name"),
+      printJsxElementName(path, options, print),
       print("typeArguments"),
       indent(
         path.map(
@@ -674,6 +679,10 @@ function printJsxOpeningElement(path, options, print) {
     ],
     { shouldBreak },
   );
+}
+
+function printJsxClosingElement(path, options, print) {
+  return ["</", printJsxElementName(path, options, print), ">"];
 }
 
 function printEndOfOpeningTag(node, options, nameHasComments) {
@@ -714,27 +723,26 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
   );
 }
 
-function printJsxClosingElement(path, options, print) {
+function printJsxElementName(path, options, print) {
   const { node } = path;
-  /** @type {Doc[]} */
-  const parts = ["</"];
-
+  const nameNode = node.name;
   const printed = print("name");
   if (
-    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+    hasComment(nameNode, CommentCheckFlags.Leading | CommentCheckFlags.Line)
   ) {
-    parts.push(indent([hardline, printed]), hardline);
-  } else if (
-    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
-  ) {
-    parts.push(" ", printed);
-  } else {
-    parts.push(printed);
+    return [
+      indent([hardline, printed]),
+      node.type === "JSXClosingElement" ? hardline : "",
+    ];
   }
 
-  parts.push(">");
+  if (
+    hasComment(nameNode, CommentCheckFlags.Leading | CommentCheckFlags.Block)
+  ) {
+    return [" ", printed];
+  }
 
-  return parts;
+  return printed;
 }
 
 function printJsxOpeningClosingFragment(path, options /* , print*/) {

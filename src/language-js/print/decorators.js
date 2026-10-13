@@ -10,7 +10,7 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { hasSameLocStart, locEnd } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import isIgnored from "../utilities/is-ignored.js";
-import { isExportDeclaration } from "../utilities/node-types.js";
+import { isClass, isExportDeclaration } from "../utilities/node-types.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;
@@ -58,8 +58,7 @@ function printDecorators(path, options, print) {
       parts.push(hardline);
     }
   } else if (
-    node.type === "ClassExpression" ||
-    node.type === "ClassDeclaration" ||
+    isClass(node) ||
     hasNewlineBetweenOrAfterDecorators(node, options)
   ) {
     parts.push(breakParent);

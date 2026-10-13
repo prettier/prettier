@@ -1,4 +1,4 @@
-import { ParseSourceSpan } from "angular-html-parser";
+import { ParseSourceSpan, TokenType } from "angular-html-parser";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import {
@@ -48,6 +48,10 @@ function removeIgnorableFirstLf(ast /* , options */) {
         node.removeChild(text);
       } else {
         text.value = text.value.slice(1);
+        text.sourceSpan = new ParseSourceSpan(
+          text.sourceSpan.start.moveBy(1),
+          text.sourceSpan.end,
+        );
       }
     }
   });
@@ -273,7 +277,6 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /\{\{(.+?)\}\}/s;
   ast.walk((node) => {
     if (!canHaveInterpolation(node, options)) {
       return;
@@ -286,7 +289,8 @@ function extractInterpolation(ast, options) {
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan;
-      const components = child.value.split(interpolationRegex);
+      const components = splitInterpolation(child);
+
       for (
         let i = 0;
         i < components.length;
@@ -329,6 +333,37 @@ function extractInterpolation(ast, options) {
       node.removeChild(child);
     }
   });
+}
+
+function splitInterpolation(node) {
+  const interpolationTokens = node.tokens?.filter(
+    (token) =>
+      token.type === TokenType.INTERPOLATION && token.parts.length === 3,
+  );
+
+  if (!interpolationTokens?.some((token) => token.parts[1].includes("}}"))) {
+    return node.value.split(/\{\{(.+?)\}\}/s);
+  }
+
+  const components = [];
+  const { content } = node.sourceSpan.start.file;
+  let startOffset = node.sourceSpan.start.offset;
+
+  for (const { parts, sourceSpan } of interpolationTokens) {
+    components.push(
+      content.slice(startOffset, sourceSpan.start.offset),
+      content.slice(
+        sourceSpan.start.offset + parts[0].length,
+        sourceSpan.end.offset - parts[2].length,
+      ),
+    );
+
+    startOffset = sourceSpan.end.offset;
+  }
+
+  components.push(content.slice(startOffset, node.sourceSpan.end.offset));
+
+  return components;
 }
 
 /**

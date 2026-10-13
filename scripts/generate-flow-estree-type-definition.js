@@ -93,8 +93,9 @@ function toDts(text) {
 
   // `{foo: interface {}}` -> `{foo: {}}`
   // `{foo: interface extends T {}}` -> `{foo: T & {}}`
+  // `| interface extends T {}` -> `| T & {}`
   text = text.replaceAll(
-    /(?<=: )interface(?: extends (?<type>\w+))?(?= \{)/g,
+    /(?<=[:|] )interface(?: extends (?<type>\w+))?(?= \{)/g,
     (...args) => {
       const { type } = args.at(-1);
       return type ? `${type} & ` : "";
