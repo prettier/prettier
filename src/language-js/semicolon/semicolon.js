@@ -1,3 +1,4 @@
+import { locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
@@ -6,16 +7,12 @@ import {
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
 
-function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
-  return (
-    !options.semi &&
-    isExpressionStatementInStatementList(path, options) &&
-    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
-  );
-}
+function isEligibleForLeadingSemicolon(path, options) {
+  if (options.semi) {
+    return false;
+  }
 
-function isExpressionStatementInStatementList(path, options) {
-  const { node, key, parent } = path;
+  const { node } = path;
 
   if (
     node.type !== "ExpressionStatement" ||
@@ -26,7 +23,8 @@ function isExpressionStatementInStatementList(path, options) {
     return false;
   }
 
-  return (
+  const { key, parent } = path;
+  if (
     // `Program.directives` don't need leading semicolon
     (key === "body" &&
       (parent.type === "Program" ||
@@ -34,19 +32,46 @@ function isExpressionStatementInStatementList(path, options) {
         parent.type === "StaticBlock" ||
         parent.type === "TSModuleBlock")) ||
     (key === "consequent" && parent.type === "SwitchCase")
-  );
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function shouldConditionalExpressionPrintLeadingSemicolon(path, options) {
   return (
-    !options.semi &&
     path.parent.type === "ExpressionStatement" &&
     path.callParent(
       () =>
-        isExpressionStatementInStatementList(path, options) &&
+        isEligibleForLeadingSemicolon(path, options) &&
         !shouldExpressionStatementPrintLeadingSemicolon(path, options),
     )
   );
+}
+
+function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
+  return (
+    isEligibleForLeadingSemicolon(path, options) &&
+    path.call(() => expressionNeedsAsiProtection(path, options), "expression")
+  );
+}
+
+const ASI_HAZARD_START_CHARACTERS = new Set("[(`+-/<:");
+/*
+`prettier-ignore`d nodes print their original text verbatim, so ASI
+protection can't be decided from the AST alone: parentheses that are
+redundant (and dropped when formatting normally, eg `(new Widget).run()`)
+are invisible to `expressionNeedsAsiProtection`, while the verbatim text
+still starts with `(`.
+*/
+function shouldIgnoredExpressionStatementPrintLeadingSemicolon(path, options) {
+  if (!isEligibleForLeadingSemicolon(path, options)) {
+    return false;
+  }
+
+  const leadingCharacter = options.originalText[locStart(path.node)];
+  return ASI_HAZARD_START_CHARACTERS.has(leadingCharacter);
 }
 
 function expressionNeedsAsiProtection(path, options) {
@@ -143,4 +168,5 @@ export {
   isSingleVueEventBindingExpressionStatement,
   shouldConditionalExpressionPrintLeadingSemicolon,
   shouldExpressionStatementPrintLeadingSemicolon,
+  shouldIgnoredExpressionStatementPrintLeadingSemicolon,
 };

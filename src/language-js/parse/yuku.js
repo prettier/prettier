@@ -1,5 +1,5 @@
 import indexToPosition from "index-to-position";
-import { parse as yukuParse } from "yuku-parser";
+import { parse as yukuParse } from "#universal/yuku-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";

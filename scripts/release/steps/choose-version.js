@@ -1,5 +1,5 @@
 import enquirer from "enquirer";
-import semver from "semver";
+import * as verkit from "verkit";
 
 const SEMVER_INCREMENTS = ["patch", "minor", "major"];
 const CUSTOM_VERSION_VALUE_PLACEHOLDER = "custom-version";
@@ -10,7 +10,7 @@ export default async function chooseVersion(params) {
     message: `Choose a version to release (current: ${params.previousVersion})`,
     choices: [
       ...SEMVER_INCREMENTS.map((type) => {
-        const version = semver.inc(params.previousVersion, type);
+        const version = verkit.increment(params.previousVersion, type);
 
         return {
           message: `${type}: ${version}`,

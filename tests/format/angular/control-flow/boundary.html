@@ -1,0 +1,70 @@
+@boundary {
+  <app-risky-component />
+} @error {
+  <p>Something went wrong!</p>
+}
+
+@boundary {
+  <app-risky-component />
+} @error {
+  <p>Error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <app-flaky-component />
+} @error {
+  <p>Loading failed.</p>
+  <button (click)="$reset()">Try again</button>
+}
+
+@boundary {
+  <app-risky-component />
+} @error {
+  <app-error-fallback [error]="err" />
+}
+
+@boundary {
+  <app-risky-component />
+} @error (let err; retry = $reset; when isNetworkError(err)) {
+  <app-network-error [error]="err" />
+  <button (click)="retry()">Retry</button>
+} @error {
+  <app-generic-error />
+}
+
+@boundary {
+  <app-chart-dashboard />
+} @error (let err; reset = $reset; when isRenderError(err)) {
+  <p>Network issue. Check your connection.</p>
+  <button (click)="reset()">Retry</button>
+} @error {
+  <p>An unexpected error occurred: {{ $error.message }}</p>
+}
+
+@boundary {
+  <complex-chart [data]="data"/>
+} @error (let err = $error; let r = $reset) {
+  <p>Failed to load chart: {{err.message}}</p>
+  <button (click)="r()">Retry</button>
+}
+
+@boundary {
+  Outer Main
+  @boundary {
+    Inner Main
+  } @error {
+    Inner Fallback
+  }
+} @error {
+  Outer Fallback
+}
+
+@defer {
+  @boundary {
+    <app-c1/>
+  } @error {
+    <span>Render error</span>
+  }
+} @error {
+  <span>Load error</span>
+}

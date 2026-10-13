@@ -30,6 +30,9 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
+
+  // `flow@0.332.0`
+  ObjectTypeMappedTypeProperty: ["nameType"],
 };
 
 const excludeNodeTypes = [

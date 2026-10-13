@@ -93,6 +93,16 @@ function printBetweenLine(prevNode, nextNode) {
   }
 
   if (
+    needsToBorrowPrevClosingTagEndMarker(nextNode) &&
+    prevNode.kind === "element" &&
+    prevNode.children.length === 1 &&
+    prevNode.firstChild.kind === "interpolation" &&
+    prevNode.hasLeadingSpaces
+  ) {
+    return "";
+  }
+
+  if (
     (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
       (hasPrettierIgnore(nextNode) ||
         /**

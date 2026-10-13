@@ -66,6 +66,27 @@ $$ \\textrm{p-value} = 1 - \\sum_{x \\leq a} H(x | N, r_1, m_1) $$
 ================================================================================
 `;
 
+exports[`issue-20135.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+**Uses $FOO** from \`a.sh\` and \`b.sh\`, plus \`$BAR\` from \`c.sh\`, before anything else runs here.
+
+**Sourced-from-$DOTFILES files** - listed in \`.stow-local-ignore\`. They live only inside the repo
+and are pulled in by \`.zshrc\` via \`$DOTFILES\` (which is set to \`~/.dotfiles\` in \`.zshrc\`). Key
+examples: \`exports.zsh\`, \`aliases.zsh\`, \`dirs.zsh\`, \`completions/\`, \`_plugins/loader.zsh\`.
+
+=====================================output=====================================
+**Uses $FOO** from \`a.sh\` and \`b.sh\`, plus \`$BAR\` from \`c.sh\`, before anything else runs here.
+
+**Sourced-from-$DOTFILES files** - listed in \`.stow-local-ignore\`. They live only inside the repo
+and are pulled in by \`.zshrc\` via \`$DOTFILES\` (which is set to \`~/.dotfiles\` in \`.zshrc\`). Key
+examples: \`exports.zsh\`, \`aliases.zsh\`, \`dirs.zsh\`, \`completions/\`, \`_plugins/loader.zsh\`.
+
+================================================================================
+`;
+
 exports[`math-like.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -78,7 +99,7 @@ Paragraph with $14 million.    But if more $dollars on the same line...
 =====================================output=====================================
 $10 - $20
 
-Paragraph with $14 million.    But if more $dollars on the same line...
+Paragraph with $14 million. But if more $dollars on the same line...
 
 ================================================================================
 `;

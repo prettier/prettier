@@ -1,4 +1,4 @@
-import { ParseSourceSpan } from "angular-html-parser";
+import { ParseSourceSpan, TokenType } from "angular-html-parser";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import {
@@ -13,6 +13,7 @@ import {
 } from "./utilities/index.js";
 
 const PREPROCESS_PIPELINE = [
+  convertAngularNonBindableNodesToText,
   removeIgnorableFirstLf,
   mergeIfConditionalStartEndCommentIntoElementOpeningTag,
   mergeCdataIntoText,
@@ -47,6 +48,10 @@ function removeIgnorableFirstLf(ast /* , options */) {
         node.removeChild(text);
       } else {
         text.value = text.value.slice(1);
+        text.sourceSpan = new ParseSourceSpan(
+          text.sourceSpan.start.moveBy(1),
+          text.sourceSpan.end,
+        );
       }
     }
   });
@@ -95,6 +100,89 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
       }
     }
   });
+}
+
+function convertAngularNonBindableNodesToText(ast, options) {
+  if (
+    options.parser !== "angular" ||
+    !options.originalText.includes("ngNonBindable")
+  ) {
+    return;
+  }
+
+  ast.walk((node) => {
+    if (
+      node.kind === "element" &&
+      Object.hasOwn(node.attrMap, "ngNonBindable")
+    ) {
+      convertAngularNonBindableChildren(node, options);
+    }
+  });
+}
+
+// TODO: Avoid recursive call
+function convertAngularNonBindableChildren(node, options) {
+  const { children } = node;
+  if (!children) {
+    return;
+  }
+
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+
+    if (child.kind === "angularControlFlowBlock") {
+      convertAngularNonBindableChildren(child, options);
+
+      const replacements = [];
+      let { start } = child.sourceSpan;
+      for (const blockChild of child.children) {
+        if (start.offset < blockChild.sourceSpan.start.offset) {
+          const sourceSpan = new ParseSourceSpan(
+            start,
+            blockChild.sourceSpan.start,
+          );
+          replacements.push(createOriginalTextNode(sourceSpan, options));
+        }
+
+        replacements.push(blockChild);
+        start = blockChild.sourceSpan.end;
+      }
+
+      if (start.offset < child.sourceSpan.end.offset) {
+        const sourceSpan = new ParseSourceSpan(start, child.sourceSpan.end);
+        replacements.push(createOriginalTextNode(sourceSpan, options));
+      }
+
+      for (const replacement of replacements) {
+        node.insertChildBefore(child, replacement);
+      }
+      node.removeChild(child);
+
+      i += replacements.length - 1;
+      continue;
+    }
+
+    if (child.kind === "angularLetDeclaration") {
+      node.replaceChild(
+        child,
+        createOriginalTextNode(child.sourceSpan, options),
+      );
+      continue;
+    }
+
+    convertAngularNonBindableChildren(child, options);
+  }
+}
+
+function createOriginalTextNode(sourceSpan, options) {
+  return {
+    kind: "text",
+    value: options.originalText.slice(
+      sourceSpan.start.offset,
+      sourceSpan.end.offset,
+    ),
+    sourceSpan,
+  };
 }
 
 function mergeNodeIntoText(ast, shouldMerge, getValue) {
@@ -189,7 +277,6 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /\{\{(.+?)\}\}/s;
   ast.walk((node) => {
     if (!canHaveInterpolation(node, options)) {
       return;
@@ -202,7 +289,8 @@ function extractInterpolation(ast, options) {
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan;
-      const components = child.value.split(interpolationRegex);
+      const components = splitInterpolation(child);
+
       for (
         let i = 0;
         i < components.length;
@@ -245,6 +333,37 @@ function extractInterpolation(ast, options) {
       node.removeChild(child);
     }
   });
+}
+
+function splitInterpolation(node) {
+  const interpolationTokens = node.tokens?.filter(
+    (token) =>
+      token.type === TokenType.INTERPOLATION && token.parts.length === 3,
+  );
+
+  if (!interpolationTokens?.some((token) => token.parts[1].includes("}}"))) {
+    return node.value.split(/\{\{(.+?)\}\}/s);
+  }
+
+  const components = [];
+  const { content } = node.sourceSpan.start.file;
+  let startOffset = node.sourceSpan.start.offset;
+
+  for (const { parts, sourceSpan } of interpolationTokens) {
+    components.push(
+      content.slice(startOffset, sourceSpan.start.offset),
+      content.slice(
+        sourceSpan.start.offset + parts[0].length,
+        sourceSpan.end.offset - parts[2].length,
+      ),
+    );
+
+    startOffset = sourceSpan.end.offset;
+  }
+
+  components.push(content.slice(startOffset, node.sourceSpan.end.offset));
+
+  return components;
 }
 
 /**

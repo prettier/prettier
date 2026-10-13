@@ -12,6 +12,7 @@ import {
   printDocToDebug,
   printDocToString as printDocToStringWithoutNormalizeOptions,
 } from "../document/index.js";
+import { addBom, hasBom as stringHasBom } from "../utilities/bom.js";
 import getAlignmentSize from "../utilities/get-alignment-size.js";
 import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorLocation from "./get-cursor-node.js";
@@ -20,8 +21,6 @@ import normalizeFormatOptions from "./normalize-format-options.js";
 import parseText from "./parse.js";
 import { resolveParser } from "./parser-and-printer.js";
 import { calculateRange } from "./range.js";
-
-const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
 
@@ -271,9 +270,9 @@ function normalizeInputAndOptions(text, options) {
     options,
   );
 
-  const hasBOM = text.charAt(0) === BOM;
+  const hasBom = stringHasBom(text);
 
-  if (hasBOM) {
+  if (hasBom) {
     text = text.slice(1);
     cursorOffset--;
     rangeStart--;
@@ -297,7 +296,7 @@ function normalizeInputAndOptions(text, options) {
   }
 
   return {
-    hasBOM,
+    hasBom,
     text,
     options: normalizeIndexes(text, {
       ...options,
@@ -320,7 +319,7 @@ async function hasIgnorePragma(text, options) {
 }
 
 async function formatWithCursor(originalText, originalOptions) {
-  let { hasBOM, text, options } = normalizeInputAndOptions(
+  let { hasBom, text, options } = normalizeInputAndOptions(
     originalText,
     await normalizeFormatOptions(originalOptions),
   );
@@ -353,8 +352,8 @@ async function formatWithCursor(originalText, originalOptions) {
     result = await coreFormat(text, options);
   }
 
-  if (hasBOM) {
-    result.formatted = BOM + result.formatted;
+  if (hasBom) {
+    result.formatted = addBom(result.formatted);
 
     if (result.cursorOffset >= 0) {
       result.cursorOffset++;

@@ -59,13 +59,13 @@ Cause: The only valid meta property for import is 'import.meta'"
 `;
 
 exports[`import-phase.js format[flow] 1`] = `
-"Unexpected identifier, expected the identifier \`meta\` (1:8)
+"The \`source\` import phase is not supported. (1:8)
 > 1 | import.source(\`data:text/javascript,
     |        ^
   2 |     console.log("RUN");
   3 | \`)
   4 |
-Cause: Unexpected identifier, expected the identifier \`meta\` (1:7)"
+Cause: The \`source\` import phase is not supported. (1:7)"
 `;
 
 exports[`import-phase.js format[hermes] 1`] = `

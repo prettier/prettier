@@ -18,6 +18,7 @@ import {
   CSS_WHITE_SPACE_TAGS,
 } from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
+import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
@@ -121,7 +122,15 @@ function isScriptLikeTag(node, options) {
 }
 
 function canHaveInterpolation(node, options) {
-  return node.children && !isScriptLikeTag(node, options);
+  if (!node.children || isScriptLikeTag(node, options)) {
+    return false;
+  }
+
+  if (hasOrInNgNonBindable(node, options)) {
+    return false;
+  }
+
+  return true;
 }
 
 function isWhitespaceSensitiveNode(node, options) {

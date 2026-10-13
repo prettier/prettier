@@ -42,8 +42,10 @@ function isPlainTextElement(node) {
   );
 }
 
-function isPlainTextStyleElement(node) {
-  return isPlainTextElement(node) && node.tag === "style";
+function isPlainTextStyleOrScriptElement(node) {
+  return (
+    isPlainTextElement(node) && (node.tag === "style" || node.tag === "script")
+  );
 }
 
 function isPrettierIgnoreNode(node) {
@@ -67,7 +69,7 @@ function hasPrettierIgnore(path) {
 
 export {
   hasPrettierIgnore,
-  isPlainTextStyleElement,
+  isPlainTextStyleOrScriptElement,
   isVoidElement,
   isWhitespaceNode,
 };

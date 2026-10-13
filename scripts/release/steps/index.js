@@ -10,7 +10,6 @@ export { default as publishToNpm } from "./publish-to-npm.js";
 export { default as pushToGit } from "./push-to-git.js";
 export { default as showInstructionsAfterNpmPublish } from "./show-instructions-after-npm-publish.js";
 export { default as updateChangelog } from "./update-changelog.js";
-export { default as updateDependentsCount } from "./update-dependents-count.js";
 export { default as updateVersion } from "./update-version.js";
 export { default as validateNewVersion } from "./validate-new-version.js";
 export { default as waitForBotRelease } from "./wait-for-bot-release.js";

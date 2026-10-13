@@ -12,7 +12,7 @@ describe("validate-new-version", () => {
       { message: "'--version' is required" },
     );
   });
-  it("throws error for invalid semver", () => {
+  it("throws error for invalid version", () => {
     assert.throws(
       () => {
         validateNewVersion({ version: "foo" });
