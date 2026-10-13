@@ -506,15 +506,15 @@ exports[`issue-19795-3.js format 1`] = `
 exports[`issue-20163.js format 1`] = `
     : ====================================options=====================================
     : parsers: ["babel", "flow", "typescript"]
-    : rangeEnd: 12
+    : rangeEnd: 10
     : rangeStart: 5
     :                                                       printWidth: 80 (default) |
     : =====================================input======================================
-> 1 | for (const f of filters) {}
-    |      ^^^^^^^
+> 1 | for (var f of filters) {}
+    |      ^^^^^
   2 |
     : =====================================output=====================================
-    : for (const f of filters) {
+    : for (var f of filters) {
     : }
     :
     : ================================================================================
@@ -523,15 +523,15 @@ exports[`issue-20163.js format 1`] = `
 exports[`issue-20163-2.js format 1`] = `
     : ====================================options=====================================
     : parsers: ["babel", "flow", "typescript"]
-    : rangeEnd: 12
+    : rangeEnd: 10
     : rangeStart: 5
     :                                                       printWidth: 80 (default) |
     : =====================================input======================================
-> 1 | for (const x in obj) {}
-    |      ^^^^^^^
+> 1 | for (var x in obj) {}
+    |      ^^^^^
   2 |
     : =====================================output=====================================
-    : for (const x in obj) {
+    : for (var x in obj) {
     : }
     :
     : ================================================================================
