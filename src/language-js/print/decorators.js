@@ -9,7 +9,7 @@ import hasNewline from "../../utilities/has-newline.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { hasSameLocStart, locEnd } from "../location/index.js";
 import isIgnored from "../utilities/is-ignored.js";
-import { isExportDeclaration } from "../utilities/node-types.js";
+import { isClass, isExportDeclaration } from "../utilities/node-types.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;
@@ -51,9 +51,7 @@ function printDecorators(path, options, print) {
   }
 
   const shouldBreak =
-    node.type === "ClassExpression" ||
-    node.type === "ClassDeclaration" ||
-    hasNewlineBetweenOrAfterDecorators(node, options);
+    isClass(node) || hasNewlineBetweenOrAfterDecorators(node, options);
 
   return [
     path.key === "declaration" && isExportDeclaration(parent)
