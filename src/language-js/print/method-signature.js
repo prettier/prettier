@@ -34,7 +34,10 @@ function printMethodSignature(path, options, print) {
   );
 
   const returnTypeDoc = printTypeAnnotationProperty(path, print, "returnType");
-  const shouldGroupParameters = shouldGroupFunctionParameters(node);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc,
+  );
 
   parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 

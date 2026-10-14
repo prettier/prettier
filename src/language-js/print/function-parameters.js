@@ -245,9 +245,13 @@ function getReturnTypeNode(functionNode) {
 }
 
 // When parameters are grouped, the return type annotation breaks first.
-function shouldGroupFunctionParameters(functionNode) {
+function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
   if (!returnTypeNode) {
+    return false;
+  }
+
+  if (getFunctionParameters(functionNode).length !== 1) {
     return false;
   }
 
@@ -265,7 +269,6 @@ function shouldGroupFunctionParameters(functionNode) {
   }
 
   return (
-    getFunctionParameters(functionNode).length === 1 &&
     hasNode(
       returnTypeNode,
       (node) =>
@@ -274,7 +277,7 @@ function shouldGroupFunctionParameters(functionNode) {
         node.type === "TemplateLiteralTypeAnnotation" ||
         (node.type === "TSLiteralType" &&
           node.literal.type === "TemplateLiteral"),
-    )
+    ) || willBreak(returnTypeDoc)
   );
 }
 
