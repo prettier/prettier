@@ -26,8 +26,8 @@ import {
   isObjectExpression,
   isObjectType,
   isTypeAnnotation,
+  isUnionType,
 } from "../utilities/node-types.js";
-import { templateLiteralHasNewLines } from "../utilities/template-literal-has-new-lines.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
   printDanglingCommentsInList,
@@ -247,7 +247,7 @@ function getReturnTypeNode(functionNode) {
 // When parameters are grouped, the return type annotation breaks first.
 function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
-  if (!returnTypeNode) {
+  if (!returnTypeNode || isUnionType(returnTypeNode)) {
     return false;
   }
 
