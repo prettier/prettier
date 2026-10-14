@@ -33,6 +33,7 @@ import {
   printDanglingCommentsInList,
   printTrailingComma,
 } from "./miscellaneous.js";
+import { shouldHugUnionType } from "./union-type.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
@@ -247,11 +248,11 @@ function getReturnTypeNode(functionNode) {
 // When parameters are grouped, the return type annotation breaks first.
 function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
-  if (!returnTypeNode || isUnionType(returnTypeNode)) {
+  if (!returnTypeNode || getFunctionParameters(functionNode).length !== 1) {
     return false;
   }
 
-  if (getFunctionParameters(functionNode).length !== 1) {
+  if (isUnionType(returnTypeNode) && !shouldHugUnionType(returnTypeNode)) {
     return false;
   }
 

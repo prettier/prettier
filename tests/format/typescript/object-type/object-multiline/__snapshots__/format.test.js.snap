@@ -119,9 +119,7 @@ function f4(row: BingConnectionRow): Promise<{
 }
 
 // https://github.com/angular/angular/blob/3f9191166936166085320652eef1a562504aa3e4/devtools/projects/ng-devtools/src/lib/shared/signal-graph/utils.ts#L70-L84
-export function checkClusterMatch(
-  n: DebugSignalGraphNode,
-): {
+export function checkClusterMatch(n: DebugSignalGraphNode): {
   clusterType: ClusterLabelFormatType;
   clusterName: string;
   signalName: string;
@@ -294,9 +292,7 @@ function f4(row: BingConnectionRow): Promise<{
 }
 
 // https://github.com/angular/angular/blob/3f9191166936166085320652eef1a562504aa3e4/devtools/projects/ng-devtools/src/lib/shared/signal-graph/utils.ts#L70-L84
-export function checkClusterMatch(
-  n: DebugSignalGraphNode,
-): {
+export function checkClusterMatch(n: DebugSignalGraphNode): {
   clusterType: ClusterLabelFormatType;
   clusterName: string;
   signalName: string;
