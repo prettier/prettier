@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`line-comment-with-noformat-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["flow", "babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @noformat
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+// @noformat
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+================================================================================
+`;
+
 exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":true} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true

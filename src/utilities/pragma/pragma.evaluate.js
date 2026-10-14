@@ -18,6 +18,16 @@ export const [YAML_HAS_PRAGMA_REGEXP, YAML_HAS_IGNORE_PRAGMA_REGEXP] = [
     new RegExp(String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*?(?:\n|$)`),
 );
 
+export const [
+  JS_LINE_COMMENT_PRAGMA_REGEXP,
+  JS_LINE_COMMENT_IGNORE_PRAGMA_REGEXP,
+] = [FORMAT_PRAGMAS, FORMAT_IGNORE_PRAGMAS].map(
+  (pragmas) =>
+    new RegExp(
+      String.raw`^[^\S\n]*//[^\S\n]*@(?:${pragmas.join("|")})[^\S\n]*$`,
+    ),
+);
+
 export const [GRAPHQL_HAS_PRAGMA_REGEXP, GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP] = [
   FORMAT_PRAGMAS,
   FORMAT_IGNORE_PRAGMAS,
