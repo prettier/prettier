@@ -105,7 +105,9 @@ function isPrettierIgnore(node) {
 
 /** there's no opening/closing tag or it's considered not breakable */
 function isTextLikeNode(node) {
-  return node.kind === "text" || node.kind === "comment";
+  return (
+    node.kind === "text" || node.kind === "comment" || node.kind === "cdata"
+  );
 }
 
 function isScriptLikeTag(node, options) {

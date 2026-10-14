@@ -16,7 +16,7 @@ const PREPROCESS_PIPELINE = [
   convertAngularNonBindableNodesToText,
   removeIgnorableFirstLf,
   mergeIfConditionalStartEndCommentIntoElementOpeningTag,
-  mergeCdataIntoText,
+  mergeAdjacentTextNodes,
   extractInterpolation,
   extractWhitespaces,
   addCssDisplay,
@@ -185,23 +185,14 @@ function createOriginalTextNode(sourceSpan, options) {
   };
 }
 
-function mergeNodeIntoText(ast, shouldMerge, getValue) {
+function mergeAdjacentTextNodes(ast /* , options */) {
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
         const child = node.children[i];
 
-        if (child.kind !== "text" && !shouldMerge(child)) {
-          continue;
-        }
-
-        if (child.kind !== "text") {
-          child.kind = "text";
-          child.value = getValue(child);
-        }
-
         const prevChild = child.prev;
-        if (!prevChild || prevChild.kind !== "text") {
+        if (child.kind !== "text" || prevChild?.kind !== "text") {
           continue;
         }
 
@@ -216,14 +207,6 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
       }
     }
   });
-}
-
-function mergeCdataIntoText(ast /* , options */) {
-  return mergeNodeIntoText(
-    ast,
-    (node) => node.kind === "cdata",
-    (node) => `<![CDATA[${node.value}]]>`,
-  );
 }
 
 function mergeSimpleElementIntoText(ast /* , options */) {
