@@ -170,6 +170,90 @@ IVS 麻󠄁羽󠄀‼️
 ================================================================================
 `;
 
+exports[`code-fence-like-word.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+To show a snippet without syntax highlighting, start the line with three tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph:
+    ~~~
+
+=====================================output=====================================
+To show a snippet without syntax highlighting, start the line with three
+tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three
+backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested
+fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph: ~~~
+
+================================================================================
+`;
+
+exports[`code-fence-like-word.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+To show a snippet without syntax highlighting, start the line with three tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph:
+    ~~~
+
+=====================================output=====================================
+To show a snippet without syntax highlighting, start the line with three tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph: ~~~
+
+================================================================================
+`;
+
+exports[`code-fence-like-word.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+To show a snippet without syntax highlighting, start the line with three tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph:
+    ~~~
+
+=====================================output=====================================
+To show a snippet without syntax highlighting, start the line with three tildes ~~~ and close it the same way.
+
+To show a snippet with syntax highlighting, start the line with three backticks \`\`\`js and add the code below.
+
+A fence can be longer than three characters, which is handy for nested fences \`\`\`\` like this one.
+
+A line that is indented by four spaces is still part of the paragraph: ~~~
+
+================================================================================
+`;
+
 exports[`inline-nodes.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
