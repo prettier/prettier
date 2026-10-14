@@ -26,3 +26,49 @@ export function checkClusterMatch(n: DebugSignalGraphNode): {
   signalName: string;
 } | null {
 }
+
+// https://github.com/babel/babel/blob/7c1dcfac003791a7fee733ed13851a5cac1ccf1c/packages/babel-traverse/src/path/index.ts
+interface NodePathOverwrites {
+  ensureBlock(
+    this: NodePath_Final,
+  ): asserts this is NodePath_Final<
+    (
+      t.Loop | t.WithStatement | t.Function | t.LabeledStatement | t.CatchClause
+    ) & { body: t.BlockStatement }
+  >;
+}
+
+// https://github.com/vbenjs/vue-vben-admin/blob/50f4ede309d4450c7dd417399cb8d5c02346d2d2/internal/lint-configs/eslint-config/src/util.ts
+export async function interopDefault<T>(
+  m: Awaitable<T>,
+): Promise<T extends { default: infer U } ? U : T> {
+  const resolved = await m;
+  return (resolved as any).default || resolved;
+}
+
+// https://github.com/vega/vega-lite/blob/37e3b5c76b9cb97dcb1358a46bd645cad8b11ea8/src/compositemark/boxplot.ts
+function boxParamsQuartiles(
+  continousAxisField: string,
+): {op: NonArgAggregateFieldOp; field: FieldName; as: FieldName}[] {
+}
+
+// https://github.com/vitejs/vite/blob/6894f5cbceac589536a0efb476d881a47f5ab1c5/packages/vite/src/node/config.ts#L2505C1-L2522C2
+async function nativeImportConfigFile(
+  resolvedPath: string,
+): Promise<{ configExport: any; dependencies: string[] }> {
+}
+
+// https://github.com/marmelab/react-admin/blob/e699865d8f46bf6f6fbc9eb7c9570ec4dec79f5d/packages/ra-core/src/types.ts#L61-L64
+export type AuthProvider = {
+    login: (
+        params: any
+    ) => Promise<{ redirectTo?: string | boolean } | void | any>;
+}
+
+// https://github.com/NG-ZORRO/ng-zorro-antd/blob/10a07e40308a097d3e5636d3dc1ca9fe39815939/components/form/form-control.component.ts#L233
+export class NzFormControlComponent implements OnChanges, OnInit, AfterContentInit {
+  private getInnerTip(
+    status: NzFormControlStatusType
+  ): string | TemplateRef<{ $implicit: AbstractControl | NgModel }> | null {
+  }
+}
