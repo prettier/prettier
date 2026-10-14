@@ -632,6 +632,8 @@ function joinCjkSensitiveParts(docs) {
       const nextCategory = getCharacterCategory(getFirstCharacter(next));
       const keepNewLine =
         (previousCategory !== "other" && nextCategory !== "other") ||
+        // Line breaks around ideographic punctuation are simply removed
+        // only when the element's `lang` is zh or ja
         previousCategory === "ideoPunctuation" ||
         nextCategory === "ideoPunctuation";
       if (keepNewLine) {
