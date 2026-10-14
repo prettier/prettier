@@ -28,6 +28,8 @@ import {
   isBinaryish,
   isCallExpression,
   isCallLikeExpression,
+  isExternalModuleReference,
+  isImportType,
   isJsxElement,
   isObjectExpression,
   isRegExpLiteral,
@@ -47,6 +49,8 @@ import {
 - `CallExpression`
 - `TSImportType` (TypeScript)
 - `TSExternalModuleReference` (TypeScript)
+- `ImportType` (Flow)
+- `ExternalModuleReference` (Flow)
 */
 function printCallArguments(path, options, print) {
   const { node } = path;
@@ -95,8 +99,8 @@ function printCallArguments(path, options, print) {
     path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
-    node.type !== "TSImportType" &&
-    node.type !== "TSExternalModuleReference"
+    !isImportType(node) &&
+    !isExternalModuleReference(node)
       ? printTrailingComma(options, "all")
       : "";
 

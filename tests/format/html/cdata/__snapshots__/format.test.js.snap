@@ -1,23 +1,242 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`adjacent.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span>before<![CDATA[  keep   spaces  ]]>after</span>
+<span><![CDATA[first]]><![CDATA[  second  ]]></span>
+<span><![CDATA[first]]><b>bold</b><![CDATA[second]]></span>
+<span>before<b><![CDATA[  keep   spaces  ]]></b>after</span>
+<span><![CDATA[]]><![CDATA[   ]]></span>
+<span><!-- before --><![CDATA[  keep   spaces  ]]><!-- after --></span>
+
+<span>before<![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]>after</span>
+<span><![CDATA[first]]><![CDATA[  second   second   second   second   second   second  ]]></span>
+<span><![CDATA[first]]><b>bold bold bold bold bold bold bold bold bold</b><![CDATA[second]]></span>
+<span>before<b><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]></b>after</span>
+<span><![CDATA[]]><![CDATA[                                                         ]]></span>
+<span><!-- before --><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces  ]]><!-- after --></span>
+
+<div>before<![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]>after</div>
+<div><![CDATA[first]]><![CDATA[  second   second   second   second   second   second  ]]></div>
+<div><![CDATA[first]]><b>bold bold bold bold bold bold bold bold bold</b><![CDATA[second]]></div>
+<div>before<b><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]></b>after</div>
+<div><![CDATA[]]><![CDATA[                                                         ]]></div>
+<div><!-- before --><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces  ]]><!-- after --></div>
+
+=====================================output=====================================
+<span>before<![CDATA[  keep   spaces  ]]>after</span>
+<span><![CDATA[first]]><![CDATA[  second  ]]></span>
+<span><![CDATA[first]]><b>bold</b><![CDATA[second]]></span>
+<span
+  >before<b><![CDATA[  keep   spaces  ]]></b>after</span
+>
+<span><![CDATA[]]><![CDATA[   ]]></span>
+<span><!-- before --><![CDATA[  keep   spaces  ]]><!-- after --></span>
+
+<span
+  >before<![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]>after</span
+>
+<span
+  ><![CDATA[first]]><![CDATA[  second   second   second   second   second   second  ]]></span
+>
+<span
+  ><![CDATA[first]]><b>bold bold bold bold bold bold bold bold bold</b
+  ><![CDATA[second]]></span
+>
+<span
+  >before<b
+    ><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]></b
+  >after</span
+>
+<span
+  ><![CDATA[]]><![CDATA[                                                         ]]></span
+>
+<span
+  ><!-- before --><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces  ]]><!-- after --></span
+>
+
+<div>
+  before<![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]>after
+</div>
+<div>
+  <![CDATA[first]]><![CDATA[  second   second   second   second   second   second  ]]>
+</div>
+<div>
+  <![CDATA[first]]><b>bold bold bold bold bold bold bold bold bold</b
+  ><![CDATA[second]]>
+</div>
+<div>
+  before<b
+    ><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces   spaces  ]]></b
+  >after
+</div>
+<div>
+  <![CDATA[]]><![CDATA[                                                         ]]>
+</div>
+<div>
+  <!-- before --><![CDATA[  keep   spaces   spaces   spaces   spaces   spaces  ]]><!-- after -->
+</div>
+
+================================================================================
+`;
+
 exports[`example.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["html", "angular"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <span><![CDATA[<sender>John Smith</sender>]]></span>
-
 <span><![CDATA[1]]> a <![CDATA[2]]></span>
 <span><![CDATA[1]]> <br> <![CDATA[2]]></span>
 
+<span><![CDATA[<sender>John Smith Smith Smith Smith Smith Smith Smith Smith Smith Smith</sender>]]></span>
+<span><![CDATA[1]]> text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text <![CDATA[2]]></span>
+<span><![CDATA[1]]> <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br> <![CDATA[2]]></span>
+
+<div><![CDATA[<sender>John Smith Smith Smith Smith Smith Smith Smith Smith Smith Smith</sender>]]></div>
+<div><![CDATA[1]]> text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text <![CDATA[2]]></div>
+<div><![CDATA[1]]> <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br> <![CDATA[2]]></div>
+
 =====================================output=====================================
 <span><![CDATA[<sender>John Smith</sender>]]></span>
-
 <span><![CDATA[1]]> a <![CDATA[2]]></span>
 <span
   ><![CDATA[1]]> <br />
   <![CDATA[2]]></span
 >
+
+<span
+  ><![CDATA[<sender>John Smith Smith Smith Smith Smith Smith Smith Smith Smith Smith</sender>]]></span
+>
+<span
+  ><![CDATA[1]]>
+  text text text text text text text text text text text text text text text
+  text
+  <![CDATA[2]]></span
+>
+<span
+  ><![CDATA[1]]> <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <![CDATA[2]]></span
+>
+
+<div>
+  <![CDATA[<sender>John Smith Smith Smith Smith Smith Smith Smith Smith Smith Smith</sender>]]>
+</div>
+<div>
+  <![CDATA[1]]>
+  text text text text text text text text text text text text text text text
+  text
+  <![CDATA[2]]>
+</div>
+<div>
+  <![CDATA[1]]> <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <![CDATA[2]]>
+</div>
+
+================================================================================
+`;
+
+exports[`multiline.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<![CDATA[<app-alert>
+  Preserve     all spaces and line breaks.
+  {{ untouched }}
+</app-alert>]]>
+
+<![CDATA[
+
+
+     Preserve     all spaces and line breaks.
+
+
+]]>
+
+=====================================output=====================================
+<![CDATA[<app-alert>
+  Preserve     all spaces and line breaks.
+  {{ untouched }}
+</app-alert>]]>
+
+<![CDATA[
+
+
+     Preserve     all spaces and line breaks.
+
+
+]]>
+
+================================================================================
+`;
+
+exports[`nested.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <span><![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]></span>
+</div>
+<div>
+  <div><![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]></div>
+</div>
+
+<pre>before<![CDATA[
+  keep   this indentation
+]]>after</pre>
+
+=====================================output=====================================
+<div>
+  <span
+    ><![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]></span
+  >
+</div>
+<div>
+  <div>
+    <![CDATA[
+  keep   this indentation
+    <b>and these spaces</b>
+]]>
+  </div>
+</div>
+
+<pre>before<![CDATA[
+  keep   this indentation
+]]>after</pre>
 
 ================================================================================
 `;

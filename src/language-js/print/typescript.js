@@ -14,8 +14,10 @@ import {
   printClassProperty,
 } from "./class.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printExportAssignment } from "./export-assignment.js";
 import { printFunction, printMethodValue } from "./function.js";
 import { printFunctionType } from "./function-type.js";
+import { printImportEqualsDeclaration } from "./import-equals-declaration.js";
 import { printIndexSignature } from "./index-signature.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
@@ -29,7 +31,6 @@ import {
   printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import { printImportKind } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
 import { printObject } from "./object.js";
 import { printRestType } from "./rest-type.js";
@@ -69,7 +70,7 @@ function printTypescript(path, options, print, args) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), printSemicolon(options)];
+      return printExportAssignment(path, options, print);
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -169,14 +170,7 @@ function printTypescript(path, options, print, args) {
       return printEnumMember(path, options, print);
 
     case "TSImportEqualsDeclaration":
-      return [
-        "import ",
-        printImportKind(node, /* spaceBeforeKind */ false),
-        print("id"),
-        " = ",
-        print("moduleReference"),
-        printSemicolon(options),
-      ];
+      return printImportEqualsDeclaration(path, options, print);
     case "TSExternalModuleReference":
       return printCallExpression(path, options, print);
     case "TSModuleDeclaration":

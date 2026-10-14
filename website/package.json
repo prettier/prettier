@@ -18,11 +18,11 @@
     "@catppuccin/codemirror": "1.0.3",
     "@codemirror/autocomplete": "6.20.3",
     "@codemirror/commands": "6.11.1",
-    "@codemirror/language": "6.12.4",
+    "@codemirror/language": "6.13.1",
     "@codemirror/language-data": "6.5.2",
     "@codemirror/lint": "6.9.7",
     "@codemirror/state": "6.7.6",
-    "@codemirror/view": "6.43.13",
+    "@codemirror/view": "6.43.14",
     "@docusaurus/preset-classic": "3.10.2",
     "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
@@ -30,7 +30,7 @@
     "clipboard": "2.0.11",
     "clsx": "2.1.1",
     "cm6-graphql": "0.2.2",
-    "github-buttons": "2.33.0",
+    "github-buttons": "2.33.1",
     "graphql": "17.0.2",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
@@ -38,7 +38,7 @@
     "react-dom": "19.3.0",
     "react-markdown": "10.1.0",
     "react-tweet": "3.3.1",
-    "vue": "3.5.42"
+    "vue": "3.5.43"
   },
   "devDependencies": {
     "@docusaurus/core": "3.10.2",
@@ -48,10 +48,10 @@
     "@types/react": "19.3.0",
     "@vitejs/plugin-vue": "6.0.9",
     "@vitejs/plugin-vue-jsx": "5.1.6",
-    "concurrently": "10.0.5",
+    "concurrently": "10.0.6",
     "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "7.1.1",
-    "vite": "8.3.0",
+    "vite": "8.3.4",
     "yaml": "2.9.1"
   },
   "browserslist": {

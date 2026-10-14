@@ -33,8 +33,8 @@ const config = {
       ignoreDependencies: [
         "ts-expect",
         "buffer",
-        "base64-arraybuffer-es6",
-        "@yuku-parser/wasm",
+        "@yuku-core/wasm",
+        "@oxc-parser/binding-wasm32-wasip1",
       ],
       ignoreBinaries: [],
     },

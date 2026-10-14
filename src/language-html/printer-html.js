@@ -147,6 +147,14 @@ function genericPrint(path, options, print) {
         ),
         printClosingTagSuffix(node, options),
       ];
+    case "cdata":
+      return [
+        printOpeningTagPrefix(node, options),
+        "<![CDATA[",
+        replaceEndOfLine(node.value),
+        "]]>",
+        printClosingTagSuffix(node, options),
+      ];
 
     case "attribute": {
       if (node.value === null) {
@@ -175,7 +183,6 @@ function genericPrint(path, options, print) {
       return printStartTagComment(path);
 
     case "frontMatter": // Handled in core
-    case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");

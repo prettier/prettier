@@ -10,10 +10,59 @@ foo;
 // prettier-ignore
 [1].map();
 
+foo;
+// prettier-ignore
+(new  Widget).run();
+
+foo;
+// prettier-ignore
++1;
+
+foo;
+// prettier-ignore
+-1;
+
+
+foo;
+// prettier-ignore
+/./;
+
+foo;
+// prettier-ignore
+\`\`;
+
+foo;
+// prettier-ignore
+<div/>;
+
 =====================================output=====================================
 foo
 // prettier-ignore
 ;[1].map()
+
+foo
+// prettier-ignore
+;(new  Widget).run()
+
+foo
+// prettier-ignore
+;+1
+
+foo
+// prettier-ignore
+;-1
+
+foo
+// prettier-ignore
+;/./
+
+foo
+// prettier-ignore
+;\`\`
+
+foo
+// prettier-ignore
+;<div/>
 
 ================================================================================
 `;
@@ -27,12 +76,292 @@ foo;
 // prettier-ignore
 [1].map();
 
+foo;
+// prettier-ignore
+(new  Widget).run();
+
+foo;
+// prettier-ignore
++1;
+
+foo;
+// prettier-ignore
+-1;
+
+
+foo;
+// prettier-ignore
+/./;
+
+foo;
+// prettier-ignore
+\`\`;
+
+foo;
+// prettier-ignore
+<div/>;
+
 =====================================output=====================================
 foo;
 // prettier-ignore
 [1].map();
 
+foo;
+// prettier-ignore
+(new  Widget).run();
+
+foo;
+// prettier-ignore
++1;
+
+foo;
+// prettier-ignore
+-1;
+
+foo;
+// prettier-ignore
+/./;
+
+foo;
+// prettier-ignore
+\`\`;
+
+foo;
+// prettier-ignore
+<div/>;
+
 ================================================================================
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo;
+// prettier-ignore
+::obj.prop;
+
+=====================================output=====================================
+foo
+// prettier-ignore
+;::obj.prop
+
+================================================================================
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token (3:0)"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token :"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[flow] 1`] = `
+"Unexpected token \`:\`, expected the start of a statement (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[hermes] 1`] = `
+"invalid expression (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: invalid expression (3:0)
+::obj.prop;
+^"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: [3:0-3:1]: Unexpected token: ':'"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[oxc] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[oxc-ts] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[typescript] 1`] = `
+"Declaration or statement expected. (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[yuku] 1`] = `
+"Unexpected token ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js - {"semi":false} format[yuku-ts] 1`] = `
+"Unexpected token ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo;
+// prettier-ignore
+::obj.prop;
+
+=====================================output=====================================
+foo;
+// prettier-ignore
+::obj.prop;
+
+================================================================================
+`;
+
+exports[`asi-bind-expression.js format[acorn] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token (3:0)"
+`;
+
+exports[`asi-bind-expression.js format[espree] 1`] = `
+"Unexpected token : (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token :"
+`;
+
+exports[`asi-bind-expression.js format[flow] 1`] = `
+"Unexpected token \`:\`, expected the start of a statement (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
+`;
+
+exports[`asi-bind-expression.js format[hermes] 1`] = `
+"invalid expression (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: invalid expression (3:0)
+::obj.prop;
+^"
+`;
+
+exports[`asi-bind-expression.js format[meriyah] 1`] = `
+"Unexpected token: ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: [3:0-3:1]: Unexpected token: ':'"
+`;
+
+exports[`asi-bind-expression.js format[oxc] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js format[oxc-ts] 1`] = `
+"Unexpected token (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js format[typescript] 1`] = `
+"Declaration or statement expected. (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`asi-bind-expression.js format[yuku] 1`] = `
+"Unexpected token ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
+`;
+
+exports[`asi-bind-expression.js format[yuku-ts] 1`] = `
+"Unexpected token ':' (3:1)
+  1 | foo;
+  2 | // prettier-ignore
+> 3 | ::obj.prop;
+    | ^
+  4 |"
 `;
 
 exports[`class-expression-decorator.js - {"semi":false} format 1`] = `
@@ -205,6 +534,69 @@ function foo() {
   'use strict';
   [].forEach();
 }
+
+================================================================================
+`;
+
+exports[`for-x-initializer.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+=====================================output=====================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo()
+for (/* prettier-ignore */ const  {a,b} of c) foo()
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+================================================================================
+`;
+
+exports[`for-x-initializer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
+
+=====================================output=====================================
+for (/* prettier-ignore */ let i  = 0; i < 1; i++) {}
+for (/* prettier-ignore */ let  [a,b] in c) foo();
+for (/* prettier-ignore */ const  {a,b} of c) foo();
+for (
+  // prettier-ignore
+  let i  = 0, j  = 1;
+  i < 1;
+  i++
+) {}
+for (/* prettier-ignore */ i  = 0; i < 1; i++) {}
 
 ================================================================================
 `;
