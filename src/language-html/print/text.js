@@ -16,7 +16,7 @@ import {
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagSuffix,
   printOpeningTagPrefix,
-} from "./print/tag.js";
+} from "./tag.js";
 
 function printTextValue(node) {
   const { value } = node;
