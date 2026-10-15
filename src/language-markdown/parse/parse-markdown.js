@@ -11,6 +11,7 @@ import {
   liquidFromMarkdown,
   liquidSyntax,
 } from "./micromark/micromark-extension-liquid.js";
+import { preserveSingleDollarTex } from "./preserve-single-dollar-tex.js";
 
 let markdownParseOptions;
 function getMarkdownParseOptions() {
@@ -39,6 +40,7 @@ function getMarkdownParseOptions() {
 function parseMarkdown(text) {
   const { frontMatter, content } = parseFrontMatter(text);
   const ast = fromMarkdown(content, getMarkdownParseOptions());
+  preserveSingleDollarTex(ast, content);
 
   if (frontMatter) {
     const [start, end] = [frontMatter.start, frontMatter.end].map(
