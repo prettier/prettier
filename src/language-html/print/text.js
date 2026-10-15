@@ -2,7 +2,6 @@
  * @import {Doc} from "../document/index.js"
  */
 
-import htmlWhitespace from "../../utilities/html-whitespace.js";
 import {
   breakParent,
   fill,
@@ -10,7 +9,8 @@ import {
   join,
   line,
   replaceEndOfLine,
-} from "../document/index.js";
+} from "../../document/index.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { htmlTrimPreserveIndentation } from "../utilities/index.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
