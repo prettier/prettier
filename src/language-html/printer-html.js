@@ -11,7 +11,6 @@ import {
   line,
   replaceEndOfLine,
 } from "../document/index.js";
-import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import embed from "./embed.js";
@@ -27,6 +26,7 @@ import {
   printAngularIcuCase,
   printAngularIcuExpression,
 } from "./print/angular-icu-expression.js";
+import { printAttribute } from "./print/attribute.js";
 import { printChildren } from "./print/children.js";
 import { printElement } from "./print/element.js";
 import { printStartTagComment } from "./print/start-tag-comment.js";
@@ -38,11 +38,7 @@ import {
   printOpeningTagStart,
 } from "./print/tag.js";
 import preprocess from "./print-preprocess.js";
-import {
-  getTextValueParts,
-  shouldUnquoteAttributeValue,
-  unescapeQuoteEntities,
-} from "./utilities/index.js";
+import { getTextValueParts } from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -156,28 +152,8 @@ function genericPrint(path, options, print) {
         printClosingTagSuffix(node, options),
       ];
 
-    case "attribute": {
-      if (node.value === null) {
-        return node.rawName;
-      }
-
-      const value = unescapeQuoteEntities(node.value);
-      const quote = shouldUnquoteAttributeValue(node, options)
-        ? ""
-        : getPreferredQuote(value, '"');
-
-      return [
-        node.rawName,
-        "=",
-        quote,
-        replaceEndOfLine(
-          quote === '"'
-            ? value.replaceAll('"', "&quot;")
-            : value.replaceAll("'", "&apos;"),
-        ),
-        quote,
-      ];
-    }
+    case "attribute":
+      return printAttribute(path, options /* , print*/);
 
     case "startTagComment":
       return printStartTagComment(path);
