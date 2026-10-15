@@ -557,6 +557,7 @@ function handleLastFunctionParameterComments({
   enclosingNode,
   followingNode,
   text,
+  options,
 }) {
   // Flow function type definitions
   if (
@@ -577,6 +578,25 @@ function handleLastFunctionParameterComments({
     followingNode?.type !== "ComponentTypeParameter"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // Real functions and TypeScript function type definitions
+  if (
+    precedingNode &&
+    isRealFunctionLikeNode(enclosingNode) &&
+    getFunctionParameters(enclosingNode).at(-1) === precedingNode &&
+    followingNode === enclosingNode.body &&
+    stripComments(options)
+      .slice(locEnd(precedingNode), locStart(comment))
+      .trimEnd()
+      .endsWith(")")
+  ) {
+    addDanglingComment(
+      enclosingNode,
+      comment,
+      "commentAfterFunctionParameters",
+    );
     return true;
   }
 
