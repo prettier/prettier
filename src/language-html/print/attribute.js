@@ -2,12 +2,12 @@
  * @import {Doc} from "../document/index.js"
  */
 
-import { replaceEndOfLine } from "../document/index.js";
-import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
+import { replaceEndOfLine } from "../../document/index.js";
+import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import {
   shouldUnquoteAttributeValue,
   unescapeQuoteEntities,
-} from "./utilities/index.js";
+} from "../utilities/index.js";
 
 function printAttributeValue(path, options /* , print*/) {
   const { node } = path;
