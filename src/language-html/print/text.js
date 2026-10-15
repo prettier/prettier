@@ -60,17 +60,11 @@ function printText(path, options /* , print*/) {
     return parts;
   }
 
-  const prefix = printOpeningTagPrefix(node, options);
-  const printed = printTextValue(node);
-
-  const suffix = printClosingTagSuffix(node, options);
-  // We can't use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
-  printed[0] = [prefix, printed[0]];
-  // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-  printed.push([printed.pop(), suffix]);
-
-  // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-  return fill(printed);
+  return [
+    printOpeningTagPrefix(node, options),
+    fill(printTextValue(node)),
+    printClosingTagSuffix(node, options),
+  ];
 }
 
 export { printText };
