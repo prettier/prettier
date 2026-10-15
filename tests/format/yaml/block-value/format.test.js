@@ -50,6 +50,26 @@ runFormatTest(
         code: "foo: |-\n  value  \n---\nbar: baz\n",
         output: "foo: |-\n  value  \n---\nbar: baz\n",
       },
+      {
+        name: "keeps the next key in the same nested mapping",
+        code: "a:\n  b: |\n    x \n  c: 1",
+        output: "a:\n  b: |\n    x \n  c: 1\n",
+      },
+      {
+        name: "keeps the next key of an outer mapping",
+        code: "a:\n  b:\n    c: |\n      x \n  d: 1\ne: 2\n",
+        output: "a:\n  b:\n    c: |\n      x \n  d: 1\ne: 2\n",
+      },
+      {
+        name: "keeps the next key in the same mapping of a sequence item",
+        code: "- run: |\n    echo hi \n  name: x\n",
+        output: "- run: |\n    echo hi \n  name: x\n",
+      },
+      {
+        name: "keeps the next item in the same nested sequence",
+        code: "- - |\n    x \n  - y\n",
+        output: "- - |\n    x \n  - y\n",
+      },
     ],
   },
   ["yaml"],

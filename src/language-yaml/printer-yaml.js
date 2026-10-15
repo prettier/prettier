@@ -8,6 +8,7 @@ import {
   join,
   line,
   lineSuffix,
+  markAsRoot,
   replaceEndOfLine,
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
@@ -349,6 +350,17 @@ function printNode(path, options, print) {
         const childPrintsTrailingLine =
           isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
           hasTrailingContentWhitespace(lastDescendantNode);
+
+        // The trailing `literalline` of the block goes back to the root
+        // indentation, mark this level as the root to indent the next sibling
+        // (explicit indentation indicators are relative to the real root)
+        if (
+          childPrintsTrailingLine &&
+          !isLast &&
+          lastDescendantNode.indent === null
+        ) {
+          return markAsRoot(print());
+        }
 
         return [print(), !isLast && !childPrintsTrailingLine ? hardline : ""];
       }, "children");
