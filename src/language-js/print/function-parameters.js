@@ -15,6 +15,7 @@ import {
   hasRestParameter,
   iterateFunctionParametersPath,
 } from "../utilities/function-parameters.js";
+import { hasNode } from "../utilities/has-node.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
@@ -25,12 +26,14 @@ import {
   isObjectExpression,
   isObjectType,
   isTypeAnnotation,
+  isUnionType,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
   printDanglingCommentsInList,
   printTrailingComma,
 } from "./miscellaneous.js";
+import { shouldHugUnionType } from "./union-type.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
@@ -245,7 +248,11 @@ function getReturnTypeNode(functionNode) {
 // When parameters are grouped, the return type annotation breaks first.
 function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   const returnTypeNode = getReturnTypeNode(functionNode);
-  if (!returnTypeNode) {
+  if (!returnTypeNode || getFunctionParameters(functionNode).length !== 1) {
+    return false;
+  }
+
+  if (isUnionType(returnTypeNode) && !shouldHugUnionType(returnTypeNode)) {
     return false;
   }
 
@@ -263,8 +270,15 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   }
 
   return (
-    getFunctionParameters(functionNode).length === 1 &&
-    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+    hasNode(
+      returnTypeNode,
+      (node) =>
+        isObjectType(node) ||
+        node.type === "TSTemplateLiteralType" ||
+        node.type === "TemplateLiteralTypeAnnotation" ||
+        (node.type === "TSLiteralType" &&
+          node.literal.type === "TemplateLiteral"),
+    ) || willBreak(returnTypeDoc)
   );
 }
 
