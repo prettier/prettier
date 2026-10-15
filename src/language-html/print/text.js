@@ -2,18 +2,33 @@
  * @import {Doc} from "../document/index.js"
  */
 
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 import {
   breakParent,
   fill,
   hardline,
+  join,
+  line,
   replaceEndOfLine,
 } from "../document/index.js";
+import { htmlTrimPreserveIndentation } from "../utilities/index.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagSuffix,
   printOpeningTagPrefix,
 } from "./print/tag.js";
-import { getTextValueParts } from "./utilities/index.js";
+
+function printTextValue(node) {
+  const { value } = node;
+  return node.parent.isWhitespaceSensitive
+    ? node.parent.isIndentationSensitive
+      ? replaceEndOfLine(value)
+      : replaceEndOfLine(
+          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
+          hardline,
+        )
+    : join(line, htmlWhitespace.split(value));
+}
 
 function printText(path, options /* , print*/) {
   const { node } = path;
@@ -46,7 +61,7 @@ function printText(path, options /* , print*/) {
   }
 
   const prefix = printOpeningTagPrefix(node, options);
-  const printed = getTextValueParts(node);
+  const printed = printTextValue(node);
 
   const suffix = printClosingTagSuffix(node, options);
   // We can't use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
