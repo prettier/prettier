@@ -184,7 +184,7 @@
     "open-editor": "6.0.0",
     "prettier": "3.9.10",
     "pretty-bytes": "7.2.0",
-    "pretty-ms": "9.3.1",
+    "pretty-ms": "10.0.0",
     "puppeteer": "25.13.0",
     "rollup-plugin-license": "3.7.1",
     "serialize-javascript": "7.1.2",

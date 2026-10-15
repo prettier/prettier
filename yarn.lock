@@ -8404,7 +8404,7 @@ __metadata:
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.9.10"
     pretty-bytes: "npm:7.2.0"
-    pretty-ms: "npm:9.3.1"
+    pretty-ms: "npm:10.0.0"
     puppeteer: "npm:25.13.0"
     regexp-util: "npm:2.1.0"
     remark-footnotes: "npm:2.0.0"
@@ -8455,7 +8455,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-ms@npm:9.3.1, pretty-ms@npm:^9.2.0":
+"pretty-ms@npm:10.0.0":
+  version: 10.0.0
+  resolution: "pretty-ms@npm:10.0.0"
+  checksum: 10/ba24e6c2c3f5d49f02c322d441fb70090f846bffa5b9c161186efb4e6a4c0690eb011e6c5de128e6c7254cde4d4be0e62129f1048aa2ac0509aa1b312dafca14
+  languageName: node
+  linkType: hard
+
+"pretty-ms@npm:^9.2.0":
   version: 9.3.1
   resolution: "pretty-ms@npm:9.3.1"
   dependencies:
