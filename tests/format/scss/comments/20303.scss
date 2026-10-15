@@ -1,0 +1,19 @@
+a[href=""], // comment
+foo a[href=""] {
+    color: red;
+}
+
+a[href=''], // comment
+foo a[href=''] {
+    color: red;
+}
+
+a[href], // comment
+foo a[href=""] {
+    color: red;
+}
+
+a, // comment
+foo a[href=""] {
+    color: red;
+}
