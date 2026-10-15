@@ -30,12 +30,7 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: [
-        "ts-expect",
-        "buffer",
-        "@yuku-core/wasm",
-        "@oxc-parser/binding-wasm32-wasip1",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer"],
       ignoreBinaries: [],
     },
     website: {
