@@ -173,6 +173,20 @@ function shouldUnquoteKey(path, options) {
   );
 }
 
+// Keep ASI decisions aligned with the quoting rules used by printKey.
+function getUnquotedKeyName(path, options) {
+  const key = getKey(path.node);
+  if (!key || isComputedKey(path.node) || shouldQuoteKey(path, options)) {
+    return;
+  }
+
+  if (key.type === "Identifier") {
+    return key.name;
+  }
+
+  return shouldUnquoteKey(path, options) ? key.value : undefined;
+}
+
 /*
 - `ClassProperty`
 - `PropertyDefinition`
@@ -232,4 +246,4 @@ function printKey(path, options, print) {
   return print(property);
 }
 
-export { printKey };
+export { getUnquotedKeyName, printKey };

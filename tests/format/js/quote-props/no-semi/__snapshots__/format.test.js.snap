@@ -1,0 +1,352 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quoted-keywords.js - {"semi":false,"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+quoteProps: "as-needed"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class GetField {
+  "get"
+  method() {}
+}
+
+class SetField {
+  "set"
+  method() {}
+}
+
+class StaticField {
+  "static"
+  method() {}
+}
+
+class QuotedSibling {
+  value = input
+  "in"() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  get;
+  set;
+  static;
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static "in"() {}
+}
+
+class Getter {
+  value = input
+  get "in"() {}
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input;
+  in() {}
+}
+
+class InstanceofMethod {
+  value = input;
+  instanceof() {}
+}
+
+class GetField {
+  get;
+  method() {}
+}
+
+class SetField {
+  set;
+  method() {}
+}
+
+class StaticField {
+  static;
+  method() {}
+}
+
+class QuotedSibling {
+  value = input;
+  in() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  get;
+  set;
+  static;
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static in() {}
+}
+
+class Getter {
+  value = input;
+  get in() {}
+}
+
+================================================================================
+`;
+
+exports[`quoted-keywords.js - {"semi":false,"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+quoteProps: "consistent"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class GetField {
+  "get"
+  method() {}
+}
+
+class SetField {
+  "set"
+  method() {}
+}
+
+class StaticField {
+  "static"
+  method() {}
+}
+
+class QuotedSibling {
+  value = input
+  "in"() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  get;
+  set;
+  static;
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static "in"() {}
+}
+
+class Getter {
+  value = input
+  get "in"() {}
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input;
+  in() {}
+}
+
+class InstanceofMethod {
+  value = input;
+  instanceof() {}
+}
+
+class GetField {
+  get;
+  method() {}
+}
+
+class SetField {
+  set;
+  method() {}
+}
+
+class StaticField {
+  static;
+  method() {}
+}
+
+class QuotedSibling {
+  "value" = input
+  "in"() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  "get"
+  "set"
+  "static"
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static in() {}
+}
+
+class Getter {
+  value = input;
+  get in() {}
+}
+
+================================================================================
+`;
+
+exports[`quoted-keywords.js - {"semi":false,"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+quoteProps: "preserve"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class GetField {
+  "get"
+  method() {}
+}
+
+class SetField {
+  "set"
+  method() {}
+}
+
+class StaticField {
+  "static"
+  method() {}
+}
+
+class QuotedSibling {
+  value = input
+  "in"() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  get;
+  set;
+  static;
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static "in"() {}
+}
+
+class Getter {
+  value = input
+  get "in"() {}
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class GetField {
+  "get"
+  method() {}
+}
+
+class SetField {
+  "set"
+  method() {}
+}
+
+class StaticField {
+  "static"
+  method() {}
+}
+
+class QuotedSibling {
+  value = input
+  "in"() {}
+  "needs-quotes"() {}
+}
+
+class ConsistentIdentifiers {
+  get;
+  set;
+  static;
+  "needs-quotes"() {}
+}
+
+class ComputedMethod {
+  value = input;
+  ["in"]() {}
+}
+
+class StaticMethod {
+  value = input
+  static "in"() {}
+}
+
+class Getter {
+  value = input
+  get "in"() {}
+}
+
+================================================================================
+`;
