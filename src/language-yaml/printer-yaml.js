@@ -8,6 +8,7 @@ import {
   join,
   line,
   lineSuffix,
+  literalline,
   markAsRoot,
   replaceEndOfLine,
 } from "../document/index.js";
@@ -31,6 +32,7 @@ import {
 } from "./print/misc.js";
 import preprocess from "./print-preprocess.js";
 import {
+  endsWithBlockWithTrailingWhitespace,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasEndComments,
@@ -148,6 +150,17 @@ function genericPrint(path, options, print) {
       ]),
     );
   }
+
+  // `hardline` trims the trailing whitespace of the block, use `literalline`
+  // (`markAsRoot` makes it indent like `hardline`) before `nextEmptyLine`
+  if (
+    isNode(node, ["mappingItem", "sequenceItem"]) &&
+    !path.isLast &&
+    endsWithBlockWithTrailingWhitespace(node)
+  ) {
+    parts.push(markAsRoot(literalline));
+  }
+
   parts.push(nextEmptyLine);
   return parts;
 }
@@ -178,6 +191,10 @@ function printNode(path, options, print) {
           isNode(documentLastDescendantNode, ["blockLiteral", "blockFolded"]) &&
           (hasTrailingContentWhitespace(documentLastDescendantNode) ||
             (isLast && documentLastDescendantNode.chomping === "keep"));
+        // Same as `genericPrint`, `hardline` would trim the whitespace
+        if (documentBlockPrintsTrailingLine && !isLast) {
+          parts.push(literalline);
+        }
         const documentEndMarkerPrinted = shouldPrintDocumentEndMarker(path);
         lastDocumentEndMarkerPrinted = documentEndMarkerPrinted;
         if (documentEndMarkerPrinted) {
@@ -345,25 +362,14 @@ function printNode(path, options, print) {
 
     case "mapping":
     case "sequence":
-      return path.map(({ node, isLast }) => {
-        const lastDescendantNode = getLastDescendantNode(node);
-        const childPrintsTrailingLine =
-          isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
-          hasTrailingContentWhitespace(lastDescendantNode);
-
-        // The trailing `literalline` of the block goes back to the root
-        // indentation, mark this level as the root to indent the next sibling
-        // (explicit indentation indicators are relative to the real root)
-        if (
-          childPrintsTrailingLine &&
-          !isLast &&
-          lastDescendantNode.indent === null
-        ) {
-          return markAsRoot(print());
-        }
-
-        return [print(), !isLast && !childPrintsTrailingLine ? hardline : ""];
-      }, "children");
+      return path.map(
+        ({ node, isLast }) => [
+          print(),
+          // The line break is printed by the child, see `genericPrint`
+          !isLast && !endsWithBlockWithTrailingWhitespace(node) ? hardline : "",
+        ],
+        "children",
+      );
     case "sequenceItem":
       return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":

@@ -74,3 +74,39 @@ runFormatTest(
   },
   ["yaml"],
 );
+
+const nestedSiblingSnippets = [
+  ">",
+  ">-",
+  ">+",
+  "|-",
+  "|+",
+  "|2",
+  ">2",
+  "|1-",
+].flatMap((blockStyle) => {
+  // The content of a block with an explicit indentation indicator is indented
+  // relative to its key
+  const content = " ".repeat(2 + Number(/\d/.exec(blockStyle)?.[0] ?? 2));
+  return [
+    `a:\n  b: ${blockStyle}\n${content}x \n  c: 1\n`,
+    `- run: ${blockStyle}\n${content}x\t\n  name: y\n`,
+  ];
+});
+
+// The formatted code is the same as the input, so formatting it again can't
+// change it
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      ...nestedSiblingSnippets,
+      "a: |\n  x \n\nb: 1\n",
+      "a:\n  b: |\n    x \n\n  c: 1\n",
+      "a:\n  b: |+\n    x \n\n  c: 1\n",
+      "top:\n  - k:\n      e: |2\n          explicit\n      f: |\n        x \n  - z\n",
+      "top:\n  - k:\n      d: 0\n      # prettier-ignore\n      e:   [1,\n          2]\n      f: |\n        x \n  - z\n",
+    ].map((code) => ({ name: JSON.stringify(code), code, output: code })),
+  },
+  ["yaml"],
+);
