@@ -1,8 +1,6 @@
-import { fill } from "../../document/index.js";
-import {
-  getTextValueParts,
-  getUnescapedAttributeValue,
-} from "../utilities/index.js";
+import { fill, join, line } from "../../document/index.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
 import {
   isAngularInterpolation,
   printAngularInterpolation,
@@ -86,11 +84,8 @@ const printers = [
 
 function printAngularI18n(textToDoc, print, { node } /* , options */) {
   const value = getUnescapedAttributeValue(node);
-  return printExpand(
-    // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-    fill(getTextValueParts(node, value.trim())),
-    !value.includes("@@"),
-  );
+  const doc = fill(join(line, htmlWhitespace.split(value)));
+  return printExpand(doc, !value.includes("@@"));
 }
 
 export default printers;
