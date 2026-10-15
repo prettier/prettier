@@ -84,7 +84,7 @@ const printers = [
 
 function printAngularI18n(textToDoc, print, { node } /* , options */) {
   const value = getUnescapedAttributeValue(node);
-  const doc = fill(join(line, htmlWhitespace.split(value)));
+  const doc = fill(join(line, htmlWhitespace.split(value.trim())));
   return printExpand(doc, !value.includes("@@"));
 }
 
