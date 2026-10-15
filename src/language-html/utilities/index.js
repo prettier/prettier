@@ -2,19 +2,6 @@
  * @import AstPath from "../../common/ast-path.js"
  */
 
-<<<<<<< HEAD
-=======
-import {
-  assertDocArray,
-  hardline,
-  line,
-  replaceEndOfLine,
-} from "../../document/index.js";
-import {
-  CJK_REGEXP,
-  PUNCTUATION_REGEXP,
-} from "../../language-markdown/constants.evaluate.js";
->>>>>>> 67d374c82 (Preserve line break or space between/around Chinese or Japanese characters in HTML)
 import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import inferParser from "../../utilities/infer-parser.js";

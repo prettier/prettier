@@ -18,16 +18,38 @@ import {
   printOpeningTagPrefix,
 } from "./tag.js";
 
+const isAscii = (character) => character.codePointAt(0) <= 0x7f;
+
 function printTextValue(node) {
   const { value } = node;
-  return node.parent.isWhitespaceSensitive
-    ? node.parent.isIndentationSensitive
-      ? replaceEndOfLine(value)
-      : replaceEndOfLine(
-          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
-          hardline,
-        )
-    : join(line, htmlWhitespace.split(value));
+
+  if (node.parent.isWhitespaceSensitive) {
+    if (node.parent.isIndentationSensitive) {
+      return replaceEndOfLine(value);
+    }
+
+    return replaceEndOfLine(
+      htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
+      hardline,
+    );
+  }
+
+  const parts = htmlWhitespace.split(value, /* captureWhitespace */ true);
+  return parts.map((part, index) => {
+    if (index % 2 === 0) {
+      return part;
+    }
+
+    // Only replace line break between ascii characters with space
+    if (
+      part.includes("\n") &&
+      (!isAscii(parts[index - 1].at(-1)) || !isAscii(parts[index + 1][0]))
+    ) {
+      return hardline;
+    }
+
+    return line;
+  });
 }
 
 function printText(path, options /* , print*/) {
