@@ -1,7 +1,7 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
-import { isJsxElement, isUnionType } from "../utilities/node-types.js";
+import { isClass, isJsxElement, isUnionType } from "../utilities/node-types.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import { shouldUnionTypePrintOwnComments } from "../utilities/union-type-print.js";
 
@@ -31,9 +31,7 @@ function willPrintOwnComments(path, options) {
     (key === "types" && isUnionType(parent)) ||
     (key === "argument" && parent.type === "JSXSpreadAttribute") ||
     (key === "expression" && parent.type === "JSXSpreadChild") ||
-    (key === "superClass" &&
-      (parent.type === "ClassDeclaration" ||
-        parent.type === "ClassExpression")) ||
+    (key === "superClass" && isClass(parent)) ||
     ((key === "id" || key === "typeParameters") &&
       isClassOrInterface(parent)) ||
     // Not tested, don't know how to

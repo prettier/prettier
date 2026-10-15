@@ -10,6 +10,7 @@ import {
   isBinaryCastExpression,
   isCallExpression,
   isCallOrNewExpression,
+  isClass,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
@@ -501,6 +502,7 @@ function needsParentheses(path, options) {
       break;
 
     case "ComponentTypeAnnotation":
+    case "ConstructorTypeAnnotation":
     case "FunctionTypeAnnotation": {
       if (
         node.type === "ComponentTypeAnnotation" &&
@@ -897,9 +899,7 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" && parent.type === "TSNonNullExpression") ||
-        (key === "superClass" &&
-          (parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression"))
+        (key === "superClass" && isClass(parent))
       ) {
         return true;
       }
@@ -959,6 +959,7 @@ const isStatement = createTypeCheckFunction([
   "TryStatement",
   "TSDeclareFunction",
   "TSEnumDeclaration",
+  "ImportEqualsDeclaration",
   "TSImportEqualsDeclaration",
   "TSInterfaceDeclaration",
   "TSModuleDeclaration",
