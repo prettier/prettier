@@ -674,11 +674,12 @@ function getCharacterCategory(char) {
   return "other";
 }
 
+/**
+ * @param {string} str
+ * @returns string
+ */
 function getFirstCharacter(str) {
-  for (const char of str) {
-    return char;
-  }
-  return "";
+  return str[Symbol.iterator]().next().value ?? "";
 }
 
 function getLastPrintableCharacter(str) {
