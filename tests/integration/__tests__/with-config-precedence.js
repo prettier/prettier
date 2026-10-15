@@ -174,3 +174,20 @@ describe("CLI --stdin-filepath works with --config-precedence cli-override", () 
     status: 0,
   });
 });
+
+test("--range-start/--range-end are honored with --config-precedence prefer-file when a config file exists", async () => {
+  // Editor options like --range-start/--range-end describe a single
+  // invocation and cannot be set in a config file, so prefer-file must not
+  // discard them. Only the first line is within the range, so the second line
+  // must be left untouched. See #13354.
+  const output = await runCli("cli/config-precedence/range", [
+    "--config-precedence",
+    "prefer-file",
+    "--range-start",
+    "0",
+    "--range-end",
+    "11",
+    "file.js",
+  ]).stdout;
+  expect(output).toBe("foo(1);\nbar(  2  );");
+});
