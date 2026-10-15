@@ -306,6 +306,14 @@ function hasTrailingContentWhitespace(node) {
   return /[ \t]+\n*$/.test(node.value);
 }
 
+function endsWithBlockWithTrailingWhitespace(node) {
+  const lastDescendantNode = getLastDescendantNode(node);
+  return (
+    isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
+    hasTrailingContentWhitespace(lastDescendantNode)
+  );
+}
+
 function isInlineNode(node) {
   /* c8 ignore next 3 */
   if (!node) {
@@ -327,6 +335,7 @@ function isInlineNode(node) {
 
 export {
   defineShortcut,
+  endsWithBlockWithTrailingWhitespace,
   getBlockValueLineContents,
   getFlowScalarLineContents,
   getLastDescendantNode,
