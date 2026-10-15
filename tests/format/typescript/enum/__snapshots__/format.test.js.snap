@@ -58,6 +58,55 @@ const enum Enum {
 ================================================================================
 `;
 
+exports[`header-comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum A // comment
+{ A }
+
+enum B
+// comment
+{ B }
+
+enum C // comment
+{}
+
+const enum D // comment
+{ D }
+
+declare enum E // comment
+{ E }
+
+=====================================output=====================================
+enum A {
+  // comment
+  A,
+}
+
+enum B {
+  // comment
+  B,
+}
+
+enum C {
+  // comment
+}
+
+const enum D {
+  // comment
+  D,
+}
+
+declare enum E {
+  // comment
+  E,
+}
+
+================================================================================
+`;
+
 exports[`multiline.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

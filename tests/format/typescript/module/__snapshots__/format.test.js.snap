@@ -51,6 +51,55 @@ exports[`global.ts format[babel-ts] 1`] = `
 Cause: \`module ... {}\` declarations must have a string name. Use \`namespace ... {}\` instead. (2:0)"
 `;
 
+exports[`header-comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+namespace A // comment
+{ a; }
+
+namespace B
+// comment
+{ b; }
+
+namespace C // comment
+{}
+
+namespace D.E // comment
+{ e; }
+
+declare module "f" // comment
+{ f; }
+
+=====================================output=====================================
+namespace A {
+  // comment
+  a;
+}
+
+namespace B {
+  // comment
+  b;
+}
+
+namespace C {
+  // comment
+}
+
+namespace D.E {
+  // comment
+  e;
+}
+
+declare module "f" {
+  // comment
+  f;
+}
+
+================================================================================
+`;
+
 exports[`keyword.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

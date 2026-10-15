@@ -70,6 +70,73 @@ declare module baz {}
 ================================================================================
 `;
 
+exports[`declare_module_header_comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "a" // comment
+{ declare var a: number; }
+
+declare module "b"
+// comment
+{ declare var b: number; }
+
+declare module "c" // comment
+{}
+
+=====================================output=====================================
+declare module "a" {
+  // comment
+  declare var a: number
+}
+
+declare module "b" {
+  // comment
+  declare var b: number
+}
+
+declare module "c" {
+  // comment
+}
+
+================================================================================
+`;
+
+exports[`declare_module_header_comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "a" // comment
+{ declare var a: number; }
+
+declare module "b"
+// comment
+{ declare var b: number; }
+
+declare module "c" // comment
+{}
+
+=====================================output=====================================
+declare module "a" {
+  // comment
+  declare var a: number;
+}
+
+declare module "b" {
+  // comment
+  declare var b: number;
+}
+
+declare module "c" {
+  // comment
+}
+
+================================================================================
+`;
+
 exports[`declare_namespace.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

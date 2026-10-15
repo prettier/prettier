@@ -199,6 +199,40 @@ export default enum B {}
 ================================================================================
 `;
 
+exports[`enum-header-comments.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+trailingComma: "all"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum A // comment
+{ A }
+
+enum B
+// comment
+{ B }
+
+enum C // comment
+{}
+
+=====================================output=====================================
+enum A {
+  // comment
+  A,
+}
+
+enum B {
+  // comment
+  B,
+}
+
+enum C {
+  // comment
+}
+
+================================================================================
+`;
+
 exports[`enum-name.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

@@ -1,0 +1,44 @@
+#### Fix unstable comment between enum or namespace name and `{` (#XXXX by @peralva)
+
+Also applies to Flow `enum` and `declare module`.
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+enum A // comment
+{ A }
+
+namespace B // comment
+{ b; }
+
+// Prettier stable (first format)
+enum A { // comment
+  A,
+}
+
+namespace B { // comment
+  b;
+}
+
+// Prettier stable (second format)
+enum A {
+  // comment
+  A,
+}
+
+namespace B {
+  // comment
+  b;
+}
+
+// Prettier main
+enum A {
+  // comment
+  A,
+}
+
+namespace B {
+  // comment
+  b;
+}
+```

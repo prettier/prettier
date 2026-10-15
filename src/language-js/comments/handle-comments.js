@@ -66,6 +66,35 @@ import {
 }} CommentContext
 */
 
+const isDeclarationWithBlockBody = createTypeCheckFunction([
+  "TSEnumDeclaration",
+  "TSModuleDeclaration",
+  "EnumDeclaration",
+  "DeclareEnum",
+  "DeclareModule",
+  "DeclareNamespace",
+]);
+
+// Comments between the declaration header and `{`
+// enum A // comment
+// {}
+function handleDeclarationBodyComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    isDeclarationWithBlockBody(enclosingNode) &&
+    enclosingNode.body &&
+    followingNode === enclosingNode.body
+  ) {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
 /**
  * @param {CommentContext} context
  * @returns {boolean}
@@ -83,6 +112,7 @@ function handleOwnLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleDeclarationBodyComments,
     handleForXStatementComments,
     handleUnionTypeComments,
     handleMatchOrPatternComments,
@@ -116,6 +146,7 @@ function handleEndOfLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleDeclarationBodyComments,
     handleForXStatementComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
