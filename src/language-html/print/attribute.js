@@ -13,9 +13,12 @@ function printAttributeValue(path, options /* , print*/) {
   const { node } = path;
 
   let value = unescapeQuoteEntities(node.value);
-  const quote = shouldUnquoteAttributeValue(node, options)
-    ? ""
-    : getPreferredQuote(value, '"');
+
+  if (shouldUnquoteAttributeValue(node, options)) {
+    return value;
+  }
+
+  const quote = getPreferredQuote(value, '"');
 
   if (quote === '"') {
     value = value.replaceAll('"', "&quot;");
