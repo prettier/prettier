@@ -400,7 +400,6 @@ parsers: ["less"]
 @var // comment
 : // comment
 {
-  /* FIXME: should not change case */
   preserveCase: 5;
 };
 
@@ -411,8 +410,13 @@ parsers: ["less"]
 
 @var // comment
 :{
-  /* FIXME: should not change case */
   preserveCase: 5;
+};
+
+@var // a
+: // b
+{
+  camelCase: 1;
 };
 
 // Known css properties
@@ -473,8 +477,7 @@ parsers: ["less"]
 @var // comment
 : // comment
 {
-  /* FIXME: should not change case */
-  preservecase: 5;
+  preserveCase: 5;
 }
 
 @var: // comment
@@ -484,8 +487,13 @@ parsers: ["less"]
 
 @var // comment
 : {
-  /* FIXME: should not change case */
-  preservecase: 5;
+  preserveCase: 5;
+}
+
+@var // a
+: // b
+{
+  camelCase: 1;
 }
 
 // Known css properties
