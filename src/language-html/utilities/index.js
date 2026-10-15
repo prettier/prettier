@@ -596,7 +596,8 @@ function isVueSfcBindingsAttribute(attribute, options) {
   );
 }
 
-function getTextValueParts(node, value = node.value) {
+function getTextValueParts(node) {
+  const { value } = node;
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLine(value)
