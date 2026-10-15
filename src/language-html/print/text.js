@@ -27,7 +27,7 @@ function printTextValue(node) {
           htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
-    : join(line, htmlWhitespace.split(value));
+    : fill(join(line, htmlWhitespace.split(value)));
 }
 
 function printText(path, options /* , print*/) {
@@ -62,7 +62,7 @@ function printText(path, options /* , print*/) {
 
   return [
     printOpeningTagPrefix(node, options),
-    fill(printTextValue(node)),
+    printTextValue(node),
     printClosingTagSuffix(node, options),
   ];
 }
