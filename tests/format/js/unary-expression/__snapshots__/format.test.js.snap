@@ -579,6 +579,49 @@ async function bar2() {
 ================================================================================
 `;
 
+exports[`comments-left-side.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function t(window) {
+  delete (/** @type {any} */ window).__pwned;
+}
+
+!(/* foo */ x).y;
+!(/* foo */ x)();
+!(/* foo */ x)[0];
+typeof (/* foo */ x).y.z();
+void (/* foo */ x)?.y;
+-(/* foo */ x)\`tag\`;
+!(// foo
+  x).y;
+
+!(/* foo */ x || y);
+!(x /* foo */).y;
+
+=====================================output=====================================
+function t(window) {
+  delete (/** @type {any} */ window.__pwned);
+}
+
+!(/* foo */ x.y);
+!(/* foo */ x());
+!(/* foo */ x[0]);
+typeof (/* foo */ x.y.z());
+void (/* foo */ x?.y);
+-(/* foo */ x\`tag\`);
+!(
+  // foo
+  x.y
+);
+
+!(/* foo */ x || y);
+!x /* foo */.y;
+
+================================================================================
+`;
+
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
