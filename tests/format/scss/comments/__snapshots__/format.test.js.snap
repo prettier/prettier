@@ -138,6 +138,8 @@ parsers: ["scss"]
         2,
         // This next pow is really powerful
         someVeryLongFunctionNameForJustAPow(
+          2,
+          someVeryLongFunctionNameForJustAPow(
             2,
             someVeryLongFunctionNameForJustAPow(
               2,
@@ -151,10 +153,7 @@ parsers: ["scss"]
                       2,
                       someVeryLongFunctionNameForJustAPow(
                         2,
-                        someVeryLongFunctionNameForJustAPow(
-                          2,
-                          someVeryLongFunctionNameForJustAPow(2, 2)
-                        )
+                        someVeryLongFunctionNameForJustAPow(2, 2)
                       )
                     )
                   )
@@ -162,6 +161,7 @@ parsers: ["scss"]
               )
             )
           )
+        )
       )
     )
   );
@@ -176,9 +176,9 @@ parsers: ["scss"]
         2,
         // This next pow is really powerful
         pow(
-            2,
-            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
-          )
+          2,
+          pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+        )
       )
     )
   );
