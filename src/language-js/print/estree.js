@@ -7,9 +7,14 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
+import {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+} from "../utilities/left-side.js";
 import {
   isArrayExpression,
   isLiteral,
@@ -231,7 +236,7 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (path.call(() => shouldWrapUnaryArgument(path, options), "argument")) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
@@ -338,6 +343,35 @@ function printEstree(path, options, print, args) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
+}
+
+// A leading comment on the left-most node of the argument is printed right
+// after the operator, e.g. `!(/* c */ a).b` prints as `!/* c */ a.b`.
+// Formatting that again attaches the comment to the whole argument, so treat
+// it the same way here to keep the output stable.
+function shouldWrapUnaryArgument(path, options) {
+  if (hasComment(path.node)) {
+    return true;
+  }
+
+  return (
+    !needsParentheses(path, options) &&
+    hasLeadingCommentOnLeftSide(path, options)
+  );
+}
+
+function hasLeadingCommentOnLeftSide(path, options) {
+  if (!hasNakedLeftSide(path.node)) {
+    return false;
+  }
+
+  return path.call(
+    () =>
+      hasComment(path.node, CommentCheckFlags.Leading) ||
+      (!needsParentheses(path, options) &&
+        hasLeadingCommentOnLeftSide(path, options)),
+    ...getLeftSidePathName(path.node),
+  );
 }
 
 export { printEstree };
