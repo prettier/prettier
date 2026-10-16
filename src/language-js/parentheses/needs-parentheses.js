@@ -20,6 +20,7 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
+import { shouldPrintTernaryInJsxMode } from "../utilities/should-print-ternary-in-jsx-mode.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
@@ -27,6 +28,7 @@ import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
+ * @import {Node} from "../types/estree.js"
  */
 
 /**
@@ -202,7 +204,10 @@ function needsParentheses(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || isNullishCoalescing(node);
+          return (
+            needsParenthesesInConditionalExpression(node) &&
+            !isParenthesizedByTernaryPrinter(path, options)
+          );
 
         case "CallExpression":
         case "NewExpression":
@@ -1029,4 +1034,31 @@ function isFollowedByRightBracket(path) {
   return false;
 }
 
+/**
+ * Nodes that keep their parentheses inside a ternary to make the operator
+ * precedence obvious, `a ? (b ?? c) : d`.
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const needsParenthesesInConditionalExpression = (node) =>
+  isBinaryCastExpression(node) || isNullishCoalescing(node);
+
+/**
+ * In JSX mode the ternary printer wraps the consequent and the alternate in
+ * parentheses of its own, and prints these ones as well, so that they don't
+ * end up wrapped in two pairs of parentheses.
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isParenthesizedByTernaryPrinter(path, options) {
+  const { key, parent } = path;
+  return (
+    !options.experimentalTernaries &&
+    (key === "consequent" || key === "alternate") &&
+    parent.type === "ConditionalExpression" &&
+    path.callParent(() => shouldPrintTernaryInJsxMode(path))
+  );
+}
+
 export default needsParentheses;
+export { needsParenthesesInConditionalExpression };
