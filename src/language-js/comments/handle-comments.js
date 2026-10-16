@@ -122,7 +122,7 @@ function handleEndOfLineComment(context) {
     handlePropertyComments,
     handleOnlyComments,
     handleAssignmentLikeComments,
-    handleSwitchDefaultCaseComments,
+    handleSwitchCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleCommentsInDestructuringPattern,
@@ -909,15 +909,10 @@ function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
   }
 }
 
-function handleSwitchDefaultCaseComments({
-  comment,
-  enclosingNode,
-  followingNode,
-}) {
+function handleSwitchCaseComments({ comment, enclosingNode, followingNode }) {
   if (
     !enclosingNode ||
     enclosingNode.type !== "SwitchCase" ||
-    enclosingNode.test ||
     !followingNode ||
     followingNode !== enclosingNode.consequent[0]
   ) {
@@ -926,10 +921,14 @@ function handleSwitchDefaultCaseComments({
 
   if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
     addBlockStatementFirstComment(followingNode, comment);
-  } else {
-    addDanglingComment(enclosingNode, comment);
+    return true;
   }
 
+  if (enclosingNode.test) {
+    return false;
+  }
+
+  addDanglingComment(enclosingNode, comment);
   return true;
 }
 
