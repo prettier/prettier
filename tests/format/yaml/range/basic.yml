@@ -1,0 +1,4 @@
+a:      1
+<<<PRETTIER_RANGE_START>>>b:  2
+c:   3<<<PRETTIER_RANGE_END>>>
+d:      4
