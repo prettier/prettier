@@ -19,7 +19,9 @@ import {
 } from "./config/resolve-config.js";
 import * as core from "./main/core.js";
 import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
-import normalizeOptions from "./main/normalize-options.js";
+import normalizeOptions, {
+  optionInfoToSchema,
+} from "./main/normalize-options.js";
 import * as optionCategories from "./main/option-categories.js";
 import {
   clearCache as clearPluginCache,
@@ -98,12 +100,16 @@ const sharedWithCli = {
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,
+  optionInfoToSchema,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
   inferParser: (file, options) =>
     Promise.resolve(options?.parser ?? inferParser(file, options)),
   vnopts: {
     ChoiceSchema: vnopts.ChoiceSchema,
+    AnySchema: vnopts.AnySchema,
+    AliasSchema: vnopts.AliasSchema,
+    levenUnknownHandler: vnopts.levenUnknownHandler,
     apiDescriptor: vnopts.apiDescriptor,
   },
   fastGlob,
