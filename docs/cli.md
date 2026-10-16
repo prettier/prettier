@@ -164,7 +164,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don’t take `.editorconfig` into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
+Don’t take `.editorconfig` into account when parsing configuration. The CLI reads `.editorconfig` by default; this flag disables that. See [EditorConfig](configuration.md#editorconfig) and [`prettier.resolveConfig`](api.md#prettierresolveconfigfileurlorpath--options) for details.
 
 ## `--with-node-modules`
 
