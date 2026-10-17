@@ -78,3 +78,99 @@ exports[`issue-7148.ts format 1`] = `
     :
     : ================================================================================
 `;
+
+exports[`type-parameters-class.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 31
+    : rangeStart: 30
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before  =  1;
+> 2 | class Box<T = string> {
+    |           ^
+  3 | value?:T
+  4 | }
+  5 | const after  =  2;
+  6 |
+    : =====================================output=====================================
+    : const before  =  1;
+    : class Box<T = string> {
+    :   value?: T;
+    : }
+    : const after  =  2;
+    :
+    : ================================================================================
+`;
+
+exports[`type-parameters-function.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 39
+    : rangeStart: 38
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before  =  1;
+> 2 | function identity<T>(value:T) {
+    |                   ^
+  3 | return value
+  4 | }
+  5 | const after  =  2;
+  6 |
+    : =====================================output=====================================
+    : const before  =  1;
+    : function identity<T>(value: T) {
+    :   return value;
+    : }
+    : const after  =  2;
+    :
+    : ================================================================================
+`;
+
+exports[`type-parameters-interface.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 42
+    : rangeStart: 41
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before  =  1;
+> 2 | export interface Box<T extends { value:string }> {
+    |                      ^
+  3 | value:T
+  4 | }
+  5 | const after  =  2;
+  6 |
+    : =====================================output=====================================
+    : const before  =  1;
+    : export interface Box<T extends { value: string }> {
+    :   value: T;
+    : }
+    : const after  =  2;
+    :
+    : ================================================================================
+`;
+
+exports[`type-parameters-type-alias.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 51
+    : rangeStart: 46
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before  =  1;
+> 2 | export type SomeType<SOME_PARAM> = {
+    |                           ^^^^^
+  3 | bla:SOME_PARAM
+  4 | };
+  5 | const after  =  2;
+  6 |
+    : =====================================output=====================================
+    : const before  =  1;
+    : export type SomeType<SOME_PARAM> = {
+    :   bla: SOME_PARAM;
+    : };
+    : const after  =  2;
+    :
+    : ================================================================================
+`;
