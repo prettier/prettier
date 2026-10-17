@@ -7,6 +7,7 @@ import {
   breakParent,
   fill,
   hardline,
+  join,
   line,
   replaceEndOfLine,
 } from "../../document/index.js";
@@ -22,7 +23,7 @@ import {
   printOpeningTagPrefix,
 } from "./tag.js";
 
-function printTextValue(node) {
+function printTextValue(node, options) {
   const { value } = node;
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
@@ -31,7 +32,10 @@ function printTextValue(node) {
           htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
-    : joinCjkSensitiveParts(htmlWhitespace.split(value, true));
+    : // Angular does not follow newline conversion rules aligned with the current CSS specifications.
+      options.parser === "angular"
+      ? join(line, htmlWhitespace.split(value))
+      : joinCjkSensitiveParts(htmlWhitespace.split(value, true));
 }
 
 /**
@@ -171,7 +175,7 @@ function printText(path, options /* , print*/) {
   }
 
   const prefix = printOpeningTagPrefix(node, options);
-  const printed = printTextValue(node);
+  const printed = printTextValue(node, options);
 
   const suffix = printClosingTagSuffix(node, options);
   // We can't use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
