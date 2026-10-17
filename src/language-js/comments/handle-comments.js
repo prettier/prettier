@@ -83,6 +83,7 @@ function handleOwnLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleEnumOrModuleDeclarationComments,
     handleForXStatementComments,
     handleUnionTypeComments,
     handleMatchOrPatternComments,
@@ -116,6 +117,7 @@ function handleEndOfLineComment(context) {
     handleSwitchStatementComments,
     handleTryStatementComments,
     handleClassComments,
+    handleEnumOrModuleDeclarationComments,
     handleForXStatementComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
@@ -372,6 +374,41 @@ function handleClassComments({
         }
       }
     }
+  }
+  return false;
+}
+
+const isEnumOrModuleDeclaration = createTypeCheckFunction([
+  "EnumDeclaration",
+  "DeclareEnum",
+  "TSEnumDeclaration",
+  "TSModuleDeclaration",
+]);
+/*
+Move comments between the name and the body into the body, like classes do.
+
+```ts
+enum Foo // comment
+{}
+
+namespace Foo // comment
+{}
+```
+*/
+function handleEnumOrModuleDeclarationComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    isEnumOrModuleDeclaration(enclosingNode) &&
+    precedingNode === enclosingNode.id &&
+    followingNode &&
+    followingNode === enclosingNode.body
+  ) {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
   }
   return false;
 }
