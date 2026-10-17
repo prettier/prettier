@@ -218,6 +218,49 @@ enum type {}
 ================================================================================
 `;
 
+exports[`enum-name-comments.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+trailingComma: "all"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum A // comment
+{ A }
+
+enum B of string // comment
+{ B = "b" }
+
+enum C // comment
+{}
+
+enum D
+// comment
+{ D, ... }
+
+=====================================output=====================================
+enum A {
+  // comment
+  A,
+}
+
+enum B of string {
+  // comment
+  B = "b",
+}
+
+enum C {
+  // comment
+}
+
+enum D {
+  // comment
+  D,
+  ...
+}
+
+================================================================================
+`;
+
 exports[`enum-no-trailing-comma.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
