@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`chinese-japanese.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p>
+  English
+  English
+  日本語
+  日本語！
+  English
+</p>
+
+=====================================output=====================================
+<p>English English 日本語 日本語！ English</p>
+
+================================================================================
+`;
