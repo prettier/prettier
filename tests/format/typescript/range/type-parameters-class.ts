@@ -1,3 +1,9 @@
-const before = {a:1,b:[2,3]};
-class   Box<<<<PRETTIER_RANGE_START>>>T<<<PRETTIER_RANGE_END>>> =string>{value?:T}
-const after = {a:4,b:[5,6]};
+const before = ugly(
+   code);
+class   Box<<<<PRETTIER_RANGE_START>>>T<<<PRETTIER_RANGE_END>>> =string>{
+  will=
+re(   format
+)
+}
+const after = ugly(
+code   );
