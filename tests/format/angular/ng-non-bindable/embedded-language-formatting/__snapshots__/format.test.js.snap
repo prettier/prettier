@@ -13,9 +13,13 @@ parsers: ["angular"]
 )}}</span>
 
 =====================================output=====================================
-<span ngNonBindable>{{foo +bar}}</span>
+<span ngNonBindable>{{foo   +bar}}</span>
 <pre ngNonBindable>{{foo   +bar}}</pre>
-<span ngNonBindable>{{foo .bar( )}}</span>
+<span ngNonBindable
+  >{{foo
+.bar(
+)}}</span
+>
 
 ================================================================================
 `;

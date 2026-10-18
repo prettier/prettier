@@ -12,8 +12,9 @@ parsers: ["html"]
 
 =====================================output=====================================
 <a-long-long-long-element
-  >foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo
-  bar</a-long-long-long-element
+  >foo bar foo bar
+  foo bar foo bar foo bar foo bar foo bar
+  foo bar foo bar</a-long-long-long-element
 >
 <!-- The end tag should stay in 80 print width -->
 

@@ -4807,8 +4807,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="expression-context">Expression context</h2>
 
 <p>
-  Component expression context (&#123;&#123;title&#125;&#125;,
-  [hidden]="isUnchanged")
+  Component expression context (&#123;&#123;title&#125;&#125;, [hidden]="isUnchanged")
 </p>
 <div class="context">
   {{ title }}
@@ -4977,8 +4976,8 @@ can be found in the LICENSE file at http://angular.io/license
   <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
-  "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
-  title.
+  "<span [innerHTML]="evilTitle"></span>" is the
+  <i>property bound</i> evil title.
 </p>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6363,8 +6362,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="expression-context">Expression context</h2>
 
 <p>
-  Component expression context (&#123;&#123;title&#125;&#125;,
-  [hidden]="isUnchanged")
+  Component expression context (&#123;&#123;title&#125;&#125;, [hidden]="isUnchanged")
 </p>
 <div class="context">
   {{ title }}
@@ -7936,8 +7934,7 @@ can be found in the LICENSE file at http://angular.io/license
   id="toc"
 ></a>
 <h1>
-  Template
-  Syntax
+  Template Syntax
 </h1>
 <a
   href="#interpolation"
@@ -7945,18 +7942,15 @@ can be found in the LICENSE file at http://angular.io/license
 ><br />
 <a
   href="#expression-context"
-  >Expression
-  context</a
+  >Expression context</a
 ><br />
 <a
   href="#statement-context"
-  >Statement
-  context</a
+  >Statement context</a
 ><br />
 <a
   href="#mental-model"
-  >Mental
-  Model</a
+  >Mental Model</a
 ><br />
 <a
   href="#buttons"
@@ -7964,15 +7958,12 @@ can be found in the LICENSE file at http://angular.io/license
 ><br />
 <a
   href="#prop-vs-attrib"
-  >Properties
-  vs.
-  Attributes</a
+  >Properties vs. Attributes</a
 ><br />
 <br />
 <a
   href="#property-binding"
-  >Property
-  Binding</a
+  >Property Binding</a
 ><br />
 <div
   style="
@@ -7981,30 +7972,25 @@ can be found in the LICENSE file at http://angular.io/license
 >
   <a
     href="#attribute-binding"
-    >Attribute
-    Binding</a
+    >Attribute Binding</a
   ><br />
   <a
     href="#class-binding"
-    >Class
-    Binding</a
+    >Class Binding</a
   ><br />
   <a
     href="#style-binding"
-    >Style
-    Binding</a
+    >Style Binding</a
   ><br />
 </div>
 <br />
 <a
   href="#event-binding"
-  >Event
-  Binding</a
+  >Event Binding</a
 ><br />
 <a
   href="#two-way"
-  >Two-way
-  Binding</a
+  >Two-way Binding</a
 ><br />
 <br />
 <div>
@@ -8017,19 +8003,15 @@ can be found in the LICENSE file at http://angular.io/license
 >
   <a
     href="#ngModel"
-    >NgModel
-    (two-way)
-    Binding</a
+    >NgModel (two-way) Binding</a
   ><br />
   <a
     href="#ngClass"
-    >NgClass
-    Binding</a
+    >NgClass Binding</a
   ><br />
   <a
     href="#ngStyle"
-    >NgStyle
-    Binding</a
+    >NgStyle Binding</a
   ><br />
   <a
     href="#ngIf"
@@ -8046,15 +8028,11 @@ can be found in the LICENSE file at http://angular.io/license
   >
     <a
       href="#ngFor-index"
-      >NgFor
-      with
-      index</a
+      >NgFor with index</a
     ><br />
     <a
       href="#ngFor-trackBy"
-      >NgFor
-      with
-      trackBy</a
+      >NgFor with trackBy</a
     ><br />
   </div>
   <a
@@ -8065,15 +8043,11 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <a
   href="#ref-vars"
-  >Template
-  reference
-  variables</a
+  >Template reference variables</a
 ><br />
 <a
   href="#inputs-and-outputs"
-  >Inputs
-  and
-  outputs</a
+  >Inputs and outputs</a
 ><br />
 <a
   href="#pipes"
@@ -8081,18 +8055,14 @@ can be found in the LICENSE file at http://angular.io/license
 ><br />
 <a
   href="#safe-navigation-operator"
-  >Safe
-  navigation
-  operator
+  >Safe navigation operator
   <i
     >?.</i
   ></a
 ><br />
 <a
   href="#non-null-assertion-operator"
-  >Non-null
-  assertion
-  operator
+  >Non-null assertion operator
   <i
     >!.</i
   ></a
@@ -8111,10 +8081,7 @@ can be found in the LICENSE file at http://angular.io/license
 </h2>
 
 <p>
-  My
-  current
-  hero
-  is
+  My current hero is
   {{
     currentHero.name
   }}
@@ -8136,13 +8103,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>
-  The
-  sum
-  of
-  1
-  +
-  1
-  is
+  The sum of 1 + 1 is
   {{
     1 +
       1
@@ -8151,14 +8112,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- "The sum of 1 + 1 is not 4" -->
 <p>
-  The
-  sum
-  of
-  1
-  +
-  1
-  is
-  not
+  The sum of 1 + 1 is not
   {{
     1 +
       1 +
@@ -8176,16 +8130,11 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="expression-context"
 >
-  Expression
-  context
+  Expression context
 </h2>
 
 <p>
-  Component
-  expression
-  context
-  (&#123;&#123;title&#125;&#125;,
-  [hidden]="isUnchanged")
+  Component expression context (&#123;&#123;title&#125;&#125;, [hidden]="isUnchanged")
 </p>
 <div
   class="context"
@@ -8202,13 +8151,7 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <p>
-  Template
-  input
-  variable
-  expression
-  context
-  (let
-  hero)
+  Template input variable expression context (let hero)
 </p>
 <!-- template hides the following; plenty of examples later -->
 <ng-template>
@@ -8224,12 +8167,7 @@ can be found in the LICENSE file at http://angular.io/license
 </ng-template>
 
 <p>
-  Template
-  reference
-  variable
-  expression
-  context
-  (#heroInput)
+  Template reference variable expression context (#heroInput)
 </p>
 <div
   (keyup)="
@@ -8237,8 +8175,7 @@ can be found in the LICENSE file at http://angular.io/license
   "
   class="context"
 >
-  Type
-  something:
+  Type something:
   <input
     #heroInput
   />
@@ -8257,17 +8194,11 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="statement-context"
 >
-  Statement
-  context
+  Statement context
 </h2>
 
 <p>
-  Component
-  statement
-  context
-  (
-  (click)="onSave()
-  )
+  Component statement context ( (click)="onSave() )
 </p>
 <div
   class="context"
@@ -8277,16 +8208,12 @@ can be found in the LICENSE file at http://angular.io/license
       deleteHero()
     "
   >
-    Delete
-    hero
+    Delete hero
   </button>
 </div>
 
 <p>
-  Template
-  $event
-  statement
-  context
+  Template $event statement context
 </p>
 <div
   class="context"
@@ -8303,13 +8230,7 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <p>
-  Template
-  input
-  variable
-  statement
-  context
-  (let
-  hero)
+  Template input variable statement context (let hero)
 </p>
 <!-- template hides the following; plenty of examples later -->
 <div
@@ -8332,12 +8253,7 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <p>
-  Template
-  reference
-  variable
-  statement
-  context
-  (#heroForm)
+  Template reference variable statement context (#heroForm)
 </p>
 <div
   class="context"
@@ -8365,9 +8281,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="mental-model"
 >
-  New
-  Mental
-  Model
+  New Mental Model
 </h2>
 
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
@@ -8375,8 +8289,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div
   class="special"
 >
-  Mental
-  Model
+  Mental Model
 </div>
 <img
   src="assets/images/hero.png"
@@ -8393,8 +8306,7 @@ can be found in the LICENSE file at http://angular.io/license
   <div
     class="special"
   >
-    Mental
-    Model
+    Mental Model
   </div>
   <!-- Wow! A new element! -->
   <app-hero-detail></app-hero-detail>
@@ -8452,8 +8364,7 @@ can be found in the LICENSE file at http://angular.io/license
   "
   clickable
 >
-  click
-  me
+  click me
 </div>
 {{
   clicked
@@ -8461,8 +8372,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br /><br />
 
 <div>
-  Hero
-  Name:
+  Hero Name:
   <input
     [(ngModel)]="
       name
@@ -8513,11 +8423,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="prop-vs-attrib"
 >
-  Property
-  vs.
-  Attribute
-  (img
-  examples)
+  Property vs. Attribute (img examples)
 </h2>
 <!-- examine the following <img> tag in the browser tools -->
 <img
@@ -8560,10 +8466,7 @@ can be found in the LICENSE file at http://angular.io/license
 </h2>
 
 <button>
-  Enabled
-  (but
-  does
-  nothing)
+  Enabled (but does nothing)
 </button>
 <button
   disabled
@@ -8573,26 +8476,20 @@ can be found in the LICENSE file at http://angular.io/license
 <button
   disabled="false"
 >
-  Still
-  disabled
+  Still disabled
 </button>
 <br /><br />
 <button
   disabled
 >
-  disabled
-  by
-  attribute
+  disabled by attribute
 </button>
 <button
   [disabled]="
     isUnchanged
   "
 >
-  disabled
-  by
-  property
-  binding
+  disabled by property binding
 </button>
 <br /><br />
 <button
@@ -8605,8 +8502,7 @@ can be found in the LICENSE file at http://angular.io/license
     )
   "
 >
-  Disabled
-  Cancel
+  Disabled Cancel
 </button>
 <button
   [disabled]="
@@ -8618,8 +8514,7 @@ can be found in the LICENSE file at http://angular.io/license
     )
   "
 >
-  Enabled
-  Save
+  Enabled Save
 </button>
 
 <a
@@ -8633,8 +8528,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="property-binding"
 >
-  Property
-  Binding
+  Property Binding
 </h2>
 
 <img
@@ -8647,21 +8541,14 @@ can be found in the LICENSE file at http://angular.io/license
     isUnchanged
   "
 >
-  Cancel
-  is
-  disabled
+  Cancel is disabled
 </button>
 <div
   [ngClass]="
     classes
   "
 >
-  [ngClass]
-  binding
-  to
-  the
-  classes
-  property
+  [ngClass] binding to the classes property
 </div>
 <app-hero-detail
   [hero]="
@@ -8698,8 +8585,7 @@ can be found in the LICENSE file at http://angular.io/license
       heroImageUrl
     }}"
   />
-  is
-  the
+  is the
   <i
     >interpolated</i
   >
@@ -8711,11 +8597,9 @@ can be found in the LICENSE file at http://angular.io/license
       heroImageUrl
     "
   />
-  is
-  the
+  is the
   <i
-    >property
-    bound</i
+    >property bound</i
   >
   image.
 </p>
@@ -8724,9 +8608,7 @@ can be found in the LICENSE file at http://angular.io/license
   <span
     >"{{
       title
-    }}"
-    is
-    the
+    }}" is the
     <i
       >interpolated</i
     >
@@ -8739,12 +8621,9 @@ can be found in the LICENSE file at http://angular.io/license
       title
     "
   ></span
-  >"
-  is
-  the
+  >" is the
   <i
-    >property
-    bound</i
+    >property bound</i
   >
   title.
 </p>
@@ -8757,14 +8636,11 @@ can be found in the LICENSE file at http://angular.io/license
   <span
     >"{{
       evilTitle
-    }}"
-    is
-    the
+    }}" is the
     <i
       >interpolated</i
     >
-    evil
-    title.</span
+    evil title.</span
   >
 </p>
 <p>
@@ -8773,15 +8649,11 @@ can be found in the LICENSE file at http://angular.io/license
       evilTitle
     "
   ></span
-  >"
-  is
-  the
+  >" is the
   <i
-    >property
-    bound</i
+    >property bound</i
   >
-  evil
-  title.
+  evil title.
 </p>
 
 <a
@@ -8795,8 +8667,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="attribute-binding"
 >
-  Attribute
-  Binding
+  Attribute Binding
 </h2>
 
 <!--  create and set a colspan attribute -->
@@ -8839,8 +8710,7 @@ can be found in the LICENSE file at http://angular.io/license
   {{
     actionName
   }}
-  with
-  Aria
+  with Aria
 </button>
 <br /><br />
 
@@ -8860,9 +8730,7 @@ can be found in the LICENSE file at http://angular.io/license
       !isUnchanged
     "
   >
-    Disabled
-    as
-    well
+    Disabled as well
   </button>
 
   <!-- we'd have to remove it with property binding -->
@@ -8872,9 +8740,7 @@ can be found in the LICENSE file at http://angular.io/license
       false
     "
   >
-    Enabled
-    (but
-    inert)
+    Enabled (but inert)
   </button>
 </div>
 
@@ -8889,17 +8755,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="class-binding"
 >
-  Class
-  Binding
+  Class Binding
 </h2>
 
 <!-- standard class attribute setting  -->
 <div
   class="bad curly special"
 >
-  Bad
-  curly
-  special
+  Bad curly special
 </div>
 
 <!-- reset/override all class names with a binding  -->
@@ -8909,8 +8772,7 @@ can be found in the LICENSE file at http://angular.io/license
     badCurly
   "
 >
-  Bad
-  curly
+  Bad curly
 </div>
 
 <!-- toggle the "special" class on/off with a property -->
@@ -8919,11 +8781,7 @@ can be found in the LICENSE file at http://angular.io/license
     isSpecial
   "
 >
-  The
-  class
-  binding
-  is
-  special
+  The class binding is special
 </div>
 
 <!-- binding to \`class.special\` trumps the class attribute -->
@@ -8933,12 +8791,7 @@ can be found in the LICENSE file at http://angular.io/license
     !isSpecial
   "
 >
-  This
-  one
-  is
-  not
-  so
-  special
+  This one is not so special
 </div>
 
 <div
@@ -8946,12 +8799,7 @@ can be found in the LICENSE file at http://angular.io/license
     isSpecial
   "
 >
-  This
-  class
-  binding
-  is
-  special
-  too
+  This class binding is special too
 </div>
 
 <a
@@ -8965,8 +8813,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="style-binding"
 >
-  Style
-  Binding
+  Style Binding
 </h2>
 
 <button
@@ -9018,8 +8865,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="event-binding"
 >
-  Event
-  Binding
+  Event Binding
 </h2>
 
 <button
@@ -9035,8 +8881,7 @@ can be found in the LICENSE file at http://angular.io/license
     onSave()
   "
 >
-  On
-  Save
+  On Save
 </button>
 
 <div>
@@ -9048,9 +8893,7 @@ can be found in the LICENSE file at http://angular.io/license
     "
     clickable
   >
-    click
-    with
-    myClick
+    click with myClick
   </div>
   {{
     clickMessage
@@ -9091,14 +8934,11 @@ can be found in the LICENSE file at http://angular.io/license
   "
   clickable
 >
-  Click
-  me
+  Click me
   <div
     class="child-div"
   >
-    Click
-    me
-    too!
+    Click me too!
   </div>
 </div>
 
@@ -9116,9 +8956,7 @@ can be found in the LICENSE file at http://angular.io/license
       )
     "
   >
-    Save,
-    no
-    propagation
+    Save, no propagation
   </button>
 </div>
 
@@ -9134,9 +8972,7 @@ can be found in the LICENSE file at http://angular.io/license
       onSave()
     "
   >
-    Save
-    w/
-    propagation
+    Save w/ propagation
   </button>
 </div>
 
@@ -9150,8 +8986,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="two-way"
 >
-  Two-way
-  Binding
+  Two-way Binding
 </h2>
 <div
   id="two-way-1"
@@ -9166,12 +9001,10 @@ can be found in the LICENSE file at http://angular.io/license
       fontSizePx
     "
   >
-    Resizable
-    Text
+    Resizable Text
   </div>
   <label
-    >FontSize
-    (px):
+    >FontSize (px):
     <input
       [(ngModel)]="
         fontSizePx
@@ -9183,9 +9016,7 @@ can be found in the LICENSE file at http://angular.io/license
   id="two-way-2"
 >
   <h3>
-    De-sugared
-    two-way
-    binding
+    De-sugared two-way binding
   </h3>
   <app-sizer
     [size]="
@@ -9210,9 +9041,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2
   id="ngModel"
 >
-  NgModel
-  (two-way)
-  Binding
+  NgModel (two-way) Binding
 </h2>
 
 <h3>
@@ -9231,8 +9060,7 @@ can be found in the LICENSE file at http://angular.io/license
       $event.target.value
   "
 />
-without
-NgModel
+without NgModel
 <br />
 <input
   [(ngModel)]="
@@ -9282,13 +9110,11 @@ bindon-ngModel
 <h2
   id="ngClass"
 >
-  NgClass
-  Binding
+  NgClass Binding
 </h2>
 
 <p>
-  currentClasses
-  is
+  currentClasses is
   {{
     currentClasses
       | json
@@ -9299,14 +9125,7 @@ bindon-ngModel
     currentClasses
   "
 >
-  This
-  div
-  is
-  initially
-  saveable,
-  unchanged,
-  and
-  special
+  This div is initially saveable, unchanged, and special
 </div>
 
 <!-- not used in chapter -->
@@ -9346,8 +9165,7 @@ bindon-ngModel
     setCurrentClasses()
   "
 >
-  Refresh
-  currentClasses
+  Refresh currentClasses
 </button>
 <br /><br />
 <div
@@ -9355,10 +9173,7 @@ bindon-ngModel
     currentClasses
   "
 >
-  This
-  div
-  should
-  be
+  This div should be
   {{
     canSave
       ? ""
@@ -9376,10 +9191,7 @@ bindon-ngModel
       ? ""
       : "not"
   }}
-  special
-  after
-  clicking
-  "Refresh".
+  special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -9390,18 +9202,13 @@ bindon-ngModel
       : ''
   "
 >
-  This
-  div
-  is
-  special
+  This div is special
 </div>
 
 <div
   class="bad curly special"
 >
-  Bad
-  curly
-  special
+  Bad curly special
 </div>
 <div
   [ngClass]="{
@@ -9410,8 +9217,7 @@ bindon-ngModel
     special: true,
   }"
 >
-  Curly
-  special
+  Curly special
 </div>
 
 <a
@@ -9425,8 +9231,7 @@ bindon-ngModel
 <h2
   id="ngStyle"
 >
-  NgStyle
-  Binding
+  NgStyle Binding
 </h2>
 
 <div
@@ -9436,27 +9241,14 @@ bindon-ngModel
       : 'smaller'
   "
 >
-  This
-  div
-  is
-  x-large
-  or
-  smaller.
+  This div is x-large or smaller.
 </div>
 
 <h3>
-  [ngStyle]
-  binding
-  to
-  currentStyles
-  -
-  CSS
-  property
-  names
+  [ngStyle] binding to currentStyles - CSS property names
 </h3>
 <p>
-  currentStyles
-  is
+  currentStyles is
   {{
     currentStyles
       | json
@@ -9467,17 +9259,7 @@ bindon-ngModel
     currentStyles
   "
 >
-  This
-  div
-  is
-  initially
-  italic,
-  normal
-  weight,
-  and
-  extra
-  large
-  (24px).
+  This div is initially italic, normal weight, and extra large (24px).
 </div>
 
 <!-- not used in chapter -->
@@ -9513,8 +9295,7 @@ bindon-ngModel
     setCurrentStyles()
   "
 >
-  Refresh
-  currentStyles
+  Refresh currentStyles
 </button>
 <br /><br />
 <div
@@ -9522,10 +9303,7 @@ bindon-ngModel
     currentStyles
   "
 >
-  This
-  div
-  should
-  be
+  This div should be
   {{
     canSave
       ? "italic"
@@ -9542,9 +9320,7 @@ bindon-ngModel
       ? "extra large"
       : "normal size"
   }}
-  after
-  clicking
-  "Refresh".
+  after clicking "Refresh".
 </div>
 
 <a
@@ -9558,8 +9334,7 @@ bindon-ngModel
 <h2
   id="ngIf"
 >
-  NgIf
-  Binding
+  NgIf Binding
 </h2>
 
 <app-hero-detail
@@ -9599,23 +9374,12 @@ bindon-ngModel
   {{
     currentHero.name
   }}
-  with
-  template</ng-template
+  with template</ng-template
 >
 
 <!-- Does not show because isActive is false! -->
 <div>
-  Hero
-  Detail
-  removed
-  from
-  DOM
-  (via
-  template)
-  because
-  isActive
-  is
-  false
+  Hero Detail removed from DOM (via template) because isActive is false
 </div>
 <ng-template
   [ngIf]="
@@ -9631,18 +9395,14 @@ bindon-ngModel
     !isSpecial
   "
 >
-  Show
-  with
-  class
+  Show with class
 </div>
 <div
   [class.hidden]="
     isSpecial
   "
 >
-  Hide
-  with
-  class
+  Hide with class
 </div>
 
 <!-- HeroDetail is in the DOM but hidden -->
@@ -9659,9 +9419,7 @@ bindon-ngModel
       : 'none'
   "
 >
-  Show
-  with
-  style
+  Show with style
 </div>
 <div
   [style.display]="
@@ -9670,9 +9428,7 @@ bindon-ngModel
       : 'block'
   "
 >
-  Hide
-  with
-  style
+  Hide with style
 </div>
 
 <a
@@ -9686,8 +9442,7 @@ bindon-ngModel
 <h2
   id="ngFor"
 >
-  NgFor
-  Binding
+  NgFor Binding
 </h2>
 
 <div
@@ -9728,9 +9483,7 @@ bindon-ngModel
 <h4
   id="ngFor-index"
 >
-  *ngFor
-  with
-  index
+  *ngFor with index
 </h4>
 <p>
   with
@@ -9796,32 +9549,28 @@ bindon-ngModel
 <h4
   id="ngFor-trackBy"
 >
-  *ngFor
-  trackBy
+  *ngFor trackBy
 </h4>
 <button
   (click)="
     resetHeroes()
   "
 >
-  Reset
-  heroes
+  Reset heroes
 </button>
 <button
   (click)="
     changeIds()
   "
 >
-  Change
-  ids
+  Change ids
 </button>
 <button
   (click)="
     clearTrackByCounts()
   "
 >
-  Clear
-  counts
+  Clear counts
 </button>
 
 <p>
@@ -9853,21 +9602,15 @@ bindon-ngModel
       heroesNoTrackByCount
     "
   >
-    Hero
-    DOM
-    elements
-    change
-    #{{
+    Hero DOM elements change #{{
       heroesNoTrackByCount
     }}
-    without
-    trackBy
+    without trackBy
   </div>
 </div>
 
 <p>
-  with
-  trackBy
+  with trackBy
 </p>
 <div
   class="box"
@@ -9893,24 +9636,17 @@ bindon-ngModel
       heroesWithTrackByCount
     "
   >
-    Hero
-    DOM
-    elements
-    change
-    #{{
+    Hero DOM elements change #{{
       heroesWithTrackByCount
     }}
-    with
-    trackBy
+    with trackBy
   </div>
 </div>
 
 <br /><br /><br />
 
 <p>
-  with
-  trackBy
-  and
+  with trackBy and
   <i
     >semi-colon</i
   >
@@ -9935,9 +9671,7 @@ bindon-ngModel
 </div>
 
 <p>
-  with
-  trackBy
-  and
+  with trackBy and
   <i
     >comma</i
   >
@@ -9962,9 +9696,7 @@ bindon-ngModel
 </div>
 
 <p>
-  with
-  trackBy
-  and
+  with trackBy and
   <i
     >space</i
   >
@@ -9993,8 +9725,7 @@ bindon-ngModel
   <i
     >generic</i
   >
-  trackById
-  function
+  trackById function
 </p>
 <div
   class="box"
@@ -10025,15 +9756,11 @@ bindon-ngModel
 <h2
   id="ngSwitch"
 >
-  NgSwitch
-  Binding
+  NgSwitch Binding
 </h2>
 
 <p>
-  Pick
-  your
-  favorite
-  hero
+  Pick your favorite hero
 </p>
 <div>
   <label
@@ -10082,11 +9809,7 @@ bindon-ngModel
   <div
     *ngSwitchCase="'confused'"
   >
-    Are
-    you
-    as
-    confused
-    as
+    Are you as confused as
     {{
       currentHero.name
     }}?
@@ -10110,9 +9833,7 @@ bindon-ngModel
 <h2
   id="ref-vars"
 >
-  Template
-  reference
-  variables
+  Template reference variables
 </h2>
 
 <input
@@ -10158,8 +9879,7 @@ bindon-ngModel
 ></button>
 
 <h4>
-  Example
-  Form
+  Example Form
 </h4>
 <app-hero-form
   [hero]="
@@ -10178,9 +9898,7 @@ bindon-ngModel
 <h2
   id="inputs-and-outputs"
 >
-  Inputs
-  and
-  Outputs
+  Inputs and Outputs
 </h2>
 
 <img
@@ -10236,10 +9954,7 @@ bindon-ngModel
 </h2>
 
 <div>
-  Title
-  through
-  uppercase
-  pipe:
+  Title through uppercase pipe:
   {{
     title
       | uppercase
@@ -10248,11 +9963,7 @@ bindon-ngModel
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
 <div>
-  Title
-  through
-  a
-  pipe
-  chain:
+  Title through a pipe chain:
   {{
     title
       | uppercase
@@ -10310,40 +10021,28 @@ bindon-ngModel
 <h2
   id="safe-navigation-operator"
 >
-  Safe
-  navigation
-  operator
+  Safe navigation operator
   <i
     >?.</i
   >
 </h2>
 
 <div>
-  The
-  title
-  is
+  The title is
   {{
     title
   }}
 </div>
 
 <div>
-  The
-  current
-  hero's
-  name
-  is
+  The current hero's name is
   {{
     currentHero?.name
   }}
 </div>
 
 <div>
-  The
-  current
-  hero's
-  name
-  is
+  The current hero's name is
   {{
     currentHero.name
   }}
@@ -10362,22 +10061,14 @@ See console log:
     nullHero
   "
 >
-  The
-  null
-  hero's
-  name
-  is
+  The null hero's name is
   {{
     nullHero.name
   }}
 </div>
 
 <div>
-  The
-  null
-  hero's
-  name
-  is
+  The null hero's name is
   {{
     nullHero &&
       nullHero.name
@@ -10386,11 +10077,7 @@ See console log:
 
 <div>
   <!-- No hero, no problem! -->
-  The
-  null
-  hero's
-  name
-  is
+  The null hero's name is
   {{
     nullHero?.name
   }}
@@ -10407,9 +10094,7 @@ See console log:
 <h2
   id="non-null-assertion-operator"
 >
-  Non-null
-  assertion
-  operator
+  Non-null assertion operator
   <i
     >!.</i
   >
@@ -10422,10 +10107,7 @@ See console log:
       hero
     "
   >
-    The
-    hero's
-    name
-    is
+    The hero's name is
     {{
       hero!
         .name
@@ -10444,23 +10126,16 @@ See console log:
 <h2
   id="any-type-cast-function"
 >
-  $any
-  type
-  cast
-  function
+  $any type cast function
   <i
-    >$any(
-    )</i
+    >$any( )</i
   >.
 </h2>
 
 <div>
   <!-- Accessing an undeclared member -->
   <div>
-    The
-    hero's
-    marker
-    is
+    The hero's marker is
     {{
       $any(
         hero
@@ -10473,9 +10148,7 @@ See console log:
 <div>
   <!-- Accessing an undeclared member -->
   <div>
-    Undeclared
-    members
-    is
+    Undeclared members is
     {{
       $any(
         this
@@ -10497,38 +10170,24 @@ See console log:
 <h2
   id="enums"
 >
-  Enums
-  in
-  binding
+  Enums in binding
 </h2>
 
 <p>
-  The
-  name
-  of
-  the
-  Color.Red
-  enum
-  is
+  The name of the Color.Red enum is
   {{
     Color[
       Color
         .Red
     ]
   }}.<br />
-  The
-  current
-  color
-  is
+  The current color is
   {{
     Color[
       color
     ]
   }}
-  and
-  its
-  number
-  is
+  and its number is
   {{
     color
   }}.<br />
@@ -10542,8 +10201,7 @@ See console log:
       colorToggle()
     "
   >
-    Enum
-    Toggle
+    Enum Toggle
   </button>
 </p>
 
@@ -11412,8 +11070,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="expression-context">Expression context</h2>
 
 <p>
-  Component expression context (&#123;&#123;title&#125;&#125;,
-  [hidden]="isUnchanged")
+  Component expression context (&#123;&#123;title&#125;&#125;, [hidden]="isUnchanged")
 </p>
 <div class="context">
   {{ title }}
@@ -11582,8 +11239,8 @@ can be found in the LICENSE file at http://angular.io/license
   <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
-  "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
-  title.
+  "<span [innerHTML]="evilTitle"></span>" is the
+  <i>property bound</i> evil title.
 </p>
 
 <a class="to-toc" href="#toc">top</a>
@@ -12938,8 +12595,7 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="expression-context">Expression context</h2>
 
 <p>
-  Component expression context (&#123;&#123;title&#125;&#125;,
-  [hidden]="isUnchanged")
+  Component expression context (&#123;&#123;title&#125;&#125;, [hidden]="isUnchanged")
 </p>
 <div class="context">
   {{ title }}
@@ -13108,8 +12764,8 @@ can be found in the LICENSE file at http://angular.io/license
   <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
-  "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
-  title.
+  "<span [innerHTML]="evilTitle"></span>" is the
+  <i>property bound</i> evil title.
 </p>
 
 <a class="to-toc" href="#toc">top</a>

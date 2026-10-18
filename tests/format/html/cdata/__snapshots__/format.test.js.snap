@@ -113,8 +113,7 @@ parsers: ["html", "angular"]
 >
 <span
   ><![CDATA[1]]>
-  text text text text text text text text text text text text text text text
-  text
+  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text
   <![CDATA[2]]></span
 >
 <span
@@ -137,8 +136,7 @@ parsers: ["html", "angular"]
 </div>
 <div>
   <![CDATA[1]]>
-  text text text text text text text text text text text text text text text
-  text
+  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text
   <![CDATA[2]]>
 </div>
 <div>

@@ -52,8 +52,7 @@ printWidth: 1
 =====================================output=====================================
 <CaseSensitive
   CaseSensitive="true"
-  >hello
-  world</CaseSensitive
+  >hello world</CaseSensitive
 >
 
 ================================================================================
@@ -480,27 +479,13 @@ printWidth: 1
 
 =====================================output=====================================
 <marquee>
-  This
-  text
-  will
-  scroll
-  from
-  right
-  to
-  left
+  This text will scroll from right to left
 </marquee>
 
 <marquee
   direction="up"
 >
-  This
-  text
-  will
-  scroll
-  from
-  bottom
-  to
-  top
+  This text will scroll from bottom to top
 </marquee>
 
 <marquee
@@ -515,10 +500,7 @@ printWidth: 1
   <marquee
     behavior="alternate"
   >
-    This
-    text
-    will
-    bounce
+    This text will bounce
   </marquee>
 </marquee>
 
@@ -921,51 +903,28 @@ printWidth: 1
 
 =====================================output=====================================
 <p>
-  Want
-  to
-  write
-  us
-  a
-  letter?
-  Use
-  our<a
+  Want to write us a letter? Use our<a
     ><b
       ><a
-        >mailing
-        address</a
+        >mailing address</a
       ></b
     ></a
   >.
 </p>
 
 <p>
-  Want
-  to
-  write
-  us
-  a
-  letter?
-  Use
-  our<a
+  Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     ><b
       ><a
-        >mailing
-        address</a
+        >mailing address</a
       ></b
     ></a
   >.
 </p>
 
 <p>
-  Want
-  to
-  write
-  us
-  a
-  letter?
-  Use
-  our<a
+  Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     href1="contacts.html#Mailing_address"
     href2="contacts.html#Mailing_address"
@@ -973,8 +932,7 @@ printWidth: 1
     href4="contacts.html#Mailing_address"
     ><b
       ><a
-        >mailing
-        address</a
+        >mailing address</a
       ></b
     ></a
   >.
@@ -1146,12 +1104,10 @@ printWidth: 1
     label="Darker"
   >
     <option>
-      Dark
-      Blue
+      Dark Blue
     </option>
     <option>
-      Dark
-      Green
+      Dark Green
     </option>
   </optgroup>
 </select>
@@ -1373,8 +1329,7 @@ ___________________________
 ___________________________
   </pre>
   <figcaption id="cow-caption">
-    A cow saying, "I'm an expert in my field." The cow is illustrated using
-    preformatted text characters.
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
   </figcaption>
 </figure>
 <pre
@@ -1611,8 +1566,7 @@ ___________________________
 ___________________________
   </pre>
   <figcaption id="cow-caption">
-    A cow saying, "I'm an expert in my field." The cow is illustrated using
-    preformatted text characters.
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
   </figcaption>
 </figure>
 <pre
@@ -2083,23 +2037,7 @@ ___________________________
   <figcaption
     id="cow-caption"
   >
-    A
-    cow
-    saying,
-    "I'm
-    an
-    expert
-    in
-    my
-    field."
-    The
-    cow
-    is
-    illustrated
-    using
-    preformatted
-    text
-    characters.
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
   </figcaption>
 </figure>
 <pre
@@ -2335,8 +2273,7 @@ ___________________________
 ___________________________
   </pre>
   <figcaption id="cow-caption">
-    A cow saying, "I'm an expert in my field." The cow is illustrated using
-    preformatted text characters.
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
   </figcaption>
 </figure>
 <pre
@@ -2635,9 +2572,7 @@ printWidth: 1
       <h1>
         <a
           href="/"
-          >My
-          fancy
-          blog</a
+          >My fancy blog</a
         >
       </h1>
       ...
@@ -2647,9 +2582,7 @@ printWidth: 1
         >
           <label
             for="query"
-            >Find
-            an
-            article</label
+            >Find an article</label
           >
           <input
             id="query"
@@ -2890,8 +2823,7 @@ parsers: ["html"]
 />
 <div>string</div>
 <div>
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
@@ -2909,8 +2841,7 @@ parsers: ["html"]
   string
 </div>
 <div attribute="value">
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   attribute="value"
@@ -2930,8 +2861,7 @@ parsers: ["html"]
   attributed="value"
   attributef="value"
 >
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
@@ -3063,7 +2993,8 @@ parsers: ["html"]
   <span>tag name in other namespace should also lower cased</span>
 </x:root>
 <div>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "
   <strong>seddoeiusmod</strong>
   ".
 </div>
@@ -3251,8 +3182,7 @@ parsers: ["html"]
 />
 <div>string</div>
 <div
-  >very very very very very very very very very very very very very very very
-  very long string</div
+  >very very very very very very very very very very very very very very very very long string</div
 >
 <div
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
@@ -3267,8 +3197,7 @@ parsers: ["html"]
   >string</div
 >
 <div attribute="value"
-  >very very very very very very very very very very very very very very very
-  very long string</div
+  >very very very very very very very very very very very very very very very very long string</div
 >
 <div
   attribute="value"
@@ -3286,8 +3215,7 @@ parsers: ["html"]
   attributec="value"
   attributed="value"
   attributef="value"
-  >very very very very very very very very very very very very very very very
-  very long string</div
+  >very very very very very very very very very very very very very very very very long string</div
 >
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
@@ -3648,7 +3576,10 @@ printWidth: Infinity
   <app-footer [input]="something"></app-footer>
 </div>
 <x:root><span>tag name in other namespace should also lower cased</span></x:root>
-<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
@@ -3842,24 +3773,7 @@ printWidth: 1
   string
 </div>
 <div>
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  long
-  string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
@@ -3879,24 +3793,7 @@ printWidth: 1
 <div
   attribute="value"
 >
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  long
-  string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   attribute="value"
@@ -3916,24 +3813,7 @@ printWidth: 1
   attributed="value"
   attributef="value"
 >
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  very
-  long
-  string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <video
   width="320"
@@ -3948,14 +3828,7 @@ printWidth: 1
     src="movie.ogg"
     type="video/ogg"
   />
-  Your
-  browser
-  does
-  not
-  support
-  the
-  video
-  tag.
+  Your browser does not support the video tag.
 </video>
 <div>
   <div>
@@ -4092,8 +3965,7 @@ printWidth: 1
   bind-disabled="isUnchanged"
   on-click="onSave($event)"
 >
-  Disabled
-  Cancel
+  Disabled Cancel
 </button>
 <br /><br />
 <button
@@ -4107,20 +3979,16 @@ printWidth: 1
   bind-disabled="isUnchanged"
   on-click="onSave($event)"
 >
-  Disabled
-  Cancel
+  Disabled Cancel
 </button>
 <br /><br />
 <p>
   "<span
     [innerHTML]="title"
   ></span
-  >"
-  is
-  the
+  >" is the
   <i
-    >property
-    bound</i
+    >property bound</i
   >
   title.
 </p>
@@ -4146,37 +4014,15 @@ printWidth: 1
 </div>
 <x:root
   ><span
-    >tag
-    name
-    in
-    other
-    namespace
-    should
-    also
-    lower
-    cased</span
+    >tag name in other namespace should also lower cased</span
   ></x:root
 >
 <div>
-  Lorem
-  ipsum
-  dolor
-  sit
-  amet,
-  consectetur
-  adipiscing
-  elit,
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
 </div>
 <div>
-  Lorem
-  ipsum
-  dolor
-  sit
-  amet,
-  consectetur
-  adipiscing
-  elit,
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong
     >seddoeiusmod</strong
   >.
@@ -4198,14 +4044,7 @@ printWidth: 1
   <tr></tr>
 </table>
 <div>
-  Should
-  not
-  insert
-  empty
-  line
-  before
-  this
-  div
+  Should not insert empty line before this div
 </div>
 
 <!-- self-closing -->
@@ -4385,8 +4224,7 @@ parsers: ["html"]
 />
 <div>string</div>
 <div>
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
@@ -4404,8 +4242,7 @@ parsers: ["html"]
   string
 </div>
 <div attribute="value">
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <div
   attribute="value"
@@ -4425,8 +4262,7 @@ parsers: ["html"]
   attributed="value"
   attributef="value"
 >
-  very very very very very very very very very very very very very very very
-  very long string
+  very very very very very very very very very very very very very very very very long string
 </div>
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
@@ -4596,7 +4432,7 @@ parsers: ["html"]
 
 <div>
   before
-  <dialog open>dialog long long long long long long long long</dialog>
+  <dialog open>dialog long long long long  long long long long</dialog>
   after
 </div>
 
@@ -4655,7 +4491,7 @@ parsers: ["html"]
 >
 
 <div
-  >before<dialog open>dialog long long long long long long long long </dialog
+  >before<dialog open>dialog long long long long  long long long long </dialog
   >after</div
 >
 
@@ -4715,7 +4551,7 @@ printWidth: Infinity
 
 <div>
   before
-  <dialog open>dialog long long long long long long long long</dialog>
+  <dialog open>dialog long long long long  long long long long</dialog>
   after
 </div>
 
@@ -4754,15 +4590,7 @@ printWidth: 1
 =====================================output=====================================
 <div>
   before<noscript
-    >noscript
-    long
-    long
-    long
-    long
-    long
-    long
-    long
-    long</noscript
+    >noscript long long long long long long long long</noscript
   >after
 </div>
 
@@ -4770,11 +4598,7 @@ printWidth: 1
   before
   <details>
     <summary>
-      summary
-      long
-      long
-      long
-      long
+      summary long long long long
     </summary>
     details
   </details>
@@ -4786,15 +4610,7 @@ printWidth: 1
   <dialog
     open
   >
-    dialog
-    long
-    long
-    long
-    long
-    long
-    long
-    long
-    long
+    dialog long long long long  long long long long
   </dialog>
   after
 </div>
@@ -4871,7 +4687,7 @@ parsers: ["html"]
 
 <div>
   before
-  <dialog open>dialog long long long long long long long long</dialog>
+  <dialog open>dialog long long long long  long long long long</dialog>
   after
 </div>
 

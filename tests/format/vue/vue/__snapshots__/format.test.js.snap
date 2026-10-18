@@ -2253,8 +2253,10 @@ x => {
       }
     }}
     Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
+    {{
+      some_variable
+    }}
+    Eum quia nihil nulla esse. Dolorem asperiores vero est error
     {{
 
                     preserve
@@ -2383,8 +2385,10 @@ x => {
       }
     }}
     Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
+    {{
+      some_variable
+    }}
+    Eum quia nihil nulla esse. Dolorem asperiores vero est error
     {{
 
                     preserve
@@ -2513,8 +2517,10 @@ x => {
       }
     }}
     Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
+    {{
+      some_variable
+    }}
+    Eum quia nihil nulla esse. Dolorem asperiores vero est error
     {{
 
                     preserve
