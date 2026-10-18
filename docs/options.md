@@ -550,6 +550,21 @@ When Prettier identifies cases where it looks like you've placed some code it kn
 
 Sometimes this behavior is undesirable, particularly in cases where you might not have intended the string to be interpreted as code. This option allows you to switch between the default behavior (`auto`) and disabling this feature entirely (`off`).
 
+To format Angular templates inside JavaScript or TypeScript template literals,
+add a `/* Angular */` comment before the template literal:
+
+```ts
+const template = /* Angular */ `
+  @if (visible) {
+    <div>{{ name }}</div>
+  }
+`;
+```
+
+This enables Angular-specific formatting, including control flow and
+interpolations, without changing how `/* HTML */` template literals are
+formatted.
+
 Valid options:
 
 - `"auto"` – Format embedded code if Prettier can automatically identify it.

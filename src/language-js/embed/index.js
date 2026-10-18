@@ -1,19 +1,15 @@
 import { label } from "../../document/index.js";
 import { isEmbedCss, printEmbedCss } from "./css.js";
 import { isEmbedGraphQL, printEmbedGraphQL } from "./graphql.js";
-import {
-  isAngularComponentTemplate,
-  isEmbedHtml,
-  printEmbedAngular,
-  printEmbedHtml,
-} from "./html.js";
+import { isEmbedHtml, printEmbedAngular, printEmbedHtml } from "./html.js";
 import { isEmbedMarkdown, printEmbedMarkdown } from "./markdown.js";
+import { isEmbedAngular } from "./utilities.js";
 
 const printers = [
   { test: isEmbedCss, print: printEmbedCss },
   { test: isEmbedGraphQL, print: printEmbedGraphQL },
   { test: isEmbedHtml, print: printEmbedHtml },
-  { test: isAngularComponentTemplate, print: printEmbedAngular },
+  { test: isEmbedAngular, print: printEmbedAngular },
   { test: isEmbedMarkdown, print: printEmbedMarkdown },
 ].map(({ test, print }) => ({
   test,

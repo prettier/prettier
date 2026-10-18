@@ -93,8 +93,14 @@ function isAsConstExpression(node) {
   );
 }
 
+function isEmbedAngular(path) {
+  const isMarkedAngular = hasLanguageComment(path, "Angular");
+  return isMarkedAngular || isAngularComponentTemplate(path);
+}
+
 export {
   hasLanguageComment,
   isAngularComponentStyles,
   isAngularComponentTemplate,
+  isEmbedAngular,
 };
