@@ -23,11 +23,13 @@ enum E {
   A,
 }
 
-namespace N { // c
+namespace N {
+  // c
   a;
 }
 
-declare module "M" { // c
+declare module "M" {
+  // c
   a;
 }
 

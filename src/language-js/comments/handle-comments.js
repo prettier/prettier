@@ -326,7 +326,9 @@ function handleClassComments({
   if (followingNode && followingNode === enclosingNode?.body) {
     if (
       isClassLikeNode(enclosingNode) ||
-      enclosingNode.type === "TSModuleDeclaration"
+      enclosingNode.type === "TSModuleDeclaration" ||
+      enclosingNode.type === "DeclareNamespace" ||
+      enclosingNode.type === "DeclareModule"
     ) {
       addBlockStatementFirstComment(enclosingNode.body, comment);
       return true;
