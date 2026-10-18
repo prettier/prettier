@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`before-body.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E // c
+{ A }
+
+namespace N // c
+{ a; }
+
+class C // c
+{ A }
+
+=====================================output=====================================
+enum E {
+  // c
+  A,
+}
+
+namespace N { // c
+  a;
+}
+
+class C {
+  // c
+  A;
+}
+
+================================================================================
+`;
+
+exports[`before-body.js.flow format[hermes] 1`] = `
+"';' expected (4:11)
+  2 | { A }
+  3 |
+> 4 | namespace N // c
+    |           ^
+  5 | { a; }
+  6 |
+  7 | class C // c
+Cause: ';' expected (4:10)
+namespace N // c
+          ^"
+`;

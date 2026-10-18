@@ -58,9 +58,18 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+function addEnumBodyFirstComment(node, comment) {
+  if (node.members.length > 0) {
+    addLeadingComment(node.members[0], comment);
+  } else {
+    addDanglingComment(node, comment);
+  }
+}
+
 export {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
+  addEnumBodyFirstComment,
   isSingleLineBlockComment,
   isSingleLineComment,
 };
