@@ -17,7 +17,6 @@ function printAttributeValue(path, options /* , print*/) {
     : getPreferredQuote(value, '"');
 
   return [
-    "=",
     quote,
     replaceEndOfLine(
       quote === '"'
