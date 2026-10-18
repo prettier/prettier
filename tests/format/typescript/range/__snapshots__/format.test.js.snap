@@ -82,23 +82,21 @@ exports[`issue-7148.ts format 1`] = `
 exports[`type-parameters-class.ts format 1`] = `
     : ====================================options=====================================
     : parsers: ["typescript"]
-    : rangeEnd: 31
-    : rangeStart: 30
+    : rangeEnd: 43
+    : rangeStart: 42
     :                                                       printWidth: 80 (default) |
     : =====================================input======================================
-  1 | const before  =  1;
-> 2 | class Box<T = string> {
-    |           ^
-  3 | value?:T
-  4 | }
-  5 | const after  =  2;
-  6 |
+  1 | const before = {a:1,b:[2,3]};
+> 2 | class   Box<T =string>{value?:T}
+    |             ^
+  3 | const after = {a:4,b:[5,6]};
+  4 |
     : =====================================output=====================================
-    : const before  =  1;
+    : const before = {a:1,b:[2,3]};
     : class Box<T = string> {
     :   value?: T;
     : }
-    : const after  =  2;
+    : const after = {a:4,b:[5,6]};
     :
     : ================================================================================
 `;
