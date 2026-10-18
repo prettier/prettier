@@ -6,8 +6,8 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 function printAttributeValue(path, options /* , print*/) {
   const { node } = path;

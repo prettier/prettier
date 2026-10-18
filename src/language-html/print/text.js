@@ -1,7 +1,3 @@
-/**
- * @import {Doc} from "../../document/index.js"
- */
-
 import {
   breakParent,
   fill,
@@ -17,6 +13,10 @@ import {
   printClosingTagSuffix,
   printOpeningTagPrefix,
 } from "./tag.js";
+
+/**
+@import {Doc} from "../../document/index.js"
+*/
 
 function printTextValue(node) {
   const { value } = node;
