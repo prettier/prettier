@@ -127,6 +127,29 @@ function postprocess(ast, options) {
               previousCommentEnd &&
               // check that there are only white spaces between the comment and the parenthesis
               text.slice(previousCommentEnd, start).trim().length === 0;
+
+            if (!shouldKeepParenthesizedExpression) {
+              const innerTypeCastComment = comments.findLast(
+                (comment) =>
+                  expression.type === "Identifier" &&
+                  isTypeCastComment(comment) &&
+                  locStart(comment) >= start &&
+                  locEnd(comment) <= locStart(expression),
+              );
+              shouldKeepParenthesizedExpression =
+                innerTypeCastComment &&
+                // check that there are only white spaces between the comment and the expression
+                text
+                  .slice(locEnd(innerTypeCastComment), locStart(expression))
+                  .trim().length === 0;
+              if (shouldKeepParenthesizedExpression) {
+                // Treat an inner cast comment as leading the parentheses so it prints outside them.
+                node.start = locStart(expression);
+                if (node.range) {
+                  node.range[0] = locStart(expression);
+                }
+              }
+            }
           }
 
           if (shouldKeepParenthesizedExpression) {

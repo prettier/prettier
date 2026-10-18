@@ -58,3 +58,7 @@ const style2 =/**
   width,
 });
 
+function deleteProperty(window) {
+  delete (/** @type {any} */ window).__pwned;
+}
+

@@ -116,6 +116,10 @@ const style2 =/**
   width,
 });
 
+function deleteProperty(window) {
+  delete (/** @type {any} */ window).__pwned;
+}
+
 
 =====================================output=====================================
 // test to make sure comments are attached correctly
@@ -181,6 +185,10 @@ const style2 =
    */ ({
     width,
   });
+
+function deleteProperty(window) {
+  delete /** @type {any} */ (window).__pwned;
+}
 
 ================================================================================
 `;
