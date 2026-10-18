@@ -1,8 +1,10 @@
-import { group, hardline, indent, softline } from "../../document/index.js";
+import { group, hardline, indent, softline, willBreak } from "../../document/index.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
+  isCallExpression,
   isCallOrNewExpression,
   isMemberExpression,
+  isObjectType,
   isSatisfiesExpression,
   isUnionType,
 } from "../utilities/node-types.js";
@@ -14,11 +16,20 @@ function printBinaryCastExpression(path, options, print) {
     ? "const"
     : print("typeAnnotation");
 
+  const expressionDoc = print("expression");
   const parts = [
-    print("expression"),
+    expressionDoc,
     " ",
     isSatisfiesExpression(node) ? "satisfies" : "as",
   ];
+
+  // A broken member chain indents its later calls, but the type following
+  // `as` or `satisfies` is printed at the enclosing indentation level.
+  const indentTypeAfterChain =
+    isObjectType(node.typeAnnotation) &&
+    isCallExpression(node.expression) &&
+    isMemberExpression(node.expression.callee) &&
+    willBreak(expressionDoc);
 
   if (
     // Union type already indented
@@ -27,7 +38,7 @@ function printBinaryCastExpression(path, options, print) {
   ) {
     parts.push(indent([hardline, typeAnnotationDoc]));
   } else {
-    parts.push(" ", typeAnnotationDoc);
+    parts.push(" ", indentTypeAfterChain ? indent(typeAnnotationDoc) : typeAnnotationDoc);
   }
 
   if (
