@@ -299,3 +299,59 @@ class TestComponent {}
 
 ================================================================================
 `;
+
+exports[`16827-comment.component.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@Component({
+  template: \`<div>{{title() // i18n(ph="title")}}</div>\`
+})
+export class TestComponent {
+  public title = signal('');
+}
+
+=====================================output=====================================
+@Component({
+  template: \`<div>
+    {{
+      title() // i18n(ph="title")
+    }}
+  </div>\`,
+})
+export class TestComponent {
+  public title = signal("");
+}
+
+================================================================================
+`;
+
+exports[`16827-comment.component.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@Component({
+  template: \`<div>{{title() // i18n(ph="title")}}</div>\`
+})
+export class TestComponent {
+  public title = signal('');
+}
+
+=====================================output=====================================
+@Component({
+  template: \`<div>
+    {{
+      title() // i18n(ph="title")
+    }}
+  </div>\`
+})
+export class TestComponent {
+  public title = signal("");
+}
+
+================================================================================
+`;
