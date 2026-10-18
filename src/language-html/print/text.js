@@ -6,7 +6,6 @@ import {
   breakParent,
   fill,
   hardline,
-  join,
   line,
   replaceEndOfLine,
 } from "../../document/index.js";
