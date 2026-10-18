@@ -38,6 +38,20 @@ runFormatTest(
           "",
         ].join("\n"),
       },
+      {
+        name: "leave a one-line member call's type literal at normal indentation",
+        code: [
+          "const result = values.map((value) => value) as {",
+          "id: number;",
+          "};",
+        ].join("\n"),
+        output: [
+          "const result = values.map((value) => value) as {",
+          "  id: number;",
+          "};",
+          "",
+        ].join("\n"),
+      },
     ],
   },
   ["typescript"],

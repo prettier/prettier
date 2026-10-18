@@ -38,7 +38,10 @@ function printBinaryCastExpression(path, options, print) {
   ) {
     parts.push(indent([hardline, typeAnnotationDoc]));
   } else {
-    parts.push(" ", indentTypeAfterChain ? indent(typeAnnotationDoc) : typeAnnotationDoc);
+    parts.push(
+      " ",
+      indentTypeAfterChain ? indent(typeAnnotationDoc) : typeAnnotationDoc,
+    );
   }
 
   if (
