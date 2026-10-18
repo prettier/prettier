@@ -11,20 +11,20 @@ import {
 
 function printAttributeValue(path, options /* , print*/) {
   const { node } = path;
-  const value = unescapeQuoteEntities(node.value);
-  const quote = shouldUnquoteAttributeValue(node, options)
-    ? ""
-    : getPreferredQuote(value, '"');
+  let { value } = node;
 
-  return [
-    quote,
-    replaceEndOfLine(
-      quote === '"'
-        ? value.replaceAll('"', "&quot;")
-        : value.replaceAll("'", "&apos;"),
-    ),
-    quote,
-  ];
+  if (shouldUnquoteAttributeValue(node, options)) {
+    return value;
+  }
+
+  value = unescapeQuoteEntities(value);
+  const quote = getPreferredQuote(value, '"');
+  value =
+    quote === '"'
+      ? value.replaceAll('"', "&quot;")
+      : value.replaceAll("'", "&apos;");
+
+  return [quote, replaceEndOfLine(value), quote];
 }
 
 function printAttribute(path, options /* , print*/) {
