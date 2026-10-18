@@ -4,5 +4,8 @@ enum E // c
 namespace N // c
 { a; }
 
+declare module "M" // c
+{ a; }
+
 class C // c
 { A }
