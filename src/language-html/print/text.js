@@ -1,7 +1,3 @@
-/**
- * @import {Doc} from "../../document/index.js"
- */
-
 import {
   assertDocArray,
   breakParent,
@@ -22,6 +18,10 @@ import {
   printClosingTagSuffix,
   printOpeningTagPrefix,
 } from "./tag.js";
+
+/**
+@import {Doc} from "../../document/index.js"
+*/
 
 function printTextValue(node, options) {
   const { value } = node;
