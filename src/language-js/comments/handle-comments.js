@@ -176,7 +176,11 @@ function handleClosureTypeCastComments({
       enclosingNode?.type === "ConditionalExpression" &&
         isNullishCoalescing(followingNode)
         ? followingNode.left
-        : followingNode,
+        : followingNode.type === "MemberExpression" &&
+            followingNode.object?.type === "ParenthesizedExpression" &&
+            followingNode.object.expression?.type === "Identifier"
+          ? followingNode.object
+          : followingNode,
       comment,
     );
     return true;
