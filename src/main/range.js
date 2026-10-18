@@ -128,6 +128,7 @@ function isJsSourceElement(node, parent) {
   return (
     parent?.type !== "DeclareExportDeclaration" &&
     type !== "TypeParameterDeclaration" &&
+    type !== "TSTypeParameterDeclaration" &&
     !(
       type === "VariableDeclaration" && isForXStatementInitializer(node, parent)
     ) &&

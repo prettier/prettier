@@ -78,3 +78,122 @@ exports[`issue-7148.ts format 1`] = `
     :
     : ================================================================================
 `;
+
+exports[`type-parameters-class.ts format 1`] = `
+     : ====================================options=====================================
+     : parsers: ["typescript"]
+     : rangeEnd: 44
+     : rangeStart: 43
+     :                                                       printWidth: 80 (default) |
+     : =====================================input======================================
+   1 | const before = ugly(
+   2 |    code);
+>  3 | class   Box<T =string>{
+     |             ^
+   4 |   will=
+   5 | re(   format
+   6 | )
+   7 | }
+   8 | const after = ugly(
+   9 | code   );
+  10 |
+     : =====================================output=====================================
+     : const before = ugly(
+     :    code);
+     : class Box<T = string> {
+     :   will = re(format);
+     : }
+     : const after = ugly(
+     : code   );
+     :
+     : ================================================================================
+`;
+
+exports[`type-parameters-function.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 52
+    : rangeStart: 51
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before = ugly(
+  2 |    code);
+> 3 | function   identity<T>(value:T){
+    |                     ^
+  4 |  will.re(   format
+  5 | )
+  6 | }
+  7 | const after = ugly(
+  8 | code   );
+  9 |
+    : =====================================output=====================================
+    : const before = ugly(
+    :    code);
+    : function identity<T>(value: T) {
+    :   will.re(format);
+    : }
+    : const after = ugly(
+    : code   );
+    :
+    : ================================================================================
+`;
+
+exports[`type-parameters-interface.ts format 1`] = `
+     : ====================================options=====================================
+     : parsers: ["typescript"]
+     : rangeEnd: 54
+     : rangeStart: 53
+     :                                                       printWidth: 80 (default) |
+     : =====================================input======================================
+   1 | const before = ugly(
+   2 |    code);
+>  3 | export interface   BoxT{
+     |                       ^
+   4 |   will:
+   5 | re<   format
+   6 | >}
+   7 | const after = ugly(
+   8 | code   );
+   9 |
+  10 |
+     : =====================================output=====================================
+     : const before = ugly(
+     :    code);
+     : export interface BoxT {
+     :   will: re<format>;
+     : }
+     : const after = ugly(
+     : code   );
+     :
+     :
+     : ================================================================================
+`;
+
+exports[`type-parameters-type-alias.ts format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 64
+    : rangeStart: 59
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before = ugly(
+  2 |    code);
+> 3 | export type   SomeType<SOME_PARAM>={
+    |                             ^^^^^
+  4 | will:
+  5 | re<   format
+  6 | >};
+  7 | const after = ugly(
+  8 | code   );
+  9 |
+    : =====================================output=====================================
+    : const before = ugly(
+    :    code);
+    : export type SomeType<SOME_PARAM> = {
+    :   will: re<format>;
+    : };
+    : const after = ugly(
+    : code   );
+    :
+    : ================================================================================
+`;
