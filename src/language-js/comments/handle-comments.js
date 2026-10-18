@@ -29,6 +29,7 @@ import {
   isEnumDeclaration,
   isIntersectionType,
   isMemberExpression,
+  isModuleDeclaration,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
@@ -324,20 +325,12 @@ function handleClassComments({
   options,
 }) {
   if (followingNode && followingNode === enclosingNode?.body) {
-    if (
-      isClassLikeNode(enclosingNode) ||
-      enclosingNode.type === "TSModuleDeclaration" ||
-      enclosingNode.type === "DeclareNamespace" ||
-      enclosingNode.type === "DeclareModule"
-    ) {
+    if (isClassLikeNode(enclosingNode) || isModuleDeclaration(enclosingNode)) {
       addBlockStatementFirstComment(enclosingNode.body, comment);
       return true;
     }
 
-    if (
-      isEnumDeclaration(enclosingNode) ||
-      enclosingNode.type === "DeclareEnum"
-    ) {
+    if (isEnumDeclaration(enclosingNode)) {
       addEnumBodyFirstComment(enclosingNode.body, comment);
       return true;
     }
