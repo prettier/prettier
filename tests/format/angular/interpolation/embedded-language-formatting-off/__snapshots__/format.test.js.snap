@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`angularjs-one-time-binding.html - {\"embeddedLanguageFormatting\":\"off\"} format 1`] = `
+exports[`angularjs-one-time-binding.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["angular"]
@@ -19,7 +19,7 @@ parsers: ["angular"]
 ================================================================================
 `;
 
-exports[`repeated-blank-lines.html - {\"embeddedLanguageFormatting\":\"off\"} format 1`] = `
+exports[`repeated-blank-lines.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["angular"]
