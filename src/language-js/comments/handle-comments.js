@@ -334,7 +334,10 @@ function handleClassComments({
       return true;
     }
 
-    if (isEnumDeclaration(enclosingNode)) {
+    if (
+      isEnumDeclaration(enclosingNode) ||
+      enclosingNode.type === "DeclareEnum"
+    ) {
       addEnumBodyFirstComment(enclosingNode.body, comment);
       return true;
     }

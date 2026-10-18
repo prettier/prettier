@@ -1,6 +1,9 @@
 enum E // c
 { A }
 
+declare enum E2 // c
+{ A }
+
 namespace N // c
 { a; }
 
