@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`angularjs-one-time-binding.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+({{:: aaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbb.cccccccccccccccccccc.dddddddddddddddddddd }})
+</div>
+
+=====================================output=====================================
+<div>
+  ({{:: aaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbb.cccccccccccccccccccc.dddddddddddddddddddd
+  }})
+</div>
+
+================================================================================
+`;
+
+exports[`repeated-blank-lines.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(there is no {{\`\${activityType === '' ? 'activity' : ''}\${activityType === '' && costCenter === '' ? ' or ' : ''}\${costCenter === '' ? 'cost center' : ''}\`}})
+
+=====================================output=====================================
+(there is no
+{{\`\${activityType === '' ? 'activity' : ''}\${activityType === '' && costCenter === '' ? ' or ' : ''}\${costCenter === '' ? 'cost center' : ''}\`
+}})
+
+================================================================================
+`;
+
 exports[`siblings.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
