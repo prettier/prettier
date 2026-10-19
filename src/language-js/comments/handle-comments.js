@@ -45,7 +45,7 @@ import {
 } from "./attach/union-type.js";
 import {
   addBlockFirstComment,
-  addCommentToOptionalBlockStatement,
+  addCommentToPossibleBlockStatement,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -211,11 +211,11 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "TryStatement") {
-    return addCommentToOptionalBlockStatement(followingNode.finalizer, comment);
+    return addCommentToPossibleBlockStatement(followingNode.finalizer, comment);
   }
 
   if (followingNode.type === "CatchClause") {
-    return addCommentToOptionalBlockStatement(followingNode.body, comment);
+    return addCommentToPossibleBlockStatement(followingNode.body, comment);
   }
 
   return false;
@@ -1199,7 +1199,7 @@ function handleArrowExpressionComments({
   );
 
   if (!isBeforeArrow) {
-    return addCommentToOptionalBlockStatement(followingNode, comment);
+    return addCommentToPossibleBlockStatement(followingNode, comment);
   }
 
   return false;

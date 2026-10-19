@@ -35,7 +35,7 @@ const isSingleLineComment = (comment, text) =>
 @param {Node} node
 @returns {true}
 */
-function addCommentToOptionalBlockStatement(node, comment) {
+function addCommentToPossibleBlockStatement(node, comment) {
   if (node.type === "BlockStatement") {
     return addBlockFirstComment(node, comment);
   }
@@ -86,7 +86,7 @@ function addBlockFirstComment(node, comment) {
 
 export {
   addBlockFirstComment,
-  addCommentToOptionalBlockStatement,
+  addCommentToPossibleBlockStatement,
   isSingleLineBlockComment,
   isSingleLineComment,
 };
