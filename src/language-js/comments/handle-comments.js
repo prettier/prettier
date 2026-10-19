@@ -208,8 +208,7 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    return addBlockStatementFirstComment(followingNode, comment);
   }
 
   if (followingNode.type === "TryStatement") {
@@ -326,8 +325,7 @@ function handleClassComments({
 }) {
   if (followingNode && followingNode === enclosingNode?.body) {
     if (isClassLikeNode(enclosingNode) || isModuleDeclaration(enclosingNode)) {
-      addBlockStatementFirstComment(enclosingNode.body, comment);
-      return true;
+      return addBlockStatementFirstComment(enclosingNode.body, comment);
     }
 
     if (isEnumDeclaration(enclosingNode)) {
@@ -640,8 +638,7 @@ function handleLastFunctionParameterComments({
       const characterAfterCommentIndex =
         getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
       if (characterAfterCommentIndex === locStart(followingNode)) {
-        addBlockStatementFirstComment(followingNode, comment);
-        return true;
+        return addBlockStatementFirstComment(followingNode, comment);
       }
     }
   }

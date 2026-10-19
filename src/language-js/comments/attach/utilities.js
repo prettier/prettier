@@ -43,12 +43,11 @@ function addBlockOrNotComment(node, comment) {
 }
 
 /**
- * @param {Node} node
- * @returns {void}
- */
+@param {NodeMap["BlockStatement"]} node
+@returns {true}
+*/
 function addBlockStatementFirstComment(node, comment) {
-  // @ts-expect-error
-  const firstNonEmptyNode = (node.body || node.properties).find(
+  const firstNonEmptyNode = node.body.find(
     ({ type }) => type !== "EmptyStatement",
   );
   if (firstNonEmptyNode) {
@@ -56,6 +55,8 @@ function addBlockStatementFirstComment(node, comment) {
   } else {
     addDanglingComment(node, comment);
   }
+
+  return true;
 }
 
 /**
