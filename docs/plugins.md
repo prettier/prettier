@@ -514,9 +514,8 @@ import * as prettier from "prettier";
 
 function ownLine(comment, text, options, ast, isLastComment) {
   const { precedingNode } = comment;
-  if (precedingNode && precedingNode.type === "punctuation") {
-    prettier.util.addTrailingComment(precedingNode, comment);
-    return true;
+  if (precedingNode?.type === "punctuation") {
+    return prettier.util.addTrailingComment(precedingNode, comment);
   }
   return false;
 }
