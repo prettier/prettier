@@ -60,9 +60,7 @@ export default {
             // Remove indention of the `ReturnStatement`
             const start = expressionStatement.range[1];
             const end = returnStatement.range[0];
-            const text = context.sourceCode.text;
-            const textBetween = text.slice(start, end);
-            if (!textBetween.trim()) {
+            if (!context.sourceCode.text.slice(start, end).trim()) {
               yield fixer.removeRange([start, end]);
             }
           },
