@@ -20,11 +20,10 @@ function shouldAttachToUnionTypeFirstElement(node, { comment, text, options }) {
 }
 
 function addLeadingCommentToPossibleUnionType(node, context) {
-  addLeadingComment(
+  return addLeadingComment(
     shouldAttachToUnionTypeFirstElement(node, context) ? node.types[0] : node,
     context.comment,
   );
-  return true;
 }
 
 export {

@@ -40,8 +40,7 @@ function addCommentToPossibleBlockStatement(node, comment) {
     return addBlockFirstComment(node, comment);
   }
 
-  addLeadingComment(node, comment);
-  return true;
+  return addLeadingComment(node, comment);
 }
 
 /**
