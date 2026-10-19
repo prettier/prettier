@@ -50,23 +50,21 @@ export default {
             // Remove `return true;`
             yield fixer.remove(returnStatement);
 
-            // Remove indention of the `ReturnStatement`
-            const start = returnStatement.range[0];
-            const text = context.sourceCode.text;
-            const lineBreakIndex = text.lastIndexOf("\n", start);
-            if (lineBreakIndex !== -1) {
-              const textBefore = text.slice(lineBreakIndex, start);
-              if (!textBefore.trim()) {
-                yield fixer.removeRange([lineBreakIndex, start]);
-              }
-            }
-
             const expressionStatement = getPreviousNode(
               returnStatement,
               context,
             );
             const callExpression = expressionStatement.expression;
             yield fixer.insertTextBefore(callExpression, "return ");
+
+            // Remove indention of the `ReturnStatement`
+            const start = expressionStatement.range[1];
+            const end = returnStatement.range[0];
+            const text = context.sourceCode.text;
+            const textBetween = text.slice(start, end);
+            if (!textBetween.trim()) {
+              yield fixer.removeRange([start, end]);
+            }
           },
         });
       },
