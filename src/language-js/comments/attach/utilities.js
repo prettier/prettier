@@ -8,6 +8,7 @@ import {
   isBlockComment,
   isLineComment,
 } from "../../utilities/comment-types.js";
+import { isEnumBody } from "../../utilities/node-types.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../../types/estree.js";
@@ -36,40 +37,55 @@ const isSingleLineComment = (comment, text) =>
  */
 function addBlockOrNotComment(node, comment) {
   if (node.type === "BlockStatement") {
-    addBlockStatementFirstComment(node, comment);
+    addBlockFirstComment(node, comment);
   } else {
     addLeadingComment(node, comment);
   }
 }
 
 /**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockStatementFirstComment(node, comment) {
-  // @ts-expect-error
-  const firstNonEmptyNode = (node.body || node.properties).find(
-    ({ type }) => type !== "EmptyStatement",
-  );
-  if (firstNonEmptyNode) {
-    addLeadingComment(firstNonEmptyNode, comment);
-  } else {
-    addDanglingComment(node, comment);
-  }
-}
+@param {
+  | NodeMap["BlockStatement"]
+  | NodeMap["ClassBody"]
+  | NodeMap["TSInterfaceBody"]
+  | NodeMap["TSModuleBlock"]
+  | NodeMap["ObjectTypeAnnotation"]
+  | NodeMap["TSEnumBody"]
+  | NodeMap["EnumBody"]
+  | NodeMap["EnumBooleanBody"]
+  | NodeMap["EnumNumberBody"]
+  | NodeMap["EnumBigIntBody"]
+  | NodeMap["EnumStringBody"]
+  | NodeMap["EnumSymbolBody"]
+} node
+@returns {true}
+*/
+function addBlockFirstComment(node, comment) {
+  let child;
 
-function addEnumBodyFirstComment(node, comment) {
-  if (node.members.length > 0) {
-    addLeadingComment(node.members[0], comment);
+  // eslint-disable-next-line unicorn/prefer-switch
+  if (node.type === "BlockStatement" || node.type === "TSModuleBlock") {
+    child = node.body.find(({ type }) => type !== "EmptyStatement");
+  } else if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
+    child = node.body[0];
+  } else if (node.type === "ObjectTypeAnnotation") {
+    child = node.properties[0];
+  } else if (isEnumBody(node)) {
+    child = node.members[0];
+  }
+
+  if (child) {
+    addLeadingComment(child, comment);
   } else {
     addDanglingComment(node, comment);
   }
+
+  return true;
 }
 
 export {
+  addBlockFirstComment,
   addBlockOrNotComment,
-  addBlockStatementFirstComment,
-  addEnumBodyFirstComment,
   isSingleLineBlockComment,
   isSingleLineComment,
 };

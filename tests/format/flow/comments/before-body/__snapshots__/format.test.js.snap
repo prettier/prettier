@@ -12,10 +12,10 @@ declare enum E2 // c
 { A }
 
 namespace N // c
-{ a; }
+{ ;a; }
 
 declare module "M" // c
-{ a; }
+{ ;a; }
 
 class C // c
 { A }
@@ -55,7 +55,7 @@ exports[`before-body.js.flow format[hermes] 1`] = `
    6 |
 >  7 | namespace N // c
      |           ^
-   8 | { a; }
+   8 | { ;a; }
    9 |
   10 | declare module "M" // c
 Cause: ';' expected (7:10)

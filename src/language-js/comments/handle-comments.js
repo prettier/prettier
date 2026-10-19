@@ -44,9 +44,8 @@ import {
   shouldAttachToUnionTypeFirstElement,
 } from "./attach/union-type.js";
 import {
+  addBlockFirstComment,
   addBlockOrNotComment,
-  addBlockStatementFirstComment,
-  addEnumBodyFirstComment,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -208,8 +207,7 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    return addBlockFirstComment(followingNode, comment);
   }
 
   if (followingNode.type === "TryStatement") {
@@ -324,16 +322,14 @@ function handleClassComments({
   followingNode,
   options,
 }) {
-  if (followingNode && followingNode === enclosingNode?.body) {
-    if (isClassLikeNode(enclosingNode) || isModuleDeclaration(enclosingNode)) {
-      addBlockStatementFirstComment(enclosingNode.body, comment);
-      return true;
-    }
-
-    if (isEnumDeclaration(enclosingNode)) {
-      addEnumBodyFirstComment(enclosingNode.body, comment);
-      return true;
-    }
+  if (
+    followingNode &&
+    (isClassLikeNode(enclosingNode) ||
+      isModuleDeclaration(enclosingNode) ||
+      isEnumDeclaration(enclosingNode)) &&
+    followingNode === enclosingNode?.body
+  ) {
+    return addBlockFirstComment(enclosingNode.body, comment);
   }
 
   if (isClassLikeNode(enclosingNode)) {
@@ -641,8 +637,7 @@ function handleLastFunctionParameterComments({
       const characterAfterCommentIndex =
         getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
       if (characterAfterCommentIndex === locStart(followingNode)) {
-        addBlockStatementFirstComment(followingNode, comment);
-        return true;
+        return addBlockFirstComment(followingNode, comment);
       }
     }
   }
@@ -935,7 +930,7 @@ function handleSwitchDefaultCaseComments({
   }
 
   if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
-    addBlockStatementFirstComment(followingNode, comment);
+    addBlockFirstComment(followingNode, comment);
   } else {
     addDanglingComment(enclosingNode, comment);
   }
