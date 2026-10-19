@@ -443,6 +443,65 @@ class A {
 ================================================================================
 `;
 
+exports[`20169.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  constructor(
+    private a = (
+      // c
+      1
+    ),
+  ) {}
+}
+
+class B {
+  constructor(
+    public readonly value = (
+      // note
+      2
+    ),
+  ) {}
+}
+
+class C {
+  constructor(
+    private callback = (value = (
+      // Keep this with the nested default, not the parameter property.
+      3
+    )) => value,
+  ) {}
+}
+
+=====================================output=====================================
+class A {
+  constructor(
+    // c
+    private a = 1,
+  ) {}
+}
+
+class B {
+  constructor(
+    // note
+    public readonly value = 2,
+  ) {}
+}
+
+class C {
+  constructor(
+    private callback = (
+      // Keep this with the nested default, not the parameter property.
+      value = 3,
+    ) => value,
+  ) {}
+}
+
+================================================================================
+`;
+
 exports[`abstract-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
