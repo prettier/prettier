@@ -15,6 +15,9 @@ function describeNodeForDebugging(node) {
   return nodeType + (nodeName ? " " + nodeName : "");
 }
 
+/**
+@returns {true}
+*/
 function addCommentHelper(node, comment) {
   const comments = (node.comments ??= []);
   comments.push(comment);

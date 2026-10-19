@@ -37,13 +37,11 @@ function handleWhileLikeComments({
     locEnd(comment),
   );
   if (nextCharacter === ")") {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return addTrailingComment(precedingNode, comment);
   }
 
   if (enclosingNode.body === followingNode) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return addLeadingComment(followingNode, comment);
   }
 
   return false;
