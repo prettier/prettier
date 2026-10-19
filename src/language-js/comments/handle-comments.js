@@ -44,9 +44,8 @@ import {
   shouldAttachToUnionTypeFirstElement,
 } from "./attach/union-type.js";
 import {
+  addBlockFirstComment,
   addBlockOrNotComment,
-  addBlockStatementFirstComment,
-  addEnumBodyFirstComment,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -208,7 +207,7 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "BlockStatement") {
-    return addBlockStatementFirstComment(followingNode, comment);
+    return addBlockFirstComment(followingNode, comment);
   }
 
   if (followingNode.type === "TryStatement") {
@@ -323,14 +322,14 @@ function handleClassComments({
   followingNode,
   options,
 }) {
-  if (followingNode && followingNode === enclosingNode?.body) {
-    if (isClassLikeNode(enclosingNode) || isModuleDeclaration(enclosingNode)) {
-      return addBlockStatementFirstComment(enclosingNode.body, comment);
-    }
-
-    if (isEnumDeclaration(enclosingNode)) {
-      return addEnumBodyFirstComment(enclosingNode.body, comment);
-    }
+  if (
+    followingNode &&
+    (isClassLikeNode(enclosingNode) ||
+      isModuleDeclaration(enclosingNode) ||
+      isEnumDeclaration(enclosingNode)) &&
+    followingNode === enclosingNode?.body
+  ) {
+    return addBlockFirstComment(enclosingNode.body, comment);
   }
 
   if (isClassLikeNode(enclosingNode)) {
@@ -638,7 +637,7 @@ function handleLastFunctionParameterComments({
       const characterAfterCommentIndex =
         getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
       if (characterAfterCommentIndex === locStart(followingNode)) {
-        return addBlockStatementFirstComment(followingNode, comment);
+        return addBlockFirstComment(followingNode, comment);
       }
     }
   }
@@ -931,7 +930,7 @@ function handleSwitchDefaultCaseComments({
   }
 
   if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
-    addBlockStatementFirstComment(followingNode, comment);
+    addBlockFirstComment(followingNode, comment);
   } else {
     addDanglingComment(enclosingNode, comment);
   }

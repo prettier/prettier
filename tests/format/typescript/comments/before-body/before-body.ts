@@ -2,10 +2,10 @@ enum E // c
 { A }
 
 namespace N // c
-{ a; }
+{ ;a; }
 
 declare module "M" // c
-{ a; }
+{ ;a; }
 
 class C // c
 { A }
