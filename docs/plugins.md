@@ -531,6 +531,13 @@ function ownLine(comment, text, options, ast, isLastComment) {
 + return true;
 ```
 
+Or
+
+```diff
+- return prettier.util.addTrailingComment(precedingNode, comment);
++ return prettier.util.addTrailingComment(precedingNode, comment) ?? true;
+```
+
 :::
 
 Nodes with comments are expected to have a `comments` property containing an array of comments. Each comment is expected to have the following properties: `leading`, `trailing`, `printed`.
