@@ -523,7 +523,7 @@ function ownLine(comment, text, options, ast, isLastComment) {
 
 :::warning
 
-`prettier.util.add{Trailing,Leading,Dangling}Comment()` returns `void` until v3.10, if plugin want compatible with older version, please `return true` explicitly after the function call.
+`prettier.util.add{Trailing,Leading,Dangling}Comment()` returns `void` until v3.10; if older versions of Prettier are supported, please `return true` explicitly after the function call.
 
 ```diff
 - return prettier.util.addTrailingComment(precedingNode, comment);
