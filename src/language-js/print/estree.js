@@ -10,6 +10,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
+import { getLeftSide, hasNakedLeftSide } from "../utilities/left-side.js";
 import {
   isArrayExpression,
   isLiteral,
@@ -231,7 +232,10 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (
+        hasComment(node.argument) ||
+        leftSideHasLeadingComment(node.argument)
+      ) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
@@ -338,6 +342,31 @@ function printEstree(path, options, print, args) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
+}
+
+// A comment before the leftmost node is printed before the whole argument,
+// e.g. `delete (/* comment */ a).b` prints `delete /* comment */ a.b`,
+// so it is attached to the argument when the output is parsed again.
+function leftSideHasLeadingComment(node) {
+  if (!hasNakedLeftSide(node)) {
+    return false;
+  }
+
+  let leftMost = node;
+  while ((leftMost = getLeftSide(leftMost))) {
+    // IIFEs are always already parenthesized
+    if (
+      leftMost.type === "FunctionExpression" ||
+      leftMost.type === "ArrowFunctionExpression"
+    ) {
+      return false;
+    }
+    if (hasComment(leftMost, CommentCheckFlags.Leading)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export { printEstree };
