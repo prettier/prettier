@@ -262,6 +262,25 @@ const foo5 = /** @type {string} */ (value);
 ================================================================================
 `;
 
+exports[`delete-member.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function deleteMember(window) {
+  delete (/** @type {any} */ window).__pwned;
+  delete (/** @type {any} */ window)?.__pwned;
+}
+
+=====================================output=====================================
+function deleteMember(window) {
+  delete /** @type {any} */ (window).__pwned;
+  delete /** @type {any} */ (window)?.__pwned;
+}
+
+================================================================================
+`;
+
 exports[`extra-spaces-and-asterisks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

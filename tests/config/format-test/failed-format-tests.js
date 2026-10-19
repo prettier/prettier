@@ -33,7 +33,15 @@ const unstableTests = new Map(
   }),
 );
 
-const unstableAstTests = new Map();
+const unstableAstTests = new Map([
+  [
+    path.join(
+      FORMAT_TEST_DIRECTORY,
+      "js/comments-closure-typecast/delete-member.js",
+    ),
+    () => true,
+  ],
+]);
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
 const commentClosureTypecaseTests = [

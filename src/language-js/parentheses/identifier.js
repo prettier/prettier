@@ -1,4 +1,9 @@
-import { isBinaryCastExpression } from "../utilities/node-types.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
+import {
+  isBinaryCastExpression,
+  isMemberExpression,
+} from "../utilities/node-types.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
 const namesNeedParenthesesAsExpressionOfBinaryCastExpression = new Set([
@@ -14,7 +19,7 @@ const namesNeedParenthesesAsExpressionOfBinaryCastExpression = new Set([
 ]);
 
 function shouldAddParenthesesToIdentifier(path) {
-  const { node } = path;
+  const { node, key, parent } = path;
 
   // Identifiers never need parentheses.
   if (node.type !== "Identifier") {
@@ -33,7 +38,19 @@ function shouldAddParenthesesToIdentifier(path) {
     return true;
   }
 
-  const { key, parent } = path;
+  // Preserve parentheses around the expression in a member access when a
+  // Closure-style type cast comment applies to it. Without the parentheses,
+  // the comment moves from the object to the whole member expression on the
+  // next formatting pass.
+  if (
+    key === "object" &&
+    node.extra?.parenthesized &&
+    isMemberExpression(parent) &&
+    hasComment(node, CommentCheckFlags.Leading, isTypeCastComment)
+  ) {
+    return true;
+  }
+
   // `for ((async) of []);` and `for ((let) of []);`
   if (
     key === "left" &&

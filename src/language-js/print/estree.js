@@ -10,9 +10,11 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isArrayExpression,
   isLiteral,
+  isMemberExpression,
   isObjectExpression,
 } from "../utilities/node-types.js";
 import { printArray } from "./array.js";
@@ -231,7 +233,15 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      const hasTypeCastCommentOnParenthesizedMember =
+        isMemberExpression(node.argument) &&
+        node.argument.object.type === "ParenthesizedExpression" &&
+        hasComment(node.argument, CommentCheckFlags.Leading, isTypeCastComment);
+
+      if (
+        hasComment(node.argument) &&
+        !hasTypeCastCommentOnParenthesizedMember
+      ) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
