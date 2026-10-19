@@ -20,12 +20,13 @@ function addCommentHelper(node, comment) {
   comments.push(comment);
   comment.printed = false;
   comment.nodeDescription = describeNodeForDebugging(node);
+  return true;
 }
 
 function addLeadingComment(node, comment) {
   comment.leading = true;
   comment.trailing = false;
-  addCommentHelper(node, comment);
+  return addCommentHelper(node, comment);
 }
 
 function addDanglingComment(node, comment, marker) {
@@ -34,13 +35,13 @@ function addDanglingComment(node, comment, marker) {
   if (marker) {
     comment.marker = marker;
   }
-  addCommentHelper(node, comment);
+  return addCommentHelper(node, comment);
 }
 
 function addTrailingComment(node, comment) {
   comment.leading = false;
   comment.trailing = true;
-  addCommentHelper(node, comment);
+  return addCommentHelper(node, comment);
 }
 
 export { addDanglingComment, addLeadingComment, addTrailingComment };
