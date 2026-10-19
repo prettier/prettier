@@ -26,8 +26,10 @@ import {
   isCallLikeExpression,
   isCallOrNewExpression,
   isConditionalType,
+  isEnumDeclaration,
   isIntersectionType,
   isMemberExpression,
+  isModuleDeclaration,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
@@ -44,6 +46,7 @@ import {
 import {
   addBlockOrNotComment,
   addBlockStatementFirstComment,
+  addEnumBodyFirstComment,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -321,16 +324,23 @@ function handleClassComments({
   followingNode,
   options,
 }) {
+  if (followingNode && followingNode === enclosingNode?.body) {
+    if (isClassLikeNode(enclosingNode) || isModuleDeclaration(enclosingNode)) {
+      addBlockStatementFirstComment(enclosingNode.body, comment);
+      return true;
+    }
+
+    if (isEnumDeclaration(enclosingNode)) {
+      addEnumBodyFirstComment(enclosingNode.body, comment);
+      return true;
+    }
+  }
+
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
     if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {
       addTrailingComment(decorators.at(-1), comment);
-      return true;
-    }
-
-    if (enclosingNode.body && followingNode === enclosingNode.body) {
-      addBlockStatementFirstComment(enclosingNode.body, comment);
       return true;
     }
 
