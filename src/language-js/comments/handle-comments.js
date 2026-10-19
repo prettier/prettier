@@ -331,8 +331,7 @@ function handleClassComments({
     }
 
     if (isEnumDeclaration(enclosingNode)) {
-      addEnumBodyFirstComment(enclosingNode.body, comment);
-      return true;
+      return addEnumBodyFirstComment(enclosingNode.body, comment);
     }
   }
 

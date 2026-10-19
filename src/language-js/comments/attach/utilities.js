@@ -58,12 +58,27 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+/**
+@param {
+  | NodeMap["TSEnumBody"]
+  | NodeMap["EnumBody"]
+  | NodeMap["EnumBooleanBody"]
+  | NodeMap["EnumNumberBody"]
+  | NodeMap["EnumBigIntBody"]
+  | NodeMap["EnumStringBody"]
+  | NodeMap["EnumSymbolBody"]
+} node
+@param {Comment} comment
+@returns {true}
+*/
 function addEnumBodyFirstComment(node, comment) {
   if (node.members.length > 0) {
     addLeadingComment(node.members[0], comment);
   } else {
     addDanglingComment(node, comment);
   }
+
+  return true;
 }
 
 export {
