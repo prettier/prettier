@@ -521,6 +521,18 @@ function ownLine(comment, text, options, ast, isLastComment) {
 }
 ```
 
+:::warning
+
+`prettier.util.add{Trailing,Leading,Dangling}Comment()` returns `void` until v3.10, if plugin want compatible with older version, please `return true` explicitly after the function call.
+
+```diff
+- return prettier.util.addTrailingComment(precedingNode, comment);
++ prettier.util.addTrailingComment(precedingNode, comment);
++ return true;
+```
+
+:::
+
 Nodes with comments are expected to have a `comments` property containing an array of comments. Each comment is expected to have the following properties: `leading`, `trailing`, `printed`.
 
 <!-- TODO: add a note that this might change in the future -->
