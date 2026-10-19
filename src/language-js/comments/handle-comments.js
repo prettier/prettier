@@ -45,7 +45,7 @@ import {
 } from "./attach/union-type.js";
 import {
   addBlockFirstComment,
-  addBlockOrNotComment,
+  addCommentToPossibleBlockStatement,
   isSingleLineComment,
 } from "./attach/utilities.js";
 
@@ -211,13 +211,11 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "TryStatement") {
-    addBlockOrNotComment(followingNode.finalizer, comment);
-    return true;
+    return addCommentToPossibleBlockStatement(followingNode.finalizer, comment);
   }
 
   if (followingNode.type === "CatchClause") {
-    addBlockOrNotComment(followingNode.body, comment);
-    return true;
+    return addCommentToPossibleBlockStatement(followingNode.body, comment);
   }
 
   return false;
@@ -327,7 +325,7 @@ function handleClassComments({
     (isClassLikeNode(enclosingNode) ||
       isModuleDeclaration(enclosingNode) ||
       isEnumDeclaration(enclosingNode)) &&
-    followingNode === enclosingNode?.body
+    followingNode === enclosingNode.body
   ) {
     return addBlockFirstComment(enclosingNode.body, comment);
   }
@@ -930,11 +928,10 @@ function handleSwitchDefaultCaseComments({
   }
 
   if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
-    addBlockFirstComment(followingNode, comment);
-  } else {
-    addDanglingComment(enclosingNode, comment);
+    return addBlockFirstComment(followingNode, comment);
   }
 
+  addDanglingComment(enclosingNode, comment);
   return true;
 }
 
@@ -1202,8 +1199,7 @@ function handleArrowExpressionComments({
   );
 
   if (!isBeforeArrow) {
-    addBlockOrNotComment(followingNode, comment);
-    return true;
+    return addCommentToPossibleBlockStatement(followingNode, comment);
   }
 
   return false;
