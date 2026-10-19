@@ -32,15 +32,16 @@ const isSingleLineComment = (comment, text) =>
   isLineComment(comment) || isSingleLineBlockComment(comment, text);
 
 /**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockOrNotComment(node, comment) {
+@param {Node} node
+@returns {true}
+*/
+function addCommentToOptionalBlockStatement(node, comment) {
   if (node.type === "BlockStatement") {
-    addBlockFirstComment(node, comment);
-  } else {
-    addLeadingComment(node, comment);
+    return addBlockFirstComment(node, comment);
   }
+
+  addLeadingComment(node, comment);
+  return true;
 }
 
 /**
@@ -85,7 +86,7 @@ function addBlockFirstComment(node, comment) {
 
 export {
   addBlockFirstComment,
-  addBlockOrNotComment,
+  addCommentToOptionalBlockStatement,
   isSingleLineBlockComment,
   isSingleLineComment,
 };
