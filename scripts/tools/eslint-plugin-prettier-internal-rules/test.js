@@ -1050,12 +1050,9 @@ test("prefer-return-from-comment-attach-helpers", {
     {
       code: outdent`
         addTrailingComment();
-        return true;
+        \t return true;
       `,
-      output: outdent`
-        return addTrailingComment();
-
-      `,
+      output: "return addTrailingComment();",
       errors: 1,
     },
   ].map((testCase) => ({

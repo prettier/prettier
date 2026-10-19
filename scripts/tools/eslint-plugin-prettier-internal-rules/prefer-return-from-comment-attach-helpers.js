@@ -42,14 +42,30 @@ export default {
   },
   create(context) {
     return {
-      [selector](node) {
+      [selector](returnStatement) {
         context.report({
-          node,
+          node: returnStatement,
           messageId,
           *fix(fixer) {
-            const expressionStatement = getPreviousNode(node, context);
+            // Remove `return true;`
+            yield fixer.remove(returnStatement);
+
+            // Remove indention of the `ReturnStatement`
+            const start = returnStatement.range[0];
+            const text = context.sourceCode.text;
+            const lineBreakIndex = text.lastIndexOf("\n", start);
+            if (lineBreakIndex !== -1) {
+              const textBefore = text.slice(lineBreakIndex, start);
+              if (!textBefore.trim()) {
+                yield fixer.removeRange([lineBreakIndex, start]);
+              }
+            }
+
+            const expressionStatement = getPreviousNode(
+              returnStatement,
+              context,
+            );
             const callExpression = expressionStatement.expression;
-            yield fixer.remove(node);
             yield fixer.insertTextBefore(callExpression, "return ");
           },
         });
