@@ -439,14 +439,49 @@ function parseCss(text, options = {}) {
   return parseWithParser(postcssParse.default, text, options);
 }
 
-function parseLess(text, options = {}) {
-  return parseWithParser(
-    // Workaround for https://github.com/shellscape/postcss-less/issues/145
-    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLess.parse(replaceQuotesInInlineComments(text)),
-    text,
-    options,
+// postcss-less mistakes the `{` of an interpolation in an at-rule prelude for
+// the start of the block: `@media @{mq} { ... }` throws "Unknown word mq".
+// Swap each `@{name}` in the prelude for same-length placeholder characters
+// before parsing (so locations stay valid) and put it back afterwards.
+const LESS_PRELUDE_INTERPOLATION_RE =
+  /@(?:media|supports|container|document)\b(?:@\{[\w-]*\}|[^\n;{}])*/giu;
+const LESS_INTERPOLATION_RE = /@\{([\w-]*)\}/gu;
+const LESS_INTERPOLATION_PLACEHOLDER_RE = /\uE000\uE001([\w-]*)\uE002/gu;
+
+const maskLessPreludeInterpolation = (text) =>
+  text.replaceAll(LESS_PRELUDE_INTERPOLATION_RE, (prelude) =>
+    prelude.replaceAll(LESS_INTERPOLATION_RE, "\uE000\uE001$1\uE002"),
   );
+
+const unmaskLessInterpolation = (value) =>
+  typeof value === "string"
+    ? value.replaceAll(LESS_INTERPOLATION_PLACEHOLDER_RE, "@{$1}")
+    : value;
+
+function parseLessText(text) {
+  // Workaround for https://github.com/shellscape/postcss-less/issues/145
+  // See comments for `replaceQuotesInInlineComments` in `loc.js`.
+  const root = postcssLess.parse(
+    maskLessPreludeInterpolation(replaceQuotesInInlineComments(text)),
+  );
+
+  root.walkAtRules((atRule) => {
+    atRule.params = unmaskLessInterpolation(atRule.params);
+    if (atRule.raws.params) {
+      atRule.raws.params.raw &&= unmaskLessInterpolation(
+        atRule.raws.params.raw,
+      );
+    }
+    if (atRule.raws.afterName) {
+      atRule.raws.afterName = unmaskLessInterpolation(atRule.raws.afterName);
+    }
+  });
+
+  return root;
+}
+
+function parseLess(text, options = {}) {
+  return parseWithParser(parseLessText, text, options);
 }
 
 function parseScss(text, options = {}) {

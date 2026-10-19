@@ -195,7 +195,6 @@
     "yaml-test-suite": "0.1.0"
   },
   "resolutions": {
-    "postcss-less@npm:6.0.0": "patch:postcss-less@npm%3A6.0.0#~/.yarn/patches/postcss-less-npm-6.0.0-4aa4c2f75b.patch",
     "trim": "1.0.1"
   },
   "scripts": {
