@@ -19,6 +19,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getNthListSiblingIndex,
+  getUnorderedListMarker,
   isAutolink,
   isPrettierIgnore,
   splitText,
@@ -241,8 +242,19 @@ function printMdast(path, options, print) {
 
         return "---";
       }
+      // Use the character that the list marker doesn't use
+      const list = ancestors[counter];
+      if (!list.ordered) {
+        return getUnorderedListMarker(
+          list,
+          ancestors.slice(counter + 1),
+          options,
+        ) === "-"
+          ? "***"
+          : "---";
+      }
       const nthSiblingIndex = getNthListSiblingIndex(
-        ancestors[counter],
+        list,
         ancestors[counter + 1],
       );
       return nthSiblingIndex % 2 === 0 ? "***" : "---";
