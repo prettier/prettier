@@ -18,38 +18,23 @@ import { locEnd, locStart } from "../location/index.js";
 @returns {string}
 */
 function stripCommentsFromText(text, comments) {
-  const parts = [];
+  if (comments.length === 0) {
+    return text;
+  }
+
+  let result = "";
   let previousEnd = 0;
 
   for (const comment of comments) {
     const start = locStart(comment);
     const end = locEnd(comment);
-
-    if (start < previousEnd) {
-      return stripUnsortedCommentsFromText(text, comments);
-    }
-
-    parts.push(
-      text.slice(previousEnd, start),
-      replaceNonLineBreaksWithSpace(text.slice(start, end)),
-    );
+    result +=
+      text.slice(previousEnd, start) +
+      replaceNonLineBreaksWithSpace(text.slice(start, end));
     previousEnd = end;
   }
 
-  parts.push(text.slice(previousEnd));
-  return parts.join("");
-}
-
-function stripUnsortedCommentsFromText(text, comments) {
-  for (const comment of comments) {
-    const start = locStart(comment);
-    const end = locEnd(comment);
-    text =
-      text.slice(0, start) +
-      replaceNonLineBreaksWithSpace(text.slice(start, end)) +
-      text.slice(end);
-  }
-  return text;
+  return result + text.slice(previousEnd);
 }
 
 /** @type {WeakMap<Comment[], string>} */
