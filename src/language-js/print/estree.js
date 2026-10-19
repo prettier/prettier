@@ -7,9 +7,14 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
+import {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+} from "../utilities/left-side.js";
 import {
   isArrayExpression,
   isLiteral,
@@ -231,7 +236,13 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (
+        hasComment(node.argument) ||
+        path.call(
+          () => hasLeadingCommentWithoutParentheses(path, options),
+          "argument",
+        )
+      ) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
@@ -338,6 +349,23 @@ function printEstree(path, options, print, args) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
+}
+
+// A bare left-side comment can attach to the whole operand after redundant
+// parentheses are removed. Apply the same wrapping on the first format.
+function hasLeadingCommentWithoutParentheses(path, options) {
+  if (hasComment(path.node, CommentCheckFlags.Leading)) {
+    return true;
+  }
+
+  return (
+    !needsParentheses(path, options) &&
+    hasNakedLeftSide(path.node) &&
+    path.call(
+      () => hasLeadingCommentWithoutParentheses(path, options),
+      ...getLeftSidePathName(path.node),
+    )
+  );
 }
 
 export { printEstree };
