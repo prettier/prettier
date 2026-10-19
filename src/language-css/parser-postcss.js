@@ -472,9 +472,6 @@ function parseLessText(text) {
         atRule.raws.params.raw,
       );
     }
-    if (atRule.raws.afterName) {
-      atRule.raws.afterName = unmaskLessInterpolation(atRule.raws.afterName);
-    }
   });
 
   return root;
