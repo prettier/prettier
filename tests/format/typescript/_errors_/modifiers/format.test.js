@@ -150,6 +150,8 @@ runFormatTest(
         `class A {constructor(${modifier} {}){}}`,
         `class A {constructor(${modifier} ...a){}}`,
       ]),
+
+      "abstract export class A {}",
     ],
   },
   ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
