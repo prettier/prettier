@@ -746,8 +746,11 @@ const pluginFiles = [
         path: getPackageFile("decode-named-character-reference"),
       },
       {
-        module: getPackageFile("parse-entities/decode-entity.browser.js"),
-        path: getPackageFile("parse-entities/decode-entity.js"),
+        module: getPackageFile(
+          "parse-entities/decode-entity.browser.js",
+          "remark-parse",
+        ),
+        path: getPackageFile("parse-entities/decode-entity.js", "remark-parse"),
       },
     ],
   },
