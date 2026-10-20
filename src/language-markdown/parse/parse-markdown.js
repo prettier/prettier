@@ -1,7 +1,9 @@
 import { fromMarkdown as wikiLinkFromMarkdown } from "@braindb/mdast-util-wiki-link";
 import { syntax as wikiLinkSyntax } from "@braindb/micromark-extension-wiki-link";
+import { directiveFromMarkdown } from "mdast-util-directive";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
+import { directive as directiveSyntax } from "micromark-extension-directive";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import parseFrontMatter from "../../main/front-matter/parse.js";
@@ -17,6 +19,7 @@ function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
     extensions: [
       gfmSyntax({ singleTilde: false }),
+      directiveSyntax(),
       mathSyntax({ singleDollarTextMath: false }),
       wikiLinkSyntax({
         // We don't need support alias, use a fake string to bypass
@@ -29,6 +32,7 @@ function getMarkdownParseOptions() {
     ],
     mdastExtensions: [
       gfmFromMarkdown(),
+      directiveFromMarkdown(),
       mathFromMarkdown(),
       wikiLinkFromMarkdown(),
       liquidFromMarkdown(),

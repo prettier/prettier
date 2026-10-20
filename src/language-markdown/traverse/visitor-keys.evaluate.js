@@ -38,6 +38,9 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   tableRow: ["children"],
   listItem: ["children"],
   text: [],
+  containerDirective: ["children"],
+  leafDirective: ["children"],
+  textDirective: ["children"],
 });
 
 export default visitorKeys;

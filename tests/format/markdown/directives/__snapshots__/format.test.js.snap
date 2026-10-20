@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`directives.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::note
+This is a Docusaurus-style admonition with a short explanation.
+:::
+
+:::tip[Use a formatter]
+
+Keep the blank lines around this content.
+
+:::
+
+::youtube[Prettier directives]{#prettier .video}
+
+:abbr[HTML]{title="HyperText Markup Language"} is a markup language.
+
+::::outer
+:::inner
+Nested directives must use shorter fences inside longer fences.
+:::
+::::
+
+> :::warning[Careful]{.important}
+> This directive is inside a blockquote.
+> :::
+
+=====================================output=====================================
+:::note
+This is a Docusaurus-style admonition with a short explanation.
+:::
+
+:::tip[Use a formatter]
+
+Keep the blank lines around this content.
+
+:::
+
+::youtube[Prettier directives]{#prettier .video}
+
+:abbr[HTML]{title="HyperText Markup Language"} is a markup language.
+
+::::outer
+:::inner
+Nested directives must use shorter fences inside longer fences.
+:::
+::::
+
+> :::warning[Careful]{.important}
+> This directive is inside a blockquote.
+> :::
+
+================================================================================
+`;
+
+exports[`directives.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+:::note
+This is a Docusaurus-style admonition with a short explanation.
+:::
+
+:::tip[Use a formatter]
+
+Keep the blank lines around this content.
+
+:::
+
+::youtube[Prettier directives]{#prettier .video}
+
+:abbr[HTML]{title="HyperText Markup Language"} is a markup language.
+
+::::outer
+:::inner
+Nested directives must use shorter fences inside longer fences.
+:::
+::::
+
+> :::warning[Careful]{.important}
+> This directive is inside a blockquote.
+> :::
+
+=====================================output=====================================
+:::note
+This is a Docusaurus-style admonition with a short explanation.
+:::
+
+:::tip[Use a formatter]
+
+Keep the blank lines around this content.
+
+:::
+
+::youtube[Prettier directives]{#prettier .video}
+
+:abbr[HTML]{title="HyperText Markup Language"} is a markup language.
+
+::::outer
+:::inner
+Nested directives must use shorter fences inside longer fences.
+:::
+::::
+
+> :::warning[Careful]{.important}
+> This directive is inside a blockquote.
+> :::
+
+================================================================================
+`;
