@@ -151,6 +151,8 @@ const configs = [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/prefer-return-from-comment-attach-helpers":
+        "error",
       "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
       /* @stylistic/eslint-plugin */

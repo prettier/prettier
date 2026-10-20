@@ -6787,3 +6787,29 @@ exports[`snippet: #241 format[yuku-ts] 1`] = `
 > 1 | class A {constructor(static ...a){}}
     |                             ^^^"
 `;
+
+exports[`snippet: #242 format[babel-ts] 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract export class A {}
+    |          ^
+Cause: Unexpected token, expected "class" (1:9)"
+`;
+
+exports[`snippet: #242 format[oxc-ts] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^"
+`;
+
+exports[`snippet: #242 format[typescript] 1`] = `
+"'export' modifier must precede 'abstract' modifier. (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^
+Cause: 'export' modifier must precede 'abstract' modifier."
+`;
+
+exports[`snippet: #242 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found 'export' (1:10)
+> 1 | abstract export class A {}
+    |          ^^^^^^"
+`;
