@@ -32,12 +32,23 @@ const traverseDocOnExitStackMarker = {};
 @param {OnEnter} [onEnter]
 @param {OnExit} [onExit]
 @param {boolean} [shouldTraverseConditionalGroups = false]
+@param {boolean} [skipStrings = false]
 */
-function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
+function traverseDoc(
+  doc,
+  onEnter,
+  onExit,
+  shouldTraverseConditionalGroups,
+  skipStrings,
+) {
   const docsStack = [doc];
 
   while (docsStack.length > 0) {
     const doc = docsStack.pop();
+
+    if (skipStrings && typeof doc === "string") {
+      continue;
+    }
 
     if (doc === traverseDocOnExitStackMarker) {
       onExit(docsStack.pop());
