@@ -10,6 +10,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isArrayExpression,
   isLiteral,
@@ -231,7 +232,7 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (hasComment(node.argument, (comment) => !isTypeCastComment(comment))) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );

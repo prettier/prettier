@@ -5,6 +5,7 @@ import { getPrecedence } from "../utilities/get-precedence.js";
 import { isBitwiseOperator } from "../utilities/is-bitwise-operator.js";
 import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
@@ -224,7 +225,7 @@ function needsParentheses(path, options) {
           return true;
         case "UnaryExpression":
           // `UnaryExpression` adds parentheses and indention when argument has comment
-          if (!hasComment(node)) {
+          if (!hasComment(node, (comment) => !isTypeCastComment(comment))) {
             return true;
           }
           break;
