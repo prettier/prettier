@@ -10,7 +10,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
-import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
+import { getLeftSide, hasNakedLeftSide } from "../utilities/left-side.js";
 import {
   isArrayExpression,
   isLiteral,
@@ -84,6 +84,23 @@ import { printWhileStatement } from "./while-statement.js";
  * @param {*} [args]
  * @returns {Doc}
  */
+function unaryArgumentHasComment(node) {
+  if (hasComment(node)) {
+    return true;
+  }
+  if (hasNakedLeftSide(node)) {
+    let leftMost = node;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+      if (hasComment(leftMost, CommentCheckFlags.Leading)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function printEstree(path, options, print, args) {
   const { node } = path;
 
@@ -232,7 +249,7 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument, (comment) => !isTypeCastComment(comment))) {
+      if (unaryArgumentHasComment(node.argument)) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );

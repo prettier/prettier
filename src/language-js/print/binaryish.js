@@ -107,8 +107,7 @@ function printBinaryishExpression(path, options, print) {
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
     // `UnaryExpression` adds parentheses and indention when argument has comment
-    (parent.type === "UnaryExpression" &&
-      !hasComment(node, (comment) => !isTypeCastComment(comment))) ||
+    (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
     return group([indent([softline, ...parts]), softline]);

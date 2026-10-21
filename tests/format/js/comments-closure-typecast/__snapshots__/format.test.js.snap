@@ -477,29 +477,6 @@ const fooooba4 =
 ================================================================================
 `;
 
-exports[`issue-20306.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-delete (/** @type {any} */ window).__pwned;
-delete /** @type {any} */ (window).__pwned;
-delete /** @type {any} */ window.__pwned;
-void /** @type {any} */ (x);
-!/** @type {boolean} */ (x);
-+/** @type {number} */ (x);
-
-=====================================output=====================================
-delete /** @type {any} */ window.__pwned;
-delete /** @type {any} */ (window).__pwned;
-delete /** @type {any} */ window.__pwned;
-void /** @type {any} */ (x);
-!/** @type {boolean} */ (x);
-+/** @type {number} */ (x);
-
-================================================================================
-`;
-
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
