@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`constructor.ts - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel-ts"]
+quoteProps: "consistent"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class Example {
+  constructor() {}
+  method() {}
+  "not-valid-identifier"() {}
+}
+
+const example = {
+  "constructor"() {},
+  "not-valid-identifier"() {},
+};
+
+=====================================output=====================================
+class Example {
+  constructor() {}
+  'method'() {}
+  'not-valid-identifier'() {}
+}
+
+const example = {
+  'constructor'() {},
+  'not-valid-identifier'() {},
+};
+
+================================================================================
+`;

@@ -32,6 +32,13 @@ const isTypeScript = ({ parser }) =>
 @returns {boolean}
 */
 function isKeySafeToQuote(node, options) {
+  if (
+    (node.type === "ClassMethod" || node.type === "MethodDefinition") &&
+    node.kind === "constructor"
+  ) {
+    return false;
+  }
+
   const key = getKey(node);
   if (key.type === "Identifier") {
     return true;
