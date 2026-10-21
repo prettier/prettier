@@ -613,13 +613,6 @@ function printJsxOpeningElement(path, options, print) {
 
   const nameHasComments =
     hasComment(node.name) || hasComment(node.typeArguments);
-  const nameHasLeadingLineComment = hasComment(
-    node.name,
-    CommentCheckFlags.Leading | CommentCheckFlags.Line,
-  );
-  const openingName = nameHasLeadingLineComment
-    ? indent([hardline, print("name")])
-    : print("name");
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
