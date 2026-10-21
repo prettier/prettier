@@ -1018,3 +1018,54 @@ test("no-useless-ast-path-callback-parameter", {
     },
   ],
 });
+
+test("prefer-return-from-comment-attach-helpers", {
+  valid: [
+    "return addTrailingComment();",
+    outdent`
+      addTrailingComment();
+      ; // Extra node
+      return true;
+    `,
+    outdent`
+      addTrailingComment();
+      return 'true';
+    `,
+    outdent`
+      addTrailingComment();
+      return false;
+    `,
+    outdent`
+      addTrailingComment();
+      void false;
+    `,
+  ].map(
+    (code) => outdent`
+      function foo() {
+        ${code}
+      }
+    `,
+  ),
+  invalid: [
+    {
+      code: outdent`
+        addTrailingComment();
+        \t return true;
+      `,
+      output: "return addTrailingComment();",
+      errors: 1,
+    },
+  ].map((testCase) => ({
+    ...testCase,
+    code: outdent`
+      function foo() {
+        ${testCase.code}
+      }
+    `,
+    output: outdent`
+      function foo() {
+        ${testCase.output}
+      }
+    `,
+  })),
+});

@@ -565,6 +565,15 @@ export const defaultOptions = {
 
 `prettier.util` provides the following limited set of utility functions for plugins:
 
+```js
+import * as prettier from "prettier";
+
+const { getStringWidth } = prettier.util;
+
+console.log(getStringWidth("prettier"));
+// -> 8
+```
+
 ```ts
 type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };

@@ -673,8 +673,8 @@ const pluginFiles = [
             "const PURE_FUNCTION_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gs,
-            "const NAMED_ENTITIES = {};",
+            "const NAMED_ENTITIES =",
+            "const NAMED_ENTITIES = new Map();",
           );
 
           return text;
@@ -754,46 +754,26 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
-        (packageName) => ({
-          module: getPackageFile(`${packageName}/dist/prod/index.js`),
-          path: getPackageFile(`${packageName}/dist/dev/index.js`),
-        }),
-      ),
       {
-        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        module: getPackageFile("@glimmer/syntax"),
         process(text) {
-          text = text.replace(
-            'import { DEBUG } from "@glimmer/env";',
-            "const DEBUG = false;",
-          );
-
-          // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/s, "{}");
+          // `syntax` passed to plugins, our plugin don't need access to the options
+          text = text.replace("\nconst syntax = ", "\nconst syntax = {} || ");
 
           text = text.replaceAll(
-            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gs,
-            "\n",
-          );
-
-          text = text.replaceAll(
-            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gs,
+            /(?<=\s)class \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}(?=\n)/gs,
             "",
           );
+          text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
 
-          text = text.replace(
-            "const ARGUMENT_RESOLUTION = ",
-            "const ARGUMENT_RESOLUTION = undefined &&",
+          text = text.replaceAll(
+            "\nvar publicBuilder = ",
+            "\nvar publicBuilder = {} || ",
           );
 
           text = text.replace(
-            "const HTML_RESOLUTION = ",
-            "const HTML_RESOLUTION = undefined &&",
-          );
-
-          text = text.replace(
-            "const LOCAL_DEBUG = ",
-            "const LOCAL_DEBUG = false &&",
+            "\nconst HTML_RESOLUTION = ",
+            "\nconst HTML_RESOLUTION = {} || ",
           );
 
           text = text.replace(
@@ -803,10 +783,6 @@ const pluginFiles = [
 
           return text;
         },
-      },
-      {
-        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
-        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
       },
     ],
   },

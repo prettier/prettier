@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`after-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p></p><pre><code></code></pre>
+
+=====================================output=====================================
+<p></p><pre><code></code></pre>
+
+================================================================================
+`;
+
+exports[`before-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<pre><code>a</code></pre><span></span>
+
+=====================================output=====================================
+<pre><code>a</code></pre
+><span></span>
+
+================================================================================
+`;
+
+exports[`before-text.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<pre><code>a</code></pre>text
+
+=====================================output=====================================
+<pre><code>a</code></pre
+>text
+
+================================================================================
+`;
+
+exports[`between-elements.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p></p><pre><code>a</code></pre><span></span>
+
+=====================================output=====================================
+<p></p><pre><code>a</code></pre
+><span></span>
+
+================================================================================
+`;
+
+exports[`inside-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div><pre><code>a</code></pre></div>
+
+=====================================output=====================================
+<div>
+  <pre><code>a</code></pre>
+</div>
+
+================================================================================
+`;

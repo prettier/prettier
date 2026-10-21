@@ -127,13 +127,13 @@ Cause: label 'foo' is not defined (2:11)
 `;
 
 exports[`invalid-undefined-label.js format[meriyah] 1`] = `
-"Undefined label 'foo' (2:15)
+"Undefined label 'foo' (2:12)
   1 | for ( ;; ) {
 > 2 |   continue foo;
-    |               ^
+    |            ^^^
   3 | }
   4 |
-Cause: [2:14-2:15]: Undefined label 'foo'"
+Cause: [2:11-2:14]: Undefined label 'foo'"
 `;
 
 exports[`invalid-unsyntactic-continue.js format 1`] = `
@@ -200,4 +200,16 @@ Cause: 'continue' label 'label' is not a loop label (5:13)
 note: label defined here (3:0)
 label: {
 ^~~~~"
+`;
+
+exports[`invalid-unsyntactic-continue.js format[meriyah] 1`] = `
+"Label 'label' does not denote an iteration statement (5:14)
+  3 | label: {
+  4 |   for ( ;; ) {
+> 5 |     continue label;
+    |              ^^^^^
+  6 |   }
+  7 | }
+  8 |
+Cause: [5:13-5:18]: Label 'label' does not denote an iteration statement"
 `;
