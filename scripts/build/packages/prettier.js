@@ -766,6 +766,11 @@ const pluginFiles = [
           );
           text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
 
+          text = text.replaceAll(
+            "\nvar publicBuilder = ",
+            "\nvar publicBuilder = {} || ",
+          );
+
           text = text.replace(
             "\nconst HTML_RESOLUTION = ",
             "\nconst HTML_RESOLUTION = {} || ",
