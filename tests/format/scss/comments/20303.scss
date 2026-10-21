@@ -17,3 +17,13 @@ a, // comment
 foo a[href=""] {
     color: red;
 }
+
+a[title="foo\"bar"], // comment
+foo a[title="foo\"bar"] {
+    color: red;
+}
+
+a[title='foo\'bar'], // comment
+foo a[title='foo\'bar'] {
+    color: red;
+}

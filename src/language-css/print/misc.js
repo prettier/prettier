@@ -87,4 +87,5 @@ export {
   printUnit,
   quoteAttributeValue,
   shouldPrintTrailingComma,
+  STRING_REGEX,
 };
