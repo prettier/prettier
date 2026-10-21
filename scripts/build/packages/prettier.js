@@ -760,16 +760,15 @@ const pluginFiles = [
           // `syntax` passed to plugins, our plugin don't need access to the options
           text = text.replace("\nconst syntax = ", "\nconst syntax = {} || ");
 
-          text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
-
           text = text.replaceAll(
             /(?<=\s)class \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}(?=\n)/gs,
             "",
           );
+          text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
 
           text = text.replace(
             "\nconst HTML_RESOLUTION = ",
-            "\nconst HTML_RESOLUTION = undefined &&",
+            "\nconst HTML_RESOLUTION = {} || ",
           );
 
           text = text.replace(
