@@ -777,6 +777,11 @@ const pluginFiles = [
           );
 
           text = text.replace(
+            "\nvar html5_named_char_refs_default = ",
+            "\nvar html5_named_char_refs_default = {} || ",
+          );
+
+          text = text.replace(
             /(?<=\n)export .*?;/,
             "export { preprocess, getVoidTags, visitorKeys };",
           );
