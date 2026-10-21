@@ -25,6 +25,10 @@ function adjustStrings(value, options) {
   return value.replaceAll(STRING_REGEX, (match) => printString(match, options));
 }
 
+function removeQuotedStrings(value) {
+  return value.replaceAll(STRING_REGEX, "");
+}
+
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
 
@@ -86,6 +90,6 @@ export {
   printCssNumber,
   printUnit,
   quoteAttributeValue,
+  removeQuotedStrings,
   shouldPrintTrailingComma,
-  STRING_REGEX,
 };
