@@ -49,7 +49,7 @@
     "@braindb/mdast-util-wiki-link": "0.2.0",
     "@braindb/micromark-extension-wiki-link": "0.1.0",
     "@bybrave/json5": "3.1.0",
-    "@glimmer/syntax": "0.95.0",
+    "@glimmer/syntax": "0.97.0",
     "@prettier/cli": "0.12.0",
     "@prettier/html-attributes": "0.1.0",
     "@prettier/html-event-attributes": "0.0.2",
