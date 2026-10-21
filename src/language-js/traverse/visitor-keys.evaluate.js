@@ -47,7 +47,6 @@ const excludeNodeTypes = [
   "NonNullExpression",
   "ObjectTypePrivateField",
   "ParameterProperty",
-  "RendersType",
   "TupleTypeElement",
 ];
 
