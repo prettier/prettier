@@ -203,12 +203,8 @@ function printArrowFunctionSignature(path, options, print, args) {
 
   const dangling = printDanglingComments(path, options, {
     marker: "commentBeforeArrow",
-    // A line break before `=>` is a syntax error, so only keep the
-    // original spacing between comments
-    separator: (previousComment, comment) =>
-      options.originalText.slice(locEnd(previousComment), locStart(comment))
-        ? " "
-        : "",
+    separator: ({ previous, comment }) =>
+      locEnd(previous) === locStart(comment) ? "" : " ",
   });
   if (dangling) {
     parts.push(" ", dangling);

@@ -116,7 +116,7 @@ function printTrailingComment(path, options, previousComment) {
  * @param {CommentPrintOptions & {
  *  indent?: boolean,
  *  marker?: symbol | string,
- *  separator?: Doc | ((previousComment, comment) => Doc),
+ *  separator?: Doc | (({previous, comment}) => Doc),
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
@@ -147,28 +147,24 @@ function printDanglingComments(
     return "";
   }
 
-  const doc = [];
-  let previousComment;
+  const parts = [];
+  let previous;
   path.each(({ node: comment }) => {
     if (!danglingComments.has(comment)) {
       return;
     }
-    const printed = printComment(path, options);
-    if (!printed) {
-      return;
-    }
-    if (previousComment) {
-      doc.push(
+    if (previous) {
+      parts.push(
         typeof separator === "function"
-          ? separator(previousComment, comment)
+          ? separator({ previous, comment })
           : separator,
       );
     }
-    doc.push(printed);
-    previousComment = comment;
+    parts.push(printComment(path, options));
+    previous = comment;
   }, "comments");
 
-  return shouldIndent ? indent([hardline, doc]) : doc;
+  return shouldIndent ? indent([hardline, parts]) : parts;
 }
 
 /**
