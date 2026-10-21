@@ -758,16 +758,16 @@ const pluginFiles = [
         module: getPackageFile("@glimmer/syntax"),
         process(text) {
           // This passed to plugins, our plugin don't need access to the options
-          text = text.replace("const syntax = ", "const syntax = {} || ");
+          text = text.replace("\nconst syntax = ", "\nconst syntax = {} || ");
 
           text = text.replaceAll(
-            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gs,
-            "\n",
+            /(?<=\s)class \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}(?=\n)/gs,
+            "",
           );
 
           text = text.replace(
-            "const HTML_RESOLUTION = ",
-            "const HTML_RESOLUTION = undefined &&",
+            "\nconst HTML_RESOLUTION = ",
+            "\nconst HTML_RESOLUTION = undefined &&",
           );
 
           text = text.replace(
