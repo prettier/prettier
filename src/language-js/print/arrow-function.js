@@ -15,6 +15,7 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
+import { locEnd, locStart } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
@@ -202,6 +203,8 @@ function printArrowFunctionSignature(path, options, print, args) {
 
   const dangling = printDanglingComments(path, options, {
     marker: "commentBeforeArrow",
+    separator: ({ previous, comment }) =>
+      locEnd(previous) === locStart(comment) ? "" : " ",
   });
   if (dangling) {
     parts.push(" ", dangling);
