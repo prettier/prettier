@@ -754,46 +754,20 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
-        (packageName) => ({
-          module: getPackageFile(`${packageName}/dist/prod/index.js`),
-          path: getPackageFile(`${packageName}/dist/dev/index.js`),
-        }),
-      ),
       {
-        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        module: getPackageFile("@glimmer/syntax"),
         process(text) {
-          text = text.replace(
-            'import { DEBUG } from "@glimmer/env";',
-            "const DEBUG = false;",
-          );
-
           // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/s, "{}");
+          text = text.replace("const syntax = ", "const syntax = {} || ");
 
           text = text.replaceAll(
             /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gs,
             "\n",
           );
 
-          text = text.replaceAll(
-            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gs,
-            "",
-          );
-
-          text = text.replace(
-            "const ARGUMENT_RESOLUTION = ",
-            "const ARGUMENT_RESOLUTION = undefined &&",
-          );
-
           text = text.replace(
             "const HTML_RESOLUTION = ",
             "const HTML_RESOLUTION = undefined &&",
-          );
-
-          text = text.replace(
-            "const LOCAL_DEBUG = ",
-            "const LOCAL_DEBUG = false &&",
           );
 
           text = text.replace(
