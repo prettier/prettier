@@ -757,8 +757,10 @@ const pluginFiles = [
       {
         module: getPackageFile("@glimmer/syntax"),
         process(text) {
-          // This passed to plugins, our plugin don't need access to the options
+          // `syntax` passed to plugins, our plugin don't need access to the options
           text = text.replace("\nconst syntax = ", "\nconst syntax = {} || ");
+
+          text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
 
           text = text.replaceAll(
             /(?<=\s)class \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}(?=\n)/gs,
