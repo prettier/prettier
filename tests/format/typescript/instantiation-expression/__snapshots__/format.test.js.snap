@@ -28,6 +28,43 @@ const foo = bar<T>;
 ================================================================================
 `;
 
+exports[`before-operator.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = (a + make<T>) - y;
+x = (typeof make<T>) + y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + make<T>;
+
+=====================================output=====================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = a + (make<T>) - y;
+x = typeof (make<T>) + y;
+x = make<T> * y;
+x = make<T> <= y;
+x = make<T> === y;
+x = y + make<T>;
+
+================================================================================
+`;
+
 exports[`binary-expr.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
