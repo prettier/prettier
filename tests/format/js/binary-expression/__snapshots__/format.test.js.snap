@@ -637,15 +637,19 @@ foo[
 ];
 
 !(
-  a
-  + a // comment
-  + a
-  + !(
-    b
-    + b
-    + b // comment
-    + b
-    + b
+  (
+    a
+    + a // comment
+    + a
+    + !(
+      (
+        b
+        + b
+        + b // comment
+        + b
+        + b
+      )
+    )
   )
 );
 
@@ -781,15 +785,19 @@ foo[
 ];
 
 !(
-  a +
-  a + // comment
-  a +
-  !(
-    b +
-    b +
-    b + // comment
-    b +
-    b
+  (
+    a +
+    a + // comment
+    a +
+    !(
+      (
+        b +
+        b +
+        b + // comment
+        b +
+        b
+      )
+    )
   )
 );
 
@@ -2841,8 +2849,10 @@ const anyTestFailures = !(
 
 =====================================output=====================================
 const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0
-  && aggregatedResults.numRuntimeErrorTestSuites === 0
+  (
+    aggregatedResults.numFailedTests === 0
+    && aggregatedResults.numRuntimeErrorTestSuites === 0
+  )
 );
 
 ================================================================================
@@ -2860,8 +2870,10 @@ const anyTestFailures = !(
 
 =====================================output=====================================
 const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
+  (
+    aggregatedResults.numFailedTests === 0 &&
+    aggregatedResults.numRuntimeErrorTestSuites === 0
+  )
 );
 
 ================================================================================

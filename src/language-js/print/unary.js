@@ -40,14 +40,22 @@ function printArgumentNode(path, options, print) {
 }
 
 function printArgument(path, options, print) {
-  if (!path.node.argument) {
+  const { node } = path;
+  if (!node.argument) {
     return "";
   }
 
-  return [
-    " ",
+  const parts = [];
+
+  if (!(node.type === "UnaryExpression" && !/[a-z]$/.test(node.operator))) {
+    parts.push(" ");
+  }
+
+  parts.push(
     path.call(() => printArgumentNode(path, options, print), "argument"),
-  ];
+  );
+
+  return parts;
 }
 
 function printReturnStatement(path, options, print) {
@@ -74,4 +82,13 @@ function printYieldExpression(path, options, print) {
   ];
 }
 
-export { printReturnStatement, printThrowStatement, printYieldExpression };
+function printUnaryExpression(path, options, print) {
+  return [path.node.operator, printArgument(path, options, print)];
+}
+
+export {
+  printReturnStatement,
+  printThrowStatement,
+  printUnaryExpression,
+  printYieldExpression,
+};

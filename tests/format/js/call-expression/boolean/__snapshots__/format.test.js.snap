@@ -91,14 +91,18 @@ a = new Boolean(
     || a_long_long_long_long_condition,
 );
 a = !(
-  a_long_long_long_long_condition
-  || a_long_long_long_long_condition
-  || a_long_long_long_long_condition
+  (
+    a_long_long_long_long_condition
+    || a_long_long_long_long_condition
+    || a_long_long_long_long_condition
+  )
 );
 a = !!(
-  a_long_long_long_long_condition
-  || a_long_long_long_long_condition
-  || a_long_long_long_long_condition
+  (
+    a_long_long_long_long_condition
+    || a_long_long_long_long_condition
+    || a_long_long_long_long_condition
+  )
 );
 
 a = Boolean(
@@ -274,14 +278,18 @@ a = new Boolean(
     a_long_long_long_long_condition,
 );
 a = !(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition
+  (
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition
+  )
 );
 a = !!(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition
+  (
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition
+  )
 );
 
 a = Boolean(

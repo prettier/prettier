@@ -54,11 +54,6 @@ import {
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
-import {
-  printReturnStatement,
-  printThrowStatement,
-  printYieldExpression,
-} from "./return-statement.js";
 import { printSequenceExpression } from "./sequence-expression.js";
 import { printSwitchCase, printSwitchStatement } from "./switch-statement.js";
 import {
@@ -68,6 +63,12 @@ import {
 import { printTernary } from "./ternary.js";
 import { printCatchClause, printTryStatement } from "./try-statement.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import {
+  printReturnStatement,
+  printThrowStatement,
+  printUnaryExpression,
+  printYieldExpression,
+} from "./unary.js";
 import { printVariableDeclaration } from "./variable-declaration.js";
 import { printWhileStatement } from "./while-statement.js";
 
@@ -222,25 +223,9 @@ function printEstree(path, options, print, args) {
       return "super";
     case "Directive":
       return [print("value"), printSemicolon(options)];
-    case "UnaryExpression": {
-      const parts = [node.operator];
+    case "UnaryExpression":
+      return printUnaryExpression(path, options, print);
 
-      if (/[a-z]$/.test(node.operator)) {
-        parts.push(" ");
-      }
-
-      const argumentDoc = print("argument");
-
-      if (hasComment(node.argument)) {
-        parts.push(
-          group(["(", indent([softline, argumentDoc]), softline, ")"]),
-        );
-      } else {
-        parts.push(argumentDoc);
-      }
-
-      return parts;
-    }
     case "UpdateExpression":
       return [
         node.prefix ? node.operator : "",
