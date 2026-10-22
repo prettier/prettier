@@ -53,7 +53,7 @@ this.steps = steps && checkStep || [
   },
 ];
 
-function* create () {
+async function* create () {
   const result = doSomething();
   return (
     shouldReturn &&
@@ -64,6 +64,22 @@ function* create () {
     }
   );
   yield (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  throw (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  await (
     shouldReturn &&
     result.ok && {
       status: "ok",
@@ -83,6 +99,20 @@ function* create2 () {
     }
   );
   yield (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  throw (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  await (
     shouldReturn && result.ok && result || {
       status: "ok",
       createdAt: result.createdAt,
