@@ -203,6 +203,27 @@ function postprocess(ast, options) {
             node.bound = node.bound.typeAnnotation;
           }
           break;
+
+        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03370
+        case "EnumBooleanBody":
+        case "EnumNumberBody":
+        case "EnumBigIntBody":
+        case "EnumStringBody":
+        case "EnumSymbolBody":
+          if (astType === "hermes") {
+            if (node.explicitType || node.type === "EnumSymbolBody") {
+              node.explicitType = node.type
+                .slice(
+                  // `Enum`
+                  4,
+                  // `Body`
+                  -4,
+                )
+                .toLowerCase();
+            }
+            node.type = "EnumBody";
+          }
+          break;
       }
     },
     onLeave(node) {

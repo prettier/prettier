@@ -52,11 +52,6 @@ function addCommentToPossibleBlockStatement(node, comment) {
   | NodeMap["ObjectTypeAnnotation"]
   | NodeMap["TSEnumBody"]
   | NodeMap["EnumBody"]
-  | NodeMap["EnumBooleanBody"]
-  | NodeMap["EnumNumberBody"]
-  | NodeMap["EnumBigIntBody"]
-  | NodeMap["EnumStringBody"]
-  | NodeMap["EnumSymbolBody"]
 } node
 @returns {true}
 */
