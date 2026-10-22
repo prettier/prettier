@@ -22,9 +22,16 @@ type PrettierCommentAdditionalProperties = {
   marker?: string | symbol;
 };
 
-type FlowAdditionalNode = {
-  type: "EnumBody";
-} & Omit<FlowESTree.EnumDeclaration["body"], "type">;
+type FlowAdditionalNode =
+  | ({
+      type: "EnumBody";
+    } & Omit<FlowESTree.EnumDeclaration["body"], "type">)
+  | {
+      readonly type: "EnumBigIntBody";
+      readonly members: ReadonlyArray<FlowESTree.EnumBigIntMember>;
+      readonly explicitType: boolean;
+      readonly parent: EnumDeclaration;
+    };
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
