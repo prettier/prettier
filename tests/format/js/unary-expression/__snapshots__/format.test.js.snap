@@ -308,7 +308,7 @@ async function bar2() {
 !/* foo */ (x + y);
 !(
   /* foo */
-  x + y
+  (x + y)
 );
 !(
   (x + y)
@@ -318,19 +318,19 @@ async function bar2() {
   (x + y) // foo
 );
 
-!(x || y);
-!/* foo */ (x || y);
-!(x || y) /* foo */;
+!x || y;
+!/* foo */ x || y;
+!x || y /* foo */;
 !(
   /* foo */
-  x || y
-);
-!(
   (x || y)
+);
+!(
+  x || y
   /* foo */
 );
 !(
-  (x || y) // foo
+  x || y // foo
 );
 
 ![1, 2, 3];

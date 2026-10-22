@@ -181,6 +181,10 @@ function needsParentheses(path, options) {
         }
       }
 
+      if (key === "argument" && parent.type === "UnaryExpression") {
+        return true;
+      }
+
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
@@ -226,7 +230,7 @@ function needsParentheses(path, options) {
           return true;
         case "UnaryExpression":
           // `UnaryExpression` adds parentheses and indention when argument has comment
-          if (!returnArgumentHasLeadingComment(node, options)) {
+          if (returnArgumentHasLeadingComment(node, options)) {
             return true;
           }
           break;
