@@ -50,11 +50,6 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
 - `EnumBody` (Flow)
-- `EnumBooleanBody` (Flow, removed)
-- `EnumNumberBody` (Flow, removed)
-- `EnumBigIntBody` (Flow, removed)
-- `EnumStringBody` (Flow, removed)
-- `EnumSymbolBody` (Flow, removed)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
 - `TSEnumDeclaration`(TypeScript)
@@ -63,10 +58,8 @@ function printObject(path, options, print) {
   const { node, parent } = path;
 
   const isEnumBody = isEnumBodyNode(node);
-  const isFlowEnumBody = isEnumBody && node.type !== "TSEnumBody";
   const isImportAttributes = isPrintingImportAttributes(node);
-  // @ts-expect-error -- will fix when drop support for legacy flow enum body
-  const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
+  const hasUnknownMembers = node.type === "EnumBody" && node.hasUnknownMembers;
 
   const property = isEnumBody
     ? "members"

@@ -199,14 +199,6 @@ export const isEnumDeclaration = createTypeCheckFunction([
   "DeclareEnum",
 ]);
 
-export const isEnumBody = createTypeCheckFunction([
-  "TSEnumBody",
-  "EnumBody",
-  "EnumBooleanBody",
-  "EnumNumberBody",
-  "EnumBigIntBody",
-  "EnumStringBody",
-  "EnumSymbolBody",
-]);
+export const isEnumBody = createTypeCheckFunction(["TSEnumBody", "EnumBody"]);
 
 export * from "./literal.js";

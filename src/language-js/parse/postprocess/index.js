@@ -95,8 +95,9 @@ function postprocess(ast, options) {
   ast = visitNode(ast, {
     onEnter(node) {
       setContentEnd(node, comments, text);
+      const { type } = node;
 
-      switch (node.type) {
+      switch (type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
           const start = locStart(node);
@@ -201,6 +202,27 @@ function postprocess(ast, options) {
         case "TypeParameter":
           if (astType !== "flow" && node.bound?.type === "TypeAnnotation") {
             node.bound = node.bound.typeAnnotation;
+          }
+          break;
+
+        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03370
+        case "EnumBooleanBody":
+        case "EnumNumberBody":
+        case "EnumBigIntBody":
+        case "EnumStringBody":
+        case "EnumSymbolBody":
+          if (astType === "hermes") {
+            if (node.explicitType || type === "EnumSymbolBody") {
+              node.explicitType = type
+                .slice(
+                  // `Enum`
+                  4,
+                  // `Body`
+                  -4,
+                )
+                .toLowerCase();
+            }
+            node.type = "EnumBody";
           }
           break;
       }
