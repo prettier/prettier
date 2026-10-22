@@ -22,17 +22,6 @@ type PrettierCommentAdditionalProperties = {
   marker?: string | symbol;
 };
 
-type FlowAdditionalNode =
-  | ({
-      type: "EnumBody";
-    } & Omit<FlowESTree.EnumDeclaration["body"], "type">)
-  | {
-      readonly type: "EnumBigIntBody";
-      readonly members: ReadonlyArray<FlowESTree.EnumBigIntMember>;
-      readonly explicitType: boolean;
-      readonly parent: EnumDeclaration;
-    };
-
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
 export type Comment = (
@@ -50,8 +39,7 @@ type _Node =
   | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
   | TSESTree.Node
   | Exclude<NGTree.NGAst, Babel.Node>
-  | FlowESTree.ESNode
-  | FlowAdditionalNode;
+  | FlowESTree.ESNode;
 
 export type Node = ExtendNode<_Node>;
 
