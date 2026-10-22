@@ -56,11 +56,11 @@ function isInlineLogicalExpression(node) {
   return true;
 }
 
-const hackPipelineCache = new WeakMap();
+const topicReferenceCheckResult = new WeakMap();
 const isHackStylePipeline = (path) =>
   path.node.type === "BinaryExpression" &&
   path.node.operator === "|>" &&
-  getOrInsertComputed(hackPipelineCache, path.root, () =>
+  getOrInsertComputed(topicReferenceCheckResult, path.root, () =>
     hasNode(path.node, (node) => node.type === "TopicReference"),
   );
 
