@@ -1,5 +1,96 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`nested.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li> <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div> Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
+exports[`nested.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li> <li>Ruby on Rails server</li> <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div> Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
+exports[`nested.mdx - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
 exports[`wrap.mdx - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
