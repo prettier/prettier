@@ -1018,6 +1018,7 @@ function isFollowedByOperatorAfterTypeArguments(path) {
       }
       return operatorsAfterTypeArguments.has(parent.operator);
     case "UnaryExpression":
+    case "TSTypeAssertion":
       return path.callParent(isFollowedByOperatorAfterTypeArguments);
   }
   return false;
