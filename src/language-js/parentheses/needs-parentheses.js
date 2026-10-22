@@ -154,6 +154,7 @@ function needsParentheses(path, options) {
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
+        case "TSInstantiationExpression":
           return true;
 
         default:
@@ -220,6 +221,7 @@ function needsParentheses(path, options) {
         case "BindExpression":
         case "AwaitExpression":
         case "TSNonNullExpression":
+        case "TSInstantiationExpression":
         case "UpdateExpression":
           return true;
         case "UnaryExpression":
@@ -693,6 +695,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "TSInstantiationExpression":
           return true;
 
         case "NewExpression":
@@ -896,7 +899,9 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "CallExpression") ||
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
-        (key === "expression" && parent.type === "TSNonNullExpression") ||
+        (key === "expression" &&
+          (parent.type === "TSNonNullExpression" ||
+            parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" && isClass(parent))
       ) {
         return true;
