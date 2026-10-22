@@ -7,7 +7,7 @@ function printUnit(unit) {
   return CSS_UNITS.has(lowercased) ? CSS_UNITS.get(lowercased) : unit;
 }
 
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
+const STRING_REGEX = /(?<quote>["'])(?:(?!\k<quote>)[^\\]|\\.)*\k<quote>/gs;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:e[+-]?\d+)?/gi;
 const STANDARD_UNIT_REGEX = /[a-z]+/gi;
 const WORD_PART_REGEX = /[$@]?[_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/gi;
