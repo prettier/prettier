@@ -119,7 +119,6 @@ function printBinaryishExpression(path, options, print) {
     (key === "argument" &&
       (isReturnOrThrowStatement(parent) ||
         parent.type === "YieldExpression" ||
-        parent.type === "AwaitExpression" ||
         parent.type === "UnaryExpression")) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||

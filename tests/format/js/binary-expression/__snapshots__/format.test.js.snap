@@ -1621,11 +1621,11 @@ async function* create() {
     }
   );
   await (shouldReturn
-  && result.ok && {
-    status: "ok",
-    createdAt: result.createdAt,
-    updatedAt: result.updatedAt,
-  });
+    && result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    });
 }
 
 function* create2() {
@@ -1902,11 +1902,11 @@ async function* create() {
     }
   );
   await (shouldReturn &&
-  result.ok && {
-    status: "ok",
-    createdAt: result.createdAt,
-    updatedAt: result.updatedAt,
-  });
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    });
 }
 
 function* create2() {
@@ -2191,8 +2191,8 @@ async function* f() {
   );
 
   await (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-  && cccccccccccccccc);
+    && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    && cccccccccccccccc);
 }
 
 ================================================================================
@@ -2238,8 +2238,8 @@ async function* f() {
   );
 
   await (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
-  cccccccccccccccc);
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc);
 }
 
 ================================================================================
