@@ -65,6 +65,7 @@ function printObject(path, options, print) {
   const isEnumBody = isEnumBodyNode(node);
   const isFlowEnumBody = isEnumBody && node.type !== "TSEnumBody";
   const isImportAttributes = isPrintingImportAttributes(node);
+  // @ts-expect-error -- will fix when drop support for legacy flow enum body
   const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
 
   const property = isEnumBody
