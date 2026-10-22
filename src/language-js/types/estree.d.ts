@@ -22,6 +22,10 @@ type PrettierCommentAdditionalProperties = {
   marker?: string | symbol;
 };
 
+type FlowAdditionalNode = {
+  type: "EnumBody";
+} & Omit<FlowESTree.EnumDeclaration["body"], "type">;
+
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
 export type Comment = (
@@ -39,7 +43,8 @@ type _Node =
   | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
   | TSESTree.Node
   | Exclude<NGTree.NGAst, Babel.Node>
-  | FlowESTree.ESNode;
+  | FlowESTree.ESNode
+  | FlowAdditionalNode;
 
 export type Node = ExtendNode<_Node>;
 
