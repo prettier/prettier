@@ -116,7 +116,11 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    isReturnOrThrowStatement(parent) ||
+    (key === "argument" &&
+      (isReturnOrThrowStatement(parent) ||
+        parent.type === "YieldExpression" ||
+        parent.type === "AwaitExpression" ||
+        parent.type === "UnaryExpression")) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
@@ -131,7 +135,6 @@ function printBinaryishExpression(path, options, print) {
       !isReturnOrThrowStatement(grandparent) &&
       !isCallOrNewExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
-    (key === "argument" && parent.type === "UnaryExpression") ||
     (key === "arguments" && isBooleanTypeCoercion(parent));
 
   const shouldIndentIfInlining =

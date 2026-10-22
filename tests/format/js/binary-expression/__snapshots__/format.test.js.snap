@@ -1454,7 +1454,7 @@ this.steps = steps && checkStep || [
   },
 ];
 
-const create = () => {
+function* create () {
   const result = doSomething();
   return (
     shouldReturn &&
@@ -1464,11 +1464,26 @@ const create = () => {
       updatedAt: result.updatedAt
     }
   );
+  yield (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
 }
 
-const create2 = () => {
+function* create2 () {
   const result = doSomething();
   return (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  yield (
     shouldReturn && result.ok && result || {
       status: "ok",
       createdAt: result.createdAt,
@@ -1549,7 +1564,7 @@ this.steps = (steps && checkStep) || [
   },
 ];
 
-const create = () => {
+function* create() {
   const result = doSomething();
   return (
     shouldReturn
@@ -1559,9 +1574,17 @@ const create = () => {
       updatedAt: result.updatedAt,
     }
   );
-};
+  yield (
+    shouldReturn
+    && result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    }
+  );
+}
 
-const create2 = () => {
+function* create2() {
   const result = doSomething();
   return (
     (shouldReturn && result.ok && result) || {
@@ -1570,7 +1593,14 @@ const create2 = () => {
       updatedAt: result.updatedAt,
     }
   );
-};
+  yield (
+    (shouldReturn && result.ok && result) || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    }
+  );
+}
 
 const obj = {
   state: shouldHaveState
@@ -1647,7 +1677,7 @@ this.steps = steps && checkStep || [
   },
 ];
 
-const create = () => {
+function* create () {
   const result = doSomething();
   return (
     shouldReturn &&
@@ -1657,11 +1687,26 @@ const create = () => {
       updatedAt: result.updatedAt
     }
   );
+  yield (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
 }
 
-const create2 = () => {
+function* create2 () {
   const result = doSomething();
   return (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  yield (
     shouldReturn && result.ok && result || {
       status: "ok",
       createdAt: result.createdAt,
@@ -1742,7 +1787,7 @@ this.steps = (steps && checkStep) || [
   },
 ];
 
-const create = () => {
+function* create() {
   const result = doSomething();
   return (
     shouldReturn &&
@@ -1752,9 +1797,17 @@ const create = () => {
       updatedAt: result.updatedAt,
     }
   );
-};
+  yield (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    }
+  );
+}
 
-const create2 = () => {
+function* create2() {
   const result = doSomething();
   return (
     (shouldReturn && result.ok && result) || {
@@ -1763,7 +1816,14 @@ const create2 = () => {
       updatedAt: result.updatedAt,
     }
   );
-};
+  yield (
+    (shouldReturn && result.ok && result) || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    }
+  );
+}
 
 const obj = {
   state: shouldHaveState &&
@@ -1974,6 +2034,101 @@ parsers: ["babel", "flow", "typescript"]
 ================================================================================
 `;
 
+exports[`logic-expression.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function* f() {
+return (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+  cccccccccccccccc
+);
+
+yield (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+);
+
+await (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+);
+}
+
+=====================================output=====================================
+async function* f() {
+  return (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    && cccccccccccccccc
+  );
+
+  yield (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    && cccccccccccccccc
+  );
+
+  await (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  && bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  && cccccccccccccccc);
+}
+
+================================================================================
+`;
+
+exports[`logic-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function* f() {
+return (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+  cccccccccccccccc
+);
+
+yield (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+);
+
+await (
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+);
+}
+
+=====================================output=====================================
+async function* f() {
+  return (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  yield (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  await (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+  cccccccccccccccc);
+}
+
+================================================================================
+`;
+
 exports[`math.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
@@ -2091,40 +2246,95 @@ experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-function foo() {
+async function* foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  yield this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  throw this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  await this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
 }
 
-function foo2() {
+async function* foo2() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  yield this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  throw this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  await this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
-function foo3() {
+async function* foo3() {
   return this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  yield this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  throw this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  await this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
 
 =====================================output=====================================
-function foo() {
+async function* foo() {
   return (
     this.hasPlugin("dynamicImports")
     && this.lookahead().type === tt.parenLeft.right
   );
+  yield (
+    this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
+  );
+  throw (
+    this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
+  );
+  (await this.hasPlugin("dynamicImports"))
+    && this.lookahead().type === tt.parenLeft.right;
 }
 
-function foo2() {
+async function* foo2() {
   return this.hasPlugin("dynamicImports")
     && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
+  yield this.hasPlugin("dynamicImports")
+  && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  throw this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  (await this.hasPlugin("dynamicImports"))
+  && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
 }
 
-function foo3() {
+async function* foo3() {
   return this.calculate().compute().first.numberOfThings
     > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  yield this.calculate().compute().first.numberOfThings
+  > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  throw this.calculate().compute().first.numberOfThings
+    > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  (await this.calculate().compute().first.numberOfThings)
+  > this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
@@ -2137,40 +2347,95 @@ exports[`return.js format 1`] = `
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-function foo() {
+async function* foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  yield this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  throw this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+  await this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
 }
 
-function foo2() {
+async function* foo2() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  yield this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  throw this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  await this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
-function foo3() {
+async function* foo3() {
   return this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  yield this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  throw this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  await this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
 
 =====================================output=====================================
-function foo() {
+async function* foo() {
   return (
     this.hasPlugin("dynamicImports") &&
     this.lookahead().type === tt.parenLeft.right
   );
+  yield (
+    this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+  );
+  throw (
+    this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+  );
+  (await this.hasPlugin("dynamicImports")) &&
+    this.lookahead().type === tt.parenLeft.right;
 }
 
-function foo2() {
+async function* foo2() {
   return this.hasPlugin("dynamicImports") &&
     this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
+  yield this.hasPlugin("dynamicImports") &&
+  this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  throw this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+  (await this.hasPlugin("dynamicImports")) &&
+  this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
 }
 
-function foo3() {
+async function* foo3() {
   return this.calculate().compute().first.numberOfThings >
     this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  yield this.calculate().compute().first.numberOfThings >
+  this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  throw this.calculate().compute().first.numberOfThings >
+    this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+  (await this.calculate().compute().first.numberOfThings) >
+  this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
