@@ -195,8 +195,9 @@ function postprocess(ast, options) {
           }
           break;
 
-        // Since flow@0.313.0, `TypeParameter.bound` is a bare type node without the `TypeAnnotation` wrapper
+        // Since flow@0.313.0 (reverted during 0.320.0~0.337.0), `TypeParameter.bound` is a bare type node without the `TypeAnnotation` wrapper
         // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03130
+        // https://github.com/facebook/flow/issues/9449
         case "TypeParameter":
           if (astType !== "flow" && node.bound?.type === "TypeAnnotation") {
             node.bound = node.bound.typeAnnotation;
