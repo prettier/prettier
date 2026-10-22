@@ -14,8 +14,7 @@ parsers: ["html"]
 <div>
   <!-- display: inline -->
   <p
-    >Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long
-    Long Long Long</p
+    >Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long</p
   >
 </div>
 

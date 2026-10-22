@@ -1,9 +1,6 @@
 import {
   breakParent,
-  fill,
   hardline,
-  join,
-  line,
   replaceEndOfLine,
 } from "../../document/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
@@ -20,14 +17,18 @@ import {
 
 function printTextValue(node) {
   const { value } = node;
-  return node.parent.isWhitespaceSensitive
-    ? node.parent.isIndentationSensitive
-      ? replaceEndOfLine(value)
-      : replaceEndOfLine(
-          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
-          hardline,
-        )
-    : join(line, htmlWhitespace.split(value));
+
+  if (
+    node.parent.isWhitespaceSensitive &&
+    !node.parent.isIndentationSensitive
+  ) {
+    return replaceEndOfLine(
+      htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
+      hardline,
+    );
+  }
+
+  return replaceEndOfLine(value);
 }
 
 function printText(path, options /* , print*/) {
@@ -60,17 +61,11 @@ function printText(path, options /* , print*/) {
     return parts;
   }
 
-  const prefix = printOpeningTagPrefix(node, options);
-  const printed = printTextValue(node);
-
-  const suffix = printClosingTagSuffix(node, options);
-  // We can't use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
-  printed[0] = [prefix, printed[0]];
-  // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-  printed.push([printed.pop(), suffix]);
-
-  // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-  return fill(printed);
+  return [
+    printOpeningTagPrefix(node, options),
+    printTextValue(node),
+    printClosingTagSuffix(node, options),
+  ];
 }
 
 export { printText };

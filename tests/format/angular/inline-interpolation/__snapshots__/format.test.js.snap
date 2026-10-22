@@ -15,12 +15,12 @@ parsers: ["angular"]
 
 =====================================output=====================================
 <div class="text">
-  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b>, let's create
-  one:
+  Sorry, we couldn’t find an account for
+  <b>{{ phoneInput }}</b>, let's create one:
 </div>
 <div class="text">
-  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b>, let's create
-  one:
+  Sorry, we couldn’t find an account for
+  <b>{{ phoneInput }}</b>, let's create one:
 </div>
 
 ================================================================================

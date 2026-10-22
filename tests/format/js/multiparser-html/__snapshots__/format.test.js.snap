@@ -396,7 +396,7 @@ class MyElement extends LitElement {
         }
       </style>
 
-      Web Components are
+      Web            Components         are
       <span class="mood">\${this.mood}</span>
       !
     \`;
@@ -419,7 +419,7 @@ html\`
 \`;
 
 html\`
-  <\${Footer}>footer content<//>
+  <\${Footer}>footer      content<//>
 \`;
 
 html\`
@@ -642,7 +642,8 @@ class MyElement extends LitElement {
         }
       </style>
 
-      Web Components are <span class="mood">\${this.mood}</span>!
+      Web            Components         are
+      <span class="mood">\${this.mood}</span>!
     \`;
   }
 }
@@ -656,7 +657,7 @@ html\`\`;
 
 html\`<my-element obj=\${obj}></my-element>\`;
 
-html\` <\${Footer}>footer content<//> \`;
+html\` <\${Footer}>footer      content<//> \`;
 
 html\` <div /> \`;
 

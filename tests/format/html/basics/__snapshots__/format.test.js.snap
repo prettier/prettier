@@ -209,8 +209,7 @@ parsers: ["html"]
       aria-describedby="fileHelp"
     />
     <small id="fileHelp" class="form-text text-muted"
-      >This is some placeholder block-level help text for the above input. It's
-      a bit lighter and easily wraps to a new line.</small
+      >This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small
     >
   </div>
   <fieldset class="form-group">
@@ -237,8 +236,7 @@ parsers: ["html"]
           id="optionsRadios2"
           value="option2"
         />
-        Option two can be something else and selecting it will deselect option
-        one
+        Option two can be something else and selecting it will deselect option one
       </label>
     </div>
     <div class="form-check disabled">
@@ -401,8 +399,8 @@ parsers: ["html"]
     <!--[if lte IE 9]>
       <p class="browserupgrade">
         You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
+        <a href="https://browsehappy.com/">upgrade your browser</a>
+        to improve your experience and security.
       </p>
     <![endif]-->
 
@@ -733,8 +731,14 @@ e-wrap </textarea>
     <html:DIV> block </html:DIV><HTML:DIV> BLOCK </HTML:DIV>
     <html:div> block </html:div><html:div> block </html:div
     ><html:div> block </html:div>
-    <html:pre> pre pr e</html:pre>
-    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:pre>
+      pre pr
+e</html:pre
+    >
+    <html:textarea>
+      pre-wrap pr
+e-wrap
+    </html:textarea>
     <html:span>
       looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
     </html:span>
@@ -771,8 +775,14 @@ e-wrap </textarea>
     <html:DIV> block </html:DIV><HTML:DIV> BLOCK </HTML:DIV>
     <html:div> block </html:div><html:div> block </html:div
     ><html:div> block </html:div>
-    <html:pre> pre pr e</html:pre>
-    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:pre>
+      pre pr
+e</html:pre
+    >
+    <html:textarea>
+      pre-wrap pr
+e-wrap
+    </html:textarea>
     <html:span>
       looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
     </html:span>
@@ -809,8 +819,14 @@ e-wrap </textarea>
     <html:DIV> block </html:DIV><HTML:DIV> BLOCK </HTML:DIV>
     <html:div> block </html:div><html:div> block </html:div
     ><html:div> block </html:div>
-    <html:pre> pre pr e</html:pre>
-    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:pre>
+      pre pr
+e</html:pre
+    >
+    <html:textarea>
+      pre-wrap pr
+e-wrap
+    </html:textarea>
     <html:span>
       looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
     </html:span>
@@ -847,8 +863,14 @@ e-wrap </textarea>
     <html:DIV> block </html:DIV><HTML:DIV> BLOCK </HTML:DIV>
     <html:div> block </html:div><html:div> block </html:div
     ><html:div> block </html:div>
-    <html:pre> pre pr e</html:pre>
-    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:pre>
+      pre pr
+e</html:pre
+    >
+    <html:textarea>
+      pre-wrap pr
+e-wrap
+    </html:textarea>
     <html:span>
       looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
     </html:span>
@@ -885,8 +907,14 @@ e-wrap </textarea>
     <html:DIV> block </html:DIV><HTML:DIV> BLOCK </HTML:DIV>
     <html:div> block </html:div><html:div> block </html:div
     ><html:div> block </html:div>
-    <html:pre> pre pr e</html:pre>
-    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:pre>
+      pre pr
+e</html:pre
+    >
+    <html:textarea>
+      pre-wrap pr
+e-wrap
+    </html:textarea>
     <html:span>
       looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
     </html:span>
@@ -899,7 +927,7 @@ e-wrap </textarea>
 <with:colon>
   <div>
     <h1>
-      text text text text text text text text text text text text text text
+      text  text  text  text  text  text  text  text  text  text  text  text  text  text
     </h1>
   </div>
   <script>
