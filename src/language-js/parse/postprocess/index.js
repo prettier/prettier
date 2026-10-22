@@ -95,8 +95,9 @@ function postprocess(ast, options) {
   ast = visitNode(ast, {
     onEnter(node) {
       setContentEnd(node, comments, text);
+      const { type } = node;
 
-      switch (node.type) {
+      switch (type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
           const start = locStart(node);
@@ -211,8 +212,8 @@ function postprocess(ast, options) {
         case "EnumStringBody":
         case "EnumSymbolBody":
           if (astType === "hermes") {
-            if (node.explicitType || node.type === "EnumSymbolBody") {
-              node.explicitType = node.type
+            if (node.explicitType || type === "EnumSymbolBody") {
+              node.explicitType = type
                 .slice(
                   // `Enum`
                   4,
