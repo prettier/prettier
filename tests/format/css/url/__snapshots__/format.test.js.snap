@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`escaped_url_paren.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  background: url(foo\\)bar);
+  cursor: url(images/cursor\\(2x\\).png), auto;
+}
+
+=====================================output=====================================
+a {
+  background: url(foo\\)bar);
+  cursor: url(images/cursor\\(2x\\).png), auto;
+}
+
+================================================================================
+`;
+
 exports[`url.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]

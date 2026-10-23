@@ -1,0 +1,4 @@
+a {
+  background: url(foo\)bar);
+  cursor: url(images/cursor\(2x\).png), auto;
+}

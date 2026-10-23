@@ -184,18 +184,17 @@ function parseValue(value, options) {
 
   try {
     result = new PostcssValuesParser(value, { loose: true }).parse();
+    result.text = value;
+
+    const parsedResult = parseNestedValue(result, options);
+
+    return addTypePrefix(parsedResult, "value-", /^selector-/);
   } catch {
     return {
       type: "value-unknown",
       value,
     };
   }
-
-  result.text = value;
-
-  const parsedResult = parseNestedValue(result, options);
-
-  return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
 export default parseValue;
