@@ -46,7 +46,9 @@ function printWord(path, options) {
 
   // escape internal `*` or `_` that can open or close emphasis/strong
   text = text.replaceAll(
-    /(\\+|^|.)(\*+|_+)($|.)/g,
+    // The following character is only looked ahead at, so it can still be the
+    // preceding character of the next delimiter run, e.g. `a__b__c`
+    /(\\+|^|.)(\*+|_+)(?=($|.))/g,
     (match, preceding, delimiterRun, following) => {
       if (
         [...preceding].every((c) => c === "\\") &&
@@ -62,7 +64,7 @@ function printWord(path, options) {
           following[0] || path.next?.value[0],
         )
       ) {
-        return `${preceding}\\${delimiterRun}${following}`;
+        return `${preceding}\\${delimiterRun}`;
       }
       return match;
     },
