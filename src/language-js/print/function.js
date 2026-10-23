@@ -1,6 +1,7 @@
 import * as assert from "#universal/assert";
-import { group } from "../../document/index.js";
+import { group, hardline, join } from "../../document/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
+import { isLineComment } from "../utilities/comment-types.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isMethod } from "../utilities/is-method.js";
@@ -29,6 +30,39 @@ const isMethodValue = ({ node, key, parent }) =>
     parent.type === "TSAbstractMethodDefinition" ||
     parent.type === "TSDeclareMethod" ||
     (parent.type === "Property" && isMethod(parent)));
+
+function printFunctionParameterComments(path, options) {
+  const hasFunctionParameterComments = hasComment(
+    path.node,
+    (comment) => comment.marker === "commentAfterFunctionParameters",
+  );
+  if (!hasFunctionParameterComments) {
+    return { doc: "", hasLineComment: false };
+  }
+
+  let hasLineComment = false;
+  const comments = path
+    .map(() => {
+      const { node: comment } = path;
+      if (comment.marker !== "commentAfterFunctionParameters") {
+        return "";
+      }
+
+      comment.printed = true;
+      hasLineComment ||= isLineComment(comment);
+      return options.printer.printComment(path, options);
+    }, "comments")
+    .filter(Boolean);
+
+  if (comments.length === 0) {
+    return { doc: "", hasLineComment: false };
+  }
+
+  return {
+    doc: [" ", join(" ", comments), hasLineComment ? hardline : ""],
+    hasLineComment,
+  };
+}
 
 /*
 - `FunctionDeclaration`
@@ -64,6 +98,10 @@ function printFunction(path, options, print, args) {
     shouldExpandParameters,
   );
   const returnTypeDoc = printReturnType(path, print);
+  const {
+    doc: functionParameterComments,
+    hasLineComment: hasLineCommentAfterParameters,
+  } = printFunctionParameterComments(path, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc,
@@ -82,9 +120,10 @@ function printFunction(path, options, print, args) {
     print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      functionParameterComments,
       returnTypeDoc,
     ]),
-    node.body ? " " : "",
+    node.body ? (hasLineCommentAfterParameters ? "" : " ") : "",
     print("body"),
     node.declare || !node.body ? printSemicolon(options) : "",
   ];
@@ -148,6 +187,10 @@ function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, options, print);
   const returnTypeDoc = printReturnType(path, print);
+  const {
+    doc: functionParameterComments,
+    hasLineComment: hasLineCommentAfterParameters,
+  } = printFunctionParameterComments(path, options);
   const shouldBreakParameters = shouldBreakFunctionParameters(node);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
@@ -161,12 +204,13 @@ function printMethodValue(path, options, print) {
         : shouldGroupParameters
           ? group(parametersDoc)
           : parametersDoc,
+      functionParameterComments,
       returnTypeDoc,
     ]),
   ];
 
   if (node.body) {
-    parts.push(" ", print("body"));
+    parts.push(hasLineCommentAfterParameters ? "" : " ", print("body"));
   } else {
     parts.push(printSemicolon(options));
   }
