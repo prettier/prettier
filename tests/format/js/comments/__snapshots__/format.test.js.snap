@@ -35,6 +35,89 @@ x */
 ================================================================================
 `;
 
+exports[`15537.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/15537
+const AUTHORIZATION_TOKEN_VALIDITY =
+  (24 * hours /* docs */) - (1 * hours /* buffer */);
+
+const A = (1 * 2 /* c */);
+const B = (1 + 2 /* c */);
+const C = (1 * 2 /* a */ /* b */);
+const D = (24 * hours) - (1 * hours /* buffer */);
+
+let assigned;
+assigned = (1 * 2 /* c */);
+
+function f() {
+  return (1 * 2 /* c */);
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/15537
+const AUTHORIZATION_TOKEN_VALIDITY =
+  24 * hours /* docs */ - 1 * hours /* buffer */
+
+const A = 1 * 2 /* c */
+const B = 1 + 2 /* c */
+const C = 1 * 2 /* a */ /* b */
+const D = 24 * hours - 1 * hours /* buffer */
+
+let assigned
+assigned = 1 * 2 /* c */
+
+function f() {
+  return 1 * 2 /* c */
+}
+
+================================================================================
+`;
+
+exports[`15537.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/15537
+const AUTHORIZATION_TOKEN_VALIDITY =
+  (24 * hours /* docs */) - (1 * hours /* buffer */);
+
+const A = (1 * 2 /* c */);
+const B = (1 + 2 /* c */);
+const C = (1 * 2 /* a */ /* b */);
+const D = (24 * hours) - (1 * hours /* buffer */);
+
+let assigned;
+assigned = (1 * 2 /* c */);
+
+function f() {
+  return (1 * 2 /* c */);
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/15537
+const AUTHORIZATION_TOKEN_VALIDITY =
+  24 * hours /* docs */ - 1 * hours; /* buffer */
+
+const A = 1 * 2; /* c */
+const B = 1 + 2; /* c */
+const C = 1 * 2; /* a */ /* b */
+const D = 24 * hours - 1 * hours; /* buffer */
+
+let assigned;
+assigned = 1 * 2; /* c */
+
+function f() {
+  return 1 * 2; /* c */
+}
+
+================================================================================
+`;
+
 exports[`15661.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
