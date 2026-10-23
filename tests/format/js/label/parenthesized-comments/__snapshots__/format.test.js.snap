@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`controls.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  label: (call() /* after the call */);
+}
+
+const value = (
+  // outside a labeled statement
+  { value: true }
+);
+
+{
+  label: call(
+    // inside the call
+    { value: true },
+  );
+}
+
+=====================================output=====================================
+{
+  label: call() /* after the call */
+}
+
+const value =
+  // outside a labeled statement
+  { value: true }
+
+{
+  label: call(
+    // inside the call
+    { value: true },
+  )
+}
+
+================================================================================
+`;
+
+exports[`controls.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  label: (call() /* after the call */);
+}
+
+const value = (
+  // outside a labeled statement
+  { value: true }
+);
+
+{
+  label: call(
+    // inside the call
+    { value: true },
+  );
+}
+
+=====================================output=====================================
+{
+  label: call(); /* after the call */
+}
+
+const value =
+  // outside a labeled statement
+  { value: true };
+
+{
+  label: call(
+    // inside the call
+    { value: true },
+  );
+}
+
+================================================================================
+`;
+
+exports[`leading.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  label: (
+    // before the call
+    call()
+  );
+}
+
+{
+  label: (
+    // before the sequence
+    (first(), second())
+  );
+}
+
+{
+  outer: inner: (
+    // first comment
+    // second comment
+    { value: true }
+  );
+}
+
+{
+  outer: inner: // before the loop
+  for (;;) {}
+}
+
+=====================================output=====================================
+{
+  // comment
+  foo: ({
+    bar: "baz",
+  })
+}
+
+{
+  // before the call
+  label: call()
+}
+
+{
+  // before the sequence
+  label: (first(), second())
+}
+
+{
+  // first comment
+  // second comment
+  outer: inner: ({ value: true })
+}
+
+{
+  // before the loop
+  outer: inner: for (;;) {}
+}
+
+================================================================================
+`;
+
+exports[`leading.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  label: (
+    // before the call
+    call()
+  );
+}
+
+{
+  label: (
+    // before the sequence
+    (first(), second())
+  );
+}
+
+{
+  outer: inner: (
+    // first comment
+    // second comment
+    { value: true }
+  );
+}
+
+{
+  outer: inner: // before the loop
+  for (;;) {}
+}
+
+=====================================output=====================================
+{
+  // comment
+  foo: ({
+    bar: "baz",
+  });
+}
+
+{
+  // before the call
+  label: call();
+}
+
+{
+  // before the sequence
+  label: (first(), second());
+}
+
+{
+  // first comment
+  // second comment
+  outer: inner: ({ value: true });
+}
+
+{
+  // before the loop
+  outer: inner: for (;;) {}
+}
+
+================================================================================
+`;

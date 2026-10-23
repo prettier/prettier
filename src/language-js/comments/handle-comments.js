@@ -622,11 +622,41 @@ function handleLastFunctionParameterComments({
   return false;
 }
 
-function handleLabeledStatementComments({ comment, enclosingNode }) {
-  if (enclosingNode?.type === "LabeledStatement") {
-    return addLeadingComment(enclosingNode, comment);
+function handleLabeledStatementComments({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  ancestors,
+}) {
+  let labeledStatement = enclosingNode;
+  if (
+    enclosingNode?.type === "ExpressionStatement" &&
+    !precedingNode &&
+    followingNode === enclosingNode.expression
+  ) {
+    labeledStatement = ancestors[1];
   }
-  return false;
+
+  if (labeledStatement?.type !== "LabeledStatement") {
+    return false;
+  }
+
+  // Print comments before the label on the first pass, including label chains.
+  for (const ancestor of ancestors) {
+    if (ancestor === labeledStatement || ancestor === enclosingNode) {
+      continue;
+    }
+    if (
+      ancestor.type !== "LabeledStatement" ||
+      ancestor.body !== labeledStatement
+    ) {
+      break;
+    }
+    labeledStatement = ancestor;
+  }
+
+  return addLeadingComment(labeledStatement, comment);
 }
 
 function handleCallExpressionComments({
