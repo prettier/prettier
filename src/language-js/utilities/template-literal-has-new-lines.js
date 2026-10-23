@@ -12,7 +12,7 @@
 */
 
 /**
- * @param {NodeMap["TemplateLiteral"]} template
+ * @param {NodeMap["TemplateLiteral"] | NodeMap["TSTemplateLiteralType"]} template
  * @returns {boolean}
  */
 function templateLiteralHasNewLines(template) {
