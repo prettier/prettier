@@ -113,7 +113,13 @@ function printMdast(path, options, print) {
       return printWhitespaceNode(path, options);
     case "emphasis": {
       let style;
-      if (isAutolink(node.children[0])) {
+      const [firstChild] = node.children;
+      if (
+        isAutolink(firstChild) ||
+        // The inner emphasis keeps its delimiter, so changing this one can
+        // turn `*_https://a.b_*` into `__https://a.b__`, which is strong
+        (firstChild.type === "emphasis" && isAutolink(firstChild.children[0]))
+      ) {
         style = options.originalText[node.position.start.offset];
       } else {
         const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
