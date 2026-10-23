@@ -39,6 +39,17 @@ function isEligibleForLeadingSemicolon(path, options) {
   return false;
 }
 
+function shouldConditionalExpressionPrintLeadingSemicolon(path, options) {
+  return (
+    path.parent.type === "ExpressionStatement" &&
+    path.callParent(
+      () =>
+        isEligibleForLeadingSemicolon(path, options) &&
+        !shouldExpressionStatementPrintLeadingSemicolon(path, options),
+    )
+  );
+}
+
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   return (
     isEligibleForLeadingSemicolon(path, options) &&
@@ -155,6 +166,7 @@ export {
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
+  shouldConditionalExpressionPrintLeadingSemicolon,
   shouldExpressionStatementPrintLeadingSemicolon,
   shouldIgnoredExpressionStatementPrintLeadingSemicolon,
 };
