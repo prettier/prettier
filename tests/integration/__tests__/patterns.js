@@ -43,6 +43,16 @@ describe("multiple patterns by with ignore pattern, doesn't ignore node_modules 
   });
 });
 
+describe("explicit ignored file in node_modules", () => {
+  runCli("cli/patterns", ["node_modules/node-module.js"]).test({
+    status: 0,
+    stdout: "/* eslint-disable */\n'use strict';",
+    stderr:
+      "[warn] Ignored node_modules/node-module.js because it is in node_modules. Use --with-node-modules to format this file.",
+    write: [],
+  });
+});
+
 describe("no errors on empty patterns", () => {
   // --parser is mandatory if no filepath is passed
   runCli("cli/patterns", ["--parser", "babel"]).test({
