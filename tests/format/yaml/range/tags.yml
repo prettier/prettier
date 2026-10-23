@@ -1,0 +1,2 @@
+a: <<<PRETTIER_RANGE_START>>>!!str
+  value   with   spaces<<<PRETTIER_RANGE_END>>>
