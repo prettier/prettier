@@ -19,8 +19,7 @@ parsers: ["scss"]
   @include ag-theme-balham(
     (
       foreground-color: $custom-foreground-color,
-      disabled-foreground-color: null,
-      // TODO some comment
+      disabled-foreground-color: null, // TODO some comment
     )
   );
 }
