@@ -1,4 +1,6 @@
 import {
+  align,
+  dedentToRoot,
   group,
   hardline,
   indent,
@@ -37,10 +39,23 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     "g",
   );
   let topLevelCount = 0;
+  // Text in elements like `<pre>` and `<textarea>` is printed as is, with each
+  // line starting at the root, so align the expressions in it to their line.
+  const indentationsInPreservedText = new Map();
   const doc = await textToDoc(text, {
     parser,
     __onHtmlRoot(root) {
       topLevelCount = root.children.length;
+      root.walk((node) => {
+        if (node.kind !== "text" || !node.parent.isIndentationSensitive) {
+          return;
+        }
+        for (const match of node.value.matchAll(placeholderRegex)) {
+          const lineStart = node.value.lastIndexOf("\n", match.index) + 1;
+          const [indentation] = node.value.slice(lineStart).match(/^[\t ]*/u);
+          indentationsInPreservedText.set(Number(match[1]), indentation);
+        }
+      });
     },
   });
 
@@ -70,7 +85,13 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
       }
 
       const placeholderIndex = Number(component);
-      parts.push(expressionDocs[placeholderIndex]);
+      const expressionDoc = expressionDocs[placeholderIndex];
+      const indentation = indentationsInPreservedText.get(placeholderIndex);
+      parts.push(
+        indentation === undefined
+          ? expressionDoc
+          : dedentToRoot(align(indentation, expressionDoc)),
+      );
     }
 
     return parts;
