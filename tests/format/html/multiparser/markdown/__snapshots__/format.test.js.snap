@@ -23,10 +23,10 @@ parsers: ["html"]
 <html lang="en">
   <head>
     <script type="text/markdown">
-      # hello
+# hello
 
-      - **foo**
-      - **bar**
+- **foo**
+- **bar**
     </script>
   </head>
   <body></body>
