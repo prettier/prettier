@@ -1,4 +1,14 @@
-function massageAstNode(original, cloned /* , parent */) {
+function massageAstNode(original, cloned, parent) {
+  // Markdown formatting can change documentation, but not ordinary string values.
+  if (
+    original.kind === "StringValue" &&
+    original.block &&
+    parent?.description === original
+  ) {
+    delete cloned.value;
+    return;
+  }
+
   // We print single line `""" string """` as multiple line string,
   // and the parser ignores space in multiple line string
   if (
