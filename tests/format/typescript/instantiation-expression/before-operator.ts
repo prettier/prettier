@@ -1,0 +1,14 @@
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = (a + make<T>) - y;
+x = (typeof make<T>) + y;
+x = (<any>(make<T>)) + y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + make<T>;

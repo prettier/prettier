@@ -902,7 +902,8 @@ function needsParentheses(path, options) {
         (key === "expression" &&
           (parent.type === "TSNonNullExpression" ||
             parent.type === "TSInstantiationExpression")) ||
-        (key === "superClass" && isClass(parent))
+        (key === "superClass" && isClass(parent)) ||
+        isFollowedByOperatorAfterTypeArguments(path)
       ) {
         return true;
       }
@@ -988,6 +989,38 @@ function isPathInForStatementInitializer(path) {
     node = parent;
   }
 
+  return false;
+}
+
+const operatorsAfterTypeArguments = new Set([
+  "+",
+  "-",
+  "<",
+  ">",
+  ">=",
+  ">>",
+  ">>>",
+]);
+
+/**
+ * TypeScript reads `a<T> + b` as `a < T > +b` and rejects `a<T> < b`,
+ * also when `a<T>` only ends the left operand (`(c + a<T>) - b`, `(typeof a<T>) + b`)
+ *
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isFollowedByOperatorAfterTypeArguments(path) {
+  const { parent, key } = path;
+  switch (parent.type) {
+    case "BinaryExpression":
+      if (key === "right") {
+        return path.callParent(isFollowedByOperatorAfterTypeArguments);
+      }
+      return operatorsAfterTypeArguments.has(parent.operator);
+    case "UnaryExpression":
+    case "TSTypeAssertion":
+      return path.callParent(isFollowedByOperatorAfterTypeArguments);
+  }
   return false;
 }
 
