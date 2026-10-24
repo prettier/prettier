@@ -79,6 +79,49 @@ graphql\`
 ================================================================================
 `;
 
+exports[`description-markdown.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const schema=gql\`
+"""
+## Example
+
+~~~json
+{"name":"Ada","age":30}
+~~~
+
+~~~javascript
+const value={name:"Ada"};console.log(value)
+~~~
+"""
+type User{name:String age:Int}
+\`;
+
+=====================================output=====================================
+const schema = gql\`
+  """
+  ## Example
+
+  \\\`\\\`\\\`json
+  { "name": "Ada", "age": 30 }
+  \\\`\\\`\\\`
+
+  \\\`\\\`\\\`javascript
+  const value = { name: "Ada" };
+  console.log(value);
+  \\\`\\\`\\\`
+  """
+  type User {
+    name: String
+    age: Int
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`escape.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

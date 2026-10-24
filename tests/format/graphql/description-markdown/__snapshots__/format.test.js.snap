@@ -1,0 +1,2034 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`examples.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query { a: Int! }
+
+=====================================output=====================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query {
+  a: Int!
+}
+
+================================================================================
+`;
+
+exports[`examples.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query { a: Int! }
+
+=====================================output=====================================
+"""
+## Example Request
+
+\`\`\`graphql
+query {
+  a
+}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{ "a": 42 }
+\`\`\`
+"""
+type Query {
+  a: Int!
+}
+
+================================================================================
+`;
+
+exports[`examples.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query { a: Int! }
+
+=====================================output=====================================
+"""
+## Example Request
+
+\`\`\`graphql
+query {
+  a
+}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{ "a": 42 }
+\`\`\`
+"""
+type Query {
+  a: Int!
+}
+
+================================================================================
+`;
+
+exports[`formatting.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+# Heading    #
+
+*  A list item with a very long sentence that should wrap when prose wrapping is enabled.
+* second item
+
+>   A quotation
+
+| name|value|
+|---|---|
+| a|1|
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+=====================================output=====================================
+"""
+# Heading    #
+
+*  A list item with a very long sentence that should wrap when prose wrapping is enabled.
+* second item
+
+>   A quotation
+
+| name|value|
+|---|---|
+| a|1|
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+================================================================================
+`;
+
+exports[`formatting.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"""
+# Heading    #
+
+*  A list item with a very long sentence that should wrap when prose wrapping is enabled.
+* second item
+
+>   A quotation
+
+| name|value|
+|---|---|
+| a|1|
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+=====================================output=====================================
+"""
+# Heading
+
+- A list item with a very long sentence
+  that should wrap when prose wrapping
+  is enabled.
+- second item
+
+> A quotation
+
+| name | value |
+| ---- | ----- |
+| a    | 1     |
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+================================================================================
+`;
+
+exports[`formatting.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+# Heading    #
+
+*  A list item with a very long sentence that should wrap when prose wrapping is enabled.
+* second item
+
+>   A quotation
+
+| name|value|
+|---|---|
+| a|1|
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+=====================================output=====================================
+"""
+# Heading
+
+- A list item with a very long sentence that should wrap when prose wrapping is enabled.
+- second item
+
+> A quotation
+
+| name | value |
+| ---- | ----- |
+| a    | 1     |
+
+\`\`\`python
+def greet( name ):return name
+\`\`\`
+
+\`\`\`unknown
+leave( this , alone )
+\`\`\`
+
+\`\`\`
+const untyped={a:1}
+\`\`\`
+
+\`\`\`javascript
+const = invalid
+\`\`\`
+
+<!-- prettier-ignore -->
+\`\`\`javascript
+const ignored={a:1}
+\`\`\`
+"""
+scalar Documentation
+
+================================================================================
+`;
+
+exports[`languages.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## javascript
+
+\`\`\`javascript
+const value={a:1,b:[2,3]};console.log(value)
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element=<div id="example"><span>hello</span></div>
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User{name:string;age:number}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element=<Button value={1+2}/>
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User={name:string,age:number};
+\`\`\`
+
+## json
+
+\`\`\`json
+{"name":"Ada","age":30}
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{name:'Ada',age:30,}
+\`\`\`
+
+## css
+
+\`\`\`css
+.name{color:red;padding:0  1px}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color:red;.name{color:$color;&:hover{color:blue}}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color:red;.name{color:@color;&:hover{color:blue}}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div  class = 'example' ><span >Ada</span></div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template><div>{{name}}</div></template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{name}}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template ><div  class='name' >{name}</div></template>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name:    Ada
+values: [1,2,3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query{user{name age}}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div  class='name' >{{#if ready}}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+*  first
+* second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value={a:1}
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+=====================================output=====================================
+"""
+## javascript
+
+\`\`\`javascript
+const value={a:1,b:[2,3]};console.log(value)
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element=<div id="example"><span>hello</span></div>
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User{name:string;age:number}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element=<Button value={1+2}/>
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User={name:string,age:number};
+\`\`\`
+
+## json
+
+\`\`\`json
+{"name":"Ada","age":30}
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{name:'Ada',age:30,}
+\`\`\`
+
+## css
+
+\`\`\`css
+.name{color:red;padding:0  1px}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color:red;.name{color:$color;&:hover{color:blue}}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color:red;.name{color:@color;&:hover{color:blue}}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div  class = 'example' ><span >Ada</span></div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template><div>{{name}}</div></template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{name}}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template ><div  class='name' >{name}</div></template>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name:    Ada
+values: [1,2,3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query{user{name age}}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div  class='name' >{{#if ready}}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+*  first
+* second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value={a:1}
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+================================================================================
+`;
+
+exports[`languages.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"""
+## javascript
+
+\`\`\`javascript
+const value={a:1,b:[2,3]};console.log(value)
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element=<div id="example"><span>hello</span></div>
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User{name:string;age:number}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element=<Button value={1+2}/>
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User={name:string,age:number};
+\`\`\`
+
+## json
+
+\`\`\`json
+{"name":"Ada","age":30}
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{name:'Ada',age:30,}
+\`\`\`
+
+## css
+
+\`\`\`css
+.name{color:red;padding:0  1px}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color:red;.name{color:$color;&:hover{color:blue}}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color:red;.name{color:@color;&:hover{color:blue}}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div  class = 'example' ><span >Ada</span></div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template><div>{{name}}</div></template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{name}}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template ><div  class='name' >{name}</div></template>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name:    Ada
+values: [1,2,3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query{user{name age}}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div  class='name' >{{#if ready}}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+*  first
+* second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value={a:1}
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+=====================================output=====================================
+"""
+## javascript
+
+\`\`\`javascript
+const value = { a: 1, b: [2, 3] };
+console.log(value);
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element = (
+  <div id="example">
+    <span>hello</span>
+  </div>
+);
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User {
+  name: string;
+  age: number;
+}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element = (
+  <Button value={1 + 2} />
+);
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User = {
+  name: string,
+  age: number,
+};
+\`\`\`
+
+## json
+
+\`\`\`json
+{ "name": "Ada", "age": 30 }
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{ name: "Ada", age: 30 }
+\`\`\`
+
+## css
+
+\`\`\`css
+.name {
+  color: red;
+  padding: 0 1px;
+}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color: red;
+.name {
+  color: $color;
+  &:hover {
+    color: blue;
+  }
+}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color: red;
+.name {
+  color: @color;
+  &:hover {
+    color: blue;
+  }
+}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div class="example">
+  <span>Ada</span>
+</div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template>
+  <div>{{ name }}</div>
+</template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{ name }}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template
+  ><div class="name">
+    {name}
+  </div></template
+>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name: Ada
+values: [1, 2, 3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query {
+  user {
+    name
+    age
+  }
+}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div class="name">{{#if
+    ready
+  }}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+- first
+- second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value = { a: 1 };
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+================================================================================
+`;
+
+exports[`languages.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+## javascript
+
+\`\`\`javascript
+const value={a:1,b:[2,3]};console.log(value)
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element=<div id="example"><span>hello</span></div>
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User{name:string;age:number}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element=<Button value={1+2}/>
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User={name:string,age:number};
+\`\`\`
+
+## json
+
+\`\`\`json
+{"name":"Ada","age":30}
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{name:'Ada',age:30,}
+\`\`\`
+
+## css
+
+\`\`\`css
+.name{color:red;padding:0  1px}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color:red;.name{color:$color;&:hover{color:blue}}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color:red;.name{color:@color;&:hover{color:blue}}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div  class = 'example' ><span >Ada</span></div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template><div>{{name}}</div></template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{name}}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template ><div  class='name' >{name}</div></template>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name:    Ada
+values: [1,2,3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query{user{name age}}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div  class='name' >{{#if ready}}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+*  first
+* second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value={a:1}
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+=====================================output=====================================
+"""
+## javascript
+
+\`\`\`javascript
+const value = { a: 1, b: [2, 3] };
+console.log(value);
+\`\`\`
+
+## jsx
+
+\`\`\`jsx
+const element = (
+  <div id="example">
+    <span>hello</span>
+  </div>
+);
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+interface User {
+  name: string;
+  age: number;
+}
+\`\`\`
+
+## tsx
+
+\`\`\`tsx
+const element = <Button value={1 + 2} />;
+\`\`\`
+
+## flow
+
+\`\`\`flow
+type User = { name: string, age: number };
+\`\`\`
+
+## json
+
+\`\`\`json
+{ "name": "Ada", "age": 30 }
+\`\`\`
+
+## json5
+
+\`\`\`json5
+{ name: "Ada", age: 30 }
+\`\`\`
+
+## css
+
+\`\`\`css
+.name {
+  color: red;
+  padding: 0 1px;
+}
+\`\`\`
+
+## scss
+
+\`\`\`scss
+$color: red;
+.name {
+  color: $color;
+  &:hover {
+    color: blue;
+  }
+}
+\`\`\`
+
+## less
+
+\`\`\`less
+@color: red;
+.name {
+  color: @color;
+  &:hover {
+    color: blue;
+  }
+}
+\`\`\`
+
+## html
+
+\`\`\`html
+<div class="example"><span>Ada</span></div>
+\`\`\`
+
+## vue
+
+\`\`\`vue
+<template>
+  <div>{{ name }}</div>
+</template>
+\`\`\`
+
+## angular-html
+
+\`\`\`angular-html
+<div *ngIf="ready">{{ name }}</div>
+\`\`\`
+
+## lwc
+
+\`\`\`lwc
+<template><div class="name">{name}</div></template>
+\`\`\`
+
+## yaml
+
+\`\`\`yaml
+name: Ada
+values: [1, 2, 3]
+\`\`\`
+
+## graphql
+
+\`\`\`graphql
+query {
+  user {
+    name
+    age
+  }
+}
+\`\`\`
+
+## handlebars
+
+\`\`\`handlebars
+<div class="name">{{#if ready}}{{name}}{{/if}}</div>
+\`\`\`
+
+## markdown
+
+\`\`\`markdown
+- first
+- second
+\`\`\`
+
+## mdx
+
+\`\`\`mdx
+export const value = { a: 1 };
+
+# Example
+\`\`\`
+"""
+scalar Languages
+
+================================================================================
+`;
+
+exports[`nested.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+*  Schema description
+"""
+schema { query: Query }
+
+"""
+*  Type description
+"""
+type Query {
+  """
+  A field example:
+  \`\`\`javascript
+  const user={name:"Ada",age:30};console.log(user)
+  \`\`\`
+  """
+  user(
+    """
+    *  Argument description
+    \`\`\`json
+    {"id":1}
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+*  Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name{color:red;padding:0  1px}
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+*  Interface description
+"""
+interface Named { name: String }
+
+"""
+*  Union description
+"""
+union Result = User | Query
+
+"""
+*  Enum description
+"""
+enum Status {
+  """
+  *  Enum value description
+  """
+  ACTIVE
+}
+
+"""
+*  Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION
+
+=====================================output=====================================
+"""
+*  Schema description
+"""
+schema {
+  query: Query
+}
+
+"""
+*  Type description
+"""
+type Query {
+  """
+  A field example:
+  \`\`\`javascript
+  const user={name:"Ada",age:30};console.log(user)
+  \`\`\`
+  """
+  user(
+    """
+    *  Argument description
+    \`\`\`json
+    {"id":1}
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+*  Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name{color:red;padding:0  1px}
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+*  Interface description
+"""
+interface Named {
+  name: String
+}
+
+"""
+*  Union description
+"""
+union Result = User | Query
+
+"""
+*  Enum description
+"""
+enum Status {
+  """
+  *  Enum value description
+  """
+  ACTIVE
+}
+
+"""
+*  Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION
+
+================================================================================
+`;
+
+exports[`nested.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"""
+*  Schema description
+"""
+schema { query: Query }
+
+"""
+*  Type description
+"""
+type Query {
+  """
+  A field example:
+  \`\`\`javascript
+  const user={name:"Ada",age:30};console.log(user)
+  \`\`\`
+  """
+  user(
+    """
+    *  Argument description
+    \`\`\`json
+    {"id":1}
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+*  Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name{color:red;padding:0  1px}
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+*  Interface description
+"""
+interface Named { name: String }
+
+"""
+*  Union description
+"""
+union Result = User | Query
+
+"""
+*  Enum description
+"""
+enum Status {
+  """
+  *  Enum value description
+  """
+  ACTIVE
+}
+
+"""
+*  Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION
+
+=====================================output=====================================
+"""
+- Schema description
+"""
+schema {
+  query: Query
+}
+
+"""
+- Type description
+"""
+type Query {
+  """
+  A field example:
+
+  \`\`\`javascript
+  const user = { name: "Ada", age: 30 };
+  console.log(user);
+  \`\`\`
+  """
+  user(
+    """
+    - Argument description
+
+    \`\`\`json
+    { "id": 1 }
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+- Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name {
+    color: red;
+    padding: 0 1px;
+  }
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+- Interface description
+"""
+interface Named {
+  name: String
+}
+
+"""
+- Union description
+"""
+union Result = User | Query
+
+"""
+- Enum description
+"""
+enum Status {
+  """
+  - Enum value description
+  """
+  ACTIVE
+}
+
+"""
+- Directive description
+"""
+directive @example(
+  value: String
+) on FIELD_DEFINITION
+
+================================================================================
+`;
+
+exports[`nested.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+*  Schema description
+"""
+schema { query: Query }
+
+"""
+*  Type description
+"""
+type Query {
+  """
+  A field example:
+  \`\`\`javascript
+  const user={name:"Ada",age:30};console.log(user)
+  \`\`\`
+  """
+  user(
+    """
+    *  Argument description
+    \`\`\`json
+    {"id":1}
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+*  Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name{color:red;padding:0  1px}
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+*  Interface description
+"""
+interface Named { name: String }
+
+"""
+*  Union description
+"""
+union Result = User | Query
+
+"""
+*  Enum description
+"""
+enum Status {
+  """
+  *  Enum value description
+  """
+  ACTIVE
+}
+
+"""
+*  Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION
+
+=====================================output=====================================
+"""
+- Schema description
+"""
+schema {
+  query: Query
+}
+
+"""
+- Type description
+"""
+type Query {
+  """
+  A field example:
+
+  \`\`\`javascript
+  const user = { name: "Ada", age: 30 };
+  console.log(user);
+  \`\`\`
+  """
+  user(
+    """
+    - Argument description
+
+    \`\`\`json
+    { "id": 1 }
+    \`\`\`
+    """
+    id: ID
+  ): User
+}
+
+"""
+- Input description
+"""
+input UserInput {
+  """
+  \`\`\`css
+  .name {
+    color: red;
+    padding: 0 1px;
+  }
+  \`\`\`
+  """
+  name: String
+}
+
+"""
+- Interface description
+"""
+interface Named {
+  name: String
+}
+
+"""
+- Union description
+"""
+union Result = User | Query
+
+"""
+- Enum description
+"""
+enum Status {
+  """
+  - Enum value description
+  """
+  ACTIVE
+}
+
+"""
+- Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION
+
+================================================================================
+`;
+
+exports[`quotes.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+A literal triple quote: \\""" and backslashes: \\\\.
+
+\`\`\`javascript
+const message='\\"""';
+const slash='\\\\';
+\`\`\`
+
+\`\`\`graphql
+\\"""
+*  Nested documentation
+\\"""
+type Inner{field:String}
+\`\`\`
+"""
+scalar Quotes
+
+=====================================output=====================================
+"""
+A literal triple quote: \\""" and backslashes: \\\\.
+
+\`\`\`javascript
+const message='\\"""';
+const slash='\\\\';
+\`\`\`
+
+\`\`\`graphql
+\\"""
+*  Nested documentation
+\\"""
+type Inner{field:String}
+\`\`\`
+"""
+scalar Quotes
+
+================================================================================
+`;
+
+exports[`quotes.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"""
+A literal triple quote: \\""" and backslashes: \\\\.
+
+\`\`\`javascript
+const message='\\"""';
+const slash='\\\\';
+\`\`\`
+
+\`\`\`graphql
+\\"""
+*  Nested documentation
+\\"""
+type Inner{field:String}
+\`\`\`
+"""
+scalar Quotes
+
+=====================================output=====================================
+"""
+A literal triple quote: \\""" and
+backslashes: \\\\.
+
+\`\`\`javascript
+const message = '\\"""';
+const slash = "\\\\";
+\`\`\`
+
+\`\`\`graphql
+\\"""
+- Nested documentation
+\\"""
+type Inner {
+  field: String
+}
+\`\`\`
+"""
+scalar Quotes
+
+================================================================================
+`;
+
+exports[`quotes.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"""
+A literal triple quote: \\""" and backslashes: \\\\.
+
+\`\`\`javascript
+const message='\\"""';
+const slash='\\\\';
+\`\`\`
+
+\`\`\`graphql
+\\"""
+*  Nested documentation
+\\"""
+type Inner{field:String}
+\`\`\`
+"""
+scalar Quotes
+
+=====================================output=====================================
+"""
+A literal triple quote: \\""" and backslashes: \\\\.
+
+\`\`\`javascript
+const message = '\\"""';
+const slash = "\\\\";
+\`\`\`
+
+\`\`\`graphql
+\\"""
+- Nested documentation
+\\"""
+type Inner {
+  field: String
+}
+\`\`\`
+"""
+scalar Quotes
+
+================================================================================
+`;
+
+exports[`values-and-ignore.graphql - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+""""""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example($value: String = """
+\`\`\`json
+{"default":true}
+\`\`\`
+""") {
+  field(argument: """
+\`\`\`javascript
+const data={a:1}
+\`\`\`
+""")
+}
+
+input Defaults {
+  value: String = """
+*  An ordinary string value
+\`\`\`json
+{"data":true}
+\`\`\`
+"""
+}
+
+=====================================output=====================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+"""
+"""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example(
+  $value: String = """
+  \`\`\`json
+  {"default":true}
+  \`\`\`
+  """
+) {
+  field(
+    argument: """
+    \`\`\`javascript
+    const data={a:1}
+    \`\`\`
+    """
+  )
+}
+
+input Defaults {
+  value: String = """
+  *  An ordinary string value
+  \`\`\`json
+  {"data":true}
+  \`\`\`
+  """
+}
+
+================================================================================
+`;
+
+exports[`values-and-ignore.graphql - {"printWidth":40,"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 40
+proseWrap: "always"
+                        printWidth: 40 |
+=====================================input======================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+""""""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example($value: String = """
+\`\`\`json
+{"default":true}
+\`\`\`
+""") {
+  field(argument: """
+\`\`\`javascript
+const data={a:1}
+\`\`\`
+""")
+}
+
+input Defaults {
+  value: String = """
+*  An ordinary string value
+\`\`\`json
+{"data":true}
+\`\`\`
+"""
+}
+
+=====================================output=====================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+"""
+"""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example(
+  $value: String = """
+  \`\`\`json
+  {"default":true}
+  \`\`\`
+  """
+) {
+  field(
+    argument: """
+    \`\`\`javascript
+    const data={a:1}
+    \`\`\`
+    """
+  )
+}
+
+input Defaults {
+  value: String = """
+  *  An ordinary string value
+  \`\`\`json
+  {"data":true}
+  \`\`\`
+  """
+}
+
+================================================================================
+`;
+
+exports[`values-and-ignore.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+""""""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example($value: String = """
+\`\`\`json
+{"default":true}
+\`\`\`
+""") {
+  field(argument: """
+\`\`\`javascript
+const data={a:1}
+\`\`\`
+""")
+}
+
+input Defaults {
+  value: String = """
+*  An ordinary string value
+\`\`\`json
+{"data":true}
+\`\`\`
+"""
+}
+
+=====================================output=====================================
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+"""
+"""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+\`\`\`json
+{"ignored":true}
+\`\`\`
+"""
+type Ignored { field:String }
+
+query Example(
+  $value: String = """
+  \`\`\`json
+  {"default":true}
+  \`\`\`
+  """
+) {
+  field(
+    argument: """
+    \`\`\`javascript
+    const data={a:1}
+    \`\`\`
+    """
+  )
+}
+
+input Defaults {
+  value: String = """
+  *  An ordinary string value
+  \`\`\`json
+  {"data":true}
+  \`\`\`
+  """
+}
+
+================================================================================
+`;

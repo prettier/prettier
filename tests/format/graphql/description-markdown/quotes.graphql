@@ -1,0 +1,16 @@
+"""
+A literal triple quote: \""" and backslashes: \\.
+
+```javascript
+const message='\"""';
+const slash='\\';
+```
+
+```graphql
+\"""
+*  Nested documentation
+\"""
+type Inner{field:String}
+```
+"""
+scalar Quotes

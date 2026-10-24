@@ -1,0 +1,35 @@
+"Use **this** single-line string unchanged.  "
+scalar SingleLine
+
+""""""
+scalar Empty
+
+# prettier-ignore
+"""
+*  Unformatted
+```json
+{"ignored":true}
+```
+"""
+type Ignored { field:String }
+
+query Example($value: String = """
+```json
+{"default":true}
+```
+""") {
+  field(argument: """
+```javascript
+const data={a:1}
+```
+""")
+}
+
+input Defaults {
+  value: String = """
+*  An ordinary string value
+```json
+{"data":true}
+```
+"""
+}
