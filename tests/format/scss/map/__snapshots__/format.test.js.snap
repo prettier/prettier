@@ -1477,3 +1477,59 @@ $map: (
 
 ================================================================================
 `;
+
+exports[`space-separated-list.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (key: (1px 2px));
+$map: (key: (1px + 2px));
+$map: (key1: value1, key2: (1px solid red), key3: value3);
+@include mixin($arg: (1px 2px));
+
+=====================================output=====================================
+$map: (
+  key: (1px 2px),
+);
+$map: (
+  key: (1px + 2px),
+);
+$map: (
+  key1: value1,
+  key2: (1px solid red),
+  key3: value3,
+);
+@include mixin($arg: (1px 2px));
+
+================================================================================
+`;
+
+exports[`space-separated-list.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (key: (1px 2px));
+$map: (key: (1px + 2px));
+$map: (key1: value1, key2: (1px solid red), key3: value3);
+@include mixin($arg: (1px 2px));
+
+=====================================output=====================================
+$map: (
+  key: (1px 2px)
+);
+$map: (
+  key: (1px + 2px)
+);
+$map: (
+  key1: value1,
+  key2: (1px solid red),
+  key3: value3
+);
+@include mixin($arg: (1px 2px));
+
+================================================================================
+`;
