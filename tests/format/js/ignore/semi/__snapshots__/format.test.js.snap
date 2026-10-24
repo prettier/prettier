@@ -364,6 +364,57 @@ exports[`asi-bind-expression.js format[yuku-ts] 1`] = `
   4 |"
 `;
 
+exports[`asi-type-cast-comment.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo;
+// prettier-ignore
+/** @type {string[]} */ (cast).sort();
+
+foo;
+// prettier-ignore
+/* not a type cast */ (plain).sort();
+
+=====================================output=====================================
+foo
+// prettier-ignore
+;/** @type {string[]} */ (cast).sort()
+
+foo
+// prettier-ignore
+/* not a type cast */ ;(plain).sort()
+
+================================================================================
+`;
+
+exports[`asi-type-cast-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo;
+// prettier-ignore
+/** @type {string[]} */ (cast).sort();
+
+foo;
+// prettier-ignore
+/* not a type cast */ (plain).sort();
+
+=====================================output=====================================
+foo;
+// prettier-ignore
+/** @type {string[]} */ (cast).sort();
+
+foo;
+// prettier-ignore
+/* not a type cast */ (plain).sort();
+
+================================================================================
+`;
+
 exports[`class-expression-decorator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
