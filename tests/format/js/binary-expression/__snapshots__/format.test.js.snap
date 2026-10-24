@@ -637,16 +637,16 @@ foo[
 ];
 
 !(
-  a
+  (a
   + a // comment
   + a
   + !(
-    b
+    (b
     + b
     + b // comment
     + b
-    + b
-  )
+    + b)
+  ))
 );
 
 const logical_expression =
@@ -781,16 +781,16 @@ foo[
 ];
 
 !(
-  a +
+  (a +
   a + // comment
   a +
   !(
-    b +
+    (b +
     b +
     b + // comment
     b +
-    b
-  )
+    b)
+  ))
 );
 
 const logical_expression =

@@ -6270,12 +6270,12 @@ function foo() {
 function transitionedFromBleepToBloop() {
   return !!(
     // Start with a bloop.
-    thing != null &&
+    (thing != null &&
     thing.foo &&
     thing.foo.bar === "bloop" &&
     // End up with a bleep.
     thing.foo &&
-    thing.foo.bar === "bleep"
+    thing.foo.bar === "bleep")
   )
 
   return Boolean(
@@ -6413,12 +6413,12 @@ function foo() {
 function transitionedFromBleepToBloop() {
   return !!(
     // Start with a bloop.
-    thing != null &&
+    (thing != null &&
     thing.foo &&
     thing.foo.bar === "bloop" &&
     // End up with a bleep.
     thing.foo &&
-    thing.foo.bar === "bleep"
+    thing.foo.bar === "bleep")
   );
 
   return Boolean(

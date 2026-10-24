@@ -28,6 +28,7 @@ function parentNeedsParentheses(path, options, needsParentheses) {
     case "ReturnStatement":
     case "ThrowStatement":
     case "YieldExpression":
+    case "UnaryExpression":
       if (willArgumentBreakAndAddParentheses(path, options)) {
         return false;
       }
@@ -133,13 +134,15 @@ function willArgumentBreakAndAddParentheses(path, options) {
   const { key, parent } = path;
   if (!(
     key === "argument" &&
-    (isReturnOrThrowStatement(parent) || parent.type === "YieldExpression")
+    (isReturnOrThrowStatement(parent) ||
+      parent.type === "YieldExpression" ||
+      parent.type === "UnaryExpression")
   )) {
     return false;
   }
 
   /*
-  When `ReturnStatement`, `ThrowStatement`, or `YieldExpression` breaks, parentheses will be added around it's argument.
+  When `ReturnStatement`, `ThrowStatement`, `YieldExpression`, or `UnaryExpression` breaks, parentheses will be added around it's argument.
   So don't need add parentheses again.
   But we can't know how the argument printed, so only matches cases that will break for sure
   */
