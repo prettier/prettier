@@ -161,10 +161,6 @@ function printBinaryishExpression(path, options, print) {
     return group(parts);
   }
 
-  if (parts.length === 0) {
-    return "";
-  }
-
   // If the right part is a JSX node, we include it in a separate group to
   // prevent it breaking the whole chain, so we can print the expression like:
   //
