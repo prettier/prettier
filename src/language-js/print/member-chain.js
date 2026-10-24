@@ -150,13 +150,11 @@ function printMemberChain(path, options, print) {
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
   const { node } = path;
+  const printedCallPrefix = [printOptionalToken(path), print("typeArguments")];
+  const callArguments = printCallArguments(path, options, print);
   printedNodes.unshift({
     node,
-    printed: [
-      printOptionalToken(path),
-      print("typeArguments"),
-      printCallArguments(path, options, print),
-    ],
+    printed: [printedCallPrefix, callArguments],
   });
 
   if (node.callee) {
@@ -405,12 +403,27 @@ function printMemberChain(path, options, print) {
   ) {
     result = group(expanded);
   } else {
+    const alternatives = [oneLine];
+    const expandedLastArg =
+      "label" in callArguments
+        ? callArguments.label.expandedLastArg
+        : undefined;
+    if (expandedLastArg) {
+      // Prefer expanding the last argument before breaking the chain so
+      // formatting is stable across passes (issue #20307).
+      alternatives.push(
+        flatGroups.map(({ node: groupNode, printed }) =>
+          groupNode === node ? [printedCallPrefix, expandedLastArg] : printed,
+        ),
+      );
+    }
+    alternatives.push(expanded);
     result = [
       // We only need to check `oneLine` because if `expanded` is chosen
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup([oneLine, expanded]),
+      conditionalGroup(alternatives),
     ];
   }
 

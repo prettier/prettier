@@ -682,18 +682,15 @@ not.d3.scaleLinear()
   .range([0, width])
 
 =====================================output=====================================
-d3.select("body")
-  .append("circle")
-  .at({ width: 30, fill: "#f0f" })
-  .st({ fontWeight: 600 });
+d3.select("body").append("circle").at({ width: 30, fill: "#f0f" }).st({
+  fontWeight: 600,
+});
 
 const myScale = d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
-not.d3
-  .select("body")
-  .append("circle")
-  .at({ width: 30, fill: "#f0f" })
-  .st({ fontWeight: 600 });
+not.d3.select("body").append("circle").at({ width: 30, fill: "#f0f" }).st({
+  fontWeight: 600,
+});
 
 not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
@@ -876,9 +873,9 @@ let column = new Column(null, conn)
 
 =====================================output=====================================
 const fetched = fetch("/foo");
-fetched
-  .then((response) => response.json())
-  .then((json) => processThings(json.data.things));
+fetched.then((response) => response.json()).then((json) =>
+  processThings(json.data.things),
+);
 
 let column = new Column(null, conn).table(data.table).json(data.column);
 
