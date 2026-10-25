@@ -1,0 +1,46 @@
+$x: "!default";
+$x: "   !default";
+$x: "   !default   ";
+
+$x: unquote("!default");
+$x: unquote("   !default");
+$x: unquote("   !default   ");
+
+$x: url("x!global");
+$x: url("x   !global");
+$x: url("x   !global   ");
+
+$x: '!default';
+$x: 'single   !default   ';
+$x: 'single   !default   ';
+
+$x: "it's !default"   !default;
+$x: "it's !default"   !default  ;
+$x: "it's !default  "   !default  ;
+
+$x: "a"   !default;
+$x: "a"   !default  ;
+$x: "a"   !default  ;
+$x: 1px   !default;
+$x: 1px   !global;
+$x: "escaped \"   !default";
+$x: "escaped \"   !default ";
+
+$x: "!default"   !default /* trailing comment */;
+$x: "!default"   !global /* trailing comment */;
+$x: "!default"   !default /* c1 */ /* c2 */;
+$x: "!default"   !default /* trailing comment */;
+$x: "!default"   !default /* multi
+line comment */;
+$x: "!default"   !default; // trailing comment
+$x: "!default"   !global; // trailing comment
+$x: "!default"   !default; // trailing comment
+$x: "!default"   !default // trailing comment
+;
+$x: "!default"   !global // trailing comment
+;
+$x: "!default"   !default // trailing comment
+;
+$x: "!default"   !default // 1
+// 2
+;
