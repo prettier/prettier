@@ -1,0 +1,5 @@
+a: 1
+# prettier-ignore
+b:   2 # comment
+
+# end comment

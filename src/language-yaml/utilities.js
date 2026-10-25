@@ -89,6 +89,13 @@ function getLastDescendantNode(node) {
 function endsWithTrailingComment(node) {
   for (let current = node; current; current = current.children?.at(-1)) {
     if (
+      hasLeadingComments(current) &&
+      isPrettierIgnore(current.leadingComments.at(-1))
+    ) {
+      return false;
+    }
+
+    if (
       hasTrailingComment(current) &&
       locEnd(current.trailingComment) === locEnd(node)
     ) {
