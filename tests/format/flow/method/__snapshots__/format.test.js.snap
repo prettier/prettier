@@ -119,3 +119,75 @@ interface I {
 
 ================================================================================
 `;
+
+exports[`method-signature.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Foo = {
+  get(key: "foo"): \`
+  \`;
+};
+type Foo = {
+  get(key: "foo"): \`
+   \${x}
+  \`;
+};
+type Foo = {
+  get(key: "foo"): \`\`;
+};
+type Foo = {
+  get(key: "foo"): \`\${x}\`;
+};
+
+type Bar = {
+  get(key: "bar"): {
+    bar: "bar"
+  };
+}
+type Bar = {
+  get(key: "bar"): { bar: "bar" };
+}
+
+=====================================output=====================================
+type Foo = {
+  get(key: "foo"): \`
+  \`,
+};
+type Foo = {
+  get(key: "foo"): \`
+   \${x}
+  \`,
+};
+type Foo = {
+  get(key: "foo"): \`\`,
+};
+type Foo = {
+  get(key: "foo"): \`\${x}\`,
+};
+
+type Bar = {
+  get(key: "bar"): {
+    bar: "bar",
+  },
+};
+type Bar = {
+  get(key: "bar"): { bar: "bar" },
+};
+
+================================================================================
+`;
+
+exports[`method-signature.js format[hermes] 1`] = `
+"unexpected token in type annotation (2:20)
+  1 | type Foo = {
+> 2 |   get(key: "foo"): \`
+    |                    ^
+  3 |   \`;
+  4 | };
+  5 | type Foo = {
+Cause: unexpected token in type annotation (2:19)
+  get(key: "foo"): \`
+                   ^"
+`;
