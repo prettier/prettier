@@ -1,0 +1,5 @@
+# prettier-ignore
+a:   1
+<<<PRETTIER_RANGE_START>>># prettier-ignore
+b:   2
+c:   3<<<PRETTIER_RANGE_END>>>
