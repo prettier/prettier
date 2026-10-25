@@ -262,6 +262,55 @@ await 1;
 ================================================================================
 `;
 
+exports[`logical-await-20022.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+﻿async function* f() {
+  return (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  yield (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  await (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+}
+
+=====================================output=====================================
+﻿async function* f() {
+  return (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  yield (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+
+  await (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+    cccccccccccccccc
+  );
+}
+
+================================================================================
+`;
+
 exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
