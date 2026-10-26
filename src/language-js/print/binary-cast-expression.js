@@ -1,4 +1,10 @@
-import { group, hardline, indent, softline } from "../../document/index.js";
+import {
+  group,
+  hardline,
+  indent,
+  indentIfBreak,
+  softline,
+} from "../../document/index.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
   isCallOrNewExpression,
@@ -10,25 +16,34 @@ import {
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
   const isFlowAsConstExpression = node.type === "AsConstExpression";
+  const expressionDoc = print("expression");
   const typeAnnotationDoc = isFlowAsConstExpression
     ? "const"
     : print("typeAnnotation");
-
-  const parts = [
-    print("expression"),
-    " ",
-    isSatisfiesExpression(node) ? "satisfies" : "as",
-  ];
+  let suffix;
 
   if (
     // Union type already indented
     !isUnionType(node.typeAnnotation) &&
     hasLeadingOwnLineComment(options.originalText, node.typeAnnotation)
   ) {
-    parts.push(indent([hardline, typeAnnotationDoc]));
+    suffix = indent([hardline, typeAnnotationDoc]);
   } else {
-    parts.push(" ", typeAnnotationDoc);
+    suffix = [" ", typeAnnotationDoc];
   }
+
+  if (expressionDoc.label?.memberChain) {
+    suffix = indentIfBreak(suffix, {
+      groupId: expressionDoc.label.groupId,
+    });
+  }
+
+  const parts = [
+    expressionDoc,
+    " ",
+    isSatisfiesExpression(node) ? "satisfies" : "as",
+    suffix,
+  ];
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||

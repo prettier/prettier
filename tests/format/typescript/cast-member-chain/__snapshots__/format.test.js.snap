@@ -1,0 +1,426 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`chains.ts - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 40
+                        printWidth: 40 |
+=====================================input======================================
+const flat = foo.bar().baz() as { value: string };
+const plain = value as { value: string };
+
+const conditional = foo.first().second().third() as {
+  value: string;
+  nested: { value: number };
+};
+
+const forced = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as {
+  value: string;
+  nested: { value: number };
+};
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies {
+  value: string;
+};
+
+const optional = values
+  ?.map((value) => ({
+    value,
+  }))
+  ?.filter((value) => value) as {
+  value: string;
+};
+
+const member = (values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string }).value;
+
+const union = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string } | { value: number };
+
+const commented = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+  // A type comment.
+  {
+    value: string;
+  };
+
+const trailingMember = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value).result as {
+  value: string;
+};
+
+=====================================output=====================================
+const flat = foo.bar().baz() as {
+  value: string;
+};
+const plain = value as {
+  value: string;
+};
+
+const conditional = foo
+  .first()
+  .second()
+  .third() as {
+    value: string;
+    nested: { value: number };
+  };
+
+const forced = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as {
+    value: string;
+    nested: { value: number };
+  };
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies {
+    value: string;
+  };
+
+const optional = values
+  ?.map((value) => ({
+    value,
+  }))
+  ?.filter((value) => value) as {
+    value: string;
+  };
+
+const member = (
+  values
+    .map((value) => ({
+      value,
+    }))
+    .filter((value) => value) as {
+      value: string;
+    }
+).value;
+
+const union = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+    | { value: string }
+    | { value: number };
+
+const commented = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+    // A type comment.
+    {
+      value: string;
+    };
+
+const trailingMember = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value).result as {
+    value: string;
+  };
+
+================================================================================
+`;
+
+exports[`chains.ts - {"tabWidth":4,"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+tabWidth: 4
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const flat = foo.bar().baz() as { value: string };
+const plain = value as { value: string };
+
+const conditional = foo.first().second().third() as {
+  value: string;
+  nested: { value: number };
+};
+
+const forced = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as {
+  value: string;
+  nested: { value: number };
+};
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies {
+  value: string;
+};
+
+const optional = values
+  ?.map((value) => ({
+    value,
+  }))
+  ?.filter((value) => value) as {
+  value: string;
+};
+
+const member = (values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string }).value;
+
+const union = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string } | { value: number };
+
+const commented = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+  // A type comment.
+  {
+    value: string;
+  };
+
+const trailingMember = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value).result as {
+  value: string;
+};
+
+=====================================output=====================================
+const flat = foo.bar().baz() as { value: string };
+const plain = value as { value: string };
+
+const conditional = foo.first().second().third() as {
+	value: string;
+	nested: { value: number };
+};
+
+const forced = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) as {
+		value: string;
+		nested: { value: number };
+	};
+
+const satisfies = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) satisfies {
+		value: string;
+	};
+
+const optional = values
+	?.map((value) => ({
+		value,
+	}))
+	?.filter((value) => value) as {
+		value: string;
+	};
+
+const member = (
+	values
+		.map((value) => ({
+			value,
+		}))
+		.filter((value) => value) as { value: string }
+).value;
+
+const union = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) as { value: string } | { value: number };
+
+const commented = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) as
+		// A type comment.
+		{
+			value: string;
+		};
+
+const trailingMember = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value).result as {
+		value: string;
+	};
+
+================================================================================
+`;
+
+exports[`chains.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const flat = foo.bar().baz() as { value: string };
+const plain = value as { value: string };
+
+const conditional = foo.first().second().third() as {
+  value: string;
+  nested: { value: number };
+};
+
+const forced = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as {
+  value: string;
+  nested: { value: number };
+};
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies {
+  value: string;
+};
+
+const optional = values
+  ?.map((value) => ({
+    value,
+  }))
+  ?.filter((value) => value) as {
+  value: string;
+};
+
+const member = (values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string }).value;
+
+const union = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string } | { value: number };
+
+const commented = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+  // A type comment.
+  {
+    value: string;
+  };
+
+const trailingMember = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value).result as {
+  value: string;
+};
+
+=====================================output=====================================
+const flat = foo.bar().baz() as { value: string };
+const plain = value as { value: string };
+
+const conditional = foo.first().second().third() as {
+  value: string;
+  nested: { value: number };
+};
+
+const forced = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as {
+    value: string;
+    nested: { value: number };
+  };
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies {
+    value: string;
+  };
+
+const optional = values
+  ?.map((value) => ({
+    value,
+  }))
+  ?.filter((value) => value) as {
+    value: string;
+  };
+
+const member = (
+  values
+    .map((value) => ({
+      value,
+    }))
+    .filter((value) => value) as { value: string }
+).value;
+
+const union = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as { value: string } | { value: number };
+
+const commented = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+    // A type comment.
+    {
+      value: string;
+    };
+
+const trailingMember = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value).result as {
+    value: string;
+  };
+
+================================================================================
+`;
