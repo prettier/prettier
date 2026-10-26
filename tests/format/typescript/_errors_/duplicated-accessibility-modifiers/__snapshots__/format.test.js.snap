@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: Accessibility modifier already seen."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'method' (1:28)
+> 1 | class A {private protected method(){}}
+    |                            ^^^^^^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Accessibility modifier already seen: 'public'. (1:20)
 > 1 | class A {protected public method(){}}
@@ -38,6 +44,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 > 1 | class A {protected public method(){}}
     |                    ^^^^^^
 Cause: Accessibility modifier already seen."
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'method' (1:27)
+> 1 | class A {protected public method(){}}
+    |                           ^^^^^^"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
@@ -60,6 +72,12 @@ exports[`snippet: #2 format[typescript] 1`] = `
 Cause: Accessibility modifier already seen."
 `;
 
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'method' (1:26)
+> 1 | class A {private private method(){}}
+    |                          ^^^^^^"
+`;
+
 exports[`snippet: #3 format[babel-ts] 1`] = `
 "Accessibility modifier already seen: 'protected'. (1:18)
 > 1 | class A {private protected property}
@@ -78,6 +96,12 @@ exports[`snippet: #3 format[typescript] 1`] = `
 > 1 | class A {private protected property}
     |                  ^^^^^^^^^
 Cause: Accessibility modifier already seen."
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'property' (1:28)
+> 1 | class A {private protected property}
+    |                            ^^^^^^^^"
 `;
 
 exports[`snippet: #4 format[babel-ts] 1`] = `
@@ -100,6 +124,12 @@ exports[`snippet: #4 format[typescript] 1`] = `
 Cause: Accessibility modifier already seen."
 `;
 
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'property' (1:27)
+> 1 | class A {protected public property}
+    |                           ^^^^^^^^"
+`;
+
 exports[`snippet: #5 format[babel-ts] 1`] = `
 "Accessibility modifier already seen: 'private'. (1:18)
 > 1 | class A {private private property}
@@ -118,4 +148,10 @@ exports[`snippet: #5 format[typescript] 1`] = `
 > 1 | class A {private private property}
     |                  ^^^^^^^
 Cause: Accessibility modifier already seen."
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
+"Expected ';' after class field, but found 'property' (1:26)
+> 1 | class A {private private property}
+    |                          ^^^^^^^^"
 `;

@@ -31,3 +31,13 @@ exports[`catch-clause-with-initializer.ts format[typescript] 1`] = `
   5 |
 Cause: Catch clause variable cannot have an initializer."
 `;
+
+exports[`catch-clause-with-initializer.ts format[yuku-ts] 1`] = `
+"Expected ')' after catch parameter, but found '=' (3:10)
+  1 | try {
+  2 | }
+> 3 | catch (e = 1) {
+    |          ^
+  4 | }
+  5 |"
+`;

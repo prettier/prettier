@@ -1,8 +1,6 @@
-import { fill } from "../../document/index.js";
-import {
-  getTextValueParts,
-  getUnescapedAttributeValue,
-} from "../utilities/index.js";
+import { fill, join, line } from "../../document/index.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
 import {
   isAngularInterpolation,
   printAngularInterpolation,
@@ -54,7 +52,7 @@ const printers = [
         (name.startsWith("[") && name.endsWith("]")) ||
         /^bind(?:on)?-/.test(name) ||
         // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-        /^ng-(?:if|show|hide|class|style)$/.test(name)
+        /^ng-(?:if|show|hide|class|style|model-options)$/.test(name)
       );
     },
     print: createAngularPrinter("__ng_binding"),
@@ -86,11 +84,8 @@ const printers = [
 
 function printAngularI18n(textToDoc, print, { node } /* , options */) {
   const value = getUnescapedAttributeValue(node);
-  return printExpand(
-    // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-    fill(getTextValueParts(node, value.trim())),
-    !value.includes("@@"),
-  );
+  const doc = fill(join(line, htmlWhitespace.split(value.trim())));
+  return printExpand(doc, !value.includes("@@"));
 }
 
 export default printers;

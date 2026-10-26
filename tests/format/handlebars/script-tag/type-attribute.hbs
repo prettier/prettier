@@ -1,0 +1,21 @@
+<script>
+   shouldFormat   (   );
+</script>
+
+<script type="text/javascript">
+   shouldFormat   (   );
+</script>
+
+<script type>
+   shouldNotFormat   (   );
+</script>
+<script type="">
+   shouldNotFormat   (   );
+</script>
+<script type="unknown">
+   shouldNotFormat   (   );
+</script>
+
+<script type="application/ld+json">
+  {   "should"   :   "not format" }
+</script>

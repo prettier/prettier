@@ -16,7 +16,11 @@ function printTable(path, options, print) {
   const contents = path.map(
     () =>
       path.map(({ index: columnIndex }) => {
-        const text = printDocToString(print(), options).formatted;
+        const text = printDocToString(print(), {
+          ...options,
+          printWidth: Number.POSITIVE_INFINITY,
+          endOfLine: "lf",
+        }).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
           columnMaxWidths[columnIndex] ?? 3, // minimum width = 3 (---, :--, :-:, --:)

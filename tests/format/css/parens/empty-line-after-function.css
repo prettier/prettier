@@ -1,0 +1,16 @@
+a {
+  clip-path: polygon(
+    0 calc(100% - 1px),
+
+    100% 100%
+  );
+  background: linear-gradient(
+    to right,
+
+    rgba(0, 0, 0, 0.5) calc(50% - 1px),
+
+
+
+    transparent
+  );
+}

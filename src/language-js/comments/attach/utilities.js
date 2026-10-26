@@ -8,6 +8,7 @@ import {
   isBlockComment,
   isLineComment,
 } from "../../utilities/comment-types.js";
+import { isEnumBody } from "../../utilities/node-types.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../../types/estree.js";
@@ -31,36 +32,55 @@ const isSingleLineComment = (comment, text) =>
   isLineComment(comment) || isSingleLineBlockComment(comment, text);
 
 /**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockOrNotComment(node, comment) {
+@param {Node} node
+@returns {true}
+*/
+function addCommentToPossibleBlockStatement(node, comment) {
   if (node.type === "BlockStatement") {
-    addBlockStatementFirstComment(node, comment);
-  } else {
-    addLeadingComment(node, comment);
+    return addBlockFirstComment(node, comment);
   }
+
+  return addLeadingComment(node, comment);
 }
 
 /**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockStatementFirstComment(node, comment) {
-  // @ts-expect-error
-  const firstNonEmptyNode = (node.body || node.properties).find(
-    ({ type }) => type !== "EmptyStatement",
-  );
-  if (firstNonEmptyNode) {
-    addLeadingComment(firstNonEmptyNode, comment);
+@param {
+  | NodeMap["BlockStatement"]
+  | NodeMap["ClassBody"]
+  | NodeMap["TSInterfaceBody"]
+  | NodeMap["TSModuleBlock"]
+  | NodeMap["ObjectTypeAnnotation"]
+  | NodeMap["TSEnumBody"]
+  | NodeMap["EnumDeclaration"]["body"]
+} node
+@returns {true}
+*/
+function addBlockFirstComment(node, comment) {
+  let child;
+
+  // eslint-disable-next-line unicorn/prefer-switch
+  if (node.type === "BlockStatement" || node.type === "TSModuleBlock") {
+    child = node.body.find(({ type }) => type !== "EmptyStatement");
+  } else if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
+    child = node.body[0];
+  } else if (node.type === "ObjectTypeAnnotation") {
+    child = node.properties[0];
+  } else if (isEnumBody(node)) {
+    child = node.members[0];
+  }
+
+  if (child) {
+    addLeadingComment(child, comment);
   } else {
     addDanglingComment(node, comment);
   }
+
+  return true;
 }
 
 export {
-  addBlockOrNotComment,
-  addBlockStatementFirstComment,
+  addBlockFirstComment,
+  addCommentToPossibleBlockStatement,
   isSingleLineBlockComment,
   isSingleLineComment,
 };

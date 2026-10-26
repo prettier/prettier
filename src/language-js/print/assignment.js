@@ -449,8 +449,10 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
 function isGeneric(node) {
   switch (node.type) {
     case "FunctionTypeAnnotation":
+    case "ConstructorTypeAnnotation":
     case "GenericTypeAnnotation":
     case "TSFunctionType":
+    case "TSConstructorType":
       return Boolean(node.typeParameters);
     case "TSTypeReference":
       return Boolean(node.typeArguments);

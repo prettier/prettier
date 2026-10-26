@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`function-sent.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function *adder(total=0) {
+   let increment=1;
+   do {
+       switch (request = function.sent){
+          case undefined: break;
+          case "done": return total;
+          default: increment = Number(request);
+       }
+       yield total += increment;
+   } while (true)
+}
+
+=====================================output=====================================
+function* adder(total = 0) {
+  let increment = 1;
+  do {
+    switch ((request = function.sent)) {
+      case undefined:
+        break;
+      case "done":
+        return total;
+      default:
+        increment = Number(request);
+    }
+    yield (total += increment);
+  } while (true);
+}
+
+================================================================================
+`;
+
+exports[`function-sent.js format[acorn] 1`] = `
+"Unexpected token (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: Unexpected token (4:33)"
+`;
+
+exports[`function-sent.js format[espree] 1`] = `
+"Unexpected token . (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: Unexpected token ."
+`;
+
+exports[`function-sent.js format[flow] 1`] = `
+"Unexpected token \`.\`, expected an identifier (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: Unexpected token \`.\`, expected an identifier (4:33)"
+`;
+
+exports[`function-sent.js format[hermes] 1`] = `
+"'(' expected at start of function parameter list (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: '(' expected at start of function parameter list (4:33)
+       switch (request = function.sent){
+                         ~~~~~~~~^"
+`;
+
+exports[`function-sent.js format[meriyah] 1`] = `
+"Expected '(' (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: [4:33-4:34]: Expected '('"
+`;
+
+exports[`function-sent.js format[oxc] 1`] = `
+"Expected \`(\` but found \`.\` (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);"
+`;
+
+exports[`function-sent.js format[oxc-ts] 1`] = `
+"Expected \`(\` but found \`.\` (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);"
+`;
+
+exports[`function-sent.js format[typescript] 1`] = `
+"'(' expected. (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);
+Cause: '(' expected."
+`;
+
+exports[`function-sent.js format[yuku] 1`] = `
+"Expected '(' to start parameter list, but found '.' (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);"
+`;
+
+exports[`function-sent.js format[yuku-ts] 1`] = `
+"Expected '(' to start parameter list, but found '.' (4:34)
+  2 |    let increment=1;
+  3 |    do {
+> 4 |        switch (request = function.sent){
+    |                                  ^
+  5 |           case undefined: break;
+  6 |           case "done": return total;
+  7 |           default: increment = Number(request);"
+`;

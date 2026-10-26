@@ -1280,6 +1280,7 @@ exports[`htmlTagNames 1`] = `
   },
   {
     "attributes": [
+      "for",
       "shadowrootclonable",
       "shadowrootcustomelementregistry",
       "shadowrootdelegatesfocus",

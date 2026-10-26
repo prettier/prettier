@@ -25,15 +25,6 @@ exports[`show warning with unknown option  1`] = `
 }
 `;
 
-exports[`throw error for unsupported extension  1`] = `
-{
-  "stderr": "[error] Invalid configuration:
-[error] No loader specified for extension ".unsupported"",
-  "stdout": "",
-  "write": [],
-}
-`;
-
 exports[`throw error if both --config and --no-config are submitted  1`] = `
 {
   "stderr": "[error] Cannot use --no-config and --config together.",
@@ -43,20 +34,6 @@ exports[`throw error if both --config and --no-config are submitted  1`] = `
 exports[`throw error if both --config and --no-config are submitted  2`] = `
 {
   "stderr": "[error] Cannot use --no-config and --config together.",
-}
-`;
-
-exports[`throw error with invalid config format  1`] = `
-{
-  "stdout": "",
-  "write": [],
-}
-`;
-
-exports[`throw error with invalid config format  2`] = `
-{
-  "stdout": "",
-  "write": [],
 }
 `;
 
@@ -82,15 +59,6 @@ exports[`throw error with invalid config precedence option (configPrecedence)  1
 [error] - "cli-override"
 [error] - "file-override"
 [error] - "prefer-file"",
-  "stdout": "",
-  "write": [],
-}
-`;
-
-exports[`throw error with invalid config target (directory)  1`] = `
-{
-  "stderr": "[error] Invalid configuration:
-[error] Unable to read '<cli>/config/invalid/folder/.prettierrc': EISDIR: illegal operation on a directory, read",
   "stdout": "",
   "write": [],
 }

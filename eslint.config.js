@@ -151,6 +151,8 @@ const configs = [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/prefer-return-from-comment-attach-helpers":
+        "error",
       "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
       /* @stylistic/eslint-plugin */
@@ -269,6 +271,8 @@ const configs = [
       "unicorn/no-array-reverse": "off",
       "unicorn/no-array-sort": "off",
       "unicorn/no-array-splice": "off",
+      // TODO: enable
+      "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-break-in-nested-loop": "off",
       "unicorn/no-computed-property-existence-check": "off",
@@ -290,6 +294,9 @@ const configs = [
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/no-undeclared-class-members": "off",
       "unicorn/no-unnecessary-boolean-comparison": "off",
+      "unicorn/no-unnecessary-parameters": "off",
+      // Too slow and not useful
+      "unicorn/no-unnecessary-polyfills": "off",
       "unicorn/no-unreadable-array-destructuring": "off",
       "unicorn/no-unreadable-for-of-expression": "off",
       "unicorn/no-unreadable-new-expression": "off",
@@ -322,7 +329,9 @@ const configs = [
       "unicorn/prefer-await": "off",
       "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-combined-guards": "off",
       "unicorn/prefer-continue": "off",
+      "unicorn/prefer-default-parameters": "off",
       "unicorn/prefer-dom-node-append": "off",
       "unicorn/prefer-dom-node-remove": "off",
       "unicorn/prefer-early-return": "off",
@@ -338,6 +347,8 @@ const configs = [
       // TODO: Enable
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-includes-over-repeated-comparisons": "off",
+      "unicorn/prefer-literal-ascii": "off",
+      "unicorn/prefer-logical-operator-over-ternary": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-number-properties": [
         "error",
@@ -348,8 +359,10 @@ const configs = [
       ],
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
+      "unicorn/prefer-short-escape-sequences": "off",
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-simplified-conditions": "off",
+      "unicorn/prefer-single-object-destructuring": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prefer-then-catch": "off",
       "unicorn/prefer-unicode-code-point-escapes": "off",

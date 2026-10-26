@@ -7,8 +7,8 @@ import createBabelParseError from "./utilities/create-babel-parse-error.js";
 import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
   SOURCE_TYPE_COMMONJS,
-  SOURCE_TYPE_MODULE,
 } from "./utilities/source-types.js";
 import wrapExpression from "./utilities/wrap-expression.js";
 
@@ -22,7 +22,6 @@ const createBabelParser = (options) => createParser(createParse(options));
 
 /** @type {ParserOptions} */
 const parseOptions = {
-  sourceType: SOURCE_TYPE_MODULE,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowNewTargetOutsideFunction: true,
@@ -32,8 +31,14 @@ const parseOptions = {
   createParenthesizedExpressions: true,
   attachComment: false,
   plugins: [
-    // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
-    // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
+    /*
+    Add a plugin:
+      Please make sure a simple syntax test added in `tests/format/js/babel-plugins/`,
+      Run `node scripts/update-babel-plugin-tests.js` will add examples
+      from https://babel.dev/docs/babel-parser#plugins
+    Remove a plugin:
+      Remove it here and run `yarn test tests/format/js/babel-plugins` to verify
+    */
     "doExpressions",
     "exportDefaultFrom",
     "functionBind",
@@ -132,8 +137,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(filepath);
-    if (sourceType && sourceType !== SOURCE_TYPE_MODULE) {
-      combinations = combinations.map((options) => ({
+
+    combinations = (
+      sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+    ).flatMap((sourceType) =>
+      combinations.map((options) => ({
         ...options,
         sourceType,
         // `sourceType: "commonjs"` does not allow these two properties
@@ -143,8 +151,8 @@ function createParse({ isExpression = false, optionsCombinations }) {
               allowNewTargetOutsideFunction: undefined,
             }
           : undefined),
-      }));
-    }
+      })),
+    );
 
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
@@ -198,6 +206,7 @@ const allowedReasonCodesArray = [
   "StrictEvalArgumentsBinding",
   "StrictFunction",
   "ForInOfLoopInitializer",
+  "IllegalBreakContinue",
 
   "ParamDupe",
   "RestTrailingComma",

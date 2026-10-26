@@ -82,7 +82,8 @@ function printCssDeclaration(path, options, print) {
   parts.push(value);
 
   if (node.raws.important) {
-    parts.push(node.raws.important.replace(/\s*!\s*important/i, " !important"));
+    const directive = `${isValueAllSpace ? "" : " "}!important`;
+    parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
   } else if (node.important) {
     parts.push(" !important");
   }

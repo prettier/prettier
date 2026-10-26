@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`unparenthesized-in-union-type.ts format[babel-ts] 1`] = `
+"Unexpected token (1:15)
+> 1 | type A = B | () => void;
+    |               ^
+  2 |
+Cause: Unexpected token (1:14)"
+`;
+
+exports[`unparenthesized-in-union-type.ts format[oxc-ts] 1`] = `
+"Unexpected token (1:15)
+> 1 | type A = B | () => void;
+    |               ^
+  2 |"
+`;
+
+exports[`unparenthesized-in-union-type.ts format[typescript] 1`] = `
+"Function type notation must be parenthesized when used in a union type. (1:13)
+> 1 | type A = B | () => void;
+    |             ^
+  2 |
+Cause: Function type notation must be parenthesized when used in a union type."
+`;
+
+exports[`unparenthesized-in-union-type.ts format[yuku-ts] 1`] = `
+"Expected a type, but found ')' (1:15)
+> 1 | type A = B | () => void;
+    |               ^
+  2 |"
+`;

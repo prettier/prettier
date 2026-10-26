@@ -82,35 +82,53 @@ proseWrap: "always"
 [link](https://www.google.fr/foo-%3Ebar)
 [link](https://www.google.fr/foo-<bar)
 [link](https://www.google.fr/foo-%3Cbar)
+[link](\\<)
+[link](\\()
+[link](\\\\)
+[link](<	>)
 
 ![link](https://www.google.fr/()foo->bar)
 ![link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar)
+![link](\\<)
+![link](\\()
+![link](\\\\)
+![link](<	>)
 
 [link]: https://www.google.fr/()foo->bar
 [link]: https://www.google.fr/foo->bar
 [link]: https://www.google.fr/foo-%3Ebar
 [link]: https://www.google.fr/foo-<bar
 [link]: https://www.google.fr/foo-%3Cbar
+[link]: \\<
+[link]: \\(
+[link]: \\\\
+[link]: <	>
 
 =====================================output=====================================
-[link](<https://www.google.fr/()foo-%3Ebar>)
+[link](<https://www.google.fr/()foo-\\>bar>)
 [link](https://www.google.fr/foo->bar) [link](https://www.google.fr/foo-%3Ebar)
 [link](https://www.google.fr/foo-<bar) [link](https://www.google.fr/foo-%3Cbar)
+[link](<\\<>) [link](<(>) [link](\\\\) [link](<	>)
 
-![link](<https://www.google.fr/()foo-%3Ebar>)
+![link](<https://www.google.fr/()foo-\\>bar>)
 ![link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
-![link](https://www.google.fr/foo-%3Cbar)
+![link](https://www.google.fr/foo-%3Cbar) ![link](<\\<>) ![link](<(>) ![link](\\\\)
+![link](<	>)
 
 [link]: https://www.google.fr/()foo->bar
 [link]: https://www.google.fr/foo->bar
 [link]: https://www.google.fr/foo-%3Ebar
 [link]: https://www.google.fr/foo-<bar
 [link]: https://www.google.fr/foo-%3Cbar
+[link]: <\\<>
+[link]: <(>
+[link]: \\\\
+[link]: <	>
 
 ================================================================================
 `;
@@ -123,8 +141,64 @@ proseWrap: "always"
 =====================================input======================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
+[Test](/a?x&quot\\;b)
+
+[Test](/a?x&#34\\;b)
+
+[Test](/a?x&#x22\\;b)
+
+![Test](/a?x&quot\\;b)
+
+[Test](/a "x&quot\\;b")
+
+[Test](</a b?x&quot\\;c>)
+
+[Test]: /a?x&quot\\;b
+
+[Test](/a?x\\&amp;b)
+
+[Test](/a?x\\&amp;quot;b)
+
+[Test](/a "x\\&amp;b")
+
+[Test](/a "x\\&amp;quot;b")
+
+[Test](/a?x&amp;b)
+
+[Test](/a?x&amp;quot;b)
+
+[Test](/a "/a?x&amp;quot;b")
+
 =====================================output=====================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
+
+[Test](/a?x\\&quot;b)
+
+[Test](/a?x\\&#34;b)
+
+[Test](/a?x\\&#x22;b)
+
+![Test](/a?x\\&quot;b)
+
+[Test](/a "x\\&quot;b")
+
+[Test](</a b?x\\&quot;c>)
+
+[Test]: /a?x\\&quot;b
+
+[Test](/a?x\\&amp;b)
+
+[Test](/a?x\\&amp;quot;b)
+
+[Test](/a "x\\&amp;b")
+
+[Test](/a "x\\&amp;quot;b")
+
+[Test](/a?x&b)
+
+[Test](/a?x\\&quot;b)
+
+[Test](/a "/a?x\\&quot;b")
 
 ================================================================================
 `;

@@ -1,8 +1,36 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`issue-11565.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const Component = () => (
+  <div>
+    <strong>
+      Some random text
+    </strong>
+    : <div className="yoooooooooooooooooooo" data-test-a-long-property-name="aaaaaaaaaaaaaaaaaaaaaaa" />
+  </div>
+);
+
+=====================================output=====================================
+const Component = () => (
+  <div>
+    <strong>Some random text</strong>:{" "}
+    <div
+      className="yoooooooooooooooooooo"
+      data-test-a-long-property-name="aaaaaaaaaaaaaaaaaaaaaaa"
+    />
+  </div>
+);
+
+================================================================================
+`;
+
 exports[`issue-16897.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 function HelloWorld(   ) {
@@ -40,7 +68,7 @@ function HelloWorld() {
 
 exports[`test.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // Wrapping text

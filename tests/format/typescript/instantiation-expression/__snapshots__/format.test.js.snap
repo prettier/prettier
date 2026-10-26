@@ -43,6 +43,32 @@ C;
 ================================================================================
 `;
 
+exports[`export-default-class.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default (class {})<string>;
+
+=====================================output=====================================
+export default (class {}<string>);
+
+================================================================================
+`;
+
+exports[`export-default-function.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default (function () {})<string>;
+
+=====================================output=====================================
+export default (function () {}<string>);
+
+================================================================================
+`;
+
 exports[`inferface-asi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -111,6 +137,122 @@ new A<T>();
 ================================================================================
 `;
 
+exports[`non-null-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a = (make<T>)!;
+(make<T>)!.b;
+(make<T>)!();
+
+=====================================output=====================================
+const a = (make<T>)!;
+(make<T>)!.b;
+(make<T>)!();
+
+================================================================================
+`;
+
+exports[`operand.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (c ? a : b)<T>;
+x =  c ? a : b <T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x =  a + b <T>;
+
+x = (a ?? b)<T>;
+x =  a ?? b <T>;
+
+x = (a in b)<T>;
+x =  a in b <T>;
+
+x = (a ** b)<T>;
+x =  a ** b <T>;
+
+x = (!a)<T>;
+x =  !a <T>;
+
+x = (typeof a)<T>;
+x =  typeof a <T>;
+
+x = (a as B)<T>;
+x =  a as B <T>;
+
+x = (a satisfies B)<T>;
+x =  a satisfies B <T>;
+
+x = (<B>a)<T>;
+x =  <B>a <T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = (a.b)<T>;
+x =  a.b <T>;
+
+x = (a())<T>;
+x =  a() <T>;
+
+=====================================output=====================================
+x = (c ? a : b)<T>;
+x = c ? a : b<T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x = a + b<T>;
+
+x = (a ?? b)<T>;
+x = a ?? b<T>;
+
+x = (a in b)<T>;
+x = a in b<T>;
+
+x = (a ** b)<T>;
+x = a ** b<T>;
+
+x = (!a)<T>;
+x = !a<T>;
+
+x = (typeof a)<T>;
+x = typeof a<T>;
+
+x = (a as B)<T>;
+x = a as B<T>;
+
+x = (a satisfies B)<T>;
+x = a satisfies B<T>;
+
+x = (<B>a)<T>;
+x = <B>a<T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = a.b<T>;
+x = a.b<T>;
+
+x = a()<T>;
+x = a()<T>;
+
+================================================================================
+`;
+
 exports[`property-access.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -146,6 +288,35 @@ a[(Array<string>).name];
 (Array<string>)[\`a\`];
 (Array<string>)?.[\`a\`];
 (Array<string>)[Array<string>];
+
+================================================================================
+`;
+
+exports[`super-class.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+  class ClassDeclaration_1 extends B<T> {}
+( class ClassExpresssion_1 extends B<T> {} );
+  class ClassDeclaration_2 extends (B<T>) {}
+( class ClassExpresssion_2 extends (B<T>) {} );
+
+// This not really make sense
+// https://github.com/typescript-eslint/typescript-eslint/issues/12012
+  class ClassDeclaration_3 extends (B<T>)<T> {}
+( class ClassExpresssion_3 extends (B<T>)<T> {} );
+
+=====================================output=====================================
+class ClassDeclaration_1 extends B<T> {}
+(class ClassExpresssion_1 extends B<T> {});
+class ClassDeclaration_2 extends (B<T>) {}
+(class ClassExpresssion_2 extends (B<T>) {});
+
+// This not really make sense
+// https://github.com/typescript-eslint/typescript-eslint/issues/12012
+class ClassDeclaration_3 extends (B<T>)<T> {}
+(class ClassExpresssion_3 extends (B<T>)<T> {});
 
 ================================================================================
 `;

@@ -3,6 +3,12 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     acorn: true,
     espree: true,
     flow: ["classes.js"],
-    hermes: ["classes.js", "redux.js", "mixed.js", "comments.js"],
+    hermes: [
+      "classes.js",
+      "redux.js",
+      "mixed.js",
+      "comments.js",
+      "export-comments.js",
+    ],
   },
 });

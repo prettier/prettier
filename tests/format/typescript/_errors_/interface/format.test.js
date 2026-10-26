@@ -9,5 +9,5 @@ runFormatTest(
       "interface A implements B {}",
     ],
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts", "yuku-ts"],
 );

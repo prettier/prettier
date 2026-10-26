@@ -1,2 +1,4 @@
-runFormatTest(import.meta, ["flow"]);
-runFormatTest(import.meta, ["flow"], { semi: false });
+const errors = { hermes: ["declare_namespace_new.js"] };
+
+runFormatTest(import.meta, ["flow"], { errors });
+runFormatTest(import.meta, ["flow"], { errors, semi: false });

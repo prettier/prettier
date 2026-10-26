@@ -946,11 +946,11 @@ export namespace util {
     options?: SkipOptions,
   ) => number | false;
 
-  function addLeadingComment(node: any, comment: any): void;
+  function addLeadingComment(node: any, comment: any): true;
 
-  function addDanglingComment(node: any, comment: any, marker: any): void;
+  function addDanglingComment(node: any, comment: any, marker: any): true;
 
-  function addTrailingComment(node: any, comment: any): void;
+  function addTrailingComment(node: any, comment: any): true;
 
   function getPreferredQuote(
     text: string,

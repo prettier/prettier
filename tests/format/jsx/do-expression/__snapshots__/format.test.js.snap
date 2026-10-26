@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`do-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  {do {
+	  1
+  }}
+</div>
+
+=====================================output=====================================
+<div>
+  {do {
+    1;
+  }}
+</div>;
+
+================================================================================
+`;
+
+exports[`do-expression.js format[acorn] 1`] = `
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token (2:3)"
+`;
+
+exports[`do-expression.js format[espree] 1`] = `
+"Unexpected token do (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token do"
+`;
+
+exports[`do-expression.js format[flow] 1`] = `
+"Unexpected token \`do\` (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token \`do\` (2:3)"
+`;
+
+exports[`do-expression.js format[hermes] 1`] = `
+"invalid expression (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: invalid expression (2:3)
+  {do {
+   ^"
+`;
+
+exports[`do-expression.js format[meriyah] 1`] = `
+"Unexpected token: 'do' (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: [2:3-2:5]: Unexpected token: 'do'"
+`;
+
+exports[`do-expression.js format[oxc] 1`] = `
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>"
+`;
+
+exports[`do-expression.js format[oxc-ts] 1`] = `
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>"
+`;
+
+exports[`do-expression.js format[typescript] 1`] = `
+"Expression expected. (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Expression expected."
+`;
+
+exports[`do-expression.js format[yuku] 1`] = `
+"'do' is reserved and cannot be used as an identifier (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>"
+`;
+
+exports[`do-expression.js format[yuku-ts] 1`] = `
+"'do' is reserved and cannot be used as an identifier (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>"
+`;

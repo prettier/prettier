@@ -47,6 +47,21 @@ export const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+export const isTemplateLiteralType = createTypeCheckFunction([
+  "TSTemplateLiteralType",
+  "TemplateLiteralTypeAnnotation",
+]);
+
+export const isImportType = createTypeCheckFunction([
+  "TSImportType",
+  "ImportType",
+]);
+
+export const isExternalModuleReference = createTypeCheckFunction([
+  "TSExternalModuleReference",
+  "ExternalModuleReference",
+]);
+
 export const isTypeAlias = createTypeCheckFunction([
   "TSTypeAliasDeclaration",
   "TypeAlias",
@@ -63,6 +78,21 @@ export const isExportDeclaration = createTypeCheckFunction([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
   "DeclareExportAllDeclaration",
+]);
+
+export const isExportAssignment = createTypeCheckFunction([
+  "TSExportAssignment",
+  "ExportAssignment",
+]);
+
+export const isAbstractMethodDefinition = createTypeCheckFunction([
+  "AbstractMethodDefinition",
+  "TSAbstractMethodDefinition",
+]);
+
+export const isAbstractPropertyDefinition = createTypeCheckFunction([
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
 ]);
 
 // These two functions exists because we used support `recordAndTuple`
@@ -141,5 +171,34 @@ export const isTypeParameterInstantiation = createTypeCheckFunction([
   "TSTypeParameterInstantiation",
   "TypeParameterInstantiation",
 ]);
+
+export const isTypeAnnotation = createTypeCheckFunction([
+  "TSTypeAnnotation",
+  "TypeAnnotation",
+]);
+
+export const isModuleDeclaration = createTypeCheckFunction([
+  "TSModuleDeclaration",
+  "DeclareModule",
+  "DeclareNamespace",
+]);
+
+export const isConstructorType = createTypeCheckFunction([
+  "TSConstructorType",
+  "ConstructorTypeAnnotation",
+]);
+
+export const isClass = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ClassExpression",
+]);
+
+export const isEnumDeclaration = createTypeCheckFunction([
+  "TSEnumDeclaration",
+  "EnumDeclaration",
+  "DeclareEnum",
+]);
+
+export const isEnumBody = createTypeCheckFunction(["TSEnumBody", "EnumBody"]);
 
 export * from "./literal.js";

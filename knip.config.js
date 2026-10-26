@@ -30,13 +30,7 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: [
-        "ts-expect",
-        "buffer",
-        "base64-arraybuffer-es6",
-        "flow-estree",
-        "@yuku-parser/wasm",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer"],
       ignoreBinaries: [],
     },
     website: {

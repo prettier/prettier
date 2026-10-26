@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: Identifier expected."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '"a"' (1:11)
+> 1 | namespace "a" {}
+    |           ^^^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Missing semicolon. (1:10)
 > 1 | namespace "a";
@@ -40,6 +46,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 Cause: Identifier expected."
 `;
 
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found '"a"' (1:11)
+> 1 | namespace "a";
+    |           ^^^"
+`;
+
 exports[`snippet: #2 format[babel-ts] 1`] = `
 "Unexpected token, expected "{" (1:12)
 > 1 | namespace a;
@@ -58,4 +70,10 @@ exports[`snippet: #2 format[typescript] 1`] = `
 > 1 | namespace a;
     |            ^
 Cause: '{' expected."
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"A namespace declaration requires a body (1:1)
+> 1 | namespace a;
+    | ^^^^^^^^^^^"
 `;

@@ -10,6 +10,15 @@ exports[`decorator.ts format[babel-ts] 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
 `;
 
+exports[`decorator.ts format[oxc-ts] 1`] = `
+"Unexpected token (4:1)
+  2 |
+  3 | @dec
+> 4 | enum E {}
+    | ^^^^
+  5 |"
+`;
+
 exports[`decorator.ts format[typescript] 1`] = `
 "Decorators are not valid here. (3:1)
   1 | declare function dec<T>(target: T): T;
@@ -19,6 +28,15 @@ exports[`decorator.ts format[typescript] 1`] = `
   4 | enum E {}
   5 |
 Cause: Decorators are not valid here."
+`;
+
+exports[`decorator.ts format[yuku-ts] 1`] = `
+"Expected 'class' keyword, but found 'enum' (4:1)
+  2 |
+  3 | @dec
+> 4 | enum E {}
+    | ^^^^
+  5 |"
 `;
 
 exports[`enums.ts format[babel-ts] 1`] = `
@@ -33,6 +51,17 @@ exports[`enums.ts format[babel-ts] 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
 `;
 
+exports[`enums.ts format[oxc-ts] 1`] = `
+"Unexpected token (4:1)
+  2 |
+  3 | @decorator()
+> 4 | enum Direction {
+    | ^^^^
+  5 |                Up = 1,
+  6 |   Down,
+  7 |   Left,"
+`;
+
 exports[`enums.ts format[typescript] 1`] = `
 "Decorators are not valid here. (3:1)
   1 | // https://github.com/typescript-eslint/typescript-eslint/pull/2375
@@ -45,6 +74,17 @@ exports[`enums.ts format[typescript] 1`] = `
 Cause: Decorators are not valid here."
 `;
 
+exports[`enums.ts format[yuku-ts] 1`] = `
+"Expected 'class' keyword, but found 'enum' (4:1)
+  2 |
+  3 | @decorator()
+> 4 | enum Direction {
+    | ^^^^
+  5 |                Up = 1,
+  6 |   Down,
+  7 |   Left,"
+`;
+
 exports[`function.ts format[babel-ts] 1`] = `
 "Leading decorators must be attached to a class declaration. (4:1)
   2 |
@@ -53,6 +93,15 @@ exports[`function.ts format[babel-ts] 1`] = `
     | ^
   5 |
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
+`;
+
+exports[`function.ts format[oxc-ts] 1`] = `
+"Unexpected token (4:1)
+  2 |
+  3 | @decorator()
+> 4 | function foo(      ){}
+    | ^^^^^^^^
+  5 |"
 `;
 
 exports[`function.ts format[typescript] 1`] = `
@@ -66,6 +115,15 @@ exports[`function.ts format[typescript] 1`] = `
 Cause: Decorators are not valid here."
 `;
 
+exports[`function.ts format[yuku-ts] 1`] = `
+"Expected 'class' keyword, but found 'function' (4:1)
+  2 |
+  3 | @decorator()
+> 4 | function foo(      ){}
+    | ^^^^^^^^
+  5 |"
+`;
+
 exports[`interface.ts format[babel-ts] 1`] = `
 "Leading decorators must be attached to a class declaration. (5:1)
   3 |
@@ -75,6 +133,16 @@ exports[`interface.ts format[babel-ts] 1`] = `
   6 | }
   7 |
 Cause: Leading decorators must be attached to a class declaration. (5:0)"
+`;
+
+exports[`interface.ts format[oxc-ts] 1`] = `
+"Unexpected token (5:1)
+  3 |
+  4 | @hello()
+> 5 | interface MyInterface {id: string;
+    | ^^^^^^^^^
+  6 | }
+  7 |"
 `;
 
 exports[`interface.ts format[typescript] 1`] = `
@@ -89,6 +157,16 @@ exports[`interface.ts format[typescript] 1`] = `
 Cause: Decorators are not valid here."
 `;
 
+exports[`interface.ts format[yuku-ts] 1`] = `
+"Expected 'class' keyword, but found 'interface' (5:1)
+  3 |
+  4 | @hello()
+> 5 | interface MyInterface {id: string;
+    | ^^^^^^^^^
+  6 | }
+  7 |"
+`;
+
 exports[`issue-9102.ts format[babel-ts] 1`] = `
 "Leading decorators must be attached to a class declaration. (2:1)
   1 | @Decorator()
@@ -99,6 +177,15 @@ exports[`issue-9102.ts format[babel-ts] 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (2:0)"
 `;
 
+exports[`issue-9102.ts format[oxc-ts] 1`] = `
+"Unexpected token (2:1)
+  1 | @Decorator()
+> 2 | type T = 1;
+    | ^^^^
+  3 | class C {}
+  4 |"
+`;
+
 exports[`issue-9102.ts format[typescript] 1`] = `
 "Decorators are not valid here. (1:1)
 > 1 | @Decorator()
@@ -107,4 +194,13 @@ exports[`issue-9102.ts format[typescript] 1`] = `
   3 | class C {}
   4 |
 Cause: Decorators are not valid here."
+`;
+
+exports[`issue-9102.ts format[yuku-ts] 1`] = `
+"Expected 'class' keyword, but found 'type' (2:1)
+  1 | @Decorator()
+> 2 | type T = 1;
+    | ^^^^
+  3 | class C {}
+  4 |"
 `;

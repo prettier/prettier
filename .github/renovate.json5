@@ -12,6 +12,7 @@
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
   lockFileMaintenance: { enabled: true },
+  abandonmentThreshold: "2 years",
   packageRules: [
     {
       groupName: "GitHub Actions",
@@ -68,7 +69,11 @@
     },
     {
       groupName: "Yuku parser",
-      matchPackageNames: ["yuku-parser", "@yuku-parser/*"],
+      matchPackageNames: ["yuku-parser", "@yuku-core/*"],
+    },
+    {
+      groupName: "Oxc parser",
+      matchPackageNames: ["oxc-parser", "@oxc-parser/*"],
     },
     {
       groupName: "Regex related dependencies",
@@ -93,7 +98,12 @@
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
         "@catppuccin/codemirror",
+        "@lezer/highlight",
       ],
+    },
+    {
+      groupName: "Jest",
+      matchPackageNames: ["jest", "@jest/*", "jest-*"],
     },
   ],
   ignoreDeps: [

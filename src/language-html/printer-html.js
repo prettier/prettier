@@ -3,14 +3,12 @@
  */
 
 import {
-  fill,
   group,
   hardline,
   indent,
   line,
   replaceEndOfLine,
 } from "../document/index.js";
-import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import embed from "./embed.js";
@@ -26,6 +24,7 @@ import {
   printAngularIcuCase,
   printAngularIcuExpression,
 } from "./print/angular-icu-expression.js";
+import { printAttribute } from "./print/attribute.js";
 import { printChildren } from "./print/children.js";
 import { printElement } from "./print/element.js";
 import { printStartTagComment } from "./print/start-tag-comment.js";
@@ -35,12 +34,8 @@ import {
   printOpeningTagPrefix,
   printOpeningTagStart,
 } from "./print/tag.js";
+import { printText } from "./print/text.js";
 import preprocess from "./print-preprocess.js";
-import {
-  getTextValueParts,
-  shouldUnquoteAttributeValue,
-  unescapeQuoteEntities,
-} from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -88,29 +83,8 @@ function genericPrint(path, options, print) {
         ...path.map(print, "children"),
         printClosingTagEnd(node, options),
       ];
-    case "text": {
-      if (node.parent.kind === "interpolation") {
-        // replace the trailing literalline with hardline for better readability
-        const trailingNewlineRegex = /\n[^\S\n]*$/;
-        const hasTrailingNewline = trailingNewlineRegex.test(node.value);
-        const value = hasTrailingNewline
-          ? node.value.replace(trailingNewlineRegex, "")
-          : node.value;
-        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
-      }
-
-      const prefix = printOpeningTagPrefix(node, options);
-      const printed = getTextValueParts(node);
-
-      const suffix = printClosingTagSuffix(node, options);
-      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
-      printed[0] = [prefix, printed[0]];
-      // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-      printed.push([printed.pop(), suffix]);
-
-      // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
-      return fill(printed);
-    }
+    case "text":
+      return printText(path, options /* , print*/);
     case "docType":
       return [
         group([
@@ -128,35 +102,22 @@ function genericPrint(path, options, print) {
         ),
         printClosingTagSuffix(node, options),
       ];
-
-    case "attribute": {
-      if (node.value === null) {
-        return node.rawName;
-      }
-
-      const value = unescapeQuoteEntities(node.value);
-      const quote = shouldUnquoteAttributeValue(node, options)
-        ? ""
-        : getPreferredQuote(value, '"');
-
+    case "cdata":
       return [
-        node.rawName,
-        "=",
-        quote,
-        replaceEndOfLine(
-          quote === '"'
-            ? value.replaceAll('"', "&quot;")
-            : value.replaceAll("'", "&apos;"),
-        ),
-        quote,
+        printOpeningTagPrefix(node, options),
+        "<![CDATA[",
+        replaceEndOfLine(node.value),
+        "]]>",
+        printClosingTagSuffix(node, options),
       ];
-    }
+
+    case "attribute":
+      return printAttribute(path, options /* , print */);
 
     case "startTagComment":
       return printStartTagComment(path);
 
     case "frontMatter": // Handled in core
-    case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");

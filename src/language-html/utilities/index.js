@@ -2,12 +2,6 @@
  * @import AstPath from "../../common/ast-path.js"
  */
 
-import {
-  hardline,
-  join,
-  line,
-  replaceEndOfLine,
-} from "../../document/index.js";
 import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import inferParser from "../../utilities/infer-parser.js";
@@ -18,6 +12,7 @@ import {
   CSS_WHITE_SPACE_TAGS,
 } from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
+import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
@@ -104,7 +99,9 @@ function isPrettierIgnore(node) {
 
 /** there's no opening/closing tag or it's considered not breakable */
 function isTextLikeNode(node) {
-  return node.kind === "text" || node.kind === "comment";
+  return (
+    node.kind === "text" || node.kind === "comment" || node.kind === "cdata"
+  );
 }
 
 function isScriptLikeTag(node, options) {
@@ -121,7 +118,15 @@ function isScriptLikeTag(node, options) {
 }
 
 function canHaveInterpolation(node, options) {
-  return node.children && !isScriptLikeTag(node, options);
+  if (!node.children || isScriptLikeTag(node, options)) {
+    return false;
+  }
+
+  if (hasOrInNgNonBindable(node, options)) {
+    return false;
+  }
+
+  return true;
 }
 
 function isWhitespaceSensitiveNode(node, options) {
@@ -621,17 +626,6 @@ function isVueSfcBindingsAttribute(attribute, options) {
   );
 }
 
-function getTextValueParts(node, value = node.value) {
-  return node.parent.isWhitespaceSensitive
-    ? node.parent.isIndentationSensitive
-      ? replaceEndOfLine(value)
-      : replaceEndOfLine(
-          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
-          hardline,
-        )
-    : join(line, htmlWhitespace.split(value));
-}
-
 function isVueScriptTag(node, options) {
   return isVueSfcBlock(node, options) && node.name === "script";
 }
@@ -664,7 +658,6 @@ export {
   getLastDescendant,
   getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
-  getTextValueParts,
   getUnescapedAttributeValue,
   hasPrettierIgnore,
   htmlTrimPreserveIndentation,

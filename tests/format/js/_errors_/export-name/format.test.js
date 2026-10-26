@@ -18,7 +18,6 @@ runFormatTest(
     "meriyah",
     "acorn",
     "espree",
-    "espree",
     "hermes",
     "oxc",
     "oxc-ts",

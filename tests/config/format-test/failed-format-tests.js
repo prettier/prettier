@@ -10,18 +10,12 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
     "flow/hook/declare-hook.js",
     "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
-    "js/for-of/comments.js",
-    "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
+    "js/for-of-statement/comments.js",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     [
@@ -29,9 +23,7 @@ const unstableTests = new Map(
       (options) => options.objectWrap !== "collapse",
     ],
     "typescript/call/callee-comments.ts",
-    "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
-    "js/sequence-expression/parenthesized-trailing-comment-unstable.js",
     "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
@@ -57,17 +49,19 @@ const disabledTests = new Map(
     "babel-ts": [],
     oxc: [],
     "oxc-ts": [],
-    yuku: ["js/await/await-with-parens.js"],
-    "yuku-ts": ["js/await/await-with-parens.js"],
+    yuku: ["js/await-expression/await-with-parens.js"],
+    "yuku-ts": ["js/await-expression/await-with-parens.js"],
     hermes: [
-      // Different result
-      "js/await/like-call.js",
+      "js/await-expression/like-call.js", // Different result
+      "jsx/top-level-await/test.jsx",
     ],
     flow: [
       "js/decorators/member-expression.js", // Parsing to different ASTs
-      "js/await/await-with-parens.js",
-      "js/await/like-call.js",
+      "js/await-expression/await-with-parens.js",
+      "js/await-expression/like-call.js",
+      "jsx/top-level-await/test.jsx",
     ],
+    "babel-flow": ["js/babel-plugins/flow-comments.js"],
     typescript: [],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646

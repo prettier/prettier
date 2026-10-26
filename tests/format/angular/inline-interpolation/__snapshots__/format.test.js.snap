@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-11981.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div class="text">
+  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b>, let's create one:
+</div>
+<div class="text">
+  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b
+  >, let's create one:
+</div>
+
+=====================================output=====================================
+<div class="text">
+  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b>, let's create
+  one:
+</div>
+<div class="text">
+  Sorry, we couldn’t find an account for <b>{{ phoneInput }}</b>, let's create
+  one:
+</div>
+
+================================================================================
+`;

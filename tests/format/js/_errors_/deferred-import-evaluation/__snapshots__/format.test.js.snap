@@ -33,11 +33,11 @@ Cause: Unexpected token x"
 `;
 
 exports[`no-default.js format[flow] 1`] = `
-"Unexpected identifier, expected the keyword \`from\` (1:14)
+"Only \`import defer * as ns from "module"\` is valid (1:14)
 > 1 | import defer x from "x";
     |              ^
   2 |
-Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
 `;
 
 exports[`no-default.js format[hermes] 1`] = `
@@ -127,11 +127,11 @@ Cause: Unexpected token {"
 `;
 
 exports[`no-named.js format[flow] 1`] = `
-"Unexpected token \`{\`, expected the keyword \`from\` (1:14)
+"Only \`import defer * as ns from "module"\` is valid (1:14)
 > 1 | import defer { x } from "x";
     |              ^
   2 |
-Cause: Unexpected token \`{\`, expected the keyword \`from\` (1:13)"
+Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
 `;
 
 exports[`no-named.js format[hermes] 1`] = `
@@ -217,10 +217,10 @@ Cause: Unexpected token {"
 `;
 
 exports[`snippet: #0 format[flow] 1`] = `
-"Unexpected token \`{\`, expected the keyword \`from\` (1:14)
+"Only \`import defer * as ns from "module"\` is valid (1:14)
 > 1 | import defer { x } from "x";
     |              ^
-Cause: Unexpected token \`{\`, expected the keyword \`from\` (1:13)"
+Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
 `;
 
 exports[`snippet: #0 format[hermes] 1`] = `
@@ -299,10 +299,10 @@ Cause: Unexpected token x"
 `;
 
 exports[`snippet: #1 format[flow] 1`] = `
-"Unexpected identifier, expected the keyword \`from\` (1:14)
+"Only \`import defer * as ns from "module"\` is valid (1:14)
 > 1 | import defer x from "x";
     |              ^
-Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
 `;
 
 exports[`snippet: #1 format[hermes] 1`] = `

@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"single line description"
+scalar S1
+
+"""
+multiline
+description
+"""
+scalar S2
+
+=====================================output=====================================
+"single line description"
+scalar S1
+
+"""
+multiline
+description
+"""
+scalar S2
+
+================================================================================
+`;
+
 exports[`scalar.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]

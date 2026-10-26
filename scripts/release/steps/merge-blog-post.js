@@ -1,5 +1,5 @@
 import styleText from "node-style-text";
-import semver from "semver";
+import * as verkit from "verkit";
 import { runGit, waitForEnter } from "../utilities.js";
 
 export default async function mergeBlogPost({
@@ -12,7 +12,7 @@ export default async function mergeBlogPost({
     return;
   }
 
-  if (semver.diff(version, previousVersion) === "patch") {
+  if (verkit.difference(version, previousVersion) === "patch") {
     return;
   }
 

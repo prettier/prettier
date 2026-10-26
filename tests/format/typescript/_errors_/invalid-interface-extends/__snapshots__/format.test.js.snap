@@ -7,11 +7,23 @@ exports[`snippet: #0 format[babel-ts] 1`] = `
 Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
+exports[`snippet: #0 format[oxc-ts] 1`] = `
+"An interface can only extend an identifier/qualified-name with optional type arguments. (1:21)
+> 1 | interface A extends (typeof fs) { }
+    |                     ^^^^^^^^^^^"
+`;
+
 exports[`snippet: #0 format[typescript] 1`] = `
 "Interface declaration can only extend an identifier/qualified name with optional type arguments. (1:21)
 > 1 | interface A extends (typeof fs) { }
     |                     ^^^^^^^^^^^
 Cause: Interface declaration can only extend an identifier/qualified name with optional type arguments."
+`;
+
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"Expected an identifier, but found '(' (1:21)
+> 1 | interface A extends (typeof fs) { }
+    |                     ^"
 `;
 
 exports[`snippet: #1 format[babel-ts] 1`] = `
@@ -21,11 +33,23 @@ exports[`snippet: #1 format[babel-ts] 1`] = `
 Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
+exports[`snippet: #1 format[oxc-ts] 1`] = `
+"An interface can only extend an identifier/qualified-name with optional type arguments. (1:21)
+> 1 | interface B extends C['D'] { }
+    |                     ^^^^^^"
+`;
+
 exports[`snippet: #1 format[typescript] 1`] = `
 "Interface declaration can only extend an identifier/qualified name with optional type arguments. (1:21)
 > 1 | interface B extends C['D'] { }
     |                     ^^^^^^
 Cause: Interface declaration can only extend an identifier/qualified name with optional type arguments."
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found '[' (1:22)
+> 1 | interface B extends C['D'] { }
+    |                      ^"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
@@ -35,11 +59,23 @@ exports[`snippet: #2 format[babel-ts] 1`] = `
 Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
+exports[`snippet: #2 format[oxc-ts] 1`] = `
+"An interface can only extend an identifier/qualified-name with optional type arguments. (1:21)
+> 1 | interface E extends F?.G { }
+    |                     ^^^^"
+`;
+
 exports[`snippet: #2 format[typescript] 1`] = `
 "Interface declaration can only extend an identifier/qualified name with optional type arguments. (1:21)
 > 1 | interface E extends F?.G { }
     |                     ^^^^
 Cause: Interface declaration can only extend an identifier/qualified name with optional type arguments."
+`;
+
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found '?.' (1:22)
+> 1 | interface E extends F?.G { }
+    |                      ^^"
 `;
 
 exports[`snippet: #3 format[babel-ts] 1`] = `
@@ -49,11 +85,23 @@ exports[`snippet: #3 format[babel-ts] 1`] = `
 Cause: Unexpected token, expected "," (1:22)"
 `;
 
+exports[`snippet: #3 format[oxc-ts] 1`] = `
+"'extends' clause already seen (1:23)
+> 1 | interface H extends I extends J { }
+    |                       ^^^^^^^"
+`;
+
 exports[`snippet: #3 format[typescript] 1`] = `
 "'extends' clause already seen. (1:23)
 > 1 | interface H extends I extends J { }
     |                       ^^^^^^^^^
 Cause: 'extends' clause already seen."
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found 'extends' (1:23)
+> 1 | interface H extends I extends J { }
+    |                       ^^^^^^^"
 `;
 
 exports[`snippet: #4 format[babel-ts] 1`] = `
@@ -63,11 +111,23 @@ exports[`snippet: #4 format[babel-ts] 1`] = `
 Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
+exports[`snippet: #4 format[oxc-ts] 1`] = `
+"An interface can only extend an identifier/qualified-name with optional type arguments. (1:21)
+> 1 | interface K extends 2 { }
+    |                     ^"
+`;
+
 exports[`snippet: #4 format[typescript] 1`] = `
 "Interface declaration can only extend an identifier/qualified name with optional type arguments. (1:21)
 > 1 | interface K extends 2 { }
     |                     ^
 Cause: Interface declaration can only extend an identifier/qualified name with optional type arguments."
+`;
+
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"Expected an identifier, but found '2' (1:21)
+> 1 | interface K extends 2 { }
+    |                     ^"
 `;
 
 exports[`snippet: #5 format[babel-ts] 1`] = `
@@ -77,9 +137,21 @@ exports[`snippet: #5 format[babel-ts] 1`] = `
 Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
+exports[`snippet: #5 format[oxc-ts] 1`] = `
+"An interface can only extend an identifier/qualified-name with optional type arguments. (1:21)
+> 1 | interface L extends M().N { }
+    |                     ^^^^^"
+`;
+
 exports[`snippet: #5 format[typescript] 1`] = `
 "Interface declaration can only extend an identifier/qualified name with optional type arguments. (1:21)
 > 1 | interface L extends M().N { }
     |                     ^^^^^
 Cause: Interface declaration can only extend an identifier/qualified name with optional type arguments."
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
+"Expected '{' to start an interface body, but found '(' (1:22)
+> 1 | interface L extends M().N { }
+    |                      ^"
 `;

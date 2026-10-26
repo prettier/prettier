@@ -33,6 +33,10 @@ function calculateLocStart(node, text) {
 }
 
 function calculateLocEnd(node, text) {
+  if (node.type === "value-func" && node.group?.close) {
+    return calculateLocEnd(node.group.close, text);
+  }
+
   if (node.type === "css-comment" && node.inline) {
     return skipEverythingButNewLine(text, node.source.startOffset);
   }

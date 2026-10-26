@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+"single line description"
+enum E1 { A }
+
+"""
+multiline
+description
+"""
+enum E2 { A }
+
+=====================================output=====================================
+"single line description"
+enum E1 {
+  A
+}
+
+"""
+multiline
+description
+"""
+enum E2 {
+  A
+}
+
+================================================================================
+`;
+
 exports[`enum.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]

@@ -13,10 +13,14 @@ parsers: ["glimmer"]
   </style>
 </div>
 
+<style></style>
+
 =====================================output=====================================
 <div>
   <style></style>
 </div>
+
+<style></style>
 ================================================================================
 `;
 
@@ -134,24 +138,19 @@ parsers: ["glimmer"]
   </style>
 </div>
 
-=====================================output=====================================
-<div>
-  <style lang="css">
-    .a {
-      color: red;
-    }
-  </style>
-</div>
-================================================================================
-`;
-
-exports[`with-lang-attribute-2.hbs format 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
 <div>
   <style lang>
+
+
+    .a { color: red;
+    }
+
+
+  </style>
+</div>
+
+<div>
+  <style lang="">
 
 
     .a {color: red;
@@ -161,22 +160,6 @@ parsers: ["glimmer"]
   </style>
 </div>
 
-=====================================output=====================================
-<div>
-  <style lang>
-    .a {
-      color: red;
-    }
-  </style>
-</div>
-================================================================================
-`;
-
-exports[`with-lang-attribute-3.hbs format 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
 
   <style lang="unknown">
 
@@ -188,9 +171,66 @@ parsers: ["glimmer"]
   </style>
 
 =====================================output=====================================
+<div>
+  <style lang="css">
+    .a {
+      color: red;
+    }
+  </style>
+</div>
+
+<div>
+  <style lang>
+    .a { color: red;
+    }
+  </style>
+</div>
+
+<div>
+  <style lang="">
+    .a {color: red;
+    }
+  </style>
+</div>
+
 <style lang="unknown">
   .a {color: red;
   }
 </style>
+================================================================================
+`;
+
+exports[`with-mustache.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<style>
+  a {
+    color: {{foo}}
+  }
+</style>
+
+<style>
+  .a { color: {{color}}; }
+  {{#if debug}}.b { color: red; }{{/if}}
+</style>
+
+<style>{{foo}}</style>
+
+=====================================output=====================================
+<style>
+  a { color:
+  {{foo}}
+  }
+</style>
+
+<style>
+  .a { color:
+  {{color}}; }
+  {{#if debug}}.b { color: red; }{{/if}}
+</style>
+
+<style>{{foo}}</style>
 ================================================================================
 `;

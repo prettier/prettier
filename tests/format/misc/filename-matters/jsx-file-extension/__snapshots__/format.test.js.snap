@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: test.cjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.cts format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.cts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.cts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.cts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.jsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.mts format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.mts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.mts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.mts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.ts format[oxc-ts] 1`] = `
+"Expected \`>\` but found \`/\` (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.ts format[typescript] 1`] = `
+"'>' expected. (1:6)
+> 1 | <div />
+    |      ^
+Cause: '>' expected."
+`;
+
+exports[`snippet: test.ts format[yuku-ts] 1`] = `
+"Expected '>' to close a type assertion, but found '/' (1:6)
+> 1 | <div />
+    |      ^"
+`;
+
+exports[`snippet: test.tsx format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;
+
+exports[`snippet: test.unset-filepath format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div />
+=====================================output=====================================
+<div />;
+
+================================================================================
+`;

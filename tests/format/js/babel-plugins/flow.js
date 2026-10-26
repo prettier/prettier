@@ -1,3 +1,5 @@
-// https://babeljs.io/docs/babel-preset-flow
+/*
+`flow` ([repo](https://github.com/facebook/flow))
+*/
 
-function foo(one: any, two: number, three?): string {}
+var a: string = "";

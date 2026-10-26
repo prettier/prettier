@@ -31,3 +31,13 @@ exports[`mapped-type.ts format[typescript] 1`] = `
   5 |
 Cause: A mapped type may not declare properties or methods."
 `;
+
+exports[`mapped-type.ts format[yuku-ts] 1`] = `
+"Expected '}' to close a mapped type, but found 'extra_member' (3:3)
+  1 | type Mapped = {
+  2 |   [key in keyof O]: number;
+> 3 |   extra_member: should_not_allowed
+    |   ^^^^^^^^^^^^
+  4 | };
+  5 |"
+`;

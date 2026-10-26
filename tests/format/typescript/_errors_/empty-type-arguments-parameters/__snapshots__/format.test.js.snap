@@ -20,6 +20,12 @@ exports[`snippet: #0 format[typescript] 1`] = `
 Cause: Type argument list cannot be empty."
 `;
 
+exports[`snippet: #0 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:5)
+> 1 | foo<>()
+    |     ^"
+`;
+
 exports[`snippet: #1 format[babel-ts] 1`] = `
 "Type argument list cannot be empty. (1:5)
 > 1 | (foo<>())
@@ -38,6 +44,12 @@ exports[`snippet: #1 format[typescript] 1`] = `
 > 1 | (foo<>())
     |     ^^
 Cause: Type argument list cannot be empty."
+`;
+
+exports[`snippet: #1 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:6)
+> 1 | (foo<>())
+    |      ^"
 `;
 
 exports[`snippet: #2 format[babel-ts] 1`] = `
@@ -60,6 +72,12 @@ exports[`snippet: #2 format[typescript] 1`] = `
 Cause: Type argument list cannot be empty."
 `;
 
+exports[`snippet: #2 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:9)
+> 1 | new Foo<>()
+    |         ^"
+`;
+
 exports[`snippet: #3 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:13)
 > 1 | function foo<>(){}
@@ -78,6 +96,12 @@ exports[`snippet: #3 format[typescript] 1`] = `
 > 1 | function foo<>(){}
     |             ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #3 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:14)
+> 1 | function foo<>(){}
+    |              ^"
 `;
 
 exports[`snippet: #4 format[babel-ts] 1`] = `
@@ -100,6 +124,12 @@ exports[`snippet: #4 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #4 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:15)
+> 1 | (function foo<>(){})
+    |               ^"
+`;
+
 exports[`snippet: #5 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:10)
 > 1 | class Foo<> {}
@@ -118,6 +148,12 @@ exports[`snippet: #5 format[typescript] 1`] = `
 > 1 | class Foo<> {}
     |          ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #5 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:11)
+> 1 | class Foo<> {}
+    |           ^"
 `;
 
 exports[`snippet: #6 format[babel-ts] 1`] = `
@@ -140,6 +176,12 @@ exports[`snippet: #6 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #6 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:12)
+> 1 | (class Foo<> {})
+    |            ^"
+`;
+
 exports[`snippet: #7 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:23)
 > 1 | class Foo {constructor<>()}
@@ -158,6 +200,12 @@ exports[`snippet: #7 format[typescript] 1`] = `
 > 1 | class Foo {constructor<>()}
     |                       ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #7 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:24)
+> 1 | class Foo {constructor<>()}
+    |                        ^"
 `;
 
 exports[`snippet: #8 format[babel-ts] 1`] = `
@@ -180,6 +228,12 @@ exports[`snippet: #8 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #8 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:25)
+> 1 | (class Foo {constructor<>()})
+    |                         ^"
+`;
+
 exports[`snippet: #9 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:18)
 > 1 | class Foo {method<>()}
@@ -198,6 +252,12 @@ exports[`snippet: #9 format[typescript] 1`] = `
 > 1 | class Foo {method<>()}
     |                  ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #9 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:19)
+> 1 | class Foo {method<>()}
+    |                   ^"
 `;
 
 exports[`snippet: #10 format[babel-ts] 1`] = `
@@ -220,6 +280,12 @@ exports[`snippet: #10 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #10 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:20)
+> 1 | (class Foo {method<>()})
+    |                    ^"
+`;
+
 exports[`snippet: #11 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:22)
 > 1 | class Foo {get getter<>()}
@@ -238,6 +304,12 @@ exports[`snippet: #11 format[typescript] 1`] = `
 > 1 | class Foo {get getter<>()}
     |                      ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #11 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:23)
+> 1 | class Foo {get getter<>()}
+    |                       ^"
 `;
 
 exports[`snippet: #12 format[babel-ts] 1`] = `
@@ -260,6 +332,12 @@ exports[`snippet: #12 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #12 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:24)
+> 1 | (class Foo {get getter<>()})
+    |                        ^"
+`;
+
 exports[`snippet: #13 format[babel-ts] 1`] = `
 "Type argument list cannot be empty. (1:25)
 > 1 | class Foo {property: Bar<> = 1}
@@ -278,6 +356,12 @@ exports[`snippet: #13 format[typescript] 1`] = `
 > 1 | class Foo {property: Bar<> = 1}
     |                         ^^
 Cause: Type argument list cannot be empty."
+`;
+
+exports[`snippet: #13 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:26)
+> 1 | class Foo {property: Bar<> = 1}
+    |                          ^"
 `;
 
 exports[`snippet: #14 format[babel-ts] 1`] = `
@@ -300,6 +384,12 @@ exports[`snippet: #14 format[typescript] 1`] = `
 Cause: Type argument list cannot be empty."
 `;
 
+exports[`snippet: #14 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:27)
+> 1 | (class Foo {property: Bar<> = 1})
+    |                           ^"
+`;
+
 exports[`snippet: #15 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:14)
 > 1 | interface Foo<> {}
@@ -318,6 +408,12 @@ exports[`snippet: #15 format[typescript] 1`] = `
 > 1 | interface Foo<> {}
     |              ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #15 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:15)
+> 1 | interface Foo<> {}
+    |               ^"
 `;
 
 exports[`snippet: #16 format[babel-ts] 1`] = `
@@ -340,6 +436,12 @@ exports[`snippet: #16 format[typescript] 1`] = `
 Cause: Type parameter list cannot be empty."
 `;
 
+exports[`snippet: #16 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:20)
+> 1 | interface Foo {bar<>()}
+    |                    ^"
+`;
+
 exports[`snippet: #17 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:16)
 > 1 | interface Foo {<>(): boolean}
@@ -358,6 +460,12 @@ exports[`snippet: #17 format[typescript] 1`] = `
 > 1 | interface Foo {<>(): boolean}
     |                ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #17 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:17)
+> 1 | interface Foo {<>(): boolean}
+    |                 ^"
 `;
 
 exports[`snippet: #18 format[babel-ts] 1`] = `
@@ -380,6 +488,12 @@ exports[`snippet: #18 format[typescript] 1`] = `
 Cause: Type argument list cannot be empty."
 `;
 
+exports[`snippet: #18 format[yuku-ts] 1`] = `
+"A type argument list cannot be empty (1:16)
+> 1 | const foo: Foo<> = 1
+    |                ^"
+`;
+
 exports[`snippet: #19 format[babel-ts] 1`] = `
 "Type parameter list cannot be empty. (1:12)
 > 1 | type Foo = <>() => {}
@@ -398,4 +512,10 @@ exports[`snippet: #19 format[typescript] 1`] = `
 > 1 | type Foo = <>() => {}
     |            ^^
 Cause: Type parameter list cannot be empty."
+`;
+
+exports[`snippet: #19 format[yuku-ts] 1`] = `
+"A type parameter list cannot be empty (1:13)
+> 1 | type Foo = <>() => {}
+    |             ^"
 `;
