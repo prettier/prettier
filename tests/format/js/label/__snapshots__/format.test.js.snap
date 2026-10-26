@@ -213,3 +213,130 @@ exports[`invalid-unsyntactic-continue.js format[meriyah] 1`] = `
   8 |
 Cause: [5:13-5:18]: Label 'label' does not denote an iteration statement"
 `;
+
+exports[`parenthesized-body-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+foo: ( // comment
+  { bar: "baz" }
+);
+
+foo: (
+  /* comment */
+  { bar: "baz" }
+);
+
+foo: (
+  // comment 1
+  // comment 2
+  { bar: "baz" }
+);
+
+foo: (
+  // comment
+  bar
+);
+
+foo: (
+  // comment
+  function () {}
+);
+
+foo: (
+  // comment
+  a, b
+);
+
+foo: (
+  // comment
+  a
+) + b;
+
+foo: (
+  // comment
+  a
+).b;
+
+foo: (
+  // comment
+  a
+)();
+
+foo: ((
+  // comment
+  a
+) + b).c;
+
+foo: (/* comment */ { bar: "baz" });
+
+foo: (
+  { bar: "baz" }
+  // comment
+);
+
+foo: a + (
+  // comment
+  b
+);
+
+=====================================output=====================================
+{
+  // comment
+  foo: ({
+    bar: "baz",
+  });
+}
+
+// comment
+foo: ({ bar: "baz" });
+
+/* comment */
+foo: ({ bar: "baz" });
+
+// comment 1
+// comment 2
+foo: ({ bar: "baz" });
+
+// comment
+foo: bar;
+
+// comment
+foo: (function () {});
+
+// comment
+foo: (a, b);
+
+// comment
+foo: a + b;
+
+// comment
+foo: a.b;
+
+// comment
+foo: a();
+
+// comment
+foo: (a + b).c;
+
+foo: /* comment */ ({ bar: "baz" });
+
+foo: ({ bar: "baz" });
+// comment
+
+foo: a +
+  // comment
+  b;
+
+================================================================================
+`;
