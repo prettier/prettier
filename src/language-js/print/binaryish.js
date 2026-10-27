@@ -234,8 +234,8 @@ function printBinaryishExpressions(
     return [group(print())];
   }
 
-  /** @type{Doc[]} */
-  let parts = [];
+  /** @type {Doc[]} */
+  let parts;
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
 
@@ -248,139 +248,164 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
-  // @ts-expect-error -- FIXME
-  if (shouldFlatten(node.operator, node.left.operator)) {
-    // Flatten them out by recursively calling this function.
-    parts = path.call(
-      () =>
-        printBinaryishExpressions(
-          path,
-          options,
-          print,
-          /* isNested */ true,
-          isInsideParenthesis,
-        ),
-      "left",
+
+  // Collect the flattened left-spine, outermost first. We walk down the
+  // `left` chain iteratively instead of recursing: a long left-associative
+  // operator chain (e.g. `a + b + c + ...`) produces a deeply-nested AST,
+  // and recursing once per element blew the call stack on such inputs.
+  const { stack } = path;
+  const rootLength = stack.length;
+  const levels = [node];
+  let current = node;
+  while (isBinaryish(current.left)) {
+    const leftNode = current.left;
+    // @ts-expect-error -- FIXME: `leftNode` is binaryish here.
+    if (!shouldFlatten(current.operator, leftNode.operator)) {
+      break;
+    }
+    current = leftNode;
+    levels.push(current);
+  }
+
+  // Move the path to the innermost level (the head of the chain).
+  const levelCount = levels.length;
+  stack.length = rootLength;
+  for (let i = 1; i < levelCount; i++) {
+    stack.push("left", levels[i]);
+  }
+
+  // The head expression is printed via its own `left` operand.
+  parts = [group(print("left"))];
+
+  // Process the levels from innermost to outermost, appending each
+  // operator/operand pair.
+  for (let i = levelCount - 1; i >= 0; i--) {
+    stack.length = rootLength + 2 * i;
+    const levelNode = levels[i];
+    // `isNested` is the parameter this call received (false for the entry
+    // call, true for the hack-pipeline right recursion); inner levels
+    // correspond to the old recursive calls, which always passed true.
+    const isNestedLevel = i !== 0 || isNested;
+
+    const shouldInline = shouldInlineLogicalExpression(levelNode);
+    const rightNodeToCheckComments =
+      levelNode.right.type === "ChainExpression"
+        ? levelNode.right.expression
+        : levelNode.right;
+    const lineBeforeOperator =
+      (levelNode.type === "NGPipeExpression" ||
+        levelNode.operator === "|>" ||
+        isVueFilterSequenceExpression(path, options)) &&
+      !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
+    const hasTypeCastComment = hasComment(
+      rightNodeToCheckComments,
+      CommentCheckFlags.Leading,
+      isTypeCastComment,
     );
-  } else {
-    parts.push(group(print("left")));
-  }
+    const commentBeforeOperator =
+      !hasTypeCastComment &&
+      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
 
-  const shouldInline = shouldInlineLogicalExpression(node);
-  const rightNodeToCheckComments =
-    node.right.type === "ChainExpression" ? node.right.expression : node.right;
-  const lineBeforeOperator =
-    (node.type === "NGPipeExpression" ||
-      node.operator === "|>" ||
-      isVueFilterSequenceExpression(path, options)) &&
-    !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
-  const hasTypeCastComment = hasComment(
-    rightNodeToCheckComments,
-    CommentCheckFlags.Leading,
-    isTypeCastComment,
-  );
-  const commentBeforeOperator =
-    !hasTypeCastComment &&
-    hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
+    const operator =
+      levelNode.type === "NGPipeExpression" ? "|" : levelNode.operator;
+    const rightSuffix =
+      levelNode.type === "NGPipeExpression" && levelNode.arguments.length > 0
+        ? group(
+            indent([
+              softline,
+              ": ",
+              join(
+                [line, ": "],
+                path.map(() => align(2, group(print())), "arguments"),
+              ),
+            ]),
+          )
+        : "";
 
-  const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
-  const rightSuffix =
-    node.type === "NGPipeExpression" && node.arguments.length > 0
-      ? group(
-          indent([
-            softline,
-            ": ",
-            join(
-              [line, ": "],
-              path.map(() => align(2, group(print())), "arguments"),
-            ),
-          ]),
-        )
-      : "";
-
-  /** @type {Doc} */
-  let right;
-  if (shouldInline) {
-    right = [
-      operator,
-      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
-        ? indent([line, print("right"), rightSuffix])
-        : [" ", print("right"), rightSuffix],
-    ];
-  } else {
-    const rightContent = isHackStylePipeline(path)
-      ? path.call(
-          () =>
-            printBinaryishExpressions(
-              path,
-              options,
-              print,
-              /* isNested */ true,
-              isInsideParenthesis,
-            ),
-          "right",
-        )
-      : print("right");
-    if (options.experimentalOperatorPosition === "start") {
-      let comment = "";
-      if (commentBeforeOperator) {
-        switch (getDocType(rightContent)) {
-          case DOC_TYPE_ARRAY:
-            comment = rightContent[0];
-            rightContent.shift();
-            break;
-          case DOC_TYPE_LABEL:
-            comment = rightContent.contents[0];
-            rightContent.contents.shift();
-            break;
-        }
-      }
-      right = [line, comment, operator, " ", rightContent, rightSuffix];
-    } else {
+    /** @type {Doc} */
+    let right;
+    if (shouldInline) {
       right = [
-        lineBeforeOperator ? line : "",
         operator,
-        lineBeforeOperator ? " " : line,
-        rightContent,
-        rightSuffix,
+        hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
+          ? indent([line, print("right"), rightSuffix])
+          : [" ", print("right"), rightSuffix],
       ];
+    } else {
+      const rightContent = isHackStylePipeline(path)
+        ? path.call(
+            () =>
+              printBinaryishExpressions(
+                path,
+                options,
+                print,
+                /* isNested */ true,
+                isInsideParenthesis,
+              ),
+            "right",
+          )
+        : print("right");
+      if (options.experimentalOperatorPosition === "start") {
+        let comment = "";
+        if (commentBeforeOperator) {
+          switch (getDocType(rightContent)) {
+            case DOC_TYPE_ARRAY:
+              comment = rightContent[0];
+              rightContent.shift();
+              break;
+            case DOC_TYPE_LABEL:
+              comment = rightContent.contents[0];
+              rightContent.contents.shift();
+              break;
+          }
+        }
+        right = [line, comment, operator, " ", rightContent, rightSuffix];
+      } else {
+        right = [
+          lineBeforeOperator ? line : "",
+          operator,
+          lineBeforeOperator ? " " : line,
+          rightContent,
+          rightSuffix,
+        ];
+      }
     }
-  }
 
-  // If there's only a single binary expression, we want to create a group
-  // in order to avoid having a small right part like -1 be on its own line.
-  const { parent } = path;
-  const shouldBreak = hasComment(
-    node.left,
-    CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-  );
-  const shouldGroup =
-    shouldBreak ||
-    (!(isInsideParenthesis && node.type === "LogicalExpression") &&
-      parent.type !== node.type &&
-      node.left.type !== node.type &&
-      node.right.type !== node.type);
-  if (shouldGroup) {
-    right = group(right, { shouldBreak });
-  }
-
-  if (options.experimentalOperatorPosition === "start") {
-    parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
-  } else {
-    parts.push(lineBeforeOperator ? "" : " ", right);
-  }
-
-  // The root comments are already printed, but we need to manually print
-  // the other ones since we don't call the normal print on BinaryExpression,
-  // only for the left and right parts
-  if (isNested && hasComment(node)) {
-    const printed = cleanDoc(printComments(path, parts, options));
-    /* c8 ignore next 3 */
-    if (printed.type === DOC_TYPE_FILL) {
-      return printed.parts;
+    // If there's only a single binary expression, we want to create a group
+    // in order to avoid having a small right part like -1 be on its own line.
+    const { parent } = path;
+    const shouldBreak = hasComment(
+      levelNode.left,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+    );
+    const shouldGroup =
+      shouldBreak ||
+      (!(isInsideParenthesis && levelNode.type === "LogicalExpression") &&
+        parent.type !== levelNode.type &&
+        levelNode.left.type !== levelNode.type &&
+        levelNode.right.type !== levelNode.type);
+    if (shouldGroup) {
+      right = group(right, { shouldBreak });
     }
 
-    return Array.isArray(printed) ? printed : [printed];
+    if (options.experimentalOperatorPosition === "start") {
+      parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
+    } else {
+      parts.push(lineBeforeOperator ? "" : " ", right);
+    }
+
+    // The root comments are already printed, but we need to manually print
+    // the other ones since we don't call the normal print on BinaryExpression,
+    // only for the left and right parts
+    if (isNestedLevel && hasComment(levelNode)) {
+      const printed = cleanDoc(printComments(path, parts, options));
+      /* c8 ignore next 3 */
+      if (printed.type === DOC_TYPE_FILL) {
+        return printed.parts;
+      }
+
+      parts = Array.isArray(printed) ? printed : [printed];
+    }
   }
 
   return parts;
