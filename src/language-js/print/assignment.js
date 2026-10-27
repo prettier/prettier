@@ -185,8 +185,9 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     !canBreakLeftDoc &&
     (hasShortKey ||
-      rightNode.type === "TemplateLiteral" ||
-      rightNode.type === "TaggedTemplateExpression" ||
+      ((rightNode.type === "TemplateLiteral" ||
+        rightNode.type === "TaggedTemplateExpression") &&
+        willBreak(print(rightPropertyName))) ||
       isBooleanLiteral(rightNode) ||
       isNumericLiteral(rightNode) ||
       rightNode.type === "ClassExpression")

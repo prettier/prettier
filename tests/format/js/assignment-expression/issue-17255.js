@@ -2,7 +2,7 @@
  * Template literals and string literals should format similarly.
  *
  * @see https://github.com/prettier/prettier/issues/17255
- * @see tests/format/js/strings/
+ * @see tests/format/js/string-literal/
  * @see tests/format/js/template-literals/
  * @see tests/format/typescript/satisfies-operators/
  * @see tests/format/typescript/template-literals/
@@ -61,3 +61,7 @@ are long enough that it wants a line break.`,
     tagged`The key name and string
 are long enough that it wants a line break.`,
 };
+
+// Embedded templates are judged by how they print, not by their source
+const embeddedCssLongEnoughToWrap = css`color: red; background: blue; margin: 0 auto;`;
+const embeddedGraphqlLongEnoughToWrap = gql`query { user { id name email } }`;
