@@ -8,7 +8,7 @@ import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-no
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../location/index.js";
+import { locEnd, locEndWithFullText, locStart } from "../location/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { isInsideCallOrNewExpressionParentheses } from "../utilities/call-or-new-expression-parentheses.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
@@ -110,6 +110,7 @@ function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleClosureTypeCastComments,
+    handleCommentAfterEmptyStatements,
     handleLastFunctionParameterComments,
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
@@ -147,6 +148,7 @@ function handleRemainingComment(context) {
     handleCommentInEmptyParens,
     handleIgnoreComments,
     handleClosureTypeCastComments,
+    handleCommentAfterEmptyStatements,
     handleIfStatementComments,
     handleWhileLikeComments,
     handleSwitchStatementComments,
@@ -181,6 +183,35 @@ function handleClosureTypeCastComments({
         : followingNode,
       comment,
     );
+  }
+  return false;
+}
+
+function handleCommentAfterEmptyStatements({
+  comment,
+  precedingNode,
+  followingNode,
+  text,
+  options,
+}) {
+  if (
+    !precedingNode ||
+    !followingNode ||
+    !hasNewlineInRange(
+      text,
+      locEndWithFullText(precedingNode),
+      locStart(comment),
+    )
+  ) {
+    return false;
+  }
+
+  const gap = stripComments(options).slice(
+    locEndWithFullText(precedingNode),
+    locStart(comment),
+  );
+  if (gap.includes(";") && /^[\s;]+$/u.test(gap)) {
+    return addLeadingComment(followingNode, comment);
   }
   return false;
 }
