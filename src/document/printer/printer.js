@@ -197,6 +197,7 @@ function printDocToString(doc, options) {
   const groupModeMap = Object.create(null);
 
   const width = options.printWidth;
+  const tabWidth = options.tabWidth ?? 0;
   const newLine = convertEndOfLineOptionToCharacter(options.endOfLine);
   let position = 0;
   // commands is basically a stack. We've turned a recursive call into a
@@ -222,7 +223,7 @@ function printDocToString(doc, options) {
         if (formatted) {
           result.write(formatted);
           if (commands.length > 0) {
-            position += getTextWidth(formatted, options.tabWidth);
+            position += getTextWidth(formatted, tabWidth);
           }
         }
         break;
@@ -283,7 +284,7 @@ function printDocToString(doc, options) {
               remainingWidth,
               hasLineSuffix,
               groupModeMap,
-              options.tabWidth,
+              tabWidth,
             )
           ) {
             return flatCommand;
@@ -319,7 +320,7 @@ function printDocToString(doc, options) {
                   remainingWidth,
                   hasLineSuffix,
                   groupModeMap,
-                  options.tabWidth,
+                  tabWidth,
                 )
               ) {
                 return flatCommand;
@@ -380,7 +381,7 @@ function printDocToString(doc, options) {
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
-          options.tabWidth,
+          tabWidth,
           true,
         );
 
@@ -436,7 +437,7 @@ function printDocToString(doc, options) {
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
-          options.tabWidth,
+          tabWidth,
           true,
         );
 
