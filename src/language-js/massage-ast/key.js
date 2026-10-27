@@ -1,3 +1,4 @@
+import { isMethodSignatureWithNewKey } from "../utilities/is-method-signature-with-new-key.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/node-types.js";
 
 /**
@@ -38,7 +39,12 @@ function cleanKey(original, cloned) {
       original.type === "RecordDeclarationProperty" ||
       original.type === "RecordDeclarationStaticProperty") &&
     // @ts-expect-error -- safe
-    !original.computed
+    !original.computed &&
+    // Flow represents both method and construct signatures as ObjectTypeProperty.
+    !(
+      original.type === "ObjectTypeProperty" &&
+      isMethodSignatureWithNewKey(original)
+    )
   ) {
     cleanNodeKey(cloned, original, "key");
   }
