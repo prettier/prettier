@@ -1,5 +1,5 @@
 import postcssParse from "postcss/lib/parse";
-import postcssLess from "postcss-less";
+import { parse as postcssLessParse } from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
@@ -443,7 +443,7 @@ function parseLess(text, options = {}) {
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLess.parse(replaceQuotesInInlineComments(text)),
+    (text) => postcssLessParse(replaceQuotesInInlineComments(text)),
     text,
     options,
   );
