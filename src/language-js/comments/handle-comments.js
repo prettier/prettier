@@ -111,6 +111,7 @@ function handleEndOfLineComment(context) {
     handleCommentInEmptyParens,
     handleClosureTypeCastComments,
     handleLastFunctionParameterComments,
+    handleFirstFunctionParameterComments,
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
     handleIfStatementComments,
@@ -617,6 +618,58 @@ function handleLastFunctionParameterComments({
         return addBlockFirstComment(followingNode, comment);
       }
     }
+  }
+
+  return false;
+}
+
+const canHaveNameBeforeParameters = createTypeCheckFunction([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "ObjectMethod",
+  "ClassMethod",
+  "ClassPrivateMethod",
+  "TSDeclareFunction",
+  "TSDeclareMethod",
+  "TSEmptyBodyFunctionExpression",
+  "HookDeclaration",
+]);
+
+/*
+Line comment after the `(` of a function with a name or type parameters
+
+```js
+function foo( // comment
+  a,
+) {}
+```
+
+The name is the `precedingNode`, attach to the first parameter instead, same
+as functions without a name.
+*/
+function handleFirstFunctionParameterComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (!precedingNode || !followingNode || !isLineComment(comment)) {
+    return false;
+  }
+
+  const functionNode =
+    enclosingNode?.type === "MethodDefinition" ||
+    isAbstractMethodDefinition(enclosingNode)
+      ? enclosingNode.value
+      : enclosingNode;
+
+  if (
+    canHaveNameBeforeParameters(functionNode) &&
+    getFunctionParameters(functionNode)[0] === followingNode &&
+    stripComments(options).slice(0, locStart(comment)).trimEnd().endsWith("(")
+  ) {
+    return addLeadingComment(followingNode, comment);
   }
 
   return false;
