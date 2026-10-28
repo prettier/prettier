@@ -1,4 +1,4 @@
-import { isMethodSignatureWithNewKey } from "../utilities/is-method-signature-with-new-key.js";
+import { isFlowMethodSignatureWithNewKey } from "../utilities/is-method-signature-with-new-key.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/node-types.js";
 
 /**
@@ -41,10 +41,7 @@ function cleanKey(original, cloned) {
     // @ts-expect-error -- safe
     !original.computed &&
     // Flow represents both method and construct signatures as ObjectTypeProperty.
-    !(
-      original.type === "ObjectTypeProperty" &&
-      isMethodSignatureWithNewKey(original)
-    )
+    !isFlowMethodSignatureWithNewKey(original)
   ) {
     cleanNodeKey(cloned, original, "key");
   }
