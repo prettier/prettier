@@ -1,0 +1,70 @@
+.installCommand {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  margin: 1.25rem auto 0;
+  padding: 0.25rem 0.25rem 0.25rem 1.125rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-code-background);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+
+  @media (width < 36rem) {
+    border-radius: var(--radius-medium);
+  }
+}
+
+.text {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font-size: inherit;
+  text-align: start;
+}
+
+.prompt {
+  color: var(--color-text-muted);
+}
+
+.word {
+  white-space: nowrap;
+}
+
+.copyButton {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: 0.2s;
+
+  &:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  & svg {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

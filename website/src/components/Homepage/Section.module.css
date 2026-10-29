@@ -1,0 +1,42 @@
+.section {
+  padding-block: clamp(3.5rem, 2rem + 6vw, 6.5rem);
+}
+
+/* Don't double the spacing between sections with the same background */
+.section:not(.alternate) + .section:not(.alternate) {
+  padding-block-start: 0;
+}
+
+.alternate {
+  border-block: 1px solid var(--color-border);
+  background-color: var(--color-background-alt);
+}
+
+.title {
+  max-inline-size: 40rem;
+  margin: 0 auto clamp(2rem, 1.5rem + 2vw, 3rem);
+  color: var(--color-text);
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.625rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-align: center;
+  text-wrap: balance;
+
+  /* Echoes the rounded strokes of the logo */
+  &::before {
+    content: "";
+    display: block;
+    inline-size: 2.75rem;
+    block-size: 0.375rem;
+    margin: 0 auto 1.25rem;
+    border-radius: var(--radius-full);
+    background-color: var(--section-accent, var(--brand-teal));
+  }
+}
+
+.footer {
+  margin-block-start: clamp(2rem, 1.5rem + 2vw, 3rem);
+  color: var(--color-text-muted);
+  text-align: center;
+}
