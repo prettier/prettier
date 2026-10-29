@@ -16,7 +16,7 @@ import {
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
   const isFlowAsConstExpression = node.type === "AsConstExpression";
-  const expressionDoc = print("expression");
+  let expressionDoc = print("expression");
   const typeAnnotationDoc = isFlowAsConstExpression
     ? "const"
     : print("typeAnnotation");
@@ -33,9 +33,9 @@ function printBinaryCastExpression(path, options, print) {
   }
 
   if (expressionDoc.label?.memberChain) {
-    suffix = indentIfBreak(suffix, {
-      groupId: expressionDoc.label.groupId,
-    });
+    const groupId = Symbol("cast-expression");
+    expressionDoc = group(expressionDoc, { id: groupId });
+    suffix = indentIfBreak(suffix, { groupId });
   }
 
   const parts = [

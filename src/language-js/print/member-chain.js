@@ -386,7 +386,6 @@ function printMemberChain(path, options, print) {
     );
   }
 
-  const groupId = Symbol("member-chain");
   let result;
 
   // We don't want to print in one line if at least one of these conditions occurs:
@@ -404,18 +403,18 @@ function printMemberChain(path, options, print) {
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
-    result = group(expanded, { id: groupId });
+    result = group(expanded);
   } else {
     result = [
       // We only need to check `oneLine` because if `expanded` is chosen
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup([oneLine, expanded], { id: groupId }),
+      conditionalGroup([oneLine, expanded]),
     ];
   }
 
-  return label({ memberChain: true, groupId }, result);
+  return label({ memberChain: true }, result);
 }
 
 export default printMemberChain;
