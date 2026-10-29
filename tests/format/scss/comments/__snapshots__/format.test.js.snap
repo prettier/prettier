@@ -52,17 +52,13 @@ $my-map: (
 }
 
 $my-list:
-  "foo",
-  // Comment
+  "foo", // Comment
   "bar"; // Comment
 
 $my-map: (
-  "foo": 1,
-  // Comment
-  "bar": 2,
-  // Comment
-  "buz": calc(1 + 2),
-  // Buz
+  "foo": 1, // Comment
+  "bar": 2, // Comment
+  "buz": calc(1 + 2), // Buz
   "baz": 4, // Baz
 );
 
@@ -207,6 +203,51 @@ $blah: (
   /* test test test test test test test test test test test test test test test*/
   "b": 43,
   "c": 44,
+);
+
+================================================================================
+`;
+
+exports[`19047.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@use "library" with (
+  $size-1: 1rem,
+  $size-2: 2.5rem, // Big
+  $size-3: 3rem
+);
+
+$map: (
+  "a": 1, // first
+  "b": 2, // second
+  "c": 3
+);
+
+$list: (
+  one, // 1
+  two, // 2
+  three
+);
+
+=====================================output=====================================
+@use "library" with (
+  $size-1: 1rem,
+  $size-2: 2.5rem, // Big
+  $size-3: 3rem
+);
+
+$map: (
+  "a": 1, // first
+  "b": 2, // second
+  "c": 3,
+);
+
+$list: (
+  one, // 1
+  two, // 2
+  three
 );
 
 ================================================================================
@@ -669,8 +710,7 @@ $my-list2:
 
 =====================================output=====================================
 $my-list:
-  "foo",
-  // Foo
+  "foo", // Foo
   "bar"; // Bar
 
 $my-list2: a // a
@@ -691,8 +731,7 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
-  // Foo
+  "foo": 1, // Foo
   "bar": 2, // Bar
 );
 
