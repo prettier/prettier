@@ -77,9 +77,7 @@ const mainModule = {
               text = text.replace(wasmUrlPattern, "");
               text = text.replace(
                 "const __wasmFile = await __wasmResponse.arrayBuffer()",
-                outdent`
-                  import __wasmFile from ${JSON.stringify(wasmUrl)} with {type: "bytes"};
-                `,
+                `import __wasmFile from ${JSON.stringify(wasmUrl)} with {type: "bytes"}`,
               );
               text = text.replace(
                 "const __wasmResponse =",
@@ -88,10 +86,10 @@ const mainModule = {
 
               text = text.replace("await __rollbackWasiInitialization()", "[]");
 
-              text = text.replace(
-                "await instantiateNapiModule(",
-                "instantiateNapiModuleSync(",
-              );
+              // text = text.replace(
+              //   "await instantiateNapiModule(",
+              //   "instantiateNapiModuleSync(",
+              // );
 
               text = text.replaceAll(
                 /new URL\((?<url>".*?"), import\.meta\.url\)/g,
@@ -104,13 +102,6 @@ const mainModule = {
             },
           },
         ],
-        isAllowedWarning: (warning) =>
-          (warning.id === "package.json" &&
-            warning.location.file ===
-              "node_modules/@tybys/wasm-util/package.json") ||
-          (warning.id === "indirect-require" &&
-            warning.location.file ===
-              "node_modules/@emnapi/runtime/dist/emnapi.js"),
       }),
       playground: true,
     },
