@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import oxcParserWasmPackageJson from "@oxc-parser/binding-wasm32-wasip1/package.json" with { type: "json" };
+import { outdent } from "outdent";
 import oxcParserPackageJson from "oxc-parser/package.json" with { type: "json" };
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
@@ -76,6 +77,28 @@ const mainModule = {
                 /new URL\((?<url>".*?"), import\.meta\.url\)/g,
                 "{/* $<url> */}",
               );
+
+              // Remove useless `visitorKeys`
+              const moduleStartMark =
+                "\n//#region src-js/generated/visit/keys.js\n";
+              const moduleEndMark = "\n//#endregion\n";
+              const moduleStart = text.indexOf(moduleStartMark);
+              if (moduleStart === -1) {
+                throw new Error("Unexpected source");
+              }
+              const moduleEnd = text.indexOf(
+                moduleEndMark,
+                moduleStart + moduleStartMark.length,
+              );
+              if (moduleEnd === -1) {
+                throw new Error("Unexpected source");
+              }
+
+              text = outdent`
+                ${text.slice(0, moduleStart + moduleStartMark.length)}
+                var keys_default;
+                ${text.slice(moduleEnd)}
+              `;
 
               text = `var require;\n${text}`;
 
