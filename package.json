@@ -159,7 +159,7 @@
     "eslint-plugin-n": "18.4.1",
     "eslint-plugin-regexp": "3.3.1",
     "eslint-plugin-simple-import-sort": "14.0.0",
-    "eslint-plugin-unicorn": "78.0.0",
+    "eslint-plugin-unicorn": "79.0.0",
     "esm-utils": "4.4.2",
     "flow-estree": "0.337.0",
     "get-port": "7.2.0",
