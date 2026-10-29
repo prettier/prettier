@@ -61,9 +61,17 @@ const mainModule = {
             module: getPackageFile(
               "@oxc-parser/binding-wasm32-wasip1/parser.wasip1-browser.js",
             ),
+            path: getPackageFile(
+              "@oxc-parser/binding-wasm32-wasip1/browser-bundle.js",
+            ),
+          },
+          {
+            module: getPackageFile(
+              "@oxc-parser/binding-wasm32-wasip1/browser-bundle.js",
+            ),
             process(text) {
               const wasmUrlPattern =
-                /const __wasmUrl = new URL\('(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)', import\.meta\.url\)\.href(?=\n)/;
+                /const __wasmUrl = new URL\((?<quote>["'])(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)\k<quote>, import\.meta\.url\)\.href;?(?=\n)/;
               const { wasmUrl } = text.match(wasmUrlPattern).groups;
 
               text = text.replace(wasmUrlPattern, "");
@@ -89,6 +97,8 @@ const mainModule = {
                 /new URL\((?<url>".*?"), import\.meta\.url\)/g,
                 "{/* $<url> */}",
               );
+
+              text = `var require;\n${text}`;
 
               return text;
             },
