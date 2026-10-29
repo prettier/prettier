@@ -307,6 +307,23 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js",
+        ),
+        process(text) {
+          text = text.replace(
+            "function useSingleRunProgramForProjectService(",
+            outdent`
+              const useSingleRunProgramForProjectService = (() => undefined)
+                || function useSingleRunProgramForProjectService(
+            `,
+          );
+
+          return text;
+        },
+      },
+
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
