@@ -43,24 +43,6 @@ const mainModule = {
         replaceModule: [
           {
             module: getPackageFile("oxc-parser/src-js/wasm.js"),
-            process(text) {
-              text = text.replace(
-                'export * from "@oxc-parser/binding-wasm32-wasip1";',
-                "",
-              );
-
-              text = text.replace(
-                'export { default as visitorKeys } from "./generated/visit/keys.js";',
-                "",
-              );
-
-              return text;
-            },
-          },
-          {
-            module: getPackageFile(
-              "@oxc-parser/binding-wasm32-wasip1/parser.wasip1-browser.js",
-            ),
             path: getPackageFile(
               "@oxc-parser/binding-wasm32-wasip1/browser-bundle.js",
             ),
