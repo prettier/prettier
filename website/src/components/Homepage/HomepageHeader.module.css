@@ -1,0 +1,52 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  /* The space below comes from the next section */
+  padding-block-start: clamp(2.5rem, 1rem + 5vw, 5rem);
+  text-align: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(38rem 24rem at 15% 0%, var(--color-glow-1), transparent),
+      radial-gradient(34rem 22rem at 85% 5%, var(--color-glow-2), transparent),
+      radial-gradient(50rem 28rem at 50% 50%, var(--color-glow-3), transparent);
+    pointer-events: none;
+  }
+}
+
+.title {
+  margin: clamp(1.5rem, 1rem + 2vw, 2.5rem) 0 0;
+  color: var(--color-text);
+  font-size: clamp(2.5rem, 1.25rem + 5vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-inline-size: 42rem;
+  margin: 1.25rem auto 0;
+  color: var(--color-text-muted);
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-block-start: 2rem;
+
+  @media (width < 30rem) {
+    & > * {
+      flex: 1 1 100%;
+    }
+  }
+}
