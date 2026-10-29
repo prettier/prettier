@@ -44,15 +44,24 @@ const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 /**
  * @param {string} text
  * @param {number} tabWidth
+ * @param {number} column
  * @returns {number}
  */
-function getTextWidth(text, tabWidth) {
-  const width = getStringWidth(text);
+function getTextWidth(text, tabWidth, column) {
   if (!text.includes("\t")) {
-    return width;
+    return getStringWidth(text);
   }
 
-  return width + (text.split("\t").length - 1) * tabWidth;
+  let width = 0;
+  for (const [index, part] of text.split("\t").entries()) {
+    // Tabs move to the next multiple of `tabWidth`
+    if (index > 0 && tabWidth > 0) {
+      width += tabWidth - ((column + width) % tabWidth);
+    }
+    width += getStringWidth(part);
+  }
+
+  return width;
 }
 
 /**
@@ -62,6 +71,7 @@ function getTextWidth(text, tabWidth) {
  * @param {boolean} hasLineSuffix
  * @param {GroupModeMap} groupModeMap
  * @param {number} tabWidth
+ * @param {number} position
  * @param {boolean} [mustBeFlat]
  * @returns {boolean}
  */
@@ -72,11 +82,14 @@ function fits(
   hasLineSuffix,
   groupModeMap,
   tabWidth,
+  position,
   mustBeFlat,
 ) {
   if (remainingWidth === Number.POSITIVE_INFINITY) {
     return true;
   }
+
+  const startWidth = remainingWidth;
 
   let restCommandsIndex = restCommands.length;
   let hasPendingSpace = false;
@@ -107,7 +120,11 @@ function fits(
           }
 
           output += doc;
-          remainingWidth -= getTextWidth(doc, tabWidth);
+          remainingWidth -= getTextWidth(
+            doc,
+            tabWidth,
+            position + startWidth - remainingWidth,
+          );
         }
         break;
 
@@ -223,7 +240,7 @@ function printDocToString(doc, options) {
         if (formatted) {
           result.write(formatted);
           if (commands.length > 0) {
-            position += getTextWidth(formatted, tabWidth);
+            position += getTextWidth(formatted, tabWidth, position);
           }
         }
         break;
@@ -285,6 +302,7 @@ function printDocToString(doc, options) {
               hasLineSuffix,
               groupModeMap,
               tabWidth,
+              position,
             )
           ) {
             return flatCommand;
@@ -321,6 +339,7 @@ function printDocToString(doc, options) {
                   hasLineSuffix,
                   groupModeMap,
                   tabWidth,
+                  position,
                 )
               ) {
                 return flatCommand;
@@ -382,6 +401,7 @@ function printDocToString(doc, options) {
           lineSuffix.length > 0,
           groupModeMap,
           tabWidth,
+          position,
           true,
         );
 
@@ -438,6 +458,7 @@ function printDocToString(doc, options) {
           lineSuffix.length > 0,
           groupModeMap,
           tabWidth,
+          position,
           true,
         );
 

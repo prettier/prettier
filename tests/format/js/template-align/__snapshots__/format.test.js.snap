@@ -149,6 +149,12 @@ const html = \`
 	</div>
 \`;
 
+const list = \`
+a	\${
+	items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")
+}
+\`;
+
 =====================================output=====================================
 const html = \`
 	<div>
@@ -161,6 +167,12 @@ const html = \`
 				.join("")}
 		</ul>
 	</div>
+\`;
+
+const list = \`
+a	\${items
+	.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`)
+	.join(", ")}
 \`;
 
 ================================================================================
@@ -181,6 +193,12 @@ const html = \`
 	</div>
 \`;
 
+const list = \`
+a	\${
+	items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")
+}
+\`;
+
 =====================================output=====================================
 const html = \`
 	<div>
@@ -190,6 +208,10 @@ const html = \`
         .join("")}
 		</ul>
 	</div>
+\`;
+
+const list = \`
+a	\${items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")}
 \`;
 
 ================================================================================
