@@ -52,6 +52,11 @@ const disabledTests = new Map(
     yuku: ["js/await-expression/await-with-parens.js"],
     "yuku-ts": ["js/await-expression/await-with-parens.js"],
     hermes: [
+      // Syntax unsupported by hermes-parser.
+      "flow/declare-class/constructor.js.flow",
+      "flow/declare-class/initializer.js.flow",
+      "flow/declare-function/anonymous-default-export/",
+      "flow/optional-indexer/",
       "js/await-expression/like-call.js", // Different result
       "jsx/top-level-await/test.jsx",
     ],

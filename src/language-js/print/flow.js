@@ -9,6 +9,7 @@ import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";
 import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
+import { printAssignment } from "./assignment.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
 import { printCallExpression } from "./call-expression.js";
 import {
@@ -94,7 +95,7 @@ function printFlow(path, options, print, args) {
       return [
         printDeclareToken(path),
         "function ",
-        print("id"),
+        node.id ? print("id") : printTypeAnnotationProperty(path, print),
         print("predicate"),
         printSemicolon(options),
       ];
@@ -260,7 +261,9 @@ function printFlow(path, options, print, args) {
           print("id"),
           node.id ? ": " : "",
           print("key"),
-          "]: ",
+          "]",
+          printOptionalToken(path),
+          ": ",
           print("value"),
         ]),
         printClassMemberSemicolon(path, options),
@@ -275,19 +278,21 @@ function printFlow(path, options, print, args) {
         modifier = "static ";
       }
 
+      const propertyDoc = group([
+        printTypeScriptAccessibilityToken(node),
+        modifier,
+        printAbstractToken(path),
+        node.override ? "override " : "",
+        node.kind !== "init" ? node.kind + " " : "",
+        node.variance ? print("variance") : "",
+        printKey(path, options, print),
+        printOptionalToken(path),
+        isMethod(node) || !node.value ? "" : ": ",
+        print("value"),
+      ]);
+
       return [
-        group([
-          printTypeScriptAccessibilityToken(node),
-          modifier,
-          printAbstractToken(path),
-          node.override ? "override " : "",
-          node.kind !== "init" ? node.kind + " " : "",
-          node.variance ? print("variance") : "",
-          printKey(path, options, print),
-          printOptionalToken(path),
-          isMethod(node) ? "" : ": ",
-          print("value"),
-        ]),
+        printAssignment(path, options, print, propertyDoc, " =", "init"),
         printClassMemberSemicolon(path, options),
       ];
     }
