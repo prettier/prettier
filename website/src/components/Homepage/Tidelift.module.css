@@ -1,0 +1,45 @@
+.tidelift {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-block-end: clamp(1.75rem, 1rem + 2.5vw, 2.75rem);
+  padding: 0.3125rem 0.875rem 0.3125rem 0.3125rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  box-shadow: var(--shadow-small);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+}
+
+.icon {
+  inline-size: 1.625rem;
+  block-size: 1.625rem;
+  border-radius: var(--radius-full);
+  background: var(--brand-tidelift) url(/images/tidelift-small.png) 50% 70% /
+    0.875rem no-repeat;
+}
+
+.arrow {
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .arrow {
+    transition: translate 0.2s;
+  }
+
+  .tidelift:hover .arrow {
+    translate: 0.1875rem 0;
+  }
+}
