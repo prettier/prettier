@@ -49,13 +49,15 @@ function printFunctionType(path, options, print) {
     node.type === "FunctionTypeAnnotation" ||
     node.type === "ConstructorTypeAnnotation"
   ) {
-    returnTypeDoc.push(
-      node.type === "ConstructorTypeAnnotation" ||
-        isFlowArrowFunctionTypeAnnotation(path)
-        ? " => "
-        : ": ",
-      print("returnType"),
-    );
+    if (node.returnType) {
+      returnTypeDoc.push(
+        node.type === "ConstructorTypeAnnotation" ||
+          isFlowArrowFunctionTypeAnnotation(path)
+          ? " => "
+          : ": ",
+        print("returnType"),
+      );
+    }
   } else {
     returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
@@ -98,7 +100,9 @@ function isFlowArrowFunctionTypeAnnotation(path) {
           !parent.optional &&
           hasSameLocStart(parent, node)) ||
         parent.type === "ObjectTypeCallProperty" ||
-        path.getParentNode(2)?.type === "DeclareFunction"
+        (parent.type === "TypeAnnotation" &&
+          (path.grandparent?.type === "DeclareFunction" ||
+            path.getParentNode(2)?.type === "DeclareFunction"))
       ))
   );
 }

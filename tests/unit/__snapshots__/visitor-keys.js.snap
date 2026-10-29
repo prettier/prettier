@@ -228,6 +228,7 @@ exports[`visitor keys estree 1`] = `
   "DeclareFunction": [
     "id",
     "predicate",
+    "typeAnnotation",
   ],
   "DeclareHook": [
     "id",
@@ -725,6 +726,7 @@ exports[`visitor keys estree 1`] = `
     "variance",
   ],
   "ObjectTypeProperty": [
+    "init",
     "key",
     "value",
     "variance",

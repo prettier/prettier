@@ -1,0 +1,6 @@
+type Optional = { [key: string]?: number };
+type Readonly = { readonly [key: string]?: unknown };
+type Required = { [key: string]: number };
+type RequiredNumber = { [index: number]: string };
+type Comments = { [/* key */ key: string]?: /* value */ number };
+declare class C { static [key: string]?: number; }
