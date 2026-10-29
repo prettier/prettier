@@ -137,10 +137,10 @@ Cause: Unexpected token !"
 `;
 
 exports[`snippet: #3 format[flow] 1`] = `
-"Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:25)
+"Invalid left-hand side in exponentiation expression (1:18)
 > 1 | f = async (a) => await a! ** 6;
-    |                         ^
-Cause: Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:24)"
+    |                  ^
+Cause: Invalid left-hand side in exponentiation expression (1:17)"
 `;
 
 exports[`snippet: #3 format[meriyah] 1`] = `
@@ -172,10 +172,10 @@ Cause: Unexpected token !"
 `;
 
 exports[`snippet: #4 format[flow] 1`] = `
-"Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:14)
+"Invalid left-hand side in exponentiation expression (1:12)
 > 1 | f = (a) => +a! ** 6;
-    |              ^
-Cause: Unexpected token \`!\`, expected the end of an expression statement (\`;\`) (1:13)"
+    |            ^
+Cause: Invalid left-hand side in exponentiation expression (1:11)"
 `;
 
 exports[`snippet: #4 format[meriyah] 1`] = `
@@ -204,13 +204,6 @@ exports[`snippet: #5 format[espree] 1`] = `
 > 1 | async (a) => (await a!) ** 6;
     |                      ^
 Cause: Unexpected token !"
-`;
-
-exports[`snippet: #5 format[flow] 1`] = `
-"Unexpected token \`!\`, expected the token \`)\` (1:22)
-> 1 | async (a) => (await a!) ** 6;
-    |                      ^
-Cause: Unexpected token \`!\`, expected the token \`)\` (1:21)"
 `;
 
 exports[`snippet: #5 format[meriyah] 1`] = `

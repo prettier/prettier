@@ -1,0 +1,11 @@
+declare class C extends mixin( Base ) {}
+
+declare class Generic<T> extends mixin< T >( Base< T > ) {}
+
+declare class Nested extends outer( inner( Base ) ) {}
+
+declare class Qualified extends Namespace.mixin( Namespace.Base<T> ) {}
+
+declare class Implements extends mixin(Base) implements Interface {method(): void;}
+
+declare class Long extends veryLongMixinName<FirstTypeArgument, SecondTypeArgument>(VeryLongBaseClassName<FirstTypeArgument, SecondTypeArgument>) {}

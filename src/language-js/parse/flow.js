@@ -16,9 +16,6 @@ const parseOptions = {
   enableExperimentalFlowMatchSyntax: true,
   // `enableExperimentalComponentSyntax` (boolean, default `true`) - enable parsing of Flow component syntax
   enableExperimentalComponentSyntax: true,
-  // TODO: Support it
-  // `assertOperator` (boolean, default `false`) - enable parsing of the assert operator
-  // assertOperator: true,
   // `enableExperimentalDecorators` (boolean, default `true`) - enable parsing of decorators
   enableExperimentalDecorators: true,
   // `enableExperimentalFlowRecordSyntax` (boolean, default `true`) - enable parsing of records

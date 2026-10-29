@@ -14,8 +14,10 @@ import {
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
   isObjectExpression,
+  isOptionalTupleMember,
   isReturnOrThrowStatement,
   isUnionType,
 } from "../utilities/node-types.js";
@@ -154,6 +156,7 @@ function needsParentheses(path, options) {
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
           return true;
 
@@ -221,6 +224,7 @@ function needsParentheses(path, options) {
         case "BindExpression":
         case "AwaitExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
         case "UpdateExpression":
           return true;
@@ -325,6 +329,7 @@ function needsParentheses(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "AsExpression":
         case "AsConstExpression":
         case "SatisfiesExpression":
@@ -441,7 +446,7 @@ function needsParentheses(path, options) {
     case "TSTypeOperator":
       return (
         parent.type === "TSArrayType" ||
-        parent.type === "TSOptionalType" ||
+        isOptionalTupleMember(parent) ||
         parent.type === "TSRestType" ||
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
@@ -458,6 +463,7 @@ function needsParentheses(path, options) {
       return (
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
+        isOptionalTupleMember(parent) ||
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType")) ||
@@ -470,7 +476,8 @@ function needsParentheses(path, options) {
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType")) ||
-        (key === "elementType" && parent.type === "ArrayTypeAnnotation")
+        (key === "elementType" && parent.type === "ArrayTypeAnnotation") ||
+        (node.type === "KeyofTypeAnnotation" && isOptionalTupleMember(parent))
       );
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
@@ -484,6 +491,7 @@ function needsParentheses(path, options) {
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation" ||
+        isOptionalTupleMember(parent) ||
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
@@ -492,6 +500,7 @@ function needsParentheses(path, options) {
     case "NullableTypeAnnotation":
       if (
         parent.type === "ArrayTypeAnnotation" ||
+        isOptionalTupleMember(parent) ||
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
@@ -570,6 +579,7 @@ function needsParentheses(path, options) {
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
+        isOptionalTupleMember(ancestor) ||
         (key === "objectType" &&
           (ancestor.type === "IndexedAccessType" ||
             ancestor.type === "OptionalIndexedAccessType")) ||
@@ -695,6 +705,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
           return true;
 
@@ -753,6 +764,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -785,6 +797,7 @@ function needsParentheses(path, options) {
     case "OptionalCallExpression":
     case "ChainExpression":
     case "TSNonNullExpression":
+    case "NonNullExpression":
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
@@ -815,6 +828,7 @@ function needsParentheses(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
+            case "NonNullExpression":
               object = object.expression;
               break;
             default:
@@ -900,7 +914,7 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" &&
-          (parent.type === "TSNonNullExpression" ||
+          (isNonNullExpression(parent) ||
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" && isClass(parent))
       ) {
@@ -967,6 +981,7 @@ const isStatement = createTypeCheckFunction([
   "TSInterfaceDeclaration",
   "TSModuleDeclaration",
   "TSNamespaceExportDeclaration",
+  "NamespaceExportDeclaration",
   "TypeAlias",
   "VariableDeclaration",
   "WhileStatement",

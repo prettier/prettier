@@ -1,7 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
-// flow-estree:v0.337.0, build-script:v1
+// flow-estree:v0.338.0, build-script:v1
 // spell-checker: disable
 
 /**
@@ -716,7 +716,8 @@ export interface MemberExpressionWithNonComputedName extends BaseNode {
   readonly optional: boolean;
 }
 
-export type ChainElement = CallExpression | MemberExpression;
+export type ChainElement =
+  CallExpression | MemberExpression | NonNullExpression;
 
 export interface ChainExpression extends BaseNode {
   readonly type: "ChainExpression";
@@ -1063,6 +1064,7 @@ export interface DeclareMethodDefinition extends BaseNode {
   readonly computed: boolean;
   readonly kind: "get" | "set" | null;
   readonly override: boolean;
+  readonly tsAccessibility?: TSAccessibility;
 
   readonly parent: ClassBody;
 }
@@ -1163,7 +1165,8 @@ export interface ImportAttribute extends BaseNode {
   readonly key: Identifier | StringLiteral;
   readonly value: StringLiteral;
 
-  readonly parent: ImportDeclaration;
+  readonly parent:
+    ImportDeclaration | ExportNamedDeclaration | ExportAllDeclaration;
 }
 
 export interface ImportSpecifier extends BaseNode {
@@ -1234,6 +1237,7 @@ interface ExportNamedDeclarationBase extends BaseNode {
   readonly specifiers: ReadonlyArray<ExportSpecifier>;
   readonly source?: StringLiteral | null;
   readonly exportKind: "value" | "type";
+  readonly attributes?: ReadonlyArray<ImportAttribute>;
 }
 export interface ExportNamedDeclarationWithSpecifiers extends ExportNamedDeclarationBase {
   readonly type: "ExportNamedDeclaration";
@@ -1280,6 +1284,7 @@ export interface ExportAllDeclaration extends BaseNode {
   readonly source: StringLiteral;
   readonly exportKind: "value" | "type";
   readonly exported?: Identifier | null;
+  readonly attributes?: ReadonlyArray<ImportAttribute>;
 }
 
 export interface ExportAssignment extends BaseNode {
@@ -1787,8 +1792,7 @@ export interface SatisfiesExpression extends BaseNode {
 }
 export interface NonNullExpression extends BaseNode {
   readonly type: "NonNullExpression";
-  readonly argument: Expression;
-  readonly chain: boolean;
+  readonly expression: Expression;
 }
 
 interface BaseInterfaceNode extends BaseNode {

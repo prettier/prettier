@@ -54,6 +54,7 @@ function startsWithNoLookaheadToken(node, predicate) {
       return startsWithNoLookaheadToken(node.expressions[0], predicate);
     case "ChainExpression":
     case "TSNonNullExpression":
+    case "NonNullExpression":
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "AsExpression":
