@@ -66,7 +66,7 @@ jobs:
             # Pick a version that is fast (normally highest LTS version)
             node: "26"
             FULL_TEST: true
-          # Versions not tested on linux
+          # Versions not tested on linux, or unstable
           - os: "ubuntu-latest"
             node: "24"
           - os: "ubuntu-latest"
@@ -77,6 +77,8 @@ jobs:
             node: "18"
           - os: "ubuntu-latest"
             node: "16"
+          - os: "ubuntu-latest"
+            node: "27"
           # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
           - os: "macos-15-intel"
             node: "14"

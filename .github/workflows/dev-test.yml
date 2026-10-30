@@ -39,9 +39,11 @@ jobs:
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
           # Versions between "Latest version" and "Minimal version for development"
-          # that not tested on linux
+          # that not tested on linux, or unstable versions
           # - os: "ubuntu-latest"
           #   node: "22"
+          - os: "ubuntu-latest"
+            node: "27"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
