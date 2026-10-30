@@ -15,6 +15,7 @@ import { getRaw } from "../../utilities/get-raw.js";
 import { isTypeCastComment } from "../../utilities/is-type-cast-comment.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
+import rebalanceLogicalTree from "./rebalance-logical-tree.js";
 import visitNode from "./visit-node.js";
 
 /**
@@ -227,10 +228,7 @@ function postprocess(ast, options) {
         // Children can be parenthesized, need do this in `onLeave`
         case "LogicalExpression":
           // We remove unneeded parens around same-operator LogicalExpressions
-          if (isUnbalancedLogicalTree(node)) {
-            return rebalanceLogicalTree(node);
-          }
-          break;
+          return rebalanceLogicalTree(node);
       }
 
       /* c8 ignore next 3 */
@@ -245,34 +243,6 @@ function postprocess(ast, options) {
     assertComments(comments, text);
   }
   return ast;
-}
-
-function isUnbalancedLogicalTree(node) {
-  return (
-    node.type === "LogicalExpression" &&
-    node.right.type === "LogicalExpression" &&
-    node.operator === node.right.operator
-  );
-}
-
-function rebalanceLogicalTree(node) {
-  if (!isUnbalancedLogicalTree(node)) {
-    return node;
-  }
-
-  return rebalanceLogicalTree({
-    type: "LogicalExpression",
-    operator: node.operator,
-    left: rebalanceLogicalTree({
-      type: "LogicalExpression",
-      operator: node.operator,
-      left: node.left,
-      right: node.right.left,
-      range: [locStart(node.left), locEnd(node.right.left)],
-    }),
-    right: node.right.right,
-    range: [locStart(node), locEnd(node)],
-  });
 }
 
 /* c8 ignore next */

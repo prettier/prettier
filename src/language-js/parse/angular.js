@@ -6,6 +6,8 @@ import {
 } from "angular-estree-parser";
 import createError from "../../common/parser-create-error.js";
 import { locEnd, locStart } from "../location/index.js";
+import rebalanceLogicalTree from "./postprocess/rebalance-logical-tree.js";
+import visitNode from "./postprocess/visit-node.js";
 import wrapExpression from "./utilities/wrap-expression.js";
 
 /**
@@ -62,6 +64,9 @@ function createParser(parseMethod) {
       const { comments } = node;
       // @ts-expect-error -- safe
       delete node.comments;
+
+      // Same as other JS parsers, flatten `a && (b && c)` into `a && b && c`
+      node = visitNode(node, { onLeave: rebalanceLogicalTree });
 
       if (parseMethod === parseAction && node.type !== "NGChainedExpression") {
         node = { ...node, type: "NGChainedExpression", expressions: [node] };
