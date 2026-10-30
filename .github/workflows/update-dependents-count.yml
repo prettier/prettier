@@ -31,7 +31,7 @@ jobs:
         run: node scripts/update-dependents-count.js
 
       - name: Format website
-        run: yarn prettier website/src/pages/index.jsx --write
+        run: yarn prettier website/src/components/Homepage/EcosystemSection.jsx --write
 
       - name: Set current date env
         run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> "$GITHUB_ENV"
