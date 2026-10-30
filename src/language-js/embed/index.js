@@ -3,6 +3,7 @@ import { isEmbedCss, printEmbedCss } from "./css.js";
 import { isEmbedGraphQL, printEmbedGraphQL } from "./graphql.js";
 import {
   isAngularComponentTemplate,
+  isAngularStorybookTemplate,
   isEmbedHtml,
   printEmbedAngular,
   printEmbedHtml,
@@ -13,7 +14,11 @@ const printers = [
   { test: isEmbedCss, print: printEmbedCss },
   { test: isEmbedGraphQL, print: printEmbedGraphQL },
   { test: isEmbedHtml, print: printEmbedHtml },
-  { test: isAngularComponentTemplate, print: printEmbedAngular },
+  {
+    test: (path) =>
+      isAngularComponentTemplate(path) || isAngularStorybookTemplate(path),
+    print: printEmbedAngular,
+  },
   { test: isEmbedMarkdown, print: printEmbedMarkdown },
 ].map(({ test, print }) => ({
   test,
