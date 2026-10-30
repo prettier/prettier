@@ -55,10 +55,6 @@ function needsParentheses(path, options) {
     return false;
   }
 
-  if (node.type === "Identifier") {
-    return shouldAddParenthesesToIdentifier(path);
-  }
-
   if (
     node.type === "ObjectExpression" ||
     node.type === "FunctionExpression" ||
@@ -104,6 +100,10 @@ function needsParentheses(path, options) {
   );
   if (typeof parentCheckResult === "boolean") {
     return parentCheckResult;
+  }
+
+  if (node.type === "Identifier") {
+    return shouldAddParenthesesToIdentifier(path);
   }
 
   switch (node.type) {
