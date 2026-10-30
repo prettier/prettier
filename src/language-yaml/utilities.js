@@ -1,4 +1,5 @@
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import { locEnd } from "./loc.js";
 
 /**
  * @param {any} value
@@ -83,6 +84,26 @@ function getLastDescendantNode(node) {
   return isNonEmptyArray(node.children)
     ? getLastDescendantNode(node.children.at(-1))
     : node;
+}
+
+function endsWithTrailingComment(node) {
+  for (let current = node; current; current = current.children?.at(-1)) {
+    if (
+      hasLeadingComments(current) &&
+      isPrettierIgnore(current.leadingComments.at(-1))
+    ) {
+      return false;
+    }
+
+    if (
+      hasTrailingComment(current) &&
+      locEnd(current.trailingComment) === locEnd(node)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function isPrettierIgnore(comment) {
@@ -327,6 +348,7 @@ function isInlineNode(node) {
 
 export {
   defineShortcut,
+  endsWithTrailingComment,
   getBlockValueLineContents,
   getFlowScalarLineContents,
   getLastDescendantNode,

@@ -30,6 +30,7 @@ import {
 } from "./print/misc.js";
 import preprocess from "./print-preprocess.js";
 import {
+  endsWithTrailingComment,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasEndComments,
@@ -244,7 +245,11 @@ function printNode(path, options, print) {
           const lastChild = children.at(-1);
           const shouldPreserveEmptyLine =
             isNode(lastChild, ["mapping"]) &&
-            isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
+            isPreviousLineEmpty(
+              options.originalText,
+              locStart(endComments[0]),
+            ) &&
+            !endsWithTrailingComment(lastChild);
 
           separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
         }
