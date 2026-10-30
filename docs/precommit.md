@@ -242,6 +242,12 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
+# If prettier reverted all staged changes, there is nothing to commit
+if git diff --cached --quiet; then
+  echo "Prettier made no changes; skipping empty commit."
+  exit 1
+fi
+
 exit 0
 ```
 
