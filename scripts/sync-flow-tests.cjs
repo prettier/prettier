@@ -20,7 +20,7 @@ function tryParse(file, content) {
     enableEnums: true,
     enableExperimentalFlowMatchSyntax: true,
     enableExperimentalComponentSyntax: true,
-    // assertOperator: true,
+    assertOperator: true,
     enableExperimentalDecorators: true,
     enableExperimentalFlowRecordSyntax: true,
     throwOnParseErrors: false,

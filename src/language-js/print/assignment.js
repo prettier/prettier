@@ -23,6 +23,7 @@ import {
   isChainElementWrapper,
   isIntersectionType,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
   isStringLiteral,
   isTypeAlias,
@@ -246,7 +247,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     ) {
       node = node.argument;
       propertiesForPath.push("argument");
-    } else if (node.type === "TSNonNullExpression") {
+    } else if (isNonNullExpression(node)) {
       node = node.expression;
       propertiesForPath.push("expression");
     } else {
