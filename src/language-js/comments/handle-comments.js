@@ -30,6 +30,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isModuleDeclaration,
+  isParameterProperty,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
@@ -384,6 +385,7 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "AccessorProperty",
   "TSAbstractAccessorProperty",
   "TSParameterProperty",
+  "ParameterProperty",
 ]);
 function handleMethodNameComments({
   placement,
@@ -572,7 +574,7 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ObjectPattern" ||
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
-      precedingNode?.type === "TSParameterProperty") &&
+      isParameterProperty(precedingNode)) &&
     (isRealFunctionLikeNode(enclosingNode) ||
       // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
       // the comment walker bubbles up to its wrapper. Three wrappers occur:

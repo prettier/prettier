@@ -26,13 +26,12 @@ import { printJSDocType } from "./js-doc-type.js";
 import { printKey } from "./key.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import { printMethodSignature } from "./method-signature.js";
-import {
-  printOptionalToken,
-  printSemicolon,
-  printTypeScriptAccessibilityToken,
-} from "./miscellaneous.js";
+import { printOptionalToken } from "./miscellaneous.js";
 import { printModuleDeclaration } from "./module-declaration.js";
+import { printNamespaceExportDeclaration } from "./namespace-export-declaration.js";
+import { printNonNullExpression } from "./non-null-expression.js";
 import { printObject } from "./object.js";
+import { printParameterProperty } from "./parameter-property.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -123,13 +122,7 @@ function printTypescript(path, options, print, args) {
       ];
 
     case "TSParameterProperty":
-      return [
-        printTypeScriptAccessibilityToken(node),
-        node.static ? "static " : "",
-        node.override ? "override " : "",
-        node.readonly ? "readonly " : "",
-        print("parameter"),
-      ];
+      return printParameterProperty(path, options, print);
 
     case "TSTypeQuery":
       return printTypeQuery(path, print);
@@ -139,7 +132,7 @@ function printTypescript(path, options, print, args) {
     case "TSTypePredicate":
       return printTypePredicate(path, print);
     case "TSNonNullExpression":
-      return [print("expression"), "!"];
+      return printNonNullExpression(path, options, print);
     case "TSImportType":
       return [
         printCallExpression(path, options, print),
@@ -161,7 +154,7 @@ function printTypescript(path, options, print, args) {
       return printMethodSignature(path, options, print);
 
     case "TSNamespaceExportDeclaration":
-      return ["export as namespace ", print("id"), printSemicolon(options)];
+      return printNamespaceExportDeclaration(path, options, print);
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print);
     case "TSEnumBody":

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`namespace.js.flow - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export    as    namespace    Library;
+
+export as namespace /* name */ OtherLibrary;
+
+// Global export
+export as namespace ThirdLibrary; // trailing
+
+=====================================output=====================================
+export as namespace Library
+
+export as namespace /* name */ OtherLibrary
+
+// Global export
+export as namespace ThirdLibrary // trailing
+
+================================================================================
+`;
+
+exports[`namespace.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export    as    namespace    Library;
+
+export as namespace /* name */ OtherLibrary;
+
+// Global export
+export as namespace ThirdLibrary; // trailing
+
+=====================================output=====================================
+export as namespace Library;
+
+export as namespace /* name */ OtherLibrary;
+
+// Global export
+export as namespace ThirdLibrary; // trailing
+
+================================================================================
+`;
+
+exports[`snippet: #0 - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export as namespace Library;
+=====================================output=====================================
+export as namespace Library
+
+================================================================================
+`;
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export as namespace Library;
+=====================================output=====================================
+export as namespace Library;
+
+================================================================================
+`;

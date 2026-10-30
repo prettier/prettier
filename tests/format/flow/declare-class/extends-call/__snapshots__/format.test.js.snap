@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js.flow - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+declare class C extends /* before */ mixin /* call */ (
+/* argument */ Base /* end */
+) {}
+
+declare class Nested extends outer(
+// Inner mixin
+inner(
+// Base class
+Base
+)
+) {}
+
+declare class Generic extends mixin<
+/* type argument */ FirstType,
+SecondType
+>(Base<FirstType, SecondType>) {}
+
+=====================================output=====================================
+declare class C extends /* before */ mixin /* call */(
+  /* argument */ Base /* end */
+) {}
+
+declare class Nested extends outer(
+  // Inner mixin
+  inner(
+    // Base class
+    Base
+  )
+) {}
+
+declare class Generic extends mixin<
+  /* type argument */ FirstType,
+  SecondType,
+>(Base<FirstType, SecondType>) {}
+
+================================================================================
+`;
+
+exports[`extends.js.flow - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+declare class C extends mixin( Base ) {}
+
+declare class Generic<T> extends mixin< T >( Base< T > ) {}
+
+declare class Nested extends outer( inner( Base ) ) {}
+
+declare class Qualified extends Namespace.mixin( Namespace.Base<T> ) {}
+
+declare class Implements extends mixin(Base) implements Interface {method(): void;}
+
+declare class Long extends veryLongMixinName<FirstTypeArgument, SecondTypeArgument>(VeryLongBaseClassName<FirstTypeArgument, SecondTypeArgument>) {}
+
+=====================================output=====================================
+declare class C extends mixin(Base) {}
+
+declare class Generic<T> extends mixin<T>(
+  Base<T>
+) {}
+
+declare class Nested extends outer(inner(Base)) {}
+
+declare class Qualified extends Namespace.mixin(
+  Namespace.Base<T>
+) {}
+
+declare class Implements
+  extends mixin(Base)
+  implements Interface
+{
+  method(): void;
+}
+
+declare class Long extends veryLongMixinName<
+  FirstTypeArgument,
+  SecondTypeArgument,
+>(
+  VeryLongBaseClassName<
+    FirstTypeArgument,
+    SecondTypeArgument,
+  >
+) {}
+
+================================================================================
+`;

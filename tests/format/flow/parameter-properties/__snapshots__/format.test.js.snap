@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class Comments {
+constructor(
+/* first */ public /* name */ x /* type */: string /* last */,
+private readonly y: number = /* default */ 1,
+readonly z: number // final parameter
+) {}
+}
+
+=====================================output=====================================
+class Comments {
+  constructor(
+    /* first */ public /* name */ x /* type */ : string /* last */,
+    private readonly y: number = /* default */ 1,
+    readonly z: number, // final parameter
+  ) {}
+}
+
+================================================================================
+`;
+
+exports[`properties.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C { constructor(public x: string) {} }
+
+class Modifiers {
+constructor(private readonly x:number=1, protected y:string="value", public z:boolean=false) {}
+}
+
+class Readonly { constructor(readonly value: number) {} }
+
+class Mixed { constructor(public x: string, y: number) {} }
+
+class DefaultValue {
+constructor(public options: {enabled: boolean, name: string} = {enabled: true, name: "default"}) {}
+}
+
+=====================================output=====================================
+class C {
+  constructor(public x: string) {}
+}
+
+class Modifiers {
+  constructor(
+    private readonly x: number = 1,
+    protected y: string = "value",
+    public z: boolean = false,
+  ) {}
+}
+
+class Readonly {
+  constructor(readonly value: number) {}
+}
+
+class Mixed {
+  constructor(
+    public x: string,
+    y: number,
+  ) {}
+}
+
+class DefaultValue {
+  constructor(
+    public options: { enabled: boolean, name: string } = {
+      enabled: true,
+      name: "default",
+    },
+  ) {}
+}
+
+================================================================================
+`;
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C { constructor(public x: string) {} }
+=====================================output=====================================
+class C {
+  constructor(public x: string) {}
+}
+
+================================================================================
+`;

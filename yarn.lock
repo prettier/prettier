@@ -5220,19 +5220,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-estree@npm:0.337.0":
-  version: 0.337.0
-  resolution: "flow-estree@npm:0.337.0"
-  checksum: 10/d9853d6f3898205c1de89de59cdcec5311ef56453c885bb3ceca61a30f96f153d05ec1270c138bbde8e5b7dbd4e4fe60f7c996c04c31570db710b0ba81e4c37d
+"flow-estree@npm:0.338.0":
+  version: 0.338.0
+  resolution: "flow-estree@npm:0.338.0"
+  checksum: 10/7faee18b142346a060583da1fad0a0419e25756cedc8c6970a38e844ccc8b6542530a13eda163826f21bd5015ce140365f991b5daf7333157dfcbb047c5bfe1e
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.337.0":
-  version: 0.337.0
-  resolution: "flow-parser@npm:0.337.0"
+"flow-parser@npm:0.338.0":
+  version: 0.338.0
+  resolution: "flow-parser@npm:0.338.0"
   dependencies:
-    flow-estree: "npm:0.337.0"
-  checksum: 10/b6511a36ee280b7eef4acc5edb8e05155205437238055b7e17f34e57ccd73329d0e07b4c03000333bd0814e81e866baf5a972cd479e085e1101d896f57228a91
+    flow-estree: "npm:0.338.0"
+  checksum: 10/3cd96d575833472ab0e8bd47d1b657cab1e9b3d0e87dc77c8f78fb5d11c8b542d504efabcdd6813cc28c0f9f0762ee8d52d9b03c142c78c138c344775e9f3202
   languageName: node
   linkType: hard
 
@@ -8297,8 +8297,8 @@ __metadata:
     fast-glob: "npm:3.3.3"
     file-entry-cache: "npm:11.1.5"
     find-cache-directory: "npm:6.0.0"
-    flow-estree: "npm:0.337.0"
-    flow-parser: "npm:0.337.0"
+    flow-estree: "npm:0.338.0"
+    flow-parser: "npm:0.338.0"
     get-east-asian-width: "npm:1.7.0"
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"

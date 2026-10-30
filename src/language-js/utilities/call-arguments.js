@@ -12,6 +12,7 @@
   | NodeMap["TSExternalModuleReference"]
   | NodeMap["ImportType"]
   | NodeMap["ExternalModuleReference"]
+  | NodeMap["DeclareClassExtendsCall"]
 } CallLikeNode
 */
 
@@ -38,6 +39,8 @@ function getCallArgumentsWithoutCache(node) {
     }
   } else if (isExternalModuleReference(node)) {
     args = [node.expression];
+  } else if (node.type === "DeclareClassExtendsCall") {
+    args = [node.argument];
   } else {
     args = node.arguments;
   }
@@ -67,6 +70,8 @@ function iterateCallArgumentsPath(path, iteratee) {
     }
   } else if (isExternalModuleReference(node)) {
     path.call(() => iteratee(path, 0), "expression");
+  } else if (node.type === "DeclareClassExtendsCall") {
+    path.call(() => iteratee(path, 0), "argument");
   } else {
     path.each(iteratee, "arguments");
   }
@@ -94,6 +99,10 @@ function getCallArgumentSelector(node, index) {
   if (isExternalModuleReference(node)) {
     if (index === 0 || index === -1) {
       return ["expression"];
+    }
+  } else if (node.type === "DeclareClassExtendsCall") {
+    if (index === 0 || index === -1) {
+      return ["argument"];
     }
   } else {
     if (index < 0) {

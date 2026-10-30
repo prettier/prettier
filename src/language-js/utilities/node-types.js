@@ -95,6 +95,21 @@ export const isAbstractPropertyDefinition = createTypeCheckFunction([
   "TSAbstractPropertyDefinition",
 ]);
 
+export const isParameterProperty = createTypeCheckFunction([
+  "TSParameterProperty",
+  "ParameterProperty",
+]);
+
+export const isNonNullExpression = createTypeCheckFunction([
+  "TSNonNullExpression",
+  "NonNullExpression",
+]);
+
+/** @param {Node | undefined | null} node */
+export const isOptionalTupleMember = (node) =>
+  node?.type === "TSOptionalType" ||
+  (node?.type === "TupleTypeElement" && node.optional === true);
+
 // These two functions exists because we used support `recordAndTuple`
 // Feel free to check `node.type` instead
 // https://github.com/prettier/prettier/pull/17363
@@ -160,6 +175,7 @@ export const isCallLikeExpression = createTypeCheckFunction([
 export const isChainElementWrapper = createTypeCheckFunction([
   "ChainExpression",
   "TSNonNullExpression",
+  "NonNullExpression",
 ]);
 
 export const isArrayType = createTypeCheckFunction([

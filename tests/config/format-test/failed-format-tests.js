@@ -57,16 +57,32 @@ const disabledTests = new Map(
       "flow/declare-class/initializer.js.flow",
       "flow/declare-function/anonymous-default-export/",
       "flow/optional-indexer/",
+      "flow/in-out-variance/invariant.js",
+      "flow/parameter-properties/",
+      "flow/namespace-export/",
+      "flow/tuples/unnamed-optional/",
+      "flow/declare-class/private-fields/",
+      "flow/declare-class/extends-call/",
+      "typescript/non-null/",
       "js/await-expression/like-call.js", // Different result
       "jsx/top-level-await/test.jsx",
     ],
     flow: [
+      // Valid Flow syntax, tested in typescript/non-null/.
+      "js/_errors_/async-await/non-null-expression.js",
       "js/decorators/member-expression.js", // Parsing to different ASTs
       "js/await-expression/await-with-parens.js",
       "js/await-expression/like-call.js",
       "jsx/top-level-await/test.jsx",
     ],
-    "babel-flow": ["js/babel-plugins/flow-comments.js"],
+    "babel-flow": [
+      "js/babel-plugins/flow-comments.js",
+      "flow/parameter-properties/",
+      "flow/namespace-export/",
+      "flow/tuples/unnamed-optional/",
+      "flow/declare-class/private-fields/",
+      "flow/declare-class/extends-call/",
+    ],
     typescript: [],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646

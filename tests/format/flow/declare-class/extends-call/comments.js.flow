@@ -1,0 +1,16 @@
+declare class C extends /* before */ mixin /* call */ (
+/* argument */ Base /* end */
+) {}
+
+declare class Nested extends outer(
+// Inner mixin
+inner(
+// Base class
+Base
+)
+) {}
+
+declare class Generic extends mixin<
+/* type argument */ FirstType,
+SecondType
+>(Base<FirstType, SecondType>) {}
