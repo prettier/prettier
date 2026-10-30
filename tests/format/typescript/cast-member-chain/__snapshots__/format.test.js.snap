@@ -125,18 +125,17 @@ const union = values
     value,
   }))
   .filter((value) => value) as
-    | { value: string }
-    | { value: number };
+  { value: string } | { value: number };
 
 const commented = values
   .map((value) => ({
     value,
   }))
   .filter((value) => value) as
-    // A type comment.
-    {
-      value: string;
-    };
+  // A type comment.
+  {
+    value: string;
+  };
 
 const trailingMember = values
   .map((value) => ({
@@ -272,10 +271,10 @@ const commented = values
 		value,
 	}))
 	.filter((value) => value) as
-		// A type comment.
-		{
-			value: string;
-		};
+	// A type comment.
+	{
+		value: string;
+	};
 
 const trailingMember = values
 	.map((value) => ({
@@ -409,10 +408,10 @@ const commented = values
     value,
   }))
   .filter((value) => value) as
-    // A type comment.
-    {
-      value: string;
-    };
+  // A type comment.
+  {
+    value: string;
+  };
 
 const trailingMember = values
   .map((value) => ({
@@ -421,6 +420,123 @@ const trailingMember = values
   .filter((value) => value).result as {
     value: string;
   };
+
+================================================================================
+`;
+
+exports[`union-types.ts - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 40
+                        printWidth: 40 |
+=====================================input======================================
+const assertion = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as Foo | Bar | Baz | Qux;
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies { value: string } | { value: number };
+
+const plain = value as Foo | Bar | Baz | Qux;
+
+=====================================output=====================================
+const assertion = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as
+  Foo | Bar | Baz | Qux;
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies
+  { value: string } | { value: number };
+
+const plain = value as
+  Foo | Bar | Baz | Qux;
+
+================================================================================
+`;
+
+exports[`union-types.ts - {"tabWidth":4,"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+tabWidth: 4
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const assertion = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as Foo | Bar | Baz | Qux;
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies { value: string } | { value: number };
+
+const plain = value as Foo | Bar | Baz | Qux;
+
+=====================================output=====================================
+const assertion = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) as Foo | Bar | Baz | Qux;
+
+const satisfies = values
+	.map((value) => ({
+		value,
+	}))
+	.filter((value) => value) satisfies { value: string } | { value: number };
+
+const plain = value as Foo | Bar | Baz | Qux;
+
+================================================================================
+`;
+
+exports[`union-types.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const assertion = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as Foo | Bar | Baz | Qux;
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies { value: string } | { value: number };
+
+const plain = value as Foo | Bar | Baz | Qux;
+
+=====================================output=====================================
+const assertion = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) as Foo | Bar | Baz | Qux;
+
+const satisfies = values
+  .map((value) => ({
+    value,
+  }))
+  .filter((value) => value) satisfies { value: string } | { value: number };
+
+const plain = value as Foo | Bar | Baz | Qux;
 
 ================================================================================
 `;

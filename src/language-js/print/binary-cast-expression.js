@@ -13,6 +13,8 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 
+/** @import {Doc} from "../../document/index.js" */
+
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
   const isFlowAsConstExpression = node.type === "AsConstExpression";
@@ -20,22 +22,18 @@ function printBinaryCastExpression(path, options, print) {
   const typeAnnotationDoc = isFlowAsConstExpression
     ? "const"
     : print("typeAnnotation");
-  let suffix;
+  /** @type {Doc} */
+  let suffix = [" ", typeAnnotationDoc];
 
-  if (
-    // Union type already indented
-    !isUnionType(node.typeAnnotation) &&
-    hasLeadingOwnLineComment(options.originalText, node.typeAnnotation)
-  ) {
-    suffix = indent([hardline, typeAnnotationDoc]);
-  } else {
-    suffix = [" ", typeAnnotationDoc];
-  }
-
-  if (expressionDoc.label?.memberChain) {
-    const groupId = Symbol("cast-expression");
-    expressionDoc = group(expressionDoc, { id: groupId });
-    suffix = indentIfBreak(suffix, { groupId });
+  // Union type already indented
+  if (!isUnionType(node.typeAnnotation)) {
+    if (hasLeadingOwnLineComment(options.originalText, node.typeAnnotation)) {
+      suffix = indent([hardline, typeAnnotationDoc]);
+    } else if (expressionDoc.label?.memberChain) {
+      const groupId = Symbol("cast-expression");
+      expressionDoc = group(expressionDoc, { id: groupId });
+      suffix = indentIfBreak(suffix, { groupId });
+    }
   }
 
   const parts = [
