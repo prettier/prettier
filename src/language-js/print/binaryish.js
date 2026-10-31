@@ -104,6 +104,12 @@ function printBinaryishExpression(path, options, print) {
     return group(parts);
   }
 
+  // AwaitExpression already parenthesizes binaryish operands. Break inside
+  // those parentheses instead of leaving the first operand on the await line.
+  if (parent.type === "AwaitExpression" && key === "argument") {
+    return group([indent([softline, ...parts]), softline]);
+  }
+
   // Break between the parens in
   // unaries or in a member or specific call expression, i.e.
   //
