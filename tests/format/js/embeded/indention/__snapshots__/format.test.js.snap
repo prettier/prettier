@@ -70,9 +70,9 @@ export function foo() {
     <div>
       <pre>
 \${JSON.stringify({
-          a: 1,
-          b: 2,
-        })}</pre>
+  a: 1,
+  b: 2,
+})}</pre>
     </div>
   \`;
 }
@@ -81,6 +81,85 @@ const a = html\`
   \${{
     c: y,
   }}
+\`;
+
+================================================================================
+`;
+
+exports[`20355.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+html\`
+  <html>
+    <body>
+      <form>
+        <textarea>
+\${Match.valueTags(form, {
+  EmptyForm: () => '',
+  InvalidForm: () => '',
+  CompletedForm: () => '',
+})}</textarea>
+      </form>
+    </body>
+  </html>
+\`;
+
+html\`
+  <div>
+    <pre>
+  x
+    \${foo({
+      a,
+    })}</pre
+    >
+  </div>
+\`;
+
+html\`
+  <div>
+    <textarea>
+  x \${foo({
+    a,
+  })}</textarea
+    >
+  </div>
+\`;
+
+=====================================output=====================================
+html\`
+  <html>
+    <body>
+      <form>
+        <textarea>
+\${Match.valueTags(form, {
+  EmptyForm: () => "",
+  InvalidForm: () => "",
+  CompletedForm: () => "",
+})}</textarea>
+      </form>
+    </body>
+  </html>
+\`;
+
+html\`
+  <div>
+    <pre>
+  x
+    \${foo({
+      a,
+    })}</pre>
+  </div>
+\`;
+
+html\`
+  <div>
+    <textarea>
+  x \${foo({
+    a,
+  })}</textarea>
+  </div>
 \`;
 
 ================================================================================
