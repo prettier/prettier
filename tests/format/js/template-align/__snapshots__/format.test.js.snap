@@ -131,3 +131,88 @@ Tabs:
 
 ================================================================================
 `;
+
+exports[`print-width.js - {"useTabs":true,"tabWidth":8} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+tabWidth: 8
+useTabs: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const html = \`
+	<div>
+		<ul>
+			\${
+				items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join("")
+			}
+		</ul>
+	</div>
+\`;
+
+const list = \`
+a	\${
+	items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")
+}
+\`;
+
+=====================================output=====================================
+const html = \`
+	<div>
+		<ul>
+			\${items
+				.map(
+					(item) =>
+						\`<li>\${item.displayName} (\${item.id})</li>\`,
+				)
+				.join("")}
+		</ul>
+	</div>
+\`;
+
+const list = \`
+a	\${items
+	.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`)
+	.join(", ")}
+\`;
+
+================================================================================
+`;
+
+exports[`print-width.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const html = \`
+	<div>
+		<ul>
+			\${
+				items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join("")
+			}
+		</ul>
+	</div>
+\`;
+
+const list = \`
+a	\${
+	items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")
+}
+\`;
+
+=====================================output=====================================
+const html = \`
+	<div>
+		<ul>
+			\${items
+        .map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`)
+        .join("")}
+		</ul>
+	</div>
+\`;
+
+const list = \`
+a	\${items.map((item) => \`<li>\${item.displayName} (\${item.id})</li>\`).join(", ")}
+\`;
+
+================================================================================
+`;
