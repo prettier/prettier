@@ -368,6 +368,147 @@ opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-e
 ================================================================================
 `;
 
+exports[`issue-16925.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1. abc
+   <CodeBlock>
+   {  \`hello
+      xxx
+      \`}
+   </CodeBlock>
+2. abc
+   <CodeBlock
+     code={\`hello
+            xxx
+   \`} />
+
+- def
+  <CodeBlock>
+  {  \`hello
+     xxx
+     \`}
+  </CodeBlock>
+- ghi
+  <CodeBlock>
+     {\`hello
+   \`}
+  </CodeBlock>
+
+> <CodeBlock>
+>   {\`hello
+>      xxx
+>   \`}
+> </CodeBlock>
+
+=====================================output=====================================
+1. abc
+   <CodeBlock>
+     {\`hello
+      xxx
+      \`}
+   </CodeBlock>
+2. abc
+   <CodeBlock
+     code={\`hello
+            xxx
+   \`}
+   />
+
+- def
+  <CodeBlock>
+    {\`hello
+     xxx
+     \`}
+  </CodeBlock>
+- ghi
+  <CodeBlock>
+    {\`hello
+   \`}
+  </CodeBlock>
+
+> <CodeBlock>
+>   {\`hello
+>      xxx
+>   \`}
+> </CodeBlock>
+
+================================================================================
+`;
+
+exports[`issue-16925.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+1. abc
+   <CodeBlock>
+   {  \`hello
+      xxx
+      \`}
+   </CodeBlock>
+2. abc
+   <CodeBlock
+     code={\`hello
+            xxx
+   \`} />
+
+- def
+  <CodeBlock>
+  {  \`hello
+     xxx
+     \`}
+  </CodeBlock>
+- ghi
+  <CodeBlock>
+     {\`hello
+   \`}
+  </CodeBlock>
+
+> <CodeBlock>
+>   {\`hello
+>      xxx
+>   \`}
+> </CodeBlock>
+
+=====================================output=====================================
+1. abc
+   <CodeBlock>
+     {\`hello
+      xxx
+      \`}
+   </CodeBlock>
+2. abc
+   <CodeBlock
+     code={\`hello
+            xxx
+   \`}
+   />
+
+- def
+  <CodeBlock>
+    {\`hello
+     xxx
+     \`}
+  </CodeBlock>
+- ghi
+  <CodeBlock>
+    {\`hello
+   \`}
+  </CodeBlock>
+
+> <CodeBlock>
+>   {\`hello
+>      xxx
+>   \`}
+> </CodeBlock>
+
+================================================================================
+`;
+
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
