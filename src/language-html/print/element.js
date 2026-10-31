@@ -92,6 +92,10 @@ function printElement(path, options, print) {
     ) {
       return childrenDoc;
     }
+    if (node.fullName === "script" && node.attrMap.type === "text/markdown") {
+      // Indentation changes Markdown paragraphs into code blocks.
+      return dedentToRoot(childrenDoc);
+    }
     return indent(childrenDoc);
   };
 
