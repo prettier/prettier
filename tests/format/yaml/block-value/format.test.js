@@ -70,6 +70,26 @@ runFormatTest(
         code: "- - |\n    x \n  - y\n",
         output: "- - |\n    x \n  - y\n",
       },
+      {
+        name: "keeps trailing spaces before an end comment",
+        code: "a:\n  b: |\n    x \n  # end\nc: 1\n",
+        output: "a:\n  b: |\n    x \n  # end\nc: 1\n",
+      },
+      {
+        name: "keeps trailing spaces before an end comment at the root",
+        code: "a:\n  b: |\n    x \n# end\nc: 1\n",
+        output: "a:\n  b: |\n    x \n# end\nc: 1\n",
+      },
+      {
+        name: "keeps trailing spaces of a kept block before an end comment",
+        code: "a:\n  b: |+\n    x \n  # end\nc: 1\n",
+        output: "a:\n  b: |+\n    x \n  # end\nc: 1\n",
+      },
+      {
+        name: "keeps trailing spaces of a stripped block before an end comment",
+        code: "a:\n  b: |-\n    x \n  # end\nc: 1\n",
+        output: "a:\n  b: |-\n    x \n  # end\nc: 1\n",
+      },
     ],
   },
   ["yaml"],

@@ -134,7 +134,10 @@ function genericPrint(path, options, print) {
   if (shouldPrintEndComments(node)) {
     parts.push(
       alignWithSpaces(node.type === "sequenceItem" ? 2 : 0, [
-        hardline,
+        // Same as below, `hardline` would trim the whitespace of the block
+        endsWithBlockWithTrailingWhitespace(node)
+          ? markAsRoot(literalline)
+          : hardline,
         join(
           hardline,
           path.map(
