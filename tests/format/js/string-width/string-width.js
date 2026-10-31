@@ -4,3 +4,7 @@ should_break_____________("ཟླ་༡_ཟླ་༢_ཟླ་༣_ཟླ་༤_�
 // https://github.com/react/react/blob/06b2a50f321502514443f675eaa44be8ae826218/fixtures/fizz/src/BigComponent.js#L154
 should___fit_____("यह Google अनुवाद में अंग्रेज़ी से दूसरी भाषा में अनुवादित टेक्स्ट ब्लॉक है।");
 should_break_____("यह Google अनुवाद में अंग्रेज़ी से दूसरी भाषा में अनुवादित टेक्स्ट ब्लॉक है। ");
+
+fit(["0123456789", "0123456789", "0123456789", "0123456789", "0123456789abcd"]);
+// The last string below contains a zero-width space (U+200B) at the end
+fit(["0123456789", "0123456789", "0123456789", "0123456789", "0123456789abcd​"]);
