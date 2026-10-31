@@ -32,6 +32,7 @@ import {
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
+import { unaryExpressionArgumentHasComment } from "../utilities/unary-expression-argument-has-comment.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
@@ -115,7 +116,8 @@ function printBinaryishExpression(path, options, print) {
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
     // `UnaryExpression` adds parentheses and indention when argument has comment
-    (parent.type === "UnaryExpression" && !hasComment(node)) ||
+    (parent.type === "UnaryExpression" &&
+      !unaryExpressionArgumentHasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
     return group([indent([softline, ...parts]), softline]);

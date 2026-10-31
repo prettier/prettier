@@ -15,6 +15,7 @@ import {
   isLiteral,
   isObjectExpression,
 } from "../utilities/node-types.js";
+import { unaryExpressionArgumentHasComment } from "../utilities/unary-expression-argument-has-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -231,7 +232,7 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (unaryExpressionArgumentHasComment(node.argument)) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );

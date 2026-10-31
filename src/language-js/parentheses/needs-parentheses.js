@@ -1,4 +1,3 @@
-import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { getPrecedence } from "../utilities/get-precedence.js";
@@ -21,6 +20,7 @@ import {
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
+import { unaryExpressionArgumentHasComment } from "../utilities/unary-expression-argument-has-comment.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
@@ -226,7 +226,7 @@ function needsParentheses(path, options) {
           return true;
         case "UnaryExpression":
           // `UnaryExpression` adds parentheses and indention when argument has comment
-          if (!hasComment(node)) {
+          if (!unaryExpressionArgumentHasComment(node)) {
             return true;
           }
           break;
