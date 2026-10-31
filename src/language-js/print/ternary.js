@@ -51,6 +51,20 @@ function shouldBreakClosingParen(node, parent) {
   );
 }
 
+// Break the closing paren when the parenthesized ternary is
+// an operand of a binary expression:
+// (a
+//   ? b
+//   : c
+// ) + d
+function shouldBreakClosingParenForBinaryExpression(node, parent) {
+  return (
+    (parent.type === "BinaryExpression" ||
+      parent.type === "LogicalExpression") &&
+    (parent.left === node || parent.right === node)
+  );
+}
+
 function hasMultilineBlockComments(
   testNodes,
   consequentNode,
@@ -223,7 +237,6 @@ function printTernary(path, options, print, args) {
     path.grandparent.type !== "JSXAttribute";
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
-  const breakClosingParen = shouldBreakClosingParen(node, parent);
   const breakTSClosingParen =
     isTSConditional && needsParentheses(path, options);
 
@@ -245,6 +258,8 @@ function printTernary(path, options, print, args) {
     ) ||
     isConsequentTernary ||
     isAlternateTernary;
+
+  const breakClosingParen = shouldBreakClosingParen(node, parent);
 
   // Enable this syntax when relevant, to avoid pushing a short consequent to the next line:
   //
@@ -270,7 +285,8 @@ function printTernary(path, options, print, args) {
         // 2. The consequent is short.
         // This heuristic could probably be refined over time, but felt right after moderate amounts of tinkering.
         isLoneShortArgument(consequentNode, options) &&
-        isSimpleExpressionByNodeCount(node.test, 3));
+        isSimpleExpressionByNodeCount(node.test, 3)
+    );
 
   const shouldGroupTestAndConsequent =
     isInChain ||
@@ -379,7 +395,11 @@ function printTernary(path, options, print, args) {
           isInJsx && !tryToParenthesizeAlternate ? softline : "",
         ]),
 
-    breakClosingParen && !shouldExtraIndent ? softline : "",
+    (breakClosingParen ||
+      shouldBreakClosingParenForBinaryExpression(node, parent)) &&
+    !shouldExtraIndent
+      ? softline
+      : "",
     shouldBreak ? breakParent : "",
   ];
 
