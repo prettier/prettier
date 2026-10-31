@@ -9,6 +9,9 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
+import { locEnd } from "../location/index.js";
 import {
   getCallArguments,
   getCallArgumentSelector,
@@ -41,6 +44,29 @@ import {
   printDanglingCommentsInList,
   printTrailingComma,
 } from "./miscellaneous.js";
+
+/**
+ * Closing parentheses around an argument are not part of its range, so look
+ * past them: the next token after a non-last argument is always a comma.
+ *
+ * @returns {boolean}
+ */
+function isNextLineEmptyAfterArgument(argument, options) {
+  const { originalText: text } = options;
+  const argumentEnd = locEnd(argument);
+  let end = argumentEnd;
+  while (true) {
+    const index = getNextNonSpaceNonCommentCharacterIndex(text, end);
+    if (index === false || text[index] !== ")") {
+      break;
+    }
+    end = index + 1;
+  }
+
+  return end === argumentEnd
+    ? isNextLineEmpty(argument, options)
+    : isNextLineEmptyAfterIndex(text, end);
+}
 
 /*
 - `NewExpression`
@@ -84,7 +110,7 @@ function printCallArguments(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(arg, options)) {
+    } else if (isNextLineEmptyAfterArgument(arg, options)) {
       anyArgEmptyLine = true;
       argDoc = [argDoc, ",", hardline, hardline];
     } else {
