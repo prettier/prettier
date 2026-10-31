@@ -870,13 +870,27 @@ function isBeforeMappedTypeOpeningBracket(node, comment, options) {
   return locEnd(comment) < bracketIndex;
 }
 
-function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
+function handleTSMappedTypeComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
   if (enclosingNode?.type !== "TSMappedType") {
     return;
   }
 
   if (isBeforeMappedTypeOpeningBracket(enclosingNode, comment, options)) {
     return addDanglingComment(enclosingNode, comment);
+  }
+
+  if (
+    followingNode === enclosingNode.constraint &&
+    stripComments(options)
+      .slice(locEnd(enclosingNode.key), locStart(comment))
+      .trim() === "in"
+  ) {
+    return addLeadingComment(enclosingNode.constraint, comment);
   }
 }
 

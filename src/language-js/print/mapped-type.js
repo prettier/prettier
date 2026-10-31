@@ -17,6 +17,8 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isUnionType } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { printClassMemberSemicolon } from "./class.js";
 
@@ -104,6 +106,7 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
 
 function printTypeScriptMappedType(path, options, print) {
   const { node } = path;
+  const constraintDoc = print("constraint");
   // Break after `{` like `printObject`
   let shouldBreak = false;
   if (options.objectWrap === "preserve") {
@@ -153,8 +156,12 @@ function printTypeScriptMappedType(path, options, print) {
             indent([
               softline,
               print("key"),
-              " in ",
-              print("constraint"),
+              " in",
+              // Union types already indent their leading comments.
+              !isUnionType(node.constraint) &&
+              hasLeadingOwnLineComment(options.originalText, node.constraint)
+                ? indent([hardline, constraintDoc])
+                : [" ", constraintDoc],
               node.nameType ? [" as ", print("nameType")] : "",
             ]),
             softline,
