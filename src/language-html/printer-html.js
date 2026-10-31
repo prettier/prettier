@@ -12,6 +12,7 @@ import {
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import embed from "./embed.js";
+import { getRangeNodes } from "./get-range-nodes.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
@@ -138,6 +139,7 @@ const printer = {
   massageAstNode,
   embed,
   getVisitorKeys,
+  getRangeNodes,
 };
 
 export default printer;
