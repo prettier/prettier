@@ -238,7 +238,8 @@ function printBinaryishExpressions(
   let currentNode = node;
   while (isBinaryish(currentNode.left)) {
     const leftNode = currentNode.left;
-    const operator = "operator" in currentNode ? currentNode.operator : undefined;
+    const operator =
+      "operator" in currentNode ? currentNode.operator : undefined;
     const leftOperator = "operator" in leftNode ? leftNode.operator : undefined;
     if (!shouldFlatten(operator, leftOperator)) {
       break;
