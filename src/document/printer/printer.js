@@ -146,9 +146,11 @@ function fits(
         break;
 
       case DOC_TYPE_TRIM: {
-        const { text, count } = trimIndentation(output);
+        const { text } = trimIndentation(output);
+        remainingWidth +=
+          getTextWidth(output, tabWidth, position) -
+          getTextWidth(text, tabWidth, position);
         output = text;
-        remainingWidth += count;
         break;
       }
 
@@ -272,9 +274,14 @@ function printDocToString(doc, options) {
         });
         break;
 
-      case DOC_TYPE_TRIM:
-        position -= result.trim();
+      case DOC_TYPE_TRIM: {
+        const line = result.getLastLine();
+        const count = result.trim();
+        position -=
+          getTextWidth(line, tabWidth, 0) -
+          getTextWidth(line.slice(0, line.length - count), tabWidth, 0);
         break;
+      }
 
       case DOC_TYPE_GROUP: {
         /** @type {Command} */
