@@ -229,40 +229,64 @@ function printBinaryishExpressions(
 ) {
   const { node } = path;
 
-  // Simply print the node normally.
   if (!isBinaryish(node)) {
     return [group(print())];
   }
 
-  /** @type{Doc[]} */
-  let parts = [];
+  // Flatten left-associative chains without recursing into every left node.
+  const flattenedLeft = [];
+  let currentNode = node;
+  while (isBinaryish(currentNode.left)) {
+    const leftNode = currentNode.left;
+    const operator = "operator" in currentNode ? currentNode.operator : undefined;
+    const leftOperator = "operator" in leftNode ? leftNode.operator : undefined;
+    if (!shouldFlatten(operator, leftOperator)) {
+      break;
+    }
 
-  // We treat BinaryExpression and LogicalExpression nodes the same.
+    flattenedLeft.push("left");
+    currentNode = leftNode;
+  }
 
-  // Put all operators with the same precedence level in the same
-  // group. The reason we only need to do this with the `left`
-  // expression is because given an expression like `1 + 2 - 3`, it
-  // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
-  // is where the rest of the expression will exist. Binary
-  // expressions on the right side mean they have a difference
-  // precedence level and should be treated as a separate group, so
-  // print them normally. (This doesn't hold for the `**` operator,
-  // which is unique in that it is right-associative.)
-  // @ts-expect-error -- FIXME
-  if (shouldFlatten(node.operator, node.left.operator)) {
-    // Flatten them out by recursively calling this function.
-    parts = path.call(
-      () =>
-        printBinaryishExpressions(
+  return path.call(
+    () => {
+      /** @type {Doc[]} */
+      let parts = [];
+      for (let depth = flattenedLeft.length; depth >= 0; depth--) {
+        parts = printBinaryishExpressionPart(
           path,
           options,
           print,
-          /* isNested */ true,
+          parts,
+          isNested || depth !== 0,
           isInsideParenthesis,
-        ),
-      "left",
-    );
-  } else {
+        );
+
+        // Move to the parent binary expression. path.call restores the stack.
+        if (depth > 0) {
+          path.stack.length -= 2;
+        }
+      }
+
+      return parts;
+    },
+    ...flattenedLeft,
+  );
+}
+
+function printBinaryishExpressionPart(
+  path,
+  options,
+  print,
+  parts,
+  isNested,
+  isInsideParenthesis,
+) {
+  const { node } = path;
+
+  // The innermost expression prints its left operand. Every outer expression
+  // adds an operator and right operand to the already flattened parts.
+  if (parts.length === 0) {
     parts.push(group(print("left")));
   }
 
