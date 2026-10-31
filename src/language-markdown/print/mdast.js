@@ -253,7 +253,7 @@ function printMdast(path, options, print) {
         printChildren(path, options, print),
         "]",
         node.referenceType === "full"
-          ? printLinkReference(node)
+          ? printLinkReference(node, options)
           : node.referenceType === "collapsed"
             ? "[]"
             : "",
@@ -263,12 +263,12 @@ function printMdast(path, options, print) {
 
       switch (node.referenceType) {
         case "full":
-          return ["![", alt, "]", printLinkReference(node)];
+          return ["![", alt, "]", printLinkReference(node, options)];
         default:
           return [
             ...(options.parser === "mdx"
               ? ["![", alt, "]"]
-              : ["!", printLinkReference(node)]),
+              : ["!", printLinkReference(node, options)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -276,7 +276,7 @@ function printMdast(path, options, print) {
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
-        printLinkReference(node),
+        printLinkReference(node, options),
         ":",
         indent([
           lineOrSpace,
@@ -520,14 +520,58 @@ function printTitle(title, options, printSpace = true) {
 }
 
 function printLinkReference(node, options) {
+  // `node.label` has backslash escapes and character references decoded, but
+  // labels are matched by their source text, so `[a&amp;b]` and `[a&b]` are
+  // different labels. Print the label as it was written when possible.
+  const rawLabel = getRawLabel(node, options);
+  if (rawLabel !== undefined) {
+    return `[${collapseWhiteSpace(rawLabel)}]`;
+  }
+
   // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
   // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
   const label = collapseWhiteSpace(node.label);
-  if (options?.parser === "mdx") {
-    return `[${label}]`;
-  }
   const name = label.replaceAll(/[\\[\]]/g, (s) => `\\${s}`);
   return `[${name}]`;
+}
+
+function isEscaped(text, index) {
+  let backslashes = 0;
+  while (text[index - 1 - backslashes] === "\\") {
+    backslashes++;
+  }
+  return backslashes % 2 === 1;
+}
+
+/**
+ * Get the label from the original text: the last `[...]` of a full reference,
+ * otherwise the first one (`[label]: url`, `![label]`, `![label][]`).
+ * @returns {string | undefined}
+ */
+function getRawLabel(node, options) {
+  const text = options.originalText.slice(locStart(node), locEnd(node));
+
+  if (node.referenceType === "full") {
+    if (text.at(-1) !== "]" || isEscaped(text, text.length - 1)) {
+      return;
+    }
+    for (let index = text.length - 2; index >= 0; index--) {
+      if (text[index] === "[" && !isEscaped(text, index)) {
+        return text.slice(index + 1, -1);
+      }
+    }
+    return;
+  }
+
+  const start = text.startsWith("![") ? 1 : 0;
+  if (text[start] !== "[") {
+    return;
+  }
+  for (let index = start + 1; index < text.length; index++) {
+    if (text[index] === "]" && !isEscaped(text, index)) {
+      return text.slice(start + 1, index);
+    }
+  }
 }
 
 function printFootnoteReference(node) {
