@@ -48,7 +48,7 @@ You can load plugins with:
   export default config;
   ```
 
-Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
+Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes. In a configuration file, plugin package names and relative paths are resolved relative to that configuration file. Plugin entries passed through the CLI or API are resolved relative to the current working directory.
 
 ## Official Plugins
 
