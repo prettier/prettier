@@ -10,6 +10,7 @@ import {
   lineSuffix,
   softline,
 } from "../../document/index.js";
+import { skipSpaces } from "../../utilities/skip.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
@@ -190,6 +191,15 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     if (insideSCSSInterpolationInString) {
+      // Keep spaces in a nested string (i.e. `"#{my-fn("a b")}"`)
+      const end = locEnd(iNode);
+      const spaces = options.originalText.slice(
+        end,
+        skipSpaces(options.originalText, end),
+      );
+      if (spaces) {
+        parts.push([parts.pop(), spaces]);
+      }
       continue;
     }
 

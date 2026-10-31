@@ -1,0 +1,18 @@
+@use "sass:string";
+
+$test: '#{string.index('this is a test', 'a test')}';
+$test: "#{string.index("this is a test", "a test")}";
+
+a {
+  content: "#{my-fn("a b")}";
+  content: "#{my-fn("a  b   c")}";
+  content: "#{my-fn(" a b ")}";
+  content: "#{my-fn("a b", "c d")}";
+  content: "#{my-fn( "a b" , "c d" )}";
+  content: "#{my-fn("a - b")}";
+  content: "#{my-fn("a + b")}";
+  content: "#{my-fn("a / b")}";
+  content: foo "#{my-fn("a b")}" bar;
+  content: "foo #{my-fn("a b")} bar baz";
+  content: "#{my-fn("a b") + my-fn("c d")}";
+}
