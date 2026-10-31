@@ -79,6 +79,9 @@ function printFunction(path, options, print, args) {
     node.generator ? "*" : "",
     " ",
     node.id ? print("id") : "",
+    node.id && hasComment(node.typeParameters, CommentCheckFlags.Leading)
+      ? " "
+      : "",
     print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
