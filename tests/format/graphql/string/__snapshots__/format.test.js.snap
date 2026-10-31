@@ -115,7 +115,7 @@ type Person {
 }
 
 """
-  1
+1
 2
 """
 type Person {
@@ -260,8 +260,8 @@ type T {
 
 """
 a
-  b
-    c
+b
+c
 """
 type T {
   a: Int

@@ -1,0 +1,120 @@
+"""
+## javascript
+
+```javascript
+const value={a:1,b:[2,3]};console.log(value)
+```
+
+## jsx
+
+```jsx
+const element=<div id="example"><span>hello</span></div>
+```
+
+## typescript
+
+```typescript
+interface User{name:string;age:number}
+```
+
+## tsx
+
+```tsx
+const element=<Button value={1+2}/>
+```
+
+## flow
+
+```flow
+type User={name:string,age:number};
+```
+
+## json
+
+```json
+{"name":"Ada","age":30}
+```
+
+## json5
+
+```json5
+{name:'Ada',age:30,}
+```
+
+## css
+
+```css
+.name{color:red;padding:0  1px}
+```
+
+## scss
+
+```scss
+$color:red;.name{color:$color;&:hover{color:blue}}
+```
+
+## less
+
+```less
+@color:red;.name{color:@color;&:hover{color:blue}}
+```
+
+## html
+
+```html
+<div  class = 'example' ><span >Ada</span></div>
+```
+
+## vue
+
+```vue
+<template><div>{{name}}</div></template>
+```
+
+## angular-html
+
+```angular-html
+<div *ngIf="ready">{{name}}</div>
+```
+
+## lwc
+
+```lwc
+<template ><div  class='name' >{name}</div></template>
+```
+
+## yaml
+
+```yaml
+name:    Ada
+values: [1,2,3]
+```
+
+## graphql
+
+```graphql
+query{user{name age}}
+```
+
+## handlebars
+
+```handlebars
+<div  class='name' >{{#if ready}}{{name}}{{/if}}</div>
+```
+
+## markdown
+
+```markdown
+*  first
+* second
+```
+
+## mdx
+
+```mdx
+export const value={a:1}
+
+# Example
+```
+"""
+scalar Languages
