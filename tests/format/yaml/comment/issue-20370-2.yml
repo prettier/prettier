@@ -1,0 +1,13 @@
+---
+top:
+  b: 2 # comment
+
+# end comment
+---
+a: {x: 1} # comment
+
+# end comment
+---
+a: # comment
+
+# end comment
