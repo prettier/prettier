@@ -49,3 +49,13 @@ type Invariant<in out T> = { get: () => T, set: (value: T) => void };
 
 ================================================================================
 `;
+
+exports[`invariant.js format[hermes] 1`] = `
+"'>' expected at end of type parameters (1:29)
+> 1 | type Invariant<  in   out   T  > = { get: () => T, set: (value: T) => void };
+    |                             ^
+  2 |
+Cause: '>' expected at end of type parameters (1:28)
+type Invariant<  in   out   T  > = { get: () => T, set: (value: T) => void };
+              ~~~~~~~~~~~~~~^"
+`;
