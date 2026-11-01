@@ -34,6 +34,18 @@ declare class Fields {
 ================================================================================
 `;
 
+exports[`private.js.flow - {"semi":false} format[hermes] 1`] = `
+"invalid property name - must be a string, number or identifier (1:19)
+> 1 | declare class C { #x; }
+    |                   ^
+  2 |
+  3 | declare class Fields {
+  4 | // First private field
+Cause: invalid property name - must be a string, number or identifier (1:18)
+declare class C { #x; }
+                  ^~"
+`;
+
 exports[`private.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -65,4 +77,16 @@ declare class Fields {
 }
 
 ================================================================================
+`;
+
+exports[`private.js.flow format[hermes] 1`] = `
+"invalid property name - must be a string, number or identifier (1:19)
+> 1 | declare class C { #x; }
+    |                   ^
+  2 |
+  3 | declare class Fields {
+  4 | // First private field
+Cause: invalid property name - must be a string, number or identifier (1:18)
+declare class C { #x; }
+                  ^~"
 `;

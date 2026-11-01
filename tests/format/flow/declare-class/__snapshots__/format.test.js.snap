@@ -29,6 +29,19 @@ declare class C {
 ================================================================================
 `;
 
+exports[`constructor.js.flow format[hermes] 1`] = `
+"':' expected in function type annotation (2:16)
+  1 | declare class C {
+> 2 |   constructor();
+    |                ^
+  3 |   constructor(value: number);
+  4 |   constructor(value: string, ...rest: string[]);
+  5 |   constructor(/* parameter */ value: number);
+Cause: ':' expected in function type annotation (2:15)
+  constructor();
+  ~~~~~~~~~~~~~^"
+`;
+
 exports[`indexer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -101,4 +114,17 @@ declare class C {
 }
 
 ================================================================================
+`;
+
+exports[`initializer.js.flow format[hermes] 1`] = `
+"':' or '?' expected in property type annotation (2:14)
+  1 | declare class C {
+> 2 |   readonly x = 42;
+    |              ^
+  3 |   static readonly y = "value";
+  4 |   readonly annotated: 42 = 42;
+  5 |   readonly typed: number;
+Cause: ':' or '?' expected in property type annotation (2:13)
+  readonly x = 42;
+  ~~~~~~~~~~~^"
 `;

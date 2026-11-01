@@ -44,6 +44,18 @@ declare class Generic extends mixin<
 ================================================================================
 `;
 
+exports[`comments.js.flow - {"printWidth":50} format[hermes] 1`] = `
+"'{' expected in declared class (1:55)
+> 1 | declare class C extends /* before */ mixin /* call */ (
+    |                                                       ^
+  2 | /* argument */ Base /* end */
+  3 | ) {}
+  4 |
+Cause: '{' expected in declared class (1:54)
+declare class C extends /* before */ mixin /* call */ (
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`extends.js.flow - {"printWidth":50} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -93,4 +105,16 @@ declare class Long extends veryLongMixinName<
 ) {}
 
 ================================================================================
+`;
+
+exports[`extends.js.flow - {"printWidth":50} format[hermes] 1`] = `
+"'{' expected in declared class (1:30)
+> 1 | declare class C extends mixin( Base ) {}
+    |                              ^
+  2 |
+  3 | declare class Generic<T> extends mixin< T >( Base< T > ) {}
+  4 |
+Cause: '{' expected in declared class (1:29)
+declare class C extends mixin( Base ) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
