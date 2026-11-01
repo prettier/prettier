@@ -78,7 +78,8 @@ jobs:
           - os: "ubuntu-latest"
             node: "16"
           - os: "ubuntu-latest"
-            node: "27"
+            # TODO[@fisker]: Use `"27"` instead https://github.com/actions/setup-node/issues/1657
+            node: "latest"
           # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
           - os: "macos-15-intel"
             node: "14"

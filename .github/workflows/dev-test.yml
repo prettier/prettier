@@ -43,7 +43,8 @@ jobs:
           # - os: "ubuntu-latest"
           #   node: "22"
           - os: "ubuntu-latest"
-            node: "27"
+            # TODO[@fisker]: Use `"27"` instead https://github.com/actions/setup-node/issues/1657
+            node: "latest"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
