@@ -1,9 +1,6 @@
-const fixtures = {
-  importMeta: import.meta,
-  snippets: [
-    { code: "export as namespace Library;", filename: "library.d.ts" },
-  ],
+const errors = {
+  hermes: ["namespace.js.flow", "library.js"],
 };
 
-runFormatTest(fixtures, ["flow"]);
-runFormatTest(fixtures, ["flow"], { semi: false });
+runFormatTest(import.meta, ["flow"], { errors });
+runFormatTest(import.meta, ["flow"], { semi: false, errors });

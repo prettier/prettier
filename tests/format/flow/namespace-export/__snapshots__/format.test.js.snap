@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`library.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export as namespace Library;
+
+=====================================output=====================================
+export as namespace Library
+
+================================================================================
+`;
+
+exports[`library.js - {"semi":false} format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export as namespace Library;
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export as namespace Library;
+       ^~"
+`;
+
+exports[`library.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export as namespace Library;
+
+=====================================output=====================================
+export as namespace Library;
+
+================================================================================
+`;
+
+exports[`library.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export as namespace Library;
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export as namespace Library;
+       ^~"
+`;
+
 exports[`namespace.js.flow - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -22,6 +69,18 @@ export as namespace /* name */ OtherLibrary
 export as namespace ThirdLibrary // trailing
 
 ================================================================================
+`;
+
+exports[`namespace.js.flow - {"semi":false} format[hermes] 1`] = `
+"expected declaration in export (1:11)
+> 1 | export    as    namespace    Library;
+    |           ^
+  2 |
+  3 | export as namespace /* name */ OtherLibrary;
+  4 |
+Cause: expected declaration in export (1:10)
+export    as    namespace    Library;
+          ^~"
 `;
 
 exports[`namespace.js.flow format 1`] = `
@@ -47,27 +106,14 @@ export as namespace ThirdLibrary; // trailing
 ================================================================================
 `;
 
-exports[`snippet: #0 - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-semi: false
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-export as namespace Library;
-=====================================output=====================================
-export as namespace Library
-
-================================================================================
-`;
-
-exports[`snippet: #0 format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-export as namespace Library;
-=====================================output=====================================
-export as namespace Library;
-
-================================================================================
+exports[`namespace.js.flow format[hermes] 1`] = `
+"expected declaration in export (1:11)
+> 1 | export    as    namespace    Library;
+    |           ^
+  2 |
+  3 | export as namespace /* name */ OtherLibrary;
+  4 |
+Cause: expected declaration in export (1:10)
+export    as    namespace    Library;
+          ^~"
 `;
