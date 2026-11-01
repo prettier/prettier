@@ -28,6 +28,18 @@ type U = [
 ================================================================================
 `;
 
+exports[`comments.js - {"printWidth":50} format[hermes] 1`] = `
+"':' expected in labeled tuple type element (1:59)
+> 1 | type T = [/* before */ number /* optional */ ? /* after */];
+    |                                                           ^
+  2 | type U = [
+  3 | // First member
+  4 | string ?, // trailing
+Cause: ':' expected in labeled tuple type element (1:58)
+type T = [/* before */ number /* optional */ ? /* after */];
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`optional.js - {"printWidth":50} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -62,4 +74,16 @@ type Types = [
 ];
 
 ================================================================================
+`;
+
+exports[`optional.js - {"printWidth":50} format[hermes] 1`] = `
+"':' expected in labeled tuple type element (1:19)
+> 1 | type T = [number ?];
+    |                   ^
+  2 | type Multiple = [number, string ?, boolean ?];
+  3 | type Rest = [number ?, ...string[]];
+  4 | type Inexact = [number ?, string ?, ...];
+Cause: ':' expected in labeled tuple type element (1:18)
+type T = [number ?];
+          ~~~~~~~~^"
 `;
