@@ -1,11 +1,35 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: comments format 1`] = `
+exports[`anonymous.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function (): void;
+
+=====================================output=====================================
+export default function (): void;
+
+================================================================================
+`;
+
+exports[`anonymous.js.flow format[hermes] 1`] = `
+"'{' expected in function declaration (1:33)
+> 1 | export default function (): void;
+    |                                 ^
+  2 |
+Cause: '{' expected in function declaration (1:32)
+export default function (): void;
+               ~~~~~~~~~~~~~~~~~^"
+`;
+
+exports[`comments.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default function /* before parameters */ (/* parameter */ value: number): /* return */ void;
+
 =====================================output=====================================
 export default function /* before parameters */ (
   /* parameter */ value: number,
@@ -14,50 +38,81 @@ export default function /* before parameters */ (
 ================================================================================
 `;
 
-exports[`snippet: empty parameters format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-export default function (): void;
-=====================================output=====================================
-export default function (): void;
-
-================================================================================
+exports[`comments.js.flow format[hermes] 1`] = `
+"'{' expected in function declaration (1:99)
+> 1 | export default function /* before parameters */ (/* parameter */ value: number): /* return */ void;
+    |                                                                                                   ^
+  2 |
+Cause: '{' expected in function declaration (1:98)
+export default function /* before parameters */ (/* parameter */ value: number): /* return */ void;
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
 
-exports[`snippet: function return type format 1`] = `
+exports[`function-return.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default function (): (value: number) => string;
+
 =====================================output=====================================
 export default function (): (value: number) => string;
 
 ================================================================================
 `;
 
-exports[`snippet: generic function return type format 1`] = `
+exports[`function-return.js.flow format[hermes] 1`] = `
+"'{' expected in function declaration (1:54)
+> 1 | export default function (): (value: number) => string;
+    |                                                      ^
+  2 |
+Cause: '{' expected in function declaration (1:53)
+export default function (): (value: number) => string;
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
+exports[`generic.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function <T>(value: T, ...rest: T[]): T;
+
+=====================================output=====================================
+export default function <T>(value: T, ...rest: T[]): T;
+
+================================================================================
+`;
+
+exports[`generic.js.flow format[hermes] 1`] = `
+"'{' expected in function declaration (1:55)
+> 1 | export default function <T>(value: T, ...rest: T[]): T;
+    |                                                       ^
+  2 |
+Cause: '{' expected in function declaration (1:54)
+export default function <T>(value: T, ...rest: T[]): T;
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
+exports[`generic-function-return.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default function (): <T>(value: T) => T;
+
 =====================================output=====================================
 export default function (): <T>(value: T) => T;
 
 ================================================================================
 `;
 
-exports[`snippet: generic signature format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-export default function <T>(value: T, ...rest: T[]): T;
-=====================================output=====================================
-export default function <T>(value: T, ...rest: T[]): T;
-
-================================================================================
+exports[`generic-function-return.js.flow format[hermes] 1`] = `
+"'{' expected in function declaration (1:47)
+> 1 | export default function (): <T>(value: T) => T;
+    |                                               ^
+  2 |
+Cause: '{' expected in function declaration (1:46)
+export default function (): <T>(value: T) => T;
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
