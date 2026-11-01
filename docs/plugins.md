@@ -402,12 +402,14 @@ function getRangeNodes(
   endNodeAndAncestors: AST[],
   // The current options
   options: Options,
-): {
-  // The first node to format
-  startNode: AST;
-  // The last node to format
-  endNode: AST;
-};
+):
+  | {
+      // The first node to format
+      startNode: AST;
+      // The last node to format
+      endNode: AST;
+    }
+  | undefined;
 ```
 
 Return the start and end nodes of the range to be formatted. `startNode` and `endNode` may be the same node.

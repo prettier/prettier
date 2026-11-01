@@ -12,10 +12,11 @@ const jsonSourceElements = new Set([
 
 function getRangeNodes(startNodeAndAncestors, endNodeAndAncestors) {
   endNodeAndAncestors = new Set(endNodeAndAncestors);
-  return startNodeAndAncestors.find(
+  const commonAncestor = startNodeAndAncestors.find(
     (node) =>
       jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
   );
+  return { startNode: commonAncestor, endNode: commonAncestor };
 }
 
 export { getRangeNodes };

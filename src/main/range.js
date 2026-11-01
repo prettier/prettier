@@ -47,7 +47,7 @@ function findSiblingAncestors(
   let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
 
   if (resultStartNode === resultEndNode) {
-    return [resultStartNode, resultEndNode];
+    return { startNode: resultStartNode, endNode: resultEndNode };
   }
 
   const startNodeStart = locStart(resultStartNode);
@@ -73,7 +73,7 @@ function findSiblingAncestors(
     }
   }
 
-  return [resultStartNode, resultEndNode];
+  return { startNode: resultStartNode, endNode: resultEndNode };
 }
 
 function findNodeAtOffset(
@@ -131,8 +131,15 @@ function findNodeAtOffset(
 @returns {[number, number]}
 */
 function calculateRange(text, opts, ast) {
-  let { rangeStart: start, rangeEnd: end } = opts;
+  let {
+    rangeStart: start,
+    rangeEnd: end,
+    printer: { getRangeNodes },
+  } = opts;
   assert.ok(end > start);
+  if (!getRangeNodes) {
+    return;
+  }
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
@@ -169,17 +176,16 @@ function calculateRange(text, opts, ast) {
     return;
   }
 
-  const { getRangeNodes } = opts.printer;
-  if (!getRangeNodes) {
-    return;
-  }
-
-  const { startNode, endNode } = getRangeNodes(
+  const rangeNodes = getRangeNodes(
     startNodeAndAncestors,
     endNodeAndAncestors,
     opts,
   );
+  if (!rangeNodes) {
+    return;
+  }
 
+  const { startNode, endNode } = rangeNodes;
   const { locStart, locEnd } = locFunctions;
   return [
     Math.min(locStart(startNode), locStart(endNode)),
