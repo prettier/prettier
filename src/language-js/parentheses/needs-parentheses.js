@@ -2,6 +2,7 @@ import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { getPrecedence } from "../utilities/get-precedence.js";
+import { hasNode } from "../utilities/has-node.js";
 import { isBitwiseOperator } from "../utilities/is-bitwise-operator.js";
 import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
@@ -203,7 +204,17 @@ function needsParentheses(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || isNullishCoalescing(node);
+          // `??` in a ternary branch does not need parens: it binds
+          // tighter than `?:`, unlike mixing `??` with `&&`/`||`
+          // (which is a syntax error and is handled elsewhere).
+          // Keep the old parens when the `??` expression contains a
+          // comment, e.g. a Closure type-cast comment, whose placement
+          // depends on the parens (see handleClosureTypeCastComments).
+          return (
+            isBinaryCastExpression(node) ||
+            (isNullishCoalescing(node) &&
+              hasNode(node, (child) => hasComment(child)))
+          );
 
         case "CallExpression":
         case "NewExpression":

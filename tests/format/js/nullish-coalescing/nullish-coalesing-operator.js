@@ -24,3 +24,9 @@ foo && (baz ?? baz);
 foo ?? bar ? a : b;
 a ? foo ?? bar : b;
 a ? b : foo ?? bar;
+
+const value = condition ? (
+  <Example /> // comment
+) : (
+  "alpha" ?? "bravo"
+);
