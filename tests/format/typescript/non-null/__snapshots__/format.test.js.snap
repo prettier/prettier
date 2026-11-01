@@ -25,6 +25,18 @@ function* g() {
 ================================================================================
 `;
 
+exports[`await.ts format[hermes] 1`] = `
+"')' expected at end of parenthesized expression (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^
+  2 |
+  3 | async function f() { return (await foo())!; }
+  4 |
+Cause: ')' expected at end of parenthesized expression (1:21)
+async (a) => (await a!) ** 6;
+             ~~~~~~~~^"
+`;
+
 exports[`braces.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
@@ -68,6 +80,23 @@ class a extends ({}!) {}
 ================================================================================
 `;
 
+exports[`braces.ts format[hermes] 1`] = `
+"')' expected at end of parenthesized expression (5:9)
+  3 |     a: 42,
+  4 |     b: 42,
+> 5 |   }[key]!)
+    |         ^
+  6 |
+  7 | const myFunction3 = key => ({}!.a);
+  8 |
+Cause: ')' expected at end of parenthesized expression (5:8)
+  }[key]!)
+        ^
+note: started here (2:2)
+  ({
+  ^"
+`;
+
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
@@ -89,6 +118,18 @@ foo!
 const result = /* leading */ value /* trailing */!;
 
 ================================================================================
+`;
+
+exports[`comments.ts format[hermes] 1`] = `
+"';' expected (1:20)
+> 1 | value /* before */ ! /* after */;
+    |                    ^
+  2 |
+  3 | foo!.bar() /* before */ !.baz();
+  4 |
+Cause: ';' expected (1:19)
+value /* before */ ! /* after */;
+                   ^"
 `;
 
 exports[`member-chain.ts format 1`] = `
@@ -126,6 +167,18 @@ xyz.a(/a/).a(/a/).a(/a/);
 xyz.a(/a/!).a(/a/!).a(/a/!);
 
 ================================================================================
+`;
+
+exports[`member-chain.ts format[hermes] 1`] = `
+"';' expected (1:105)
+> 1 | const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
+    |                                                                                                         ^
+  2 |
+  3 | const { somePropThatHasAReallyLongName2, anotherPropThatHasALongName2 } = this.props.imReallySureAboutThis!.anotherObject;
+  4 |
+Cause: ';' expected (1:104)
+const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
+                                                                                                        ^"
 `;
 
 exports[`optional-chain.ts format 1`] = `
@@ -177,6 +230,18 @@ a?.().b!.c?.c;
 (a?.b!!)!!.c;
 
 ================================================================================
+`;
+
+exports[`optional-chain.ts format[hermes] 1`] = `
+"';' expected (1:5)
+> 1 | a?.b!.c;
+    |     ^
+  2 | a?.b!.c.d;
+  3 | a?.b.c!.d;
+  4 | a!.b?.c;
+Cause: ';' expected (1:4)
+a?.b!.c;
+    ^"
 `;
 
 exports[`parens.ts format 1`] = `
@@ -238,4 +303,16 @@ new (x!()\`\`.y)();
 xyz.a(b!).a(b!).a(b!);
 
 ================================================================================
+`;
+
+exports[`parens.ts format[hermes] 1`] = `
+"';' expected (1:13)
+> 1 | (a ? b : c) ![tokenKey];
+    |             ^
+  2 | (a || b) ![tokenKey];
+  3 | (void 0)!;
+  4 |
+Cause: ';' expected (1:12)
+(a ? b : c) ![tokenKey];
+            ^"
 `;
