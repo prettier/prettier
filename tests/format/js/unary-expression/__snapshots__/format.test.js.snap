@@ -579,6 +579,41 @@ async function bar2() {
 ================================================================================
 `;
 
+exports[`member-chain-leading-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+delete (/* foo */ x).y;
+!(/* foo */ x).y;
+typeof (/* foo */ x).y;
+void (/* foo */ x).y;
+-(/* foo */ x).y;
+delete (/* foo */ x)[y];
+!(/* foo */ x)();
+!(/* foo */ x).y.z;
+
+function t(window) {
+  delete (/** @type {any} */ window).__pwned;
+}
+
+=====================================output=====================================
+delete (/* foo */ x.y);
+!(/* foo */ x.y);
+typeof (/* foo */ x.y);
+void (/* foo */ x.y);
+-(/* foo */ x.y);
+delete (/* foo */ x[y]);
+!(/* foo */ x());
+!(/* foo */ x.y.z);
+
+function t(window) {
+  delete (/** @type {any} */ window.__pwned);
+}
+
+================================================================================
+`;
+
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

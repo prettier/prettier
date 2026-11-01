@@ -8,6 +8,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import { isMethod } from "../utilities/is-method.js";
 import {
@@ -231,7 +232,7 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (shouldWrapUnaryArgument(node.argument)) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
@@ -338,6 +339,63 @@ function printEstree(path, options, print, args) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
+}
+
+const isUnaryChainNode = createTypeCheckFunction([
+  "MemberExpression",
+  "OptionalMemberExpression",
+  "CallExpression",
+  "OptionalCallExpression",
+  "TaggedTemplateExpression",
+  "ChainExpression",
+  "TSNonNullExpression",
+  "TSInstantiationExpression",
+  "NewExpression",
+  "AwaitExpression",
+]);
+
+/**
+ * Whether a unary argument should be wrapped in parentheses because of a
+ * comment.
+ *
+ * The existing rule wraps the argument when the argument node itself has a
+ * comment, e.g. `!(/* foo *\/ x.y)`. That misses the case where the comment
+ * sits on the leftmost node of a member/call chain, e.g.
+ * `!(/* foo *\/ x).y`: the parens around `x` are redundant and dropped, so
+ * the first pass prints `!/* foo *\/ x.y`, which re-parses with the comment
+ * attached to the whole chain and is then wrapped on the second pass.
+ * Walking the chain and checking for a leading comment on any node along
+ * the way makes the first pass produce the same (wrapped) output as the
+ * second pass. Only leading comments are considered: a trailing comment
+ * such as in `!(x /* foo *\/).y` is already stable without wrapping.
+ */
+function shouldWrapUnaryArgument(argument) {
+  if (hasComment(argument)) {
+    return true;
+  }
+
+  if (!isUnaryChainNode(argument)) {
+    return false;
+  }
+
+  let current = argument;
+  while (isUnaryChainNode(current)) {
+    const next =
+      current.object ??
+      current.callee ??
+      current.tag ??
+      current.expression ??
+      current.argument;
+    if (!next) {
+      return false;
+    }
+    if (hasComment(next, CommentCheckFlags.Leading)) {
+      return true;
+    }
+    current = next;
+  }
+
+  return false;
 }
 
 export { printEstree };
