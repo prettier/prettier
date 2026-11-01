@@ -1309,11 +1309,11 @@ function getStatementForDroppedParenthesizedTrailingComment(
       continue;
     }
 
-    if (
-      ancestor.type === "VariableDeclaration" &&
-      ancestor.declarations.includes(child)
-    ) {
-      return ancestor;
+    if (ancestor.type === "VariableDeclaration") {
+      if (ancestor.declarations.at(-1) === child) {
+        return ancestor;
+      }
+      return;
     }
 
     if (ancestor.type === "ReturnStatement" && ancestor.argument === child) {

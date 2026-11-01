@@ -57,6 +57,9 @@ function f() {
   return (1 * 2 /* c */);
 }
 
+const a = (1 /* about a */), b = 2;
+const c = 1, d = (2 /* about d */);
+
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/15537
 const AUTHORIZATION_TOKEN_VALIDITY =
@@ -73,6 +76,11 @@ assigned = 1 * 2 /* c */
 function f() {
   return 1 * 2 /* c */
 }
+
+const a = 1 /* about a */,
+  b = 2
+const c = 1,
+  d = 2 /* about d */
 
 ================================================================================
 `;
@@ -98,6 +106,9 @@ function f() {
   return (1 * 2 /* c */);
 }
 
+const a = (1 /* about a */), b = 2;
+const c = 1, d = (2 /* about d */);
+
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/15537
 const AUTHORIZATION_TOKEN_VALIDITY =
@@ -114,6 +125,11 @@ assigned = 1 * 2; /* c */
 function f() {
   return 1 * 2; /* c */
 }
+
+const a = 1 /* about a */,
+  b = 2;
+const c = 1,
+  d = 2; /* about d */
 
 ================================================================================
 `;

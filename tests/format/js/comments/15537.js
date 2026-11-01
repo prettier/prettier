@@ -13,3 +13,6 @@ assigned = (1 * 2 /* c */);
 function f() {
   return (1 * 2 /* c */);
 }
+
+const a = (1 /* about a */), b = 2;
+const c = 1, d = (2 /* about d */);
