@@ -9,6 +9,13 @@ exports[`snippet: #0 format[acorn] 1`] = `
 Cause: Unexpected token (2:25)"
 `;
 
+exports[`snippet: #0 format[acorn] 2`] = `
+"Unexpected token (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^
+Cause: Unexpected token (1:21)"
+`;
+
 exports[`snippet: #0 format[babel] 1`] = `
 "'await' is only allowed within async functions and at the top levels of modules. (2:20)
   1 | async function foo() {
@@ -18,6 +25,13 @@ exports[`snippet: #0 format[babel] 1`] = `
 Cause: 'await' is only allowed within async functions and at the top levels of modules. (2:19)"
 `;
 
+exports[`snippet: #0 format[babel] 2`] = `
+"Unexpected token, expected "," (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^
+Cause: Unexpected token, expected "," (1:21)"
+`;
+
 exports[`snippet: #0 format[espree] 1`] = `
 "Cannot use keyword 'await' outside an async function (2:20)
   1 | async function foo() {
@@ -25,6 +39,13 @@ exports[`snippet: #0 format[espree] 1`] = `
     |                    ^
   3 | }
 Cause: Cannot use keyword 'await' outside an async function"
+`;
+
+exports[`snippet: #0 format[espree] 2`] = `
+"Unexpected token ! (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^
+Cause: Unexpected token !"
 `;
 
 exports[`snippet: #0 format[flow] 1`] = `
@@ -43,6 +64,13 @@ exports[`snippet: #0 format[meriyah] 1`] = `
     |                    ^^^^^
   3 | }
 Cause: [2:19-2:24]: Await expression not allowed in formal parameter"
+`;
+
+exports[`snippet: #0 format[meriyah] 2`] = `
+"Expected ')' (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^
+Cause: [1:21-1:22]: Expected ')'"
 `;
 
 exports[`snippet: #1 format[acorn] 1`] = `
@@ -186,167 +214,139 @@ Cause: [1:13-1:14]: Unexpected token: '!'"
 `;
 
 exports[`snippet: #5 format[acorn] 1`] = `
-"Unexpected token (1:22)
-> 1 | async (a) => (await a!) ** 6;
-    |                      ^
-Cause: Unexpected token (1:21)"
-`;
-
-exports[`snippet: #5 format[babel] 1`] = `
-"Unexpected token, expected "," (1:22)
-> 1 | async (a) => (await a!) ** 6;
-    |                      ^
-Cause: Unexpected token, expected "," (1:21)"
-`;
-
-exports[`snippet: #5 format[espree] 1`] = `
-"Unexpected token ! (1:22)
-> 1 | async (a) => (await a!) ** 6;
-    |                      ^
-Cause: Unexpected token !"
-`;
-
-exports[`snippet: #5 format[meriyah] 1`] = `
-"Expected ')' (1:22)
-> 1 | async (a) => (await a!) ** 6;
-    |                      ^
-Cause: [1:21-1:22]: Expected ')'"
-`;
-
-exports[`snippet: #6 format[acorn] 1`] = `
 "Unexpected token (1:6)
 > 1 | (-+5 ** 6);
     |      ^
 Cause: Unexpected token (1:5)"
 `;
 
-exports[`snippet: #6 format[babel] 1`] = `
+exports[`snippet: #5 format[babel] 1`] = `
 "Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:3)
 > 1 | (-+5 ** 6);
     |   ^
 Cause: Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:2)"
 `;
 
-exports[`snippet: #6 format[espree] 1`] = `
+exports[`snippet: #5 format[espree] 1`] = `
 "Unexpected token ** (1:6)
 > 1 | (-+5 ** 6);
     |      ^
 Cause: Unexpected token **"
 `;
 
-exports[`snippet: #6 format[flow] 1`] = `
+exports[`snippet: #5 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:2)
 > 1 | (-+5 ** 6);
     |  ^
 Cause: Invalid left-hand side in exponentiation expression (1:1)"
 `;
 
-exports[`snippet: #6 format[meriyah] 1`] = `
+exports[`snippet: #5 format[meriyah] 1`] = `
 "Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:6)
 > 1 | (-+5 ** 6);
     |      ^^
 Cause: [1:5-1:7]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
-exports[`snippet: #7 format[acorn] 1`] = `
+exports[`snippet: #6 format[acorn] 1`] = `
 "Unexpected token (1:25)
 > 1 | f = async () => await 5 ** 6;
     |                         ^
 Cause: Unexpected token (1:24)"
 `;
 
-exports[`snippet: #7 format[babel] 1`] = `
+exports[`snippet: #6 format[babel] 1`] = `
 "Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:23)
 > 1 | f = async () => await 5 ** 6;
     |                       ^
 Cause: Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:22)"
 `;
 
-exports[`snippet: #7 format[espree] 1`] = `
+exports[`snippet: #6 format[espree] 1`] = `
 "Unexpected token ** (1:25)
 > 1 | f = async () => await 5 ** 6;
     |                         ^
 Cause: Unexpected token **"
 `;
 
-exports[`snippet: #7 format[flow] 1`] = `
+exports[`snippet: #6 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await 5 ** 6;
     |                 ^
 Cause: Invalid left-hand side in exponentiation expression (1:16)"
 `;
 
-exports[`snippet: #7 format[meriyah] 1`] = `
+exports[`snippet: #6 format[meriyah] 1`] = `
 "Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:25)
 > 1 | f = async () => await 5 ** 6;
     |                         ^^
 Cause: [1:24-1:26]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
-exports[`snippet: #8 format[acorn] 1`] = `
+exports[`snippet: #7 format[acorn] 1`] = `
 "Unexpected token (1:26)
 > 1 | f = async () => await -5 ** 6;
     |                          ^
 Cause: Unexpected token (1:25)"
 `;
 
-exports[`snippet: #8 format[babel] 1`] = `
+exports[`snippet: #7 format[babel] 1`] = `
 "Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:23)
 > 1 | f = async () => await -5 ** 6;
     |                       ^
 Cause: Illegal expression. Wrap left hand side or entire exponentiation in parentheses. (1:22)"
 `;
 
-exports[`snippet: #8 format[espree] 1`] = `
+exports[`snippet: #7 format[espree] 1`] = `
 "Unexpected token ** (1:26)
 > 1 | f = async () => await -5 ** 6;
     |                          ^
 Cause: Unexpected token **"
 `;
 
-exports[`snippet: #8 format[flow] 1`] = `
+exports[`snippet: #7 format[flow] 1`] = `
 "Invalid left-hand side in exponentiation expression (1:17)
 > 1 | f = async () => await -5 ** 6;
     |                 ^
 Cause: Invalid left-hand side in exponentiation expression (1:16)"
 `;
 
-exports[`snippet: #8 format[meriyah] 1`] = `
+exports[`snippet: #7 format[meriyah] 1`] = `
 "Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:26)
 > 1 | f = async () => await -5 ** 6;
     |                          ^^
 Cause: [1:25-1:27]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
-exports[`snippet: #9 format[acorn] 1`] = `
+exports[`snippet: #8 format[acorn] 1`] = `
 "Shorthand property assignments are valid only in destructuring patterns (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^
 Cause: Shorthand property assignments are valid only in destructuring patterns (1:14)"
 `;
 
-exports[`snippet: #9 format[babel] 1`] = `
+exports[`snippet: #8 format[babel] 1`] = `
 "Invalid shorthand property initializer. (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^
 Cause: Invalid shorthand property initializer. (1:14)"
 `;
 
-exports[`snippet: #9 format[espree] 1`] = `
+exports[`snippet: #8 format[espree] 1`] = `
 "Shorthand property assignments are valid only in destructuring patterns (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^
 Cause: Shorthand property assignments are valid only in destructuring patterns"
 `;
 
-exports[`snippet: #9 format[flow] 1`] = `
+exports[`snippet: #8 format[flow] 1`] = `
 "Unexpected token \`=\` (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^
 Cause: Unexpected token \`=\` (1:14)"
 `;
 
-exports[`snippet: #9 format[meriyah] 1`] = `
+exports[`snippet: #8 format[meriyah] 1`] = `
 "Invalid shorthand property initializer (1:21)
 > 1 | async({ foo33 = 1 });
     |                     ^
