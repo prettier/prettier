@@ -47,7 +47,7 @@ packageConfig.modules.push(
       return {
         ...packageJson,
         dependencies: {
-          "yuku-parser": projectPackageJson.dependencies["yuku-parser"],
+          yuku: projectPackageJson.dependencies.yuku,
         },
       };
     },
