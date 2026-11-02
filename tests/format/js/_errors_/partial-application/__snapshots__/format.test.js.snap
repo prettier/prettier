@@ -121,7 +121,7 @@ Cause: Expression expected."
 `;
 
 exports[`partial-template-strings.js format[yuku] 1`] = `
-"Unexpected token '?' (6:42)
+"Expected an expression, but found '?' (6:42)
   4 |
   5 | const Diagnostics = {
 > 6 |   unexpected_token: \`Unexpected token: \${?}\`,
@@ -132,7 +132,7 @@ exports[`partial-template-strings.js format[yuku] 1`] = `
 `;
 
 exports[`partial-template-strings.js format[yuku-ts] 1`] = `
-"Unexpected token '?' (6:42)
+"Expected an expression, but found '?' (6:42)
   4 |
   5 | const Diagnostics = {
 > 6 |   unexpected_token: \`Unexpected token: \${?}\`,
@@ -213,13 +213,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Unexpected token '?' (1:7)
+"Expected an expression, but found '?' (1:7)
 > 1 | f(x + ?)
     |       ^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Unexpected token '?' (1:7)
+"Expected an expression, but found '?' (1:7)
 > 1 | f(x + ?)
     |       ^"
 `;
@@ -295,13 +295,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"Unexpected token '?' (1:5)
+"Expected an expression, but found '?' (1:5)
 > 1 | x + ?
     |     ^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Unexpected token '?' (1:5)
+"Expected an expression, but found '?' (1:5)
 > 1 | x + ?
     |     ^"
 `;
@@ -377,13 +377,13 @@ Cause: Declaration or statement expected."
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"Unexpected token '?.' (1:1)
+"Expected an expression, but found '?.' (1:1)
 > 1 | ?.f()
     | ^^"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Unexpected token '?.' (1:1)
+"Expected an expression, but found '?.' (1:1)
 > 1 | ?.f()
     | ^^"
 `;

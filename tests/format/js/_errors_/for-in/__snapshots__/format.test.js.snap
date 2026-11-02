@@ -71,7 +71,7 @@ Cause: ')' expected."
 `;
 
 exports[`no-for-in-init-concise-binary-in.js format[yuku] 1`] = `
-"Invalid element in assignment pattern (3:6)
+"The left-hand side of an assignment expression must be a variable or a property access (3:6)
   1 | // https://github.com/babel/babel/pull/11931
   2 |
 > 3 | for (() => x in y;;);
@@ -80,7 +80,7 @@ exports[`no-for-in-init-concise-binary-in.js format[yuku] 1`] = `
 `;
 
 exports[`no-for-in-init-concise-binary-in.js format[yuku-ts] 1`] = `
-"Invalid element in assignment pattern (3:6)
+"The left-hand side of an assignment expression must be a variable or a property access (3:6)
   1 | // https://github.com/babel/babel/pull/11931
   2 |
 > 3 | for (() => x in y;;);

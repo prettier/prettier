@@ -148,7 +148,7 @@ Cause: Property or signature expected."
 `;
 
 exports[`comments.js format[yuku-ts] 1`] = `
-"Unexpected token '+' as signature key (3:3)
+"Expected a type member name, but found '+' (3:3)
   1 | type Type = {
   2 |   // comment
 > 3 |   +[T in number]: number;
@@ -263,7 +263,7 @@ Cause: Property or signature expected."
 `;
 
 exports[`mapped-types.js format[yuku-ts] 1`] = `
-"Unexpected token '+' as signature key (5:28)
+"Expected a type member name, but found '+' (5:28)
   3 | type Mapped = {[key in keyof O]: O[key]};
   4 | type MappedLong = {[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
 > 5 | type MappedWithVariance = {+[key in keyof O]: number};
@@ -412,7 +412,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`modifiers-and-key-remapping.js format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'type' (27:8)
+"Expected ';' after the statement, but found 'type' (27:8)
   25 | };
   26 |
 > 27 | opaque type FlowOnly = mixed;

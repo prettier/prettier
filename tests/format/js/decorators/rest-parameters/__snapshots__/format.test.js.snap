@@ -109,7 +109,7 @@ exports[`constructor.js format[oxc] 1`] = `
 `;
 
 exports[`constructor.js format[yuku] 1`] = `
-"Unexpected token '@' in binding pattern (2:15)
+"Expected an identifier or a destructuring pattern, but found '@' (2:15)
   1 | class C {
 > 2 |   constructor(@decorator ...args) {}
     |               ^
@@ -226,7 +226,7 @@ exports[`method.js format[oxc] 1`] = `
 `;
 
 exports[`method.js format[yuku] 1`] = `
-"Unexpected token '@' in binding pattern (2:10)
+"Expected an identifier or a destructuring pattern, but found '@' (2:10)
   1 | class C {
 > 2 |   method(@decorator ...args) {}
     |          ^
@@ -352,7 +352,7 @@ exports[`setter.js format[oxc-ts] 1`] = `
 `;
 
 exports[`setter.js format[yuku] 1`] = `
-"Unexpected token '@' in binding pattern (2:14)
+"Expected an identifier or a destructuring pattern, but found '@' (2:14)
   1 | class C {
 > 2 |   set setter(@decorator ...args) {}
     |              ^
@@ -361,7 +361,7 @@ exports[`setter.js format[yuku] 1`] = `
 `;
 
 exports[`setter.js format[yuku-ts] 1`] = `
-"Setter must have exactly one parameter (2:13)
+"A 'set' accessor must have exactly one parameter (2:13)
   1 | class C {
 > 2 |   set setter(@decorator ...args) {}
     |             ^^^^^^^^^^^^^^^^^^^^

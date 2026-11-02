@@ -21,7 +21,7 @@ Cause: Identifier expected."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '"a"' (1:11)
+"Expected ';' after the statement, but found "a" (1:11)
 > 1 | namespace "a" {}
     |           ^^^"
 `;
@@ -47,7 +47,7 @@ Cause: Identifier expected."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '"a"' (1:11)
+"Expected ';' after the statement, but found "a" (1:11)
 > 1 | namespace "a";
     |           ^^^"
 `;

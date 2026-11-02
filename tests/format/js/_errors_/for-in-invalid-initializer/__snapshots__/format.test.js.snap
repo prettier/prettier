@@ -57,13 +57,13 @@ Cause: The variable declaration of a 'for...in' statement cannot have an initial
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"for-in loop variable declaration may not have an initializer (1:10)
+"The variable declaration of a 'for...in' statement cannot have an initializer (1:10)
 > 1 | for (let a = 1 in b);
     |          ^^^^^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"for-in loop variable declaration may not have an initializer (1:10)
+"The variable declaration of a 'for...in' statement cannot have an initializer (1:10)
 > 1 | for (let a = 1 in b);
     |          ^^^^^"
 `;
@@ -125,13 +125,13 @@ Cause: The variable declaration of a 'for...in' statement cannot have an initial
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"for-in loop variable declaration may not have an initializer (1:12)
+"The variable declaration of a 'for...in' statement cannot have an initializer (1:12)
 > 1 | for (const a = 1 in b);
     |            ^^^^^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"for-in loop variable declaration may not have an initializer (1:12)
+"The variable declaration of a 'for...in' statement cannot have an initializer (1:12)
 > 1 | for (const a = 1 in b);
     |            ^^^^^"
 `;
@@ -193,13 +193,13 @@ Cause: The variable declaration of a 'for...in' statement cannot have an initial
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"The left-hand side of a for...in statement cannot be an using declaration. (1:7)
+"The left-hand side of a 'for...in' statement cannot be a 'using' declaration (1:7)
 > 1 | {for (using a = 1 in b);}
     |       ^^^^^^^^^^^"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"The left-hand side of a for...in statement cannot be an using declaration. (1:7)
+"The left-hand side of a 'for...in' statement cannot be a 'using' declaration (1:7)
 > 1 | {for (using a = 1 in b);}
     |       ^^^^^^^^^^^"
 `;

@@ -54,7 +54,7 @@ Cause: Interface declaration cannot have 'implements' clause."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found 'implements' (1:13)
+"Expected '{' to start the interface body, but found 'implements' (1:13)
 > 1 | interface F implements {}
     |             ^^^^^^^^^^"
 `;
@@ -80,7 +80,7 @@ Cause: Interface declaration cannot have 'implements' clause."
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found 'implements' (1:13)
+"Expected '{' to start the interface body, but found 'implements' (1:13)
 > 1 | interface F implements A {}
     |             ^^^^^^^^^^"
 `;

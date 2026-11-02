@@ -235,7 +235,7 @@ exports[`no-named.js format[oxc] 1`] = `
 `;
 
 exports[`no-named.js format[yuku] 1`] = `
-"Expected 'from' after import clause, but found '{' (1:15)
+"Expected 'from' after the import clause, but found '{' (1:15)
 > 1 | import source { x } from "x";
     |               ^
   2 |"
@@ -289,7 +289,7 @@ exports[`no-namespace.js format[oxc] 1`] = `
 `;
 
 exports[`no-namespace.js format[yuku] 1`] = `
-"Expected 'from' after import clause, but found '*' (1:15)
+"Expected 'from' after the import clause, but found '*' (1:15)
 > 1 | import source * as x from "x";
     |               ^
   2 |"

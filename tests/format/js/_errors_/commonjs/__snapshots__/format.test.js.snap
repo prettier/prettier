@@ -98,25 +98,25 @@ exports[`snippet: #0 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Cannot use 'export' declaration outside a module (1:1)
+"Cannot use an export declaration outside a module (1:1)
 > 1 | export {}
     | ^^^^^^^^^"
 `;
 
 exports[`snippet: #0 format[yuku] 2`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '1' (1:7)
+"Expected ';' after the statement, but found '1' (1:7)
 > 1 | await 1
     |       ^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Cannot use 'export' declaration outside a module (1:1)
+"Cannot use an export declaration outside a module (1:1)
 > 1 | export {}
     | ^^^^^^^^^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 2`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '1' (1:7)
+"Expected ';' after the statement, but found '1' (1:7)
 > 1 | await 1
     |       ^"
 `;
@@ -149,13 +149,13 @@ exports[`snippet: #1 format[oxc] 1`] = `
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"Cannot use import statement outside a module (1:1)
+"Cannot use an import declaration outside a module (1:1)
 > 1 | import 'foo'
     | ^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Cannot use import statement outside a module (1:1)
+"Cannot use an import declaration outside a module (1:1)
 > 1 | import 'foo'
     | ^^^^^^^^^^^^"
 `;
