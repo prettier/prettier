@@ -6511,11 +6511,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cm6-graphql@npm:0.2.2":
-  version: 0.2.2
-  resolution: "cm6-graphql@npm:0.2.2"
+"cm6-graphql@npm:1.0.0":
+  version: 1.0.0
+  resolution: "cm6-graphql@npm:1.0.0"
   dependencies:
-    graphql-language-service: "npm:^5.7.0"
+    graphql-language-service: "npm:^6.0.0"
   peerDependencies:
     "@codemirror/autocomplete": ^6.0.0
     "@codemirror/language": ^6.0.0
@@ -6523,8 +6523,8 @@ __metadata:
     "@codemirror/state": ^6.0.0
     "@codemirror/view": ^6.0.0
     "@lezer/highlight": ^1.0.0
-    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/b78620d7c97b3802f5eadfaad79e92a8fae971087d259ef1781d416caf6a662d56ee9c1b64c91fbe2a8a82b471f432a2f246f86558c2c9beb1fab8060fc8eff1
+    graphql: ^16.11.0 || ^17.0.0
+  checksum: 10/b10f890cbc933cb6c9526c10f400f14735b9198c59e0b4a79aa680ec49d8ff545d1135e542da4ca1b8d01d248bf8d9bc9f5e9793b326346ca663f2f8db95d12d
   languageName: node
   linkType: hard
 
@@ -8293,18 +8293,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:^5.7.0":
-  version: 5.7.0
-  resolution: "graphql-language-service@npm:5.7.0"
+"graphql-language-service@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "graphql-language-service@npm:6.0.0"
   dependencies:
     debounce-promise: "npm:^3.1.2"
-    nullthrows: "npm:^1.0.0"
     vscode-languageserver-types: "npm:^3.17.1"
   peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-  bin:
-    graphql: dist/temp-bin.js
-  checksum: 10/7e0620aa09910326b0ab81da54bb4571d09e5de08816efd26740f3daa977abf0cbc4ee1145d4b57f32b580be88a80fb66eebf315b7fe9e6c504bf8730843b824
+    graphql: ^16.11.0 || ^17.0.0
+  checksum: 10/8da3859f878b41c650d896a150bd9004be13686a83da22aa68e72e0317c98c7ae5eb33b812e046e600f7533c17f993267c41118860d1fa9ad9c9d66e939c099d
   languageName: node
   linkType: hard
 
@@ -10802,13 +10799,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nullthrows@npm:^1.0.0":
-  version: 1.1.1
-  resolution: "nullthrows@npm:1.1.1"
-  checksum: 10/c7cf377a095535dc301d81cf7959d3784d090a609a2a4faa40b6121a0c1d7f70d3a3aa534a34ab852e8553b66848ec503c28f2c19efd617ed564dc07dfbb6d33
-  languageName: node
-  linkType: hard
-
 "object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -12926,7 +12916,7 @@ __metadata:
     "@xiechao/codemirror-lang-handlebars": "npm:1.0.4"
     clipboard: "npm:2.0.11"
     clsx: "npm:2.1.1"
-    cm6-graphql: "npm:0.2.2"
+    cm6-graphql: "npm:1.0.0"
     concurrently: "npm:10.0.6"
     github-buttons: "npm:2.33.1"
     graphql: "npm:17.0.2"
