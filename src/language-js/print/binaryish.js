@@ -30,6 +30,7 @@ import {
   isMemberExpression,
   isObjectExpression,
   isReturnOrThrowStatement,
+  isUnaryLikeNode,
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 
@@ -124,10 +125,7 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    (key === "argument" &&
-      (isReturnOrThrowStatement(parent) ||
-        parent.type === "YieldExpression" ||
-        parent.type === "UnaryExpression")) ||
+    (key === "argument" && isUnaryLikeNode(parent)) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
