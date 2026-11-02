@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: directive argument definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 52
+    : rangeStart: 36
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | directive @example(value:   Int = 1) on FIELD
+    |                    ^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : directive @example(value: Int = 1) on FIELD
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: enum value definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 65
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | enum Choice { FIRST @deprecated(reason:   "old") SECOND }
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : enum Choice {
+    :   FIRST @deprecated(reason: "old")
+    :   SECOND
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: field argument definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 52
+    : rangeStart: 36
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | type Query { field(value:   Int = 1): String }
+    |                    ^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : type Query {
+    :   field(value: Int = 1): String
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: field definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 45
+    : rangeStart: 30
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | type Query { field:   String }
+    |              ^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : type Query {
+    :   field: String
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: fragment variable definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 52
+    : rangeStart: 35
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | fragment Fragment($value:   Int = 1) on Query { field(value: $value) }
+    |                   ^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : fragment Fragment($value: Int = 1) on Query {
+    :   field(value: $value)
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: input value definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 58
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | input Input { value:   String = "default" }
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : input Input {
+    :   value: String = "default"
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: operation type definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 40
+    : rangeStart: 26
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | schema { query:   Query }
+    |          ^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : schema {
+    :   query: Query
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: variable definition format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 46
+    : rangeStart: 29
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | query Query($value:   Int = 1) { field(value: $value) }
+    |             ^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : query Query($value: Int = 1) {
+    :   field(value: $value)
+    : }
+    : scalar    After
+    :
+    : ================================================================================
+`;
