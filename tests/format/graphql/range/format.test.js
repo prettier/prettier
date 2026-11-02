@@ -9,6 +9,7 @@ runFormatTest(
       "union SearchResult",
       "enum Color",
       "input Filter",
+      "directive @example",
     ].map((extension) => ({
       name: `extend ${extension}`,
       code: `scalar    Before

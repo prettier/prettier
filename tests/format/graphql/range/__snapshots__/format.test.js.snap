@@ -19,6 +19,26 @@ exports[`issue2296.graphql format 1`] = `
     : ================================================================================
 `;
 
+exports[`snippet: extend directive @example format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 67
+    : rangeStart: 45
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   directive @example @directive(value:   1)
+    |                             ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend directive @example @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
 exports[`snippet: extend enum Color format 1`] = `
     : ====================================options=====================================
     : parsers: ["graphql"]

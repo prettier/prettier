@@ -176,6 +176,7 @@ const graphqlSourceElements = new Set([
   "UnionTypeExtension",
   "EnumTypeExtension",
   "InputObjectTypeExtension",
+  "DirectiveExtension",
 ]);
 function isSourceElement(opts, node, parentNode) {
   /* c8 ignore next 3 */
