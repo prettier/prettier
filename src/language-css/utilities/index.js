@@ -256,7 +256,7 @@ function skipLeadingComments(groups) {
 function isKeyValuePairNode(node) {
   return (
     node.type === "value-comma_group" &&
-    Array.isArray(node.groups) &&
+    node.groups &&
     skipLeadingComments(node.groups)[1]?.type === "value-colon"
   );
 }
