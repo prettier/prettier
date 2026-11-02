@@ -70,12 +70,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
   const hasLogicalOperator =
     isControlDirective && node.groups.some(isIfElseKeywordNode);
-  // The paren group dedents this entry when it is printed as
-  // `group(indent(fill()))` below, so a break after a comment must not dedent too
+  // The paren group dedents this entry unless it is printed as a control
+  // directive below, so a break after a comment must not dedent too
   const isDedentedByParent =
-    isDedentedMapEntryNode(node, parentNode) &&
-    !isControlDirective &&
-    !insideURLFunctionInImportAtRuleNode(path);
+    isDedentedMapEntryNode(node, parentNode) && !isControlDirective;
   const hasInlineComment = node.groups.some((node) =>
     isInlineValueCommentNode(node),
   );
