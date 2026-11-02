@@ -65,17 +65,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:8.0.10":
-  version: 8.0.10
-  resolution: "@babel/generator@npm:8.0.10"
+"@babel/generator@npm:8.1.0":
+  version: 8.1.0
+  resolution: "@babel/generator@npm:8.1.0"
   dependencies:
-    "@babel/parser": "npm:^8.0.10"
-    "@babel/types": "npm:^8.0.10"
+    "@babel/parser": "npm:^8.1.0"
+    "@babel/types": "npm:^8.1.0"
     "@jridgewell/gen-mapping": "npm:0.4.0-beta.0"
     "@jridgewell/trace-mapping": "npm:^0.3.31"
     "@types/jsesc": "npm:^2.5.0"
     jsesc: "npm:^3.0.2"
-  checksum: 10/1977dd824347510e7fddda92b8e2ab0c3d4fce0d63c12b0448775b18766a7bc48bb105360230e9d4f6ba15faf513795c34a777207cfb03dd1ff5b93445e95d17
+  checksum: 10/a40692f825c57ffd4f0653d172f6d6ecae1e6dd2da19404d97dbcd3a980076c175c2325d47c503ca8bb7e51225f8e9cd2ced69bbdd9c4243fcdc6ce77b45ed0c
   languageName: node
   linkType: hard
 
@@ -187,14 +187,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:8.0.10, @babel/parser@npm:^8.0.10":
-  version: 8.0.10
-  resolution: "@babel/parser@npm:8.0.10"
+"@babel/parser@npm:8.1.0, @babel/parser@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@babel/parser@npm:8.1.0"
   dependencies:
-    "@babel/types": "npm:^8.0.10"
+    "@babel/types": "npm:^8.1.0"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/5ce38b55eded49c6ceac488fc8acb6beb091b553e5f73ae4516e26bc22c93dada9bc494075e46d17423623c02b3bfa0dc067d1d1ab4c2c64a87b32e9b3897bb5
+  checksum: 10/9c2ef24fb05a64e0858b59b0aa0f8dd564877d7ce9a110ff9c9b36b63c0508c98a4b30f3425420ea5e8a896c926145d93c5ae5c8d5fba7794ca346c0ec83a683
   languageName: node
   linkType: hard
 
@@ -422,13 +422,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:8.0.10, @babel/types@npm:^8.0.10":
-  version: 8.0.10
-  resolution: "@babel/types@npm:8.0.10"
+"@babel/types@npm:8.1.0, @babel/types@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@babel/types@npm:8.1.0"
   dependencies:
     "@babel/helper-string-parser": "npm:^8.0.8"
     "@babel/helper-validator-identifier": "npm:^8.0.6"
-  checksum: 10/16f5bcf1d9cce2621d82c4ceb75dba60e1da330dd3a2d0ecf4fa5161284b13ff938814b383595962ebc92ccfc614d50351763d502b2f1f496928b0207e044ad3
+  checksum: 10/057d36b1afafc5d60b646d884d1c24b8365e7cd7dc5ba9810d874a54613b1856fe2e5ebfeb5edc6e45df17b6c11cd47f49097b82573b9ae843cdbcdc66f8d105
   languageName: node
   linkType: hard
 
@@ -8238,9 +8238,9 @@ __metadata:
   dependencies:
     "@angular/compiler": "npm:22.2.4"
     "@babel/code-frame": "npm:8.0.6"
-    "@babel/generator": "npm:8.0.10"
-    "@babel/parser": "npm:8.0.10"
-    "@babel/types": "npm:8.0.10"
+    "@babel/generator": "npm:8.1.0"
+    "@babel/parser": "npm:8.1.0"
+    "@babel/types": "npm:8.1.0"
     "@braindb/mdast-util-wiki-link": "npm:0.2.0"
     "@braindb/micromark-extension-wiki-link": "npm:0.1.0"
     "@bybrave/json5": "npm:3.1.0"
