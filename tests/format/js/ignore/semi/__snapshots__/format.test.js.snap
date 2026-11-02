@@ -479,6 +479,61 @@ exports[`class-expression-decorator.js format[flow] 1`] = `
 Cause: Unexpected token \`@\` (3:2)"
 `;
 
+exports[`class-property.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  a = 1;
+  [b] = 2;
+
+  // prettier-ignore
+  a  =  1;
+  [b] = 2;
+}
+
+=====================================output=====================================
+class A {
+  a = 1;
+  [b] = 2
+
+  // prettier-ignore
+  a  =  1;
+  [b] = 2
+}
+
+================================================================================
+`;
+
+exports[`class-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A {
+  a = 1;
+  [b] = 2;
+
+  // prettier-ignore
+  a  =  1;
+  [b] = 2;
+}
+
+=====================================output=====================================
+class A {
+  a = 1;
+  [b] = 2;
+
+  // prettier-ignore
+  a  =  1;
+  [b] = 2;
+}
+
+================================================================================
+`;
+
 exports[`directive.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
