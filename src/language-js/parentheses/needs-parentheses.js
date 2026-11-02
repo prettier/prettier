@@ -31,6 +31,18 @@ import { parentNeedsParentheses } from "./parent-needs-parentheses.js";
  * @import AstPath from "../../common/ast-path.js"
  */
 
+function isObjectExpressionInClassHeritage(path) {
+  const classNode = path.findAncestor(isClass);
+  const { superClass } = classNode ?? {};
+  return (
+    superClass &&
+    startsWithNoLookaheadToken(
+      superClass,
+      (leftmostNode) => leftmostNode === path.node,
+    )
+  );
+}
+
 /**
  * @param {AstPath} path
  * @returns {boolean}
@@ -793,6 +805,14 @@ function needsParentheses(path, options) {
         default:
           return false;
       }
+    case "ObjectExpression":
+      // The `typescript` parser requires parentheses when an object
+      // expression is the leftmost part of a class's `extends` clause,
+      // e.g. `class A extends ({}).Foo {}`.
+      if (isObjectExpressionInClassHeritage(path)) {
+        return true;
+      }
+      break;
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
     case "ChainExpression":
