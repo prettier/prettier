@@ -447,6 +447,8 @@ const isFunctionLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "MethodDefinition",
   "ObjectMethod",
+  "ComponentDeclaration",
+  "HookDeclaration",
 ]);
 function handleFunctionNameComments({
   comment,
