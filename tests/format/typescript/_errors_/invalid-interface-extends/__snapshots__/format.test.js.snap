@@ -47,7 +47,7 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found '[' (1:22)
+"Expected '{' to start the interface body, but found '[' (1:22)
 > 1 | interface B extends C['D'] { }
     |                      ^"
 `;
@@ -73,7 +73,7 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found '?.' (1:22)
+"Expected '{' to start the interface body, but found '?.' (1:22)
 > 1 | interface E extends F?.G { }
     |                      ^^"
 `;
@@ -99,7 +99,7 @@ Cause: 'extends' clause already seen."
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found 'extends' (1:23)
+"Expected '{' to start the interface body, but found 'extends' (1:23)
 > 1 | interface H extends I extends J { }
     |                       ^^^^^^^"
 `;
@@ -151,7 +151,7 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found '(' (1:22)
+"Expected '{' to start the interface body, but found '(' (1:22)
 > 1 | interface L extends M().N { }
     |                      ^"
 `;

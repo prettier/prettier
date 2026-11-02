@@ -181,7 +181,7 @@ Cause: Array element destructuring pattern expected."
 `;
 
 exports[`array-pattern.js format[yuku] 1`] = `
-"Unexpected token ',' (3:16)
+"Expected an expression, but found ',' (3:16)
   1 | {
   2 |   // destructuring binding
 > 3 |   const [, void, ] = value;
@@ -192,7 +192,7 @@ exports[`array-pattern.js format[yuku] 1`] = `
 `;
 
 exports[`array-pattern.js format[yuku-ts] 1`] = `
-"Unexpected token ',' (3:16)
+"Expected an expression, but found ',' (3:16)
   1 | {
   2 |   // destructuring binding
 > 3 |   const [, void, ] = value;
@@ -308,7 +308,7 @@ Cause: Array element destructuring pattern expected."
 `;
 
 exports[`basic.js format[yuku] 1`] = `
-"Unexpected token ']' (1:12)
+"Expected an expression, but found ']' (1:12)
 > 1 | const [void] = [,void] = [void,] = [];
     |            ^
   2 |
@@ -317,7 +317,7 @@ exports[`basic.js format[yuku] 1`] = `
 `;
 
 exports[`basic.js format[yuku-ts] 1`] = `
-"Unexpected token ']' (1:12)
+"Expected an expression, but found ']' (1:12)
 > 1 | const [void] = [,void] = [void,] = [];
     |            ^
   2 |
@@ -403,14 +403,14 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-arrow-params.js format[yuku] 1`] = `
-"Unexpected token ')' (1:6)
+"Expected an expression, but found ')' (1:6)
 > 1 | (void) => {}
     |      ^
   2 |"
 `;
 
 exports[`discard-binding-arrow-params.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (1:2)
+"'void' is a reserved word and cannot be used as a binding identifier (1:2)
 > 1 | (void) => {}
     |  ^^^^
   2 |"
@@ -494,14 +494,14 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-assignment.js format[yuku] 1`] = `
-"Unexpected token ']' (1:7)
+"Expected an expression, but found ']' (1:7)
 > 1 | ([void] = []);
     |       ^
   2 |"
 `;
 
 exports[`discard-binding-assignment.js format[yuku-ts] 1`] = `
-"Unexpected token ']' (1:7)
+"Expected an expression, but found ']' (1:7)
 > 1 | ([void] = []);
     |       ^
   2 |"
@@ -585,14 +585,14 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-async-arrow-params.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (1:8)
+"'void' is a reserved word and cannot be used as a binding identifier (1:8)
 > 1 | async (void) => {}
     |        ^^^^
   2 |"
 `;
 
 exports[`discard-binding-async-arrow-params.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (1:8)
+"'void' is a reserved word and cannot be used as a binding identifier (1:8)
 > 1 | async (void) => {}
     |        ^^^^
   2 |"
@@ -676,14 +676,14 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`discard-binding-bindings.js format[yuku] 1`] = `
-"Unexpected token '}' (1:17)
+"Expected an expression, but found '}' (1:17)
 > 1 | const { p: void } = {};
     |                 ^
   2 |"
 `;
 
 exports[`discard-binding-bindings.js format[yuku-ts] 1`] = `
-"Unexpected token '}' (1:17)
+"Expected an expression, but found '}' (1:17)
 > 1 | const { p: void } = {};
     |                 ^
   2 |"
@@ -787,7 +787,7 @@ Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[yuku] 1`] = `
-"Expected ';' after for-loop init, but found 'void' (2:19)
+"Expected ';' after the loop initializer, but found 'void' (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
@@ -796,7 +796,7 @@ exports[`discard-binding-for-await-using-binding.js format[yuku] 1`] = `
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[yuku-ts] 1`] = `
-"Expected ';' after for-loop init, but found 'void' (2:19)
+"Expected ';' after the loop initializer, but found 'void' (2:19)
   1 | async () => {
 > 2 |   for(await using void of []);
     |                   ^^^^
@@ -882,14 +882,14 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`discard-binding-for-bindings.js format[yuku] 1`] = `
-"Unexpected token '}' (1:21)
+"Expected an expression, but found '}' (1:21)
 > 1 | for(const { p: void } of []);
     |                     ^
   2 |"
 `;
 
 exports[`discard-binding-for-bindings.js format[yuku-ts] 1`] = `
-"Unexpected token '}' (1:21)
+"Expected an expression, but found '}' (1:21)
 > 1 | for(const { p: void } of []);
     |                     ^
   2 |"
@@ -973,14 +973,14 @@ Cause: Expression expected."
 `;
 
 exports[`discard-binding-for-lhs.js format[yuku] 1`] = `
-"Unexpected token '}' (1:15)
+"Expected an expression, but found '}' (1:15)
 > 1 | for({ p: void } of []);
     |               ^
   2 |"
 `;
 
 exports[`discard-binding-for-lhs.js format[yuku-ts] 1`] = `
-"Unexpected token '}' (1:15)
+"Expected an expression, but found '}' (1:15)
 > 1 | for({ p: void } of []);
     |               ^
   2 |"
@@ -1080,7 +1080,7 @@ Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-using-binding.js format[yuku] 1`] = `
-"Expected ';' after for-loop init, but found 'void' (2:13)
+"Expected ';' after the loop initializer, but found 'void' (2:13)
   1 | {
 > 2 |   for(using void of []);
     |             ^^^^
@@ -1089,7 +1089,7 @@ exports[`discard-binding-for-using-binding.js format[yuku] 1`] = `
 `;
 
 exports[`discard-binding-for-using-binding.js format[yuku-ts] 1`] = `
-"Expected ';' after for-loop init, but found 'void' (2:13)
+"Expected ';' after the loop initializer, but found 'void' (2:13)
   1 | {
 > 2 |   for(using void of []);
     |             ^^^^
@@ -1247,7 +1247,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`function-parameter.js format[yuku] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (3:14)
+"'void' is a reserved word and cannot be used as a binding identifier (3:14)
   1 | {
   2 |   // function parameter
 > 3 |   function f(void) {}
@@ -1258,7 +1258,7 @@ exports[`function-parameter.js format[yuku] 1`] = `
 `;
 
 exports[`function-parameter.js format[yuku-ts] 1`] = `
-"'void' is reserved and cannot be used as a binding identifier (3:14)
+"'void' is a reserved word and cannot be used as a binding identifier (3:14)
   1 | {
   2 |   // function parameter
 > 3 |   function f(void) {}
@@ -1467,7 +1467,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`object-pattern.js format[yuku] 1`] = `
-"Unexpected token '}' (3:22)
+"Expected an expression, but found '}' (3:22)
   1 | {
   2 |   // destructuring binding
 > 3 |   const { void: void } = value;
@@ -1478,7 +1478,7 @@ exports[`object-pattern.js format[yuku] 1`] = `
 `;
 
 exports[`object-pattern.js format[yuku-ts] 1`] = `
-"Unexpected token '}' (3:22)
+"Expected an expression, but found '}' (3:22)
   1 | {
   2 |   // destructuring binding
 > 3 |   const { void: void } = value;
@@ -1630,7 +1630,7 @@ Cause: Expression expected."
 `;
 
 exports[`unary-expression-void.js format[yuku] 1`] = `
-"Unexpected token ']' (4:10)
+"Expected an expression, but found ']' (4:10)
   2 | void [
   3 |   // pattern
 > 4 |   [ void ] = [{
@@ -1641,7 +1641,7 @@ exports[`unary-expression-void.js format[yuku] 1`] = `
 `;
 
 exports[`unary-expression-void.js format[yuku-ts] 1`] = `
-"Unexpected token ']' (4:10)
+"Expected an expression, but found ']' (4:10)
   2 | void [
   3 |   // pattern
 > 4 |   [ void ] = [{
@@ -1763,7 +1763,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (2:9)
+"Expected ';' after the statement, but found 'void' (2:9)
   1 | {
 > 2 |   using void = f();
     |         ^^^^
@@ -1773,7 +1773,7 @@ exports[`using.js format[yuku] 1`] = `
 `;
 
 exports[`using.js format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (2:9)
+"Expected ';' after the statement, but found 'void' (2:9)
   1 | {
 > 2 |   using void = f();
     |         ^^^^
@@ -1962,7 +1962,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`using-variable-declarator.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (3:9)
+"Expected ';' after the statement, but found 'void' (3:9)
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();
@@ -1973,7 +1973,7 @@ exports[`using-variable-declarator.js format[yuku] 1`] = `
 `;
 
 exports[`using-variable-declarator.js format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (3:9)
+"Expected ';' after the statement, but found 'void' (3:9)
   1 | {
   2 |   // using 1 declarator
 > 3 |   using void = f();

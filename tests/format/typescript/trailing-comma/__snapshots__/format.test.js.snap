@@ -95,7 +95,7 @@ exports[`invalid.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 `;
 
 exports[`invalid.ts - {"trailingComma":"all"} format[yuku-ts] 1`] = `
-"Rest element cannot have a trailing comma in object destructuring. (1:7)
+"A rest element cannot have a trailing comma (1:7)
 > 1 | const {
     |       ^
 > 2 |   longKeySoThisWillGoOnMultipleLines,
@@ -146,7 +146,7 @@ exports[`invalid.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
 `;
 
 exports[`invalid.ts - {"trailingComma":"es5"} format[yuku-ts] 1`] = `
-"Rest element cannot have a trailing comma in object destructuring. (1:7)
+"A rest element cannot have a trailing comma (1:7)
 > 1 | const {
     |       ^
 > 2 |   longKeySoThisWillGoOnMultipleLines,
@@ -197,7 +197,7 @@ exports[`invalid.ts - {"trailingComma":"none"} format[oxc-ts] 1`] = `
 `;
 
 exports[`invalid.ts - {"trailingComma":"none"} format[yuku-ts] 1`] = `
-"Rest element cannot have a trailing comma in object destructuring. (1:7)
+"A rest element cannot have a trailing comma (1:7)
 > 1 | const {
     |       ^
 > 2 |   longKeySoThisWillGoOnMultipleLines,

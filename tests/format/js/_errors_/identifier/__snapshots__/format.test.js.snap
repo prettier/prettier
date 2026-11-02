@@ -91,7 +91,7 @@ Cause: Invalid character."
 `;
 
 exports[`invalid-escape-in-identifier.js format[yuku] 1`] = `
-"Invalid character at start of identifier (1:8)
+"Invalid character at the start of an identifier (1:8)
 > 1 | const \\u{20} = 1
     |        ^
   2 | const \\u{3000} = 1
@@ -99,7 +99,7 @@ exports[`invalid-escape-in-identifier.js format[yuku] 1`] = `
 `;
 
 exports[`invalid-escape-in-identifier.js format[yuku-ts] 1`] = `
-"Invalid character at start of identifier (1:8)
+"Invalid character at the start of an identifier (1:8)
 > 1 | const \\u{20} = 1
     |        ^
   2 | const \\u{3000} = 1
