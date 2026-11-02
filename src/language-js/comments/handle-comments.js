@@ -303,6 +303,7 @@ function handleConditionalExpressionComments({
 const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
+  "StructDeclaration",
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",

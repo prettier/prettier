@@ -293,6 +293,7 @@ function printEstree(path, options, print, args) {
 
     case "ClassDeclaration":
     case "ClassExpression":
+    case "StructDeclaration":
       return printClass(path, options, print);
     case "ClassMethod":
     case "ClassPrivateMethod":

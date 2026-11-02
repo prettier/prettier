@@ -215,6 +215,7 @@ function needsParentheses(path, options) {
 
         case "ClassExpression":
         case "ClassDeclaration":
+        case "StructDeclaration":
           return key === "superClass";
 
         case "TSTypeAssertion":
@@ -916,7 +917,8 @@ function needsParentheses(path, options) {
         (key === "expression" &&
           (isNonNullExpression(parent) ||
             parent.type === "TSInstantiationExpression")) ||
-        (key === "superClass" && isClass(parent))
+        (key === "superClass" &&
+          (isClass(parent) || parent.type === "StructDeclaration"))
       ) {
         return true;
       }
@@ -936,6 +938,7 @@ const isStatement = createTypeCheckFunction([
   "ComponentDeclaration",
   "ClassBody",
   "ClassDeclaration",
+  "StructDeclaration",
   "ClassMethod",
   "ClassProperty",
   "PropertyDefinition",
