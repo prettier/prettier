@@ -24,6 +24,7 @@ import {
   isExportAssignment,
   isObjectExpression,
   isObjectType,
+  isParameterProperty,
   isTypeAnnotation,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
@@ -323,10 +324,7 @@ function isDecoratedFunction(path) {
 
 function shouldBreakFunctionParameters(functionNode) {
   const parameters = getFunctionParameters(functionNode);
-  return (
-    parameters.length > 1 &&
-    parameters.some((parameter) => parameter.type === "TSParameterProperty")
-  );
+  return parameters.length > 1 && parameters.some(isParameterProperty);
 }
 
 function shouldHugTheOnlyParameter(node, name) {

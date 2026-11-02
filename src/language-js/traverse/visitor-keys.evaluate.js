@@ -44,13 +44,7 @@ const excludeNodeTypes = [
   "ExperimentalSpreadProperty",
 
   // From flow-parser
-  "DeclareClassExtendsCall",
   "DeclareMethodDefinition",
-  "NamespaceExportDeclaration",
-  "NonNullExpression",
-  "ObjectTypePrivateField",
-  "ParameterProperty",
-  "TupleTypeElement",
 ];
 
 let visitorKeys = unionVisitorKeys(

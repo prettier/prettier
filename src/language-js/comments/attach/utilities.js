@@ -48,6 +48,7 @@ function addCommentToPossibleBlockStatement(node, comment) {
   | NodeMap["BlockStatement"]
   | NodeMap["ClassBody"]
   | NodeMap["TSInterfaceBody"]
+  | NodeMap["RecordDeclarationBody"]
   | NodeMap["TSModuleBlock"]
   | NodeMap["ObjectTypeAnnotation"]
   | NodeMap["TSEnumBody"]
@@ -63,6 +64,8 @@ function addBlockFirstComment(node, comment) {
     child = node.body.find(({ type }) => type !== "EmptyStatement");
   } else if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
     child = node.body[0];
+  } else if (node.type === "RecordDeclarationBody") {
+    child = node.elements[0];
   } else if (node.type === "ObjectTypeAnnotation") {
     child = node.properties[0];
   } else if (isEnumBody(node)) {

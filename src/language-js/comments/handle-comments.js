@@ -30,6 +30,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isModuleDeclaration,
+  isParameterProperty,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
@@ -305,6 +306,7 @@ const isClassLikeNode = createTypeCheckFunction([
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
+  "RecordDeclaration",
   "TSInterfaceDeclaration",
 ]);
 function handleClassComments({
@@ -384,6 +386,7 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "AccessorProperty",
   "TSAbstractAccessorProperty",
   "TSParameterProperty",
+  "ParameterProperty",
 ]);
 function handleMethodNameComments({
   placement,
@@ -445,6 +448,8 @@ const isFunctionLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "MethodDefinition",
   "ObjectMethod",
+  "ComponentDeclaration",
+  "HookDeclaration",
 ]);
 function handleFunctionNameComments({
   comment,
@@ -572,7 +577,7 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ObjectPattern" ||
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
-      precedingNode?.type === "TSParameterProperty") &&
+      isParameterProperty(precedingNode)) &&
     (isRealFunctionLikeNode(enclosingNode) ||
       // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
       // the comment walker bubbles up to its wrapper. Three wrappers occur:

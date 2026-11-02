@@ -188,11 +188,11 @@ Cause: The only valid meta property for import is 'import.meta'"
 `;
 
 exports[`no-named.js format[__babel_estree] 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:17)
+"Only \`import source x from "./module"\` is valid. (1:1)
 > 1 | import source { x } from "x";
-    |                 ^
+    | ^
   2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:16)"
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
 `;
 
 exports[`no-named.js format[acorn] 1`] = `
@@ -204,11 +204,11 @@ Cause: Unexpected token (1:14)"
 `;
 
 exports[`no-named.js format[babel] 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:17)
+"Only \`import source x from "./module"\` is valid. (1:1)
 > 1 | import source { x } from "x";
-    |                 ^
+    | ^
   2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:16)"
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
 `;
 
 exports[`no-named.js format[espree] 1`] = `
@@ -242,11 +242,11 @@ exports[`no-named.js format[yuku] 1`] = `
 `;
 
 exports[`no-namespace.js format[__babel_estree] 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:15)
+"Only \`import source x from "./module"\` is valid. (1:1)
 > 1 | import source * as x from "x";
-    |               ^
+    | ^
   2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:14)"
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
 `;
 
 exports[`no-namespace.js format[acorn] 1`] = `
@@ -258,11 +258,11 @@ Cause: Unexpected token (1:14)"
 `;
 
 exports[`no-namespace.js format[babel] 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:15)
+"Only \`import source x from "./module"\` is valid. (1:1)
 > 1 | import source * as x from "x";
-    |               ^
+    | ^
   2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:14)"
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
 `;
 
 exports[`no-namespace.js format[espree] 1`] = `

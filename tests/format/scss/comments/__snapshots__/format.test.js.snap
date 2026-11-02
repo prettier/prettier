@@ -212,6 +212,75 @@ $blah: (
 ================================================================================
 `;
 
+exports[`20303.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a[href=""], // comment
+foo a[href=""] {
+    color: red;
+}
+
+a[href=''], // comment
+foo a[href=''] {
+    color: red;
+}
+
+a[href], // comment
+foo a[href=""] {
+    color: red;
+}
+
+a, // comment
+foo a[href=""] {
+    color: red;
+}
+
+a[title="foo\\"bar"], // comment
+foo a[title="foo\\"bar"] {
+    color: red;
+}
+
+a[title='foo\\'bar'], // comment
+foo a[title='foo\\'bar'] {
+    color: red;
+}
+
+=====================================output=====================================
+a[href=""], // comment
+foo a[href=""] {
+  color: red;
+}
+
+a[href=''], // comment
+foo a[href=''] {
+  color: red;
+}
+
+a[href], // comment
+foo a[href=""] {
+  color: red;
+}
+
+a, // comment
+foo a[href=""] {
+  color: red;
+}
+
+a[title="foo\\"bar"], // comment
+foo a[title="foo\\"bar"] {
+  color: red;
+}
+
+a[title='foo\\'bar'], // comment
+foo a[title='foo\\'bar'] {
+  color: red;
+}
+
+================================================================================
+`;
+
 exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

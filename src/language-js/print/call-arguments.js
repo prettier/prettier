@@ -51,6 +51,7 @@ import {
 - `TSExternalModuleReference` (TypeScript)
 - `ImportType` (Flow)
 - `ExternalModuleReference` (Flow)
+- `DeclareClassExtendsCall` (Flow)
 */
 function printCallArguments(path, options, print) {
   const { node } = path;
@@ -99,6 +100,8 @@ function printCallArguments(path, options, print) {
     path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
+    // Flow's declared-class extends calls take exactly one argument.
+    node.type !== "DeclareClassExtendsCall" &&
     !isImportType(node) &&
     !isExternalModuleReference(node)
       ? printTrailingComma(options, "all")

@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+type T = [/* before */ number /* optional */ ? /* after */];
+type U = [
+// First member
+string ?, // trailing
+/* union */ (number | boolean) ?,
+(() => /* return */ void) ?
+];
+
+=====================================output=====================================
+type T = [
+  /* before */ number /* optional */? /* after */,
+];
+type U = [
+  // First member
+  string?, // trailing
+  /* union */ (number | boolean)?,
+  (() => /* return */ void)?,
+];
+
+================================================================================
+`;
+
+exports[`comments.js - {"printWidth":50} format[hermes] 1`] = `
+"':' expected in labeled tuple type element (1:59)
+> 1 | type T = [/* before */ number /* optional */ ? /* after */];
+    |                                                           ^
+  2 | type U = [
+  3 | // First member
+  4 | string ?, // trailing
+Cause: ':' expected in labeled tuple type element (1:58)
+type T = [/* before */ number /* optional */ ? /* after */];
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
+exports[`optional.js - {"printWidth":50} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 50
+                                  printWidth: 50 |
+=====================================input======================================
+type T = [number ?];
+type Multiple = [number, string ?, boolean ?];
+type Rest = [number ?, ...string[]];
+type Inexact = [number ?, string ?, ...];
+type Mixed = [number ?, label?: string];
+type Nested = [[number ?] ?, Array<[string ?]> ?];
+type Types = [(number | string) ?, (A & B) ?, (() => void) ?, (keyof T) ?, (readonly T[]) ?, (A extends B ? C : D) ?, (?number) ?, (typeof value) ?, (infer U) ?];
+
+=====================================output=====================================
+type T = [number?];
+type Multiple = [number, string?, boolean?];
+type Rest = [number?, ...string[]];
+type Inexact = [number?, string?, ...];
+type Mixed = [number?, label?: string];
+type Nested = [[number?]?, Array<[string?]>?];
+type Types = [
+  (number | string)?,
+  (A & B)?,
+  (() => void)?,
+  (keyof T)?,
+  (readonly T[])?,
+  (A extends B ? C : D)?,
+  (?number)?,
+  typeof value?,
+  (infer U)?,
+];
+
+================================================================================
+`;
+
+exports[`optional.js - {"printWidth":50} format[hermes] 1`] = `
+"':' expected in labeled tuple type element (1:19)
+> 1 | type T = [number ?];
+    |                   ^
+  2 | type Multiple = [number, string ?, boolean ?];
+  3 | type Rest = [number ?, ...string[]];
+  4 | type Inexact = [number ?, string ?, ...];
+Cause: ':' expected in labeled tuple type element (1:18)
+type T = [number ?];
+          ~~~~~~~~^"
+`;

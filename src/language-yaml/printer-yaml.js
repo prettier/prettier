@@ -8,6 +8,8 @@ import {
   join,
   line,
   lineSuffix,
+  literalline,
+  markAsRoot,
   replaceEndOfLine,
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
@@ -30,6 +32,7 @@ import {
 } from "./print/misc.js";
 import preprocess from "./print-preprocess.js";
 import {
+  endsWithBlockWithTrailingWhitespace,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasEndComments,
@@ -131,7 +134,10 @@ function genericPrint(path, options, print) {
   if (shouldPrintEndComments(node)) {
     parts.push(
       alignWithSpaces(node.type === "sequenceItem" ? 2 : 0, [
-        hardline,
+        // Same as below, `hardline` would trim the whitespace of the block
+        endsWithBlockWithTrailingWhitespace(node)
+          ? markAsRoot(literalline)
+          : hardline,
         join(
           hardline,
           path.map(
@@ -147,6 +153,17 @@ function genericPrint(path, options, print) {
       ]),
     );
   }
+
+  // `hardline` trims the trailing whitespace of the block, use `literalline`
+  // (`markAsRoot` makes it indent like `hardline`) before `nextEmptyLine`
+  if (
+    isNode(node, ["mappingItem", "sequenceItem"]) &&
+    !path.isLast &&
+    endsWithBlockWithTrailingWhitespace(node)
+  ) {
+    parts.push(markAsRoot(literalline));
+  }
+
   parts.push(nextEmptyLine);
   return parts;
 }
@@ -177,6 +194,10 @@ function printNode(path, options, print) {
           isNode(documentLastDescendantNode, ["blockLiteral", "blockFolded"]) &&
           (hasTrailingContentWhitespace(documentLastDescendantNode) ||
             (isLast && documentLastDescendantNode.chomping === "keep"));
+        // Same as `genericPrint`, `hardline` would trim the whitespace
+        if (documentBlockPrintsTrailingLine && !isLast) {
+          parts.push(literalline);
+        }
         const documentEndMarkerPrinted = shouldPrintDocumentEndMarker(path);
         lastDocumentEndMarkerPrinted = documentEndMarkerPrinted;
         if (documentEndMarkerPrinted) {
@@ -344,14 +365,14 @@ function printNode(path, options, print) {
 
     case "mapping":
     case "sequence":
-      return path.map(({ node, isLast }) => {
-        const lastDescendantNode = getLastDescendantNode(node);
-        const childPrintsTrailingLine =
-          isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
-          hasTrailingContentWhitespace(lastDescendantNode);
-
-        return [print(), !isLast && !childPrintsTrailingLine ? hardline : ""];
-      }, "children");
+      return path.map(
+        ({ node, isLast }) => [
+          print(),
+          // The line break is printed by the child, see `genericPrint`
+          !isLast && !endsWithBlockWithTrailingWhitespace(node) ? hardline : "",
+        ],
+        "children",
+      );
     case "sequenceItem":
       return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
