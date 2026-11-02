@@ -115,6 +115,7 @@ function genericPrint(path, options, print) {
         '"',
         node.value
           .replaceAll(/["\\]/g, String.raw`\$&`)
+          .replaceAll("\r", String.raw`\r`)
           .replaceAll("\n", String.raw`\n`),
         '"',
       ];
