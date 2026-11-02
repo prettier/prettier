@@ -118,10 +118,11 @@ function printClassWithoutDecorators(path, options, print) {
   }
 
   if (node.superClass) {
-    let printed = [
-      printSuperClass(path, options, print),
-      print("superTypeArguments"),
-    ];
+    let printed = [printSuperClass(path, options, print)];
+    if (node.superTypeArguments) {
+      printed.push(print("superTypeArguments"));
+    }
+
     printed = [
       "extends ",
       isJsxElement(node.superClass) && !hasNodeIgnoreComment(node.superClass)
