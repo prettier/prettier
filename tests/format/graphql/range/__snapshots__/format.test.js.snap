@@ -18,3 +18,143 @@ exports[`issue2296.graphql format 1`] = `
     :
     : ================================================================================
 `;
+
+exports[`snippet: extend enum Color format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 59
+    : rangeStart: 37
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   enum Color @directive(value:   1)
+    |                     ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend enum Color @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend input Filter format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 61
+    : rangeStart: 39
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   input Filter @directive(value:   1)
+    |                       ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend input Filter @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend interface Node format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 63
+    : rangeStart: 41
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   interface Node @directive(value:   1)
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend interface Node @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend scalar Date format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 60
+    : rangeStart: 38
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   scalar Date @directive(value:   1)
+    |                      ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend scalar Date @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend schema format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 55
+    : rangeStart: 33
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   schema @directive(value:   1)
+    |                 ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend schema @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend type Query format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 59
+    : rangeStart: 37
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   type Query @directive(value:   1)
+    |                     ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend type Query @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: extend union SearchResult format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["graphql"]
+    : rangeEnd: 67
+    : rangeStart: 45
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | scalar    Before
+> 2 | extend   union SearchResult @directive(value:   1)
+    |                             ^^^^^^^^^^^^^^^^^^^^^^
+  3 | scalar    After
+  4 |
+    : =====================================output=====================================
+    : scalar    Before
+    : extend union SearchResult @directive(value: 1)
+    : scalar    After
+    :
+    : ================================================================================
+`;

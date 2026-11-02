@@ -157,7 +157,6 @@ const graphqlSourceElements = new Set([
   "OperationDefinition",
   "FragmentDefinition",
   "VariableDefinition",
-  "TypeExtensionDefinition",
   "ObjectTypeDefinition",
   "FieldDefinition",
   "DirectiveDefinition",
@@ -170,6 +169,13 @@ const graphqlSourceElements = new Set([
   "InterfaceTypeDefinition",
   "UnionTypeDefinition",
   "ScalarTypeDefinition",
+  "SchemaExtension",
+  "ScalarTypeExtension",
+  "ObjectTypeExtension",
+  "InterfaceTypeExtension",
+  "UnionTypeExtension",
+  "EnumTypeExtension",
+  "InputObjectTypeExtension",
 ]);
 function isSourceElement(opts, node, parentNode) {
   /* c8 ignore next 3 */
