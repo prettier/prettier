@@ -16,6 +16,7 @@ const isClassOrInterface = createTypeCheckFunction([
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
+  "RecordDeclaration",
   "TSInterfaceDeclaration",
   // Can't have `id` or `typeParameters`
   // "InterfaceTypeAnnotation",
