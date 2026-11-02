@@ -937,6 +937,7 @@ const isStatement = createTypeCheckFunction([
   "BreakStatement",
   "ComponentDeclaration",
   "ClassBody",
+  "StructBody",
   "ClassDeclaration",
   "StructDeclaration",
   "ClassMethod",
