@@ -17,7 +17,6 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
@@ -65,7 +64,6 @@ function printClassBody(path, options, print) {
     if (
       !isFlowRecordDeclaration &&
       !isObjectType &&
-      !hasNodeIgnoreComment(node) &&
       (shouldPrintSemicolonAfterClassProperty({ node, next }, options) ||
         shouldPrintSemicolonAfterInterfaceProperty({ node, next }, options))
     ) {

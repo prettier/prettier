@@ -36,6 +36,14 @@ const nodeTypesWithContentEnd = /** @type {const} */ ([
   "ReturnStatement",
   "ThrowStatement",
   "DoWhileStatement",
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
 ]);
 
 const overrides =

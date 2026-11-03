@@ -485,23 +485,29 @@ parsers: ["babel", "flow", "typescript"]
 semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
-class A {
-  a = 1;
-  [b] = 2;
-
+class NeedsSemicolon {
   // prettier-ignore
   a  =  1;
   [b] = 2;
+  // prettier-ignore
+  c  =  1;
+  *d() {}
+  // prettier-ignore
+  #e  =  1;
+  [f] = 2;
 }
 
 =====================================output=====================================
-class A {
-  a = 1;
-  [b] = 2
-
+class NeedsSemicolon {
   // prettier-ignore
   a  =  1;
   [b] = 2
+  // prettier-ignore
+  c  =  1;
+  *d() {}
+  // prettier-ignore
+  #e  =  1;
+  [f] = 2
 }
 
 ================================================================================
@@ -512,23 +518,29 @@ exports[`class-property.js format 1`] = `
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-class A {
-  a = 1;
-  [b] = 2;
-
+class NeedsSemicolon {
   // prettier-ignore
   a  =  1;
   [b] = 2;
+  // prettier-ignore
+  c  =  1;
+  *d() {}
+  // prettier-ignore
+  #e  =  1;
+  [f] = 2;
 }
 
 =====================================output=====================================
-class A {
-  a = 1;
-  [b] = 2;
-
+class NeedsSemicolon {
   // prettier-ignore
   a  =  1;
   [b] = 2;
+  // prettier-ignore
+  c  =  1;
+  *d() {}
+  // prettier-ignore
+  #e  =  1;
+  [f] = 2;
 }
 
 ================================================================================
