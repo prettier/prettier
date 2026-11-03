@@ -72,6 +72,13 @@ export const isReturnOrThrowStatement = createTypeCheckFunction([
   "ThrowStatement",
 ]);
 
+export const isUnaryLikeNode = createTypeCheckFunction([
+  "ReturnStatement",
+  "ThrowStatement",
+  "YieldExpression",
+  "UnaryExpression",
+]);
+
 export const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
