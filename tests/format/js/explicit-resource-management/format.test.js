@@ -23,6 +23,7 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-for-using-binding-of-of.js",
       "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
     hermes: [
       "for-await-using-of-comments.js",
@@ -47,6 +48,7 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
     acorn: [
       "invalid-duplicate-using-bindings.js",
@@ -71,24 +73,28 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
     "oxc-ts": [
       // "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
     yuku: [
       // "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
     "yuku-ts": [
       // "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
+      "for-using-of-escaped-of-binding.js",
     ],
   },
 });
