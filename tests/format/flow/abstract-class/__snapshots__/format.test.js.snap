@@ -285,14 +285,14 @@ semi: false
 =====================================input======================================
 abstract class NeedsSemicolon {
   // prettier-ignore
-  abstract  a :  number;
+  abstract   a  :   number   ;
   [b]: number;
 }
 
 =====================================output=====================================
 abstract class NeedsSemicolon {
   // prettier-ignore
-  abstract  a :  number;
+  abstract   a  :   number;
   [b]: number
 }
 
@@ -304,7 +304,7 @@ exports[`prettier-ignore.js - {"semi":false} format[hermes] 1`] = `
 > 1 | abstract class NeedsSemicolon {
     |          ^
   2 |   // prettier-ignore
-  3 |   abstract  a :  number;
+  3 |   abstract   a  :   number   ;
   4 |   [b]: number;
 Cause: ';' expected (1:9)
 abstract class NeedsSemicolon {
@@ -318,14 +318,14 @@ parsers: ["flow"]
 =====================================input======================================
 abstract class NeedsSemicolon {
   // prettier-ignore
-  abstract  a :  number;
+  abstract   a  :   number   ;
   [b]: number;
 }
 
 =====================================output=====================================
 abstract class NeedsSemicolon {
   // prettier-ignore
-  abstract  a :  number;
+  abstract   a  :   number;
   [b]: number;
 }
 
@@ -337,7 +337,7 @@ exports[`prettier-ignore.js format[hermes] 1`] = `
 > 1 | abstract class NeedsSemicolon {
     |          ^
   2 |   // prettier-ignore
-  3 |   abstract  a :  number;
+  3 |   abstract   a  :   number   ;
   4 |   [b]: number;
 Cause: ';' expected (1:9)
 abstract class NeedsSemicolon {

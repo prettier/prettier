@@ -487,26 +487,26 @@ semi: false
 =====================================input======================================
 class NeedsSemicolon {
   // prettier-ignore
-  a  =  1;
+  a   =   1  +2   ;
   [b] = 2;
   // prettier-ignore
-  c  =  1;
+  c   =   1  +2   ;
   *d() {}
   // prettier-ignore
-  #e  =  1;
+  #e   =   1  +2   ;
   [f] = 2;
 }
 
 =====================================output=====================================
 class NeedsSemicolon {
   // prettier-ignore
-  a  =  1;
+  a   =   1  +2;
   [b] = 2
   // prettier-ignore
-  c  =  1;
+  c   =   1  +2;
   *d() {}
   // prettier-ignore
-  #e  =  1;
+  #e   =   1  +2;
   [f] = 2
 }
 
@@ -520,26 +520,26 @@ parsers: ["babel", "flow", "typescript"]
 =====================================input======================================
 class NeedsSemicolon {
   // prettier-ignore
-  a  =  1;
+  a   =   1  +2   ;
   [b] = 2;
   // prettier-ignore
-  c  =  1;
+  c   =   1  +2   ;
   *d() {}
   // prettier-ignore
-  #e  =  1;
+  #e   =   1  +2   ;
   [f] = 2;
 }
 
 =====================================output=====================================
 class NeedsSemicolon {
   // prettier-ignore
-  a  =  1;
+  a   =   1  +2;
   [b] = 2;
   // prettier-ignore
-  c  =  1;
+  c   =   1  +2;
   *d() {}
   // prettier-ignore
-  #e  =  1;
+  #e   =   1  +2;
   [f] = 2;
 }
 
