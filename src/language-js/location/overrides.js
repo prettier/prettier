@@ -27,6 +27,7 @@ const overrideBreakOrContinueEnd =
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 
 const nodeTypesWithContentEnd = /** @type {const} */ ([
+  // Statements
   "ExpressionStatement",
   "Directive",
   "ImportDeclaration",
@@ -36,6 +37,8 @@ const nodeTypesWithContentEnd = /** @type {const} */ ([
   "ReturnStatement",
   "ThrowStatement",
   "DoWhileStatement",
+
+  // Properties
   "ClassProperty",
   "PropertyDefinition",
   "ClassPrivateProperty",
