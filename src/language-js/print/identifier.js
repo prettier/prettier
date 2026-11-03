@@ -2,6 +2,7 @@ import { printDefiniteToken, printOptionalToken } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function shouldEscapeIdentifier(path) {
+  // `for (using o\u{66} of foo);`
   // https://github.com/babel/babel/pull/18430
   return path.match(
     ({ name }) => name === "of",
