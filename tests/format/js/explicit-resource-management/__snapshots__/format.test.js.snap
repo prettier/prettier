@@ -537,14 +537,66 @@ exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-// TODO: Fix this test
-// for await (using \\u006ff of of);
+for await (using \\u006ff of of);
 
 =====================================output=====================================
-// TODO: Fix this test
-// for await (using \\u006ff of of);
+for await (using o\\u{66} of of);
 
 ================================================================================
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[flow] 1`] = `
+"Unexpected token \`await\`, expected the token \`(\` (1:5)
+> 1 | for await (using \\u006ff of of);
+    |     ^
+  2 |
+Cause: Unexpected token \`await\`, expected the token \`(\` (1:4)"
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[hermes] 1`] = `
+"'(' expected after 'for' (1:5)
+> 1 | for await (using \\u006ff of of);
+    |     ^
+  2 |
+Cause: '(' expected after 'for' (1:4)
+for await (using \\u006ff of of);
+~~~~^"
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[oxc] 1`] = `
+"Keywords cannot contain escape characters (1:18)
+> 1 | for await (using \\u006ff of of);
+    |                  ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[oxc-ts] 1`] = `
+"Keywords cannot contain escape characters (1:18)
+> 1 | for await (using \\u006ff of of);
+    |                  ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[typescript] 1`] = `
+"Keywords cannot contain escape characters. (1:18)
+> 1 | for await (using \\u006ff of of);
+    |                  ^
+  2 |
+Cause: Keywords cannot contain escape characters."
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[yuku] 1`] = `
+"Keywords cannot contain escape characters (1:18)
+> 1 | for await (using \\u006ff of of);
+    |                  ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format[yuku-ts] 1`] = `
+"Keywords cannot contain escape characters (1:18)
+> 1 | for await (using \\u006ff of of);
+    |                  ^^^^^^^
+  2 |"
 `;
 
 exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
@@ -552,14 +604,56 @@ exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-// TODO: Fix this test
-// for (using o\\u0066 of of);
+for (using o\\u0066 of of);
 
 =====================================output=====================================
-// TODO: Fix this test
-// for (using o\\u0066 of of);
+for (using o\\u{66} of of);
 
 ================================================================================
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`;\` (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^
+  2 |
+Cause: Unexpected identifier, expected the token \`;\` (1:11)"
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[oxc] 1`] = `
+"Keywords cannot contain escape characters (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[oxc-ts] 1`] = `
+"Keywords cannot contain escape characters (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[typescript] 1`] = `
+"Keywords cannot contain escape characters. (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^
+  2 |
+Cause: Keywords cannot contain escape characters."
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[yuku] 1`] = `
+"Keywords cannot contain escape characters (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format[yuku-ts] 1`] = `
+"Keywords cannot contain escape characters (1:12)
+> 1 | for (using o\\u0066 of of);
+    |            ^^^^^^^
+  2 |"
 `;
 
 exports[`valid-for-using-binding-of-of.js format 1`] = `
