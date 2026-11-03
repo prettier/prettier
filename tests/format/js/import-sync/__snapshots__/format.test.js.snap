@@ -303,6 +303,128 @@ exports[`import-sync.js format[yuku-ts] 1`] = `
   4 |"
 `;
 
+exports[`long-module-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+import.sync(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.sync(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module",
+);
+
+================================================================================
+`;
+
+exports[`long-module-name.js format[acorn] 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`long-module-name.js format[espree] 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`long-module-name.js format[flow] 1`] = `
+"The \`sync\` import phase is not supported. (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The \`sync\` import phase is not supported. (1:7)"
+`;
+
+exports[`long-module-name.js format[hermes] 1`] = `
+"'meta' expected in member expression (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: 'meta' expected in member expression (1:7)
+import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+       ^~~~
+note: start of member expression (1:0)
+import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+^"
+`;
+
+exports[`long-module-name.js format[meriyah] 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: [1:7-1:11]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`long-module-name.js format[oxc] 1`] = `
+"The only valid property accesses on import are \`import.meta\`, \`import.source()\`, and \`import.defer()\` (1:1)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    | ^^^^^^^^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+`;
+
+exports[`long-module-name.js format[oxc-ts] 1`] = `
+"The only valid property accesses on import are \`import.meta\`, \`import.source()\`, and \`import.defer()\` (1:1)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    | ^^^^^^^^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+`;
+
+exports[`long-module-name.js format[typescript] 1`] = `
+"'sync' is not a valid meta-property for keyword 'import'. (1:1)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    | ^^^^^^^^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: 'sync' is not a valid meta-property for keyword 'import'."
+`;
+
+exports[`long-module-name.js format[yuku] 1`] = `
+"'sync' is not a valid meta-property for keyword 'import' (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+`;
+
+exports[`long-module-name.js format[yuku-ts] 1`] = `
+"'sync' is not a valid meta-property for keyword 'import' (1:8)
+> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+    |        ^^^^
+  2 | import.sync(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module""
+`;
+
 exports[`trailing-comma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
