@@ -862,6 +862,14 @@ exports[`visitor keys estree 1`] = `
   "StringLiteral": [],
   "StringLiteralTypeAnnotation": [],
   "StringTypeAnnotation": [],
+  "StructBody": [
+    "body",
+  ],
+  "StructDeclaration": [
+    "body",
+    "id",
+    "superClass",
+  ],
   "Super": [],
   "SwitchCase": [
     "consequent",
