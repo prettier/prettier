@@ -1,4 +1,3 @@
-import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { getPrecedence } from "../utilities/get-precedence.js";
@@ -21,6 +20,7 @@ import {
   isReturnOrThrowStatement,
   isUnionType,
 } from "../utilities/node-types.js";
+import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
@@ -184,6 +184,10 @@ function needsParentheses(path, options) {
         }
       }
 
+      if (key === "argument" && parent.type === "UnaryExpression") {
+        return true;
+      }
+
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
@@ -231,7 +235,7 @@ function needsParentheses(path, options) {
           return true;
         case "UnaryExpression":
           // `UnaryExpression` adds parentheses and indention when argument has comment
-          if (!hasComment(node)) {
+          if (returnArgumentHasLeadingComment(node, options)) {
             return true;
           }
           break;
