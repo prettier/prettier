@@ -1,0 +1,389 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`local.js format[acorn] 1`] = `
+"Unexpected token (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^
+  3 |
+Cause: Unexpected token (2:7)"
+`;
+
+exports[`local.js format[babel] 1`] = `
+"Unexpected token, expected "from" (2:19)
+  1 | var a;
+> 2 | export defer { a };
+    |                   ^
+  3 |
+Cause: Unexpected token, expected "from" (2:18)"
+`;
+
+exports[`local.js format[babel-ts] 1`] = `
+"Unexpected token, expected "from" (2:19)
+  1 | var a;
+> 2 | export defer { a };
+    |                   ^
+  3 |
+Cause: Unexpected token, expected "from" (2:18)"
+`;
+
+exports[`local.js format[espree] 1`] = `
+"Unexpected token defer (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^
+  3 |
+Cause: Unexpected token defer"
+`;
+
+exports[`local.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^
+  3 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (2:7)"
+`;
+
+exports[`local.js format[hermes] 1`] = `
+"expected declaration in export (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^
+  3 |
+Cause: expected declaration in export (2:7)
+export defer { a };
+       ^~~~~"
+`;
+
+exports[`local.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^^^^^
+  3 |
+Cause: [2:7-2:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`local.js format[oxc] 1`] = `
+"Unexpected token (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^^^^^
+  3 |"
+`;
+
+exports[`local.js format[oxc-ts] 1`] = `
+"Unexpected token (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^^^^^
+  3 |"
+`;
+
+exports[`local.js format[typescript] 1`] = `
+"Declaration or statement expected. (2:1)
+  1 | var a;
+> 2 | export defer { a };
+    | ^
+  3 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`local.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^^^^^
+  3 |"
+`;
+
+exports[`local.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (2:8)
+  1 | var a;
+> 2 | export defer { a };
+    |        ^^^^^
+  3 |"
+`;
+
+exports[`missing-braces.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`missing-braces.js format[babel] 1`] = `
+"Unexpected token, expected "{" (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token, expected "{" (1:7)"
+`;
+
+exports[`missing-braces.js format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token, expected "{" (1:7)"
+`;
+
+exports[`missing-braces.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`missing-braces.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`missing-braces.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer x from "x";
+       ^~~~~"
+`;
+
+exports[`missing-braces.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`missing-braces.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces.js format[typescript] 1`] = `
+"Declaration expected. (1:7)
+> 1 | export defer x from "x";
+    |       ^
+  2 |
+Cause: Declaration expected."
+`;
+
+exports[`missing-braces.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces-export-default-from.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`missing-braces-export-default-from.js format[babel] 1`] = `
+"Unexpected token, expected "{" (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token, expected "{" (1:7)"
+`;
+
+exports[`missing-braces-export-default-from.js format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token, expected "{" (1:7)"
+`;
+
+exports[`missing-braces-export-default-from.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`missing-braces-export-default-from.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`missing-braces-export-default-from.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer x from "x";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer x from "x";
+       ^~~~~"
+`;
+
+exports[`missing-braces-export-default-from.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`missing-braces-export-default-from.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces-export-default-from.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces-export-default-from.js format[typescript] 1`] = `
+"Declaration expected. (1:7)
+> 1 | export defer x from "x";
+    |       ^
+  2 |
+Cause: Declaration expected."
+`;
+
+exports[`missing-braces-export-default-from.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`missing-braces-export-default-from.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer x from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-star.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer  from x;
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`no-star.js format[babel] 1`] = `
+"Unexpected token (1:20)
+> 1 | export defer  from x;
+    |                    ^
+  2 |
+Cause: Unexpected token (1:19)"
+`;
+
+exports[`no-star.js format[babel-ts] 1`] = `
+"Unexpected token (1:20)
+> 1 | export defer  from x;
+    |                    ^
+  2 |
+Cause: Unexpected token (1:19)"
+`;
+
+exports[`no-star.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer  from x;
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`no-star.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer  from x;
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`no-star.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer  from x;
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer  from x;
+       ^~~~~"
+`;
+
+exports[`no-star.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer  from x;
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`no-star.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer  from x;
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-star.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer  from x;
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-star.js format[typescript] 1`] = `
+"Declaration expected. (1:7)
+> 1 | export defer  from x;
+    |       ^
+  2 |
+Cause: Declaration expected."
+`;
+
+exports[`no-star.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer  from x;
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-star.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer  from x;
+    |        ^^^^^
+  2 |"
+`;
