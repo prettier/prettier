@@ -1141,6 +1141,78 @@ exports[`source-phase-imports.js format[espree] 1`] = `
 Cause: Unexpected token x"
 `;
 
+exports[`structs.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`structs\` ([proposal](https://github.com/tc39/proposal-structs))
+*/
+
+struct Point { x; y; }
+
+=====================================output=====================================
+/*
+\`structs\` ([proposal](https://github.com/tc39/proposal-structs))
+*/
+
+struct Point {
+  x;
+  y;
+}
+
+================================================================================
+`;
+
+exports[`structs.js format[acorn] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^
+  6 |
+Cause: Unexpected token (5:7)"
+`;
+
+exports[`structs.js format[espree] 1`] = `
+"Unexpected token Point (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^
+  6 |
+Cause: Unexpected token Point"
+`;
+
+exports[`structs.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^^^^^
+  6 |
+Cause: [5:7-5:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`structs.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:7)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |       ^
+  6 |"
+`;
+
+exports[`structs.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'Point' (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^^^^^
+  6 |"
+`;
+
 exports[`throw-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

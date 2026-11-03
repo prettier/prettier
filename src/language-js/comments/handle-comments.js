@@ -303,6 +303,7 @@ function handleConditionalExpressionComments({
 const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
+  "StructDeclaration",
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
@@ -342,6 +343,7 @@ function handleClassComments({
         superClass &&
         followingNode === superClass &&
         (precedingNode === enclosingNode.id ||
+          // @ts-expect-error -- Missing in `StructDeclaration`
           precedingNode === enclosingNode.typeParameters)
       ) {
         return addTrailingComment(precedingNode, comment);
@@ -352,6 +354,7 @@ function handleClassComments({
         if (followingNode === firstHeritageClause) {
           if (
             precedingNode === enclosingNode.id ||
+            // @ts-expect-error -- Missing in `StructDeclaration`
             precedingNode === enclosingNode.typeParameters ||
             precedingNode === superClass
           ) {

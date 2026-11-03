@@ -37,6 +37,7 @@ function parentNeedsParentheses(path, options, needsParentheses) {
       return false;
     case "ClassDeclaration":
     case "ClassExpression":
+    case "StructDeclaration":
       // Add parens around the extends clause of a class. It is needed for almost
       // all expressions.
       if (key === "superClass") {

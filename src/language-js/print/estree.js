@@ -183,6 +183,7 @@ function printEstree(path, options, print, args) {
     case "StaticBlock":
       return printBlock(path, options, print);
     case "ClassBody":
+    case "StructBody":
       return printClassBody(path, options, print);
     case "ThrowStatement":
       return printThrowStatement(path, options, print);
@@ -293,6 +294,7 @@ function printEstree(path, options, print, args) {
 
     case "ClassDeclaration":
     case "ClassExpression":
+    case "StructDeclaration":
       return printClass(path, options, print);
     case "ClassMethod":
     case "ClassPrivateMethod":

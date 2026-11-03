@@ -63,7 +63,6 @@ visitorKeys = removeVisitorKeys(visitorKeys, {
   ExportNamespaceSpecifier: ["exportsFilter"],
   ImportNamespaceSpecifier: ["exportsFilter"],
 });
-visitorKeys = removeNodeTypes(visitorKeys, ["StructBody", "StructDeclaration"]);
 
 // This should be the last step
 visitorKeys = generateReferenceSharedVisitorKeys(visitorKeys);

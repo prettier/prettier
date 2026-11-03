@@ -56,6 +56,7 @@ const isInterface = createTypeCheckFunction([
 /*
 - `ClassDeclaration`
 - `ClassExpression`
+- `StructDeclaration`
 - `DeclareClass`(flow)
 - `DeclareInterface`(flow)
 - `InterfaceDeclaration`(flow)
@@ -81,13 +82,14 @@ function printClass(path, options, print) {
 function printClassWithoutDecorators(path, options, print) {
   const { node } = path;
   const isPrintingInterface = isInterface(node);
-  const isPrintingRecord = node.type === "RecordDeclaration";
 
   const keyword = isPrintingInterface
     ? "interface"
-    : isPrintingRecord
+    : node.type === "RecordDeclaration"
       ? "record"
-      : "class";
+      : node.type === "StructDeclaration"
+        ? "struct"
+        : "class";
 
   /** @type {Doc[]} */
   const parts = [printDeclareToken(path), printAbstractToken(path), keyword];
@@ -116,10 +118,11 @@ function printClassWithoutDecorators(path, options, print) {
   }
 
   if (node.superClass) {
-    let printed = [
-      printSuperClass(path, options, print),
-      print("superTypeArguments"),
-    ];
+    let printed = [printSuperClass(path, options, print)];
+    if (node.superTypeArguments) {
+      printed.push(print("superTypeArguments"));
+    }
+
     printed = [
       "extends ",
       isJsxElement(node.superClass) && !hasNodeIgnoreComment(node.superClass)
