@@ -106,6 +106,49 @@ y);
 ================================================================================
 `;
 
+exports[`comments-before-keyword.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (const foo //comment
+  of bar) {
+  console.log(foo)
+}
+
+for (const foo //comment
+  in bar) {
+  console.log(foo)
+}
+
+for (const foo //comment
+  of bar) {}
+
+for (const foo //comment
+  of bar) console.log(foo);
+
+=====================================output=====================================
+for (const foo of bar) {
+  //comment
+  console.log(foo);
+}
+
+for (const foo in bar) {
+  //comment
+  console.log(foo);
+}
+
+for (const foo of bar) {
+  //comment
+}
+
+for (const foo of bar)
+  //comment
+  console.log(foo);
+
+================================================================================
+`;
+
 exports[`for-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
