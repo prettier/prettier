@@ -98,8 +98,9 @@ function printCallArguments(path, options, print) {
   const trailingComma =
     // Angular does not allow trailing comma
     path.root.type !== "NGRoot" &&
-    // Dynamic imports cannot have trailing commas
-    node.type !== "ImportExpression" &&
+    // Dynamic imports cannot have trailing commas https://github.com/prettier/prettier/issues/17405
+    // ..., but `import.sync` does
+    !(node.type === "ImportExpression" && !node.sync) &&
     // Flow's declared-class extends calls take exactly one argument.
     node.type !== "DeclareClassExtendsCall" &&
     !isImportType(node) &&
