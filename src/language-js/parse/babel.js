@@ -56,6 +56,7 @@ const parseOptions = {
     ["discardBinding", { syntaxType: "void" }],
     "structs",
     "importSync",
+    "deferredReexports",
   ],
   tokens: false,
   // Ranges not available on comments, so we use `Node#{start,end}` instead
