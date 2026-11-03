@@ -801,6 +801,75 @@ exports[`function-sent.js format[yuku] 1`] = `
   6 |"
 `;
 
+exports[`import-sync.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`importSync\` ([proposal](https://github.com/tc39/proposal-import-sync))
+*/
+
+const mod = import.sync("./foo.js");
+
+=====================================output=====================================
+/*
+\`importSync\` ([proposal](https://github.com/tc39/proposal-import-sync))
+*/
+
+const mod = import.sync("./foo.js");
+
+================================================================================
+`;
+
+exports[`import-sync.js format[acorn] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^
+  6 |
+Cause: The only valid meta property for import is 'import.meta' (5:19)"
+`;
+
+exports[`import-sync.js format[espree] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^
+  6 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-sync.js format[meriyah] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^^^^
+  6 |
+Cause: [5:19-5:23]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-sync.js format[oxc] 1`] = `
+"The only valid property accesses on import are \`import.meta\`, \`import.source()\`, and \`import.defer()\` (5:13)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |             ^^^^^^^^^^^
+  6 |"
+`;
+
+exports[`import-sync.js format[yuku] 1`] = `
+"'sync' is not a valid meta-property for keyword 'import' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^^^^
+  6 |"
+`;
+
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
