@@ -35,3 +35,19 @@ of y);
 for(x of
 //10a
 y);
+
+// #20433
+for (const foo //comment
+  of bar) {
+  console.log(foo);
+}
+
+for (const foo //comment
+  in bar) {
+  console.log(foo);
+}
+
+for (const foo //comment
+  of bar)
+  console.log(foo);
+

@@ -74,6 +74,22 @@ for(x of
 //10a
 y);
 
+// #20433
+for (const foo //comment
+  of bar) {
+  console.log(foo);
+}
+
+for (const foo //comment
+  in bar) {
+  console.log(foo);
+}
+
+for (const foo //comment
+  of bar)
+  console.log(foo);
+
+
 =====================================output=====================================
 for (x in /*1a*/ //1b
 y) //1c
@@ -102,6 +118,21 @@ y);
 
 for (x of //10a
 y);
+
+// #20433
+for (const foo of bar) {
+  //comment
+  console.log(foo);
+}
+
+for (const foo in bar) {
+  //comment
+  console.log(foo);
+}
+
+for (const foo of bar)
+  //comment
+  console.log(foo);
 
 ================================================================================
 `;
