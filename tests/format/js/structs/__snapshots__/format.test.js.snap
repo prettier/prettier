@@ -171,6 +171,7 @@ export default struct {
 
   static {}
 }
+
 =====================================output=====================================
 export default struct {
   property = 0;
@@ -962,6 +963,7 @@ export struct S {
 
   static {}
 }
+
 =====================================output=====================================
 export struct S {
   property = 0;
@@ -1402,6 +1404,7 @@ struct S extends B {
 
   static {}
 }
+
 =====================================output=====================================
 struct S extends B {
   property = 0;
@@ -2169,6 +2172,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[__babel_estree] 1`] = `
 "Missing semicolon. (1:12)
 > 1 | s\\u0074ruct S {};
     |            ^
+  2 |
 Cause: Missing semicolon. (1:11)"
 `;
 
@@ -2176,6 +2180,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[acorn] 1`] = `
 "Unexpected token (1:13)
 > 1 | s\\u0074ruct S {};
     |             ^
+  2 |
 Cause: Unexpected token (1:12)"
 `;
 
@@ -2183,6 +2188,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[babel] 1`] = `
 "Missing semicolon. (1:12)
 > 1 | s\\u0074ruct S {};
     |            ^
+  2 |
 Cause: Missing semicolon. (1:11)"
 `;
 
@@ -2190,6 +2196,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[babel-ts] 1`] = `
 "Missing semicolon. (1:12)
 > 1 | s\\u0074ruct S {};
     |            ^
+  2 |
 Cause: Missing semicolon. (1:11)"
 `;
 
@@ -2197,6 +2204,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[espree] 1`] = `
 "Unexpected token S (1:13)
 > 1 | s\\u0074ruct S {};
     |             ^
+  2 |
 Cause: Unexpected token S"
 `;
 
@@ -2204,6 +2212,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[flow] 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:13)
 > 1 | s\\u0074ruct S {};
     |             ^
+  2 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:12)"
 `;
 
@@ -2211,6 +2220,7 @@ exports[`invalid-escaped-struct-keyword-2.js format[hermes] 1`] = `
 "';' expected (1:13)
 > 1 | s\\u0074ruct S {};
     |             ^
+  2 |
 Cause: ';' expected (1:12)
 s\\u0074ruct S {};
             ^"
@@ -2220,38 +2230,44 @@ exports[`invalid-escaped-struct-keyword-2.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:13)
 > 1 | s\\u0074ruct S {};
     |             ^
+  2 |
 Cause: [1:12-1:13]: Unexpected token: 'identifier'"
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:12)
 > 1 | s\\u0074ruct S {};
-    |            ^"
+    |            ^
+  2 |"
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[oxc-ts] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:12)
 > 1 | s\\u0074ruct S {};
-    |            ^"
+    |            ^
+  2 |"
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[typescript] 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | s\\u0074ruct S {};
     | ^
+  2 |
 Cause: Unexpected keyword or identifier."
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[yuku] 1`] = `
 "Expected ';' after the statement, but found 'S' (1:13)
 > 1 | s\\u0074ruct S {};
-    |             ^"
+    |             ^
+  2 |"
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[yuku-ts] 1`] = `
 "Expected ';' after the statement, but found 'S' (1:13)
 > 1 | s\\u0074ruct S {};
-    |             ^"
+    |             ^
+  2 |"
 `;
 
 exports[`invalid-escaped-struct-keyword-2-export-default.js format[__babel_estree] 1`] = `
@@ -4344,6 +4360,7 @@ parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 export default struct {};
+
 =====================================output=====================================
 export default struct {}
 
@@ -4354,6 +4371,7 @@ exports[`struct-declaration-export-default-anonymous.js format[acorn] 1`] = `
 "Unexpected token (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: Unexpected token (1:22)"
 `;
 
@@ -4361,6 +4379,7 @@ exports[`struct-declaration-export-default-anonymous.js format[espree] 1`] = `
 "Unexpected token { (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: Unexpected token {"
 `;
 
@@ -4368,6 +4387,7 @@ exports[`struct-declaration-export-default-anonymous.js format[flow] 1`] = `
 "Unexpected token \`{\`, expected the token \`;\` (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: Unexpected token \`{\`, expected the token \`;\` (1:22)"
 `;
 
@@ -4375,6 +4395,7 @@ exports[`struct-declaration-export-default-anonymous.js format[hermes] 1`] = `
 "';' expected (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: ';' expected (1:22)
 export default struct {};
                       ^"
@@ -4384,38 +4405,44 @@ exports[`struct-declaration-export-default-anonymous.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: [1:22-1:23]: Unexpected token: '{'"
 `;
 
 exports[`struct-declaration-export-default-anonymous.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:22)
 > 1 | export default struct {};
-    |                      ^"
+    |                      ^
+  2 |"
 `;
 
 exports[`struct-declaration-export-default-anonymous.js format[oxc-ts] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:22)
 > 1 | export default struct {};
-    |                      ^"
+    |                      ^
+  2 |"
 `;
 
 exports[`struct-declaration-export-default-anonymous.js format[typescript] 1`] = `
 "';' expected. (1:23)
 > 1 | export default struct {};
     |                       ^
+  2 |
 Cause: ';' expected."
 `;
 
 exports[`struct-declaration-export-default-anonymous.js format[yuku] 1`] = `
 "Expected ';' after the statement, but found '{' (1:23)
 > 1 | export default struct {};
-    |                       ^"
+    |                       ^
+  2 |"
 `;
 
 exports[`struct-declaration-export-default-anonymous.js format[yuku-ts] 1`] = `
 "Expected ';' after the statement, but found '{' (1:23)
 > 1 | export default struct {};
-    |                       ^"
+    |                       ^
+  2 |"
 `;
 
 exports[`struct-declaration-export-named.js format 1`] = `
