@@ -137,6 +137,20 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
                               ^"
 `;
 
+exports[`multi-types.js format[oxc] 1`] = `
+"Duplicate import attribute key \`type\` (1:40)
+> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
+    |                                        ^^^^
+  2 |"
+`;
+
+exports[`multi-types.js format[oxc-ts] 1`] = `
+"Duplicate import attribute key \`type\` (1:40)
+> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
+    |                                        ^^^^
+  2 |"
+`;
+
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "yuku", "typescript", "hermes"]
