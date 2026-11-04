@@ -20,10 +20,8 @@ const exportFilterTests = [
   "import-default.js",
   "export-empty.js",
   "import-defer.js",
-  "namespace-export-filter.js",
   "export-module-export-names.js",
   "import-duplicate-binding.js",
-  "namespace-import-filter.js",
 ];
 
 runFormatTest(import.meta, ["babel", "typescript", "flow"], {
