@@ -197,6 +197,75 @@ exports[`deferred-import-evaluation.js format[espree] 1`] = `
 Cause: Unexpected token *"
 `;
 
+exports[`deferred-reexports.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`deferredReexports\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+export defer { x } from "dep";
+
+=====================================output=====================================
+/*
+\`deferredReexports\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+export defer { x } from "dep";
+
+================================================================================
+`;
+
+exports[`deferred-reexports.js format[acorn] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^
+  6 |
+Cause: Unexpected token (5:7)"
+`;
+
+exports[`deferred-reexports.js format[espree] 1`] = `
+"Unexpected token defer (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^
+  6 |
+Cause: Unexpected token defer"
+`;
+
+exports[`deferred-reexports.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |
+Cause: [5:7-5:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`deferred-reexports.js format[oxc] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |"
+`;
+
+exports[`deferred-reexports.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |"
+`;
+
 exports[`destructuring-private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

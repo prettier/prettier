@@ -65,6 +65,7 @@ function printExportDeclaration(path, options, print) {
     printDecoratorsBeforeExport(path, options, print),
     printDeclareToken(path),
     "export",
+    node.phase ? ` ${node.phase}` : "",
     isDefaultExport(node) ? " default" : "",
   ];
 
