@@ -1,5 +1,128 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`dangling-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { /* a11 */ } as ns from "x";
+import {
+/* a12 */ } as ns from "x";
+import { // b11
+ } as ns from "x";
+import {
+// b12
+ } as ns from "x";
+
+=====================================output=====================================
+import {} as /* a11 */ ns from "x";
+import {} as /* a12 */ ns from "x";
+import {} as // b11
+ns from "x";
+import {} as // b12
+ns from "x";
+
+================================================================================
+`;
+
+exports[`dangling-comments.js format[acorn] 1`] = `
+"Unexpected token (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: Unexpected token (1:21)"
+`;
+
+exports[`dangling-comments.js format[espree] 1`] = `
+"Unexpected token as (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: Unexpected token as"
+`;
+
+exports[`dangling-comments.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: Unexpected identifier, expected the keyword \`from\` (1:21)"
+`;
+
+exports[`dangling-comments.js format[hermes] 1`] = `
+"'from' expected (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: 'from' expected (1:21)
+import { /* a11 */ } as ns from "x";
+                     ^"
+`;
+
+exports[`dangling-comments.js format[meriyah] 1`] = `
+"Expected 'from' (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: [1:21-1:23]: Expected 'from'"
+`;
+
+exports[`dangling-comments.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11"
+`;
+
+exports[`dangling-comments.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11"
+`;
+
+exports[`dangling-comments.js format[typescript] 1`] = `
+"'from' expected. (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11
+Cause: 'from' expected."
+`;
+
+exports[`dangling-comments.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11"
+`;
+
+exports[`dangling-comments.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:22)
+> 1 | import { /* a11 */ } as ns from "x";
+    |                      ^^
+  2 | import {
+  3 | /* a12 */ } as ns from "x";
+  4 | import { // b11"
+`;
+
 exports[`import-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

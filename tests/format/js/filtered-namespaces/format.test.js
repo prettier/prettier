@@ -1,6 +1,7 @@
 const exportsFilterTests = [
   "namespace-export-filter.js",
   "namespace-import-filter.js",
+  "dangling-comments.js",
 ];
 
 runFormatTest(import.meta, ["babel", "typescript", "flow"], {
