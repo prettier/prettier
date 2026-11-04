@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`filtered-namespaces-flow-declare-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare export { x } as ns1 from "a";
+declare export { x, "y z" } as ns2 from "a";
+declare export {} as ns3 from "a";
+declare export * as ns4 from "a";
+declare export { x } from "a";
+
+=====================================output=====================================
+declare export { x } as ns1 from "a";
+declare export { x, "y z" } as ns2 from "a";
+declare export {} as ns3 from "a";
+declare export * as ns4 from "a";
+declare export { x } from "a";
+
+================================================================================
+`;
+
+exports[`import-type-string-alias.js format 1`] = `
+====================================options=====================================
+parsers: ["babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import type { "a" as b } from "x";
+import typeof { "c" as d } from "x";
+
+=====================================output=====================================
+import type { "a" as b } from "x";
+import typeof { "c" as d } from "x";
+
+================================================================================
+`;
