@@ -21,6 +21,38 @@ declare export { x } from "a";
 ================================================================================
 `;
 
+exports[`flow-export-type.js format 1`] = `
+"Unexpected token (1:13)
+> 1 | export type { a } as ns from "x";
+    |             ^
+  2 |
+Cause: Unexpected token (1:12)"
+`;
+
+exports[`flow-import-type.js format 1`] = `
+"Unexpected token (1:13)
+> 1 | import type { a } as ns from "x";
+    |             ^
+  2 |
+Cause: Unexpected token (1:12)"
+`;
+
+exports[`flow-import-typeof.js format 1`] = `
+"Unexpected token (1:15)
+> 1 | import typeof { a } as ns from "x";
+    |               ^
+  2 |
+Cause: Unexpected token (1:14)"
+`;
+
+exports[`flow-type-modifier.js format 1`] = `
+"Names in a filtered namespace cannot have a type modifier. (1:10)
+> 1 | import { type a, typeof b } as ns from "x";
+    |          ^
+  2 |
+Cause: Names in a filtered namespace cannot have a type modifier. (1:9)"
+`;
+
 exports[`import-type-string-alias.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel-flow"]

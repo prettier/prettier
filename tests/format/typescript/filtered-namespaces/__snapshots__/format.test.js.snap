@@ -57,6 +57,15 @@ type A = 1;
 ================================================================================
 `;
 
+exports[`typescript-type-modifier.ts format[babel-ts] 1`] = `
+"Names in a filtered namespace cannot have a type modifier. (1:10)
+> 1 | import { type a } as ns from "x";
+    |          ^
+  2 | export { type b } as ns2 from "x";
+  3 |
+Cause: Names in a filtered namespace cannot have a type modifier. (1:9)"
+`;
+
 exports[`typescript-type-modifier.ts format[oxc-ts] 1`] = `
 "Expected \`from\` but found \`as\` (1:19)
 > 1 | import { type a } as ns from "x";
