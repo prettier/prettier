@@ -479,12 +479,36 @@ exports[`export-defer-missing-namespace-import-filter.js format[yuku-ts] 1`] = `
   2 |"
 `;
 
+exports[`export-duplicate.js format[__babel_estree] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
 exports[`export-duplicate.js format[acorn] 1`] = `
 "Duplicate export 'a' (1:13)
 > 1 | export { a, "a" } as ns from "x";
     |             ^
   2 |
 Cause: Duplicate export 'a' (1:12)"
+`;
+
+exports[`export-duplicate.js format[babel] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`export-duplicate.js format[babel-ts] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
 `;
 
 exports[`export-duplicate.js format[espree] 1`] = `
@@ -859,6 +883,15 @@ var a;
 ================================================================================
 `;
 
+exports[`export-newline-as-from.js format[__babel_estree] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
+`;
+
 exports[`export-newline-as-from.js format[acorn] 1`] = `
 "Unexpected token (2:4)
   1 | export { a }
@@ -866,6 +899,24 @@ exports[`export-newline-as-from.js format[acorn] 1`] = `
     |    ^
   3 |
 Cause: Unexpected token (2:3)"
+`;
+
+exports[`export-newline-as-from.js format[babel] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
+`;
+
+exports[`export-newline-as-from.js format[babel-ts] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
 `;
 
 exports[`export-newline-as-from.js format[espree] 1`] = `
@@ -947,12 +998,36 @@ exports[`export-newline-as-from.js format[yuku-ts] 1`] = `
   3 |"
 `;
 
+exports[`export-rename.js format[__babel_estree] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
 exports[`export-rename.js format[acorn] 1`] = `
 "Unexpected token (1:19)
 > 1 | export { a as b } as ns from "x";
     |                   ^
   2 |
 Cause: Unexpected token (1:18)"
+`;
+
+exports[`export-rename.js format[babel] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`export-rename.js format[babel-ts] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
 `;
 
 exports[`export-rename.js format[espree] 1`] = `
@@ -1025,12 +1100,36 @@ exports[`export-rename.js format[yuku-ts] 1`] = `
   2 |"
 `;
 
+exports[`export-without-from.js format[__babel_estree] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
+`;
+
 exports[`export-without-from.js format[acorn] 1`] = `
 "Unexpected token (1:14)
 > 1 | export { a } as ns;
     |              ^
   2 |
 Cause: Unexpected token (1:13)"
+`;
+
+exports[`export-without-from.js format[babel] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
+`;
+
+exports[`export-without-from.js format[babel-ts] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
 `;
 
 exports[`export-without-from.js format[espree] 1`] = `
@@ -1497,12 +1596,36 @@ exports[`import-defer.js format[yuku-ts] 1`] = `
   2 |"
 `;
 
+exports[`import-duplicate.js format[__babel_estree] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
 exports[`import-duplicate.js format[acorn] 1`] = `
 "Binding rvalue (1:13)
 > 1 | import { a, "a" } as ns from "x";
     |             ^
   2 |
 Cause: Binding rvalue (1:12)"
+`;
+
+exports[`import-duplicate.js format[babel] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`import-duplicate.js format[babel-ts] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
 `;
 
 exports[`import-duplicate.js format[espree] 1`] = `
@@ -2065,12 +2188,36 @@ exports[`import-not-bindings.js format[yuku-ts] 1`] = `
   3 |"
 `;
 
+exports[`import-rename.js format[__babel_estree] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
 exports[`import-rename.js format[acorn] 1`] = `
 "Unexpected token (1:19)
 > 1 | import { a as b } as ns from "x";
     |                   ^
   2 |
 Cause: Unexpected token (1:18)"
+`;
+
+exports[`import-rename.js format[babel] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`import-rename.js format[babel-ts] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
 `;
 
 exports[`import-rename.js format[espree] 1`] = `
@@ -2143,12 +2290,36 @@ exports[`import-rename.js format[yuku-ts] 1`] = `
   2 |"
 `;
 
+exports[`import-source-phase.js format[__babel_estree] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
+`;
+
 exports[`import-source-phase.js format[acorn] 1`] = `
 "Unexpected token (1:15)
 > 1 | import source { a } as ns from "x";
     |               ^
   2 |
 Cause: Unexpected token (1:14)"
+`;
+
+exports[`import-source-phase.js format[babel] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
+`;
+
+exports[`import-source-phase.js format[babel-ts] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
 `;
 
 exports[`import-source-phase.js format[espree] 1`] = `
