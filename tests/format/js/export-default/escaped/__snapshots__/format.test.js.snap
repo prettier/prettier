@@ -1,71 +1,287 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`default-escaped.js format 1`] = `
+exports[`export-1.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-// export asyn\\u{63} from "async";
-export n\\u{63} from "async";
+export asyn\\u{63} from "async";
+
 =====================================output=====================================
-// export asyn\\u{63} from "async";
-export nc from "async";
+export asyn\\u{63} from "async";
 
 ================================================================================
 `;
 
-exports[`default-escaped.js format[acorn] 1`] = `
-"Unexpected token (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
+exports[`export-1.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export asyn\\u{63} from "async";
     |        ^
-Cause: Unexpected token (2:7)"
+  2 |
+Cause: Unexpected token (1:7)"
 `;
 
-exports[`default-escaped.js format[espree] 1`] = `
-"Unexpected token n\\u{63} (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
+exports[`export-1.js format[espree] 1`] = `
+"Unexpected token asyn\\u{63} (1:8)
+> 1 | export asyn\\u{63} from "async";
     |        ^
-Cause: Unexpected token n\\u{63}"
+  2 |
+Cause: Unexpected token asyn\\u{63}"
 `;
 
-exports[`default-escaped.js format[flow] 1`] = `
-"Unexpected identifier, expected a declaration, statement or export specifiers (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
+exports[`export-1.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export asyn\\u{63} from "async";
     |        ^
-Cause: Unexpected identifier, expected a declaration, statement or export specifiers (2:7)"
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`default-escaped.js format[hermes] 1`] = `
-"expected declaration in export (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
+exports[`export-1.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export asyn\\u{63} from "async";
     |        ^
-Cause: expected declaration in export (2:7)
-export n\\u{63} from "async";
-       ^~~~~~~"
+  2 |
+Cause: expected declaration in export (1:7)
+export asyn\\u{63} from "async";
+       ^~~~~~~~~~"
 `;
 
-exports[`default-escaped.js format[meriyah] 1`] = `
-"Unexpected token: 'identifier' (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
-    |        ^^^^^^^
-Cause: [2:7-2:14]: Unexpected token: 'identifier'"
+exports[`export-1.js format[meriyah] 1`] = `
+"Unexpected token: 'reserved if strict' (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^
+  2 |
+Cause: [1:7-1:17]: Unexpected token: 'reserved if strict'"
 `;
 
-exports[`default-escaped.js format[oxc] 1`] = `
-"Unexpected token (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
-    |        ^^^^^^^"
+exports[`export-1.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^
+  2 |"
 `;
 
-exports[`default-escaped.js format[yuku] 1`] = `
-"Expected a declaration after 'export', but found 'n\\u{63}' (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
-    |        ^^^^^^^"
+exports[`export-1.js format[oxc-ts] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-1.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export asyn\\u{63} from "async";
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-1.js format[yuku] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-1.js format[yuku-ts] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export asyn\\u0063 from "async";
+
+=====================================output=====================================
+export asyn\\u{63} from "async";
+
+================================================================================
+`;
+
+exports[`export-2.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`export-2.js format[espree] 1`] = `
+"Unexpected token asyn\\u0063 (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^
+  2 |
+Cause: Unexpected token asyn\\u0063"
+`;
+
+exports[`export-2.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`export-2.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export asyn\\u0063 from "async";
+       ^~~~~~~~~~"
+`;
+
+exports[`export-2.js format[meriyah] 1`] = `
+"Unexpected token: 'reserved if strict' (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^^^^^^^^^^
+  2 |
+Cause: [1:7-1:17]: Unexpected token: 'reserved if strict'"
+`;
+
+exports[`export-2.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-2.js format[oxc-ts] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-2.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export asyn\\u0063 from "async";
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-2.js format[yuku] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-2.js format[yuku-ts] 1`] = `
+"Keywords cannot contain escape characters (1:8)
+> 1 | export asyn\\u0063 from "async";
+    |        ^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export _asyn\\u{63} from "async";
+
+=====================================output=====================================
+export _async from "async";
+
+================================================================================
+`;
+
+exports[`export-3.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`export-3.js format[espree] 1`] = `
+"Unexpected token _asyn\\u{63} (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^
+  2 |
+Cause: Unexpected token _asyn\\u{63}"
+`;
+
+exports[`export-3.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`export-3.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export _asyn\\u{63} from "async";
+       ^~~~~~~~~~~"
+`;
+
+exports[`export-3.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^^^^^^^^^^^
+  2 |
+Cause: [1:7-1:18]: Unexpected token: 'identifier'"
+`;
+
+exports[`export-3.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-3.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-3.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export _asyn\\u{63} from "async";
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-3.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found '_asyn\\u{63}' (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`export-3.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found '_asyn\\u{63}' (1:8)
+> 1 | export _asyn\\u{63} from "async";
+    |        ^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import asyn\\u{63} from "async";
+
+=====================================output=====================================
+import async from "async";
+
+================================================================================
 `;
