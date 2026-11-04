@@ -29,8 +29,8 @@ import {
 import { printObject } from "./object.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `ImportDeclaration`
@@ -329,9 +329,11 @@ function printModuleSpecifier(path, options, print) {
   const rightSideProperty = isImportSpecifier ? "local" : "exported";
   const leftSideNode = node[leftSideProperty];
   const rightSideNode = node[rightSideProperty];
+  /** @type {Doc} */
   let left = "";
   let right = "";
   if (isNamespaceSpecifier(node)) {
+    // @ts-expect-error -- Missing
     if (node.exportsFilter) {
       left = printObject(path, options, print);
     } else {
