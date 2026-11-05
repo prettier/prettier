@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declarations.css - {"printWidth":20} format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+printWidth: 20
+    printWidth: 20 |
+=====================================input======================================
+a {
+  margin: aaaaaa bb;
+  margin: aaaaaa bbb;
+  margin: aaaaaa bbb ccc;
+  margin: aa bb !important;
+  margin: aa bbb !important;
+  margin: aa bbb ccc !important;
+}
+
+=====================================output=====================================
+a {
+  margin: aaaaaa bb;
+  margin: aaaaaa
+    bbb;
+  margin: aaaaaa bbb
+    ccc;
+  margin: aa
+    bb !important;
+  margin: aa
+    bbb !important;
+  margin: aa bbb
+    ccc !important;
+}
+
+================================================================================
+`;

@@ -75,6 +75,8 @@ function fits(
         return true;
       }
       commands.push(restCommands[--restCommandsIndex]);
+      // Only the measured doc must stay flat, not the following commands.
+      mustBeFlat = false;
 
       continue;
     }
@@ -356,9 +358,12 @@ function printDocToString(doc, options) {
         const contentFlatCommand = { indent, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
         const contentBreakCommand = { indent, mode: MODE_BREAK, doc: content };
+        // The last item must also leave room for text after the fill.
         const contentFits = fits(
-          contentFlatCommand,
-          [],
+          length === 2
+            ? { indent, mode: MODE_FLAT, doc: [content, whitespace] }
+            : contentFlatCommand,
+          length <= 2 ? commands : [],
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
@@ -413,7 +418,7 @@ function printDocToString(doc, options) {
         };
         const firstAndSecondContentFits = fits(
           firstAndSecondContentFlatCommand,
-          [],
+          length === 3 ? commands : [],
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,

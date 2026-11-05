@@ -1,0 +1,22 @@
+#### Account for trailing text when wrapping filled lines (#XXXX by @Dhruv-Sharma29)
+
+When deciding whether the last words in a filled line fit, Prettier now also counts text that follows them. This prevents CSS declaration semicolons and flags such as `!important` from unnecessarily exceeding `printWidth`. This also improves wrapping before closing HTML tags and adjacent Handlebars content.
+
+With `printWidth: 20`:
+
+<!-- prettier-ignore -->
+```css
+/* Input */
+a { margin: aaaaaa bbb; }
+
+/* Prettier stable */
+a {
+  margin: aaaaaa bbb;
+}
+
+/* Prettier main */
+a {
+  margin: aaaaaa
+    bbb;
+}
+```
