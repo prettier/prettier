@@ -247,30 +247,24 @@ function printBinaryishExpressions(
     currentNode = leftNode;
   }
 
-  return path.call(
-    () => {
-      /** @type {Doc[]} */
-      let parts = [];
-      for (let depth = flattenedLeft.length; depth >= 0; depth--) {
-        parts = printBinaryishExpressionPart(
+  /** @type {Doc[]} */
+  let parts = [];
+  for (let depth = flattenedLeft.length; depth >= 0; depth--) {
+    parts = path.call(
+      () =>
+        printBinaryishExpressionPart(
           path,
           options,
           print,
           parts,
           isNested || depth !== 0,
           isInsideParenthesis,
-        );
+        ),
+      ...flattenedLeft.slice(0, depth),
+    );
+  }
 
-        // Move to the parent binary expression. path.call restores the stack.
-        if (depth > 0) {
-          path.stack.length -= 2;
-        }
-      }
-
-      return parts;
-    },
-    ...flattenedLeft,
-  );
+  return parts;
 }
 
 function printBinaryishExpressionPart(
