@@ -2,7 +2,7 @@ const operandCount = 1800;
 const source = `const value = ${Array.from(
   { length: operandCount },
   () => '"a"',
-).join(" + ")};`;
+).join(" + ")};\n`;
 
 runFormatTest(
   {
@@ -11,7 +11,7 @@ runFormatTest(
       {
         name: "long binary expression",
         code: source,
-        output: `${source}\n`,
+        output: source,
       },
     ],
   },

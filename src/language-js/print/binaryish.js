@@ -175,10 +175,7 @@ function printBinaryishExpression(path, options, print) {
   const hasJsx = isJsxElement(node.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) =>
-      typeof part !== "string" &&
-      !Array.isArray(part) &&
-      part.type === DOC_TYPE_GROUP,
+    (part) => getDocType(part) === DOC_TYPE_GROUP,
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
