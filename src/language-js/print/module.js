@@ -15,7 +15,10 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isShorthandSpecifier } from "../utilities/is-shorthand-specifier.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
-import { isStringLiteral } from "../utilities/node-types.js";
+import {
+  isNamespaceSpecifier,
+  isStringLiteral,
+} from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import {
@@ -26,8 +29,8 @@ import {
 import { printObject } from "./object.js";
 
 /**
- * @import {Doc} from "../../document/index.js"
- */
+@import {Doc} from "../../document/index.js"
+*/
 
 /*
 - `ImportDeclaration`
@@ -174,18 +177,16 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each(() => {
-      const specifierType = path.node.type;
+    path.each(({ node }) => {
       if (
-        specifierType === "ExportNamespaceSpecifier" ||
-        specifierType === "ExportDefaultSpecifier" ||
-        specifierType === "ImportNamespaceSpecifier" ||
-        specifierType === "ImportDefaultSpecifier"
+        isNamespaceSpecifier(node) ||
+        node.type === "ExportDefaultSpecifier" ||
+        node.type === "ImportDefaultSpecifier"
       ) {
         standaloneSpecifiers.push(print());
       } else if (
-        specifierType === "ExportSpecifier" ||
-        specifierType === "ImportSpecifier"
+        node.type === "ExportSpecifier" ||
+        node.type === "ImportSpecifier"
       ) {
         groupedSpecifiers.push(print());
       } else {
@@ -328,13 +329,16 @@ function printModuleSpecifier(path, options, print) {
   const rightSideProperty = isImportSpecifier ? "local" : "exported";
   const leftSideNode = node[leftSideProperty];
   const rightSideNode = node[rightSideProperty];
+  /** @type {Doc} */
   let left = "";
   let right = "";
-  if (
-    type === "ExportNamespaceSpecifier" ||
-    type === "ImportNamespaceSpecifier"
-  ) {
-    left = "*";
+  if (isNamespaceSpecifier(node)) {
+    // @ts-expect-error -- Missing
+    if (node.exportsFilter) {
+      left = printObject(path, options, print);
+    } else {
+      left = "*";
+    }
   } else if (leftSideNode) {
     left = print(leftSideProperty);
   }

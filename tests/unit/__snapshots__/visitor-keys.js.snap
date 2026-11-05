@@ -353,6 +353,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportNamespaceSpecifier": [
     "exported",
+    "exportsFilter",
   ],
   "ExportSpecifier": [
     "exported",
@@ -457,6 +458,7 @@ exports[`visitor keys estree 1`] = `
     "source",
   ],
   "ImportNamespaceSpecifier": [
+    "exportsFilter",
     "local",
   ],
   "ImportSpecifier": [

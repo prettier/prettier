@@ -1031,6 +1031,75 @@ exports[`module-blocks.js format[yuku] 1`] = `
   6 |"
 `;
 
+exports[`namespace-import-filter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`namespaceImportFilter\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+import { x, y } as ns from "dep";
+
+=====================================output=====================================
+/*
+\`namespaceImportFilter\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+import { x, y } as ns from "dep";
+
+================================================================================
+`;
+
+exports[`namespace-import-filter.js format[acorn] 1`] = `
+"Unexpected token (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^
+  6 |
+Cause: Unexpected token (5:16)"
+`;
+
+exports[`namespace-import-filter.js format[espree] 1`] = `
+"Unexpected token as (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^
+  6 |
+Cause: Unexpected token as"
+`;
+
+exports[`namespace-import-filter.js format[meriyah] 1`] = `
+"Expected 'from' (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
+  6 |
+Cause: [5:16-5:18]: Expected 'from'"
+`;
+
+exports[`namespace-import-filter.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
+  6 |"
+`;
+
+exports[`namespace-import-filter.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
+  6 |"
+`;
+
 exports[`optional-chaining-assign.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

@@ -216,6 +216,11 @@ export const isClass = createTypeCheckFunction([
   "ClassExpression",
 ]);
 
+export const isNamespaceSpecifier = createTypeCheckFunction([
+  "ImportNamespaceSpecifier",
+  "ExportNamespaceSpecifier",
+]);
+
 export const isEnumDeclaration = createTypeCheckFunction([
   "TSEnumDeclaration",
   "EnumDeclaration",
