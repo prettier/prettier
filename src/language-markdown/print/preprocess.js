@@ -602,4 +602,3 @@ function markAlignedListLegacy(ast, options) {
 }
 
 export default preprocess;
-
