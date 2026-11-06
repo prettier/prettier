@@ -920,7 +920,11 @@ function needsParentheses(path, options) {
         (key === "superClass" &&
           (isClass(parent) || parent.type === "StructDeclaration")) ||
         ((key === "left" || key === "right") &&
-          parent.type === "BinaryExpression")
+          parent.type === "BinaryExpression" &&
+          !(
+            key === "right" &&
+            (parent.operator === "instanceof" || parent.operator === "in")
+          ))
       ) {
         return true;
       }
