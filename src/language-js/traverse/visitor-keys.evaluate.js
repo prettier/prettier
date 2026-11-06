@@ -33,10 +33,6 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
-
-  // flow-parser@0.337.0
-  DeclareFunction: ["typeAnnotation"],
-  ObjectTypeProperty: ["init"],
 };
 
 const excludeNodeTypes = [
@@ -48,13 +44,7 @@ const excludeNodeTypes = [
   "ExperimentalSpreadProperty",
 
   // From flow-parser
-  "DeclareClassExtendsCall",
   "DeclareMethodDefinition",
-  "NamespaceExportDeclaration",
-  "NonNullExpression",
-  "ObjectTypePrivateField",
-  "ParameterProperty",
-  "TupleTypeElement",
 ];
 
 let visitorKeys = unionVisitorKeys(

@@ -1,0 +1,5 @@
+@if (wrapper.input.source !== "datepicker" && (wrapper.input.inputElementType !== "textarea" && wrapper.input.inputElementType !== "autocomplete")) {}
+<div [value]="firstCondition || (secondCondition || (thirdCondition || fourthConditionThatIsVeryLong))"></div>
+<div [value]="firstCondition ?? (secondCondition ?? (thirdCondition ?? fourthConditionThatIsVeryLong))"></div>
+<div [value]="firstCondition && (secondCondition || thirdCondition || fourthConditionThatIsVeryLong)"></div>
+<p>{{ firstCondition && (secondCondition && (thirdCondition && fourthConditionThatIsVeryLong)) }}</p>

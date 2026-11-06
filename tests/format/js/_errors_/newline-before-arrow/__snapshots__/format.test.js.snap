@@ -109,7 +109,7 @@ Cause: Unexpected keyword or identifier."
 `;
 
 exports[`newline-before-arrow.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'x' (1:7)
+"Expected ';' after the statement, but found 'x' (1:7)
 > 1 | async x
     |       ^
   2 | => x
@@ -117,7 +117,7 @@ exports[`newline-before-arrow.js format[yuku] 1`] = `
 `;
 
 exports[`newline-before-arrow.js format[yuku-ts] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'x' (1:7)
+"Expected ';' after the statement, but found 'x' (1:7)
 > 1 | async x
     |       ^
   2 | => x

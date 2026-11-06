@@ -38,7 +38,7 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.cts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;
@@ -105,7 +105,7 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.mts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;
@@ -136,7 +136,7 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.ts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;

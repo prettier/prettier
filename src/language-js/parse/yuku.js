@@ -1,5 +1,5 @@
 import indexToPosition from "index-to-position";
-import { parse as yukuParse } from "#universal/yuku-parser";
+import { parse as yukuParse } from "yuku";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -12,7 +12,7 @@ import {
   SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
 
-/** @import {ParseOptions} from "yuku-parser" */
+/** @import {ParseOptions} from "yuku" */
 
 function createParseError(error, { text }) {
   if (typeof error?.start !== "number" || typeof error?.end !== "number") {
@@ -40,6 +40,7 @@ function createParseError(error, { text }) {
 */
 function parseWithOptions(text, options) {
   const result = yukuParse(text, {
+    analyze: false,
     preserveParens: true,
     semanticErrors: false,
     attachComments: false,

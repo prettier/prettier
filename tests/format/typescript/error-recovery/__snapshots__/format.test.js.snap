@@ -84,7 +84,7 @@ exports[`index-signature.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} format[yuku-ts] 1`] = `
-"Expected ':' after index signature parameters, but found '}' (1:26)
+"An index signature must have a type annotation (1:26)
 > 1 | type A = { [key: string] };
     |                          ^
   2 |
@@ -176,7 +176,7 @@ exports[`index-signature.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} format[yuku-ts] 1`] = `
-"Expected ':' after index signature parameters, but found '}' (1:26)
+"An index signature must have a type annotation (1:26)
 > 1 | type A = { [key: string] };
     |                          ^
   2 |
@@ -267,7 +267,7 @@ exports[`index-signature.ts format[oxc-ts] 1`] = `
 `;
 
 exports[`index-signature.ts format[yuku-ts] 1`] = `
-"Expected ':' after index signature parameters, but found '}' (1:26)
+"An index signature must have a type annotation (1:26)
 > 1 | type A = { [key: string] };
     |                          ^
   2 |

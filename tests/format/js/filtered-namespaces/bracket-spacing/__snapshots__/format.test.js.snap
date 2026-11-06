@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {foo} as ns from 'foo'
+
+=====================================output=====================================
+import {foo} as ns from "foo";
+
+================================================================================
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: 'from' expected (1:13)
+import {foo} as ns from 'foo'
+             ^"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":false} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format 1`] = `
+====================================options=====================================
+bracketSpacing: true
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {foo} as ns from 'foo'
+
+=====================================output=====================================
+import { foo } as ns from "foo";
+
+================================================================================
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: 'from' expected (1:13)
+import {foo} as ns from 'foo'
+             ^"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;
+
+exports[`bracket-spacing.js - {"bracketSpacing":true} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 |"
+`;

@@ -72,6 +72,13 @@ export const isReturnOrThrowStatement = createTypeCheckFunction([
   "ThrowStatement",
 ]);
 
+export const isUnaryLikeNode = createTypeCheckFunction([
+  "ReturnStatement",
+  "ThrowStatement",
+  "YieldExpression",
+  "UnaryExpression",
+]);
+
 export const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
@@ -94,6 +101,21 @@ export const isAbstractPropertyDefinition = createTypeCheckFunction([
   "AbstractPropertyDefinition",
   "TSAbstractPropertyDefinition",
 ]);
+
+export const isParameterProperty = createTypeCheckFunction([
+  "TSParameterProperty",
+  "ParameterProperty",
+]);
+
+export const isNonNullExpression = createTypeCheckFunction([
+  "TSNonNullExpression",
+  "NonNullExpression",
+]);
+
+/** @param {Node | undefined | null} node */
+export const isOptionalTupleMember = (node) =>
+  node?.type === "TSOptionalType" ||
+  (node?.type === "TupleTypeElement" && node.optional === true);
 
 // These two functions exists because we used support `recordAndTuple`
 // Feel free to check `node.type` instead
@@ -160,6 +182,7 @@ export const isCallLikeExpression = createTypeCheckFunction([
 export const isChainElementWrapper = createTypeCheckFunction([
   "ChainExpression",
   "TSNonNullExpression",
+  "NonNullExpression",
 ]);
 
 export const isArrayType = createTypeCheckFunction([
@@ -191,6 +214,11 @@ export const isConstructorType = createTypeCheckFunction([
 export const isClass = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
+]);
+
+export const isNamespaceSpecifier = createTypeCheckFunction([
+  "ImportNamespaceSpecifier",
+  "ExportNamespaceSpecifier",
 ]);
 
 export const isEnumDeclaration = createTypeCheckFunction([

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`optional.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Optional = { [key: string]?: number };
+type Readonly = { readonly [key: string]?: unknown };
+type Required = { [key: string]: number };
+type RequiredNumber = { [index: number]: string };
+type Comments = { [/* key */ key: string]?: /* value */ number };
+declare class C { static [key: string]?: number; }
+
+=====================================output=====================================
+type Optional = { [key: string]?: number };
+type Readonly = { readonly [key: string]?: unknown };
+type Required = { [key: string]: number };
+type RequiredNumber = { [index: number]: string };
+type Comments = { [/* key */ key: string]?: /* value */ number };
+declare class C {
+  static [key: string]?: number;
+}
+
+================================================================================
+`;
+
+exports[`optional.js.flow format[hermes] 1`] = `
+"':' expected in indexer (1:32)
+> 1 | type Optional = { [key: string]?: number };
+    |                                ^
+  2 | type Readonly = { readonly [key: string]?: unknown };
+  3 | type Required = { [key: string]: number };
+  4 | type RequiredNumber = { [index: number]: string };
+Cause: ':' expected in indexer (1:31)
+type Optional = { [key: string]?: number };
+                  ~~~~~~~~~~~~~^"
+`;

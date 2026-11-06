@@ -1,5 +1,90 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments-before-body.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+component A() // comment
+{
+  return 1;
+}
+
+component B()
+// comment
+{
+  return 1;
+}
+
+component C() // comment
+{}
+
+component D(a: string) // comment
+{
+  return 1;
+}
+
+component E(...props: Props) // comment
+{
+  return 1;
+}
+
+component F<T>() renders Bar // comment
+{
+  return 1;
+}
+
+export default component G() // comment
+{
+  return 1;
+}
+
+component H() /* comment */ {
+  return 1;
+}
+
+=====================================output=====================================
+component A() {
+  // comment
+  return 1;
+}
+
+component B() {
+  // comment
+  return 1;
+}
+
+component C() {
+  // comment
+}
+
+component D(a: string) {
+  // comment
+  return 1;
+}
+
+component E(...props: Props) {
+  // comment
+  return 1;
+}
+
+component F<T>() renders Bar {
+  // comment
+  return 1;
+}
+
+export default component G() {
+  // comment
+  return 1;
+}
+
+component H() /* comment */ {
+  return 1;
+}
+
+================================================================================
+`;
+
 exports[`component-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

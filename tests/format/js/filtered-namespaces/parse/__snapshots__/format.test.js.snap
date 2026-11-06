@@ -1,0 +1,2435 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+export { /* e */ e } as ns2 from "x";
+
+=====================================output=====================================
+import { /* a */ a, /* b */ b /* c */ /* d */ } as ns from "x";
+export { /* e */ e } as ns2 from "x";
+
+================================================================================
+`;
+
+exports[`comments.js format[acorn] 1`] = `
+"Unexpected token (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: Unexpected token (1:48)"
+`;
+
+exports[`comments.js format[espree] 1`] = `
+"Unexpected token as (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`comments.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:48)"
+`;
+
+exports[`comments.js format[hermes] 1`] = `
+"'from' expected (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: 'from' expected (1:48)
+import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+                                                ^"
+`;
+
+exports[`comments.js format[meriyah] 1`] = `
+"Expected 'from' (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: [1:48-1:50]: Expected 'from'"
+`;
+
+exports[`comments.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments.js format[typescript] 1`] = `
+"'from' expected. (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |
+Cause: 'from' expected."
+`;
+
+exports[`comments.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:49)
+> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
+    |                                                 ^^
+  2 | export { /* e */ e } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments-trailing-comma.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a, /* a */ } as ns from "x";
+export { b, /* b */ } as ns2 from "x";
+
+=====================================output=====================================
+import { a /* a */ } as ns from "x";
+export { b /* b */ } as ns2 from "x";
+
+================================================================================
+`;
+
+exports[`comments-trailing-comma.js format[acorn] 1`] = `
+"Unexpected token (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`comments-trailing-comma.js format[espree] 1`] = `
+"Unexpected token as (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`comments-trailing-comma.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:22)"
+`;
+
+exports[`comments-trailing-comma.js format[hermes] 1`] = `
+"'from' expected (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: 'from' expected (1:22)
+import { a, /* a */ } as ns from "x";
+                      ^"
+`;
+
+exports[`comments-trailing-comma.js format[meriyah] 1`] = `
+"Expected 'from' (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: [1:22-1:24]: Expected 'from'"
+`;
+
+exports[`comments-trailing-comma.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments-trailing-comma.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments-trailing-comma.js format[typescript] 1`] = `
+"'from' expected. (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |
+Cause: 'from' expected."
+`;
+
+exports[`comments-trailing-comma.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |"
+`;
+
+exports[`comments-trailing-comma.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:23)
+> 1 | import { a, /* a */ } as ns from "x";
+    |                       ^^
+  2 | export { b, /* b */ } as ns2 from "x";
+  3 |"
+`;
+
+exports[`export-attributes.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export defer { a } as ns from "x" with { type: "json" };
+
+=====================================output=====================================
+export defer { a } as ns from "x" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`export-attributes.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`export-attributes.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`export-attributes.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`export-attributes.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer { a } as ns from "x" with { type: "json" };
+       ^~~~~"
+`;
+
+exports[`export-attributes.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`export-attributes.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-attributes.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-attributes.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-attributes.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-attributes.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a } as ns from "x" with { type: "json" };
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export defer { a, b } as ns from "x";
+
+=====================================output=====================================
+export defer { a, b } as ns from "x";
+
+================================================================================
+`;
+
+exports[`export-defer.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`export-defer.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`export-defer.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`export-defer.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer { a, b } as ns from "x";
+       ^~~~~"
+`;
+
+exports[`export-defer.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`export-defer.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export defer { a, b } as ns from "x";
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-defer.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export defer { a } as ns from "x";
+
+=====================================output=====================================
+export defer { a } as ns from "x";
+
+================================================================================
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[espree] 1`] = `
+"Unexpected token defer (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected token defer"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[flow] 1`] = `
+"Unexpected identifier, expected a declaration, statement or export specifiers (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^
+  2 |
+Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[hermes] 1`] = `
+"expected declaration in export (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^
+  2 |
+Cause: expected declaration in export (1:7)
+export defer { a } as ns from "x";
+       ^~~~~"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[oxc] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[typescript] 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export defer { a } as ns from "x";
+    | ^
+  2 |
+Cause: Declaration or statement expected."
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-defer-missing-namespace-import-filter.js format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer { a } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`export-duplicate.js format[__babel_estree] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`export-duplicate.js format[acorn] 1`] = `
+"Duplicate export 'a' (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate export 'a' (1:12)"
+`;
+
+exports[`export-duplicate.js format[babel] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`export-duplicate.js format[babel-ts] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`export-duplicate.js format[espree] 1`] = `
+"Duplicate export 'a' (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate export 'a'"
+`;
+
+exports[`export-duplicate.js format[flow] 1`] = `
+"Unexpected string, expected an identifier (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Unexpected string, expected an identifier (1:12)"
+`;
+
+exports[`export-duplicate.js format[hermes] 1`] = `
+"'identifier' expected in export clause (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: 'identifier' expected in export clause (1:12)
+export { a, "a" } as ns from "x";
+       ~~~~~^"
+`;
+
+exports[`export-duplicate.js format[meriyah] 1`] = `
+"A string literal cannot be used as an exported binding without \`from\` (1:19)
+> 1 | export { a, "a" } as ns from "x";
+    |                   ^^
+  2 |
+Cause: [1:18-1:20]: A string literal cannot be used as an exported binding without \`from\`"
+`;
+
+exports[`export-duplicate.js format[oxc] 1`] = `
+"A string literal cannot be used as an exported binding without \`from\` (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`export-duplicate.js format[oxc-ts] 1`] = `
+"A string literal cannot be used as an exported binding without \`from\` (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`export-duplicate.js format[typescript] 1`] = `
+"';' expected. (1:19)
+> 1 | export { a, "a" } as ns from "x";
+    |                   ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`export-duplicate.js format[yuku] 1`] = `
+"A string literal cannot be used as an exported binding without 'from' (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`export-duplicate.js format[yuku-ts] 1`] = `
+"A string literal cannot be used as an exported binding without 'from' (1:13)
+> 1 | export { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`export-duplicate-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export * as ns from "y";
+export { a } as ns from "x";
+
+=====================================output=====================================
+export * as ns from "y";
+export { a } as ns from "x";
+
+================================================================================
+`;
+
+exports[`export-duplicate-export.js format[acorn] 1`] = `
+"Unexpected token (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^
+  3 |
+Cause: Unexpected token (2:13)"
+`;
+
+exports[`export-duplicate-export.js format[espree] 1`] = `
+"Unexpected token as (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`export-duplicate-export.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`;\` (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^
+  3 |
+Cause: Unexpected identifier, expected the token \`;\` (2:13)"
+`;
+
+exports[`export-duplicate-export.js format[hermes] 1`] = `
+"';' expected (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^
+  3 |
+Cause: ';' expected (2:13)
+export { a } as ns from "x";
+             ^"
+`;
+
+exports[`export-duplicate-export.js format[meriyah] 1`] = `
+"Unexpected token: 'as' (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^^
+  3 |
+Cause: [2:13-2:15]: Unexpected token: 'as'"
+`;
+
+exports[`export-duplicate-export.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:13)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |             ^
+  3 |"
+`;
+
+exports[`export-duplicate-export.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:13)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |             ^
+  3 |"
+`;
+
+exports[`export-duplicate-export.js format[typescript] 1`] = `
+"';' expected. (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^
+  3 |
+Cause: ';' expected."
+`;
+
+exports[`export-duplicate-export.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'as' (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^^
+  3 |"
+`;
+
+exports[`export-duplicate-export.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'as' (2:14)
+  1 | export * as ns from "y";
+> 2 | export { a } as ns from "x";
+    |              ^^
+  3 |"
+`;
+
+exports[`export-empty.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export {} as ns from "x";
+
+=====================================output=====================================
+export {} as ns from "x";
+
+================================================================================
+`;
+
+exports[`export-empty.js format[acorn] 1`] = `
+"Unexpected token (1:11)
+> 1 | export {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected token (1:10)"
+`;
+
+exports[`export-empty.js format[espree] 1`] = `
+"Unexpected token as (1:11)
+> 1 | export {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`export-empty.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`;\` (1:11)
+> 1 | export {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected identifier, expected the token \`;\` (1:10)"
+`;
+
+exports[`export-empty.js format[hermes] 1`] = `
+"';' expected (1:11)
+> 1 | export {} as ns from "x";
+    |           ^
+  2 |
+Cause: ';' expected (1:10)
+export {} as ns from "x";
+          ^"
+`;
+
+exports[`export-empty.js format[meriyah] 1`] = `
+"Unexpected token: 'as' (1:11)
+> 1 | export {} as ns from "x";
+    |           ^^
+  2 |
+Cause: [1:10-1:12]: Unexpected token: 'as'"
+`;
+
+exports[`export-empty.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:10)
+> 1 | export {} as ns from "x";
+    |          ^
+  2 |"
+`;
+
+exports[`export-empty.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:10)
+> 1 | export {} as ns from "x";
+    |          ^
+  2 |"
+`;
+
+exports[`export-empty.js format[typescript] 1`] = `
+"';' expected. (1:11)
+> 1 | export {} as ns from "x";
+    |           ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`export-empty.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:11)
+> 1 | export {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`export-empty.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:11)
+> 1 | export {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`export-module-export-names.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export { default, if, "string name" } as "string ns" from "x";
+
+=====================================output=====================================
+export { default, if, "string name" } as "string ns" from "x";
+
+================================================================================
+`;
+
+exports[`export-module-export-names.js format[acorn] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default' (1:9)"
+`;
+
+exports[`export-module-export-names.js format[espree] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default'"
+`;
+
+exports[`export-module-export-names.js format[flow] 1`] = `
+"Unexpected string, expected an identifier (1:23)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |                       ^
+  2 |
+Cause: Unexpected string, expected an identifier (1:22)"
+`;
+
+exports[`export-module-export-names.js format[hermes] 1`] = `
+"'identifier' expected in export clause (1:23)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |                       ^
+  2 |
+Cause: 'identifier' expected in export clause (1:22)
+export { default, if, "string name" } as "string ns" from "x";
+       ~~~~~~~~~~~~~~~^"
+`;
+
+exports[`export-module-export-names.js format[meriyah] 1`] = `
+"A string literal cannot be used as an exported binding without \`from\` (1:39)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |                                       ^^
+  2 |
+Cause: [1:38-1:40]: A string literal cannot be used as an exported binding without \`from\`"
+`;
+
+exports[`export-module-export-names.js format[oxc] 1`] = `
+"A reserved word cannot be used as an exported binding without \`from\` (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`export-module-export-names.js format[oxc-ts] 1`] = `
+"A reserved word cannot be used as an exported binding without \`from\` (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`export-module-export-names.js format[typescript] 1`] = `
+"';' expected. (1:39)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |                                       ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`export-module-export-names.js format[yuku] 1`] = `
+"A reserved word cannot be used as an exported binding without 'from' (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`export-module-export-names.js format[yuku-ts] 1`] = `
+"A reserved word cannot be used as an exported binding without 'from' (1:10)
+> 1 | export { default, if, "string name" } as "string ns" from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`export-newline-as.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export { a }
+as(1);
+var a;
+
+=====================================output=====================================
+export { a };
+as(1);
+var a;
+
+================================================================================
+`;
+
+exports[`export-newline-as-from.js format[__babel_estree] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
+`;
+
+exports[`export-newline-as-from.js format[acorn] 1`] = `
+"Unexpected token (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^
+  3 |
+Cause: Unexpected token (2:3)"
+`;
+
+exports[`export-newline-as-from.js format[babel] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
+`;
+
+exports[`export-newline-as-from.js format[babel-ts] 1`] = `
+"Missing semicolon. (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |
+Cause: Missing semicolon. (2:2)"
+`;
+
+exports[`export-newline-as-from.js format[espree] 1`] = `
+"Unexpected token ns (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^
+  3 |
+Cause: Unexpected token ns"
+`;
+
+exports[`export-newline-as-from.js format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^
+  3 |
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:3)"
+`;
+
+exports[`export-newline-as-from.js format[hermes] 1`] = `
+"';' expected (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^
+  3 |
+Cause: ';' expected (2:3)
+as ns from "x";
+   ^"
+`;
+
+exports[`export-newline-as-from.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^^
+  3 |
+Cause: [2:3-2:5]: Unexpected token: 'identifier'"
+`;
+
+exports[`export-newline-as-from.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |"
+`;
+
+exports[`export-newline-as-from.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:3)
+  1 | export { a }
+> 2 | as ns from "x";
+    |   ^
+  3 |"
+`;
+
+exports[`export-newline-as-from.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (2:1)
+  1 | export { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: Unexpected keyword or identifier."
+`;
+
+exports[`export-newline-as-from.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'ns' (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^^
+  3 |"
+`;
+
+exports[`export-newline-as-from.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'ns' (2:4)
+  1 | export { a }
+> 2 | as ns from "x";
+    |    ^^
+  3 |"
+`;
+
+exports[`export-rename.js format[__babel_estree] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`export-rename.js format[acorn] 1`] = `
+"Unexpected token (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected token (1:18)"
+`;
+
+exports[`export-rename.js format[babel] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`export-rename.js format[babel-ts] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | export { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`export-rename.js format[espree] 1`] = `
+"Unexpected token as (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`export-rename.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`;\` (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected identifier, expected the token \`;\` (1:18)"
+`;
+
+exports[`export-rename.js format[hermes] 1`] = `
+"';' expected (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: ';' expected (1:18)
+export { a as b } as ns from "x";
+                  ^"
+`;
+
+exports[`export-rename.js format[meriyah] 1`] = `
+"Unexpected token: 'as' (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^^
+  2 |
+Cause: [1:18-1:20]: Unexpected token: 'as'"
+`;
+
+exports[`export-rename.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:18)
+> 1 | export { a as b } as ns from "x";
+    |                  ^
+  2 |"
+`;
+
+exports[`export-rename.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:18)
+> 1 | export { a as b } as ns from "x";
+    |                  ^
+  2 |"
+`;
+
+exports[`export-rename.js format[typescript] 1`] = `
+"';' expected. (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`export-rename.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`export-rename.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:19)
+> 1 | export { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`export-without-from.js format[__babel_estree] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
+`;
+
+exports[`export-without-from.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | export { a } as ns;
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`export-without-from.js format[babel] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
+`;
+
+exports[`export-without-from.js format[babel-ts] 1`] = `
+"Unexpected token, expected "from" (1:19)
+> 1 | export { a } as ns;
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "from" (1:18)"
+`;
+
+exports[`export-without-from.js format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | export { a } as ns;
+    |              ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`export-without-from.js format[flow] 1`] = `
+"Unexpected identifier, expected the token \`;\` (1:14)
+> 1 | export { a } as ns;
+    |              ^
+  2 |
+Cause: Unexpected identifier, expected the token \`;\` (1:13)"
+`;
+
+exports[`export-without-from.js format[hermes] 1`] = `
+"';' expected (1:14)
+> 1 | export { a } as ns;
+    |              ^
+  2 |
+Cause: ';' expected (1:13)
+export { a } as ns;
+             ^"
+`;
+
+exports[`export-without-from.js format[meriyah] 1`] = `
+"Unexpected token: 'as' (1:14)
+> 1 | export { a } as ns;
+    |              ^^
+  2 |
+Cause: [1:13-1:15]: Unexpected token: 'as'"
+`;
+
+exports[`export-without-from.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:13)
+> 1 | export { a } as ns;
+    |             ^
+  2 |"
+`;
+
+exports[`export-without-from.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:13)
+> 1 | export { a } as ns;
+    |             ^
+  2 |"
+`;
+
+exports[`export-without-from.js format[typescript] 1`] = `
+"';' expected. (1:14)
+> 1 | export { a } as ns;
+    |              ^
+  2 |
+Cause: ';' expected."
+`;
+
+exports[`export-without-from.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:14)
+> 1 | export { a } as ns;
+    |              ^^
+  2 |"
+`;
+
+exports[`export-without-from.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'as' (1:14)
+> 1 | export { a } as ns;
+    |              ^^
+  2 |"
+`;
+
+exports[`filtered-namespaces.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a, b } as ns1 from "x";
+import defer { a, "b c" } as ns2 from "x";
+import d, { default } as ns3 from "x";
+import {} as ns4 from "x";
+export { a, b } as ns5 from "y";
+export defer { a, "b c" } as "ns 6" from "y" with { type: "json" };
+
+=====================================output=====================================
+import { a, b } as ns1 from "x";
+import defer { a, "b c" } as ns2 from "x";
+import d, { default } as ns3 from "x";
+import {} as ns4 from "x";
+export { a, b } as ns5 from "y";
+export defer { a, "b c" } as "ns 6" from "y" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`filtered-namespaces.js format[acorn] 1`] = `
+"Unexpected token (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: Unexpected token (1:16)"
+`;
+
+exports[`filtered-namespaces.js format[espree] 1`] = `
+"Unexpected token as (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: Unexpected token as"
+`;
+
+exports[`filtered-namespaces.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: Unexpected identifier, expected the keyword \`from\` (1:16)"
+`;
+
+exports[`filtered-namespaces.js format[hermes] 1`] = `
+"'from' expected (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: 'from' expected (1:16)
+import { a, b } as ns1 from "x";
+                ^"
+`;
+
+exports[`filtered-namespaces.js format[meriyah] 1`] = `
+"Expected 'from' (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: [1:16-1:18]: Expected 'from'"
+`;
+
+exports[`filtered-namespaces.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";"
+`;
+
+exports[`filtered-namespaces.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";"
+`;
+
+exports[`filtered-namespaces.js format[typescript] 1`] = `
+"'from' expected. (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";
+Cause: 'from' expected."
+`;
+
+exports[`filtered-namespaces.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";"
+`;
+
+exports[`filtered-namespaces.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:17)
+> 1 | import { a, b } as ns1 from "x";
+    |                 ^^
+  2 | import defer { a, "b c" } as ns2 from "x";
+  3 | import d, { default } as ns3 from "x";
+  4 | import {} as ns4 from "x";"
+`;
+
+exports[`import-attributes.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a } as ns from "x" with { type: "json" };
+
+=====================================output=====================================
+import { a } as ns from "x" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`import-attributes.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`import-attributes.js format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-attributes.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`import-attributes.js format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^
+  2 |
+Cause: 'from' expected (1:13)
+import { a } as ns from "x" with { type: "json" };
+             ^"
+`;
+
+exports[`import-attributes.js format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^^
+  2 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`import-attributes.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^^
+  2 |"
+`;
+
+exports[`import-attributes.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^^
+  2 |"
+`;
+
+exports[`import-attributes.js format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`import-attributes.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^^
+  2 |"
+`;
+
+exports[`import-attributes.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x" with { type: "json" };
+    |              ^^
+  2 |"
+`;
+
+exports[`import-default.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import d, { a } as ns from "x";
+
+=====================================output=====================================
+import d, { a } as ns from "x";
+
+================================================================================
+`;
+
+exports[`import-default.js format[acorn] 1`] = `
+"Unexpected token (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^
+  2 |
+Cause: Unexpected token (1:16)"
+`;
+
+exports[`import-default.js format[espree] 1`] = `
+"Unexpected token as (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-default.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:16)"
+`;
+
+exports[`import-default.js format[hermes] 1`] = `
+"'from' expected (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^
+  2 |
+Cause: 'from' expected (1:16)
+import d, { a } as ns from "x";
+                ^"
+`;
+
+exports[`import-default.js format[meriyah] 1`] = `
+"Expected 'from' (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^^
+  2 |
+Cause: [1:16-1:18]: Expected 'from'"
+`;
+
+exports[`import-default.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^^
+  2 |"
+`;
+
+exports[`import-default.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^^
+  2 |"
+`;
+
+exports[`import-default.js format[typescript] 1`] = `
+"'from' expected. (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`import-default.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^^
+  2 |"
+`;
+
+exports[`import-default.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:17)
+> 1 | import d, { a } as ns from "x";
+    |                 ^^
+  2 |"
+`;
+
+exports[`import-defer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import defer { a, b } as ns from "x";
+
+=====================================output=====================================
+import defer { a, b } as ns from "x";
+
+================================================================================
+`;
+
+exports[`import-defer.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`import-defer.js format[espree] 1`] = `
+"Unexpected token { (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |
+Cause: Unexpected token {"
+`;
+
+exports[`import-defer.js format[flow] 1`] = `
+"Only \`import defer * as ns from "module"\` is valid (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |
+Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
+`;
+
+exports[`import-defer.js format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |
+Cause: 'from' expected (1:13)
+import defer { a, b } as ns from "x";
+             ^"
+`;
+
+exports[`import-defer.js format[meriyah] 1`] = `
+"'import defer' must be followed by a namespace import (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |
+Cause: [1:13-1:14]: 'import defer' must be followed by a namespace import"
+`;
+
+exports[`import-defer.js format[oxc] 1`] = `
+"Named imports are not allowed in a deferred import. (1:8)
+> 1 | import defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`import-defer.js format[oxc-ts] 1`] = `
+"Named imports are not allowed in a deferred import. (1:8)
+> 1 | import defer { a, b } as ns from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`import-defer.js format[typescript] 1`] = `
+"'from' expected. (1:23)
+> 1 | import defer { a, b } as ns from "x";
+    |                       ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`import-defer.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found '{' (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`import-defer.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found '{' (1:14)
+> 1 | import defer { a, b } as ns from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`import-duplicate.js format[__babel_estree] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`import-duplicate.js format[acorn] 1`] = `
+"Binding rvalue (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Binding rvalue (1:12)"
+`;
+
+exports[`import-duplicate.js format[babel] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`import-duplicate.js format[babel-ts] 1`] = `
+"Duplicate name 'a' in filtered namespace. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Duplicate name 'a' in filtered namespace. (1:12)"
+`;
+
+exports[`import-duplicate.js format[espree] 1`] = `
+"Binding rvalue (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Binding rvalue"
+`;
+
+exports[`import-duplicate.js format[flow] 1`] = `
+"Unexpected string, expected an identifier (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Unexpected string, expected an identifier (1:12)"
+`;
+
+exports[`import-duplicate.js format[hermes] 1`] = `
+"'identifier' expected in import specifier (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: 'identifier' expected in import specifier (1:12)
+import { a, "a" } as ns from "x";
+       ~~~~~^"
+`;
+
+exports[`import-duplicate.js format[meriyah] 1`] = `
+"Expected 'as' (1:17)
+> 1 | import { a, "a" } as ns from "x";
+    |                 ^
+  2 |
+Cause: [1:16-1:17]: Expected 'as'"
+`;
+
+exports[`import-duplicate.js format[oxc] 1`] = `
+"Identifier expected. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`import-duplicate.js format[oxc-ts] 1`] = `
+"Identifier expected. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`import-duplicate.js format[typescript] 1`] = `
+"Identifier expected. (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^
+  2 |
+Cause: Identifier expected."
+`;
+
+exports[`import-duplicate.js format[yuku] 1`] = `
+"A string literal import name requires an 'as' clause (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`import-duplicate.js format[yuku-ts] 1`] = `
+"A string literal import name requires an 'as' clause (1:13)
+> 1 | import { a, "a" } as ns from "x";
+    |             ^^^
+  2 |"
+`;
+
+exports[`import-duplicate-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a } as ns from "x";
+import ns from "y";
+
+=====================================output=====================================
+import { a } as ns from "x";
+import ns from "y";
+
+================================================================================
+`;
+
+exports[`import-duplicate-binding.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | import ns from "y";
+  3 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`import-duplicate-binding.js format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | import ns from "y";
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-duplicate-binding.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | import ns from "y";
+  3 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`import-duplicate-binding.js format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | import ns from "y";
+  3 |
+Cause: 'from' expected (1:13)
+import { a } as ns from "x";
+             ^"
+`;
+
+exports[`import-duplicate-binding.js format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | import ns from "y";
+  3 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`import-duplicate-binding.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | import ns from "y";
+  3 |"
+`;
+
+exports[`import-duplicate-binding.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | import ns from "y";
+  3 |"
+`;
+
+exports[`import-duplicate-binding.js format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | import ns from "y";
+  3 |
+Cause: 'from' expected."
+`;
+
+exports[`import-duplicate-binding.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | import ns from "y";
+  3 |"
+`;
+
+exports[`import-duplicate-binding.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | import ns from "y";
+  3 |"
+`;
+
+exports[`import-empty.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {} as ns from "x";
+
+=====================================output=====================================
+import {} as ns from "x";
+
+================================================================================
+`;
+
+exports[`import-empty.js format[acorn] 1`] = `
+"Unexpected token (1:11)
+> 1 | import {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected token (1:10)"
+`;
+
+exports[`import-empty.js format[espree] 1`] = `
+"Unexpected token as (1:11)
+> 1 | import {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-empty.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:11)
+> 1 | import {} as ns from "x";
+    |           ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:10)"
+`;
+
+exports[`import-empty.js format[hermes] 1`] = `
+"'from' expected (1:11)
+> 1 | import {} as ns from "x";
+    |           ^
+  2 |
+Cause: 'from' expected (1:10)
+import {} as ns from "x";
+          ^"
+`;
+
+exports[`import-empty.js format[meriyah] 1`] = `
+"Expected 'from' (1:11)
+> 1 | import {} as ns from "x";
+    |           ^^
+  2 |
+Cause: [1:10-1:12]: Expected 'from'"
+`;
+
+exports[`import-empty.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:11)
+> 1 | import {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`import-empty.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:11)
+> 1 | import {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`import-empty.js format[typescript] 1`] = `
+"'from' expected. (1:11)
+> 1 | import {} as ns from "x";
+    |           ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`import-empty.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:11)
+> 1 | import {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`import-empty.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:11)
+> 1 | import {} as ns from "x";
+    |           ^^
+  2 |"
+`;
+
+exports[`import-module-export-names.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { default, if, "string name" } as ns from "x";
+
+=====================================output=====================================
+import { default, if, "string name" } as ns from "x";
+
+================================================================================
+`;
+
+exports[`import-module-export-names.js format[acorn] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default' (1:9)"
+`;
+
+exports[`import-module-export-names.js format[espree] 1`] = `
+"Unexpected keyword 'default' (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^
+  2 |
+Cause: Unexpected keyword 'default'"
+`;
+
+exports[`import-module-export-names.js format[flow] 1`] = `
+"Unexpected reserved word (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^
+  2 |
+Cause: Unexpected reserved word (1:9)"
+`;
+
+exports[`import-module-export-names.js format[hermes] 1`] = `
+"Invalid local name for import (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^
+  2 |
+Cause: Invalid local name for import (1:9)
+import { default, if, "string name" } as ns from "x";
+         ^~~~~~~"
+`;
+
+exports[`import-module-export-names.js format[meriyah] 1`] = `
+"Invalid keyword (1:17)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |                 ^
+  2 |
+Cause: [1:16-1:17]: Invalid keyword"
+`;
+
+exports[`import-module-export-names.js format[oxc] 1`] = `
+"Identifier expected. 'default' is a reserved word that cannot be used here. (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-module-export-names.js format[oxc-ts] 1`] = `
+"Identifier expected. 'default' is a reserved word that cannot be used here. (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-module-export-names.js format[typescript] 1`] = `
+"Identifier expected. (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^
+  2 |
+Cause: Identifier expected."
+`;
+
+exports[`import-module-export-names.js format[yuku] 1`] = `
+"'default' is a reserved word and cannot be used as an imported binding (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-module-export-names.js format[yuku-ts] 1`] = `
+"'default' is a reserved word and cannot be used as an imported binding (1:10)
+> 1 | import { default, if, "string name" } as ns from "x";
+    |          ^^^^^^^
+  2 |"
+`;
+
+exports[`import-newline-as.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a }
+as ns from "x";
+
+=====================================output=====================================
+import { a } as ns from "x";
+
+================================================================================
+`;
+
+exports[`import-newline-as.js format[acorn] 1`] = `
+"Unexpected token (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: Unexpected token (2:0)"
+`;
+
+exports[`import-newline-as.js format[espree] 1`] = `
+"Unexpected token as (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-newline-as.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: Unexpected identifier, expected the keyword \`from\` (2:0)"
+`;
+
+exports[`import-newline-as.js format[hermes] 1`] = `
+"'from' expected (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: 'from' expected (2:0)
+as ns from "x";
+^"
+`;
+
+exports[`import-newline-as.js format[meriyah] 1`] = `
+"Expected 'from' (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^^
+  3 |
+Cause: [2:0-2:2]: Expected 'from'"
+`;
+
+exports[`import-newline-as.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^^
+  3 |"
+`;
+
+exports[`import-newline-as.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^^
+  3 |"
+`;
+
+exports[`import-newline-as.js format[typescript] 1`] = `
+"'from' expected. (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^
+  3 |
+Cause: 'from' expected."
+`;
+
+exports[`import-newline-as.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^^
+  3 |"
+`;
+
+exports[`import-newline-as.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (2:1)
+  1 | import { a }
+> 2 | as ns from "x";
+    | ^^
+  3 |"
+`;
+
+exports[`import-not-bindings.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a } as ns from "x";
+let a;
+
+=====================================output=====================================
+import { a } as ns from "x";
+let a;
+
+================================================================================
+`;
+
+exports[`import-not-bindings.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | let a;
+  3 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`import-not-bindings.js format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | let a;
+  3 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-not-bindings.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | let a;
+  3 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`import-not-bindings.js format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | let a;
+  3 |
+Cause: 'from' expected (1:13)
+import { a } as ns from "x";
+             ^"
+`;
+
+exports[`import-not-bindings.js format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | let a;
+  3 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`import-not-bindings.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | let a;
+  3 |"
+`;
+
+exports[`import-not-bindings.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | let a;
+  3 |"
+`;
+
+exports[`import-not-bindings.js format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^
+  2 | let a;
+  3 |
+Cause: 'from' expected."
+`;
+
+exports[`import-not-bindings.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | let a;
+  3 |"
+`;
+
+exports[`import-not-bindings.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import { a } as ns from "x";
+    |              ^^
+  2 | let a;
+  3 |"
+`;
+
+exports[`import-rename.js format[__babel_estree] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`import-rename.js format[acorn] 1`] = `
+"Unexpected token (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected token (1:18)"
+`;
+
+exports[`import-rename.js format[babel] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`import-rename.js format[babel-ts] 1`] = `
+"Names in a filtered namespace cannot be renamed using \`as\`. (1:15)
+> 1 | import { a as b } as ns from "x";
+    |               ^
+  2 |
+Cause: Names in a filtered namespace cannot be renamed using \`as\`. (1:14)"
+`;
+
+exports[`import-rename.js format[espree] 1`] = `
+"Unexpected token as (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected token as"
+`;
+
+exports[`import-rename.js format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:18)"
+`;
+
+exports[`import-rename.js format[hermes] 1`] = `
+"'from' expected (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: 'from' expected (1:18)
+import { a as b } as ns from "x";
+                  ^"
+`;
+
+exports[`import-rename.js format[meriyah] 1`] = `
+"Expected 'from' (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^^
+  2 |
+Cause: [1:18-1:20]: Expected 'from'"
+`;
+
+exports[`import-rename.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`import-rename.js format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`import-rename.js format[typescript] 1`] = `
+"'from' expected. (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^
+  2 |
+Cause: 'from' expected."
+`;
+
+exports[`import-rename.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`import-rename.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:19)
+> 1 | import { a as b } as ns from "x";
+    |                   ^^
+  2 |"
+`;
+
+exports[`import-source-phase.js format[__babel_estree] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
+`;
+
+exports[`import-source-phase.js format[acorn] 1`] = `
+"Unexpected token (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: Unexpected token (1:14)"
+`;
+
+exports[`import-source-phase.js format[babel] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
+`;
+
+exports[`import-source-phase.js format[babel-ts] 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:1)
+> 1 | import source { a } as ns from "x";
+    | ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:0)"
+`;
+
+exports[`import-source-phase.js format[espree] 1`] = `
+"Unexpected token { (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: Unexpected token {"
+`;
+
+exports[`import-source-phase.js format[flow] 1`] = `
+"Unexpected token \`{\`, expected the keyword \`from\` (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: Unexpected token \`{\`, expected the keyword \`from\` (1:14)"
+`;
+
+exports[`import-source-phase.js format[hermes] 1`] = `
+"'from' expected (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: 'from' expected (1:14)
+import source { a } as ns from "x";
+              ^"
+`;
+
+exports[`import-source-phase.js format[meriyah] 1`] = `
+"'import source' must be followed by a default import (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: [1:14-1:15]: 'import source' must be followed by a default import"
+`;
+
+exports[`import-source-phase.js format[oxc] 1`] = `
+"Only a single default import is allowed in a source phase import. (1:8)
+> 1 | import source { a } as ns from "x";
+    |        ^^^^^^
+  2 |"
+`;
+
+exports[`import-source-phase.js format[oxc-ts] 1`] = `
+"Only a single default import is allowed in a source phase import. (1:8)
+> 1 | import source { a } as ns from "x";
+    |        ^^^^^^
+  2 |"
+`;
+
+exports[`import-source-phase.js format[typescript] 1`] = `
+"'=' expected. (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |
+Cause: '=' expected."
+`;
+
+exports[`import-source-phase.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found '{' (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |"
+`;
+
+exports[`import-source-phase.js format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found '{' (1:15)
+> 1 | import source { a } as ns from "x";
+    |               ^
+  2 |"
+`;
+
+exports[`named-import-duplicate-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { a, a } from "x";
+
+=====================================output=====================================
+import { a, a } from "x";
+
+================================================================================
+`;
+
+exports[`named-import-duplicate-binding.js format[acorn] 1`] = `
+"Identifier 'a' has already been declared (1:13)
+> 1 | import { a, a } from "x";
+    |             ^
+  2 |
+Cause: Identifier 'a' has already been declared (1:12)"
+`;
+
+exports[`named-import-duplicate-binding.js format[espree] 1`] = `
+"Identifier 'a' has already been declared (1:13)
+> 1 | import { a, a } from "x";
+    |             ^
+  2 |
+Cause: Identifier 'a' has already been declared"
+`;
+
+exports[`named-import-duplicate-binding.js format[hermes] 1`] = `
+"Duplicate entry in import declaration list (1:13)
+> 1 | import { a, a } from "x";
+    |             ^
+  2 |
+Cause: Duplicate entry in import declaration list (1:12)
+import { a, a } from "x";
+            ^
+note: first usage of name (1:9)
+import { a, a } from "x";
+         ^"
+`;

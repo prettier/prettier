@@ -168,7 +168,7 @@ Cause: Hexadecimal digit expected."
 `;
 
 exports[`text.js format[yuku] 1`] = `
-"Bad escape sequence in untagged template literal (6:18)
+"Invalid escape sequence in an untagged template literal (6:18)
   4 | foo = markdown\`\\u{prettier}\\u{0065}\`;
   5 | foo = css\`\\u{prettier}\\u{0065}\`;
 > 6 | foo = /* HTML */\`\\u{prettier}\\u{0065}\`;
@@ -179,7 +179,7 @@ exports[`text.js format[yuku] 1`] = `
 `;
 
 exports[`text.js format[yuku-ts] 1`] = `
-"Bad escape sequence in untagged template literal (6:18)
+"Invalid escape sequence in an untagged template literal (6:18)
   4 | foo = markdown\`\\u{prettier}\\u{0065}\`;
   5 | foo = css\`\\u{prettier}\\u{0065}\`;
 > 6 | foo = /* HTML */\`\\u{prettier}\\u{0065}\`;

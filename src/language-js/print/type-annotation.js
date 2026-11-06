@@ -99,6 +99,12 @@ const getTypeAnnotationFirstToken = (path) => {
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
       (node, key) => key === "id" && node.type === "DeclareFunction",
     ) ||
+    // Anonymous ambient default-export functions carry the signature directly.
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) =>
+        key === "typeAnnotation" && node.type === "DeclareFunction",
+    ) ||
     /*
     Flow
     ```js

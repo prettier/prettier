@@ -198,7 +198,7 @@ Cause: Expression expected."
 `;
 
 exports[`do-expression.js format[yuku] 1`] = `
-"'do' is reserved and cannot be used as an identifier (1:2)
+"'do' is a reserved word and cannot be used as an identifier (1:2)
 > 1 | (do {});
     |  ^^
   2 | (async do {});
@@ -207,7 +207,7 @@ exports[`do-expression.js format[yuku] 1`] = `
 `;
 
 exports[`do-expression.js format[yuku-ts] 1`] = `
-"'do' is reserved and cannot be used as an identifier (1:2)
+"'do' is a reserved word and cannot be used as an identifier (1:2)
 > 1 | (do {});
     |  ^^
   2 | (async do {});
