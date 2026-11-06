@@ -918,7 +918,9 @@ function needsParentheses(path, options) {
           (isNonNullExpression(parent) ||
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" &&
-          (isClass(parent) || parent.type === "StructDeclaration"))
+          (isClass(parent) || parent.type === "StructDeclaration")) ||
+        ((key === "left" || key === "right") &&
+          parent.type === "BinaryExpression")
       ) {
         return true;
       }
