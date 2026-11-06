@@ -108,16 +108,6 @@ function needsParentheses(path, options) {
     return parentCheckResult;
   }
 
-  if (
-    parent.type === "BinaryExpression" &&
-    (key === "left" ||
-      (key === "right" &&
-        !(parent.operator === "instanceof" || parent.operator === "in"))) &&
-    endsWithInstantiationExpression(node)
-  ) {
-    return true;
-  }
-
   switch (node.type) {
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
@@ -1022,20 +1012,6 @@ function isPathInForStatementInitializer(path) {
 
 function endsWithRightBracket(node) {
   return isObjectExpression(node);
-}
-
-// `typeof a<T> + b` is read as `(typeof a < T) > +b`
-function endsWithInstantiationExpression(node) {
-  switch (node.type) {
-    case "TSInstantiationExpression":
-      return true;
-    case "UnaryExpression":
-      return endsWithInstantiationExpression(node.argument);
-    case "TSTypeAssertion":
-      return endsWithInstantiationExpression(node.expression);
-    default:
-      return false;
-  }
 }
 
 /**
