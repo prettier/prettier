@@ -1,4 +1,7 @@
-import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
+import {
+  shouldExpressionStatementPrintLeadingSemicolon,
+  shouldIgnoredExpressionStatementPrintLeadingSemicolon,
+} from "../semicolon/semicolon.js";
 import { CommentCheckFlags, getComments } from "./comments.js";
 import { isTypeCastComment } from "./is-type-cast-comment.js";
 
@@ -7,16 +10,29 @@ function shouldExpressionStatementPrintOwnComments(path, options) {
     return false;
   }
 
-  // Note: this causes the following print differently
-  // `;/** @type {string[]} */ ([]).forEach(foo)`
-  // `;/* normal comment */ ([]).forEach(foo)`
-  // We may want consider remove the `isTypeCastComment` check
-  const lastComment = getComments(path.node, CommentCheckFlags.Leading).at(-1);
-  if (lastComment && isTypeCastComment(lastComment)) {
-    return true;
-  }
-
-  return false;
+  return isLastLeadingCommentTypeCast(path.node);
 }
 
-export { shouldExpressionStatementPrintOwnComments };
+// A `prettier-ignore`d statement prints `;` before its verbatim text,
+// which would separate the type cast comment from the parenthesized expression
+function shouldIgnoredExpressionStatementPrintOwnComments(path, options) {
+  return (
+    path.node.type === "ExpressionStatement" &&
+    shouldIgnoredExpressionStatementPrintLeadingSemicolon(path, options) &&
+    isLastLeadingCommentTypeCast(path.node)
+  );
+}
+
+// Note: this causes the following print differently
+// `;/** @type {string[]} */ ([]).forEach(foo)`
+// `;/* normal comment */ ([]).forEach(foo)`
+// We may want consider remove the `isTypeCastComment` check
+function isLastLeadingCommentTypeCast(node) {
+  const lastComment = getComments(node, CommentCheckFlags.Leading).at(-1);
+  return Boolean(lastComment && isTypeCastComment(lastComment));
+}
+
+export {
+  shouldExpressionStatementPrintOwnComments,
+  shouldIgnoredExpressionStatementPrintOwnComments,
+};
