@@ -1,0 +1,62 @@
+"""
+*  Schema description
+"""
+schema { query: Query }
+
+"""
+*  Type description
+"""
+type Query {
+  """
+  A field example:
+  ```javascript
+  const user={name:"Ada",age:30};console.log(user)
+  ```
+  """
+  user(
+    """
+    *  Argument description
+    ```json
+    {"id":1}
+    ```
+    """
+    id: ID
+  ): User
+}
+
+"""
+*  Input description
+"""
+input UserInput {
+  """
+  ```css
+  .name{color:red;padding:0  1px}
+  ```
+  """
+  name: String
+}
+
+"""
+*  Interface description
+"""
+interface Named { name: String }
+
+"""
+*  Union description
+"""
+union Result = User | Query
+
+"""
+*  Enum description
+"""
+enum Status {
+  """
+  *  Enum value description
+  """
+  ACTIVE
+}
+
+"""
+*  Directive description
+"""
+directive @example(value: String) on FIELD_DEFINITION

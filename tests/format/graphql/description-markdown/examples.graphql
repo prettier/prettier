@@ -1,0 +1,14 @@
+"""
+## Example Request
+
+```graphql
+query{a}
+```
+
+## Example Response
+
+```json
+{"a":42}
+```
+"""
+type Query { a: Int! }
