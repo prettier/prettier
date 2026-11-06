@@ -1,4 +1,4 @@
-import { group } from "../../document/index.js";
+import { align, group, lineSuffixBoundary } from "../../document/index.js";
 import { printForXStatementBody } from "./clause.js";
 
 function printForXStatement(path, options, print) {
@@ -9,6 +9,7 @@ function printForXStatement(path, options, print) {
     isForOfStatement && node.await ? " await" : "",
     " (",
     print("left"),
+    align(1, lineSuffixBoundary),
     " ",
     isForOfStatement ? "of" : "in",
     " ",
