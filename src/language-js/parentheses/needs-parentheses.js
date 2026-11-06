@@ -108,6 +108,16 @@ function needsParentheses(path, options) {
     return parentCheckResult;
   }
 
+  if (
+    parent.type === "BinaryExpression" &&
+    (key === "left" ||
+      (key === "right" &&
+        !(parent.operator === "instanceof" || parent.operator === "in"))) &&
+    endsWithInstantiationExpression(node)
+  ) {
+    return true;
+  }
+
   switch (node.type) {
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
@@ -150,10 +160,6 @@ function needsParentheses(path, options) {
             node.type === "UnaryExpression" &&
             (parent.operator === "in" || parent.operator === "instanceof")
           ) {
-            return true;
-          }
-
-          if (endsWithInstantiationExpression(node)) {
             return true;
           }
 
@@ -260,13 +266,6 @@ function needsParentheses(path, options) {
         case "BinaryExpression": {
           const { operator, type } = node;
           if (!operator && type !== "TSTypeAssertion") {
-            return true;
-          }
-
-          if (
-            parent.type === "BinaryExpression" &&
-            endsWithInstantiationExpression(node)
-          ) {
             return true;
           }
 
@@ -929,9 +928,7 @@ function needsParentheses(path, options) {
           (isNonNullExpression(parent) ||
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" &&
-          (isClass(parent) || parent.type === "StructDeclaration")) ||
-        ((key === "left" || key === "right") &&
-          parent.type === "BinaryExpression")
+          (isClass(parent) || parent.type === "StructDeclaration"))
       ) {
         return true;
       }
