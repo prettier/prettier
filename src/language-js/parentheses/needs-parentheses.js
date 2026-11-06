@@ -919,7 +919,7 @@ function needsParentheses(path, options) {
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" &&
           (isClass(parent) || parent.type === "StructDeclaration")) ||
-        parent.type === "BinaryExpression"
+        ((key === "left" || key === "right") && parent.type === "BinaryExpression")
       ) {
         return true;
       }
