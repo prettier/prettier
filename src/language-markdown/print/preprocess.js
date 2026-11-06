@@ -212,6 +212,16 @@ function splitTextIntoSentences(ast) {
           text = htmlWhitespace.trimEnd(text);
         }
       }
+
+      // An indented GFM table delimiter is paragraph text, not a table. Escape
+      // its leading pipe so formatting cannot turn it into a table on a later
+      // pass after paragraph indentation has been normalized.
+      if (parentNode?.type === "paragraph") {
+        text = text.replace(
+          /(^|\n) {4,}(\|(?: *:?-+:? *\|)+)/u,
+          "$1\\$2",
+        );
+      }
     }
 
     if (paragraphNode && riskyParagraphPositions.has(paragraphNode.position)) {
@@ -592,3 +602,4 @@ function markAlignedListLegacy(ast, options) {
 }
 
 export default preprocess;
+
