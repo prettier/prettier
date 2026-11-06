@@ -23,3 +23,4 @@ x = (<any>make<T>) + y;
 x = (a + typeof make<T>) - y;
 x = (typeof typeof make<T>) + y;
 x = (typeof make<T>) in (typeof make<T>)
+x = (typeof make<T>) in (make<T>)
