@@ -1035,12 +1035,12 @@ $map: (
 
   /* comment */
   key4: (
-      key: value,
-      key: value,
-      key: value,
-      key: value,
-      key: value,
-    )
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+  ),
 );
 
 $map: (/* comment */);
@@ -1097,18 +1097,198 @@ $map: (
 
   /* comment */
   key4: (
-      key: value,
-      key: value,
-      key: value,
-      key: value,
-      key: value
-    )
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+    key: value
+  )
 );
 
 $map: (/* comment */);
 
 $map: (
   // comment
+);
+
+================================================================================
+`;
+
+exports[`comment-before-nested-value.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (
+  "a": (1, 2),
+  // comment
+  "b": (3, 4),
+  /// doc comment
+  "c": (5, 6),
+  /* comment */
+  "d": (7, 8),
+  // comment
+  // comment
+  "e": (9, 10),
+);
+
+$map: (
+  /* comment */
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a, b),
+);
+
+=====================================output=====================================
+$map: (
+  "a": (
+    1,
+    2,
+  ),
+  // comment
+  "b": (
+    3,
+    4,
+  ),
+  /// doc comment
+  "c": (
+    5,
+    6,
+  ),
+  /* comment */
+  "d": (
+    7,
+    8,
+  ),
+  // comment
+  // comment
+  "e": (
+    9,
+    10,
+  ),
+);
+
+$map: (
+  /* comment */
+  key: (
+    a: b,
+    c: d,
+  ),
+);
+
+$map: (
+  // comment
+  key: (
+    a: b,
+    c: d,
+  ),
+);
+
+$map: (
+  // comment
+  key: (
+    a,
+    b,
+  ),
+);
+
+================================================================================
+`;
+
+exports[`comment-before-nested-value.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$map: (
+  "a": (1, 2),
+  // comment
+  "b": (3, 4),
+  /// doc comment
+  "c": (5, 6),
+  /* comment */
+  "d": (7, 8),
+  // comment
+  // comment
+  "e": (9, 10),
+);
+
+$map: (
+  /* comment */
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a, b),
+);
+
+=====================================output=====================================
+$map: (
+  "a": (
+    1,
+    2
+  ),
+  // comment
+  "b": (
+    3,
+    4
+  ),
+  /// doc comment
+  "c": (
+    5,
+    6
+  ),
+  /* comment */
+  "d": (
+    7,
+    8
+  ),
+  // comment
+  // comment
+  "e": (
+    9,
+    10
+  )
+);
+
+$map: (
+  /* comment */
+  key: (
+    a: b,
+    c: d
+  )
+);
+
+$map: (
+  // comment
+  key: (
+    a: b,
+    c: d
+  )
+);
+
+$map: (
+  // comment
+  key: (
+    a,
+    b
+  )
 );
 
 ================================================================================
