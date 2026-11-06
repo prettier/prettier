@@ -7,7 +7,7 @@ const makeSnippet = (count) => ({
 const isBrowser = process.env.TEST_RUNTIME === "browser";
 
 runFormatTest(
-  { importMeta: import.meta, snippets: [makeSnippet(isBrowser ? 12 : 500)] },
+  { importMeta: import.meta, snippets: [makeSnippet(isBrowser ? 24 : 500)] },
   ["babel", "flow", "typescript"],
 );
 
