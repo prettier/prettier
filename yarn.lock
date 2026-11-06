@@ -2517,9 +2517,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.12.0":
-  version: 0.12.0
-  resolution: "@prettier/cli@npm:0.12.0"
+"@prettier/cli@npm:0.12.4":
+  version: 0.12.4
+  resolution: "@prettier/cli@npm:0.12.4"
   dependencies:
     atomically: "npm:^2.1.1"
     fast-ignore: "npm:^2.0.0"
@@ -2527,18 +2527,18 @@ __metadata:
     function-once: "npm:^3.0.1"
     import-meta-resolve: "npm:^4.2.0"
     is-binary-path: "npm:^3.0.0"
-    js-yaml: "npm:^5.0.0"
+    js-yaml: "npm:^5.5.0"
     json-sorted-stringify: "npm:^1.0.2"
     json5: "npm:^2.2.3"
     kasi: "npm:^2.0.1"
     lomemo: "npm:^1.0.1"
     pioppo: "npm:^1.2.1"
     promise-resolve-timeout: "npm:^2.0.1"
-    smol-toml: "npm:^1.6.1"
+    smol-toml: "npm:^1.9.1"
     specialist: "npm:^2.0.0"
     tiny-editorconfig: "npm:^1.0.2"
-    tiny-readdir: "npm:^2.7.4"
-    tiny-readdir-glob: "npm:^1.23.2"
+    tiny-readdir: "npm:^3.1.1"
+    tiny-readdir-glob: "npm:^2.0.0"
     tiny-spinner: "npm:^2.0.5"
     worktank: "npm:^3.0.2"
     zeptomatch: "npm:^2.1.0"
@@ -2548,7 +2548,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/663353b5e58edc95b2be2244bb5aa47892191d487a77fa34879de741ba78ac2d7bb73c22f43a6703004e24b25c8ff5b17ca6ba9b5d3631bc040e7b0d9e43d459
+  checksum: 10/3afe71f561d8aad1bdb287738ba6aac125656492912217eab3f23e0de571e9690b42c4a3af82a10a658c790cc6fdfd4f45fb41f89da3ee9788b6174d942680c2
   languageName: node
   linkType: hard
 
@@ -6426,7 +6426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^5.0.0, js-yaml@npm:^5.4.1":
+"js-yaml@npm:^5.4.1, js-yaml@npm:^5.5.0":
   version: 5.5.0
   resolution: "js-yaml@npm:5.5.0"
   dependencies:
@@ -8160,7 +8160,7 @@ __metadata:
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.97.0"
     "@oxc-parser/binding-wasm32-wasip1": "npm:0.157.0"
-    "@prettier/cli": "npm:0.12.0"
+    "@prettier/cli": "npm:0.12.4"
     "@prettier/html-attributes": "npm:0.1.0"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
@@ -8714,7 +8714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.9.1, smol-toml@npm:^1.6.1, smol-toml@npm:^1.9.0, smol-toml@npm:^1.9.1":
+"smol-toml@npm:1.9.1, smol-toml@npm:^1.9.0, smol-toml@npm:^1.9.1":
   version: 1.9.1
   resolution: "smol-toml@npm:1.9.1"
   checksum: 10/0bdcd39bbaa2bdca88f9418cbf0b0b9dd220d9e39b6d298916a4ce1e49a8c8dc84d30f0e49910355203bff3a64da7b06771037dc0d2f8007df406f14dc768c10
@@ -9127,25 +9127,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^1.23.2":
-  version: 1.23.2
-  resolution: "tiny-readdir-glob@npm:1.23.2"
+"tiny-readdir-glob@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tiny-readdir-glob@npm:2.0.0"
   dependencies:
-    tiny-readdir: "npm:^2.7.0"
-    zeptomatch: "npm:^2.0.1"
-    zeptomatch-explode: "npm:^1.0.1"
-    zeptomatch-is-static: "npm:^1.0.1"
-    zeptomatch-unescape: "npm:^1.0.1"
-  checksum: 10/ebc0cfcbb08ef8dc137eb83569410ab809d815921b3c7fe9534956a89e5e80962435b8c034d21399bb856fd95e7cbbe9d10ebaccbd1b89f26516753e12501c76
+    tiny-readdir: "npm:^3.1.1"
+    zeptomatch: "npm:^2.1.0"
+  checksum: 10/98e8caed66f9f4d937b1a5983cd71aa77a1666ef2359c39775d63f63a403dd15d54aafdbda6f12d337a00bcab053bff2e65e61982d61a5fd897a364d06402076
   languageName: node
   linkType: hard
 
-"tiny-readdir@npm:^2.7.0, tiny-readdir@npm:^2.7.4":
-  version: 2.7.4
-  resolution: "tiny-readdir@npm:2.7.4"
+"tiny-readdir@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "tiny-readdir@npm:3.1.1"
   dependencies:
     promise-make-counter: "npm:^1.0.2"
-  checksum: 10/58b6614eed26ffedb806750973102e672caae00d9c255cef46d18c8d453ada3af8bdf039721dfa5a4237be8f1ba57fcfa193ff35d5605e9205d1e4e88f53374a
+  checksum: 10/22d6a008ab62c2757a2216665719b39ba9feae8cf3251260d883d7981354e4c8fdabd0434a0be6e7bc3326133fe439dd622d9350a19db926f0098a025966dc86
   languageName: node
   linkType: hard
 
@@ -10004,13 +10001,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeptomatch-explode@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "zeptomatch-explode@npm:1.0.1"
-  checksum: 10/4424d5f58484b4e4b191f8afb17d582fbde4efcd1f25fb90a240b0f5490e7d3ab82bf0a0b6ab4e1898a918f83a9e874d611733ff0a1ddb7cf929797d870ead2c
-  languageName: node
-  linkType: hard
-
 "zeptomatch-is-static@npm:^1.0.1":
   version: 1.0.1
   resolution: "zeptomatch-is-static@npm:1.0.1"
@@ -10018,14 +10008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeptomatch-unescape@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "zeptomatch-unescape@npm:1.0.1"
-  checksum: 10/2139c86901fd58950658b0f2c618fd0ffa4b5389d8a7c3009a17d7da362d9fa4d6a79d94e7c6d969bd72e683354ee84e24c8404bb1476bba1d2b2935a500544d
-  languageName: node
-  linkType: hard
-
-"zeptomatch@npm:^2.0.1, zeptomatch@npm:^2.1.0":
+"zeptomatch@npm:^2.1.0":
   version: 2.1.0
   resolution: "zeptomatch@npm:2.1.0"
   dependencies:
