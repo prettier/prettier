@@ -4,15 +4,18 @@ const makeSnippet = (count) => ({
   output: `const value =\n  ${"a +\n  ".repeat(count)}a;\n`,
 });
 
-runFormatTest({ importMeta: import.meta, snippets: [makeSnippet(500)] }, [
-  "babel",
-  "flow",
-  "typescript",
-]);
+const isBrowser = process.env.TEST_RUNTIME === "browser";
 
-// TypeScript's AST converter can overflow before the printer runs on a
-// 2,000-operator chain, so the stress test uses the other parsers.
-runFormatTest({ importMeta: import.meta, snippets: [makeSnippet(2000)] }, [
-  "babel",
-  "flow",
-]);
+runFormatTest(
+  { importMeta: import.meta, snippets: [makeSnippet(isBrowser ? 12 : 500)] },
+  ["babel", "flow", "typescript"],
+);
+
+// Comparing deeply nested ASTs exceeds the browser test runner's CBOR limit.
+// TypeScript's AST converter can also overflow before printing 2,000 operators.
+if (!isBrowser) {
+  runFormatTest(
+    { importMeta: import.meta, snippets: [makeSnippet(2000)] },
+    ["babel", "flow"],
+  );
+}
