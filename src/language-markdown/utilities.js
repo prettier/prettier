@@ -312,6 +312,120 @@ function getNthListSiblingIndex(node, parentNode) {
   }
 }
 
+const unorderedListMarkerCache = new WeakMap();
+
+/**
+ * Sibling lists alternate between `-` and `*` so that they stay separate.
+ * If a line of the lists would then print as a thematic break, such as
+ * `- - -` or `- --`, the markers of the whole sibling group are swapped.
+ * https://github.com/prettier/prettier/issues/13779
+ *
+ * @param {*} list
+ * @param {any[]} ancestors ancestors of `list`, the nearest first
+ * @param {*} options
+ * @returns {"-" | "*"}
+ */
+function getUnorderedListMarker(list, ancestors, options) {
+  if (unorderedListMarkerCache.has(list)) {
+    return unorderedListMarkerCache.get(list);
+  }
+
+  const [parent] = ancestors;
+  const siblingLists = getListSiblingGroup(list, parent);
+  const firstLinePrefix =
+    parent.type === "listItem" && parent.children[0] === siblingLists[0]
+      ? getMarkersBeforeListItemContent(parent, ancestors.slice(1), options)
+      : [];
+
+  const getMarker = (index, isSwapped) =>
+    (index + Number(isSwapped)) % 2 === 0 ? "-" : "*";
+  const hasThematicBreak = (isSwapped) =>
+    siblingLists.some((siblingList, index) =>
+      siblingList.children.some((listItem, itemIndex) => {
+        const content = getFirstLineContent(listItem, options);
+        return (
+          content !== undefined &&
+          isThematicBreak([
+            ...(index === 0 && itemIndex === 0 ? firstLinePrefix : []),
+            getMarker(index, isSwapped),
+            ...(typeof listItem.checked === "boolean" ? ["["] : []),
+            ...content,
+          ])
+        );
+      }),
+    );
+
+  const isSwapped = hasThematicBreak(false) && !hasThematicBreak(true);
+  for (const [index, siblingList] of siblingLists.entries()) {
+    unorderedListMarkerCache.set(siblingList, getMarker(index, isSwapped));
+  }
+  return unorderedListMarkerCache.get(list);
+}
+
+// The consecutive sibling lists that `list` belongs to, as counted by
+// `getNthListSiblingIndex`
+function getListSiblingGroup(list, parent) {
+  let group = [];
+  for (const childNode of parent.children) {
+    if (childNode.type === "list" && childNode.ordered === list.ordered) {
+      group.push(childNode);
+    } else if (group.includes(list)) {
+      break;
+    } else {
+      group = [];
+    }
+  }
+  return group;
+}
+
+// The markers printed before the content on the first line of a list item,
+// including those of the lists it is nested in on the same line
+function getMarkersBeforeListItemContent(listItem, ancestors, options) {
+  const [list, parent] = ancestors;
+  const markers =
+    list.children[0] === listItem &&
+    parent.type === "listItem" &&
+    parent.children[0] === list
+      ? getMarkersBeforeListItemContent(parent, ancestors.slice(2), options)
+      : [];
+  markers.push(
+    list.ordered
+      ? "."
+      : getUnorderedListMarker(list, ancestors.slice(1), options),
+  );
+  if (typeof listItem.checked === "boolean") {
+    markers.push("[");
+  }
+  return markers;
+}
+
+// Non-whitespace characters on the first line of a list item's content.
+// `undefined` means the line can't be a thematic break here, either because
+// it starts with a nested list, which checks the line itself, or because it
+// isn't a paragraph.
+function getFirstLineContent(listItem, options) {
+  const [firstChild] = listItem.children;
+  if (!firstChild) {
+    return [];
+  }
+  if (firstChild.type !== "paragraph") {
+    return;
+  }
+  const [firstLine] = options.originalText
+    .slice(locStart(firstChild), locEnd(firstChild))
+    .split("\n", 1);
+  return [...firstLine].filter((character) => !/\s/u.test(character));
+}
+
+// https://spec.commonmark.org/0.31.2/#thematic-breaks
+function isThematicBreak(characters) {
+  return (
+    characters.length >= 3 &&
+    ["-", "*", "_"].includes(characters[0]) &&
+    characters.every((character) => character === characters[0])
+  );
+}
+
 function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
@@ -328,6 +442,7 @@ export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   getOrderedListItemInfo,
+  getUnorderedListMarker,
   hasGitDiffFriendlyOrderedList,
   hasPrettierIgnore,
   INLINE_NODE_TYPES,
