@@ -8,7 +8,7 @@ parsers: ["typescript"]
 void (<_T extends never>() => {})<never>;
 
 =====================================output=====================================
-void ((<_T extends never>() => {})<never>);
+void (<_T extends never>() => {})<never>;
 
 ================================================================================
 `;
@@ -54,6 +54,7 @@ x = (+make<T>) - y;
 x = (~make<T>) + y;
 x = (<any>make<T>) + y;
 x = (a + typeof make<T>) - y;
+x = (typeof typeof make<T>) + y;
 
 =====================================output=====================================
 x = (make<T>) + y;
@@ -68,15 +69,16 @@ x = (make<T>) * y;
 x = (make<T>) <= y;
 x = (make<T>) === y;
 x = y + (make<T>);
-x = typeof (make<T>) + y;
-x = void (make<T>) - y;
-x = delete (make<T>) < y;
-x = !(make<T>) > y;
-x = -(make<T>) >> y;
-x = +(make<T>) - y;
-x = ~(make<T>) + y;
-x = <any>(make<T>) + y;
-x = a + typeof (make<T>) - y;
+x = (typeof make<T>) + y;
+x = (void make<T>) - y;
+x = (delete make<T>) < y;
+x = (!make<T>) > y;
+x = (-make<T>) >> y;
+x = (+make<T>) - y;
+x = (~make<T>) + y;
+x = (<any>make<T>) + y;
+x = a + (typeof make<T>) - y;
+x = (typeof typeof make<T>) + y;
 
 ================================================================================
 `;
@@ -280,10 +282,10 @@ x = (a ** b)<T>;
 x = a ** (b<T>);
 
 x = (!a)<T>;
-x = !(a<T>);
+x = !a<T>;
 
 x = (typeof a)<T>;
-x = typeof (a<T>);
+x = typeof a<T>;
 
 x = (a as B)<T>;
 x = a as B<T>;
@@ -292,7 +294,7 @@ x = (a satisfies B)<T>;
 x = a satisfies B<T>;
 
 x = (<B>a)<T>;
-x = <B>(a<T>);
+x = <B>a<T>;
 
 x = (a<U>)<T>;
 // x =  a<U> <T>;

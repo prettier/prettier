@@ -153,6 +153,10 @@ function needsParentheses(path, options) {
             return true;
           }
 
+          if (endsWithInstantiationExpression(node)) {
+            return true;
+          }
+
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
@@ -256,6 +260,13 @@ function needsParentheses(path, options) {
         case "BinaryExpression": {
           const { operator, type } = node;
           if (!operator && type !== "TSTypeAssertion") {
+            return true;
+          }
+
+          if (
+            parent.type === "BinaryExpression" &&
+            endsWithInstantiationExpression(node)
+          ) {
             return true;
           }
 
@@ -916,13 +927,11 @@ function needsParentheses(path, options) {
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" &&
           (isNonNullExpression(parent) ||
-            parent.type === "TSInstantiationExpression" ||
-            parent.type === "TSTypeAssertion")) ||
+            parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" &&
           (isClass(parent) || parent.type === "StructDeclaration")) ||
         ((key === "left" || key === "right") &&
-          parent.type === "BinaryExpression") ||
-        (key === "argument" && parent.type === "UnaryExpression")
+          parent.type === "BinaryExpression")
       ) {
         return true;
       }
@@ -1016,6 +1025,20 @@ function isPathInForStatementInitializer(path) {
 
 function endsWithRightBracket(node) {
   return isObjectExpression(node);
+}
+
+// `typeof a<T> + b` is read as `(typeof a < T) > +b`
+function endsWithInstantiationExpression(node) {
+  switch (node.type) {
+    case "TSInstantiationExpression":
+      return true;
+    case "UnaryExpression":
+      return endsWithInstantiationExpression(node.argument);
+    case "TSTypeAssertion":
+      return endsWithInstantiationExpression(node.expression);
+    default:
+      return false;
+  }
 }
 
 /**

@@ -19,3 +19,4 @@ x = (+make<T>) - y;
 x = (~make<T>) + y;
 x = (<any>make<T>) + y;
 x = (a + typeof make<T>) - y;
+x = (typeof typeof make<T>) + y;
