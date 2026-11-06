@@ -10,6 +10,7 @@ import {
 import { printDanglingComments } from "../main/comments/print.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
+import { getRangeNodes } from "./get-range-nodes.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
@@ -467,6 +468,7 @@ const printer = {
   printComment,
   canAttachComment,
   getVisitorKeys,
+  getRangeNodes,
 };
 
 export default printer;
