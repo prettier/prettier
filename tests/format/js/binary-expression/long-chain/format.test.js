@@ -13,4 +13,5 @@ runFormatTest(
     ],
   },
   ["babel", "flow", "typescript"],
+  { errors: { typescript: true } },
 );
