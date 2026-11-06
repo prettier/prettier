@@ -919,12 +919,10 @@ function needsParentheses(path, options) {
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" &&
           (isClass(parent) || parent.type === "StructDeclaration")) ||
-        ((key === "left" || key === "right") &&
-          parent.type === "BinaryExpression" &&
-          !(
-            key === "right" &&
-            (parent.operator === "instanceof" || parent.operator === "in")
-          ))
+        (parent.type === "BinaryExpression" &&
+          (key === "left" ||
+            (key === "right" &&
+              !(parent.operator === "instanceof" || parent.operator === "in"))))
       ) {
         return true;
       }
