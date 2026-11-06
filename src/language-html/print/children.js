@@ -97,7 +97,7 @@ function printBetweenLine(prevNode, nextNode) {
     prevNode.kind === "element" &&
     prevNode.children.length === 1 &&
     prevNode.firstChild.kind === "interpolation" &&
-    prevNode.hasLeadingSpaces
+    (prevNode.hasLeadingSpaces || nextNode.kind === "text")
   ) {
     return "";
   }
