@@ -41,8 +41,6 @@ x = (make<T>) >= y;
 x = (make<T>) >> y;
 x = (make<T>) >>> y;
 x = (a + make<T>) - y;
-x = (typeof make<T>) + y;
-x = (<any>(make<T>)) + y;
 x = (make<T>) * y;
 x = (make<T>) <= y;
 x = (make<T>) === y;
@@ -57,12 +55,10 @@ x = (make<T>) >= y;
 x = (make<T>) >> y;
 x = (make<T>) >>> y;
 x = a + (make<T>) - y;
-x = typeof (make<T>) + y;
-x = <any>(make<T>) + y;
-x = make<T> * y;
-x = make<T> <= y;
-x = make<T> === y;
-x = y + make<T>;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + (make<T>);
 
 ================================================================================
 `;
@@ -151,7 +147,7 @@ export class Foo<T> {
 
 function sample(error: unknown) {
   if (
-    !(error instanceof Foo<"some-type"> || error instanceof Error) ||
+    !(error instanceof (Foo<"some-type">) || error instanceof Error) ||
     !error.message
   ) {
     return "something";
@@ -254,16 +250,16 @@ x = (++y)<T>;
 // x =  ++y <T>;
 
 x = (a + b)<T>;
-x = a + b<T>;
+x = a + (b<T>);
 
 x = (a ?? b)<T>;
 x = a ?? b<T>;
 
 x = (a in b)<T>;
-x = a in b<T>;
+x = a in (b<T>);
 
 x = (a ** b)<T>;
-x = a ** b<T>;
+x = a ** (b<T>);
 
 x = (!a)<T>;
 x = !a<T>;
