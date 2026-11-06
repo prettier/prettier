@@ -916,11 +916,13 @@ function needsParentheses(path, options) {
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" &&
           (isNonNullExpression(parent) ||
-            parent.type === "TSInstantiationExpression")) ||
+            parent.type === "TSInstantiationExpression" ||
+            parent.type === "TSTypeAssertion")) ||
         (key === "superClass" &&
           (isClass(parent) || parent.type === "StructDeclaration")) ||
         ((key === "left" || key === "right") &&
-          parent.type === "BinaryExpression")
+          parent.type === "BinaryExpression") ||
+        (key === "argument" && parent.type === "UnaryExpression")
       ) {
         return true;
       }
