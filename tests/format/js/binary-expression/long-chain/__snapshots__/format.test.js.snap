@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: long binary expression > format[typescript] 1`] = `
+"Maximum call stack size exceeded"
+`;
