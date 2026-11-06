@@ -1,8 +1,5 @@
-const operandCount = 1800;
-const source = `const value = ${Array.from(
-  { length: operandCount },
-  () => '"a"',
-).join(" + ")};\n`;
+const source = `const value = ${"a + ".repeat(2000)}a;\n`;
+const output = `const value =\n  ${"a +\n  ".repeat(2000)}a;\n`;
 
 runFormatTest(
   {
@@ -11,10 +8,9 @@ runFormatTest(
       {
         name: "long binary expression",
         code: source,
-        output: source,
+        output,
       },
     ],
   },
-  ["babel", "meriyah"],
-  { printWidth: 20_000 },
+  ["babel", "flow", "typescript"],
 );
