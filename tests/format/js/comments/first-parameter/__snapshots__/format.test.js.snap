@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`first-parameter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a1(// 1
+  b) {}
+function a2(// 2
+  b, c) { return b }
+async function a3(// 3
+  b, c) { return b }
+function* a4(// 4
+  b, c) { yield b }
+function a5(// 5
+  b = 1, c) {}
+function a6(// 6
+  { b }, [c], ...d) {}
+function a7(// 7
+  // 8
+  b) {}
+export function a9(// 9
+  b) {}
+export default function a10(// 10
+  b) {}
+(function a11(// 11
+  b) {});
+
+class A {
+  constructor(// 12
+    b, c) { this.b = b }
+  a(// 13
+    b, c) { return b }
+  static async a(// 14
+    b) {}
+  #a(// 15
+    b) {}
+  [a](// 16
+    b) {}
+  set a(// 17
+    b) {}
+}
+
+({
+  a(// 18
+    b) {},
+  *a(// 19
+    b) {},
+});
+
+function a20(
+  // 20
+  b) {}
+function a21(// 21
+) {}
+function a22(/* 22 */ b, c) {}
+function a23(b, // 23
+  c) {}
+(function (// 24
+  b) {});
+
+=====================================output=====================================
+function a1(
+  // 1
+  b,
+) {}
+function a2(
+  // 2
+  b,
+  c,
+) {
+  return b;
+}
+async function a3(
+  // 3
+  b,
+  c,
+) {
+  return b;
+}
+function* a4(
+  // 4
+  b,
+  c,
+) {
+  yield b;
+}
+function a5(
+  // 5
+  b = 1,
+  c,
+) {}
+function a6(
+  // 6
+  { b },
+  [c],
+  ...d
+) {}
+function a7(
+  // 7
+  // 8
+  b,
+) {}
+export function a9(
+  // 9
+  b,
+) {}
+export default function a10(
+  // 10
+  b,
+) {}
+(function a11(
+  // 11
+  b,
+) {});
+
+class A {
+  constructor(
+    // 12
+    b,
+    c,
+  ) {
+    this.b = b;
+  }
+  a(
+    // 13
+    b,
+    c,
+  ) {
+    return b;
+  }
+  static async a(
+    // 14
+    b,
+  ) {}
+  #a(
+    // 15
+    b,
+  ) {}
+  [a](
+    // 16
+    b,
+  ) {}
+  set a(
+    // 17
+    b,
+  ) {}
+}
+
+({
+  a(
+    // 18
+    b,
+  ) {},
+  *a(
+    // 19
+    b,
+  ) {},
+});
+
+function a20(
+  // 20
+  b,
+) {}
+function a21(
+  // 21
+) {}
+function a22(/* 22 */ b, c) {}
+function a23(
+  b, // 23
+  c,
+) {}
+(function (
+  // 24
+  b,
+) {});
+
+================================================================================
+`;
