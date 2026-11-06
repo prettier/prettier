@@ -61,6 +61,67 @@ function isAngularComponentTemplate(path) {
   );
 }
 
+/**
+ * Storybook Angular CSF stories can return inline Angular templates from
+ * render(). Limit this detection to modules importing @storybook/angular.
+ */
+function isAngularStorybookTemplate(path) {
+  const isProperty = (name) => (node, key) =>
+    key === "value" &&
+    isObjectProperty(node) &&
+    !node.computed &&
+    node.key.type === "Identifier" &&
+    node.key.name === name;
+  const isObjectLiteral = (node, key) =>
+    node.type === "ObjectExpression" && key === "properties";
+  const isRenderArrow = (node, key) =>
+    node.type === "ArrowFunctionExpression" && key === "body";
+  const isReturn = (node, key) =>
+    node.type === "ReturnStatement" && key === "argument";
+  const isBlock = (node, key) =>
+    node.type === "BlockStatement" && key === "body";
+
+  if (
+    !path.match(
+      (node) => node.type === "TemplateLiteral",
+      isProperty("template"),
+      isObjectLiteral,
+    )
+  ) {
+    return false;
+  }
+
+  const inRender =
+    path.match(
+      undefined,
+      undefined,
+      undefined,
+      isRenderArrow,
+      isProperty("render"),
+    ) ||
+    path.match(
+      undefined,
+      undefined,
+      undefined,
+      isReturn,
+      isBlock,
+      isRenderArrow,
+      isProperty("render"),
+    );
+
+  if (!inRender) {
+    return false;
+  }
+
+  const program = path.findAncestor((node) => node.type === "Program");
+
+  return program?.body.some(
+    (node) =>
+      node.type === "ImportDeclaration" &&
+      node.source.value === "@storybook/angular",
+  );
+}
+
 function hasLeadingBlockCommentWithName(node, languageName) {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
@@ -97,4 +158,5 @@ export {
   hasLanguageComment,
   isAngularComponentStyles,
   isAngularComponentTemplate,
+  isAngularStorybookTemplate,
 };
