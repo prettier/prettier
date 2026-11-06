@@ -49,6 +49,37 @@ alert(1)
 ================================================================================
 `;
 
+exports[`data-blocks.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <script type="text/plain">
+first line
+    second line
+  </script>
+  <script type="application/x-custom-data">
+custom  data
+  still   raw
+  </script>
+</div>
+
+=====================================output=====================================
+<div>
+  <script type="text/plain">
+first line
+    second line
+  </script>
+  <script type="application/x-custom-data">
+custom  data
+  still   raw
+  </script>
+</div>
+
+================================================================================
+`;
+
 exports[`legacy.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -220,8 +251,8 @@ End Function
 
 <!-- #8147 -->
 <script lang="vbscript">
-  Function hello()
-  End Function
+Function hello()
+End Function
 </script>
 
 <script lang="unknown"></script>

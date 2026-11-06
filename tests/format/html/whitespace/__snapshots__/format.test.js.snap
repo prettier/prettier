@@ -486,24 +486,24 @@ parsers: ["html"]
 =====================================output=====================================
 <!-- U+2005 -->
 <script type="text/unknown" lang="unknown">
-       // comment
-         // comment
-         // comment
-         // comment
+        // comment
+          // comment
+          // comment
+          // comment
 </script>
 <!-- U+005F -->
 <script type="text/unknown" lang="unknown">
-  _    // comment
-         // comment
-         // comment
-         // comment
+   _    // comment
+          // comment
+          // comment
+          // comment
 </script>
 <!-- U+0020 -->
 <script type="text/unknown" lang="unknown">
-  // comment
-    // comment
-    // comment
-    // comment
+        // comment
+          // comment
+          // comment
+          // comment
 </script>
 
 ================================================================================
