@@ -120,7 +120,7 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
     case "BinaryExpression":
       if (
-        endsWithInstantiationExpression(node) &&
+        endsWithInstantiationExpression(path, options, needsParentheses) &&
         !(
           key === "right" &&
           node.type === "TSInstantiationExpression" &&
@@ -145,17 +145,35 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 }
 
 // `typeof a<T> + b` is read as `(typeof a < T) > +b`
-function endsWithInstantiationExpression(node) {
+function endsWithInstantiationExpression(path, options, needsParentheses) {
+  const { node } = path;
+  let key;
   switch (node.type) {
     case "TSInstantiationExpression":
       return true;
     case "UnaryExpression":
-      return endsWithInstantiationExpression(node.argument);
+    case "AwaitExpression":
+      key = "argument";
+      break;
     case "TSTypeAssertion":
-      return endsWithInstantiationExpression(node.expression);
+      key = "expression";
+      break;
     default:
       return false;
   }
+
+  // `x |> await` in the F# pipeline proposal has no argument
+  if (!node[key]) {
+    return false;
+  }
+
+  // `typeof (await a<T>)` already ends with `)`
+  return path.call(
+    () =>
+      !needsParentheses(path, options) &&
+      endsWithInstantiationExpression(path, options, needsParentheses),
+    key,
+  );
 }
 
 function willArgumentBreakAndAddParentheses(path, options) {
