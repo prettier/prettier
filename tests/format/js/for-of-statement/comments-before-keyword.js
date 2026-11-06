@@ -13,3 +13,10 @@ for (const foo //comment
 
 for (const foo //comment
   of bar) console.log(foo);
+
+for (const foo //comment
+  of [
+// bar
+  ]) {
+  console.log(foo)
+}

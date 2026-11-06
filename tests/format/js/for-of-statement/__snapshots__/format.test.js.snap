@@ -127,24 +127,38 @@ for (const foo //comment
 for (const foo //comment
   of bar) console.log(foo);
 
+for (const foo //comment
+  of [
+// bar
+  ]) {
+  console.log(foo)
+}
+
 =====================================output=====================================
-for (const foo of bar) {
-  //comment
+for (const foo //comment
+  of bar) {
   console.log(foo);
 }
 
-for (const foo in bar) {
-  //comment
+for (const foo //comment
+  in bar) {
   console.log(foo);
 }
 
-for (const foo of bar) {
-  //comment
+for (const foo //comment
+  of bar) {
 }
 
-for (const foo of bar)
-  //comment
+for (const foo //comment
+  of bar)
   console.log(foo);
+
+for (const foo //comment
+  of [
+    // bar
+  ]) {
+  console.log(foo);
+}
 
 ================================================================================
 `;
