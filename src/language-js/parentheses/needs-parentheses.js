@@ -922,7 +922,12 @@ function needsParentheses(path, options) {
         (parent.type === "BinaryExpression" &&
           (key === "left" ||
             (key === "right" &&
-              !(parent.operator === "instanceof" || parent.operator === "in"))))
+              !(
+                parent.operator === "instanceof" ||
+                parent.operator === "in" ||
+                // `y << (make<T>)` is a syntax error in TypeScript
+                parent.operator === "<<"
+              ))))
       ) {
         return true;
       }
