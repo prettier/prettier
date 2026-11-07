@@ -170,6 +170,7 @@ function propagateBreaks(doc) {
     propagateBreaksOnEnterFn,
     propagateBreaksOnExitFn,
     /* shouldTraverseConditionalGroups */ true,
+    /* skipStrings */ true,
   );
 }
 

@@ -54,6 +54,27 @@ test("traverse", () => {
   }
 });
 
+test("skip strings in enter and exit callbacks", () => {
+  const doc = ["a", ["", "b"]];
+  const entered = [];
+  const exited = [];
+
+  traverseDoc(
+    doc,
+    (doc) => {
+      entered.push(doc);
+    },
+    (doc) => {
+      exited.push(doc);
+    },
+    /* shouldTraverseConditionalGroups */ false,
+    /* skipStrings */ true,
+  );
+
+  expect(entered).toStrictEqual([doc, doc[1]]);
+  expect(exited).toStrictEqual([doc[1], doc]);
+});
+
 test("Invalid doc", () => {
   expect(() => {
     traverseDoc({ type: "invalid-type" }, () => {});
