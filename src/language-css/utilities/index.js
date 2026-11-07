@@ -274,13 +274,13 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
-  // A parenthesized scalar (i.e. `$key: (value)`) isn't a single-item list.
+  // A parenthesized scalar or space-separated list (i.e. `$key: (value)`, `$key: (a b)`) isn't a single-item list.
   if (
     node.type === "value-paren_group" &&
     node.open &&
     node.close &&
     node.groups.length === 1 &&
-    node.groups[0].type !== "value-comma_group"
+    !isKeyValuePairNode(node.groups[0])
   ) {
     return false;
   }
