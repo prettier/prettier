@@ -364,19 +364,23 @@ function extractWhitespaces(ast, options) {
       return;
     }
 
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
+    const isIndentationSensitive = isIndentationSensitiveNode(node);
+
+    // A whitespace-sensitive element (e.g. `<pre>`, `<textarea>`) keeps
+    // whitespace-only content verbatim rather than collapsing it into dangling
+    // spaces, which would drop the content entirely. See #20460.
     if (
-      children.length === 0 ||
-      (children.length === 1 &&
-        children[0].kind === "text" &&
-        htmlWhitespace.trim(children[0].value).length === 0)
+      !isWhitespaceSensitive &&
+      (children.length === 0 ||
+        (children.length === 1 &&
+          children[0].kind === "text" &&
+          htmlWhitespace.trim(children[0].value).length === 0))
     ) {
       node.hasDanglingSpaces = children.length > 0;
       node.$children = [];
       return;
     }
-
-    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
-    const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
