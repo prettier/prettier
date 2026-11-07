@@ -283,3 +283,10 @@ async function bar2() {
     await x // foo
   );
 }
+
+delete (/** @type {any} */ window).__pwned;
+delete (/* foo */ window).__pwned;
+!(/* foo */ window).__pwned;
+! (/* foo */ x).y;
+void (/* foo */ x).y;
+typeof (/* foo */ x).y;
