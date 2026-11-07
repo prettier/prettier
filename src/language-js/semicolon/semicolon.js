@@ -46,6 +46,43 @@ function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   );
 }
 
+/**
+With `experimentalTernaries`, the test of a broken ternary is wrapped in
+parentheses, so a ternary at the start of a statement needs a leading
+semicolon when it breaks.
+*/
+function shouldTernaryPrintLeadingSemicolonWhenBreak(path, options) {
+  if (options.semi) {
+    return false;
+  }
+
+  const { key, index, parent } = path;
+
+  if (parent.type === "ExpressionStatement") {
+    return path.callParent(
+      () =>
+        isEligibleForLeadingSemicolon(path, options) &&
+        !shouldExpressionStatementPrintLeadingSemicolon(path, options),
+    );
+  }
+
+  // The parent starts with its left side, and prints it as is
+  if (
+    parent.type === "ConditionalExpression" ||
+    !hasNakedLeftSide(parent) ||
+    needsParentheses(path, options) ||
+    (key === "expressions"
+      ? index !== 0
+      : key !== getLeftSidePathName(parent)[0])
+  ) {
+    return false;
+  }
+
+  return path.callParent(() =>
+    shouldTernaryPrintLeadingSemicolonWhenBreak(path, options),
+  );
+}
+
 const ASI_HAZARD_START_CHARACTERS = new Set("[(`+-/<:");
 /*
 `prettier-ignore`d nodes print their original text verbatim, so ASI
@@ -157,4 +194,5 @@ export {
   isSingleVueEventBindingExpressionStatement,
   shouldExpressionStatementPrintLeadingSemicolon,
   shouldIgnoredExpressionStatementPrintLeadingSemicolon,
+  shouldTernaryPrintLeadingSemicolonWhenBreak,
 };
