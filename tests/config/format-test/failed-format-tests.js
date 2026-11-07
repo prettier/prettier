@@ -18,10 +18,6 @@ const unstableTests = new Map(
     "js/for-of-statement/comments.js",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
-    [
-      "typescript/method-chain/object/issue-17239.ts",
-      (options) => options.objectWrap !== "collapse",
-    ],
     "typescript/call/callee-comments.ts",
     "typescript/as/comments/18160.ts",
     "typescript/union/consistent-with-flow/single-type.ts",
