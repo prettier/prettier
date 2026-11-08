@@ -39,7 +39,7 @@ declare class Nested extends outer(
 declare class Generic extends mixin<
   /* type argument */ FirstType,
   SecondType,
->(Base<FirstType, SecondType>) {}
+>(Base) {}
 
 ================================================================================
 `;
@@ -77,14 +77,12 @@ declare class Long extends veryLongMixinName<FirstTypeArgument, SecondTypeArgume
 =====================================output=====================================
 declare class C extends mixin(Base) {}
 
-declare class Generic<T> extends mixin<T>(
-  Base<T>
-) {}
+declare class Generic<T> extends mixin<T>(Base) {}
 
 declare class Nested extends outer(inner(Base)) {}
 
 declare class Qualified extends Namespace.mixin(
-  Namespace.Base<T>
+  Namespace.Base
 ) {}
 
 declare class Implements
@@ -97,12 +95,7 @@ declare class Implements
 declare class Long extends veryLongMixinName<
   FirstTypeArgument,
   SecondTypeArgument,
->(
-  VeryLongBaseClassName<
-    FirstTypeArgument,
-    SecondTypeArgument,
-  >
-) {}
+>(VeryLongBaseClassName) {}
 
 ================================================================================
 `;

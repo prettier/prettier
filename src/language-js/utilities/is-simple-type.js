@@ -17,7 +17,7 @@ function isSimpleType(node) {
     isTsKeywordType(node) ||
     isFlowKeywordType(node) ||
     isSimpleTypeAnnotation(node) ||
-    (node.type === "GenericTypeAnnotation" && !node.typeParameters) ||
+    (node.type === "GenericTypeAnnotation" && !node.typeArguments) ||
     (node.type === "TSTypeReference" && !node.typeArguments)
   );
 }
