@@ -1,0 +1,17 @@
+query {
+  search(filters: {
+    # comment 1
+
+    # comment 2
+  }) {
+      id
+  }
+}
+
+query {
+  a(x: [
+    # comment 1
+
+    # comment 2
+  ])
+}
