@@ -324,24 +324,24 @@ declare hook useFoo(
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>,
-): // Trailing comment
-void;
+  // Trailing comment
+): void;
 
 declare hook useFoo(
   ...props: $ReadOnly<{
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>
-): // Trailing comment
-SomeComponent;
+  // Trailing comment
+): SomeComponent;
 
 declare hook useFoo(
   ...props: $ReadOnly<{
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>
-): // Trailing comment
-SomeComponent;
+  // Trailing comment
+): SomeComponent;
 
 ================================================================================
 `;
@@ -603,24 +603,24 @@ type T = hook (
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>,
-) => // Trailing comment
-void;
+  // Trailing comment
+) => void;
 
 type T = hook (
   ...props: $ReadOnly<{
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>
-) => // Trailing comment
-SomeComponent;
+  // Trailing comment
+) => SomeComponent;
 
 type T = hook (
   ...props: $ReadOnly<{
     k: string,
     reallllllllllllllllllllllllllllllllllllllyLong: string,
   }>
-) => // Trailing comment
-SomeComponent;
+  // Trailing comment
+) => SomeComponent;
 
 ================================================================================
 `;
