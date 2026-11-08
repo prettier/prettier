@@ -14,8 +14,10 @@ import {
   softline,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { hasNode } from "../utilities/has-node.js";
 import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
@@ -28,6 +30,7 @@ import {
   isMemberExpression,
   isObjectExpression,
   isReturnOrThrowStatement,
+  isUnaryLikeNode,
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
 
@@ -54,6 +57,14 @@ function isInlineLogicalExpression(node) {
   return true;
 }
 
+const topicReferenceCheckResult = new WeakMap();
+const isHackStylePipeline = (path) =>
+  path.node.type === "BinaryExpression" &&
+  path.node.operator === "|>" &&
+  getOrInsertComputed(topicReferenceCheckResult, path.root, () =>
+    hasNode(path.node, (node) => node.type === "TopicReference"),
+  );
+
 /*
 - `BinaryExpression`
 - `LogicalExpression`
@@ -67,8 +78,6 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
-  const isHackPipeline =
-    node.operator === "|>" && path.root.extra?.__isUsingHackPipeline;
 
   const parts = printBinaryishExpressions(
     path,
@@ -92,7 +101,7 @@ function printBinaryishExpression(path, options, print) {
     return parts;
   }
 
-  if (isHackPipeline) {
+  if (isHackStylePipeline(path)) {
     return group(parts);
   }
 
@@ -116,7 +125,7 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    isReturnOrThrowStatement(parent) ||
+    (key === "argument" && isUnaryLikeNode(parent)) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
@@ -131,7 +140,6 @@ function printBinaryishExpression(path, options, print) {
       !isReturnOrThrowStatement(grandparent) &&
       !isCallOrNewExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
-    (key === "argument" && parent.type === "UnaryExpression") ||
     (key === "arguments" && isBooleanTypeCoercion(parent));
 
   const shouldIndentIfInlining =
@@ -298,9 +306,7 @@ function printBinaryishExpressions(
         : [" ", print("right"), rightSuffix],
     ];
   } else {
-    const isHackPipeline =
-      operator === "|>" && path.root.extra?.__isUsingHackPipeline;
-    const rightContent = isHackPipeline
+    const rightContent = isHackStylePipeline(path)
       ? path.call(
           () =>
             printBinaryishExpressions(

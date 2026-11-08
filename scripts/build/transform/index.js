@@ -33,7 +33,10 @@ const packageTransforms = new Map([
     transforms["object-has-own"],
     ["@babel/parser", "graphql", "angular-html-parser"],
   ],
-  [transforms["string-raw"], ["camelcase", "@angular/compiler", "js-yaml"]],
+  [
+    transforms["string-raw"],
+    ["camelcase", "@angular/compiler", "js-yaml", "ansi-regex"],
+  ],
   [transforms["method-is-well-formed"], ["meriyah"]],
   /* spell-checker: enable */
 ]);

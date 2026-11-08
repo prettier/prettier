@@ -22,6 +22,12 @@ const config = {
         parser: "jsonc",
       },
     },
+    {
+      files: ["changelog_unreleased/**/*.md"],
+      options: {
+        proseWrap: "never",
+      },
+    },
   ],
 };
 

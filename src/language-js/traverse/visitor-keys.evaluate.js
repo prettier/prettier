@@ -21,6 +21,9 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+
+  // flow-parser@0.337.0
+  EnumBigIntBody: ["members"],
 };
 
 const excludeVisitorKeys = {
@@ -41,16 +44,7 @@ const excludeNodeTypes = [
   "ExperimentalSpreadProperty",
 
   // From flow-parser
-  "DeclareClassExtendsCall",
   "DeclareMethodDefinition",
-  "NamespaceExportDeclaration",
-  "NonNullExpression",
-  "ObjectTypePrivateField",
-  "ParameterProperty",
-  "RendersMaybeType",
-  "RendersStarType",
-  "RendersType",
-  "TupleTypeElement",
 ];
 
 let visitorKeys = unionVisitorKeys(

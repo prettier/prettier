@@ -7,7 +7,7 @@ function printUnit(unit) {
   return CSS_UNITS.has(lowercased) ? CSS_UNITS.get(lowercased) : unit;
 }
 
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
+const STRING_REGEX = /(?<quote>["'])(?:(?!\k<quote>)[^\\]|\\.)*\k<quote>/gs;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:e[+-]?\d+)?/gi;
 const STANDARD_UNIT_REGEX = /[a-z]+/gi;
 const WORD_PART_REGEX = /[$@]?[_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/gi;
@@ -23,6 +23,10 @@ const ADJUST_NUMBERS_REGEX = new RegExp(
 
 function adjustStrings(value, options) {
   return value.replaceAll(STRING_REGEX, (match) => printString(match, options));
+}
+
+function removeQuotedStrings(value) {
+  return value.replaceAll(STRING_REGEX, "");
 }
 
 function quoteAttributeValue(value, options) {
@@ -86,5 +90,6 @@ export {
   printCssNumber,
   printUnit,
   quoteAttributeValue,
+  removeQuotedStrings,
   shouldPrintTrailingComma,
 };

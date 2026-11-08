@@ -28,6 +28,7 @@ import { printOptionalToken } from "./miscellaneous.js";
 - `TSExternalModuleReference` (TypeScript)
 - `ImportType` (Flow)
 - `ExternalModuleReference` (Flow)
+- `DeclareClassExtendsCall` (Flow)
 */
 function printCallExpression(path, options, print) {
   const { node } = path;
@@ -113,7 +114,7 @@ function printCallee(path, print) {
   const { node } = path;
 
   if (node.type === "ImportExpression") {
-    return `import${node.phase ? `.${node.phase}` : ""}`;
+    return `import${node.phase ? `.${node.phase}` : ""}${node.sync ? ".sync" : ""}`;
   }
 
   if (isImportType(node)) {

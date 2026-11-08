@@ -50,13 +50,13 @@ exports[`snippet: #0 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Expected '}' to close JSX expression, but found ',' (1:17)
+"Expected '}' to close the JSX expression, but found ',' (1:17)
 > 1 | let x1 = <div>{a,b}</div>
     |                 ^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected '}' to close JSX expression, but found ',' (1:17)
+"Expected '}' to close the JSX expression, but found ',' (1:17)
 > 1 | let x1 = <div>{a,b}</div>
     |                 ^"
 `;

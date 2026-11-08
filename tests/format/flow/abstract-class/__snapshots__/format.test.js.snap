@@ -276,3 +276,70 @@ Cause: ';' expected (3:9)
 abstract class Minimal { abstract property:number; abstract method(value:string):number; }
          ^"
 `;
+
+exports[`prettier-ignore.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number   ;
+  [b]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number;
+  [b]: number
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.js - {"semi":false} format[hermes] 1`] = `
+"';' expected (1:10)
+> 1 | abstract class NeedsSemicolon {
+    |          ^
+  2 |   // prettier-ignore
+  3 |   abstract   a  :   number   ;
+  4 |   [b]: number;
+Cause: ';' expected (1:9)
+abstract class NeedsSemicolon {
+         ^"
+`;
+
+exports[`prettier-ignore.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number   ;
+  [b]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number;
+  [b]: number;
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.js format[hermes] 1`] = `
+"';' expected (1:10)
+> 1 | abstract class NeedsSemicolon {
+    |          ^
+  2 |   // prettier-ignore
+  3 |   abstract   a  :   number   ;
+  4 |   [b]: number;
+Cause: ';' expected (1:9)
+abstract class NeedsSemicolon {
+         ^"
+`;

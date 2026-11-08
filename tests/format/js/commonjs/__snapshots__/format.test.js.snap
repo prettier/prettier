@@ -188,13 +188,13 @@ exports[`snippet: return/in-static-block.cjs format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: return/in-static-block.cjs format[yuku] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
 
 exports[`snippet: return/in-static-block.cjs format[yuku-ts] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
@@ -270,13 +270,13 @@ exports[`snippet: return/in-static-block.mjs format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: return/in-static-block.mjs format[yuku] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
 
 exports[`snippet: return/in-static-block.mjs format[yuku-ts] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
@@ -352,13 +352,13 @@ exports[`snippet: return/in-static-block.unknown format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: return/in-static-block.unknown format[yuku] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
 
 exports[`snippet: return/in-static-block.unknown format[yuku-ts] 1`] = `
-"'return' statement is only valid inside a function (1:20)
+"A 'return' statement can only be used within a function body (1:20)
 > 1 | class X { static { return; } }
     |                    ^^^^^^"
 `;
@@ -402,13 +402,13 @@ Cause: [1:0-1:6]: Illegal return statement"
 `;
 
 exports[`snippet: return/top-level.mjs format[yuku] 1`] = `
-"'return' statement is only valid inside a function (1:1)
+"A 'return' statement can only be used within a function body (1:1)
 > 1 | return
     | ^^^^^^"
 `;
 
 exports[`snippet: return/top-level.mjs format[yuku-ts] 1`] = `
-"'return' statement is only valid inside a function (1:1)
+"A 'return' statement can only be used within a function body (1:1)
 > 1 | return
     | ^^^^^^"
 `;

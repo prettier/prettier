@@ -93,7 +93,7 @@ exports[`throw-expression.js format[oxc] 1`] = `
 `;
 
 exports[`throw-expression.js format[yuku] 1`] = `
-"'throw' is reserved and cannot be used as an identifier (1:26)
+"'throw' is a reserved word and cannot be used as an identifier (1:26)
 > 1 | function save(filename = throw new TypeError("Argument required")) {}
     |                          ^^^^^
   2 |

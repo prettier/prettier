@@ -95,8 +95,9 @@ function postprocess(ast, options) {
   ast = visitNode(ast, {
     onEnter(node) {
       setContentEnd(node, comments, text);
+      const { type } = node;
 
-      switch (node.type) {
+      switch (type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
           const start = locStart(node);
@@ -168,11 +169,6 @@ function postprocess(ast, options) {
         case "TSParenthesizedType":
           return node.typeAnnotation;
 
-        // For hack-style pipeline
-        case "TopicReference":
-          ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-          break;
-
         // In Flow parser, it doesn't generate union/intersection types for single type
         case "TSUnionType":
         case "TSIntersectionType":
@@ -192,6 +188,36 @@ function postprocess(ast, options) {
           if (astType === "hermes" && node.assertions && !node.attributes) {
             node.attributes = node.assertions;
             delete node.assertions;
+          }
+          break;
+
+        // Since flow@0.313.0 (reverted during 0.320.0~0.337.0), `TypeParameter.bound` is a bare type node without the `TypeAnnotation` wrapper
+        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03130
+        // https://github.com/facebook/flow/issues/9449
+        case "TypeParameter":
+          if (astType !== "flow" && node.bound?.type === "TypeAnnotation") {
+            node.bound = node.bound.typeAnnotation;
+          }
+          break;
+
+        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03370
+        case "EnumBooleanBody":
+        case "EnumNumberBody":
+        case "EnumBigIntBody":
+        case "EnumStringBody":
+        case "EnumSymbolBody":
+          if (astType === "hermes") {
+            if (node.explicitType || type === "EnumSymbolBody") {
+              node.explicitType = type
+                .slice(
+                  // `Enum`
+                  4,
+                  // `Body`
+                  -4,
+                )
+                .toLowerCase();
+            }
+            node.type = "EnumBody";
           }
           break;
       }

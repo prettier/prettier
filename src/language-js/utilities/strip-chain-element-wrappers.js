@@ -9,7 +9,12 @@ import { isChainElementWrapper } from "./node-types.js";
 
 /**
 @param {Node} node
-@returns {Exclude<Node, NodeMap["ChainExpression"] | NodeMap["TSNonNullExpression"]>}
+@returns {Exclude<
+  Node,
+  | NodeMap["ChainExpression"]
+  | NodeMap["TSNonNullExpression"]
+  | NodeMap["NonNullExpression"],
+>}
 */
 function stripChainElementWrappers(node) {
   while (isChainElementWrapper(node)) {

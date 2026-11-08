@@ -28,6 +28,45 @@ const foo = bar<T>;
 ================================================================================
 `;
 
+exports[`before-operator.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = (a + make<T>) - y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + make<T>;
+x = (make<T>) in (make<T>)
+x = (make<T>) instanceof (make<T>)
+
+=====================================output=====================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = a + (make<T>) - y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + (make<T>);
+x = (make<T>) in make<T>;
+x = (make<T>) instanceof make<T>;
+
+================================================================================
+`;
+
 exports[`binary-expr.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -150,6 +189,105 @@ const a = (make<T>)!;
 const a = (make<T>)!;
 (make<T>)!.b;
 (make<T>)!();
+
+================================================================================
+`;
+
+exports[`operand.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (c ? a : b)<T>;
+x =  c ? a : b <T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x =  a + b <T>;
+
+x = (a ?? b)<T>;
+x =  a ?? b <T>;
+
+x = (a in b)<T>;
+x =  a in b <T>;
+
+x = (a ** b)<T>;
+x =  a ** b <T>;
+
+x = (!a)<T>;
+x =  !a <T>;
+
+x = (typeof a)<T>;
+x =  typeof a <T>;
+
+x = (a as B)<T>;
+x =  a as B <T>;
+
+x = (a satisfies B)<T>;
+x =  a satisfies B <T>;
+
+x = (<B>a)<T>;
+x =  <B>a <T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = (a.b)<T>;
+x =  a.b <T>;
+
+x = (a())<T>;
+x =  a() <T>;
+
+=====================================output=====================================
+x = (c ? a : b)<T>;
+x = c ? a : b<T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x = a + (b<T>);
+
+x = (a ?? b)<T>;
+x = a ?? b<T>;
+
+x = (a in b)<T>;
+x = a in b<T>;
+
+x = (a ** b)<T>;
+x = a ** (b<T>);
+
+x = (!a)<T>;
+x = !a<T>;
+
+x = (typeof a)<T>;
+x = typeof a<T>;
+
+x = (a as B)<T>;
+x = a as B<T>;
+
+x = (a satisfies B)<T>;
+x = a satisfies B<T>;
+
+x = (<B>a)<T>;
+x = <B>a<T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = a.b<T>;
+x = a.b<T>;
+
+x = a()<T>;
+x = a()<T>;
 
 ================================================================================
 `;

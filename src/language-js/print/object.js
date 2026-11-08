@@ -20,6 +20,7 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import {
   isEnumBody as isEnumBodyNode,
+  isNamespaceSpecifier,
   isObjectType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
@@ -49,12 +50,9 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
+- `ImportNamespaceSpecifier`
+- `ExportNamespaceSpecifier`
 - `EnumBody` (Flow)
-- `EnumBooleanBody` (Flow, removed)
-- `EnumNumberBody` (Flow, removed)
-- `EnumBigIntBody` (Flow, removed)
-- `EnumStringBody` (Flow, removed)
-- `EnumSymbolBody` (Flow, removed)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
 - `TSEnumDeclaration`(TypeScript)
@@ -63,15 +61,16 @@ function printObject(path, options, print) {
   const { node, parent } = path;
 
   const isEnumBody = isEnumBodyNode(node);
-  const isFlowEnumBody = isEnumBody && node.type !== "TSEnumBody";
   const isImportAttributes = isPrintingImportAttributes(node);
-  const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
+  const hasUnknownMembers = node.type === "EnumBody" && node.hasUnknownMembers;
 
   const property = isEnumBody
     ? "members"
     : isImportAttributes
       ? "attributes"
-      : "properties";
+      : isNamespaceSpecifier(node)
+        ? "exportsFilter"
+        : "properties";
   const children = node[property];
 
   const shouldBreak =

@@ -4,7 +4,6 @@ import {
   hardline,
   indent,
   inheritLabel,
-  join,
   line,
   lineSuffix,
 } from "../../document/index.js";
@@ -117,6 +116,7 @@ function printTrailingComment(path, options, previousComment) {
  * @param {CommentPrintOptions & {
  *  indent?: boolean,
  *  marker?: symbol | string,
+ *  separator?: Doc | (({previous, comment}) => Doc),
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
@@ -129,6 +129,7 @@ function printDanglingComments(
     indent: shouldIndent = false,
     marker,
     filter = returnTrue,
+    separator = hardline,
   } = danglingCommentsPrintOptions;
   const danglingComments = new Set(
     path.node?.comments?.filter(
@@ -146,16 +147,24 @@ function printDanglingComments(
     return "";
   }
 
-  const parts = path
-    .map(
-      ({ node: comment }) =>
-        danglingComments.has(comment) ? printComment(path, options) : "",
-      "comments",
-    )
-    .filter(Boolean);
+  const parts = [];
+  let previous;
+  path.each(({ node: comment }) => {
+    if (!danglingComments.has(comment)) {
+      return;
+    }
+    if (previous) {
+      parts.push(
+        typeof separator === "function"
+          ? separator({ previous, comment })
+          : separator,
+      );
+    }
+    parts.push(printComment(path, options));
+    previous = comment;
+  }, "comments");
 
-  const doc = join(hardline, parts);
-  return shouldIndent ? indent([hardline, doc]) : doc;
+  return shouldIndent ? indent([hardline, parts]) : parts;
 }
 
 /**

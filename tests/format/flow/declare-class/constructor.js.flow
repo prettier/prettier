@@ -1,0 +1,9 @@
+declare class C {
+  constructor();
+  constructor(value: number);
+  constructor(value: string, ...rest: string[]);
+  constructor(/* parameter */ value: number);
+  constructor(): void;
+  method(): void;
+  callback: () => void;
+}

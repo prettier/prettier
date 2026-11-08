@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quote.js - {"singleQuote":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+singleQuote: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {
+  'foo11',
+  "foo12",
+  "fo\\u{6f}21",
+  'fo\\u{6f}22'
+} as ns from 'foo'
+
+=====================================output=====================================
+import {
+  "foo11",
+  "foo12",
+  "fo\\u{6f}21",
+  "fo\\u{6f}22",
+} as ns from "foo";
+
+================================================================================
+`;
+
+exports[`quote.js - {"singleQuote":false} format[acorn] 1`] = `
+"Binding rvalue (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Binding rvalue (2:2)"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[espree] 1`] = `
+"Binding rvalue (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Binding rvalue"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[flow] 1`] = `
+"Unexpected string, expected an identifier (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Unexpected string, expected an identifier (2:2)"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[hermes] 1`] = `
+"'identifier' expected in import specifier (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: 'identifier' expected in import specifier (2:2)
+  'foo11',
+  ^
+note: specifiers start (1:7)
+import {
+       ^"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[meriyah] 1`] = `
+"Expected 'as' (2:10)
+  1 | import {
+> 2 |   'foo11',
+    |          ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: [2:9-2:10]: Expected 'as'"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[oxc] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[oxc-ts] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[typescript] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Identifier expected."
+`;
+
+exports[`quote.js - {"singleQuote":false} format[yuku] 1`] = `
+"A string literal import name requires an 'as' clause (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":false} format[yuku-ts] 1`] = `
+"A string literal import name requires an 'as' clause (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {
+  'foo11',
+  "foo12",
+  "fo\\u{6f}21",
+  'fo\\u{6f}22'
+} as ns from 'foo'
+
+=====================================output=====================================
+import {
+  'foo11',
+  'foo12',
+  'fo\\u{6f}21',
+  'fo\\u{6f}22',
+} as ns from 'foo';
+
+================================================================================
+`;
+
+exports[`quote.js - {"singleQuote":true} format[acorn] 1`] = `
+"Binding rvalue (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Binding rvalue (2:2)"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[espree] 1`] = `
+"Binding rvalue (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Binding rvalue"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[flow] 1`] = `
+"Unexpected string, expected an identifier (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Unexpected string, expected an identifier (2:2)"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[hermes] 1`] = `
+"'identifier' expected in import specifier (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: 'identifier' expected in import specifier (2:2)
+  'foo11',
+  ^
+note: specifiers start (1:7)
+import {
+       ^"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[meriyah] 1`] = `
+"Expected 'as' (2:10)
+  1 | import {
+> 2 |   'foo11',
+    |          ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: [2:9-2:10]: Expected 'as'"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[oxc] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[oxc-ts] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[typescript] 1`] = `
+"Identifier expected. (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'
+Cause: Identifier expected."
+`;
+
+exports[`quote.js - {"singleQuote":true} format[yuku] 1`] = `
+"A string literal import name requires an 'as' clause (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
+
+exports[`quote.js - {"singleQuote":true} format[yuku-ts] 1`] = `
+"A string literal import name requires an 'as' clause (2:3)
+  1 | import {
+> 2 |   'foo11',
+    |   ^^^^^^^
+  3 |   "foo12",
+  4 |   "fo\\u{6f}21",
+  5 |   'fo\\u{6f}22'"
+`;
