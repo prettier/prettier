@@ -1,7 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
-// flow-estree:v0.338.0, build-script:v1
+// flow-estree:v0.339.0, build-script:v1
 // spell-checker: disable
 
 /**
@@ -136,7 +136,7 @@ export interface Program extends BaseNode {
   readonly type: "Program";
   readonly sourceType: "script" | "module";
   readonly body: ReadonlyArray<Statement | ModuleDeclaration>;
-  readonly tokens: ReadonlyArray<Token>;
+  readonly tokens?: ReadonlyArray<Token>;
   readonly comments: ReadonlyArray<Comment>;
   readonly loc: SourceLocation;
   readonly interpreter: null | InterpreterDirective;
@@ -520,7 +520,7 @@ export interface ThisExpression extends BaseNode {
 
 export interface ArrayExpression extends BaseNode {
   readonly type: "ArrayExpression";
-  readonly elements: ReadonlyArray<Expression | SpreadElement>;
+  readonly elements: ReadonlyArray<Expression | SpreadElement | null>;
   // this is not part of the ESTree spec, but hermes emits it
   readonly trailingComma: boolean;
 }
@@ -1275,8 +1275,8 @@ export interface NamespaceExportDeclaration extends BaseNode {
 
 export interface ExportDefaultDeclaration extends BaseNode {
   readonly type: "ExportDefaultDeclaration";
-  readonly declaration: DefaultDeclaration | Expression;
-  readonly exportKind: "value";
+  readonly declaration: DefaultDeclaration | InterfaceDeclaration | Expression;
+  readonly exportKind: "value" | "type";
 }
 
 export interface ExportAllDeclaration extends BaseNode {
@@ -1350,7 +1350,8 @@ export type TypeAnnotationType =
 
 export interface Variance extends BaseNode {
   readonly type: "Variance";
-  readonly kind: "plus" | "minus" | "readonly" | "writeonly" | "in" | "out";
+  readonly kind:
+    "plus" | "minus" | "readonly" | "writeonly" | "in" | "out" | "in out";
 }
 
 interface BaseTypeAlias extends BaseNode {
@@ -1462,7 +1463,7 @@ export interface ExistsTypeAnnotation extends BaseNode {
 export interface GenericTypeAnnotation extends BaseNode {
   readonly type: "GenericTypeAnnotation";
   readonly id: Identifier | QualifiedTypeIdentifier | ImportType;
-  readonly typeParameters: null | TypeParameterInstantiation;
+  readonly typeArguments: null | TypeParameterInstantiation;
 }
 export interface ImportType extends BaseNode {
   readonly type: "ImportType";
@@ -1559,7 +1560,8 @@ export type TypeOperator =
   | RendersTypeOperator
   | RendersStarTypeOperator
   | RendersQuestionTypeOperator
-  | UniqueTypeOperator;
+  | UniqueTypeOperator
+  | ReadonlyTypeOperator;
 
 export type RendersType =
   RendersTypeOperator | RendersStarTypeOperator | RendersQuestionTypeOperator;
@@ -1584,6 +1586,10 @@ export interface UniqueTypeOperator extends TypeOperatorBase {
   readonly type: "TypeOperator";
   readonly operator: "unique";
   readonly typeAnnotation: SymbolTypeAnnotation;
+}
+export interface ReadonlyTypeOperator extends TypeOperatorBase {
+  readonly type: "TypeOperator";
+  readonly operator: "readonly";
 }
 
 export interface TypePredicate extends BaseNode {
@@ -1665,7 +1671,7 @@ export interface ObjectTypeAnnotation extends BaseNode {
 interface ObjectTypePropertyBase extends BaseNode {
   readonly type: "ObjectTypeProperty";
   readonly key: Expression;
-  readonly value: TypeAnnotationType;
+  readonly value: TypeAnnotationType | null;
   readonly method: boolean;
   readonly optional: boolean;
   readonly static: boolean; // only applies to the "declare class" case
@@ -1692,7 +1698,7 @@ export interface ObjectTypeMethodSignature extends ObjectTypePropertyBase {
 }
 export interface ObjectTypePropertySignature extends ObjectTypePropertyBase {
   readonly type: "ObjectTypeProperty";
-  readonly value: TypeAnnotationType;
+  readonly value: TypeAnnotationType | null;
   readonly method: false;
   readonly optional: boolean;
   readonly variance: Variance | null;
@@ -1811,7 +1817,7 @@ export interface InterfaceDeclaration extends BaseInterfaceDeclaration {
 export interface InterfaceExtends extends BaseNode {
   readonly type: "InterfaceExtends";
   readonly id: Identifier | QualifiedTypeIdentifier;
-  readonly typeParameters: null | TypeParameterInstantiation;
+  readonly typeArguments: null | TypeParameterInstantiation;
 
   readonly parent: InterfaceDeclaration | DeclareInterface;
 }
@@ -1819,7 +1825,7 @@ export interface InterfaceExtends extends BaseNode {
 export interface ClassImplements extends BaseNode {
   readonly type: "ClassImplements";
   readonly id: Identifier | QualifiedTypeIdentifier;
-  readonly typeParameters: null | TypeParameterInstantiation;
+  readonly typeArguments: null | TypeParameterInstantiation;
 
   readonly parent: AClass | DeclareClass;
 }
@@ -2158,7 +2164,7 @@ export type JSXNode =
 
 export interface JSXAttribute extends BaseNode {
   readonly type: "JSXAttribute";
-  readonly name: JSXIdentifier;
+  readonly name: JSXIdentifier | JSXNamespacedName;
   readonly value: Literal | JSXExpression | null;
 
   readonly parent: JSXOpeningElement;
