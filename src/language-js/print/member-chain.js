@@ -19,11 +19,13 @@ import { isMemberish } from "../utilities/is-memberish.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isSimpleCallArgument } from "../utilities/is-simple-call-argument.js";
 import {
+  isArrayExpression,
   isCallExpression,
   isFunctionOrArrowExpression,
   isMemberExpression,
   isNonNullExpression,
   isNumericLiteral,
+  isObjectExpression,
 } from "../utilities/node-types.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
@@ -148,11 +150,13 @@ function printMemberChain(path, options, print) {
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
   const { node } = path;
-  const printedCallPrefix = [printOptionalToken(path), print("typeArguments")];
-  const callArguments = printCallArguments(path, options, print);
   printedNodes.unshift({
     node,
-    printed: [printedCallPrefix, callArguments],
+    printed: [
+      printOptionalToken(path),
+      print("typeArguments"),
+      printCallArguments(path, options, print),
+    ],
   });
 
   if (node.callee) {
@@ -374,15 +378,20 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallExpression);
 
-  function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
+  function shouldBreakForLastGroup() {
     const lastGroupNode = groups.at(-1).at(-1).node;
     const lastGroupDoc = printedGroups.at(-1);
+    const lastArg = lastGroupNode.arguments?.at(-1);
+    const expandedArg =
+      lastArg?.type === "ArrowFunctionExpression" ? lastArg.body : lastArg;
     return (
       isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
-      callExpressions
-        .slice(0, -1)
-        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
+      ((lastGroupNode.arguments.length === 1 &&
+        (isObjectExpression(expandedArg) || isArrayExpression(expandedArg))) ||
+        callExpressions
+          .slice(0, -1)
+          .some((node) => node.arguments.some(isFunctionOrArrowExpression)))
     );
   }
 
@@ -393,7 +402,8 @@ function printMemberChain(path, options, print) {
   //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
   //  * the chain is longer than 2 calls and has non-trivial arguments or more than 2 arguments in any call but the first one,
   //  * any group but the last one has a hard line,
-  //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
+  //  * the last call breaks and has an expandable object/array argument, or
+  //    other calls have function arguments.
   if (
     nodeHasComment ||
     (callExpressions.length > 2 &&
@@ -401,31 +411,16 @@ function printMemberChain(path, options, print) {
         expr.arguments.some((arg) => !isSimpleCallArgument(arg)),
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
-    lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
+    shouldBreakForLastGroup()
   ) {
     result = group(expanded);
   } else {
-    const alternatives = [oneLine];
-    const expandedLastArg =
-      "label" in callArguments
-        ? callArguments.label.expandedLastArg
-        : undefined;
-    if (expandedLastArg) {
-      // Prefer expanding the last argument before breaking the chain so
-      // formatting is stable across passes (issue #20307).
-      alternatives.push(
-        flatGroups.map(({ node: groupNode, printed }) =>
-          groupNode === node ? [printedCallPrefix, expandedLastArg] : printed,
-        ),
-      );
-    }
-    alternatives.push(expanded);
     result = [
       // We only need to check `oneLine` because if `expanded` is chosen
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup(alternatives),
+      conditionalGroup([oneLine, expanded]),
     ];
   }
 

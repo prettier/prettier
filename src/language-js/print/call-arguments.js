@@ -5,7 +5,6 @@ import {
   group,
   hardline,
   indent,
-  label,
   line,
   softline,
   willBreak,
@@ -186,20 +185,11 @@ function printCallArguments(path, options, print) {
       ];
     }
 
-    const expandedLastArg = [
-      "(",
-      ...headArgs,
-      group(lastArg, { shouldBreak: true }),
-      ")",
-    ];
-    return label(
-      { expandedLastArg },
-      conditionalGroup([
-        ["(", ...headArgs, lastArg, ")"],
-        expandedLastArg,
-        allArgsBrokenOut(),
-      ]),
-    );
+    return conditionalGroup([
+      ["(", ...headArgs, lastArg, ")"],
+      ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
+      allArgsBrokenOut(),
+    ]);
   }
 
   const contents = [
