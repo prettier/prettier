@@ -6,6 +6,7 @@ parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 { a deep { } ...Frag } fragment Frag on Type { }
+
 =====================================output=====================================
 {
   a
@@ -23,6 +24,7 @@ parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 { }
+
 =====================================output=====================================
 {}
 
@@ -35,6 +37,7 @@ parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 { node { } }
+
 =====================================output=====================================
 {
   node {}
@@ -49,6 +52,7 @@ parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 { foo { } bar { ... on Baz { } } }
+
 =====================================output=====================================
 {
   foo {}
@@ -67,6 +71,7 @@ parsers: ["graphql"]
 =====================================input======================================
 subscription NoRootField {
 }
+
 =====================================output=====================================
 subscription NoRootField {}
 
@@ -80,6 +85,7 @@ parsers: ["graphql"]
 =====================================input======================================
 subscription {
 }
+
 =====================================output=====================================
 subscription {}
 
@@ -96,6 +102,7 @@ subscription {
 }
 fragment Empty on SubscriptionRoot {
 }
+
 =====================================output=====================================
 subscription {
   ...Empty
@@ -110,12 +117,13 @@ exports[`empty-8.graphql format 1`] = `
 parsers: ["graphql"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-        subscription NoInfiniteLoop {
-          ...A
-        }
-        fragment A on SubscriptionRoot {
-          ...A
-        }
+subscription NoInfiniteLoop {
+  ...A
+}
+fragment A on SubscriptionRoot {
+  ...A
+}
+
 =====================================output=====================================
 subscription NoInfiniteLoop {
   ...A
