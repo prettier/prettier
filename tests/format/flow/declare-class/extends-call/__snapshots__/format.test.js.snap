@@ -39,7 +39,7 @@ declare class Nested extends outer(
 declare class Generic extends mixin<
   /* type argument */ FirstType,
   SecondType,
->(Base) {}
+>(Base<FirstType, SecondType>) {}
 
 ================================================================================
 `;
@@ -64,7 +64,7 @@ printWidth: 50
 =====================================input======================================
 declare class C extends mixin( Base ) {}
 
-declare class Generic<T> extends mixin< T >( Base< T > ) {}
+declare class Generic<T1> extends mixin< T2 >( Base< T3 > ) {}
 
 declare class Nested extends outer( inner( Base ) ) {}
 
@@ -77,12 +77,14 @@ declare class Long extends veryLongMixinName<FirstTypeArgument, SecondTypeArgume
 =====================================output=====================================
 declare class C extends mixin(Base) {}
 
-declare class Generic<T> extends mixin<T>(Base) {}
+declare class Generic<T1> extends mixin<T2>(
+  Base<T3>
+) {}
 
 declare class Nested extends outer(inner(Base)) {}
 
 declare class Qualified extends Namespace.mixin(
-  Namespace.Base
+  Namespace.Base<T>
 ) {}
 
 declare class Implements
@@ -95,7 +97,12 @@ declare class Implements
 declare class Long extends veryLongMixinName<
   FirstTypeArgument,
   SecondTypeArgument,
->(VeryLongBaseClassName) {}
+>(
+  VeryLongBaseClassName<
+    FirstTypeArgument,
+    SecondTypeArgument,
+  >
+) {}
 
 ================================================================================
 `;
@@ -105,7 +112,7 @@ exports[`extends.js.flow - {"printWidth":50} format[hermes] 1`] = `
 > 1 | declare class C extends mixin( Base ) {}
     |                              ^
   2 |
-  3 | declare class Generic<T> extends mixin< T >( Base< T > ) {}
+  3 | declare class Generic<T1> extends mixin< T2 >( Base< T3 > ) {}
   4 |
 Cause: '{' expected in declared class (1:29)
 declare class C extends mixin( Base ) {}
