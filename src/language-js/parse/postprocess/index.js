@@ -223,6 +223,8 @@ function postprocess(ast, options) {
           break;
 
         case "GenericTypeAnnotation":
+        case "ClassImplements":
+        case "InterfaceExtends":
           if (
             astType !== "flow" &&
             node.typeParameters &&
