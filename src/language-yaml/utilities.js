@@ -269,7 +269,11 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    lines = lines.map((words) => [words.join(" ")]);
+    lines = lines.map((words) =>
+      // Keep empty lines empty, so they are still recognised as line breaks
+      // (and trimmed when trailing) instead of becoming a `[""]` line
+      words.length === 0 ? words : [words.join(" ")],
+    );
   }
 
   return removeUnnecessaryTrailingNewlines(lines);
