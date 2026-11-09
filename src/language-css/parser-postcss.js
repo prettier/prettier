@@ -22,6 +22,13 @@ import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
+function parseLessVariableValue(value, options) {
+  const text = value.trim();
+  return text.startsWith("&")
+    ? { type: "value-unknown", value: text }
+    : parseValue(value, options);
+}
+
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
     delete node.parent;
@@ -192,7 +199,10 @@ function parseNestedCSS(node, options) {
         };
       }
 
-      node.value = parseValue(value, options);
+      node.value =
+        options.parser === "less" && node.variable
+          ? parseLessVariableValue(value, options)
+          : parseValue(value, options);
     }
 
     // Clean spaces in between `+` and `:`
@@ -271,7 +281,7 @@ function parseNestedCSS(node, options) {
             value += node.params;
           }
 
-          node.value = parseValue(value, options);
+          node.value = parseLessVariableValue(value, options);
         }
 
         // `@color :blue;`
@@ -282,7 +292,7 @@ function parseNestedCSS(node, options) {
           node.variable = true;
           const text = node.params.slice(1);
           if (text) {
-            node.value = parseValue(text, options);
+            node.value = parseLessVariableValue(text, options);
           }
           node.raws.afterName += ":";
         }

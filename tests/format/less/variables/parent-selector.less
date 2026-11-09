@@ -1,0 +1,10 @@
+@just-text-type-input-selectors: &:not([type='file']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']);
+
+input {
+  @{just-text-type-input-selectors} {
+    color: blue;
+  }
+}
+
+@hover:&:hover;
+@focus : &:focus-visible;
