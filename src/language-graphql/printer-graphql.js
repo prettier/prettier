@@ -11,7 +11,6 @@ import { printDanglingComments } from "../main/comments/print.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import { printArguments } from "./print/arguments.js";
@@ -23,6 +22,7 @@ import {
 } from "./print/selection-set.js";
 import { printSequence } from "./print/sequence.js";
 import { printVariableDefinitions } from "./print/variable-definitions.js";
+import { hasExplicitOperation } from "./utilities/has-explicit-operation.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -35,7 +35,7 @@ function genericPrint(path, options, print) {
       ];
 
     case "OperationDefinition": {
-      const hasOperation = options.originalText[locStart(node)] !== "{";
+      const hasOperation = hasExplicitOperation(node, options);
       const hasName = Boolean(node.name);
       return [
         printDescription(path, options, print),
@@ -59,7 +59,7 @@ function genericPrint(path, options, print) {
         " on ",
         print("typeCondition"),
         printDirectives(path, print),
-        printNodeSelectionSet(path, print),
+        printNodeSelectionSet(path, options, print),
       ];
 
     case "SelectionSet":
@@ -84,7 +84,7 @@ function genericPrint(path, options, print) {
             ])
           : "",
         printDirectives(path, print),
-        printNodeSelectionSet(path, print),
+        printNodeSelectionSet(path, options, print),
       ]);
 
     case "Name":
@@ -385,7 +385,7 @@ function genericPrint(path, options, print) {
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
         printDirectives(path, print),
-        printNodeSelectionSet(path, print),
+        printNodeSelectionSet(path, options, print),
       ];
 
     case "UnionTypeExtension":

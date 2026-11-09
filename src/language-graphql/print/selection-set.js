@@ -1,4 +1,5 @@
 import { hardline, indent, join } from "../../document/index.js";
+import { hasExplicitOperation } from "../utilities/has-explicit-operation.js";
 import { printSequence } from "./sequence.js";
 
 function printSelectionSet(path, options, print) {
@@ -19,7 +20,7 @@ function printSelectionSet(path, options, print) {
   ];
 }
 
-function printNodeSelectionSet(path, print) {
+function printNodeSelectionSet(path, options, print) {
   const { node } = path;
   const { selectionSet } = node;
 
@@ -32,7 +33,7 @@ function printNodeSelectionSet(path, print) {
   if (
     node.type === "OperationDefinition" &&
     node.name &&
-    options.originalText[locStart(node)] !== "{"
+    hasExplicitOperation(node, options)
   ) {
     return selectionSetDoc;
   }
