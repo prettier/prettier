@@ -1,7 +1,7 @@
 const errors = {
   acorn: ["class-expression-decorator.js", "asi-bind-expression.js"],
   espree: ["class-expression-decorator.js", "asi-bind-expression.js"],
-  flow: ["class-expression-decorator.js", "asi-bind-expression.js"],
+  flow: ["asi-bind-expression.js"],
   typescript: ["asi-bind-expression.js"],
   meriyah: ["asi-bind-expression.js"],
   oxc: ["asi-bind-expression.js"],
