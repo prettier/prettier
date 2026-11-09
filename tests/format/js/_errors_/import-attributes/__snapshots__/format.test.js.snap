@@ -175,14 +175,14 @@ Cause: '{' expected."
 `;
 
 exports[`import-attributes-with-parens.js format[yuku] 1`] = `
-"Expected '{' after 'with' in import attributes, but found '(' (1:17)
+"Expected '{' to start the import attributes, but found '(' (1:17)
 > 1 | import "x" with ({type: 'json'});
     |                 ^
   2 |"
 `;
 
 exports[`import-attributes-with-parens.js format[yuku-ts] 1`] = `
-"Expected '{' after 'with' in import attributes, but found '(' (1:17)
+"Expected '{' to start the import attributes, but found '(' (1:17)
 > 1 | import "x" with ({type: 'json'});
     |                 ^
   2 |"
@@ -269,14 +269,14 @@ Cause: '{' expected."
 `;
 
 exports[`module-attributes.js format[yuku] 1`] = `
-"Expected '{' after 'with' in import attributes, but found 'type' (1:33)
+"Expected '{' to start the import attributes, but found 'type' (1:33)
 > 1 | import foo from "foo.json" with type: "json";
     |                                 ^^^^
   2 |"
 `;
 
 exports[`module-attributes.js format[yuku-ts] 1`] = `
-"Expected '{' after 'with' in import attributes, but found 'type' (1:33)
+"Expected '{' to start the import attributes, but found 'type' (1:33)
 > 1 | import foo from "foo.json" with type: "json";
     |                                 ^^^^
   2 |"

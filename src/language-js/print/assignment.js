@@ -23,6 +23,7 @@ import {
   isChainElementWrapper,
   isIntersectionType,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
   isStringLiteral,
   isTypeAlias,
@@ -246,7 +247,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     ) {
       node = node.argument;
       propertiesForPath.push("argument");
-    } else if (node.type === "TSNonNullExpression") {
+    } else if (isNonNullExpression(node)) {
       node = node.expression;
       propertiesForPath.push("expression");
     } else {
@@ -346,8 +347,6 @@ function getTypeParametersFromTypeReference(node) {
   let typeArguments;
   switch (node.type) {
     case "GenericTypeAnnotation":
-      typeArguments = node.typeParameters;
-      break;
     case "TSTypeReference":
       typeArguments = node.typeArguments;
       break;
@@ -450,10 +449,10 @@ function isGeneric(node) {
   switch (node.type) {
     case "FunctionTypeAnnotation":
     case "ConstructorTypeAnnotation":
-    case "GenericTypeAnnotation":
     case "TSFunctionType":
     case "TSConstructorType":
       return Boolean(node.typeParameters);
+    case "GenericTypeAnnotation":
     case "TSTypeReference":
       return Boolean(node.typeArguments);
     default:

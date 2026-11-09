@@ -23,6 +23,7 @@ import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
 - `ClassBody`
+- `StructBody`
 - `TSInterfaceBody` (TypeScript)
 - `TSTypeLiteral` (TypeScript)
 - `ObjectTypeAnnotation` (Flow)
@@ -172,6 +173,7 @@ function isClassBody(path) {
 
   return (
     node.type === "ClassBody" ||
+    node.type === "StructBody" ||
     node.type === "TSInterfaceBody" ||
     node.type === "RecordDeclarationBody"
   );

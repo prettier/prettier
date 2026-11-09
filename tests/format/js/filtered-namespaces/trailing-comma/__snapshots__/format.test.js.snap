@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comma.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+trailingComma: "all"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {
+  // Comment force Break
+  foo
+} as ns from 'foo'
+
+=====================================output=====================================
+import {
+  // Comment force Break
+  foo,
+} as ns from "foo";
+
+================================================================================
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[acorn] 1`] = `
+"Unexpected token (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected token (4:2)"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[espree] 1`] = `
+"Unexpected token as (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected token as"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected identifier, expected the keyword \`from\` (4:2)"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[hermes] 1`] = `
+"'from' expected (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: 'from' expected (4:2)
+} as ns from 'foo'
+  ^"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[meriyah] 1`] = `
+"Expected 'from' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |
+Cause: [4:2-4:4]: Expected 'from'"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[typescript] 1`] = `
+"'from' expected. (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: 'from' expected."
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"all"} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {
+  // Comment force Break
+  foo
+} as ns from 'foo'
+
+=====================================output=====================================
+import {
+  // Comment force Break
+  foo
+} as ns from "foo";
+
+================================================================================
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[acorn] 1`] = `
+"Unexpected token (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected token (4:2)"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[espree] 1`] = `
+"Unexpected token as (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected token as"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: Unexpected identifier, expected the keyword \`from\` (4:2)"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[hermes] 1`] = `
+"'from' expected (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: 'from' expected (4:2)
+} as ns from 'foo'
+  ^"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[meriyah] 1`] = `
+"Expected 'from' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |
+Cause: [4:2-4:4]: Expected 'from'"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[typescript] 1`] = `
+"'from' expected. (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^
+  5 |
+Cause: 'from' expected."
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;
+
+exports[`comma.js - {"trailingComma":"none"} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (4:3)
+  2 |   // Comment force Break
+  3 |   foo
+> 4 | } as ns from 'foo'
+    |   ^^
+  5 |"
+`;

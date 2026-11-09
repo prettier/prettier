@@ -1,0 +1,6 @@
+subscription NoInfiniteLoop {
+  ...A
+}
+fragment A on SubscriptionRoot {
+  ...A
+}

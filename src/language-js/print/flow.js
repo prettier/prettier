@@ -50,8 +50,11 @@ import {
 } from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
+import { printNamespaceExportDeclaration } from "./namespace-export-declaration.js";
+import { printNonNullExpression } from "./non-null-expression.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
+import { printParameterProperty } from "./parameter-property.js";
 import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
@@ -150,12 +153,14 @@ function printFlow(path, options, print, args) {
       return printArray(path, options, print);
     case "TupleTypeLabeledElement":
       return printNamedTupleMember(path, options, print);
+    case "TupleTypeElement":
+      return [print("elementType"), node.optional ? "?" : ""];
     case "TupleTypeSpreadElement":
       return printRestType(path, options, print);
     case "GenericTypeAnnotation":
       return [
         print("id"),
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "IndexedAccessType":
     case "OptionalIndexedAccessType":
@@ -211,6 +216,8 @@ function printFlow(path, options, print, args) {
       return printClass(path, options, print);
     case "AbstractMethodDefinition":
       return printClassMethod(path, options, print);
+    case "ParameterProperty":
+      return printParameterProperty(path, options, print);
     case "AbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "ObjectTypeAnnotation":
@@ -218,8 +225,9 @@ function printFlow(path, options, print, args) {
       return printClassBody(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
-      // Use `typeArguments` once https://github.com/facebook/flow/issues/9343 get fixed
-      return [print("id"), print("typeParameters")];
+      return [print("id"), print("typeArguments")];
+    case "DeclareClassExtendsCall":
+      return printCallExpression(path, options, print);
     case "RecordDeclarationImplements":
       return [print("id"), print("typeArguments")];
     case "NullableTypeAnnotation":
@@ -232,7 +240,8 @@ function printFlow(path, options, print, args) {
           kind === "readonly" ||
           kind === "writeonly" ||
           kind === "in" ||
-          kind === "out",
+          kind === "out" ||
+          kind === "in out",
       );
       if (kind === "plus" || kind === "minus") {
         return kind === "plus" ? "+" : "-";
@@ -252,6 +261,11 @@ function printFlow(path, options, print, args) {
       ];
     case "ObjectTypeMappedTypeProperty":
       return printFlowMappedTypeProperty(path, options, print);
+    case "ObjectTypePrivateField":
+      return [
+        printKey(path, options, print),
+        printClassMemberSemicolon(path, options),
+      ];
     case "ObjectTypeIndexer":
       return [
         group([
@@ -324,6 +338,8 @@ function printFlow(path, options, print, args) {
       return printCallExpression(path, options, print);
     case "ExportAssignment":
       return printExportAssignment(path, options, print);
+    case "NamespaceExportDeclaration":
+      return printNamespaceExportDeclaration(path, options, print);
 
     case "NullLiteralTypeAnnotation":
       return "null";
@@ -342,6 +358,9 @@ function printFlow(path, options, print, args) {
         printTypeAnnotationProperty(path, print),
         ")",
       ];
+
+    case "NonNullExpression":
+      return printNonNullExpression(path, options, print);
 
     case "TypePredicate":
       return printTypePredicate(path, print);

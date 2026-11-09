@@ -22,6 +22,7 @@ import {
   isCallExpression,
   isFunctionOrArrowExpression,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
@@ -130,10 +131,7 @@ function printMemberChain(path, options, print) {
       !needsParentheses(path, options)
     ) {
       path.call(rec, "expression");
-    } else if (
-      node.type === "TSNonNullExpression" &&
-      !needsParentheses(path, options)
-    ) {
+    } else if (isNonNullExpression(node) && !needsParentheses(path, options)) {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
@@ -193,7 +191,7 @@ function printMemberChain(path, options, print) {
   let i = 1;
   for (; i < printedNodes.length; ++i) {
     if (
-      printedNodes[i].node.type === "TSNonNullExpression" ||
+      isNonNullExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ChainExpression" ||
       isCallExpression(printedNodes[i].node) ||
       (isMemberExpression(printedNodes[i].node) &&
@@ -250,7 +248,11 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
+    if (
+      hasComment(printedNodes[i].node, CommentCheckFlags.Trailing) &&
+      // Non-null assertions cannot follow a line break.
+      !isNonNullExpression(printedNodes[i + 1]?.node)
+    ) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;

@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format 1`] = `
+====================================options=====================================
+objectWrap: "collapse"
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {foo} as ns from 'foo'
+import {
+foo} as ns from 'foo'
+
+=====================================output=====================================
+import { foo } as ns from "foo";
+import { foo } as ns from "foo";
+
+================================================================================
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected token as"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: 'from' expected (1:13)
+import {foo} as ns from 'foo'
+             ^"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: 'from' expected."
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"collapse"} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format 1`] = `
+====================================options=====================================
+objectWrap: "preserve"
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {foo} as ns from 'foo'
+import {
+foo} as ns from 'foo'
+
+=====================================output=====================================
+import { foo } as ns from "foo";
+import {
+  foo,
+} as ns from "foo";
+
+================================================================================
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[espree] 1`] = `
+"Unexpected token as (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected token as"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[flow] 1`] = `
+"Unexpected identifier, expected the keyword \`from\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[hermes] 1`] = `
+"'from' expected (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: 'from' expected (1:13)
+import {foo} as ns from 'foo'
+             ^"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[meriyah] 1`] = `
+"Expected 'from' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: [1:13-1:15]: Expected 'from'"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[oxc-ts] 1`] = `
+"Expected \`from\` but found \`as\` (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[typescript] 1`] = `
+"'from' expected. (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |
+Cause: 'from' expected."
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;
+
+exports[`object-wrap.js - {"objectWrap":"preserve"} format[yuku-ts] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (1:14)
+> 1 | import {foo} as ns from 'foo'
+    |              ^^
+  2 | import {
+  3 | foo} as ns from 'foo'
+  4 |"
+`;

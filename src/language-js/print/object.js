@@ -20,6 +20,7 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import {
   isEnumBody as isEnumBodyNode,
+  isNamespaceSpecifier,
   isObjectType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
@@ -49,6 +50,8 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
+- `ImportNamespaceSpecifier`
+- `ExportNamespaceSpecifier`
 - `EnumBody` (Flow)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
@@ -65,7 +68,9 @@ function printObject(path, options, print) {
     ? "members"
     : isImportAttributes
       ? "attributes"
-      : "properties";
+      : isNamespaceSpecifier(node)
+        ? "exportsFilter"
+        : "properties";
   const children = node[property];
 
   const shouldBreak =

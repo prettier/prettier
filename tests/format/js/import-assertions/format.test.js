@@ -18,5 +18,7 @@ runFormatTest(import.meta, ["oxc", "yuku", "typescript", "hermes"], {
       "non-type.js",
       "keyword-detect.js",
     ],
+    oxc: ["multi-types.js"],
+    "oxc-ts": ["multi-types.js"],
   },
 });

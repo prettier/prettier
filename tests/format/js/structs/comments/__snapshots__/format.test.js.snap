@@ -1,0 +1,494 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`dangling.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+struct S11 {/* comment */}
+struct S12 {
+/* comment */}
+struct S13 {/* comment */
+}
+struct S14 {
+/* comment */
+}
+struct S21 {// comment
+}
+struct S22 {
+// comment
+}
+
+=====================================output=====================================
+struct S11 {
+  /* comment */
+}
+struct S12 {
+  /* comment */
+}
+struct S13 {
+  /* comment */
+}
+struct S14 {
+  /* comment */
+}
+struct S21 {
+  // comment
+}
+struct S22 {
+  // comment
+}
+
+================================================================================
+`;
+
+exports[`dangling.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`dangling.js format[espree] 1`] = `
+"Unexpected token S11 (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: Unexpected token S11"
+`;
+
+exports[`dangling.js format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
+`;
+
+exports[`dangling.js format[hermes] 1`] = `
+"';' expected (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: ';' expected (1:7)
+struct S11 {/* comment */}
+       ^"
+`;
+
+exports[`dangling.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^^^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: [1:7-1:10]: Unexpected token: 'identifier'"
+`;
+
+exports[`dangling.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 {/* comment */}
+    |       ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */"
+`;
+
+exports[`dangling.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 {/* comment */}
+    |       ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */"
+`;
+
+exports[`dangling.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | struct S11 {/* comment */}
+    | ^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */
+Cause: Unexpected keyword or identifier."
+`;
+
+exports[`dangling.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^^^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */"
+`;
+
+exports[`dangling.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 {/* comment */}
+    |        ^^^
+  2 | struct S12 {
+  3 | /* comment */}
+  4 | struct S13 {/* comment */"
+`;
+
+exports[`head.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+struct S11 // comment
+{}
+struct S12
+// comment
+{}
+struct S13 /* comment */ {}
+struct S14
+ /* comment */ {}
+struct S15 /* comment */
+{}
+
+struct S21 // comment
+{property}
+struct S22
+// comment
+{property}
+struct S23 /* comment */ {property}
+struct S24
+ /* comment */ {property}
+struct S25 /* comment */
+{property}
+
+=====================================output=====================================
+struct S11 {
+  // comment
+}
+struct S12 {
+  // comment
+}
+struct S13 /* comment */ {}
+struct S14 {
+  /* comment */
+}
+struct S15 {
+  /* comment */
+}
+
+struct S21 {
+  // comment
+  property;
+}
+struct S22 {
+  // comment
+  property;
+}
+struct S23 /* comment */ {
+  property;
+}
+struct S24 {
+  /* comment */ property;
+}
+struct S25 {
+  /* comment */
+  property;
+}
+
+================================================================================
+`;
+
+exports[`head.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`head.js format[espree] 1`] = `
+"Unexpected token S11 (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: Unexpected token S11"
+`;
+
+exports[`head.js format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
+`;
+
+exports[`head.js format[hermes] 1`] = `
+"';' expected (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: ';' expected (1:7)
+struct S11 // comment
+       ^"
+`;
+
+exports[`head.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: [1:7-1:10]: Unexpected token: 'identifier'"
+`;
+
+exports[`head.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 // comment
+    |       ^
+  2 | {}
+  3 | struct S12
+  4 | // comment"
+`;
+
+exports[`head.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 // comment
+    |       ^
+  2 | {}
+  3 | struct S12
+  4 | // comment"
+`;
+
+exports[`head.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | struct S11 // comment
+    | ^
+  2 | {}
+  3 | struct S12
+  4 | // comment
+Cause: Unexpected keyword or identifier."
+`;
+
+exports[`head.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | {}
+  3 | struct S12
+  4 | // comment"
+`;
+
+exports[`head.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | {}
+  3 | struct S12
+  4 | // comment"
+`;
+
+exports[`super-class.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+struct S11 // comment
+extends S
+{}
+struct S11
+extends 
+ // comment
+S
+{}
+struct S12 extends S
+// comment
+{}
+struct S13
+// comment
+extends S
+{}
+struct S14 extends S /* comment */ {}
+struct S15 /* comment */ extends S {}
+struct S16 extends  /* comment */ S{}
+
+struct S21 // comment
+extends S
+{property}
+struct S21
+extends 
+ // comment
+S
+{property}
+struct S22 extends S
+// comment
+{property}
+struct S23
+// comment
+extends S
+{property}
+struct S24 extends S /* comment */ {property}
+struct S25 /* comment */ extends S {property}
+struct S26 extends  /* comment */ S{property}
+
+=====================================output=====================================
+struct S11 // comment
+  extends S {}
+struct S11
+  // comment
+  extends S {}
+struct S12 extends S {
+  // comment
+}
+struct S13
+  // comment
+  extends S {}
+struct S14 extends S /* comment */ {}
+struct S15 /* comment */ extends S {}
+struct S16 extends /* comment */ S {}
+
+struct S21 // comment
+  extends S
+{
+  property;
+}
+struct S21
+  // comment
+  extends S
+{
+  property;
+}
+struct S22 extends S {
+  // comment
+  property;
+}
+struct S23
+  // comment
+  extends S
+{
+  property;
+}
+struct S24 extends S /* comment */ {
+  property;
+}
+struct S25 /* comment */ extends S {
+  property;
+}
+struct S26 extends /* comment */ S {
+  property;
+}
+
+================================================================================
+`;
+
+exports[`super-class.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`super-class.js format[espree] 1`] = `
+"Unexpected token S11 (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: Unexpected token S11"
+`;
+
+exports[`super-class.js format[flow] 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
+`;
+
+exports[`super-class.js format[hermes] 1`] = `
+"';' expected (1:8)
+> 1 | struct S11 // comment
+    |        ^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: ';' expected (1:7)
+struct S11 // comment
+       ^"
+`;
+
+exports[`super-class.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: [1:7-1:10]: Unexpected token: 'identifier'"
+`;
+
+exports[`super-class.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 // comment
+    |       ^
+  2 | extends S
+  3 | {}
+  4 | struct S11"
+`;
+
+exports[`super-class.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | struct S11 // comment
+    |       ^
+  2 | extends S
+  3 | {}
+  4 | struct S11"
+`;
+
+exports[`super-class.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | struct S11 // comment
+    | ^
+  2 | extends S
+  3 | {}
+  4 | struct S11
+Cause: Unexpected keyword or identifier."
+`;
+
+exports[`super-class.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | extends S
+  3 | {}
+  4 | struct S11"
+`;
+
+exports[`super-class.js format[yuku-ts] 1`] = `
+"Expected ';' after the statement, but found 'S11' (1:8)
+> 1 | struct S11 // comment
+    |        ^^^
+  2 | extends S
+  3 | {}
+  4 | struct S11"
+`;

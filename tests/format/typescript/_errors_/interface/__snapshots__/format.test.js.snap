@@ -21,7 +21,7 @@ Cause: A property signature cannot have an initializer."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected ';', ',', or newline between type members, but found '=' (1:25)
+"Expected ';', ',', or a line break between type members, but found '=' (1:25)
 > 1 | interface I { x: number = 1;}
     |                         ^"
 `;
@@ -47,7 +47,7 @@ Cause: '{' expected."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found 'mixins' (1:13)
+"Expected '{' to start the interface body, but found 'mixins' (1:13)
 > 1 | interface A mixins B {}
     |             ^^^^^^"
 `;
@@ -73,7 +73,7 @@ Cause: Interface declaration cannot have 'implements' clause."
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected '{' to start an interface body, but found 'implements' (1:13)
+"Expected '{' to start the interface body, but found 'implements' (1:13)
 > 1 | interface A implements B {}
     |             ^^^^^^^^^^"
 `;

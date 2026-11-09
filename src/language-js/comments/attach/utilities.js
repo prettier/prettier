@@ -47,7 +47,9 @@ function addCommentToPossibleBlockStatement(node, comment) {
 @param {
   | NodeMap["BlockStatement"]
   | NodeMap["ClassBody"]
+  | NodeMap["StructBody"]
   | NodeMap["TSInterfaceBody"]
+  | NodeMap["RecordDeclarationBody"]
   | NodeMap["TSModuleBlock"]
   | NodeMap["ObjectTypeAnnotation"]
   | NodeMap["TSEnumBody"]
@@ -61,8 +63,14 @@ function addBlockFirstComment(node, comment) {
   // eslint-disable-next-line unicorn/prefer-switch
   if (node.type === "BlockStatement" || node.type === "TSModuleBlock") {
     child = node.body.find(({ type }) => type !== "EmptyStatement");
-  } else if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
+  } else if (
+    node.type === "ClassBody" ||
+    node.type === "StructBody" ||
+    node.type === "TSInterfaceBody"
+  ) {
     child = node.body[0];
+  } else if (node.type === "RecordDeclarationBody") {
+    child = node.elements[0];
   } else if (node.type === "ObjectTypeAnnotation") {
     child = node.properties[0];
   } else if (isEnumBody(node)) {

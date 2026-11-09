@@ -122,7 +122,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ClassImplements": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "ClassMethod": [
     "body",
@@ -203,6 +203,10 @@ exports[`visitor keys estree 1`] = `
     "implements",
     "mixins",
     "typeParameters",
+  ],
+  "DeclareClassExtendsCall": [
+    "argument",
+    "callee",
   ],
   "DeclareComponent": [
     "id",
@@ -349,6 +353,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportNamespaceSpecifier": [
     "exported",
+    "exportsFilter",
   ],
   "ExportSpecifier": [
     "exported",
@@ -408,7 +413,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "GenericTypeAnnotation": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "HookDeclaration": [
     "body",
@@ -453,6 +458,7 @@ exports[`visitor keys estree 1`] = `
     "source",
   ],
   "ImportNamespaceSpecifier": [
+    "exportsFilter",
     "local",
   ],
   "ImportSpecifier": [
@@ -478,7 +484,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "InterfaceExtends": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "InterfaceTypeAnnotation": [
     "body",
@@ -664,11 +670,17 @@ exports[`visitor keys estree 1`] = `
   "NGRoot": [
     "node",
   ],
+  "NamespaceExportDeclaration": [
+    "id",
+  ],
   "NeverTypeAnnotation": [],
   "NewExpression": [
     "arguments",
     "callee",
     "typeArguments",
+  ],
+  "NonNullExpression": [
+    "expression",
   ],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
@@ -725,6 +737,9 @@ exports[`visitor keys estree 1`] = `
     "sourceType",
     "variance",
   ],
+  "ObjectTypePrivateField": [
+    "key",
+  ],
   "ObjectTypeProperty": [
     "init",
     "key",
@@ -754,6 +769,13 @@ exports[`visitor keys estree 1`] = `
   "OptionalMemberExpression": [
     "object",
     "property",
+  ],
+  "ParameterProperty": [
+    "decorators",
+    "key",
+    "typeAnnotation",
+    "value",
+    "variance",
   ],
   "ParenthesizedExpression": [
     "expression",
@@ -842,6 +864,14 @@ exports[`visitor keys estree 1`] = `
   "StringLiteral": [],
   "StringLiteralTypeAnnotation": [],
   "StringTypeAnnotation": [],
+  "StructBody": [
+    "body",
+  ],
+  "StructDeclaration": [
+    "body",
+    "id",
+    "superClass",
+  ],
   "Super": [],
   "SwitchCase": [
     "consequent",
@@ -1146,6 +1176,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "TupleTypeAnnotation": [
     "elementTypes",
+  ],
+  "TupleTypeElement": [
+    "elementType",
   ],
   "TupleTypeLabeledElement": [
     "elementType",

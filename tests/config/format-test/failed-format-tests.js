@@ -10,8 +10,6 @@ const unstableTests = new Map(
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
-    "flow/hook/declare-hook.js",
-    "flow/hook/hook-type-annotation.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
@@ -52,22 +50,19 @@ const disabledTests = new Map(
     yuku: ["js/await-expression/await-with-parens.js"],
     "yuku-ts": ["js/await-expression/await-with-parens.js"],
     hermes: [
-      // Syntax unsupported by hermes-parser.
-      "flow/declare-class/constructor.js.flow",
-      "flow/declare-class/initializer.js.flow",
-      "flow/declare-function/anonymous-default-export/",
-      "flow/optional-indexer/",
       "js/await-expression/like-call.js", // Different result
       "jsx/top-level-await/test.jsx",
     ],
     flow: [
-      "js/decorators/member-expression.js", // Parsing to different ASTs
       "js/await-expression/await-with-parens.js",
       "js/await-expression/like-call.js",
       "jsx/top-level-await/test.jsx",
     ],
     "babel-flow": ["js/babel-plugins/flow-comments.js"],
-    typescript: [],
+    typescript: [
+      // Fails on Node.js<26
+      "js/binary-expression/long-chain/2000.js",
+    ],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646
       "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",

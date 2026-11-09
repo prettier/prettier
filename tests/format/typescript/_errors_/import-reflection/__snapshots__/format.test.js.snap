@@ -27,7 +27,7 @@ Cause: '=' expected."
 `;
 
 exports[`valid-flow-default-import.mts format[yuku-ts] 1`] = `
-"Expected 'from' after import clause, but found 'foo' (1:15)
+"Expected 'from' after the import clause, but found 'foo' (1:15)
 > 1 | import module foo from "./module.wasm";
     |               ^^^
   2 | import bar from "./module.wasm";
@@ -61,7 +61,7 @@ Cause: '=' expected."
 `;
 
 exports[`valid-ts-default-import.mts format[yuku-ts] 1`] = `
-"Expected 'from' after import clause, but found 'foo' (1:15)
+"Expected 'from' after the import clause, but found 'foo' (1:15)
 > 1 | import module foo from "./module.wasm";
     |               ^^^
   2 | import bar from "./module.wasm";
