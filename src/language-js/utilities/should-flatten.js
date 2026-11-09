@@ -56,6 +56,11 @@ function shouldFlatten(parentOp, nodeOp) {
     return false;
   }
 
+  // x < y > z --> (x < y) > z
+  if (parentOp === ">" && nodeOp === "<") {
+    return false;
+  }
+
   return true;
 }
 
