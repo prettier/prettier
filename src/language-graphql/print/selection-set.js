@@ -19,4 +19,14 @@ function printSelectionSet(path, options, print) {
   ];
 }
 
-export { printSelectionSet };
+function printNodeSelectionSet(path, print) {
+  const { selectionSet } = path.node;
+
+  if (!selectionSet) {
+    return "";
+  }
+
+  return [" ", print("selectionSet")];
+}
+
+export { printNodeSelectionSet, printSelectionSet };
