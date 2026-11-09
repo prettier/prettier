@@ -6,6 +6,8 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locStart } from "../location/index.js";
 import { isLineComment } from "../utilities/comment-types.js";
 import {
   CommentCheckFlags,
@@ -25,7 +27,14 @@ function printSwitchStatement(path, options, print) {
     commentsAfterDiscriminant.length === 0
       ? ""
       : [
-          " ",
+          // A comment on its own line stays on its own line, as before an `if` body
+          hasNewline(
+            options.originalText,
+            locStart(commentsAfterDiscriminant[0]),
+            { backwards: true },
+          )
+            ? hardline
+            : " ",
           printDanglingComments(path, options, {
             marker: "commentAfterDiscriminant",
           }),
