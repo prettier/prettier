@@ -1,7 +1,13 @@
+import { outdent } from "outdent";
+
 const makeSnippet = (count) => ({
   name: `${count} binary operators`,
   code: `const value = ${"a + ".repeat(count)}a;\n`,
-  output: `const value =\n  ${"a +\n  ".repeat(count)}a;\n`,
+  output:
+    outdent`
+      const value =${"\n  a +".repeat(count)}
+        a;
+    ` + "\n",
 });
 
 const isBrowser = process.env.TEST_RUNTIME === "browser";
