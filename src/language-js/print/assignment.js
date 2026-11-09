@@ -347,8 +347,6 @@ function getTypeParametersFromTypeReference(node) {
   let typeArguments;
   switch (node.type) {
     case "GenericTypeAnnotation":
-      typeArguments = node.typeParameters;
-      break;
     case "TSTypeReference":
       typeArguments = node.typeArguments;
       break;
@@ -451,10 +449,10 @@ function isGeneric(node) {
   switch (node.type) {
     case "FunctionTypeAnnotation":
     case "ConstructorTypeAnnotation":
-    case "GenericTypeAnnotation":
     case "TSFunctionType":
     case "TSConstructorType":
       return Boolean(node.typeParameters);
+    case "GenericTypeAnnotation":
     case "TSTypeReference":
       return Boolean(node.typeArguments);
     default:

@@ -222,6 +222,7 @@ function postprocess(ast, options) {
           }
           break;
 
+        // `hermes` and `babel-flow`
         case "GenericTypeAnnotation":
         case "ClassImplements":
         case "InterfaceExtends":
