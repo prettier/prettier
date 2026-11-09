@@ -59,7 +59,10 @@ const disabledTests = new Map(
       "jsx/top-level-await/test.jsx",
     ],
     "babel-flow": ["js/babel-plugins/flow-comments.js"],
-    typescript: [],
+    typescript: [
+      // Fails on Node.js<26
+      "js/binary-expression/long-chain/2000.js",
+    ],
     yaml: [
       // Bug: https://github.com/eemeli/yaml/issues/646
       "yaml/spec/spec-example-2-11-mapping-between-sequences.yml",
