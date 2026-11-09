@@ -160,7 +160,7 @@ function printFlow(path, options, print, args) {
     case "GenericTypeAnnotation":
       return [
         print("id"),
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "IndexedAccessType":
     case "OptionalIndexedAccessType":

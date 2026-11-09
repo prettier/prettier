@@ -181,6 +181,7 @@ function postprocess(ast, options) {
         case "TupleTypeAnnotation":
           if (node.types && !node.elementTypes) {
             node.elementTypes = node.types;
+            delete node.types;
           }
           break;
 
@@ -220,6 +221,16 @@ function postprocess(ast, options) {
             node.type = "EnumBody";
           }
           break;
+
+        case "GenericTypeAnnotation":
+          if (
+            astType !== "flow" &&
+            node.typeParameters &&
+            !node.typeArguments
+          ) {
+            node.typeArguments = node.typeParameters;
+            delete node.typeParameters;
+          }
       }
     },
     onLeave(node) {
