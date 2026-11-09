@@ -17,6 +17,7 @@ import { insertPragma } from "./pragma.js";
 import { printArguments } from "./print/arguments.js";
 import { printDescription } from "./print/description.js";
 import { printDirectives } from "./print/directives.js";
+import { printSelectionSet } from "./print/selection-set.js";
 import { printSequence } from "./print/sequence.js";
 import { printVariableDefinitions } from "./print/variable-definitions.js";
 
@@ -60,15 +61,7 @@ function genericPrint(path, options, print) {
       ];
 
     case "SelectionSet":
-      return [
-        "{",
-        indent([
-          hardline,
-          join(hardline, printSequence(path, options, print, "selections")),
-        ]),
-        hardline,
-        "}",
-      ];
+      return printSelectionSet(path, options, print);
 
     case "Field":
       return group([
