@@ -20,7 +20,7 @@ function printSelectionSet(path, options, print) {
   ];
 }
 
-function printNodeSelectionSet(path, options, print) {
+function printSelectionSetField(path, options, print) {
   const { node } = path;
   const { selectionSet } = node;
 
@@ -41,4 +41,4 @@ function printNodeSelectionSet(path, options, print) {
   return [" ", selectionSetDoc];
 }
 
-export { printNodeSelectionSet, printSelectionSet };
+export { printSelectionSet, printSelectionSetField };

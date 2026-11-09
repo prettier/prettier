@@ -17,8 +17,8 @@ import { printArguments } from "./print/arguments.js";
 import { printDescription } from "./print/description.js";
 import { printDirectives } from "./print/directives.js";
 import {
-  printNodeSelectionSet,
   printSelectionSet,
+  printSelectionSetField,
 } from "./print/selection-set.js";
 import { printSequence } from "./print/sequence.js";
 import { printVariableDefinitions } from "./print/variable-definitions.js";
@@ -59,7 +59,7 @@ function genericPrint(path, options, print) {
         " on ",
         print("typeCondition"),
         printDirectives(path, print),
-        printNodeSelectionSet(path, options, print),
+        printSelectionSetField(path, options, print),
       ];
 
     case "SelectionSet":
@@ -84,7 +84,7 @@ function genericPrint(path, options, print) {
             ])
           : "",
         printDirectives(path, print),
-        printNodeSelectionSet(path, options, print),
+        printSelectionSetField(path, options, print),
       ]);
 
     case "Name":
@@ -385,7 +385,7 @@ function genericPrint(path, options, print) {
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
         printDirectives(path, print),
-        printNodeSelectionSet(path, options, print),
+        printSelectionSetField(path, options, print),
       ];
 
     case "UnionTypeExtension":
