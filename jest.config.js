@@ -45,9 +45,9 @@ if (isProduction) {
   testPathIgnorePatterns.push("tests/integration/__tests__/bundle.js");
 }
 
-// Currently can't load plugins in browser
 if (TEST_RUNTIME === "browser") {
   testPathIgnorePatterns.push(
+    // Currently can't load plugins in browser
     "tests/format/misc/front-matter/with-plugins/format.test.js",
     "tests/format/misc/plugins/embed-async-printer/format.test.js",
     "tests/format/misc/_errors_/broken-plugin/format.test.js",
@@ -56,6 +56,9 @@ if (TEST_RUNTIME === "browser") {
     "tests/format/handlebars/front-matter/toml/format.test.js",
     "tests/format/markdown/broken-plugins/format.test.js",
     "tests/format/vue/broken-plugins/format.test.js",
+
+    // Can't serialize AST
+    "tests/format/js/binary-expression/long-chain/format.test.js",
   );
 }
 

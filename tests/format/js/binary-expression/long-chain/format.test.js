@@ -1,6 +1,6 @@
 import { outdent } from "outdent";
 
-const makeSnippet = (count) => ({
+const makeSnippet = (count, properties) => ({
   name: `${count} binary operators`,
   code: `const value = ${"a + ".repeat(count)}a;\n`,
   output:
@@ -8,23 +8,13 @@ const makeSnippet = (count) => ({
       const value =${"\n  a +".repeat(count)}
         a;
     ` + "\n",
+  ...properties,
 });
 
-const isBrowser = process.env.TEST_RUNTIME === "browser";
-
 runFormatTest(
-  { importMeta: import.meta, snippets: [makeSnippet(isBrowser ? 24 : 500)] },
-  ["babel", "flow", "typescript"],
-);
-
-// Comparing deeply nested ASTs exceeds the browser test runner's serialization limit.
-// TypeScript's AST converter can also overflow before printing 2,000 operators.
-runFormatTest(
-  { importMeta: import.meta, snippets: [makeSnippet(2000)] },
-  ["babel", "flow", "typescript"],
   {
-    errors: {
-      typescript: true,
-    },
+    importMeta: import.meta,
+    snippets: [makeSnippet(2000, { filename: "2000.js" })],
   },
+  ["babel", "flow", "typescript"],
 );
