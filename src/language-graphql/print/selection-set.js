@@ -20,13 +20,24 @@ function printSelectionSet(path, options, print) {
 }
 
 function printNodeSelectionSet(path, print) {
-  const { selectionSet } = path.node;
+  const { node } = path;
+  const { selectionSet } = node;
 
   if (!selectionSet) {
     return "";
   }
 
-  return [" ", print("selectionSet")];
+  const selectionSetDoc = print("selectionSet");
+
+  if (
+    node.type === "OperationDefinition" &&
+    node.name &&
+    options.originalText[locStart(node)] !== "{"
+  ) {
+    return selectionSetDoc;
+  }
+
+  return [" ", selectionSetDoc];
 }
 
 export { printNodeSelectionSet, printSelectionSet };
