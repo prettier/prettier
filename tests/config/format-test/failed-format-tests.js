@@ -54,7 +54,6 @@ const disabledTests = new Map(
       "jsx/top-level-await/test.jsx",
     ],
     flow: [
-      "js/decorators/member-expression.js", // Parsing to different ASTs
       "js/await-expression/await-with-parens.js",
       "js/await-expression/like-call.js",
       "jsx/top-level-await/test.jsx",

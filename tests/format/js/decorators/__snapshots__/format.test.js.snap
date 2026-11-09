@@ -66,18 +66,6 @@ exports[`classes.js format[espree] 1`] = `
 Cause: Unexpected character '@'"
 `;
 
-exports[`classes.js format[flow] 1`] = `
-"Unexpected token \`@\` (7:13)
-   5 | @deco export default class Baz {}
-   6 |
->  7 | const foo = @deco class {
-     |             ^
-   8 |   //
-   9 | };
-  10 |
-Cause: Unexpected token \`@\` (7:12)"
-`;
-
 exports[`classes.js format[hermes] 1`] = `
 "'class' expected in class (3:7)
   1 | @deco class Foo {}
