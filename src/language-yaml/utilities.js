@@ -269,7 +269,6 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    // Keep empty lines empty so trailing newlines can be removed.
     lines = lines.map((words) =>
       words.length === 0 ? words : [words.join(" ")],
     );
