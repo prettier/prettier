@@ -1,7 +1,7 @@
 import isObject from "../../../utilities/is-object.js";
 import getVisitorKeys from "../../traverse/get-visitor-keys.js";
 
-function visitNode(node, options, parent, key) {
+function visitNode(node, options) {
   if (!isObject(node)) {
     return node;
   }
@@ -11,16 +11,16 @@ function visitNode(node, options, parent, key) {
     // measurable difference in performance. Array.entries returns an iterator
     // of arrays.
     for (let i = 0; i < node.length; i++) {
-      node[i] = visitNode(node[i], options, node, i);
+      node[i] = visitNode(node[i], options);
     }
     return node;
   }
 
   if (options.onEnter) {
-    const result = options.onEnter(node, parent, key) ?? node;
+    const result = options.onEnter(node) ?? node;
     // If node is replaced, re-enter
     if (result !== node) {
-      return visitNode(result, options, parent, key);
+      return visitNode(result, options);
     }
 
     node = result;
@@ -28,8 +28,7 @@ function visitNode(node, options, parent, key) {
 
   const keys = getVisitorKeys(node);
   for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    node[key] = visitNode(node[key], options, node, key);
+    node[keys[i]] = visitNode(node[keys[i]], options);
   }
 
   if (options.onLeave) {

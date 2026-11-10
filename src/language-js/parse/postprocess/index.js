@@ -84,25 +84,13 @@ function postprocess(ast, options) {
   }
 
   let typeCastCommentsEnds;
-  // A same-operator right subtree is folded by its outermost expression.
-  const deferredLogicalExpressions = new WeakSet();
 
   ast = visitNode(ast, {
-    onEnter(node, parent, key) {
+    onEnter(node) {
       setContentEnd(node, comments, text);
       const { type } = node;
 
       switch (type) {
-        case "LogicalExpression":
-          if (
-            parent?.type === "LogicalExpression" &&
-            parent.operator === node.operator &&
-            (key === "right" || deferredLogicalExpressions.has(parent))
-          ) {
-            deferredLogicalExpressions.add(node);
-          }
-          break;
-
         case "ParenthesizedExpression": {
           const { expression } = node;
           const start = locStart(node);
@@ -242,12 +230,14 @@ function postprocess(ast, options) {
       }
     },
     onLeave(node) {
-      if (
-        node.type === "LogicalExpression" &&
-        deferredLogicalExpressions.has(node.right) &&
-        !deferredLogicalExpressions.has(node)
-      ) {
-        return normalizeLogicalExpression(node, deferredLogicalExpressions);
+      switch (node.type) {
+        // Children can be parenthesized, need do this in `onLeave`
+        case "LogicalExpression":
+          // We remove unneeded parens around same-operator LogicalExpressions
+          if (isUnbalancedLogicalTree(node)) {
+            return rebalanceLogicalTree(node);
+          }
+          break;
       }
 
       /* c8 ignore next 3 */
@@ -264,32 +254,32 @@ function postprocess(ast, options) {
   return ast;
 }
 
-// Keep the same ranges for comment attachment while folding the right subtree
-// into the left side in a single pass.
-function normalizeLogicalExpression(node, deferredLogicalExpressions) {
-  const { operator } = node;
-  const stack = [[node.right, locEnd(node)]];
-  let { left } = node;
-  const start = locStart(left);
+function isUnbalancedLogicalTree(node) {
+  return (
+    node.type === "LogicalExpression" &&
+    node.right.type === "LogicalExpression" &&
+    node.operator === node.right.operator
+  );
+}
 
-  while (stack.length > 0) {
-    const [right, end] = stack.pop();
-    if (deferredLogicalExpressions.has(right)) {
-      // The rightmost operand ends the whole subtree, including its parens.
-      stack.push([right.right, end], [right.left, locEnd(right.left)]);
-      continue;
-    }
-
-    left = {
-      type: "LogicalExpression",
-      operator,
-      left,
-      right,
-      range: [stack.length > 0 ? start : locStart(node), end],
-    };
+function rebalanceLogicalTree(node) {
+  if (!isUnbalancedLogicalTree(node)) {
+    return node;
   }
 
-  return left;
+  return rebalanceLogicalTree({
+    type: "LogicalExpression",
+    operator: node.operator,
+    left: rebalanceLogicalTree({
+      type: "LogicalExpression",
+      operator: node.operator,
+      left: node.left,
+      right: node.right.left,
+      range: [locStart(node.left), locEnd(node.right.left)],
+    }),
+    right: node.right.right,
+    range: [locStart(node), locEnd(node)],
+  });
 }
 
 /* c8 ignore next */
