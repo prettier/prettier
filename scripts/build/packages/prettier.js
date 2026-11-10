@@ -218,11 +218,11 @@ const cliModule = {
             process(text) {
               text = text.replace(
                 "const onDirents = (dirents)",
-                "const onDirents = (dirents, rootPath)",
+                "const onDirents = (dirents, parentPath)",
               );
               text = text.replace(
                 "dirent.parentPath",
-                "dirent.parentPath ?? dirent.path ?? rootPath",
+                "dirent.parentPath ?? dirent.path ?? parentPath",
               );
               return text;
             },
