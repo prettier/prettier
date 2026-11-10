@@ -69,20 +69,7 @@ function genericPrint(path, options, print) {
       return group([
         node.alias ? [print("alias"), ": "] : "",
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         printDirectives(path, print),
         printSelectionSetField(path, options, print),
       ]);
@@ -241,20 +228,7 @@ function genericPrint(path, options, print) {
       return [
         printDescription(path, options, print),
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         ": ",
         print("type"),
         printDirectives(path, print),
@@ -266,20 +240,7 @@ function genericPrint(path, options, print) {
         "directive ",
         "@",
         print("name"),
-        isNonEmptyArray(node.arguments)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  printSequence(path, options, print, "arguments"),
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printArguments(path, options, print),
         printDirectives(path, print),
         node.repeatable ? " repeatable" : "",
         " on ",
