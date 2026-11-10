@@ -3765,10 +3765,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:4.4.0, ci-info@npm:^4.2.0, ci-info@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "ci-info@npm:4.4.0"
-  checksum: 10/dfded0c630267d89660c8abb988ac8395a382bdfefedcc03e3e2858523312c5207db777c239c34774e3fcff11f015477c19d2ac8a58ea58aa476614a2e64f434
+"ci-info@npm:4.5.0, ci-info@npm:^4.2.0, ci-info@npm:^4.4.0":
+  version: 4.5.0
+  resolution: "ci-info@npm:4.5.0"
+  checksum: 10/7c2878b08b0d4ae0782eb8be6463710f18c0dc956dfa8f2011e4a84263a7c01496b982885bc683a455831b5244d4d4555e152b691ace73a1670cba6e98c2a76e
   languageName: node
   linkType: hard
 
@@ -8180,7 +8180,7 @@ __metadata:
     buffer: "npm:6.0.3"
     c8: "npm:12.0.0"
     camelcase: "npm:9.0.0"
-    ci-info: "npm:4.4.0"
+    ci-info: "npm:4.5.0"
     cjk-regex: "npm:3.5.0"
     collapse-white-space: "npm:1.0.6"
     commonmark-test-suite: "npm:0.1.0"
