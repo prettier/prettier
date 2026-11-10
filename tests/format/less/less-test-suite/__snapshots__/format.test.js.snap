@@ -160,7 +160,7 @@ parsers: ["less"]
 
 // Test eval with value evaluation and keywordList conversion
 @breakpoint: screen;
-@media @breakpoint, print {
+@media @{breakpoint}, print {
   body {
     margin: 0;
   }
@@ -274,7 +274,7 @@ parsers: ["less"]
 
 // Test eval with value evaluation and keywordList conversion
 @breakpoint: screen;
-@media @breakpoint, print {
+@media @{breakpoint}, print {
   body {
     margin: 0;
   }
@@ -3806,6 +3806,65 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-config/rootpath-escape-interpolation/rootpath-escape-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A rewritten rootpath is escaped only for *unquoted* url() values, so the node
+// produced for an interpolated unquoted body must not read as quoted. Giving it a
+// real quote character suppressed the escaping and emitted the parentheses and
+// space raw, producing a malformed url().
+//
+// The rootpath here deliberately contains \`(\`, \`)\` and a space — the characters
+// \`escapePath\` handles — so quoted and unquoted forms cannot look alike.
+
+@dir: images;
+@paths: {
+  dir: images;
+};
+
+#rootpath-escape-interpolation {
+  // unquoted: rootpath must be escaped
+  plain-unquoted: url(relative/path);
+  interp-unquoted: url(@{dir}/path);
+  lookup-unquoted: url(@{paths[dir]}/path);
+
+  // quoted: rootpath must not be escaped
+  plain-quoted: url("relative/path");
+  interp-quoted: url("@{dir}/path");
+  lookup-quoted: url("@{paths[dir]}/path");
+}
+
+=====================================output=====================================
+// A rewritten rootpath is escaped only for *unquoted* url() values, so the node
+// produced for an interpolated unquoted body must not read as quoted. Giving it a
+// real quote character suppressed the escaping and emitted the parentheses and
+// space raw, producing a malformed url().
+//
+// The rootpath here deliberately contains \`(\`, \`)\` and a space — the characters
+// \`escapePath\` handles — so quoted and unquoted forms cannot look alike.
+
+@dir: images;
+@paths: {
+  dir: images;
+};
+
+#rootpath-escape-interpolation {
+  // unquoted: rootpath must be escaped
+  plain-unquoted: url(relative/path);
+  interp-unquoted: url(@{dir}/path);
+  lookup-unquoted: url(@{paths[dir]}/path);
+
+  // quoted: rootpath must not be escaped
+  plain-quoted: url("relative/path");
+  interp-quoted: url("@{dir}/path");
+  lookup-quoted: url("@{paths[dir]}/path");
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-config/rootpath-rewrite-urls-all/folder/file.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -4307,6 +4366,65 @@ body {
   border-left: 1px solid @color;
   width: calc(50% - 5px);
   border-top: 1px solid @color;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-config/sourcemaps/url-interpolation/url-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Interpolated unquoted url() bodies are parsed into an escaped Quoted rather
+// than the Anonymous node used for literal ones, so this pins that the swap does
+// not change how url() values are mapped. All three spellings should keep the
+// same mapping structure as each other.
+@dir: images;
+@paths: {
+  dir: assets;
+};
+
+.literal {
+  background: url(literal/one.png);
+}
+
+.interpolated {
+  background: url(@{dir}/two.png);
+}
+
+.interpolated-lookup {
+  background: url(@{paths[dir]}/three.png);
+}
+
+.quoted-interpolated {
+  background: url("@{dir}/four.png");
+}
+
+=====================================output=====================================
+// Interpolated unquoted url() bodies are parsed into an escaped Quoted rather
+// than the Anonymous node used for literal ones, so this pins that the swap does
+// not change how url() values are mapped. All three spellings should keep the
+// same mapping structure as each other.
+@dir: images;
+@paths: {
+  dir: assets;
+};
+
+.literal {
+  background: url(literal/one.png);
+}
+
+.interpolated {
+  background: url(@{dir}/two.png);
+}
+
+.interpolated-lookup {
+  background: url(@{paths[dir]}/three.png);
+}
+
+.quoted-interpolated {
+  background: url("@{dir}/four.png");
 }
 
 ================================================================================
@@ -4905,6 +5023,317 @@ parsers: ["less"]
 .test-rule {
   color: red;
   -some-aribitrary-property: value;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/at-rule-variable-deprecated/at-rule-variable-deprecated.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Backward-compatibility coverage for the deprecated bare \`@variable\`
+// reference in non-value positions (at-rule preludes, names, and identifiers).
+// These still resolve, but emit a \`variable-in-at-rule-prelude\` deprecation
+// warning at parse time. New code should use \`@{variable}\` interpolation
+// instead (see media.less / variables-in-at-rules.less).
+
+// --- nestable at-rule preludes ---
+@smartphone: ~"only screen and (max-width: 200px)";
+@media @smartphone {
+  .body {
+    width: 480px;
+  }
+}
+
+@all: ~"all";
+@tv: ~"(tv)";
+@media @all and @tv {
+  .all-and-tv {
+    var: yes;
+  }
+}
+
+@breakpoint: screen;
+@media @breakpoint, print {
+  .list {
+    margin: 0;
+  }
+}
+
+@varfoo: foo;
+@threshold: 400px;
+@container @varfoo (min-width: @threshold) {
+  .sticky-child {
+    font-size: 75%;
+  }
+}
+
+// --- unknown at-rule prelude (structural bare variable — deprecated) ---
+@supported: ~"(display: flex)";
+@supports @supported {
+  .flex {
+    display: flex;
+  }
+}
+
+// A bare @variable in a *nested declaration value* (inside \`(...)\`) is NOT a
+// structural position — it is a declaration value and remains valid without a
+// deprecation warning, mirroring \`@media (min-width: @var)\`.
+@disp: grid;
+@supports (display: @disp) and (gap: 1rem) {
+  .grid {
+    display: grid;
+  }
+}
+
+// --- at-rule identifiers / names ---
+@anim: enlarger;
+@keyframes @anim {
+  from { font-size: 12px; }
+  to   { font-size: 15px; }
+}
+
+@ns: less;
+@namespace @ns "http://lesscss.org";
+
+// indirect (variable-variable) prefix — also a deprecated bare reference
+@ns-ref: svg;
+@svg: svgns;
+@namespace @@ns-ref "http://www.w3.org/2000/svg";
+
+@layer-name: base;
+@layer @layer-name {
+  .layered {
+    color: red;
+  }
+}
+
+// --- bare \`[...]\` lookups in the same structural positions ---
+// A lookup parses into a NamespaceValue rather than a Variable. These were
+// silently exempt from the deprecation until the node-type test was widened,
+// so every position is covered explicitly here.
+@lookup: {
+  query: ~"only screen and (max-width: 300px)";
+  anim: shrinker;
+  supported: ~"(display: grid)";
+  layer-name: overrides;
+  @deep: {
+    query: ~"(min-width: 900px)";
+  }
+};
+
+@media @lookup[query] {
+  .lookup-media {
+    width: 240px;
+  }
+}
+
+@keyframes @lookup[anim] {
+  from { font-size: 15px; }
+  to   { font-size: 12px; }
+}
+
+@supports @lookup[supported] {
+  .lookup-supports {
+    display: grid;
+  }
+}
+
+@layer @lookup[layer-name] {
+  .lookup-layered {
+    color: blue;
+  }
+}
+
+// chained lookup — still one deprecation, not one per segment
+@media @lookup[@deep][query] {
+  .lookup-chained {
+    width: 900px;
+  }
+}
+
+// A lookup in a declaration value inside \`(...)\` stays a value position and is
+// not deprecated, mirroring the \`@disp\` case above.
+//
+// \`@supports\` scans its prelude as text, so a bare lookup reaches the permissive
+// regex rather than being parsed structurally. Matching only \`@values\` used to
+// resolve it to the whole ruleset and leave \`[size]\` behind, rendering
+// \`(width: [size])\`. Both the flat and chained forms are covered here.
+@values: {
+  size: 500px;
+  @deep: {
+    size: 900px;
+  }
+};
+
+@supports (width: @values[size]) {
+  .lookup-value-position {
+    width: 500px;
+  }
+}
+
+@supports (width: @values[@deep][size]) {
+  .lookup-value-position-chained {
+    width: 900px;
+  }
+}
+
+=====================================output=====================================
+// Backward-compatibility coverage for the deprecated bare \`@variable\`
+// reference in non-value positions (at-rule preludes, names, and identifiers).
+// These still resolve, but emit a \`variable-in-at-rule-prelude\` deprecation
+// warning at parse time. New code should use \`@{variable}\` interpolation
+// instead (see media.less / variables-in-at-rules.less).
+
+// --- nestable at-rule preludes ---
+@smartphone: ~"only screen and (max-width: 200px)";
+@media @smartphone {
+  .body {
+    width: 480px;
+  }
+}
+
+@all: ~"all";
+@tv: ~"(tv)";
+@media @all and @tv {
+  .all-and-tv {
+    var: yes;
+  }
+}
+
+@breakpoint: screen;
+@media @breakpoint, print {
+  .list {
+    margin: 0;
+  }
+}
+
+@varfoo: foo;
+@threshold: 400px;
+@container @varfoo (min-width: @threshold) {
+  .sticky-child {
+    font-size: 75%;
+  }
+}
+
+// --- unknown at-rule prelude (structural bare variable — deprecated) ---
+@supported: ~"(display: flex)";
+@supports @supported {
+  .flex {
+    display: flex;
+  }
+}
+
+// A bare @variable in a *nested declaration value* (inside \`(...)\`) is NOT a
+// structural position — it is a declaration value and remains valid without a
+// deprecation warning, mirroring \`@media (min-width: @var)\`.
+@disp: grid;
+@supports (display: @disp) and (gap: 1rem) {
+  .grid {
+    display: grid;
+  }
+}
+
+// --- at-rule identifiers / names ---
+@anim: enlarger;
+@keyframes @anim {
+  from {
+    font-size: 12px;
+  }
+  to {
+    font-size: 15px;
+  }
+}
+
+@ns: less;
+@namespace @ns "http://lesscss.org";
+
+// indirect (variable-variable) prefix — also a deprecated bare reference
+@ns-ref: svg;
+@svg: svgns;
+@namespace @@ns-ref "http://www.w3.org/2000/svg";
+
+@layer-name: base;
+@layer @layer-name {
+  .layered {
+    color: red;
+  }
+}
+
+// --- bare \`[...]\` lookups in the same structural positions ---
+// A lookup parses into a NamespaceValue rather than a Variable. These were
+// silently exempt from the deprecation until the node-type test was widened,
+// so every position is covered explicitly here.
+@lookup: {
+  query: ~"only screen and (max-width: 300px)";
+  anim: shrinker;
+  supported: ~"(display: grid)";
+  layer-name: overrides;
+  @deep: {
+    query: ~"(min-width: 900px)";
+  };
+};
+
+@media @lookup[query] {
+  .lookup-media {
+    width: 240px;
+  }
+}
+
+@keyframes @lookup[anim] {
+  from {
+    font-size: 15px;
+  }
+  to {
+    font-size: 12px;
+  }
+}
+
+@supports @lookup[supported] {
+  .lookup-supports {
+    display: grid;
+  }
+}
+
+@layer @lookup[layer-name] {
+  .lookup-layered {
+    color: blue;
+  }
+}
+
+// chained lookup — still one deprecation, not one per segment
+@media @lookup[@deep][query] {
+  .lookup-chained {
+    width: 900px;
+  }
+}
+
+// A lookup in a declaration value inside \`(...)\` stays a value position and is
+// not deprecated, mirroring the \`@disp\` case above.
+//
+// \`@supports\` scans its prelude as text, so a bare lookup reaches the permissive
+// regex rather than being parsed structurally. Matching only \`@values\` used to
+// resolve it to the whole ruleset and leave \`[size]\` behind, rendering
+// \`(width: [size])\`. Both the flat and chained forms are covered here.
+@values: {
+  size: 500px;
+  @deep: {
+    size: 900px;
+  };
+};
+
+@supports (width: @values[size]) {
+  .lookup-value-position {
+    width: 500px;
+  }
+}
+
+@supports (width: @values[@deep][size]) {
+  .lookup-value-position-chained {
+    width: 900px;
+  }
 }
 
 ================================================================================
@@ -6994,7 +7423,7 @@ parsers: ["less"]
 
 @varfoo: foo;
 @threshold: 400px;
-@container @varfoo (min-width: @threshold) {
+@container @{varfoo} (min-width: @threshold) {
     #sticky-child {
       font-size: 75%;
     }
@@ -7006,7 +7435,7 @@ parsers: ["less"]
 @issue-width: 125px;
 
 .container-query-mixin(@container-name; @bp) {
-    @container @container-name (width < @bp) {
+    @container @{container-name} (width < @bp) {
         display: none;
     }
 }
@@ -7022,6 +7451,25 @@ parsers: ["less"]
 }
 .header-test {
     .container-query-mixin(header, 800px);
+}
+
+// Range/comparison syntax in @container style() queries (issue #4460)
+@container style(var(--n) = 3) {
+    .style-query-eq {
+        color: red;
+    }
+}
+
+@container style(calc(6 / 2) = var(--n)) {
+    .style-query-calc-eq {
+        color: blue;
+    }
+}
+
+@container style(var(--size) > 1lh) {
+    .style-query-gt {
+        color: green;
+    }
 }
 
 =====================================output=====================================
@@ -7403,7 +7851,7 @@ parsers: ["less"]
 
 @varfoo: foo;
 @threshold: 400px;
-@container @varfoo (min-width: @threshold) {
+@container @{varfoo} (min-width: @threshold) {
   #sticky-child {
     font-size: 75%;
   }
@@ -7415,7 +7863,7 @@ parsers: ["less"]
 @issue-width: 125px;
 
 .container-query-mixin(@container-name; @bp) {
-  @container @container-name (width < @bp) {
+  @container @{container-name} (width < @bp) {
     display: none;
   }
 }
@@ -7431,6 +7879,25 @@ parsers: ["less"]
 }
 .header-test {
   .container-query-mixin(header, 800px);
+}
+
+// Range/comparison syntax in @container style() queries (issue #4460)
+@container style(var(--n) = 3) {
+  .style-query-eq {
+    color: red;
+  }
+}
+
+@container style(calc(6 / 2) = var(--n)) {
+  .style-query-calc-eq {
+    color: blue;
+  }
+}
+
+@container style(var(--size) > 1lh) {
+  .style-query-gt {
+    color: green;
+  }
 }
 
 ================================================================================
@@ -10446,11 +10913,11 @@ parsers: ["less"]
   }
 }
 .mixin-with-directives(@keyframeName) {
-  @keyframes @keyframeName {
+  @keyframes @{keyframeName} {
     @rules1();
   }
   @supports (animation-name: test) {
-    @keyframes @keyframeName {
+    @keyframes @{keyframeName} {
       @rules2();
     }
     .selector {
@@ -10545,11 +11012,11 @@ parsers: ["less"]
   }
 }
 .mixin-with-directives(@keyframeName) {
-  @keyframes @keyframeName {
+  @keyframes @{keyframeName} {
     @rules1();
   }
   @supports (animation-name: test) {
-    @keyframes @keyframeName {
+    @keyframes @{keyframeName} {
       @rules2();
     }
     .selector {
@@ -11492,7 +11959,7 @@ parsers: ["less"]
 
 @layer-name: primevue;
 
-@layer @layer-name {
+@layer @{layer-name} {
     .test {
         foo: bar;
     }
@@ -11663,7 +12130,7 @@ body {
 
 @layer-name: primevue;
 
-@layer @layer-name {
+@layer @{layer-name} {
   .test {
     foo: bar;
   }
@@ -11837,6 +12304,45 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/math-css-vars/math-css-vars.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Math functions cannot resolve a runtime CSS var() at compile time, so the
+// whole call is left for the browser instead of erroring (issue #4224).
+.trig {
+  a: sin(var(--angle));
+  b: cos(var(--a));
+  c: calc(tan(var(--t)) * 1px);
+  d: atan2(var(--x), var(--y));
+}
+
+// Concrete numeric arguments still evaluate.
+.numeric {
+  a: sin(30deg);
+  b: ceil(4.2);
+}
+
+=====================================output=====================================
+// Math functions cannot resolve a runtime CSS var() at compile time, so the
+// whole call is left for the browser instead of erroring (issue #4224).
+.trig {
+  a: sin(var(--angle));
+  b: cos(var(--a));
+  c: calc(tan(var(--t)) * 1px);
+  d: atan2(var(--x), var(--y));
+}
+
+// Concrete numeric arguments still evaluate.
+.numeric {
+  a: sin(30deg);
+  b: ceil(4.2);
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/media/media.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -11951,7 +12457,7 @@ parsers: ["less"]
   .mediaMixin();
 }
 @smartphone: ~"only screen and (max-width: 200px)";
-@media @smartphone {
+@media @{smartphone} {
   .body {
     width: 480px;
   }
@@ -12070,7 +12576,7 @@ parsers: ["less"]
 }
 @all: ~"all";
 @tv: ~"(tv)";
-@media @all and @tv {
+@media @{all} and @{tv} {
   .all-and-tv-variables {
     var: all-and-tv;
   }
@@ -12270,7 +12776,7 @@ parsers: ["less"]
   .mediaMixin();
 }
 @smartphone: ~"only screen and (max-width: 200px)";
-@media @smartphone {
+@media @{smartphone} {
   .body {
     width: 480px;
   }
@@ -12394,7 +12900,7 @@ parsers: ["less"]
 }
 @all: ~"all";
 @tv: ~"(tv)";
-@media @all and @tv {
+@media @{all} and @{tv} {
   .all-and-tv-variables {
     var: all-and-tv;
   }
@@ -12474,6 +12980,135 @@ parsers: ["less"]
 @media ((color) and (hover)), all {
   body {
     background: green;
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/media-nested-type/media-nested-type.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A media type nested inside conditions must lead the flattened query,
+// otherwise the result is invalid CSS (issue #3694, #3764).
+@media (max-width: 500px) {
+  @media screen {
+    .a { color: red; }
+  }
+}
+@media (min-width: 100px) {
+  @media only screen {
+    .b { color: blue; }
+  }
+}
+@media (max-width: 9px) {
+  @media all {
+    .c { color: green; }
+  }
+}
+@media (min-width: 1px) {
+  @media print and (color) {
+    .d { color: black; }
+  }
+}
+
+// Already-correct ordering is preserved.
+@media screen {
+  @media (max-width: 500px) {
+    .e { color: red; }
+  }
+}
+
+// Queries without a media type are left untouched.
+@media (max-width: 500px) {
+  @media (min-width: 100px) {
+    .f { color: red; }
+  }
+}
+
+// Unknown media types are valid CSS non-matches, so they reorder too.
+@media (max-width: 500px) {
+  @media tester {
+    .g { color: red; }
+  }
+}
+
+// An escaped-string feature condition (Anonymous) must not be mistaken for a media type.
+@fc: ~"(max-width: 500px)";
+@media @fc {
+  @media screen {
+    .h { color: red; }
+  }
+}
+
+=====================================output=====================================
+// A media type nested inside conditions must lead the flattened query,
+// otherwise the result is invalid CSS (issue #3694, #3764).
+@media (max-width: 500px) {
+  @media screen {
+    .a {
+      color: red;
+    }
+  }
+}
+@media (min-width: 100px) {
+  @media only screen {
+    .b {
+      color: blue;
+    }
+  }
+}
+@media (max-width: 9px) {
+  @media all {
+    .c {
+      color: green;
+    }
+  }
+}
+@media (min-width: 1px) {
+  @media print and (color) {
+    .d {
+      color: black;
+    }
+  }
+}
+
+// Already-correct ordering is preserved.
+@media screen {
+  @media (max-width: 500px) {
+    .e {
+      color: red;
+    }
+  }
+}
+
+// Queries without a media type are left untouched.
+@media (max-width: 500px) {
+  @media (min-width: 100px) {
+    .f {
+      color: red;
+    }
+  }
+}
+
+// Unknown media types are valid CSS non-matches, so they reorder too.
+@media (max-width: 500px) {
+  @media tester {
+    .g {
+      color: red;
+    }
+  }
+}
+
+// An escaped-string feature condition (Anonymous) must not be mistaken for a media type.
+@fc: ~"(max-width: 500px)";
+@media @fc {
+  @media screen {
+    .h {
+      color: red;
+    }
   }
 }
 
@@ -12878,6 +13513,22 @@ h3 { .margin_between(15px, 5px); }
   .clearfix();
 }
 
+// Forwarding an unset variadic must fall through to the callee's default,
+// not pass an empty argument that overrides it (issue #4352).
+.rest-forward(@a, @rest...) {
+  .rest-target(@a, @rest);
+}
+.rest-target(@a, @b: fallback) {
+  a: @a;
+  b: @b;
+}
+.rest-forwarding-empty {
+  .rest-forward(1);
+}
+.rest-forwarding-filled {
+  .rest-forward(1, 2);
+}
+
 =====================================output=====================================
 .mixin {
   border: 1px solid black;
@@ -13050,6 +13701,22 @@ h3 {
 }
 .foo {
   .clearfix();
+}
+
+// Forwarding an unset variadic must fall through to the callee's default,
+// not pass an empty argument that overrides it (issue #4352).
+.rest-forward(@a, @rest...) {
+  .rest-target(@a, @rest);
+}
+.rest-target(@a, @b: fallback) {
+  a: @a;
+  b: @b;
+}
+.rest-forwarding-empty {
+  .rest-forward(1);
+}
+.rest-forwarding-filled {
+  .rest-forward(1, 2);
 }
 
 ================================================================================
@@ -14954,6 +15621,21 @@ parsers: ["less"]
   .mixin2(@b: 30%, @c: #123456);
 }
 
+.arity-mixin(@a) {
+  value: @a;
+}
+.arity-mixin(@a: 1, @b) {
+  value: @a + @b;
+}
+
+.arity-positional {
+  .arity-mixin(3);
+}
+
+.arity-named {
+  .arity-mixin(@b: 3);
+}
+
 =====================================output=====================================
 .mixin (@a: 1px, @b: 50%) {
   width: (@a * 5);
@@ -14990,6 +15672,21 @@ parsers: ["less"]
 
 .named-args3 {
   .mixin2(@b: 30%, @c: #123456);
+}
+
+.arity-mixin(@a) {
+  value: @a;
+}
+.arity-mixin(@a: 1, @b) {
+  value: @a + @b;
+}
+
+.arity-positional {
+  .arity-mixin(3);
+}
+
+.arity-named {
+  .arity-mixin(@b: 3);
 }
 
 ================================================================================
@@ -18009,17 +18706,17 @@ parsers: ["less"]
 @charset "UTF-@{Eight}";
 
 @ns: less;
-@namespace @ns "http://lesscss.org";
+@namespace @{ns} "http://lesscss.org";
 
 @name: enlarger;
-@keyframes @name {
+@keyframes @{name} {
     from {font-size: 12px;}
     to   {font-size: 15px;}
 }
 
 .m(reducer);
 .m(@name) {
-    @-webkit-keyframes @name {
+    @-webkit-keyframes @{name} {
         from {font-size: 13px;}
         to   {font-size: 10px;}
     }
@@ -18030,10 +18727,10 @@ parsers: ["less"]
 @charset "UTF-@{Eight}";
 
 @ns: less;
-@namespace @ns "http://lesscss.org";
+@namespace @{ns} "http://lesscss.org";
 
 @name: enlarger;
-@keyframes @name {
+@keyframes @{name} {
   from {
     font-size: 12px;
   }
@@ -18044,7 +18741,7 @@ parsers: ["less"]
 
 .m(reducer);
 .m(@name) {
-  @-webkit-keyframes @name {
+  @-webkit-keyframes @{name} {
     from {
       font-size: 13px;
     }
