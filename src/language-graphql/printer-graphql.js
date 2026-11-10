@@ -140,12 +140,10 @@ function genericPrint(path, options, print) {
         printDanglingComments(path, options, { indent: true }),
         isEmpty
           ? ""
-          : [
-              indent([
-                softline,
-                join([ifBreak("", ", "), softline], path.map(print, "fields")),
-              ]),
-            ],
+          : indent([
+              softline,
+              join([ifBreak("", ", "), softline], path.map(print, "fields")),
+            ]),
         softline,
         ifBreak("", bracketSpace),
         "}",
