@@ -208,7 +208,7 @@ const cliModule = {
             process(text) {
               text = text.replace(
                 "onDirents(dirents)",
-                "onDirents(dirents, rootPath )",
+                "onDirents(dirents, rootPath)",
               );
               return text;
             },
