@@ -6,5 +6,9 @@ input {
   }
 }
 
+@sel: &:not([type='file']);
 @hover:&:hover;
 @focus : &:focus-visible;
+@compound: &>.a + .b;
+@list: &:hover,&:focus;
+@broken: &::;

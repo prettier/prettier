@@ -24,9 +24,14 @@ const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseLessVariableValue(value, options) {
   const text = value.trim();
-  return text.startsWith("&")
+  if (!text.startsWith("&")) {
+    return parseValue(value, options);
+  }
+
+  const selector = parseSelector(text);
+  return selector.type === "selector-unknown"
     ? { type: "value-unknown", value: text }
-    : parseValue(value, options);
+    : selector;
 }
 
 function parseNestedCSS(node, options) {

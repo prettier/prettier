@@ -8,6 +8,7 @@ import {
   lineSuffix,
   lineSuffixBoundary,
   literallineWithoutBreakParent,
+  removeLines,
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
@@ -132,7 +133,14 @@ function genericPrint(path, options, print) {
             "@",
             node.name,
             ": ",
-            node.value ? [print("value"), lineSuffixBoundary] : "",
+            node.value
+              ? [
+                  node.value.type === "selector-root"
+                    ? removeLines(join(", ", path.map(print, "value", "nodes")))
+                    : print("value"),
+                  lineSuffixBoundary,
+                ]
+              : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
