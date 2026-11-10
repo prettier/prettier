@@ -1369,9 +1369,9 @@ __metadata:
   linkType: hard
 
 "@eslint-community/regexpp@npm:^4.11.0, @eslint-community/regexpp@npm:^4.12.2, @eslint-community/regexpp@npm:^4.8.0":
-  version: 4.12.2
-  resolution: "@eslint-community/regexpp@npm:4.12.2"
-  checksum: 10/049b280fddf71dd325514e0a520024969431dc3a8b02fa77476e6820e9122f28ab4c9168c11821f91a27982d2453bcd7a66193356ea84e84fb7c8d793be1ba0c
+  version: 4.12.3
+  resolution: "@eslint-community/regexpp@npm:4.12.3"
+  checksum: 10/b62f4b1fa2365b0def47402915ac650f297c4b9b8e2c0adf2002d353a26d2e9d0ff0be87fae19726c5fd9ba899d49c632a10e91518eebb678783b072cbddac9f
   languageName: node
   linkType: hard
 
@@ -3659,9 +3659,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001819":
-  version: 1.0.30001822
-  resolution: "caniuse-lite@npm:1.0.30001822"
-  checksum: 10/e044affafa41437ee79051c25e4b0b333ef959dea73ee895489d5b6812ac71d682f47f84445a4f21fa6add0e13de71d403b212cdc5204f2e6cc4f6b99d98ae30
+  version: 1.0.30001823
+  resolution: "caniuse-lite@npm:1.0.30001823"
+  checksum: 10/4db65cc4e307dba3b95368295542774df4dd97005546f031a0e44387aeacd9786b87264e194ea15375f6a91d996543c46c42b4c0e5a642faf1c3f8a861145bc4
   languageName: node
   linkType: hard
 
@@ -3864,9 +3864,9 @@ __metadata:
   linkType: hard
 
 "commander@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "commander@npm:15.0.0"
-  checksum: 10/a5dab1f5c3f1bf2ea19e8089f650f7fb65c3ed88e13ddde62e490d34b20057bcb2cd3de5b6ddc8aae93286083f8256ca0b812df842f574cbebe0e40f5b2f98f7
+  version: 15.1.0
+  resolution: "commander@npm:15.1.0"
+  checksum: 10/31eb448f2ccccf9c193d33c201fd44d2f5311db3d53c8831f650a7df94fa97bf252c7ac6d9ba4a44fce0ac1b667bc09c58311dbc24a2e98384befe2e6b3ecadf
   languageName: node
   linkType: hard
 
@@ -4284,9 +4284,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.464":
-  version: 1.5.478
-  resolution: "electron-to-chromium@npm:1.5.478"
-  checksum: 10/5b4013c3429b8e0ddb1f145f2bca5ea2d09ea4b3f1f180ef48a1863bc186e09a8bb132887cbb00b688289041c77b374a5ff6838e1623b3e38b1a444d428fb7c9
+  version: 1.5.479
+  resolution: "electron-to-chromium@npm:1.5.479"
+  checksum: 10/81f1a6c261213a55ad004bccb8a9791bbabaf71da948242a0cbb4befd8b4461f373191f8d1702153eac42788db07dcdfb33d1fd5425ec3994a35fefd382b42ad
   languageName: node
   linkType: hard
 
@@ -6789,15 +6789,15 @@ __metadata:
   linkType: hard
 
 "mdast-util-gfm-autolink-literal@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "mdast-util-gfm-autolink-literal@npm:2.0.1"
+  version: 2.1.0
+  resolution: "mdast-util-gfm-autolink-literal@npm:2.1.0"
   dependencies:
     "@types/mdast": "npm:^4.0.0"
     ccount: "npm:^2.0.0"
     devlop: "npm:^1.0.0"
     mdast-util-find-and-replace: "npm:^3.0.0"
     micromark-util-character: "npm:^2.0.0"
-  checksum: 10/d933b42feb126bd094d4be4a4955326c4a9e727a5d0dbe3c824534a19d831996fcf16f67df3dd29550a7d2ac4ac568c80485bee380151ebb42c62848ab20dfa6
+  checksum: 10/3ddbba417aa00eae82fc7297e9a77b3c51a6bdcac92b22f6324e5c0988579b366514564ee3618bec21e8d7c9812983aed7c1866dd179998f0dc647d8090aa84d
   languageName: node
   linkType: hard
 
@@ -6841,14 +6841,14 @@ __metadata:
   linkType: hard
 
 "mdast-util-gfm-task-list-item@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mdast-util-gfm-task-list-item@npm:2.0.0"
+  version: 2.0.1
+  resolution: "mdast-util-gfm-task-list-item@npm:2.0.1"
   dependencies:
     "@types/mdast": "npm:^4.0.0"
     devlop: "npm:^1.0.0"
     mdast-util-from-markdown: "npm:^2.0.0"
     mdast-util-to-markdown: "npm:^2.0.0"
-  checksum: 10/679a3ff09b52015c0088cd0616ccecc7cc9d250d56a8762aafdffc640f3f607bbd9fe047d3e7e7078e6a996e83f677be3bfcad7ac7260563825fa80a04f8e09d
+  checksum: 10/049166e07e45964b19a8988d1b9453b0579ca302ffa5d83b52a1dfb971d85a2bb242a5fab8c2ddb232b9fcd80ef09dccfee23ab8c42145e6e26b82e81f12080c
   languageName: node
   linkType: hard
 
@@ -6893,8 +6893,8 @@ __metadata:
   linkType: hard
 
 "mdast-util-to-markdown@npm:^2.0.0, mdast-util-to-markdown@npm:^2.1.0":
-  version: 2.2.2
-  resolution: "mdast-util-to-markdown@npm:2.2.2"
+  version: 2.2.3
+  resolution: "mdast-util-to-markdown@npm:2.2.3"
   dependencies:
     "@types/mdast": "npm:^4.0.0"
     "@types/unist": "npm:^3.0.0"
@@ -6907,7 +6907,7 @@ __metadata:
     micromark-util-html-tag-name: "npm:^2.0.0"
     unist-util-visit: "npm:^5.0.0"
     zwitch: "npm:^2.0.0"
-  checksum: 10/16ce353e0fc0d41e4b65a88a4328c473c854e1d452b8fca6adde27ca247b3723609ad2590bd4e64221ac5bff013f314c0c8703d24bdd6849446fb80961c7a721
+  checksum: 10/4ebe67becad35e5e07b9dd235e7320bbedf44205bb613c626e823c5ffb6171b2db03482be7a54776ea592c53bc9867c5a9bf9557ee36f05c416c04975296d0c9
   languageName: node
   linkType: hard
 
@@ -7950,11 +7950,11 @@ __metadata:
   linkType: hard
 
 "parse5@npm:^8.0.1":
-  version: 8.1.0
-  resolution: "parse5@npm:8.1.0"
+  version: 8.1.1
+  resolution: "parse5@npm:8.1.1"
   dependencies:
     entities: "npm:^9.0.0"
-  checksum: 10/a691c8ca094ddcf50a22eb81a0969c79b881c9f0cdc53235c4ed0016d0b03902e6d4e4e788213a9ab67bd5453a6869b5fc57367548d349d9e4b518f816f74cab
+  checksum: 10/715d98bbd618d25f28316642060b26fde79a619dc342f07f5ad7243327e378ee949a4029d0aae025ffe4b5eed801f5c8badb852ce29c96fe62c8e48b410113ba
   languageName: node
   linkType: hard
 
@@ -9770,14 +9770,14 @@ __metadata:
   linkType: hard
 
 "worktank@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "worktank@npm:3.0.2"
+  version: 3.0.3
+  resolution: "worktank@npm:3.0.3"
   dependencies:
     isoconcurrency: "npm:^1.0.0"
     isotimer: "npm:^1.0.0"
     promise-make-naked: "npm:^3.0.2"
     webworker-shim: "npm:^1.1.4"
-  checksum: 10/12be3b9948f83c392a92986a9de57fdb421045982464c00f8f80218bb9215634ac58960ca324753e3e630e86cade86cb044a113d7fa007cb4f47cb8718aafff3
+  checksum: 10/598565645733df8bd3f78d1d82730ce6291e1a2c6492adb41f78518d139ff759a2f8c3640fafdd7662d564739a9ba3f28b5ba057444c9ad9646ea49559c2dbed
   languageName: node
   linkType: hard
 
