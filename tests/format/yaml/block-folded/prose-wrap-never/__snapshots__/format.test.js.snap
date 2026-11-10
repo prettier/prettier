@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`github-actions.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+jobs:
+  check:
+    name: Format, Schema, and Examples
+    runs-on: ubuntu-latest
+    # Internal branches are handled by the push event; only run for pull requests from forks.
+    if: >-
+      github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - uses: actions/checkout@v7
+
+=====================================output=====================================
+jobs:
+  check:
+    name: Format, Schema, and Examples
+    runs-on: ubuntu-latest
+    # Internal branches are handled by the push event; only run for pull requests from forks.
+    if: >-
+      github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - uses: actions/checkout@v7
+
+================================================================================
+`;
+
+exports[`nested.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a:
+  b: >-
+    value
+
+  c: next
+
+=====================================output=====================================
+a:
+  b: >-
+    value
+
+  c: next
+
+================================================================================
+`;
+
+exports[`root.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo: >-
+  value
+
+bar: baz
+
+=====================================output=====================================
+foo: >-
+  value
+
+bar: baz
+
+================================================================================
+`;
