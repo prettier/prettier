@@ -22,16 +22,14 @@ import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
-function parseLessVariableValue(value, options) {
+function parseLessVariableValue(node, value, options) {
   const text = value.trim();
-  if (!text.startsWith("&")) {
-    return parseValue(value, options);
+  if (text.startsWith("&")) {
+    node.selector = parseSelector(text);
+    delete node.value;
+  } else {
+    node.value = parseValue(value, options);
   }
-
-  const selector = parseSelector(text);
-  return selector.type === "selector-unknown"
-    ? { type: "value-unknown", value: text }
-    : selector;
 }
 
 function parseNestedCSS(node, options) {
@@ -204,10 +202,11 @@ function parseNestedCSS(node, options) {
         };
       }
 
-      node.value =
-        options.parser === "less" && node.variable
-          ? parseLessVariableValue(value, options)
-          : parseValue(value, options);
+      if (options.parser === "less" && node.variable) {
+        parseLessVariableValue(node, value, options);
+      } else {
+        node.value = parseValue(value, options);
+      }
     }
 
     // Clean spaces in between `+` and `:`
@@ -286,7 +285,7 @@ function parseNestedCSS(node, options) {
             value += node.params;
           }
 
-          node.value = parseLessVariableValue(value, options);
+          parseLessVariableValue(node, value, options);
         }
 
         // `@color :blue;`
@@ -297,7 +296,7 @@ function parseNestedCSS(node, options) {
           node.variable = true;
           const text = node.params.slice(1);
           if (text) {
-            node.value = parseLessVariableValue(text, options);
+            parseLessVariableValue(node, text, options);
           }
           node.raws.afterName += ":";
         }
