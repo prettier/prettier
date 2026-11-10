@@ -125,11 +125,15 @@ function printDanglingComments(
   options,
   danglingCommentsPrintOptions = {},
 ) {
+  const { originalText, locStart } = options;
   const {
     indent: shouldIndent = false,
     marker,
     filter = returnTrue,
-    separator = hardline,
+    separator = ({ comment }) =>
+      isPreviousLineEmpty(originalText, locStart(comment))
+        ? [hardline, hardline]
+        : hardline,
   } = danglingCommentsPrintOptions;
   const danglingComments = new Set(
     path.node?.comments?.filter(
