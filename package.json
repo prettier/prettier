@@ -131,7 +131,7 @@
     "wcwidth.js": "2.0.0",
     "yaml": "2.9.1",
     "yaml-unist-parser": "3.2.1",
-    "yuku": "0.27.0"
+    "yuku": "0.28.0"
   },
   "devDependencies": {
     "@babel/generator": "8.1.0",
