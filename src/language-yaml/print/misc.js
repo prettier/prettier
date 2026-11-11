@@ -5,8 +5,9 @@ import { hasEndComments, isNextLineEmpty, isNode } from "../utilities.js";
 const printedEmptyLineCache = new WeakMap();
 const getNextEmptyLinePrintedSet = (path) =>
   getOrInsertComputed(printedEmptyLineCache, path.root, () => new Set());
-const markNextEmptyLinePrinted = (path, node = path.node) =>
+const markNextEmptyLinePrinted = (path, node = path.node) => {
   getNextEmptyLinePrintedSet(path).add(node.position.end.offset);
+};
 const hasNextEmptyLineBeenPrinted = (path, node = path.node) =>
   getNextEmptyLinePrintedSet(path).has(node.position.end.offset);
 
