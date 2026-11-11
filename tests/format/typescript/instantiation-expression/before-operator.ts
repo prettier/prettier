@@ -28,3 +28,7 @@ async function f() {
   x = (<any>await make<T>) < y;
   x = (typeof await make<T>) + y;
 }
+function* g() {
+  x = (typeof (yield make<T>)) + y;
+  x = (<any>(yield make<T>)) - y;
+}
