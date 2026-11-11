@@ -55,8 +55,9 @@ printWidth: 40
 {{! break components }}
 <div>
   <SuperSelect>
-    <p>foo<span>bar bar bar</span></p><h1
-    ><span><em>yep</em></span></h1>
+    <p>foo<span>bar bar
+        bar</span></p><h1><span><em
+        >yep</em></span></h1>
   </SuperSelect>
   <h2>nope</h2>
 </div>
@@ -223,17 +224,18 @@ printWidth: 40
     src="/images/pansies.jpg"
     alt="about fedco bottom image"
     style="float: left;"
-  /><strong>We are a cooperative</strong>,
-  one of the few seed companies so
-  organized in the United States.
-  Because we do not have an individual
-  owner or beneficiary, profit is not
-  our primary goal. Consumers own 60% of
-  the cooperative and worker members
-  40%. Consumer and worker members share
-  proportionately in the
-  cooperative&#8217;s profits through
-  our annual patronage dividends.
+  /><strong>We are a
+    cooperative</strong>, one of the few
+  seed companies so organized in the
+  United States. Because we do not have
+  an individual owner or beneficiary,
+  profit is not our primary goal.
+  Consumers own 60% of the cooperative
+  and worker members 40%. Consumer and
+  worker members share proportionately
+  in the cooperative&#8217;s profits
+  through our annual patronage
+  dividends.
 </p>
 ================================================================================
 `;
@@ -408,8 +410,8 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 
 Some sentence with
 {{dynamic}}
-expressions. sometimes{{nogaps}}areimportant<Hello
-/>
+expressions.
+sometimes{{nogaps}}areimportant<Hello />
 
 {{name}}
 is your name
