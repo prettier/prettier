@@ -144,21 +144,22 @@ function parentNeedsParentheses(path, options, needsParentheses) {
   }
 }
 
-// `typeof a<T> + b` is read as `(typeof a < T) > +b`
 function endsWithInstantiationExpression(node) {
-  switch (node?.type) {
-    case "TSInstantiationExpression":
-      return true;
-    case "UnaryExpression":
-    case "AwaitExpression":
-    case "YieldExpression":
-      // `yield` and `x |> await` (F# pipeline proposal) can have no argument
-      return endsWithInstantiationExpression(node.argument);
-    case "TSTypeAssertion":
-      return endsWithInstantiationExpression(node.expression);
-    default:
-      return false;
+  while (node) {
+    if (
+      node.type === "UnaryExpression" ||
+      node.type === "AwaitExpression" ||
+      node.type === "YieldExpression"
+    ) {
+      node = node.argument;
+    } else if (node.type === "TSTypeAssertion") {
+      node = node.expression;
+    } else {
+      break;
+    }
   }
+
+  return node?.type === "TSInstantiationExpression";
 }
 
 function willArgumentBreakAndAddParentheses(path, options) {
