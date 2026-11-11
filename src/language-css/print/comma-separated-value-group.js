@@ -21,6 +21,7 @@ import {
   isAtWordPlaceholderNode,
   isColonNode,
   isColorAdjusterFuncNode,
+  isDedentedMapEntryNode,
   isDivisionNode,
   isEachKeywordNode,
   isEqualityOperatorNode,
@@ -69,6 +70,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
   const hasLogicalOperator =
     isControlDirective && node.groups.some(isIfElseKeywordNode);
+  // The paren group dedents this entry unless it is printed as a control
+  // directive below, so a break after a comment must not dedent too
+  const isDedentedByParent =
+    isDedentedMapEntryNode(node, parentNode) && !isControlDirective;
   const hasInlineComment = node.groups.some((node) =>
     isInlineValueCommentNode(node),
   );
@@ -439,7 +444,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
     if (isInlineValueCommentNode(iNode)) {
       if (parentNode.type === "value-paren_group") {
-        parts.push(dedent(hardline), "");
+        parts.push(isDedentedByParent ? hardline : dedent(hardline), "");
         continue;
       }
       parts.push(hardline, "");
@@ -567,7 +572,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       !iNode.inline &&
       node.groups.slice(0, i).every((group) => group.type === "value-comment")
     ) {
-      parts.push(dedent(line), "");
+      parts.push(isDedentedByParent ? line : dedent(line), "");
       continue;
     }
 

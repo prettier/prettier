@@ -221,7 +221,7 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
     // `ClassImplements` seem not allow `QualifiedTypeIdentifier`
     (heritage.type === "InterfaceExtends" &&
       heritage.id.type === "QualifiedTypeIdentifier" &&
-      !heritage.typeParameters) ||
+      !heritage.typeArguments) ||
     ((heritage.type === "TSClassImplements" ||
       heritage.type === "TSInterfaceHeritage") &&
       isMemberExpression(heritage.expression) &&

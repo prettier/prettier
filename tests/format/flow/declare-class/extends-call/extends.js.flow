@@ -1,6 +1,6 @@
 declare class C extends mixin( Base ) {}
 
-declare class Generic<T> extends mixin< T >( Base< T > ) {}
+declare class Generic<T1> extends mixin< T2 >( Base< T3 > ) {}
 
 declare class Nested extends outer( inner( Base ) ) {}
 

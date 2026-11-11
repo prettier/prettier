@@ -83,13 +83,6 @@ function postprocess(ast, options) {
     delete ast.hashbang;
   }
 
-  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
-  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
-  // See https://github.com/facebook/flow/issues/8537
-  if (ast.type === "Program") {
-    ast.range = [0, text.length];
-  }
-
   let typeCastCommentsEnds;
 
   ast = visitNode(ast, {
@@ -181,6 +174,7 @@ function postprocess(ast, options) {
         case "TupleTypeAnnotation":
           if (node.types && !node.elementTypes) {
             node.elementTypes = node.types;
+            delete node.types;
           }
           break;
 
@@ -220,6 +214,19 @@ function postprocess(ast, options) {
             node.type = "EnumBody";
           }
           break;
+
+        // `hermes` and `babel-flow`
+        case "GenericTypeAnnotation":
+        case "ClassImplements":
+        case "InterfaceExtends":
+          if (
+            astType !== "flow" &&
+            node.typeParameters &&
+            !node.typeArguments
+          ) {
+            node.typeArguments = node.typeParameters;
+            delete node.typeParameters;
+          }
       }
     },
     onLeave(node) {

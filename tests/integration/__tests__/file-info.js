@@ -81,7 +81,7 @@ describe("extracts file-info for a file in not_node_modules", () => {
   });
 });
 
-describe("extracts file-info with with ignored=true for a file in node_modules", () => {
+describe("extracts file-info with ignored=true for a file in node_modules", () => {
   runCli("cli/with-node-modules/", [
     "--file-info",
     "node_modules/file.js",

@@ -122,7 +122,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ClassImplements": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "ClassMethod": [
     "body",
@@ -413,7 +413,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "GenericTypeAnnotation": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "HookDeclaration": [
     "body",
@@ -484,7 +484,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "InterfaceExtends": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "InterfaceTypeAnnotation": [
     "body",

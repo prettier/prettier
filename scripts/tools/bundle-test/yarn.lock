@@ -323,9 +323,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001819":
-  version: 1.0.30001822
-  resolution: "caniuse-lite@npm:1.0.30001822"
-  checksum: 10/e044affafa41437ee79051c25e4b0b333ef959dea73ee895489d5b6812ac71d682f47f84445a4f21fa6add0e13de71d403b212cdc5204f2e6cc4f6b99d98ae30
+  version: 1.0.30001823
+  resolution: "caniuse-lite@npm:1.0.30001823"
+  checksum: 10/4db65cc4e307dba3b95368295542774df4dd97005546f031a0e44387aeacd9786b87264e194ea15375f6a91d996543c46c42b4c0e5a642faf1c3f8a861145bc4
   languageName: node
   linkType: hard
 
@@ -344,9 +344,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.464":
-  version: 1.5.478
-  resolution: "electron-to-chromium@npm:1.5.478"
-  checksum: 10/5b4013c3429b8e0ddb1f145f2bca5ea2d09ea4b3f1f180ef48a1863bc186e09a8bb132887cbb00b688289041c77b374a5ff6838e1623b3e38b1a444d428fb7c9
+  version: 1.5.479
+  resolution: "electron-to-chromium@npm:1.5.479"
+  checksum: 10/81f1a6c261213a55ad004bccb8a9791bbabaf71da948242a0cbb4befd8b4461f373191f8d1702153eac42788db07dcdfb33d1fd5425ec3994a35fefd382b42ad
   languageName: node
   linkType: hard
 
@@ -509,21 +509,21 @@ __metadata:
   linkType: hard
 
 "schema-utils@npm:^4.6.0, schema-utils@npm:^4.8.1":
-  version: 4.8.2
-  resolution: "schema-utils@npm:4.8.2"
+  version: 4.8.3
+  resolution: "schema-utils@npm:4.8.3"
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
     ajv: "npm:^8.20.0"
     ajv-formats: "npm:^3.0.1"
     ajv-keywords: "npm:^5.1.0"
   peerDependencies:
-    webpack: ^5.112.0
+    webpack: ^5.0.0
   peerDependenciesMeta:
     webpack:
       optional: true
   bin:
     schema-utils: bin/schema-utils.js
-  checksum: 10/e5169f55a705e54a8dd871d61c9cefc4f31cf11192b11dd33ae5e7b90d920628133b51321612f9909ed45de529e8d617cd1df5647e0b759d6d33576f822a9bf2
+  checksum: 10/ee488126e79e1e081ae5d3ce812351f979e9245d5c20e03cb025c235c1533c1c7a7a6828dbc8453941ddd531501993d6f70ed7abf5b51b8880377bfca051a906
   languageName: node
   linkType: hard
 
@@ -596,11 +596,11 @@ __metadata:
   linkType: hard
 
 "watchpack@npm:^2.6.3":
-  version: 2.6.3
-  resolution: "watchpack@npm:2.6.3"
+  version: 2.6.4
+  resolution: "watchpack@npm:2.6.4"
   dependencies:
     graceful-fs: "npm:^4.1.2"
-  checksum: 10/e0509644c09acbb91626cb318f2745a3d842040d458894e8f63bbbb797408cd8838cbc100f019ed4b5cc6d5426474d4d01d451f90758956e4fab2d8f4e9da384
+  checksum: 10/7cadb3ed21a0a3af04def0f9e3a05b8ca423ad8974141525feffe242eb3747b60da8d403ae18e766cd8ab878117f948921ac24840a9835b67a14ad386d98930d
   languageName: node
   linkType: hard
 

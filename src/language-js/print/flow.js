@@ -160,7 +160,7 @@ function printFlow(path, options, print, args) {
     case "GenericTypeAnnotation":
       return [
         print("id"),
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "IndexedAccessType":
     case "OptionalIndexedAccessType":
@@ -225,8 +225,7 @@ function printFlow(path, options, print, args) {
       return printClassBody(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
-      // Use `typeArguments` once https://github.com/facebook/flow/issues/9343 get fixed
-      return [print("id"), print("typeParameters")];
+      return [print("id"), print("typeArguments")];
     case "DeclareClassExtendsCall":
       return printCallExpression(path, options, print);
     case "RecordDeclarationImplements":

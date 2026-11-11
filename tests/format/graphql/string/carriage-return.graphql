@@ -1,0 +1,17 @@
+query CarriageReturn($value: String = "\r") {
+  field(
+    short: "first\rsecond"
+    unicode: "first\u000Dsecond"
+    crlf: "first\r\nsecond"
+    literalBackslash: "first\\rsecond",
+    lineSeparator: "first\u{2028}second",
+    paragraphSeparator: "first\u{2029}second",
+  )
+}
+
+"first\rsecond"
+scalar Described
+
+input Input {
+  value: String = "first\rsecond"
+}

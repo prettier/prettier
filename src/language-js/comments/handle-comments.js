@@ -557,7 +557,8 @@ function handleLastFunctionParameterComments({
   if (
     precedingNode?.type === "FunctionTypeParam" &&
     (enclosingNode?.type === "FunctionTypeAnnotation" ||
-      enclosingNode?.type === "ConstructorTypeAnnotation") &&
+      enclosingNode?.type === "ConstructorTypeAnnotation" ||
+      enclosingNode?.type === "HookTypeAnnotation") &&
     followingNode?.type !== "FunctionTypeParam"
   ) {
     return addTrailingComment(precedingNode, comment);

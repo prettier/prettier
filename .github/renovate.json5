@@ -22,6 +22,15 @@
       groupName: "non-major dev-dependencies",
       matchDepTypes: ["devDependencies"],
       matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: [
+        "!commonmark-test-suite",
+        "!gfm-test-suite",
+        "!graphql-test-suite",
+        "!json-test-suite",
+        "!jsx-test-suite",
+        "!less-test-suite",
+        "!yaml-test-suite",
+      ],
     },
     {
       groupName: "React",

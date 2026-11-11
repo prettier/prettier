@@ -1,5 +1,4 @@
 const errors = {
-  flow: true,
   acorn: true,
   espree: true,
 };
