@@ -120,12 +120,12 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
     case "BinaryExpression":
       if (
-        endsWithInstantiationExpression(node) &&
         !(
           key === "right" &&
           node.type === "TSInstantiationExpression" &&
           (parent.operator === "instanceof" || parent.operator === "in")
-        )
+        ) &&
+        endsWithInstantiationExpression(node)
       ) {
         return true;
       }
