@@ -1,4 +1,6 @@
 import { group, hardline, indent, softline } from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
+import willPrintOwnComments from "../comments/will-print-own-comments.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
   isCallOrNewExpression,
@@ -34,7 +36,15 @@ function printBinaryCastExpression(path, options, print) {
     (key === "callee" && isCallOrNewExpression(parent)) ||
     (key === "object" && isMemberExpression(parent))
   ) {
-    return group([indent([softline, ...parts]), softline]);
+    return group([
+      indent([
+        softline,
+        willPrintOwnComments(path, options)
+          ? printComments(path, parts, options)
+          : parts,
+      ]),
+      softline,
+    ]);
   }
 
   return parts;
