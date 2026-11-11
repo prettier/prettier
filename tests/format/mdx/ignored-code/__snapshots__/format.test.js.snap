@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`basic.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+
+{/* prettier-ignore */}
+\`\`\`js
+function f() {
+  return 1;
+}
+\`\`\`
+
+{/* prettier-ignore */}
+\`\`\`python
+if True:
+    print("still indented")
+\`\`\`
+
+</div>
+
+=====================================output=====================================
+<div>
+  {/* prettier-ignore */}
+  \`\`\`js
+  function f() {
+    return 1;
+  }
+  \`\`\`
+
+  {/* prettier-ignore */}
+  \`\`\`python
+  if True:
+      print("still indented")
+  \`\`\`
+</div>
+
+================================================================================
+`;
+
+exports[`containers.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Outer>
+    <Inner>
+
+    {/* prettier-ignore */}
+    \`\`\`python
+    if True:
+        print("nested JSX")
+    \`\`\`
+
+    </Inner>
+</Outer>
+
+1. List
+
+   <Component>
+
+   {/* prettier-ignore */}
+   \`\`\`python
+   if True:
+       print("inside a list")
+   \`\`\`
+
+   </Component>
+
+> <Component>
+>
+> {/* prettier-ignore */}
+> \`\`\`python
+> if True:
+>     print("inside a block quote")
+> \`\`\`
+>
+> </Component>
+
+=====================================output=====================================
+<Outer>
+  <Inner>
+    {/* prettier-ignore */}
+    \`\`\`python
+    if True:
+        print("nested JSX")
+    \`\`\`
+  </Inner>
+</Outer>
+
+1. List
+
+   <Component>
+     {/* prettier-ignore */}
+     \`\`\`python
+     if True:
+         print("inside a list")
+     \`\`\`
+   </Component>
+
+> <Component>
+>   {/* prettier-ignore */}
+>   \`\`\`python
+>   if True:
+>       print("inside a block quote")
+>   \`\`\`
+> </Component>
+
+================================================================================
+`;
+
+exports[`fences.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Component>
+
+{/* prettier-ignore */}
+~~~~  python title="example"
+if True:
+    print("keep the fence and info string")
+~~~~~~
+
+{/* prettier-ignore */}
+\`\`\`\`js
+const value = \`first
+  second\`;
+\`\`\`\`\`
+
+{/* prettier-ignore */}
+\`\`\`
+\`\`\`
+
+{/* prettier-ignore */}
+\`\`\`
+
+\`\`\`
+
+{/* prettier-ignore */}
+\`\`\`
+
+
+\`\`\`
+
+</Component>
+
+=====================================output=====================================
+<Component>
+  {/* prettier-ignore */}
+  ~~~~  python title="example"
+  if True:
+      print("keep the fence and info string")
+  ~~~~~~
+
+  {/* prettier-ignore */}
+  \`\`\`\`js
+  const value = \`first
+    second\`;
+  \`\`\`\`\`
+
+  {/* prettier-ignore */}
+  \`\`\`
+  \`\`\`
+
+  {/* prettier-ignore */}
+  \`\`\`
+  
+  \`\`\`
+
+  {/* prettier-ignore */}
+  \`\`\`
+  
+  
+  \`\`\`
+</Component>
+
+================================================================================
+`;
+
+exports[`unclosed.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+> hello\`\`\`
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`\`
+> \`\`\`
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+> ~~~
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`python
+> if True:
+>     print("unclosed fence")
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+>
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+> 
+> 
+> 
+
+</Component>
+
+=====================================output=====================================
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+> hello\`\`\`
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`\`
+> \`\`\`
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+> ~~~
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`python
+> if True:
+>     print("unclosed fence")
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+>
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+> 
+> 
+>
+</Component>
+
+================================================================================
+`;
+
+exports[`unclosed-whitespace.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\` text
+> a  
+
+</Component>
+
+<Component>
+
+> {/* prettier-ignore */}
+> \`\`\`
+> abc
+> 	def
+>    
+
+</Component>
+
+=====================================output=====================================
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\` text
+> a
+</Component>
+
+<Component>
+  > {/* prettier-ignore */}
+  > \`\`\`
+> abc
+> 	def
+>
+</Component>
+
+================================================================================
+`;
+
+exports[`whitespace.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<Component>
+
+{/* prettier-ignore */}
+\`\`\`text
+first  
+	second  
+		third
+  
+last
+
+\`\`\`
+
+</Component>
+
+=====================================output=====================================
+<Component>
+  {/* prettier-ignore */}
+  \`\`\`text
+  first  
+  	second  
+  		third
+    
+  last
+  
+  \`\`\`
+</Component>
+
+================================================================================
+`;
