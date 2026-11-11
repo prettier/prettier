@@ -1,4 +1,8 @@
 ---
+a: 1
+
+# end comment
+---
 top:
   b: 2 # comment
 

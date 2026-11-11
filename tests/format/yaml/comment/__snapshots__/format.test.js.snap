@@ -336,6 +336,10 @@ parsers: ["yaml"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 ---
+a: 1
+
+# end comment
+---
 top:
   b: 2 # comment
 
@@ -350,6 +354,10 @@ a: # comment
 # end comment
 
 =====================================output=====================================
+---
+a: 1
+
+# end comment
 ---
 top:
   b: 2 # comment
