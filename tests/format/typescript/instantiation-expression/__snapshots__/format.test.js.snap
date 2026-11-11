@@ -59,13 +59,12 @@ x = (a + typeof make<T>) - y;
 x = (typeof typeof make<T>) + y;
 x = (typeof make<T>) in (typeof make<T>)
 x = (typeof make<T>) in (make<T>)
-async function f() {
+async function* f() {
   x = (<any>await make<T>) < y;
   x = (typeof await make<T>) + y;
-}
-function* g() {
   x = (typeof (yield make<T>)) + y;
   x = (<any>(yield make<T>)) - y;
+  x = (<any>(yield)) - y;
 }
 
 =====================================output=====================================
@@ -95,13 +94,12 @@ x = a + (typeof make<T>) - y;
 x = (typeof typeof make<T>) + y;
 x = (typeof make<T>) in (typeof make<T>);
 x = (typeof make<T>) in make<T>;
-async function f() {
+async function* f() {
   x = (<any>await make<T>) < y;
   x = (typeof (await make<T>)) + y;
-}
-function* g() {
   x = (typeof (yield make<T>)) + y;
   x = (<any>(yield make<T>)) - y;
+  x = <any>(yield) - y;
 }
 
 ================================================================================
