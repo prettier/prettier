@@ -248,7 +248,7 @@ function printNode(path, options, print) {
             isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
 
           if (shouldPreserveEmptyLine) {
-            markNextEmptyLinePrinted(path.root, lastChild);
+            markNextEmptyLinePrinted(path, lastChild);
           }
 
           separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
