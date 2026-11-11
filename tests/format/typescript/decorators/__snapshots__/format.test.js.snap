@@ -480,6 +480,44 @@ class MyContainerComponent {
 ================================================================================
 `;
 
+exports[`issue-13318.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@decorator
+class SomeClass extends BaseClass
+	// Here's a comment
+	implements ISomeInterface {
+}
+
+@decorator
+class SomeClass2 // comment
+	extends BaseClass {
+}
+
+@decorator
+// comment
+class SomeClass3 extends BaseClass implements ISomeInterface {}
+
+=====================================output=====================================
+@decorator
+class SomeClass
+  extends BaseClass
+  // Here's a comment
+  implements ISomeInterface {}
+
+@decorator
+class SomeClass2 // comment
+  extends BaseClass {}
+
+@decorator
+// comment
+class SomeClass3 extends BaseClass implements ISomeInterface {}
+
+================================================================================
+`;
+
 exports[`legacy.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
