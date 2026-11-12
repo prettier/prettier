@@ -1,0 +1,29 @@
+title: 'Testing 123'
+author: jimbo
+tags:
+  - some
+  - tag
+teaser1: |-
+  Starting a blog is great
+teaser2: >-
+  Starting a blog is great
+tester1:
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+tester2:
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
