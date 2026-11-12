@@ -1,0 +1,1687 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "line-comment"; // trailing
+// leading
+{ console.log("live"); }
+
+declare function a(); /* trailing */
+
+/* leading */
+{ console.log("live"); }
+
+declare module "empty-statements";;; /* between */
+;
+{ console.log("live"); }
+
+declare function b();;;
+{ console.log("live"); }
+
+declare function c();
+// prettier-ignore
+{console.log("live")}
+
+// prettier-ignore
+declare function d(  );
+{ console.log("live"); }
+
+// prettier-ignore
+declare module "ignored";
+{ console.log("live"); }
+
+=====================================output=====================================
+declare module "line-comment"; // trailing
+// leading
+{
+  console.log("live")
+}
+
+declare function a(); /* trailing */
+
+/* leading */
+{
+  console.log("live")
+}
+
+declare module "empty-statements"; /* between */
+{
+  console.log("live")
+}
+
+declare function b();
+{
+  console.log("live")
+}
+
+declare function c();
+// prettier-ignore
+{console.log("live")}
+
+// prettier-ignore
+declare function d(  );
+{
+  console.log("live")
+}
+
+// prettier-ignore
+declare module "ignored";
+{
+  console.log("live")
+}
+
+================================================================================
+`;
+
+exports[`comments.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "line-comment"; // trailing
+// leading
+{ console.log("live"); }
+
+declare function a(); /* trailing */
+
+/* leading */
+{ console.log("live"); }
+
+declare module "empty-statements";;; /* between */
+;
+{ console.log("live"); }
+
+declare function b();;;
+{ console.log("live"); }
+
+declare function c();
+// prettier-ignore
+{console.log("live")}
+
+// prettier-ignore
+declare function d(  );
+{ console.log("live"); }
+
+// prettier-ignore
+declare module "ignored";
+{ console.log("live"); }
+
+=====================================output=====================================
+declare module "line-comment"; // trailing
+// leading
+{
+  console.log("live");
+}
+
+declare function a(); /* trailing */
+
+/* leading */
+{
+  console.log("live");
+}
+
+declare module "empty-statements"; /* between */
+{
+  console.log("live");
+}
+
+declare function b();
+{
+  console.log("live");
+}
+
+declare function c();
+// prettier-ignore
+{console.log("live")}
+
+// prettier-ignore
+declare function d(  );
+{
+  console.log("live");
+}
+
+// prettier-ignore
+declare module "ignored";
+{
+  console.log("live");
+}
+
+================================================================================
+`;
+
+exports[`controls.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "ordinary";
+console.log("ordinary");
+declare function a();
+console.log("ordinary");
+
+declare module "array";
+[call()];
+declare function b();
+[call()];
+
+declare module "body" {};
+{ console.log("live"); }
+function c() {};
+{ console.log("live"); }
+
+{ declare function d(); }
+{ console.log("live"); }
+
+if (condition) function e();
+else { console.log("alternate"); }
+{ console.log("live"); }
+
+do function f(); while (condition);
+{ console.log("live"); }
+
+namespace N { export function g(); }
+{ console.log("live"); }
+
+switch (value) {
+  case 1: function h();
+  default: { console.log("default"); }
+}
+
+declare module "end";
+declare function end();
+
+=====================================output=====================================
+declare module "ordinary"
+console.log("ordinary")
+declare function a()
+console.log("ordinary")
+
+declare module "array"
+;[call()]
+declare function b()
+;[call()]
+
+declare module "body" {}
+{
+  console.log("live")
+}
+function c() {}
+{
+  console.log("live")
+}
+
+{
+  declare function d()
+}
+{
+  console.log("live")
+}
+
+if (condition) function e()
+else {
+  console.log("alternate")
+}
+{
+  console.log("live")
+}
+
+do function f()
+while (condition)
+{
+  console.log("live")
+}
+
+namespace N {
+  export function g()
+}
+{
+  console.log("live")
+}
+
+switch (value) {
+  case 1:
+    function h()
+  default: {
+    console.log("default")
+  }
+}
+
+declare module "end"
+declare function end()
+
+================================================================================
+`;
+
+exports[`controls.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "ordinary";
+console.log("ordinary");
+declare function a();
+console.log("ordinary");
+
+declare module "array";
+[call()];
+declare function b();
+[call()];
+
+declare module "body" {};
+{ console.log("live"); }
+function c() {};
+{ console.log("live"); }
+
+{ declare function d(); }
+{ console.log("live"); }
+
+if (condition) function e();
+else { console.log("alternate"); }
+{ console.log("live"); }
+
+do function f(); while (condition);
+{ console.log("live"); }
+
+namespace N { export function g(); }
+{ console.log("live"); }
+
+switch (value) {
+  case 1: function h();
+  default: { console.log("default"); }
+}
+
+declare module "end";
+declare function end();
+
+=====================================output=====================================
+declare module "ordinary";
+console.log("ordinary");
+declare function a();
+console.log("ordinary");
+
+declare module "array";
+[call()];
+declare function b();
+[call()];
+
+declare module "body" {}
+{
+  console.log("live");
+}
+function c() {}
+{
+  console.log("live");
+}
+
+{
+  declare function d();
+}
+{
+  console.log("live");
+}
+
+if (condition) function e();
+else {
+  console.log("alternate");
+}
+{
+  console.log("live");
+}
+
+do function f();
+while (condition);
+{
+  console.log("live");
+}
+
+namespace N {
+  export function g();
+}
+{
+  console.log("live");
+}
+
+switch (value) {
+  case 1:
+    function h();
+  default: {
+    console.log("default");
+  }
+}
+
+declare module "end";
+declare function end();
+
+================================================================================
+`;
+
+exports[`functions.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a();
+{ console.log("live"); }
+
+declare function b(): { value: string };
+{ console.log("live"); }
+
+export declare function c(): void;
+{ console.log("live"); }
+
+export default function d();
+{ console.log("live"); }
+
+=====================================output=====================================
+function a();
+{
+  console.log("live")
+}
+
+declare function b(): { value: string };
+{
+  console.log("live")
+}
+
+export declare function c(): void;
+{
+  console.log("live")
+}
+
+export default function d();
+{
+  console.log("live")
+}
+
+================================================================================
+`;
+
+exports[`functions.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a();
+{ console.log("live"); }
+
+declare function b(): { value: string };
+{ console.log("live"); }
+
+export declare function c(): void;
+{ console.log("live"); }
+
+export default function d();
+{ console.log("live"); }
+
+=====================================output=====================================
+function a();
+{
+  console.log("live");
+}
+
+declare function b(): { value: string };
+{
+  console.log("live");
+}
+
+export declare function c(): void;
+{
+  console.log("live");
+}
+
+export default function d();
+{
+  console.log("live");
+}
+
+================================================================================
+`;
+
+exports[`ignored-comments.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function commented(  ): void /* before separator */ ; // trailing
+/* leading */
+{ const live = 1; }
+
+// prettier-ignore
+export declare module "empty-statements";;; /* between */
+// prettier-ignore
+;
+{ const live = 2; }
+
+// prettier-ignore
+export function objectReturn(  ): { value: string };
+// prettier-ignore
+{const live = 3;}
+
+// prettier-ignore
+declare function retained(  ): void /* before separator */ ; // trailing
+;;
+{ const live = 4; }
+
+=====================================output=====================================
+// prettier-ignore
+export declare function commented(  ): void; /* before separator */ // trailing
+/* leading */
+{
+  const live = 1
+}
+
+// prettier-ignore
+export declare module "empty-statements"; /* between */
+// prettier-ignore
+{ const live = 2; }
+
+// prettier-ignore
+export function objectReturn(  ): { value: string };
+// prettier-ignore
+{const live = 3;}
+
+// prettier-ignore
+declare function retained(  ): void /* before separator */ ; // trailing
+{
+  const live = 4
+}
+
+================================================================================
+`;
+
+exports[`ignored-comments.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function commented(  ): void /* before separator */ ; // trailing
+/* leading */
+{ const live = 1; }
+
+// prettier-ignore
+export declare module "empty-statements";;; /* between */
+// prettier-ignore
+;
+{ const live = 2; }
+
+// prettier-ignore
+export function objectReturn(  ): { value: string };
+// prettier-ignore
+{const live = 3;}
+
+// prettier-ignore
+declare function retained(  ): void /* before separator */ ; // trailing
+;;
+{ const live = 4; }
+
+=====================================output=====================================
+// prettier-ignore
+export declare function commented(  ): void; /* before separator */ // trailing
+/* leading */
+{
+  const live = 1;
+}
+
+// prettier-ignore
+export declare module "empty-statements"; /* between */
+// prettier-ignore
+{ const live = 2; }
+
+// prettier-ignore
+export function objectReturn(  ): { value: string };
+// prettier-ignore
+{const live = 3;}
+
+// prettier-ignore
+declare function retained(  ): void /* before separator */ ; // trailing
+{
+  const live = 4;
+}
+
+================================================================================
+`;
+
+exports[`ignored-controls.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function ordinary(  ): void;
+console.log("ordinary");
+
+// prettier-ignore
+export declare module "array";
+[call()];
+
+// prettier-ignore
+export function implementation(  ) { return 1; }
+{ const live = 1; }
+
+// prettier-ignore
+export namespace WithBody { const value = 1; }
+{ const live = 2; }
+
+// prettier-ignore
+export const value =  1;
+{ const live = 3; }
+
+// prettier-ignore
+export { value as renamed };
+{ const live = 4; }
+
+// prettier-ignore
+export default function end(  );
+
+=====================================output=====================================
+// prettier-ignore
+export declare function ordinary(  ): void
+console.log("ordinary")
+
+// prettier-ignore
+export declare module "array"
+;[call()]
+
+// prettier-ignore
+export function implementation(  ) { return 1; }
+{
+  const live = 1
+}
+
+// prettier-ignore
+export namespace WithBody { const value = 1; }
+{
+  const live = 2
+}
+
+// prettier-ignore
+export const value =  1
+{
+  const live = 3
+}
+
+// prettier-ignore
+export { value as renamed }
+{
+  const live = 4
+}
+
+// prettier-ignore
+export default function end(  )
+
+================================================================================
+`;
+
+exports[`ignored-controls.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function ordinary(  ): void;
+console.log("ordinary");
+
+// prettier-ignore
+export declare module "array";
+[call()];
+
+// prettier-ignore
+export function implementation(  ) { return 1; }
+{ const live = 1; }
+
+// prettier-ignore
+export namespace WithBody { const value = 1; }
+{ const live = 2; }
+
+// prettier-ignore
+export const value =  1;
+{ const live = 3; }
+
+// prettier-ignore
+export { value as renamed };
+{ const live = 4; }
+
+// prettier-ignore
+export default function end(  );
+
+=====================================output=====================================
+// prettier-ignore
+export declare function ordinary(  ): void;
+console.log("ordinary");
+
+// prettier-ignore
+export declare module "array";
+[call()];
+
+// prettier-ignore
+export function implementation(  ) { return 1; }
+{
+  const live = 1;
+}
+
+// prettier-ignore
+export namespace WithBody { const value = 1; }
+{
+  const live = 2;
+}
+
+// prettier-ignore
+export const value =  1;
+{
+  const live = 3;
+}
+
+// prettier-ignore
+export { value as renamed };
+{
+  const live = 4;
+}
+
+// prettier-ignore
+export default function end(  );
+
+================================================================================
+`;
+
+exports[`ignored-export-wrappers.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+for (;;) export function forLoop(  );
+{ const live = 1; }
+
+// prettier-ignore
+for (const item of items) export function forOf(  );
+{ const live = 2; }
+
+// prettier-ignore
+for (const key in object) export function forIn(  );
+{ const live = 3; }
+
+// prettier-ignore
+while (condition) export default function whileLoop(  );
+{ const live = 4; }
+
+// prettier-ignore
+with (object) export function withStatement(  );
+{ const live = 5; }
+
+// prettier-ignore
+label: export declare module "labeled";
+{ const live = 6; }
+
+// prettier-ignore
+if (condition) export function consequent(  );
+{ const live = 7; }
+
+// prettier-ignore
+if (condition) {} else export declare function alternate(  ): void;
+{ const live = 8; }
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: export function nested(  );
+;; /* between */
+{ const live = 9; }
+
+=====================================output=====================================
+// prettier-ignore
+for (;;) export function forLoop(  );
+{
+  const live = 1
+}
+
+// prettier-ignore
+for (const item of items) export function forOf(  );
+{
+  const live = 2
+}
+
+// prettier-ignore
+for (const key in object) export function forIn(  );
+{
+  const live = 3
+}
+
+// prettier-ignore
+while (condition) export default function whileLoop(  );
+{
+  const live = 4
+}
+
+// prettier-ignore
+with (object) export function withStatement(  );
+{
+  const live = 5
+}
+
+// prettier-ignore
+label: export declare module "labeled";
+{
+  const live = 6
+}
+
+// prettier-ignore
+if (condition) export function consequent(  );
+{
+  const live = 7
+}
+
+// prettier-ignore
+if (condition) {} else export declare function alternate(  ): void;
+{
+  const live = 8
+}
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: export function nested(  ); /* between */
+{
+  const live = 9
+}
+
+================================================================================
+`;
+
+exports[`ignored-export-wrappers.ts - {"semi":false} format[yuku-ts] 1`] = `
+"An export declaration can only be used at the top level of a module (2:10)
+  1 | // prettier-ignore
+> 2 | for (;;) export function forLoop(  );
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | { const live = 1; }
+  4 |
+  5 | // prettier-ignore"
+`;
+
+exports[`ignored-export-wrappers.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+for (;;) export function forLoop(  );
+{ const live = 1; }
+
+// prettier-ignore
+for (const item of items) export function forOf(  );
+{ const live = 2; }
+
+// prettier-ignore
+for (const key in object) export function forIn(  );
+{ const live = 3; }
+
+// prettier-ignore
+while (condition) export default function whileLoop(  );
+{ const live = 4; }
+
+// prettier-ignore
+with (object) export function withStatement(  );
+{ const live = 5; }
+
+// prettier-ignore
+label: export declare module "labeled";
+{ const live = 6; }
+
+// prettier-ignore
+if (condition) export function consequent(  );
+{ const live = 7; }
+
+// prettier-ignore
+if (condition) {} else export declare function alternate(  ): void;
+{ const live = 8; }
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: export function nested(  );
+;; /* between */
+{ const live = 9; }
+
+=====================================output=====================================
+// prettier-ignore
+for (;;) export function forLoop(  );
+{
+  const live = 1;
+}
+
+// prettier-ignore
+for (const item of items) export function forOf(  );
+{
+  const live = 2;
+}
+
+// prettier-ignore
+for (const key in object) export function forIn(  );
+{
+  const live = 3;
+}
+
+// prettier-ignore
+while (condition) export default function whileLoop(  );
+{
+  const live = 4;
+}
+
+// prettier-ignore
+with (object) export function withStatement(  );
+{
+  const live = 5;
+}
+
+// prettier-ignore
+label: export declare module "labeled";
+{
+  const live = 6;
+}
+
+// prettier-ignore
+if (condition) export function consequent(  );
+{
+  const live = 7;
+}
+
+// prettier-ignore
+if (condition) {} else export declare function alternate(  ): void;
+{
+  const live = 8;
+}
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: export function nested(  ); /* between */
+{
+  const live = 9;
+}
+
+================================================================================
+`;
+
+exports[`ignored-export-wrappers.ts - {"semi":true} format[yuku-ts] 1`] = `
+"An export declaration can only be used at the top level of a module (2:10)
+  1 | // prettier-ignore
+> 2 | for (;;) export function forLoop(  );
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | { const live = 1; }
+  4 |
+  5 | // prettier-ignore"
+`;
+
+exports[`ignored-exports.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function ambient(  ): void;
+{ const live = 1; }
+
+// prettier-ignore
+export function named(  );
+{ const live = 2; }
+
+// prettier-ignore
+export default function defaultExport(  );
+{ const live = 3; }
+
+// prettier-ignore
+export declare module "ignored-export";
+{ const live = 4; }
+
+=====================================output=====================================
+// prettier-ignore
+export declare function ambient(  ): void;
+{
+  const live = 1
+}
+
+// prettier-ignore
+export function named(  );
+{
+  const live = 2
+}
+
+// prettier-ignore
+export default function defaultExport(  );
+{
+  const live = 3
+}
+
+// prettier-ignore
+export declare module "ignored-export";
+{
+  const live = 4
+}
+
+================================================================================
+`;
+
+exports[`ignored-exports.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+export declare function ambient(  ): void;
+{ const live = 1; }
+
+// prettier-ignore
+export function named(  );
+{ const live = 2; }
+
+// prettier-ignore
+export default function defaultExport(  );
+{ const live = 3; }
+
+// prettier-ignore
+export declare module "ignored-export";
+{ const live = 4; }
+
+=====================================output=====================================
+// prettier-ignore
+export declare function ambient(  ): void;
+{
+  const live = 1;
+}
+
+// prettier-ignore
+export function named(  );
+{
+  const live = 2;
+}
+
+// prettier-ignore
+export default function defaultExport(  );
+{
+  const live = 3;
+}
+
+// prettier-ignore
+export declare module "ignored-export";
+{
+  const live = 4;
+}
+
+================================================================================
+`;
+
+exports[`ignored-wrappers.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+for (;;) function retained(  );
+{ const live = 1; }
+
+// prettier-ignore
+if (condition) function consequent(  ); else function alternate(  );
+{ const live = 2; }
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: function nested(  );
+{ const live = 3; }
+
+// prettier-ignore
+if (condition) function nonterminal(  ); else {}
+{ const live = 4; }
+
+// prettier-ignore
+do function doWhile(  ); while (condition);
+{ const live = 5; }
+
+// prettier-ignore
+namespace Scoped { export function scoped(  ); }
+{ const live = 6; }
+
+=====================================output=====================================
+// prettier-ignore
+for (;;) function retained(  );
+{
+  const live = 1
+}
+
+// prettier-ignore
+if (condition) function consequent(  ); else function alternate(  );
+{
+  const live = 2
+}
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: function nested(  );
+{
+  const live = 3
+}
+
+// prettier-ignore
+if (condition) function nonterminal(  ); else {}
+{
+  const live = 4
+}
+
+// prettier-ignore
+do function doWhile(  ); while (condition)
+{
+  const live = 5
+}
+
+// prettier-ignore
+namespace Scoped { export function scoped(  ); }
+{
+  const live = 6
+}
+
+================================================================================
+`;
+
+exports[`ignored-wrappers.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// prettier-ignore
+for (;;) function retained(  );
+{ const live = 1; }
+
+// prettier-ignore
+if (condition) function consequent(  ); else function alternate(  );
+{ const live = 2; }
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: function nested(  );
+{ const live = 3; }
+
+// prettier-ignore
+if (condition) function nonterminal(  ); else {}
+{ const live = 4; }
+
+// prettier-ignore
+do function doWhile(  ); while (condition);
+{ const live = 5; }
+
+// prettier-ignore
+namespace Scoped { export function scoped(  ); }
+{ const live = 6; }
+
+=====================================output=====================================
+// prettier-ignore
+for (;;) function retained(  );
+{
+  const live = 1;
+}
+
+// prettier-ignore
+if (condition) function consequent(  ); else function alternate(  );
+{
+  const live = 2;
+}
+
+// prettier-ignore
+for (;;) if (condition) while (other) label: function nested(  );
+{
+  const live = 3;
+}
+
+// prettier-ignore
+if (condition) function nonterminal(  ); else {}
+{
+  const live = 4;
+}
+
+// prettier-ignore
+do function doWhile(  ); while (condition);
+{
+  const live = 5;
+}
+
+// prettier-ignore
+namespace Scoped { export function scoped(  ); }
+{
+  const live = 6;
+}
+
+================================================================================
+`;
+
+exports[`modules.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "x";
+{ console.log("live"); }
+
+export declare module "exported";
+{ console.log("live"); }
+
+=====================================output=====================================
+declare module "x";
+{
+  console.log("live")
+}
+
+export declare module "exported";
+{
+  console.log("live")
+}
+
+================================================================================
+`;
+
+exports[`modules.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "x";
+{ console.log("live"); }
+
+export declare module "exported";
+{ console.log("live"); }
+
+=====================================output=====================================
+declare module "x";
+{
+  console.log("live");
+}
+
+export declare module "exported";
+{
+  console.log("live");
+}
+
+================================================================================
+`;
+
+exports[`nested.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  declare module "nested";
+  { console.log("live"); }
+}
+
+namespace N {
+  export function a();
+  { console.log("live"); }
+}
+
+switch (value) {
+  case 1:
+    declare function b();
+    { console.log("live"); }
+    break;
+  default:
+    declare module "switch";
+    { console.log("live"); }
+}
+
+class A {
+  static {
+    function c();
+    { console.log("live"); }
+  }
+}
+
+=====================================output=====================================
+{
+  declare module "nested";
+  {
+    console.log("live")
+  }
+}
+
+namespace N {
+  export function a();
+  {
+    console.log("live")
+  }
+}
+
+switch (value) {
+  case 1:
+    declare function b();
+    {
+      console.log("live")
+    }
+    break
+  default:
+    declare module "switch";
+    {
+      console.log("live")
+    }
+}
+
+class A {
+  static {
+    function c();
+    {
+      console.log("live")
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`nested.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  declare module "nested";
+  { console.log("live"); }
+}
+
+namespace N {
+  export function a();
+  { console.log("live"); }
+}
+
+switch (value) {
+  case 1:
+    declare function b();
+    { console.log("live"); }
+    break;
+  default:
+    declare module "switch";
+    { console.log("live"); }
+}
+
+class A {
+  static {
+    function c();
+    { console.log("live"); }
+  }
+}
+
+=====================================output=====================================
+{
+  declare module "nested";
+  {
+    console.log("live");
+  }
+}
+
+namespace N {
+  export function a();
+  {
+    console.log("live");
+  }
+}
+
+switch (value) {
+  case 1:
+    declare function b();
+    {
+      console.log("live");
+    }
+    break;
+  default:
+    declare module "switch";
+    {
+      console.log("live");
+    }
+}
+
+class A {
+  static {
+    function c();
+    {
+      console.log("live");
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`non-siblings.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for(;;) function a();
+{}
+
+while (condition) function b();
+{ console.log("live"); }
+
+for (const item of items) function c();
+{ console.log("live"); }
+
+for (const key in object) function d();
+{ console.log("live"); }
+
+label: function e();
+{ console.log("live"); }
+
+if (condition) function f();
+{ console.log("live"); }
+
+if (condition) function g();
+else function h();
+{ console.log("live"); }
+
+for (;;) if (condition) while (other) function i();
+// The declaration is several levels below this block's sibling.
+{ console.log("live"); }
+
+with (object) function j();
+{ console.log("live"); }
+
+=====================================output=====================================
+for (;;) function a();
+{
+}
+
+while (condition) function b();
+{
+  console.log("live")
+}
+
+for (const item of items) function c();
+{
+  console.log("live")
+}
+
+for (const key in object) function d();
+{
+  console.log("live")
+}
+
+label: function e();
+{
+  console.log("live")
+}
+
+if (condition) function f();
+{
+  console.log("live")
+}
+
+if (condition) function g()
+else function h();
+{
+  console.log("live")
+}
+
+for (;;) if (condition) while (other) function i();
+// The declaration is several levels below this block's sibling.
+{
+  console.log("live")
+}
+
+with (object) function j();
+{
+  console.log("live")
+}
+
+================================================================================
+`;
+
+exports[`non-siblings.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for(;;) function a();
+{}
+
+while (condition) function b();
+{ console.log("live"); }
+
+for (const item of items) function c();
+{ console.log("live"); }
+
+for (const key in object) function d();
+{ console.log("live"); }
+
+label: function e();
+{ console.log("live"); }
+
+if (condition) function f();
+{ console.log("live"); }
+
+if (condition) function g();
+else function h();
+{ console.log("live"); }
+
+for (;;) if (condition) while (other) function i();
+// The declaration is several levels below this block's sibling.
+{ console.log("live"); }
+
+with (object) function j();
+{ console.log("live"); }
+
+=====================================output=====================================
+for (;;) function a();
+{
+}
+
+while (condition) function b();
+{
+  console.log("live");
+}
+
+for (const item of items) function c();
+{
+  console.log("live");
+}
+
+for (const key in object) function d();
+{
+  console.log("live");
+}
+
+label: function e();
+{
+  console.log("live");
+}
+
+if (condition) function f();
+{
+  console.log("live");
+}
+
+if (condition) function g();
+else function h();
+{
+  console.log("live");
+}
+
+for (;;) if (condition) while (other) function i();
+// The declaration is several levels below this block's sibling.
+{
+  console.log("live");
+}
+
+with (object) function j();
+{
+  console.log("live");
+}
+
+================================================================================
+`;
+
+exports[`original.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+=====================================output=====================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+================================================================================
+`;
+
+exports[`original.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+=====================================output=====================================
+declare module "autoprefixer";
+
+{
+  alert();
+}
+
+declare function a();
+
+{
+  alert();
+}
+
+================================================================================
+`;
+
+exports[`overloads.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export function defineConfig(config: UserConfig): UserConfig;
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>;
+export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
+export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
+export function defineConfig(config: UserConfigFn): UserConfigFn;
+export function defineConfig(config: UserConfigExport): UserConfigExport;
+export function defineConfig(config: UserConfigExport): UserConfigExport {
+  return config;
+}
+
+=====================================output=====================================
+export function defineConfig(config: UserConfig): UserConfig
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>
+export function defineConfig(config: UserConfigFnObject): UserConfigFnObject
+export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise
+export function defineConfig(config: UserConfigFn): UserConfigFn
+export function defineConfig(config: UserConfigExport): UserConfigExport
+export function defineConfig(config: UserConfigExport): UserConfigExport {
+  return config
+}
+
+================================================================================
+`;
+
+exports[`overloads.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export function defineConfig(config: UserConfig): UserConfig;
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>;
+export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
+export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
+export function defineConfig(config: UserConfigFn): UserConfigFn;
+export function defineConfig(config: UserConfigExport): UserConfigExport;
+export function defineConfig(config: UserConfigExport): UserConfigExport {
+  return config;
+}
+
+=====================================output=====================================
+export function defineConfig(config: UserConfig): UserConfig;
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>;
+export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
+export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
+export function defineConfig(config: UserConfigFn): UserConfigFn;
+export function defineConfig(config: UserConfigExport): UserConfigExport;
+export function defineConfig(config: UserConfigExport): UserConfigExport {
+  return config;
+}
+
+================================================================================
+`;
+
+exports[`regression-19328.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export function defineConfig(config: UserConfig): UserConfig;
+
+=====================================output=====================================
+export function defineConfig(config: UserConfig): UserConfig
+
+================================================================================
+`;
+
+exports[`regression-19328.ts - {"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export function defineConfig(config: UserConfig): UserConfig;
+
+=====================================output=====================================
+export function defineConfig(config: UserConfig): UserConfig;
+
+================================================================================
+`;

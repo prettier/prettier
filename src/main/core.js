@@ -24,12 +24,18 @@ import { calculateRange } from "./range.js";
 
 const CURSOR = Symbol("cursor");
 
-async function coreFormat(originalText, opts, addAlignmentSize = 0) {
+async function coreFormat(originalText, opts, addAlignmentSize = 0, range) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
   const { ast, text } = await parseText(originalText, opts);
+
+  if (range) {
+    // Keep the source boundary available after reparsing a range. Tie it to
+    // this AST so embedded languages cannot inherit the enclosing boundary.
+    opts = { ...opts, __range: { ...range, ast } };
+  }
 
   if (opts.cursorOffset >= 0) {
     opts = {
@@ -209,6 +215,11 @@ async function formatRange(originalText, opts) {
       endOfLine: "lf",
     },
     alignmentSize,
+    {
+      originalText: text,
+      [commentsPropertyInOptions]: ast.comments ?? [],
+      rangeEnd,
+    },
   );
 
   // Since the range contracts to avoid trailing whitespace,

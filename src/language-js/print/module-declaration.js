@@ -1,5 +1,6 @@
 import { group } from "../../document/index.js";
-import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
+import { shouldPrintSemicolonAfterDeclaration } from "../semicolon/should-print-semicolon-after-declaration.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 function printModuleDeclarationKind(node) {
   if (node.type === "DeclareModule") {
@@ -28,7 +29,11 @@ function printModuleDeclaration(path, options, print) {
     printDeclareToken(path),
     kind ? `${kind} ` : "",
     print("id"),
-    node.body ? [" ", group(print("body"))] : printSemicolon(options),
+    node.body
+      ? [" ", group(print("body"))]
+      : shouldPrintSemicolonAfterDeclaration(path, options)
+        ? ";"
+        : "",
   ];
 }
 

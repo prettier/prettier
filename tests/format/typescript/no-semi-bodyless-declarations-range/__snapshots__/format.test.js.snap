@@ -1,0 +1,589 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 45
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function f(): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #0 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 45
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function f(): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #1 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 35
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #1 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 35
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #2 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 52
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export declare function f(): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #2 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 52
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export declare function f(): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #3 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 42
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #3 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 42
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #4 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 46
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export default function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export default function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #4 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 46
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | export default function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : export default function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #5 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 40
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | for (;;) function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : for (;;) function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #5 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 40
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | for (;;) function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : for (;;) function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #6 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 57
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | if (x) function f(); else function g(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : if (x) function f()
+    : else function g(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #6 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 57
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | if (x) function f(); else function g(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : if (x) function f();
+    : else function g(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #7 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 64
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | for (;;) if (x) while (y) label: function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : for (;;) if (x) while (y) label: function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #7 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 64
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | for (;;) if (x) while (y) label: function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | /* between { } */
+  4 | { const live=1; }
+  5 | const after=2;
+  6 |
+    : =====================================output=====================================
+    : const before=0;
+    : for (;;) if (x) while (y) label: function f(); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #8 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 97
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | export declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first()
+    : // prettier-ignore
+    : export declare function f(  ): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #8 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 97
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | export declare function f(  ): void; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first();
+    : // prettier-ignore
+    : export declare function f(  ): void; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #9 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 87
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | export declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first()
+    : // prettier-ignore
+    : export declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #9 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 87
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | export declare module "x"; // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first();
+    : // prettier-ignore
+    : export declare module "x"; // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #10 - {"semi":false} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 85
+    : rangeStart: 16
+    : semi: false
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | for (;;) function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first()
+    : // prettier-ignore
+    : for (;;) function f(  ); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
+
+exports[`snippet: #10 - {"semi":true} format 1`] = `
+    : ====================================options=====================================
+    : parsers: ["typescript"]
+    : rangeEnd: 85
+    : rangeStart: 16
+    : semi: true
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
+  1 | const before=0;
+> 2 | declare function first();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 3 | // prettier-ignore
+    | ^^^^^^^^^^^^^^^^^^
+> 4 | for (;;) function f(  ); // trailing { }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | /* between { } */
+  6 | { const live=1; }
+  7 | const after=2;
+  8 |
+    : =====================================output=====================================
+    : const before=0;
+    : declare function first();
+    : // prettier-ignore
+    : for (;;) function f(  ); // trailing { }
+    : /* between { } */
+    : { const live=1; }
+    : const after=2;
+    :
+    : ================================================================================
+`;
