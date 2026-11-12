@@ -31,20 +31,6 @@ type FunctionParameter = \`prefix-\${string}\` => void;
 ================================================================================
 `;
 
-exports[`template-literal-types.js - {"arrowParens":"avoid"} format[hermes] 1`] = `
-"unexpected token in type annotation (3:17)
-  1 | // @flow
-  2 |
-> 3 | type Greeting = \`hello \${string}\`;
-    |                 ^
-  4 | type PoorlySpaced=\`value:\${ string|number }\`;
-  5 | type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
-  6 | type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
-Cause: unexpected token in type annotation (3:16)
-type Greeting = \`hello \${string}\`;
-                ^"
-`;
-
 exports[`template-literal-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -73,18 +59,4 @@ type InObject = { value: \`kind-\${"a" | "b"}\` };
 type FunctionParameter = (\`prefix-\${string}\`) => void;
 
 ================================================================================
-`;
-
-exports[`template-literal-types.js format[hermes] 1`] = `
-"unexpected token in type annotation (3:17)
-  1 | // @flow
-  2 |
-> 3 | type Greeting = \`hello \${string}\`;
-    |                 ^
-  4 | type PoorlySpaced=\`value:\${ string|number }\`;
-  5 | type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
-  6 | type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
-Cause: unexpected token in type annotation (3:16)
-type Greeting = \`hello \${string}\`;
-                ^"
 `;

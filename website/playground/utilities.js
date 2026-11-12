@@ -70,7 +70,6 @@ const astAutoFold = {
 export function getAstAutoFold(parser) {
   switch (parser) {
     case "flow":
-    case "hermes":
     case "babel":
     case "babel-flow":
     case "babel-ts":

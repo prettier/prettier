@@ -37,16 +37,6 @@ exports[`comment-before-braces.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`comment-before-braces.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer /* c */ { a } from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer /* c */ { a } from "x";
-       ^~~~~"
-`;
-
 exports[`comment-before-braces.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer /* c */ { a } from "x";
@@ -126,16 +116,6 @@ exports[`default-from-export-default-from.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`default-from-export-default-from.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer from "x";
-       ^~~~~"
 `;
 
 exports[`default-from-export-default-from.js format[meriyah] 1`] = `
@@ -222,17 +202,6 @@ exports[`export-defer.js format[flow] 1`] = `
   2 | export defer * as y from "y";
   3 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`export-defer.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer { x } from "x";
-    |        ^
-  2 | export defer * as y from "y";
-  3 |
-Cause: expected declaration in export (1:7)
-export defer { x } from "x";
-       ^~~~~"
 `;
 
 exports[`export-defer.js format[meriyah] 1`] = `
@@ -322,16 +291,6 @@ exports[`named.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`named.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer { x } from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer { x } from "x";
-       ^~~~~"
-`;
-
 exports[`named.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer { x } from "x";
@@ -411,16 +370,6 @@ exports[`namespace.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`namespace.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer * as ns from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer * as ns from "x";
-       ^~~~~"
 `;
 
 exports[`namespace.js format[meriyah] 1`] = `

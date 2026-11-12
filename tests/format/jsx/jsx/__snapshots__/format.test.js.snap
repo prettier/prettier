@@ -661,17 +661,6 @@ _ = <a /> == 1;
 ================================================================================
 `;
 
-exports[`edge-cases.jsx format[hermes] 1`] = `
-"'>' expected at end of JSX tag (2:8)
-  1 | _ = <div>=</div>;
-> 2 | _ = <a/>==1;
-    |        ^
-  3 |
-Cause: '>' expected at end of JSX tag (2:7)
-_ = <a/>==1;
-    ~~~^"
-`;
-
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

@@ -48,17 +48,3 @@ class C {
 
 ================================================================================
 `;
-
-exports[`before-body.js.flow format[hermes] 1`] = `
-"';' expected (7:11)
-   5 | { A }
-   6 |
->  7 | namespace N // c
-     |           ^
-   8 | { ;a; }
-   9 |
-  10 | declare module "M" // c
-Cause: ';' expected (7:10)
-namespace N // c
-          ^"
-`;

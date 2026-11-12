@@ -29,7 +29,6 @@ test("builtin parsers", async () => {
       "flow",
       "glimmer",
       "graphql",
-      "hermes",
       "html",
       "json",
       "json-stringify",

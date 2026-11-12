@@ -54,19 +54,6 @@ exports[`do-expression.js format[flow] 1`] = `
 Cause: Unexpected token \`do\` (2:3)"
 `;
 
-exports[`do-expression.js format[hermes] 1`] = `
-"invalid expression (2:4)
-  1 | <div>
-> 2 |   {do {
-    |    ^
-  3 | 	  1
-  4 |   }}
-  5 | </div>
-Cause: invalid expression (2:3)
-  {do {
-   ^"
-`;
-
 exports[`do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (2:4)
   1 | <div>

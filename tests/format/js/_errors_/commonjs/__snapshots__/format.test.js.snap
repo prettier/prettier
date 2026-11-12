@@ -56,15 +56,6 @@ exports[`snippet: #0 format[flow] 1`] = `
 Cause: Unexpected number, expected the end of an expression statement (\`;\`) (1:6)"
 `;
 
-exports[`snippet: #0 format[hermes] 1`] = `
-"';' expected (1:7)
-> 1 | await 1
-    |       ^
-Cause: ';' expected (1:6)
-await 1
-      ^"
-`;
-
 exports[`snippet: #0 format[meriyah] 1`] = `
 "The export keyword can only be used with the module goal (1:1)
 > 1 | export {}

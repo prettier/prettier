@@ -25,20 +25,6 @@ class Comments {
 ================================================================================
 `;
 
-exports[`comments.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:13)
-  1 | class Comments {
-  2 | constructor(
-> 3 | /* first */ public /* name */ x /* type */: string /* last */,
-    |             ^
-  4 | private readonly y: number = /* default */ 1,
-  5 | readonly z: number // final parameter
-  6 | ) {}
-Cause: identifier, '{' or '[' expected in binding pattern (3:12)
-/* first */ public /* name */ x /* type */: string /* last */,
-            ^"
-`;
-
 exports[`parameter-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -52,16 +38,6 @@ class C {
 }
 
 ================================================================================
-`;
-
-exports[`parameter-property.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:23)
-> 1 | class C { constructor(public x: string) {} }
-    |                       ^
-  2 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:22)
-class C { constructor(public x: string) {} }
-                      ^"
 `;
 
 exports[`properties.js format 1`] = `
@@ -117,16 +93,4 @@ class DefaultValue {
 }
 
 ================================================================================
-`;
-
-exports[`properties.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:23)
-> 1 | class C { constructor(public x: string) {} }
-    |                       ^
-  2 |
-  3 | class Modifiers {
-  4 | constructor(private readonly x:number=1, protected y:string="value", public z:boolean=false) {}
-Cause: identifier, '{' or '[' expected in binding pattern (1:22)
-class C { constructor(public x: string) {} }
-                      ^"
 `;

@@ -42,15 +42,6 @@ exports[`snippet: #0 format[flow] 2`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`snippet: #0 format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export asyn\\u{63} from "async";
-    |        ^
-Cause: expected declaration in export (1:7)
-export asyn\\u{63} from "async";
-       ^~~~~~~~~~"
-`;
-
 exports[`snippet: #0 format[meriyah] 1`] = `
 "Unexpected strict mode reserved word (1:7)
 > 1 | class interface {}

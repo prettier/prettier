@@ -147,18 +147,6 @@ exports[`do-expression.js format[flow] 1`] = `
 Cause: Unexpected token \`do\` (1:1)"
 `;
 
-exports[`do-expression.js format[hermes] 1`] = `
-"invalid expression (1:2)
-> 1 | (do {});
-    |  ^
-  2 | (async do {});
-  3 | (throw error);
-  4 |
-Cause: invalid expression (1:1)
-(do {});
- ^"
-`;
-
 exports[`do-expression.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (1:2)
 > 1 | (do {});

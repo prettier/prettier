@@ -80,20 +80,6 @@ exports[`comments.js format[flow] 1`] = `
 Cause: The \`sync\` import phase is not supported. (6:0)"
 `;
 
-exports[`comments.js format[hermes] 1`] = `
-"'{' expected in import specifier clause (4:1)
-  2 | import
-  3 | /* 1 */
-> 4 | .
-    | ^
-  5 | /* 2 */
-  6 | sync
-  7 | /* 3 */
-Cause: '{' expected in import specifier clause (4:0)
-.
-^"
-`;
-
 exports[`comments.js format[meriyah] 1`] = `
 "The only valid meta property for import is 'import.meta' (6:1)
   4 | .
@@ -230,21 +216,6 @@ exports[`import-sync.js format[flow] 1`] = `
 Cause: The \`sync\` import phase is not supported. (1:7)"
 `;
 
-exports[`import-sync.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:8)
-> 1 | import.sync("./foo.js");
-    |        ^
-  2 |
-  3 | import.sync("./foo.json", { with: { type: "json" } });
-  4 |
-Cause: 'meta' expected in member expression (1:7)
-import.sync("./foo.js");
-       ^~~~
-note: start of member expression (1:0)
-import.sync("./foo.js");
-^"
-`;
-
 exports[`import-sync.js format[meriyah] 1`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.sync("./foo.js");
@@ -350,21 +321,6 @@ exports[`long-module-name.js format[flow] 1`] = `
   3 |   // Comment
   4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
 Cause: The \`sync\` import phase is not supported. (1:7)"
-`;
-
-exports[`long-module-name.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:8)
-> 1 | import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-    |        ^
-  2 | import.sync(
-  3 |   // Comment
-  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-Cause: 'meta' expected in member expression (1:7)
-import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-       ^~~~
-note: start of member expression (1:0)
-import.sync("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-^"
 `;
 
 exports[`long-module-name.js format[meriyah] 1`] = `
@@ -491,21 +447,6 @@ exports[`trailing-comma.js format[flow] 1`] = `
   3 | const mod2 = import.sync("./foo.json", { with: { type: "json" } }, /* 2 */);
   4 |
 Cause: The \`sync\` import phase is not supported. (1:20)"
-`;
-
-exports[`trailing-comma.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:21)
-> 1 | const mod1 = import.sync("./foo.json", /* 1 */);
-    |                     ^
-  2 |
-  3 | const mod2 = import.sync("./foo.json", { with: { type: "json" } }, /* 2 */);
-  4 |
-Cause: 'meta' expected in member expression (1:20)
-const mod1 = import.sync("./foo.json", /* 1 */);
-                    ^~~~
-note: start of member expression (1:13)
-const mod1 = import.sync("./foo.json", /* 1 */);
-             ^"
 `;
 
 exports[`trailing-comma.js format[meriyah] 1`] = `

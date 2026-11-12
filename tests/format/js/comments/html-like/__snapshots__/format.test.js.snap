@@ -25,17 +25,6 @@ exports[`comment.js format[flow] 1`] = `
 Cause: Unexpected token \`!\`, expected the token \`>\` (1:1)"
 `;
 
-exports[`comment.js format[hermes] 1`] = `
-"'identifier' expected as JSX element name (1:2)
-> 1 | <!--
-    |  ^
-  2 | alert(1)
-  3 | -->
-Cause: 'identifier' expected as JSX element name (1:1)
-<!--
- ^"
-`;
-
 exports[`comment.js format[typescript] 1`] = `
 "Expression expected. (1:1)
 > 1 | <!--
@@ -73,19 +62,6 @@ exports[`html-like-comments.js format[flow] 1`] = `
   4 | )
   5 |
 Cause: Unexpected token \`!\`, expected the token \`>\` (2:1)"
-`;
-
-exports[`html-like-comments.js format[hermes] 1`] = `
-"'identifier' expected as JSX element name (2:2)
-  1 | alert(
-> 2 | <!-- comment
-    |  ^
-  3 | 'hello world'
-  4 | )
-  5 |
-Cause: 'identifier' expected as JSX element name (2:1)
-<!-- comment
- ^"
 `;
 
 exports[`html-like-comments.js format[typescript] 1`] = `

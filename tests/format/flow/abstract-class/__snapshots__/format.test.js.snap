@@ -125,20 +125,6 @@ declare abstract class /* before declared class */ Declared extends Base {
 ================================================================================
 `;
 
-exports[`abstract-class.js - {"semi":false} format[hermes] 1`] = `
-"';' expected (3:10)
-  1 | // @flow
-  2 |
-> 3 | abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-    |          ^
-  4 |
-  5 | abstract class CommentedMembers {
-  6 |   abstract method /* after name */ (/* inside */): void /* method comment */;
-Cause: ';' expected (3:9)
-abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-         ^"
-`;
-
 exports[`abstract-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -263,20 +249,6 @@ declare abstract class /* before declared class */ Declared extends Base {
 ================================================================================
 `;
 
-exports[`abstract-class.js format[hermes] 1`] = `
-"';' expected (3:10)
-  1 | // @flow
-  2 |
-> 3 | abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-    |          ^
-  4 |
-  5 | abstract class CommentedMembers {
-  6 |   abstract method /* after name */ (/* inside */): void /* method comment */;
-Cause: ';' expected (3:9)
-abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-         ^"
-`;
-
 exports[`prettier-ignore.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -299,18 +271,6 @@ abstract class NeedsSemicolon {
 ================================================================================
 `;
 
-exports[`prettier-ignore.js - {"semi":false} format[hermes] 1`] = `
-"';' expected (1:10)
-> 1 | abstract class NeedsSemicolon {
-    |          ^
-  2 |   // prettier-ignore
-  3 |   abstract   a  :   number   ;
-  4 |   [b]: number;
-Cause: ';' expected (1:9)
-abstract class NeedsSemicolon {
-         ^"
-`;
-
 exports[`prettier-ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -330,16 +290,4 @@ abstract class NeedsSemicolon {
 }
 
 ================================================================================
-`;
-
-exports[`prettier-ignore.js format[hermes] 1`] = `
-"';' expected (1:10)
-> 1 | abstract class NeedsSemicolon {
-    |          ^
-  2 |   // prettier-ignore
-  3 |   abstract   a  :   number   ;
-  4 |   [b]: number;
-Cause: ';' expected (1:9)
-abstract class NeedsSemicolon {
-         ^"
 `;

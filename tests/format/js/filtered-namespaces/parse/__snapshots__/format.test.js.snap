@@ -42,17 +42,6 @@ exports[`comments.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:48)"
 `;
 
-exports[`comments.js format[hermes] 1`] = `
-"'from' expected (1:49)
-> 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
-    |                                                 ^
-  2 | export { /* e */ e } as ns2 from "x";
-  3 |
-Cause: 'from' expected (1:48)
-import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
-                                                ^"
-`;
-
 exports[`comments.js format[meriyah] 1`] = `
 "Expected 'from' (1:49)
 > 1 | import { /* a */ a, /* b */ b /* c */ } /* d */ as ns from "x";
@@ -145,17 +134,6 @@ exports[`comments-trailing-comma.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:22)"
 `;
 
-exports[`comments-trailing-comma.js format[hermes] 1`] = `
-"'from' expected (1:23)
-> 1 | import { a, /* a */ } as ns from "x";
-    |                       ^
-  2 | export { b, /* b */ } as ns2 from "x";
-  3 |
-Cause: 'from' expected (1:22)
-import { a, /* a */ } as ns from "x";
-                      ^"
-`;
-
 exports[`comments-trailing-comma.js format[meriyah] 1`] = `
 "Expected 'from' (1:23)
 > 1 | import { a, /* a */ } as ns from "x";
@@ -243,16 +221,6 @@ exports[`export-attributes.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`export-attributes.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer { a } as ns from "x" with { type: "json" };
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer { a } as ns from "x" with { type: "json" };
-       ^~~~~"
-`;
-
 exports[`export-attributes.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer { a } as ns from "x" with { type: "json" };
@@ -334,16 +302,6 @@ exports[`export-defer.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`export-defer.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer { a, b } as ns from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer { a, b } as ns from "x";
-       ^~~~~"
-`;
-
 exports[`export-defer.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer { a, b } as ns from "x";
@@ -423,16 +381,6 @@ exports[`export-defer-missing-namespace-import-filter.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`export-defer-missing-namespace-import-filter.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer { a } as ns from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer { a } as ns from "x";
-       ^~~~~"
 `;
 
 exports[`export-defer-missing-namespace-import-filter.js format[meriyah] 1`] = `
@@ -527,16 +475,6 @@ exports[`export-duplicate.js format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:12)"
 `;
 
-exports[`export-duplicate.js format[hermes] 1`] = `
-"'identifier' expected in export clause (1:13)
-> 1 | export { a, "a" } as ns from "x";
-    |             ^
-  2 |
-Cause: 'identifier' expected in export clause (1:12)
-export { a, "a" } as ns from "x";
-       ~~~~~^"
-`;
-
 exports[`export-duplicate.js format[meriyah] 1`] = `
 "A string literal cannot be used as an exported binding without \`from\` (1:19)
 > 1 | export { a, "a" } as ns from "x";
@@ -621,17 +559,6 @@ exports[`export-duplicate-export.js format[flow] 1`] = `
     |              ^
   3 |
 Cause: Unexpected identifier, expected the token \`;\` (2:13)"
-`;
-
-exports[`export-duplicate-export.js format[hermes] 1`] = `
-"';' expected (2:14)
-  1 | export * as ns from "y";
-> 2 | export { a } as ns from "x";
-    |              ^
-  3 |
-Cause: ';' expected (2:13)
-export { a } as ns from "x";
-             ^"
 `;
 
 exports[`export-duplicate-export.js format[meriyah] 1`] = `
@@ -721,16 +648,6 @@ exports[`export-empty.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:10)"
 `;
 
-exports[`export-empty.js format[hermes] 1`] = `
-"';' expected (1:11)
-> 1 | export {} as ns from "x";
-    |           ^
-  2 |
-Cause: ';' expected (1:10)
-export {} as ns from "x";
-          ^"
-`;
-
 exports[`export-empty.js format[meriyah] 1`] = `
 "Unexpected token: 'as' (1:11)
 > 1 | export {} as ns from "x";
@@ -810,16 +727,6 @@ exports[`export-module-export-names.js format[flow] 1`] = `
     |                       ^
   2 |
 Cause: Unexpected string, expected an identifier (1:22)"
-`;
-
-exports[`export-module-export-names.js format[hermes] 1`] = `
-"'identifier' expected in export clause (1:23)
-> 1 | export { default, if, "string name" } as "string ns" from "x";
-    |                       ^
-  2 |
-Cause: 'identifier' expected in export clause (1:22)
-export { default, if, "string name" } as "string ns" from "x";
-       ~~~~~~~~~~~~~~~^"
 `;
 
 exports[`export-module-export-names.js format[meriyah] 1`] = `
@@ -937,17 +844,6 @@ exports[`export-newline-as-from.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (2:3)"
 `;
 
-exports[`export-newline-as-from.js format[hermes] 1`] = `
-"';' expected (2:4)
-  1 | export { a }
-> 2 | as ns from "x";
-    |    ^
-  3 |
-Cause: ';' expected (2:3)
-as ns from "x";
-   ^"
-`;
-
 exports[`export-newline-as-from.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:4)
   1 | export { a }
@@ -1046,16 +942,6 @@ exports[`export-rename.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:18)"
 `;
 
-exports[`export-rename.js format[hermes] 1`] = `
-"';' expected (1:19)
-> 1 | export { a as b } as ns from "x";
-    |                   ^
-  2 |
-Cause: ';' expected (1:18)
-export { a as b } as ns from "x";
-                  ^"
-`;
-
 exports[`export-rename.js format[meriyah] 1`] = `
 "Unexpected token: 'as' (1:19)
 > 1 | export { a as b } as ns from "x";
@@ -1146,16 +1032,6 @@ exports[`export-without-from.js format[flow] 1`] = `
     |              ^
   2 |
 Cause: Unexpected identifier, expected the token \`;\` (1:13)"
-`;
-
-exports[`export-without-from.js format[hermes] 1`] = `
-"';' expected (1:14)
-> 1 | export { a } as ns;
-    |              ^
-  2 |
-Cause: ';' expected (1:13)
-export { a } as ns;
-             ^"
 `;
 
 exports[`export-without-from.js format[meriyah] 1`] = `
@@ -1255,18 +1131,6 @@ exports[`filtered-namespaces.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:16)"
 `;
 
-exports[`filtered-namespaces.js format[hermes] 1`] = `
-"'from' expected (1:17)
-> 1 | import { a, b } as ns1 from "x";
-    |                 ^
-  2 | import defer { a, "b c" } as ns2 from "x";
-  3 | import d, { default } as ns3 from "x";
-  4 | import {} as ns4 from "x";
-Cause: 'from' expected (1:16)
-import { a, b } as ns1 from "x";
-                ^"
-`;
-
 exports[`filtered-namespaces.js format[meriyah] 1`] = `
 "Expected 'from' (1:17)
 > 1 | import { a, b } as ns1 from "x";
@@ -1360,16 +1224,6 @@ exports[`import-attributes.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
 `;
 
-exports[`import-attributes.js format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import { a } as ns from "x" with { type: "json" };
-    |              ^
-  2 |
-Cause: 'from' expected (1:13)
-import { a } as ns from "x" with { type: "json" };
-             ^"
-`;
-
 exports[`import-attributes.js format[meriyah] 1`] = `
 "Expected 'from' (1:14)
 > 1 | import { a } as ns from "x" with { type: "json" };
@@ -1451,16 +1305,6 @@ exports[`import-default.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:16)"
 `;
 
-exports[`import-default.js format[hermes] 1`] = `
-"'from' expected (1:17)
-> 1 | import d, { a } as ns from "x";
-    |                 ^
-  2 |
-Cause: 'from' expected (1:16)
-import d, { a } as ns from "x";
-                ^"
-`;
-
 exports[`import-default.js format[meriyah] 1`] = `
 "Expected 'from' (1:17)
 > 1 | import d, { a } as ns from "x";
@@ -1540,16 +1384,6 @@ exports[`import-defer.js format[flow] 1`] = `
     |              ^
   2 |
 Cause: Only \`import defer * as ns from "module"\` is valid (1:13)"
-`;
-
-exports[`import-defer.js format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import defer { a, b } as ns from "x";
-    |              ^
-  2 |
-Cause: 'from' expected (1:13)
-import defer { a, b } as ns from "x";
-             ^"
 `;
 
 exports[`import-defer.js format[meriyah] 1`] = `
@@ -1644,16 +1478,6 @@ exports[`import-duplicate.js format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:12)"
 `;
 
-exports[`import-duplicate.js format[hermes] 1`] = `
-"'identifier' expected in import specifier (1:13)
-> 1 | import { a, "a" } as ns from "x";
-    |             ^
-  2 |
-Cause: 'identifier' expected in import specifier (1:12)
-import { a, "a" } as ns from "x";
-       ~~~~~^"
-`;
-
 exports[`import-duplicate.js format[meriyah] 1`] = `
 "Expected 'as' (1:17)
 > 1 | import { a, "a" } as ns from "x";
@@ -1738,17 +1562,6 @@ exports[`import-duplicate-binding.js format[flow] 1`] = `
   2 | import ns from "y";
   3 |
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
-`;
-
-exports[`import-duplicate-binding.js format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import { a } as ns from "x";
-    |              ^
-  2 | import ns from "y";
-  3 |
-Cause: 'from' expected (1:13)
-import { a } as ns from "x";
-             ^"
 `;
 
 exports[`import-duplicate-binding.js format[meriyah] 1`] = `
@@ -1838,16 +1651,6 @@ exports[`import-empty.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:10)"
 `;
 
-exports[`import-empty.js format[hermes] 1`] = `
-"'from' expected (1:11)
-> 1 | import {} as ns from "x";
-    |           ^
-  2 |
-Cause: 'from' expected (1:10)
-import {} as ns from "x";
-          ^"
-`;
-
 exports[`import-empty.js format[meriyah] 1`] = `
 "Expected 'from' (1:11)
 > 1 | import {} as ns from "x";
@@ -1927,16 +1730,6 @@ exports[`import-module-export-names.js format[flow] 1`] = `
     |          ^
   2 |
 Cause: Unexpected reserved word (1:9)"
-`;
-
-exports[`import-module-export-names.js format[hermes] 1`] = `
-"Invalid local name for import (1:10)
-> 1 | import { default, if, "string name" } as ns from "x";
-    |          ^
-  2 |
-Cause: Invalid local name for import (1:9)
-import { default, if, "string name" } as ns from "x";
-         ^~~~~~~"
 `;
 
 exports[`import-module-export-names.js format[meriyah] 1`] = `
@@ -2022,17 +1815,6 @@ exports[`import-newline-as.js format[flow] 1`] = `
     | ^
   3 |
 Cause: Unexpected identifier, expected the keyword \`from\` (2:0)"
-`;
-
-exports[`import-newline-as.js format[hermes] 1`] = `
-"'from' expected (2:1)
-  1 | import { a }
-> 2 | as ns from "x";
-    | ^
-  3 |
-Cause: 'from' expected (2:0)
-as ns from "x";
-^"
 `;
 
 exports[`import-newline-as.js format[meriyah] 1`] = `
@@ -2125,17 +1907,6 @@ exports[`import-not-bindings.js format[flow] 1`] = `
   2 | let a;
   3 |
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
-`;
-
-exports[`import-not-bindings.js format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import { a } as ns from "x";
-    |              ^
-  2 | let a;
-  3 |
-Cause: 'from' expected (1:13)
-import { a } as ns from "x";
-             ^"
 `;
 
 exports[`import-not-bindings.js format[meriyah] 1`] = `
@@ -2236,16 +2007,6 @@ exports[`import-rename.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:18)"
 `;
 
-exports[`import-rename.js format[hermes] 1`] = `
-"'from' expected (1:19)
-> 1 | import { a as b } as ns from "x";
-    |                   ^
-  2 |
-Cause: 'from' expected (1:18)
-import { a as b } as ns from "x";
-                  ^"
-`;
-
 exports[`import-rename.js format[meriyah] 1`] = `
 "Expected 'from' (1:19)
 > 1 | import { a as b } as ns from "x";
@@ -2338,16 +2099,6 @@ exports[`import-source-phase.js format[flow] 1`] = `
 Cause: Unexpected token \`{\`, expected the keyword \`from\` (1:14)"
 `;
 
-exports[`import-source-phase.js format[hermes] 1`] = `
-"'from' expected (1:15)
-> 1 | import source { a } as ns from "x";
-    |               ^
-  2 |
-Cause: 'from' expected (1:14)
-import source { a } as ns from "x";
-              ^"
-`;
-
 exports[`import-source-phase.js format[meriyah] 1`] = `
 "'import source' must be followed by a default import (1:15)
 > 1 | import source { a } as ns from "x";
@@ -2419,17 +2170,4 @@ exports[`named-import-duplicate-binding.js format[espree] 1`] = `
     |             ^
   2 |
 Cause: Identifier 'a' has already been declared"
-`;
-
-exports[`named-import-duplicate-binding.js format[hermes] 1`] = `
-"Duplicate entry in import declaration list (1:13)
-> 1 | import { a, a } from "x";
-    |             ^
-  2 |
-Cause: Duplicate entry in import declaration list (1:12)
-import { a, a } from "x";
-            ^
-note: first usage of name (1:9)
-import { a, a } from "x";
-         ^"
 `;
