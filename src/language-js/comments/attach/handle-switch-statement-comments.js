@@ -18,14 +18,14 @@ function handleSwitchStatementComments({
 }) {
   if (
     enclosingNode &&
+    precedingNode &&
     !followingNode &&
     ((enclosingNode.type === "SwitchStatement" &&
-      enclosingNode.cases.length === 0 &&
       precedingNode === enclosingNode.discriminant) ||
       ((enclosingNode.type === "MatchExpression" ||
         enclosingNode.type === "MatchStatement") &&
-        enclosingNode.cases.length === 0 &&
-        precedingNode === enclosingNode.argument))
+        precedingNode === enclosingNode.argument)) &&
+    enclosingNode.cases.length === 0
   ) {
     const nextCharacter = getNextNonSpaceNonCommentCharacter(
       text,
