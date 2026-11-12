@@ -1,7 +1,6 @@
 import {
   align,
   group,
-  hardline,
   ifBreak,
   indent,
   join,
