@@ -4,6 +4,5 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     acorn: ["invalid-undefined-label.js", "invalid-unsyntactic-continue.js"],
     espree: ["invalid-undefined-label.js", "invalid-unsyntactic-continue.js"],
     meriyah: ["invalid-undefined-label.js", "invalid-unsyntactic-continue.js"],
-    hermes: ["invalid-undefined-label.js", "invalid-unsyntactic-continue.js"],
   },
 });

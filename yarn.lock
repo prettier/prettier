@@ -5410,22 +5410,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.37.0":
-  version: 0.37.0
-  resolution: "hermes-estree@npm:0.37.0"
-  checksum: 10/c02f02c44f92f2ae8acb4f3377d714fc1bbdcc05913cfeaac92d598fe6c7010f99b13ec01b4c82bc0dd30ffe5f42a2c5f3f082690bcb8c6e92a420170950e7f3
-  languageName: node
-  linkType: hard
-
-"hermes-parser@npm:0.37.0":
-  version: 0.37.0
-  resolution: "hermes-parser@npm:0.37.0"
-  dependencies:
-    hermes-estree: "npm:0.37.0"
-  checksum: 10/50bd01f6165d99b83c1a88003df137b66999a8c74a8673fcf2026db2b848dc6f875e35978ab652d0f5917af28b23c16f06396dcf3830bfa450d008380ba9f71b
-  languageName: node
-  linkType: hard
-
 "hookified@npm:^1.15.0, hookified@npm:^1.15.1":
   version: 1.15.1
   resolution: "hookified@npm:1.15.1"
@@ -8235,7 +8219,6 @@ __metadata:
     globals: "npm:17.14.0"
     graphql: "npm:17.1.0"
     graphql-test-suite: "npm:0.0.2"
-    hermes-parser: "npm:0.37.0"
     html-ua-styles: "npm:0.5.0"
     ignore: "npm:7.0.14"
     import-meta-resolve: "npm:4.2.0"

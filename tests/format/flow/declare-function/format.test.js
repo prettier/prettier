@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["flow"], { errors: { hermes: ["implicit.js"] } });
+runFormatTest(import.meta, ["flow"]);

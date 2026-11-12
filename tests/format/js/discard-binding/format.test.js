@@ -9,6 +9,5 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     "oxc-ts": true,
     yuku: true,
     "yuku-ts": true,
-    hermes: true,
   },
 });

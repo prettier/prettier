@@ -121,7 +121,7 @@ function isKeySafeToUnquote(node, options) {
   }
 
   // Safe to unquote as number
-  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow`, `babel-flow`, and `hermes` parsers.
+  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow`, and `babel-flow` parsers.
   // Note: It's also not safe for TypeScript as mentioned above
   // https://github.com/prettier/prettier/pull/8508
   if (

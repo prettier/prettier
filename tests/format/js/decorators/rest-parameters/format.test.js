@@ -9,7 +9,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     "oxc-ts": ["setter.js"],
     yuku: ["constructor.js", "method.js", "setter.js"],
     "yuku-ts": ["setter.js"],
-    hermes: ["constructor.js", "method.js", "setter.js"],
     "babel-ts": ["constructor.js", "method.js", "setter.js"],
     __babel_estree: ["constructor.js", "method.js", "setter.js"],
   },

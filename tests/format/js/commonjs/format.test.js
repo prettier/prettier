@@ -71,7 +71,6 @@ runFormatTest(
         "using.mjs",
         "using.unknown",
       ],
-      hermes: ["new-target.cjs", "new-target.mjs", "new-target.unknown"],
       oxc: [
         "new-target.mjs",
         "return/in-static-block.cjs",

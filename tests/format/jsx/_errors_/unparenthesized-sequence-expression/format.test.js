@@ -11,7 +11,6 @@ runFormatTest(
     // "flow",
     "meriyah",
     // "typescript",
-    "hermes",
     "oxc",
     "oxc-ts",
     "yuku",

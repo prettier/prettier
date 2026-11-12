@@ -22,7 +22,6 @@ runFormatTest(
         "0020-2386.jsx",
         "0023-f709.jsx",
       ],
-      hermes: [...htmlComments, "0019-c21b.jsx", "0020-2386.jsx"],
     },
   },
 );

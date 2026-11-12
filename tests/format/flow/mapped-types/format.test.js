@@ -7,7 +7,6 @@ const typescriptErrors = [
 runFormatTest(import.meta, ["flow", "typescript"], {
   errors: {
     "babel-ts": typescriptErrors,
-    hermes: ["modifiers-and-key-remapping.js"],
     typescript: typescriptErrors,
     "oxc-ts": typescriptErrors,
     "yuku-ts": typescriptErrors,

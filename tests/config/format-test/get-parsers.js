@@ -24,10 +24,6 @@ function getParsers(dirname, parsers) {
     addParsers("babel-ts", "oxc-ts", "yuku-ts");
   }
 
-  if (parsers.includes("flow")) {
-    addParsers("hermes");
-  }
-
   if (parsers.includes("babel")) {
     addParsers("__babel_estree");
   }

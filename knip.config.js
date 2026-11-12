@@ -10,7 +10,6 @@ const config = {
         // Production plugin entries
         "src/plugins/*",
         "packages/plugin-oxc/index.js",
-        "packages/plugin-hermes/index.js",
 
         "scripts/**",
 

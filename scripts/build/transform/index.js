@@ -18,7 +18,6 @@ const packageTransforms = new Map([
       "fast-ignore",
       "fast-string-truncated-width",
       "hashery",
-      "hermes-parser",
       "jest-docblock",
       "kasi",
       "meriyah",

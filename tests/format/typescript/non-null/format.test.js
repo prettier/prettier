@@ -1,5 +1,1 @@
-runFormatTest(import.meta, ["typescript", "flow"], {
-  errors: {
-    hermes: true,
-  },
-});
+runFormatTest(import.meta, ["typescript", "flow"]);

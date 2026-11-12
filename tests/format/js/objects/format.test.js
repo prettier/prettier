@@ -9,6 +9,5 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     yuku: ["expression.js"],
     "yuku-ts": ["expression.js"],
     flow: ["expression.js"],
-    hermes: ["expression.js"],
   },
 });

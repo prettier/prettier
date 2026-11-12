@@ -48,10 +48,6 @@ const disabledTests = new Map(
     "oxc-ts": [],
     yuku: ["js/await-expression/await-with-parens.js"],
     "yuku-ts": ["js/await-expression/await-with-parens.js"],
-    hermes: [
-      "js/await-expression/like-call.js", // Different result
-      "jsx/top-level-await/test.jsx",
-    ],
     flow: [
       "js/await-expression/await-with-parens.js",
       "js/await-expression/like-call.js",

@@ -26,6 +26,5 @@ runFormatTest(
     "yuku",
     "yuku-ts",
     "flow",
-    // "hermes",
   ],
 );
