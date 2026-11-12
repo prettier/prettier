@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`dangling-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+match(a) {
+  /* comment */
+
+  // comment
+}
+
+a = match(a) {
+  /* comment */
+
+  // comment
+}
+
+=====================================output=====================================
+match (a) {
+  /* comment */
+
+  // comment
+}
+
+a = match (a) {
+  /* comment */
+
+  // comment
+};
+
+================================================================================
+`;
+
 exports[`pattern-instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
