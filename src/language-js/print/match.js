@@ -21,7 +21,7 @@ import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comm
 - `MatchExpressionCase` (Flow)
 - `MatchStatementCase` (Flow)
 */
-export function printMatchCase(path, options, print) {
+function printMatchCase(path, options, print) {
   const { node } = path;
 
   const comment = hasComment(node, CommentCheckFlags.Dangling)
@@ -54,7 +54,7 @@ export function printMatchCase(path, options, print) {
 - `MatchObjectPatternProperty` (Flow)
 - `MatchRestPattern` (Flow)
 */
-export function printMatchPattern(path, options, print) {
+function printMatchPattern(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
@@ -222,3 +222,5 @@ function printMatchOrPattern(path, options, print) {
 
   return group(shouldIndent ? indent(code) : code);
 }
+
+export { printMatchCase, printMatchPattern };
