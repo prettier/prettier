@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-19116.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Top-level:
+  - Sub-bullet wraps and contains
+    \`someInlineCode(arg1, arg2,
+    arg3, arg4)\` and continues with more text after the
+    code span closes.
+
+- a \`x/
+      y\` z
+
+- [x] a \`x/
+          y\` z
+
+1. a \`x/
+       y\` z
+
+> a \`x/
+>     y\` z
+
+> - a \`x/
+>       y\` z
+
+- a \`\` \`x/
+      y\` \`\` z
+
+=====================================output=====================================
+- Top-level:
+  - Sub-bullet wraps and contains \`someInlineCode(arg1, arg2, arg3, arg4)\` and
+    continues with more text after the code span closes.
+
+- a \`x/     y\` z
+
+- [x] a \`x/         y\` z
+
+1. a \`x/     y\` z
+
+> a \`x/     y\` z
+
+> - a \`x/     y\` z
+
+- a \`\` \`x/     y\` \`\` z
+
+================================================================================
+`;
+
+exports[`issue-19116.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Top-level:
+  - Sub-bullet wraps and contains
+    \`someInlineCode(arg1, arg2,
+    arg3, arg4)\` and continues with more text after the
+    code span closes.
+
+- a \`x/
+      y\` z
+
+- [x] a \`x/
+          y\` z
+
+1. a \`x/
+       y\` z
+
+> a \`x/
+>     y\` z
+
+> - a \`x/
+>       y\` z
+
+- a \`\` \`x/
+      y\` \`\` z
+
+=====================================output=====================================
+- Top-level:
+  - Sub-bullet wraps and contains \`someInlineCode(arg1, arg2, arg3, arg4)\` and continues with more text after the code span closes.
+
+- a \`x/     y\` z
+
+- [x] a \`x/         y\` z
+
+1. a \`x/     y\` z
+
+> a \`x/     y\` z
+
+> - a \`x/     y\` z
+
+- a \`\` \`x/     y\` \`\` z
+
+================================================================================
+`;
+
+exports[`issue-19116.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Top-level:
+  - Sub-bullet wraps and contains
+    \`someInlineCode(arg1, arg2,
+    arg3, arg4)\` and continues with more text after the
+    code span closes.
+
+- a \`x/
+      y\` z
+
+- [x] a \`x/
+          y\` z
+
+1. a \`x/
+       y\` z
+
+> a \`x/
+>     y\` z
+
+> - a \`x/
+>       y\` z
+
+- a \`\` \`x/
+      y\` \`\` z
+
+=====================================output=====================================
+- Top-level:
+  - Sub-bullet wraps and contains
+    \`someInlineCode(arg1, arg2,
+    arg3, arg4)\` and continues with more text after the
+    code span closes.
+
+- a \`x/
+      y\` z
+
+- [x] a \`x/
+          y\` z
+
+1. a \`x/
+       y\` z
+
+> a \`x/
+>     y\` z
+
+> - a \`x/
+>       y\` z
+
+- a \`\` \`x/
+      y\` \`\` z
+
+================================================================================
+`;
+
+exports[`snippet: #0 - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- a \`x/  
+      y\` z
+
+=====================================output=====================================
+- a \`x/       y\` z
+
+================================================================================
+`;
+
+exports[`snippet: #0 - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- a \`x/  
+      y\` z
+
+=====================================output=====================================
+- a \`x/       y\` z
+
+================================================================================
+`;
+
+exports[`snippet: #0 - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- a \`x/  
+      y\` z
+
+=====================================output=====================================
+- a \`x/  
+      y\` z
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> - [x] a \`x/  
+>           y\` z
+
+=====================================output=====================================
+> - [x] a \`x/           y\` z
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> - [x] a \`x/  
+>           y\` z
+
+=====================================output=====================================
+> - [x] a \`x/           y\` z
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> - [x] a \`x/  
+>           y\` z
+
+=====================================output=====================================
+> - [x] a \`x/  
+>           y\` z
+
+================================================================================
+`;
