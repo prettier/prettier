@@ -3,9 +3,14 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import { hasExplicitOperation } from "../utilities/has-explicit-operation.js";
 import { printSequence } from "./sequence.js";
 
+/**
+@import {Doc} from "../../document/index.js"
+*/
+
 function printSelectionSet(path, options, print) {
   const { node } = path;
 
+  /** @type {Doc[]} */
   const parts = ["{"];
 
   if (node.selections.length > 0) {
