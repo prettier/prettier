@@ -38,6 +38,7 @@ const umdFiles = {
     "prettier/plugins/yaml.js",
     "prettier/plugins/flow.js",
     "prettier/plugins/meriyah.js",
+    // These plugins don't have UMD version
     "plugin-oxc/index.browser.mjs",
     "plugin-yuku/index.browser.mjs",
   ],
