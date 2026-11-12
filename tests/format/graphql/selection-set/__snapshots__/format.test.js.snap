@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`dangling-comments.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+fragment F on Query {
+  # x
+}
+
+=====================================output=====================================
+fragment F on Query {
+  # x
+}
+
+================================================================================
+`;
+
 exports[`empty-1.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
