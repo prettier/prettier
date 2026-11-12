@@ -8,6 +8,7 @@ import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import { printComment } from "./print/comment.js";
 import { printEstree } from "./print/index.js";
+import { getRangeNodes } from "./traverse/get-range-nodes.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 import { isBlockComment } from "./utilities/comment-types.js";
 import hasPrettierIgnore from "./utilities/is-ignored.js";
@@ -36,6 +37,7 @@ const estree = {
   getVisitorKeys,
   isBlockComment,
   hasPrettierIgnore,
+  getRangeNodes,
 };
 
 export { estree };
