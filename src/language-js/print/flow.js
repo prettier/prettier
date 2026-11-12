@@ -113,19 +113,8 @@ function printFlow(path, options, print, args) {
     case "DeclareNamespace":
       return printModuleDeclaration(path, options, print);
     case "DeclareVariable":
-      if (Array.isArray(node.declarations)) {
-        return printVariableDeclaration(path, options, print);
-      }
+      return printVariableDeclaration(path, options, print);
 
-      // TODO: Remove this part when hermes update AST
-      return [
-        printDeclareToken(path),
-        // TODO: Only use `node.kind` when babel update AST
-        node.kind ?? "var",
-        " ",
-        print("id"),
-        printSemicolon(options),
-      ];
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportDeclaration(path, options, print);

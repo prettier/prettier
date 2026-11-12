@@ -227,6 +227,22 @@ function postprocess(ast, options) {
             node.typeArguments = node.typeParameters;
             delete node.typeParameters;
           }
+          break;
+
+        // `hermes` and `babel-flow`
+        case "DeclareVariable":
+          if (astType !== "flow" && !Array.isArray(node.declarations)) {
+            node.kind ??= "var";
+            node.declarations = [
+              {
+                type: "VariableDeclarator",
+                id: node.id,
+                range: [locStart(node.id), locEnd(node.id)],
+              },
+            ];
+            delete node.id;
+          }
+          break;
       }
     },
     onLeave(node) {
