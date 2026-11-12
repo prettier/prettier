@@ -199,7 +199,7 @@ function postprocess(ast, options) {
           }
           break;
 
-        // `hermes` and `babel-flow`
+        // `babel-flow`
         case "DeclareVariable":
           if (astType !== "flow" && !Array.isArray(node.declarations)) {
             node.kind ??= "var";
