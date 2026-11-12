@@ -1,4 +1,5 @@
 .foo {
+  --my-var: in oklab,;
   --single: red,;
   --multiple: red, blue,;
   --empty: ,;

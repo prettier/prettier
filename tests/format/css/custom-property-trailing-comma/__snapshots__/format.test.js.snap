@@ -6,6 +6,7 @@ parsers: ["css", "scss", "less"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 .foo {
+  --my-var: in oklab,;
   --single: red,;
   --multiple: red, blue,;
   --empty: ,;
@@ -27,6 +28,7 @@ parsers: ["css", "scss", "less"]
 
 =====================================output=====================================
 .foo {
+  --my-var: in oklab,;
   --single: red,;
   --multiple: red, blue,;
   --empty: ,;
