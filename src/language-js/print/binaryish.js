@@ -77,7 +77,9 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "IfStatement" ||
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
-      parent.type === "DoWhileStatement");
+      parent.type === "DoWhileStatement" ||
+      parent.type === "MatchStatement" ||
+      parent.type === "MatchExpression");
 
   const parts = printBinaryishExpressions(
     path,
