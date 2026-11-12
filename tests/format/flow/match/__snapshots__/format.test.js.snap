@@ -1,5 +1,72 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`binary-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+match (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong > veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+}
+
+match ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+match ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
+_ = [
+match (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong > veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+},
+
+match ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+},
+
+match ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+},
+]
+
+=====================================output=====================================
+match (
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+) {
+}
+
+match (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+match (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
+}
+
+_ = [
+  match (
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+  ) {
+  },
+
+  match (
+    $veryLongAndVeryVerboseVariableName &&
+    $anotherVeryLongAndVeryVerboseVariableName
+  ) {
+  },
+
+  match (
+    $longButSlightlyShorterVariableName &&
+    $anotherSlightlyShorterVariableName
+  ) {
+  },
+];
+
+================================================================================
+`;
+
 exports[`dangling-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
