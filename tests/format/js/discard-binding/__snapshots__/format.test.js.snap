@@ -120,20 +120,6 @@ exports[`array-pattern.js format[flow] 1`] = `
 Cause: Unexpected reserved word (3:11)"
 `;
 
-exports[`array-pattern.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: identifier, '{' or '[' expected in binding pattern (3:11)
-  const [, void, ] = value;
-           ^"
-`;
-
 exports[`array-pattern.js format[meriyah] 1`] = `
 "Unexpected token: ',' (3:16)
   1 | {
@@ -257,18 +243,6 @@ exports[`basic.js format[flow] 1`] = `
 Cause: Unexpected reserved word (1:7)"
 `;
 
-exports[`basic.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:7)
-const [void] = [,void] = [void,] = [];
-       ^"
-`;
-
 exports[`basic.js format[meriyah] 1`] = `
 "Unexpected token: ']' (1:12)
 > 1 | const [void] = [,void] = [void,] = [];
@@ -362,16 +336,6 @@ exports[`discard-binding-arrow-params.js format[flow] 1`] = `
 Cause: Unexpected token \`)\` (1:5)"
 `;
 
-exports[`discard-binding-arrow-params.js format[hermes] 1`] = `
-"invalid expression (1:6)
-> 1 | (void) => {}
-    |      ^
-  2 |
-Cause: invalid expression (1:5)
-(void) => {}
-     ^"
-`;
-
 exports[`discard-binding-arrow-params.js format[meriyah] 1`] = `
 "Unexpected token: ')' (1:6)
 > 1 | (void) => {}
@@ -451,16 +415,6 @@ exports[`discard-binding-assignment.js format[flow] 1`] = `
     |       ^
   2 |
 Cause: Unexpected token \`]\` (1:6)"
-`;
-
-exports[`discard-binding-assignment.js format[hermes] 1`] = `
-"invalid expression (1:7)
-> 1 | ([void] = []);
-    |       ^
-  2 |
-Cause: invalid expression (1:6)
-([void] = []);
-      ^"
 `;
 
 exports[`discard-binding-assignment.js format[meriyah] 1`] = `
@@ -544,16 +498,6 @@ exports[`discard-binding-async-arrow-params.js format[flow] 1`] = `
 Cause: Unexpected token \`)\` (1:11)"
 `;
 
-exports[`discard-binding-async-arrow-params.js format[hermes] 1`] = `
-"invalid expression (1:12)
-> 1 | async (void) => {}
-    |            ^
-  2 |
-Cause: invalid expression (1:11)
-async (void) => {}
-           ^"
-`;
-
 exports[`discard-binding-async-arrow-params.js format[meriyah] 1`] = `
 "Unexpected token: ')' (1:12)
 > 1 | async (void) => {}
@@ -633,16 +577,6 @@ exports[`discard-binding-bindings.js format[flow] 1`] = `
     |            ^
   2 |
 Cause: Unexpected reserved word (1:11)"
-`;
-
-exports[`discard-binding-bindings.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:12)
-> 1 | const { p: void } = {};
-    |            ^
-  2 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:11)
-const { p: void } = {};
-           ^"
 `;
 
 exports[`discard-binding-bindings.js format[meriyah] 1`] = `
@@ -734,18 +668,6 @@ exports[`discard-binding-for-await-using-binding.js format[flow] 1`] = `
   3 | }
   4 |
 Cause: Unexpected token \`void\`, expected the token \`;\` (2:18)"
-`;
-
-exports[`discard-binding-for-await-using-binding.js format[hermes] 1`] = `
-"invalid expression (2:28)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                            ^
-  3 | }
-  4 |
-Cause: invalid expression (2:27)
-  for(await using void of []);
-                           ^"
 `;
 
 exports[`discard-binding-for-await-using-binding.js format[meriyah] 1`] = `
@@ -841,16 +763,6 @@ exports[`discard-binding-for-bindings.js format[flow] 1`] = `
 Cause: Unexpected reserved word (1:15)"
 `;
 
-exports[`discard-binding-for-bindings.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^
-  2 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:15)
-for(const { p: void } of []);
-               ^"
-`;
-
 exports[`discard-binding-for-bindings.js format[meriyah] 1`] = `
 "Unexpected token: '}' (1:21)
 > 1 | for(const { p: void } of []);
@@ -930,16 +842,6 @@ exports[`discard-binding-for-lhs.js format[flow] 1`] = `
     |               ^
   2 |
 Cause: Unexpected token \`}\` (1:14)"
-`;
-
-exports[`discard-binding-for-lhs.js format[hermes] 1`] = `
-"invalid expression (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
-  2 |
-Cause: invalid expression (1:14)
-for({ p: void } of []);
-              ^"
 `;
 
 exports[`discard-binding-for-lhs.js format[meriyah] 1`] = `
@@ -1031,14 +933,6 @@ exports[`discard-binding-for-using-binding.js format[flow] 1`] = `
   3 | }
   4 |
 Cause: Unexpected token \`void\`, expected the token \`;\` (2:12)"
-`;
-
-exports[`discard-binding-for-using-binding.js format[hermes] 1`] = `
-"Failed to parse source (0:1)
-  1 | {
-  2 |   for(using void of []);
-  3 | }
-Cause: Failed to parse source"
 `;
 
 exports[`discard-binding-for-using-binding.js format[meriyah] 1`] = `
@@ -1184,20 +1078,6 @@ exports[`function-parameter.js format[flow] 1`] = `
   5 | {
   6 |   // arrow function parameter
 Cause: Unexpected reserved word (3:13)"
-`;
-
-exports[`function-parameter.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: identifier, '{' or '[' expected in binding pattern (3:13)
-  function f(void) {}
-             ^"
 `;
 
 exports[`function-parameter.js format[meriyah] 1`] = `
@@ -1406,20 +1286,6 @@ exports[`object-pattern.js format[flow] 1`] = `
 Cause: Unexpected reserved word (3:16)"
 `;
 
-exports[`object-pattern.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:17)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: identifier, '{' or '[' expected in binding pattern (3:16)
-  const { void: void } = value;
-                ^"
-`;
-
 exports[`object-pattern.js format[meriyah] 1`] = `
 "Unexpected token: '}' (3:22)
   1 | {
@@ -1569,20 +1435,6 @@ exports[`unary-expression-void.js format[flow] 1`] = `
 Cause: Unexpected token \`]\` (4:9)"
 `;
 
-exports[`unary-expression-void.js format[hermes] 1`] = `
-"invalid expression (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: invalid expression (4:9)
-  [ void ] = [{
-         ^"
-`;
-
 exports[`unary-expression-void.js format[meriyah] 1`] = `
 "Unexpected token: ']' (4:10)
   2 | void [
@@ -1705,19 +1557,6 @@ exports[`using.js format[flow] 1`] = `
   4 | async (void) => {
   5 |   await using void = f();
 Cause: Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (2:8)"
-`;
-
-exports[`using.js format[hermes] 1`] = `
-"'identifier' expected in declaration (2:9)
-  1 | {
-> 2 |   using void = f();
-    |         ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: 'identifier' expected in declaration (2:8)
-  using void = f();
-  ~~~~~~^"
 `;
 
 exports[`using.js format[meriyah] 1`] = `
@@ -1899,20 +1738,6 @@ exports[`using-variable-declarator.js format[flow] 1`] = `
   5 | {
   6 |   // using 2 declarators
 Cause: Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (3:8)"
-`;
-
-exports[`using-variable-declarator.js format[hermes] 1`] = `
-"'identifier' expected in declaration (3:9)
-  1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
-    |         ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
-Cause: 'identifier' expected in declaration (3:8)
-  using void = f();
-  ~~~~~~^"
 `;
 
 exports[`using-variable-declarator.js format[meriyah] 1`] = `

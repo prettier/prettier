@@ -23,7 +23,6 @@ runFormatTest(
   {
     errors: {
       flow: ["const-without-initializer.unknown"],
-      hermes: true,
     },
   },
 );

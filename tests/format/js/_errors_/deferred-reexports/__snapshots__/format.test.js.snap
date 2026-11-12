@@ -45,17 +45,6 @@ exports[`local.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (2:7)"
 `;
 
-exports[`local.js format[hermes] 1`] = `
-"expected declaration in export (2:8)
-  1 | var a;
-> 2 | export defer { a };
-    |        ^
-  3 |
-Cause: expected declaration in export (2:7)
-export defer { a };
-       ^~~~~"
-`;
-
 exports[`local.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:8)
   1 | var a;
@@ -146,16 +135,6 @@ exports[`missing-braces.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`missing-braces.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer x from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer x from "x";
-       ^~~~~"
-`;
-
 exports[`missing-braces.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer x from "x";
@@ -240,16 +219,6 @@ exports[`missing-braces-export-default-from.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`missing-braces-export-default-from.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer x from "x";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer x from "x";
-       ^~~~~"
-`;
-
 exports[`missing-braces-export-default-from.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export defer x from "x";
@@ -332,16 +301,6 @@ exports[`no-star.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`no-star.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export defer  from x;
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export defer  from x;
-       ^~~~~"
 `;
 
 exports[`no-star.js format[meriyah] 1`] = `

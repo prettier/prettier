@@ -1,5 +1,1 @@
-runFormatTest(import.meta, ["flow"], {
-  errors: {
-    hermes: ["before-body.js.flow"],
-  },
-});
+runFormatTest(import.meta, ["flow"]);

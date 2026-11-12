@@ -50,7 +50,7 @@
     },
     {
       groupName: "flow-parser",
-      matchPackageNames: ["flow-parser", "hermes-parser", "flow-estree"],
+      matchPackageNames: ["flow-parser", "flow-estree"],
     },
     {
       groupName: "ESLint related dependencies",

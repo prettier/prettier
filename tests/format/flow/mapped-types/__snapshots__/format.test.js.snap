@@ -374,20 +374,6 @@ exports[`modifiers-and-key-remapping.js format[babel-ts] 1`] = `
 Cause: Missing semicolon. (27:6)"
 `;
 
-exports[`modifiers-and-key-remapping.js format[hermes] 1`] = `
-"':' or '?' expected in property type annotation (4:40)
-  2 |
-  3 | type ReadonlyMapped<T> = {readonly [K in keyof T]: T[K]};
-> 4 | type AddReadonlyMapped<T> = {+readonly [K in keyof T]+?: T[K]};
-    |                                        ^
-  5 | type RemoveReadonlyMapped<T> = {-readonly [K in keyof T]-?: T[K]};
-  6 | type Remapped<T> = {[K in keyof T as \`get\${K}\`]: T[K]};
-  7 | type LongRemapped<T> = {-readonly [ExtremelyLongPropertyName in keyof T as \`get\${ExtremelyLongPropertyName}\`]-?: T[ExtremelyLongPropertyName]};
-Cause: ':' or '?' expected in property type annotation (4:39)
-type AddReadonlyMapped<T> = {+readonly [K in keyof T]+?: T[K]};
-                             ~~~~~~~~~~^"
-`;
-
 exports[`modifiers-and-key-remapping.js format[oxc-ts] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (27:7)
   25 | };

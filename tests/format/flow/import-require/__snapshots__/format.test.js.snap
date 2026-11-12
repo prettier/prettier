@@ -14,16 +14,6 @@ export = function declared(value: string): number;
 ================================================================================
 `;
 
-exports[`export-function.js.flow - {"printWidth":50} format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export = function declared(value: string): number;
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export = function declared(value: string): number;
-       ^"
-`;
-
 exports[`import-require.js - {"printWidth":50} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -80,18 +70,4 @@ export = decorator("name")((options: {
 });
 
 ================================================================================
-`;
-
-exports[`import-require.js - {"printWidth":50} format[hermes] 1`] = `
-"'from' expected (3:13)
-  1 | // @flow
-  2 |
-> 3 | import Value=require('value-module');
-    |             ^
-  4 | import type TypeValue = require("type-module");
-  5 | import Alias = Namespace.Value;
-  6 | export import Exported = require("exported-module");
-Cause: 'from' expected (3:12)
-import Value=require('value-module');
-            ^"
 `;

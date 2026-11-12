@@ -10,7 +10,6 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     espree: exportsFilterTests,
     meriyah: exportsFilterTests,
     flow: [...exportsFilterTests, "import-expression.js"],
-    hermes: [...exportsFilterTests, "import-expression.js"],
     typescript: exportsFilterTests,
     oxc: exportsFilterTests,
     "oxc-ts": exportsFilterTests,

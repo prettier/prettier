@@ -31,15 +31,6 @@ exports[`snippet: 0006-e58e.jsx format[flow] 1`] = `
 Cause: Unexpected token \`!\`, expected the token \`>\` (1:1)"
 `;
 
-exports[`snippet: 0006-e58e.jsx format[hermes] 1`] = `
-"'identifier' expected as JSX element name (1:2)
-> 1 | <!--a
-    |  ^
-Cause: 'identifier' expected as JSX element name (1:1)
-<!--a
- ^"
-`;
-
 exports[`snippet: 0006-e58e.jsx format[typescript] 1`] = `
 "Expression expected. (1:1)
 > 1 | <!--a
@@ -231,15 +222,6 @@ exports[`snippet: 0019-c21b.jsx format[flow] 1`] = `
 Cause: JSX value should be either an expression or a quoted JSX text (1:16)"
 `;
 
-exports[`snippet: 0019-c21b.jsx format[hermes] 1`] = `
-"'{' expected in JSX attribute (1:17)
-> 1 | <LeftRight left=<a /> right=<b>monkeys /{">"} gorillas</b> />
-    |                 ^
-Cause: '{' expected in JSX attribute (1:16)
-<LeftRight left=<a /> right=<b>monkeys /{">"} gorillas</b> />
-           ~~~~~^"
-`;
-
 exports[`snippet: 0020-2386.jsx format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -257,15 +239,6 @@ exports[`snippet: 0020-2386.jsx format[flow] 1`] = `
 > 1 | <LeftRight left=<a /> right=<b>monkeys /&gt; gorillas</b> />
     |                 ^
 Cause: JSX value should be either an expression or a quoted JSX text (1:16)"
-`;
-
-exports[`snippet: 0020-2386.jsx format[hermes] 1`] = `
-"'{' expected in JSX attribute (1:17)
-> 1 | <LeftRight left=<a /> right=<b>monkeys /&gt; gorillas</b> />
-    |                 ^
-Cause: '{' expected in JSX attribute (1:16)
-<LeftRight left=<a /> right=<b>monkeys /&gt; gorillas</b> />
-           ~~~~~^"
 `;
 
 exports[`snippet: 0021-648f.jsx format 1`] = `

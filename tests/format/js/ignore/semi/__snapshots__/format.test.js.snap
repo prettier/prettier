@@ -181,18 +181,6 @@ exports[`asi-bind-expression.js - {"semi":false} format[flow] 1`] = `
 Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
 `;
 
-exports[`asi-bind-expression.js - {"semi":false} format[hermes] 1`] = `
-"invalid expression (3:1)
-  1 | foo;
-  2 | // prettier-ignore
-> 3 | ::obj.prop;
-    | ^
-  4 |
-Cause: invalid expression (3:0)
-::obj.prop;
-^"
-`;
-
 exports[`asi-bind-expression.js - {"semi":false} format[meriyah] 1`] = `
 "Unexpected token: ':' (3:1)
   1 | foo;
@@ -294,18 +282,6 @@ exports[`asi-bind-expression.js format[flow] 1`] = `
     | ^
   4 |
 Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
-`;
-
-exports[`asi-bind-expression.js format[hermes] 1`] = `
-"invalid expression (3:1)
-  1 | foo;
-  2 | // prettier-ignore
-> 3 | ::obj.prop;
-    | ^
-  4 |
-Cause: invalid expression (3:0)
-::obj.prop;
-^"
 `;
 
 exports[`asi-bind-expression.js format[meriyah] 1`] = `

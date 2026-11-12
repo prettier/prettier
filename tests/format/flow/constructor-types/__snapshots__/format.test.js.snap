@@ -63,20 +63,6 @@ Result;
 ================================================================================
 `;
 
-exports[`constructor-types.js - {"arrowParens":"avoid"} format[hermes] 1`] = `
-"';' expected (3:20)
-  1 | // @flow
-  2 |
-> 3 | type Minimal = new () => Instance;
-    |                    ^
-  4 | type Abstract = abstract new () => Instance;
-  5 | type SingleUnnamedParameter = new (string) => Instance;
-  6 | type Generic = new <T>(value:T, optional?:T, ...rest:Array<T>)=>Container<T>;
-Cause: ';' expected (3:19)
-type Minimal = new () => Instance;
-                   ^"
-`;
-
 exports[`constructor-types.js - {"printWidth":50} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -148,18 +134,4 @@ type CommentBeforeArrow =
   Result;
 
 ================================================================================
-`;
-
-exports[`constructor-types.js - {"printWidth":50} format[hermes] 1`] = `
-"';' expected (3:20)
-  1 | // @flow
-  2 |
-> 3 | type Minimal = new () => Instance;
-    |                    ^
-  4 | type Abstract = abstract new () => Instance;
-  5 | type SingleUnnamedParameter = new (string) => Instance;
-  6 | type Generic = new <T>(value:T, optional?:T, ...rest:Array<T>)=>Container<T>;
-Cause: ';' expected (3:19)
-type Minimal = new () => Instance;
-                   ^"
 `;

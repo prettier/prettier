@@ -8,7 +8,6 @@ const errors = {
   "oxc-ts": ["asi-bind-expression.js"],
   yuku: ["asi-bind-expression.js"],
   "yuku-ts": ["asi-bind-expression.js"],
-  hermes: ["asi-bind-expression.js"],
 };
 
 runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });

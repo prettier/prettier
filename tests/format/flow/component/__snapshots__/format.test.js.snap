@@ -697,15 +697,3 @@ declare module "foo" {
 
 ================================================================================
 `;
-
-exports[`implicit.js format[hermes] 1`] = `
-"'{' expected in component declaration (2:34)
-  1 | declare module "foo" {
-> 2 |   component Button(label: string);
-    |                                  ^
-  3 | }
-  4 |
-Cause: '{' expected in component declaration (2:33)
-  component Button(label: string);
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
-`;

@@ -37,16 +37,6 @@ exports[`export-1.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`export-1.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export asyn\\u{63} from "async";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export asyn\\u{63} from "async";
-       ^~~~~~~~~~"
-`;
-
 exports[`export-1.js format[meriyah] 1`] = `
 "Unexpected token: 'reserved if strict' (1:8)
 > 1 | export asyn\\u{63} from "async";
@@ -128,16 +118,6 @@ exports[`export-2.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`export-2.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export asyn\\u0063 from "async";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export asyn\\u0063 from "async";
-       ^~~~~~~~~~"
-`;
-
 exports[`export-2.js format[meriyah] 1`] = `
 "Unexpected token: 'reserved if strict' (1:8)
 > 1 | export asyn\\u0063 from "async";
@@ -217,16 +197,6 @@ exports[`export-3.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`export-3.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export _asyn\\u{63} from "async";
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export _asyn\\u{63} from "async";
-       ^~~~~~~~~~~"
 `;
 
 exports[`export-3.js format[meriyah] 1`] = `

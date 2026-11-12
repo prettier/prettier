@@ -179,17 +179,3 @@ comment
 
 ================================================================================
 `;
-
-exports[`18160.ts format[hermes] 1`] = `
-"';' expected (7:3)
-   5 | comment
-   6 | */Foo;
->  7 | 1 satisfies /*
-     |   ^
-   8 | comment
-   9 | */Foo;
-  10 |
-Cause: ';' expected (7:2)
-1 satisfies /*
-  ^"
-`;

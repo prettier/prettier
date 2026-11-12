@@ -72,20 +72,6 @@ exports[`function-sent.js format[flow] 1`] = `
 Cause: Unexpected token \`.\`, expected an identifier (4:33)"
 `;
 
-exports[`function-sent.js format[hermes] 1`] = `
-"'(' expected at start of function parameter list (4:34)
-  2 |    let increment=1;
-  3 |    do {
-> 4 |        switch (request = function.sent){
-    |                                  ^
-  5 |           case undefined: break;
-  6 |           case "done": return total;
-  7 |           default: increment = Number(request);
-Cause: '(' expected at start of function parameter list (4:33)
-       switch (request = function.sent){
-                         ~~~~~~~~^"
-`;
-
 exports[`function-sent.js format[meriyah] 1`] = `
 "Expected '(' (4:34)
   2 |    let increment=1;

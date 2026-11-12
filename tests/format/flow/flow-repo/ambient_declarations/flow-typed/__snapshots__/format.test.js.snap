@@ -25,20 +25,6 @@ declare module "component-library" {
 ================================================================================
 `;
 
-exports[`components.js format[hermes] 1`] = `
-"'{' expected in component declaration (3:34)
-  1 | // Declare module with ambient components
-  2 | declare module 'component-library' {
-> 3 |   component Button(label: string);
-    |                                  ^
-  4 |   component Icon(name: string);
-  5 |
-  6 |   declare export { Button, Icon };
-Cause: '{' expected in component declaration (3:33)
-  component Button(label: string);
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
-`;
-
 exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -72,18 +58,4 @@ declare module "test-module" {
 }
 
 ================================================================================
-`;
-
-exports[`lib.js format[hermes] 1`] = `
-"missing initializer in const declaration (4:9)
-  2 | declare module 'test-module' {
-  3 |   // Implicit ambient const/let/var (without 'declare' keyword)
-> 4 |   const foo: string;
-    |         ^
-  5 |   let bar: number;
-  6 |   var baz: boolean;
-  7 |
-Cause: missing initializer in const declaration (4:8)
-  const foo: string;
-        ^~~~~~~~~~~"
 `;

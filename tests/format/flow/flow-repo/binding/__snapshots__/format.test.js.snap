@@ -65,20 +65,6 @@ for (const { baz } of bazzes) {
 ================================================================================
 `;
 
-exports[`const.js format[hermes] 1`] = `
-"invalid operand in update operation (4:1)
-  2 |
-  3 | // errors: const cannot be reassigned
-> 4 | x++;
-    | ^
-  5 | x--;
-  6 | x += 0;
-  7 | x -= 0;
-Cause: invalid operand in update operation (4:0)
-x++;
-^"
-`;
-
 exports[`rebinding.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -484,23 +470,6 @@ function fn_params_clash_fn_binding(x, y) {
 ================================================================================
 `;
 
-exports[`rebinding.js format[hermes] 1`] = `
-"Identifier 'A' is already declared (53:9)
-  51 | function class_class() {
-  52 |   class A {}
-> 53 |   class A {}        // error: name already bound
-     |         ^
-  54 | }
-  55 |
-  56 | function class_let() {
-Cause: Identifier 'A' is already declared (53:8)
-  class A {}        // error: name already bound
-        ^
-note: previous declaration (52:8)
-  class A {}
-        ^"
-`;
-
 exports[`scope.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -732,23 +701,6 @@ function default_param_2() {
 }
 
 ================================================================================
-`;
-
-exports[`scope.js format[hermes] 1`] = `
-"Identifier 'a' is already declared (19:11)
-  17 |       break;
-  18 |     case "bar":
-> 19 |       let a = ""; // error: a already bound in switch
-     |           ^
-  20 |       break;
-  21 |   }
-  22 | }
-Cause: Identifier 'a' is already declared (19:10)
-      let a = ""; // error: a already bound in switch
-          ^
-note: previous declaration (15:10)
-      let a = ""; // ok: local to switch
-          ^"
 `;
 
 exports[`tdz.js format 1`] = `

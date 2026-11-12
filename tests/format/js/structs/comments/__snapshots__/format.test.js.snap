@@ -72,18 +72,6 @@ exports[`dangling.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`dangling.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S11 {/* comment */}
-    |        ^
-  2 | struct S12 {
-  3 | /* comment */}
-  4 | struct S13 {/* comment */
-Cause: ';' expected (1:7)
-struct S11 {/* comment */}
-       ^"
-`;
-
 exports[`dangling.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S11 {/* comment */}
@@ -232,18 +220,6 @@ exports[`head.js format[flow] 1`] = `
   3 | struct S12
   4 | // comment
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`head.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S11 // comment
-    |        ^
-  2 | {}
-  3 | struct S12
-  4 | // comment
-Cause: ';' expected (1:7)
-struct S11 // comment
-       ^"
 `;
 
 exports[`head.js format[meriyah] 1`] = `
@@ -423,18 +399,6 @@ exports[`super-class.js format[flow] 1`] = `
   3 | {}
   4 | struct S11
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`super-class.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S11 // comment
-    |        ^
-  2 | extends S
-  3 | {}
-  4 | struct S11
-Cause: ';' expected (1:7)
-struct S11 // comment
-       ^"
 `;
 
 exports[`super-class.js format[meriyah] 1`] = `

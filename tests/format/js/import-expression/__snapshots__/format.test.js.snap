@@ -68,21 +68,6 @@ exports[`import-phase.js format[flow] 1`] = `
 Cause: The \`source\` import phase is not supported. (1:7)"
 `;
 
-exports[`import-phase.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^
-  2 |     console.log("RUN");
-  3 | \`)
-  4 |
-Cause: 'meta' expected in member expression (1:7)
-import.source(\`data:text/javascript,
-       ^~~~~~
-note: start of member expression (1:0)
-import.source(\`data:text/javascript,
-^"
-`;
-
 exports[`import-phase.js format[typescript] 1`] = `
 "'source' is not a valid meta-property for keyword 'import'. (1:1)
 > 1 | import.source(\`data:text/javascript,
@@ -126,18 +111,6 @@ exports[`template-literal.js format[flow] 1`] = `
   3 | \`);
   4 |
 Cause: Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:19)"
-`;
-
-exports[`template-literal.js format[hermes] 1`] = `
-"unexpected token after assignment expression (1:20)
-> 1 | module   =   await import(\`data:text/javascript,
-    |                    ^
-  2 |     console.log("RUN");
-  3 | \`);
-  4 |
-Cause: unexpected token after assignment expression (1:19)
-module   =   await import(\`data:text/javascript,
-                   ^"
 `;
 
 exports[`test.js format 1`] = `

@@ -19,15 +19,6 @@ exports[`snippet: new-target.cjs format[flow] 1`] = `
 Cause: Unexpected token \`.\` (1:3)"
 `;
 
-exports[`snippet: new-target.cjs format[hermes] 1`] = `
-"'new.target' not in a function (1:1)
-> 1 | new.target
-    | ^
-Cause: 'new.target' not in a function (1:0)
-new.target
-^~~~~~~~~~"
-`;
-
 exports[`snippet: new-target.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -59,15 +50,6 @@ exports[`snippet: new-target.mjs format[flow] 1`] = `
 > 1 | new.target
     |    ^
 Cause: Unexpected token \`.\` (1:3)"
-`;
-
-exports[`snippet: new-target.mjs format[hermes] 1`] = `
-"'new.target' not in a function (1:1)
-> 1 | new.target
-    | ^
-Cause: 'new.target' not in a function (1:0)
-new.target
-^~~~~~~~~~"
 `;
 
 exports[`snippet: new-target.mjs format[meriyah] 1`] = `
@@ -106,15 +88,6 @@ exports[`snippet: new-target.unknown format[flow] 1`] = `
 > 1 | new.target
     |    ^
 Cause: Unexpected token \`.\` (1:3)"
-`;
-
-exports[`snippet: new-target.unknown format[hermes] 1`] = `
-"'new.target' not in a function (1:1)
-> 1 | new.target
-    | ^
-Cause: 'new.target' not in a function (1:0)
-new.target
-^~~~~~~~~~"
 `;
 
 exports[`snippet: return/in-static-block.cjs format 1`] = `
