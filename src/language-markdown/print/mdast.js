@@ -236,7 +236,7 @@ function printMdast(path, options, print) {
           node.children.some((item) =>
             item.children.some((child) => child.type === "jsx"),
           ) &&
-          /(?:^|\n)<\/[A-Za-z][\w.:]*>/.test(raw)
+          /(?:^|\n)<\/[a-z][\w.:]*>/i.test(raw)
         ) {
           return raw.trimEnd();
         }
