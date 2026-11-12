@@ -368,6 +368,129 @@ opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-e
 ================================================================================
 `;
 
+exports[`issue-20495.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. Install the CLI
+
+   Run the following command:
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+
+     \`\`\`sh
+     npm i -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+     <TabItem label="pnpm">
+
+     \`\`\`sh
+     pnpm add -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+</Steps>
+
+=====================================output=====================================
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components"
+
+<Steps>
+
+1. Install the CLI
+
+   Run the following command:
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+
+     \`\`\`sh
+     npm i -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+     <TabItem label="pnpm">
+
+     \`\`\`sh
+     pnpm add -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+</Steps>
+
+================================================================================
+`;
+
+exports[`issue-20495.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. Install the CLI
+
+   Run the following command:
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+
+     \`\`\`sh
+     npm i -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+     <TabItem label="pnpm">
+
+     \`\`\`sh
+     pnpm add -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+</Steps>
+
+=====================================output=====================================
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. Install the CLI
+
+   Run the following command:
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+
+     \`\`\`sh
+     npm i -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+     <TabItem label="pnpm">
+
+     \`\`\`sh
+     pnpm add -D all-contributors-cli
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+</Steps>
+
+================================================================================
+`;
+
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]

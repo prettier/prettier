@@ -227,6 +227,19 @@ function printMdast(path, options, print) {
     }
     case "list":
       if (options.parser === "mdx") {
+        const raw = options.originalText.slice(locStart(node), locEnd(node));
+        // Remark can consume a dedented JSX closing tag as part of a list
+        // containing JSX. Its children then no longer represent the original
+        // block boundaries, so formatting them would indent that tag into the
+        // list and turn fenced code into an indented code block.
+        if (
+          node.children.some((item) =>
+            item.children.some((child) => child.type === "jsx"),
+          ) &&
+          /(?:^|\n)<\/[A-Za-z][\w.:]*>/.test(raw)
+        ) {
+          return raw.trimEnd();
+        }
         return printListLegacy(path, options, print);
       }
       return printList(path, options, print);
@@ -335,9 +348,8 @@ function printMdast(path, options, print) {
     // or `embeddedLanguageFormatting: "off"`
     case "import":
     case "export":
-      return node.value.trimEnd();
     case "jsx":
-      return replaceEndOfLine(node.value.trimEnd(), hardline);
+      return node.value.trimEnd();
     case "esComment":
       return ["{/* ", node.value, " */}"];
     case "math":
