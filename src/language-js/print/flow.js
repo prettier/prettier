@@ -40,7 +40,7 @@ import { printIntersectionType } from "./intersection-type.js";
 import { printKey } from "./key.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
-import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
+import { printMatchCase, printMatchPattern } from "./match.js";
 import {
   printAbstractToken,
   printDeclareToken,
@@ -57,6 +57,7 @@ import { printOpaqueType } from "./opaque-type.js";
 import { printParameterProperty } from "./parameter-property.js";
 import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
+import { printMatch } from "./switch-statement.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";

@@ -16,36 +16,6 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
-import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-
-/*
-- `MatchExpression` (Flow)
-- `MatchStatement` (Flow)
-*/
-export function printMatch(path, options, print) {
-  const { node } = path;
-  return [
-    group(["match (", indent([softline, print("argument")]), softline, ")"]),
-    " {",
-    node.cases.length > 0
-      ? indent([
-          hardline,
-          join(
-            hardline,
-            path.map(
-              ({ node, isLast }) => [
-                print(),
-                !isLast && isNextLineEmpty(node, options) ? hardline : "",
-              ],
-              "cases",
-            ),
-          ),
-        ])
-      : "",
-    hardline,
-    "}",
-  ];
-}
 
 /*
 - `MatchExpressionCase` (Flow)
