@@ -20,6 +20,7 @@ import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
+import { printComment, printCommentLegacy } from "./print/comment.js";
 import {
   printCssDeclaration,
   printCssDeclarationNew,
@@ -59,13 +60,11 @@ function genericPrint(path, options, print) {
     case "css-root":
       return printRootLegacy(path, options, print);
 
-    case "css-comment": {
-      const isInlineComment = node.inline || node.raws.inline;
+    case "comment":
+      return printComment(path, options, print);
+    case "css-comment":
+      return printCommentLegacy(path, options, print);
 
-      const text = options.originalText.slice(locStart(node), locEnd(node));
-
-      return isInlineComment ? text.trimEnd() : text;
-    }
     case "rule":
     case "css-rule":
       return [
