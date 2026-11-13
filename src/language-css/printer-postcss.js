@@ -306,7 +306,7 @@ function genericPrint(path, options, print) {
       const value = node.raws?.value ?? node.value;
       return [
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [node.namespace === true ? "" : (node.raws?.namespace ?? node.namespace).trim(), "|"]
           : "",
         path.previous?.type === "selector-nesting"
           ? value
@@ -324,18 +324,19 @@ function genericPrint(path, options, print) {
     case "selector-class":
       return [".", adjustNumbers(adjustStrings(node.raws?.value ?? node.value, options))];
 
-    case "selector-attribute":
+    case "selector-attribute": {
+      const value = node.raws.value ?? node.value;
       return [
         "[",
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [node.namespace === true ? "" : (node.raws.namespace ?? node.namespace).trim(), "|"]
           : "",
-        node.attribute.trim(),
+        (node.raws.attribute ?? node.attribute).trim(),
         node.operator ?? "",
-        node.value
+        value
           ? replaceEndOfLine(
               quoteAttributeValue(
-                adjustStrings(node.value.trim(), options),
+                adjustStrings(value.trim(), options),
                 options,
               ),
               literallineWithoutBreakParent,
@@ -344,6 +345,7 @@ function genericPrint(path, options, print) {
         node.insensitive ? " i" : "",
         "]",
       ];
+    }
 
     case "selector-combinator": {
       if (
@@ -381,7 +383,7 @@ function genericPrint(path, options, print) {
     case "selector-universal":
       return [
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [node.namespace === true ? "" : (node.raws?.namespace ?? node.namespace).trim(), "|"]
           : "",
         node.value,
       ];

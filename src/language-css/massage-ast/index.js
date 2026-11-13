@@ -125,6 +125,7 @@ function massageAstNode(original, cloned, parent) {
 
   if (original.type === "selector-attribute") {
     cloned.attribute = original.attribute.trim();
+    delete cloned._quoteMark;
 
     if (original.namespace && typeof original.namespace === "string") {
       cloned.namespace = original.namespace.trim() || true;
@@ -147,8 +148,6 @@ function massageAstNode(original, cloned, parent) {
       );
 
       cloned.value = value;
-      delete cloned.quoted;
-      delete cloned._quoteMark;
     }
   }
 
