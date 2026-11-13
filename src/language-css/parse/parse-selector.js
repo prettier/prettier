@@ -18,6 +18,11 @@ function parseSelector(selector) {
 
   try {
     postcssSelectorParser((selectors) => {
+      selectors.walk((node) => {
+        if (node.type === "string" && node.value.startsWith("(")) {
+          throw new Error("Unexpected parentheses");
+        }
+      });
       result = selectors;
     }).processSync(selector);
   } catch {
