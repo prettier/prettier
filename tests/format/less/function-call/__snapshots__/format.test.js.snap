@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`function-call.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+test-collapse();
+store(@var);
+store(5);
+store("bird");}
+
+test-atrule("@charset"; '"utf-8"');
+test-atrule("@arbitrary"; "value after ()");
+#if {
+  if((false), {g: 7}); /* results in void */
+}
+e('/* anything to unquote */');
+
+=====================================output=====================================
+a {
+  test-collapse();
+  store(@var);
+  store(5);
+  store("bird");
+}
+
+test-atrule("@charset"; '"utf-8"');
+test-atrule("@arbitrary"; "value after ()");
+#if {
+  if((false), {g: 7}); /* results in void */
+}
+e('/* anything to unquote */');
+
+================================================================================
+`;

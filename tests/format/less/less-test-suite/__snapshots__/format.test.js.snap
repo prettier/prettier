@@ -160,7 +160,7 @@ parsers: ["less"]
 
 // Test eval with value evaluation and keywordList conversion
 @breakpoint: screen;
-@media @breakpoint, print {
+@media @{breakpoint}, print {
   body {
     margin: 0;
   }
@@ -274,7 +274,7 @@ parsers: ["less"]
 
 // Test eval with value evaluation and keywordList conversion
 @breakpoint: screen;
-@media @breakpoint, print {
+@media @{breakpoint}, print {
   body {
     margin: 0;
   }
@@ -3806,6 +3806,65 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-config/rootpath-escape-interpolation/rootpath-escape-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A rewritten rootpath is escaped only for *unquoted* url() values, so the node
+// produced for an interpolated unquoted body must not read as quoted. Giving it a
+// real quote character suppressed the escaping and emitted the parentheses and
+// space raw, producing a malformed url().
+//
+// The rootpath here deliberately contains \`(\`, \`)\` and a space — the characters
+// \`escapePath\` handles — so quoted and unquoted forms cannot look alike.
+
+@dir: images;
+@paths: {
+  dir: images;
+};
+
+#rootpath-escape-interpolation {
+  // unquoted: rootpath must be escaped
+  plain-unquoted: url(relative/path);
+  interp-unquoted: url(@{dir}/path);
+  lookup-unquoted: url(@{paths[dir]}/path);
+
+  // quoted: rootpath must not be escaped
+  plain-quoted: url("relative/path");
+  interp-quoted: url("@{dir}/path");
+  lookup-quoted: url("@{paths[dir]}/path");
+}
+
+=====================================output=====================================
+// A rewritten rootpath is escaped only for *unquoted* url() values, so the node
+// produced for an interpolated unquoted body must not read as quoted. Giving it a
+// real quote character suppressed the escaping and emitted the parentheses and
+// space raw, producing a malformed url().
+//
+// The rootpath here deliberately contains \`(\`, \`)\` and a space — the characters
+// \`escapePath\` handles — so quoted and unquoted forms cannot look alike.
+
+@dir: images;
+@paths: {
+  dir: images;
+};
+
+#rootpath-escape-interpolation {
+  // unquoted: rootpath must be escaped
+  plain-unquoted: url(relative/path);
+  interp-unquoted: url(@{dir}/path);
+  lookup-unquoted: url(@{paths[dir]}/path);
+
+  // quoted: rootpath must not be escaped
+  plain-quoted: url("relative/path");
+  interp-quoted: url("@{dir}/path");
+  lookup-quoted: url("@{paths[dir]}/path");
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-config/rootpath-rewrite-urls-all/folder/file.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -4307,6 +4366,65 @@ body {
   border-left: 1px solid @color;
   width: calc(50% - 5px);
   border-top: 1px solid @color;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-config/sourcemaps/url-interpolation/url-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Interpolated unquoted url() bodies are parsed into an escaped Quoted rather
+// than the Anonymous node used for literal ones, so this pins that the swap does
+// not change how url() values are mapped. All three spellings should keep the
+// same mapping structure as each other.
+@dir: images;
+@paths: {
+  dir: assets;
+};
+
+.literal {
+  background: url(literal/one.png);
+}
+
+.interpolated {
+  background: url(@{dir}/two.png);
+}
+
+.interpolated-lookup {
+  background: url(@{paths[dir]}/three.png);
+}
+
+.quoted-interpolated {
+  background: url("@{dir}/four.png");
+}
+
+=====================================output=====================================
+// Interpolated unquoted url() bodies are parsed into an escaped Quoted rather
+// than the Anonymous node used for literal ones, so this pins that the swap does
+// not change how url() values are mapped. All three spellings should keep the
+// same mapping structure as each other.
+@dir: images;
+@paths: {
+  dir: assets;
+};
+
+.literal {
+  background: url(literal/one.png);
+}
+
+.interpolated {
+  background: url(@{dir}/two.png);
+}
+
+.interpolated-lookup {
+  background: url(@{paths[dir]}/three.png);
+}
+
+.quoted-interpolated {
+  background: url("@{dir}/four.png");
 }
 
 ================================================================================
@@ -4905,6 +5023,317 @@ parsers: ["less"]
 .test-rule {
   color: red;
   -some-aribitrary-property: value;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/at-rule-variable-deprecated/at-rule-variable-deprecated.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Backward-compatibility coverage for the deprecated bare \`@variable\`
+// reference in non-value positions (at-rule preludes, names, and identifiers).
+// These still resolve, but emit a \`variable-in-at-rule-prelude\` deprecation
+// warning at parse time. New code should use \`@{variable}\` interpolation
+// instead (see media.less / variables-in-at-rules.less).
+
+// --- nestable at-rule preludes ---
+@smartphone: ~"only screen and (max-width: 200px)";
+@media @smartphone {
+  .body {
+    width: 480px;
+  }
+}
+
+@all: ~"all";
+@tv: ~"(tv)";
+@media @all and @tv {
+  .all-and-tv {
+    var: yes;
+  }
+}
+
+@breakpoint: screen;
+@media @breakpoint, print {
+  .list {
+    margin: 0;
+  }
+}
+
+@varfoo: foo;
+@threshold: 400px;
+@container @varfoo (min-width: @threshold) {
+  .sticky-child {
+    font-size: 75%;
+  }
+}
+
+// --- unknown at-rule prelude (structural bare variable — deprecated) ---
+@supported: ~"(display: flex)";
+@supports @supported {
+  .flex {
+    display: flex;
+  }
+}
+
+// A bare @variable in a *nested declaration value* (inside \`(...)\`) is NOT a
+// structural position — it is a declaration value and remains valid without a
+// deprecation warning, mirroring \`@media (min-width: @var)\`.
+@disp: grid;
+@supports (display: @disp) and (gap: 1rem) {
+  .grid {
+    display: grid;
+  }
+}
+
+// --- at-rule identifiers / names ---
+@anim: enlarger;
+@keyframes @anim {
+  from { font-size: 12px; }
+  to   { font-size: 15px; }
+}
+
+@ns: less;
+@namespace @ns "http://lesscss.org";
+
+// indirect (variable-variable) prefix — also a deprecated bare reference
+@ns-ref: svg;
+@svg: svgns;
+@namespace @@ns-ref "http://www.w3.org/2000/svg";
+
+@layer-name: base;
+@layer @layer-name {
+  .layered {
+    color: red;
+  }
+}
+
+// --- bare \`[...]\` lookups in the same structural positions ---
+// A lookup parses into a NamespaceValue rather than a Variable. These were
+// silently exempt from the deprecation until the node-type test was widened,
+// so every position is covered explicitly here.
+@lookup: {
+  query: ~"only screen and (max-width: 300px)";
+  anim: shrinker;
+  supported: ~"(display: grid)";
+  layer-name: overrides;
+  @deep: {
+    query: ~"(min-width: 900px)";
+  }
+};
+
+@media @lookup[query] {
+  .lookup-media {
+    width: 240px;
+  }
+}
+
+@keyframes @lookup[anim] {
+  from { font-size: 15px; }
+  to   { font-size: 12px; }
+}
+
+@supports @lookup[supported] {
+  .lookup-supports {
+    display: grid;
+  }
+}
+
+@layer @lookup[layer-name] {
+  .lookup-layered {
+    color: blue;
+  }
+}
+
+// chained lookup — still one deprecation, not one per segment
+@media @lookup[@deep][query] {
+  .lookup-chained {
+    width: 900px;
+  }
+}
+
+// A lookup in a declaration value inside \`(...)\` stays a value position and is
+// not deprecated, mirroring the \`@disp\` case above.
+//
+// \`@supports\` scans its prelude as text, so a bare lookup reaches the permissive
+// regex rather than being parsed structurally. Matching only \`@values\` used to
+// resolve it to the whole ruleset and leave \`[size]\` behind, rendering
+// \`(width: [size])\`. Both the flat and chained forms are covered here.
+@values: {
+  size: 500px;
+  @deep: {
+    size: 900px;
+  }
+};
+
+@supports (width: @values[size]) {
+  .lookup-value-position {
+    width: 500px;
+  }
+}
+
+@supports (width: @values[@deep][size]) {
+  .lookup-value-position-chained {
+    width: 900px;
+  }
+}
+
+=====================================output=====================================
+// Backward-compatibility coverage for the deprecated bare \`@variable\`
+// reference in non-value positions (at-rule preludes, names, and identifiers).
+// These still resolve, but emit a \`variable-in-at-rule-prelude\` deprecation
+// warning at parse time. New code should use \`@{variable}\` interpolation
+// instead (see media.less / variables-in-at-rules.less).
+
+// --- nestable at-rule preludes ---
+@smartphone: ~"only screen and (max-width: 200px)";
+@media @smartphone {
+  .body {
+    width: 480px;
+  }
+}
+
+@all: ~"all";
+@tv: ~"(tv)";
+@media @all and @tv {
+  .all-and-tv {
+    var: yes;
+  }
+}
+
+@breakpoint: screen;
+@media @breakpoint, print {
+  .list {
+    margin: 0;
+  }
+}
+
+@varfoo: foo;
+@threshold: 400px;
+@container @varfoo (min-width: @threshold) {
+  .sticky-child {
+    font-size: 75%;
+  }
+}
+
+// --- unknown at-rule prelude (structural bare variable — deprecated) ---
+@supported: ~"(display: flex)";
+@supports @supported {
+  .flex {
+    display: flex;
+  }
+}
+
+// A bare @variable in a *nested declaration value* (inside \`(...)\`) is NOT a
+// structural position — it is a declaration value and remains valid without a
+// deprecation warning, mirroring \`@media (min-width: @var)\`.
+@disp: grid;
+@supports (display: @disp) and (gap: 1rem) {
+  .grid {
+    display: grid;
+  }
+}
+
+// --- at-rule identifiers / names ---
+@anim: enlarger;
+@keyframes @anim {
+  from {
+    font-size: 12px;
+  }
+  to {
+    font-size: 15px;
+  }
+}
+
+@ns: less;
+@namespace @ns "http://lesscss.org";
+
+// indirect (variable-variable) prefix — also a deprecated bare reference
+@ns-ref: svg;
+@svg: svgns;
+@namespace @@ns-ref "http://www.w3.org/2000/svg";
+
+@layer-name: base;
+@layer @layer-name {
+  .layered {
+    color: red;
+  }
+}
+
+// --- bare \`[...]\` lookups in the same structural positions ---
+// A lookup parses into a NamespaceValue rather than a Variable. These were
+// silently exempt from the deprecation until the node-type test was widened,
+// so every position is covered explicitly here.
+@lookup: {
+  query: ~"only screen and (max-width: 300px)";
+  anim: shrinker;
+  supported: ~"(display: grid)";
+  layer-name: overrides;
+  @deep: {
+    query: ~"(min-width: 900px)";
+  };
+};
+
+@media @lookup[query] {
+  .lookup-media {
+    width: 240px;
+  }
+}
+
+@keyframes @lookup[anim] {
+  from {
+    font-size: 15px;
+  }
+  to {
+    font-size: 12px;
+  }
+}
+
+@supports @lookup[supported] {
+  .lookup-supports {
+    display: grid;
+  }
+}
+
+@layer @lookup[layer-name] {
+  .lookup-layered {
+    color: blue;
+  }
+}
+
+// chained lookup — still one deprecation, not one per segment
+@media @lookup[@deep][query] {
+  .lookup-chained {
+    width: 900px;
+  }
+}
+
+// A lookup in a declaration value inside \`(...)\` stays a value position and is
+// not deprecated, mirroring the \`@disp\` case above.
+//
+// \`@supports\` scans its prelude as text, so a bare lookup reaches the permissive
+// regex rather than being parsed structurally. Matching only \`@values\` used to
+// resolve it to the whole ruleset and leave \`[size]\` behind, rendering
+// \`(width: [size])\`. Both the flat and chained forms are covered here.
+@values: {
+  size: 500px;
+  @deep: {
+    size: 900px;
+  };
+};
+
+@supports (width: @values[size]) {
+  .lookup-value-position {
+    width: 500px;
+  }
+}
+
+@supports (width: @values[@deep][size]) {
+  .lookup-value-position-chained {
+    width: 900px;
+  }
 }
 
 ================================================================================
@@ -6994,7 +7423,7 @@ parsers: ["less"]
 
 @varfoo: foo;
 @threshold: 400px;
-@container @varfoo (min-width: @threshold) {
+@container @{varfoo} (min-width: @threshold) {
     #sticky-child {
       font-size: 75%;
     }
@@ -7006,7 +7435,7 @@ parsers: ["less"]
 @issue-width: 125px;
 
 .container-query-mixin(@container-name; @bp) {
-    @container @container-name (width < @bp) {
+    @container @{container-name} (width < @bp) {
         display: none;
     }
 }
@@ -7022,6 +7451,25 @@ parsers: ["less"]
 }
 .header-test {
     .container-query-mixin(header, 800px);
+}
+
+// Range/comparison syntax in @container style() queries (issue #4460)
+@container style(var(--n) = 3) {
+    .style-query-eq {
+        color: red;
+    }
+}
+
+@container style(calc(6 / 2) = var(--n)) {
+    .style-query-calc-eq {
+        color: blue;
+    }
+}
+
+@container style(var(--size) > 1lh) {
+    .style-query-gt {
+        color: green;
+    }
 }
 
 =====================================output=====================================
@@ -7403,7 +7851,7 @@ parsers: ["less"]
 
 @varfoo: foo;
 @threshold: 400px;
-@container @varfoo (min-width: @threshold) {
+@container @{varfoo} (min-width: @threshold) {
   #sticky-child {
     font-size: 75%;
   }
@@ -7415,7 +7863,7 @@ parsers: ["less"]
 @issue-width: 125px;
 
 .container-query-mixin(@container-name; @bp) {
-  @container @container-name (width < @bp) {
+  @container @{container-name} (width < @bp) {
     display: none;
   }
 }
@@ -7431,6 +7879,25 @@ parsers: ["less"]
 }
 .header-test {
   .container-query-mixin(header, 800px);
+}
+
+// Range/comparison syntax in @container style() queries (issue #4460)
+@container style(var(--n) = 3) {
+  .style-query-eq {
+    color: red;
+  }
+}
+
+@container style(calc(6 / 2) = var(--n)) {
+  .style-query-calc-eq {
+    color: blue;
+  }
+}
+
+@container style(var(--size) > 1lh) {
+  .style-query-gt {
+    color: green;
+  }
 }
 
 ================================================================================
@@ -7770,6 +8237,109 @@ body > .shadow {
 }
 
 @unknown foo 43;
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/css-escapes/css-escapes.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// CSS escapes tests
+@ugly: fuchsia;
+
+.escape\\|random\\|char {
+    color: red;
+}
+
+.mixin\\!tUp {
+    font-weight: bold;
+}
+
+// class="404"
+.\\34 04 {
+    background: red;
+
+    strong {
+        color: @ugly;
+        .mixin\\!tUp();
+    }
+}
+
+.trailingTest\\+ {
+    color: red;
+}
+
+/* This hideous test of hideousness checks for the selector "blockquote" with various permutations of hex escapes */
+\\62\\6c\\6f \\63 \\6B \\0071 \\000075o\\74 e {
+    color: silver;
+}
+
+[ng\\:cloak],
+ng\\:form {
+  display: none;
+}
+
+// In Bootstrap v3
+.bootstrap {
+    background-color: #000 \\9;
+}
+
+textarea {
+    font-family: 'helvetica neue','wenquanyi micro hei',\\5FAE\\8F6F\\96C5\\9ED1, \\5B8B\\4F53, sans-serif;
+}
+
+e('/* anything to unquote */');
+
+=====================================output=====================================
+// CSS escapes tests
+@ugly: fuchsia;
+
+.escape\\|random\\|char {
+  color: red;
+}
+
+.mixin\\!tUp {
+  font-weight: bold;
+}
+
+// class="404"
+.\\34 04 {
+  background: red;
+
+  strong {
+    color: @ugly;
+    .mixin\\!tUp();
+  }
+}
+
+.trailingTest\\+ {
+  color: red;
+}
+
+/* This hideous test of hideousness checks for the selector "blockquote" with various permutations of hex escapes */
+\\62\\6c\\6f \\63 \\6B \\0071 \\000075o\\74 e {
+  color: silver;
+}
+
+[ng\\:cloak],
+ng\\:form {
+  display: none;
+}
+
+// In Bootstrap v3
+.bootstrap {
+  background-color: #000 \\9;
+}
+
+textarea {
+  font-family:
+    "helvetica neue", "wenquanyi micro hei", \\5FAE\\8F6F\\96C5\\9ED1, \\5B8B\\4F53,
+    sans-serif;
+}
+
+e('/* anything to unquote */');
 
 ================================================================================
 `;
@@ -9698,6 +10268,963 @@ div.ext5,
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/extract-and-length/extract-and-length.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// test late parsing
+@cols: 1, 2;
+
+.a(@i: length(@cols)) when (@i > 0) {
+  @divider: e(extract(@cols, @i));
+}
+.a();
+
+.b(@j: 1) when (@j < length(@cols)) {
+  @divider: e(extract(@cols, @j));
+}
+.b();
+
+// simple array/list:
+
+.multiunit {
+  @v: abc "abc" 1 1px 1% #123;
+  length: length(@v);
+  extract: extract(@v, 1) extract(@v, 2) extract(@v, 3) extract(@v, 4) extract(@v, 5) extract(@v, 6);
+}
+
+.incorrect-index {
+    @v1: a  b  c;
+    @v2: a, b, c;
+    v1: extract(@v1,  5);
+    v2: extract(@v2, -2);
+}
+
+.scalar {
+    @var:          variable;
+    var-value:     extract(@var, 1);
+    var-length:    length(@var);
+    ill-index:     extract(@var, 2);
+
+    name-value:    extract(name, 1);
+    string-value:  extract("string", 1);
+    number-value:  extract(12345678, 1);
+    color-value:   extract(blue, 1);
+    rgba-value:    extract(rgba(80, 160, 240, 0.67), 1);
+    --empty-value:   extract(~'', 1);
+
+    name-length:   length(name);
+    string-length: length("string");
+    number-length: length(12345678);
+    color-length:  length(blue);
+    rgba-length:   length(rgba(80, 160, 240, 0.67));
+    empty-length:  length(~'');
+}
+
+.mixin-arguments {
+    .mixin-args(a b c d);
+    .mixin-args(a, b, c, d);
+    .mixin-args(1; 2; 3; 4);
+}
+
+.mixin-args(@value) {
+    &-1 {
+        length:  length(@value);
+        extract: extract(@value, 3) ~"|" extract(@value, 2) ~"|" extract(@value, 1);
+    }
+}
+
+.mixin-args(...) {
+    &-2 {
+        length:  length(@arguments);
+        extract: extract(@arguments, 3) ~"|" extract(@arguments, 2) ~"|" extract(@arguments, 1);
+    }
+}
+
+.mixin-args(@values...) {
+    &-3 {
+        length:  length(@values);
+        extract: extract(@values, 3) ~"|" extract(@values, 2) ~"|" extract(@values, 1);
+    }
+}
+
+.mixin-args(@head, @tail...) {
+    &-4 {
+        length:  length(@tail);
+        extract: extract(@tail, 2) ~"|" extract(@tail, 1);
+    }
+}
+
+// "multidimensional" array/list
+
+.md-space-comma {
+    @v: a b c, 1 2 3, "x" "y" "z";
+    length-1:  length(@v);
+    extract-1: extract(@v, 2);
+    length-2:  length(extract(@v, 2));
+    extract-2: extract(extract(@v, 2), 2);
+
+    &-as-args {.mixin-args(a b c, 1 2 3, "x" "y" "z")}
+}
+
+.md-cat-space-comma {
+    @a: a b c;
+    @b: 1 2 3;
+    @c: "x" "y" "z";
+    @v: @a, @b, @c;
+    length-1:  length(@v);
+    extract-1: extract(@v, 2);
+    length-2:  length(extract(@v, 2));
+    extract-2: extract(extract(@v, 2), 2);
+
+    &-as-args {.mixin-args(@a, @b, @c)}
+}
+
+.md-cat-comma-space {
+    @a: a, b, c;
+    @b: 1, 2, 3;
+    @c: "x", "y", "z";
+    @v: @a @b @c;
+    length-1:  length(@v);
+    extract-1: extract(@v, 2);
+    length-2:  length(extract(@v, 2));
+    extract-2: extract(extract(@v, 2), 2);
+
+    &-as-args {.mixin-args(@a @b @c)}
+}
+
+.md-3D {
+    @a: a b c d, 1 2 3 4;
+    @b: 5 6 7 8, e f g h;
+    .3D(@a, @b);
+
+    .3D(...) {
+
+        @v1:       @arguments;
+        length-1:  length(@v1);
+        extract-1: extract(@v1, 1);
+
+        @v2:       extract(@v1, 2);
+        length-2:  length(@v2);
+        extract-2: extract(@v2, 1);
+
+        @v3:       extract(@v2, 1);
+        length-3:  length(@v3);
+        extract-3: extract(@v3, 3);
+
+        @v4:       extract(@v3, 4);
+        length-4:  length(@v4);
+        extract-4: extract(@v4, 1);
+    }
+}
+
+
+
+=====================================output=====================================
+// test late parsing
+@cols: 1, 2;
+
+.a(@i: length(@cols)) when (@i > 0) {
+  @divider: e(extract(@cols, @i));
+}
+.a();
+
+.b(@j: 1) when (@j < length(@cols)) {
+  @divider: e(extract(@cols, @j));
+}
+.b();
+
+// simple array/list:
+
+.multiunit {
+  @v: abc "abc" 1 1px 1% #123;
+  length: length(@v);
+  extract: extract(@v, 1) extract(@v, 2) extract(@v, 3) extract(@v, 4)
+    extract(@v, 5) extract(@v, 6);
+}
+
+.incorrect-index {
+  @v1: a b c;
+  @v2: a, b, c;
+  v1: extract(@v1, 5);
+  v2: extract(@v2, -2);
+}
+
+.scalar {
+  @var: variable;
+  var-value: extract(@var, 1);
+  var-length: length(@var);
+  ill-index: extract(@var, 2);
+
+  name-value: extract(name, 1);
+  string-value: extract("string", 1);
+  number-value: extract(12345678, 1);
+  color-value: extract(blue, 1);
+  rgba-value: extract(rgba(80, 160, 240, 0.67), 1);
+  --empty-value: extract(~"", 1);
+
+  name-length: length(name);
+  string-length: length("string");
+  number-length: length(12345678);
+  color-length: length(blue);
+  rgba-length: length(rgba(80, 160, 240, 0.67));
+  empty-length: length(~"");
+}
+
+.mixin-arguments {
+  .mixin-args(a b c d);
+  .mixin-args(a, b, c, d);
+  .mixin-args(1; 2; 3; 4);
+}
+
+.mixin-args(@value) {
+  &-1 {
+    length: length(@value);
+    extract: extract(@value, 3) ~"|" extract(@value, 2) ~"|" extract(@value, 1);
+  }
+}
+
+.mixin-args(...) {
+  &-2 {
+    length: length(@arguments);
+    extract: extract(@arguments, 3) ~"|" extract(@arguments, 2) ~"|"
+      extract(@arguments, 1);
+  }
+}
+
+.mixin-args(@values...) {
+  &-3 {
+    length: length(@values);
+    extract: extract(@values, 3) ~"|" extract(@values, 2) ~"|"
+      extract(@values, 1);
+  }
+}
+
+.mixin-args(@head, @tail...) {
+  &-4 {
+    length: length(@tail);
+    extract: extract(@tail, 2) ~"|" extract(@tail, 1);
+  }
+}
+
+// "multidimensional" array/list
+
+.md-space-comma {
+  @v:
+    a b c,
+    1 2 3,
+    "x" "y" "z";
+  length-1: length(@v);
+  extract-1: extract(@v, 2);
+  length-2: length(extract(@v, 2));
+  extract-2: extract(extract(@v, 2), 2);
+
+  &-as-args {
+    .mixin-args(a b c, 1 2 3, "x" "y" "z");
+  }
+}
+
+.md-cat-space-comma {
+  @a: a b c;
+  @b: 1 2 3;
+  @c: "x" "y" "z";
+  @v: @a, @b, @c;
+  length-1: length(@v);
+  extract-1: extract(@v, 2);
+  length-2: length(extract(@v, 2));
+  extract-2: extract(extract(@v, 2), 2);
+
+  &-as-args {
+    .mixin-args(@a, @b, @c);
+  }
+}
+
+.md-cat-comma-space {
+  @a: a, b, c;
+  @b: 1, 2, 3;
+  @c: "x", "y", "z";
+  @v: @a @b @c;
+  length-1: length(@v);
+  extract-1: extract(@v, 2);
+  length-2: length(extract(@v, 2));
+  extract-2: extract(extract(@v, 2), 2);
+
+  &-as-args {
+    .mixin-args(@a @b @c);
+  }
+}
+
+.md-3D {
+  @a:
+    a b c d,
+    1 2 3 4;
+  @b:
+    5 6 7 8,
+    e f g h;
+  .3D(@a, @b);
+
+  .3D(...) {
+    @v1: @arguments;
+    length-1: length(@v1);
+    extract-1: extract(@v1, 1);
+
+    @v2: extract(@v1, 2);
+    length-2: length(@v2);
+    extract-2: extract(@v2, 1);
+
+    @v3: extract(@v2, 1);
+    length-3: length(@v3);
+    extract-3: extract(@v3, 3);
+
+    @v4: extract(@v3, 4);
+    length-4: length(@v4);
+    extract-4: extract(@v4, 1);
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/functions/functions.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+#functions {
+  @var: 10;
+  @colors: #000, #fff;
+  color: _color("evil red"); // #660000
+  width: increment(15);
+  height: undefined("self");
+  border-width: add(2, 3);
+  variable: increment(@var);
+  background: linear-gradient(@colors);
+}
+
+#built-in {
+  @r: 32;
+  @escaped-svg-literal: escape('<svg fill="red"></svg>');
+  escaped: e("-Some::weird(#thing, y)");
+  escaped-direct: escape('a b(c)=d:e#f;g');
+  escaped-svg-literal: url("data:image/svg+xml,@{escaped-svg-literal}");
+  lighten: lighten(#ff0000, 40%);
+  lighten-relative: lighten(#ff0000, 40%, relative);
+  darken: darken(#ff0000, 40%);
+  darken-relative: darken(#ff0000, 40%, relative);
+  saturate: saturate(#29332f, 20%);
+  saturate-relative: saturate(#29332f, 20%, relative);
+  desaturate: desaturate(#203c31, 20%);
+  desaturate-relative: desaturate(#203c31, 20%, relative);
+  greyscale: greyscale(#203c31);
+  hsl-clamp: hsl(380, 150%, 150%);
+  spin-p: spin(hsl(340, 50%, 50%), 40);
+  spin-n: spin(hsl(30, 50%, 50%), -40);
+  luma-white: luma(#fff);
+  luma-black: luma(#000);
+  luma-black-alpha: luma(rgba(0,0,0,0.5));
+  luma-red: luma(#ff0000);
+  luma-green: luma(#00ff00);
+  luma-blue: luma(#0000ff);
+  luma-yellow: luma(#ffff00);
+  luma-cyan: luma(#00ffff);
+  luma-differs-from-luminance: luma(#ff3600);
+  luminance-white: luma(#fff);
+  luminance-black: luma(#000);
+  luminance-black-alpha: luma(rgba(0,0,0,0.5));
+  luminance-red: luma(#ff0000);
+  luminance-differs-from-luma: luminance(#ff3600);
+  contrast-filter: contrast(30%);
+  saturate-filter: saturate(5%);
+  contrast-white: contrast(#fff);
+  contrast-black: contrast(#000);
+  contrast-red: contrast(#ff0000);
+  contrast-green: contrast(#00ff00);
+  contrast-blue: contrast(#0000ff);
+  contrast-yellow: contrast(#ffff00);
+  contrast-cyan: contrast(#00ffff);
+  contrast-light: contrast(#fff, #111111, #eeeeee);
+  contrast-dark: contrast(#000, #111111, #eeeeee);
+  contrast-wrongorder: contrast(#fff, #eeeeee, #111111, 0.5);
+  contrast-light-thresh: contrast(#fff, #111111, #eeeeee, 0.5);
+  contrast-dark-thresh: contrast(#000, #111111, #eeeeee, 0.5);
+  contrast-high-thresh: contrast(#555, #111111, #eeeeee, 0.6);
+  contrast-low-thresh: contrast(#555, #111111, #eeeeee, 0.09);
+  contrast-light-thresh-per: contrast(#fff, #111111, #eeeeee, 50%);
+  contrast-dark-thresh-per: contrast(#000, #111111, #eeeeee, 50%);
+  contrast-high-thresh-per: contrast(#555, #111111, #eeeeee, 60%);
+  contrast-low-thresh-per: contrast(#555, #111111, #eeeeee, 9%);
+  replace: replace("Hello, Mars.", "Mars\\.", "World!");
+  replace-captured: replace("This is a string.", "(string)\\.$", "new $1.");
+  replace-with-flags: replace("One + one = 4", "one", "2", "gi");
+  replace-single-quoted: replace('foo-1', "1", "2");
+  replace-escaped-string: replace(~"bar-1", "1", "2");
+  replace-keyword: replace(baz-1, "1", "2");
+  replace-with-color: replace("007", "0", #135, g);
+  replace-with-number: replace("007", "0", 2em);
+  format: %("rgb(%d, %d, %d)", @r, 128, 64);
+  format-string: %("hello %s", "world");
+  format-multiple: %("hello %s %d", "earth", 2);
+  format-url-encode: %("red is %A", #ff0000);
+  format-single-quoted: %('hello %s', "single world");
+  format-escaped-string: %(~"hello %s", "escaped world");
+  format-color-as-string: %("%s", #123);
+  format-number-as-string: %("%s", 4px);
+  eformat: e(%("rgb(%d, %d, %d)", @r, 128, 64));
+
+  unitless: unit(12px);
+  unit: unit((13px + 1px), em);
+  unitpercentage: unit(100, %);
+
+  get-unit: get-unit(10px);
+  get-unit-empty: get-unit(10);
+
+  hue: hue(hsl(98, 12%, 95%));
+  saturation: saturation(hsl(98, 12%, 95%));
+  lightness: lightness(hsl(98, 12%, 95%));
+  hsvhue: hsvhue(hsv(98, 12%, 95%));
+  hsvsaturation: hsvsaturation(hsv(98, 12%, 95%));
+  hsvvalue: hsvvalue(hsv(98, 12%, 95%));
+  red: red(#f00);
+  green: green(#0f0);
+  blue: blue(#00f);
+  rounded: round((@r/3));
+  rounded-two: round((@r/3), 2);
+  roundedpx: round((10px / 3));
+  roundedpx-three: round((10px / 3), 3);
+  rounded-percentage: round(10.2%);
+  ceil: ceil(10.1px);
+  floor: floor(12.9px);
+  sqrt: sqrt(25px);
+  pi: pi();
+  mod: mod(13m, 11cm); // could take into account units, doesn't at the moment
+  abs: abs(-4%);
+  tan: tan(42deg);
+  sin: sin(10deg);
+  cos: cos(12);
+  atan: atan(tan(0.1rad));
+  atan: convert(acos(cos(34deg)), deg);
+  atan: convert(acos(cos(50grad)), deg);
+  pow: pow(8px, 2);
+  pow: pow(4, 3);
+  pow: pow(3, 3em);
+  min: min(0);
+  min: min(6, 5);
+  min: min(1pt, 3pt);
+  min: min(1cm, 3mm);
+  min: min(6em, 5, 4ex, 3, 2pt, 1);
+  min: min(calc(1 + 1), 1);
+  min: min(~'var(--width), 802px');
+  max: max(1, 3);
+  max: max(3em, 1em, 2em, 5em);
+  max: max(1px, 2, 3em, 4, 5m, 6);
+  max: min(var(--body-max-width), calc(100vw - 20px));
+  max: max(1, calc(1 + 1));
+  max-native: max(10vw, 100px);
+  percentage: percentage((10px / 50));
+  color-quoted-digit: color("#dda0dd");
+  color-quoted-keyword: color("plum");
+  color-color: color(#dda0dd);
+  color-keyword: color(plum);
+  tint: tint(#777777, 13);
+  tint-full: tint(#777777, 100);
+  tint-percent: tint(#777777, 13%);
+  tint-negative: tint(#777777, -13%);
+  shade: shade(#777777, 13);
+  shade-full: shade(#777777, 100);
+  shade-percent: shade(#777777, 13%);
+  shade-negative: shade(#777777, -13%);
+
+  fade-out: fadeout(red, 5%); // support fadeOut and fadeout
+  fade-in: fadein(fadeout(red, 10%), 5%);
+  fade-out-relative: fadeout(red, 5%,relative);
+  fade-in-relative: fadein(fadeout(red, 10%, relative), 5%, relative);
+  fade-out2:  fadeout(fadeout(red, 50%), 50%);
+  fade-out2-relative: fadeout(fadeout(red, 50%, relative), 50%, relative);
+
+  hsv: hsv(5, 50%, 30%);
+  hsva: hsva(3, 50%, 30%, 0.2);
+
+  mix: mix(#ff0000, #ffff00, 80);
+  mix-0: mix(#ff0000, #ffff00, 0);
+  mix-100: mix(#ff0000, #ffff00, 100);
+  mix-weightless: mix(#ff0000, #ffff00);
+  mixt: mix(#ff0000, transparent);
+
+  .is-a {
+    @rules: {
+      color: red;
+    };
+    rules-defined: isdefined(@rules);
+    foo-defined: isdefined(@foo);
+    ruleset: isruleset(@rules);
+    color: iscolor(#ddd);
+    color1: iscolor(red);
+    color2: iscolor(rgb(0, 0, 0));
+    color3: iscolor(transparent);
+    keyword: iskeyword(hello);
+    number: isnumber(32);
+    string: isstring("hello");
+    pixel: ispixel(32px);
+    percent: ispercentage(32%);
+    em: isem(32em);
+    ex: isunit(32ex, ex);
+    rem: isunit(32rem, rem);
+    vw: isunit(32vw, vw);
+    vh: isunit(32vh, vh);
+    vmin: isunit(32vmin, vmin);
+    vmax: isunit(32vmax, vmax);
+    ch: isunit(32ch, ch);
+    cm: isunit(32cm, cm);
+    mm: isunit(32mm, mm);
+    pt: isunit(32pt, pt);
+    q: isunit(32q, q);
+    in: isunit(32in, in);
+    cat: isunit(32cat, cat);
+    no-unit-is-empty: isunit(32, '');
+    case-insensitive-1: isunit(32CAT, cat);
+    case-insensitive-2: isunit(32px, PX);
+  }
+}
+
+#alpha {
+  alpha: darken(hsla(25, 50%, 50%, 0.6), 10%);
+  alpha2: alpha(rgba(3, 4, 5, 0.5));
+  alpha3: alpha(transparent);
+}
+
+#blendmodes {
+  multiply: multiply(#f60000, #f60000);
+  screen: screen(#f60000, #0000f6);
+  overlay: overlay(#f60000, #0000f6);
+  softlight: softlight(#f60000, #ffffff);
+  hardlight: hardlight(#f60000, #0000f6);
+  difference: difference(#f60000, #0000f6);
+  exclusion: exclusion(#f60000, #0000f6);
+  average: average(#f60000, #0000f6);
+  negation: negation(#f60000, #313131);
+}
+
+#extract-and-length {
+  @anon: A B C 1 2 3;
+  extract: extract(@anon, 6) extract(@anon, 5) extract(@anon, 4) extract(@anon, 3) extract(@anon, 2) extract(@anon, 1);
+  length: length(@anon);
+}
+
+#quoted-functions-in-mixin {
+  // Quoted type may have some weird side-effects when used in mixins (#2308)
+  .mixin();
+  .mixin() {
+    replace-double-quoted: replace('foo-1', "1", "2");
+    replace-single-quoted: replace('foo-3', "3", "4");
+    replace-escaped-string: replace(~"bar-1", "1", "2");
+    replace-keyword: replace(baz-1, "1", "2");
+    replace-anonymous: replace(e("qux-1"), "1", "2");
+    format-double-quoted: %("hello %s", "world");
+    format-single-quoted: %('hello %s', "single world");
+    format-escaped-string: %(~"hello %s", "escaped world");
+    format-keyword: %(hello);
+    format-anonymous: %(e("hello %s"), "anonymous world");
+  }
+}
+
+#list-details {
+  @list:
+    a 1, // Some comment
+    b 2;
+
+  length: length(@list);
+  one: extract(@list, 1);
+  @two: extract(@list, 2);
+  two: @two;
+  two-length: length(@two);
+  two-one: extract(@two, 1);
+  two-two: extract(@two, 2);
+}
+@color1: #FFF;/* comment1 */
+@color2: #FFF/* comment2 */;
+html {
+  color: mix(blue, @color1, 50%);
+  color: mix(blue, @color2, 50%);
+}
+
+#boolean {
+  a: boolean(not(2 < 1));
+  b: boolean(not(2 > 1) and (true));
+  c: boolean(not(boolean(true)));
+  // not without parentheses (should behave the same as with parentheses)
+  d: boolean(not false);
+  e: boolean(not true);
+  f: boolean((2 > 1) = (3 > 2));
+}
+
+#if {
+  a: if(not(false), 1, 2);
+  b: if(not(true), 1, 2);
+  @1: if(not(false), {c: 3}, {d: 4}); @1();
+
+  --e: if(not(true), 5);
+  @f: boolean(3 = 4);
+  f: if(not(@f), 6);
+  g: if(true, 3, 5);
+  h: if(false, 3, 5);
+  i: if(true and isnumber(6), 6, 8);
+  j: if(not(true) and true, 6, 8);
+  k: if(true or true, 1);
+  // not without parentheses
+  m: if(not false, 1, 2);
+  n: if(not true, 1, 2);
+
+  // see: https://github.com/less/less.js/issues/3371
+  @some: foo;
+  l: if((iscolor(@some)), darken(@some, 10%), black);
+
+
+  if((false), {g: 7}); /* results in void */
+
+  @conditional: if((true), {
+    color: green;
+  }, {});
+  @conditional();
+
+  @falsey: if((false), {
+    color: orange;
+  }, {
+    color: purple;
+  });
+  @falsey();
+}
+
+.paren-escapes {
+  list-1: ~(1, 2, 3);
+  length-1: length($list-1);
+  each(~(1 2 3); {
+    item-@{value}: @value + 3;
+  })
+
+  .mixin(@list-1; @list-2) {
+    list-2: @list-1;
+    list-3: @list-2;
+  }
+  .mixin($list-1, ~(7; 8; 9));
+}
+
+=====================================output=====================================
+#functions {
+  @var: 10;
+  @colors: #000, #fff;
+  color: _color("evil red"); // #660000
+  width: increment(15);
+  height: undefined("self");
+  border-width: add(2, 3);
+  variable: increment(@var);
+  background: linear-gradient(@colors);
+}
+
+#built-in {
+  @r: 32;
+  @escaped-svg-literal: escape('<svg fill="red"></svg>');
+  escaped: e("-Some::weird(#thing, y)");
+  escaped-direct: escape("a b(c)=d:e#f;g");
+  escaped-svg-literal: url("data:image/svg+xml,@{escaped-svg-literal}");
+  lighten: lighten(#ff0000, 40%);
+  lighten-relative: lighten(#ff0000, 40%, relative);
+  darken: darken(#ff0000, 40%);
+  darken-relative: darken(#ff0000, 40%, relative);
+  saturate: saturate(#29332f, 20%);
+  saturate-relative: saturate(#29332f, 20%, relative);
+  desaturate: desaturate(#203c31, 20%);
+  desaturate-relative: desaturate(#203c31, 20%, relative);
+  greyscale: greyscale(#203c31);
+  hsl-clamp: hsl(380, 150%, 150%);
+  spin-p: spin(hsl(340, 50%, 50%), 40);
+  spin-n: spin(hsl(30, 50%, 50%), -40);
+  luma-white: luma(#fff);
+  luma-black: luma(#000);
+  luma-black-alpha: luma(rgba(0, 0, 0, 0.5));
+  luma-red: luma(#ff0000);
+  luma-green: luma(#00ff00);
+  luma-blue: luma(#0000ff);
+  luma-yellow: luma(#ffff00);
+  luma-cyan: luma(#00ffff);
+  luma-differs-from-luminance: luma(#ff3600);
+  luminance-white: luma(#fff);
+  luminance-black: luma(#000);
+  luminance-black-alpha: luma(rgba(0, 0, 0, 0.5));
+  luminance-red: luma(#ff0000);
+  luminance-differs-from-luma: luminance(#ff3600);
+  contrast-filter: contrast(30%);
+  saturate-filter: saturate(5%);
+  contrast-white: contrast(#fff);
+  contrast-black: contrast(#000);
+  contrast-red: contrast(#ff0000);
+  contrast-green: contrast(#00ff00);
+  contrast-blue: contrast(#0000ff);
+  contrast-yellow: contrast(#ffff00);
+  contrast-cyan: contrast(#00ffff);
+  contrast-light: contrast(#fff, #111111, #eeeeee);
+  contrast-dark: contrast(#000, #111111, #eeeeee);
+  contrast-wrongorder: contrast(#fff, #eeeeee, #111111, 0.5);
+  contrast-light-thresh: contrast(#fff, #111111, #eeeeee, 0.5);
+  contrast-dark-thresh: contrast(#000, #111111, #eeeeee, 0.5);
+  contrast-high-thresh: contrast(#555, #111111, #eeeeee, 0.6);
+  contrast-low-thresh: contrast(#555, #111111, #eeeeee, 0.09);
+  contrast-light-thresh-per: contrast(#fff, #111111, #eeeeee, 50%);
+  contrast-dark-thresh-per: contrast(#000, #111111, #eeeeee, 50%);
+  contrast-high-thresh-per: contrast(#555, #111111, #eeeeee, 60%);
+  contrast-low-thresh-per: contrast(#555, #111111, #eeeeee, 9%);
+  replace: replace("Hello, Mars.", "Mars\\.", "World!");
+  replace-captured: replace("This is a string.", "(string)\\.$", "new $1.");
+  replace-with-flags: replace("One + one = 4", "one", "2", "gi");
+  replace-single-quoted: replace("foo-1", "1", "2");
+  replace-escaped-string: replace(~"bar-1", "1", "2");
+  replace-keyword: replace(baz-1, "1", "2");
+  replace-with-color: replace("007", "0", #135, g);
+  replace-with-number: replace("007", "0", 2em);
+  format: %("rgb(%d, %d, %d)", @r, 128, 64);
+  format-string: %("hello %s", "world");
+  format-multiple: %("hello %s %d", "earth", 2);
+  format-url-encode: %("red is %A", #ff0000);
+  format-single-quoted: %("hello %s", "single world");
+  format-escaped-string: %(~"hello %s", "escaped world");
+  format-color-as-string: %("%s", #123);
+  format-number-as-string: %("%s", 4px);
+  eformat: e(%("rgb(%d, %d, %d)", @r, 128, 64));
+
+  unitless: unit(12px);
+  unit: unit((13px + 1px), em);
+  unitpercentage: unit(100, %);
+
+  get-unit: get-unit(10px);
+  get-unit-empty: get-unit(10);
+
+  hue: hue(hsl(98, 12%, 95%));
+  saturation: saturation(hsl(98, 12%, 95%));
+  lightness: lightness(hsl(98, 12%, 95%));
+  hsvhue: hsvhue(hsv(98, 12%, 95%));
+  hsvsaturation: hsvsaturation(hsv(98, 12%, 95%));
+  hsvvalue: hsvvalue(hsv(98, 12%, 95%));
+  red: red(#f00);
+  green: green(#0f0);
+  blue: blue(#00f);
+  rounded: round((@r / 3));
+  rounded-two: round((@r / 3), 2);
+  roundedpx: round((10px / 3));
+  roundedpx-three: round((10px / 3), 3);
+  rounded-percentage: round(10.2%);
+  ceil: ceil(10.1px);
+  floor: floor(12.9px);
+  sqrt: sqrt(25px);
+  pi: pi();
+  mod: mod(13m, 11cm); // could take into account units, doesn't at the moment
+  abs: abs(-4%);
+  tan: tan(42deg);
+  sin: sin(10deg);
+  cos: cos(12);
+  atan: atan(tan(0.1rad));
+  atan: convert(acos(cos(34deg)), deg);
+  atan: convert(acos(cos(50grad)), deg);
+  pow: pow(8px, 2);
+  pow: pow(4, 3);
+  pow: pow(3, 3em);
+  min: min(0);
+  min: min(6, 5);
+  min: min(1pt, 3pt);
+  min: min(1cm, 3mm);
+  min: min(6em, 5, 4ex, 3, 2pt, 1);
+  min: min(calc(1 + 1), 1);
+  min: min(~"var(--width), 802px");
+  max: max(1, 3);
+  max: max(3em, 1em, 2em, 5em);
+  max: max(1px, 2, 3em, 4, 5m, 6);
+  max: min(var(--body-max-width), calc(100vw - 20px));
+  max: max(1, calc(1 + 1));
+  max-native: max(10vw, 100px);
+  percentage: percentage((10px / 50));
+  color-quoted-digit: color("#dda0dd");
+  color-quoted-keyword: color("plum");
+  color-color: color(#dda0dd);
+  color-keyword: color(plum);
+  tint: tint(#777777, 13);
+  tint-full: tint(#777777, 100);
+  tint-percent: tint(#777777, 13%);
+  tint-negative: tint(#777777, -13%);
+  shade: shade(#777777, 13);
+  shade-full: shade(#777777, 100);
+  shade-percent: shade(#777777, 13%);
+  shade-negative: shade(#777777, -13%);
+
+  fade-out: fadeout(red, 5%); // support fadeOut and fadeout
+  fade-in: fadein(fadeout(red, 10%), 5%);
+  fade-out-relative: fadeout(red, 5%, relative);
+  fade-in-relative: fadein(fadeout(red, 10%, relative), 5%, relative);
+  fade-out2: fadeout(fadeout(red, 50%), 50%);
+  fade-out2-relative: fadeout(fadeout(red, 50%, relative), 50%, relative);
+
+  hsv: hsv(5, 50%, 30%);
+  hsva: hsva(3, 50%, 30%, 0.2);
+
+  mix: mix(#ff0000, #ffff00, 80);
+  mix-0: mix(#ff0000, #ffff00, 0);
+  mix-100: mix(#ff0000, #ffff00, 100);
+  mix-weightless: mix(#ff0000, #ffff00);
+  mixt: mix(#ff0000, transparent);
+
+  .is-a {
+    @rules: {
+      color: red;
+    };
+    rules-defined: isdefined(@rules);
+    foo-defined: isdefined(@foo);
+    ruleset: isruleset(@rules);
+    color: iscolor(#ddd);
+    color1: iscolor(red);
+    color2: iscolor(rgb(0, 0, 0));
+    color3: iscolor(transparent);
+    keyword: iskeyword(hello);
+    number: isnumber(32);
+    string: isstring("hello");
+    pixel: ispixel(32px);
+    percent: ispercentage(32%);
+    em: isem(32em);
+    ex: isunit(32ex, ex);
+    rem: isunit(32rem, rem);
+    vw: isunit(32vw, vw);
+    vh: isunit(32vh, vh);
+    vmin: isunit(32vmin, vmin);
+    vmax: isunit(32vmax, vmax);
+    ch: isunit(32ch, ch);
+    cm: isunit(32cm, cm);
+    mm: isunit(32mm, mm);
+    pt: isunit(32pt, pt);
+    q: isunit(32Q, q);
+    in: isunit(32in, in);
+    cat: isunit(32cat, cat);
+    no-unit-is-empty: isunit(32, "");
+    case-insensitive-1: isunit(32CAT, cat);
+    case-insensitive-2: isunit(32px, PX);
+  }
+}
+
+#alpha {
+  alpha: darken(hsla(25, 50%, 50%, 0.6), 10%);
+  alpha2: alpha(rgba(3, 4, 5, 0.5));
+  alpha3: alpha(transparent);
+}
+
+#blendmodes {
+  multiply: multiply(#f60000, #f60000);
+  screen: screen(#f60000, #0000f6);
+  overlay: overlay(#f60000, #0000f6);
+  softlight: softlight(#f60000, #ffffff);
+  hardlight: hardlight(#f60000, #0000f6);
+  difference: difference(#f60000, #0000f6);
+  exclusion: exclusion(#f60000, #0000f6);
+  average: average(#f60000, #0000f6);
+  negation: negation(#f60000, #313131);
+}
+
+#extract-and-length {
+  @anon: A B C 1 2 3;
+  extract: extract(@anon, 6) extract(@anon, 5) extract(@anon, 4)
+    extract(@anon, 3) extract(@anon, 2) extract(@anon, 1);
+  length: length(@anon);
+}
+
+#quoted-functions-in-mixin {
+  // Quoted type may have some weird side-effects when used in mixins (#2308)
+  .mixin();
+  .mixin() {
+    replace-double-quoted: replace("foo-1", "1", "2");
+    replace-single-quoted: replace("foo-3", "3", "4");
+    replace-escaped-string: replace(~"bar-1", "1", "2");
+    replace-keyword: replace(baz-1, "1", "2");
+    replace-anonymous: replace(e("qux-1"), "1", "2");
+    format-double-quoted: %("hello %s", "world");
+    format-single-quoted: %("hello %s", "single world");
+    format-escaped-string: %(~"hello %s", "escaped world");
+    format-keyword: %(hello);
+    format-anonymous: %(e("hello %s"), "anonymous world");
+  }
+}
+
+#list-details {
+  @list:
+    a 1,
+    // Some comment
+    b 2;
+
+  length: length(@list);
+  one: extract(@list, 1);
+  @two: extract(@list, 2);
+  two: @two;
+  two-length: length(@two);
+  two-one: extract(@two, 1);
+  two-two: extract(@two, 2);
+}
+@color1: #fff; /* comment1 */
+@color2: #fff/* comment2 */ ;
+html {
+  color: mix(blue, @color1, 50%);
+  color: mix(blue, @color2, 50%);
+}
+
+#boolean {
+  a: boolean(not(2 < 1));
+  b: boolean(not(2 > 1) and (true));
+  c: boolean(not(boolean(true)));
+  // not without parentheses (should behave the same as with parentheses)
+  d: boolean(not false);
+  e: boolean(not true);
+  f: boolean((2 > 1) = (3 > 2));
+}
+
+#if {
+  a: if(not(false), 1, 2);
+  b: if(not(true), 1, 2);
+  @1: if(not(false), {c: 3}, {d: 4});
+  @1();
+
+  --e: if(not(true), 5);
+  @f: boolean(3 = 4);
+  f: if(not(@f), 6);
+  g: if(true, 3, 5);
+  h: if(false, 3, 5);
+  i: if(true and isnumber(6), 6, 8);
+  j: if(not(true) and true, 6, 8);
+  k: if(true or true, 1);
+  // not without parentheses
+  m: if(not false, 1, 2);
+  n: if(not true, 1, 2);
+
+  // see: https://github.com/less/less.js/issues/3371
+  @some: foo;
+  l: if((iscolor(@some)), darken(@some, 10%), black);
+
+  if((false), {g: 7}); /* results in void */
+
+  @conditional: if((true), {color: green;}, {});
+  @conditional();
+
+  @falsey: if((false), {color: orange;}, {color: purple;});
+  @falsey();
+}
+
+.paren-escapes {
+  list-1: ~(1, 2, 3);
+  length-1: length($list-1);
+  each(~(1 2 3); {
+    item-@{value}: @value + 3;
+  }) .mixin(@list-1; @list-2) {
+    list-2: @list-1;
+    list-3: @list-2;
+  }
+  .mixin($list-1, ~(7; 8; 9));
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/functions-each/functions-each.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -10446,11 +11973,11 @@ parsers: ["less"]
   }
 }
 .mixin-with-directives(@keyframeName) {
-  @keyframes @keyframeName {
+  @keyframes @{keyframeName} {
     @rules1();
   }
   @supports (animation-name: test) {
-    @keyframes @keyframeName {
+    @keyframes @{keyframeName} {
       @rules2();
     }
     .selector {
@@ -10545,11 +12072,11 @@ parsers: ["less"]
   }
 }
 .mixin-with-directives(@keyframeName) {
-  @keyframes @keyframeName {
+  @keyframes @{keyframeName} {
     @rules1();
   }
   @supports (animation-name: test) {
-    @keyframes @keyframeName {
+    @keyframes @{keyframeName} {
       @rules2();
     }
     .selector {
@@ -11492,7 +13019,7 @@ parsers: ["less"]
 
 @layer-name: primevue;
 
-@layer @layer-name {
+@layer @{layer-name} {
     .test {
         foo: bar;
     }
@@ -11663,7 +13190,7 @@ body {
 
 @layer-name: primevue;
 
-@layer @layer-name {
+@layer @{layer-name} {
   .test {
     foo: bar;
   }
@@ -11837,6 +13364,314 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/lookup-interpolation/lookup-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// \`[...]\` lookups inside \`@{...}\` interpolation, backported from Less 5.x.
+//
+// Before the backport the parser accepted only \`@{name}\`, so every form below
+// either failed to parse or — in string and url positions — silently emitted the
+// interpolation verbatim into the output. The url/quoted cases in particular are
+// regression coverage for that silent pass-through: a wrong-output bug that
+// produced no error and no warning.
+//
+// The bare \`@map[key]\` spelling is covered by at-rule-variable-deprecated.less,
+// where it is deprecated in structural positions.
+
+@sizes: {
+  tablet: 768px;
+  name: card;
+  @name: indirect-hit;
+  last-entry: tail;
+};
+
+@theme: {
+  color: blue;
+  @nested: {
+    name: inner;
+    label: "deep";
+    last-entry: nested-tail;
+  }
+};
+
+@paths: {
+  img: "/assets/img";
+};
+
+@which: name;
+
+// --- quoted strings ---
+.quoted {
+  single: "@{sizes[name]}";
+  chained: "@{theme[@nested][name]}";
+  quoted-value: "@{theme[@nested][label]}";
+  indirect-key: "@{sizes[@@which]}";
+  empty-key: "@{sizes[]}";
+  chained-empty-key: "@{theme[@nested][]}";
+  surrounded: "a-@{sizes[name]}-b";
+  twice: "@{sizes[name]}/@{theme[color]}";
+}
+
+// --- url() — the silent pass-through regression ---
+// An unquoted url() body was raw text in an Anonymous node, so neither the plain
+// nor the lookup interpolation resolved there while the quoted form did. Both
+// spellings are covered so the two cannot diverge again.
+@plain-path: "/plain";
+
+.url {
+  quoted: url("@{paths[img]}/hero.png");
+  unquoted: url(@{paths[img]}/plain.png);
+  unquoted-plain: url(@{plain-path}/no-lookup.png);
+  untouched: url(/static/literal.png);
+  untouched-quoted: url("/static/literal.png");
+  data-uri: url(data:image/svg+xml;base64,AAAA);
+}
+
+// --- \${...} property interpolation ---
+// Properties have no lookup grammar: \`$name[key]\` is a property reference followed
+// by literal \`[key]\`, and \`prop: { … }\` is a parse error in every scope, so nothing
+// can hold a ruleset to look into. \`\${...}\` therefore stays narrow while \`@{...}\`
+// carries lookups, and the plain form must keep working unchanged.
+.property-interpolation {
+  color: red;
+  from-property: "\${color}";
+  surrounded: "a-\${color}-b";
+  bare: $color;
+}
+
+// --- selector interpolation ---
+.@{sizes[name]} {
+  a: b;
+}
+
+.@{theme[@nested][name]} {
+  c: d;
+}
+
+// --- property name interpolation ---
+.property {
+  @{sizes[name]}: from-lookup;
+  @{theme[@nested][name]}: from-chained-lookup;
+}
+
+// --- at-rule name and prelude ---
+@keyframes @{sizes[name]} {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@queries: {
+  tablet: ~"(min-width: 768px)";
+};
+
+@media @{queries[tablet]} {
+  .responsive {
+    e: f;
+  }
+}
+
+// --- custom property values ---
+.custom-property {
+  --from-lookup: @{paths[img]};
+  --from-chained: @{theme[@nested][name]};
+}
+
+// --- interpolation still resolves to a fixpoint ---
+// The inner \`@{...}\` arrives from a variable's value at eval time, so it is not
+// present in the source text of the outer reference.
+@inner: card;
+@outer: ~"@{inner}";
+
+.recursive {
+  g: "@{outer}";
+}
+
+// --- plain interpolation is unaffected by the lookup support ---
+.plain {
+  h: "@{which}";
+}
+
+.@{which} {
+  i: j;
+}
+
+=====================================output=====================================
+// \`[...]\` lookups inside \`@{...}\` interpolation, backported from Less 5.x.
+//
+// Before the backport the parser accepted only \`@{name}\`, so every form below
+// either failed to parse or — in string and url positions — silently emitted the
+// interpolation verbatim into the output. The url/quoted cases in particular are
+// regression coverage for that silent pass-through: a wrong-output bug that
+// produced no error and no warning.
+//
+// The bare \`@map[key]\` spelling is covered by at-rule-variable-deprecated.less,
+// where it is deprecated in structural positions.
+
+@sizes: {
+  tablet: 768px;
+  name: card;
+  @name: indirect-hit;
+  last-entry: tail;
+};
+
+@theme: {
+  color: blue;
+  @nested: {
+    name: inner;
+    label: "deep";
+    last-entry: nested-tail;
+  };
+};
+
+@paths: {
+  img: "/assets/img";
+};
+
+@which: name;
+
+// --- quoted strings ---
+.quoted {
+  single: "@{sizes[name]}";
+  chained: "@{theme[@nested][name]}";
+  quoted-value: "@{theme[@nested][label]}";
+  indirect-key: "@{sizes[@@which]}";
+  empty-key: "@{sizes[]}";
+  chained-empty-key: "@{theme[@nested][]}";
+  surrounded: "a-@{sizes[name]}-b";
+  twice: "@{sizes[name]}/@{theme[color]}";
+}
+
+// --- url() — the silent pass-through regression ---
+// An unquoted url() body was raw text in an Anonymous node, so neither the plain
+// nor the lookup interpolation resolved there while the quoted form did. Both
+// spellings are covered so the two cannot diverge again.
+@plain-path: "/plain";
+
+.url {
+  quoted: url("@{paths[img]}/hero.png");
+  unquoted: url(@{paths[img]}/plain.png);
+  unquoted-plain: url(@{plain-path}/no-lookup.png);
+  untouched: url(/static/literal.png);
+  untouched-quoted: url("/static/literal.png");
+  data-uri: url(data:image/svg+xml;base64,AAAA);
+}
+
+// --- \${...} property interpolation ---
+// Properties have no lookup grammar: \`$name[key]\` is a property reference followed
+// by literal \`[key]\`, and \`prop: { … }\` is a parse error in every scope, so nothing
+// can hold a ruleset to look into. \`\${...}\` therefore stays narrow while \`@{...}\`
+// carries lookups, and the plain form must keep working unchanged.
+.property-interpolation {
+  color: red;
+  from-property: "\${color}";
+  surrounded: "a-\${color}-b";
+  bare: $color;
+}
+
+// --- selector interpolation ---
+.@{sizes[name]} {
+  a: b;
+}
+
+.@{theme[@nested][name]} {
+  c: d;
+}
+
+// --- property name interpolation ---
+.property {
+  @{sizes[name]}: from-lookup;
+  @{theme[@nested][name]}: from-chained-lookup;
+}
+
+// --- at-rule name and prelude ---
+@keyframes @{sizes[name]} {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@queries: {
+  tablet: ~"(min-width: 768px)";
+};
+
+@media @{queries[tablet]} {
+  .responsive {
+    e: f;
+  }
+}
+
+// --- custom property values ---
+.custom-property {
+  --from-lookup: @{paths[img]};
+  --from-chained: @{theme[@nested][name]};
+}
+
+// --- interpolation still resolves to a fixpoint ---
+// The inner \`@{...}\` arrives from a variable's value at eval time, so it is not
+// present in the source text of the outer reference.
+@inner: card;
+@outer: ~"@{inner}";
+
+.recursive {
+  g: "@{outer}";
+}
+
+// --- plain interpolation is unaffected by the lookup support ---
+.plain {
+  h: "@{which}";
+}
+
+.@{which} {
+  i: j;
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/math-css-vars/math-css-vars.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Math functions cannot resolve a runtime CSS var() at compile time, so the
+// whole call is left for the browser instead of erroring (issue #4224).
+.trig {
+  a: sin(var(--angle));
+  b: cos(var(--a));
+  c: calc(tan(var(--t)) * 1px);
+  d: atan2(var(--x), var(--y));
+}
+
+// Concrete numeric arguments still evaluate.
+.numeric {
+  a: sin(30deg);
+  b: ceil(4.2);
+}
+
+=====================================output=====================================
+// Math functions cannot resolve a runtime CSS var() at compile time, so the
+// whole call is left for the browser instead of erroring (issue #4224).
+.trig {
+  a: sin(var(--angle));
+  b: cos(var(--a));
+  c: calc(tan(var(--t)) * 1px);
+  d: atan2(var(--x), var(--y));
+}
+
+// Concrete numeric arguments still evaluate.
+.numeric {
+  a: sin(30deg);
+  b: ceil(4.2);
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/media/media.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -11951,7 +13786,7 @@ parsers: ["less"]
   .mediaMixin();
 }
 @smartphone: ~"only screen and (max-width: 200px)";
-@media @smartphone {
+@media @{smartphone} {
   .body {
     width: 480px;
   }
@@ -12070,7 +13905,7 @@ parsers: ["less"]
 }
 @all: ~"all";
 @tv: ~"(tv)";
-@media @all and @tv {
+@media @{all} and @{tv} {
   .all-and-tv-variables {
     var: all-and-tv;
   }
@@ -12270,7 +14105,7 @@ parsers: ["less"]
   .mediaMixin();
 }
 @smartphone: ~"only screen and (max-width: 200px)";
-@media @smartphone {
+@media @{smartphone} {
   .body {
     width: 480px;
   }
@@ -12394,7 +14229,7 @@ parsers: ["less"]
 }
 @all: ~"all";
 @tv: ~"(tv)";
-@media @all and @tv {
+@media @{all} and @{tv} {
   .all-and-tv-variables {
     var: all-and-tv;
   }
@@ -12474,6 +14309,135 @@ parsers: ["less"]
 @media ((color) and (hover)), all {
   body {
     background: green;
+  }
+}
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/media-nested-type/media-nested-type.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// A media type nested inside conditions must lead the flattened query,
+// otherwise the result is invalid CSS (issue #3694, #3764).
+@media (max-width: 500px) {
+  @media screen {
+    .a { color: red; }
+  }
+}
+@media (min-width: 100px) {
+  @media only screen {
+    .b { color: blue; }
+  }
+}
+@media (max-width: 9px) {
+  @media all {
+    .c { color: green; }
+  }
+}
+@media (min-width: 1px) {
+  @media print and (color) {
+    .d { color: black; }
+  }
+}
+
+// Already-correct ordering is preserved.
+@media screen {
+  @media (max-width: 500px) {
+    .e { color: red; }
+  }
+}
+
+// Queries without a media type are left untouched.
+@media (max-width: 500px) {
+  @media (min-width: 100px) {
+    .f { color: red; }
+  }
+}
+
+// Unknown media types are valid CSS non-matches, so they reorder too.
+@media (max-width: 500px) {
+  @media tester {
+    .g { color: red; }
+  }
+}
+
+// An escaped-string feature condition (Anonymous) must not be mistaken for a media type.
+@fc: ~"(max-width: 500px)";
+@media @fc {
+  @media screen {
+    .h { color: red; }
+  }
+}
+
+=====================================output=====================================
+// A media type nested inside conditions must lead the flattened query,
+// otherwise the result is invalid CSS (issue #3694, #3764).
+@media (max-width: 500px) {
+  @media screen {
+    .a {
+      color: red;
+    }
+  }
+}
+@media (min-width: 100px) {
+  @media only screen {
+    .b {
+      color: blue;
+    }
+  }
+}
+@media (max-width: 9px) {
+  @media all {
+    .c {
+      color: green;
+    }
+  }
+}
+@media (min-width: 1px) {
+  @media print and (color) {
+    .d {
+      color: black;
+    }
+  }
+}
+
+// Already-correct ordering is preserved.
+@media screen {
+  @media (max-width: 500px) {
+    .e {
+      color: red;
+    }
+  }
+}
+
+// Queries without a media type are left untouched.
+@media (max-width: 500px) {
+  @media (min-width: 100px) {
+    .f {
+      color: red;
+    }
+  }
+}
+
+// Unknown media types are valid CSS non-matches, so they reorder too.
+@media (max-width: 500px) {
+  @media tester {
+    .g {
+      color: red;
+    }
+  }
+}
+
+// An escaped-string feature condition (Anonymous) must not be mistaken for a media type.
+@fc: ~"(max-width: 500px)";
+@media @fc {
+  @media screen {
+    .h {
+      color: red;
+    }
   }
 }
 
@@ -12878,6 +14842,22 @@ h3 { .margin_between(15px, 5px); }
   .clearfix();
 }
 
+// Forwarding an unset variadic must fall through to the callee's default,
+// not pass an empty argument that overrides it (issue #4352).
+.rest-forward(@a, @rest...) {
+  .rest-target(@a, @rest);
+}
+.rest-target(@a, @b: fallback) {
+  a: @a;
+  b: @b;
+}
+.rest-forwarding-empty {
+  .rest-forward(1);
+}
+.rest-forwarding-filled {
+  .rest-forward(1, 2);
+}
+
 =====================================output=====================================
 .mixin {
   border: 1px solid black;
@@ -13050,6 +15030,22 @@ h3 {
 }
 .foo {
   .clearfix();
+}
+
+// Forwarding an unset variadic must fall through to the callee's default,
+// not pass an empty argument that overrides it (issue #4352).
+.rest-forward(@a, @rest...) {
+  .rest-target(@a, @rest);
+}
+.rest-target(@a, @b: fallback) {
+  a: @a;
+  b: @b;
+}
+.rest-forwarding-empty {
+  .rest-forward(1);
+}
+.rest-forwarding-filled {
+  .rest-forward(1, 2);
 }
 
 ================================================================================
@@ -14912,6 +16908,171 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/mixins-interpolated/mixins-interpolated.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@a0: \\123;
+@a1: foo;
+@a2: ~".foo";
+@a4: ~"#foo";
+
+.@{a0} {
+    a: 0;
+}
+
+.@{a1} {
+    a: 1;
+}
+
+@{a2} {
+    a: 2;
+}
+
+#@{a1} {
+    a: 3;
+}
+
+@{a4} {
+    a: 4;
+}
+
+mi-test-a {
+    .\\123();
+    .foo();
+    #foo();
+}
+
+.b .bb {
+    &.@{a1}-xxx .yyy-@{a1}@{a4} {
+        & @{a2}.bbb {
+            b: 1;
+        }
+    }
+}
+
+mi-test-b {
+    .b.bb.foo-xxx.yyy-foo#foo.foo.bbb();
+}
+
+@c1: @a1;
+@c2: bar;
+@c3: baz;
+
+#@{c1}-foo {
+    > .@{c2} {
+        .@{c3} {
+            c: c;
+        }
+    }
+}
+
+mi-test-c {
+    &-1 {#foo-foo();}
+    &-2 {#foo-foo > .bar();}
+    &-3 {#foo-foo > .bar.baz();}
+}
+
+.Person(@name, @gender_) {
+    .@{name} {
+        @gender: @gender_;
+        .sayGender() {
+            gender: @gender;
+        }
+    }
+}
+
+mi-test-d {
+    .Person(person, "Male");
+    .person.sayGender();
+}
+
+=====================================output=====================================
+@a0: \\123;
+@a1: foo;
+@a2: ~".foo";
+@a4: ~"#foo";
+
+.@{a0} {
+  a: 0;
+}
+
+.@{a1} {
+  a: 1;
+}
+
+@{a2} {
+  a: 2;
+}
+
+#@{a1} {
+  a: 3;
+}
+
+@{a4} {
+  a: 4;
+}
+
+mi-test-a {
+  .\\123();
+  .foo();
+  #foo();
+}
+
+.b .bb {
+  &.@{a1}-xxx .yyy-@{a1}@{a4} {
+    & @{a2}.bbb {
+      b: 1;
+    }
+  }
+}
+
+mi-test-b {
+  .b.bb.foo-xxx.yyy-foo#foo.foo.bbb();
+}
+
+@c1: @a1;
+@c2: bar;
+@c3: baz;
+
+#@{c1}-foo {
+  > .@{c2} {
+    .@{c3} {
+      c: c;
+    }
+  }
+}
+
+mi-test-c {
+  &-1 {
+    #foo-foo();
+  }
+  &-2 {
+    #foo-foo > .bar();
+  }
+  &-3 {
+    #foo-foo > .bar.baz();
+  }
+}
+
+.Person(@name, @gender_) {
+  .@{name} {
+    @gender: @gender_;
+    .sayGender() {
+      gender: @gender;
+    }
+  }
+}
+
+mi-test-d {
+  .Person(person, "Male");
+  .person.sayGender();
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/mixins-named-args/mixins-named-args.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -14954,6 +17115,21 @@ parsers: ["less"]
   .mixin2(@b: 30%, @c: #123456);
 }
 
+.arity-mixin(@a) {
+  value: @a;
+}
+.arity-mixin(@a: 1, @b) {
+  value: @a + @b;
+}
+
+.arity-positional {
+  .arity-mixin(3);
+}
+
+.arity-named {
+  .arity-mixin(@b: 3);
+}
+
 =====================================output=====================================
 .mixin (@a: 1px, @b: 50%) {
   width: (@a * 5);
@@ -14990,6 +17166,21 @@ parsers: ["less"]
 
 .named-args3 {
   .mixin2(@b: 30%, @c: #123456);
+}
+
+.arity-mixin(@a) {
+  value: @a;
+}
+.arity-mixin(@a: 1, @b) {
+  value: @a + @b;
+}
+
+.arity-positional {
+  .arity-mixin(3);
+}
+
+.arity-named {
+  .arity-mixin(@b: 3);
 }
 
 ================================================================================
@@ -15865,6 +18056,72 @@ input {
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/parser-property-interp/parser-property-interp.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Test for ruleProperty parser with \${prop} interpolation (line 2640)
+// This tests complex property names using \${property} interpolation in property NAMES
+// \${prop} uses the VALUE of a plain property (not a variable) as the property name
+// Note: This is different from @{var} which uses variables
+
+.test {
+  // Define properties - their VALUES will be used as property names
+  prop-name: color;
+  my: background;
+  value: width;
+  
+  // Simple \${prop} interpolation in property name (ruleProperty parser line 2640)
+  // \${prop-name} uses the value of prop-name ("color") as the property name
+  // This triggers the branch at line 2640: new(tree.Property)(\`$\${s.slice(2, -1)}\`, ...)
+  \${prop-name}: red;
+  
+  // Multiple interpolations with literal parts
+  // border-\${prop-name} becomes "border-color" (since prop-name's value is "color")
+  border-\${prop-name}-width: 2px;
+  
+  // Complex property name with \${prop}
+  *-z-\${prop-name}: 1px dashed blue;
+  
+  // Multiple \${prop} in same property name
+  // \${my}-\${prop-name}-\${value} becomes "background-color-width"
+  \${my}-\${prop-name}-\${value}: green;
+}
+
+
+=====================================output=====================================
+// Test for ruleProperty parser with \${prop} interpolation (line 2640)
+// This tests complex property names using \${property} interpolation in property NAMES
+// \${prop} uses the VALUE of a plain property (not a variable) as the property name
+// Note: This is different from @{var} which uses variables
+
+.test {
+  // Define properties - their VALUES will be used as property names
+  prop-name: color;
+  my: background;
+  value: width;
+
+  // Simple \${prop} interpolation in property name (ruleProperty parser line 2640)
+  // \${prop-name} uses the value of prop-name ("color") as the property name
+  // This triggers the branch at line 2640: new(tree.Property)(\`$\${s.slice(2, -1)}\`, ...)
+  \${prop-name}: red;
+
+  // Multiple interpolations with literal parts
+  // border-\${prop-name} becomes "border-color" (since prop-name's value is "color")
+  border-\${prop-name}-width: 2px;
+
+  // Complex property name with \${prop}
+  *-z-\${prop-name}: 1px dashed blue;
+
+  // Multiple \${prop} in same property name
+  // \${my}-\${prop-name}-\${value} becomes "background-color-width"
+  \${my}-\${prop-name}-\${value}: green;
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/parser-slashed-combinator/parser-slashed-combinator.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -15936,6 +18193,300 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/plugin/plugin.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// importing plugin globally
+@plugin "../../plugin/plugin-global";
+
+// transitively include plugins from importing another sheet
+@import "../../plugin/plugin-transitive";
+
+
+// \`test-global\` function should be reachable
+// \`test-local\`  function should not be reachable
+// \`test-shadow\` function should return global version
+.class {
+  trans  : test-transitive();
+  global : test-global();
+  local  : test-local();
+  shadow : test-shadow();
+
+  // \`test-global\` function should propagate and be reachable
+  // \`test-local\`  function should be reachable
+  // \`test-shadow\` function should return local version, shadowing global version
+  .local {
+    @plugin (option) "../../plugin/plugin-local";
+    global : test-global();
+    local  : test-local();
+    shadow : test-shadow();
+  }
+}
+
+// calling a mixin or detached ruleset should not bubble local plugins
+// imported inside either into the parent scope.
+.mixin() {
+  @plugin "../../plugin/plugin-local";
+  mixin-local  : test-local();
+  mixin-global : test-global();
+  mixin-shadow : test-shadow();
+}
+@ruleset : {
+  @plugin "../../plugin/plugin-local";
+  ruleset-local  : test-local();
+  ruleset-global : test-global();
+  ruleset-shadow : test-shadow();
+};
+#ns {
+  @plugin (test=test) "../../plugin/plugin-local";
+  .mixin() {
+    ns-mixin-global : test-global();
+    ns-mixin-local  : test-local();
+    ns-mixin-shadow : test-shadow();
+  }
+}
+.class {
+  #ns > .mixin();
+  .mixin();
+  @ruleset();
+  class-local : test-local();
+}
+
+
+// \`test-global\` function should propagate into directive scope
+@media screen {
+  .test-rule {
+    result : test-global();
+  }
+}
+@font-face {
+  result : test-global();
+}
+
+// \`test-global\` function should propagate into nested directive scopes
+@media screen and (min-width:100px) {
+  @media (max-width:400px) {
+		.test-rule {
+			result : test-global();
+		}
+	}
+}
+
+.test-rule {
+  @media screen {
+    @plugin "../../plugin/plugin-local";
+    result : test-local();
+  }
+}
+
+@plugin "../../plugin/plugin-tree-nodes";
+@ruleset2: test-detached-ruleset();
+.root {
+  @ruleset2();
+}
+.test-rule-empty {
+  val1: foo;
+  test-collapse();
+  val2: foo;
+}
+.test-rule-simple {
+  @plugin "../../plugin/plugin-simple";
+  value: pi-anon();
+  value: (pi() * 2);
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope1";
+  value: foo();
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope2";
+  value: foo();
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope1";
+  value: foo();
+}
+.test-rule-collection {
+  @plugin "../../plugin/plugin-collection";
+  @var: 32;
+  store(@var);
+  store(5);
+  store("bird");
+  list: list();
+}
+
+test-atrule("@charset"; '"utf-8"');
+test-atrule("@arbitrary"; "value after ()");
+
+// no minVersion specified
+@plugin (option1) "../../plugin/plugin-set-options";
+@plugin "../../plugin/plugin-set-options";
+@plugin (option2) "../../plugin/plugin-set-options";
+@plugin "../../plugin/plugin-set-options";
+@plugin (option3) "../../plugin/plugin-set-options";
+
+// specifies minVersion: [2,0,0]
+@plugin (option1) "../../plugin/plugin-set-options-v2";
+@plugin "../../plugin/plugin-set-options-v2";
+@plugin (option2) "../../plugin/plugin-set-options-v2";
+@plugin "../../plugin/plugin-set-options-v2";
+@plugin (option3) "../../plugin/plugin-set-options-v2";
+
+// specifies minVersion: [3,0,0]
+@plugin (option1) "../../plugin/plugin-set-options-v3";
+@plugin "../../plugin/plugin-set-options-v3";
+@plugin (option2) "../../plugin/plugin-set-options-v3";
+@plugin "../../plugin/plugin-set-options-v3";
+@plugin (option3) "../../plugin/plugin-set-options-v3";
+
+
+=====================================output=====================================
+// importing plugin globally
+@plugin "../../plugin/plugin-global";
+
+// transitively include plugins from importing another sheet
+@import "../../plugin/plugin-transitive";
+
+// \`test-global\` function should be reachable
+// \`test-local\`  function should not be reachable
+// \`test-shadow\` function should return global version
+.class {
+  trans: test-transitive();
+  global: test-global();
+  local: test-local();
+  shadow: test-shadow();
+
+  // \`test-global\` function should propagate and be reachable
+  // \`test-local\`  function should be reachable
+  // \`test-shadow\` function should return local version, shadowing global version
+  .local {
+    @plugin (option) "../../plugin/plugin-local";
+    global: test-global();
+    local: test-local();
+    shadow: test-shadow();
+  }
+}
+
+// calling a mixin or detached ruleset should not bubble local plugins
+// imported inside either into the parent scope.
+.mixin() {
+  @plugin "../../plugin/plugin-local";
+  mixin-local: test-local();
+  mixin-global: test-global();
+  mixin-shadow: test-shadow();
+}
+@ruleset: {
+  @plugin "../../plugin/plugin-local";
+  ruleset-local: test-local();
+  ruleset-global: test-global();
+  ruleset-shadow: test-shadow();
+};
+#ns {
+  @plugin (test=test) "../../plugin/plugin-local";
+  .mixin() {
+    ns-mixin-global: test-global();
+    ns-mixin-local: test-local();
+    ns-mixin-shadow: test-shadow();
+  }
+}
+.class {
+  #ns > .mixin();
+  .mixin();
+  @ruleset();
+  class-local: test-local();
+}
+
+// \`test-global\` function should propagate into directive scope
+@media screen {
+  .test-rule {
+    result: test-global();
+  }
+}
+@font-face {
+  result: test-global();
+}
+
+// \`test-global\` function should propagate into nested directive scopes
+@media screen and (min-width: 100px) {
+  @media (max-width: 400px) {
+    .test-rule {
+      result: test-global();
+    }
+  }
+}
+
+.test-rule {
+  @media screen {
+    @plugin "../../plugin/plugin-local";
+    result: test-local();
+  }
+}
+
+@plugin "../../plugin/plugin-tree-nodes";
+@ruleset2: test-detached-ruleset();
+.root {
+  @ruleset2();
+}
+.test-rule-empty {
+  val1: foo;
+  test-collapse();
+  val2: foo;
+}
+.test-rule-simple {
+  @plugin "../../plugin/plugin-simple";
+  value: pi-anon();
+  value: (pi() * 2);
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope1";
+  value: foo();
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope2";
+  value: foo();
+}
+.test-rule-conflicts {
+  @plugin "../../plugin/plugin-scope1";
+  value: foo();
+}
+.test-rule-collection {
+  @plugin "../../plugin/plugin-collection";
+  @var: 32;
+  store(@var);
+  store(5);
+  store("bird");
+  list: list();
+}
+
+test-atrule("@charset"; '"utf-8"');
+test-atrule("@arbitrary"; "value after ()");
+
+// no minVersion specified
+@plugin (option1) "../../plugin/plugin-set-options";
+@plugin "../../plugin/plugin-set-options";
+@plugin (option2) "../../plugin/plugin-set-options";
+@plugin "../../plugin/plugin-set-options";
+@plugin (option3) "../../plugin/plugin-set-options";
+
+// specifies minVersion: [2,0,0]
+@plugin (option1) "../../plugin/plugin-set-options-v2";
+@plugin "../../plugin/plugin-set-options-v2";
+@plugin (option2) "../../plugin/plugin-set-options-v2";
+@plugin "../../plugin/plugin-set-options-v2";
+@plugin (option3) "../../plugin/plugin-set-options-v2";
+
+// specifies minVersion: [3,0,0]
+@plugin (option1) "../../plugin/plugin-set-options-v3";
+@plugin "../../plugin/plugin-set-options-v3";
+@plugin (option2) "../../plugin/plugin-set-options-v3";
+@plugin "../../plugin/plugin-set-options-v3";
+@plugin (option3) "../../plugin/plugin-set-options-v3";
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/plugin-module/plugin-module.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -15996,6 +18547,150 @@ parsers: ["less"]
 }
 
 @stop: end;
+
+================================================================================
+`;
+
+exports[`snippet: tests-unit/property-accessors/property-accessors.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.block_1 {
+  color: red;
+  background-color: $color;
+  @width: 50px;
+  width: @width;
+  height: ($width / 2);
+  @color: red;
+  border: 1px solid lighten($color, 10%);
+  &:hover {
+    color: $color;
+    background-color: $color;
+    .mixin1();
+  }
+  .one {
+    background: $color;
+  }
+  content: "\${color}";
+  prop: $color;
+
+}
+
+.block_2 {
+  color: red; 
+  .two {
+    background-color: $color; 
+  }
+  color: blue;  
+}
+
+.block_3 {
+  color: red; 
+  .three {
+    background-color: $color;
+  }
+  .mixin2();
+  color: blue;
+}
+.block_4 {
+  color: red; 
+  .four {
+    background-color: $color;
+  }
+  color: blue;
+  .mixin2();
+}
+// property merging
+a {
+    background-color+: red;
+    background-color+: foo;
+
+    &b {
+        background: $background-color;
+    }
+}
+
+.value_as_property {
+  prop1: color;
+  \${prop1}: #FF0000;  // not sure why you'd want to do this, but ok
+}
+
+.mixin1() {
+  color: green;
+}
+.mixin2() { 
+  color: yellow;
+}
+
+
+
+=====================================output=====================================
+.block_1 {
+  color: red;
+  background-color: $color;
+  @width: 50px;
+  width: @width;
+  height: ($width / 2);
+  @color: red;
+  border: 1px solid lighten($color, 10%);
+  &:hover {
+    color: $color;
+    background-color: $color;
+    .mixin1();
+  }
+  .one {
+    background: $color;
+  }
+  content: "\${color}";
+  prop: $color;
+}
+
+.block_2 {
+  color: red;
+  .two {
+    background-color: $color;
+  }
+  color: blue;
+}
+
+.block_3 {
+  color: red;
+  .three {
+    background-color: $color;
+  }
+  .mixin2();
+  color: blue;
+}
+.block_4 {
+  color: red;
+  .four {
+    background-color: $color;
+  }
+  color: blue;
+  .mixin2();
+}
+// property merging
+a {
+  background-color+: red;
+  background-color+: foo;
+
+  &b {
+    background: $background-color;
+  }
+}
+
+.value_as_property {
+  prop1: color;
+  \${prop1}: #ff0000; // not sure why you'd want to do this, but ok
+}
+
+.mixin1() {
+  color: green;
+}
+.mixin2() {
+  color: yellow;
+}
 
 ================================================================================
 `;
@@ -17801,6 +20496,176 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/variables/variable-advanced.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// Advanced variable features not covered in existing tests
+@a: 2;
+@c: #888;
+@onePixel: 1px;
+
+.alpha {
+    @var: 42;
+    filter: alpha(opacity=@var);
+}
+
+.units-extended {
+  width: @onePixel;
+  same-unit-as-previously: (@onePixel / @onePixel);
+  square-pixel-divided: (@onePixel * @onePixel / @onePixel);
+  odd-unit: unit((@onePixel * 4em / 2cm));
+  percentage: (10 * 50%);
+  pixels: (50px * 10);
+  conversion-metric-a: (20mm + 1cm);
+  conversion-metric-b: (1cm + 20mm);
+  conversion-imperial: (1in + 72pt + 6pc);
+  custom-unit: (42octocats * 10);
+  custom-unit-cancelling: (8cats * 9dogs / 4cats);
+  mix-units: (1px + 1em);
+  invalid-units: (1px * 1px);
+  .fallback {
+    @px: 14px;
+    @em: 1.4em;
+    @cm: 10cm;
+    div-px-1: (@px / @em);
+    div-px-2: ((@px / @em) / @cm);
+    sub-px-1: (@px - @em);
+    sub-cm-1: (@cm - (@px - @em));
+    mul-px-1: (@px * @em);
+    mul-em-1: (@em * @px);
+    mul-em-2: ((@em * @px) * @cm);
+    mul-cm-1: (@cm * (@em * @px));
+    add-px-1: (@px + @em);
+    add-px-2: ((@px + @em) + @cm);
+    mul-px-2: ((1 * @px) * @cm);
+    mul-px-3: ((@px * 1) * @cm);
+  }
+}
+
+.css-custom-properties {
+	--tw-pan-x:  ;
+	--tw-pan-y:  ;
+	--tw-pinch-zoom:  ;
+	--tw-scroll-snap-strictness: proximity;
+}
+
+.variable-interpolation {
+  @a1: 1px;
+  @b2: 2px;
+  @c3: @a1 + @b2;
+
+  @radio-cls: radio;
+  @radio-cls-checked: @{radio-cls}_checked;
+
+  .@{radio-cls-checked} {
+    border-color: #fff;
+  }
+}
+
+.each-with-variables {
+  @items:
+  // Fruit
+      apple,
+      banana,
+      cherry,
+  // Vegetables
+      carrot,
+      potato,
+  ;
+
+  each(@items, {
+    div#@{value} {
+      color: blue;
+    }
+  })
+}
+
+=====================================output=====================================
+// Advanced variable features not covered in existing tests
+@a: 2;
+@c: #888;
+@onePixel: 1px;
+
+.alpha {
+  @var: 42;
+  filter: alpha(opacity= @var);
+}
+
+.units-extended {
+  width: @onePixel;
+  same-unit-as-previously: (@onePixel / @onePixel);
+  square-pixel-divided: (@onePixel * @onePixel / @onePixel);
+  odd-unit: unit((@onePixel * 4em / 2cm));
+  percentage: (10 * 50%);
+  pixels: (50px * 10);
+  conversion-metric-a: (20mm + 1cm);
+  conversion-metric-b: (1cm + 20mm);
+  conversion-imperial: (1in + 72pt + 6pc);
+  custom-unit: (42octocats * 10);
+  custom-unit-cancelling: (8cats * 9dogs / 4cats);
+  mix-units: (1px + 1em);
+  invalid-units: (1px * 1px);
+  .fallback {
+    @px: 14px;
+    @em: 1.4em;
+    @cm: 10cm;
+    div-px-1: (@px / @em);
+    div-px-2: ((@px / @em) / @cm);
+    sub-px-1: (@px - @em);
+    sub-cm-1: (@cm - (@px - @em));
+    mul-px-1: (@px * @em);
+    mul-em-1: (@em * @px);
+    mul-em-2: ((@em * @px) * @cm);
+    mul-cm-1: (@cm * (@em * @px));
+    add-px-1: (@px + @em);
+    add-px-2: ((@px + @em) + @cm);
+    mul-px-2: ((1 * @px) * @cm);
+    mul-px-3: ((@px * 1) * @cm);
+  }
+}
+
+.css-custom-properties {
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+}
+
+.variable-interpolation {
+  @a1: 1px;
+  @b2: 2px;
+  @c3: @a1 + @b2;
+
+  @radio-cls: radio;
+  @radio-cls-checked: @{radio-cls}_checked;
+
+  .@{radio-cls-checked} {
+    border-color: #fff;
+  }
+}
+
+.each-with-variables {
+  @items:
+    // Fruit
+    apple,
+    banana,
+    cherry,
+    // Vegetables
+    carrot,
+    potato;
+
+  each(@items, {
+    div#@{value} {
+      color: blue;
+    }
+  });
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/variables/variables.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -18009,17 +20874,17 @@ parsers: ["less"]
 @charset "UTF-@{Eight}";
 
 @ns: less;
-@namespace @ns "http://lesscss.org";
+@namespace @{ns} "http://lesscss.org";
 
 @name: enlarger;
-@keyframes @name {
+@keyframes @{name} {
     from {font-size: 12px;}
     to   {font-size: 15px;}
 }
 
 .m(reducer);
 .m(@name) {
-    @-webkit-keyframes @name {
+    @-webkit-keyframes @{name} {
         from {font-size: 13px;}
         to   {font-size: 10px;}
     }
@@ -18030,10 +20895,10 @@ parsers: ["less"]
 @charset "UTF-@{Eight}";
 
 @ns: less;
-@namespace @ns "http://lesscss.org";
+@namespace @{ns} "http://lesscss.org";
 
 @name: enlarger;
-@keyframes @name {
+@keyframes @{name} {
   from {
     font-size: 12px;
   }
@@ -18044,7 +20909,7 @@ parsers: ["less"]
 
 .m(reducer);
 .m(@name) {
-  @-webkit-keyframes @name {
+  @-webkit-keyframes @{name} {
     from {
       font-size: 13px;
     }
