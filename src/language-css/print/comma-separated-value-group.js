@@ -248,7 +248,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
           node.groups.some(
             (node, index) =>
               index > i &&
-              (node.value?.startsWith("]") || node.value?.endsWith("]")),
+              (node.value?.startsWith("]") ||
+                node.value?.endsWith("]") ||
+                node.value?.endsWith("]}")),
           ),
         );
 

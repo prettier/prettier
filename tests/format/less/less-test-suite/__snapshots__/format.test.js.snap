@@ -13364,6 +13364,275 @@ parsers: ["less"]
 ================================================================================
 `;
 
+exports[`snippet: tests-unit/lookup-interpolation/lookup-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// \`[...]\` lookups inside \`@{...}\` interpolation, backported from Less 5.x.
+//
+// Before the backport the parser accepted only \`@{name}\`, so every form below
+// either failed to parse or — in string and url positions — silently emitted the
+// interpolation verbatim into the output. The url/quoted cases in particular are
+// regression coverage for that silent pass-through: a wrong-output bug that
+// produced no error and no warning.
+//
+// The bare \`@map[key]\` spelling is covered by at-rule-variable-deprecated.less,
+// where it is deprecated in structural positions.
+
+@sizes: {
+  tablet: 768px;
+  name: card;
+  @name: indirect-hit;
+  last-entry: tail;
+};
+
+@theme: {
+  color: blue;
+  @nested: {
+    name: inner;
+    label: "deep";
+    last-entry: nested-tail;
+  }
+};
+
+@paths: {
+  img: "/assets/img";
+};
+
+@which: name;
+
+// --- quoted strings ---
+.quoted {
+  single: "@{sizes[name]}";
+  chained: "@{theme[@nested][name]}";
+  quoted-value: "@{theme[@nested][label]}";
+  indirect-key: "@{sizes[@@which]}";
+  empty-key: "@{sizes[]}";
+  chained-empty-key: "@{theme[@nested][]}";
+  surrounded: "a-@{sizes[name]}-b";
+  twice: "@{sizes[name]}/@{theme[color]}";
+}
+
+// --- url() — the silent pass-through regression ---
+// An unquoted url() body was raw text in an Anonymous node, so neither the plain
+// nor the lookup interpolation resolved there while the quoted form did. Both
+// spellings are covered so the two cannot diverge again.
+@plain-path: "/plain";
+
+.url {
+  quoted: url("@{paths[img]}/hero.png");
+  unquoted: url(@{paths[img]}/plain.png);
+  unquoted-plain: url(@{plain-path}/no-lookup.png);
+  untouched: url(/static/literal.png);
+  untouched-quoted: url("/static/literal.png");
+  data-uri: url(data:image/svg+xml;base64,AAAA);
+}
+
+// --- \${...} property interpolation ---
+// Properties have no lookup grammar: \`$name[key]\` is a property reference followed
+// by literal \`[key]\`, and \`prop: { … }\` is a parse error in every scope, so nothing
+// can hold a ruleset to look into. \`\${...}\` therefore stays narrow while \`@{...}\`
+// carries lookups, and the plain form must keep working unchanged.
+.property-interpolation {
+  color: red;
+  from-property: "\${color}";
+  surrounded: "a-\${color}-b";
+  bare: $color;
+}
+
+// --- selector interpolation ---
+.@{sizes[name]} {
+  a: b;
+}
+
+.@{theme[@nested][name]} {
+  c: d;
+}
+
+// --- property name interpolation ---
+.property {
+  @{sizes[name]}: from-lookup;
+  @{theme[@nested][name]}: from-chained-lookup;
+}
+
+// --- at-rule name and prelude ---
+@keyframes @{sizes[name]} {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@queries: {
+  tablet: ~"(min-width: 768px)";
+};
+
+@media @{queries[tablet]} {
+  .responsive {
+    e: f;
+  }
+}
+
+// --- custom property values ---
+.custom-property {
+  --from-lookup: @{paths[img]};
+  --from-chained: @{theme[@nested][name]};
+}
+
+// --- interpolation still resolves to a fixpoint ---
+// The inner \`@{...}\` arrives from a variable's value at eval time, so it is not
+// present in the source text of the outer reference.
+@inner: card;
+@outer: ~"@{inner}";
+
+.recursive {
+  g: "@{outer}";
+}
+
+// --- plain interpolation is unaffected by the lookup support ---
+.plain {
+  h: "@{which}";
+}
+
+.@{which} {
+  i: j;
+}
+
+=====================================output=====================================
+// \`[...]\` lookups inside \`@{...}\` interpolation, backported from Less 5.x.
+//
+// Before the backport the parser accepted only \`@{name}\`, so every form below
+// either failed to parse or — in string and url positions — silently emitted the
+// interpolation verbatim into the output. The url/quoted cases in particular are
+// regression coverage for that silent pass-through: a wrong-output bug that
+// produced no error and no warning.
+//
+// The bare \`@map[key]\` spelling is covered by at-rule-variable-deprecated.less,
+// where it is deprecated in structural positions.
+
+@sizes: {
+  tablet: 768px;
+  name: card;
+  @name: indirect-hit;
+  last-entry: tail;
+};
+
+@theme: {
+  color: blue;
+  @nested: {
+    name: inner;
+    label: "deep";
+    last-entry: nested-tail;
+  };
+};
+
+@paths: {
+  img: "/assets/img";
+};
+
+@which: name;
+
+// --- quoted strings ---
+.quoted {
+  single: "@{sizes[name]}";
+  chained: "@{theme[@nested][name]}";
+  quoted-value: "@{theme[@nested][label]}";
+  indirect-key: "@{sizes[@@which]}";
+  empty-key: "@{sizes[]}";
+  chained-empty-key: "@{theme[@nested][]}";
+  surrounded: "a-@{sizes[name]}-b";
+  twice: "@{sizes[name]}/@{theme[color]}";
+}
+
+// --- url() — the silent pass-through regression ---
+// An unquoted url() body was raw text in an Anonymous node, so neither the plain
+// nor the lookup interpolation resolved there while the quoted form did. Both
+// spellings are covered so the two cannot diverge again.
+@plain-path: "/plain";
+
+.url {
+  quoted: url("@{paths[img]}/hero.png");
+  unquoted: url(@{paths[img]}/plain.png);
+  unquoted-plain: url(@{plain-path}/no-lookup.png);
+  untouched: url(/static/literal.png);
+  untouched-quoted: url("/static/literal.png");
+  data-uri: url(data:image/svg+xml;base64,AAAA);
+}
+
+// --- \${...} property interpolation ---
+// Properties have no lookup grammar: \`$name[key]\` is a property reference followed
+// by literal \`[key]\`, and \`prop: { … }\` is a parse error in every scope, so nothing
+// can hold a ruleset to look into. \`\${...}\` therefore stays narrow while \`@{...}\`
+// carries lookups, and the plain form must keep working unchanged.
+.property-interpolation {
+  color: red;
+  from-property: "\${color}";
+  surrounded: "a-\${color}-b";
+  bare: $color;
+}
+
+// --- selector interpolation ---
+.@{sizes[name]} {
+  a: b;
+}
+
+.@{theme[@nested][name]} {
+  c: d;
+}
+
+// --- property name interpolation ---
+.property {
+  @{sizes[name]}: from-lookup;
+  @{theme[@nested][name]}: from-chained-lookup;
+}
+
+// --- at-rule name and prelude ---
+@keyframes @{sizes[name]} {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@queries: {
+  tablet: ~"(min-width: 768px)";
+};
+
+@media @{queries[tablet]} {
+  .responsive {
+    e: f;
+  }
+}
+
+// --- custom property values ---
+.custom-property {
+  --from-lookup: @{paths[img]};
+  --from-chained: @{theme[@nested][name]};
+}
+
+// --- interpolation still resolves to a fixpoint ---
+// The inner \`@{...}\` arrives from a variable's value at eval time, so it is not
+// present in the source text of the outer reference.
+@inner: card;
+@outer: ~"@{inner}";
+
+.recursive {
+  g: "@{outer}";
+}
+
+// --- plain interpolation is unaffected by the lookup support ---
+.plain {
+  h: "@{which}";
+}
+
+.@{which} {
+  i: j;
+}
+
+================================================================================
+`;
+
 exports[`snippet: tests-unit/math-css-vars/math-css-vars.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]

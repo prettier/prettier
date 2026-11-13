@@ -5,9 +5,7 @@ const SKIP = new Set([
   "tests-unit/import/import/invalid-css.less",
   "tests-unit/permissive-parse/permissive-parse.less",
 ]);
-const BUGS = new Set([
-  "tests-unit/lookup-interpolation/lookup-interpolation.less",
-]);
+const BUGS = new Set();
 /* spell-checker: enable */
 
 const testCases = lessTestSuite.filter(
