@@ -1,0 +1,7 @@
+{
+  "name": "app",
+  "private": true,
+  "devDependencies": {
+    "prettier-plugin-dummy-toml": "1.0.0"
+  }
+}
