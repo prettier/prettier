@@ -132,22 +132,10 @@ function massageAstNode(original, cloned, parent) {
     }
 
     if (original.value) {
-      let { value } = cloned;
-      // Parser only understands the `i` flag
-      if (/\s[a-z]$/i.test(value)) {
-        // Add an extra property to make sure flag is preserved
-        cloned.__prettier_attribute_selector_flag = value.at(-1);
-        value = value.slice(0, -1);
-      }
-
-      value = value.trim();
-
-      value = value.replace(
+      cloned.value = cloned.value.trim().replace(
         /^(?<quote>["'])(?<value>.*?)\k<quote>$/,
         "$<value>",
       );
-
-      cloned.value = value;
     }
   }
 
