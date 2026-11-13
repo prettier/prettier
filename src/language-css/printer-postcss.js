@@ -181,7 +181,9 @@ function genericPrint(path, options, print) {
               typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
-        node.selector ? indent([" ", print("selector"), node.optional ? " !optional" : ""]) : "",
+        node.selector
+          ? indent([" ", print("selector"), node.optional ? " !optional" : ""])
+          : "",
         node.value
           ? group([
               " ",
@@ -306,7 +308,12 @@ function genericPrint(path, options, print) {
       const value = node.raws?.value ?? node.value;
       return [
         node.namespace
-          ? [node.namespace === true ? "" : (node.raws?.namespace ?? node.namespace).trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws?.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
         path.previous?.type === "selector-nesting"
           ? value
@@ -322,7 +329,10 @@ function genericPrint(path, options, print) {
       return ["#", node.raws?.value ?? node.value];
 
     case "selector-class":
-      return [".", adjustNumbers(adjustStrings(node.raws?.value ?? node.value, options))];
+      return [
+        ".",
+        adjustNumbers(adjustStrings(node.raws?.value ?? node.value, options)),
+      ];
 
     case "selector-attribute": {
       const value = node.raws.value ?? node.value;
@@ -337,7 +347,12 @@ function genericPrint(path, options, print) {
       return [
         "[",
         node.namespace
-          ? [node.namespace === true ? "" : (node.raws.namespace ?? node.namespace).trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
         (node.raws.attribute ?? node.attribute).trim(),
         node.operator ?? "",
@@ -395,7 +410,12 @@ function genericPrint(path, options, print) {
     case "selector-universal":
       return [
         node.namespace
-          ? [node.namespace === true ? "" : (node.raws?.namespace ?? node.namespace).trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws?.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
         node.value,
       ];

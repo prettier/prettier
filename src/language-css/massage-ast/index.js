@@ -132,10 +132,9 @@ function massageAstNode(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replace(
-        /^(?<quote>["'])(?<value>.*?)\k<quote>$/,
-        "$<value>",
-      );
+      cloned.value = cloned.value
+        .trim()
+        .replace(/^(?<quote>["'])(?<value>.*?)\k<quote>$/, "$<value>");
     }
   }
 
