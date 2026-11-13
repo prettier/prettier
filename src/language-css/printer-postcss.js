@@ -393,7 +393,7 @@ function genericPrint(path, options, print) {
 
         return [
           leading,
-          // postcss-selector-parser lowercases named combinators like `/DEEP/`,
+          // postcss-selector-parser lowercases a named combinator like `/DEEP/`,
           // the original text is kept in `raws.value`
           // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/parser.js#L643-L646
           node.raws?.value ?? node.value,
