@@ -8090,14 +8090,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:2.2.3":
-  version: 2.2.3
-  resolution: "postcss-selector-parser@npm:2.2.3"
+"postcss-selector-parser@npm:7.2.1":
+  version: 7.2.1
+  resolution: "postcss-selector-parser@npm:7.2.1"
   dependencies:
-    flatten: "npm:^1.0.2"
-    indexes-of: "npm:^1.0.1"
-    uniq: "npm:^1.0.1"
-  checksum: 10/a3d0300117abac9730b3a268c91dae6048770080c42e6504d33b3c6620efd5c60623392ffd2931a74519e10ca72d9e75d24ac25cfc3e1e109cb42993f0373e42
+    util-deprecate: "npm:^1.0.2"
+  checksum: 10/65a2f9d4c9189cab6ad14e973e801e54ae9b7a5ae8ff9744cea3a08d83ded0a9d07a85c452d0020a13b5345cba20223b3048fd4a593acea17b0a04edc3213e7d
   languageName: node
   linkType: hard
 
@@ -8266,7 +8264,7 @@ __metadata:
     postcss-less: "npm:7.1.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
-    postcss-selector-parser: "npm:2.2.3"
+    postcss-selector-parser: "npm:7.2.1"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.10.1"
     pretty-bytes: "npm:7.2.0"
@@ -9621,6 +9619,13 @@ __metadata:
   version: 2.7.1
   resolution: "url-or-path@npm:2.7.1"
   checksum: 10/38a8015bb45d1437c732b7b378b1859bdafd3303dbe7a98241ef43832a39ae1a574fa1612a9d915fce5d244d7e05a3f83bb6c5a2f5a131e4c0a515bcf2375536
+  languageName: node
+  linkType: hard
+
+"util-deprecate@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "util-deprecate@npm:1.0.2"
+  checksum: 10/474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
   languageName: node
   linkType: hard
 

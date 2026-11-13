@@ -9,6 +9,7 @@ const ignoredProperties = new Set([
   "after",
   "trailingComma",
   "spaces",
+  "_error",
 ]);
 
 function massageAstNode(original, cloned, parent) {
@@ -63,6 +64,13 @@ function massageAstNode(original, cloned, parent) {
     if (original.extend && hasLessExtendSelector(original.selector)) {
       delete cloned.extend;
     }
+  }
+
+  // `value` is a getter over `_value` in postcss-selector-parser
+  // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/selectors/attribute.js#L251-L253
+  if (Object.hasOwn(original, "_value")) {
+    delete cloned._value;
+    cloned.value = original.value;
   }
 
   if (
@@ -140,6 +148,7 @@ function massageAstNode(original, cloned, parent) {
 
       cloned.value = value;
       delete cloned.quoted;
+      delete cloned._quoteMark;
     }
   }
 
