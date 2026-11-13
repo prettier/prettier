@@ -360,7 +360,8 @@ function genericPrint(path, options, print) {
         node.value === "+" ||
         node.value === ">" ||
         node.value === "~" ||
-        node.value === ">>>"
+        node.value === ">>>" ||
+        /^\/[\w-]+\/$/.test(node.value)
       ) {
         const parentNode = path.parent;
         const isFirstNode =
@@ -377,7 +378,10 @@ function genericPrint(path, options, print) {
 
         return [
           leading,
-          node.value,
+          // postcss-selector-parser lowercases named combinators like `/DEEP/`,
+          // the original text is kept in `raws.value`
+          // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/parser.js#L643-L646
+          node.raws?.value ?? node.value,
           path.isLast || isNthLeadingSign ? "" : " ",
         ];
       }
