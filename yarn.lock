@@ -6562,10 +6562,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"less-test-suite@npm:0.0.1":
-  version: 0.0.1
-  resolution: "less-test-suite@npm:0.0.1"
-  checksum: 10/89b750e91ab3d8309d130f240f6e9583b489265080989dc3398a66f45cf53faa7ebb29240746fb3820aa8caa4d9420601a19af3bb09eff1452a3dcdbba03363a
+"less-test-suite@npm:0.0.2":
+  version: 0.0.2
+  resolution: "less-test-suite@npm:0.0.2"
+  checksum: 10/42567def91cc13aa73ed5e3d604f97919c342b6de2943ff63d52f3379648436ee2f3f30237c8d890275dfd8b85335b1b0c22853b80066ba761966f6060ec61e8
   languageName: node
   linkType: hard
 
@@ -8065,12 +8065,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-less@npm:7.0.1":
-  version: 7.0.1
-  resolution: "postcss-less@npm:7.0.1"
+"postcss-less@npm:7.1.0":
+  version: 7.1.0
+  resolution: "postcss-less@npm:7.1.0"
   peerDependencies:
     postcss: ^8.5.32
-  checksum: 10/406f70a97269d5e869621b9543d6cac73cb5c001965f568fc4f2cac6e185cb59641441cf74fb20d36818309069002c95325dce430b40a5333eca47e4ac8e9a68
+  checksum: 10/217bdb59c94d5e1082f55fb782c2f66bc2a2041c2256fbfd83f1c76af57f3a666fde4ddb54af63099bb31d4276f27a316cd7ad1809ea4549631b7218700927c1
   languageName: node
   linkType: hard
 
@@ -8236,7 +8236,7 @@ __metadata:
     json-test-suite: "npm:1.0.0"
     jsx-test-suite: "npm:0.0.2"
     knip: "npm:6.45.0"
-    less-test-suite: "npm:0.0.1"
+    less-test-suite: "npm:0.0.2"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.5.0"
     magic-string: "npm:1.4.5"
@@ -8263,7 +8263,7 @@ __metadata:
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
     postcss: "npm:8.5.32"
-    postcss-less: "npm:7.0.1"
+    postcss-less: "npm:7.1.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
     postcss-selector-parser: "npm:2.2.3"
