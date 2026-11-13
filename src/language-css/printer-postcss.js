@@ -20,7 +20,10 @@ import { locEnd, locStart } from "./loc.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
-import { printCssDeclaration } from "./print/css-declaration.js";
+import {
+  printCssDeclaration,
+  printCssDeclarationNew,
+} from "./print/css-declaration.js";
 import {
   adjustNumbers,
   adjustStrings,
@@ -29,6 +32,7 @@ import {
   quoteAttributeValue,
 } from "./print/misc.js";
 import { printParenthesizedValueGroup } from "./print/parenthesized-value-group.js";
+import { printRoot, printRootLegacy } from "./print/root.js";
 import printSequence from "./print/sequence.js";
 import {
   hasParensAroundNode,
@@ -50,26 +54,11 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
-    case "css-root": {
-      const nodes = printSequence(path, options, print);
-      let after = node.raws.after.trim();
-      if (after.startsWith(";")) {
-        after = after.slice(1).trim();
-      }
+    case "root":
+      return printRoot(path, options, print);
+    case "css-root":
+      return printRootLegacy(path, options, print);
 
-      return [
-        node.frontMatter
-          ? [
-              print("frontMatter"),
-              hardline,
-              node.nodes.length > 0 ? hardline : "",
-            ]
-          : "",
-        nodes,
-        after ? ` ${after}` : "",
-        node.nodes.length > 0 ? hardline : "",
-      ];
-    }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
 
@@ -77,9 +66,10 @@ function genericPrint(path, options, print) {
 
       return isInlineComment ? text.trimEnd() : text;
     }
+    case "rule":
     case "css-rule":
       return [
-        print("selector"),
+        node.type === "rule" ? node.selector : print("selector"),
         node.important ? " !important" : "",
         node.nodes
           ? [
@@ -100,6 +90,8 @@ function genericPrint(path, options, print) {
           : ";",
       ];
 
+    case "decl":
+      return printCssDeclarationNew(path, options, print);
     case "css-decl":
       return printCssDeclaration(path, options, print);
 

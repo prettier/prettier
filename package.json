@@ -117,6 +117,7 @@
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
+    "sass-parser": "0.5.6",
     "search-closest": "3.1.0",
     "smol-toml": "1.9.1",
     "strip-ansi": "7.2.0",

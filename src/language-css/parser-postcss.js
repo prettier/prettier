@@ -1,6 +1,7 @@
 import postcssParse from "postcss/lib/parse";
 import { parse as postcssLessParse } from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
+import sassParser from "sass-parser";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
@@ -436,7 +437,42 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, options = {}) {
-  return parseWithParser(postcssParse.default, text, options);
+  const { frontMatter, content: textToParse } = parseFrontMatter(text);
+
+  let result;
+
+  try {
+    result = sassParser.css.parse(textToParse);
+  } catch (/** @type {any} */ error) {
+    const { name, reason, line, column } = error;
+    /* c8 ignore 3 */
+    if (typeof line !== "number") {
+      throw error;
+    }
+
+    throw createError(`${name}: ${reason}`, {
+      loc: { start: { line, column } },
+      cause: error,
+    });
+  }
+
+  options.originalText = text;
+  // result = parseNestedCSS(addTypePrefix(result, "css-"), options);
+
+  // calculateLoc(result, text);
+
+  // if (frontMatter) {
+  //   result.frontMatter = {
+  //     ...frontMatter,
+  //     type: "front-matter",
+  //     source: {
+  //       startOffset: frontMatter.start.index,
+  //       endOffset: frontMatter.end.index,
+  //     },
+  //   };
+  // }
+
+  return result;
 }
 
 function parseLess(text, options = {}) {

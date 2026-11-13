@@ -4,6 +4,7 @@ import {
   hardline,
   ifBreak,
   indent,
+  line,
   removeLines,
   softline,
 } from "../../document/index.js";
@@ -18,6 +19,73 @@ import {
 } from "../utilities/index.js";
 import { shouldBreakList } from "./parenthesized-value-group.js";
 import printSequence from "./sequence.js";
+
+function printCssDeclarationNew(path, options, print) {
+  const { node, parent } = path;
+
+  const isValueAllSpace =
+    typeof node.value === "string" && /^ *$/.test(node.value);
+  let value = typeof node.value === "string" ? node.value : print("value");
+
+  value = hasComposesNode(node) ? removeLines(value) : value;
+
+  const parts = [
+    insideIcssRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
+    ":",
+    line,
+    value,
+  ];
+
+  // The value parser drops the final empty comma group, but its comma is
+  // significant in a custom property.
+  if (
+    node.prop.startsWith("--") &&
+    node.value.type === "value-root" &&
+    node.value.text.trimEnd().endsWith(",")
+  ) {
+    parts.push(",");
+  }
+
+  // if (node.raws.important) {
+  //   const directive = `${isValueAllSpace ? "" : " "}!important`;
+  //   parts.push(node.raws.important.replace(/\s*!\s*important/i, directive));
+  // } else if (node.important) {
+  //   parts.push(" !important");
+  // }
+
+  if (node.raws.scssDefault) {
+    parts.push(node.raws.scssDefault.replace(/\s*!default/i, " !default"));
+  } else if (node.scssDefault) {
+    parts.push(" !default");
+  }
+
+  if (node.raws.scssGlobal) {
+    parts.push(node.raws.scssGlobal.replace(/\s*!global/i, " !global"));
+  } else if (node.scssGlobal) {
+    parts.push(" !global");
+  }
+
+  if (node.nodes) {
+    parts.push([
+      " {",
+      node.nodes.length > 0
+        ? indent([softline, printSequence(path, options, print)])
+        : "",
+      softline,
+      "}",
+    ]);
+  } else if (!(
+    isTemplatePropNode(node) &&
+    !parent.raws.semicolon &&
+    options.originalText[locEnd(node) - 1] !== ";"
+  )) {
+    parts.push(
+      options.__isHTMLStyleAttribute && path.isLast ? ifBreak(";") : ";",
+    );
+  }
+
+  return group(parts);
+}
 
 function printCssDeclaration(path, options, print) {
   const { node, parent } = path;
@@ -132,4 +200,4 @@ function printCssDeclaration(path, options, print) {
   return parts;
 }
 
-export { printCssDeclaration };
+export { printCssDeclaration, printCssDeclarationNew };

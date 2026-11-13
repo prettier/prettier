@@ -1,9 +1,12 @@
 import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
 
 const visitorKeys = generateReferenceSharedVisitorKeys({
+  root: ["frontMatter", "nodes"],
   "css-root": ["frontMatter", "nodes"],
   "css-comment": [],
+  rule: ["selector", "nodes"],
   "css-rule": ["selector", "nodes"],
+  decl: ["value", "selector", "nodes"],
   "css-decl": ["value", "selector", "nodes"],
   "css-atrule": ["selector", "params", "value", "nodes"],
   "media-query-list": ["nodes"],
