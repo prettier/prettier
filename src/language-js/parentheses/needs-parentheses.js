@@ -66,6 +66,7 @@ function needsParentheses(path, options) {
     node.type === "FunctionExpression" ||
     node.type === "ClassExpression" ||
     node.type === "DoExpression" ||
+    node.type === "MatchExpression" ||
     (node.type === "UnaryExpression" && node.operator === "throw")
   ) {
     const expression = path.findAncestor(
