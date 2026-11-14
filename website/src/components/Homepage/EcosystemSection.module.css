@@ -1,0 +1,53 @@
+.ecosystem {
+  --section-accent: var(--brand-coral);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+}
+
+.image {
+  inline-size: auto;
+  block-size: 2.5rem;
+
+  [data-theme="dark"] & {
+    filter: brightness(1.6);
+  }
+}
+
+.text {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+
+  & strong {
+    display: block;
+    margin-block: 0.25rem;
+    color: var(--color-text);
+    font-size: clamp(2.25rem, 1.75rem + 2vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Aligned at the bottom of the cards */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-block-start: auto;
+}
