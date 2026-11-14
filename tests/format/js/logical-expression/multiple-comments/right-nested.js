@@ -1,14 +1,22 @@
-const condition = first && (
+x = first && (
   // Check the next operand.
   second && third
 );
+x = first + (
+  // Check the next operand.
+  second + third
+);
 
-const fallback = first && (
+x = first && (
   // Build the fallback.
   second && [third, fourth]
 );
 
-const mixed = first && ((
+x = first && ((
   // Check both operands.
   second && third
 ) && fourth);
+x = first + ((
+  // Check both operands.
+  second + third
+) + fourth);
