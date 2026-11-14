@@ -39,10 +39,10 @@ function printElement(path, options, print) {
   /**
    * do not break:
    *
-   *     <div>{{
+   *     <span>{{
    *         ~
    *       interpolation
-   *     }}</div>
+   *     }}:</span>
    *            ~
    *
    * exception: break if the opening tag breaks
@@ -57,9 +57,14 @@ function printElement(path, options, print) {
    *     >
    */
   const shouldHugContent =
-    node.children.length === 1 &&
-    (node.firstChild.kind === "interpolation" ||
-      node.firstChild.kind === "angularIcuExpression") &&
+    ((node.children.length === 1 &&
+      (node.firstChild.kind === "interpolation" ||
+        node.firstChild.kind === "angularIcuExpression")) ||
+      (node.children.length === 2 &&
+        options.parser === "angular" &&
+        node.firstChild.kind === "interpolation" &&
+        node.lastChild.kind === "text" &&
+        !node.lastChild.hasLeadingSpaces)) &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&
