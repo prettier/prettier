@@ -121,9 +121,25 @@ function printMdast(path, options, print) {
           path.callParent(
             ({ node }) => node.type === "strong" && prevOrNextWord(path),
           );
+        // `_**b**_` does not round-trip: the inner `**` can be stolen by an outer
+        // or preceding `**` run on re-parse, so keep `*`
+        // https://github.com/prettier/prettier/issues/20048
+        const startsWithStrong = node.children[0]?.type === "strong";
+        const inStrongAndStartsWithStrong =
+          path.parent?.type === "strong" && startsWithStrong;
+        const hasPrecedingStrongRun =
+          startsWithStrong &&
+          ((path.previous?.type === "text" &&
+            path.previous.value.includes("**")) ||
+            (path.previous?.type === "sentence" &&
+              path.previous.children?.some?.(
+                (c) => c.type === "word" && c.value.includes("**"),
+              )));
         style =
           hasPrevOrNextWord ||
           inStrongAndHasPrevOrNextWord ||
+          inStrongAndStartsWithStrong ||
+          hasPrecedingStrongRun ||
           path.hasAncestor((node) => node.type === "emphasis")
             ? "*"
             : "_";
