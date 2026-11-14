@@ -1,6 +1,7 @@
 import { align } from "../../document/index.js";
 import {
   getNthListSiblingIndex,
+  getUnorderedListMarker,
   hasGitDiffFriendlyOrderedList,
 } from "../utilities.js";
 import { printChildren } from "./children.js";
@@ -21,7 +22,7 @@ const MAXIMUM_ORDERED_LIST_MARKER = 999_999_999;
  * @return {Doc}
  */
 function printList(path, options, print) {
-  const { node } = path;
+  const { node, ancestors } = path;
   const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
   const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
@@ -63,9 +64,7 @@ function printList(path, options, print) {
                     node.start + path.index,
                     MAXIMUM_ORDERED_LIST_MARKER,
                   )) + (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-          : nthSiblingIndex % 2 === 0
-            ? "- "
-            : "* ";
+          : `${getUnorderedListMarker(node, ancestors, options)} `;
 
         let prefix =
           node.isAligned && node.ordered
@@ -149,7 +148,7 @@ function requiredIndent(path) {
  * @return {Doc}
  */
 function printListLegacy(path, options, print) {
-  const { node } = path;
+  const { node, ancestors } = path;
   const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
   const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
@@ -187,9 +186,7 @@ function printListLegacy(path, options, print) {
                 ? 1
                 : node.start + path.index) +
             (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-          : nthSiblingIndex % 2 === 0
-            ? "- "
-            : "* ";
+          : `${getUnorderedListMarker(node, ancestors, options)} `;
 
         return (node.isAligned ||
           /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
