@@ -9,3 +9,9 @@
 .x     .y {}
 .x
     .y {}
+
+.a /deep/ .b {}
+.a/deep/.b {}
+.a   /DEEP/   .b {}
+/deep/ .b {}
+.a /deep/ .b /shadow/ .c {}

@@ -147,13 +147,18 @@ singleQuote: true
                                                       printWidth: 80 (default) |
 =====================================input======================================
 @namespace foo "http://www.example.com";
+@namespace n\\:s "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
 [|att] {}
 [att] {}
+[n\\:s|att] {}
+n\\:s|a {}
+n\\:s|* {}
 
 =====================================output=====================================
 @namespace foo 'http://www.example.com';
+@namespace n\\:s 'http://www.example.com';
 [foo|att='val'] {
 }
 [*|att] {
@@ -161,6 +166,12 @@ singleQuote: true
 [|att] {
 }
 [att] {
+}
+[n\\:s|att] {
+}
+n\\:s|a {
+}
+n\\:s|* {
 }
 
 ================================================================================
@@ -172,13 +183,18 @@ parsers: ["css"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 @namespace foo "http://www.example.com";
+@namespace n\\:s "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
 [|att] {}
 [att] {}
+[n\\:s|att] {}
+n\\:s|a {}
+n\\:s|* {}
 
 =====================================output=====================================
 @namespace foo "http://www.example.com";
+@namespace n\\:s "http://www.example.com";
 [foo|att="val"] {
 }
 [*|att] {
@@ -186,6 +202,12 @@ parsers: ["css"]
 [|att] {
 }
 [att] {
+}
+[n\\:s|att] {
+}
+n\\:s|a {
+}
+n\\:s|* {
 }
 
 ================================================================================
@@ -216,7 +238,7 @@ a[id='test'] {
 }
 a[id='test'] {
 }
-a[id=func('foo')] {
+a[id=func("foo")] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
 }

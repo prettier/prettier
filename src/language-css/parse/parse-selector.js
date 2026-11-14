@@ -1,4 +1,4 @@
-import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
+import postcssSelectorParser from "postcss-selector-parser";
 import { removeQuotedStrings } from "../print/misc.js";
 import { addTypePrefix } from "./utilities.js";
 
@@ -17,9 +17,14 @@ function parseSelector(selector) {
   let result;
 
   try {
-    new PostcssSelectorParser((selectors) => {
+    postcssSelectorParser((selectors) => {
+      selectors.walk((node) => {
+        if (node.type === "string" && node.value.startsWith("(")) {
+          throw new Error("Unexpected parentheses");
+        }
+      });
       result = selectors;
-    }).process(selector);
+    }).processSync(selector);
   } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:

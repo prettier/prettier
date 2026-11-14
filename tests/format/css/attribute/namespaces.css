@@ -1,5 +1,9 @@
 @namespace foo "http://www.example.com";
+@namespace n\:s "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
 [|att] {}
 [att] {}
+[n\:s|att] {}
+n\:s|a {}
+n\:s|* {}
