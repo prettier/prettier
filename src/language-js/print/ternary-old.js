@@ -326,10 +326,20 @@ function printTernaryOld(path, options, print) {
   //   ? b
   //   : c
   // ).call()
+  // Also break the closing paren when the parenthesized ternary is an
+  // operand of a binary expression, so the operator attaches to the whole
+  // parenthesized expression instead of the last branch:
+  // (a
+  //   ? b
+  //   : c
+  // ) + d
   const breakClosingParen =
     !jsxMode &&
     (isMemberExpression(parent) ||
-      (parent.type === "NGPipeExpression" && parent.left === node)) &&
+      (parent.type === "NGPipeExpression" && parent.left === node) ||
+      ((parent.type === "BinaryExpression" ||
+        parent.type === "LogicalExpression") &&
+        (parent.left === node || parent.right === node))) &&
     !parent.computed;
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
