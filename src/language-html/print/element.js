@@ -12,6 +12,7 @@ import {
 import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
+  inferElementParser,
   isPreLikeNode,
   isScriptLikeTag,
   isVueCustomBlock,
@@ -91,6 +92,13 @@ function printElement(path, options, print) {
       !options.vueIndentScriptAndStyle
     ) {
       return childrenDoc;
+    }
+    if (
+      node.fullName === "script" &&
+      inferElementParser(node, options) === "markdown"
+    ) {
+      // Indentation changes Markdown paragraphs into code blocks.
+      return dedentToRoot(childrenDoc);
     }
     return indent(childrenDoc);
   };

@@ -54,6 +54,16 @@ function shouldPreserveContent(node, options) {
     return true;
   }
 
+  // Keep the original content of script data blocks without an embedded parser.
+  if (
+    node.kind === "element" &&
+    node.fullName === "script" &&
+    node.children.length > 0 &&
+    !inferElementParser(node, options)
+  ) {
+    return true;
+  }
+
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
