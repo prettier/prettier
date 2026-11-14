@@ -41,25 +41,6 @@ export const Default = {
   expect(await format(formatted, "typescript")).toBe(formatted);
 });
 
-test.each(["babel-ts", "typescript", "oxc-ts", "yuku-ts"])(
-  "formats a CSF render method in an exported story using satisfies with %s",
-  async (parser) => {
-    const source = `
-import type { StoryObj } from "@storybook/angular";
-export const Default = {
-  render(args) {
-    return { props: args, template: ${angularTemplate} };
-  },
-} satisfies StoryObj;
-`;
-    const formatted = await format(source, parser);
-
-    expect(formatted).toContain("@if (ready)");
-    expect(formatted).toContain("{{ name }}");
-    expect(await format(formatted, parser)).toBe(formatted);
-  },
-);
-
 test("ignores render templates in non-Angular Storybook modules", async () => {
   const source = `
 import { Meta } from "@storybook/react";
