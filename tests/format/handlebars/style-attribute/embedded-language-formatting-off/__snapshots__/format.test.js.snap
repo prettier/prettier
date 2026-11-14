@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div style="   color : red;
+            display    :inline "></div>
+
+=====================================output=====================================
+<div
+  style="   color : red;
+            display    :inline "
+></div>
+================================================================================
+`;
