@@ -1,6 +1,7 @@
 import {
   closetLevenshteinMatch,
   normalizeOptions,
+  optionInfoToSchema,
   picocolors,
   vnopts,
 } from "../prettier-internal.js";
@@ -54,10 +55,60 @@ class FlagSchema extends vnopts.ChoiceSchema {
 function normalizeCliOptions(options, optionInfos, opts) {
   return normalizeOptions(options, optionInfos, {
     ...opts,
-    isCLI: true,
-    FlagSchema,
+    schemaFactory: optionInfosToSchemas,
     descriptor,
+    unknownHandler(key, value, options) {
+      // Do not suggest the positional-argument schema as a flag.
+      const { _, ...schemas } = options.schemas;
+      return vnopts.levenUnknownHandler(key, value, { ...options, schemas });
+    },
   });
+}
+
+function optionInfosToSchemas(optionInfos) {
+  const schemas = [vnopts.AnySchema.create({ name: "_" })];
+  const flags = optionInfos.flatMap((optionInfo) =>
+    [
+      optionInfo.alias,
+      optionInfo.description && optionInfo.name,
+      optionInfo.oppositeDescription && `no-${optionInfo.name}`,
+    ].filter(Boolean),
+  );
+
+  for (const optionInfo of optionInfos) {
+    const parameters = {};
+    if (optionInfo.type === "int") {
+      parameters.preprocess = Number;
+    }
+    if (optionInfo.type === "flag") {
+      parameters.flags = flags;
+    }
+    // Repeated scalar flags use the last value, while array flags accumulate.
+    if (!optionInfo.array) {
+      const preprocess = parameters.preprocess ?? ((value) => value);
+      parameters.preprocess = (value, schema, utils) =>
+        schema.preprocess(
+          preprocess(Array.isArray(value) ? value.at(-1) : value),
+          utils,
+        );
+    }
+    schemas.push(
+      optionInfoToSchema(optionInfo, {
+        SchemaConstructor: optionInfo.type === "flag" ? FlagSchema : undefined,
+        parameters,
+        arrayPreprocess: (value) => (Array.isArray(value) ? value : [value]),
+      }),
+    );
+    if (optionInfo.alias) {
+      schemas.push(
+        vnopts.AliasSchema.create({
+          name: optionInfo.alias,
+          sourceName: optionInfo.name,
+        }),
+      );
+    }
+  }
+  return schemas;
 }
 
 export default normalizeCliOptions;
