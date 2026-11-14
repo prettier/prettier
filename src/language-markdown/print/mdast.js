@@ -1,6 +1,7 @@
 import collapseWhiteSpace from "collapse-white-space";
 import {
   align,
+  dedent,
   DOC_TYPE_STRING,
   fill,
   getDocType,
@@ -153,7 +154,21 @@ function printMdast(path, options, print) {
         (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
           ? " "
           : "";
-      return [backtickString, padding, code, padding, backtickString];
+      let contents = code;
+      if (options.parser !== "mdx") {
+        contents = markAsRoot(replaceEndOfLine(code));
+        const listItem = path.findAncestor((node) => node.type === "listItem");
+        if (
+          listItem &&
+          listItem.checked !== null &&
+          listItem.children[0] ===
+            path.findAncestor((node) => node.type === "paragraph")
+        ) {
+          // Task markers align the first paragraph, but are not part of its continuation indentation.
+          contents = dedent(contents);
+        }
+      }
+      return [backtickString, padding, contents, padding, backtickString];
     }
     case "wikiLink": {
       let contents;
