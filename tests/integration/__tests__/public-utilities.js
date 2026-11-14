@@ -92,6 +92,15 @@ test("sharedUtil.getStringWidth", () => {
 
   expect(getStringWidth("©︎")).toBe(1);
   expect(getStringWidth("©️")).toBe(2);
+
+  // Zero-width format characters (Default_Ignorable_Code_Point)
+  expect(getStringWidth("a\u200Bb")).toBe(2);
+  expect(getStringWidth("a\u200Db")).toBe(2);
+  expect(getStringWidth("a\uFEFFb")).toBe(2);
+  expect(getStringWidth("a\u00ADb")).toBe(2);
+  expect(getStringWidth("a\u2066b")).toBe(2);
+  expect(getStringWidth("\u200B")).toBe(0);
+  expect(getStringWidth("\u{1F468}\u200D\u{1F469}")).toBe(4);
 });
 
 test("sharedUtil.getAlignmentSize", () => {
