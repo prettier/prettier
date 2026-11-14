@@ -1,7 +1,14 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
-import { isClass, isJsxElement, isUnionType } from "../utilities/node-types.js";
+import {
+  isBinaryCastExpression,
+  isCallOrNewExpression,
+  isClass,
+  isJsxElement,
+  isMemberExpression,
+  isUnionType,
+} from "../utilities/node-types.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import { shouldUnionTypePrintOwnComments } from "../utilities/union-type-print.js";
 
@@ -55,6 +62,14 @@ function willPrintOwnComments(path, options) {
 
   if (isUnionType(node)) {
     return shouldUnionTypePrintOwnComments(path);
+  }
+
+  if (
+    isBinaryCastExpression(node) &&
+    ((key === "callee" && isCallOrNewExpression(parent)) ||
+      (key === "object" && isMemberExpression(parent)))
+  ) {
+    return true;
   }
 
   if (isJsxElement(node)) {
