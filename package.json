@@ -137,7 +137,7 @@
     "@clack/prompts": "1.9.0",
     "@eslint/js": "10.0.1",
     "@oxc-parser/binding-wasm32-wasip1": "0.158.0",
-    "@stylistic/eslint-plugin": "5.10.0",
+    "@stylistic/eslint-plugin": "6.0.0",
     "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.72.2",
     "@typescript-eslint/parser": "8.72.2",
