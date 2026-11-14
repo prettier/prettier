@@ -1,0 +1,382 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`block-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; /* first */
+/* second */
+;/* third */
+/* fourth
+   fifth */
+;/* sixth */
+
+function x() {}
+
+=====================================output=====================================
+foo /* first */
+/* second */
+/* third */
+/* fourth
+   fifth */
+/* sixth */
+
+function x() {}
+
+================================================================================
+`;
+
+exports[`block-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; /* first */
+/* second */
+;/* third */
+/* fourth
+   fifth */
+;/* sixth */
+
+function x() {}
+
+=====================================output=====================================
+foo; /* first */
+/* second */
+/* third */
+/* fourth
+   fifth */
+/* sixth */
+
+function x() {}
+
+================================================================================
+`;
+
+exports[`consecutive-semicolons.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+;// fourth
+;;; // fifth
+
+function x() {}
+
+=====================================output=====================================
+foo // first
+// second
+// third
+// fourth
+// fifth
+
+function x() {}
+
+================================================================================
+`;
+
+exports[`consecutive-semicolons.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+;// fourth
+;;; // fifth
+
+function x() {}
+
+=====================================output=====================================
+foo; // first
+// second
+// third
+// fourth
+// fifth
+
+function x() {}
+
+================================================================================
+`;
+
+exports[`empty-bodies.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+while (ready); // first
+// second
+;// third
+
+for (;;); // fourth
+// fifth
+;// sixth
+
+if (ready)
+  // seventh
+  ; // eighth
+else
+  // ninth
+  ; // tenth
+
+finish();
+
+=====================================output=====================================
+while (ready); // first
+// second
+// third
+
+for (;;); // fourth
+// fifth
+// sixth
+
+if (ready) // seventh
+; // eighth
+else // ninth
+; // tenth
+
+finish()
+
+================================================================================
+`;
+
+exports[`empty-bodies.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+while (ready); // first
+// second
+;// third
+
+for (;;); // fourth
+// fifth
+;// sixth
+
+if (ready)
+  // seventh
+  ; // eighth
+else
+  // ninth
+  ; // tenth
+
+finish();
+
+=====================================output=====================================
+while (ready); // first
+// second
+// third
+
+for (;;); // fourth
+// fifth
+// sixth
+
+if (ready) // seventh
+; // eighth
+else // ninth
+; // tenth
+
+finish();
+
+================================================================================
+`;
+
+exports[`end-of-file.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+// fourth
+
+=====================================output=====================================
+foo // first
+// second
+// third
+// fourth
+
+================================================================================
+`;
+
+exports[`end-of-file.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+// fourth
+
+=====================================output=====================================
+foo; // first
+// second
+// third
+// fourth
+
+================================================================================
+`;
+
+exports[`nested-block.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function outer() {
+  if (ready) {
+    foo; // first
+    // second
+    ;// third
+
+    function x() {}
+  }
+  finish();
+}
+
+=====================================output=====================================
+function outer() {
+  if (ready) {
+    foo // first
+    // second
+    // third
+
+    function x() {}
+  }
+  finish()
+}
+
+================================================================================
+`;
+
+exports[`nested-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function outer() {
+  if (ready) {
+    foo; // first
+    // second
+    ;// third
+
+    function x() {}
+  }
+  finish();
+}
+
+=====================================output=====================================
+function outer() {
+  if (ready) {
+    foo; // first
+    // second
+    // third
+
+    function x() {}
+  }
+  finish();
+}
+
+================================================================================
+`;
+
+exports[`only-empty-statements.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// first
+;// second
+// third
+;// fourth
+; /* fifth */
+// sixth
+
+=====================================output=====================================
+// first
+// second
+// third
+// fourth
+/* fifth */
+// sixth
+
+================================================================================
+`;
+
+exports[`only-empty-statements.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// first
+;// second
+// third
+;// fourth
+; /* fifth */
+// sixth
+
+=====================================output=====================================
+// first
+// second
+// third
+// fourth
+/* fifth */
+// sixth
+
+================================================================================
+`;
+
+exports[`order.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+
+function x() {}
+
+=====================================output=====================================
+foo // first
+// second
+// third
+
+function x() {}
+
+================================================================================
+`;
+
+exports[`order.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo; // first
+// second
+;// third
+
+function x() {}
+
+=====================================output=====================================
+foo; // first
+// second
+// third
+
+function x() {}
+
+================================================================================
+`;
