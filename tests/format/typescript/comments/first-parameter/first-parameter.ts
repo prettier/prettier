@@ -1,0 +1,31 @@
+function a(// 1
+  b: string): void {}
+function a<T>(// 2
+  b: T): T { return b }
+function a(// 3
+  this: A, b: string) {}
+declare function a(// 4
+  b: string): void;
+function a(// 5
+  b: string): void;
+function a(b) {}
+
+class A {
+  constructor(// 6
+    private b: string) {}
+  a(// 7
+    b: string): void {}
+  a(// 8
+    b: string): void;
+  a(b) {}
+}
+
+abstract class A {
+  abstract a(// 9
+    b: string): void;
+}
+
+declare class A {
+  a(// 10
+    b: string): void;
+}
