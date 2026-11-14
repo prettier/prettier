@@ -152,6 +152,15 @@ function printListLegacy(path, options, print) {
   const { node } = path;
   const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
+  // An empty `-` after a paragraph becomes a setext underline.
+  // Use `+` so adjacent lists can still alternate `-` and `*`.
+  const unorderedListPrefix =
+    path.previous?.type === "paragraph" &&
+    path.previous.position.end.line + 1 === node.position.start.line &&
+    node.children[0].children.length === 0
+      ? "+ "
+      : "- ";
+
   const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
     node,
     options,
@@ -188,7 +197,7 @@ function printListLegacy(path, options, print) {
                 : node.start + path.index) +
             (nthSiblingIndex % 2 === 0 ? ". " : ") ")
           : nthSiblingIndex % 2 === 0
-            ? "- "
+            ? unorderedListPrefix
             : "* ";
 
         return (node.isAligned ||
