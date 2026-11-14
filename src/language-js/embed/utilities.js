@@ -1,6 +1,9 @@
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
-import { isArrayExpression } from "../utilities/node-types.js";
+import {
+  isArrayExpression,
+  isBinaryCastExpression,
+} from "../utilities/node-types.js";
 
 const angularComponentObjectExpressionPredicates = [
   (node, name) => name === "properties" && node.type === "ObjectExpression",
@@ -61,6 +64,100 @@ function isAngularComponentTemplate(path) {
   );
 }
 
+/**
+ * Storybook Angular CSF stories can return inline Angular templates from
+ * render(). Require a named story export and an @storybook/angular import.
+ */
+function isAngularStorybookTemplate(path) {
+  const isProperty = (name) => (node, key) =>
+    key === "value" &&
+    isObjectProperty(node) &&
+    !node.computed &&
+    node.key.type === "Identifier" &&
+    node.key.name === name;
+  const isObjectLiteral = (node, key) =>
+    node.type === "ObjectExpression" && key === "properties";
+  const isRenderArrow = (node, key) =>
+    node.type === "ArrowFunctionExpression" && key === "body";
+  const isReturn = (node, key) =>
+    node.type === "ReturnStatement" && key === "argument";
+  const isBlock = (node, key) =>
+    node.type === "BlockStatement" && key === "body";
+  const isStoryInitializer = (node, key) =>
+    node.type === "VariableDeclarator" && key === "init";
+  const isVariableDeclaration = (node, key) =>
+    node.type === "VariableDeclaration" && key === "declarations";
+  const isNamedExport = (node, key) =>
+    node.type === "ExportNamedDeclaration" && key === "declaration";
+  const isCast = (node, key) =>
+    isBinaryCastExpression(node) && key === "expression";
+  const isRenderMethod = (node, key) =>
+    key === "body" &&
+    node.type === "ObjectMethod" &&
+    node.kind === "method" &&
+    !node.computed &&
+    node.key.type === "Identifier" &&
+    node.key.name === "render";
+  const isEstreeRenderMethod = (node, key) =>
+    node.type === "Property" &&
+    node.method &&
+    !node.computed &&
+    node.key.type === "Identifier" &&
+    node.key.name === "render" &&
+    key === "value";
+
+  if (
+    !path.match(
+      (node) => node.type === "TemplateLiteral",
+      isProperty("template"),
+      isObjectLiteral,
+    )
+  ) {
+    return false;
+  }
+
+  const storyDeclaration = [
+    isStoryInitializer,
+    isVariableDeclaration,
+    isNamedExport,
+  ];
+  const matchesStory = (...renderPredicates) => {
+    const predicates = [
+      undefined,
+      undefined,
+      undefined,
+      ...renderPredicates,
+      isObjectLiteral,
+    ];
+    return (
+      path.match(...predicates, ...storyDeclaration) ||
+      path.match(...predicates, isCast, ...storyDeclaration)
+    );
+  };
+  const inRender =
+    matchesStory(isRenderArrow, isProperty("render")) ||
+    matchesStory(isReturn, isBlock, isRenderArrow, isProperty("render")) ||
+    matchesStory(isReturn, isBlock, isRenderMethod) ||
+    matchesStory(
+      isReturn,
+      isBlock,
+      (node, key) => node.type === "FunctionExpression" && key === "body",
+      isEstreeRenderMethod,
+    );
+
+  if (!inRender) {
+    return false;
+  }
+
+  const program = path.findAncestor((node) => node.type === "Program");
+
+  return program?.body.some(
+    (node) =>
+      node.type === "ImportDeclaration" &&
+      node.source.value === "@storybook/angular",
+  );
+}
+
 function hasLeadingBlockCommentWithName(node, languageName) {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
@@ -97,4 +194,5 @@ export {
   hasLanguageComment,
   isAngularComponentStyles,
   isAngularComponentTemplate,
+  isAngularStorybookTemplate,
 };

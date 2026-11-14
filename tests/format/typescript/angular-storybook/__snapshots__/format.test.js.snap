@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`story.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import type { StoryObj } from "@storybook/angular";
+
+export const Default = {
+  render(args) {
+    return {
+      props: args,
+      template: \`<div>@if(ready){<span>{{name}}</span>}</div>\`,
+    };
+  },
+} satisfies StoryObj;
+
+=====================================output=====================================
+import type { StoryObj } from "@storybook/angular";
+
+export const Default = {
+  render(args) {
+    return {
+      props: args,
+      template: \`<div>
+        @if (ready) {
+          <span>{{ name }}</span>
+        }
+      </div>\`,
+    };
+  },
+} satisfies StoryObj;
+
+================================================================================
+`;
