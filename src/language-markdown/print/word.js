@@ -2,6 +2,8 @@ import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink, isNewLine } from "../utilities.js";
 
 const fakeSetextHeaderRegex = /^(?:=+|-+)$/;
+const fakeTableDelimiterRowRegex =
+  /^(?=.*[:|])\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)*\|?$/;
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -28,6 +30,16 @@ function printWord(path, options) {
       (path.isLast || isNewLine(path.next))
     ) {
       // escape indented pseudo setext header, e.g. `Previous line↵␣␣␣␣===`
+      return `\\${text}`;
+    }
+
+    if (
+      options.proseWrap !== "never" &&
+      path.parent.type === "sentence" &&
+      isNewLine(path.previous) &&
+      isFakeTableDelimiterRow(path)
+    ) {
+      // escape indented pseudo table delimiter row, e.g. `| a |↵␣␣␣␣|---|`
       return `\\${text}`;
     }
 
@@ -70,6 +82,61 @@ function printWord(path, options) {
 
   return text;
 }
+
+/**
+ * A delimiter row starts a table only if the line above it has the same number
+ * of cells, https://github.github.com/gfm/#tables-extension-
+ *
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isFakeTableDelimiterRow(path) {
+  const { siblings, index } = path;
+  const row = getLineText(siblings, index, 1);
+  if (!fakeTableDelimiterRowRegex.test(row)) {
+    return false;
+  }
+
+  const isPreviousLineInSentence =
+    path.callParent(() => path.isFirst) ||
+    siblings.slice(0, index - 1).some((node) => isNewLine(node));
+
+  // If the line above starts with other inline nodes, its cells can't be counted
+  return (
+    !isPreviousLineInSentence ||
+    countCells(getLineText(siblings, index - 2, -1)) === countCells(row)
+  );
+}
+
+/**
+ * @param {any[]} siblings
+ * @param {number} start
+ * @param {1 | -1} step
+ * @returns {string}
+ */
+function getLineText(siblings, start, step) {
+  let text = "";
+  for (
+    let index = start;
+    index >= 0 && index < siblings.length && !isNewLine(siblings[index]);
+    index += step
+  ) {
+    const { value } = siblings[index];
+    text = step === 1 ? text + value : value + text;
+  }
+  return text;
+}
+
+/**
+ * @param {string} line
+ * @returns {number}
+ */
+const countCells = (line) =>
+  line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/(?<!\\)\|$/, "")
+    .split(/(?<!\\)\|/).length;
 
 /**
  * @param {string | undefined} preceding
