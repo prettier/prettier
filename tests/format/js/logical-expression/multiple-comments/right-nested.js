@@ -2,10 +2,6 @@ x = first && (
   // Check the next operand.
   second && third
 );
-x = first + (
-  // Check the next operand.
-  second + third
-);
 
 x = first && (
   // Build the fallback.
@@ -16,7 +12,3 @@ x = first && ((
   // Check both operands.
   second && third
 ) && fourth);
-x = first + ((
-  // Check both operands.
-  second + third
-) + fourth);
