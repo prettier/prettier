@@ -80,6 +80,7 @@ function handleOwnLineComment(context) {
     handleClosureTypeCastComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
+    handleLabeledStatementComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -93,7 +94,6 @@ function handleOwnLineComment(context) {
     handleModuleSpecifiersComments,
     handleAssignmentPatternComments,
     handleMethodNameComments,
-    handleLabeledStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
@@ -631,10 +631,37 @@ function handleLastFunctionParameterComments({
   return false;
 }
 
-function handleLabeledStatementComments({ comment, enclosingNode }) {
+function handleLabeledStatementComments({
+  comment,
+  enclosingNode,
+  ancestors,
+  options,
+}) {
   if (enclosingNode?.type === "LabeledStatement") {
     return addLeadingComment(enclosingNode, comment);
   }
+
+  // Comment inside the parentheses at the start of the body
+  // `label: ( // comment
+  //   expression
+  // );`
+  // is enclosed by the body, but printed between the label and the body.
+  const labeledStatement = ancestors.find(
+    (node) => node.type === "LabeledStatement",
+  );
+  if (labeledStatement?.body.type !== "ExpressionStatement") {
+    return false;
+  }
+
+  const text = stripComments(options);
+  const textBetween = text.slice(
+    locStart(labeledStatement.body),
+    locStart(comment),
+  );
+  if (/^[\s(]*$/.test(textBetween)) {
+    return addLeadingComment(labeledStatement, comment);
+  }
+
   return false;
 }
 
