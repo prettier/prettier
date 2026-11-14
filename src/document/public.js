@@ -1,28 +1,26 @@
 import {
   addAlignmentToDoc,
   align,
-  breakParent,
+  breakParent as internalBreakParent,
   conditionalGroup,
-  cursor,
+  cursor as internalCursor,
   dedent,
   dedentToRoot,
   fill,
   group,
-  hardline,
-  hardlineWithoutBreakParent,
+  hardlineWithoutBreakParent as internalHardlineWithoutBreakParent,
   ifBreak,
   indent,
   indentIfBreak,
   join,
   label,
-  line,
+  line as internalLine,
   lineSuffix,
-  lineSuffixBoundary,
-  literalline,
-  literallineWithoutBreakParent,
+  lineSuffixBoundary as internalLineSuffixBoundary,
+  literallineWithoutBreakParent as internalLiterallineWithoutBreakParent,
   markAsRoot,
-  softline,
-  trim,
+  softline as internalSoftline,
+  trim as internalTrim,
 } from "./builders/index.js";
 import { printDocToString } from "./printer/printer.js";
 import {
@@ -35,6 +33,21 @@ import {
   traverseDoc,
   willBreak,
 } from "./utilities/index.js";
+
+const breakParent = Object.freeze({ ...internalBreakParent });
+const cursor = Object.freeze({ ...internalCursor });
+const line = Object.freeze({ ...internalLine });
+const softline = Object.freeze({ ...internalSoftline });
+const hardlineWithoutBreakParent = Object.freeze({
+  ...internalHardlineWithoutBreakParent,
+});
+const hardline = Object.freeze([hardlineWithoutBreakParent, breakParent]);
+const lineSuffixBoundary = Object.freeze({ ...internalLineSuffixBoundary });
+const literallineWithoutBreakParent = Object.freeze({
+  ...internalLiterallineWithoutBreakParent,
+});
+const literalline = Object.freeze([literallineWithoutBreakParent, breakParent]);
+const trim = Object.freeze({ ...internalTrim });
 
 export const builders = {
   join,
