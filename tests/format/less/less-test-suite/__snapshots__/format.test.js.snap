@@ -13184,7 +13184,8 @@ body {
 @import url("/import/layer-import-3.css") layer(responsive)
   supports(display: flex) screen and (max-width: 768px);
 @import url("/import/layer-import-4.css") layer(print) print;
-@import url("/import/layer-import-4.css") layer(print) print, (max-width: 600px);
+@import url("/import/layer-import-4.css") layer(print) print,
+  (max-width: 600px);
 @import url("/import/layer-import-5.css") layer(features)
   supports(display: grid);
 
