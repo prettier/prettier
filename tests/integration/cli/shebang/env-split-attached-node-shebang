@@ -1,0 +1,2 @@
+#!/usr/bin/env -Snode --no-warnings
+console.log( 1 )

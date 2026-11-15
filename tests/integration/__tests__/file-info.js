@@ -348,6 +348,31 @@ test("returns null parser for unknown shebang", async () => {
   });
 });
 
+test.each([
+  "env-split-node-shebang",
+  "env-split-attached-node-shebang",
+  "env-split-long-node-shebang",
+])("extracts file-info for %s", async (file) => {
+  await expect(
+    prettier.getFileInfo(`tests/integration/cli/shebang/${file}`),
+  ).resolves.toStrictEqual({
+    ignored: false,
+    inferredParser: "babel",
+  });
+});
+
+test.each(["env-split-empty-shebang", "env-split-unknown-shebang"])(
+  "returns null parser for %s",
+  async (file) => {
+    await expect(
+      prettier.getFileInfo(`tests/integration/cli/shebang/${file}`),
+    ).resolves.toStrictEqual({
+      ignored: false,
+      inferredParser: null,
+    });
+  },
+);
+
 test("API getFileInfo with hand-picked plugins", async () => {
   const file = "file.foo";
   const pluginPath = path.resolve(
