@@ -41,6 +41,7 @@ import { printHtmlBinding } from "./html-binding.js";
 import { printIdentifier } from "./identifier.js";
 import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
+import { printLogicalExpression } from "./logical-expression.js";
 import { printMemberExpression } from "./member.js";
 import { printSemicolon } from "./miscellaneous.js";
 import {
@@ -121,8 +122,9 @@ function printEstree(path, options, print, args) {
     case "VariableDeclarator":
       return printVariableDeclarator(path, options, print);
     case "BinaryExpression":
-    case "LogicalExpression":
       return printBinaryishExpression(path, options, print);
+    case "LogicalExpression":
+      return printLogicalExpression(path, options, print);
     case "AssignmentPattern":
       return [print("left"), " = ", print("right")];
     case "OptionalMemberExpression":

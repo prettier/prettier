@@ -29,8 +29,8 @@ import {
   isTypeAlias,
   isUnionType,
 } from "../utilities/node-types.js";
-import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
+import { shouldInlineLogicalExpression } from "./logical-expression.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**
