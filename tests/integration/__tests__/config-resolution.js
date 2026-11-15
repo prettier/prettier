@@ -293,6 +293,27 @@ test("API resolveConfig removes $schema option", async () => {
   });
 });
 
+test.each(["mutable", "frozen"])(
+  "API resolveConfig preserves the exported %s configuration object",
+  async (name) => {
+    const configFile = new URL(
+      `../cli/config/$schema/${name}.mjs`,
+      import.meta.url,
+    );
+    const { default: config } = await import(configFile);
+
+    await expect(
+      prettier.resolveConfig(new URL("index.js", configFile), {
+        config: configFile,
+      }),
+    ).resolves.toStrictEqual({ tabWidth: 42 });
+    expect(config).toStrictEqual({
+      $schema: "https://www.schemastore.org/prettierrc",
+      tabWidth: 42,
+    });
+  },
+);
+
 test("API resolveConfig resolves relative path values based on config filepath", async () => {
   const currentDir = new URL(
     "../cli/config/resolve-relative/",
