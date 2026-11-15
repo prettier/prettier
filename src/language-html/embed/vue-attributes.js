@@ -94,7 +94,10 @@ async function printVueVOnDirective(textToDoc, print, path, options) {
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser },
+    // Vue only compiles the handler as statements when it contains `;`,
+    // otherwise it gets wrapped in parentheses as an expression,
+    // so semicolons are required here even with `semi: false`
+    { parser, semi: true },
     shouldHugJsExpression,
   );
 }
