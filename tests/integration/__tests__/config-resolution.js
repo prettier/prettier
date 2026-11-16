@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import os from "node:os";
 import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
@@ -239,32 +238,39 @@ test("API clearConfigCache", () => {
 });
 
 test("API resolveConfig reloads module config file after clearConfigCache", async () => {
-  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "prettier-"));
-  const file = path.join(directory, "file.js");
+  const directory = new URL(
+    "../cli/config/reload-module-config/",
+    import.meta.url,
+  );
+  const file = new URL("./file.js", directory);
 
-  for (const [configFileName, write] of [
-    ["prettier.config.mjs", (config) => `export default ${config};`],
-    ["prettier.config.cjs", (config) => `module.exports = ${config};`],
-  ]) {
-    const configFile = path.join(directory, configFileName);
+  await fs.mkdir(directory, { recursive: true });
+  try {
+    for (const [configFileName, write] of [
+      ["prettier.config.mjs", (config) => `export default ${config};`],
+      ["prettier.config.cjs", (config) => `module.exports = ${config};`],
+    ]) {
+      const configFile = new URL(configFileName, directory);
 
-    await fs.writeFile(configFile, write("{ tabWidth: 3 }"));
-    await fs.utimes(configFile, 0, 0);
-    await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
-      tabWidth: 3,
-    });
+      await fs.writeFile(configFile, write("{ tabWidth: 3 }"));
+      // Make sure the next write changes mtime
+      await fs.utimes(configFile, 0, 0);
+      await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
+        tabWidth: 3,
+      });
 
-    await fs.writeFile(configFile, write("{ tabWidth: 5 }"));
-    await prettier.clearConfigCache();
-    await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
-      tabWidth: 5,
-    });
+      await fs.writeFile(configFile, write("{ tabWidth: 5 }"));
+      await prettier.clearConfigCache();
+      await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
+        tabWidth: 5,
+      });
 
-    await fs.rm(configFile);
-    await prettier.clearConfigCache();
+      await fs.rm(configFile);
+      await prettier.clearConfigCache();
+    }
+  } finally {
+    await fs.rm(directory, { recursive: true, force: true });
   }
-
-  await fs.rm(directory, { recursive: true, force: true });
 });
 
 test("API resolveConfig overrides work with dotfiles", async () => {
