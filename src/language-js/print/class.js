@@ -15,8 +15,10 @@ import {
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
+import { getClassPropertyTypeComment } from "../utilities/class-property-type-comment.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
@@ -360,17 +362,31 @@ function printClassProperty(path, options, print) {
     isAbstractPropertyDefinition(node) ||
     node.type === "TSAbstractAccessorProperty";
 
-  return [
-    printAssignment(
+  const printed = printAssignment(
+    path,
+    options,
+    print,
+    parts,
+    " =",
+    isAbstractProperty ? undefined : "value",
+  );
+  const typeComment = getClassPropertyTypeComment(path, options);
+  if (typeComment) {
+    // Flow comment types must stay before the field's semicolon.
+    const isBeforeSemicolon = (comment) =>
+      comment.trailing && locStart(comment) <= locStart(typeComment);
+    const { trailing } = printCommentsSeparately(path, options, {
+      filter: isBeforeSemicolon,
+    });
+    return printComments(
       path,
+      [printed, trailing, printSemicolon(options)],
       options,
-      print,
-      parts,
-      " =",
-      isAbstractProperty ? undefined : "value",
-    ),
-    printSemicolon(options),
-  ];
+      { filter: (comment) => !isBeforeSemicolon(comment) },
+    );
+  }
+
+  return [printed, printSemicolon(options)];
 }
 
 export { printClass, printClassMethod, printClassProperty };
