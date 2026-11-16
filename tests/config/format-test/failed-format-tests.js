@@ -9,7 +9,6 @@ const unstableTests = new Map(
       (options) => options.semi === false,
     ],
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
-    "js/comments/return-statement.js",
     "flow/comments/type_annotations.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",

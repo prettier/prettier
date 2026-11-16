@@ -12,6 +12,7 @@ import { locEnd, locStart } from "../location/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { isInsideCallOrNewExpressionParentheses } from "../utilities/call-or-new-expression-parentheses.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isMethod } from "../utilities/is-method.js";
@@ -19,6 +20,7 @@ import { isNullishCoalescing } from "../utilities/is-nullish-coalescing.js";
 import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
+import { getLeftSide, hasNakedLeftSide } from "../utilities/left-side.js";
 import {
   isAbstractMethodDefinition,
   isArrayType,
@@ -27,6 +29,7 @@ import {
   isCallOrNewExpression,
   isConditionalType,
   isEnumDeclaration,
+  isFunctionOrArrowExpression,
   isIntersectionType,
   isMemberExpression,
   isModuleDeclaration,
@@ -78,6 +81,7 @@ function handleOwnLineComment(context) {
     handleCommentInEmptyParens,
     handleIgnoreComments,
     handleClosureTypeCastComments,
+    handleLeftSideLeadingComment,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
     handleMemberExpressionComments,
@@ -111,6 +115,7 @@ function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleClosureTypeCastComments,
+    handleLeftSideLeadingComment,
     handleLastFunctionParameterComments,
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
@@ -1209,6 +1214,48 @@ function handleSequenceExpressionLeadingComment({
   }
 
   return false;
+}
+
+function getLeftSideChainRoot(node, ancestors) {
+  let child = node;
+
+  for (const ancestor of ancestors) {
+    if (hasNakedLeftSide(ancestor) && getLeftSide(ancestor) === child) {
+      child = ancestor;
+      continue;
+    }
+
+    return ancestor.type === "ExpressionStatement" &&
+      ancestor.expression === child
+      ? ancestor
+      : child;
+  }
+}
+
+function handleLeftSideLeadingComment({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  ancestors,
+}) {
+  if (
+    precedingNode ||
+    !enclosingNode ||
+    !followingNode ||
+    isPrettierIgnoreComment(comment) ||
+    !hasNakedLeftSide(enclosingNode) ||
+    getLeftSide(enclosingNode) !== followingNode ||
+    isFunctionOrArrowExpression(followingNode) ||
+    hasComment(followingNode, CommentCheckFlags.Leading)
+  ) {
+    return false;
+  }
+
+  return addLeadingComment(
+    getLeftSideChainRoot(enclosingNode, ancestors.slice(1)),
+    comment,
+  );
 }
 
 function handleParenthesizedExpressionTrailingComment({

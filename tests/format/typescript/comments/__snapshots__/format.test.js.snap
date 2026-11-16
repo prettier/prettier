@@ -69,6 +69,33 @@ type D2 =
 ================================================================================
 `;
 
+exports[`10851.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const generate = (
+  // @ts-expect-error requireOutside Babel transform
+  requireOutside('@babel/generator') as typeof import('@babel/generator')
+).default;
+
+const currentTable = ( // eslint-disable-next-line no-await-in-loop
+  await getCurrentTables(projectId)
+).find((table) => table.id === id);
+
+=====================================output=====================================
+const generate =
+  // @ts-expect-error requireOutside Babel transform
+  (requireOutside("@babel/generator") as typeof import("@babel/generator"))
+    .default;
+
+const currentTable =
+  // eslint-disable-next-line no-await-in-loop
+  (await getCurrentTables(projectId)).find((table) => table.id === id);
+
+================================================================================
+`;
+
 exports[`11662.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
