@@ -16,6 +16,16 @@ describe("checks stdin with --debug-check", () => {
   });
 });
 
+describe("checks BigInt literals with --debug-check", () => {
+  runCli("cli/with-shebang", ["--debug-check", "--parser", "babel"], {
+    input: "const foo = 10n;",
+  }).test({
+    stdout: "(stdin)",
+    stderr: "",
+    status: 0,
+  });
+});
+
 describe("show diff for 2+ error files with --debug-check", () => {
   runCli("cli/debug-check", [
     "--end-of-line",
