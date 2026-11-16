@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
@@ -235,6 +236,35 @@ describe("API resolveConfig doesn’t apply editorconfig outside project when .g
 
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrow();
+});
+
+test("API resolveConfig reloads module config file after clearConfigCache", async () => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), "prettier-"));
+  const file = path.join(directory, "file.js");
+
+  for (const [configFileName, write] of [
+    ["prettier.config.mjs", (config) => `export default ${config};`],
+    ["prettier.config.cjs", (config) => `module.exports = ${config};`],
+  ]) {
+    const configFile = path.join(directory, configFileName);
+
+    await fs.writeFile(configFile, write("{ tabWidth: 3 }"));
+    await fs.utimes(configFile, 0, 0);
+    await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
+      tabWidth: 3,
+    });
+
+    await fs.writeFile(configFile, write("{ tabWidth: 5 }"));
+    await prettier.clearConfigCache();
+    await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
+      tabWidth: 5,
+    });
+
+    await fs.rm(configFile);
+    await prettier.clearConfigCache();
+  }
+
+  await fs.rm(directory, { recursive: true, force: true });
 });
 
 test("API resolveConfig overrides work with dotfiles", async () => {
