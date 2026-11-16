@@ -19,6 +19,20 @@ function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
+/**
+ * The parsers represent BigInt literal values (e.g. `10n`) as native `bigint`s
+ * in the ESTree `Literal.value` field, and `JSON.stringify` throws on those.
+ * The debug output is not meant to be fed back into a parser, so serialize
+ * them in their source form instead of failing.
+ */
+function stringifyAst(ast, space) {
+  return JSON.stringify(
+    ast,
+    (key, value) => (typeof value === "bigint" ? `${value}n` : value),
+    space,
+  );
+}
+
 class DebugError extends Error {
   name = "DebugError";
 }
@@ -119,7 +133,7 @@ async function format(context, input, opt) {
   if (context.argv.debugPrintAst) {
     const { ast } = await prettier.__debug.parse(input, opt);
     return {
-      formatted: JSON.stringify(ast),
+      formatted: stringifyAst(ast),
     };
   }
 
@@ -132,12 +146,13 @@ async function format(context, input, opt) {
       );
     }
 
-    const stringify = (obj) => JSON.stringify(obj, null, 2);
-    const ast = stringify(
+    const ast = stringifyAst(
       (await prettier.__debug.parse(input, opt, { massage: true })).ast,
+      2,
     );
-    const past = stringify(
+    const past = stringifyAst(
       (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
+      2,
     );
 
     /* c8 ignore start */

@@ -52,3 +52,13 @@ describe("should not exit non-zero for jsx style element with spread attribute",
     status: 0,
   });
 });
+
+describe("doesn't crash on BigInt literals with --debug-check", () => {
+  runCli("cli/debug-check", ["--debug-check", "--parser", "babel"], {
+    input: "const x = 10n;",
+  }).test({
+    stdout: "(stdin)",
+    stderr: "",
+    status: 0,
+  });
+});
