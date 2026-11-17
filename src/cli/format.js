@@ -19,12 +19,6 @@ function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
-/**
- * The parsers represent BigInt literal values (e.g. `10n`) as native `bigint`s
- * in the ESTree `Literal.value` field, and `JSON.stringify` throws on those.
- * The debug output is not meant to be fed back into a parser, so serialize
- * them in their source form instead of failing.
- */
 function stringifyAst(ast, space) {
   return JSON.stringify(
     ast,
