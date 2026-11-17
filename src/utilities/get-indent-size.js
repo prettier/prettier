@@ -14,7 +14,7 @@ function getIndentSize(value, tabWidth) {
 
   return getAlignmentSize(
     // All the leading whitespaces
-    value.slice(lastNewlineIndex + 1).match(/^[\t ]*/)[0],
+    /^[\t ]*/.exec(value.slice(lastNewlineIndex + 1))[0],
     tabWidth,
   );
 }
