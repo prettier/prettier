@@ -253,8 +253,6 @@ test("API resolveConfig reloads module config file after clearConfigCache", asyn
       const configFile = new URL(configFileName, directory);
 
       await fs.writeFile(configFile, write("{ tabWidth: 3 }"));
-      // Make sure the next write changes mtime
-      await fs.utimes(configFile, 0, 0);
       await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
         tabWidth: 3,
       });

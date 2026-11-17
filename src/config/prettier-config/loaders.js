@@ -1,4 +1,3 @@
-import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
 import { parse as parseJson5 } from "@bybrave/json5";
@@ -18,11 +17,13 @@ async function readJson(file) {
   }
 }
 
+let importCount = 0;
 async function importModuleDefault(file) {
-  const { mtimeMs } = await fs.stat(file);
   const require = createRequire(file);
   delete require.cache[require.resolve(file)];
-  const module = await import(`${pathToFileURL(file).href}?mtime=${mtimeMs}`);
+  const url = pathToFileURL(file);
+  url.searchParams.set("_", String(++importCount));
+  const module = await import(url.href);
   return module.default;
 }
 
