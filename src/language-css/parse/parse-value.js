@@ -11,6 +11,28 @@ import { addTypePrefix } from "./utilities.js";
 const isClosingParenthesis = (node) =>
   node.type === "paren" && node.value === ")";
 
+/**
+ * Whether the comma at `index` is a trailing comma followed only by a comment,
+ * or by inline comments, before the last closing parenthesis
+ *
+ * @param {*[]} nodes
+ * @param {number} index
+ * @returns {boolean}
+ */
+function isTrailingCommaBeforeComments(nodes, index) {
+  const comments = nodes.slice(index + 1, -1);
+
+  if (comments.length === 0 || !isClosingParenthesis(nodes.at(-1))) {
+    return false;
+  }
+
+  if (comments.length === 1) {
+    return comments[0].type === "comment";
+  }
+
+  return comments.every((node) => node.type === "comment" && node.inline);
+}
+
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
   let parenGroup = {
@@ -111,11 +133,7 @@ function parseValueNode(valueNode, options) {
       parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
       // Trialing comma
-      if (
-        i === nodes.length - 3 &&
-        nodes[i + 1].type === "comment" &&
-        isClosingParenthesis(nodes[i + 2])
-      ) {
+      if (isTrailingCommaBeforeComments(nodes, i)) {
         continue;
       }
 
