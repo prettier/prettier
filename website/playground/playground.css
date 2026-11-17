@@ -178,6 +178,8 @@ header a:hover {
     top: auto;
     bottom: 100%;
     padding: 2px;
+    flex-wrap: wrap;
+    row-gap: 2px;
   }
 
   .bottom-bar-buttons > * + * {
@@ -303,6 +305,7 @@ input[type="number"] {
   color: #fff;
   border-radius: 0.4em;
   pointer-events: none;
+  white-space: nowrap;
 }
 
 .tooltip::before {
