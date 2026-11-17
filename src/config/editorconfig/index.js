@@ -15,15 +15,32 @@ import editorConfigToPrettier from "./editorconfig-to-prettier.js";
 */
 const editorconfigCache = new Map();
 
+/**
+Parsed `.editorconfig` files, shared across all files that look them up.
+@type {Map<string, any>}
+*/
+const editorconfigFileCache = new Map();
+
 function clearEditorconfigCache() {
   clearFindProjectRootCache();
   editorconfigCache.clear();
+  editorconfigFileCache.clear();
 }
 
 async function loadEditorconfigInternal(file, { shouldCache }) {
   const directory = path.dirname(file);
   const root = await findProjectRoot(directory, { shouldCache });
-  const editorConfig = await parseEditorconfig(file, { root });
+  // Even if `shouldCache` is false, we still cache the parsed files, so we can use them when `shouldCache` is true
+  const cache = shouldCache
+    ? editorconfigFileCache
+    : {
+        get: () => undefined,
+        set(name, config) {
+          editorconfigFileCache.set(name, config);
+          return this;
+        },
+      };
+  const editorConfig = await parseEditorconfig(file, { cache, root });
   const config = editorConfigToPrettier(editorConfig);
   return config;
 }

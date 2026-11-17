@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`carriage-return.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+query CarriageReturn($value: String = "\\r") {
+  field(
+    short: "first\\rsecond"
+    unicode: "first\\u000Dsecond"
+    crlf: "first\\r\\nsecond"
+    literalBackslash: "first\\\\rsecond",
+    lineSeparator: "first\\u{2028}second",
+    paragraphSeparator: "first\\u{2029}second",
+  )
+}
+
+"first\\rsecond"
+scalar Described
+
+input Input {
+  value: String = "first\\rsecond"
+}
+
+=====================================output=====================================
+query CarriageReturn($value: String = "\\r") {
+  field(
+    short: "first\\rsecond"
+    unicode: "first\\rsecond"
+    crlf: "first\\r\\nsecond"
+    literalBackslash: "first\\\\rsecond"
+    lineSeparator: "first second"
+    paragraphSeparator: "first second"
+  )
+}
+
+"first\\rsecond"
+scalar Described
+
+input Input {
+  value: String = "first\\rsecond"
+}
+
+================================================================================
+`;
+
 exports[`description.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]

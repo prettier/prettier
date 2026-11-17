@@ -19,7 +19,6 @@ runFormatTest(
     "yuku",
     "yuku-ts",
     "flow",
-    "hermes",
     // "__babel_estree",
   ],
 );

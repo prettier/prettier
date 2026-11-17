@@ -63,17 +63,6 @@ exports[`newline-before-arrow.js format[flow] 1`] = `
 Cause: Illegal newline before arrow (2:0)"
 `;
 
-exports[`newline-before-arrow.js format[hermes] 1`] = `
-"invalid expression (2:1)
-  1 | async x
-> 2 | => x
-    | ^
-  3 |
-Cause: invalid expression (2:0)
-=> x
-^"
-`;
-
 exports[`newline-before-arrow.js format[meriyah] 1`] = `
 "No line break is allowed after '=>' (2:1)
   1 | async x

@@ -2066,6 +2066,175 @@ for (;;) /* comment */ ;
 ================================================================================
 `;
 
+exports[`dangling-blank-lines.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function foo() {
+  // comment 1
+
+  // comment 2
+  // comment 3
+}
+
+{
+  /* comment 1 */
+
+  /* comment 2 */
+}
+
+const object = {
+  // comment 1
+
+
+  // comment 2
+};
+
+const array = [
+  // comment 1
+
+  // comment 2
+];
+
+call(
+  // comment 1
+
+  // comment 2
+);
+
+class A {
+  // comment 1
+
+  // comment 2
+}
+
+=====================================output=====================================
+function foo() {
+  // comment 1
+
+  // comment 2
+  // comment 3
+}
+
+{
+  /* comment 1 */
+
+  /* comment 2 */
+}
+
+const object = {
+  // comment 1
+
+  // comment 2
+}
+
+const array = [
+  // comment 1
+
+  // comment 2
+]
+
+call(
+  // comment 1
+
+  // comment 2
+)
+
+class A {
+  // comment 1
+
+  // comment 2
+}
+
+================================================================================
+`;
+
+exports[`dangling-blank-lines.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function foo() {
+  // comment 1
+
+  // comment 2
+  // comment 3
+}
+
+{
+  /* comment 1 */
+
+  /* comment 2 */
+}
+
+const object = {
+  // comment 1
+
+
+  // comment 2
+};
+
+const array = [
+  // comment 1
+
+  // comment 2
+];
+
+call(
+  // comment 1
+
+  // comment 2
+);
+
+class A {
+  // comment 1
+
+  // comment 2
+}
+
+=====================================output=====================================
+function foo() {
+  // comment 1
+
+  // comment 2
+  // comment 3
+}
+
+{
+  /* comment 1 */
+
+  /* comment 2 */
+}
+
+const object = {
+  // comment 1
+
+  // comment 2
+};
+
+const array = [
+  // comment 1
+
+  // comment 2
+];
+
+call(
+  // comment 1
+
+  // comment 2
+);
+
+class A {
+  // comment 1
+
+  // comment 2
+}
+
+================================================================================
+`;
+
 exports[`dynamic_imports.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

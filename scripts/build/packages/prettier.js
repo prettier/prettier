@@ -202,6 +202,31 @@ const cliModule = {
             module: getPackageFile("smol-toml"),
             path: getPackageFile("smol-toml/dist/parse.js"),
           },
+          // https://github.com/prettier/prettier-cli/issues/131
+          {
+            module: getPackageFile("tiny-readdir"),
+            process(text) {
+              text = text.replace(
+                "onDirents(dirents)",
+                "onDirents(dirents, rootPath)",
+              );
+              return text;
+            },
+          },
+          {
+            module: getPackageFile("@prettier/cli/dist/utils.js"),
+            process(text) {
+              text = text.replace(
+                "const onDirents = (dirents)",
+                "const onDirents = (dirents, parentPath)",
+              );
+              text = text.replace(
+                "dirent.parentPath",
+                "dirent.parentPath ?? dirent.path ?? parentPath",
+              );
+              return text;
+            },
+          },
         ],
       },
       {

@@ -118,6 +118,20 @@ function parentNeedsParentheses(path, options, needsParentheses) {
       }
       break;
 
+    case "BinaryExpression":
+      if (
+        !(
+          key === "right" &&
+          node.type === "TSInstantiationExpression" &&
+          (parent.operator === "instanceof" || parent.operator === "in")
+        ) &&
+        endsWithInstantiationExpression(node)
+      ) {
+        return true;
+      }
+
+      break;
+
     case "TSInstantiationExpression":
       if (
         key === "expression" &&
@@ -128,6 +142,24 @@ function parentNeedsParentheses(path, options, needsParentheses) {
 
       break;
   }
+}
+
+function endsWithInstantiationExpression(node) {
+  while (node) {
+    if (
+      node.type === "UnaryExpression" ||
+      node.type === "AwaitExpression" ||
+      node.type === "YieldExpression"
+    ) {
+      node = node.argument;
+    } else if (node.type === "TSTypeAssertion") {
+      node = node.expression;
+    } else {
+      break;
+    }
+  }
+
+  return node?.type === "TSInstantiationExpression";
 }
 
 function willArgumentBreakAndAddParentheses(path, options) {

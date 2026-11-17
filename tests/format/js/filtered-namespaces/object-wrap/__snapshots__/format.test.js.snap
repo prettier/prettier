@@ -47,18 +47,6 @@ exports[`object-wrap.js - {"objectWrap":"collapse"} format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
 `;
 
-exports[`object-wrap.js - {"objectWrap":"collapse"} format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import {foo} as ns from 'foo'
-    |              ^
-  2 | import {
-  3 | foo} as ns from 'foo'
-  4 |
-Cause: 'from' expected (1:13)
-import {foo} as ns from 'foo'
-             ^"
-`;
-
 exports[`object-wrap.js - {"objectWrap":"collapse"} format[meriyah] 1`] = `
 "Expected 'from' (1:14)
 > 1 | import {foo} as ns from 'foo'
@@ -162,18 +150,6 @@ exports[`object-wrap.js - {"objectWrap":"preserve"} format[flow] 1`] = `
   3 | foo} as ns from 'foo'
   4 |
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
-`;
-
-exports[`object-wrap.js - {"objectWrap":"preserve"} format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import {foo} as ns from 'foo'
-    |              ^
-  2 | import {
-  3 | foo} as ns from 'foo'
-  4 |
-Cause: 'from' expected (1:13)
-import {foo} as ns from 'foo'
-             ^"
 `;
 
 exports[`object-wrap.js - {"objectWrap":"preserve"} format[meriyah] 1`] = `

@@ -38,16 +38,6 @@ exports[`bracket-spacing.js - {"bracketSpacing":false} format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
 `;
 
-exports[`bracket-spacing.js - {"bracketSpacing":false} format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import {foo} as ns from 'foo'
-    |              ^
-  2 |
-Cause: 'from' expected (1:13)
-import {foo} as ns from 'foo'
-             ^"
-`;
-
 exports[`bracket-spacing.js - {"bracketSpacing":false} format[meriyah] 1`] = `
 "Expected 'from' (1:14)
 > 1 | import {foo} as ns from 'foo'
@@ -128,16 +118,6 @@ exports[`bracket-spacing.js - {"bracketSpacing":true} format[flow] 1`] = `
     |              ^
   2 |
 Cause: Unexpected identifier, expected the keyword \`from\` (1:13)"
-`;
-
-exports[`bracket-spacing.js - {"bracketSpacing":true} format[hermes] 1`] = `
-"'from' expected (1:14)
-> 1 | import {foo} as ns from 'foo'
-    |              ^
-  2 |
-Cause: 'from' expected (1:13)
-import {foo} as ns from 'foo'
-             ^"
 `;
 
 exports[`bracket-spacing.js - {"bracketSpacing":true} format[meriyah] 1`] = `

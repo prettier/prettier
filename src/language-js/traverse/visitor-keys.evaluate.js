@@ -33,6 +33,10 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
+  ClassImplements: ["typeParameters"],
+  GenericTypeAnnotation: ["typeParameters"],
+  InterfaceExtends: ["typeParameters"],
+  DeclareVariable: ["id"],
 };
 
 const excludeNodeTypes = [

@@ -79,18 +79,6 @@ exports[`basic.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`basic.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`basic.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -224,18 +212,6 @@ exports[`export-default.js format[flow] 1`] = `
   3 |   method() {}
   4 |   #private = "";
 Cause: Unexpected token \`{\`, expected the token \`;\` (1:22)"
-`;
-
-exports[`export-default.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct {
-    |                       ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:22)
-export default struct {
-                      ^"
 `;
 
 exports[`export-default.js format[meriyah] 1`] = `
@@ -373,18 +349,6 @@ exports[`export-default-anonymous-struct-declaration-extends.js format[flow] 1`]
 Cause: Unexpected token \`extends\`, expected the token \`;\` (1:22)"
 `;
 
-exports[`export-default-anonymous-struct-declaration-extends.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct extends B {
-    |                       ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:22)
-export default struct extends B {
-                      ^"
-`;
-
 exports[`export-default-anonymous-struct-declaration-extends.js format[meriyah] 1`] = `
 "Unexpected token: 'extends' (1:23)
 > 1 | export default struct extends B {
@@ -482,17 +446,6 @@ exports[`export-default-body-linebreak.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:22)"
 `;
 
-exports[`export-default-body-linebreak.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct S
-    |                       ^
-  2 | {};
-  3 |
-Cause: ';' expected (1:22)
-export default struct S
-                      ^"
-`;
-
 exports[`export-default-body-linebreak.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:23)
 > 1 | export default struct S
@@ -582,17 +535,6 @@ exports[`export-default-extends-linebreak.js format[flow] 1`] = `
   2 | extends B {};
   3 |
 Cause: Unexpected identifier, expected the token \`;\` (1:22)"
-`;
-
-exports[`export-default-extends-linebreak.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct S
-    |                       ^
-  2 | extends B {};
-  3 |
-Cause: ';' expected (1:22)
-export default struct S
-                      ^"
 `;
 
 exports[`export-default-extends-linebreak.js format[meriyah] 1`] = `
@@ -722,18 +664,6 @@ exports[`export-default-struct-declaration.js format[flow] 1`] = `
   3 |   method() {}
   4 |   #private = "";
 Cause: Unexpected identifier, expected the token \`;\` (1:22)"
-`;
-
-exports[`export-default-struct-declaration.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct S {
-    |                       ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:22)
-export default struct S {
-                      ^"
 `;
 
 exports[`export-default-struct-declaration.js format[meriyah] 1`] = `
@@ -871,18 +801,6 @@ exports[`export-default-struct-declaration-extends.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:22)"
 `;
 
-exports[`export-default-struct-declaration-extends.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct S extends B {
-    |                       ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:22)
-export default struct S extends B {
-                      ^"
-`;
-
 exports[`export-default-struct-declaration-extends.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:23)
 > 1 | export default struct S extends B {
@@ -1016,18 +934,6 @@ exports[`export-named.js format[flow] 1`] = `
   3 |   method() {}
   4 |   #private = "";
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`export-named.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct S {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: expected declaration in export (1:7)
-export struct S {
-       ^~~~~~"
 `;
 
 exports[`export-named.js format[meriyah] 1`] = `
@@ -1165,18 +1071,6 @@ exports[`export-named-struct-declaration.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`export-named-struct-declaration.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct S {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: expected declaration in export (1:7)
-export struct S {
-       ^~~~~~"
-`;
-
 exports[`export-named-struct-declaration.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export struct S {
@@ -1310,18 +1204,6 @@ exports[`export-named-struct-declaration-extends.js format[flow] 1`] = `
   3 |   method() {}
   4 |   #private = "";
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`export-named-struct-declaration-extends.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct S extends B {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: expected declaration in export (1:7)
-export struct S extends B {
-       ^~~~~~"
 `;
 
 exports[`export-named-struct-declaration-extends.js format[meriyah] 1`] = `
@@ -1459,18 +1341,6 @@ exports[`extends.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`extends.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S extends B {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:7)
-struct S extends B {
-       ^"
-`;
-
 exports[`extends.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S extends B {
@@ -1588,16 +1458,6 @@ exports[`invalid-anonymous-struct-declaration.js format[flow] 1`] = `
 Cause: Unexpected token \`{\`, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`invalid-anonymous-struct-declaration.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct {};
-    |        ^
-  2 |
-Cause: ';' expected (1:7)
-struct {};
-       ^"
-`;
-
 exports[`invalid-anonymous-struct-declaration.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:8)
 > 1 | struct {};
@@ -1687,18 +1547,6 @@ exports[`invalid-duplicate-export-alias.js format[flow] 1`] = `
     |        ^
   4 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (3:7)"
-`;
-
-exports[`invalid-duplicate-export-alias.js format[hermes] 1`] = `
-"expected declaration in export (3:8)
-  1 | const value = 0;
-  2 | export { value as S };
-> 3 | export struct S {}
-    |        ^
-  4 |
-Cause: expected declaration in export (3:7)
-export struct S {}
-       ^~~~~~"
 `;
 
 exports[`invalid-duplicate-export-alias.js format[meriyah] 1`] = `
@@ -1799,17 +1647,6 @@ exports[`invalid-duplicate-export-declaration-first.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
 `;
 
-exports[`invalid-duplicate-export-declaration-first.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct S {}
-    |        ^
-  2 | export { S };
-  3 |
-Cause: expected declaration in export (1:7)
-export struct S {}
-       ^~~~~~"
-`;
-
 exports[`invalid-duplicate-export-declaration-first.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | export struct S {}
@@ -1902,17 +1739,6 @@ exports[`invalid-duplicate-export-specifier-first.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (2:7)"
 `;
 
-exports[`invalid-duplicate-export-specifier-first.js format[hermes] 1`] = `
-"expected declaration in export (2:8)
-  1 | export { S };
-> 2 | export struct S {}
-    |        ^
-  3 |
-Cause: expected declaration in export (2:7)
-export struct S {}
-       ^~~~~~"
-`;
-
 exports[`invalid-duplicate-export-specifier-first.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (2:8)
   1 | export { S };
@@ -2003,17 +1829,6 @@ exports[`invalid-duplicate-struct-binding.js format[flow] 1`] = `
   2 | struct \\u0053 {};
   3 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`invalid-duplicate-struct-binding.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {};
-    |        ^
-  2 | struct \\u0053 {};
-  3 |
-Cause: ';' expected (1:7)
-struct S {};
-       ^"
 `;
 
 exports[`invalid-duplicate-struct-binding.js format[meriyah] 1`] = `
@@ -2114,16 +1929,6 @@ exports[`invalid-escaped-struct-keyword-1.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:12)"
 `;
 
-exports[`invalid-escaped-struct-keyword-1.js format[hermes] 1`] = `
-"';' expected (1:13)
-> 1 | \\u0073truct S {};
-    |             ^
-  2 |
-Cause: ';' expected (1:12)
-\\u0073truct S {};
-            ^"
-`;
-
 exports[`invalid-escaped-struct-keyword-1.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:13)
 > 1 | \\u0073truct S {};
@@ -2214,16 +2019,6 @@ exports[`invalid-escaped-struct-keyword-2.js format[flow] 1`] = `
     |             ^
   2 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:12)"
-`;
-
-exports[`invalid-escaped-struct-keyword-2.js format[hermes] 1`] = `
-"';' expected (1:13)
-> 1 | s\\u0074ruct S {};
-    |             ^
-  2 |
-Cause: ';' expected (1:12)
-s\\u0074ruct S {};
-            ^"
 `;
 
 exports[`invalid-escaped-struct-keyword-2.js format[meriyah] 1`] = `
@@ -2318,16 +2113,6 @@ exports[`invalid-escaped-struct-keyword-2-export-default.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:27)"
 `;
 
-exports[`invalid-escaped-struct-keyword-2-export-default.js format[hermes] 1`] = `
-"';' expected (1:28)
-> 1 | export default s\\u0074ruct S {};
-    |                            ^
-  2 |
-Cause: ';' expected (1:27)
-export default s\\u0074ruct S {};
-                           ^"
-`;
-
 exports[`invalid-escaped-struct-keyword-2-export-default.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:28)
 > 1 | export default s\\u0074ruct S {};
@@ -2418,16 +2203,6 @@ exports[`invalid-escaped-struct-keyword-2-export-named.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`invalid-escaped-struct-keyword-2-export-named.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export s\\u0074ruct S {};
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export s\\u0074ruct S {};
-       ^~~~~~~~~~~"
 `;
 
 exports[`invalid-escaped-struct-keyword-2-export-named.js format[meriyah] 1`] = `
@@ -2526,17 +2301,6 @@ exports[`invalid-export-default-anonymous-extends-linebreak.js format[flow] 1`] 
     | ^
   3 |
 Cause: Unexpected token \`extends\`, expected the start of a statement (2:0)"
-`;
-
-exports[`invalid-export-default-anonymous-extends-linebreak.js format[hermes] 1`] = `
-"invalid expression (2:1)
-  1 | export default struct
-> 2 | extends B {};
-    | ^
-  3 |
-Cause: invalid expression (2:0)
-extends B {};
-^"
 `;
 
 exports[`invalid-export-default-anonymous-extends-linebreak.js format[meriyah] 1`] = `
@@ -2647,18 +2411,6 @@ exports[`invalid-export-named-linebreak.js format[flow] 1`] = `
   3 | {};
   4 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`invalid-export-named-linebreak.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct
-    |        ^
-  2 | S
-  3 | {};
-  4 |
-Cause: expected declaration in export (1:7)
-export struct
-       ^~~~~~"
 `;
 
 exports[`invalid-export-named-linebreak.js format[meriyah] 1`] = `
@@ -2780,20 +2532,6 @@ exports[`invalid-outer-private-name.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (3:11)"
 `;
 
-exports[`invalid-outer-private-name.js format[hermes] 1`] = `
-"';' expected (3:12)
-  1 | class C {
-  2 |   static {
-> 3 |     struct S {
-    |            ^
-  4 |       static #privateProperty;
-  5 |     }
-  6 |     #privateProperty in S;
-Cause: ';' expected (3:11)
-    struct S {
-           ^"
-`;
-
 exports[`invalid-outer-private-name.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (3:12)
   1 | class C {
@@ -2910,16 +2648,6 @@ exports[`invalid-struct-declaration-if-statement.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:17)"
 `;
 
-exports[`invalid-struct-declaration-if-statement.js format[hermes] 1`] = `
-"';' expected (1:18)
-> 1 | if (true) struct S {};
-    |                  ^
-  2 |
-Cause: ';' expected (1:17)
-if (true) struct S {};
-                 ^"
-`;
-
 exports[`invalid-struct-declaration-if-statement.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:18)
 > 1 | if (true) struct S {};
@@ -3012,16 +2740,6 @@ exports[`invalid-struct-declaration-left-brace.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`invalid-struct-declaration-left-brace.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S [};
-    |        ^
-  2 |
-Cause: ';' expected (1:7)
-struct S [};
-       ^"
-`;
-
 exports[`invalid-struct-declaration-left-brace.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S [};
@@ -3112,16 +2830,6 @@ exports[`invalid-struct-declaration-right-brace.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`invalid-struct-declaration-right-brace.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S [};
-    |        ^
-  2 |
-Cause: ';' expected (1:7)
-struct S [};
-       ^"
 `;
 
 exports[`invalid-struct-declaration-right-brace.js format[meriyah] 1`] = `
@@ -3229,22 +2937,6 @@ exports[`invalid-struct-decorators.js format[flow] 1`] = `
   3 |
   4 | class C {}
 Cause: Found a decorator in an unsupported position. (1:0)"
-`;
-
-exports[`invalid-struct-decorators.js format[hermes] 1`] = `
-"'class' expected in class (2:1)
-  1 | @f
-> 2 | struct S {}
-    | ^
-  3 |
-  4 | class C {}
-  5 |
-Cause: 'class' expected in class (2:0)
-struct S {}
-^
-note: start of class (1:0)
-@f
-^"
 `;
 
 exports[`invalid-struct-decorators.js format[meriyah] 1`] = `
@@ -3356,16 +3048,6 @@ exports[`invalid-struct-expression.js format[flow] 1`] = `
 Cause: Unexpected token \`{\`, expected the token \`;\` (1:17)"
 `;
 
-exports[`invalid-struct-expression.js format[hermes] 1`] = `
-"';' expected (1:18)
-> 1 | const S = struct {};
-    |                  ^
-  2 |
-Cause: ';' expected (1:17)
-const S = struct {};
-                 ^"
-`;
-
 exports[`invalid-struct-expression.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:18)
 > 1 | const S = struct {};
@@ -3462,17 +3144,6 @@ exports[`invalid-struct-linebreak-extends.js format[flow] 1`] = `
     | ^
   3 |
 Cause: Unexpected token \`extends\`, expected the start of a statement (2:0)"
-`;
-
-exports[`invalid-struct-linebreak-extends.js format[hermes] 1`] = `
-"invalid expression (2:1)
-  1 | export default struct
-> 2 | extends B {};
-    | ^
-  3 |
-Cause: invalid expression (2:0)
-extends B {};
-^"
 `;
 
 exports[`invalid-struct-linebreak-extends.js format[meriyah] 1`] = `
@@ -3585,18 +3256,6 @@ exports[`invalid-struct-member-decorators.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`invalid-struct-member-decorators.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   @f property;
-  3 | }
-  4 |
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`invalid-struct-member-decorators.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -3700,18 +3359,6 @@ exports[`invalid-struct-sloppy-production.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`invalid-struct-sloppy-production.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   x = 01;
-  3 | }
-  4 |
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`invalid-struct-sloppy-production.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -3813,18 +3460,6 @@ exports[`invalid-undefined-private-name.js format[flow] 1`] = `
   3 | }
   4 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`invalid-undefined-private-name.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   property = S.#undefinedPrivateName;
-  3 | }
-  4 |
-Cause: ';' expected (1:7)
-struct S {
-       ^"
 `;
 
 exports[`invalid-undefined-private-name.js format[meriyah] 1`] = `
@@ -3943,16 +3578,6 @@ exports[`struct-declaration.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`struct-declaration.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {};
-    |        ^
-  2 |
-Cause: ';' expected (1:7)
-struct S {};
-       ^"
 `;
 
 exports[`struct-declaration.js format[meriyah] 1`] = `
@@ -4078,18 +3703,6 @@ exports[`struct-declaration-2.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`struct-declaration-2.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`struct-declaration-2.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -4195,18 +3808,6 @@ exports[`struct-declaration-empty-body.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`struct-declaration-empty-body.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |
-  3 | }
-  4 | struct T { ; }
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`struct-declaration-empty-body.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -4300,16 +3901,6 @@ exports[`struct-declaration-export-default.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`;\` (1:22)"
 `;
 
-exports[`struct-declaration-export-default.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct S {};
-    |                       ^
-  2 |
-Cause: ';' expected (1:22)
-export default struct S {};
-                      ^"
-`;
-
 exports[`struct-declaration-export-default.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:23)
 > 1 | export default struct S {};
@@ -4391,16 +3982,6 @@ exports[`struct-declaration-export-default-anonymous.js format[flow] 1`] = `
 Cause: Unexpected token \`{\`, expected the token \`;\` (1:22)"
 `;
 
-exports[`struct-declaration-export-default-anonymous.js format[hermes] 1`] = `
-"';' expected (1:23)
-> 1 | export default struct {};
-    |                       ^
-  2 |
-Cause: ';' expected (1:22)
-export default struct {};
-                      ^"
-`;
-
 exports[`struct-declaration-export-default-anonymous.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:23)
 > 1 | export default struct {};
@@ -4480,16 +4061,6 @@ exports[`struct-declaration-export-named.js format[flow] 1`] = `
     |        ^
   2 |
 Cause: Unexpected identifier, expected a declaration, statement or export specifiers (1:7)"
-`;
-
-exports[`struct-declaration-export-named.js format[hermes] 1`] = `
-"expected declaration in export (1:8)
-> 1 | export struct S {};
-    |        ^
-  2 |
-Cause: expected declaration in export (1:7)
-export struct S {};
-       ^~~~~~"
 `;
 
 exports[`struct-declaration-export-named.js format[meriyah] 1`] = `
@@ -4615,18 +4186,6 @@ exports[`struct-declaration-extends.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`struct-declaration-extends.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S extends B {
-    |        ^
-  2 |   property = 0;
-  3 |   method() {}
-  4 |   #private = "";
-Cause: ';' expected (1:7)
-struct S extends B {
-       ^"
-`;
-
 exports[`struct-declaration-extends.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S extends B {
@@ -4730,18 +4289,6 @@ exports[`struct-id-escaped.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`struct-id-escaped.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct \\u0053 {}
-    |        ^
-  2 | export struct \\u0054 {}
-  3 | export default struct \\u0055 {}
-  4 |
-Cause: ';' expected (1:7)
-struct \\u0053 {}
-       ^"
-`;
-
 exports[`struct-id-escaped.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct \\u0053 {}
@@ -4843,17 +4390,6 @@ exports[`struct-id-non-bmp.js format[flow] 1`] = `
   3 | export default struct 𝕌 {}
   4 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`struct-id-non-bmp.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct 𝕊 {}
-    |        ^
-  2 | export struct 𝕋 {}
-  3 | export default struct 𝕌 {}
-  4 |
-Cause: ';' expected (1:7)
-struct 𝕊 {}"
 `;
 
 exports[`struct-id-non-bmp.js format[meriyah] 1`] = `
@@ -4961,18 +4497,6 @@ exports[`struct-member-class-accessor.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`struct-member-class-accessor.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   accessor property = 0;
-  3 |   static accessor staticProperty = 0;
-  4 | }
-Cause: ';' expected (1:7)
-struct S {
-       ^"
-`;
-
 exports[`struct-member-class-accessor.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct S {
@@ -5078,18 +4602,6 @@ exports[`struct-sloppy-production-after.js format[flow] 1`] = `
   3 | }
   4 | // 01 should be parsed in sloppy mode
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
-`;
-
-exports[`struct-sloppy-production-after.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct S {
-    |        ^
-  2 |   x;
-  3 | }
-  4 | // 01 should be parsed in sloppy mode
-Cause: ';' expected (1:7)
-struct S {
-       ^"
 `;
 
 exports[`struct-sloppy-production-after.js format[meriyah] 1`] = `
@@ -5205,18 +4717,6 @@ exports[`superclass-parentheses.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)"
 `;
 
-exports[`superclass-parentheses.js format[hermes] 1`] = `
-"';' expected (1:8)
-> 1 | struct Logical extends (A || B) {}
-    |        ^
-  2 | struct Binary extends (A + B) {}
-  3 | struct Conditional extends (test ? A : B) {}
-  4 | struct Sequence extends (A, B) {}
-Cause: ';' expected (1:7)
-struct Logical extends (A || B) {}
-       ^"
-`;
-
 exports[`superclass-parentheses.js format[meriyah] 1`] = `
 "Unexpected token: 'identifier' (1:8)
 > 1 | struct Logical extends (A || B) {}
@@ -5310,16 +4810,6 @@ exports[`with-comments.js format[flow] 1`] = `
     |                     ^
   2 |
 Cause: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:20)"
-`;
-
-exports[`with-comments.js format[hermes] 1`] = `
-"';' expected (1:21)
-> 1 | /* 0 */struct/* 1 */S/* 2 */{/* 3 */}
-    |                     ^
-  2 |
-Cause: ';' expected (1:20)
-/* 0 */struct/* 1 */S/* 2 */{/* 3 */}
-                    ^"
 `;
 
 exports[`with-comments.js format[meriyah] 1`] = `

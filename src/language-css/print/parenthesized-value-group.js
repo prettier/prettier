@@ -21,6 +21,7 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd } from "../loc.js";
 import {
   isConfigurationNode,
+  isDedentedMapEntryNode,
   isKeyInValuePairNode,
   isKeyValuePairNode,
   isSCSSMapItemNode,
@@ -116,11 +117,7 @@ function printParenthesizedValueGroup(path, options, print) {
 
     // Key/Value pair in open paren already indented
     if (
-      isKeyValuePairNode(child) &&
-      child.type === "value-comma_group" &&
-      child.groups &&
-      child.groups[0].type !== "value-paren_group" &&
-      child.groups[2]?.type === "value-paren_group" &&
+      isDedentedMapEntryNode(child, node) &&
       getDocType(doc) === DOC_TYPE_GROUP &&
       getDocType(doc.contents) === DOC_TYPE_INDENT &&
       getDocType(doc.contents.contents) === DOC_TYPE_FILL

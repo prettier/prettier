@@ -3,7 +3,6 @@ const errors = {
   espree: true,
   meriyah: true,
   flow: true,
-  hermes: true,
   typescript: true,
   oxc: true,
   "oxc-ts": true,

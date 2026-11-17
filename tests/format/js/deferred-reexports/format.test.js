@@ -12,7 +12,6 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     espree: deferredReexportsTests,
     meriyah: deferredReexportsTests,
     flow: deferredReexportsTests,
-    hermes: deferredReexportsTests,
     typescript: deferredReexportsTests,
     oxc: deferredReexportsTests,
     "oxc-ts": deferredReexportsTests,

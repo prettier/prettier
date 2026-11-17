@@ -48,7 +48,6 @@ const isNodeWithRaw = createTypeCheckFunction([
   astType?:
     | "espree"
     | "flow"
-    | "hermes"
     | "meriyah"
     | "oxc-js"
     | "oxc-ts"
@@ -81,13 +80,6 @@ function postprocess(ast, options) {
       comments.unshift(ast.hashbang);
     }
     delete ast.hashbang;
-  }
-
-  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
-  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
-  // See https://github.com/facebook/flow/issues/8537
-  if (ast.type === "Program") {
-    ast.range = [0, text.length];
   }
 
   let typeCastCommentsEnds;
@@ -148,11 +140,10 @@ function postprocess(ast, options) {
           break;
 
         case "TemplateElement":
-          // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
+          // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
           // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
           if (
             astType === "flow" ||
-            astType === "hermes" ||
             astType === "espree" ||
             astType === "typescript" ||
             astType === "oxc-ts" ||
@@ -181,13 +172,7 @@ function postprocess(ast, options) {
         case "TupleTypeAnnotation":
           if (node.types && !node.elementTypes) {
             node.elementTypes = node.types;
-          }
-          break;
-
-        case "ImportDeclaration":
-          if (astType === "hermes" && node.assertions && !node.attributes) {
-            node.attributes = node.assertions;
-            delete node.assertions;
+            delete node.types;
           }
           break;
 
@@ -200,24 +185,32 @@ function postprocess(ast, options) {
           }
           break;
 
-        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03370
-        case "EnumBooleanBody":
-        case "EnumNumberBody":
-        case "EnumBigIntBody":
-        case "EnumStringBody":
-        case "EnumSymbolBody":
-          if (astType === "hermes") {
-            if (node.explicitType || type === "EnumSymbolBody") {
-              node.explicitType = type
-                .slice(
-                  // `Enum`
-                  4,
-                  // `Body`
-                  -4,
-                )
-                .toLowerCase();
-            }
-            node.type = "EnumBody";
+        // `babel-flow`
+        case "GenericTypeAnnotation":
+        case "ClassImplements":
+        case "InterfaceExtends":
+          if (
+            astType !== "flow" &&
+            node.typeParameters &&
+            !node.typeArguments
+          ) {
+            node.typeArguments = node.typeParameters;
+            delete node.typeParameters;
+          }
+          break;
+
+        // `babel-flow`
+        case "DeclareVariable":
+          if (astType !== "flow" && !Array.isArray(node.declarations)) {
+            node.kind ??= "var";
+            node.declarations = [
+              {
+                type: "VariableDeclarator",
+                id: node.id,
+                range: [locStart(node.id), locEnd(node.id)],
+              },
+            ];
+            delete node.id;
           }
           break;
       }

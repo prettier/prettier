@@ -16,15 +16,3 @@ declare global {
 
 ================================================================================
 `;
-
-exports[`declare-global.js format[hermes] 1`] = `
-"'export', 'interface', 'function', 'class' or 'var' expected in declared type (1:9)
-> 1 | declare global {
-    |         ^
-  2 |   declare var value: string;
-  3 | }
-  4 |
-Cause: 'export', 'interface', 'function', 'class' or 'var' expected in declared type (1:8)
-declare global {
-~~~~~~~~^"
-`;

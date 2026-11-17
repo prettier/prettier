@@ -4,7 +4,7 @@ import { runGit, waitForEnter } from "../utilities.js";
 
 export default async function mergeBlogPost({
   dry,
-  repo,
+  // repo,
   version,
   previousVersion,
 }) {
@@ -21,5 +21,10 @@ export default async function mergeBlogPost({
   );
 
   await waitForEnter();
-  await runGit(["pull", "--repo", repo]);
+  await runGit([
+    // `git pull` doesn't support `--repo`
+    "pull",
+    // "--repo",
+    // repo,
+  ]);
 }

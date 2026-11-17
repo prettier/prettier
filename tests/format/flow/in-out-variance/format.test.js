@@ -1,5 +1,1 @@
-runFormatTest(import.meta, ["flow"], {
-  errors: {
-    hermes: ["invariant.js"],
-  },
-});
+runFormatTest(import.meta, ["flow"]);

@@ -18,7 +18,6 @@ const esmFiles = {
     "prettier/plugins/yaml.mjs",
     "prettier/plugins/flow.mjs",
     "prettier/plugins/meriyah.mjs",
-    "plugin-hermes/index.mjs",
     "plugin-oxc/index.browser.mjs",
     "plugin-yuku/index.browser.mjs",
   ],
@@ -40,7 +39,6 @@ const umdFiles = {
     "prettier/plugins/flow.js",
     "prettier/plugins/meriyah.js",
     // These plugins don't have UMD version
-    "plugin-hermes/index.mjs",
     "plugin-oxc/index.browser.mjs",
     "plugin-yuku/index.browser.mjs",
   ],

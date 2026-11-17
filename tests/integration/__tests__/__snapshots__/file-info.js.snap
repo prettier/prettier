@@ -56,6 +56,14 @@ exports[`extracts file-info with ignored=true for a file in a hand-picked ignore
 }
 `;
 
+exports[`extracts file-info with ignored=true for a file in node_modules  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": true, "inferredParser": null }",
+  "write": [],
+}
+`;
+
 exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked  1`] = `
 {
   "stderr": "",
@@ -68,14 +76,6 @@ exports[`extracts file-info with inferredParser=null for file.foo  1`] = `
 {
   "stderr": "",
   "stdout": "{ "ignored": false, "inferredParser": null }",
-  "write": [],
-}
-`;
-
-exports[`extracts file-info with with ignored=true for a file in node_modules  1`] = `
-{
-  "stderr": "",
-  "stdout": "{ "ignored": true, "inferredParser": null }",
   "write": [],
 }
 `;
