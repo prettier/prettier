@@ -1,11 +1,23 @@
+import { inheritLabel } from "../../document/index.js";
+import {
+  printComments,
+  printLeadingComments,
+} from "../../main/comments/print.js";
 import { locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
+import isIgnored from "../utilities/is-ignored.js";
+import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
+  getLeftSide,
   getLeftSidePathName,
   hasNakedLeftSide,
 } from "../utilities/left-side.js";
 import { isJsxElement } from "../utilities/node-types.js";
+
+/** @import {Doc} from "../../document/index.js" */
 
 function isEligibleForLeadingSemicolon(path, options) {
   if (options.semi) {
@@ -151,10 +163,121 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
   );
 }
 
+function getTrailingTypeCastComment(node) {
+  const lastComment = getComments(node, CommentCheckFlags.Leading).at(-1);
+  return lastComment && isTypeCastComment(lastComment)
+    ? lastComment
+    : undefined;
+}
+
+function getLeftmostChild(node) {
+  if (!hasNakedLeftSide(node)) {
+    return;
+  }
+
+  return node.type === "BindExpression" ? node.object : getLeftSide(node);
+}
+
+function stopsLeadingSemicolon(path, options) {
+  const { node } = path;
+  return (
+    !getLeftmostChild(node) ||
+    isIgnored(path) ||
+    isIifeCalleeOrTaggedTemplateExpressionTag(path) ||
+    isJsxElement(node) ||
+    needsParentheses(path, options)
+  );
+}
+
+function shouldDescendantPrintLeadingSemicolon(path, options) {
+  const { node, parent, key } = path;
+  if (!parent) {
+    return false;
+  }
+
+  if (parent.type === "ExpressionStatement") {
+    return (
+      key === "expression" &&
+      path.callParent(
+        () =>
+          !isIgnored(path) &&
+          shouldExpressionStatementPrintLeadingSemicolon(path, options) &&
+          !getTrailingTypeCastComment(path.node),
+      )
+    );
+  }
+
+  if (getLeftmostChild(parent) !== node) {
+    return false;
+  }
+
+  return path.callParent(() => {
+    if (stopsLeadingSemicolon(path, options)) {
+      return false;
+    }
+    return shouldDescendantPrintLeadingSemicolon(path, options);
+  });
+}
+
+function shouldPrintLeadingSemicolon(path, options) {
+  if (options.semi) {
+    return false;
+  }
+
+  const { node } = path;
+  if (node.type === "ExpressionStatement") {
+    return (
+      !isIgnored(path) &&
+      shouldExpressionStatementPrintLeadingSemicolon(path, options) &&
+      Boolean(getTrailingTypeCastComment(node))
+    );
+  }
+
+  return (
+    stopsLeadingSemicolon(path, options) &&
+    shouldDescendantPrintLeadingSemicolon(path, options)
+  );
+}
+
+/**
+@param {import("../../common/ast-path.js").default} path
+@param {Doc} doc
+@param {any} options
+@param {{ semicolon?: Doc, printOwnComments?: boolean }} [printOptions]
+@returns {Doc}
+*/
+function printWithLeadingSemicolon(
+  path,
+  doc,
+  options,
+  { semicolon = ";", printOwnComments = false } = {},
+) {
+  const typeCastComment = getTrailingTypeCastComment(path.node);
+  if (typeCastComment) {
+    // Print the type cast comment separately and print `;` before it
+    const typeCastCommentDoc = printLeadingComments(path, options, {
+      filter: (comment) => comment === typeCastComment,
+    });
+
+    return printComments(path, [semicolon, typeCastCommentDoc, doc], options, {
+      filter: (comment) => comment !== typeCastComment,
+    });
+  }
+
+  if (printOwnComments) {
+    return printComments(path, [semicolon, doc], options);
+  }
+
+  return inheritLabel(doc, (doc) => [semicolon, doc]);
+}
+
 export {
+  getTrailingTypeCastComment,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
+  printWithLeadingSemicolon,
   shouldExpressionStatementPrintLeadingSemicolon,
   shouldIgnoredExpressionStatementPrintLeadingSemicolon,
+  shouldPrintLeadingSemicolon,
 };

@@ -21,6 +21,10 @@ import {
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import {
+  printWithLeadingSemicolon,
+  shouldPrintLeadingSemicolon,
+} from "../semicolon/semicolon.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getRaw } from "../utilities/get-raw.js";
@@ -494,7 +498,7 @@ const isNoWrapParent = createTypeCheckFunction([
   "JsExpressionRoot",
   "MatchExpressionCase",
 ]);
-function maybeWrapJsxElementInParens(path, elem, options) {
+function maybeWrapJsxElementInParens(path, elem, options, groupId) {
   const { parent } = path;
 
   if (isNoWrapParent(parent)) {
@@ -506,12 +510,13 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 
   return group(
     [
+      groupId ? ifBreak(";", "", { groupId }) : "",
       needsParens ? "" : ifBreak("("),
       indent([softline, elem]),
       softline,
       needsParens ? "" : ifBreak(")"),
     ],
-    { shouldBreak },
+    { shouldBreak, id: groupId },
   );
 }
 
@@ -766,12 +771,21 @@ function printJsxOpeningClosingFragment(path, options /* , print*/) {
 }
 
 function printJsxElement(path, options, print) {
-  const elem = printComments(
-    path,
-    printJsxElementInternal(path, options, print),
-    options,
-  );
-  return maybeWrapJsxElementInParens(path, elem, options);
+  const needsLeadingSemicolon =
+    !needsParentheses(path, options) &&
+    shouldPrintLeadingSemicolon(path, options);
+  const groupId =
+    needsLeadingSemicolon && !isNoWrapParent(path.parent)
+      ? Symbol("jsx-leading-semicolon")
+      : undefined;
+  const internalDoc = printJsxElementInternal(path, options, print);
+  const elem = needsLeadingSemicolon
+    ? printWithLeadingSemicolon(path, internalDoc, options, {
+        semicolon: groupId ? ifBreak("", ";", { groupId }) : ";",
+        printOwnComments: true,
+      })
+    : printComments(path, internalDoc, options);
+  return maybeWrapJsxElementInParens(path, elem, options, groupId);
 }
 
 function printJsxEmptyExpression(path, options /* , print*/) {

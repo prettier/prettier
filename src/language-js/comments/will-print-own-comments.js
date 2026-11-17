@@ -1,3 +1,7 @@
+import {
+  getTrailingTypeCastComment,
+  shouldPrintLeadingSemicolon,
+} from "../semicolon/semicolon.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
@@ -61,7 +65,10 @@ function willPrintOwnComments(path, options) {
     return true;
   }
 
-  return false;
+  return (
+    shouldPrintLeadingSemicolon(path, options) &&
+    Boolean(getTrailingTypeCastComment(node))
+  );
 }
 
 export default willPrintOwnComments;
