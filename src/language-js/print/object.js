@@ -35,6 +35,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 /** @import {Doc} from "../../document/index.js" */
 
 const isPrintingImportAttributes = createTypeCheckFunction([
+  "TSModuleDeclaration",
   "ImportDeclaration",
   "ExportDefaultDeclaration",
   "ExportNamedDeclaration",

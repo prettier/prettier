@@ -256,7 +256,7 @@ function shouldPrintSpecifiers(node, options) {
 function getImportAttributesKeyword(node, options) {
   const textBetweenSourceAndAttributes = stripComments(options)
     .slice(
-      locEnd(node.source),
+      locEnd(node.type === "TSModuleDeclaration" ? node.id : node.source),
       node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
     )
     .trimStart();
@@ -303,7 +303,7 @@ const isSingleTypeImportAttributes = (node) => {
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
-  if (!node.source) {
+  if (!node.source && node.type !== "TSModuleDeclaration") {
     return "";
   }
 
@@ -359,6 +359,7 @@ function printModuleSpecifier(path, options, print) {
 }
 
 export {
+  printImportAttributes,
   printExportDeclaration,
   printImportDeclaration,
   printImportKind,

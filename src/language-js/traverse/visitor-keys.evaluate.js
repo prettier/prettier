@@ -17,6 +17,7 @@ const additionalVisitorKeys = {
   JsonRoot: ["node"],
 
   // TypeScript
+  TSModuleDeclaration: ["attributes"],
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
