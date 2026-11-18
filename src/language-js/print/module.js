@@ -359,8 +359,8 @@ function printModuleSpecifier(path, options, print) {
 }
 
 export {
-  printImportAttributes,
   printExportDeclaration,
+  printImportAttributes,
   printImportDeclaration,
   printImportKind,
   printModuleSpecifier,

@@ -1,6 +1,6 @@
-import { printImportAttributes } from "./module.js";
 import { group } from "../../document/index.js";
 import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
+import { printImportAttributes } from "./module.js";
 
 function printModuleDeclarationKind(node) {
   if (node.type === "DeclareModule") {

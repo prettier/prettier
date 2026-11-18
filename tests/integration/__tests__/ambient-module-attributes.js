@@ -1,5 +1,5 @@
-import prettier from "../../config/prettier-entry.js";
 import { parsers } from "../../../src/plugins/typescript.js";
+import prettier from "../../config/prettier-entry.js";
 
 // Exercise the ESTree printer while bundled parsers lack ambient attributes.
 const plugin = {
