@@ -250,3 +250,28 @@ class A {
 
 ================================================================================
 `;
+
+exports[`issue-20220.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function doStuff(
+    arg1 /*: string */, // The first arg
+    arg2 /*: string */ // The second arg
+) /*: Promise<string> */ // The return value
+{
+  console.log('thanks!');
+}
+
+=====================================output=====================================
+async function doStuff(
+  arg1 /*: string */, // The first arg
+  arg2 /*: string */, // The second arg
+) /*: Promise<string> */ // The return value
+{
+  console.log("thanks!");
+}
+
+================================================================================
+`;
