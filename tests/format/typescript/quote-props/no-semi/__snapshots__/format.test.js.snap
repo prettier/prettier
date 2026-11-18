@@ -1,0 +1,358 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quoted-keywords.ts - {"semi":false,"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "as-needed"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  method() {}
+}
+
+interface GetProperty {
+  "get"
+  value: string
+}
+
+interface SetProperty {
+  "set"
+  value: string
+}
+
+interface StaticProperty {
+  "static"
+  value: string
+}
+
+type KeywordProperties = {
+  "get"
+  "set"
+  "static"
+  value: string
+}
+
+interface QuotedSibling {
+  "get"
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  get;
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input;
+  in() {}
+}
+
+class InstanceofMethod {
+  value = input;
+  instanceof() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  method() {}
+}
+
+interface GetProperty {
+  get;
+  value: string
+}
+
+interface SetProperty {
+  set;
+  value: string
+}
+
+interface StaticProperty {
+  static;
+  value: string
+}
+
+type KeywordProperties = {
+  get;
+  set;
+  static;
+  value: string
+}
+
+interface QuotedSibling {
+  get;
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  get;
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+================================================================================
+`;
+
+exports[`quoted-keywords.ts - {"semi":false,"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "consistent"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  method() {}
+}
+
+interface GetProperty {
+  "get"
+  value: string
+}
+
+interface SetProperty {
+  "set"
+  value: string
+}
+
+interface StaticProperty {
+  "static"
+  value: string
+}
+
+type KeywordProperties = {
+  "get"
+  "set"
+  "static"
+  value: string
+}
+
+interface QuotedSibling {
+  "get"
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  get;
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input;
+  in() {}
+}
+
+class InstanceofMethod {
+  value = input;
+  instanceof() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  "method"() {}
+}
+
+interface GetProperty {
+  get;
+  value: string
+}
+
+interface SetProperty {
+  set;
+  value: string
+}
+
+interface StaticProperty {
+  static;
+  value: string
+}
+
+type KeywordProperties = {
+  get;
+  set;
+  static;
+  value: string
+}
+
+interface QuotedSibling {
+  "get"
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  "get"
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+================================================================================
+`;
+
+exports[`quoted-keywords.ts - {"semi":false,"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+quoteProps: "preserve"
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  method() {}
+}
+
+interface GetProperty {
+  "get"
+  value: string
+}
+
+interface SetProperty {
+  "set"
+  value: string
+}
+
+interface StaticProperty {
+  "static"
+  value: string
+}
+
+type KeywordProperties = {
+  "get"
+  "set"
+  "static"
+  value: string
+}
+
+interface QuotedSibling {
+  "get"
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  get;
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+=====================================output=====================================
+class InMethod {
+  value = input
+  "in"() {}
+}
+
+class InstanceofMethod {
+  value = input
+  "instanceof"() {}
+}
+
+class QuotedFields {
+  "get"
+  "set"
+  "static"
+  method() {}
+}
+
+interface GetProperty {
+  "get"
+  value: string
+}
+
+interface SetProperty {
+  "set"
+  value: string
+}
+
+interface StaticProperty {
+  "static"
+  value: string
+}
+
+type KeywordProperties = {
+  "get"
+  "set"
+  "static"
+  value: string
+}
+
+interface QuotedSibling {
+  "get"
+  "needs-quotes": string
+}
+
+interface ConsistentIdentifier {
+  get;
+  "needs-quotes": string
+}
+
+interface ComputedProperty {
+  ["get"]
+  value: string
+}
+
+================================================================================
+`;
