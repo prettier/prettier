@@ -69,6 +69,32 @@ _[Italic link](../_link_including_underscores_.md)_
 ================================================================================
 `;
 
+exports[`issue-8654.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+*_http://www.example.com:80/_a_*
+
+*_https://example.com_*
+
+Read *_https://example.com_* first.
+
+_*https://example.com*_
+
+=====================================output=====================================
+*_http://www.example.com:80/_a_*
+
+*_https://example.com_*
+
+Read *_https://example.com_* first.
+
+_*https://example.com*_
+
+================================================================================
+`;
+
 exports[`issue-15032.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
