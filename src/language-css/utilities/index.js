@@ -5,6 +5,7 @@ const colorAdjusterFunctions = new Set([
   "alpha",
   "a",
   "rgb",
+  "rgba",
   "hue",
   "h",
   "saturation",
@@ -24,6 +25,11 @@ const colorAdjusterFunctions = new Set([
   "hsla",
   "hwb",
   "hwba",
+  "lab",
+  "lch",
+  "oklab",
+  "oklch",
+  "color",
 ]);
 
 function getPropOfDeclNode(path) {
