@@ -96,7 +96,7 @@ async function* expandPatternsInternal(context) {
         const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob: `${prefix}/**/*`,
+          glob: ["!**/pnpm-lock.yaml", `${prefix}/**/*`],
           input: pattern,
           ignoreUnknown: true,
         });
