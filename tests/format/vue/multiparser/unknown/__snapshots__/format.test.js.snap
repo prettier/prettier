@@ -118,9 +118,9 @@ prettier.is
 </style>
 
 <script lang="unknown">
-prettier.is
-                  .awesome(
-)
+  prettier.is
+                    .awesome(
+  )
 </script>
 
 <script type="unknown">
