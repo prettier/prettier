@@ -755,3 +755,99 @@ $bar-area: bar;
 
 ================================================================================
 `;
+
+exports[`9224.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@use "sass:string";
+
+$test: '#{string.index('this is a test', 'a test')}';
+$test: "#{string.index("this is a test", "a test")}";
+
+a {
+  content: "#{my-fn("a b")}";
+  content: "#{my-fn("a  b   c")}";
+  content: "#{my-fn(" a b ")}";
+  content: "#{my-fn("a b", "c d")}";
+  content: "#{my-fn( "a b" , "c d" )}";
+  content: "#{my-fn("a - b")}";
+  content: "#{my-fn("a + b")}";
+  content: "#{my-fn("a / b")}";
+  content: foo "#{my-fn("a b")}" bar;
+  content: "foo #{my-fn("a b")} bar baz";
+  content: "#{my-fn("a b") + my-fn("c d")}";
+}
+
+=====================================output=====================================
+@use "sass:string";
+
+$test: "#{string.index("this is a test", "a test")}";
+$test: "#{string.index("this is a test", "a test")}";
+
+a {
+  content: "#{my-fn("a b")}";
+  content: "#{my-fn("a  b   c")}";
+  content: "#{my-fn(" a b ")}";
+  content: "#{my-fn("a b", "c d")}";
+  content: "#{my-fn( "a b" , "c d" )}";
+  content: "#{my-fn("a - b")}";
+  content: "#{my-fn("a + b")}";
+  content: "#{my-fn("a / b")}";
+  content: foo "#{my-fn("a b")}" bar;
+  content: "foo #{my-fn("a b")} bar baz";
+  content: "#{my-fn("a b") + my-fn("c d")}";
+}
+
+================================================================================
+`;
+
+exports[`9224.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@use "sass:string";
+
+$test: '#{string.index('this is a test', 'a test')}';
+$test: "#{string.index("this is a test", "a test")}";
+
+a {
+  content: "#{my-fn("a b")}";
+  content: "#{my-fn("a  b   c")}";
+  content: "#{my-fn(" a b ")}";
+  content: "#{my-fn("a b", "c d")}";
+  content: "#{my-fn( "a b" , "c d" )}";
+  content: "#{my-fn("a - b")}";
+  content: "#{my-fn("a + b")}";
+  content: "#{my-fn("a / b")}";
+  content: foo "#{my-fn("a b")}" bar;
+  content: "foo #{my-fn("a b")} bar baz";
+  content: "#{my-fn("a b") + my-fn("c d")}";
+}
+
+=====================================output=====================================
+@use "sass:string";
+
+$test: "#{string.index("this is a test", "a test")}";
+$test: "#{string.index("this is a test", "a test")}";
+
+a {
+  content: "#{my-fn("a b")}";
+  content: "#{my-fn("a  b   c")}";
+  content: "#{my-fn(" a b ")}";
+  content: "#{my-fn("a b", "c d")}";
+  content: "#{my-fn( "a b" , "c d" )}";
+  content: "#{my-fn("a - b")}";
+  content: "#{my-fn("a + b")}";
+  content: "#{my-fn("a / b")}";
+  content: foo "#{my-fn("a b")}" bar;
+  content: "foo #{my-fn("a b")} bar baz";
+  content: "#{my-fn("a b") + my-fn("c d")}";
+}
+
+================================================================================
+`;
