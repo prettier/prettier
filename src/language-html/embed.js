@@ -77,7 +77,8 @@ function embed(path, options) {
           );
           const withoutIndent = parser === "markdown";
 
-          const isNestedVueScript = node.parent.fullName === "template";
+          const isNestedVueScript =
+            node.parent.fullName === "template" || options.__embeddedInHtml;
 
           if (isNestedVueScript) {
             return [
