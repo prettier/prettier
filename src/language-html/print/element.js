@@ -98,12 +98,11 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
-  const isRawScriptData =
-    node.fullName === "script" && node.isIndentationSensitive;
+  const isTypedScript = node.fullName === "script" && node.isIndentationSensitive;
 
   const printLineBeforeChildren = () => {
-    // The text doc already includes its original line breaks.
-    if (isRawScriptData) {
+    // Text and embedded printers supply their own line breaks.
+    if (isTypedScript) {
       return "";
     }
     if (shouldHugContent) {
@@ -126,7 +125,7 @@ function printElement(path, options, print) {
   };
 
   const printLineAfterChildren = () => {
-    if (isRawScriptData) {
+    if (isTypedScript) {
       return "";
     }
     const needsToBorrow = node.next
