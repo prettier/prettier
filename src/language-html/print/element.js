@@ -103,7 +103,13 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
+  const isRawScriptData = node.fullName === "script" && node.isIndentationSensitive;
+
   const printLineBeforeChildren = () => {
+    // The text doc already includes its original line breaks.
+    if (isRawScriptData) {
+      return "";
+    }
     if (shouldHugContent) {
       return ifBreak(softline, "", { groupId: attrGroupId });
     }
@@ -124,6 +130,9 @@ function printElement(path, options, print) {
   };
 
   const printLineAfterChildren = () => {
+    if (isRawScriptData) {
+      return "";
+    }
     const needsToBorrow = node.next
       ? needsToBorrowPrevClosingTagEndMarker(node.next)
       : needsToBorrowLastChildClosingTagEndMarker(node.parent);
