@@ -80,6 +80,12 @@ function printElement(path, options, print) {
     );
   }
 
+  // Scripts inside Vue templates follow the template's HTML indentation.
+  const isNestedTemplateScript =
+    node.fullName === "script" &&
+    node.parent.fullName === "template" &&
+    node.attrMap.type === "text/jsx";
+
   const isCursorInContent =
     node.fullName === "script" &&
     options.cursorOffset >= node.startSourceSpan.end.offset &&
@@ -100,7 +106,8 @@ function printElement(path, options, print) {
     if (
       node.fullName === "script" &&
       Object.hasOwn(node.attrMap, "type") &&
-      !isCursorInContent
+      !isCursorInContent &&
+      !isNestedTemplateScript
     ) {
       return dedentToRoot(childrenDoc);
     }
@@ -110,7 +117,8 @@ function printElement(path, options, print) {
   const isTypedScript =
     node.fullName === "script" &&
     node.isIndentationSensitive &&
-    !isCursorInContent;
+    !isCursorInContent &&
+    !isNestedTemplateScript;
 
   const printLineBeforeChildren = () => {
     // Text and embedded printers supply their own line breaks.
