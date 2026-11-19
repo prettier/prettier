@@ -1,5 +1,144 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`after-interpolation.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <div><span>{{x}}</span>.</div>
+</div>
+<div>
+  <span><span>{{x}}</span>.</span>
+</div>
+
+<div>
+  <div><span>{{long_long_long_long_long_long_long_long_expression}}</span>long_long_long_long_long_long_long_long_text</div>
+</div>
+<div>
+  <span><span>{{long_long_long_long_long_long_long_long_expression}}</span>long_long_long_long_long_long_long_long_text</span>
+</div>
+
+<div>
+  <div>long_long_long_long_long_long_long_long_text<span>{{long_long_long_long_long_long_long_long_expression}}</span></div>
+</div>
+<div>
+  <span>long_long_long_long_long_long_long_long_text<span>{{long_long_long_long_long_long_long_long_expression}}</span></span>
+</div>
+
+=====================================output=====================================
+<div>
+  <div
+    ><span>{{ x }}</span>.</div
+  >
+</div>
+<div>
+  <span
+    ><span>{{ x }}</span>.</span
+  >
+</div>
+
+<div>
+  <div
+    ><span>{{ long_long_long_long_long_long_long_long_expression }}</span
+    >long_long_long_long_long_long_long_long_text</div
+  >
+</div>
+<div>
+  <span
+    ><span>{{ long_long_long_long_long_long_long_long_expression }}</span
+    >long_long_long_long_long_long_long_long_text</span
+  >
+</div>
+
+<div>
+  <div
+    >long_long_long_long_long_long_long_long_text<span>{{
+      long_long_long_long_long_long_long_long_expression
+    }}</span></div
+  >
+</div>
+<div>
+  <span
+    >long_long_long_long_long_long_long_long_text<span>{{
+      long_long_long_long_long_long_long_long_expression
+    }}</span></span
+  >
+</div>
+
+================================================================================
+`;
+
+exports[`after-interpolation.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <div><span>{{x}}</span>.</div>
+</div>
+<div>
+  <span><span>{{x}}</span>.</span>
+</div>
+
+<div>
+  <div><span>{{long_long_long_long_long_long_long_long_expression}}</span>long_long_long_long_long_long_long_long_text</div>
+</div>
+<div>
+  <span><span>{{long_long_long_long_long_long_long_long_expression}}</span>long_long_long_long_long_long_long_long_text</span>
+</div>
+
+<div>
+  <div>long_long_long_long_long_long_long_long_text<span>{{long_long_long_long_long_long_long_long_expression}}</span></div>
+</div>
+<div>
+  <span>long_long_long_long_long_long_long_long_text<span>{{long_long_long_long_long_long_long_long_expression}}</span></span>
+</div>
+
+=====================================output=====================================
+<div>
+  <div>
+    <span>{{ x }}</span>.
+  </div>
+</div>
+<div>
+  <span
+    ><span>{{ x }}</span>.</span
+  >
+</div>
+
+<div>
+  <div>
+    <span>{{ long_long_long_long_long_long_long_long_expression }}</span
+    >long_long_long_long_long_long_long_long_text
+  </div>
+</div>
+<div>
+  <span
+    ><span>{{ long_long_long_long_long_long_long_long_expression }}</span
+    >long_long_long_long_long_long_long_long_text</span
+  >
+</div>
+
+<div>
+  <div>
+    long_long_long_long_long_long_long_long_text<span>{{
+      long_long_long_long_long_long_long_long_expression
+    }}</span>
+  </div>
+</div>
+<div>
+  <span
+    >long_long_long_long_long_long_long_long_text<span>{{
+      long_long_long_long_long_long_long_long_expression
+    }}</span></span
+  >
+</div>
+
+================================================================================
+`;
+
 exports[`nested.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
@@ -11,26 +150,6 @@ parsers: ["angular"]
 =====================================output=====================================
 <span
   ><em>{{ x }}</em></span
->.
-
-================================================================================
-`;
-
-exports[`nested.html - {"printWidth":1} format 1`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 1
- | printWidth: 1
-=====================================input======================================
-<span><em>{{x}}</em></span>.
-
-=====================================output=====================================
-<span
-  ><em
-    >{{
-      x
-    }}</em
-  ></span
 >.
 
 ================================================================================
@@ -65,29 +184,6 @@ Blah blah blah blah blah <span>{{ thing }}</span>.
 ================================================================================
 `;
 
-exports[`punctuation.html - {"printWidth":1} format 1`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 1
- | printWidth: 1
-=====================================input======================================
-Blah blah blah blah blah <span>{{ thing }}</span>.
-
-=====================================output=====================================
-Blah
-blah
-blah
-blah
-blah
-<span
-  >{{
-    thing
-  }}</span
->.
-
-================================================================================
-`;
-
 exports[`punctuation.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
@@ -97,51 +193,6 @@ Blah blah blah blah blah <span>{{ thing }}</span>.
 
 =====================================output=====================================
 Blah blah blah blah blah <span>{{ thing }}</span>.
-
-================================================================================
-`;
-
-exports[`simple.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
-====================================options=====================================
-htmlWhitespaceSensitivity: "strict"
-parsers: ["angular"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-<span>{{x}}</span>.
-
-=====================================output=====================================
-<span>{{ x }}</span>.
-
-================================================================================
-`;
-
-exports[`simple.html - {"printWidth":1} format 1`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 1
- | printWidth: 1
-=====================================input======================================
-<span>{{x}}</span>.
-
-=====================================output=====================================
-<span
-  >{{
-    x
-  }}</span
->.
-
-================================================================================
-`;
-
-exports[`simple.html format 1`] = `
-====================================options=====================================
-parsers: ["angular"]
-                                                      printWidth: 80 (default) |
-=====================================input======================================
-<span>{{x}}</span>.
-
-=====================================output=====================================
-<span>{{ x }}</span>.
 
 ================================================================================
 `;
