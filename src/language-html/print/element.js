@@ -103,7 +103,8 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
-  const isRawScriptData = node.fullName === "script" && node.isIndentationSensitive;
+  const isRawScriptData =
+    node.fullName === "script" && node.isIndentationSensitive;
 
   const printLineBeforeChildren = () => {
     // The text doc already includes its original line breaks.
