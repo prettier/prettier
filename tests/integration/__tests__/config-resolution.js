@@ -237,27 +237,40 @@ test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrow();
 });
 
-test("API resolveConfig reloads module config file after clearConfigCache", async () => {
+describe("API resolveConfig reloads module config file after clearConfigCache", () => {
   const directory = new URL(
     "../cli/config/reload-module-config/",
     import.meta.url,
   );
   const file = new URL("./file.js", directory);
 
-  await fs.mkdir(directory, { recursive: true });
-  try {
-    for (const [configFileName, write] of [
-      ["prettier.config.mjs", (config) => `export default ${config};`],
-      ["prettier.config.cjs", (config) => `module.exports = ${config};`],
-    ]) {
+  beforeAll(async () => {
+    await fs.mkdir(directory, { recursive: true });
+  });
+
+  afterAll(async () => {
+    await fs.rm(directory, { recursive: true, force: true });
+  });
+
+  for (const [configFileName, write] of [
+    [
+      "prettier.config.mjs",
+      (config) => `export default ${JSON.stringify(config)};`,
+    ],
+    [
+      "prettier.config.cjs",
+      (config) => `module.exports = ${JSON.stringify(config)};`,
+    ],
+  ]) {
+    test(configFileName, async () => {
       const configFile = new URL(configFileName, directory);
 
-      await fs.writeFile(configFile, write("{ tabWidth: 3 }"));
+      await fs.writeFile(configFile, write({ tabWidth: 3 }));
       await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
         tabWidth: 3,
       });
 
-      await fs.writeFile(configFile, write("{ tabWidth: 5 }"));
+      await fs.writeFile(configFile, write({ tabWidth: 5 }));
       await prettier.clearConfigCache();
       await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
         tabWidth: 5,
@@ -265,9 +278,7 @@ test("API resolveConfig reloads module config file after clearConfigCache", asyn
 
       await fs.rm(configFile);
       await prettier.clearConfigCache();
-    }
-  } finally {
-    await fs.rm(directory, { recursive: true, force: true });
+    });
   }
 });
 
