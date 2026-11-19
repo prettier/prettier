@@ -41,8 +41,7 @@ function getScriptTextToDocOptions(node, parser, options) {
     const { type, ["data-type"]: dataType } = node.attrMap;
     const isModule =
       type === "module" ||
-      ((type === "text/babel" || type === "text/jsx") &&
-        dataType === "module");
+      ((type === "text/babel" || type === "text/jsx") && dataType === "module");
 
     textToDocOptions.__babelSourceType = isModule ? "module" : "script";
   }
@@ -55,10 +54,7 @@ function embed(path, options) {
 
   switch (node.kind) {
     case "element":
-      if (
-        node.fullName === "script" &&
-        Object.hasOwn(node.attrMap, "type")
-      ) {
+      if (node.fullName === "script" && Object.hasOwn(node.attrMap, "type")) {
         const parser = inferElementParser(node, options);
 
         if (!parser || node.children.length === 0) {
@@ -69,9 +65,7 @@ function embed(path, options) {
           const content = getNodeContent(node, options);
           const value =
             parser === "markdown"
-              ? htmlWhitespace.dedentString(
-                  content.replace(/^[^\S\n]*\n/, ""),
-                )
+              ? htmlWhitespace.dedentString(content.replace(/^[^\S\n]*\n/, ""))
               : content;
           const doc = await textToDoc(
             value,
