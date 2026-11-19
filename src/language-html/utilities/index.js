@@ -54,16 +54,6 @@ function shouldPreserveContent(node, options) {
     return true;
   }
 
-  // Keep the original content of script data blocks without an embedded parser.
-  if (
-    node.kind === "element" &&
-    node.fullName === "script" &&
-    node.children.length > 0 &&
-    !inferElementParser(node, options)
-  ) {
-    return true;
-  }
-
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
@@ -143,12 +133,17 @@ function isWhitespaceSensitiveNode(node, options) {
   return (
     isScriptLikeTag(node, options) ||
     node.kind === "interpolation" ||
-    isIndentationSensitiveNode(node)
+    isIndentationSensitiveNode(node, options)
   );
 }
 
-function isIndentationSensitiveNode(node) {
-  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+function isIndentationSensitiveNode(node, options) {
+  return (
+    getNodeCssStyleWhiteSpace(node).startsWith("pre") ||
+    (node.kind === "element" &&
+      node.fullName === "script" &&
+      !inferElementParser(node, options))
+  );
 }
 
 function isLeadingSpaceSensitiveNode(node, options) {
