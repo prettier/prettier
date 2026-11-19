@@ -1,0 +1,2 @@
+a: &anchor   <<<PRETTIER_RANGE_START>>>value
+b: *anchor<<<PRETTIER_RANGE_END>>>
