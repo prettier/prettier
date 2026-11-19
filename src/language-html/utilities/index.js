@@ -133,16 +133,22 @@ function isWhitespaceSensitiveNode(node, options) {
   return (
     isScriptLikeTag(node, options) ||
     node.kind === "interpolation" ||
-    isIndentationSensitiveNode(node)
+    isIndentationSensitiveNode(node, options)
   );
 }
 
-function isIndentationSensitiveNode(node) {
+function isIndentationSensitiveNode(node, options) {
+  const cursorInContent =
+    node.kind === "element" &&
+    options.cursorOffset >= node.startSourceSpan.end.offset &&
+    options.cursorOffset <= node.endSourceSpan?.start.offset;
+
   return (
     getNodeCssStyleWhiteSpace(node).startsWith("pre") ||
     (node.kind === "element" &&
       node.fullName === "script" &&
-      Object.hasOwn(node.attrMap, "type"))
+      Object.hasOwn(node.attrMap, "type") &&
+      !cursorInContent)
   );
 }
 
