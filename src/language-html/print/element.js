@@ -92,10 +92,7 @@ function printElement(path, options, print) {
     ) {
       return childrenDoc;
     }
-    if (
-      node.fullName === "script" &&
-      Object.hasOwn(node.attrMap, "type")
-    ) {
+    if (node.fullName === "script" && Object.hasOwn(node.attrMap, "type")) {
       return dedentToRoot(childrenDoc);
     }
     return indent(childrenDoc);
