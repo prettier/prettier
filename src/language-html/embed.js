@@ -101,10 +101,14 @@ function embed(path, options) {
               textToDocOptions.__babelSourceType = sourceType;
             }
 
+            const lineBreak = node.parent.isIndentationSensitive ? hardline : "";
+
             return [
               breakParent,
               printOpeningTagPrefix(node, options),
+              lineBreak,
               await textToDoc(value, textToDocOptions),
+              lineBreak,
               printClosingTagSuffix(node, options),
             ];
           };
