@@ -80,6 +80,11 @@ function printElement(path, options, print) {
     );
   }
 
+  const isCursorInContent =
+    node.fullName === "script" &&
+    options.cursorOffset >= node.startSourceSpan.end.offset &&
+    options.cursorOffset <= node.endSourceSpan?.start.offset;
+
   const printChildrenDoc = (childrenDoc) => {
     if (shouldHugContent) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
@@ -92,14 +97,20 @@ function printElement(path, options, print) {
     ) {
       return childrenDoc;
     }
-    if (node.fullName === "script" && Object.hasOwn(node.attrMap, "type")) {
+    if (
+      node.fullName === "script" &&
+      Object.hasOwn(node.attrMap, "type") &&
+      !isCursorInContent
+    ) {
       return dedentToRoot(childrenDoc);
     }
     return indent(childrenDoc);
   };
 
   const isTypedScript =
-    node.fullName === "script" && node.isIndentationSensitive;
+    node.fullName === "script" &&
+    node.isIndentationSensitive &&
+    !isCursorInContent;
 
   const printLineBeforeChildren = () => {
     // Text and embedded printers supply their own line breaks.
