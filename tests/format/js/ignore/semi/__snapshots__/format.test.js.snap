@@ -504,19 +504,41 @@ parsers: ["babel", "flow", "typescript"]
 semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
-class C {
+class WithoutSemicolon {
   // prettier-ignore
-  #property1
+  a
   // prettier-ignore
-  #property2;
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c /* comment */;
 }
 
 =====================================output=====================================
-class C {
+class WithoutSemicolon {
   // prettier-ignore
-  #property1
+  a
   // prettier-ignore
-  #property2
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a
+  // prettier-ignore
+  #b
+  // prettier-ignore
+  c /* comment */
 }
 
 ================================================================================
@@ -527,19 +549,41 @@ exports[`class-property-without-semicolon.js format 1`] = `
 parsers: ["babel", "flow", "typescript"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-class C {
+class WithoutSemicolon {
   // prettier-ignore
-  #property1
+  a
   // prettier-ignore
-  #property2;
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c /* comment */;
 }
 
 =====================================output=====================================
-class C {
+class WithoutSemicolon {
   // prettier-ignore
-  #property1;
+  a;
   // prettier-ignore
-  #property2;
+  #b;
+  // prettier-ignore
+  c; /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c; /* comment */
 }
 
 ================================================================================

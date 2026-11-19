@@ -1,6 +1,17 @@
-class C {
+class WithoutSemicolon {
   // prettier-ignore
-  #property1
+  a
   // prettier-ignore
-  #property2;
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c /* comment */;
 }
