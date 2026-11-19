@@ -57,7 +57,11 @@ function embed(path, options) {
       if (node.fullName === "script" && Object.hasOwn(node.attrMap, "type")) {
         const parser = inferElementParser(node, options);
 
-        if (!parser || node.children.length === 0) {
+        const cursorInContent =
+          options.cursorOffset >= node.startSourceSpan.end.offset &&
+          options.cursorOffset <= node.endSourceSpan?.start.offset;
+
+        if (!parser || node.children.length === 0 || cursorInContent) {
           return;
         }
 
@@ -71,11 +75,7 @@ function embed(path, options) {
             value,
             getScriptTextToDocOptions(node, parser, options),
           );
-          const withoutIndent =
-            parser === "markdown" ||
-            (options.parser === "vue" &&
-              node.parent.kind === "root" &&
-              !options.vueIndentScriptAndStyle);
+          const withoutIndent = parser === "markdown";
 
           return [
             printOpeningTagPrefix(node, options),
