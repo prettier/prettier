@@ -1,7 +1,5 @@
-import {
-  isClassProperty,
-  isStatementWithOptionalContentEnd,
-} from "../utilities/node-types.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { classPropertyTypes } from "../utilities/node-types.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
@@ -29,27 +27,34 @@ const overrideBreakOrContinueEnd =
 /** @type {LocEndOverride} */
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 
-/**
-@param {Node | Comment} node
-*/
-function shouldAddContentEnd(node) {
-  return isStatementWithOptionalContentEnd(node) || isClassProperty(node);
-}
+const nodeTypesWithContentEnd = /** @type {const} */ ([
+  // Statements
+  "ExpressionStatement",
+  "Directive",
+  "ImportDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+  "ReturnStatement",
+  "ThrowStatement",
+  "DoWhileStatement",
 
-function shouldEndWithSemicolon(node) {
-  return (
-    isClassProperty(node) ||
-    (isStatementWithOptionalContentEnd(node) && node.__contentEnd)
-  );
-}
-
-const overrides = new Map([
-  ["BreakStatement", overrideBreakOrContinueEnd(BREAK_KEYWORD_LENGTH)],
-  ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
-  ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
-  // @ts-expect-error -- ignore
-  ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
+  // Properties
+  ...classPropertyTypes,
 ]);
+
+const overrides =
+  // @ts-expect-error -- Unknown
+  new Map([
+    ["BreakStatement", overrideBreakOrContinueEnd(BREAK_KEYWORD_LENGTH)],
+    ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
+    ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
+    // @ts-expect-error -- ignore
+    ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
+    ...nodeTypesWithContentEnd.map((type) => [type, getContentEnd]),
+  ]);
+
+const shouldAddContentEnd = createTypeCheckFunction(nodeTypesWithContentEnd);
 
 /**
 @param {Node | Comment} node
@@ -74,10 +79,6 @@ function locEnd(node) {
     return locEnd(node.body);
   }
 
-  if (shouldAddContentEnd(node)) {
-    return getContentEnd(node);
-  }
-
   return (
     overrides.get(type)?.(
       // @ts-expect-error -- Comment types
@@ -86,4 +87,4 @@ function locEnd(node) {
   );
 }
 
-export { locEnd, shouldAddContentEnd, shouldEndWithSemicolon };
+export { locEnd, shouldAddContentEnd };

@@ -1,8 +1,9 @@
-import { shouldEndWithSemicolon } from "../location/index.js";
+import { shouldAddContentEnd } from "../location/index.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
+import { isClassProperty } from "../utilities/node-types.js";
 
 function shouldPrintSemicolon(node) {
-  if (shouldEndWithSemicolon(node)) {
+  if (shouldAddContentEnd(node) && node.__contentEnd) {
     return true;
   }
 
@@ -12,7 +13,8 @@ function shouldPrintSemicolon(node) {
     type === "BreakStatement" ||
     type === "ContinueStatement" ||
     type === "DebuggerStatement" ||
-    type === "VariableDeclaration"
+    type === "VariableDeclaration" ||
+    isClassProperty(node)
   ) {
     return true;
   }
