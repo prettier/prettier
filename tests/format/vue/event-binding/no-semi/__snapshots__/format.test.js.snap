@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`multiple-statements.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <button @click="customRange = null; timeMenuOpen = false">x</button>
+  <button v-on:click="foo(); bar()">x</button>
+  <button @click="if (foo) bar();">x</button>
+  <button @click="foo++; [bar] = baz">x</button>
+  <button @click="foo = 1;">x</button>
+</template>
+
+=====================================output=====================================
+<template>
+  <button
+    @click="
+      customRange = null;
+      timeMenuOpen = false;
+    "
+  >
+    x
+  </button>
+  <button
+    v-on:click="
+      foo();
+      bar();
+    "
+  >
+    x
+  </button>
+  <button @click="if (foo) bar();">x</button>
+  <button
+    @click="
+      foo++;
+      [bar] = baz;
+    "
+  >
+    x
+  </button>
+  <button @click="foo = 1">x</button>
+</template>
+
+================================================================================
+`;
+
 exports[`single-expression.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

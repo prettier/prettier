@@ -94,7 +94,10 @@ async function printVueVOnDirective(textToDoc, print, path, options) {
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser },
+    // Vue treats a handler as statements only if it contains a `;`,
+    // statements separated by line breaks alone do not compile
+    // https://github.com/vuejs/core/issues/8854
+    { parser, semi: true },
     shouldHugJsExpression,
   );
 }
