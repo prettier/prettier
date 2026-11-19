@@ -18,7 +18,7 @@ describe("checks stdin with --debug-check", () => {
 
 describe("checks BigInt literals with --debug-check", () => {
   runCli("cli/with-shebang", ["--debug-check", "--parser", "babel"], {
-    input: "const foo = 10n;",
+    input: "1n",
   }).test({
     stdout: "(stdin)",
     stderr: "",

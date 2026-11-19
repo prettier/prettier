@@ -23,7 +23,6 @@ class DebugError extends Error {
   name = "DebugError";
 }
 
-// ASTs can hold `bigint` values (e.g. BigInt literals), which `JSON.stringify` can't serialize
 const stringifyAst = (ast, space) =>
   JSON.stringify(
     ast,

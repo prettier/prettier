@@ -18,14 +18,11 @@ test("prints BigInt literals with --debug-print-ast", async () => {
     "cli/with-shebang",
     ["--debug-print-ast", "--parser", "babel"],
     {
-      input: "const foo = 10n;",
+      input: "1n",
     },
   );
 
   expect(stderr).toBe("");
   const data = JSON.parse(stdout);
-  expect(data).toHaveProperty(
-    "program.body.0.declarations.0.init.value",
-    "10n",
-  );
+  expect(data).toHaveProperty("program.body.0.expression.value", "1n");
 });
