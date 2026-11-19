@@ -77,6 +77,22 @@ function embed(path, options) {
           );
           const withoutIndent = parser === "markdown";
 
+          const isNestedVueScript =
+            options.parser === "vue" && node.parent.fullName === "template";
+
+          if (isNestedVueScript) {
+            return [
+              printOpeningTagPrefix(node, options),
+              group(printOpeningTag(path, options, print)),
+              indent([
+                indent([hardline, doc]),
+                hardline,
+                printClosingTag(node, options),
+              ]),
+              printClosingTagSuffix(node, options),
+            ];
+          }
+
           return [
             printOpeningTagPrefix(node, options),
             group(printOpeningTag(path, options, print)),
