@@ -80,11 +80,8 @@ function printElement(path, options, print) {
     );
   }
 
-  // Keep the existing indentation for JSX scripts inside Vue templates.
   const isTypedScript =
-    node.fullName === "script" &&
-    Object.hasOwn(node.attrMap, "type") &&
-    !(node.parent.fullName === "template" && node.attrMap.type === "text/jsx");
+    node.fullName === "script" && node.isIndentationSensitive;
   const printChildrenDoc = (childrenDoc) => {
     if (shouldHugContent) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
