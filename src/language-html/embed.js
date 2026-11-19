@@ -70,7 +70,7 @@ function embed(path, options) {
           const value =
             parser === "markdown"
               ? htmlWhitespace.dedentString(
-                  content.replace(/^[^\\S\\n]*\\n/, ""),
+                  content.replace(/^[^\S\n]*\n/, ""),
                 )
               : content;
           const doc = await textToDoc(
