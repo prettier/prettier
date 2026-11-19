@@ -17,12 +17,15 @@ async function readJson(file) {
   }
 }
 
-let importCount = 0;
 async function importModuleDefault(file) {
   const require = createRequire(file);
-  delete require.cache[require.resolve(file)];
+  try {
+    delete require.cache[require.resolve(file)];
+  } catch {
+    // No op
+  }
   const url = pathToFileURL(file);
-  url.searchParams.set("_", String(++importCount));
+  url.searchParams.set("_", Date.now() * Math.random());
   const module = await import(url.href);
   return module.default;
 }
