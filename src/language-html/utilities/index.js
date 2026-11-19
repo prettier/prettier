@@ -133,7 +133,7 @@ function isWhitespaceSensitiveNode(node, options) {
   return (
     isScriptLikeTag(node, options) ||
     node.kind === "interpolation" ||
-    isIndentationSensitiveNode(node, options)
+    isIndentationSensitiveNode(node)
   );
 }
 
