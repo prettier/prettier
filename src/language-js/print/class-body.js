@@ -345,4 +345,4 @@ function shouldPrintSemicolonAfterInterfaceProperty(
   return false;
 }
 
-export { printClassBody, printClassMemberSemicolon };
+export { isClassProperty, printClassBody, printClassMemberSemicolon };

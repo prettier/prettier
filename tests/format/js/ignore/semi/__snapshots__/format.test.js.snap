@@ -498,6 +498,53 @@ class NeedsSemicolon {
 ================================================================================
 `;
 
+exports[`class-property-without-semicolon.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  // prettier-ignore
+  #property1
+  // prettier-ignore
+  #property2;
+}
+
+=====================================output=====================================
+class C {
+  // prettier-ignore
+  #property1
+  // prettier-ignore
+  #property2
+}
+
+================================================================================
+`;
+
+exports[`class-property-without-semicolon.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class C {
+  // prettier-ignore
+  #property1
+  // prettier-ignore
+  #property2;
+}
+
+=====================================output=====================================
+class C {
+  // prettier-ignore
+  #property1;
+  // prettier-ignore
+  #property2;
+}
+
+================================================================================
+`;
+
 exports[`directive.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

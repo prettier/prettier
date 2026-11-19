@@ -1,7 +1,12 @@
 import { shouldAddContentEnd } from "../location/index.js";
+import { isClassProperty } from "../print/class-body.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
 
 function shouldPrintSemicolon(node) {
+  if (isClassProperty(node)) {
+    return true;
+  }
+
   if (shouldAddContentEnd(node) && node.__contentEnd) {
     return true;
   }
