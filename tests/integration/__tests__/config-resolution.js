@@ -251,7 +251,10 @@ describe("API resolveConfig reloads module config file after clearConfigCache", 
   });
 
   const resolveConfig = async (configFileName, content) => {
-    const directory = new URL(`./directory-for-${configFileName}/`, testDirectory);
+    const directory = new URL(
+      `./directory-for-${configFileName}/`,
+      testDirectory,
+    );
     const configFile = new URL(`./${configFileName}`, directory);
     const fileToFormat = new URL("./file", configFile);
     await fs.mkdir(directory, { recursive: true });
