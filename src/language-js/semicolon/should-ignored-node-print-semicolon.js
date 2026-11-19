@@ -2,7 +2,7 @@ import { shouldEndWithSemicolon } from "../location/index.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
 
 function shouldPrintSemicolon(node) {
-  if (shouldEndWithSemicolon) {
+  if (shouldEndWithSemicolon(node)) {
     return true;
   }
 
