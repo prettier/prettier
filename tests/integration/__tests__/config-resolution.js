@@ -238,21 +238,29 @@ test("API clearConfigCache", () => {
 });
 
 describe("API resolveConfig reloads module config file after clearConfigCache", () => {
-  const directory = new URL(
-    "../cli/config/reload-module-config/",
+  const testDirectory = new URL(
+    "../cli/config/reload-module-config/working-directory/",
     import.meta.url,
   );
-  const file = new URL("./file.js", directory);
+  const originalConfig = { tabWidth: 3 };
+  const updatedConfig = { tabWidth: 5 };
 
   beforeAll(async () => {
+    await fs.rm(testDirectory, { recursive: true, force: true });
+    await fs.mkdir(testDirectory, { recursive: true });
+  });
+
+  const resolveConfig = async (configFileName, content) => {
+    const directory = new URL(`./${configFileName}/`, testDirectory);
+    const configFile = new URL(`./${configFileName}`, directory);
+    const fileToFormat = new URL("./file", configFile);
     await fs.mkdir(directory, { recursive: true });
-  });
+    await fs.writeFile(configFile, content);
+    await prettier.clearConfigCache();
+    return await prettier.resolveConfig(fileToFormat);
+  };
 
-  afterAll(async () => {
-    await fs.rm(directory, { recursive: true, force: true });
-  });
-
-  for (const [configFileName, write] of [
+  for (const [configFileName, generate] of [
     [
       "prettier.config.mjs",
       (config) => `export default ${JSON.stringify(config)};`,
@@ -263,21 +271,13 @@ describe("API resolveConfig reloads module config file after clearConfigCache", 
     ],
   ]) {
     test(configFileName, async () => {
-      const configFile = new URL(configFileName, directory);
+      await expect(
+        resolveConfig(configFileName, generate(originalConfig)),
+      ).resolves.toStrictEqual(originalConfig);
 
-      await fs.writeFile(configFile, write({ tabWidth: 3 }));
-      await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
-        tabWidth: 3,
-      });
-
-      await fs.writeFile(configFile, write({ tabWidth: 5 }));
-      await prettier.clearConfigCache();
-      await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
-        tabWidth: 5,
-      });
-
-      await fs.rm(configFile);
-      await prettier.clearConfigCache();
+      await expect(
+        resolveConfig(configFileName, generate(updatedConfig)),
+      ).resolves.toStrictEqual(updatedConfig);
     });
   }
 });
