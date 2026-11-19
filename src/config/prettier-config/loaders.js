@@ -25,7 +25,7 @@ async function importModuleDefault(file) {
     // No op
   }
   const url = pathToFileURL(file);
-  url.searchParams.set("_", Date.now() * Math.random());
+  url.searchParams.set("_", String(Date.now() * Math.random()));
   const module = await import(url.href);
   return module.default;
 }
