@@ -12,7 +12,6 @@ import {
 import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
-  inferElementParser,
   isPreLikeNode,
   isScriptLikeTag,
   isVueCustomBlock,
@@ -95,9 +94,8 @@ function printElement(path, options, print) {
     }
     if (
       node.fullName === "script" &&
-      inferElementParser(node, options) === "markdown"
+      Object.hasOwn(node.attrMap, "type")
     ) {
-      // Indentation changes Markdown paragraphs into code blocks.
       return dedentToRoot(childrenDoc);
     }
     return indent(childrenDoc);
