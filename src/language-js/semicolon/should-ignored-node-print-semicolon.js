@@ -1,15 +1,8 @@
+import { shouldEndWithSemicolon } from "../location/index.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
-import {
-  isClassProperty,
-  isStatementWithContentEnd,
-} from "../utilities/node-types.js";
 
 function shouldPrintSemicolon(node) {
-  if (isClassProperty(node)) {
-    return true;
-  }
-
-  if (isStatementWithContentEnd(node) && node.__contentEnd) {
+  if (shouldEndWithSemicolon) {
     return true;
   }
 

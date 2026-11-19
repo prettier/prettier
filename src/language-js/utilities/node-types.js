@@ -113,7 +113,7 @@ export const isClassProperty = createTypeCheckFunction([
   "TSAbstractAccessorProperty",
 ]);
 
-export const isStatementWithContentEnd = createTypeCheckFunction([
+export const isStatementWithOptionalContentEnd = createTypeCheckFunction([
   "ExpressionStatement",
   "Directive",
   "ImportDeclaration",

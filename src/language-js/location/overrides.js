@@ -1,6 +1,6 @@
 import {
   isClassProperty,
-  isStatementWithContentEnd,
+  isStatementWithOptionalContentEnd,
 } from "../utilities/node-types.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
@@ -33,7 +33,14 @@ const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 @param {Node | Comment} node
 */
 function shouldAddContentEnd(node) {
-  return isStatementWithContentEnd(node) || isClassProperty(node);
+  return isStatementWithOptionalContentEnd(node) || isClassProperty(node);
+}
+
+function shouldEndWithSemicolon(node) {
+  return (
+    isClassProperty(node) ||
+    (isStatementWithOptionalContentEnd(node) && node.__contentEnd)
+  );
 }
 
 const overrides = new Map([
@@ -79,4 +86,4 @@ function locEnd(node) {
   );
 }
 
-export { locEnd, shouldAddContentEnd };
+export { locEnd, shouldAddContentEnd, shouldEndWithSemicolon };
