@@ -80,17 +80,11 @@ function printElement(path, options, print) {
     );
   }
 
-  // Scripts inside Vue templates follow the template's HTML indentation.
-  const isNestedTemplateScript =
+  // Keep the existing indentation for JSX scripts inside Vue templates.
+  const isTypedScript =
     node.fullName === "script" &&
-    node.parent.fullName === "template" &&
-    node.attrMap.type === "text/jsx";
-
-  const isCursorInContent =
-    node.fullName === "script" &&
-    options.cursorOffset >= node.startSourceSpan.end.offset &&
-    options.cursorOffset <= node.endSourceSpan?.start.offset;
-
+    Object.hasOwn(node.attrMap, "type") &&
+    !(node.parent.fullName === "template" && node.attrMap.type === "text/jsx");
   const printChildrenDoc = (childrenDoc) => {
     if (shouldHugContent) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
@@ -103,22 +97,11 @@ function printElement(path, options, print) {
     ) {
       return childrenDoc;
     }
-    if (
-      node.fullName === "script" &&
-      Object.hasOwn(node.attrMap, "type") &&
-      !isCursorInContent &&
-      !isNestedTemplateScript
-    ) {
+    if (isTypedScript) {
       return dedentToRoot(childrenDoc);
     }
     return indent(childrenDoc);
   };
-
-  const isTypedScript =
-    node.fullName === "script" &&
-    node.isIndentationSensitive &&
-    !isCursorInContent &&
-    !isNestedTemplateScript;
 
   const printLineBeforeChildren = () => {
     // Text and embedded printers supply their own line breaks.
