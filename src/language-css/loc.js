@@ -2,8 +2,6 @@ import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import lineColumnToIndex from "../utilities/line-column-to-index.js";
 import { skipEverythingButNewLine } from "../utilities/skip.js";
 
-// `postcss-values-parser` locates words and numbers after their leading `-` or
-// `--`. A number keeps the dashes in its unit, e.g. `--100px` has unit `--100px`
 function fixValueLoc(node, originalIndex) {
   const value =
     node.type === "value-number" ? node.value + node.unit : node.value;
