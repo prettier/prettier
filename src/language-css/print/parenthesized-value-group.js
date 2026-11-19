@@ -42,8 +42,14 @@ function hasTrailingComma({ node, parent }, options) {
     return false;
   }
 
+  const closeEnd = parent.close ? locEnd(parent.close) : null;
+  if (typeof closeEnd !== "number") {
+    return false;
+  }
+
+  // Do not mistake a comma after the closing parenthesis for a trailing comma.
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
-    options.originalText,
+    options.originalText.slice(0, closeEnd - 1),
     locEnd(lastValue),
   );
   return nextCharacter === ",";

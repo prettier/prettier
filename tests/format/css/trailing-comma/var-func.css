@@ -5,3 +5,7 @@
   --bar: var(--baz,);
 	--bar: var(   --baz1, --baz2    , );
 }
+
+a {
+  width: min(calc(5 * var(--100px)), 80%);
+}
