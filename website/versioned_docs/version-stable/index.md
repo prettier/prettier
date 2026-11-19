@@ -6,7 +6,7 @@ title: What is Prettier?
 Prettier is an opinionated code formatter with support for:
 
 - JavaScript (including experimental features)
-- [JSX](https://facebook.github.io/jsx/)
+- [JSX](https://react.github.io/jsx/)
 - [Angular](https://angular.dev/)
 - [Vue](https://vuejs.org/)
 - [Flow](https://flow.org/)
@@ -21,7 +21,7 @@ Prettier is an opinionated code formatter with support for:
 - [Lightning Web Components (LWC)](https://developer.salesforce.com/developer-centers/lightning-web-components)
 - [MJML](https://mjml.io/)
 
-It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://jlongster.com/A-Prettier-Formatter))
+It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://archive.jlongster.com/A-Prettier-Formatter))
 
 Prettier takes your code and reprints it from scratch by taking the line length into account.
 
