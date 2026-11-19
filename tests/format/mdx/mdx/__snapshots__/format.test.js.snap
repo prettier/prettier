@@ -491,6 +491,93 @@ import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
 ================================================================================
 `;
 
+exports[`issue-20495-unwrapped.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const Tabs = ({ children }) => <section>{children}</section>;
+export const TabItem = ({ children }) => <div>{children}</div>;
+
+1. Pick a color
+
+   <Tabs>
+     <TabItem>
+
+     \`\`\`sh
+     echo blue
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+
+2. Save the color
+
+=====================================output=====================================
+export const Tabs = ({ children }) => <section>{children}</section>
+export const TabItem = ({ children }) => <div>{children}</div>
+
+1. Pick a color
+
+   <Tabs>
+     <TabItem>
+
+     \`\`\`sh
+     echo blue
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+
+2. Save the color
+
+================================================================================
+`;
+
+exports[`issue-20495-unwrapped.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const Tabs = ({ children }) => <section>{children}</section>;
+export const TabItem = ({ children }) => <div>{children}</div>;
+
+1. Pick a color
+
+   <Tabs>
+     <TabItem>
+
+     \`\`\`sh
+     echo blue
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+
+2. Save the color
+
+=====================================output=====================================
+export const Tabs = ({ children }) => <section>{children}</section>;
+export const TabItem = ({ children }) => <div>{children}</div>;
+
+1. Pick a color
+
+   <Tabs>
+     <TabItem>
+
+     \`\`\`sh
+     echo blue
+     \`\`\`
+
+     </TabItem>
+   </Tabs>
+
+2. Save the color
+
+================================================================================
+`;
+
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
