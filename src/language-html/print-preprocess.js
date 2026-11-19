@@ -376,7 +376,7 @@ function extractWhitespaces(ast, options) {
     }
 
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
-    const isIndentationSensitive = isIndentationSensitiveNode(node);
+    const isIndentationSensitive = isIndentationSensitiveNode(node, options);
 
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
