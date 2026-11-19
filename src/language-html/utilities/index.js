@@ -142,13 +142,18 @@ function isIndentationSensitiveNode(node, options) {
     node.kind === "element" &&
     options.cursorOffset >= node.startSourceSpan.end.offset &&
     options.cursorOffset <= node.endSourceSpan?.start.offset;
+  const nestedTemplateJsx =
+    node.kind === "element" &&
+    node.parent.fullName === "template" &&
+    node.attrMap.type === "text/jsx";
 
   return (
     getNodeCssStyleWhiteSpace(node).startsWith("pre") ||
     (node.kind === "element" &&
       node.fullName === "script" &&
       Object.hasOwn(node.attrMap, "type") &&
-      !cursorInContent)
+      !cursorInContent &&
+      !nestedTemplateJsx)
   );
 }
 
