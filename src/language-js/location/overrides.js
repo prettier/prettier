@@ -1,5 +1,7 @@
-import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { classPropertyTypes } from "../utilities/is-class-property.js";
+import {
+  isClassProperty,
+  isStatementWithContentEnd,
+} from "../utilities/node-types.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
@@ -27,33 +29,20 @@ const overrideBreakOrContinueEnd =
 /** @type {LocEndOverride} */
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 
-const nodeTypesWithContentEnd = /** @type {const} */ ([
-  // Statements
-  "ExpressionStatement",
-  "Directive",
-  "ImportDeclaration",
-  "ExportDefaultDeclaration",
-  "ExportNamedDeclaration",
-  "ExportAllDeclaration",
-  "ReturnStatement",
-  "ThrowStatement",
-  "DoWhileStatement",
+/**
+@param {Node | Comment} node
+*/
+function shouldAddContentEnd(node) {
+  return isStatementWithContentEnd(node) || isClassProperty(node);
+}
 
-  ...classPropertyTypes,
+const overrides = new Map([
+  ["BreakStatement", overrideBreakOrContinueEnd(BREAK_KEYWORD_LENGTH)],
+  ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
+  ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
+  // @ts-expect-error -- ignore
+  ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
 ]);
-
-const overrides =
-  // @ts-expect-error -- Unknown
-  new Map([
-    ["BreakStatement", overrideBreakOrContinueEnd(BREAK_KEYWORD_LENGTH)],
-    ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
-    ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
-    // @ts-expect-error -- ignore
-    ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
-    ...nodeTypesWithContentEnd.map((type) => [type, getContentEnd]),
-  ]);
-
-const shouldAddContentEnd = createTypeCheckFunction(nodeTypesWithContentEnd);
 
 /**
 @param {Node | Comment} node
@@ -76,6 +65,10 @@ function locEnd(node) {
     type === "WhileStatement"
   ) {
     return locEnd(node.body);
+  }
+
+  if (shouldAddContentEnd(node)) {
+    return getContentEnd(node);
   }
 
   return (

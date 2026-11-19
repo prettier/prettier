@@ -17,8 +17,8 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { isClassProperty } from "../utilities/is-class-property.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isClassProperty } from "../utilities/node-types.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
