@@ -101,7 +101,9 @@ function embed(path, options) {
               textToDocOptions.__babelSourceType = sourceType;
             }
 
-            const lineBreak = node.parent.isIndentationSensitive ? hardline : "";
+            const lineBreak = node.parent.isIndentationSensitive
+              ? hardline
+              : "";
 
             return [
               breakParent,

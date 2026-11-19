@@ -98,7 +98,8 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
-  const isTypedScript = node.fullName === "script" && node.isIndentationSensitive;
+  const isTypedScript =
+    node.fullName === "script" && node.isIndentationSensitive;
 
   const printLineBeforeChildren = () => {
     // Text and embedded printers supply their own line breaks.
