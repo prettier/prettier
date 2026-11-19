@@ -39,3 +39,56 @@ parsers: ["css", "scss", "less"]
 
 ================================================================================
 `;
+
+exports[`nested-block-semicolon.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.test {
+  --data: {
+    nested: {
+      value: red;
+    };
+    another: blue;
+  };
+  --deep: {
+    a: {
+      b: {
+        c: 1;
+      };
+    };
+  };
+  --no-semicolon: {
+    nested: {
+      value: red;
+    }
+    another: blue;
+  };
+}
+
+=====================================output=====================================
+.test {
+  --data: {
+    nested: {
+      value: red;
+    };
+    another: blue;
+  };
+  --deep: {
+    a: {
+      b: {
+        c: 1;
+      };
+    };
+  };
+  --no-semicolon: {
+    nested: {
+      value: red;
+    }
+    another: blue;
+  };
+}
+
+================================================================================
+`;
