@@ -13,8 +13,8 @@ import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
   isPreLikeNode,
+  isScriptDataBlock,
   isScriptLikeTag,
-  isScriptWithType,
   isVueCustomBlock,
   shouldPreserveContent,
 } from "../utilities/index.js";
@@ -75,7 +75,7 @@ function printElement(path, options, print) {
       printClosingTag(node, options),
     ]);
 
-  if (isScriptWithType(node)) {
+  if (isScriptDataBlock(node)) {
     return printTag(
       node.children.length === 0
         ? replaceEndOfLine(getNodeContent(node, options))

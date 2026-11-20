@@ -14,6 +14,27 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
+// https://mimesniff.spec.whatwg.org/#javascript-mime-type
+const javascriptMimeTypes = new Set([
+  "application/ecmascript",
+  "application/javascript",
+  "application/x-ecmascript",
+  "application/x-javascript",
+  "text/ecmascript",
+  "text/javascript",
+  "text/javascript1.0",
+  "text/javascript1.1",
+  "text/javascript1.2",
+  "text/javascript1.3",
+  "text/javascript1.4",
+  "text/javascript1.5",
+  "text/jscript",
+  "text/livescript",
+  "text/x-ecmascript",
+  "text/x-javascript",
+]);
+const specialScriptTypes = new Set(["module", "importmap", "speculationrules"]);
+
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
@@ -138,14 +159,19 @@ function isWhitespaceSensitiveNode(node, options) {
 }
 
 function isIndentationSensitiveNode(node) {
-  return isScriptWithType(node) || isPreLikeNode(node);
+  return isScriptDataBlock(node) || isPreLikeNode(node);
 }
 
-function isScriptWithType(node) {
+function isScriptDataBlock(node) {
+  if (node.kind !== "element" || node.fullName !== "script") {
+    return false;
+  }
+
+  const type = node.attrMap.type?.toLowerCase();
   return (
-    node.kind === "element" &&
-    node.fullName === "script" &&
-    Object.hasOwn(node.attrMap, "type")
+    Boolean(type) &&
+    !specialScriptTypes.has(type) &&
+    !javascriptMimeTypes.has(htmlWhitespace.trim(type))
   );
 }
 
@@ -638,8 +664,8 @@ export {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
+  isScriptDataBlock,
   isScriptLikeTag,
-  isScriptWithType,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isVueCustomBlock,

@@ -60,11 +60,11 @@ parsers: ["html"]
      Remove this comment if and when we fix it! -->
 <div>bla bla</d<|>iv>
 <script type="module">
-import lib from "./lib.js";
+  import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 ================================================================================
@@ -89,11 +89,11 @@ parsers: ["html"]
 =====================================output=====================================
 <div>bla bla</div>
 <script type="module">
-<|>import lib from "./lib.js";
+  <|>import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 ================================================================================
@@ -118,11 +118,11 @@ parsers: ["html"]
 =====================================output=====================================
 <div>bla bla</div>
 <script type="module"<|>>
-import lib from "./lib.js";
+  import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 ================================================================================
@@ -158,12 +158,12 @@ parsers: ["html"]
      the fix happened.
      Remove this comment if and when we fix it! -->
 <div>bla bla</div>
-<script type="module"><|>
-import lib from "./lib.js";
+<script type="module">
+  <|>import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 ================================================================================
@@ -188,11 +188,11 @@ parsers: ["html"]
 =====================================output=====================================
 <div>bla bla</div>
 <script type="module">
-import lib fro<|>m "./lib.js";
+  import lib fro<|>m "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 ================================================================================
@@ -235,11 +235,11 @@ parsers: ["html"]
      positioning just fine in that case! -->
 <div>bla bla</div>
 <script type="module">
-import lib from "./lib.js";
+  import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}<|>
+  function myFunction() {
+    return "foo";<|>
+  }
 </script>
 
 ================================================================================
@@ -278,12 +278,12 @@ parsers: ["html"]
 
 <div>bla bla</div>
 <script type="module">
-import lib from "./lib.js";
+  import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
-<|></script>
+  function myFunction() {
+    return "foo";
+<|>  }
+</script>
 
 ================================================================================
 `;
@@ -307,11 +307,11 @@ parsers: ["html"]
 =====================================output=====================================
 <div>bla bla</div>
 <script type="module">
-import lib from "./lib.js";
+  import lib from "./lib.js";
 
-function myFunction() {
-  return "foo";
-}
+  function myFunction() {
+    return "foo";
+  }
 </scr<|>ipt>
 
 ================================================================================
