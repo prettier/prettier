@@ -14,6 +14,7 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
+// cspell:words jscript livescript
 // https://mimesniff.spec.whatwg.org/#javascript-mime-type
 const javascriptMimeTypes = new Set([
   "application/ecmascript",
