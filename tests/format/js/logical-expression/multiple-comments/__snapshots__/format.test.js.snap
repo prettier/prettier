@@ -66,3 +66,86 @@ ErrorLike = SerializedProps && // cause is a new addition to Error that is not y
 
 ================================================================================
 `;
+
+exports[`right-nested.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = first && (
+  // Check the next operand.
+  second && third
+);
+
+x = first && (
+  // Build the fallback.
+  second && [third, fourth]
+);
+
+x = first && ((
+  // Check both operands.
+  second && third
+) && fourth);
+
+=====================================output=====================================
+x =
+  first
+  // Check the next operand.
+  && second
+  && third;
+
+x = first
+  // Build the fallback.
+  && second && [third, fourth];
+
+x =
+  first
+  // Check both operands.
+  && second
+  && third
+  && fourth;
+
+================================================================================
+`;
+
+exports[`right-nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = first && (
+  // Check the next operand.
+  second && third
+);
+
+x = first && (
+  // Build the fallback.
+  second && [third, fourth]
+);
+
+x = first && ((
+  // Check both operands.
+  second && third
+) && fourth);
+
+=====================================output=====================================
+x =
+  first &&
+  // Check the next operand.
+  second &&
+  third;
+
+x = first &&
+  // Build the fallback.
+  second && [third, fourth];
+
+x =
+  first &&
+  // Check both operands.
+  second &&
+  third &&
+  fourth;
+
+================================================================================
+`;
