@@ -1,0 +1,36 @@
+.users {
+  --section-accent: var(--brand-yellow);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 0.5rem + 2vw, 2.5rem) clamp(1.5rem, 0.5rem + 4vw, 4rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.userItem {
+  display: block;
+  inline-size: clamp(6.5rem, 4.5rem + 6vw, 10rem);
+  block-size: clamp(3rem, 2.25rem + 2.5vw, 4.5rem);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.userItemImage {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+
+  [data-theme="dark"] & {
+    filter: brightness(1.6);
+  }
+}

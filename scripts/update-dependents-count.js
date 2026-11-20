@@ -54,7 +54,10 @@ async function update() {
     getGithubDependentsCount(),
   ]);
 
-  const file = new URL("../website/src/pages/index.jsx", import.meta.url);
+  const file = new URL(
+    "../website/src/components/Homepage/EcosystemSection.jsx",
+    import.meta.url,
+  );
   const original = await fs.readFile(file, "utf8");
 
   let content = original;

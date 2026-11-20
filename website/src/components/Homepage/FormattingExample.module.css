@@ -1,0 +1,31 @@
+.example {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  margin-block-start: clamp(3rem, 2rem + 4vw, 4.5rem);
+  text-align: start;
+
+  @media (width >= 60rem) {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-small);
+  color: var(--color-text-muted);
+  rotate: 90deg;
+
+  @media (width >= 60rem) {
+    align-self: center;
+    rotate: none;
+  }
+}
