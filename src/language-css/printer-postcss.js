@@ -8,6 +8,7 @@ import {
   lineSuffix,
   lineSuffixBoundary,
   literallineWithoutBreakParent,
+  removeLines,
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
@@ -133,6 +134,7 @@ function genericPrint(path, options, print) {
             node.name,
             ": ",
             node.value ? [print("value"), lineSuffixBoundary] : "",
+            node.selector ? removeLines(print("selector")) : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
@@ -269,9 +271,11 @@ function genericPrint(path, options, print) {
       return node.value;
 
     // postcss-selector-parser
-    case "selector-root":
+    case "selector-root": {
+      const isLessVariable =
+        path.parent.type === "css-atrule" && path.parent.variable;
       return group([
-        insideAtRuleNode(path, "custom-selector")
+        !isLessVariable && insideAtRuleNode(path, "custom-selector")
           ? [
               path.findAncestor((node) => node.type === "css-atrule")
                 .customSelector,
@@ -281,6 +285,7 @@ function genericPrint(path, options, print) {
         join(
           [
             ",",
+            isLessVariable ||
             insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
               ? line
               : hardline,
@@ -288,6 +293,7 @@ function genericPrint(path, options, print) {
           path.map(print, "nodes"),
         ),
       ]);
+    }
 
     case "selector-selector": {
       const shouldIndent = node.nodes.length > 2;

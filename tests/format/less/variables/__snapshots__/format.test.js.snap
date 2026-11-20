@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`parent-selector.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@just-text-type-input-selectors: &:not([type='file']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']);
+
+input {
+  @{just-text-type-input-selectors} {
+    color: blue;
+  }
+}
+
+@sel: &:not([type='file']);
+@hover:&:hover;
+@focus : &:focus-visible;
+@compound: &>.a + .b;
+@list: &:hover,&:focus;
+@custom-selector: &:hover;
+@broken: &::;
+
+=====================================output=====================================
+@just-text-type-input-selectors: &:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]);
+
+input {
+  @{just-text-type-input-selectors} {
+    color: blue;
+  }
+}
+
+@sel: &:not([type="file"]);
+@hover: &:hover;
+@focus: &:focus-visible;
+@compound: & > .a + .b;
+@list: &:hover, &:focus;
+@custom-selector: &:hover;
+@broken: &::;
+
+================================================================================
+`;
+
 exports[`variables.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
