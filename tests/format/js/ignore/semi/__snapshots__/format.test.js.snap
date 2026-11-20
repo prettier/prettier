@@ -890,29 +890,29 @@ export {foo2};
 =====================================output=====================================
 function a() {
   // prettier-ignore
-  foo
+  foo;
   // prettier-ignore
   foo;
 
   // prettier-ignore
-  return foo
+  return foo;
   // prettier-ignore
   return foo;
 
   // prettier-ignore
-  throw foo
+  throw foo;
   // prettier-ignore
   throw foo;
 
   // prettier-ignore
-  do{}while(0)
+  do{}while(0);
   // prettier-ignore
   do{}while(0);
 }
 
 function a11() {
   // prettier-ignore
-  "use strict"
+  "use strict";
 }
 function a12() {
   // prettier-ignore
@@ -920,13 +920,13 @@ function a12() {
 }
 
 // prettier-ignore
-import "foo"
+import "foo";
 // prettier-ignore
 import "foo";
 
 let foo1, foo2;
 // prettier-ignore
-export {foo1}
+export {foo1};
 // prettier-ignore
 export {foo2};
 
