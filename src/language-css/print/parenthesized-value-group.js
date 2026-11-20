@@ -16,9 +16,10 @@ import {
   softline,
 } from "../../document/index.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   isConfigurationNode,
   isDedentedMapEntryNode,
@@ -149,8 +150,8 @@ function printParenthesizedValueGroup(path, options, print) {
 
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
-  const isSCSSMapItem = isSCSSMapItemNode(path, options);
-  const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
+  const shouldBreak = isConfiguration ||
+    (!isKey && shouldBreakArgumentSet(node, options));
   const shouldDedent = isConfiguration || isKey;
 
   const doc = group(
@@ -167,6 +168,22 @@ function printParenthesizedValueGroup(path, options, print) {
   );
 
   return shouldDedent ? dedent(doc) : doc;
+}
+
+function shouldBreakArgumentSet(node, options) {
+  return (
+      options.parser === "scss" &&
+      options.objectWrap === "preserve" &&
+      hasNewlineAfterOpen(node, options)
+  );
+}
+
+// `open.source.endOffset` equals its start offset, so step past `(` by hand.
+function hasNewlineAfterOpen(node, options) {
+  return (
+    node.groups.length > 0 &&
+    hasNewline(options.originalText, locStart(node.open) + 1)
+  );
 }
 
 function shouldBreakList(path) {

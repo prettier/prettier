@@ -1,0 +1,42 @@
+@mixin be-well($lite: #ffffff) {
+	@include be-bevel(
+		(1 1 var(--be-darken-1)),
+		(-1 -1 $lite),
+		(2 2 var(--be-darken-4)),
+		(-2 -2 var(--be-panel))
+	);
+}
+
+.be-menu-field {
+	box-shadow:
+		inset 0 0 0 bpx(1) var(--be-menu-field-frame),
+		be-bevel-list(
+			(-2 -2 var(--be-darken-4)),
+			(-3 0 var(--be-darken-1)),
+			(2 2 var(--be-lighten-2)),
+			(0 -3 var(--be-darken-1))
+		);
+}
+
+@function be-slider-rings($lite) {
+	@return be-bevel-list(
+			(1 1 var(--be-slider-ink-240)),
+			(-1 -1 var(--be-slider-ink-144)),
+			(2 2 var(--be-slider-ink-240)),
+			(-2 -2 var(--be-slider-ink-200))
+		),
+		0 bpx(-1) 0 0 $lite,
+		bpx(-1) 0 0 0 $lite;
+}
+
+@function be-button-rings($face, $shadow, $inner, $white: #ffffff) {
+	@return be-bevel-list((1 1 $face), (-1 -1 $shadow), (2 2 $white), (-2 -2 $inner), (3 3 $white));
+}
+
+.be-deskbar {
+	box-shadow: be-bevel-list((1 -1 var(--be-deskbar-frame-edge))), var(--be-deskbar-shadow);
+
+	&.is-open {
+		@include be-bevel((1 1 var(--be-deskbar-status-edge)), (-1 -1 var(--be-deskbar-highlight)));
+	}
+}
