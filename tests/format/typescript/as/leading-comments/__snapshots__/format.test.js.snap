@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`expressions.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const member = async () => ((
+  // leading
+  await foo()) as T).value;
+const optionalMember = async () => ((
+  // leading
+  await foo()) satisfies T)?.value;
+const call = async () => ((
+  // leading
+  await foo()) as T)();
+const optionalCall = async () => ((
+  // leading
+  await foo()) satisfies T)?.();
+const construct = async () => new ((
+  // leading
+  await foo()) as T)();
+const block = async () => ((
+  /* leading */
+  await foo()) as T).value;
+const mixed = async () => ((
+  // leading
+  await foo()) as T /* trailing */).value;
+const line = async () => ((
+  // leading
+  await foo()) as T // trailing
+).value;
+
+=====================================output=====================================
+const member = async () =>
+  (
+    // leading
+    (await foo()) as T
+  ).value;
+const optionalMember = async () =>
+  (
+    // leading
+    (await foo()) satisfies T
+  )?.value;
+const call = async () =>
+  (
+    // leading
+    (await foo()) as T
+  )();
+const optionalCall = async () =>
+  (
+    // leading
+    (await foo()) satisfies T
+  )?.();
+const construct = async () =>
+  new (
+    // leading
+    (await foo()) as T
+  )();
+const block = async () =>
+  (
+    /* leading */
+    (await foo()) as T
+  ).value;
+const mixed = async () =>
+  (
+    // leading
+    (await foo()) as T /* trailing */
+  ).value;
+const line = async () =>
+  (
+    // leading
+    (await foo()) as T // trailing
+  ).value;
+
+================================================================================
+`;
+
+exports[`member.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const driveItemPreview = async ({
+  client,
+  driveId,
+  itemId,
+}: {
+  client: Client;
+  driveId: string;
+  itemId: string;
+}) =>
+  (
+    (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+      await client
+        .api(\`drives/\${driveId}/items/\${itemId}\`)
+        // https://learn.microsoft.com/en-us/graph/api/driveitem-preview?view=graph-rest-beta
+        .version("beta")
+        .select("getUrl")
+        .post({})) as { getUrl: NonNullable<ItemPreviewInfo["getUrl"]> }
+    ).getUrl;
+
+=====================================output=====================================
+export const driveItemPreview = async ({
+  client,
+  driveId,
+  itemId,
+}: {
+  client: Client;
+  driveId: string;
+  itemId: string;
+}) =>
+  (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    (await client
+      .api(\`drives/\${driveId}/items/\${itemId}\`)
+      // https://learn.microsoft.com/en-us/graph/api/driveitem-preview?view=graph-rest-beta
+      .version("beta")
+      .select("getUrl")
+      .post({})) as { getUrl: NonNullable<ItemPreviewInfo["getUrl"]> }
+  ).getUrl;
+
+================================================================================
+`;
