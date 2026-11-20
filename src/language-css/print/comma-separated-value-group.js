@@ -575,9 +575,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
       !iNode.inline &&
       node.groups.slice(0, i).every((group) => group.type === "value-comment")
     ) {
-      const separator = hasNewline(options.originalText, locEnd(iNode))
-        ? hardline
-        : line;
+      const separator =
+        options.parser === "scss" &&
+        hasNewline(options.originalText, locEnd(iNode))
+          ? hardline
+          : line;
       parts.push(isDedentedByParent ? separator : dedent(separator), "");
       continue;
     }
