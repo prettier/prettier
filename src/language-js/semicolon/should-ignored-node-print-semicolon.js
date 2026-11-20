@@ -2,7 +2,7 @@ import { shouldAddContentEnd } from "../location/index.js";
 import { isForXStatementInitializer } from "../utilities/is-for-x-statement-initializer.js";
 
 function shouldPrintSemicolon(node) {
-  if (shouldAddContentEnd(node)) {
+  if (shouldAddContentEnd(node) && node.__contentEnd) {
     return true;
   }
 
