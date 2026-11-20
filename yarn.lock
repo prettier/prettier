@@ -2525,9 +2525,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.12.4":
-  version: 0.12.4
-  resolution: "@prettier/cli@npm:0.12.4"
+"@prettier/cli@npm:0.12.5":
+  version: 0.12.5
+  resolution: "@prettier/cli@npm:0.12.5"
   dependencies:
     atomically: "npm:^2.1.1"
     fast-ignore: "npm:^2.0.0"
@@ -2545,10 +2545,10 @@ __metadata:
     smol-toml: "npm:^1.9.1"
     specialist: "npm:^2.0.0"
     tiny-editorconfig: "npm:^1.0.2"
-    tiny-readdir: "npm:^3.1.1"
-    tiny-readdir-glob: "npm:^2.0.0"
+    tiny-readdir: "npm:^3.1.2"
+    tiny-readdir-glob: "npm:^2.0.1"
     tiny-spinner: "npm:^2.0.5"
-    worktank: "npm:^3.0.2"
+    worktank: "npm:^3.0.3"
     zeptomatch: "npm:^2.1.0"
     zeptomatch-escape: "npm:^1.0.1"
     zeptomatch-is-static: "npm:^1.0.1"
@@ -2556,7 +2556,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/3afe71f561d8aad1bdb287738ba6aac125656492912217eab3f23e0de571e9690b42c4a3af82a10a658c790cc6fdfd4f45fb41f89da3ee9788b6174d942680c2
+  checksum: 10/66d70ac1e1398ac33ffb206a44cf93e668de9f388cc31ffcd670014c9dd23358b0a9b3cf60178d2d928e4cab1c3d64f4a0e3d93be25a263a5992236c117977bd
   languageName: node
   linkType: hard
 
@@ -8148,7 +8148,7 @@ __metadata:
     "@eslint/js": "npm:10.0.1"
     "@glimmer/syntax": "npm:0.97.0"
     "@oxc-parser/binding-wasm32-wasip1": "npm:0.159.0"
-    "@prettier/cli": "npm:0.12.4"
+    "@prettier/cli": "npm:0.12.5"
     "@prettier/html-attributes": "npm:0.1.0"
     "@prettier/html-event-attributes": "npm:0.0.2"
     "@prettier/html-tags": "npm:2.2.0"
@@ -9114,22 +9114,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "tiny-readdir-glob@npm:2.0.0"
+"tiny-readdir-glob@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "tiny-readdir-glob@npm:2.0.1"
   dependencies:
-    tiny-readdir: "npm:^3.1.1"
+    tiny-readdir: "npm:^3.1.2"
     zeptomatch: "npm:^2.1.0"
-  checksum: 10/98e8caed66f9f4d937b1a5983cd71aa77a1666ef2359c39775d63f63a403dd15d54aafdbda6f12d337a00bcab053bff2e65e61982d61a5fd897a364d06402076
+    zeptomatch-escape: "npm:^1.0.1"
+    zeptomatch-is-static: "npm:^1.0.1"
+  checksum: 10/9cd9053d192c5f597a47b590952adb3b6e0eafcf99d74d4897b45d669ceffca8ef19b5f630a09638b6a369760e8491ca17dba2f310292fd5562b704f66ff2307
   languageName: node
   linkType: hard
 
-"tiny-readdir@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "tiny-readdir@npm:3.1.1"
+"tiny-readdir@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "tiny-readdir@npm:3.1.2"
   dependencies:
     promise-make-counter: "npm:^1.0.2"
-  checksum: 10/22d6a008ab62c2757a2216665719b39ba9feae8cf3251260d883d7981354e4c8fdabd0434a0be6e7bc3326133fe439dd622d9350a19db926f0098a025966dc86
+  checksum: 10/32e1e8c6d451eb76e4ae1f329208fefe10c60491e2ea51262aa62e849f5bf892a0a4597aea5049fdb08c23b9be0ffc4b6a109d3c6ce928f6fc2d6124b4037735
   languageName: node
   linkType: hard
 
@@ -9745,15 +9747,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"worktank@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "worktank@npm:3.0.2"
+"worktank@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "worktank@npm:3.0.3"
   dependencies:
     isoconcurrency: "npm:^1.0.0"
     isotimer: "npm:^1.0.0"
     promise-make-naked: "npm:^3.0.2"
     webworker-shim: "npm:^1.1.4"
-  checksum: 10/12be3b9948f83c392a92986a9de57fdb421045982464c00f8f80218bb9215634ac58960ca324753e3e630e86cade86cb044a113d7fa007cb4f47cb8718aafff3
+  checksum: 10/598565645733df8bd3f78d1d82730ce6291e1a2c6492adb41f78518d139ff759a2f8c3640fafdd7662d564739a9ba3f28b5ba057444c9ad9646ea49559c2dbed
   languageName: node
   linkType: hard
 
