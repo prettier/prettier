@@ -128,34 +128,13 @@ $value
 );
 
 =====================================output=====================================
-$map: (
-  key: value,
-  other-key: other-value,
-);
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-);
-$map: (
-  key: value,
-  other-key: other-value,
-);
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value);
 $map: (
   key: value,
   other-key: other-value,
@@ -207,6 +186,26 @@ $map: (
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff),
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff),
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff),
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff),
 );
 $map: (
   key: (
@@ -222,91 +221,16 @@ $map: (
     #fff,
   ),
 );
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge(
+  $map,
+  ($key: $value)
 );
 $map: map-merge(
   $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
+  ($key: $value)
 );
 $map: map-merge(
   $map,
@@ -446,34 +370,13 @@ $value
 );
 
 =====================================output=====================================
-$map: (
-  key: value,
-  other-key: other-value
-);
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-);
-$map: (
-  key: value,
-  other-key: other-value
-);
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value);
 $map: (
   key: value,
   other-key: other-value
@@ -525,6 +428,26 @@ $map: (
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
 );
 $map: (
   key: (
@@ -540,91 +463,16 @@ $map: (
     #fff
   )
 );
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge(
+  $map,
+  ($key: $value)
 );
 $map: map-merge(
   $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
+  ($key: $value)
 );
 $map: map-merge(
   $map,
@@ -731,11 +579,7 @@ a {
 
 $empty-map: ();
 $empty-nested-map: (
-  nested-key: (
-    empty-key: (
-      color: red,
-    ),
-  ),
+  nested-key: (empty-key: (color: red)),
   empty-key: (),
   empty-key: (),
   empty-key: (),
@@ -763,23 +607,12 @@ $b: unquote("");
 $c: null;
 $d: (null);
 
-$threads-properties: map-merge(
-  $threads-properties,
-  (
-    $border-label: (),
-  )
-);
-$o-grid-default-config: (
-  layouts: (
-    S: 370px,
-  ),
-);
+$threads-properties: map-merge($threads-properties, ($border-label: ()));
+$o-grid-default-config: (layouts: (S: 370px));
 
 $map: (
   key: (value),
-  other-key: (
-    key: other-other-value,
-  ),
+  other-key: (key: other-other-value),
 );
 
 ================================================================================
@@ -880,11 +713,7 @@ a {
 
 $empty-map: ();
 $empty-nested-map: (
-  nested-key: (
-    empty-key: (
-      color: red
-    )
-  ),
+  nested-key: (empty-key: (color: red)),
   empty-key: (),
   empty-key: (),
   empty-key: ()
@@ -912,23 +741,12 @@ $b: unquote("");
 $c: null;
 $d: (null);
 
-$threads-properties: map-merge(
-  $threads-properties,
-  (
-    $border-label: ()
-  )
-);
-$o-grid-default-config: (
-  layouts: (
-    S: 370px
-  )
-);
+$threads-properties: map-merge($threads-properties, ($border-label: ()));
+$o-grid-default-config: (layouts: (S: 370px));
 
 $map: (
   key: (value),
-  other-key: (
-    key: other-other-value
-  )
+  other-key: (key: other-other-value)
 );
 
 ================================================================================
@@ -956,7 +774,8 @@ $foo: (
   // comment 1
   // comment 2
   "property2": 1,
-  /** comment 1 */ /* comment 2 */
+  /** comment 1 */
+  /* comment 2 */
 );
 
 ================================================================================
@@ -984,7 +803,8 @@ $foo: (
   // comment 1
   // comment 2
   "property2": 1,
-  /** comment 1 */ /* comment 2 */
+  /** comment 1 */
+  /* comment 2 */
 );
 
 ================================================================================
@@ -1026,12 +846,14 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  /* comment */ key1: value,
+  /* comment */
+  key1: value,
 
   // comment
   key2: value,
 
-  /* comment */ /* comment */ key3: value,
+  /* comment */ /* comment */
+  key3: value,
 
   /* comment */
   key4: (
@@ -1088,12 +910,14 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  /* comment */ key1: value,
+  /* comment */
+  key1: value,
 
   // comment
   key2: value,
 
-  /* comment */ /* comment */ key3: value,
+  /* comment */ /* comment */
+  key3: value,
 
   /* comment */
   key4: (
@@ -1150,55 +974,31 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  "a": (
-    1,
-    2,
-  ),
+  "a": (1, 2),
   // comment
-  "b": (
-    3,
-    4,
-  ),
+  "b": (3, 4),
   /// doc comment
-  "c": (
-    5,
-    6,
-  ),
+  "c": (5, 6),
   /* comment */
-  "d": (
-    7,
-    8,
-  ),
+  "d": (7, 8),
   // comment
   // comment
-  "e": (
-    9,
-    10,
-  ),
+  "e": (9, 10),
 );
 
 $map: (
   /* comment */
-  key: (
-    a: b,
-    c: d,
-  ),
+  key: (a: b, c: d),
 );
 
 $map: (
   // comment
-  key: (
-    a: b,
-    c: d,
-  ),
+  key: (a: b, c: d),
 );
 
 $map: (
   // comment
-  key: (
-    a,
-    b,
-  ),
+  key: (a, b),
 );
 
 ================================================================================
@@ -1240,55 +1040,31 @@ $map: (
 
 =====================================output=====================================
 $map: (
-  "a": (
-    1,
-    2
-  ),
+  "a": (1, 2),
   // comment
-  "b": (
-    3,
-    4
-  ),
+  "b": (3, 4),
   /// doc comment
-  "c": (
-    5,
-    6
-  ),
+  "c": (5, 6),
   /* comment */
-  "d": (
-    7,
-    8
-  ),
+  "d": (7, 8),
   // comment
   // comment
-  "e": (
-    9,
-    10
-  )
+  "e": (9, 10)
 );
 
 $map: (
   /* comment */
-  key: (
-    a: b,
-    c: d
-  )
+  key: (a: b, c: d)
 );
 
 $map: (
   // comment
-  key: (
-    a: b,
-    c: d
-  )
+  key: (a: b, c: d)
 );
 
 $map: (
   // comment
-  key: (
-    a,
-    b
-  )
+  key: (a, b)
 );
 
 ================================================================================
@@ -1449,9 +1225,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ): (
-      "key": "value",
-    ),
+  ): ("key": "value"),
   (
     "key": "value",
     "key": "value",
@@ -1482,9 +1256,7 @@ $map: (
     "list",
     "list",
     "list",
-  ): (
-      "key": "value",
-    ),
+  ): ("key": "value"),
   (
     "key": "value",
     "key": "value",
@@ -1524,9 +1296,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ): (
-      "key": "value"
-    ),
+  ): ("key": "value"),
   (
     "key": "value",
     "key": "value",
@@ -1557,9 +1327,7 @@ $map: (
     "list",
     "list",
     "list"
-  ): (
-      "key": "value"
-    ),
+  ): ("key": "value"),
   (
     "key": "value",
     "key": "value",
