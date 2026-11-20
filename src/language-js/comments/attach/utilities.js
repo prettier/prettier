@@ -60,7 +60,6 @@ function addCommentToPossibleBlockStatement(node, comment) {
 function addBlockFirstComment(node, comment) {
   let child;
 
-  // eslint-disable-next-line unicorn/prefer-switch
   if (node.type === "BlockStatement" || node.type === "TSModuleBlock") {
     child = node.body.find(({ type }) => type !== "EmptyStatement");
   } else if (

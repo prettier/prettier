@@ -304,6 +304,10 @@ function printClassMethod(path, options, print) {
 
   parts.push(printMethod(path, options, print));
 
+  if (node.type === "AbstractMethodDefinition") {
+    parts.push(printSemicolon(options));
+  }
+
   return parts;
 }
 

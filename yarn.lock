@@ -5,12 +5,12 @@ __metadata:
   version: 10
   cacheKey: 10
 
-"@angular/compiler@npm:22.2.6":
-  version: 22.2.6
-  resolution: "@angular/compiler@npm:22.2.6"
+"@angular/compiler@npm:22.3.0":
+  version: 22.3.0
+  resolution: "@angular/compiler@npm:22.3.0"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/2e570ad024f4a18793c4a85a3c06c4fcdeab78ee551d7840ff99b11439354f75c5ab3745660983bfd855a66c0fbfdd86b61a79d468bf6e127c95aefebaee348f
+  checksum: 10/00cab786897344e5533b6f65c62806c82e083da4f1e4377d8111631474e1c584f843e06f5fb9031bd1727ff7b671932a52330139076f6b8abdfe4379450e2571
   languageName: node
   linkType: hard
 
@@ -4655,9 +4655,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unicorn@npm:79.0.0":
-  version: 79.0.0
-  resolution: "eslint-plugin-unicorn@npm:79.0.0"
+"eslint-plugin-unicorn@npm:80.0.0":
+  version: 80.0.0
+  resolution: "eslint-plugin-unicorn@npm:80.0.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.10.1"
     "@eslint/css-tree": "npm:^4.1.1"
@@ -4672,7 +4672,6 @@ __metadata:
     identifier-regex: "npm:^1.1.0"
     indent-string: "npm:^5.0.0"
     is-builtin-module: "npm:^5.0.0"
-    micromark: "npm:^4.0.3"
     parse5: "npm:^8.0.1"
     pluralize: "npm:^8.0.0"
     quote-js-string: "npm:^0.1.0"
@@ -4687,7 +4686,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/e096feabf868f990c134dd0f890af328bbc1addc9488ca7e2f8be195795b6d6caf8984cf2b5fc3f838023c88865f791647bd556fb6af82cc66d75275be4089d9
+  checksum: 10/cada4c072baba86ad87b553b80e9729cc3ef7fcd2f3960b785de59783b42b37cc522f9cbfdb9776cfdebfd2b7ea6f5e732d513509c34d25fe2667abfffaa03c7
   languageName: node
   linkType: hard
 
@@ -5126,19 +5125,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-estree@npm:0.340.0":
-  version: 0.340.0
-  resolution: "flow-estree@npm:0.340.0"
-  checksum: 10/fd307b51f88eb911dd3412a0d9fb95957b24e907abc5a628b772098ab7573809552371a4e7088394a7a915fd9cbfd6b446203ead76e971c7062e28a8b51de916
+"flow-estree@npm:0.341.0":
+  version: 0.341.0
+  resolution: "flow-estree@npm:0.341.0"
+  checksum: 10/929e8f9a63ee4c0472a2dbcb235a75dd7301440e8f3a6a7b99044e7dfe2758b3c5f6d79b9b1fb19c57bc7bc93a2da9aefd24d528945ea59d1753405893576eef
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.340.0":
-  version: 0.340.0
-  resolution: "flow-parser@npm:0.340.0"
+"flow-parser@npm:0.341.0":
+  version: 0.341.0
+  resolution: "flow-parser@npm:0.341.0"
   dependencies:
-    flow-estree: "npm:0.340.0"
-  checksum: 10/d7bac882c8cfe6f07ec56508e87968037e1717f64c3de32f1620836453d961f8dcbf46bb881af2ca7679d38edcb18743e11ab0e5d5c8084c71627aad3a117dc3
+    flow-estree: "npm:0.341.0"
+  checksum: 10/fbb318ff8f96eac3ebfbde363669fc65aca422c489cbd59e38be775ce4a33cb6af572ac28e1993006b0a71004f16025a8ff46bccb018cb412976211a2262617a
   languageName: node
   linkType: hard
 
@@ -6926,10 +6925,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:7.4.2":
-  version: 7.4.2
-  resolution: "meriyah@npm:7.4.2"
-  checksum: 10/1c5b06498bd0cdf4505cd25dde0ddae14755f06f9c7748ad0c999c8956bf1e07286187185820ad99da5c1b63d51d309d62041aac921072fd6344dfafd306d944
+"meriyah@npm:7.4.3":
+  version: 7.4.3
+  resolution: "meriyah@npm:7.4.3"
+  checksum: 10/caf9732019f1ee98ccab0e1a2c817aa89499586c9d7f97545aa19690ce2629193c9e347245a2b5258d39912979a76ef24af03dddb2ceb79100abd8eced2969ae
   languageName: node
   linkType: hard
 
@@ -7262,7 +7261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark@npm:^4.0.0, micromark@npm:^4.0.3":
+"micromark@npm:^4.0.0":
   version: 4.0.3
   resolution: "micromark@npm:4.0.3"
   dependencies:
@@ -8137,7 +8136,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:22.2.6"
+    "@angular/compiler": "npm:22.3.0"
     "@babel/code-frame": "npm:8.0.6"
     "@babel/generator": "npm:8.1.2"
     "@babel/parser": "npm:8.1.2"
@@ -8191,14 +8190,14 @@ __metadata:
     eslint-plugin-n: "npm:18.5.0"
     eslint-plugin-regexp: "npm:3.3.3"
     eslint-plugin-simple-import-sort: "npm:14.0.0"
-    eslint-plugin-unicorn: "npm:79.0.0"
+    eslint-plugin-unicorn: "npm:80.0.0"
     esm-utils: "npm:4.4.2"
     espree: "npm:11.2.0"
     fast-glob: "npm:3.3.3"
     file-entry-cache: "npm:11.1.5"
     find-cache-directory: "npm:6.0.0"
-    flow-estree: "npm:0.340.0"
-    flow-parser: "npm:0.340.0"
+    flow-estree: "npm:0.341.0"
+    flow-parser: "npm:0.341.0"
     get-east-asian-width: "npm:1.7.0"
     get-port: "npm:7.2.0"
     get-stdin: "npm:9.0.0"
@@ -8231,7 +8230,7 @@ __metadata:
     mdast-util-from-markdown: "npm:2.1.0"
     mdast-util-gfm: "npm:3.1.0"
     mdast-util-math: "npm:3.0.0"
-    meriyah: "npm:7.4.2"
+    meriyah: "npm:7.4.3"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-util-character: "npm:2.1.1"
