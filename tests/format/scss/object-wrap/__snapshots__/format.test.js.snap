@@ -139,13 +139,23 @@ useTabs: true
 
 =====================================output=====================================
 @mixin be-well($lite: #ffffff) {
-	@include be-bevel((1 1 var(--be-darken-1)), (-1 -1 $lite), (2 2 var(--be-darken-4)), (-2 -2 var(--be-panel)));
+	@include be-bevel(
+		(1 1 var(--be-darken-1)),
+		(-1 -1 $lite),
+		(2 2 var(--be-darken-4)),
+		(-2 -2 var(--be-panel))
+	);
 }
 
 .be-menu-field {
 	box-shadow:
 		inset 0 0 0 bpx(1) var(--be-menu-field-frame),
-		be-bevel-list((-2 -2 var(--be-darken-4)), (-3 0 var(--be-darken-1)), (2 2 var(--be-lighten-2)), (0 -3 var(--be-darken-1)));
+		be-bevel-list(
+			(-2 -2 var(--be-darken-4)),
+			(-3 0 var(--be-darken-1)),
+			(2 2 var(--be-lighten-2)),
+			(0 -3 var(--be-darken-1))
+		);
 }
 
 @function be-slider-rings($lite) {

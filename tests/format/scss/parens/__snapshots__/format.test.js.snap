@@ -49,11 +49,7 @@ parsers: ["scss"]
 
 =====================================output=====================================
 @if true {
-  $newKey: (
-    $key: (
-        $theme-name: $value,
-      ),
-  );
+  $newKey: ($key: ($theme-name: $value));
 }
 
 ================================================================================
@@ -350,8 +346,36 @@ a {
   prop3: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
   prop4: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
   prop5: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
-  prop6: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
-  prop7: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
+  prop6: func(
+    1px,
+    1px,
+    1px,
+    func(
+      1px,
+      1px,
+      1px,
+      func(
+        1px,
+        1px,
+        1px
+      )
+    )
+  );
+  prop7: func(
+    1px,
+    1px,
+    1px,
+    func(
+      1px,
+      1px,
+      1px,
+      func(
+        1px,
+        1px,
+        1px
+      )
+    )
+  );
   prop8: very-very-very-very-very-very-vey-very-very-long-func(
     1px,
     1px,
@@ -382,7 +406,11 @@ a {
       1px,
       1px,
       1px,
-      very-very-very-very-very-very-vey-very-very-long-func(1px, 1px, 1px)
+      very-very-very-very-very-very-vey-very-very-long-func(
+        1px,
+        1px,
+        1px
+      )
     )
   );
   prop11: very-very-very-very-very-very-vey-very-very-long-func(
@@ -393,7 +421,11 @@ a {
       1px,
       1px,
       1px,
-      very-very-very-very-very-very-vey-very-very-long-func(1px, 1px, 1px)
+      very-very-very-very-very-very-vey-very-very-long-func(
+        1px,
+        1px,
+        1px
+      )
     )
   );
 }
@@ -509,28 +541,55 @@ a {
   prop1: attr(data-foo);
   prop2: attr(data-foo);
   prop3: attr(data-foo);
-  prop4: attr(data-foo);
-  prop5: attr(data-foo);
+  prop4: attr(
+    data-foo
+  );
+  prop5: attr(
+    data-foo
+  );
   prop6: attr(data-foo);
-  prop7: attr(data-foo);
-  prop8: attr(data-foo);
+  prop7: attr(
+    data-foo
+  );
+  prop8: attr(
+    data-foo
+  );
   prop9: "(" attr(title) ")";
   prop10: "(" attr(title) ")";
   prop11: "(" attr(title) ")";
   prop12: "(" attr(title) ")";
   prop13: "(" attr(title) ")";
-  prop14: "(" attr(title) ")";
-  prop15: "(" attr(title) ")";
+  prop14: "("
+    attr(
+      title
+    )
+    ")";
+  prop15: "("
+    attr(
+      title
+    )
+    ")";
   prop16: attr(length em);
   prop17: attr(length em);
   prop18: attr(length em);
-  prop19: attr(length em);
+  prop19: attr(
+    length em
+  );
   prop20: attr(data-size em, 20);
   prop21: attr(data-size em, 20);
   prop22: attr(data-size em, 20);
-  prop23: attr(data-size em, 20);
-  prop24: attr(data-size em, 20);
-  prop25: attr(data-size em, 20);
+  prop23: attr(
+    data-size em,
+    20
+  );
+  prop24: attr(
+    data-size em,
+    20
+  );
+  prop25: attr(
+    data-size em,
+    20
+  );
 }
 
 ================================================================================
