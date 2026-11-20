@@ -150,8 +150,8 @@ function printParenthesizedValueGroup(path, options, print) {
 
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
-  const shouldBreak = isConfiguration ||
-    (!isKey && shouldBreakArgumentSet(node, options));
+  const shouldBreak =
+    isConfiguration || (!isKey && shouldBreakArgumentSet(node, options));
   const shouldDedent = isConfiguration || isKey;
 
   const doc = group(
@@ -172,9 +172,9 @@ function printParenthesizedValueGroup(path, options, print) {
 
 function shouldBreakArgumentSet(node, options) {
   return (
-      options.parser === "scss" &&
-      options.objectWrap === "preserve" &&
-      hasNewlineAfterOpen(node, options)
+    options.parser === "scss" &&
+    options.objectWrap === "preserve" &&
+    hasNewlineAfterOpen(node, options)
   );
 }
 
