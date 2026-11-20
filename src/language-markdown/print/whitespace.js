@@ -1,4 +1,6 @@
 import { hardline, line, softline } from "../../document/index.js";
+import { CSS_DISPLAY_TAGS } from "../../language-html/constants.evaluate.js";
+import isBlockLikeCssDisplay from "../../utilities/is-block-like-css-display.js";
 import {
   isNewLine,
   isSetextHeading,
@@ -265,11 +267,31 @@ function printWhitespace(path, value, proseWrap, isLink) {
 }
 
 function printWhitespaceNode(path, options) {
+  // Keep structural newlines around HTML block elements inside MDX prose.
+  // Adding new breaks could turn text elements into flow elements on reparse.
+  if (
+    options.parser === "mdx" &&
+    path.node.value === "\n" &&
+    ((path.isFirst &&
+      path.callParent(({ previous }) => isBlockElement(previous))) ||
+      (path.isLast && path.callParent(({ next }) => isBlockElement(next))))
+  ) {
+    return hardline;
+  }
+
   return printWhitespace(
     path,
     path.node.value,
     shouldPreventBreak(path, options) ? "never" : options.proseWrap,
     false,
+  );
+}
+
+function isBlockElement(node) {
+  return (
+    node?.type === "mdxJsxTextElement" &&
+    Object.hasOwn(CSS_DISPLAY_TAGS, node.name) &&
+    isBlockLikeCssDisplay(CSS_DISPLAY_TAGS[node.name])
   );
 }
 
