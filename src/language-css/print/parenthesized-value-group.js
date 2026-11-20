@@ -151,7 +151,7 @@ function printParenthesizedValueGroup(path, options, print) {
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
   const shouldBreak =
-    isConfiguration || (!isKey && shouldBreakArgumentSet(node, options));
+    isConfiguration || (!isKey && shouldBreakArgumentSet(path, options));
   const shouldDedent = isConfiguration || isKey;
 
   const doc = group(
@@ -170,10 +170,14 @@ function printParenthesizedValueGroup(path, options, print) {
   return shouldDedent ? dedent(doc) : doc;
 }
 
-function shouldBreakArgumentSet(node, options) {
+// Only lists and maps keep the author's line breaks; math brackets like
+// `((100% - $gap) / 2)` always fit.
+function shouldBreakArgumentSet(path, options) {
+  const { node } = path;
   return (
     options.parser === "scss" &&
     options.objectWrap === "preserve" &&
+    (node.groups.length > 1 || isSCSSMapItemNode(path, options)) &&
     hasNewlineAfterOpen(node, options)
   );
 }

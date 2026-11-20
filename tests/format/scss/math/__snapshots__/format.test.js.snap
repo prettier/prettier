@@ -213,10 +213,7 @@ a:nth-child(#{$numPerRow}n) {
   background-image: "/images/#{$icon-name}.svg";
 }
 
-$extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_"),
-);
+$extmods: (eot: "?", svg: "#" + str-replace($name, " ", "_"));
 
 @mixin keyframes {
   @-moz-keyframes {
@@ -474,10 +471,7 @@ a:nth-child(#{$numPerRow}n) {
   background-image: "/images/#{$icon-name}.svg";
 }
 
-$extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_")
-);
+$extmods: (eot: "?", svg: "#" + str-replace($name, " ", "_"));
 
 @mixin keyframes {
   @-moz-keyframes {

@@ -257,35 +257,19 @@ h3
 }
 @each $animal
   in (
-    (
-      puma
-    ),
-    (
-      sea-slug
-    ),
-    (
-      egret
-    ),
-    (
-      salamander
-    )
+    (puma),
+    (sea-slug),
+    (egret),
+    (salamander)
   )
 {
 }
 @each $animal
   in (
-    (
-      puma
-    ),
-    (
-      sea-slug
-    ),
-    (
-      egret
-    ),
-    (
-      salamander
-    )
+    (puma),
+    (sea-slug),
+    (egret),
+    (salamander)
   )
 {
 }
@@ -644,23 +628,9 @@ p {
   }
   @if (($type) == (ocean)) {
   }
-  @if (
-    (
-        $type
-      ) ==
-      (
-        ocean
-      )
-  ) {
+  @if (($type) == (ocean)) {
   }
-  @if (
-    (
-        $type
-      ) ==
-      (
-        ocean
-      )
-  ) {
+  @if (($type) == (ocean)) {
   }
   @if $type == ocean {
     color: blue;
@@ -1125,19 +1095,13 @@ $i
 }
 @while ($i > 0) {
 }
-@while (
-  $i > 0
-) {
+@while ($i > 0) {
 }
 @while ($i > 0) {
 }
-@while (
-  $i > 0
-) {
+@while ($i > 0) {
 }
-@while (
-  $i > 0
-) {
+@while ($i > 0) {
 }
 @while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var >
   1
@@ -1159,23 +1123,9 @@ $i
 }
 @while (($i) > (0)) {
 }
-@while (
-  (
-      $i
-    ) >
-    (
-      0
-    )
-) {
+@while (($i) > (0)) {
 }
-@while (
-  (
-      $i
-    ) >
-    (
-      0
-    )
-) {
+@while (($i) > (0)) {
 }
 @while (
   $very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1
