@@ -2268,21 +2268,21 @@ x => {
   </div>
 
   <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+  export default {
+    render (h) {
+      return (
+        <ul
+          class={{
+            'a': b,
+            'c': d,
+            "e": f
+          }}
+        >
+          { this.xyz }
+        </ul>
+    )
+  };
+</script>
 
   <div>
     1234567890123456789012345678901234567890123456789012345678901234567890{{
@@ -2398,21 +2398,21 @@ x => {
   </div>
 
   <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+  export default {
+    render (h) {
+      return (
+        <ul
+          class={{
+            'a': b,
+            'c': d,
+            "e": f
+          }}
+        >
+          { this.xyz }
+        </ul>
+    )
+  };
+</script>
 
   <div>
     1234567890123456789012345678901234567890123456789012345678901234567890{{
@@ -2528,21 +2528,21 @@ x => {
   </div>
 
   <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+  export default {
+    render (h) {
+      return (
+        <ul
+          class={{
+            'a': b,
+            'c': d,
+            "e": f
+          }}
+        >
+          { this.xyz }
+        </ul>
+    )
+  };
+</script>
 
   <div>
     1234567890123456789012345678901234567890123456789012345678901234567890{{

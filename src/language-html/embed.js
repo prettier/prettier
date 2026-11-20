@@ -34,79 +34,13 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function getScriptTextToDocOptions(node, parser, options) {
-  const textToDocOptions = { parser, __embeddedInHtml: true };
-
-  if (options.parser === "html" && parser === "babel") {
-    const { type, ["data-type"]: dataType } = node.attrMap;
-    const isModule =
-      type === "module" ||
-      ((type === "text/babel" || type === "text/jsx") && dataType === "module");
-
-    textToDocOptions.__babelSourceType = isModule ? "module" : "script";
-  }
-
-  return textToDocOptions;
-}
-
 function embed(path, options) {
   const { node } = path;
 
   switch (node.kind) {
     case "element":
-      if (node.fullName === "script" && Object.hasOwn(node.attrMap, "type")) {
-        const parser = inferElementParser(node, options);
-
-        const cursorInContent =
-          options.cursorOffset >= node.startSourceSpan.end.offset &&
-          options.cursorOffset <= node.endSourceSpan?.start.offset;
-
-        if (!parser || node.children.length === 0 || cursorInContent) {
-          return;
-        }
-
-        return async (textToDoc, print) => {
-          const content = getNodeContent(node, options);
-          const value =
-            parser === "markdown"
-              ? htmlWhitespace.dedentString(content.replace(/^[^\S\n]*\n/, ""))
-              : content;
-          const doc = await textToDoc(
-            value,
-            getScriptTextToDocOptions(node, parser, options),
-          );
-          const withoutIndent = parser === "markdown";
-
-          const isNestedVueScript =
-            node.parent.fullName === "template" || options.__embeddedInHtml;
-
-          if (isNestedVueScript) {
-            return [
-              printOpeningTagPrefix(node, options),
-              group(printOpeningTag(path, options, print)),
-              indent([
-                indent([hardline, doc]),
-                hardline,
-                printClosingTag(node, options),
-              ]),
-              printClosingTagSuffix(node, options),
-            ];
-          }
-
-          return [
-            printOpeningTagPrefix(node, options),
-            group(printOpeningTag(path, options, print)),
-            withoutIndent
-              ? dedentToRoot([hardline, doc])
-              : indent([hardline, doc]),
-            hardline,
-            printClosingTag(node, options),
-            printClosingTagSuffix(node, options),
-          ];
-        };
-      }
-
-      if (isScriptLikeTag(node, options)) {
+      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
+        // Fall through to "text"
         return;
       }
 
@@ -152,13 +86,30 @@ function embed(path, options) {
                     node.value.replace(/^[^\S\n]*\n/, ""),
                   )
                 : node.value;
+            const textToDocOptions = { parser, __embeddedInHtml: true };
+            if (options.parser === "html" && parser === "babel") {
+              let sourceType = "script";
+              const { attrMap } = node.parent;
+              if (
+                attrMap &&
+                (attrMap.type === "module" ||
+                  ((attrMap.type === "text/babel" ||
+                    attrMap.type === "text/jsx") &&
+                    attrMap["data-type"] === "module"))
+              ) {
+                sourceType = "module";
+              }
+              textToDocOptions.__babelSourceType = sourceType;
+            }
+
+            const doc = await textToDoc(value, textToDocOptions);
+
             return [
               breakParent,
               printOpeningTagPrefix(node, options),
-              await textToDoc(
-                value,
-                getScriptTextToDocOptions(node.parent, parser, options),
-              ),
+              node.parent.isIndentationSensitive
+                ? [dedentToRoot([hardline, doc]), hardline]
+                : doc,
               printClosingTagSuffix(node, options),
             ];
           };

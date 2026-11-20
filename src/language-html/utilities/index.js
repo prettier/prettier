@@ -133,27 +133,19 @@ function isWhitespaceSensitiveNode(node, options) {
   return (
     isScriptLikeTag(node, options) ||
     node.kind === "interpolation" ||
-    isIndentationSensitiveNode(node, options)
+    isIndentationSensitiveNode(node)
   );
 }
 
-function isIndentationSensitiveNode(node, options) {
-  const cursorInContent =
-    node.kind === "element" &&
-    options.cursorOffset >= node.startSourceSpan.end.offset &&
-    options.cursorOffset <= node.endSourceSpan?.start.offset;
-  const nestedTemplateJsx =
-    node.kind === "element" &&
-    node.parent.fullName === "template" &&
-    node.attrMap.type === "text/jsx";
+function isIndentationSensitiveNode(node) {
+  return isScriptWithType(node) || isPreLikeNode(node);
+}
 
+function isScriptWithType(node) {
   return (
-    getNodeCssStyleWhiteSpace(node).startsWith("pre") ||
-    (node.kind === "element" &&
-      node.fullName === "script" &&
-      Object.hasOwn(node.attrMap, "type") &&
-      !cursorInContent &&
-      !nestedTemplateJsx)
+    node.kind === "element" &&
+    node.fullName === "script" &&
+    Object.hasOwn(node.attrMap, "type")
   );
 }
 
@@ -647,6 +639,7 @@ export {
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
   isScriptLikeTag,
+  isScriptWithType,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isVueCustomBlock,

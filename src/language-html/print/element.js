@@ -14,6 +14,7 @@ import {
   forceBreakContent,
   isPreLikeNode,
   isScriptLikeTag,
+  isScriptWithType,
   isVueCustomBlock,
   shouldPreserveContent,
 } from "../utilities/index.js";
@@ -74,14 +75,20 @@ function printElement(path, options, print) {
       printClosingTag(node, options),
     ]);
 
+  if (isScriptWithType(node)) {
+    return printTag(
+      node.children.length === 0
+        ? replaceEndOfLine(getNodeContent(node, options))
+        : printChildren(path, options, print),
+    );
+  }
+
   if (node.children.length === 0) {
     return printTag(
       node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : "",
     );
   }
 
-  const isTypedScript =
-    node.fullName === "script" && node.isIndentationSensitive;
   const printChildrenDoc = (childrenDoc) => {
     if (shouldHugContent) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
@@ -94,17 +101,10 @@ function printElement(path, options, print) {
     ) {
       return childrenDoc;
     }
-    if (isTypedScript) {
-      return dedentToRoot(childrenDoc);
-    }
     return indent(childrenDoc);
   };
 
   const printLineBeforeChildren = () => {
-    // Text and embedded printers supply their own line breaks.
-    if (isTypedScript) {
-      return "";
-    }
     if (shouldHugContent) {
       return ifBreak(softline, "", { groupId: attrGroupId });
     }
@@ -125,9 +125,6 @@ function printElement(path, options, print) {
   };
 
   const printLineAfterChildren = () => {
-    if (isTypedScript) {
-      return "";
-    }
     const needsToBorrow = node.next
       ? needsToBorrowPrevClosingTagEndMarker(node.next)
       : needsToBorrowLastChildClosingTagEndMarker(node.parent);
