@@ -16,10 +16,10 @@ exports[`extracts file-info for a js file  1`] = `
 }
 `;
 
-exports[`extracts file-info for a known markdown file with no extension  1`] = `
+exports[`extracts file-info for a known json file with no extension  1`] = `
 {
   "stderr": "",
-  "stdout": "{ "ignored": false, "inferredParser": "markdown" }",
+  "stdout": "{ "ignored": false, "inferredParser": "json" }",
   "write": [],
 }
 `;
@@ -68,6 +68,14 @@ exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked
 {
   "stderr": "",
   "stdout": "{ "ignored": false, "inferredParser": "foo" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with inferredParser=null for README with no extension  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": null }",
   "write": [],
 }
 `;
