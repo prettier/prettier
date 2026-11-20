@@ -330,7 +330,7 @@ function handleClassComments({
   if (isClassLikeNode(enclosingNode)) {
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
-    if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {
+    if (isNonEmptyArray(decorators) && precedingNode === decorators.at(-1)) {
       return addTrailingComment(decorators.at(-1), comment);
     }
 
