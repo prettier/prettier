@@ -111,7 +111,8 @@ function calculateNodeLoc(node, text, rootOffset, isRootOfText) {
         : endOffset;
   }
 
-  for (const key in node) {
+  const keys = Object.keys(node);
+  for (const key of keys) {
     const child = node[key];
 
     if (key === "source" || !child || typeof child !== "object") {
@@ -318,7 +319,8 @@ function fillLocFromChildren(node) {
   let start;
   let end;
 
-  for (const key in node) {
+  const keys = Object.keys(node);
+  for (const key of keys) {
     if (key === "source" || key === "raws" || key === "spaces") {
       continue;
     }
@@ -386,7 +388,8 @@ function fillEmptyChildLocs(node) {
     return;
   }
 
-  for (const key in node) {
+  const keys = Object.keys(node);
+  for (const key of keys) {
     if (key === "source" || key === "raws" || key === "spaces") {
       continue;
     }
