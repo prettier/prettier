@@ -17,6 +17,46 @@ test("translates cursor correctly in basic case", async () => {
   });
 });
 
+describe("cursor positions at text boundaries", () => {
+  test.each([
+    ["", 0, "", 0],
+    [" \t\r\n", 0, "", 0],
+    [" \t\r\n", 2, "", 0],
+    [" \t\r\n", 4, "", 0],
+    ["\uFEFF", 0, "\uFEFF", 0],
+    ["\uFEFF", 1, "\uFEFF", 1],
+    ["\uFEFF \t\r\n", 0, "\uFEFF", 0],
+    ["\uFEFF \t\r\n", 1, "\uFEFF", 1],
+    ["\uFEFF \t\r\n", 5, "\uFEFF", 1],
+    ["\uFEFFconst x=1", 0, "\uFEFFconst x = 1;\n", 0],
+    ["\uFEFFconst x=1", 1, "\uFEFFconst x = 1;\n", 1],
+  ])(
+    "translates cursor %j at offset %i",
+    async (text, cursorOffset, formatted, expectedCursorOffset) => {
+      expect(
+        await prettier.formatWithCursor(text, {
+          parser: "babel",
+          cursorOffset,
+        }),
+      ).toMatchObject({ formatted, cursorOffset: expectedCursorOffset });
+    },
+  );
+
+  test.each(["", " \t\r\n", "\uFEFF", "\uFEFFconst x=1"])(
+    "keeps cursor tracking disabled for %j",
+    async (text) => {
+      for (const cursorOffset of [-1, text.length + 1]) {
+        expect(
+          await prettier.formatWithCursor(text, {
+            parser: "babel",
+            cursorOffset,
+          }),
+        ).toMatchObject({ cursorOffset: -1 });
+      }
+    },
+  );
+});
+
 test("positions cursor relative to closest node, not SourceElement", async () => {
   const code = "return         15";
   expect(
