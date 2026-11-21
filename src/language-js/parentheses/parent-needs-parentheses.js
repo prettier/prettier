@@ -1,4 +1,5 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { locEnd, locStart } from "../location/index.js";
 import { hasNode } from "../utilities/has-node.js";
 import {
   getLeftSidePathName,
@@ -11,6 +12,7 @@ import {
 } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
+import { stripComments } from "../utilities/strip-comments.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -130,6 +132,19 @@ function parentNeedsParentheses(path, options, needsParentheses) {
         return true;
       }
 
+      break;
+
+    case "TSMappedType":
+      if (
+        key === "constraint" &&
+        node.type === "TSTypeOperator" &&
+        node.operator === "keyof" &&
+        stripComments(options)
+          .slice(locEnd(parent.key), locStart(node))
+          .includes("(")
+      ) {
+        return true;
+      }
       break;
 
     case "TSInstantiationExpression":
