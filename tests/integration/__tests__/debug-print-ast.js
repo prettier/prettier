@@ -26,7 +26,9 @@ async function getAst({ code, parser, getResult }) {
     code,
     result: getResult(
       JSON.parse(stdout, (key, value) =>
-        key === "loc" || key === "start" || key === "end" ? undefined : value,
+        key === "loc" || key === "start" || key === "end" || key === "range"
+          ? undefined
+          : value,
       ),
     ),
   };

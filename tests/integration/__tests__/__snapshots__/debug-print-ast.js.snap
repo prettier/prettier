@@ -18,10 +18,6 @@ exports[`prints RegExp literals with --debug-print-ast 1`] = `
 {
   "code": "/a/ig",
   "result": {
-    "range": [
-      0,
-      5,
-    ],
     "raw": "/a/ig",
     "regex": {
       "flags": "ig",
