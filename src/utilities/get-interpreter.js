@@ -32,8 +32,10 @@ function getInterpreter(file) {
     return;
   }
 
-  // #!/bin/env node, #!/usr/bin/env node
-  const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
+  // #!/bin/env node, #!/usr/bin/env -S node --no-warnings
+  const m1 = firstLine.match(
+    /^#!\/(?:usr\/)?bin\/env\s+(?:(?:-S|--split-string=)\s*)?(\S+)/,
+  );
   if (m1) {
     return m1[1];
   }
