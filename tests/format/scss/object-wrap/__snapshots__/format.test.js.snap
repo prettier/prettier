@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`maps-and-arguments.scss - {"printWidth":100,"objectWrap":"collapse"} format 1`] = `
+====================================options=====================================
+objectWrap: "collapse"
+parsers: ["scss"]
+printWidth: 100
+                                                                                   printWidth: 100 |
+=====================================input======================================
+@mixin panel($light: white) {
+  @include bevel(
+    (1 1 var(--shadow)),
+    (-1 -1 $light)
+  );
+}
+
+$colors: (
+  "nav": (--nav, rgb(0, 0, 229)),
+  "danger": (--danger, rgb(214, 40, 40)),
+);
+
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+@include bevel
+  ((1 1 var(--shadow)), (-1 -1 white));
+$width: (
+  (100% - $gap) / 2
+);
+
+=====================================output=====================================
+@mixin panel($light: white) {
+  @include bevel((1 1 var(--shadow)), (-1 -1 $light));
+}
+
+$colors: ("nav": (--nav, rgb(0, 0, 229)), "danger": (--danger, rgb(214, 40, 40)));
+
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+$width: ((100% - $gap) / 2);
+
+================================================================================
+`;
+
+exports[`maps-and-arguments.scss - {"printWidth":100} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 100
+                                                                                   printWidth: 100 |
+=====================================input======================================
+@mixin panel($light: white) {
+  @include bevel(
+    (1 1 var(--shadow)),
+    (-1 -1 $light)
+  );
+}
+
+$colors: (
+  "nav": (--nav, rgb(0, 0, 229)),
+  "danger": (--danger, rgb(214, 40, 40)),
+);
+
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+@include bevel
+  ((1 1 var(--shadow)), (-1 -1 white));
+$width: (
+  (100% - $gap) / 2
+);
+
+=====================================output=====================================
+@mixin panel($light: white) {
+  @include bevel(
+    (1 1 var(--shadow)),
+    (-1 -1 $light)
+  );
+}
+
+$colors: (
+  "nav": (--nav, rgb(0, 0, 229)),
+  "danger": (--danger, rgb(214, 40, 40)),
+);
+
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+@include bevel((1 1 var(--shadow)), (-1 -1 white));
+$width: ((100% - $gap) / 2);
+
+================================================================================
+`;

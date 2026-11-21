@@ -16,9 +16,11 @@ import {
   softline,
 } from "../../document/index.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
+import { skipWhitespace } from "../../utilities/skip.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   isConfigurationNode,
   isDedentedMapEntryNode,
@@ -149,8 +151,8 @@ function printParenthesizedValueGroup(path, options, print) {
 
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
-  const isSCSSMapItem = isSCSSMapItemNode(path, options);
-  const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
+  const shouldBreak =
+    isConfiguration || (!isKey && shouldPreserveWrap(path, options));
   const shouldDedent = isConfiguration || isKey;
 
   const doc = group(
@@ -167,6 +169,26 @@ function printParenthesizedValueGroup(path, options, print) {
   );
 
   return shouldDedent ? dedent(doc) : doc;
+}
+
+function shouldPreserveWrap(path, options) {
+  const { node } = path;
+  if (
+    options.parser !== "scss" ||
+    options.objectWrap !== "preserve" ||
+    (node.groups.length < 2 && !isSCSSMapItemNode(path, options))
+  ) {
+    return false;
+  }
+
+  // The parser moves whitespace before an at-rule's opening parenthesis inside it.
+  const { originalText } = options;
+  const open = skipWhitespace(originalText, locStart(node.open));
+  return (
+    open !== false &&
+    originalText[open] === "(" &&
+    hasNewline(originalText, open + 1)
+  );
 }
 
 function shouldBreakList(path) {

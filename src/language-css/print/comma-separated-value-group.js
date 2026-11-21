@@ -10,6 +10,7 @@ import {
   lineSuffix,
   softline,
 } from "../../document/index.js";
+import hasNewline from "../../utilities/has-newline.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
@@ -574,7 +575,18 @@ function printCommaSeparatedValueGroup(path, options, print) {
       !iNode.inline &&
       node.groups.slice(0, i).every((group) => group.type === "value-comment")
     ) {
-      parts.push(isDedentedByParent ? line : dedent(line), "");
+      if (isDedentedByParent) {
+        parts.push(
+          options.parser === "scss" &&
+            options.objectWrap === "preserve" &&
+            hasNewline(options.originalText, locEnd(iNode))
+            ? hardline
+            : line,
+          "",
+        );
+      } else {
+        parts.push(dedent(line), "");
+      }
       continue;
     }
 

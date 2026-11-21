@@ -180,6 +180,8 @@ Valid options:
 - `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
 - `"collapse"` - Fit to a single line when possible.
 
+In SCSS, this option also controls how Prettier wraps maps and parenthesized comma-separated lists, including argument lists. With `"preserve"`, a newline after the opening parenthesis keeps the group multi-line.
+
 | Default      | CLI Override                                         | API Override                                         |
 | ------------ | ---------------------------------------------------- | ---------------------------------------------------- |
 | `"preserve"` | <code>--object-wrap \<preserve&#124;collapse></code> | <code>objectWrap: "\<preserve&#124;collapse>"</code> |

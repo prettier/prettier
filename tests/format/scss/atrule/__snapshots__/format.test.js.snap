@@ -246,11 +246,32 @@ h3
 }
 @each $animal in ((puma), (sea-slug), (egret), (salamander)) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+  in (
+    (puma),
+    (sea-slug),
+    (egret),
+    (salamander)
+  )
+{
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+  in (
+    (puma),
+    (sea-slug),
+    (egret),
+    (salamander)
+  )
+{
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+  in (
+    (puma),
+    (sea-slug),
+    (egret),
+    (salamander)
+  )
+{
 }
 @each $animal, $color, $cursor in (puma, black, default),
   (sea-slug, blue, pointer), (egret, white, move)
@@ -284,9 +305,23 @@ h3
 }
 @each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
 }
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
+@each $element,
+  $size
+    in (
+      h1: 20px,
+      h2: 16px,
+      h3: 14px
+    )
+{
 }
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
+@each $element,
+  $size
+    in (
+      h1: 20px,
+      h2: 16px,
+      h3: 14px
+    )
+{
 }
 @each $element,
   $size
@@ -819,9 +854,24 @@ border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(
+  1px,
+  2px,
+  $arg2: 10,
+  2px 4px 6px
+);
+@include mix(
+  1px,
+  2px,
+  $arg2: 10,
+  2px 4px 6px
+);
+@include mix(
+  1px,
+  2px,
+  $arg2: 10,
+  2px 4px 6px
+);
 @include mix(
   1px,
   2px,
@@ -863,10 +913,7 @@ a {
 
 a {
   @include section-type-1(
-    $header: (
-      margin: 0 0 $margin-base,
-      text-align: left,
-    ),
+    $header: (margin: 0 0 $margin-base, text-align: left),
     $decoration: (
       type: base,
       margin: 0 auto -1px 0,
@@ -886,9 +933,7 @@ a {
 a {
   @include item-spotlight-properties-transition(
     "-title",
-    (
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
-    )
+    (box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15))
   );
 }
 
