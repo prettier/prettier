@@ -1,5 +1,5 @@
 import { reactive, watch } from "vue";
-import { Button, ClipboardButton } from "./buttons.jsx";
+import { Button, ClipboardButton, PasteButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import { settings, togglers } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
@@ -13,7 +13,12 @@ import { Checkbox } from "./sidebar/inputs.jsx";
 import Option from "./sidebar/options.jsx";
 import SidebarOptions from "./sidebar/SidebarOptions.jsx";
 import * as urlHash from "./urlHash.js";
-import { buildCliArgs, getAstAutoFold, getDefaults } from "./utilities.js";
+import {
+  buildCliArgs,
+  getAstAutoFold,
+  getDefaults,
+  getOptionsFromConfig,
+} from "./utilities.js";
 
 const CATEGORIES_ORDER = [
   "Global",
@@ -142,6 +147,22 @@ function setup(props) {
     (opt) => opt.name === "cursorOffset",
   );
 
+  const configurableOptions = props.availableOptions.filter((option) =>
+    [...ENABLED_OPTIONS, "rangeStart", "rangeEnd", "cursorOffset"].includes(
+      option.name,
+    ),
+  );
+
+  const setOptions = (options) => {
+    const content =
+      state.content === "" ||
+      state.content === getCodeSample(state.options.parser)
+        ? getCodeSample(options.parser)
+        : state.content;
+
+    return Object.assign(state, { options, content });
+  };
+
   const handleOptionValueChange = (option, value) => {
     const options = { ...state.options };
 
@@ -151,13 +172,43 @@ function setup(props) {
       options[option.name] = value;
     }
 
-    const content =
-      state.content === "" ||
-      state.content === getCodeSample(state.options.parser)
-        ? getCodeSample(options.parser)
-        : state.content;
+    return setOptions(options);
+  };
 
-    return Object.assign(state, { options, content });
+  const pasteConfig = async (text) => {
+    // Prettier parses `.prettierrc` as YAML, which also covers JSON
+    const { parse } = await import("yaml");
+    let config;
+    try {
+      config = parse(text);
+    } catch {
+      return "Invalid config";
+    }
+
+    if (
+      typeof config !== "object" ||
+      config === null ||
+      Array.isArray(config)
+    ) {
+      return "Invalid config";
+    }
+
+    const { options, ignored } = getOptionsFromConfig(
+      config,
+      configurableOptions,
+    );
+
+    // Options missing from a config file fall back to the defaults, so start
+    // from them. Keep the current parser, since configs rarely set one.
+    setOptions({
+      ...getDefaults(props.availableOptions, ENABLED_OPTIONS),
+      parser: state.options.parser,
+      ...options,
+    });
+
+    return ignored.length > 0
+      ? `Ignored: ${ignored.join(", ")}`
+      : "Config applied!";
   };
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
@@ -490,6 +541,12 @@ function setup(props) {
                   >
                     Copy config JSON
                   </ClipboardButton>
+                  <PasteButton
+                    paste={pasteConfig}
+                    title="Apply a Prettier config (JSON or YAML) from the clipboard"
+                  >
+                    Paste config
+                  </PasteButton>
                   <Button
                     onClick={insertDummyId}
                     onMousedown={(event) => event.preventDefault()} // prevent button from focusing
