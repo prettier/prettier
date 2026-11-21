@@ -1,5 +1,183 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`issue-16743.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "es5"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2 // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2, // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment 1
+  // Comment 2
+  // Comment 3
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': (
+    'baz': 3 // Comment
+    // Comment
+  )
+);
+
+.foo {
+  bar: (
+    calc() // Comment
+    // Comment
+  );
+}
+
+=====================================output=====================================
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2, // Comment
+  // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2, // Comment
+  // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2, // Comment 1
+  // Comment 2
+  // Comment 3
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2, // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": (
+    "baz": 3, // Comment
+    // Comment
+  ),
+);
+
+.foo {
+  bar: (
+    calc() // Comment
+    // Comment
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-16743.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+trailingComma: "none"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2 // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2, // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment 1
+  // Comment 2
+  // Comment 3
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': (
+    'baz': 3 // Comment
+    // Comment
+  )
+);
+
+.foo {
+  bar: (
+    calc() // Comment
+    // Comment
+  );
+}
+
+=====================================output=====================================
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2 // Comment
+  // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2 // Comment
+  // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2 // Comment 1
+  // Comment 2
+  // Comment 3
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": 2 // Comment
+);
+
+$my-map: (
+  "foo": 1,
+  "bar": (
+    "baz": 3 // Comment
+    // Comment
+  )
+);
+
+.foo {
+  bar: (
+    calc() // Comment
+    // Comment
+  );
+}
+
+================================================================================
+`;
+
 exports[`at-rules.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
