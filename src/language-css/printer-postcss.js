@@ -181,7 +181,9 @@ function genericPrint(path, options, print) {
               typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
-        node.selector ? indent([" ", print("selector")]) : "",
+        node.selector
+          ? indent([" ", print("selector"), node.optional ? " !optional" : ""])
+          : "",
         node.value
           ? group([
               " ",
@@ -302,53 +304,79 @@ function genericPrint(path, options, print) {
     case "selector-string":
       return adjustStrings(node.value, options);
 
-    case "selector-tag":
+    case "selector-tag": {
+      const value = node.raws?.value ?? node.value;
       return [
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws?.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
         path.previous?.type === "selector-nesting"
-          ? node.value
+          ? value
           : adjustNumbers(
-              isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value,
+              isKeyframeAtRuleKeywords(path, value)
+                ? value.toLowerCase()
+                : value,
             ),
       ];
+    }
 
     case "selector-id":
-      return ["#", node.value];
+      return ["#", node.raws?.value ?? node.value];
 
     case "selector-class":
-      return [".", adjustNumbers(adjustStrings(node.value, options))];
+      return [
+        ".",
+        adjustNumbers(adjustStrings(node.raws?.value ?? node.value, options)),
+      ];
 
-    case "selector-attribute":
+    case "selector-attribute": {
+      const value = node.raws.value ?? node.value;
+
+      // postcss-selector-parser only keeps `I`, `S` and unknown flags in raws,
+      // unknown flags are stored in `raws.insensitiveFlag` as well
+      // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/parser.js#L423-L442
+      const flag = node.sensitive
+        ? (node.raws.sensitiveFlag ?? "s")
+        : (node.raws.insensitiveFlag ?? (node.insensitive ? "i" : ""));
+
       return [
         "[",
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
-        node.attribute.trim(),
+        (node.raws.attribute ?? node.attribute).trim(),
         node.operator ?? "",
-        node.value
+        value
           ? replaceEndOfLine(
               quoteAttributeValue(
-                adjustStrings(node.value.trim(), options),
+                adjustStrings(value.trim(), options),
                 options,
               ),
               literallineWithoutBreakParent,
             )
           : "",
-        node.insensitive ? " i" : "",
+        flag ? [" ", flag] : "",
         "]",
       ];
+    }
 
     case "selector-combinator": {
       if (
         node.value === "+" ||
         node.value === ">" ||
         node.value === "~" ||
-        node.value === ">>>"
+        node.value === ">>>" ||
+        /^\/[\w-]+\/$/.test(node.value)
       ) {
         const parentNode = path.parent;
         const isFirstNode =
@@ -365,7 +393,10 @@ function genericPrint(path, options, print) {
 
         return [
           leading,
-          node.value,
+          // postcss-selector-parser lowercases a named combinator like `/DEEP/`,
+          // the original text is kept in `raws.value`
+          // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/parser.js#L643-L646
+          node.raws?.value ?? node.value,
           path.isLast || isNthLeadingSign ? "" : " ",
         ];
       }
@@ -379,7 +410,12 @@ function genericPrint(path, options, print) {
     case "selector-universal":
       return [
         node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
+          ? [
+              node.namespace === true
+                ? ""
+                : (node.raws?.namespace ?? node.namespace).trim(),
+              "|",
+            ]
           : "",
         node.value,
       ];

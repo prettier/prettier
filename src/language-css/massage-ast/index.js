@@ -9,6 +9,7 @@ const ignoredProperties = new Set([
   "after",
   "trailingComma",
   "spaces",
+  "_error",
 ]);
 
 function massageAstNode(original, cloned, parent) {
@@ -65,6 +66,13 @@ function massageAstNode(original, cloned, parent) {
     }
   }
 
+  // `value` is a getter over `_value` in postcss-selector-parser
+  // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/selectors/attribute.js#L251-L253
+  if (Object.hasOwn(original, "_value")) {
+    delete cloned._value;
+    cloned.value = original.value;
+  }
+
   if (
     (original.type === "media-feature" ||
       original.type === "media-keyword" ||
@@ -117,29 +125,16 @@ function massageAstNode(original, cloned, parent) {
 
   if (original.type === "selector-attribute") {
     cloned.attribute = original.attribute.trim();
+    delete cloned._quoteMark;
 
     if (original.namespace && typeof original.namespace === "string") {
       cloned.namespace = original.namespace.trim() || true;
     }
 
     if (original.value) {
-      let { value } = cloned;
-      // Parser only understands the `i` flag
-      if (/\s[a-z]$/i.test(value)) {
-        // Add an extra property to make sure flag is preserved
-        cloned.__prettier_attribute_selector_flag = value.at(-1);
-        value = value.slice(0, -1);
-      }
-
-      value = value.trim();
-
-      value = value.replace(
-        /^(?<quote>["'])(?<value>.*?)\k<quote>$/,
-        "$<value>",
-      );
-
-      cloned.value = value;
-      delete cloned.quoted;
+      cloned.value = cloned.value
+        .trim()
+        .replace(/^(?<quote>["'])(?<value>.*?)\k<quote>$/, "$<value>");
     }
   }
 
