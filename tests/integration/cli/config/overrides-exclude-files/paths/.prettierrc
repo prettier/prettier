@@ -1,0 +1,26 @@
+{
+  "singleQuote": false,
+  "overrides": [
+    {
+      "files": "*.js",
+      "excludeFiles": "generated/**/*.js",
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": "src/**/*.ts",
+      "excludeFiles": "*.test.ts",
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["*.jsx", "src/**/*.tsx"],
+      "excludeFiles": ["generated/**", "*.test.jsx", "*.test.tsx"],
+      "options": {
+        "singleQuote": true
+      }
+    }
+  ]
+}

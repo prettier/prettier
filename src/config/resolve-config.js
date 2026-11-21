@@ -113,11 +113,9 @@ function mergeOverrides(configResult, filePath) {
     const relativeFilePath = path.relative(path.dirname(configFile), filePath);
     for (const override of overrides) {
       if (
-        pathMatchesGlobs(
-          relativeFilePath,
-          override.files,
-          override.excludeFiles,
-        )
+        pathMatchesGlobs(relativeFilePath, override.files) &&
+        (!override.excludeFiles ||
+          !pathMatchesGlobs(relativeFilePath, override.excludeFiles))
       ) {
         Object.assign(options, override.options);
       }
@@ -128,7 +126,7 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on ESLint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
+function pathMatchesGlobs(filePath, patterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
@@ -139,12 +137,10 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 
   return (
     micromatch.isMatch(filePath, withoutSlashes, {
-      ignore: excludedPatterns,
       basename: true,
       dot: true,
     }) ||
     micromatch.isMatch(filePath, withSlashes, {
-      ignore: excludedPatterns,
       basename: false,
       dot: true,
     })

@@ -334,6 +334,35 @@ test("API resolveConfig overrides excludeFiles", async () => {
   });
 });
 
+describe("API resolveConfig matches override exclusions independently", () => {
+  const directory = new URL(
+    "../cli/config/overrides-exclude-files/paths/",
+    import.meta.url,
+  );
+
+  test.each([
+    ["src/file.js", true],
+    ["generated/file.js", false],
+    ["generated/nested/file.js", false],
+    ["generated/.hidden.js", false],
+    ["src/generated/file.js", true],
+    ["src/file.ts", true],
+    ["src/file.test.ts", false],
+    ["src/nested/file.test.ts", false],
+    ["other/file.ts", false],
+    ["src/file.jsx", true],
+    ["src/file.test.jsx", false],
+    ["generated/file.jsx", false],
+    ["src/file.tsx", true],
+    ["src/file.test.tsx", false],
+    ["other/file.tsx", false],
+  ])("%s", async (filename, singleQuote) => {
+    await expect(
+      prettier.resolveConfig(new URL(filename, directory)),
+    ).resolves.toStrictEqual({ singleQuote });
+  });
+});
+
 test("API resolveConfig removes $schema option", async () => {
   const file = new URL("../cli/config/$schema/index.js", import.meta.url);
   await expect(prettier.resolveConfig(file)).resolves.toStrictEqual({
