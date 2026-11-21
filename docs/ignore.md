@@ -127,6 +127,19 @@ matrix(
 Do   not    format   this
 ```
 
+### Single-dollar math
+
+The `markdown` parser does not recognize single-dollar (`$...$`) math. The contents are parsed as regular Markdown, so characters such as `*` and `_` in a formula can be changed by formatting.
+
+If your Markdown renderer uses single-dollar math, place `<!-- prettier-ignore -->` before the paragraph containing the formulas to preserve it:
+
+```markdown
+<!-- prettier-ignore -->
+The values are $\alpha^*$ and $\beta^*$.
+```
+
+This ignores the entire paragraph, including any prose around the formulas.
+
 ### Range Ignore
 
 _available in v1.12.0+_
