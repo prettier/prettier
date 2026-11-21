@@ -24,6 +24,67 @@ import { calculateRange } from "./range.js";
 
 const CURSOR = Symbol("cursor");
 
+function getCursorOffset(oldText, newText, cursorOffset) {
+  const oldCharacters = oldText.split("");
+  oldCharacters.splice(cursorOffset, 0, CURSOR);
+  const changes = diffArrays(oldCharacters, newText.split(""));
+
+  let newCursorOffset = 0;
+  for (const entry of changes) {
+    if (entry.removed) {
+      if (entry.value.includes(CURSOR)) {
+        break;
+      }
+    } else {
+      newCursorOffset += entry.count;
+    }
+  }
+  return newCursorOffset;
+}
+
+function getCursorOffsetAfterPragma(oldText, newText, cursorOffset) {
+  if (cursorOffset === 0 || oldText === newText) {
+    return cursorOffset;
+  }
+
+  // Anchor the unchanged source after the pragma before diffing its contents.
+  // Otherwise, source text such as `format` can match the inserted pragma.
+  let oldEnd = oldText.length;
+  let newEnd = newText.length;
+  while (
+    oldEnd > 0 &&
+    newEnd > 0 &&
+    oldText[oldEnd - 1] === newText[newEnd - 1]
+  ) {
+    oldEnd--;
+    newEnd--;
+  }
+  if (cursorOffset >= oldEnd) {
+    return cursorOffset + newText.length - oldText.length;
+  }
+
+  let start = 0;
+  while (
+    start < oldEnd &&
+    start < newEnd &&
+    oldText[start] === newText[start]
+  ) {
+    start++;
+  }
+  if (cursorOffset <= start) {
+    return cursorOffset;
+  }
+
+  return (
+    start +
+    getCursorOffset(
+      oldText.slice(start, oldEnd),
+      newText.slice(start, newEnd),
+      cursorOffset - start,
+    )
+  );
+}
+
 async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
@@ -148,29 +209,13 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
 
-    const oldCursorNodeCharArray = oldCursorRegionText.split("");
-    oldCursorNodeCharArray.splice(
-      cursorOffsetRelativeToOldCursorRegionStart,
-      0,
-      CURSOR,
-    );
-
-    const newCursorNodeCharArray = newCursorRegionText.split("");
-    const cursorNodeDiff = diffArrays(
-      oldCursorNodeCharArray,
-      newCursorNodeCharArray,
-    );
-
-    let cursorOffset = newCursorRegionStart;
-    for (const entry of cursorNodeDiff) {
-      if (entry.removed) {
-        if (entry.value.includes(CURSOR)) {
-          break;
-        }
-      } else {
-        cursorOffset += entry.count;
-      }
-    }
+    const cursorOffset =
+      newCursorRegionStart +
+      getCursorOffset(
+        oldCursorRegionText,
+        newCursorRegionText,
+        cursorOffsetRelativeToOldCursorRegionStart,
+      );
 
     return { formatted: result.formatted, cursorOffset, comments };
   }
@@ -347,7 +392,15 @@ async function formatWithCursor(originalText, originalOptions) {
       options.printer.insertPragma &&
       !(await hasPragma(text, options))
     ) {
-      text = options.printer.insertPragma(text);
+      const textWithPragma = options.printer.insertPragma(text);
+      if (options.cursorOffset >= 0) {
+        options.cursorOffset = getCursorOffsetAfterPragma(
+          text,
+          textWithPragma,
+          options.cursorOffset,
+        );
+      }
+      text = textWithPragma;
     }
     result = await coreFormat(text, options);
   }
