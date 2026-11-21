@@ -26,7 +26,17 @@ class DebugError extends Error {
 const stringifyAst = (ast, space) =>
   JSON.stringify(
     ast,
-    (_, value) => (typeof value === "bigint" ? `${value}n` : value),
+    (_, value) => {
+      if (typeof value === "bigint") {
+        return `(bigint) ${value}n`;
+      }
+
+      if (value instanceof RegExp) {
+        return `(regexp) /${value.source}/${value.flags}`;
+      }
+
+      return value;
+    },
     space,
   );
 

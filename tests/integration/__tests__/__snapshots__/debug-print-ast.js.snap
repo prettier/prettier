@@ -1,7 +1,34 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`prints BigInt literals with --debug-print-ast  1`] = `
+exports[`prints BigInt literals with --debug-print-ast 1`] = `
 {
-  "stdout": "{"type":"File","start":0,"end":2,"loc":{"start":{"line":1,"column":0,"index":0},"end":{"line":1,"column":2,"index":2}},"errors":[],"program":{"type":"Program","start":0,"end":2,"loc":{"start":{"line":1,"column":0,"index":0},"end":{"line":1,"column":2,"index":2}},"sourceType":"module","interpreter":null,"body":[{"type":"ExpressionStatement","start":0,"end":2,"loc":{"start":{"line":1,"column":0,"index":0},"end":{"line":1,"column":2,"index":2}},"expression":{"type":"BigIntLiteral","start":0,"end":2,"loc":{"start":{"line":1,"column":0,"index":0},"end":{"line":1,"column":2,"index":2}},"extra":{"rawValue":"1n","raw":"1n"},"value":"1n"}}],"directives":[],"extra":{"topLevelAwait":false}},"comments":[]}",
+  "code": "1n",
+  "result": {
+    "extra": {
+      "raw": "1n",
+      "rawValue": "(bigint) 1n",
+    },
+    "type": "BigIntLiteral",
+    "value": "(bigint) 1n",
+  },
+}
+`;
+
+exports[`prints RegExp literals with --debug-print-ast 1`] = `
+{
+  "code": "/a/ig",
+  "result": {
+    "range": [
+      0,
+      5,
+    ],
+    "raw": "/a/ig",
+    "regex": {
+      "flags": "ig",
+      "pattern": "a",
+    },
+    "type": "Literal",
+    "value": "(regexp) /a/gi",
+  },
 }
 `;

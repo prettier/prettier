@@ -13,12 +13,40 @@ test("prints information for debugging AST --debug-print-ast", async () => {
   expect(data).toHaveProperty("program.type", "Program");
 });
 
-describe("prints BigInt literals with --debug-print-ast", () => {
-  runCli("cli/with-shebang", ["--debug-print-ast", "--parser", "babel"], {
-    input: "1n",
-  }).test({
-    status: 0,
-    stderr: "",
-    write: [],
-  });
+async function getAst({ code, parser, getResult }) {
+  const { stdout } = await runCli(
+    "cli/with-shebang",
+    ["--debug-print-ast", "--parser", parser],
+    {
+      input: code,
+    },
+  );
+
+  return {
+    code,
+    result: getResult(
+      JSON.parse(stdout, (key, value) =>
+        key === "loc" || key === "start" || key === "end" ? undefined : value,
+      ),
+    ),
+  };
+}
+
+test("prints BigInt literals with --debug-print-ast", async () => {
+  expect(
+    await getAst({
+      code: "1n",
+      parser: "babel",
+      getResult: (ast) => ast.program.body[0].expression,
+    }),
+  ).toMatchSnapshot();
+});
+test("prints RegExp literals with --debug-print-ast", async () => {
+  expect(
+    await getAst({
+      code: "/a/ig",
+      parser: "acorn",
+      getResult: (ast) => ast.body[0].expression,
+    }),
+  ).toMatchSnapshot();
 });
