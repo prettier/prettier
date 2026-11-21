@@ -216,3 +216,24 @@ parsers: ["angular"]
 
 ================================================================================
 `;
+
+exports[`prettier-ignore.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span i18n>{count, plural, =1 {<!-- prettier-ignore --><img src="x">} other {x}}</span>
+<span i18n>{count, plural, =1 {<!-- prettier-ignore --><img src="x"><b>b</b>} other {x}}</span>
+
+=====================================output=====================================
+<span i18n>{count, plural,
+  =1 {<!-- prettier-ignore --><img src="x" />}
+  other {x}
+}</span>
+<span i18n>{count, plural,
+  =1 {<!-- prettier-ignore --><img src="x" /><b>b</b>}
+  other {x}
+}</span>
+
+================================================================================
+`;
