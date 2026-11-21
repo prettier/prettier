@@ -66,3 +66,274 @@ ErrorLike = SerializedProps && // cause is a new addition to Error that is not y
 
 ================================================================================
 `;
+
+exports[`right-nested.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x =
+  first &&
+  (
+    // next operand
+    second && third
+  );
+
+x =
+  first &&
+  (
+    // fallback list
+    second && [third, fourth]
+  );
+
+x =
+  first &&
+  (
+    // inner pair
+    (second && third) && fourth
+  );
+
+x =
+  (first && second) // left group
+  && third;
+
+x =
+  first &&
+  (
+    second // inner operand
+    && third
+  );
+
+x =
+  first &&
+  (
+    // optional chain
+    second.prop && third?.prop
+  );
+
+result =
+  firstCondition &&
+  (secondCondition && (thirdCondition && fourthCondition));
+
+config =
+  hasOverrides &&
+  (isEnabled && { foo: alpha, bar: beta, baz: gamma });
+
+items =
+  hasItems &&
+  (isActive && [alpha, beta, gamma, delta]);
+
+fallback =
+  primaryValue ||
+  (secondaryValue || (tertiaryValue || defaultValue));
+
+resolved =
+  firstCandidate ??
+  (secondCandidate ?? (thirdCandidate ?? fallbackValue));
+
+mixed =
+  firstCondition &&
+  (secondCondition || (thirdCondition || fourthCondition));
+
+if (firstCondition && (secondCondition && (thirdCondition && fourthCondition))) {
+  doWork();
+}
+
+const inverted = !(firstCondition && (secondCondition && thirdCondition));
+const selected = firstCondition && (secondCondition && thirdCondition) ? alpha : beta;
+(firstCandidate ?? (secondCandidate ?? thirdCandidate)).run();
+
+=====================================output=====================================
+x =
+  first
+  // next operand
+  && second
+  && third;
+
+x = first
+  // fallback list
+  && second && [third, fourth];
+
+x =
+  first
+  // inner pair
+  && second
+  && third
+  && fourth;
+
+x =
+  first
+  && second // left group
+  && third;
+
+x =
+  first
+  && second // inner operand
+  && third;
+
+x =
+  first
+  // optional chain
+  && second.prop
+  && third?.prop;
+
+result = firstCondition && secondCondition && thirdCondition && fourthCondition;
+
+config = hasOverrides && isEnabled && { foo: alpha, bar: beta, baz: gamma };
+
+items = hasItems && isActive && [alpha, beta, gamma, delta];
+
+fallback = primaryValue || secondaryValue || tertiaryValue || defaultValue;
+
+resolved = firstCandidate ?? secondCandidate ?? thirdCandidate ?? fallbackValue;
+
+mixed =
+  firstCondition && (secondCondition || thirdCondition || fourthCondition);
+
+if (firstCondition && secondCondition && thirdCondition && fourthCondition) {
+  doWork();
+}
+
+const inverted = !(firstCondition && secondCondition && thirdCondition);
+const selected =
+  firstCondition && secondCondition && thirdCondition ? alpha : beta;
+(firstCandidate ?? secondCandidate ?? thirdCandidate).run();
+
+================================================================================
+`;
+
+exports[`right-nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x =
+  first &&
+  (
+    // next operand
+    second && third
+  );
+
+x =
+  first &&
+  (
+    // fallback list
+    second && [third, fourth]
+  );
+
+x =
+  first &&
+  (
+    // inner pair
+    (second && third) && fourth
+  );
+
+x =
+  (first && second) // left group
+  && third;
+
+x =
+  first &&
+  (
+    second // inner operand
+    && third
+  );
+
+x =
+  first &&
+  (
+    // optional chain
+    second.prop && third?.prop
+  );
+
+result =
+  firstCondition &&
+  (secondCondition && (thirdCondition && fourthCondition));
+
+config =
+  hasOverrides &&
+  (isEnabled && { foo: alpha, bar: beta, baz: gamma });
+
+items =
+  hasItems &&
+  (isActive && [alpha, beta, gamma, delta]);
+
+fallback =
+  primaryValue ||
+  (secondaryValue || (tertiaryValue || defaultValue));
+
+resolved =
+  firstCandidate ??
+  (secondCandidate ?? (thirdCandidate ?? fallbackValue));
+
+mixed =
+  firstCondition &&
+  (secondCondition || (thirdCondition || fourthCondition));
+
+if (firstCondition && (secondCondition && (thirdCondition && fourthCondition))) {
+  doWork();
+}
+
+const inverted = !(firstCondition && (secondCondition && thirdCondition));
+const selected = firstCondition && (secondCondition && thirdCondition) ? alpha : beta;
+(firstCandidate ?? (secondCandidate ?? thirdCandidate)).run();
+
+=====================================output=====================================
+x =
+  first &&
+  // next operand
+  second &&
+  third;
+
+x = first &&
+  // fallback list
+  second && [third, fourth];
+
+x =
+  first &&
+  // inner pair
+  second &&
+  third &&
+  fourth;
+
+x =
+  first &&
+  second && // left group
+  third;
+
+x =
+  first &&
+  second && // inner operand
+  third;
+
+x =
+  first &&
+  // optional chain
+  second.prop &&
+  third?.prop;
+
+result = firstCondition && secondCondition && thirdCondition && fourthCondition;
+
+config = hasOverrides && isEnabled && { foo: alpha, bar: beta, baz: gamma };
+
+items = hasItems && isActive && [alpha, beta, gamma, delta];
+
+fallback = primaryValue || secondaryValue || tertiaryValue || defaultValue;
+
+resolved = firstCandidate ?? secondCandidate ?? thirdCandidate ?? fallbackValue;
+
+mixed =
+  firstCondition && (secondCondition || thirdCondition || fourthCondition);
+
+if (firstCondition && secondCondition && thirdCondition && fourthCondition) {
+  doWork();
+}
+
+const inverted = !(firstCondition && secondCondition && thirdCondition);
+const selected =
+  firstCondition && secondCondition && thirdCondition ? alpha : beta;
+(firstCandidate ?? secondCandidate ?? thirdCandidate).run();
+
+================================================================================
+`;

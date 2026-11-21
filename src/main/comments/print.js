@@ -291,4 +291,5 @@ export {
   printCommentsSeparately,
   printDanglingComments,
   printLeadingComments,
+  printTrailingComments,
 };

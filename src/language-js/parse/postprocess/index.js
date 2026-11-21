@@ -216,16 +216,6 @@ function postprocess(ast, options) {
       }
     },
     onLeave(node) {
-      switch (node.type) {
-        // Children can be parenthesized, need do this in `onLeave`
-        case "LogicalExpression":
-          // We remove unneeded parens around same-operator LogicalExpressions
-          if (isUnbalancedLogicalTree(node)) {
-            return rebalanceLogicalTree(node);
-          }
-          break;
-      }
-
       /* c8 ignore next 3 */
       if (process.env.NODE_ENV !== "production") {
         assertRaw(node, text);
@@ -238,34 +228,6 @@ function postprocess(ast, options) {
     assertComments(comments, text);
   }
   return ast;
-}
-
-function isUnbalancedLogicalTree(node) {
-  return (
-    node.type === "LogicalExpression" &&
-    node.right.type === "LogicalExpression" &&
-    node.operator === node.right.operator
-  );
-}
-
-function rebalanceLogicalTree(node) {
-  if (!isUnbalancedLogicalTree(node)) {
-    return node;
-  }
-
-  return rebalanceLogicalTree({
-    type: "LogicalExpression",
-    operator: node.operator,
-    left: rebalanceLogicalTree({
-      type: "LogicalExpression",
-      operator: node.operator,
-      left: node.left,
-      right: node.right.left,
-      range: [locStart(node.left), locEnd(node.right.left)],
-    }),
-    right: node.right.right,
-    range: [locStart(node), locEnd(node)],
-  });
 }
 
 /* c8 ignore next */

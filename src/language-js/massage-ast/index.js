@@ -6,6 +6,7 @@ import {
 } from "../utilities/node-types.js";
 import { cleanChainExpression } from "./chain-expression.js";
 import { cleanKey } from "./key.js";
+import { cleanLogicalExpression } from "./logical-expression.js";
 import { cleanRegExpLiteral } from "./regexp-literal.js";
 
 /**
@@ -47,6 +48,8 @@ function massageAstNode(original, cloned, parent) {
 
   // We don't add parentheses to `(a?.b)?.c`
   cleanChainExpression(original, cloned);
+
+  cleanLogicalExpression(original, cloned);
 
   // We quote/unquote keys
   cleanKey(original, cloned);
