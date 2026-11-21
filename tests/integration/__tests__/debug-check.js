@@ -13,6 +13,17 @@ describe("checks stdin with --debug-check", () => {
     stdout: "(stdin)",
     stderr: "",
     status: 0,
+    write: [],
+  });
+});
+
+describe("checks BigInt literals with --debug-check", () => {
+  runCli("cli/with-shebang", ["--debug-check", "--parser", "babel"], {
+    input: "1n",
+  }).test({
+    stdout: "(stdin)",
+    stderr: "",
+    status: 0,
   });
 });
 
