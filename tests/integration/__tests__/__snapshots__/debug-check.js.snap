@@ -6,12 +6,6 @@ exports[`checks BigInt literals with --debug-check  1`] = `
 }
 `;
 
-exports[`checks stdin with --debug-check  1`] = `
-{
-  "write": [],
-}
-`;
-
 exports[`doesn't crash when --debug-check is passed  1`] = `
 {
   "write": [],

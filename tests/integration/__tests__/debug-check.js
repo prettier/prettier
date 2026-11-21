@@ -13,6 +13,7 @@ describe("checks stdin with --debug-check", () => {
     stdout: "(stdin)",
     stderr: "",
     status: 0,
+    write: [],
   });
 });
 
