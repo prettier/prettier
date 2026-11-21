@@ -42,6 +42,24 @@ class printResult {
     this.#unsettledText += text;
   }
 
+  /**
+  @returns {string}
+  */
+  getLastLine() {
+    let text = this.#unsettledText;
+    for (
+      let index = this.#settledTexts.length - 1;
+      index >= 0 && !/[\n\r]/u.test(text);
+      index--
+    ) {
+      text = this.#settledTexts[index] + text;
+    }
+
+    return text.slice(
+      Math.max(text.lastIndexOf("\n"), text.lastIndexOf("\r")) + 1,
+    );
+  }
+
   trim() {
     const { text: trimmed, count } = trimIndentation(this.#unsettledText);
 

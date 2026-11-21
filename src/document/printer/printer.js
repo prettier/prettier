@@ -42,11 +42,36 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
 /**
+ * @param {string} text
+ * @param {number} tabWidth
+ * @param {number} column
+ * @returns {number}
+ */
+function getTextWidth(text, tabWidth, column) {
+  if (!text.includes("\t")) {
+    return getStringWidth(text);
+  }
+
+  let width = 0;
+  for (const [index, part] of text.split("\t").entries()) {
+    // Tabs move to the next multiple of `tabWidth`
+    if (index > 0 && tabWidth > 0) {
+      width += tabWidth - ((column + width) % tabWidth);
+    }
+    width += getStringWidth(part);
+  }
+
+  return width;
+}
+
+/**
  * @param {Command} next
  * @param {Command[]} restCommands
  * @param {number} remainingWidth
  * @param {boolean} hasLineSuffix
  * @param {GroupModeMap} groupModeMap
+ * @param {number} tabWidth
+ * @param {number} position
  * @param {boolean} [mustBeFlat]
  * @returns {boolean}
  */
@@ -56,11 +81,15 @@ function fits(
   remainingWidth,
   hasLineSuffix,
   groupModeMap,
+  tabWidth,
+  position,
   mustBeFlat,
 ) {
   if (remainingWidth === Number.POSITIVE_INFINITY) {
     return true;
   }
+
+  const startWidth = remainingWidth;
 
   let restCommandsIndex = restCommands.length;
   let hasPendingSpace = false;
@@ -91,7 +120,11 @@ function fits(
           }
 
           output += doc;
-          remainingWidth -= getStringWidth(doc);
+          remainingWidth -= getTextWidth(
+            doc,
+            tabWidth,
+            position + startWidth - remainingWidth,
+          );
         }
         break;
 
@@ -113,9 +146,11 @@ function fits(
         break;
 
       case DOC_TYPE_TRIM: {
-        const { text, count } = trimIndentation(output);
+        const { text } = trimIndentation(output);
+        remainingWidth +=
+          getTextWidth(output, tabWidth, position) -
+          getTextWidth(text, tabWidth, position);
         output = text;
-        remainingWidth += count;
         break;
       }
 
@@ -181,6 +216,7 @@ function printDocToString(doc, options) {
   const groupModeMap = Object.create(null);
 
   const width = options.printWidth;
+  const tabWidth = options.tabWidth ?? 0;
   const newLine = convertEndOfLineOptionToCharacter(options.endOfLine);
   let position = 0;
   // commands is basically a stack. We've turned a recursive call into a
@@ -206,7 +242,7 @@ function printDocToString(doc, options) {
         if (formatted) {
           result.write(formatted);
           if (commands.length > 0) {
-            position += getStringWidth(formatted);
+            position += getTextWidth(formatted, tabWidth, position);
           }
         }
         break;
@@ -238,9 +274,14 @@ function printDocToString(doc, options) {
         });
         break;
 
-      case DOC_TYPE_TRIM:
-        position -= result.trim();
+      case DOC_TYPE_TRIM: {
+        const line = result.getLastLine();
+        const count = result.trim();
+        position -=
+          getTextWidth(line, tabWidth, 0) -
+          getTextWidth(line.slice(0, line.length - count), tabWidth, 0);
         break;
+      }
 
       case DOC_TYPE_GROUP: {
         /** @type {Command} */
@@ -267,6 +308,8 @@ function printDocToString(doc, options) {
               remainingWidth,
               hasLineSuffix,
               groupModeMap,
+              tabWidth,
+              position,
             )
           ) {
             return flatCommand;
@@ -302,6 +345,8 @@ function printDocToString(doc, options) {
                   remainingWidth,
                   hasLineSuffix,
                   groupModeMap,
+                  tabWidth,
+                  position,
                 )
               ) {
                 return flatCommand;
@@ -362,6 +407,8 @@ function printDocToString(doc, options) {
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
+          tabWidth,
+          position,
           true,
         );
 
@@ -417,6 +464,8 @@ function printDocToString(doc, options) {
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
+          tabWidth,
+          position,
           true,
         );
 
