@@ -622,6 +622,100 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-13779.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Nested lists without content:
+
+- - *
+
+Deeper:
+
+- - - *
+
+Starting with \`*\`:
+
+* * -
+
+A list item whose content is made of \`-\`:
+
+* --
+
+Followed by a sibling list:
+
+* --
+
+- foo
+
+After a sibling list:
+
+- foo
+
+* --
+
+A thematic break in such a list:
+
+* --
+
+  ***
+
+Not a thematic break:
+
+- - foo
+
+1. - -
+
+- [ ] --
+
+=====================================output=====================================
+Nested lists without content:
+
+- - *
+
+Deeper:
+
+- - - *
+
+Starting with \`*\`:
+
+- - *
+
+A list item whose content is made of \`-\`:
+
+* --
+
+Followed by a sibling list:
+
+* --
+
+- foo
+
+After a sibling list:
+
+- foo
+
+* --
+
+A thematic break in such a list:
+
+* --
+
+  ---
+
+Not a thematic break:
+
+- - foo
+
+1. - -
+
+- [ ] --
+
+================================================================================
+`;
+
 exports[`issue-17652.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
