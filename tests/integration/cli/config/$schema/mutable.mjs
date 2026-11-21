@@ -1,0 +1,4 @@
+export default {
+  $schema: "https://www.schemastore.org/prettierrc",
+  tabWidth: 42,
+};

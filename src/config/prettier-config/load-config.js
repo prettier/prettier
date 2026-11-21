@@ -1,4 +1,5 @@
 import path from "node:path";
+import omit from "../../utilities/object-omit.js";
 import loadExternalConfig from "./load-external-config.js";
 import loaders, {
   loadConfigFromPackageJson,
@@ -46,8 +47,7 @@ async function loadConfig(configFile) {
     );
   }
 
-  delete config.$schema;
-  return config;
+  return omit(config, ["$schema"]);
 }
 
 export default loadConfig;
