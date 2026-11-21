@@ -1,0 +1,21 @@
+.test {
+  --data: {
+    nested: {
+      value: red;
+    };
+    another: blue;
+  };
+  --deep: {
+    a: {
+      b: {
+        c: 1;
+      };
+    };
+  };
+  --no-semicolon: {
+    nested: {
+      value: red;
+    }
+    another: blue;
+  };
+}
