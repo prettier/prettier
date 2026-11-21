@@ -12,6 +12,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { shouldConditionalExpressionPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import { isBlockComment } from "../utilities/comment-types.js";
 import {
   CommentCheckFlags,
@@ -134,8 +135,8 @@ function shouldExtraIndentForConditionalExpression(path) {
   return parent[ancestorNameMap.get(parent.type)] === child;
 }
 
-const wrapInParens = (doc) => [
-  ifBreak("("),
+const wrapInParens = (doc, shouldPrintLeadingSemicolon = false) => [
+  ifBreak(shouldPrintLeadingSemicolon ? ";(" : "("),
   indent([softline, doc]),
   softline,
   ifBreak(")"),
@@ -297,7 +298,10 @@ function printTernary(path, options, print, args) {
 
   const printedTest = isConditionalExpression
     ? [
-        wrapInParens(print("test")),
+        wrapInParens(
+          print("test"),
+          shouldConditionalExpressionPrintLeadingSemicolon(path, options),
+        ),
         node.test.type === "ConditionalExpression" ? breakParent : "",
       ]
     : [
