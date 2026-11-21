@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`11982.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+.font\\+1 {
+  --font\\+1: calc(var(--font) + 1px);
+  font-size: var(--font\\+1);
+}
+
+.font\\*2 {
+  --font\\*2: calc(var(--font) * 2);
+  font-size: var(--font\\*2);
+}
+
+.font\\/2 {
+  font-size: var(--font\\/2);
+}
+
+a {
+  width: var(--a\\+b\\*c);
+  height: foo\\+1 foo\\*2 foo\\/2;
+  margin: foo\\+ 1 foo\\* 2 foo\\/ 2;
+}
+
+=====================================output=====================================
+.font\\+1 {
+  --font\\+1: calc(var(--font) + 1px);
+  font-size: var(--font\\+1);
+}
+
+.font\\*2 {
+  --font\\*2: calc(var(--font) * 2);
+  font-size: var(--font\\*2);
+}
+
+.font\\/2 {
+  font-size: var(--font\\/2);
+}
+
+a {
+  width: var(--a\\+b\\*c);
+  height: foo\\+1 foo\\*2 foo\\/2;
+  margin: foo\\+ 1 foo\\* 2 foo\\/ 2;
+}
+
+================================================================================
+`;
+
 exports[`character_escaping.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
