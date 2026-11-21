@@ -487,6 +487,22 @@ Valid options:
 | ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | `"css"` | <code>--html-whitespace-sensitivity \<css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "\<css&#124;strict&#124;ignore>"</code> |
 
+In Angular templates, `"css"` can add whitespace around an interpolation when wrapping a block element such as `<h2>{{ title }}</h2>`. This can change the element’s `textContent`. Use `"strict"` to preserve whether whitespace is present between the tags and the interpolation. For example, to apply it to Angular component templates:
+
+```json
+{
+  "overrides": [
+    {
+      "files": "*.component.html",
+      "options": {
+        "parser": "angular",
+        "htmlWhitespaceSensitivity": "strict"
+      }
+    }
+  ]
+}
+```
+
 ## Vue files script and style tags indentation
 
 _First available in v1.19.0_
