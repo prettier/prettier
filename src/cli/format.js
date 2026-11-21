@@ -1,3 +1,4 @@
+import { AssertionError, deepStrictEqual } from "node:assert";
 import fs from "node:fs/promises";
 import path from "node:path";
 import getStdin from "get-stdin";
@@ -23,22 +24,18 @@ class DebugError extends Error {
   name = "DebugError";
 }
 
-const stringifyAst = (ast, space) =>
-  JSON.stringify(
-    ast,
-    (_, value) => {
-      if (typeof value === "bigint") {
-        return `(bigint) ${value}n`;
-      }
+const stringifyAst = (ast) =>
+  JSON.stringify(ast, (_, value) => {
+    if (typeof value === "bigint") {
+      return `(bigint) ${value}n`;
+    }
 
-      if (value instanceof RegExp) {
-        return `(regexp) /${value.source}/${value.flags}`;
-      }
+    if (value instanceof RegExp) {
+      return `(regexp) /${value.source}/${value.flags}`;
+    }
 
-      return value;
-    },
-    space,
-  );
+    return value;
+  });
 
 function handleError(context, filename, error, printedFilename, ignoreUnknown) {
   ignoreUnknown ||= context.argv.ignoreUnknown;
@@ -149,30 +146,25 @@ async function format(context, input, opt) {
       );
     }
 
-    const ast = stringifyAst(
-      (await prettier.__debug.parse(input, opt, { massage: true })).ast,
-      2,
-    );
-    const past = stringifyAst(
-      (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
-      2,
-    );
+    const { ast } = await prettier.__debug.parse(input, opt, { massage: true });
+    const { ast: formattedAst } = await prettier.__debug.parse(pp, opt, {
+      massage: true,
+    });
 
-    /* c8 ignore start */
-    if (ast !== past) {
-      const MAX_AST_SIZE = 2097152; // 2MB
-      const astDiff =
-        ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-          ? "AST diff too large to render"
-          : diff(ast, past);
+    try {
+      deepStrictEqual(formattedAst, ast);
+    } catch (error) {
+      if (!(error instanceof AssertionError)) {
+        throw error;
+      }
+
       throw new DebugError(
         "ast(input) !== ast(prettier(input))\n" +
-          astDiff +
+          error.message +
           "\n" +
           diff(input, pp),
       );
     }
-    /* c8 ignore end */
 
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }

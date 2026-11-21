@@ -27,6 +27,35 @@ describe("checks BigInt literals with --debug-check", () => {
   });
 });
 
+const astComparisonArgs = [
+  "--debug-check",
+  "--parser",
+  "debug-check-ast-comparison",
+  "--plugin",
+  "./plugin-for-testing-ast-comparison.cjs",
+];
+
+describe("accepts reordered AST properties with --debug-check", () => {
+  runCli("cli/debug-check", astComparisonArgs, { input: " text " }).test({
+    status: 0,
+    stdout: "(stdin)",
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("reports changed AST values with --debug-check", () => {
+  runCli("cli/debug-check", astComparisonArgs, { input: "text extra" }).test({
+    status: 2,
+    stdout: "",
+    stderr(output) {
+      expect(output).toContain("stdin: ast(input) !== ast(prettier(input))");
+      expect(output).toContain("text extra");
+    },
+    write: [],
+  });
+});
+
 describe("show diff for 2+ error files with --debug-check", () => {
   runCli("cli/debug-check", [
     "--end-of-line",
