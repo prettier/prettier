@@ -13,6 +13,7 @@ import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
   isPreLikeNode,
+  isScriptDataBlock,
   isScriptLikeTag,
   isVueCustomBlock,
   shouldPreserveContent,
@@ -32,7 +33,9 @@ function printElement(path, options, print) {
   if (shouldPreserveContent(node, options)) {
     return [
       group(printOpeningTag(path, options, print)),
-      replaceEndOfLine(getNodeContent(node, options)),
+      isScriptDataBlock(node) && node.children.length > 0
+        ? printChildren(path, options, print)
+        : replaceEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
     ];
   }

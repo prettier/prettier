@@ -1,5 +1,6 @@
 import {
   breakParent,
+  dedentToRoot,
   group,
   hardline,
   indent,
@@ -101,10 +102,14 @@ function embed(path, options) {
               textToDocOptions.__babelSourceType = sourceType;
             }
 
+            const doc = await textToDoc(value, textToDocOptions);
+
             return [
               breakParent,
               printOpeningTagPrefix(node, options),
-              await textToDoc(value, textToDocOptions),
+              node.parent.isIndentationSensitive
+                ? [dedentToRoot([hardline, doc]), hardline]
+                : doc,
               printClosingTagSuffix(node, options),
             ];
           };
