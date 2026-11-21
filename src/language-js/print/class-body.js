@@ -266,7 +266,6 @@ function shouldPrintSemicolonAfterClassProperty(
     !nextNode.static &&
     // @ts-expect-error -- Safe
     nextNode.variance &&
-    // @ts-expect-error -- Safe
     !nextNode.declare
   ) {
     return true;

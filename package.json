@@ -44,13 +44,13 @@
   "dependencies": {
     "@angular/compiler": "22.3.0",
     "@babel/code-frame": "8.0.6",
-    "@babel/parser": "8.1.2",
-    "@babel/types": "8.1.2",
+    "@babel/parser": "8.1.3",
+    "@babel/types": "8.1.3",
     "@braindb/mdast-util-wiki-link": "0.2.0",
     "@braindb/micromark-extension-wiki-link": "0.1.0",
     "@bybrave/json5": "3.1.0",
     "@glimmer/syntax": "0.97.0",
-    "@prettier/cli": "0.12.4",
+    "@prettier/cli": "0.12.5",
     "@prettier/html-attributes": "0.1.0",
     "@prettier/html-event-attributes": "0.0.2",
     "@prettier/html-tags": "2.2.0",
@@ -133,7 +133,7 @@
     "yuku": "0.28.1"
   },
   "devDependencies": {
-    "@babel/generator": "8.1.2",
+    "@babel/generator": "8.1.3",
     "@clack/prompts": "1.9.0",
     "@eslint/js": "10.0.1",
     "@oxc-parser/binding-wasm32-wasip1": "0.159.0",
