@@ -33,7 +33,9 @@ function printElement(path, options, print) {
   if (shouldPreserveContent(node, options)) {
     return [
       group(printOpeningTag(path, options, print)),
-      replaceEndOfLine(getNodeContent(node, options)),
+      isScriptDataBlock(node) && node.children.length > 0
+        ? printChildren(path, options, print)
+        : replaceEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
     ];
   }
@@ -74,14 +76,6 @@ function printElement(path, options, print) {
       doc,
       printClosingTag(node, options),
     ]);
-
-  if (isScriptDataBlock(node)) {
-    return printTag(
-      node.children.length === 0
-        ? replaceEndOfLine(getNodeContent(node, options))
-        : printChildren(path, options, print),
-    );
-  }
 
   if (node.children.length === 0) {
     return printTag(

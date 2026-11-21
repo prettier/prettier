@@ -59,6 +59,10 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
 };
 
 function shouldPreserveContent(node, options) {
+  if (isScriptDataBlock(node)) {
+    return true;
+  }
+
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
