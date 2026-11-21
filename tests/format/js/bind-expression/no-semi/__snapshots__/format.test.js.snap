@@ -1,5 +1,172 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`leading-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // comment
+  ::b.c
+);
+
+(
+  // comment
+  []::b.c
+);
+
+=====================================output=====================================
+// comment
+;::b.c
+
+// comment
+;[]::b.c
+
+================================================================================
+`;
+
+exports[`leading-comments.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: Unexpected token (3:2)"
+`;
+
+exports[`leading-comments.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: Unexpected token :"
+`;
+
+exports[`leading-comments.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: [3:2-3:3]: Unexpected token: ':'"
+`;
+
+exports[`leading-comments.js - {"semi":false} format[oxc] 1`] = `
+"Unexpected token (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | ("
+`;
+
+exports[`leading-comments.js - {"semi":false} format[yuku] 1`] = `
+"Expected an expression, but found ':' (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | ("
+`;
+
+exports[`leading-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // comment
+  ::b.c
+);
+
+(
+  // comment
+  []::b.c
+);
+
+=====================================output=====================================
+// comment
+::b.c;
+
+// comment
+[]::b.c;
+
+================================================================================
+`;
+
+exports[`leading-comments.js format[acorn] 1`] = `
+"Unexpected token (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: Unexpected token (3:2)"
+`;
+
+exports[`leading-comments.js format[espree] 1`] = `
+"Unexpected token : (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: Unexpected token :"
+`;
+
+exports[`leading-comments.js format[meriyah] 1`] = `
+"Unexpected token: ':' (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | (
+Cause: [3:2-3:3]: Unexpected token: ':'"
+`;
+
+exports[`leading-comments.js format[oxc] 1`] = `
+"Unexpected token (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | ("
+`;
+
+exports[`leading-comments.js format[yuku] 1`] = `
+"Expected an expression, but found ':' (3:3)
+  1 | (
+  2 |   // comment
+> 3 |   ::b.c
+    |   ^
+  4 | );
+  5 |
+  6 | ("
+`;
+
 exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

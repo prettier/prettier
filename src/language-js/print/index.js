@@ -2,10 +2,15 @@ import { group, indent, inheritLabel, softline } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import {
+  printWithLeadingSemicolon,
+  shouldPrintLeadingSemicolon,
+} from "../semicolon/semicolon.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
+import { isJsxElement } from "../utilities/node-types.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
@@ -88,15 +93,31 @@ function print(path, options, print, args) {
 
   const needsParens = needsParentheses(path, options);
 
-  if (!decoratorsDoc && !needsParens) {
-    return doc;
+  if (decoratorsDoc || needsParens) {
+    doc = inheritLabel(doc, (doc) => [
+      needsParens ? "(" : "",
+      decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
+      needsParens ? ")" : "",
+    ]);
   }
 
-  return inheritLabel(doc, (doc) => [
-    needsParens ? "(" : "",
-    decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
-    needsParens ? ")" : "",
-  ]);
+  const isNonIgnoredJsx = isJsxElement(node) && !isIgnored(path);
+  if (
+    node.type !== "ExpressionStatement" &&
+    (!isNonIgnoredJsx || needsParens) &&
+    shouldPrintLeadingSemicolon(path, options)
+  ) {
+    if (
+      isIgnored(path) ||
+      isIifeCalleeOrTaggedTemplateExpressionTag(path) ||
+      isNonIgnoredJsx
+    ) {
+      return inheritLabel(doc, (doc) => [";", doc]);
+    }
+    return printWithLeadingSemicolon(path, doc, options);
+  }
+
+  return doc;
 }
 
 function printCommentsForFunction(path, options, doc) {

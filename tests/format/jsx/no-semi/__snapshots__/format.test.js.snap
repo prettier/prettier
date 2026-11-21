@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`leading-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // comment
+  <div />
+);
+
+(/* comment */ <div />) && x;
+
+(
+  // comment
+  <div />
+) && x;
+
+(
+  // prettier-ignore
+  <div />
+).foo;
+
+=====================================output=====================================
+// comment
+;<div />
+
+/* comment */ ;<div /> && x
+
+;(
+  // comment
+  <div />
+) && x
+
+// prettier-ignore
+;(<div />).foo
+
+================================================================================
+`;
+
+exports[`leading-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(
+  // comment
+  <div />
+);
+
+(/* comment */ <div />) && x;
+
+(
+  // comment
+  <div />
+) && x;
+
+(
+  // prettier-ignore
+  <div />
+).foo;
+
+=====================================output=====================================
+// comment
+<div />;
+
+/* comment */ <div /> && x;
+
+(
+  // comment
+  <div />
+) && x;
+
+// prettier-ignore
+(<div />).foo;
+
+================================================================================
+`;
