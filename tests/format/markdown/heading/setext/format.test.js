@@ -24,6 +24,15 @@ runFormatTest(
           bar
         ===
       `,
+      // #19530
+      outdent`
+        > Foo${" ".repeat(2)}
+        ===
+      `,
+      outdent`
+        Foo${" ".repeat(2)}
+            ===
+      `,
     ],
   },
   ["markdown"],
