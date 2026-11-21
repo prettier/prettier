@@ -18,6 +18,7 @@ import {
   preferHardlineAsLeadingSpaces,
 } from "../utilities/index.js";
 import {
+  needsToBorrowLastChildClosingTagEndMarker,
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
@@ -58,8 +59,12 @@ function printChild(path, options, print) {
                 ? printOpeningTagStartMarker(child).length
                 : 0),
             endLocation -
-              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                ? printClosingTagEndMarker(child, options).length
+              ((
+                child.next
+                  ? needsToBorrowPrevClosingTagEndMarker(child.next)
+                  : needsToBorrowLastChildClosingTagEndMarker(child.parent)
+              )
+                ? printClosingTagEndMarker(child, options, true).length
                 : 0),
           ),
         ),

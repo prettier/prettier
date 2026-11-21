@@ -54,7 +54,7 @@ function printClosingTagEnd(node, options) {
 
 function printClosingTagPrefix(node, options) {
   return needsToBorrowLastChildClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.lastChild, options)
+    ? printClosingTagEndMarker(node.lastChild, options, true)
     : "";
 }
 
@@ -88,7 +88,7 @@ function printClosingTagStartMarker(node, options) {
   }
 }
 
-function printClosingTagEndMarker(node, options) {
+function printClosingTagEndMarker(node, options, isBorrowed = false) {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -104,6 +104,23 @@ function printClosingTagEndMarker(node, options) {
       return "}";
     case "element":
       if (node.isSelfClosing) {
+        if (isBorrowed && hasPrettierIgnore(node)) {
+          const source = node.startSourceSpan.toString();
+          if (!source.endsWith("/>")) {
+            return ">";
+          }
+          const lastAttribute = node.attrs.at(-1);
+          // Keep unquoted values with the slash so trimming cannot change their value.
+          if (
+            lastAttribute?.valueSpan &&
+            !/^["']/.test(lastAttribute.valueSpan.toString())
+          ) {
+            return source.slice(
+              lastAttribute.valueSpan.start.offset -
+                node.startSourceSpan.start.offset,
+            );
+          }
+        }
         return "/>";
       }
     // fall through
@@ -359,7 +376,7 @@ function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-      ? printClosingTagEndMarker(node.prev, options)
+      ? printClosingTagEndMarker(node.prev, options, true)
       : "";
 }
 
@@ -390,6 +407,11 @@ function printOpeningTagStartMarker(node, options) {
     case "angularIcuExpression":
       return "{";
     case "element":
+      if (hasPrettierIgnore(node)) {
+        return node.startSourceSpan
+          .toString()
+          .slice(0, node.nameSpan.end.offset - locStart(node));
+      }
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
       }
