@@ -330,6 +330,11 @@ function shouldPreventBreak(path, options) {
     return true;
   }
 
+  // A line starting with three or more backticks or tildes opens a fenced code block
+  if (/^(?:`{3}|~{3})/.test(path.next.value)) {
+    return true;
+  }
+
   return false;
 }
 
