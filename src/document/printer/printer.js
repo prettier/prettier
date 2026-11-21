@@ -75,6 +75,8 @@ function fits(
         return true;
       }
       commands.push(restCommands[--restCommandsIndex]);
+      // Only the measured doc must stay flat. Later commands may break.
+      mustBeFlat = false;
 
       continue;
     }
@@ -358,7 +360,7 @@ function printDocToString(doc, options) {
         const contentBreakCommand = { indent, mode: MODE_BREAK, doc: content };
         const contentFits = fits(
           contentFlatCommand,
-          [],
+          length === 1 ? commands : [],
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
@@ -388,11 +390,20 @@ function printDocToString(doc, options) {
         };
 
         if (length === 2) {
-          if (contentFits) {
-            commands.push(whitespaceFlatCommand, contentFlatCommand);
-          } else {
-            commands.push(whitespaceBreakCommand, contentBreakCommand);
-          }
+          const contentAndWhitespaceFits = fits(
+            { indent, mode: MODE_FLAT, doc: [content, whitespace] },
+            commands,
+            remainingWidth,
+            lineSuffix.length > 0,
+            groupModeMap,
+            true,
+          );
+          commands.push(
+            contentAndWhitespaceFits
+              ? whitespaceFlatCommand
+              : whitespaceBreakCommand,
+            contentFits ? contentFlatCommand : contentBreakCommand,
+          );
           break;
         }
 
@@ -413,7 +424,7 @@ function printDocToString(doc, options) {
         };
         const firstAndSecondContentFits = fits(
           firstAndSecondContentFlatCommand,
-          [],
+          length === 3 ? commands : [],
           remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
