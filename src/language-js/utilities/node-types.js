@@ -102,6 +102,19 @@ export const isAbstractPropertyDefinition = createTypeCheckFunction([
   "TSAbstractPropertyDefinition",
 ]);
 
+export const classPropertyTypes = /** @type {const} */ ([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
+export const isClassProperty = createTypeCheckFunction(classPropertyTypes);
+
 export const isParameterProperty = createTypeCheckFunction([
   "TSParameterProperty",
   "ParameterProperty",

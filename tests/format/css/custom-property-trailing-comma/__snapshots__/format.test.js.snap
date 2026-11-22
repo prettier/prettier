@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`numeric-name.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  width: min(calc(5 * var(--100px)), 80%);
+  height: max(var(--1), var(--2em)), 10px;
+  margin: calc(var(--100px) * -1) var(--1a);
+  padding: var(--100px,);
+  top: min(var(--100px,), 5px);
+}
+
+=====================================output=====================================
+a {
+  width: min(calc(5 * var(--100px)), 80%);
+  height: max(var(--1), var(--2em)), 10px;
+  margin: calc(var(--100px) * -1) var(--1a);
+  padding: var(--100px,);
+  top: min(var(--100px,), 5px);
+}
+
+================================================================================
+`;
+
 exports[`trailing-comma.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]

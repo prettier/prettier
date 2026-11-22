@@ -9,8 +9,8 @@ import {
   line,
   lineSuffix,
   softline,
-} from "../../document/index.js";
-import { locEnd, locStart } from "../loc.js";
+} from "../../../document/index.js";
+import { locEnd, locStart } from "../../loc.js";
 import {
   getPropOfDeclNode,
   hasEmptyRawBefore,
@@ -39,11 +39,11 @@ import {
   isSCSSControlDirectiveNode,
   isSubtractionNode,
   isWordNode,
-} from "../utilities/index.js";
+} from "../../utilities/index.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
+ * @import AstPath from "../../../common/ast-path.js"
+ * @import {Doc} from "../../../document/index.js"
  */
 
 /**

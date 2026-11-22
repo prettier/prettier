@@ -1,0 +1,7 @@
+a {
+  width: min(calc(5 * var(--100px)), 80%);
+  height: max(var(--1), var(--2em)), 10px;
+  margin: calc(var(--100px) * -1) var(--1a);
+  padding: var(--100px,);
+  top: min(var(--100px,), 5px);
+}

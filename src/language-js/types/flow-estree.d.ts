@@ -1,7 +1,7 @@
 // ! Do NOT edit !
 // Generated from 'node_modules/flow-estree/dist/types.js.flow'
 // Run `node scripts/generate-flow-estree-type-definition.js` to update
-// flow-estree:v0.339.0, build-script:v1
+// flow-estree:v0.342.0, build-script:v1
 // spell-checker: disable
 
 /**
@@ -474,6 +474,7 @@ export interface VariableDeclarator extends BaseNode {
   readonly type: "VariableDeclarator";
   readonly id: BindingName;
   readonly init?: Expression | null;
+  readonly definite?: true;
 
   readonly parent: VariableDeclaration;
 }
@@ -1021,6 +1022,7 @@ interface PropertyDefinitionBase extends BaseNode {
   readonly variance: null | Variance;
   readonly declare: boolean;
   readonly optional: boolean;
+  readonly definite?: true;
   readonly override: boolean;
   readonly tsAccessibility: TSAccessibility | null;
 
