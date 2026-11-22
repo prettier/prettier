@@ -127,7 +127,7 @@ function genericPrint(path, options, print) {
           ];
         }
 
-        if (node.variable) {
+        if (node.variable && !node.raws.lessVariableParams) {
           return [
             "@",
             node.name,
