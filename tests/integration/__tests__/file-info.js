@@ -134,13 +134,9 @@ test("API getFileInfo with no args", async () => {
 });
 
 test("API getFileInfo with filepath only", async () => {
-  await expect(prettier.getFileInfo("README")).resolves.toStrictEqual({
+  await expect(prettier.getFileInfo("Jakefile")).resolves.toStrictEqual({
     ignored: false,
-    inferredParser: null,
-  });
-  await expect(prettier.getFileInfo("README.md")).resolves.toStrictEqual({
-    ignored: false,
-    inferredParser: "markdown",
+    inferredParser: "babel",
   });
   await expect(
     prettier.getFileInfo("tsconfig.json", { resolveConfig: false }),
