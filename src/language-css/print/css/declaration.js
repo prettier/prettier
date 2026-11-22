@@ -16,7 +16,7 @@ import {
   lastLineHasInlineComment,
   maybeToLowerCase,
 } from "../../utilities/index.js";
-import { shouldBreakList } from "../parenthesized-value-group.js";
+import { shouldBreakList } from "../value/parenthesized-value-group.js";
 import printSequence from "../sequence.js";
 
 function printCssDeclaration(path, options, print) {

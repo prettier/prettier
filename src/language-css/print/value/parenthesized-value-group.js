@@ -14,11 +14,11 @@ import {
   line,
   lineSuffixBoundary,
   softline,
-} from "../../document/index.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
-import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
-import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
+} from "../../../document/index.js";
+import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-space-non-comment-character.js";
+import isNextLineEmpty from "../../../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../../../utilities/is-non-empty-array.js";
+import { locEnd } from "../../loc.js";
 import {
   isConfigurationNode,
   isDedentedMapEntryNode,
@@ -27,8 +27,8 @@ import {
   isSCSSMapItemNode,
   isURLFunctionNode,
   isVarFunctionNode,
-} from "../utilities/index.js";
-import { shouldPrintTrailingComma } from "./misc.js";
+} from "../../utilities/index.js";
+import { shouldPrintTrailingComma } from "../misc.js";
 
 function hasTrailingComma({ node, parent }, options) {
   if (parent.type !== "value-paren_group") {

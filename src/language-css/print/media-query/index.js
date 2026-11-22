@@ -1,23 +1,16 @@
+import { join } from "../../../document/index.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
-import { group, indent, join, line } from "../document/index.js";
-import { adjustNumbers, adjustStrings } from "./print/misc.js";
-import { maybeToLowerCase } from "./utilities/index.js";
+import { adjustNumbers, adjustStrings } from "../misc.js";
+import { maybeToLowerCase } from "../utilities/index.js";
+import { printMediaList } from "./query-list.js";
 
 function printMediaQueryNode(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
-    case "media-query-list": {
-      const parts = [];
-      path.each(({ node }) => {
-        if (node.type === "media-query" && node.value === "") {
-          return;
-        }
-        parts.push(print());
-      }, "nodes");
+    case "media-query-list":
+      return printMediaList(path, options, print);
 
-      return group(indent(join(line, parts)));
-    }
     case "media-query":
       return [join(" ", path.map(print, "nodes")), path.isLast ? "" : ","];
 

@@ -1,6 +1,6 @@
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import { printCssNode } from "./css/index.js";
-import { printMediaQueryNode } from "./media-query/media-query-node.js";
+import { printMediaQueryNode } from "./media-query/index.js";
 import { printSelectorNode } from "./selector/index.js";
 import { printValueNode } from "./value-node.js";
 
