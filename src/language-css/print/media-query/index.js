@@ -2,6 +2,7 @@ import { join } from "../../../document/index.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
 import { maybeToLowerCase } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
+import { printFeatureExpression } from "./feature-expression.js";
 import { printMediaList } from "./query-list.js";
 
 function printMediaQueryNode(path, options, print) {
@@ -18,10 +19,7 @@ function printMediaQueryNode(path, options, print) {
       return adjustNumbers(adjustStrings(node.value, options));
 
     case "media-feature-expression":
-      if (!node.nodes) {
-        return node.value;
-      }
-      return ["(", ...path.map(print, "nodes"), ")"];
+      return printFeatureExpression(path, options, print);
 
     case "media-feature":
       return maybeToLowerCase(
