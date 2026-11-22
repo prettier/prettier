@@ -1,16 +1,9 @@
-import {
-  group,
-  indent,
-  join,
-  line,
-  softline,
-} from "../../../document/index.js";
-import isNonEmptyArray from "../../../utilities/is-non-empty-array.js";
+import { group, indent } from "../../../document/index.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
-import { maybeToLowerCase } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
 import { printAttributeSelector } from "./attribute.js";
 import { printCombinatorSelector } from "./combinator.js";
+import { printPseudoSelector } from "./pseudo.js";
 import { printSelectorRoot } from "./root.js";
 import { printTagSelector } from "./tag.js";
 import { printUniversalSelector } from "./universal.js";
@@ -55,17 +48,7 @@ function printSelectorNode(path, options, print) {
       return printUniversalSelector(path /* , options  , print */);
 
     case "selector-pseudo":
-      return [
-        maybeToLowerCase(node.value),
-        isNonEmptyArray(node.nodes)
-          ? group([
-              "(",
-              indent([softline, join([",", line], path.map(print, "nodes"))]),
-              softline,
-              ")",
-            ])
-          : "",
-      ];
+      return printPseudoSelector(path, options, print);
 
     case "selector-nesting":
       return node.value;
