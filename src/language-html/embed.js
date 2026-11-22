@@ -10,6 +10,7 @@ import printAngularControlFlowBlockParameters from "./embed/angular-control-flow
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
+import { printElement } from "./print/element.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
@@ -38,9 +39,8 @@ function embed(path, options) {
 
   switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
-        // Fall through to "text"
-        return;
+      if (isScriptLikeTag(node, options)) {
+        return embedScriptLikeTag(path, options);
       }
 
       if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
@@ -75,41 +75,7 @@ function embed(path, options) {
       break;
 
     case "text":
-      if (isScriptLikeTag(node.parent, options)) {
-        const parser = inferElementParser(node.parent, options);
-        if (parser) {
-          return async (textToDoc) => {
-            const value =
-              parser === "markdown"
-                ? htmlWhitespace.dedentString(
-                    node.value.replace(/^[^\S\n]*\n/, ""),
-                  )
-                : node.value;
-            const textToDocOptions = { parser, __embeddedInHtml: true };
-            if (options.parser === "html" && parser === "babel") {
-              let sourceType = "script";
-              const { attrMap } = node.parent;
-              if (
-                attrMap &&
-                (attrMap.type === "module" ||
-                  ((attrMap.type === "text/babel" ||
-                    attrMap.type === "text/jsx") &&
-                    attrMap["data-type"] === "module"))
-              ) {
-                sourceType = "module";
-              }
-              textToDocOptions.__babelSourceType = sourceType;
-            }
-
-            return [
-              breakParent,
-              printOpeningTagPrefix(node, options),
-              await textToDoc(value, textToDocOptions),
-              printClosingTagSuffix(node, options),
-            ];
-          };
-        }
-      } else if (node.parent.kind === "interpolation") {
+      if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
@@ -156,6 +122,52 @@ function embed(path, options) {
           __isInHtmlAttribute: false,
         });
   }
+}
+
+function embedScriptLikeTag(path, options) {
+  const { node } = path;
+  const { firstChild } = node;
+  if (node.children.length !== 1 || firstChild.kind !== "text") {
+    return;
+  }
+
+  const parser = inferElementParser(node, options);
+  if (!parser) {
+    return;
+  }
+
+  return async (textToDoc, print) => {
+    const value =
+      parser === "markdown"
+        ? htmlWhitespace.dedentString(
+            firstChild.value.replace(/^[^\S\n]*\n/, ""),
+          )
+        : firstChild.value;
+    const textToDocOptions = { parser, __embeddedInHtml: true };
+    if (options.parser === "html" && parser === "babel") {
+      let sourceType = "script";
+      const { attrMap } = node;
+      if (
+        attrMap &&
+        (attrMap.type === "module" ||
+          ((attrMap.type === "text/babel" || attrMap.type === "text/jsx") &&
+            attrMap["data-type"] === "module"))
+      ) {
+        sourceType = "module";
+      }
+      textToDocOptions.__babelSourceType = sourceType;
+    }
+
+    const embeddedContent = [
+      breakParent,
+      printOpeningTagPrefix(firstChild, options),
+      await textToDoc(value, textToDocOptions),
+      printClosingTagSuffix(firstChild, options),
+    ];
+    const childDoc = print(["children", 0], { embeddedContent });
+
+    return printElement(path, options, print, childDoc);
+  };
 }
 
 export default embed;

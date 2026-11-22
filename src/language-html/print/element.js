@@ -26,7 +26,7 @@ import {
   printOpeningTag,
 } from "./tag.js";
 
-function printElement(path, options, print) {
+function printElement(path, options, print, embeddedContent) {
   const { node } = path;
 
   if (shouldPreserveContent(node, options)) {
@@ -161,7 +161,7 @@ function printElement(path, options, print) {
     forceBreakContent(node) ? breakParent : "",
     printChildrenDoc([
       printLineBeforeChildren(),
-      printChildren(path, options, print),
+      embeddedContent ?? printChildren(path, options, print),
     ]),
     printLineAfterChildren(),
   ]);

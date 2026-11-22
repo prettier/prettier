@@ -37,7 +37,7 @@ import {
 import { printText } from "./print/text.js";
 import preprocess from "./print-preprocess.js";
 
-function genericPrint(path, options, print) {
+function genericPrint(path, options, print, args) {
   const { node } = path;
 
   switch (node.kind) {
@@ -84,7 +84,7 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "text":
-      return printText(path, options /* , print*/);
+      return args?.embeddedContent ?? printText(path, options /* , print*/);
     case "docType":
       return [
         group([
