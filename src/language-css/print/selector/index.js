@@ -1,5 +1,4 @@
 import {
-  breakParent,
   group,
   indent,
   join,
@@ -8,16 +7,13 @@ import {
 } from "../../../document/index.js";
 import isNonEmptyArray from "../../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
-import { locEnd, locStart } from "../../loc.js";
-import {
-  lastLineHasInlineComment,
-  maybeToLowerCase,
-} from "../../utilities/index.js";
+import { maybeToLowerCase } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
 import { printAttributeSelector } from "./attribute.js";
 import { printCombinatorSelector } from "./combinator.js";
 import { printSelectorRoot } from "./root.js";
 import { printTagSelector } from "./tag.js";
+import { printUnknownSelector } from "./unknown.js";
 
 function printSelectorNode(path, options, print) {
   const { node } = path;
@@ -78,44 +74,8 @@ function printSelectorNode(path, options, print) {
     case "selector-nesting":
       return node.value;
 
-    case "selector-unknown": {
-      const ruleAncestorNode = path.findAncestor(
-        (node) => node.type === "css-rule",
-      );
-
-      // Nested SCSS property
-      if (ruleAncestorNode?.isScssNestedProperty) {
-        return adjustNumbers(
-          adjustStrings(maybeToLowerCase(node.value), options),
-        );
-      }
-
-      // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
-      const parentNode = path.parent;
-      if (parentNode.raws?.selector) {
-        const start = locStart(parentNode);
-        const end = start + parentNode.raws.selector.length;
-        return options.originalText.slice(start, end).trim();
-      }
-
-      // Same reason above
-      const grandParent = path.grandparent;
-      if (
-        parentNode.type === "value-paren_group" &&
-        grandParent?.type === "value-func" &&
-        grandParent.value === "selector"
-      ) {
-        const start = locEnd(parentNode.open) + 1;
-        const end = locStart(parentNode.close);
-        const selector = options.originalText.slice(start, end).trim();
-
-        return lastLineHasInlineComment(selector)
-          ? [breakParent, selector]
-          : selector;
-      }
-
-      return node.value;
-    }
+    case "selector-unknown":
+      return printUnknownSelector(path, options, print);
 
     default:
       /* c8 ignore next */
