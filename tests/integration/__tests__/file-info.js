@@ -19,15 +19,19 @@ describe("extracts file-info for a markdown file", () => {
   });
 });
 
-describe("extracts file-info for a known json file with no extension", () => {
-  runCli("cli/", ["--file-info", ".babelrc"]).test({
+describe("extracts file-info for a known JS file with no extension", () => {
+  runCli("cli/", ["--file-info", "Jakefile"]).test({
     status: 0,
+    stderr: "",
+    write: [],
   });
 });
 
 describe("extracts file-info with inferredParser=null for README with no extension", () => {
   runCli("cli/", ["--file-info", "README"]).test({
     status: 0,
+    stderr: "",
+    write: [],
   });
 });
 
