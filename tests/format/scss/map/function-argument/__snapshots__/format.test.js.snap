@@ -170,11 +170,7 @@ $display-breakpoints: map-deep-merge(
 }
 
 //map test
-$font-weights: (
-  "regular": 400,
-  "medium": 500,
-  "bold": 700,
-);
+$font-weights: ("regular": 400, "medium": 500, "bold": 700);
 @each $name, $boldness in $icons {
   .text #{ $name } {
     color: red;
@@ -182,11 +178,7 @@ $font-weights: (
   }
 }
 
-$font-weights: (
-  "regular": 400,
-  "medium": 500,
-  "bold": 700,
-);
+$font-weights: ("regular": 400, "medium": 500, "bold": 700);
 @each $name, $boldness in $icons {
   .text-#{ $name } {
     color: red;
