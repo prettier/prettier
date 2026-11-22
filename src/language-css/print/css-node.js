@@ -8,11 +8,6 @@ import { printCssRule } from "./css-rule.js";
 function printCssNode(path, options, print) {
   const { node } = path;
 
-  // TypeScript nodes always starts with `TS`
-  if (!node.type.startsWith("css-")) {
-    return;
-  }
-
   switch (node.type) {
     case "css-root":
       return printCssRoot(path, options, print);
