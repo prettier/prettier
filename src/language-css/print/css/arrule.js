@@ -5,9 +5,7 @@ import {
   line,
   lineSuffixBoundary,
   softline,
-} from "../document/index.js";
-import { locEnd } from "./loc.js";
-import printSequence from "./print/sequence.js";
+} from "../../document/index.js";
 import {
   hasParensAroundNode,
   isDetachedRulesetCallNode,
@@ -15,7 +13,9 @@ import {
   isTemplatePlaceholderNode,
   lastLineHasInlineComment,
   maybeToLowerCase,
-} from "./utilities/index.js";
+} from "../../utilities/index.js";
+import { locEnd } from "../loc.js";
+import printSequence from "../sequence.js";
 
 function printCssAtrule(path, options, print) {
   const { node } = path;

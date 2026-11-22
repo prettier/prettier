@@ -1,4 +1,4 @@
-import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
 import { group, indent, join, line } from "../document/index.js";
 import { adjustNumbers, adjustStrings } from "./print/misc.js";
 import { maybeToLowerCase } from "./utilities/index.js";

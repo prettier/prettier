@@ -1,4 +1,4 @@
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../../loc.js";
 
 function printCssComment(path, options /* , print*/) {
   const { node } = path;

@@ -1,5 +1,5 @@
-import { hardline } from "../../document/index.js";
-import printSequence from "./sequence.js";
+import { hardline } from "../../../document/index.js";
+import printSequence from "../sequence.js";
 
 function printCssRoot(path, options, print) {
   const nodes = printSequence(path, options, print);

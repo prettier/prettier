@@ -1,9 +1,9 @@
-import { hardline, indent, line } from "../../document/index.js";
+import { hardline, indent, line } from "../../../document/index.js";
 import {
   isDetachedRulesetDeclarationNode,
   lastLineHasInlineComment,
-} from "../utilities/index.js";
-import printSequence from "./sequence.js";
+} from "../../utilities/index.js";
+import printSequence from "../sequence.js";
 
 function printCssRule(path, options, print) {
   const { node } = path;

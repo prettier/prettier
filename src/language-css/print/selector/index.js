@@ -8,18 +8,18 @@ import {
   literallineWithoutBreakParent,
   replaceEndOfLine,
   softline,
-} from "../../document/index.js";
-import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import { locEnd, locStart } from "../loc.js";
+} from "../../../document/index.js";
+import isNonEmptyArray from "../../../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
+import { locEnd, locStart } from "../../loc.js";
 import {
   insideAtRuleNode,
   isKeyframeAtRuleKeywords,
   isNthPseudoClassNode,
   lastLineHasInlineComment,
   maybeToLowerCase,
-} from "../utilities/index.js";
-import { adjustNumbers, adjustStrings, quoteAttributeValue } from "./misc.js";
+} from "../../utilities/index.js";
+import { adjustNumbers, adjustStrings, quoteAttributeValue } from "../misc.js";
 
 function printSelectorNode(path, options, print) {
   const { node } = path;

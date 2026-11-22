@@ -6,8 +6,8 @@ import {
   indent,
   removeLines,
   softline,
-} from "../../document/index.js";
-import { locEnd } from "../loc.js";
+} from "../../../document/index.js";
+import { locEnd } from "../../loc.js";
 import {
   hasComposesNode,
   insideIcssRuleNode,
@@ -15,9 +15,9 @@ import {
   isTemplatePropNode,
   lastLineHasInlineComment,
   maybeToLowerCase,
-} from "../utilities/index.js";
-import { shouldBreakList } from "./parenthesized-value-group.js";
-import printSequence from "./sequence.js";
+} from "../../utilities/index.js";
+import { shouldBreakList } from "../parenthesized-value-group.js";
+import printSequence from "../sequence.js";
 
 function printCssDeclaration(path, options, print) {
   const { node, parent } = path;
