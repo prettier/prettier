@@ -14,10 +14,12 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
-const standardScriptTypes = new Set([
+const indentationInsensitiveScriptTypes = new Set([
   "module",
   "importmap",
   "speculationrules",
+  // Legacy JavaScript MIME types and types with charset parameters work without extra indentation.
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types#textjavascript
   "text/javascript",
 ]);
 
@@ -158,7 +160,7 @@ function isScriptDataBlock(node) {
   }
 
   const { type } = node.attrMap;
-  return Boolean(type) && !standardScriptTypes.has(type);
+  return Boolean(type) && !indentationInsensitiveScriptTypes.has(type);
 }
 
 function isLeadingSpaceSensitiveNode(node, options) {
