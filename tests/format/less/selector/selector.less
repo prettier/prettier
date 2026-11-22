@@ -1,0 +1,11 @@
+[class^=~'@{ant-prefix}-'],
+    [class*=~' @{ant-prefix}-'] {
+}
+
+
+.@{form-item-prefix-cls} {
+  &-control {
+    &:first-child:not([class^=~"'@{ant-prefix}-col-'"]):not([class*=~"' @{ant-prefix}-col-'"]) {
+    }
+  }
+}
