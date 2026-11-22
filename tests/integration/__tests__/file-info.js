@@ -19,7 +19,7 @@ describe("extracts file-info for a markdown file", () => {
   });
 });
 
-describe("extracts file-info for a known JS file with no extension", () => {
+describe("extracts file-info for a known file with no extension", () => {
   runCli("cli/", ["--file-info", "Jakefile"]).test({
     status: 0,
     stderr: "",

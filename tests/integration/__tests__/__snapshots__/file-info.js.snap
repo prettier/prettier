@@ -16,7 +16,7 @@ exports[`extracts file-info for a js file  1`] = `
 }
 `;
 
-exports[`extracts file-info for a known JS file with no extension  1`] = `
+exports[`extracts file-info for a known file with no extension  1`] = `
 {
   "stdout": "{ "ignored": false, "inferredParser": "babel" }",
 }
