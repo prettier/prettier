@@ -1,5 +1,5 @@
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
-import { printCssAtrule } from "./arrule.js";
+import { printCssAtrule } from "./atrule.js";
 import { printCssComment } from "./comment.js";
 import { printCssDeclaration } from "./declaration.js";
 import { printCssRoot } from "./root.js";
