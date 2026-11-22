@@ -461,16 +461,16 @@ function parseCss(text, options = {}) {
 
   // calculateLoc(result, text);
 
-  // if (frontMatter) {
-  //   result.frontMatter = {
-  //     ...frontMatter,
-  //     type: "front-matter",
-  //     source: {
-  //       startOffset: frontMatter.start.index,
-  //       endOffset: frontMatter.end.index,
-  //     },
-  //   };
-  // }
+  if (frontMatter) {
+    result.frontMatter = {
+      ...frontMatter,
+      type: "front-matter",
+      source: {
+        startOffset: frontMatter.start.index,
+        endOffset: frontMatter.end.index,
+      },
+    };
+  }
 
   return result;
 }
