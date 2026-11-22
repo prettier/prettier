@@ -366,11 +366,6 @@ function extractWhitespaces(ast, options) {
 
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
-    // An empty node collapses as before. A node whose only child is
-    // whitespace-only text also collapses to dangling spaces -- unless it is
-    // indentation-sensitive (CSS `white-space: pre*`, e.g. `<pre>`,
-    // `<textarea>`), where that whitespace is visually significant and must be
-    // kept verbatim rather than dropped. See #20460.
     if (
       children.length === 0 ||
       (!isIndentationSensitive &&
