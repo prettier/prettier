@@ -22,6 +22,7 @@ import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
 import { printCssDeclaration } from "./print/css-declaration.js";
 import { printCssRoot } from "./print/css-root.js";
+import { printCssRule } from "./print/css-rule.js";
 import {
   adjustNumbers,
   adjustStrings,
@@ -36,7 +37,6 @@ import {
   insideAtRuleNode,
   insideValueFunctionNode,
   isDetachedRulesetCallNode,
-  isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
   isMediaAndSupportsKeywords,
   isNthPseudoClassNode,
@@ -62,27 +62,7 @@ function genericPrint(path, options, print) {
       return isInlineComment ? text.trimEnd() : text;
     }
     case "css-rule":
-      return [
-        print("selector"),
-        node.important ? " !important" : "",
-        node.nodes
-          ? [
-              node.selector?.type === "selector-unknown" &&
-              lastLineHasInlineComment(node.selector.value)
-                ? line
-                : node.selector
-                  ? " "
-                  : "",
-              "{",
-              node.nodes.length > 0
-                ? indent([hardline, printSequence(path, options, print)])
-                : "",
-              hardline,
-              "}",
-              isDetachedRulesetDeclarationNode(node) ? ";" : "",
-            ]
-          : ";",
-      ];
+      return printCssRule(path, options, print);
 
     case "css-decl":
       return printCssDeclaration(path, options, print);
