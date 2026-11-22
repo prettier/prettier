@@ -1,49 +1,30 @@
 import {
   breakParent,
   group,
-  hardline,
   indent,
   join,
   line,
-  literallineWithoutBreakParent,
-  replaceEndOfLine,
   softline,
 } from "../../../document/index.js";
 import isNonEmptyArray from "../../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../../loc.js";
 import {
-  insideAtRuleNode,
-  isKeyframeAtRuleKeywords,
-  isNthPseudoClassNode,
   lastLineHasInlineComment,
   maybeToLowerCase,
 } from "../../utilities/index.js";
-import { adjustNumbers, adjustStrings, quoteAttributeValue } from "../misc.js";
+import { adjustNumbers, adjustStrings } from "../misc.js";
+import { printAttributeSelector } from "./attribute.js";
+import { printCombinatorSelector } from "./combinator.js";
+import { printSelectorRoot } from "./root.js";
+import { printTagSelector } from "./tag.js";
 
 function printSelectorNode(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
     case "selector-root":
-      return group([
-        insideAtRuleNode(path, "custom-selector")
-          ? [
-              path.findAncestor((node) => node.type === "css-atrule")
-                .customSelector,
-              line,
-            ]
-          : "",
-        join(
-          [
-            ",",
-            insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
-              ? line
-              : hardline,
-          ],
-          path.map(print, "nodes"),
-        ),
-      ]);
+      return printSelectorRoot(path, options, print);
 
     case "selector-selector": {
       const shouldIndent = node.nodes.length > 2;
@@ -59,18 +40,7 @@ function printSelectorNode(path, options, print) {
       return adjustStrings(node.value, options);
 
     case "selector-tag":
-      return [
-        node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
-          : "",
-        path.previous?.type === "selector-nesting"
-          ? node.value
-          : adjustNumbers(
-              isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value,
-            ),
-      ];
+      return printTagSelector(path, options, print);
 
     case "selector-id":
       return ["#", node.value];
@@ -79,59 +49,11 @@ function printSelectorNode(path, options, print) {
       return [".", adjustNumbers(adjustStrings(node.value, options))];
 
     case "selector-attribute":
-      return [
-        "[",
-        node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
-          : "",
-        node.attribute.trim(),
-        node.operator ?? "",
-        node.value
-          ? replaceEndOfLine(
-              quoteAttributeValue(
-                adjustStrings(node.value.trim(), options),
-                options,
-              ),
-              literallineWithoutBreakParent,
-            )
-          : "",
-        node.insensitive ? " i" : "",
-        "]",
-      ];
+      return printAttributeSelector(path, options, print);
 
-    case "selector-combinator": {
-      if (
-        node.value === "+" ||
-        node.value === ">" ||
-        node.value === "~" ||
-        node.value === ">>>"
-      ) {
-        const parentNode = path.parent;
-        const isFirstNode =
-          parentNode.type === "selector-selector" &&
-          parentNode.nodes[0] === node;
-        const leading = isFirstNode ? "" : line;
+    case "selector-combinator":
+      return printCombinatorSelector(path, options, print);
 
-        // The leading `+` in An+B notation (e.g. `:nth-child(+2n)`) must stay
-        // glued to the following token, a space there is invalid per spec.
-        const isNthLeadingSign =
-          isFirstNode &&
-          node.value === "+" &&
-          isNthPseudoClassNode(path.grandparent);
-
-        return [
-          leading,
-          node.value,
-          path.isLast || isNthLeadingSign ? "" : " ",
-        ];
-      }
-
-      const leading = node.value.trimStart().startsWith("(") ? line : "";
-      const value =
-        adjustNumbers(adjustStrings(node.value.trim(), options)) || line;
-
-      return [leading, value];
-    }
     case "selector-universal":
       return [
         node.namespace
