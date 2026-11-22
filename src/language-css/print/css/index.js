@@ -12,7 +12,7 @@ function printCssNode(path, options, print) {
     case "css-root":
       return printCssRoot(path, options, print);
     case "css-comment":
-      return printCssComment(path, options, print);
+      return printCssComment(path, options /* , print */);
     case "css-rule":
       return printCssRule(path, options, print);
     case "css-decl":

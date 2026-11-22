@@ -6,7 +6,7 @@ import {
 } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
 
-function printUnknownSelector(path, options /* , print*/) {
+function printUnknownSelector(path, options /* , print */) {
   const { node } = path;
   const ruleAncestorNode = path.findAncestor(
     (node) => node.type === "css-rule",

@@ -2,7 +2,7 @@ import { line } from "../../../document/index.js";
 import { isNthPseudoClassNode } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
 
-function printCombinatorSelector(path, options /* , print*/) {
+function printCombinatorSelector(path, options /* , print */) {
   const { node } = path;
   if (
     node.value === "+" ||

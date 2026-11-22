@@ -1,7 +1,7 @@
 import { isKeyframeAtRuleKeywords } from "../../utilities/index.js";
 import { adjustNumbers } from "../misc.js";
 
-function printTagSelector(path /* , options , print*/) {
+function printTagSelector(path /* , options , print */) {
   const { node } = path;
   return [
     node.namespace

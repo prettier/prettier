@@ -1,7 +1,7 @@
 import { join } from "../../../document/index.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
+import { maybeToLowerCase } from "../../utilities/index.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
-import { maybeToLowerCase } from "../utilities/index.js";
 import { printMediaList } from "./query-list.js";
 
 function printMediaQueryNode(path, options, print) {

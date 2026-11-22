@@ -2,7 +2,7 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
-import { print } from "./print/print.js";
+import { print } from "./print/index.js";
 
 const features = {
   experimental_frontMatterSupport: {

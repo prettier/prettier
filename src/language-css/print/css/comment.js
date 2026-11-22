@@ -1,6 +1,6 @@
 import { locEnd, locStart } from "../../loc.js";
 
-function printCssComment(path, options /* , print*/) {
+function printCssComment(path, options /* , print */) {
   const { node } = path;
   const isInlineComment = node.inline || node.raws.inline;
 

@@ -36,7 +36,7 @@ function printSelectorNode(path, options, print) {
       return adjustStrings(node.value, options);
 
     case "selector-tag":
-      return printTagSelector(path, options, print);
+      return printTagSelector(path /* , options, print */);
 
     case "selector-id":
       return ["#", node.value];
@@ -45,10 +45,10 @@ function printSelectorNode(path, options, print) {
       return [".", adjustNumbers(adjustStrings(node.value, options))];
 
     case "selector-attribute":
-      return printAttributeSelector(path, options, print);
+      return printAttributeSelector(path, options /* , print */);
 
     case "selector-combinator":
-      return printCombinatorSelector(path, options, print);
+      return printCombinatorSelector(path, options /* , print */);
 
     case "selector-universal":
       return [
@@ -75,7 +75,7 @@ function printSelectorNode(path, options, print) {
       return node.value;
 
     case "selector-unknown":
-      return printUnknownSelector(path, options, print);
+      return printUnknownSelector(path, options /* , print */);
 
     default:
       /* c8 ignore next */

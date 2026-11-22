@@ -4,7 +4,7 @@ import {
 } from "../../../document/index.js";
 import { adjustStrings, quoteAttributeValue } from "../misc.js";
 
-function printAttributeSelector(path, options /* , print*/) {
+function printAttributeSelector(path, options /* , print */) {
   const { node } = path;
 
   return [

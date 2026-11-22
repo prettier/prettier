@@ -2,15 +2,15 @@ import { group, line, lineSuffix } from "../../../document/index.js";
 import printString from "../../../utilities/print-string.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../../loc.js";
-import { printCssNumber, printUnit } from "../misc.js";
-import printCommaSeparatedValueGroup from "./comma-separated-value-group.js";
-import { printParenthesizedValueGroup } from "./parenthesized-value-group.js";
 import {
   insideAtRuleNode,
   insideValueFunctionNode,
   isMediaAndSupportsKeywords,
   isWideKeywords,
-} from "./utilities/index.js";
+} from "../../utilities/index.js";
+import { printCssNumber, printUnit } from "../misc.js";
+import printCommaSeparatedValueGroup from "./comma-separated-value-group.js";
+import { printParenthesizedValueGroup } from "./parenthesized-value-group.js";
 
 function printValueNode(path, options, print) {
   const { node } = path;
