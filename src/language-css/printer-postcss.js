@@ -31,6 +31,7 @@ import {
 import { printParenthesizedValueGroup } from "./print/parenthesized-value-group.js";
 import printSequence from "./print/sequence.js";
 import {
+  getPropOfDeclNode,
   hasParensAroundNode,
   insideAtRuleNode,
   insideValueFunctionNode,
@@ -95,7 +96,11 @@ function genericPrint(path, options, print) {
                 : "",
               hardline,
               "}",
-              isDetachedRulesetDeclarationNode(node) ? ";" : "",
+              isDetachedRulesetDeclarationNode(node) ||
+              (node.raws?.ownSemicolon &&
+                getPropOfDeclNode(path)?.startsWith("--"))
+                ? ";"
+                : "",
             ]
           : ";",
       ];
