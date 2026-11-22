@@ -14,27 +14,12 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
-// cspell:words jscript livescript
-// https://mimesniff.spec.whatwg.org/#javascript-mime-type
-const javascriptMimeTypes = new Set([
-  "application/ecmascript",
-  "application/javascript",
-  "application/x-ecmascript",
-  "application/x-javascript",
-  "text/ecmascript",
+const standardScriptTypes = new Set([
+  "module",
+  "importmap",
+  "speculationrules",
   "text/javascript",
-  "text/javascript1.0",
-  "text/javascript1.1",
-  "text/javascript1.2",
-  "text/javascript1.3",
-  "text/javascript1.4",
-  "text/javascript1.5",
-  "text/jscript",
-  "text/livescript",
-  "text/x-ecmascript",
-  "text/x-javascript",
 ]);
-const specialScriptTypes = new Set(["module", "importmap", "speculationrules"]);
 
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
@@ -172,12 +157,8 @@ function isScriptDataBlock(node) {
     return false;
   }
 
-  const type = node.attrMap.type?.toLowerCase();
-  return (
-    Boolean(type) &&
-    !specialScriptTypes.has(type) &&
-    !javascriptMimeTypes.has(htmlWhitespace.trim(type))
-  );
+  const { type } = node.attrMap;
+  return Boolean(type) && !standardScriptTypes.has(type);
 }
 
 function isLeadingSpaceSensitiveNode(node, options) {

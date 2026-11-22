@@ -53,9 +53,9 @@ parsers: ["html"]
   alert(message);
 </script>
 <script type="application/javascript">
-  var message = "Alert!";
+var message = "Alert!";
 
-  alert(message);
+alert(message);
 </script>
 <script>
   var message = "Alert!";
