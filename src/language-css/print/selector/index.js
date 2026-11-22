@@ -13,6 +13,7 @@ import { printAttributeSelector } from "./attribute.js";
 import { printCombinatorSelector } from "./combinator.js";
 import { printSelectorRoot } from "./root.js";
 import { printTagSelector } from "./tag.js";
+import { printUniversalSelector } from "./universal.js";
 import { printUnknownSelector } from "./unknown.js";
 
 function printSelectorNode(path, options, print) {
@@ -51,12 +52,7 @@ function printSelectorNode(path, options, print) {
       return printCombinatorSelector(path, options /* , print */);
 
     case "selector-universal":
-      return [
-        node.namespace
-          ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
-          : "",
-        node.value,
-      ];
+      return printUniversalSelector(path /* , options  , print */);
 
     case "selector-pseudo":
       return [
