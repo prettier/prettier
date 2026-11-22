@@ -8,12 +8,8 @@ import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
 import { printCssNode } from "./print/css-node.js";
-import {
-  adjustNumbers,
-  adjustStrings,
-  printCssNumber,
-  printUnit,
-} from "./print/misc.js";
+import { printMediaQueryNode } from "./print/media-query-node.js";
+import { printCssNumber, printUnit } from "./print/misc.js";
 import { printParenthesizedValueGroup } from "./print/parenthesized-value-group.js";
 import { printSelectorNode } from "./print/selector-node.js";
 import {
@@ -21,7 +17,6 @@ import {
   insideValueFunctionNode,
   isMediaAndSupportsKeywords,
   isWideKeywords,
-  maybeToLowerCase,
 } from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
@@ -31,58 +26,15 @@ function genericPrint(path, options, print) {
     return printCssNode(path, options, print);
   }
 
-  if (node.type.startsWith("selector")) {
+  if (node.type.startsWith("selector-")) {
     return printSelectorNode(path, options, print);
   }
 
+  if (node.type.startsWith("media-")) {
+    return printMediaQueryNode(path, options, print);
+  }
+
   switch (node.type) {
-    // postcss-media-query-parser
-    case "media-query-list": {
-      const parts = [];
-      path.each(({ node }) => {
-        if (node.type === "media-query" && node.value === "") {
-          return;
-        }
-        parts.push(print());
-      }, "nodes");
-
-      return group(indent(join(line, parts)));
-    }
-    case "media-query":
-      return [join(" ", path.map(print, "nodes")), path.isLast ? "" : ","];
-
-    case "media-type":
-      return adjustNumbers(adjustStrings(node.value, options));
-
-    case "media-feature-expression":
-      if (!node.nodes) {
-        return node.value;
-      }
-      return ["(", ...path.map(print, "nodes"), ")"];
-
-    case "media-feature":
-      return maybeToLowerCase(
-        adjustStrings(node.value.replaceAll(/ +/g, " "), options),
-      );
-
-    case "media-colon":
-      return [node.value, " "];
-
-    case "media-value":
-      return adjustNumbers(adjustStrings(node.value, options));
-
-    case "media-keyword":
-      return adjustStrings(node.value, options);
-
-    case "media-url":
-      return adjustStrings(
-        node.value.replaceAll(/^url\(\s+/gi, "url(").replaceAll(/\s+\)$/g, ")"),
-        options,
-      );
-
-    case "media-unknown":
-      return node.value;
-
     // postcss-values-parser
     case "value-value":
     case "value-root":
