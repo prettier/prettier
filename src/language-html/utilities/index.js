@@ -97,6 +97,16 @@ function isPrettierIgnore(node) {
   return node.kind === "comment" && node.value.trim() === "prettier-ignore";
 }
 
+function isPrettierIgnoreStart(node) {
+  return (
+    node.kind === "comment" && node.value.trim() === "prettier-ignore-start"
+  );
+}
+
+function isPrettierIgnoreEnd(node) {
+  return node.kind === "comment" && node.value.trim() === "prettier-ignore-end";
+}
+
 /** there's no opening/closing tag or it's considered not breakable */
 function isTextLikeNode(node) {
   return (
@@ -630,6 +640,8 @@ export {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
+  isPrettierIgnoreEnd,
+  isPrettierIgnoreStart,
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
