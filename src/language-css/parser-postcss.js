@@ -456,6 +456,8 @@ function parseCss(text, options = {}) {
     });
   }
 
+  // console.log(result);
+
   options.originalText = text;
   // result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
