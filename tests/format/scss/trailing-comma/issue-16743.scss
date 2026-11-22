@@ -1,0 +1,38 @@
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2 // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2, // Comment
+  // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment 1
+  // Comment 2
+  // Comment 3
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': 2 // Comment
+);
+
+$my-map: (
+  'foo': 1,
+  'bar': (
+    'baz': 3 // Comment
+    // Comment
+  )
+);
+
+.foo {
+  bar: (
+    calc() // Comment
+    // Comment
+  );
+}

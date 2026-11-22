@@ -6,6 +6,7 @@ import {
   group,
   hardline,
   indent,
+  join,
   line,
   lineSuffix,
   softline,
@@ -45,6 +46,21 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
  */
+
+/**
+ * Whether the group at `index` starts a run of inline comments that lasts
+ * until the end of `groups`
+ *
+ * @param {*[]} groups
+ * @param {number} index
+ * @returns {boolean}
+ */
+function isTrailingInlineCommentsStart(groups, index) {
+  return (
+    index < groups.length &&
+    groups.slice(index).every((node) => isInlineValueCommentNode(node))
+  );
+}
 
 /**
  * @param {AstPath} path
@@ -99,14 +115,24 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
 
-    // If the node is comment and last node print it in a line suffix
-    if (isInlineValueCommentNode(iNode) && !iNextNode) {
+    // If the node is the first of the trailing inline comments, print all of
+    // them in a line suffix, so a trailing comma goes before the first one
+    if (isTrailingInlineCommentsStart(node.groups, i)) {
       // TODO: Improve this part
       // This `lineSuffix` should be done in `value-comment` print
       // But since we add `line` to groups in `value-paren_group`,
       // The format result looks bad for now
-      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
-      continue;
+      const separator =
+        parentNode.type === "value-paren_group" && !isDedentedByParent
+          ? dedent(hardline)
+          : hardline;
+
+      parts.push([
+        parts.pop(),
+        lineSuffix([" ", join(separator, printed.slice(i))]),
+      ]);
+
+      break;
     }
 
     parts.push([parts.pop(), printed[i]]);
@@ -561,9 +587,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // don't print line when the next node is a comment and last node
-    // it will be printed with the comment in a line suffix
-    if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
+    // don't print line when the next nodes are the trailing inline comments
+    // they will be printed in a line suffix
+    if (isTrailingInlineCommentsStart(node.groups, i + 1)) {
       continue;
     }
 
