@@ -1314,7 +1314,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -1441,7 +1440,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -1566,7 +1564,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -1693,7 +1690,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -1817,7 +1813,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -1934,7 +1929,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -2059,7 +2053,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -2208,7 +2201,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre>
  </pre>
 <pre>
@@ -2334,7 +2326,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -2461,7 +2452,6 @@ ___________________________
 </pre>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
 <pre> </pre>
 <pre>
 
@@ -5008,11 +4998,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 =====================================output=====================================
 <div>
@@ -5046,11 +5035,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 ================================================================================
 `;
@@ -5092,11 +5080,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 =====================================output=====================================
 <div>
@@ -5130,11 +5117,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 ================================================================================
 `;
@@ -5175,11 +5161,10 @@ printWidth: Infinity
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 =====================================output=====================================
 <div>
@@ -5213,11 +5198,10 @@ printWidth: Infinity
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 ================================================================================
 `;
@@ -5259,11 +5243,10 @@ printWidth: 1
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 =====================================output=====================================
 <div>
@@ -5304,15 +5287,10 @@ printWidth: 1
 lorem ipsum</textarea>
 </div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea
-  name="t"
->
+<textarea>
 
     </textarea>
-<textarea
-  name="u"
->
+<textarea>
   </textarea>
 
 ================================================================================
@@ -5354,11 +5332,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 =====================================output=====================================
 <div>
@@ -5392,11 +5369,10 @@ parsers: ["html"]
 
 <div><textarea>lorem ipsum</textarea></div>
 
-<!-- #20460: whitespace-only content is preserved, not dropped -->
-<textarea name="t">
+<textarea>
 
     </textarea>
-<textarea name="u">  </textarea>
+<textarea>  </textarea>
 
 ================================================================================
 `;

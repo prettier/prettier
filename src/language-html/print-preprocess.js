@@ -364,7 +364,6 @@ function extractWhitespaces(ast, options) {
       return;
     }
 
-    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     // An empty node collapses as before. A node whose only child is
@@ -383,6 +382,8 @@ function extractWhitespaces(ast, options) {
       node.$children = [];
       return;
     }
+
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
 
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
