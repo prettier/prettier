@@ -9,7 +9,7 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import getNodeContent from "../get-node-content.js";
+import getNodeContent from "../utilities/get-node-content.js";
 import {
   forceBreakContent,
   isPreLikeNode,

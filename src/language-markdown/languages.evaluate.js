@@ -5,7 +5,6 @@ const languages = [
   createLanguage(linguistLanguages.Markdown, (data) => ({
     parsers: ["markdown"],
     vscodeLanguageIds: ["markdown"],
-    filenames: [...data.filenames, "README"],
     extensions: data.extensions.filter((extension) => extension !== ".mdx"),
   })),
   createLanguage(linguistLanguages.Markdown, () => ({

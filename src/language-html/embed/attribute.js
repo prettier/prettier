@@ -71,4 +71,4 @@ function createAttributePrinter(printValue) {
   };
 }
 
-export default printAttribute;
+export { printAttribute };
