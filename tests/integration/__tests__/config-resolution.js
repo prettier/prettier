@@ -237,6 +237,54 @@ test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrow();
 });
 
+describe("API resolveConfig reloads module config file after clearConfigCache", () => {
+  const testDirectory = new URL(
+    "../cli/config/reload-module-config/working-directory/",
+    import.meta.url,
+  );
+  const originalConfig = { tabWidth: 3 };
+  const updatedConfig = { tabWidth: 5 };
+
+  beforeAll(async () => {
+    await fs.rm(testDirectory, { recursive: true, force: true });
+    await fs.mkdir(testDirectory, { recursive: true });
+  });
+
+  const resolveConfig = async (configFileName, content) => {
+    const directory = new URL(
+      `./directory-for-${configFileName}/`,
+      testDirectory,
+    );
+    const configFile = new URL(`./${configFileName}`, directory);
+    const fileToFormat = new URL("./file", configFile);
+    await fs.mkdir(directory, { recursive: true });
+    await fs.writeFile(configFile, content);
+    await prettier.clearConfigCache();
+    return await prettier.resolveConfig(fileToFormat);
+  };
+
+  for (const [configFileName, generate] of [
+    [
+      "prettier.config.mjs",
+      (config) => `export default ${JSON.stringify(config)};`,
+    ],
+    [
+      "prettier.config.cjs",
+      (config) => `module.exports = ${JSON.stringify(config)};`,
+    ],
+  ]) {
+    test(configFileName, async () => {
+      await expect(
+        resolveConfig(configFileName, generate(originalConfig)),
+      ).resolves.toStrictEqual(originalConfig);
+
+      await expect(
+        resolveConfig(configFileName, generate(updatedConfig)),
+      ).resolves.toStrictEqual(updatedConfig);
+    });
+  }
+});
+
 test("API resolveConfig overrides work with dotfiles", async () => {
   const file = new URL(
     "../cli/config/dot-overrides/.foo.json",

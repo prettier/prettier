@@ -216,7 +216,7 @@ function getBlockValueLineContents(
   /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
-    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
+    const matches = /^(?<leadingSpace> *)[^\n\r ]/m.exec(content);
     leadingSpaceCount = matches
       ? matches.groups.leadingSpace.length
       : Number.POSITIVE_INFINITY;

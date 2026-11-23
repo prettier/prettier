@@ -19,9 +19,19 @@ describe("extracts file-info for a markdown file", () => {
   });
 });
 
-describe("extracts file-info for a known markdown file with no extension", () => {
+describe("extracts file-info for a known file with no extension", () => {
+  runCli("cli/", ["--file-info", "Jakefile"]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("extracts file-info with inferredParser=null for README with no extension", () => {
   runCli("cli/", ["--file-info", "README"]).test({
     status: 0,
+    stderr: "",
+    write: [],
   });
 });
 
@@ -124,9 +134,9 @@ test("API getFileInfo with no args", async () => {
 });
 
 test("API getFileInfo with filepath only", async () => {
-  await expect(prettier.getFileInfo("README")).resolves.toStrictEqual({
+  await expect(prettier.getFileInfo("Jakefile")).resolves.toStrictEqual({
     ignored: false,
-    inferredParser: "markdown",
+    inferredParser: "babel",
   });
   await expect(
     prettier.getFileInfo("tsconfig.json", { resolveConfig: false }),

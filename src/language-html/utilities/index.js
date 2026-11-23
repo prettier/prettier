@@ -652,7 +652,6 @@ export {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
-  isScriptDataBlock,
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
