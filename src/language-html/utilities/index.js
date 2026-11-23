@@ -14,15 +14,6 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 import { hasOrInNgNonBindable } from "./ng-non-bindable.js";
 
-const indentationInsensitiveScriptTypes = new Set([
-  "module",
-  "importmap",
-  "speculationrules",
-  // Legacy JavaScript MIME types and types with charset parameters work without extra indentation.
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types#textjavascript
-  "text/javascript",
-]);
-
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
@@ -154,8 +145,17 @@ function isIndentationSensitiveNode(node) {
   return isScriptDataBlock(node) || isPreLikeNode(node);
 }
 
+const indentationInsensitiveScriptTypes = new Set([
+  "module",
+  "importmap",
+  "speculationrules",
+  // ["Legacy JavaScript MIME types"](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types#textjavascript)
+  // and MIME types with charset were intentionally left off the list
+  // since there is no reason to use them, and they still work without extra indentation.
+  "text/javascript",
+]);
 function isScriptDataBlock(node) {
-  if (node.kind !== "element" || node.fullName !== "script") {
+  if (!(node.kind === "element" || node.fullName === "script")) {
     return false;
   }
 
