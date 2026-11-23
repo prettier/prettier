@@ -1,6 +1,6 @@
-import { indent, line } from "../document/index.js";
-import { needsToBorrowPrevClosingTagEndMarker } from "./print/tag.js";
-import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
+import { indent, line } from "../../document/index.js";
+import { needsToBorrowPrevClosingTagEndMarker } from "../print/tag.js";
+import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescript-script.js";
 
 async function printInterpolationExpression(textToDoc, print, path, options) {
   const { node } = path;
