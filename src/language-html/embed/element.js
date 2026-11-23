@@ -36,17 +36,26 @@ async function printScriptLikeElementContent(
 }
 
 async function printScriptLikeElement(parser, textToDoc, print, path, options) {
-  const contentDoc = await path.call(
+  let contentDoc = await path.call(
     () =>
       printScriptLikeElementContent(parser, textToDoc, print, path, options),
     "children",
     0,
   );
 
+  if (
+    options.parser === "vue" &&
+    !options.vueIndentScriptAndStyle &&
+    path.parent.kind === "root"
+  ) {
+    contentDoc = [hardline, contentDoc, hardline];
+  } else {
+    contentDoc = [indent([hardline, contentDoc]), hardline];
+  }
+
   return [
     group(printOpeningTag(path, options, print)),
-    indent([hardline, contentDoc]),
-    hardline,
+    contentDoc,
     printClosingTag(path.node, options),
   ];
 }
