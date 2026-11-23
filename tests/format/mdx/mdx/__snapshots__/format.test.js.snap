@@ -113,6 +113,141 @@ foo(
 ================================================================================
 `;
 
+exports[`ignore-trailing-whitespace.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+An ignore comment followed by spaces:
+
+{/* prettier-ignore */}  
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment followed by a tab:
+
+{/* prettier-ignore */}	
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore range whose comments are followed by spaces:
+
+{/* prettier-ignore-start */}  
+
+| a | b |
+|-|-|
+| long cell | d |
+
+foo   *bar*
+
+{/* prettier-ignore-end */}  
+
+Formatted   *again*
+
+=====================================output=====================================
+An ignore comment followed by spaces:
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment followed by a tab:
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore range whose comments are followed by spaces:
+
+{/* prettier-ignore-start */}
+
+| a | b |
+|-|-|
+| long cell | d |
+
+foo   *bar*
+
+{/* prettier-ignore-end */}
+
+Formatted _again_
+
+================================================================================
+`;
+
+exports[`ignore-trailing-whitespace.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+An ignore comment followed by spaces:
+
+{/* prettier-ignore */}  
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment followed by a tab:
+
+{/* prettier-ignore */}	
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore range whose comments are followed by spaces:
+
+{/* prettier-ignore-start */}  
+
+| a | b |
+|-|-|
+| long cell | d |
+
+foo   *bar*
+
+{/* prettier-ignore-end */}  
+
+Formatted   *again*
+
+=====================================output=====================================
+An ignore comment followed by spaces:
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment followed by a tab:
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore range whose comments are followed by spaces:
+
+{/* prettier-ignore-start */}
+
+| a | b |
+|-|-|
+| long cell | d |
+
+foo   *bar*
+
+{/* prettier-ignore-end */}
+
+Formatted _again_
+
+================================================================================
+`;
+
 exports[`import-export.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]

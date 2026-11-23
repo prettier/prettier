@@ -19,6 +19,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getNthListSiblingIndex,
+  getParagraphEsComment,
   isAutolink,
   isPrettierIgnore,
   splitText,
@@ -430,13 +431,9 @@ function printIgnoreComment(node) {
     return node.value;
   }
 
-  if (
-    node.type === "paragraph" &&
-    Array.isArray(node.children) &&
-    node.children.length === 1 &&
-    node.children[0].type === "esComment"
-  ) {
-    return ["{/* ", node.children[0].value, " */}"];
+  const comment = getParagraphEsComment(node);
+  if (comment) {
+    return ["{/* ", comment.value, " */}"];
   }
 }
 

@@ -1,0 +1,29 @@
+An ignore comment followed by spaces:
+
+{/* prettier-ignore */}  
+
+```js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+```
+
+An ignore comment followed by a tab:
+
+{/* prettier-ignore */}	
+
+```js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+```
+
+An ignore range whose comments are followed by spaces:
+
+{/* prettier-ignore-start */}  
+
+| a | b |
+|-|-|
+| long cell | d |
+
+foo   *bar*
+
+{/* prettier-ignore-end */}  
+
+Formatted   *again*
