@@ -1,19 +1,11 @@
 import lessTestSuite from "less-test-suite";
 
 /* spell-checker: disable */
-const SKIP = new Set(["tests-unit/import/import/invalid-css.less"]);
-const BUGS = new Set([
-  // Can't parse
-  "tests-unit/variables/variable-advanced.less",
-  "tests-unit/property-accessors/property-accessors.less",
-  "tests-unit/plugin/plugin.less",
+const SKIP = new Set([
+  "tests-unit/import/import/invalid-css.less",
   "tests-unit/permissive-parse/permissive-parse.less",
-  "tests-unit/parser-property-interp/parser-property-interp.less",
-  "tests-unit/mixins-interpolated/mixins-interpolated.less",
-  "tests-unit/functions/functions.less",
-  "tests-unit/extract-and-length/extract-and-length.less",
-  "tests-unit/css-escapes/css-escapes.less",
 ]);
+const BUGS = new Set();
 /* spell-checker: enable */
 
 const testCases = lessTestSuite.filter(

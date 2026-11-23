@@ -77,6 +77,5 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     "oxc-ts": filesWithStructs,
     yuku: filesWithStructs,
     "yuku-ts": filesWithStructs,
-    hermes: filesWithStructs,
   },
 });

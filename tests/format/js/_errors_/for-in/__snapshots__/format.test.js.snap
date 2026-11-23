@@ -30,18 +30,6 @@ exports[`no-for-in-init-concise-binary-in.js format[flow] 1`] = `
 Cause: Invalid left-hand side in for-in (3:5)"
 `;
 
-exports[`no-for-in-init-concise-binary-in.js format[hermes] 1`] = `
-"')' expected after 'for(... in/of ...' (3:18)
-  1 | // https://github.com/babel/babel/pull/11931
-  2 |
-> 3 | for (() => x in y;;);
-    |                  ^
-  4 |
-Cause: ')' expected after 'for(... in/of ...' (3:17)
-for (() => x in y;;);
-    ~~~~~~~~~~~~~^"
-`;
-
 exports[`no-for-in-init-concise-binary-in.js format[oxc] 1`] = `
 "Cannot assign to this expression (3:6)
   1 | // https://github.com/babel/babel/pull/11931

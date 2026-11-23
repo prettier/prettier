@@ -21,15 +21,6 @@ exports[`snippet: #0 format[flow] 1`] = `
 Cause: Invalid left-hand side in for-in (1:5)"
 `;
 
-exports[`snippet: #0 format[hermes] 1`] = `
-"for-in/for-of variable declaration may not be initialized (1:14)
-> 1 | for (let a = 1 in b);
-    |              ^
-Cause: for-in/for-of variable declaration may not be initialized (1:13)
-for (let a = 1 in b);
-             ^"
-`;
-
 exports[`snippet: #0 format[meriyah] 1`] = `
 "'for-in' loop head declarations can not have an initializer (1:10)
 > 1 | for (let a = 1 in b);
@@ -89,15 +80,6 @@ exports[`snippet: #1 format[flow] 1`] = `
 Cause: Invalid left-hand side in for-in (1:5)"
 `;
 
-exports[`snippet: #1 format[hermes] 1`] = `
-"for-in/for-of variable declaration may not be initialized (1:16)
-> 1 | for (const a = 1 in b);
-    |                ^
-Cause: for-in/for-of variable declaration may not be initialized (1:15)
-for (const a = 1 in b);
-               ^"
-`;
-
 exports[`snippet: #1 format[meriyah] 1`] = `
 "'for-in' loop head declarations can not have an initializer (1:12)
 > 1 | for (const a = 1 in b);
@@ -155,15 +137,6 @@ exports[`snippet: #2 format[flow] 1`] = `
 > 1 | {for (using a = 1 in b);}
     |             ^
 Cause: Unexpected identifier, expected the token \`;\` (1:12)"
-`;
-
-exports[`snippet: #2 format[hermes] 1`] = `
-"';' or 'in' expected inside 'for' (1:15)
-> 1 | {for (using a = 1 in b);}
-    |               ^
-Cause: ';' or 'in' expected inside 'for' (1:14)
-{for (using a = 1 in b);}
- ~~~~~~~~~~~~~^"
 `;
 
 exports[`snippet: #2 format[meriyah] 1`] = `

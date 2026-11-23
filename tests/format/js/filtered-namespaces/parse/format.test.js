@@ -65,11 +65,6 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     ],
     meriyah: [...exportFilterTests, "import-source-phase.js"],
     flow: [...exportFilterTests, "import-source-phase.js"],
-    hermes: [
-      ...exportFilterTests,
-      "import-source-phase.js",
-      "named-import-duplicate-binding.js",
-    ],
     typescript: [...exportFilterTests, "import-source-phase.js"],
     oxc: [...exportFilterTests, "import-source-phase.js"],
     "oxc-ts": [...exportFilterTests, "import-source-phase.js"],

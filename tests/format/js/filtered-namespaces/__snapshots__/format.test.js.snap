@@ -55,18 +55,6 @@ exports[`dangling-comments.js format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (1:21)"
 `;
 
-exports[`dangling-comments.js format[hermes] 1`] = `
-"'from' expected (1:22)
-> 1 | import { /* a11 */ } as ns from "x";
-    |                      ^
-  2 | import {
-  3 | /* a12 */ } as ns from "x";
-  4 | import { // b11
-Cause: 'from' expected (1:21)
-import { /* a11 */ } as ns from "x";
-                     ^"
-`;
-
 exports[`dangling-comments.js format[meriyah] 1`] = `
 "Expected 'from' (1:22)
 > 1 | import { /* a11 */ } as ns from "x";
@@ -144,16 +132,6 @@ exports[`import-expression.js format[flow] 1`] = `
 Cause: Unexpected token \`import\`, expected the token \`;\` (1:25)"
 `;
 
-exports[`import-expression.js format[hermes] 1`] = `
-"';' expected (1:26)
-> 1 | const { format } = await import("my-library", { exports: ["format"] });
-    |                          ^
-  2 |
-Cause: ';' expected (1:25)
-const { format } = await import("my-library", { exports: ["format"] });
-                         ^"
-`;
-
 exports[`namespace-export-filter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -194,17 +172,6 @@ exports[`namespace-export-filter.js format[flow] 1`] = `
   2 | export { a, } as ns2 from "x";
   3 |
 Cause: Unexpected identifier, expected the token \`;\` (1:16)"
-`;
-
-exports[`namespace-export-filter.js format[hermes] 1`] = `
-"';' expected (1:17)
-> 1 | export { a, b } as ns from "x";
-    |                 ^
-  2 | export { a, } as ns2 from "x";
-  3 |
-Cause: ';' expected (1:16)
-export { a, b } as ns from "x";
-                ^"
 `;
 
 exports[`namespace-export-filter.js format[meriyah] 1`] = `
@@ -297,17 +264,6 @@ exports[`namespace-import-filter.js format[flow] 1`] = `
   2 | import { a, } as ns2 from "x";
   3 |
 Cause: Unexpected identifier, expected the keyword \`from\` (1:16)"
-`;
-
-exports[`namespace-import-filter.js format[hermes] 1`] = `
-"'from' expected (1:17)
-> 1 | import { a, b } as ns from "x";
-    |                 ^
-  2 | import { a, } as ns2 from "x";
-  3 |
-Cause: 'from' expected (1:16)
-import { a, b } as ns from "x";
-                ^"
 `;
 
 exports[`namespace-import-filter.js format[meriyah] 1`] = `

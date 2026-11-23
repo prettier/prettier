@@ -1,0 +1,12 @@
+a {
+test-collapse();
+store(@var);
+store(5);
+store("bird");}
+
+test-atrule("@charset"; '"utf-8"');
+test-atrule("@arbitrary"; "value after ()");
+#if {
+  if((false), {g: 7}); /* results in void */
+}
+e('/* anything to unquote */');

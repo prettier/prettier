@@ -181,18 +181,6 @@ exports[`asi-bind-expression.js - {"semi":false} format[flow] 1`] = `
 Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
 `;
 
-exports[`asi-bind-expression.js - {"semi":false} format[hermes] 1`] = `
-"invalid expression (3:1)
-  1 | foo;
-  2 | // prettier-ignore
-> 3 | ::obj.prop;
-    | ^
-  4 |
-Cause: invalid expression (3:0)
-::obj.prop;
-^"
-`;
-
 exports[`asi-bind-expression.js - {"semi":false} format[meriyah] 1`] = `
 "Unexpected token: ':' (3:1)
   1 | foo;
@@ -294,18 +282,6 @@ exports[`asi-bind-expression.js format[flow] 1`] = `
     | ^
   4 |
 Cause: Unexpected token \`:\`, expected the start of a statement (3:0)"
-`;
-
-exports[`asi-bind-expression.js format[hermes] 1`] = `
-"invalid expression (3:1)
-  1 | foo;
-  2 | // prettier-ignore
-> 3 | ::obj.prop;
-    | ^
-  4 |
-Cause: invalid expression (3:0)
-::obj.prop;
-^"
 `;
 
 exports[`asi-bind-expression.js format[meriyah] 1`] = `
@@ -522,6 +498,97 @@ class NeedsSemicolon {
 ================================================================================
 `;
 
+exports[`class-property-without-semicolon.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class WithoutSemicolon {
+  // prettier-ignore
+  a
+  // prettier-ignore
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c /* comment */;
+}
+
+=====================================output=====================================
+class WithoutSemicolon {
+  // prettier-ignore
+  a
+  // prettier-ignore
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a
+  // prettier-ignore
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+================================================================================
+`;
+
+exports[`class-property-without-semicolon.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class WithoutSemicolon {
+  // prettier-ignore
+  a
+  // prettier-ignore
+  #b
+  // prettier-ignore
+  c /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c /* comment */;
+}
+
+=====================================output=====================================
+class WithoutSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c; /* comment */
+}
+
+class WithSemicolon {
+  // prettier-ignore
+  a;
+  // prettier-ignore
+  #b;
+  // prettier-ignore
+  c; /* comment */
+}
+
+================================================================================
+`;
+
 exports[`directive.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -675,6 +742,193 @@ parsers: ["babel", "flow", "typescript"]
 =====================================output=====================================
 // prettier-ignore
 [].forEach();
+
+================================================================================
+`;
+
+exports[`statements-without-semicolon.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a() {
+  // prettier-ignore
+  foo
+  // prettier-ignore
+  foo;
+
+  // prettier-ignore
+  return foo
+  // prettier-ignore
+  return foo;
+
+  // prettier-ignore
+  throw foo
+  // prettier-ignore
+  throw foo;
+
+  // prettier-ignore
+  do{}while(0)
+  // prettier-ignore
+  do{}while(0);
+}
+
+function a11() {
+  // prettier-ignore
+  "use strict"
+}
+function a12() {
+  // prettier-ignore
+  "use strict";
+}
+
+// prettier-ignore
+import "foo"
+// prettier-ignore
+import "foo";
+
+let foo1, foo2
+// prettier-ignore
+export {foo1}
+// prettier-ignore
+export {foo2};
+
+=====================================output=====================================
+function a() {
+  // prettier-ignore
+  foo
+  // prettier-ignore
+  foo
+
+  // prettier-ignore
+  return foo
+  // prettier-ignore
+  return foo
+
+  // prettier-ignore
+  throw foo
+  // prettier-ignore
+  throw foo
+
+  // prettier-ignore
+  do{}while(0)
+  // prettier-ignore
+  do{}while(0)
+}
+
+function a11() {
+  // prettier-ignore
+  "use strict"
+}
+function a12() {
+  // prettier-ignore
+  "use strict"
+}
+
+// prettier-ignore
+import "foo"
+// prettier-ignore
+import "foo"
+
+let foo1, foo2
+// prettier-ignore
+export {foo1}
+// prettier-ignore
+export {foo2}
+
+================================================================================
+`;
+
+exports[`statements-without-semicolon.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a() {
+  // prettier-ignore
+  foo
+  // prettier-ignore
+  foo;
+
+  // prettier-ignore
+  return foo
+  // prettier-ignore
+  return foo;
+
+  // prettier-ignore
+  throw foo
+  // prettier-ignore
+  throw foo;
+
+  // prettier-ignore
+  do{}while(0)
+  // prettier-ignore
+  do{}while(0);
+}
+
+function a11() {
+  // prettier-ignore
+  "use strict"
+}
+function a12() {
+  // prettier-ignore
+  "use strict";
+}
+
+// prettier-ignore
+import "foo"
+// prettier-ignore
+import "foo";
+
+let foo1, foo2
+// prettier-ignore
+export {foo1}
+// prettier-ignore
+export {foo2};
+
+=====================================output=====================================
+function a() {
+  // prettier-ignore
+  foo;
+  // prettier-ignore
+  foo;
+
+  // prettier-ignore
+  return foo;
+  // prettier-ignore
+  return foo;
+
+  // prettier-ignore
+  throw foo;
+  // prettier-ignore
+  throw foo;
+
+  // prettier-ignore
+  do{}while(0);
+  // prettier-ignore
+  do{}while(0);
+}
+
+function a11() {
+  // prettier-ignore
+  "use strict";
+}
+function a12() {
+  // prettier-ignore
+  "use strict";
+}
+
+// prettier-ignore
+import "foo";
+// prettier-ignore
+import "foo";
+
+let foo1, foo2;
+// prettier-ignore
+export {foo1};
+// prettier-ignore
+export {foo2};
 
 ================================================================================
 `;

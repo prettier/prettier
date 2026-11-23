@@ -268,7 +268,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "DeclareVariable": [
     "declarations",
-    "id",
   ],
   "DeclaredPredicate": [
     "value",

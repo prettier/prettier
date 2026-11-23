@@ -40,7 +40,7 @@ import { printIntersectionType } from "./intersection-type.js";
 import { printKey } from "./key.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
-import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
+import { printMatchCase, printMatchPattern } from "./match.js";
 import {
   printAbstractToken,
   printDeclareToken,
@@ -57,6 +57,7 @@ import { printOpaqueType } from "./opaque-type.js";
 import { printParameterProperty } from "./parameter-property.js";
 import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
+import { printMatch } from "./switch-statement.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";
@@ -112,19 +113,8 @@ function printFlow(path, options, print, args) {
     case "DeclareNamespace":
       return printModuleDeclaration(path, options, print);
     case "DeclareVariable":
-      if (Array.isArray(node.declarations)) {
-        return printVariableDeclaration(path, options, print);
-      }
+      return printVariableDeclaration(path, options, print);
 
-      // TODO: Remove this part when hermes update AST
-      return [
-        printDeclareToken(path),
-        // TODO: Only use `node.kind` when babel update AST
-        node.kind ?? "var",
-        " ",
-        print("id"),
-        printSemicolon(options),
-      ];
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportDeclaration(path, options, print);

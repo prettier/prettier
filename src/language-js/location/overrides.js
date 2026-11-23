@@ -1,4 +1,5 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { classPropertyTypes } from "../utilities/node-types.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
@@ -39,14 +40,7 @@ const nodeTypesWithContentEnd = /** @type {const} */ ([
   "DoWhileStatement",
 
   // Properties
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "AbstractPropertyDefinition",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
+  ...classPropertyTypes,
 ]);
 
 const overrides =

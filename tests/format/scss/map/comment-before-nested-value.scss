@@ -1,0 +1,27 @@
+$map: (
+  "a": (1, 2),
+  // comment
+  "b": (3, 4),
+  /// doc comment
+  "c": (5, 6),
+  /* comment */
+  "d": (7, 8),
+  // comment
+  // comment
+  "e": (9, 10),
+);
+
+$map: (
+  /* comment */
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a: b, c: d),
+);
+
+$map: (
+  // comment
+  key: (a, b),
+);

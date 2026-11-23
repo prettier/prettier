@@ -77,18 +77,6 @@ exports[`constructor.js format[flow] 1`] = `
 Cause: Unexpected token \`@\`, expected an identifier (2:14)"
 `;
 
-exports[`constructor.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (2:15)
-  1 | class C {
-> 2 |   constructor(@decorator ...args) {}
-    |               ^
-  3 | }
-  4 |
-Cause: identifier, '{' or '[' expected in binding pattern (2:14)
-  constructor(@decorator ...args) {}
-              ^"
-`;
-
 exports[`constructor.js format[meriyah] 1`] = `
 "Expected ')' (2:15)
   1 | class C {
@@ -194,18 +182,6 @@ exports[`method.js format[flow] 1`] = `
 Cause: Unexpected token \`@\`, expected an identifier (2:9)"
 `;
 
-exports[`method.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (2:10)
-  1 | class C {
-> 2 |   method(@decorator ...args) {}
-    |          ^
-  3 | }
-  4 |
-Cause: identifier, '{' or '[' expected in binding pattern (2:9)
-  method(@decorator ...args) {}
-         ^"
-`;
-
 exports[`method.js format[meriyah] 1`] = `
 "Expected ')' (2:10)
   1 | class C {
@@ -309,18 +285,6 @@ exports[`setter.js format[flow] 1`] = `
   3 | }
   4 |
 Cause: Unexpected token \`@\`, expected an identifier (2:13)"
-`;
-
-exports[`setter.js format[hermes] 1`] = `
-"identifier, '{' or '[' expected in binding pattern (2:14)
-  1 | class C {
-> 2 |   set setter(@decorator ...args) {}
-    |              ^
-  3 | }
-  4 |
-Cause: identifier, '{' or '[' expected in binding pattern (2:13)
-  set setter(@decorator ...args) {}
-             ^"
 `;
 
 exports[`setter.js format[meriyah] 1`] = `

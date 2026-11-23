@@ -10,11 +10,22 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { printStatementSequence } from "./statement-sequence.js";
 
-function printSwitchStatement(path, options, print) {
+/*
+- `SwitchStatement`
+- `MatchExpression` (Flow)
+- `MatchStatement` (Flow)
+*/
+function printSwitchStatementLike(
+  path,
+  options,
+  print,
+  { keyword, headProperty },
+) {
   return [
     group([
-      "switch (",
-      indent([softline, print("discriminant")]),
+      keyword,
+      " (",
+      indent([softline, print(headProperty)]),
       softline,
       ")",
     ]),
@@ -37,6 +48,20 @@ function printSwitchStatement(path, options, print) {
     hardline,
     "}",
   ];
+}
+
+function printSwitchStatement(path, options, print) {
+  return printSwitchStatementLike(path, options, print, {
+    keyword: "switch",
+    headProperty: "discriminant",
+  });
+}
+
+function printMatch(path, options, print) {
+  return printSwitchStatementLike(path, options, print, {
+    keyword: "match",
+    headProperty: "argument",
+  });
 }
 
 function printSwitchCase(path, options, print) {
@@ -69,4 +94,4 @@ function printSwitchCase(path, options, print) {
   return parts;
 }
 
-export { printSwitchCase, printSwitchStatement };
+export { printMatch, printSwitchCase, printSwitchStatement };

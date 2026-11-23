@@ -48,7 +48,6 @@ const isNodeWithRaw = createTypeCheckFunction([
   astType?:
     | "espree"
     | "flow"
-    | "hermes"
     | "meriyah"
     | "oxc-js"
     | "oxc-ts"
@@ -141,11 +140,10 @@ function postprocess(ast, options) {
           break;
 
         case "TemplateElement":
-          // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
+          // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
           // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
           if (
             astType === "flow" ||
-            astType === "hermes" ||
             astType === "espree" ||
             astType === "typescript" ||
             astType === "oxc-ts" ||
@@ -178,13 +176,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        case "ImportDeclaration":
-          if (astType === "hermes" && node.assertions && !node.attributes) {
-            node.attributes = node.assertions;
-            delete node.assertions;
-          }
-          break;
-
         // Since flow@0.313.0 (reverted during 0.320.0~0.337.0), `TypeParameter.bound` is a bare type node without the `TypeAnnotation` wrapper
         // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03130
         // https://github.com/facebook/flow/issues/9449
@@ -194,28 +185,7 @@ function postprocess(ast, options) {
           }
           break;
 
-        // https://github.com/facebook/flow/blob/HEAD/Changelog.md#03370
-        case "EnumBooleanBody":
-        case "EnumNumberBody":
-        case "EnumBigIntBody":
-        case "EnumStringBody":
-        case "EnumSymbolBody":
-          if (astType === "hermes") {
-            if (node.explicitType || type === "EnumSymbolBody") {
-              node.explicitType = type
-                .slice(
-                  // `Enum`
-                  4,
-                  // `Body`
-                  -4,
-                )
-                .toLowerCase();
-            }
-            node.type = "EnumBody";
-          }
-          break;
-
-        // `hermes` and `babel-flow`
+        // `babel-flow`
         case "GenericTypeAnnotation":
         case "ClassImplements":
         case "InterfaceExtends":
@@ -227,6 +197,22 @@ function postprocess(ast, options) {
             node.typeArguments = node.typeParameters;
             delete node.typeParameters;
           }
+          break;
+
+        // `babel-flow`
+        case "DeclareVariable":
+          if (astType !== "flow" && !Array.isArray(node.declarations)) {
+            node.kind ??= "var";
+            node.declarations = [
+              {
+                type: "VariableDeclarator",
+                id: node.id,
+                range: [locStart(node.id), locEnd(node.id)],
+              },
+            ];
+            delete node.id;
+          }
+          break;
       }
     },
     onLeave(node) {
@@ -329,6 +315,7 @@ function setContentEnd(node, comments, originalText) {
 
   let end = locEndWithFullText(node);
   if (originalText[end - 1] !== ";") {
+    node.__contentEnd = end;
     return;
   }
 

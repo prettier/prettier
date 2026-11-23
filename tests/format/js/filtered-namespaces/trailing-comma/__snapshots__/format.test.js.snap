@@ -50,18 +50,6 @@ exports[`comma.js - {"trailingComma":"all"} format[flow] 1`] = `
 Cause: Unexpected identifier, expected the keyword \`from\` (4:2)"
 `;
 
-exports[`comma.js - {"trailingComma":"all"} format[hermes] 1`] = `
-"'from' expected (4:3)
-  2 |   // Comment force Break
-  3 |   foo
-> 4 | } as ns from 'foo'
-    |   ^
-  5 |
-Cause: 'from' expected (4:2)
-} as ns from 'foo'
-  ^"
-`;
-
 exports[`comma.js - {"trailingComma":"all"} format[meriyah] 1`] = `
 "Expected 'from' (4:3)
   2 |   // Comment force Break
@@ -166,18 +154,6 @@ exports[`comma.js - {"trailingComma":"none"} format[flow] 1`] = `
     |   ^
   5 |
 Cause: Unexpected identifier, expected the keyword \`from\` (4:2)"
-`;
-
-exports[`comma.js - {"trailingComma":"none"} format[hermes] 1`] = `
-"'from' expected (4:3)
-  2 |   // Comment force Break
-  3 |   foo
-> 4 | } as ns from 'foo'
-    |   ^
-  5 |
-Cause: 'from' expected (4:2)
-} as ns from 'foo'
-  ^"
 `;
 
 exports[`comma.js - {"trailingComma":"none"} format[meriyah] 1`] = `

@@ -77,7 +77,9 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "IfStatement" ||
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
-      parent.type === "DoWhileStatement");
+      parent.type === "DoWhileStatement" ||
+      parent.type === "MatchStatement" ||
+      parent.type === "MatchExpression");
 
   const parts = printBinaryishExpressions(
     path,
@@ -157,10 +159,6 @@ function printBinaryishExpression(path, options, print) {
     (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
   ) {
     return group(parts);
-  }
-
-  if (parts.length === 0) {
-    return "";
   }
 
   // If the right part is a JSX node, we include it in a separate group to

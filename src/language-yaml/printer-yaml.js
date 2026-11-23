@@ -27,6 +27,7 @@ import {
 import printMappingItem from "./print/mapping-item.js";
 import {
   alignWithSpaces,
+  markNextEmptyLinePrinted,
   printNextEmptyLine,
   shouldPrintEndComments,
 } from "./print/misc.js";
@@ -266,6 +267,10 @@ function printNode(path, options, print) {
           const shouldPreserveEmptyLine =
             isNode(lastChild, ["mapping"]) &&
             isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
+
+          if (shouldPreserveEmptyLine) {
+            markNextEmptyLinePrinted(path, lastChild);
+          }
 
           separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
         }

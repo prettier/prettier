@@ -2,8 +2,9 @@ import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import lineColumnToIndex from "../utilities/line-column-to-index.js";
 import { skipEverythingButNewLine } from "../utilities/skip.js";
 
-function fixValueWordLoc(node, originalIndex) {
-  const { value } = node;
+function fixValueLoc(node, originalIndex) {
+  const value =
+    node.type === "value-number" ? node.value + node.unit : node.value;
   if (value === "-" || value === "--" || value.charAt(0) !== "-") {
     return originalIndex;
   }
@@ -18,8 +19,8 @@ function calculateLocStart(node, text) {
 
   // value-* nodes have this
   if (typeof node.sourceIndex === "number") {
-    if (node.type === "value-word") {
-      return fixValueWordLoc(node, node.sourceIndex);
+    if (node.type === "value-word" || node.type === "value-number") {
+      return fixValueLoc(node, node.sourceIndex);
     }
     return node.sourceIndex;
   }
@@ -53,8 +54,8 @@ function calculateLocEnd(node, text) {
   if (node.source) {
     if (node.source.end) {
       const index = lineColumnToIndex(node.source.end, text);
-      if (node.type === "value-word") {
-        return fixValueWordLoc(node, index);
+      if (node.type === "value-word" || node.type === "value-number") {
+        return fixValueLoc(node, index);
       }
       return index;
     }
