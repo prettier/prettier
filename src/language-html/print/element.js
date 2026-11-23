@@ -19,6 +19,7 @@ import {
 } from "../utilities/index.js";
 import { printChildren } from "./children.js";
 import {
+  isIgnoredNodeWithClosingTag,
   needsToBorrowLastChildClosingTagEndMarker,
   needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
@@ -131,6 +132,18 @@ function printElement(path, options, print) {
     if (
       isPreLikeNode(node) &&
       needsToBorrowParentClosingTagStartMarker(node.lastChild)
+    ) {
+      return "";
+    }
+    /**
+     *     <span><!-- prettier-ignore --><br></span>
+     *                                       ~
+     */
+    if (
+      isIgnoredNodeWithClosingTag(node.lastChild) &&
+      node.lastChild.isTrailingSpaceSensitive &&
+      !node.lastChild.hasTrailingSpaces &&
+      !needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ) {
       return "";
     }

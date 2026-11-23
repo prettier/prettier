@@ -128,6 +128,35 @@ parsers: ["vue"]
 ================================================================================
 `;
 
+exports[`prettier-ignore.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <span><!-- prettier-ignore -->{{   ignoredValue   }}<b>followed_by_an_element_long_enough_to_break</b></span>
+  <span><!-- prettier-ignore -->{{   ignoredValue   }}followed_by_text_long_enough_to_break_the_line</span>
+  <span><!-- prettier-ignore -->{{   ignoredValue   }}<!-- followed by a comment long enough to break --></span>
+</template>
+
+=====================================output=====================================
+<template>
+  <span
+    ><!-- prettier-ignore -->{{   ignoredValue   }}<b
+      >followed_by_an_element_long_enough_to_break</b
+    ></span
+  >
+  <span
+    ><!-- prettier-ignore -->{{   ignoredValue   }}followed_by_text_long_enough_to_break_the_line</span
+  >
+  <span
+    ><!-- prettier-ignore -->{{   ignoredValue   }}<!-- followed by a comment long enough to break --></span
+  >
+</template>
+
+================================================================================
+`;
+
 exports[`template.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

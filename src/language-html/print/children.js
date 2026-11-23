@@ -18,14 +18,12 @@ import {
   preferHardlineAsLeadingSpaces,
 } from "../utilities/index.js";
 import {
-  needsToBorrowLastChildClosingTagEndMarker,
+  isIgnoredNodeWithClosingTag,
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
-  printClosingTagEndMarker,
   printClosingTagSuffix,
   printOpeningTagPrefix,
-  printOpeningTagStartMarker,
 } from "./tag.js";
 
 function getEndLocation(node) {
@@ -47,26 +45,11 @@ function printChild(path, options, print) {
   const child = path.node;
 
   if (hasPrettierIgnore(child)) {
-    const endLocation = getEndLocation(child);
-
     return [
       printOpeningTagPrefix(child, options),
       replaceEndOfLine(
         htmlWhitespace.trimEnd(
-          options.originalText.slice(
-            locStart(child) +
-              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-                ? printOpeningTagStartMarker(child).length
-                : 0),
-            endLocation -
-              ((
-                child.next
-                  ? needsToBorrowPrevClosingTagEndMarker(child.next)
-                  : needsToBorrowLastChildClosingTagEndMarker(child.parent)
-              )
-                ? printClosingTagEndMarker(child, options, true).length
-                : 0),
-          ),
+          options.originalText.slice(locStart(child), getEndLocation(child)),
         ),
       ),
       printClosingTagSuffix(child, options),
@@ -97,6 +80,18 @@ function printBetweenLine(prevNode, nextNode) {
     return softline;
   }
 
+  /**
+   *     <!-- prettier-ignore --><img>123
+   *                             ~    ~
+   */
+  if (
+    (hasPrettierIgnore(nextNode) || isIgnoredNodeWithClosingTag(prevNode)) &&
+    nextNode.isLeadingSpaceSensitive &&
+    !nextNode.hasLeadingSpaces
+  ) {
+    return "";
+  }
+
   if (
     needsToBorrowPrevClosingTagEndMarker(nextNode) &&
     prevNode.kind === "element" &&
@@ -109,13 +104,12 @@ function printBetweenLine(prevNode, nextNode) {
 
   if (
     (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-      (hasPrettierIgnore(nextNode) ||
-        /**
-         *     123<a
-         *          ~
-         *       ><b>
-         */
-        nextNode.firstChild ||
+      /**
+       *     123<a
+       *          ~
+       *       ><b>
+       */
+      (nextNode.firstChild ||
         /**
          *     123<!--
          *            ~

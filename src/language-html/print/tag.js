@@ -54,7 +54,7 @@ function printClosingTagEnd(node, options) {
 
 function printClosingTagPrefix(node, options) {
   return needsToBorrowLastChildClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.lastChild, options, true)
+    ? printClosingTagEndMarker(node.lastChild, options)
     : "";
 }
 
@@ -88,7 +88,7 @@ function printClosingTagStartMarker(node, options) {
   }
 }
 
-function printClosingTagEndMarker(node, options, isBorrowed = false) {
+function printClosingTagEndMarker(node, options) {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -104,23 +104,6 @@ function printClosingTagEndMarker(node, options, isBorrowed = false) {
       return "}";
     case "element":
       if (node.isSelfClosing) {
-        if (isBorrowed && hasPrettierIgnore(node)) {
-          const source = node.startSourceSpan.toString();
-          if (!source.endsWith("/>")) {
-            return ">";
-          }
-          const lastAttribute = node.attrs.at(-1);
-          // Keep unquoted values with the slash so trimming cannot change their value.
-          if (
-            lastAttribute?.valueSpan &&
-            !/^["']/.test(lastAttribute.valueSpan.toString())
-          ) {
-            return source.slice(
-              lastAttribute.valueSpan.start.offset -
-                node.startSourceSpan.start.offset,
-            );
-          }
-        }
         return "/>";
       }
     // fall through
@@ -134,6 +117,21 @@ function shouldNotPrintClosingTag(node, options) {
     !node.isSelfClosing &&
     !node.endSourceSpan &&
     (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
+  );
+}
+
+/**
+ * An ignored node prints its closing tag from the original source, so its
+ * neighbors must not borrow the closing tag end marker. Implicitly closed
+ * elements have no closing tag, while interpolations always end with `}}`.
+ */
+function isIgnoredNodeWithClosingTag(node) {
+  return (
+    hasPrettierIgnore(node) &&
+    !isTextLikeNode(node) &&
+    (node.isSelfClosing ||
+      Boolean(node.endSourceSpan) ||
+      node.kind === "interpolation")
   );
 }
 
@@ -152,6 +150,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
     node.prev.kind !== "docType" &&
     node.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
+    !isIgnoredNodeWithClosingTag(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
   );
@@ -169,6 +168,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isIgnoredNodeWithClosingTag(node.lastChild) &&
     !isPreLikeNode(node)
   );
 }
@@ -202,6 +202,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
   return (
     node.next &&
     !isTextLikeNode(node.next) &&
+    !hasPrettierIgnore(node.next) &&
     isTextLikeNode(node) &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
@@ -376,7 +377,7 @@ function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-      ? printClosingTagEndMarker(node.prev, options, true)
+      ? printClosingTagEndMarker(node.prev, options)
       : "";
 }
 
@@ -407,11 +408,6 @@ function printOpeningTagStartMarker(node, options) {
     case "angularIcuExpression":
       return "{";
     case "element":
-      if (hasPrettierIgnore(node)) {
-        return node.startSourceSpan
-          .toString()
-          .slice(0, node.nameSpan.end.offset - locStart(node));
-      }
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
       }
@@ -440,6 +436,7 @@ function printOpeningTagEndMarker(node) {
 }
 
 export {
+  isIgnoredNodeWithClosingTag,
   needsToBorrowLastChildClosingTagEndMarker,
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
@@ -454,5 +451,4 @@ export {
   printOpeningTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTagStart,
-  printOpeningTagStartMarker,
 };
