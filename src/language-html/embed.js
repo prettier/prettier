@@ -1,13 +1,7 @@
-import {
-  breakParent,
-  group,
-  hardline,
-  indent,
-  line,
-} from "../document/index.js";
-import htmlWhitespace from "../utilities/html-whitespace.js";
+import { group, hardline, indent, line } from "../document/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
+import { printScriptLikeElement } from "./embed/element.js";
 import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
 import {
@@ -38,9 +32,19 @@ function embed(path, options) {
 
   switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
-        // Fall through to "text"
-        return;
+      if (isScriptLikeTag(node, options)) {
+        if (!(node.children.length === 1 && node.children[0].kind === "text")) {
+          return;
+        }
+
+        const parser = inferElementParser(node, options);
+
+        if (!parser) {
+          return;
+        }
+
+        return (textToDoc, print, path, options) =>
+          printScriptLikeElement(parser, textToDoc, print, path, options);
       }
 
       if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
@@ -75,41 +79,7 @@ function embed(path, options) {
       break;
 
     case "text":
-      if (isScriptLikeTag(node.parent, options)) {
-        const parser = inferElementParser(node.parent, options);
-        if (parser) {
-          return async (textToDoc) => {
-            const value =
-              parser === "markdown"
-                ? htmlWhitespace.dedentString(
-                    node.value.replace(/^[^\S\n]*\n/, ""),
-                  )
-                : node.value;
-            const textToDocOptions = { parser, __embeddedInHtml: true };
-            if (options.parser === "html" && parser === "babel") {
-              let sourceType = "script";
-              const { attrMap } = node.parent;
-              if (
-                attrMap &&
-                (attrMap.type === "module" ||
-                  ((attrMap.type === "text/babel" ||
-                    attrMap.type === "text/jsx") &&
-                    attrMap["data-type"] === "module"))
-              ) {
-                sourceType = "module";
-              }
-              textToDocOptions.__babelSourceType = sourceType;
-            }
-
-            return [
-              breakParent,
-              printOpeningTagPrefix(node, options),
-              await textToDoc(value, textToDocOptions),
-              printClosingTagSuffix(node, options),
-            ];
-          };
-        }
-      } else if (node.parent.kind === "interpolation") {
+      if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
