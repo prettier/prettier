@@ -155,7 +155,7 @@ const indentationInsensitiveScriptTypes = new Set([
   "text/javascript",
 ]);
 function isScriptDataBlock(node) {
-  if (!(node.kind === "element" || node.fullName === "script")) {
+  if (!(node.kind === "element" && node.fullName === "script")) {
     return false;
   }
 
