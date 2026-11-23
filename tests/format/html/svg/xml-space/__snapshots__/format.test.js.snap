@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`embedded.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg>
+  <script xml:space="preserve">const   label="a  b"</script>
+  <style xml:space="preserve">text{  fill:  red }</style>
+  <script>const   label="a  b"</script>
+  <style>text{  fill:  red }</style>
+  <foreignObject><div xmlns="http://www.w3.org/1999/xhtml" xml:space="preserve">  text   <b>  spaces  </b>  </div></foreignObject>
+</svg>
+
+<svg xml:space="preserve"><script>const   label="a  b"</script><style>text{  fill:  red }</style></svg>
+<script xml:space="preserve">const   label="a  b"</script>
+
+=====================================output=====================================
+<svg>
+  <script xml:space="preserve">const   label="a  b"</script>
+  <style xml:space="preserve">text{  fill:  red }</style>
+  <script>
+    const label = "a  b";
+  </script>
+  <style>
+    text {
+      fill: red;
+    }
+  </style>
+  <foreignObject
+    ><div
+      xmlns="http://www.w3.org/1999/xhtml"
+      xml:space="preserve"
+    >  text   <b>  spaces  </b>  </div></foreignObject
+  >
+</svg>
+
+<svg
+  xml:space="preserve"
+><script>const   label="a  b"</script><style>text{  fill:  red }</style></svg>
+<script xml:space="preserve">
+  const label = "a  b";
+</script>
+
+================================================================================
+`;
+
+exports[`issue-10121.svg format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" height="26mm" width="37mm" xml:space="preserve" id="svg1308" version="1.1"><g transform="matrix(1.3333333,0,0,-1.3333333,0,204.01893)" id="g1316"><text y="-112.6013" x="105.33331" id="text1326" style="font-variant:normal;font-weight:bold;font-size:15px;font-family:'PT Sans';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="scale(1,-1)"><tspan y="-112.6013" id="tspan1324" x="105.33331">Right aligned</tspan></text></g></svg>
+=====================================output=====================================
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="26mm"
+  width="37mm"
+  xml:space="preserve"
+  id="svg1308"
+  version="1.1"
+><g transform="matrix(1.3333333,0,0,-1.3333333,0,204.01893)" id="g1316"><text y="-112.6013" x="105.33331" id="text1326" style="font-variant:normal;font-weight:bold;font-size:15px;font-family:'PT Sans';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="scale(1,-1)"><tspan y="-112.6013" id="tspan1324" x="105.33331">Right aligned</tspan></text></g></svg>
+
+================================================================================
+`;
+
+exports[`nested.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg xml:space="preserve"><text>before  <tspan xml:space="default">default   spaces <tspan xml:space="preserve">preserved   again</tspan></tspan>  after</text></svg>
+
+<svg xml:space="default">
+<text xml:space="preserve">  before <tspan>nested   text</tspan> after  </text>
+<text xml:space="default">  default   spaces  </text>
+<text>  ordinary   spaces  </text>
+</svg>
+
+=====================================output=====================================
+<svg
+  xml:space="preserve"
+><text>before  <tspan xml:space="default">default   spaces <tspan xml:space="preserve">preserved   again</tspan></tspan>  after</text></svg>
+
+<svg xml:space="default">
+  <text
+    xml:space="preserve"
+  >  before <tspan>nested   text</tspan> after  </text>
+  <text xml:space="default">default spaces</text>
+  <text>ordinary spaces</text>
+</svg>
+
+================================================================================
+`;
+
+exports[`not-preserved.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg>
+  <text>  ordinary   spaces  </text>
+  <text xml:space="default">  default   spaces  </text>
+  <text xml:space="normalize">  invalid   value  </text>
+  <text xml:space="PRESERVE">  uppercase   value  </text>
+</svg>
+
+<div xml:space="preserve">  ordinary   HTML <span>  content  </span> after  </div>
+<math><mtext xml:space="preserve">  ordinary   MathML  </mtext></math>
+
+=====================================output=====================================
+<svg>
+  <text>ordinary spaces</text>
+  <text xml:space="default">default spaces</text>
+  <text xml:space="normalize">invalid value</text>
+  <text xml:space="PRESERVE">uppercase value</text>
+</svg>
+
+<div xml:space="preserve">ordinary HTML <span> content </span> after</div>
+<math><mtext xml:space="preserve"> ordinary MathML </mtext></math>
+
+================================================================================
+`;
+
+exports[`preserve.html format 1`] = `
+====================================options=====================================
+parsers: ["html", "angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<svg>
+  <text xml:space="preserve">  one   <tspan>  two </tspan> three  </text>
+  <g xml:space="preserve"><text>  inherited   <tspan> spaces </tspan>  </text></g>
+  <text xml:space="preserve"></text>
+  <text xml:space="preserve" />
+  <text xml:space="preserve"> 
+ 	 </text>
+  <text xml:space="preserve">before  <!-- comment -->  <![CDATA[  inside   ]]><tspan> after  </tspan> end</text>
+</svg>
+
+<svg:svg><svg:text xml:space="preserve">  explicit   namespace  </svg:text></svg:svg>
+
+=====================================output=====================================
+<svg>
+  <text xml:space="preserve">  one   <tspan>  two </tspan> three  </text>
+  <g
+    xml:space="preserve"
+  ><text>  inherited   <tspan> spaces </tspan>  </text></g>
+  <text xml:space="preserve"></text>
+  <text xml:space="preserve" />
+  <text xml:space="preserve"> 
+ 	 </text>
+  <text
+    xml:space="preserve"
+  >before  <!-- comment -->  <![CDATA[  inside   ]]><tspan> after  </tspan> end</text>
+</svg>
+
+<svg:svg>
+  <svg:text xml:space="preserve">  explicit   namespace  </svg:text>
+</svg:svg>
+
+================================================================================
+`;
