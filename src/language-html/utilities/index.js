@@ -11,6 +11,7 @@ import {
 import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import inferParser from "../../utilities/infer-parser.js";
+import isBlockLikeCssDisplay from "../../utilities/is-block-like-css-display.js";
 import {
   CSS_DISPLAY_DEFAULT,
   CSS_DISPLAY_TAGS,
@@ -434,14 +435,6 @@ function inferElementParser(node, options) {
     inferScriptParser(node, options) ??
     inferStyleParser(node, options) ??
     inferVueSfcBlockParser(node, options)
-  );
-}
-
-function isBlockLikeCssDisplay(cssDisplay) {
-  return (
-    cssDisplay === "block" ||
-    cssDisplay === "list-item" ||
-    cssDisplay.startsWith("table")
   );
 }
 

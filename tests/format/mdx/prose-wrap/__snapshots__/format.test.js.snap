@@ -1,5 +1,389 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`block-elements.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <span>Hello</span>
+  <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div>
+  <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First
+  second</pre>
+  <div>After</div>
+</div>
+
+=====================================output=====================================
+<div>
+  <span>Hello</span> <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div> <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First second</pre>
+  <div>After</div>
+</div>
+
+================================================================================
+`;
+
+exports[`block-elements.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <span>Hello</span>
+  <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div>
+  <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First
+  second</pre>
+  <div>After</div>
+</div>
+
+=====================================output=====================================
+<div>
+  <span>Hello</span> <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div> <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First second</pre>
+  <div>After</div>
+</div>
+
+================================================================================
+`;
+
+exports[`block-elements.mdx - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <span>Hello</span>
+  <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div>
+  <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First
+  second</pre>
+  <div>After</div>
+</div>
+
+=====================================output=====================================
+<div>
+  <span>Hello</span>
+  <a href="#">world</a>
+</div>
+
+<div>
+  <Div>Custom</Div>
+  <Div>components</Div>
+</div>
+
+<div>
+  Before
+  <div>Block</div>
+  after <span>inline</span> text.
+</div>
+
+<table>
+  <tr><td>One</td>
+  <td>Two</td></tr>
+  <tr><td>Three</td></tr>
+</table>
+
+<div>
+  <div>First</div>
+
+  **Markdown** paragraph.
+
+  <div>Last</div>
+</div>
+
+<div>
+  <li>One</li> <li>Two</li>
+</div>
+
+<div>
+  <span>hello</span><span>world</span>
+</div>
+
+<div>
+  <pre>First
+  second</pre>
+  <div>After</div>
+</div>
+
+================================================================================
+`;
+
+exports[`nested.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
+exports[`nested.mdx - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
+exports[`nested.mdx - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+=====================================output=====================================
+<ul>
+  <li>Node.js server (eg. Express, Hono, Next.js)</li>
+  <li>Ruby on Rails server</li>
+  <li>PHP server (eg. Laravel)</li>
+</ul>
+
+<div>
+  <div>Hello <span>World</span></div>
+  Text <a href="#">link</a>
+</div>
+
+================================================================================
+`;
+
 exports[`wrap.mdx - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
