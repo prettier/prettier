@@ -36,6 +36,15 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
   };
 };
 
+function isSvgWithPreserveSpace(node) {
+  return (
+    node.kind === "element" &&
+    node.namespace === "svg" &&
+    node.endSourceSpan &&
+    node.attrMap["xml:space"] === "preserve"
+  );
+}
+
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
@@ -51,6 +60,10 @@ function shouldPreserveContent(node, options) {
   // incomplete HTML in ie conditional comment
   // e.g. <!--[if lt IE 9]></div><![endif]-->
   if (node.kind === "ieConditionalComment" && !node.complete) {
+    return true;
+  }
+
+  if (isSvgWithPreserveSpace(node)) {
     return true;
   }
 
@@ -631,6 +644,7 @@ export {
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
   isScriptLikeTag,
+  isSvgWithPreserveSpace,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isVueCustomBlock,
