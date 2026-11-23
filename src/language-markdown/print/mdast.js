@@ -1,6 +1,7 @@
 import collapseWhiteSpace from "collapse-white-space";
 import {
   align,
+  dedentToRoot,
   DOC_TYPE_STRING,
   fill,
   getDocType,
@@ -12,6 +13,7 @@ import {
   markAsRoot,
   replaceEndOfLine,
   softline,
+  trim,
 } from "../../document/index.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
@@ -95,12 +97,22 @@ function printMdast(path, options, print) {
   }
 
   switch (node.type) {
-    case "root":
+    case "root": {
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
         return "";
       }
-      return [printRoot(path, options, print), hardline];
+      const doc = printRoot(path, options, print);
+      const isEmbeddedInHtml =
+        options.__embeddedInHtml &&
+        ["angular", "html", "lwc", "mjml", "vue"].includes(
+          options.parentParser,
+        );
+
+      return isEmbeddedInHtml
+        ? [trim, dedentToRoot(doc), hardline]
+        : [doc, hardline];
+    }
     case "paragraph":
       return printParagraph(path, options, print);
     case "sentence":

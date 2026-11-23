@@ -5,7 +5,7 @@ import {
   printClosingTagEndMarker,
   printClosingTagStartMarker,
   printOpeningTagEndMarker,
-} from "./print/tag.js";
+} from "../print/tag.js";
 
 function getNodeContent(node, options) {
   if (!node.endSourceSpan) {
