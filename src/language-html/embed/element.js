@@ -1,13 +1,13 @@
 import { group, hardline, indent } from "../../document/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { printClosingTag, printOpeningTag } from "../print/tag.js";
-import getNodeContent from "./get-node-content.js";
+import getNodeContent from "../utilities/get-node-content.js";
 import {
   htmlTrimPreserveIndentation,
   inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
-} from "./utilities/index.js";
+} from "../utilities/index.js";
 
 async function printScriptLikeElementContent(
   parser,
