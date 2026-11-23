@@ -14,6 +14,8 @@ import {
   forceBreakChildren,
   forceNextEmptyLine,
   hasPrettierIgnore,
+  isPrettierIgnoreEnd,
+  isPrettierIgnoreStart,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
 } from "../utilities/index.js";
@@ -40,6 +42,51 @@ function getEndLocation(node) {
   }
 
   return endLocation;
+}
+
+// Returns the index of the comment closing the ignore range opened at
+// startIndex. Nested ranges are supported; an unclosed start ignores
+// everything until the end of the parent.
+function getIgnoreRangeEndIndex(children, startIndex) {
+  let depth = 0;
+  for (let i = startIndex; i < children.length; i++) {
+    if (isPrettierIgnoreStart(children[i])) {
+      depth++;
+    } else if (isPrettierIgnoreEnd(children[i])) {
+      depth--;
+      if (depth === 0) {
+        return i;
+      }
+    }
+  }
+  return children.length - 1;
+}
+
+// Maps ignore-start child indexes to their matching ignore-end index and
+// collects every index that is swallowed by a range.
+function getIgnoreRanges(children) {
+  const ranges = new Map();
+  const skipped = new Set();
+  for (let i = 0; i < children.length; i++) {
+    if (isPrettierIgnoreStart(children[i])) {
+      const endIndex = getIgnoreRangeEndIndex(children, i);
+      ranges.set(i, endIndex);
+      for (let j = i + 1; j <= endIndex; j++) {
+        skipped.add(j);
+      }
+    }
+  }
+  return { ranges, skipped };
+}
+
+// The node a child should compute its leading between-line against: skip
+// over children swallowed by an ignore range.
+function effectivePrevNode(children, skipped, index) {
+  let prevIndex = index - 1;
+  while (prevIndex >= 0 && skipped.has(prevIndex)) {
+    prevIndex--;
+  }
+  return prevIndex >= 0 ? children[prevIndex] : null;
 }
 
 function printChild(path, options, print) {
@@ -176,22 +223,43 @@ function printBetweenLine(prevNode, nextNode) {
 function printChildren(path, options, print) {
   const { node } = path;
 
+  const { ranges, skipped } = getIgnoreRanges(node.children);
+  const printIgnoredRange = (startIndex) => {
+    const endIndex = ranges.get(startIndex);
+    const startNode = node.children[startIndex];
+    const endNode = node.children[endIndex];
+    // Print the whole range (including both marker comments) verbatim.
+    return replaceEndOfLine(
+      options.originalText.slice(locStart(startNode), getEndLocation(endNode)),
+    );
+  };
+
   if (forceBreakChildren(node)) {
     return [
       breakParent,
 
       ...path.map(() => {
         const childNode = path.node;
-        const prevBetweenLine = !childNode.prev
+        const childIndex = path.index;
+        if (skipped.has(childIndex)) {
+          return "";
+        }
+        const prevNode = effectivePrevNode(node.children, skipped, childIndex);
+        const prevBetweenLine = !prevNode
           ? ""
-          : printBetweenLine(childNode.prev, childNode);
+          : printBetweenLine(prevNode, childNode);
+        if (ranges.has(childIndex)) {
+          return [
+            !prevBetweenLine
+              ? ""
+              : [prevBetweenLine, forceNextEmptyLine(prevNode) ? hardline : ""],
+            printIgnoredRange(childIndex),
+          ];
+        }
         return [
           !prevBetweenLine
             ? ""
-            : [
-                prevBetweenLine,
-                forceNextEmptyLine(childNode.prev) ? hardline : "",
-              ],
+            : [prevBetweenLine, forceNextEmptyLine(prevNode) ? hardline : ""],
           printChild(path, options, print),
         ];
       }, "children"),
@@ -200,11 +268,31 @@ function printChildren(path, options, print) {
 
   const groupIds = node.children.map(() => Symbol(""));
   return path.map(({ node: childNode, index: childIndex }) => {
+    if (skipped.has(childIndex)) {
+      return "";
+    }
+    if (ranges.has(childIndex)) {
+      // Mirror the text-like child semantics: the leading between-line is
+      // only emitted when the previous sibling is text-like as well.
+      const prevNode = effectivePrevNode(node.children, skipped, childIndex);
+      const prevBetweenLine =
+        prevNode && isTextLikeNode(prevNode)
+          ? printBetweenLine(prevNode, childNode)
+          : "";
+      if (prevBetweenLine) {
+        if (forceNextEmptyLine(prevNode)) {
+          return [hardline, hardline, printIgnoredRange(childIndex)];
+        }
+        return [prevBetweenLine, printIgnoredRange(childIndex)];
+      }
+      return printIgnoredRange(childIndex);
+    }
+    const effectivePrev = effectivePrevNode(node.children, skipped, childIndex);
     if (isTextLikeNode(childNode)) {
-      if (childNode.prev && isTextLikeNode(childNode.prev)) {
-        const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+      if (effectivePrev && isTextLikeNode(effectivePrev)) {
+        const prevBetweenLine = printBetweenLine(effectivePrev, childNode);
         if (prevBetweenLine) {
-          if (forceNextEmptyLine(childNode.prev)) {
+          if (forceNextEmptyLine(effectivePrev)) {
             return [hardline, hardline, printChild(path, options, print)];
           }
           return [prevBetweenLine, printChild(path, options, print)];
@@ -218,8 +306,8 @@ function printChildren(path, options, print) {
     const trailingParts = [];
     const nextParts = [];
 
-    const prevBetweenLine = childNode.prev
-      ? printBetweenLine(childNode.prev, childNode)
+    const prevBetweenLine = effectivePrev
+      ? printBetweenLine(effectivePrev, childNode)
       : "";
 
     const nextBetweenLine = childNode.next
@@ -227,7 +315,7 @@ function printChildren(path, options, print) {
       : "";
 
     if (prevBetweenLine) {
-      if (forceNextEmptyLine(childNode.prev)) {
+      if (forceNextEmptyLine(effectivePrev)) {
         prevParts.push(hardline, hardline);
       } else if (prevBetweenLine === hardline) {
         prevParts.push(hardline);

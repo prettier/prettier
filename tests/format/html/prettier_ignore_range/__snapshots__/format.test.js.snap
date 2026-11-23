@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`inline.html - {"parser":"html"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<p>before</p><!-- prettier-ignore-start --><b   id="raw">x</b><!-- prettier-ignore-end --><p>after</p>
+
+=====================================output=====================================
+<p>before</p>
+<!-- prettier-ignore-start --><b   id="raw">x</b><!-- prettier-ignore-end --><p>
+  after
+</p>
+
+================================================================================
+`;
+
+exports[`nested-and-unclosed.html - {"parser":"html"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div>
+  <!-- prettier-ignore-start -->
+  <ul><li>a</li><li>b</li></ul>
+  <!-- prettier-ignore-start -->
+  <pre>  inner   raw  </pre>
+  <!-- prettier-ignore-end -->
+  <ol><li>1</li></ol>
+  <!-- prettier-ignore-end -->
+  <p>formatted</p>
+</div>
+<div>
+  <!-- prettier-ignore-start -->
+  <p>unclosed range swallows the rest</p>
+  <p>also   raw</p>
+</div>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore-start -->
+  <ul><li>a</li><li>b</li></ul>
+  <!-- prettier-ignore-start -->
+  <pre>  inner   raw  </pre>
+  <!-- prettier-ignore-end -->
+  <ol><li>1</li></ol>
+  <!-- prettier-ignore-end -->
+  <p>formatted</p>
+</div>
+<div>
+  <!-- prettier-ignore-start -->
+  <p>unclosed range swallows the rest</p>
+  <p>also   raw</p>
+</div>
+
+================================================================================
+`;
+
+exports[`range.html - {"parser":"html"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div>
+      <!-- prettier-ignore-start -->
+      <table><tr><td>  keep   this   </td></tr></table>
+      <p   class="x"   >messy</p>
+      <!-- prettier-ignore-end -->
+      <p>this should be formatted normally</p>
+    </div>
+    <!-- prettier-ignore-start -->
+    <span>raw   text</span>
+    <!-- prettier-ignore-end -->
+    <p>formatted</p>
+  </body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html>
+  <body>
+    <div>
+      <!-- prettier-ignore-start -->
+      <table><tr><td>  keep   this   </td></tr></table>
+      <p   class="x"   >messy</p>
+      <!-- prettier-ignore-end -->
+      <p>this should be formatted normally</p>
+    </div>
+    <!-- prettier-ignore-start -->
+    <span>raw   text</span>
+    <!-- prettier-ignore-end -->
+    <p>formatted</p>
+  </body>
+</html>
+
+================================================================================
+`;

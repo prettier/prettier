@@ -108,7 +108,18 @@ matrix(
   (mousedown)="onStart()"
   (mouseup)="         onEnd      (    )         "
 ></div>
+
+<!-- prettier-ignore-start -->
+<div class="x">hello world</div>
+<table>
+  <tr>
+    <td>keep this</td>
+  </tr>
+</table>
+<!-- prettier-ignore-end -->
 ```
+
+Everything between `<!-- prettier-ignore-start -->` and `<!-- prettier-ignore-end -->` (including both marker comments) is printed verbatim, while the rest of the document is formatted normally. Ranges can be nested and may appear at any level of the document.
 
 ## CSS
 
