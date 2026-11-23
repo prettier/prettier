@@ -14,6 +14,8 @@ export type Equals<X, Y> =
     ? true
     : false;
 
+export type ConstructorEquals<X, Y> = (new <T>() => T) extends (new <T>() => T) ? true : false;
+
 export type _Repeat<A extends any, N extends number, L extends List = []> =
   __Repeat<N, A, L> extends infer X
   ? Cast<X, List>

@@ -48,7 +48,7 @@ exports[`invalid-destructuring-arr.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-destructuring-arr.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:2)
+"The left-hand side of an assignment expression may not be an optional property access (1:2)
 > 1 | [a?.b] = [];
     |  ^^^^
   2 |"
@@ -102,7 +102,7 @@ exports[`invalid-destructuring-obj.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-destructuring-obj.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:10)
+"The left-hand side of an assignment expression may not be an optional property access (1:10)
 > 1 | ({ prop: a?.b } = {});
     |          ^^^^
   2 |"
@@ -156,7 +156,7 @@ exports[`invalid-fn-param.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-fn-param.js format[yuku] 1`] = `
-"Expected ')' to close parameter list, but found '?.' (1:13)
+"Expected ')' to close the parameter list, but found '?.' (1:13)
 > 1 | function f(a?.b) {}
     |             ^^
   2 |"
@@ -210,7 +210,7 @@ exports[`invalid-fn-param-arrow.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-fn-param-arrow.js format[yuku] 1`] = `
-"Optional chaining is not allowed in binding pattern (1:2)
+"Optional chaining is not allowed in binding patterns (1:2)
 > 1 | (a?.b) => {}
     |  ^^^^
   2 |"
@@ -264,7 +264,7 @@ exports[`invalid-fn-param-assign.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-fn-param-assign.js format[yuku] 1`] = `
-"Expected ')' to close parameter list, but found '?.' (1:13)
+"Expected ')' to close the parameter list, but found '?.' (1:13)
 > 1 | function f(a?.b = c) {}
     |             ^^
   2 |"
@@ -318,7 +318,7 @@ exports[`invalid-for-await-of.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-for-await-of.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:6)
+"The left-hand side of an assignment expression may not be an optional property access (1:6)
 > 1 | for (a?.b of x);
     |      ^^^^
   2 |"
@@ -372,7 +372,7 @@ exports[`invalid-for-in.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-for-in.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:6)
+"The left-hand side of an assignment expression may not be an optional property access (1:6)
 > 1 | for (a?.b in x);
     |      ^^^^
   2 |"
@@ -426,7 +426,7 @@ exports[`invalid-for-of.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-for-of.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:6)
+"The left-hand side of an assignment expression may not be an optional property access (1:6)
 > 1 | for (a?.b of x);
     |      ^^^^
   2 |"
@@ -480,7 +480,7 @@ exports[`invalid-inc-postfix.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-inc-postfix.js format[yuku] 1`] = `
-"Invalid operand for increment/decrement operator (1:1)
+"The operand of an increment or decrement operator may not be an optional property access (1:1)
 > 1 | a?.b++;
     | ^^^^
   2 |"
@@ -534,7 +534,7 @@ exports[`invalid-inc-prefix.js format[oxc] 1`] = `
 `;
 
 exports[`invalid-inc-prefix.js format[yuku] 1`] = `
-"Invalid operand for increment/decrement operator (1:3)
+"The operand of an increment or decrement operator may not be an optional property access (1:3)
 > 1 | ++a?.b;
     |   ^^^^
   2 |"
@@ -591,7 +591,7 @@ exports[`valid-complex-case.js format[oxc] 1`] = `
 `;
 
 exports[`valid-complex-case.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:1)
+"The left-hand side of an assignment expression may not be an optional property access (1:1)
 > 1 | let?.()[a] =1;
     | ^^^^^^^^^^
   2 | let?.[a] = 1;
@@ -643,7 +643,7 @@ exports[`valid-lhs-eq.js format[oxc] 1`] = `
 `;
 
 exports[`valid-lhs-eq.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (1:1)
+"The left-hand side of an assignment expression may not be an optional property access (1:1)
 > 1 | a?.b.c = d;
     | ^^^^^^
   2 |"
@@ -694,7 +694,7 @@ exports[`valid-lhs-plus-eq.js format[oxc] 1`] = `
 `;
 
 exports[`valid-lhs-plus-eq.js format[yuku] 1`] = `
-"Invalid assignment target (1:1)
+"The left-hand side of an assignment expression may not be an optional property access (1:1)
 > 1 | a?.b.c += d;
     | ^^^^^^
   2 |"
@@ -745,7 +745,7 @@ exports[`valid-parenthesized.js format[oxc] 1`] = `
 `;
 
 exports[`valid-parenthesized.js format[yuku] 1`] = `
-"Parenthesized expression in assignment pattern must be a simple assignment target (1:2)
+"A parenthesized assignment target must be a variable or a property access (1:2)
 > 1 | (a?.b) = c;
     |  ^^^^
   2 |"

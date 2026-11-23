@@ -167,3 +167,56 @@ parsers: ["less"]
 
 ================================================================================
 `;
+
+exports[`lookup-4.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@config: {
+  @colors: {
+    primary: blue;
+  }
+  width: 10px;
+}
+
+@p: width;
+@q: primary;
+
+.box {
+  prop: @config[$width];
+  indirect-prop: @config[$@p];
+  indirect-prop: @config[ $@p ];
+  nested-indirect-prop: @config[@colors][$@q];
+  nested-indirect-prop: @config[@colors][ $@q ];
+}
+
+.set-theme-color(@property, @value, @theme) when not (@value = "") {
+  @{property}: @value[$@theme];
+}
+
+=====================================output=====================================
+@config: {
+  @colors: {
+    primary: blue;
+  };
+  width: 10px;
+};
+
+@p: width;
+@q: primary;
+
+.box {
+  prop: @config[$width];
+  indirect-prop: @config[$@p];
+  indirect-prop: @config[$@p];
+  nested-indirect-prop: @config[@colors][$@q];
+  nested-indirect-prop: @config[@colors][$@q];
+}
+
+.set-theme-color(@property, @value, @theme) when not (@value = "") {
+  @{property}: @value[$@theme];
+}
+
+================================================================================
+`;

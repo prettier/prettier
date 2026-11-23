@@ -15,7 +15,11 @@ const flowObjectTypeAnnotationChildrenProperties = [
 
 function iterateClassMembersPath(path, iteratee) {
   const { node } = path;
-  if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
+  if (
+    node.type === "ClassBody" ||
+    node.type === "StructBody" ||
+    node.type === "TSInterfaceBody"
+  ) {
     path.each(iteratee, "body");
     return;
   }
@@ -64,6 +68,7 @@ function iterateClassMembersPath(path, iteratee) {
 /**
 @param {
   | NodeMap["ClassBody"]
+  | NodeMap["StructBody"]
   | NodeMap["TSInterfaceBody"]
   | NodeMap["RecordDeclarationBody"]
   | NodeMap["ObjectTypeAnnotation"]

@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`adjacent.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span>{{  before+value  }}<![CDATA[{{  leave+this  }}]]>{{  after+value  }}</span>
+<span>before<![CDATA[first]]><b>bold</b><![CDATA[second]]>after</span>
+
+@if (  visible  ) {
+  <span><![CDATA[{{  leave+this  }}
+  keep   these spaces
+]]></span>
+}
+
+<span ngNonBindable>before @if (visible) {middle} <![CDATA[{{  leave+this  }}]]> after</span>
+
+=====================================output=====================================
+<span
+  >{{ before + value }}<![CDATA[{{  leave+this  }}]]>{{ after + value }}</span
+>
+<span>before<![CDATA[first]]><b>bold</b><![CDATA[second]]>after</span>
+
+@if (visible) {
+  <span
+    ><![CDATA[{{  leave+this  }}
+  keep   these spaces
+]]></span
+  >
+}
+
+<span ngNonBindable
+  >before @if (visible) {middle}
+  <![CDATA[{{  leave+this  }}]]>
+  after</span
+>
+
+================================================================================
+`;
+
+exports[`example.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
+
+=====================================output=====================================
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
+
+================================================================================
+`;
+
+exports[`interpolation.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<![CDATA[{{  title     +    subtitle  }}
+  <span   class="value">  keep    these  spaces  </span>
+]]>
+
+=====================================output=====================================
+<![CDATA[{{  title     +    subtitle  }}
+  <span   class="value">  keep    these  spaces  </span>
+]]>
+
+================================================================================
+`;

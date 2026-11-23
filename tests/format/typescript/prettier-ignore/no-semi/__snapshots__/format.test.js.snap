@@ -1,5 +1,163 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`class-property.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  accessor   a   =   1  +2   ;
+  [b] = 2;
+  // prettier-ignore
+  abstract   c  :   number   ;
+  [d]: number;
+  // prettier-ignore
+  abstract   accessor   e  :   number   ;
+  [f]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  accessor   a   =   1  +2;
+  [b] = 2
+  // prettier-ignore
+  abstract   c  :   number;
+  [d]: number
+  // prettier-ignore
+  abstract   accessor   e  :   number;
+  [f]: number
+}
+
+================================================================================
+`;
+
+exports[`class-property.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  accessor   a   =   1  +2   ;
+  [b] = 2;
+  // prettier-ignore
+  abstract   c  :   number   ;
+  [d]: number;
+  // prettier-ignore
+  abstract   accessor   e  :   number   ;
+  [f]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  accessor   a   =   1  +2;
+  [b] = 2;
+  // prettier-ignore
+  abstract   c  :   number;
+  [d]: number;
+  // prettier-ignore
+  abstract   accessor   e  :   number;
+  [f]: number;
+}
+
+================================================================================
+`;
+
+exports[`class-property-without-semicolon.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  accessor a = 1
+  // prettier-ignore
+  abstract b: number
+  // prettier-ignore
+  abstract accessor c: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  accessor a = 1;
+  // prettier-ignore
+  abstract b: number;
+  // prettier-ignore
+  abstract accessor c: number;
+}
+
+=====================================output=====================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  accessor a = 1
+  // prettier-ignore
+  abstract b: number
+  // prettier-ignore
+  abstract accessor c: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  accessor a = 1
+  // prettier-ignore
+  abstract b: number
+  // prettier-ignore
+  abstract accessor c: number
+}
+
+================================================================================
+`;
+
+exports[`class-property-without-semicolon.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  accessor a = 1
+  // prettier-ignore
+  abstract b: number
+  // prettier-ignore
+  abstract accessor c: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  accessor a = 1;
+  // prettier-ignore
+  abstract b: number;
+  // prettier-ignore
+  abstract accessor c: number;
+}
+
+=====================================output=====================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  accessor a = 1;
+  // prettier-ignore
+  abstract b: number;
+  // prettier-ignore
+  abstract accessor c: number;
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  accessor a = 1;
+  // prettier-ignore
+  abstract b: number;
+  // prettier-ignore
+  abstract accessor c: number;
+}
+
+================================================================================
+`;
+
 exports[`prettier-ignore-parenthesized-type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

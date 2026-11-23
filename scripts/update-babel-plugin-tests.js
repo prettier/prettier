@@ -14,7 +14,18 @@ const testDirectory = new URL(
 );
 const docUrl =
   "https://raw.githubusercontent.com/babel/website/HEAD/docs/parser.md";
+const docUrlMirror = `https://cdn.jsdelivr.net/gh/${docUrl.split("/").slice(3).toSpliced(2, 1).join("/")}`;
 const cacheFile = new URL("../.tmp/babel-parser-plugins.md", import.meta.url);
+
+async function fetchText(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Fetch '${url}' failed.`);
+  }
+
+  return await response.text();
+}
 
 async function getDoc() {
   let stat;
@@ -33,13 +44,7 @@ async function getDoc() {
     await fs.rm(cacheFile);
   }
 
-  const response = await fetch(docUrl);
-
-  if (!response.ok) {
-    throw new Error(`Fetch '${docUrl}' failed.`);
-  }
-
-  const text = await response.text();
+  const text = await Promise.any([fetchText(docUrl), fetchText(docUrlMirror)]);
 
   await fs.writeFile(cacheFile, text);
 

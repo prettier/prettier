@@ -21,16 +21,6 @@ exports[`outside-functions.js format[flow] 1`] = `
 Cause: Unexpected token \`.\` (1:13)"
 `;
 
-exports[`outside-functions.js format[hermes] 1`] = `
-"'new.target' not in a function (1:11)
-> 1 | const x = new.target;
-    |           ^
-  2 |
-Cause: 'new.target' not in a function (1:10)
-const x = new.target;
-          ^~~~~~~~~~"
-`;
-
 exports[`range.js format 1`] = `
     : ====================================options=====================================
     : parsers: ["babel", "flow", "typescript"]
@@ -63,14 +53,4 @@ exports[`range.js format[flow] 1`] = `
 > 2 | new.target;
     |    ^
 Cause: Unexpected token \`.\` (2:3)"
-`;
-
-exports[`range.js format[hermes] 1`] = `
-"'new.target' not in a function (2:1)
-  1 | const x =
-> 2 | new.target;
-    | ^
-Cause: 'new.target' not in a function (2:0)
-new.target;
-^~~~~~~~~~"
 `;

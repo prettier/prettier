@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`html-block.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- a
+
+  <div>
+
+  - b
+  - c
+
+  </div>
+
+- d
+
+=====================================output=====================================
+- a
+
+  <div>
+
+  - b
+  - c
+
+  </div>
+
+- d
+
+================================================================================
+`;
+
+exports[`html-comment.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- a
+
+  <!-- comment -->
+
+  - b
+
+- c
+  <!-- comment -->
+  - d
+
+=====================================output=====================================
+- a
+
+  <!-- comment -->
+
+  - b
+
+- c
+  <!-- comment -->
+  - d
+
+================================================================================
+`;
+
+exports[`issue-17738.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+
+    - Lorem
+    - ipsum
+    - dolor
+  </details>
+
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+    - Lorem
+    - ipsum
+    - dolor
+  </details>
+
+<details>
+  <summary>Summary title</summary>
+
+  - Lorem
+  - ipsum
+  - dolor
+</details>
+
+<details>
+  <summary>Summary title</summary>
+  - Lorem
+  - ipsum
+  - dolor
+</details>
+
+=====================================output=====================================
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+
+  - Lorem
+  - ipsum
+  - dolor
+
+  </details>
+
+- Some text in an unordered list
+
+  <details>
+    <summary>Summary title</summary>
+    - Lorem
+    - ipsum
+    - dolor
+  </details>
+
+<details>
+  <summary>Summary title</summary>
+
+- Lorem
+- ipsum
+- dolor
+
+</details>
+
+<details>
+  <summary>Summary title</summary>
+  - Lorem
+  - ipsum
+  - dolor
+</details>
+
+================================================================================
+`;

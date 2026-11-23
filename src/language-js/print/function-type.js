@@ -1,6 +1,7 @@
 import { group } from "../../document/index.js";
 import { hasSameLocStart } from "../location/index.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
+import { isConstructorType } from "../utilities/node-types.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
@@ -19,17 +20,15 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 - `TSConstructorType` (TypeScript)
 - `TSConstructSignatureDeclaration` (TypeScript)
 - `FunctionTypeAnnotation` (Flow)
+- `ConstructorTypeAnnotation` (Flow)
 */
 function printFunctionType(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [
-    // `TSConstructorType` only
-    printAbstractToken(path),
-  ];
+  const parts = [printAbstractToken(path)];
 
   if (
-    node.type === "TSConstructorType" ||
+    isConstructorType(node) ||
     node.type === "TSConstructSignatureDeclaration"
   ) {
     parts.push("new ");
@@ -46,11 +45,19 @@ function printFunctionType(path, options, print) {
   const returnTypeDoc = [];
   // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
-  if (node.type === "FunctionTypeAnnotation") {
-    returnTypeDoc.push(
-      isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
-      print("returnType"),
-    );
+  if (
+    node.type === "FunctionTypeAnnotation" ||
+    node.type === "ConstructorTypeAnnotation"
+  ) {
+    if (node.returnType) {
+      returnTypeDoc.push(
+        node.type === "ConstructorTypeAnnotation" ||
+          isFlowArrowFunctionTypeAnnotation(path)
+          ? " => "
+          : ": ",
+        print("returnType"),
+      );
+    }
   } else {
     returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
@@ -79,6 +86,12 @@ function isFlowArrowFunctionTypeAnnotation(path) {
   const { node, parent } = path;
   return (
     node.type === "FunctionTypeAnnotation" &&
+    parent.type !== "AbstractMethodDefinition" &&
+    !(
+      (parent.type === "ObjectTypeProperty" ||
+        parent.type === "ObjectTypeInternalSlot") &&
+      parent.method
+    ) &&
     (isFlowObjectTypePropertyAFunction(parent) ||
       !(
         ((parent.type === "ObjectTypeProperty" ||
@@ -87,7 +100,9 @@ function isFlowArrowFunctionTypeAnnotation(path) {
           !parent.optional &&
           hasSameLocStart(parent, node)) ||
         parent.type === "ObjectTypeCallProperty" ||
-        path.getParentNode(2)?.type === "DeclareFunction"
+        (parent.type === "TypeAnnotation" &&
+          (path.grandparent?.type === "DeclareFunction" ||
+            path.getParentNode(2)?.type === "DeclareFunction"))
       ))
   );
 }

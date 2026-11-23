@@ -1,3 +1,39 @@
+# 3.10.1
+
+[diff](https://github.com/prettier/prettier/compare/3.10.0...3.10.1)
+
+#### GraphQL: Fix empty selection set with comments ([#20504](https://github.com/prettier/prettier/pull/20504) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```gql
+# Input
+fragment F on Query {
+  # x
+}
+
+# Prettier 3.10.0
+Error: Comment "x" was not printed. Please report this error!
+
+# Prettier 3.10.1
+fragment F on Query {
+  # x
+}
+```
+
+# 3.10.0
+
+[diff](https://github.com/prettier/prettier/compare/3.9.10...3.10.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2026/11/11/3.10.0)
+
+# 3.9.10
+
+[diff](https://github.com/prettier/prettier/compare/3.9.9...3.9.10)
+
+#### Markdown: Update `micromark-extension-gfm-table` to fix the table parse issue on performance ([#20266](https://github.com/prettier/prettier/pull/20266) by [@fisker](https://github.com/fisker))
+
+See https://github.com/micromark/micromark-extension-gfm-table/commit/4f43ead37b786bc531d924530d4ab4c714886267 for details.
+
 # 3.9.9
 
 [diff](https://github.com/prettier/prettier/compare/3.9.8...3.9.9)

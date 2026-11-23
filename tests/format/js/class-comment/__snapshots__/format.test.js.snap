@@ -147,3 +147,22 @@ class A10 extends /* a */ /* prettier-ignore */ B {}
 
 ================================================================================
 `;
+
+exports[`superclass-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class A11 extends (/* c */ <div />) {}
+class A12 extends (/* c *//* prettier-ignore */ <div />) {}
+class A13 extends (/* c */ <></>) {}
+class A14 extends (<div /> /* c */) {}
+
+=====================================output=====================================
+class A11 extends (/* c */ <div />) {}
+class A12 extends /* c */ /* prettier-ignore */ (<div />) {}
+class A13 extends (/* c */ <></>) {}
+class A14 extends (<div /> /* c */) {}
+
+================================================================================
+`;

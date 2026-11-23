@@ -18,11 +18,13 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isClassProperty } from "../utilities/node-types.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
 - `ClassBody`
+- `StructBody`
 - `TSInterfaceBody` (TypeScript)
 - `TSTypeLiteral` (TypeScript)
 - `ObjectTypeAnnotation` (Flow)
@@ -172,6 +174,7 @@ function isClassBody(path) {
 
   return (
     node.type === "ClassBody" ||
+    node.type === "StructBody" ||
     node.type === "TSInterfaceBody" ||
     node.type === "RecordDeclarationBody"
   );
@@ -206,16 +209,6 @@ function printClassMemberSemicolon(path, options) {
 
   return "";
 }
-
-const isClassProperty = createTypeCheckFunction([
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
-]);
 
 const isKeywordProperty = (node) => {
   if (node.computed || node.typeAnnotation) {
@@ -267,10 +260,12 @@ function shouldPrintSemicolonAfterClassProperty(
   // "declare" or "static" keyword before it.
   if (
     isClassProperty(nextNode) &&
+    // Flow abstract properties cannot have variance or static modifiers, and
+    // their AST nodes do not have a `static` field.
+    nextNode.type !== "AbstractPropertyDefinition" &&
     !nextNode.static &&
     // @ts-expect-error -- Safe
     nextNode.variance &&
-    // @ts-expect-error -- Safe
     !nextNode.declare
   ) {
     return true;
@@ -279,9 +274,11 @@ function shouldPrintSemicolonAfterClassProperty(
   switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
+    case "AbstractPropertyDefinition":
     case "TSAbstractPropertyDefinition":
       return nextNode.computed;
     case "MethodDefinition":
+    case "AbstractMethodDefinition":
     case "TSAbstractMethodDefinition":
     case "ClassMethod":
     case "ClassPrivateMethod": {

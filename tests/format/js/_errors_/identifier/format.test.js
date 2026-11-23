@@ -10,5 +10,4 @@ runFormatTest(import.meta, [
   "yuku",
   "yuku-ts",
   "flow",
-  "hermes",
 ]);

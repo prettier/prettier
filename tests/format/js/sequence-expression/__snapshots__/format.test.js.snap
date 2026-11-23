@@ -333,3 +333,62 @@ function a() {
 
 ================================================================================
 `;
+
+exports[`unary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+!(a, b);
+!(aLongIdentifierName, aLongIdentifierName, aLongIdentifierName, aLongIdentifierName);
+
+=====================================output=====================================
+!(a, b);
+!(
+  aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName
+);
+
+================================================================================
+`;
+
+exports[`yield.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function* f() {
+  yield (a, b);
+  yield (aLongIdentifierName, aLongIdentifierName, aLongIdentifierName, aLongIdentifierName);
+  yield* (aLongIdentifierName, aLongIdentifierName, aLongIdentifierName, aLongIdentifierName);
+  yield (
+    // comment
+    a, b
+  );
+}
+
+=====================================output=====================================
+function* f() {
+  yield (a, b);
+  yield (
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName
+  );
+  yield* (
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName
+  );
+  yield (
+    // comment
+    a, b
+  );
+}
+
+================================================================================
+`;

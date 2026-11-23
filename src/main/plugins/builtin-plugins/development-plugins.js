@@ -74,7 +74,6 @@ export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
       "babel-ts",
       "espree",
       "flow",
-      "hermes",
       "meriyah",
       "oxc",
       "oxc-ts",

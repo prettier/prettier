@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comment-before-arrow.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a = () /* before arrow */ =>
+null;
+a = () => /* after arrow */
+null;
+a = (/* in parentheses */) =>
+null;
+
+=====================================output=====================================
+a = () /* before arrow */ => null;
+a = () => /* after arrow */ null;
+a = (/* in parentheses */) => null;
+
+================================================================================
+`;
+
+exports[`multiple-comments-before-arrow.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const f11 = (a) /* b */ /* c */ => a;
+const f12 = (a) /* b *//* c */ => a;
+const f13 = (a) /* b */   /* c */ => a;
+
+const f2 = async (a) /* b */ /* c */ => a;
+const f3 = a /* b */ /* c */ /* d */ => a;
+const f4 = (a) /* b *//* c */ /* d */ => a;
+
+=====================================output=====================================
+const f11 = (a) /* b */ /* c */ => a;
+const f12 = (a) /* b *//* c */ => a;
+const f13 = (a) /* b */ /* c */ => a;
+
+const f2 = async (a) /* b */ /* c */ => a;
+const f3 = (a) /* b */ /* c */ /* d */ => a;
+const f4 = (a) /* b *//* c */ /* d */ => a;
+
+================================================================================
+`;

@@ -56,6 +56,7 @@ async function buildPlaygroundFiles(version) {
   const pluginFiles = [];
 
   // Builtin plugins
+  // eslint-disable-next-line unicorn/prefer-array-from-map
   for (const fileName of await fastGlob(["plugins/*.mjs"], {
     cwd: path.join(packagesDirectory, "prettier"),
   })) {
@@ -65,9 +66,6 @@ async function buildPlaygroundFiles(version) {
   // TODO: Support stable version
   // External plugins
   if (version === "next") {
-    for (const pluginName of ["plugin-hermes"]) {
-      pluginFiles.push(`${pluginName}/index.mjs`);
-    }
     for (const pluginName of ["plugin-oxc", "plugin-yuku"]) {
       pluginFiles.push(`${pluginName}/index.browser.mjs`);
     }

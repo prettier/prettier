@@ -21,7 +21,7 @@ Cause: Only a single variable declaration is allowed in a 'for...of' statement."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected ';' after for-loop init, but found 'X' (1:13)
+"Expected ';' after the loop initializer, but found 'X' (1:13)
 > 1 | for (var of X);
     |             ^"
 `;
@@ -47,7 +47,7 @@ Cause: Only a single variable declaration is allowed in a 'for...of' statement."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Unexpected token ')' (1:15)
+"Expected an expression, but found ')' (1:15)
 > 1 | for (var of of);
     |               ^"
 `;
@@ -73,7 +73,7 @@ Cause: Only a single variable declaration is allowed in a 'for...in' statement."
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"'in' is reserved and cannot be used as a binding identifier (1:10)
+"'in' is a reserved word and cannot be used as a binding identifier (1:10)
 > 1 | for (var in X);
     |          ^^"
 `;

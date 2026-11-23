@@ -52,7 +52,7 @@ exports[`no-semi.js - {"semi":false} format[oxc] 1`] = `
 `;
 
 exports[`no-semi.js - {"semi":false} format[yuku] 1`] = `
-"Unexpected token ':' (2:2)
+"Expected an expression, but found ':' (2:2)
   1 | a
 > 2 | ;::b.c
     |  ^
@@ -110,7 +110,7 @@ exports[`no-semi.js format[oxc] 1`] = `
 `;
 
 exports[`no-semi.js format[yuku] 1`] = `
-"Unexpected token ':' (2:2)
+"Expected an expression, but found ':' (2:2)
   1 | a
 > 2 | ;::b.c
     |  ^

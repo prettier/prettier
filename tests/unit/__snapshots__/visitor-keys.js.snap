@@ -2,6 +2,16 @@
 
 exports[`visitor keys estree 1`] = `
 {
+  "AbstractMethodDefinition": [
+    "key",
+    "value",
+  ],
+  "AbstractPropertyDefinition": [
+    "key",
+    "typeAnnotation",
+    "value",
+    "variance",
+  ],
   "AccessorProperty": [
     "decorators",
     "key",
@@ -112,7 +122,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ClassImplements": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "ClassMethod": [
     "body",
@@ -176,6 +186,12 @@ exports[`visitor keys estree 1`] = `
     "falseType",
     "trueType",
   ],
+  "ConstructorTypeAnnotation": [
+    "params",
+    "rest",
+    "returnType",
+    "typeParameters",
+  ],
   "ContinueStatement": [
     "label",
   ],
@@ -187,6 +203,10 @@ exports[`visitor keys estree 1`] = `
     "implements",
     "mixins",
     "typeParameters",
+  ],
+  "DeclareClassExtendsCall": [
+    "argument",
+    "callee",
   ],
   "DeclareComponent": [
     "id",
@@ -212,6 +232,7 @@ exports[`visitor keys estree 1`] = `
   "DeclareFunction": [
     "id",
     "predicate",
+    "typeAnnotation",
   ],
   "DeclareHook": [
     "id",
@@ -247,7 +268,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "DeclareVariable": [
     "declarations",
-    "id",
   ],
   "DeclaredPredicate": [
     "value",
@@ -315,6 +335,9 @@ exports[`visitor keys estree 1`] = `
     "exported",
     "source",
   ],
+  "ExportAssignment": [
+    "expression",
+  ],
   "ExportDefaultDeclaration": [
     "declaration",
   ],
@@ -329,12 +352,16 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportNamespaceSpecifier": [
     "exported",
+    "exportsFilter",
   ],
   "ExportSpecifier": [
     "exported",
     "local",
   ],
   "ExpressionStatement": [
+    "expression",
+  ],
+  "ExternalModuleReference": [
     "expression",
   ],
   "File": [
@@ -385,7 +412,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "GenericTypeAnnotation": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "HookDeclaration": [
     "body",
@@ -421,16 +448,24 @@ exports[`visitor keys estree 1`] = `
   "ImportDefaultSpecifier": [
     "local",
   ],
+  "ImportEqualsDeclaration": [
+    "id",
+    "moduleReference",
+  ],
   "ImportExpression": [
     "options",
     "source",
   ],
   "ImportNamespaceSpecifier": [
+    "exportsFilter",
     "local",
   ],
   "ImportSpecifier": [
     "imported",
     "local",
+  ],
+  "ImportType": [
+    "source",
   ],
   "IndexedAccessType": [
     "indexType",
@@ -448,7 +483,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "InterfaceExtends": [
     "id",
-    "typeParameters",
+    "typeArguments",
   ],
   "InterfaceTypeAnnotation": [
     "body",
@@ -634,11 +669,17 @@ exports[`visitor keys estree 1`] = `
   "NGRoot": [
     "node",
   ],
+  "NamespaceExportDeclaration": [
+    "id",
+  ],
   "NeverTypeAnnotation": [],
   "NewExpression": [
     "arguments",
     "callee",
     "typeArguments",
+  ],
+  "NonNullExpression": [
+    "expression",
   ],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
@@ -690,11 +731,16 @@ exports[`visitor keys estree 1`] = `
   ],
   "ObjectTypeMappedTypeProperty": [
     "keyTparam",
+    "nameType",
     "propType",
     "sourceType",
     "variance",
   ],
+  "ObjectTypePrivateField": [
+    "key",
+  ],
   "ObjectTypeProperty": [
+    "init",
     "key",
     "value",
     "variance",
@@ -722,6 +768,13 @@ exports[`visitor keys estree 1`] = `
   "OptionalMemberExpression": [
     "object",
     "property",
+  ],
+  "ParameterProperty": [
+    "decorators",
+    "key",
+    "typeAnnotation",
+    "value",
+    "variance",
   ],
   "ParenthesizedExpression": [
     "expression",
@@ -810,6 +863,14 @@ exports[`visitor keys estree 1`] = `
   "StringLiteral": [],
   "StringLiteralTypeAnnotation": [],
   "StringTypeAnnotation": [],
+  "StructBody": [
+    "body",
+  ],
+  "StructDeclaration": [
+    "body",
+    "id",
+    "superClass",
+  ],
   "Super": [],
   "SwitchCase": [
     "consequent",
@@ -1097,6 +1158,10 @@ exports[`visitor keys estree 1`] = `
     "expressions",
     "quasis",
   ],
+  "TemplateLiteralTypeAnnotation": [
+    "quasis",
+    "types",
+  ],
   "ThisExpression": [],
   "ThisTypeAnnotation": [],
   "ThrowStatement": [
@@ -1110,6 +1175,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "TupleTypeAnnotation": [
     "elementTypes",
+  ],
+  "TupleTypeElement": [
+    "elementType",
   ],
   "TupleTypeLabeledElement": [
     "elementType",

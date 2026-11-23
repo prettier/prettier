@@ -21,7 +21,7 @@ Cause: Declarations with definite assignment assertions must also have type anno
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"A declaration with a definite assignment assertion must also have a type annotation (1:5)
+"Declarations with definite assignment assertions must also have type annotations (1:5)
 > 1 | let x!
     |     ^"
 `;
@@ -47,7 +47,7 @@ Cause: Declarations with initializers cannot also have definite assignment asser
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"A declaration with an initializer cannot also have a definite assignment assertion (1:5)
+"Declarations with initializers cannot also have definite assignment assertions (1:5)
 > 1 | let x! = 1
     |     ^"
 `;
@@ -73,7 +73,7 @@ Cause: Declarations with definite assignment assertions must also have type anno
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"A declaration with a definite assignment assertion must also have a type annotation (1:10)
+"Declarations with definite assignment assertions must also have type annotations (1:10)
 > 1 | class C {x!}
     |          ^"
 `;
@@ -99,7 +99,7 @@ Cause: Declarations with definite assignment assertions must also have type anno
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"A declaration with an initializer cannot also have a definite assignment assertion (1:10)
+"Declarations with initializers cannot also have definite assignment assertions (1:10)
 > 1 | class C {x! = 1}
     |          ^"
 `;
@@ -125,7 +125,7 @@ Cause: Declarations with definite assignment assertions must also have type anno
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"A declaration with a definite assignment assertion must also have a type annotation (1:19)
+"Declarations with definite assignment assertions must also have type annotations (1:19)
 > 1 | class C {accessor x!}
     |                   ^"
 `;
@@ -151,7 +151,7 @@ Cause: Declarations with definite assignment assertions must also have type anno
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"A declaration with an initializer cannot also have a definite assignment assertion (1:19)
+"Declarations with initializers cannot also have definite assignment assertions (1:19)
 > 1 | class C {accessor x! = 1}
     |                   ^"
 `;

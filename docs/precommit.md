@@ -242,6 +242,12 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
+# Abort if formatting removed all staged changes.
+if git diff --cached --quiet; then
+  echo "Prettier formatting removed all staged changes. Commit aborted."
+  exit 1
+fi
+
 exit 0
 ```
 

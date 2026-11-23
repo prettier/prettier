@@ -1,0 +1,1 @@
+export default function /* before parameters */ (/* parameter */ value: number): /* return */ void;

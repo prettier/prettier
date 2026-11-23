@@ -28,6 +28,83 @@ const foo = bar<T>;
 ================================================================================
 `;
 
+exports[`before-operator.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = (a + make<T>) - y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + make<T>;
+x = (make<T>) in (make<T>)
+x = (make<T>) instanceof (make<T>)
+x = (typeof make<T>) + y;
+x = (void make<T>) - y;
+x = (delete make<T>) < y;
+x = (!make<T>) > y;
+x = (-make<T>) >> y;
+x = (+make<T>) - y;
+x = (~make<T>) + y;
+x = (<any>make<T>) + y;
+x = (a + typeof make<T>) - y;
+x = (typeof typeof make<T>) + y;
+x = (typeof make<T>) in (typeof make<T>)
+x = (typeof make<T>) in (make<T>)
+async function* f() {
+  x = (<any>await make<T>) < y;
+  x = (typeof await make<T>) + y;
+  x = (typeof (yield make<T>)) + y;
+  x = (<any>(yield make<T>)) - y;
+  x = (<any>(yield)) - y;
+}
+
+=====================================output=====================================
+x = (make<T>) + y;
+x = (make<T>) - y;
+x = (make<T>) < y;
+x = (make<T>) > y;
+x = (make<T>) >= y;
+x = (make<T>) >> y;
+x = (make<T>) >>> y;
+x = a + (make<T>) - y;
+x = (make<T>) * y;
+x = (make<T>) <= y;
+x = (make<T>) === y;
+x = y + (make<T>);
+x = (make<T>) in make<T>;
+x = (make<T>) instanceof make<T>;
+x = (typeof make<T>) + y;
+x = (void make<T>) - y;
+x = (delete make<T>) < y;
+x = (!make<T>) > y;
+x = (-make<T>) >> y;
+x = (+make<T>) - y;
+x = (~make<T>) + y;
+x = (<any>make<T>) + y;
+x = a + (typeof make<T>) - y;
+x = (typeof typeof make<T>) + y;
+x = (typeof make<T>) in (typeof make<T>);
+x = (typeof make<T>) in make<T>;
+async function* f() {
+  x = (<any>await make<T>) < y;
+  x = (typeof (await make<T>)) + y;
+  x = (typeof (yield make<T>)) + y;
+  x = (<any>(yield make<T>)) - y;
+  x = <any>(yield) - y;
+}
+
+================================================================================
+`;
+
 exports[`binary-expr.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -39,6 +116,32 @@ C
 =====================================output=====================================
 new A<B>();
 C;
+
+================================================================================
+`;
+
+exports[`export-default-class.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default (class {})<string>;
+
+=====================================output=====================================
+export default (class {}<string>);
+
+================================================================================
+`;
+
+exports[`export-default-function.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default (function () {})<string>;
+
+=====================================output=====================================
+export default (function () {}<string>);
 
 ================================================================================
 `;
@@ -107,6 +210,122 @@ new A<T>;
 =====================================output=====================================
 // new
 new A<T>();
+
+================================================================================
+`;
+
+exports[`non-null-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a = (make<T>)!;
+(make<T>)!.b;
+(make<T>)!();
+
+=====================================output=====================================
+const a = (make<T>)!;
+(make<T>)!.b;
+(make<T>)!();
+
+================================================================================
+`;
+
+exports[`operand.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+x = (c ? a : b)<T>;
+x =  c ? a : b <T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x =  a + b <T>;
+
+x = (a ?? b)<T>;
+x =  a ?? b <T>;
+
+x = (a in b)<T>;
+x =  a in b <T>;
+
+x = (a ** b)<T>;
+x =  a ** b <T>;
+
+x = (!a)<T>;
+x =  !a <T>;
+
+x = (typeof a)<T>;
+x =  typeof a <T>;
+
+x = (a as B)<T>;
+x =  a as B <T>;
+
+x = (a satisfies B)<T>;
+x =  a satisfies B <T>;
+
+x = (<B>a)<T>;
+x =  <B>a <T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = (a.b)<T>;
+x =  a.b <T>;
+
+x = (a())<T>;
+x =  a() <T>;
+
+=====================================output=====================================
+x = (c ? a : b)<T>;
+x = c ? a : b<T>;
+
+x = (y++)<T>;
+// x =  y++ <T>;
+
+x = (++y)<T>;
+// x =  ++y <T>;
+
+x = (a + b)<T>;
+x = a + (b<T>);
+
+x = (a ?? b)<T>;
+x = a ?? b<T>;
+
+x = (a in b)<T>;
+x = a in b<T>;
+
+x = (a ** b)<T>;
+x = a ** (b<T>);
+
+x = (!a)<T>;
+x = !a<T>;
+
+x = (typeof a)<T>;
+x = typeof a<T>;
+
+x = (a as B)<T>;
+x = a as B<T>;
+
+x = (a satisfies B)<T>;
+x = a satisfies B<T>;
+
+x = (<B>a)<T>;
+x = <B>a<T>;
+
+x = (a<U>)<T>;
+// x =  a<U> <T>;
+
+x = a.b<T>;
+x = a.b<T>;
+
+x = a()<T>;
+x = a()<T>;
 
 ================================================================================
 `;

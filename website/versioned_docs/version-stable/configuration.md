@@ -139,7 +139,7 @@ JSON:
   "semi": false,
   "overrides": [
     {
-      "files": "*.test.js",
+      "files": ["*.test.js"],
       "options": {
         "semi": true
       }
@@ -159,7 +159,8 @@ YAML:
 ```yaml title=".prettierrc"
 semi: false
 overrides:
-  - files: "*.test.js"
+  - files:
+      - "*.test.js"
     options:
       semi: true
   - files:
@@ -171,6 +172,8 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
+`files` patterns are matched against the file path relative to the directory containing the configuration file, not the current working directory, so `legacy/**/*.js` only matches files inside the `legacy/` directory next to that configuration file. A pattern without a `/`, such as `*.html`, is matched against the file name alone, so it applies at any depth.
+
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
@@ -181,8 +184,10 @@ For example, to get Prettier to format its own `.prettierrc` file, you can do:
 {
   "overrides": [
     {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
+      "files": [".prettierrc"],
+      "options": {
+        "parser": "json"
+      }
     }
   ]
 }
@@ -194,7 +199,7 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 {
   "overrides": [
     {
-      "files": "*.js",
+      "files": ["*.js"],
       "options": {
         "parser": "flow"
       }

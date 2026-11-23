@@ -10,23 +10,6 @@ function printFlowEnumBody(path, options, print) {
   ];
 }
 
-function printLegacyFlowEnumBody(path, options, print) {
-  const { node } = path;
-  return [
-    node.type === "EnumSymbolBody" || node.explicitType
-      ? `of ${node.type
-          .slice(
-            // `Enum`
-            4,
-            // `Body`
-            -4,
-          )
-          .toLowerCase()} `
-      : "",
-    printObject(path, options, print),
-  ];
-}
-
 /*
 - `EnumBooleanMember`(flow)
 - `EnumNumberMember`(flow)
@@ -68,9 +51,4 @@ function printEnumDeclaration(path, print) {
   ];
 }
 
-export {
-  printEnumDeclaration,
-  printEnumMember,
-  printFlowEnumBody,
-  printLegacyFlowEnumBody,
-};
+export { printEnumDeclaration, printEnumMember, printFlowEnumBody };

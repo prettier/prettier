@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`media.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@media @{a} {
+    .a {
+      color: red;
+    }
+}
+
+@media @{mq-xs}{.a{color:red}}
+
+@media @{mq-xs} and (min-width: 5px) { .a { color: red } }
+
+@media @{a} and @{b} { .a { color: red } }
+
+@media screen and (max-width: @{w}) { .a { color: red } }
+
+@media @mq-xs { .a { color: red } }
+
+.b {
+  @media @{mq-md} {
+    color: blue;
+  }
+}
+
+=====================================output=====================================
+@media @{a} {
+  .a {
+    color: red;
+  }
+}
+
+@media @{mq-xs} {
+  .a {
+    color: red;
+  }
+}
+
+@media @{mq-xs} and (min-width: 5px) {
+  .a {
+    color: red;
+  }
+}
+
+@media @{a} and @{b} {
+  .a {
+    color: red;
+  }
+}
+
+@media screen and (max-width: @{w}) {
+  .a {
+    color: red;
+  }
+}
+
+@media @mq-xs {
+  .a {
+    color: red;
+  }
+}
+
+.b {
+  @media @{mq-md} {
+    color: blue;
+  }
+}
+
+================================================================================
+`;

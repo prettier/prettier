@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`before-body.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E // c
+{ A }
+
+namespace N // c
+{ ;a; }
+
+declare module "M" // c
+{ ;a; }
+
+class C // c
+{ A }
+
+=====================================output=====================================
+enum E {
+  // c
+  A,
+}
+
+namespace N {
+  // c
+  a;
+}
+
+declare module "M" {
+  // c
+  a;
+}
+
+class C {
+  // c
+  A;
+}
+
+================================================================================
+`;

@@ -8,8 +8,9 @@ import {
 import hasNewline from "../../utilities/has-newline.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { hasSameLocStart, locEnd } from "../location/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import isIgnored from "../utilities/is-ignored.js";
-import { isExportDeclaration } from "../utilities/node-types.js";
+import { isClass, isExportDeclaration } from "../utilities/node-types.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;
@@ -50,20 +51,22 @@ function printDecorators(path, options, print) {
     return "";
   }
 
-  const shouldBreak =
-    node.type === "ClassExpression" ||
-    node.type === "ClassDeclaration" ||
-    hasNewlineBetweenOrAfterDecorators(node, options);
+  const parts = [];
 
-  return [
-    path.key === "declaration" && isExportDeclaration(parent)
-      ? hardline
-      : shouldBreak
-        ? breakParent
-        : "",
-    join(line, path.map(print, "decorators")),
-    line,
-  ];
+  if (path.key === "declaration" && isExportDeclaration(parent)) {
+    if (!hasComment(node, CommentCheckFlags.Leading)) {
+      parts.push(hardline);
+    }
+  } else if (
+    isClass(node) ||
+    hasNewlineBetweenOrAfterDecorators(node, options)
+  ) {
+    parts.push(breakParent);
+  }
+
+  parts.push(join(line, path.map(print, "decorators")), line);
+
+  return parts;
 }
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {

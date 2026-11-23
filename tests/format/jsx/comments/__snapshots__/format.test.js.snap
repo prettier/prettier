@@ -209,6 +209,30 @@ exports[`in-end-tag.js - {"bracketSameLine":true} format[typescript] 1`] = `
 Cause: Identifier expected."
 `;
 
+exports[`in-opening-tag-name.js - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const a = < // c
+div />;
+
+const b = < /* c */ div />;
+
+=====================================output=====================================
+const a = (
+  <
+    // c
+    div
+  />
+);
+
+const b = < /* c */ div />;
+
+================================================================================
+`;
+
 exports[`in-tags.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true

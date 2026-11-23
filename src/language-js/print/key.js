@@ -4,6 +4,7 @@ import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
+import { isMethodSignatureWithNewKey } from "../utilities/is-method-signature-with-new-key.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/node-types.js";
 
 /**
@@ -34,7 +35,7 @@ const isTypeScript = ({ parser }) =>
 function isKeySafeToQuote(node, options) {
   const key = getKey(node);
   if (key.type === "Identifier") {
-    return true;
+    return !isMethodSignatureWithNewKey(node);
   }
 
   if (!isNumericLiteral(key)) {
@@ -99,7 +100,7 @@ function isKeySafeToUnquote(node, options) {
     return false;
   }
 
-  if (node.type === "TSMethodSignature" && value === "new") {
+  if (isMethodSignatureWithNewKey(node)) {
     return false;
   }
 
@@ -120,7 +121,7 @@ function isKeySafeToUnquote(node, options) {
   }
 
   // Safe to unquote as number
-  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow`, `babel-flow`, and `hermes` parsers.
+  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow`, and `babel-flow` parsers.
   // Note: It's also not safe for TypeScript as mentioned above
   // https://github.com/prettier/prettier/pull/8508
   if (

@@ -21,8 +21,10 @@ import { isSimpleType } from "../utilities/is-simple-type.js";
 import { isTypeAnnotationAFunction } from "../utilities/is-type-annotation-a-function.js";
 import {
   isArrayExpression,
+  isExportAssignment,
   isObjectExpression,
   isObjectType,
+  isParameterProperty,
   isTypeAnnotation,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
@@ -33,9 +35,9 @@ import {
 
 /** @import AstPath from "../../common/ast-path.js" */
 
-// `ArrowFunctionExpression` has other dangling comments
+// Arrow functions can have dangling comments outside their parameter list.
 const functionParameterDanglingCommentFilter = (comment) =>
-  comment.mark !== "commentBeforeArrow";
+  comment.marker !== "commentBeforeArrow";
 
 /*
 - `ArrowFunctionExpression`
@@ -57,6 +59,7 @@ const functionParameterDanglingCommentFilter = (comment) =>
 - `TSEmptyBodyFunctionExpression` (TypeScript)
 - `TSMethodSignature` (TypeScript)
 - `FunctionTypeAnnotation` (Flow)
+- `ConstructorTypeAnnotation` (Flow)
 - `HookDeclaration` (Flow)
 - `HookTypeAnnotation` (Flow)
 - `ComponentDeclaration` (Flow)
@@ -156,6 +159,7 @@ function printFunctionParameters(
   }
 
   const isFlowShorthandWithOneArg =
+    functionNode.type !== "ConstructorTypeAnnotation" &&
     (isFlowObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
@@ -304,7 +308,7 @@ function isDecoratedFunction(path) {
     (node, name) =>
       (node.type === "VariableDeclarator" && name === "init") ||
       (node.type === "ExportDefaultDeclaration" && name === "declaration") ||
-      (node.type === "TSExportAssignment" && name === "expression") ||
+      (isExportAssignment(node) && name === "expression") ||
       (node.type === "AssignmentExpression" &&
         name === "right" &&
         node.left.type === "MemberExpression" &&
@@ -320,10 +324,7 @@ function isDecoratedFunction(path) {
 
 function shouldBreakFunctionParameters(functionNode) {
   const parameters = getFunctionParameters(functionNode);
-  return (
-    parameters.length > 1 &&
-    parameters.some((parameter) => parameter.type === "TSParameterProperty")
-  );
+  return parameters.length > 1 && parameters.some(isParameterProperty);
 }
 
 function shouldHugTheOnlyParameter(node, name) {

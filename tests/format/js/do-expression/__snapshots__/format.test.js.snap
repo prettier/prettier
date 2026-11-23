@@ -95,7 +95,7 @@ exports[`async-do-expression.js format[oxc] 1`] = `
 `;
 
 exports[`async-do-expression.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (1:7)
+"Expected ';' after the statement, but found 'do' (1:7)
 > 1 | async do {
     |       ^^
   2 |   1;
@@ -236,7 +236,7 @@ exports[`call-arguments.js format[oxc] 1`] = `
 `;
 
 exports[`call-arguments.js format[yuku] 1`] = `
-"'do' is reserved and cannot be used as an identifier (3:3)
+"'do' is a reserved word and cannot be used as an identifier (3:3)
   1 | // from https://github.com/babel/babel/pull/13122/
   2 | expect(
 > 3 |   do {
@@ -435,7 +435,7 @@ exports[`do-expression.js format[oxc] 1`] = `
 `;
 
 exports[`do-expression.js format[yuku] 1`] = `
-"'do' is reserved and cannot be used as an identifier (3:5)
+"'do' is a reserved word and cannot be used as an identifier (3:5)
   1 | const envSpecific = {
   2 |   domain:
 > 3 |     do {

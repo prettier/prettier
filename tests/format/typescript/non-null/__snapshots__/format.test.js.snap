@@ -1,8 +1,33 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`await.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async (a) => (await a!) ** 6;
+
+async function f() { return (await foo())!; }
+
+function* g() { return (yield foo())!; }
+
+=====================================output=====================================
+async (a) => (await a!) ** 6;
+
+async function f() {
+  return (await foo())!;
+}
+
+function* g() {
+  return (yield foo())!;
+}
+
+================================================================================
+`;
+
 exports[`braces.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 const myFunction2 = (key: string): number =>
@@ -43,9 +68,32 @@ class a extends ({}!) {}
 ================================================================================
 `;
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+value /* before */ ! /* after */;
+
+foo!.bar() /* before */ !.baz();
+
+const result = (/* leading */ value /* trailing */)!;
+
+=====================================output=====================================
+value /* before */!; /* after */
+
+foo!
+  .bar() /* before */!
+  .baz();
+
+const result = /* leading */ value /* trailing */!;
+
+================================================================================
+`;
+
 exports[`member-chain.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
@@ -82,7 +130,7 @@ xyz.a(/a/!).a(/a/!).a(/a/!);
 
 exports[`optional-chain.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 a?.b!.c;
@@ -133,7 +181,7 @@ a?.().b!.c?.c;
 
 exports[`parens.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 (a ? b : c) ![tokenKey];

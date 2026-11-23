@@ -65,8 +65,6 @@ The tests verify that the parsers in this list produce the same output.
 
 If the list includes `typescript`, then `babel-ts`, `oxc-ts`, and `yuku-ts` are included implicitly.
 
-If the list includes `flow`, then `hermes` is included implicitly.
-
 If the list includes `babel`, and the current directory is inside `tests/format/js` or `tests/format/jsx`, then `acorn`, `espree`, `meriyah`, `oxc`, and `yuku` are included implicitly.
 
 ### **`options`**

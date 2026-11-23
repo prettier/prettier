@@ -2,7 +2,7 @@
 
 exports[`snippet: test.cjs format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -14,7 +14,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 
 exports[`snippet: test.cts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -38,14 +38,14 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.cts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;
 
 exports[`snippet: test.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -57,7 +57,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 
 exports[`snippet: test.jsx format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -69,7 +69,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 
 exports[`snippet: test.mjs format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -81,7 +81,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 
 exports[`snippet: test.mts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -105,14 +105,14 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.mts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;
 
 exports[`snippet: test.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -136,14 +136,14 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: test.ts format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '/' (1:6)
+"Expected '>' to close the type assertion, but found '/' (1:6)
 > 1 | <div />
     |      ^"
 `;
 
 exports[`snippet: test.tsx format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />
@@ -155,7 +155,7 @@ parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript
 
 exports[`snippet: test.unset-filepath format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "hermes", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
+parsers: ["babel", "babel-ts", "acorn", "espree", "flow", "meriyah", "typescript", "oxc", "oxc-ts", "yuku", "yuku-ts", "__babel_estree"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 <div />

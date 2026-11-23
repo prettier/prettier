@@ -2,12 +2,6 @@
  * @import AstPath from "../../common/ast-path.js"
  */
 
-import {
-  hardline,
-  join,
-  line,
-  replaceEndOfLine,
-} from "../../document/index.js";
 import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import inferParser from "../../utilities/infer-parser.js";
@@ -106,7 +100,9 @@ function isPrettierIgnore(node) {
 
 /** there's no opening/closing tag or it's considered not breakable */
 function isTextLikeNode(node) {
-  return node.kind === "text" || node.kind === "comment";
+  return (
+    node.kind === "text" || node.kind === "comment" || node.kind === "cdata"
+  );
 }
 
 function isScriptLikeTag(node, options) {
@@ -587,17 +583,6 @@ function isVueSfcBindingsAttribute(attribute, options) {
   );
 }
 
-function getTextValueParts(node, value = node.value) {
-  return node.parent.isWhitespaceSensitive
-    ? node.parent.isIndentationSensitive
-      ? replaceEndOfLine(value)
-      : replaceEndOfLine(
-          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
-          hardline,
-        )
-    : join(line, htmlWhitespace.split(value));
-}
-
 function isVueScriptTag(node, options) {
   return isVueSfcBlock(node, options) && node.name === "script";
 }
@@ -630,7 +615,6 @@ export {
   getLastDescendant,
   getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
-  getTextValueParts,
   getUnescapedAttributeValue,
   hasPrettierIgnore,
   htmlTrimPreserveIndentation,

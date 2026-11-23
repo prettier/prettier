@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`template-literal-types.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced=\`value:\${ string|number }\`;
+type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+type FunctionParameter = (\`prefix-\${string}\`) => void;
+
+=====================================output=====================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced = \`value:\${string | number}\`;
+type Long =
+  \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+type FunctionParameter = \`prefix-\${string}\` => void;
+
+================================================================================
+`;
+
+exports[`template-literal-types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced=\`value:\${ string|number }\`;
+type Long = \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+type FunctionParameter = (\`prefix-\${string}\`) => void;
+
+=====================================output=====================================
+// @flow
+
+type Greeting = \`hello \${string}\`;
+type PoorlySpaced = \`value:\${string | number}\`;
+type Long =
+  \`prefix-\${AReallyLongTypeNameThatForcesTheInterpolationToWrap | AnotherReallyLongTypeNameThatAlsoForcesWrapping}-suffix\`;
+type Commented = \`before-\${/* before */ string | number /* after */}-after\`;
+type Nested = (\`left-\${string}\` | \`right-\${number}\`) & string;
+type InObject = { value: \`kind-\${"a" | "b"}\` };
+type FunctionParameter = (\`prefix-\${string}\`) => void;
+
+================================================================================
+`;

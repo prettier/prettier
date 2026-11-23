@@ -1,8 +1,14 @@
+const typescriptErrors = [
+  "comments.js",
+  "mapped-types.js",
+  "modifiers-and-key-remapping.js",
+];
+
 runFormatTest(import.meta, ["flow", "typescript"], {
   errors: {
-    "babel-ts": ["comments.js", "mapped-types.js"],
-    typescript: ["comments.js", "mapped-types.js"],
-    "oxc-ts": ["comments.js", "mapped-types.js"],
-    "yuku-ts": ["comments.js", "mapped-types.js"],
+    "babel-ts": typescriptErrors,
+    typescript: typescriptErrors,
+    "oxc-ts": typescriptErrors,
+    "yuku-ts": typescriptErrors,
   },
 });

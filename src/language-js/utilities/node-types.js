@@ -47,6 +47,21 @@ export const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+export const isTemplateLiteralType = createTypeCheckFunction([
+  "TSTemplateLiteralType",
+  "TemplateLiteralTypeAnnotation",
+]);
+
+export const isImportType = createTypeCheckFunction([
+  "TSImportType",
+  "ImportType",
+]);
+
+export const isExternalModuleReference = createTypeCheckFunction([
+  "TSExternalModuleReference",
+  "ExternalModuleReference",
+]);
+
 export const isTypeAlias = createTypeCheckFunction([
   "TSTypeAliasDeclaration",
   "TypeAlias",
@@ -57,6 +72,13 @@ export const isReturnOrThrowStatement = createTypeCheckFunction([
   "ThrowStatement",
 ]);
 
+export const isUnaryLikeNode = createTypeCheckFunction([
+  "ReturnStatement",
+  "ThrowStatement",
+  "YieldExpression",
+  "UnaryExpression",
+]);
+
 export const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
@@ -64,6 +86,49 @@ export const isExportDeclaration = createTypeCheckFunction([
   "ExportAllDeclaration",
   "DeclareExportAllDeclaration",
 ]);
+
+export const isExportAssignment = createTypeCheckFunction([
+  "TSExportAssignment",
+  "ExportAssignment",
+]);
+
+export const isAbstractMethodDefinition = createTypeCheckFunction([
+  "AbstractMethodDefinition",
+  "TSAbstractMethodDefinition",
+]);
+
+export const isAbstractPropertyDefinition = createTypeCheckFunction([
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
+]);
+
+export const classPropertyTypes = /** @type {const} */ ([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
+export const isClassProperty = createTypeCheckFunction(classPropertyTypes);
+
+export const isParameterProperty = createTypeCheckFunction([
+  "TSParameterProperty",
+  "ParameterProperty",
+]);
+
+export const isNonNullExpression = createTypeCheckFunction([
+  "TSNonNullExpression",
+  "NonNullExpression",
+]);
+
+/** @param {Node | undefined | null} node */
+export const isOptionalTupleMember = (node) =>
+  node?.type === "TSOptionalType" ||
+  (node?.type === "TupleTypeElement" && node.optional === true);
 
 // These two functions exists because we used support `recordAndTuple`
 // Feel free to check `node.type` instead
@@ -130,6 +195,7 @@ export const isCallLikeExpression = createTypeCheckFunction([
 export const isChainElementWrapper = createTypeCheckFunction([
   "ChainExpression",
   "TSNonNullExpression",
+  "NonNullExpression",
 ]);
 
 export const isArrayType = createTypeCheckFunction([
@@ -146,5 +212,34 @@ export const isTypeAnnotation = createTypeCheckFunction([
   "TSTypeAnnotation",
   "TypeAnnotation",
 ]);
+
+export const isModuleDeclaration = createTypeCheckFunction([
+  "TSModuleDeclaration",
+  "DeclareModule",
+  "DeclareNamespace",
+]);
+
+export const isConstructorType = createTypeCheckFunction([
+  "TSConstructorType",
+  "ConstructorTypeAnnotation",
+]);
+
+export const isClass = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ClassExpression",
+]);
+
+export const isNamespaceSpecifier = createTypeCheckFunction([
+  "ImportNamespaceSpecifier",
+  "ExportNamespaceSpecifier",
+]);
+
+export const isEnumDeclaration = createTypeCheckFunction([
+  "TSEnumDeclaration",
+  "EnumDeclaration",
+  "DeclareEnum",
+]);
+
+export const isEnumBody = createTypeCheckFunction(["TSEnumBody", "EnumBody"]);
 
 export * from "./literal.js";

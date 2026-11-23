@@ -79,7 +79,7 @@ function setup(props, { emit }) {
     emit("change", value);
   };
 
-  const createRulerTheme = (printWidth, color) => {
+  const createRulerTheme = (printWidth, color = "var(--color-gray-300)") => {
     if (!printWidth) {
       return EditorView.theme({});
     }
@@ -92,7 +92,7 @@ function setup(props, { emit }) {
         bottom: "0",
         left: `${printWidth}ch`,
         width: "1px",
-        backgroundColor: color || "var(--color-gray-300)",
+        backgroundColor: color,
         pointerEvents: "none",
         zIndex: "1",
         marginLeft: "6px",

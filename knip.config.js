@@ -10,7 +10,6 @@ const config = {
         // Production plugin entries
         "src/plugins/*",
         "packages/plugin-oxc/index.js",
-        "packages/plugin-hermes/index.js",
 
         "scripts/**",
 
@@ -30,13 +29,7 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: [
-        "ts-expect",
-        "buffer",
-        "base64-arraybuffer-es6",
-        "@yuku-parser/wasm",
-        "@oxc-parser/binding-wasm32-wasip1",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer"],
       ignoreBinaries: [],
     },
     website: {

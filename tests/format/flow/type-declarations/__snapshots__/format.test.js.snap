@@ -105,6 +105,57 @@ declare namespace foo {
 ================================================================================
 `;
 
+exports[`declare_namespace_new.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+=====================================output=====================================
+declare namespace outer {
+  namespace inner {
+    const value: string
+  }
+}
+
+declare export namespace exported {}
+
+================================================================================
+`;
+
+exports[`declare_namespace_new.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+=====================================output=====================================
+declare namespace outer {
+  namespace inner {
+    const value: string;
+  }
+}
+
+declare export namespace exported {}
+
+================================================================================
+`;
+
 exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

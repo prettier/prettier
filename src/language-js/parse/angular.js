@@ -6,6 +6,7 @@ import {
 } from "angular-estree-parser";
 import createError from "../../common/parser-create-error.js";
 import { locEnd, locStart } from "../location/index.js";
+import postprocess from "./postprocess/index.js";
 import wrapExpression from "./utilities/wrap-expression.js";
 
 /**
@@ -67,12 +68,14 @@ function createParser(parseMethod) {
         node = { ...node, type: "NGChainedExpression", expressions: [node] };
       }
 
-      return wrapExpression({
+      const ast = wrapExpression({
         type: "NGRoot",
         expression: node,
         comments,
         text,
       });
+
+      return postprocess(ast, { text });
     },
     locStart,
     locEnd,

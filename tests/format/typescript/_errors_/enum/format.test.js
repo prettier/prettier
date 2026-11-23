@@ -32,6 +32,6 @@ runFormatTest(
     // https://github.com/microsoft/TypeScript/issues/61834
     // https://github.com/microsoft/TypeScript/issues/42468
     // "oxc-ts",
-    "yuku-ts",
+    // "yuku-ts",
   ],
 );

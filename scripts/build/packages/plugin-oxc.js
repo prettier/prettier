@@ -1,6 +1,8 @@
-import fs from "node:fs/promises";
+import assert from "node:assert/strict";
 import path from "node:path";
+import oxcParserWasmPackageJson from "@oxc-parser/binding-wasm32-wasip1/package.json" with { type: "json" };
 import { outdent } from "outdent";
+import oxcParserPackageJson from "oxc-parser/package.json" with { type: "json" };
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import { getPackageFile } from "../utilities.js";
@@ -8,6 +10,8 @@ import {
   createPackageMetaFilesConfig,
   createTypesConfig,
 } from "./config-helpers.js";
+
+assert.equal(oxcParserPackageJson.version, oxcParserWasmPackageJson.version);
 
 const packageConfig = {
   packageName: "@prettier/plugin-oxc",
@@ -23,8 +27,6 @@ const mainModule = {
       input: "index.js",
       output: "index.mjs",
       build: createJavascriptModuleBuilder({
-        input: "index.js",
-        output: "index.mjs",
         format: "esm",
         platform: "node",
         external: ["oxc-parser"],
@@ -41,78 +43,69 @@ const mainModule = {
         replaceModule: [
           {
             module: getPackageFile("oxc-parser/src-js/wasm.js"),
-            process(text) {
-              text = text.replace(
-                'export * from "@oxc-parser/binding-wasm32-wasip1";',
-                "",
-              );
-
-              text = text.replace(
-                'export { default as visitorKeys } from "./generated/visit/keys.js";',
-                "",
-              );
-
-              return text;
-            },
+            path: getPackageFile(
+              "@oxc-parser/binding-wasm32-wasip1/browser-bundle.js",
+            ),
           },
           {
             module: getPackageFile(
-              "@oxc-parser/binding-wasm32-wasip1/parser.wasip1-browser.js",
+              "@oxc-parser/binding-wasm32-wasip1/browser-bundle.js",
             ),
-            async process(text, file) {
+            process(text) {
               const wasmUrlPattern =
-                /const __wasmUrl = new URL\('(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)', import\.meta\.url\)\.href(?=\n)/;
+                /const __wasmUrl = new URL\((?<quote>["'])(?<wasmUrl>.\/[a-z0-9.-]+\.wasm)\k<quote>, import\.meta\.url\)\.href;?(?=\n)/;
               const { wasmUrl } = text.match(wasmUrlPattern).groups;
-              const wasmFile = path.join(path.dirname(file), wasmUrl);
-              const wasmBase64String = await fs.readFile(wasmFile, "base64");
-
-              text = outdent`
-                import { decode as __decode } from "base64-arraybuffer-es6";
-
-                const __base64ToArrayBuffer = Uint8Array.fromBase64
-                  ? (string) => Uint8Array.fromBase64(string).buffer
-                  : __decode;
-
-                ${text}
-              `;
 
               text = text.replace(wasmUrlPattern, "");
               text = text.replace(
-                "const __wasmResponse = await globalThis.fetch(__wasmUrl)",
-                "const __wasmResponse = {ok: true}",
+                "const __wasmFile = await __wasmResponse.arrayBuffer()",
+                `import __wasmFile from ${JSON.stringify(wasmUrl)} with {type: "bytes"}`,
               );
               text = text.replace(
-                "await __wasmResponse.arrayBuffer()",
-                outdent`
-                  __base64ToArrayBuffer(
-                    /* "${wasmUrl}" */ ${JSON.stringify(wasmBase64String)}
-                  )
-                `,
+                "const __wasmResponse =",
+                "const __wasmResponse = {ok: 1} ||",
               );
 
               text = text.replace("await __rollbackWasiInitialization()", "[]");
 
-              text = text.replace(
-                "await instantiateNapiModule(",
-                "instantiateNapiModuleSync(",
-              );
+              // text = text.replace(
+              //   "await instantiateNapiModule(",
+              //   "instantiateNapiModuleSync(",
+              // );
 
               text = text.replaceAll(
                 /new URL\((?<url>".*?"), import\.meta\.url\)/g,
                 "{/* $<url> */}",
               );
 
+              // Remove useless `visitorKeys`
+              const moduleStartMark =
+                "\n//#region src-js/generated/visit/keys.js\n";
+              const moduleEndMark = "\n//#endregion\n";
+              const moduleStart = text.indexOf(moduleStartMark);
+              if (moduleStart === -1) {
+                throw new Error("Unexpected source");
+              }
+              const moduleEnd = text.indexOf(
+                moduleEndMark,
+                moduleStart + moduleStartMark.length,
+              );
+              if (moduleEnd === -1) {
+                throw new Error("Unexpected source");
+              }
+
+              text = outdent`
+                ${text.slice(0, moduleStart + moduleStartMark.length)}
+                var keys_default;
+                ${text.slice(moduleEnd)}
+              `;
+
+              text = `var require;\n${text}`;
+
               return text;
             },
           },
         ],
-        isAllowedWarning: (warning) =>
-          (warning.id === "package.json" &&
-            warning.location.file ===
-              "node_modules/@tybys/wasm-util/package.json") ||
-          (warning.id === "indirect-require" &&
-            warning.location.file ===
-              "node_modules/@emnapi/runtime/dist/emnapi.js"),
       }),
       playground: true,
     },

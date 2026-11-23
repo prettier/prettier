@@ -1,0 +1,10 @@
+<span>{{  before+value  }}<![CDATA[{{  leave+this  }}]]>{{  after+value  }}</span>
+<span>before<![CDATA[first]]><b>bold</b><![CDATA[second]]>after</span>
+
+@if (  visible  ) {
+  <span><![CDATA[{{  leave+this  }}
+  keep   these spaces
+]]></span>
+}
+
+<span ngNonBindable>before @if (visible) {middle} <![CDATA[{{  leave+this  }}]]> after</span>

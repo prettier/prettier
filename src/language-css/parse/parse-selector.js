@@ -1,4 +1,5 @@
 import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
+import { removeQuotedStrings } from "../print/misc.js";
 import { addTypePrefix } from "./utilities.js";
 
 function parseSelector(selector) {
@@ -6,7 +7,7 @@ function parseSelector(selector) {
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
   // and reformat it.
-  if (/\/[/*]/.test(selector.replaceAll(/"[^"]+"|'[^']+'/g, ""))) {
+  if (/\/[/*]/.test(removeQuotedStrings(selector))) {
     return {
       type: "selector-unknown",
       value: selector.trim(),

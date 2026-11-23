@@ -21,7 +21,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:5)
+"Type argument list cannot be empty (1:5)
 > 1 | foo<>()
     |     ^"
 `;
@@ -47,7 +47,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:6)
+"Type argument list cannot be empty (1:6)
 > 1 | (foo<>())
     |      ^"
 `;
@@ -73,7 +73,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:9)
+"Type argument list cannot be empty (1:9)
 > 1 | new Foo<>()
     |         ^"
 `;
@@ -99,7 +99,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:14)
+"Type parameter list cannot be empty (1:14)
 > 1 | function foo<>(){}
     |              ^"
 `;
@@ -125,7 +125,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:15)
+"Type parameter list cannot be empty (1:15)
 > 1 | (function foo<>(){})
     |               ^"
 `;
@@ -151,7 +151,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:11)
+"Type parameter list cannot be empty (1:11)
 > 1 | class Foo<> {}
     |           ^"
 `;
@@ -177,7 +177,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #6 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:12)
+"Type parameter list cannot be empty (1:12)
 > 1 | (class Foo<> {})
     |            ^"
 `;
@@ -203,7 +203,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #7 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:24)
+"Type parameter list cannot be empty (1:24)
 > 1 | class Foo {constructor<>()}
     |                        ^"
 `;
@@ -229,7 +229,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #8 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:25)
+"Type parameter list cannot be empty (1:25)
 > 1 | (class Foo {constructor<>()})
     |                         ^"
 `;
@@ -255,7 +255,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #9 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:19)
+"Type parameter list cannot be empty (1:19)
 > 1 | class Foo {method<>()}
     |                   ^"
 `;
@@ -281,7 +281,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #10 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:20)
+"Type parameter list cannot be empty (1:20)
 > 1 | (class Foo {method<>()})
     |                    ^"
 `;
@@ -307,7 +307,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #11 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:23)
+"Type parameter list cannot be empty (1:23)
 > 1 | class Foo {get getter<>()}
     |                       ^"
 `;
@@ -333,7 +333,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #12 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:24)
+"Type parameter list cannot be empty (1:24)
 > 1 | (class Foo {get getter<>()})
     |                        ^"
 `;
@@ -359,7 +359,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #13 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:26)
+"Type argument list cannot be empty (1:26)
 > 1 | class Foo {property: Bar<> = 1}
     |                          ^"
 `;
@@ -385,7 +385,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #14 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:27)
+"Type argument list cannot be empty (1:27)
 > 1 | (class Foo {property: Bar<> = 1})
     |                           ^"
 `;
@@ -411,7 +411,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #15 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:15)
+"Type parameter list cannot be empty (1:15)
 > 1 | interface Foo<> {}
     |               ^"
 `;
@@ -437,7 +437,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #16 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:20)
+"Type parameter list cannot be empty (1:20)
 > 1 | interface Foo {bar<>()}
     |                    ^"
 `;
@@ -463,7 +463,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #17 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:17)
+"Type parameter list cannot be empty (1:17)
 > 1 | interface Foo {<>(): boolean}
     |                 ^"
 `;
@@ -489,7 +489,7 @@ Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #18 format[yuku-ts] 1`] = `
-"A type argument list cannot be empty (1:16)
+"Type argument list cannot be empty (1:16)
 > 1 | const foo: Foo<> = 1
     |                ^"
 `;
@@ -515,7 +515,7 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #19 format[yuku-ts] 1`] = `
-"A type parameter list cannot be empty (1:13)
+"Type parameter list cannot be empty (1:13)
 > 1 | type Foo = <>() => {}
     |             ^"
 `;
