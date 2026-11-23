@@ -1,11 +1,11 @@
-import { group, hardline, indent, line } from "../document/index.js";
+import { group, hardline } from "../document/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { printScriptLikeElement } from "./embed/element.js";
+import { printInterpolationExpression } from "./embed/interpolation.js";
 import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
 import {
-  needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
   printClosingTagSuffix,
   printOpeningTag,
@@ -17,7 +17,6 @@ import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
 } from "./utilities/index.js";
-import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
   "if",
@@ -79,33 +78,12 @@ function embed(path, options) {
       break;
 
     case "text":
-      if (node.parent.kind === "interpolation") {
-        return async (textToDoc) => {
-          const textToDocOptions = {
-            __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-            __embeddedInHtml: true,
-          };
-          if (options.parser === "angular") {
-            textToDocOptions.parser = "__ng_interpolation";
-          } else if (options.parser === "vue") {
-            textToDocOptions.parser = isVueSfcWithTypescriptScript(
-              path,
-              options,
-            )
-              ? "__vue_ts_expression"
-              : "__vue_expression";
-          } else {
-            textToDocOptions.parser = "__js_expression";
-          }
-
-          return [
-            indent([line, await textToDoc(node.value, textToDocOptions)]),
-            node.parent.next &&
-            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-              ? " "
-              : line,
-          ];
-        };
+      if (
+        node.parent.kind === "interpolation" &&
+        node.parent.children.length === 1 &&
+        node.parent.children[0] === node
+      ) {
+        return printInterpolationExpression;
       }
       break;
 
