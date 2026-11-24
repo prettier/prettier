@@ -2,6 +2,18 @@ import postcssSelectorParser from "postcss-selector-parser";
 import { removeQuotedStrings } from "../print/misc.js";
 import { addTypePrefix } from "./utilities.js";
 
+function isInvalidAst(ast, selector) {
+  return (
+    !ast ||
+    // https://github.com/postcss/postcss-selector-parser/issues/366
+    String(ast) !== selector ||
+    // https://github.com/postcss/postcss-selector-parser/issues/370
+    ast.walk((node) =>
+      node.type === "string" && node.value.startsWith("(") ? false : undefined,
+    ) === false
+  );
+}
+
 function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
@@ -17,25 +29,7 @@ function parseSelector(selector) {
   let result;
 
   try {
-    postcssSelectorParser((selectors) => {
-      // https://github.com/postcss/postcss-selector-parser/issues/366
-      if (String(selectors) !== selector) {
-        return;
-      }
-
-      let isInvalid = false;
-      // https://github.com/postcss/postcss-selector-parser/issues/370
-      selectors.walk((node) => {
-        if (node.type === "string" && node.value.startsWith("(")) {
-          isInvalid = true;
-          return false;
-        }
-      });
-      if (isInvalid) {
-        return;
-      }
-      result = selectors;
-    }).processSync(selector);
+    result = postcssSelectorParser().astSync(selector);
   } catch {
     // No op
   }
@@ -46,7 +40,7 @@ function parseSelector(selector) {
   // postcss-scss, while `background: { color: red; }` is parsed as a Rule
   // with a selector ending with a colon. See:
   // https://github.com/postcss/postcss-scss/issues/39
-  if (!result) {
+  if (isInvalidAst(result, selector)) {
     return {
       type: "selector-unknown",
       value: selector,

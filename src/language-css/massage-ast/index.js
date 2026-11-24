@@ -10,6 +10,7 @@ const ignoredProperties = new Set([
   "trailingComma",
   "spaces",
   "_error",
+  "_value",
 ]);
 
 function massageAstNode(original, cloned, parent) {
