@@ -3,6 +3,7 @@ import {
   replaceEndOfLine,
 } from "../../../document/index.js";
 import { adjustStrings, quoteAttributeValue } from "../misc.js";
+import { printSelectorNamespace } from "./namespace.js";
 
 function printAttributeSelector(path, options /* , print */) {
   const { node } = path;
@@ -18,14 +19,7 @@ function printAttributeSelector(path, options /* , print */) {
 
   return [
     "[",
-    node.namespace
-      ? [
-          node.namespace === true
-            ? ""
-            : (node.raws.namespace ?? node.namespace).trim(),
-          "|",
-        ]
-      : "",
+    printSelectorNamespace(node),
     (node.raws.attribute ?? node.attribute).trim(),
     node.operator ?? "",
     value
