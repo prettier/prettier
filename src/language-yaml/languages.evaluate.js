@@ -5,6 +5,8 @@ const ignoredFilenames = new Set([
   // `yarn.lock` is not YAML in Yarn v1: https://github.com/yarnpkg/yarn/issues/5629
   // and it's a generated file, we don't want format it by default
   "yarn.lock",
+  // Legacy ESLint config, it can be YAML or JSON with comments
+  ".eslintrc",
 ]);
 
 const languages = [

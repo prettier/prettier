@@ -96,4 +96,27 @@ describe("infers parser from filename", () => {
       ` + "\n",
     );
   });
+
+  test("no parser from .eslintrc", async () => {
+    // Legacy ESLint config can be YAML or JSON with comments
+    for (const filepath of ["/path/to/.eslintrc", "/path/to/.ESLINTRC"]) {
+      await expect(prettier.getFileInfo(filepath)).resolves.toStrictEqual({
+        ignored: false,
+        inferredParser: null,
+      });
+    }
+  });
+
+  test("parsers from .eslintrc.* extensions", async () => {
+    for (const [filepath, parser] of [
+      ["/path/to/.eslintrc.json", "json"],
+      ["/path/to/.eslintrc.yaml", "yaml"],
+      ["/path/to/.eslintrc.yml", "yaml"],
+    ]) {
+      await expect(prettier.getFileInfo(filepath)).resolves.toStrictEqual({
+        ignored: false,
+        inferredParser: parser,
+      });
+    }
+  });
 });
