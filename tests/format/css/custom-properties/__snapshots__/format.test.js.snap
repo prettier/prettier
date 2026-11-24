@@ -17,6 +17,33 @@ parsers: ["css", "scss", "less"]
 ================================================================================
 `;
 
+exports[`brace-value-not-a-rule.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a {
+  --block-with-text: { foo };
+  --block-without-semicolon: {a}
+}
+
+b {
+  --block-before-declaration: { foo } color: red;
+}
+
+=====================================output=====================================
+a {
+  --block-with-text: { foo };
+  --block-without-semicolon: {a};
+}
+
+b {
+  --block-before-declaration: { foo } color: red;
+}
+
+================================================================================
+`;
+
 exports[`emoji.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]

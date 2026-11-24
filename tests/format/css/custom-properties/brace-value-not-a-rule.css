@@ -1,0 +1,8 @@
+a {
+  --block-with-text: { foo };
+  --block-without-semicolon: {a}
+}
+
+b {
+  --block-before-declaration: { foo } color: red;
+}
