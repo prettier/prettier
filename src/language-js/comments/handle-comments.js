@@ -328,6 +328,16 @@ function handleClassComments({
   }
 
   if (isClassLikeNode(enclosingNode)) {
+    if (
+      isLineComment(comment) &&
+      enclosingNode.superClass &&
+      enclosingNode.superTypeArguments &&
+      precedingNode === enclosingNode.superClass &&
+      followingNode === enclosingNode.superTypeArguments
+    ) {
+      return addTrailingComment(enclosingNode, comment);
+    }
+
     // @ts-expect-error -- Safe
     const { decorators } = enclosingNode;
     if (isNonEmptyArray(decorators) && followingNode?.type !== "Decorator") {
