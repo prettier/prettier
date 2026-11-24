@@ -117,6 +117,13 @@ deno install --dev @username/prettier-config
 ```
 
 </TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev @username/prettier-config
+```
+
+</TabItem>
 </Tabs>
 
 Then, you can reference it in your `package.json`:
