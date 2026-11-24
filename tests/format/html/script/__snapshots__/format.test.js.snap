@@ -81,6 +81,18 @@ This should remain a paragraph.
 > A second paragraph.
 > \`\`\`
   </script>
+  <script TYPE>
+foo()
+  </script>
+  <script TYPE="">
+foo()
+  </script>
+  <script type>
+foo()
+  </script>
+  <script type="">
+foo()
+  </script>
   <script type="">run( 1 )</script>
   <script type="text/javascript">run( 1 )</script>
   <script type="text/javascript;charset=UTF-8">run( 1 )</script>
@@ -121,9 +133,19 @@ This should remain a paragraph.
 > A second paragraph.
 > \`\`\`
   </script>
-  <script type="">
-    run(1);
+  <script type>
+foo()
   </script>
+  <script type="">
+foo()
+  </script>
+  <script type>
+foo()
+  </script>
+  <script type="">
+foo()
+  </script>
+  <script type="">run( 1 )</script>
   <script type="text/javascript">
     run(1);
   </script>

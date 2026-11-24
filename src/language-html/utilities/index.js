@@ -154,13 +154,19 @@ const indentationInsensitiveScriptTypes = new Set([
   // since there is no reason to use them, and they still work without extra indentation.
   "text/javascript",
 ]);
+
+function getScriptType(node) {
+  return node.attrs.findLast((attr) => attr.fullName.toLowerCase() === "type")
+    ?.value;
+}
+
 function isScriptDataBlock(node) {
   if (!(node.kind === "element" && node.fullName === "script")) {
     return false;
   }
 
-  const { type } = node.attrMap;
-  return Boolean(type) && !indentationInsensitiveScriptTypes.has(type);
+  const type = getScriptType(node);
+  return type !== undefined && !indentationInsensitiveScriptTypes.has(type);
 }
 
 function isLeadingSpaceSensitiveNode(node, options) {
@@ -408,9 +414,10 @@ function inferScriptParser(node, options) {
     return;
   }
 
-  const { type, lang } = node.attrMap;
+  const { lang } = attrMap;
+  const type = getScriptType(node);
 
-  if (!lang && !type) {
+  if (!lang && type === undefined) {
     return "babel";
   }
 
