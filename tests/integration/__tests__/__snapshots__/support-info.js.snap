@@ -650,7 +650,7 @@ exports[`CLI --support-info  1`] = `
         ".scd",
         ".workbook"
       ],
-      "filenames": ["contents.lr", "README"],
+      "filenames": ["contents.lr"],
       "linguistLanguageId": 222,
       "name": "Markdown",
       "parsers": ["markdown"],
