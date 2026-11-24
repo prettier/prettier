@@ -20,24 +20,33 @@ function parseSelector(selector) {
     postcssSelectorParser((selectors) => {
       // https://github.com/postcss/postcss-selector-parser/issues/366
       if (String(selectors) !== selector) {
-        throw new Error("Unexpected lossy selector");
+        return;
       }
 
+      let isInvalid = false;
       // https://github.com/postcss/postcss-selector-parser/issues/370
       selectors.walk((node) => {
         if (node.type === "string" && node.value.startsWith("(")) {
-          throw new Error("Unexpected parentheses");
+          isInvalid = true;
+          return false;
         }
       });
+      if (isInvalid) {
+        return;
+      }
       result = selectors;
     }).processSync(selector);
   } catch {
-    // Fail silently. It's better to print it as is than to try and parse it
-    // Note: A common failure is for SCSS nested properties. `background:
-    // none { color: red; }` is parsed as a NestedDeclaration by
-    // postcss-scss, while `background: { color: red; }` is parsed as a Rule
-    // with a selector ending with a colon. See:
-    // https://github.com/postcss/postcss-scss/issues/39
+    // No op
+  }
+
+  // Fail silently. It's better to print it as is than to try and parse it
+  // Note: A common failure is for SCSS nested properties. `background:
+  // none { color: red; }` is parsed as a NestedDeclaration by
+  // postcss-scss, while `background: { color: red; }` is parsed as a Rule
+  // with a selector ending with a colon. See:
+  // https://github.com/postcss/postcss-scss/issues/39
+  if (!result) {
     return {
       type: "selector-unknown",
       value: selector,
