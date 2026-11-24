@@ -18,10 +18,12 @@ function parseSelector(selector) {
 
   try {
     postcssSelectorParser((selectors) => {
+      // https://github.com/postcss/postcss-selector-parser/issues/366
       if (String(selectors) !== selector) {
         throw new Error("Unexpected lossy selector");
       }
 
+      // https://github.com/postcss/postcss-selector-parser/issues/370
       selectors.walk((node) => {
         if (node.type === "string" && node.value.startsWith("(")) {
           throw new Error("Unexpected parentheses");
