@@ -158,8 +158,8 @@ parsers: ["html"]
      the fix happened.
      Remove this comment if and when we fix it! -->
 <div>bla bla</div>
-<script type="module">
-  <|>import lib from "./lib.js";
+<script type="module"><|>
+  import lib from "./lib.js";
 
   function myFunction() {
     return "foo";

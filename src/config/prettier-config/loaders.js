@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
 import { parse as parseJson5 } from "@bybrave/json5";
 import parseJson from "parse-json";
@@ -17,7 +18,15 @@ async function readJson(file) {
 }
 
 async function importModuleDefault(file) {
-  const module = await import(pathToFileURL(file).href);
+  const require = createRequire(file);
+  try {
+    delete require.cache[require.resolve(file)];
+  } catch {
+    // No op
+  }
+  const url = pathToFileURL(file);
+  url.searchParams.set("_", String(Date.now() * Math.random()));
+  const module = await import(url.href);
   return module.default;
 }
 

@@ -315,6 +315,7 @@ function setContentEnd(node, comments, originalText) {
 
   let end = locEndWithFullText(node);
   if (originalText[end - 1] !== ";") {
+    node.__contentEnd = end;
     return;
   }
 
