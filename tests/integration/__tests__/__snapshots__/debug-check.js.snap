@@ -6,6 +6,12 @@ exports[`checks BigInt literals with --debug-check  1`] = `
 }
 `;
 
+exports[`compares AST values independently of property insertion order  1`] = `
+{
+  "write": [],
+}
+`;
+
 exports[`doesn't crash when --debug-check is passed  1`] = `
 {
   "write": [],
