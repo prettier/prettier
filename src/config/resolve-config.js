@@ -1,6 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
-import { toPath } from "url-or-path";
+import { isUrl, toPath } from "url-or-path";
+import { resolveFromFile } from "../utilities/import-from-file.js";
 import {
   clearEditorconfigCache,
   loadEditorconfig as loadEditorconfigForFile,
@@ -85,11 +86,24 @@ async function resolveConfig(fileUrlOrPath, options) {
   };
 
   if (Array.isArray(merged.plugins)) {
-    merged.plugins = merged.plugins.map((value) =>
-      typeof value === "string" && value.startsWith(".") // relative path
-        ? path.resolve(path.dirname(result.configFile), value)
-        : value,
-    );
+    const configDirectory = path.dirname(result.configFile);
+    merged.plugins = merged.plugins.map((value) => {
+      if (typeof value !== "string" || isUrl(value) || path.isAbsolute(value)) {
+        return value;
+      }
+
+      if (value.startsWith(".")) {
+        return path.resolve(configDirectory, value);
+      }
+
+      try {
+        // Resolve plugin packages from the directory of the configuration file.
+        return resolveFromFile(value, path.join(configDirectory, "noop.js"));
+      } catch {
+        // Keep missing-plugin errors deferred until plugin loading.
+        return value;
+      }
+    });
   }
 
   return merged;
