@@ -5,12 +5,7 @@ import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
 import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
-import {
-  calculateLoc,
-  locEnd,
-  locStart,
-  replaceQuotesInInlineComments,
-} from "./loc.js";
+import { calculateLoc, locEnd, locStart } from "./loc.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
@@ -447,13 +442,7 @@ function parseCss(text, options = {}) {
 }
 
 function parseLess(text, options = {}) {
-  return parseWithParser(
-    // Workaround for https://github.com/shellscape/postcss-less/issues/145
-    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLessParse(replaceQuotesInInlineComments(text)),
-    text,
-    options,
-  );
+  return parseWithParser(postcssLessParse, text, options);
 }
 
 function parseScss(text, options = {}) {
