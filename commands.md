@@ -234,6 +234,18 @@ For example:
     - `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
     - `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
+### `addAlignmentToDoc`
+
+```ts
+declare function addAlignmentToDoc(
+  doc: Doc,
+  size: number,
+  tabWidth: number,
+): Doc;
+```
+
+Reset the current indentation to zero, then indent `doc` by `size` columns. Full `tabWidth` levels are added with [`indent`](#indent), and the remaining columns are added with [`align`](#align). This is useful when nested output needs to align to an absolute column instead of the current indentation. If `size` is not positive, `doc` is returned unchanged.
+
 ### `markAsRoot`
 
 ```ts
