@@ -15,6 +15,7 @@ import {
   isLiteral,
   isObjectExpression,
 } from "../utilities/node-types.js";
+import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -223,7 +224,12 @@ function printEstree(path, options, print, args) {
 
       const argumentDoc = print("argument");
 
-      if (hasComment(node.argument)) {
+      if (
+        hasComment(node.argument) ||
+        startsWithNoLookaheadToken(node.argument, (leftmostNode) =>
+          hasComment(leftmostNode, CommentCheckFlags.Leading),
+        )
+      ) {
         parts.push(
           group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
