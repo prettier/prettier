@@ -3161,44 +3161,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/darwin-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/darwin-arm64@npm:0.28.1"
+"@yuku-toolchain/darwin-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/darwin-arm64@npm:0.29.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/darwin-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/darwin-x64@npm:0.28.1"
+"@yuku-toolchain/darwin-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/darwin-x64@npm:0.29.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/linux-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/linux-arm64@npm:0.28.1"
+"@yuku-toolchain/linux-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/linux-arm64@npm:0.29.0"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/linux-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/linux-x64@npm:0.28.1"
+"@yuku-toolchain/linux-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/linux-x64@npm:0.29.0"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/win32-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/win32-arm64@npm:0.28.1"
+"@yuku-toolchain/win32-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/win32-arm64@npm:0.29.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/win32-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/win32-x64@npm:0.28.1"
+"@yuku-toolchain/win32-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/win32-x64@npm:0.29.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -8280,7 +8280,7 @@ __metadata:
     yaml: "npm:2.9.1"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.1"
-    yuku: "npm:0.28.1"
+    yuku: "npm:0.29.0"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -9956,18 +9956,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku@npm:0.28.1":
-  version: 0.28.1
-  resolution: "yuku@npm:0.28.1"
+"yuku@npm:0.29.0":
+  version: 0.29.0
+  resolution: "yuku@npm:0.29.0"
   dependencies:
-    "@yuku-toolchain/darwin-arm64": "npm:0.28.1"
-    "@yuku-toolchain/darwin-x64": "npm:0.28.1"
-    "@yuku-toolchain/linux-arm64": "npm:0.28.1"
-    "@yuku-toolchain/linux-x64": "npm:0.28.1"
-    "@yuku-toolchain/win32-arm64": "npm:0.28.1"
-    "@yuku-toolchain/win32-x64": "npm:0.28.1"
+    "@yuku-toolchain/darwin-arm64": "npm:0.29.0"
+    "@yuku-toolchain/darwin-x64": "npm:0.29.0"
+    "@yuku-toolchain/linux-arm64": "npm:0.29.0"
+    "@yuku-toolchain/linux-x64": "npm:0.29.0"
+    "@yuku-toolchain/win32-arm64": "npm:0.29.0"
+    "@yuku-toolchain/win32-x64": "npm:0.29.0"
   peerDependencies:
-    "@yuku-toolchain/wasm": 0.28.1
+    "@yuku-toolchain/wasm": 0.29.0
   dependenciesMeta:
     "@yuku-toolchain/darwin-arm64":
       optional: true
@@ -9984,7 +9984,7 @@ __metadata:
   peerDependenciesMeta:
     "@yuku-toolchain/wasm":
       optional: true
-  checksum: 10/ea82ae8b64ffbb221f45b5978b91f84c9a728c6e5dfac0566aa69580835d9571af4bc67eb17bd9bf21ad6b116901f69ae23074625bf8887a5791df6db98b2423
+  checksum: 10/8237401bde54cbd09eaf885fd21188b404f64bcda77cc9923ff9396f45e400f2cdf76e84269454ae30fa495f63ac21ef83e5014c168c1a6a06c63df482821e36
   languageName: node
   linkType: hard
 
