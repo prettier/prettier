@@ -27,6 +27,29 @@ import traverseDoc from "./traverse-doc.js";
 @import {Doc} from "../builders/index.js";
 */
 
+/** @type {WeakSet<object>} */
+const preservedBreakGroups = new WeakSet();
+/** @type {WeakSet<object>} */
+const ignorePreservedBreakGroups = new WeakSet();
+
+function markPreservedBreakGroup(group) {
+  preservedBreakGroups.add(group);
+  return group;
+}
+
+function isPreservedBreakGroup(group) {
+  return preservedBreakGroups.has(group);
+}
+
+function markIgnorePreservedBreakGroup(group) {
+  ignorePreservedBreakGroups.add(group);
+  return group;
+}
+
+function shouldIgnorePreservedBreakGroup(group) {
+  return ignorePreservedBreakGroups.has(group);
+}
+
 function mapDoc(doc, cb) {
   // Avoid creating `Map`
   if (typeof doc === "string") {
@@ -69,7 +92,14 @@ function mapDoc(doc, cb) {
         } else {
           contents = rec(contents);
         }
-        return cb({ ...doc, contents, expandedStates });
+        const mappedDoc = { ...doc, contents, expandedStates };
+        if (preservedBreakGroups.has(doc)) {
+          preservedBreakGroups.add(mappedDoc);
+        }
+        if (ignorePreservedBreakGroups.has(doc)) {
+          ignorePreservedBreakGroups.add(mappedDoc);
+        }
+        return cb(mappedDoc);
       }
 
       case DOC_TYPE_ALIGN:
@@ -112,8 +142,12 @@ function findInDoc(doc, fn, defaultValue) {
   return result;
 }
 
-function willBreakFn(doc) {
-  if (doc.type === DOC_TYPE_GROUP && doc.break) {
+function willBreakFn(doc, ignorePreservedBreak) {
+  if (
+    doc.type === DOC_TYPE_GROUP &&
+    doc.break &&
+    !(ignorePreservedBreak && preservedBreakGroups.has(doc))
+  ) {
     return true;
   }
   if (doc.type === DOC_TYPE_LINE && doc.hard) {
@@ -125,18 +159,29 @@ function willBreakFn(doc) {
 }
 
 function willBreak(doc) {
-  return findInDoc(doc, willBreakFn, false);
+  return findInDoc(doc, (node) => willBreakFn(node, false), false);
 }
 
-function breakParentGroup(groupStack) {
+function willBreakIgnoringPreservedBreaks(doc) {
+  return findInDoc(doc, (node) => willBreakFn(node, true), false);
+}
+
+function breakParentGroup(groupStack, fromPreservedBreak = false) {
   if (groupStack.length > 0) {
     const parentGroup = groupStack.at(-1);
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
-    if (!parentGroup.expandedStates && !parentGroup.break) {
-      // An alternative truthy value allows to distinguish propagated group breaks
-      // and not to print them as `group(..., { break: true })` in `--debug-print-doc`.
-      parentGroup.break = "propagated";
+    if (!parentGroup.expandedStates) {
+      if (!parentGroup.break) {
+        // An alternative truthy value allows to distinguish propagated group breaks
+        // and not to print them as `group(..., { break: true })` in `--debug-print-doc`.
+        parentGroup.break = "propagated";
+        if (fromPreservedBreak) {
+          preservedBreakGroups.add(parentGroup);
+        }
+      } else if (!fromPreservedBreak) {
+        preservedBreakGroups.delete(parentGroup);
+      }
     }
   }
   return null;
@@ -161,7 +206,7 @@ function propagateBreaks(doc) {
     if (doc.type === DOC_TYPE_GROUP) {
       const group = groupStack.pop();
       if (group.break) {
-        breakParentGroup(groupStack);
+        breakParentGroup(groupStack, preservedBreakGroups.has(group));
       }
     }
   }
@@ -417,12 +462,17 @@ export {
   inheritLabel,
   InvalidDocError,
   isEmptyDoc,
+  isPreservedBreakGroup,
   mapDoc,
+  markIgnorePreservedBreakGroup,
+  markPreservedBreakGroup,
   propagateBreaks,
   removeLines,
   replaceEndOfLine,
+  shouldIgnorePreservedBreakGroup,
   stripTrailingHardline,
   traverseDoc,
   willBreak,
+  willBreakIgnoringPreservedBreaks,
 };
 export { assertDocArray } from "./assert-doc.js";

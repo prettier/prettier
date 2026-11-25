@@ -4,6 +4,7 @@ import {
   ifBreak,
   indent,
   line,
+  markPreservedBreakGroup,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
@@ -105,15 +106,20 @@ function printClassBody(path, options, print) {
   }
 
   if (isObjectType) {
-    const shouldBreak =
-      hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line) ||
-      (options.objectWrap === "preserve" &&
-        firstMember &&
-        hasNewlineInRange(
-          options.originalText,
-          locStart(node),
-          locStart(firstMember),
-        ));
+    const shouldBreakWithoutPreserve = hasComment(
+      node,
+      CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+    );
+    const hasPreserveBreak =
+      !shouldBreakWithoutPreserve &&
+      options.objectWrap === "preserve" &&
+      firstMember &&
+      hasNewlineInRange(
+        options.originalText,
+        locStart(node),
+        locStart(firstMember),
+      );
+    const shouldBreak = shouldBreakWithoutPreserve || hasPreserveBreak;
 
     let content;
     if (parts.length === 0) {
@@ -149,7 +155,8 @@ function printClassBody(path, options, print) {
       return content;
     }
 
-    return group(content, { shouldBreak });
+    const result = group(content, { shouldBreak });
+    return hasPreserveBreak ? markPreservedBreakGroup(result) : result;
   }
 
   return [

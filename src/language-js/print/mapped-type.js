@@ -5,6 +5,7 @@ import {
   indent,
   line,
   lineSuffixBoundary,
+  markPreservedBreakGroup,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
@@ -135,7 +136,7 @@ function printTypeScriptMappedType(path, options, print) {
     );
   }
 
-  return group(
+  const result = group(
     [
       "{",
       indent([
@@ -173,6 +174,7 @@ function printTypeScriptMappedType(path, options, print) {
     ],
     { shouldBreak },
   );
+  return shouldBreak ? markPreservedBreakGroup(result) : result;
 }
 
 export { printFlowMappedTypeProperty, printTypeScriptMappedType };

@@ -4,6 +4,7 @@ import {
   hardline,
   indent,
   line,
+  markPreservedBreakGroup,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
@@ -73,7 +74,7 @@ function printObject(path, options, print) {
         : "properties";
   const children = node[property];
 
-  const shouldBreak =
+  const shouldBreakWithoutPreserve =
     isEnumBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
@@ -89,11 +90,14 @@ function printObject(path, options, print) {
           property.value &&
           (property.value.type === "ObjectPattern" ||
             property.value.type === "ArrayPattern"),
-      )) ||
-    (node.type !== "ObjectPattern" &&
-      options.objectWrap === "preserve" &&
-      children.length > 0 &&
-      hasNewLineAfterOpeningBrace(node, children[0], options));
+      ));
+  const hasPreserveBreak =
+    !shouldBreakWithoutPreserve &&
+    node.type !== "ObjectPattern" &&
+    options.objectWrap === "preserve" &&
+    children.length > 0 &&
+    hasNewLineAfterOpeningBrace(node, children[0], options);
+  const shouldBreak = shouldBreakWithoutPreserve || hasPreserveBreak;
 
   /** @type {Doc[]} */
   let separatorParts = [];
@@ -186,7 +190,8 @@ function printObject(path, options, print) {
     return content;
   }
 
-  return group(content, { shouldBreak });
+  const result = group(content, { shouldBreak });
+  return hasPreserveBreak ? markPreservedBreakGroup(result) : result;
 }
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {

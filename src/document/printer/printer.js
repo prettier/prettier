@@ -19,7 +19,12 @@ import {
   hardlineWithoutBreakParent,
   indent as indentDoc,
 } from "../builders/index.js";
-import { getDocType, propagateBreaks } from "../utilities/index.js";
+import {
+  getDocType,
+  isPreservedBreakGroup,
+  propagateBreaks,
+  shouldIgnorePreservedBreakGroup,
+} from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 import PrintResult from "./print-result.js";
@@ -30,7 +35,7 @@ import { trimIndentation } from "./trim-indentation.js";
 @import {Doc} from "../builders/index.js";
 @import {Indent, IndentOptions} from "./indent.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
-@typedef {{ indent: Indent, doc: any, mode: Mode }} Command
+@typedef {{ indent: Indent, doc: any, mode: Mode, ignorePreservedBreak?: boolean }} Command
 @typedef {Record<symbol, Mode>} GroupModeMap
 */
 
@@ -79,7 +84,7 @@ function fits(
       continue;
     }
 
-    const { mode, doc } = commands.pop();
+    const { mode, doc, ignorePreservedBreak } = commands.pop();
     const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
@@ -100,7 +105,7 @@ function fits(
         const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
         const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         for (let index = parts.length - 1; index >= end; index--) {
-          commands.push({ mode, doc: parts[index] });
+          commands.push({ mode, doc: parts[index], ignorePreservedBreak });
         }
         break;
       }
@@ -109,7 +114,7 @@ function fits(
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT_IF_BREAK:
       case DOC_TYPE_LABEL:
-        commands.push({ mode, doc: doc.contents });
+        commands.push({ mode, doc: doc.contents, ignorePreservedBreak });
         break;
 
       case DOC_TYPE_TRIM: {
@@ -120,16 +125,25 @@ function fits(
       }
 
       case DOC_TYPE_GROUP: {
-        if (mustBeFlat && doc.break) {
+        const nextIgnorePreservedBreak =
+          ignorePreservedBreak || shouldIgnorePreservedBreakGroup(doc);
+        const docBreak = nextIgnorePreservedBreak
+          ? doc.break && !isPreservedBreakGroup(doc)
+          : doc.break;
+        if (mustBeFlat && docBreak) {
           return false;
         }
-        const groupMode = doc.break ? MODE_BREAK : mode;
+        const groupMode = docBreak ? MODE_BREAK : mode;
         // The most expanded state takes up the least space on the current line.
         const contents =
           doc.expandedStates && groupMode === MODE_BREAK
             ? doc.expandedStates.at(-1)
             : doc.contents;
-        commands.push({ mode: groupMode, doc: contents });
+        commands.push({
+          mode: groupMode,
+          doc: contents,
+          ignorePreservedBreak: nextIgnorePreservedBreak,
+        });
         break;
       }
 
@@ -140,7 +154,7 @@ function fits(
         const contents =
           groupMode === MODE_BREAK ? doc.breakContents : doc.flatContents;
         if (contents) {
-          commands.push({ mode, doc: contents });
+          commands.push({ mode, doc: contents, ignorePreservedBreak });
         }
         break;
       }
@@ -259,10 +273,13 @@ function printDocToString(doc, options) {
 
           /** @type {Command} */
           const flatCommand = { indent, mode: MODE_FLAT, doc: doc.contents };
+          const fitCommand = shouldIgnorePreservedBreakGroup(doc)
+            ? { ...flatCommand, ignorePreservedBreak: true }
+            : flatCommand;
           if (
             !doc.break &&
             fits(
-              flatCommand,
+              fitCommand,
               commands,
               remainingWidth,
               hasLineSuffix,
