@@ -310,9 +310,8 @@ function printArrowFunctionBody(
 
   if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
     return [
-      " ",
       group([
-        ifBreak("", "("),
+        ifBreak("", " ("),
         indent([softline, bodyDoc]),
         ifBreak("", ")"),
         trailingComma,

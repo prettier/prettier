@@ -4742,6 +4742,82 @@ a = () => /** @param {string} id */ id => id;
 ================================================================================
 `;
 
+exports[`issue-18485.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAscFunction1 = (firstArgumentValue, secondArgumentValueXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction2 = (firstArgumentValue, secondArgumentValueXXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction3 = (firstArgumentValue, secondArgumentValueXX) =>
+  ident;
+
+const veryLongCurriedArrowFunctionNameHere = (firstArg) => (secondArgHereXXX) =>
+  true ? a : b;
+
+=====================================output=====================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAscFunction1 = (firstArgumentValue, secondArgumentValueXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction2 = (
+  firstArgumentValue,
+  secondArgumentValueXXX,
+) => (true ? a : b);
+
+const sortByCreatedAscFunction3 = (firstArgumentValue, secondArgumentValueXX) =>
+  ident;
+
+const veryLongCurriedArrowFunctionNameHere = (firstArg) => (secondArgHereXXX) =>
+  true ? a : b;
+
+================================================================================
+`;
+
+exports[`issue-18485.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAscFunction1 = (firstArgumentValue, secondArgumentValueXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction2 = (firstArgumentValue, secondArgumentValueXXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction3 = (firstArgumentValue, secondArgumentValueXX) =>
+  ident;
+
+const veryLongCurriedArrowFunctionNameHere = (firstArg) => (secondArgHereXXX) =>
+  true ? a : b;
+
+=====================================output=====================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAscFunction1 = (firstArgumentValue, secondArgumentValueXX) =>
+  true ? a : b;
+
+const sortByCreatedAscFunction2 = (
+  firstArgumentValue,
+  secondArgumentValueXXX,
+) => (true ? a : b);
+
+const sortByCreatedAscFunction3 = (firstArgumentValue, secondArgumentValueXX) =>
+  ident;
+
+const veryLongCurriedArrowFunctionNameHere = firstArg => secondArgHereXXX =>
+  true ? a : b;
+
+================================================================================
+`;
+
 exports[`long-call-no-args.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"

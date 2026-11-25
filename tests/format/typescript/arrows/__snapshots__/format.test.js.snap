@@ -28,6 +28,82 @@ a = (b?) => c;
 ================================================================================
 `;
 
+exports[`issue-18485.ts - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAsc: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  true ? a : b;
+
+const sortByCreatedAs1: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): value =>
+  true ? a : b;
+
+const sortByCreatedAs2: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): boolean =>
+  true ? a : b;
+
+const sortByCreatedAs3: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  ident;
+
+=====================================output=====================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAsc: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  true ? a : b;
+
+const sortByCreatedAs1: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): value =>
+  true ? a : b;
+
+const sortByCreatedAs2: AgentSortOptionsFn = (
+  a: AiAgent,
+  b: AiAgent,
+): boolean => (true ? a : b);
+
+const sortByCreatedAs3: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  ident;
+
+================================================================================
+`;
+
+exports[`issue-18485.ts - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAsc: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  true ? a : b;
+
+const sortByCreatedAs1: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): value =>
+  true ? a : b;
+
+const sortByCreatedAs2: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): boolean =>
+  true ? a : b;
+
+const sortByCreatedAs3: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  ident;
+
+=====================================output=====================================
+//     10|       20|       30|       40|       50|       60|       70|       80|
+const sortByCreatedAsc: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  true ? a : b;
+
+const sortByCreatedAs1: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): value =>
+  true ? a : b;
+
+const sortByCreatedAs2: AgentSortOptionsFn = (
+  a: AiAgent,
+  b: AiAgent,
+): boolean => (true ? a : b);
+
+const sortByCreatedAs3: AgentSortOptionsFn = (a: AiAgent, b: AiAgent): number =>
+  ident;
+
+================================================================================
+`;
+
 exports[`short_body.ts - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
