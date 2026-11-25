@@ -8579,7 +8579,8 @@ const foo = (
             "match-achievement-medal-type type" +
             (medals[0].record ? "-record"
             : medals[0].unique ? "-unique"
-            : medals[0].type)
+            : medals[0].type
+            )
         }
     >
         {medals[0].record ?
@@ -8846,7 +8847,8 @@ const foo = (
 			"match-achievement-medal-type type" +
 			(medals[0].record ? "-record"
 			: medals[0].unique ? "-unique"
-			: medals[0].type)
+			: medals[0].type
+			)
 		}
 	>
 		{medals[0].record ?
@@ -9112,7 +9114,8 @@ const foo = (
 			"match-achievement-medal-type type" +
 			(medals[0].record ? "-record"
 			: medals[0].unique ? "-unique"
-			: medals[0].type)
+			: medals[0].type
+			)
 		}
 	>
 		{medals[0].record ?
@@ -9377,7 +9380,8 @@ const foo = (
       "match-achievement-medal-type type" +
       (medals[0].record ? "-record"
       : medals[0].unique ? "-unique"
-      : medals[0].type)
+      : medals[0].type
+      )
     }
   >
     {medals[0].record ?
@@ -9658,7 +9662,8 @@ const foo = (
                 ? "-record"
                 : medals[0].unique
                   ? "-unique"
-                  : medals[0].type)
+                  : medals[0].type
+            )
         }
     >
         {medals[0].record
@@ -9944,7 +9949,8 @@ const foo = (
 				? "-record"
 				: medals[0].unique
 					? "-unique"
-					: medals[0].type)
+					: medals[0].type
+			)
 		}
 	>
 		{medals[0].record
@@ -10229,7 +10235,8 @@ const foo = (
 				? "-record"
 				: medals[0].unique
 					? "-unique"
-					: medals[0].type)
+					: medals[0].type
+			)
 		}
 	>
 		{medals[0].record
@@ -10513,7 +10520,8 @@ const foo = (
         ? "-record"
         : medals[0].unique
           ? "-unique"
-          : medals[0].type)
+          : medals[0].type
+      )
     }
   >
     {medals[0].record
