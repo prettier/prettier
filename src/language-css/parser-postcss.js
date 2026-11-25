@@ -101,7 +101,6 @@ function parseNestedCSS(node, options) {
     }
 
     let value = "";
-
     if (typeof node.value === "string") {
       value = node.raws.value
         ? (node.raws.value.scss ?? node.raws.value.raw)
