@@ -33,10 +33,13 @@ function printSelectorNode(path, options, print) {
       return printTagSelector(path /* , options, print */);
 
     case "selector-id":
-      return ["#", node.value];
+      return ["#", node.raws?.value ?? node.value];
 
     case "selector-class":
-      return [".", adjustNumbers(adjustStrings(node.value, options))];
+      return [
+        ".",
+        adjustNumbers(adjustStrings(node.raws?.value ?? node.value, options)),
+      ];
 
     case "selector-attribute":
       return printAttributeSelector(path, options /* , print */);

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`selector.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "less", "scss"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@container (width >= 1536px) {
+  /*
+  https://github.com/twbs/bootstrap/blob/f9a7a8941e7c1c91b0cae8a0c906537c26086ae2/dist/css/bootstrap.css#L7475
+  */
+  .\\32 xl\\:list-group-horizontal > .list-group-item:first-child:not(:last-child) {
+  }
+  .\\32    xl\\:list-group-horizontal > .list-group-item:first-child:not(:last-child) {
+  }
+}
+
+=====================================output=====================================
+@container (width >= 1536px) {
+  /*
+  https://github.com/twbs/bootstrap/blob/f9a7a8941e7c1c91b0cae8a0c906537c26086ae2/dist/css/bootstrap.css#L7475
+  */
+  .\\32 xl\\:list-group-horizontal
+    > .list-group-item:first-child:not(:last-child) {
+  }
+  .\\32
+    xl\\:list-group-horizontal
+    > .list-group-item:first-child:not(:last-child) {
+  }
+}
+
+================================================================================
+`;

@@ -96,7 +96,9 @@ function printCssAtrule(path, options, print) {
           typeof node.params === "string" ? node.params : print("params"),
         ]
       : "",
-    node.selector ? indent([" ", print("selector")]) : "",
+    node.selector
+      ? indent([" ", print("selector"), node.optional ? " !optional" : ""])
+      : "",
     node.value
       ? group([
           " ",
