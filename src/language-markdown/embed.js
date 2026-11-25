@@ -71,11 +71,13 @@ function embed(path, options) {
           parser: "babel",
         });
     case "jsx":
-      return (textToDoc) =>
-        textToDoc(`<$>${node.value}</$>`, {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        });
+      return async (textToDoc) =>
+        markAsRoot(
+          await textToDoc(`<$>${node.value}</$>`, {
+            parser: "__js_expression",
+            rootMarker: "mdx",
+          }),
+        );
   }
 
   return null;
