@@ -20,10 +20,13 @@ function printValueNode(path, options, print) {
     case "value-root":
       return print("group");
 
-    case "value-comment": {
-      const text = options.originalText.slice(locStart(node), locEnd(node));
-      return node.inline ? lineSuffix(text.trimEnd()) : text;
-    }
+    case "value-comment":
+      if (node.inline) {
+        return lineSuffix(`//${node.value.trimEnd()}`);
+      }
+
+      return `/*${node.value}*/`;
+
     case "value-comma_group":
       return printCommaSeparatedValueGroup(path, options, print);
 
