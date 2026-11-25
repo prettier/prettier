@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   line,
   lineSuffixBoundary,
@@ -43,12 +44,21 @@ function printCssAtrule(path, options, print) {
     }
 
     if (node.variable) {
+      const groupId = Symbol("variable-value-group");
+      const between = node.raws.between.trim();
+
       return [
         "@",
         node.name,
         ": ",
-        node.value ? [print("value"), lineSuffixBoundary] : "",
-        node.raws.between.trim() ? node.raws.between.trim() + " " : "",
+        node.value
+          ? [
+              print("value"),
+              group(lineSuffixBoundary, { id: groupId }),
+              between || node.nodes ? ifBreak("", " ", { groupId }) : "",
+            ]
+          : "",
+        between ? between + (node.nodes ? " " : "") : "",
         node.nodes
           ? [
               "{",
