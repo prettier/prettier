@@ -1,6 +1,6 @@
 // Do not change case of property name if inside a variable declaration
 
-@var: {
+@var1: {
   notVar: 0;
   @notVarNested: {
     notVar: 1;
@@ -8,50 +8,50 @@
   };
 };
 
-@var    :    {
+@var2    :    {
   preserveCase: 5;
 };
 
-@var:    {
+@var3:    {
   preserveCase: 5;
 };
 
-@var    :{
+@var4    :{
   preserveCase: 5;
 };
 
-@var /* comment */ : /* comment */ {
+@var5 /* comment */ : /* comment */ {
   preserveCase: 5;
 };
 
-@var: /* comment */ {
+@var6: /* comment */ {
   preserveCase: 5;
 };
 
-@var /* comment */ :{
+@var7 /* comment */ :{
   preserveCase: 5;
 };
 
-@var // comment
+@var8 // comment
 : // comment
 {
   /* FIXME: should not change case */
   preserveCase: 5;
 };
 
-@var: // comment
+@var9: // comment
 {
   preserveCase: 5;
 };
 
-@var // comment
+@var10 // comment
 :{
   /* FIXME: should not change case */
   preserveCase: 5;
 };
 
 // Known css properties
-@var: {
+@var11: {
   COLoR: RED;
 };
 
