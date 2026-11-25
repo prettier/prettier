@@ -279,12 +279,13 @@ function parseNestedCSS(node, options) {
           !["page", "nest", "keyframes"].includes(node.name) &&
           node.params?.[0] === ":"
         ) {
-          node.variable = true;
-          const text = node.raws.params.slice(1);
-          if (text) {
+          let text = node.raws.params;
+          if (text.startsWith(":")) {
+            text = text.slice(1);
+            node.variable = true;
             node.value = parseValue(text, options);
+            node.raws.afterName += ":";
           }
-          node.raws.afterName += ":";
         }
 
         // Less variable
