@@ -418,6 +418,7 @@ function isEmptyLocNode(node) {
  * @param text {string}
  */
 function replaceQuotesInInlineComments(text) {
+  return text;
   /** @typedef { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } State */
   /** @type {State} */
   let state = "initial";
