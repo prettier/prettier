@@ -280,7 +280,7 @@ function parseNestedCSS(node, options) {
           node.params?.[0] === ":"
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
+          const text = node.raws.params.slice(1);
           if (text) {
             node.value = parseValue(text, options);
           }
