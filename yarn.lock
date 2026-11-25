@@ -5454,10 +5454,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:7.0.16, ignore@npm:^7.0.5":
-  version: 7.0.16
-  resolution: "ignore@npm:7.0.16"
-  checksum: 10/1b7ce35ee1013f39b2b62135ab6ca4355a1b3b5a448f69355b17a62ee65a2fad7b90987f3d1fefefa596dbc8e2e92629c8a5d71648d707cdeb5c6b27a4c57b5f
+"ignore@npm:7.0.17, ignore@npm:^7.0.5":
+  version: 7.0.17
+  resolution: "ignore@npm:7.0.17"
+  checksum: 10/51f2101fc8fe56f9a12ceb2868b213b34864cc02fc2af17bd3b84486c0410382794fab06281fffc3e7c043d60c9dd1ef290e6489c553e3ae1b08289ca519ac58
   languageName: node
   linkType: hard
 
@@ -8204,7 +8204,7 @@ __metadata:
     graphql: "npm:17.1.0"
     graphql-test-suite: "npm:0.0.2"
     html-ua-styles: "npm:0.5.0"
-    ignore: "npm:7.0.16"
+    ignore: "npm:7.0.17"
     import-meta-resolve: "npm:4.2.0"
     imurmurhash-esm: "npm:0.0.2"
     index-to-position: "npm:1.2.0"
