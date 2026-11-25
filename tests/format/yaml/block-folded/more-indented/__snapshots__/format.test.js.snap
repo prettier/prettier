@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`more-indented.yml - {"proseWrap":"always","printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 30
+proseWrap: "always"
+              printWidth: 30 |
+=====================================input======================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line, which should be preceded by a line break, but is safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap after these indented lines without changing its value.
+
+keep: >+
+  Ordinary text can be wrapped safely across multiple lines when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+  Ordinary text after the indented section can once again be wrapped safely.
+
+next: value
+
+=====================================output=====================================
+OffendingTextUsesFoldingBlockScalar:
+  - >
+    First Line.
+             This line is indented and exceeds the print width, but shouldn't be broken, since it will insert a line break where there isn't one currently.
+    This is another line,
+    which should be preceded
+    by a line break, but is
+    safe to break!
+
+consecutive: >-
+  Ordinary text can be wrapped
+  safely across multiple lines
+  when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+    This consecutive more-indented line must also retain its own line break.
+  Ordinary text after the
+  indented section can once
+  again be wrapped safely.
+
+explicit: >2-
+    This first line is more indented than the explicit indentation indicator and must not wrap.
+    This second line must keep its line break as well, even when prose wrapping is disabled.
+  Ordinary text can still wrap
+  after these indented lines
+  without changing its value.
+
+keep: >+
+  Ordinary text can be wrapped
+  safely across multiple lines
+  when it is long enough.
+    This more-indented line must stay intact even when it exceeds the configured print width.
+  Ordinary text after the
+  indented section can once
+  again be wrapped safely.
+
+next: value
+
+================================================================================
+`;
+
+exports[`snippet: more-indented line starting with a tab - {"proseWrap":"always","printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 30
+proseWrap: "always"
+              printWidth: 30 |
+=====================================input======================================
+key: >-
+  short line
+  	this tab-led line is far wider than the print width
+  another ordinary line that is long enough to wrap
+
+=====================================output=====================================
+key: >-
+  short line
+  	this tab-led line is far wider than the print width
+  another ordinary line that
+  is long enough to wrap
+
+================================================================================
+`;
+
+exports[`snippet: more-indented line wider than the print width - {"proseWrap":"always","printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 30
+proseWrap: "always"
+              printWidth: 30 |
+=====================================input======================================
+key: >
+  short line
+    this more-indented line is far wider than the print width
+  another ordinary line that is long enough to wrap
+
+=====================================output=====================================
+key: >
+  short line
+    this more-indented line is far wider than the print width
+  another ordinary line that
+  is long enough to wrap
+
+================================================================================
+`;
+
+exports[`snippet: more-indented line with explicit indentation indicator - {"proseWrap":"always","printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 30
+proseWrap: "always"
+              printWidth: 30 |
+=====================================input======================================
+key: >2-
+    this more-indented line is far wider than the print width
+  ordinary line that is long enough to wrap
+
+=====================================output=====================================
+key: >2-
+    this more-indented line is far wider than the print width
+  ordinary line that is long
+  enough to wrap
+
+================================================================================
+`;
+
+exports[`snippet: whitespace-only more-indented line - {"proseWrap":"always","printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 30
+proseWrap: "always"
+              printWidth: 30 |
+=====================================input======================================
+key: >-
+  first ordinary line
+    
+  second ordinary line that is long enough to wrap
+
+=====================================output=====================================
+key: >-
+  first ordinary line
+    
+  second ordinary line that is
+  long enough to wrap
+
+================================================================================
+`;
