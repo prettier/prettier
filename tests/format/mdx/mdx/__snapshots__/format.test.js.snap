@@ -921,3 +921,44 @@ export default ({ children }) => <div>{children}</div>;
 
 ================================================================================
 `;
+
+exports[`reference-label.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+See [a\\]b][] and [RFC&nbsp;9111][].
+
+[a\\]b]: https://example.com/a
+
+[RFC&nbsp;9111]: https://example.com/rfc
+
+=====================================output=====================================
+See [a\\]b][] and [RFC&nbsp;9111][].
+
+[a\\]b]: https://example.com/a
+[RFC&nbsp;9111]: https://example.com/rfc
+
+================================================================================
+`;
+
+exports[`reference-label.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+See [a\\]b][] and [RFC&nbsp;9111][].
+
+[a\\]b]: https://example.com/a
+
+[RFC&nbsp;9111]: https://example.com/rfc
+
+=====================================output=====================================
+See [a\\]b][] and [RFC&nbsp;9111][].
+
+[a\\]b]: https://example.com/a
+[RFC&nbsp;9111]: https://example.com/rfc
+
+================================================================================
+`;

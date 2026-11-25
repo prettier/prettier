@@ -253,7 +253,7 @@ function printMdast(path, options, print) {
         printChildren(path, options, print),
         "]",
         node.referenceType === "full"
-          ? printLinkReference(node)
+          ? printLinkReference(node, options)
           : node.referenceType === "collapsed"
             ? "[]"
             : "",
@@ -263,12 +263,12 @@ function printMdast(path, options, print) {
 
       switch (node.referenceType) {
         case "full":
-          return ["![", alt, "]", printLinkReference(node)];
+          return ["![", alt, "]", printLinkReference(node, options)];
         default:
           return [
             ...(options.parser === "mdx"
               ? ["![", alt, "]"]
-              : ["!", printLinkReference(node)]),
+              : ["!", printLinkReference(node, options)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -276,7 +276,7 @@ function printMdast(path, options, print) {
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
-        printLinkReference(node),
+        printLinkReference(node, options),
         ":",
         indent([
           lineOrSpace,
@@ -295,7 +295,7 @@ function printMdast(path, options, print) {
     case "footnote":
       return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
-      return printFootnoteReference(node);
+      return printFootnoteReference(node, options);
     case "footnoteDefinition": {
       const shouldInlineFootnote =
         node.children.length === 1 &&
@@ -305,7 +305,7 @@ function printMdast(path, options, print) {
             node.children[0].position.start.line ===
               node.children[0].position.end.line));
       return [
-        printFootnoteReference(node),
+        printFootnoteReference(node, options),
         ": ",
         shouldInlineFootnote
           ? printChildren(path, options, print)
@@ -519,19 +519,43 @@ function printTitle(title, options, printSpace = true) {
   return title;
 }
 
+// `node.label` is decoded (`&nbsp;`, `\*`), but reference labels are matched
+// on the source text, so print the label as it was written.
+const labelAtStart = /^!?\[((?:[^[\\\]]|\\.)*)\]/su;
+const labelAtEnd = /\[((?:[^[\\\]]|\\.)*)\]$/su;
+const footnoteLabelAtStart = /^\[\^((?:[^[\\\]]|\\.)*)\]/su;
+
+function getRawLabel(node, options, regexp) {
+  const raw = regexp.exec(
+    options.originalText.slice(locStart(node), locEnd(node)),
+  )?.[1];
+  // Labels spanning lines may contain container prefixes such as `>`
+  return raw && !raw.includes("\n") ? raw : undefined;
+}
+
 function printLinkReference(node, options) {
   // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
   // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
+  const rawLabel = getRawLabel(
+    node,
+    options,
+    node.referenceType === "full" ? labelAtEnd : labelAtStart,
+  );
+  if (rawLabel !== undefined) {
+    return `[${collapseWhiteSpace(rawLabel)}]`;
+  }
+
   const label = collapseWhiteSpace(node.label);
-  if (options?.parser === "mdx") {
+  if (options.parser === "mdx") {
     return `[${label}]`;
   }
   const name = label.replaceAll(/[\\[\]]/g, (s) => `\\${s}`);
   return `[${name}]`;
 }
 
-function printFootnoteReference(node) {
-  return `[^${node.label}]`;
+function printFootnoteReference(node, options) {
+  const rawLabel = getRawLabel(node, options, footnoteLabelAtStart);
+  return `[^${rawLabel ?? node.label}]`;
 }
 
 function printImageAlt(node, options) {
