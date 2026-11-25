@@ -44,7 +44,6 @@ function printCssAtrule(path, options, print) {
     }
 
     if (node.variable) {
-      const groupId = Symbol("variable-value-group");
       const between = node.raws.between.trim();
 
       return [
@@ -54,8 +53,10 @@ function printCssAtrule(path, options, print) {
         node.value
           ? [
               print("value"),
-              group(lineSuffixBoundary, { id: groupId }),
-              between || node.nodes ? ifBreak("", " ", { groupId }) : "",
+              group([
+                lineSuffixBoundary,
+                between || node.nodes ? ifBreak("", " ") : "",
+              ]),
             ]
           : "",
         between ? between + (node.nodes ? " " : "") : "",
