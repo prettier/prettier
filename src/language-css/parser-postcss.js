@@ -275,10 +275,15 @@ function parseNestedCSS(node, options) {
           node.params?.[0] === ":"
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
-          if (text) {
-            node.value = parseValue(text, options);
+
+          let text = node.raws.params;
+          if (text.startsWith(":")) {
+            text = text.slice(1);
+            if (text) {
+              node.value = parseValue(text, options);
+            }
           }
+
           node.raws.afterName += ":";
         }
 
