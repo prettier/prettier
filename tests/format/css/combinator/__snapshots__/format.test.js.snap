@@ -68,6 +68,12 @@ parsers: ["css"]
 .x
     .y {}
 
+.a /deep/ .b {}
+.a/deep/.b {}
+.a   /DEEP/   .b {}
+/deep/ .b {}
+.a /deep/ .b /shadow/ .c {}
+
 =====================================output=====================================
 -Option/root .public/section ~ .public/section:before {
 }
@@ -85,6 +91,17 @@ parsers: ["css"]
 .x .y {
 }
 .x .y {
+}
+
+.a /deep/ .b {
+}
+.a /deep/ .b {
+}
+.a /DEEP/ .b {
+}
+/deep/ .b {
+}
+.a /deep/ .b /shadow/ .c {
 }
 
 ================================================================================
