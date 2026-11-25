@@ -7032,8 +7032,8 @@ parsers: ["less"]
 .some-inline-comments {
   a: yes /* comment */;
   b: red /* comment */;
-  @c: yes/* comment */ ;
-  @d: red/* comment */ ;
+  @c: yes /* comment */;
+  @d: red /* comment */;
   c: @c;
   d: @d;
 }
@@ -11163,7 +11163,7 @@ html {
   two-two: extract(@two, 2);
 }
 @color1: #fff; /* comment1 */
-@color2: #fff/* comment2 */ ;
+@color2: #fff /* comment2 */;
 html {
   color: mix(blue, @color1, 50%);
   color: mix(blue, @color2, 50%);
@@ -18814,7 +18814,7 @@ pi-complex-values {
   @{p}@{p}: none;
   @p:
     (1 + 2px) fadeout(#ff0, 50%),
-    pi()/* foo */ ;
+    pi() /* foo */;
 }
 
 ================================================================================
