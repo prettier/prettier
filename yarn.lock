@@ -8051,12 +8051,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-less@npm:7.1.0":
-  version: 7.1.0
-  resolution: "postcss-less@npm:7.1.0"
+"postcss-less@https://pkg.pr.new/postcss-less@226.tgz":
+  version: 7.1.1
+  resolution: "postcss-less@https://pkg.pr.new/postcss-less@226.tgz"
   peerDependencies:
     postcss: ^8.5.32
-  checksum: 10/217bdb59c94d5e1082f55fb782c2f66bc2a2041c2256fbfd83f1c76af57f3a666fde4ddb54af63099bb31d4276f27a316cd7ad1809ea4549631b7218700927c1
+  checksum: 10/f07f0fc2e9c1f873d578690f5dc23d8adb7c57da8cc55a14c7605d3056c612c02cb35e86b7958f0dc63d605bab248950a88999843dde57a21caf18922fea5c44
   languageName: node
   linkType: hard
 
@@ -8247,7 +8247,7 @@ __metadata:
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
     postcss: "npm:8.5.33"
-    postcss-less: "npm:7.1.0"
+    postcss-less: "https://pkg.pr.new/postcss-less@226.tgz"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
     postcss-selector-parser: "npm:7.2.1"
