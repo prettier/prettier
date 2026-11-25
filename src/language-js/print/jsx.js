@@ -19,6 +19,7 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
+import printString from "../../utilities/print-string.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
@@ -331,12 +332,28 @@ function printJsxChildren(
     prevPart = doc;
     parts.push(doc, "");
   }
-  path.each(({ node, next }) => {
+  path.each(({ node, previous, next }) => {
     if (node.type === "JSXText") {
       const text = getRaw(node);
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
+        // A text node surrounded by whitespace between an element and an
+        // expression would be split into separate text runs when the group
+        // breaks (`{" "}`), which changes rendering when letter spacing is
+        // applied. Keep the whole run together as an explicit string.
+        if (
+          /^ \S[^\n]* $/.test(text) &&
+          previous?.type === "JSXElement" &&
+          previous.closingElement &&
+          next?.type === "JSXExpressionContainer" &&
+          next.expression.type !== "JSXEmptyExpression"
+        ) {
+          push(`{${printString(JSON.stringify(text), options)}}`);
+          pushLine(hardline);
+          return;
+        }
+
         const words = jsxWhitespace.split(text, /* captureWhitespace */ true);
 
         // Starts with whitespace

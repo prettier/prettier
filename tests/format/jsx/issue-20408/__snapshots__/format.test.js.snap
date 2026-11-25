@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`input.jsx - {"options":[{"printWidth":40}]} format 1`] = `
+====================================options=====================================
+options: [{"printWidth":40}]
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div style={{ letterSpacing: ".15px" }}>→ Next: <strong>{label}</strong> · {date}</div>
+
+=====================================output=====================================
+<div style={{ letterSpacing: ".15px" }}>
+  → Next: <strong>{label}</strong>{" · "}
+  {date}
+</div>;
+
+================================================================================
+`;
