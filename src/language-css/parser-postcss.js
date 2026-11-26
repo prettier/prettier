@@ -5,12 +5,7 @@ import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
 import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
-import {
-  calculateLoc,
-  locEnd,
-  locStart,
-  replaceQuotesInInlineComments,
-} from "./loc.js";
+import { calculateLoc, locEnd, locStart } from "./loc.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
@@ -106,7 +101,6 @@ function parseNestedCSS(node, options) {
     }
 
     let value = "";
-
     if (typeof node.value === "string") {
       value = node.raws.value
         ? (node.raws.value.scss ?? node.raws.value.raw)
@@ -280,10 +274,15 @@ function parseNestedCSS(node, options) {
           node.params?.[0] === ":"
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
-          if (text) {
-            node.value = parseValue(text, options);
+
+          let text = node.raws.params;
+          if (text.startsWith(":")) {
+            text = text.slice(1);
+            if (text) {
+              node.value = parseValue(text, options);
+            }
           }
+
           node.raws.afterName += ":";
         }
 
@@ -446,13 +445,7 @@ function parseCss(text, options = {}) {
 }
 
 function parseLess(text, options = {}) {
-  return parseWithParser(
-    // Workaround for https://github.com/shellscape/postcss-less/issues/145
-    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLessParse(replaceQuotesInInlineComments(text)),
-    text,
-    options,
-  );
+  return parseWithParser(postcssLessParse, text, options);
 }
 
 function parseScss(text, options = {}) {
