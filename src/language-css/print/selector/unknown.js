@@ -18,12 +18,10 @@ function printUnknownSelector(path, options /* , print */) {
   }
 
   const parentNode = path.parent;
-
   if (parentNode.raws?.selector) {
     return parentNode.raws.selector.trimEnd();
   }
 
-  // Same reason above
   const grandParent = path.grandparent;
   if (
     parentNode.type === "value-paren_group" &&
