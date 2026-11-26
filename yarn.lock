@@ -3161,44 +3161,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/darwin-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/darwin-arm64@npm:0.28.1"
+"@yuku-toolchain/darwin-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/darwin-arm64@npm:0.29.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/darwin-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/darwin-x64@npm:0.28.1"
+"@yuku-toolchain/darwin-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/darwin-x64@npm:0.29.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/linux-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/linux-arm64@npm:0.28.1"
+"@yuku-toolchain/linux-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/linux-arm64@npm:0.29.0"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/linux-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/linux-x64@npm:0.28.1"
+"@yuku-toolchain/linux-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/linux-x64@npm:0.29.0"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/win32-arm64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/win32-arm64@npm:0.28.1"
+"@yuku-toolchain/win32-arm64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/win32-arm64@npm:0.29.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@yuku-toolchain/win32-x64@npm:0.28.1":
-  version: 0.28.1
-  resolution: "@yuku-toolchain/win32-x64@npm:0.28.1"
+"@yuku-toolchain/win32-x64@npm:0.29.0":
+  version: 0.29.0
+  resolution: "@yuku-toolchain/win32-x64@npm:0.29.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -5454,10 +5454,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:7.0.16, ignore@npm:^7.0.5":
-  version: 7.0.16
-  resolution: "ignore@npm:7.0.16"
-  checksum: 10/1b7ce35ee1013f39b2b62135ab6ca4355a1b3b5a448f69355b17a62ee65a2fad7b90987f3d1fefefa596dbc8e2e92629c8a5d71648d707cdeb5c6b27a4c57b5f
+"ignore@npm:7.0.17, ignore@npm:^7.0.5":
+  version: 7.0.17
+  resolution: "ignore@npm:7.0.17"
+  checksum: 10/51f2101fc8fe56f9a12ceb2868b213b34864cc02fc2af17bd3b84486c0410382794fab06281fffc3e7c043d60c9dd1ef290e6489c553e3ae1b08289ca519ac58
   languageName: node
   linkType: hard
 
@@ -8076,14 +8076,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:2.2.3":
-  version: 2.2.3
-  resolution: "postcss-selector-parser@npm:2.2.3"
+"postcss-selector-parser@npm:7.2.1":
+  version: 7.2.1
+  resolution: "postcss-selector-parser@npm:7.2.1"
   dependencies:
-    flatten: "npm:^1.0.2"
-    indexes-of: "npm:^1.0.1"
-    uniq: "npm:^1.0.1"
-  checksum: 10/a3d0300117abac9730b3a268c91dae6048770080c42e6504d33b3c6620efd5c60623392ffd2931a74519e10ca72d9e75d24ac25cfc3e1e109cb42993f0373e42
+    util-deprecate: "npm:^1.0.2"
+  checksum: 10/65a2f9d4c9189cab6ad14e973e801e54ae9b7a5ae8ff9744cea3a08d83ded0a9d07a85c452d0020a13b5345cba20223b3048fd4a593acea17b0a04edc3213e7d
   languageName: node
   linkType: hard
 
@@ -8206,7 +8204,7 @@ __metadata:
     graphql: "npm:17.1.0"
     graphql-test-suite: "npm:0.0.2"
     html-ua-styles: "npm:0.5.0"
-    ignore: "npm:7.0.16"
+    ignore: "npm:7.0.17"
     import-meta-resolve: "npm:4.2.0"
     imurmurhash-esm: "npm:0.0.2"
     index-to-position: "npm:1.2.0"
@@ -8252,7 +8250,7 @@ __metadata:
     postcss-less: "npm:7.1.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
-    postcss-selector-parser: "npm:2.2.3"
+    postcss-selector-parser: "npm:7.2.1"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.10.1"
     pretty-bytes: "npm:7.2.0"
@@ -8282,7 +8280,7 @@ __metadata:
     yaml: "npm:2.9.1"
     yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:3.2.1"
-    yuku: "npm:0.28.1"
+    yuku: "npm:0.29.0"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -9612,6 +9610,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"util-deprecate@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "util-deprecate@npm:1.0.2"
+  checksum: 10/474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
 "v8-to-istanbul@npm:^9.0.0, v8-to-istanbul@npm:^9.0.1":
   version: 9.3.0
   resolution: "v8-to-istanbul@npm:9.3.0"
@@ -9951,18 +9956,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yuku@npm:0.28.1":
-  version: 0.28.1
-  resolution: "yuku@npm:0.28.1"
+"yuku@npm:0.29.0":
+  version: 0.29.0
+  resolution: "yuku@npm:0.29.0"
   dependencies:
-    "@yuku-toolchain/darwin-arm64": "npm:0.28.1"
-    "@yuku-toolchain/darwin-x64": "npm:0.28.1"
-    "@yuku-toolchain/linux-arm64": "npm:0.28.1"
-    "@yuku-toolchain/linux-x64": "npm:0.28.1"
-    "@yuku-toolchain/win32-arm64": "npm:0.28.1"
-    "@yuku-toolchain/win32-x64": "npm:0.28.1"
+    "@yuku-toolchain/darwin-arm64": "npm:0.29.0"
+    "@yuku-toolchain/darwin-x64": "npm:0.29.0"
+    "@yuku-toolchain/linux-arm64": "npm:0.29.0"
+    "@yuku-toolchain/linux-x64": "npm:0.29.0"
+    "@yuku-toolchain/win32-arm64": "npm:0.29.0"
+    "@yuku-toolchain/win32-x64": "npm:0.29.0"
   peerDependencies:
-    "@yuku-toolchain/wasm": 0.28.1
+    "@yuku-toolchain/wasm": 0.29.0
   dependenciesMeta:
     "@yuku-toolchain/darwin-arm64":
       optional: true
@@ -9979,7 +9984,7 @@ __metadata:
   peerDependenciesMeta:
     "@yuku-toolchain/wasm":
       optional: true
-  checksum: 10/ea82ae8b64ffbb221f45b5978b91f84c9a728c6e5dfac0566aa69580835d9571af4bc67eb17bd9bf21ad6b116901f69ae23074625bf8887a5791df6db98b2423
+  checksum: 10/8237401bde54cbd09eaf885fd21188b404f64bcda77cc9923ff9396f45e400f2cdf76e84269454ae30fa495f63ac21ef83e5014c168c1a6a06c63df482821e36
   languageName: node
   linkType: hard
 

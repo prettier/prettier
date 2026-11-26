@@ -313,6 +313,12 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "extend" || name === "nest") {
+        const optionalFlag = /\s+!optional$/.exec(params);
+        if (optionalFlag) {
+          node.optional = true;
+          params = params.slice(0, optionalFlag.index);
+        }
+
         node.selector = parseSelector(params);
         delete node.params;
 
