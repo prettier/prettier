@@ -1,0 +1,10 @@
+a {
+  background-image: url("test.jpg" param(--some-param: #fc3));
+  background-image: url("test.jpg" foo bar(1) baz);
+  background-image: url( 'test.jpg'
+    foo	bar(1) );
+  background-image: url("test.jpg" cross-origin(anonymous) integrity("sha384-abc") referrer-policy(no-referrer));
+  background-image: url("test.jpg"param(--x));
+  background-image: url("a"+"b");
+  background-image: url("a" + "b");
+}
