@@ -22,7 +22,7 @@ const languages = [
         (filename) =>
           !ignoredFilenames.has(filename) &&
           // `.eslintrc` can be JSONC or YAML
-          filename !== '.eslintrc",',
+          filename !== ".eslintrc",
       ),
       ".prettierrc",
       ".stylelintrc",
