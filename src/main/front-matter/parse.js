@@ -100,6 +100,9 @@ function getFrontMatter(text) {
   };
 }
 
+/**
+@param {string} text
+*/
 function parse(text) {
   const frontMatter = getFrontMatter(text);
 

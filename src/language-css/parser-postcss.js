@@ -395,7 +395,7 @@ function parseNestedCSS(parse, node, options) {
 }
 
 /**
-@param {postcss["parse"]} parseSyntax
+@param {typeof cssParse} parseSyntax
 */
 function createParser(parseSyntax) {
   /**
@@ -404,6 +404,7 @@ function createParser(parseSyntax) {
   const parse = (text, options = {}) => {
     const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
+    /** @type {postcss.Root} */
     let result;
 
     try {
