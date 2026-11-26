@@ -1,5 +1,5 @@
 import cssParse from "postcss/lib/parse";
-import { parse as lessParse } from "postcss-less";
+import lessParse from "postcss-less/lib/less-parse";
 import scssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
@@ -14,15 +14,19 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
+/**
+@import * as postcss from "postcss"
+*/
+
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
-function parseNestedCSS(node, options) {
+function parseNestedCSS(parse, node, options) {
   if (isObject(node)) {
     delete node.parent;
 
     for (const key in node) {
-      parseNestedCSS(node[key], options);
+      parseNestedCSS(parse, node[key], options);
     }
 
     if (!node.type) {
@@ -54,14 +58,6 @@ function parseNestedCSS(node, options) {
           );
         const fakeContent =
           replaceNonLineBreaksWithSpace(textBefore) + nodeText;
-        let parse;
-        if (options.parser === "scss") {
-          parse = parseScss;
-        } else if (options.parser === "less") {
-          parse = parseLess;
-        } else {
-          parse = parseCss;
-        }
         let ast;
         try {
           ast = parse(fakeContent, { ...options });
@@ -398,68 +394,65 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parse, text, options) {
-  const { frontMatter, content: textToParse } = parseFrontMatter(text);
+/**
+@param {postcss["parse"]} postcssParse
+*/
+function createParser(postcssParse) {
+  /**
+  @param {string} text
+  */
+  const parse = (text, options = {}) => {
+    const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
-  let result;
+    let result;
 
-  try {
-    result = parse(textToParse, {
-      // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
-      map: false,
-    });
-  } catch (/** @type {any} */ error) {
-    const { name, reason, line, column } = error;
-    /* c8 ignore 3 */
-    if (typeof line !== "number") {
-      throw error;
+    try {
+      result = postcssParse(textToParse, {
+        // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
+        map: false,
+      });
+    } catch (/** @type {any} */ error) {
+      const { name, reason, line, column } = error;
+      /* c8 ignore 3 */
+      if (typeof line !== "number") {
+        throw error;
+      }
+
+      throw createError(`${name}: ${reason}`, {
+        loc: { start: { line, column } },
+        cause: error,
+      });
     }
 
-    throw createError(`${name}: ${reason}`, {
-      loc: { start: { line, column } },
-      cause: error,
-    });
-  }
+    options.originalText = text;
+    result = parseNestedCSS(parse, addTypePrefix(result, "css-"), options);
 
-  options.originalText = text;
-  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
+    calculateLoc(result, text);
 
-  calculateLoc(result, text);
+    if (frontMatter) {
+      result.frontMatter = {
+        ...frontMatter,
+        type: "front-matter",
+        source: {
+          startOffset: frontMatter.start.index,
+          endOffset: frontMatter.end.index,
+        },
+      };
+    }
 
-  if (frontMatter) {
-    result.frontMatter = {
-      ...frontMatter,
-      type: "front-matter",
-      source: {
-        startOffset: frontMatter.start.index,
-        endOffset: frontMatter.end.index,
-      },
-    };
-  }
+    return result;
+  };
 
-  return result;
+  return {
+    astFormat: "postcss",
+    hasPragma,
+    hasIgnorePragma,
+    locStart,
+    locEnd,
+    parse,
+  };
 }
 
-function parseCss(text, options = {}) {
-  return parseWithParser(cssParse, text, options);
-}
-
-function parseLess(text, options = {}) {
-  return parseWithParser(lessParse, text, options);
-}
-
-function parseScss(text, options = {}) {
-  return parseWithParser(scssParse, text, options);
-}
-
-const postCssParser = {
-  astFormat: "postcss",
-  hasPragma,
-  hasIgnorePragma,
-  locStart,
-  locEnd,
-};
-
-export const css = { ...postCssParser, parse: parseCss };
-export const less = { ...postCssParser, parse: parseLess };
-export const scss = { ...postCssParser, parse: parseScss };
+export const css = createParser(cssParse);
+export const less = createParser(lessParse);
+export const scss = createParser(scssParse);
