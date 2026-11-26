@@ -17,7 +17,7 @@ function calculateLocStart(node, text) {
     return node.source.start.offset;
   }
 
-  // value-* nodes have this
+  // `value-*` and `selector-*`
   if (typeof node.sourceIndex === "number") {
     if (node.type === "value-word" || node.type === "value-number") {
       return fixValueLoc(node, node.sourceIndex);
@@ -25,6 +25,7 @@ function calculateLocStart(node, text) {
     return node.sourceIndex;
   }
 
+  // `value-*`, `selector-*`, and `media-*`
   if (node.source?.start) {
     return lineColumnToIndex(node.source.start, text);
   }

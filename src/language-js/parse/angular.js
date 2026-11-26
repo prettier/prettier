@@ -82,11 +82,11 @@ function createParser(parseMethod) {
   };
 }
 
-export const __ng_action = /* @__PURE__ */ createParser(parseAction);
-export const __ng_binding = /* @__PURE__ */ createParser(parseBinding);
-export const __ng_interpolation = /* @__PURE__ */ createParser(
+export const __ng_action = /* #__PURE__ */ createParser(parseAction);
+export const __ng_binding = /* #__PURE__ */ createParser(parseBinding);
+export const __ng_interpolation = /* #__PURE__ */ createParser(
   parseInterpolationExpression,
 );
-export const __ng_directive = /* @__PURE__ */ createParser(
+export const __ng_directive = /* #__PURE__ */ createParser(
   parseTemplateBindings,
 );
