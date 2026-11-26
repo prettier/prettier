@@ -443,7 +443,7 @@ function createParser(parseSyntax) {
     return result;
   };
 
-  return {
+  const parser = {
     astFormat: "postcss",
     hasPragma,
     hasIgnorePragma,
@@ -451,8 +451,10 @@ function createParser(parseSyntax) {
     locEnd,
     parse,
   };
+
+  return parser;
 }
 
-export const css = createParser(cssParse);
-export const less = createParser(lessParse);
-export const scss = createParser(scssParse);
+export const css = /* #__PURE__ */ createParser(cssParse);
+export const less = /* #__PURE__ */ createParser(lessParse);
+export const scss = /* #__PURE__ */ createParser(scssParse);

@@ -13,7 +13,7 @@ const arrayFindLastIndex =
     return -1;
   };
 
-const findLastIndex = /* @__PURE__ */ createMethodShim(
+const findLastIndex = /* #__PURE__ */ createMethodShim(
   "findLastIndex",
   function () {
     if (Array.isArray(this)) {
