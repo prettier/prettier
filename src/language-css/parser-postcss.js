@@ -232,13 +232,22 @@ function parseNestedCSS(parse, node, options) {
 
       // only CSS support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
-        node.customSelector = customSelector;
-        node.selector = parseSelector(
-          node.params.slice(customSelector.length).trim(),
+        // PostCSS's normalized params can omit comments.
+        const match = /^(?:\/\*.*?\*\/\s*)*:--(?:\\.|[^\s\\/]|\/(?!\*))+/s.exec(
+          params,
         );
-        delete node.params;
-        return node;
+        if (match) {
+          const [customSelector] = match;
+          node.customSelector = customSelector;
+          node.selector = parseSelector(
+            params.slice(customSelector.length).trim(),
+          );
+          if (node.selector.type === "selector-unknown") {
+            node.selector.value = params;
+          }
+          delete node.params;
+          return node;
+        }
       }
 
       if (options.parser === "less") {

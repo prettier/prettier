@@ -2,11 +2,25 @@ import {
   literallineWithoutBreakParent,
   replaceEndOfLine,
 } from "../../../document/index.js";
-import { adjustStrings, quoteAttributeValue } from "../misc.js";
+import {
+  adjustStrings,
+  hasSelectorComment,
+  quoteAttributeValue,
+} from "../misc.js";
 import { printSelectorNamespace } from "./namespace.js";
 
 function printAttributeSelector(path, options /* , print */) {
   const { node } = path;
+
+  // Comments inside brackets can be embedded in either raw values or spaces.
+  const serialized = String(node);
+  const raw = serialized.slice(
+    node.rawSpaceBefore.length,
+    serialized.length - node.rawSpaceAfter.length,
+  );
+  if (hasSelectorComment(raw, "/*")) {
+    return replaceEndOfLine(raw);
+  }
 
   const value = node.raws.value ?? node.value;
 

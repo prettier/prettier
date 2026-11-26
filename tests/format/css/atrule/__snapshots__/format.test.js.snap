@@ -818,6 +818,7 @@ h6
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--placeholder :placehoder-shown, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder;
 @custom-selector :--enter :matches(:hover, :focus, :active);
+@custom-selector :--commented .a/* compound */>   .b,  .c /* trailing */;
 
 =====================================output=====================================
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
@@ -868,6 +869,7 @@ h6
   ::-moz-placeholder,
   :-ms-input-placeholder;
 @custom-selector :--enter :matches(:hover, :focus, :active);
+@custom-selector :--commented .a/* compound */ > .b, .c /* trailing */;
 
 ================================================================================
 `;

@@ -1,10 +1,16 @@
-import { group, indent } from "../../../document/index.js";
+import {
+  group,
+  indent,
+  line,
+  replaceEndOfLine,
+} from "../../../document/index.js";
 import UnexpectedNodeError from "../../../utilities/unexpected-node-error.js";
 import { adjustNumbers, adjustStrings } from "../misc.js";
 import { printAttributeSelector } from "./attribute.js";
 import { printCombinatorSelector } from "./combinator.js";
 import { printPseudoSelector } from "./pseudo.js";
 import { printSelectorRoot } from "./root.js";
+import { printSelectorSpace } from "./space.js";
 import { printTagSelector } from "./tag.js";
 import { printUniversalSelector } from "./universal.js";
 import { printUnknownSelector } from "./unknown.js";
@@ -18,13 +24,28 @@ function printSelectorNode(path, options, print) {
 
     case "selector-selector": {
       const shouldIndent = node.nodes.length > 2;
-      return group(
-        (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
-      );
+      const parts = path.map(() => {
+        const { node: child } = path;
+        const isCombinator = child.type === "selector-combinator";
+        return [
+          !isCombinator &&
+          path.previous?.type === "selector-comment" &&
+          child.spaces.before
+            ? line
+            : "",
+          print(),
+          // Descendant combinators print their own whitespace and comments.
+          !(isCombinator && child.value === " ") &&
+          child.rawSpaceAfter.includes("/*")
+            ? printSelectorSpace(child.rawSpaceAfter.trimEnd())
+            : "",
+        ];
+      }, "nodes");
+      return group(shouldIndent ? indent(parts) : parts);
     }
 
     case "selector-comment":
-      return node.value;
+      return replaceEndOfLine(node.value);
 
     case "selector-string":
       return adjustStrings(node.value, options);
