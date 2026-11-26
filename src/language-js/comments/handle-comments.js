@@ -1,3 +1,4 @@
+import { commentsPropertyInOptions } from "../../constants.js";
 import {
   addDanglingComment,
   addLeadingComment,
@@ -5,6 +6,7 @@ import {
 } from "../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
@@ -23,6 +25,7 @@ import {
   isAbstractMethodDefinition,
   isArrayType,
   isBinaryCastExpression,
+  isBinaryish,
   isCallLikeExpression,
   isCallOrNewExpression,
   isConditionalType,
@@ -80,6 +83,7 @@ function handleOwnLineComment(context) {
     handleClosureTypeCastComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
+    handleParenthesizedMemberObjectComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -122,6 +126,7 @@ function handleEndOfLineComment(context) {
     handleForXStatementComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
+    handleParenthesizedMemberObjectComments,
     handlePropertyComments,
     handleOnlyComments,
     handleAssignmentLikeComments,
@@ -158,6 +163,7 @@ function handleRemainingComment(context) {
     handleTSMappedTypeComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
+    handleParenthesizedMemberObjectComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
     handlePropertySignatureComments,
@@ -165,6 +171,58 @@ function handleRemainingComment(context) {
     handleUnionTypeLeadingComments,
     handleSequenceExpressionLeadingComment,
   ].some((fn) => fn(context));
+}
+
+const memberObjectDirectiveCache = new WeakMap();
+
+// A TypeScript directive must stay above the expression it applies to, not
+// above the opening parenthesis of the member's object.
+function handleParenthesizedMemberObjectComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (
+    !isMemberExpression(enclosingNode) ||
+    followingNode !== enclosingNode.object ||
+    !(isBinaryCastExpression(followingNode) || isBinaryish(followingNode))
+  ) {
+    return false;
+  }
+
+  const objectStart = locStart(enclosingNode);
+  const expressionStart = locStart(followingNode);
+  const isInsideParentheses = (comment) =>
+    objectStart < locStart(comment) && locEnd(comment) <= expressionStart;
+
+  if (
+    isInsideParentheses(comment) &&
+    getOrInsertComputed(memberObjectDirectiveCache, enclosingNode, () => {
+      if (
+        !options.originalText
+          .slice(objectStart, expressionStart)
+          .includes("@ts-")
+      ) {
+        return false;
+      }
+
+      const comments =
+        options[commentsPropertyInOptions].filter(isInsideParentheses);
+      return (
+        !comments.some(isPrettierIgnoreComment) &&
+        comments.some(
+          (comment) =>
+            isLineComment(comment) &&
+            /^\/?\s*@ts-(?:expect-error|ignore)\b/u.test(comment.value),
+        )
+      );
+    })
+  ) {
+    return addDanglingComment(followingNode, comment, "memberObjectLeading");
+  }
+
+  return false;
 }
 
 function handleClosureTypeCastComments({

@@ -33,6 +33,7 @@ import {
   isUnaryLikeNode,
 } from "../utilities/node-types.js";
 import { shouldFlatten } from "../utilities/should-flatten.js";
+import { printMemberObjectLeadingComments } from "./member.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
@@ -115,13 +116,21 @@ function printBinaryishExpression(path, options, print) {
   //     b &&
   //     c
   //   ).call()
+  const leadingMemberComments =
+    key === "object" && isMemberExpression(parent)
+      ? printMemberObjectLeadingComments(path, options)
+      : "";
   if (
+    leadingMemberComments ||
     (key === "callee" && isCallOrNewExpression(parent)) ||
     // `UnaryExpression` adds parentheses and indention when argument has comment
     (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
-    return group([indent([softline, ...parts]), softline]);
+    return group([
+      indent([softline, leadingMemberComments, ...parts]),
+      softline,
+    ]);
   }
 
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already

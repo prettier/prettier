@@ -1,10 +1,12 @@
 import {
   group,
+  hardline,
   indent,
   label,
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import {
   isCallExpression,
@@ -83,4 +85,15 @@ function printMemberLookup(path, options, print) {
   return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
-export { printMemberExpression, printMemberLookup };
+function printMemberObjectLeadingComments(path, options) {
+  const comments = printDanglingComments(path, options, {
+    marker: "memberObjectLeading",
+  });
+  return comments ? [comments, hardline] : "";
+}
+
+export {
+  printMemberExpression,
+  printMemberLookup,
+  printMemberObjectLeadingComments,
+};

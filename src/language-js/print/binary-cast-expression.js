@@ -6,6 +6,7 @@ import {
   isSatisfiesExpression,
   isUnionType,
 } from "../utilities/node-types.js";
+import { printMemberObjectLeadingComments } from "./member.js";
 
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
@@ -34,7 +35,14 @@ function printBinaryCastExpression(path, options, print) {
     (key === "callee" && isCallOrNewExpression(parent)) ||
     (key === "object" && isMemberExpression(parent))
   ) {
-    return group([indent([softline, ...parts]), softline]);
+    return group([
+      indent([
+        softline,
+        printMemberObjectLeadingComments(path, options),
+        ...parts,
+      ]),
+      softline,
+    ]);
   }
 
   return parts;
