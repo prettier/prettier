@@ -1,18 +1,16 @@
 import { isKeyframeAtRuleKeywords } from "../../utilities/index.js";
 import { adjustNumbers } from "../misc.js";
+import { printSelectorNamespace } from "./namespace.js";
 
 function printTagSelector(path /* , options , print */) {
   const { node } = path;
+  const value = node.raws?.value ?? node.value;
   return [
-    node.namespace
-      ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
-      : "",
+    printSelectorNamespace(node),
     path.previous?.type === "selector-nesting"
-      ? node.value
+      ? value
       : adjustNumbers(
-          isKeyframeAtRuleKeywords(path, node.value)
-            ? node.value.toLowerCase()
-            : node.value,
+          isKeyframeAtRuleKeywords(path, value) ? value.toLowerCase() : value,
         ),
   ];
 }

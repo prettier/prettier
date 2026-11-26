@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`selector.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+[class^=~'@{ant-prefix}-'],
+    [class*=~' @{ant-prefix}-'] {
+}
+
+
+.@{form-item-prefix-cls} {
+  &-control {
+    &:first-child:not([class^=~"'@{ant-prefix}-col-'"]):not([class*=~"' @{ant-prefix}-col-'"]) {
+    }
+  }
+}
+
+=====================================output=====================================
+[class^=~'@{ant-prefix}-'],
+    [class*=~' @{ant-prefix}-'] {
+}
+
+.@{form-item-prefix-cls} {
+  &-control {
+    &:first-child:not([class^=~"'@{ant-prefix}-col-'"]):not([class*=~"' @{ant-prefix}-col-'"]) {
+    }
+  }
+}
+
+================================================================================
+`;

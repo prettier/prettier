@@ -8,7 +8,8 @@ function printCombinatorSelector(path, options /* , print */) {
     node.value === "+" ||
     node.value === ">" ||
     node.value === "~" ||
-    node.value === ">>>"
+    node.value === ">>>" ||
+    /^\/[\w-]+\/$/.test(node.value)
   ) {
     const parentNode = path.parent;
     const isFirstNode =
@@ -22,7 +23,14 @@ function printCombinatorSelector(path, options /* , print */) {
       node.value === "+" &&
       isNthPseudoClassNode(path.grandparent);
 
-    return [leading, node.value, path.isLast || isNthLeadingSign ? "" : " "];
+    return [
+      leading,
+      // postcss-selector-parser lowercases a named combinator like `/DEEP/`,
+      // the original text is kept in `raws.value`
+      // https://github.com/postcss/postcss-selector-parser/blob/44deaeb329a74aedb1e21709028bd2566a6b24fc/src/parser.js#L643-L646
+      node.raws?.value ?? node.value,
+      path.isLast || isNthLeadingSign ? "" : " ",
+    ];
   }
 
   const leading = node.value.trimStart().startsWith("(") ? line : "";
