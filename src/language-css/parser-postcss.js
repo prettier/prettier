@@ -14,10 +14,6 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-/**
-@import * as postcss from "postcss"
-*/
-
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
@@ -404,7 +400,6 @@ function createParser(parseSyntax) {
   const parse = (text, options = {}) => {
     const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
-    /** @type {postcss.Root} */
     let result;
 
     try {
