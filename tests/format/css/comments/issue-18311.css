@@ -1,0 +1,18 @@
+/* A value-group comment on its own line should not get joined to the values. */
+.own-line {
+  box-shadow: 2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    -1px -1px 2px lightgray;
+}
+
+.same-line {
+  box-shadow: 2px 2px 4px gray, /* small */ -1px -1px 2px lightgray;
+}
+
+@media (width > 480px) {
+  .nested {
+    box-shadow: 2px 2px 4px gray,
+      /* Block-level comment in an at-rule. */
+      -1px -1px 2px lightgray;
+  }
+}
