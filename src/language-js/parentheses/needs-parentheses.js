@@ -256,7 +256,12 @@ function needsParentheses(path, options) {
 
         case "BinaryExpression": {
           const { operator, type } = node;
-          if (!operator && type !== "TSTypeAssertion") {
+          if (
+            (!operator && type !== "TSTypeAssertion") ||
+            (key === "left" &&
+              type === "TSTypeAssertion" &&
+              parent.operator === "**")
+          ) {
             return true;
           }
 
