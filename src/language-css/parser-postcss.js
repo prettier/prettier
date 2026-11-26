@@ -1,6 +1,6 @@
-import postcssParse from "postcss/lib/parse";
-import { parse as postcssLessParse } from "postcss-less";
-import postcssScssParse from "postcss-scss/lib/scss-parse";
+import cssParse from "postcss/lib/parse";
+import { parse as lessParse } from "postcss-less";
+import scssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
@@ -441,15 +441,15 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, options = {}) {
-  return parseWithParser(postcssParse.default, text, options);
+  return parseWithParser(cssParse, text, options);
 }
 
 function parseLess(text, options = {}) {
-  return parseWithParser(postcssLessParse, text, options);
+  return parseWithParser(lessParse, text, options);
 }
 
 function parseScss(text, options = {}) {
-  return parseWithParser(postcssScssParse, text, options);
+  return parseWithParser(scssParse, text, options);
 }
 
 const postCssParser = {
