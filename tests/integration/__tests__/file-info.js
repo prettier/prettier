@@ -35,6 +35,14 @@ describe("extracts file-info with inferredParser=null for README with no extensi
   });
 });
 
+describe("extracts file-info with inferredParser=null for .eslintrc", () => {
+  runCli("cli/", ["--file-info", ".eslintrc"]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("extracts file-info with ignored=true for a file in .prettierignore", () => {
   runCli("cli/ignore-path/file-info-test/", [
     "--file-info",
@@ -141,6 +149,18 @@ test("API getFileInfo with filepath only", async () => {
   await expect(
     prettier.getFileInfo("tsconfig.json", { resolveConfig: false }),
   ).resolves.toStrictEqual({
+    ignored: false,
+    inferredParser: "json",
+  });
+  await expect(prettier.getFileInfo(".eslintrc")).resolves.toStrictEqual({
+    ignored: false,
+    inferredParser: null,
+  });
+  await expect(prettier.getFileInfo(".eslintrc.yml")).resolves.toStrictEqual({
+    ignored: false,
+    inferredParser: "yaml",
+  });
+  await expect(prettier.getFileInfo(".eslintrc.json")).resolves.toStrictEqual({
     ignored: false,
     inferredParser: "json",
   });
