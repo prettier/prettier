@@ -395,9 +395,9 @@ function parseNestedCSS(parse, node, options) {
 }
 
 /**
-@param {postcss["parse"]} postcssParse
+@param {postcss["parse"]} parseSyntax
 */
-function createParser(postcssParse) {
+function createParser(parseSyntax) {
   /**
   @param {string} text
   */
@@ -407,8 +407,8 @@ function createParser(postcssParse) {
     let result;
 
     try {
-      result = postcssParse(textToParse, {
-        // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
+      result = parseSyntax(textToParse, {
+        // Prevent file access https://github.com/postcss/postcss/blob/5a8174feb01de7a1fac6ccbb4ecd3376ebb3834a/lib/previous-map.js#L28
         map: false,
       });
     } catch (/** @type {any} */ error) {
