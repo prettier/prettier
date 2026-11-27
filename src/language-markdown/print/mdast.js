@@ -275,14 +275,17 @@ function printMdast(path, options, print) {
     }
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
+      const url =
+        options.parser !== "mdx" && node.url === ""
+          ? "<>"
+          : printUrl(node.url, true);
       return group([
         printLinkReference(node),
         ":",
         indent([
-          lineOrSpace,
-          options.parser !== "mdx" && node.url === ""
-            ? "<>"
-            : printUrl(node.url, true),
+          // MDX parses a `<` at the start of a line as JSX
+          options.parser === "mdx" && url.startsWith("<") ? " " : lineOrSpace,
+          url,
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],

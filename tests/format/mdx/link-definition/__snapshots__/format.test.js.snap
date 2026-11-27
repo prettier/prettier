@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`angle-brackets.mdx - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+See [nested], [space], [title], [plain], and [short].
+
+[nested]: https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))
+[space]: <https://example.com/a very long path with spaces in it that does not fit>
+[title]: https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1'))))))) "Title"
+[plain]: https://example.com/a-very-long-path-without-any-parentheses-that-does-not-fit
+[short]: https://example.com/(a)
+
+=====================================output=====================================
+See [nested], [space], [title], [plain], and [short].
+
+[nested]: <https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))>
+[space]: <https://example.com/a very long path with spaces in it that does not fit>
+[title]: <https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))>
+  "Title"
+[plain]:
+  https://example.com/a-very-long-path-without-any-parentheses-that-does-not-fit
+[short]: https://example.com/(a)
+
+================================================================================
+`;
+
+exports[`angle-brackets.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+See [nested], [space], [title], [plain], and [short].
+
+[nested]: https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))
+[space]: <https://example.com/a very long path with spaces in it that does not fit>
+[title]: https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1'))))))) "Title"
+[plain]: https://example.com/a-very-long-path-without-any-parentheses-that-does-not-fit
+[short]: https://example.com/(a)
+
+=====================================output=====================================
+See [nested], [space], [title], [plain], and [short].
+
+[nested]: <https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))>
+[space]: <https://example.com/a very long path with spaces in it that does not fit>
+[title]: <https://example.com/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1')))))))> "Title"
+[plain]: https://example.com/a-very-long-path-without-any-parentheses-that-does-not-fit
+[short]: https://example.com/(a)
+
+================================================================================
+`;
