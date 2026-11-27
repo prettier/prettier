@@ -1,5 +1,142 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`binary-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+match (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong > veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+}
+
+match ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+match ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
+_ = [
+match (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong > veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+},
+
+match ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+},
+
+match ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+},
+]
+
+=====================================output=====================================
+match (
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+) {
+}
+
+match (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+match (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
+}
+
+_ = [
+  match (
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+  ) {
+  },
+
+  match (
+    $veryLongAndVeryVerboseVariableName &&
+    $anotherVeryLongAndVeryVerboseVariableName
+  ) {
+  },
+
+  match (
+    $longButSlightlyShorterVariableName &&
+    $anotherSlightlyShorterVariableName
+  ) {
+  },
+];
+
+================================================================================
+`;
+
+exports[`dangling-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+match(a) {
+  /* comment */
+
+  // comment
+}
+
+a = match(a) {
+  /* comment */
+
+  // comment
+}
+
+=====================================output=====================================
+match (a) {
+  /* comment */
+
+  // comment
+}
+
+a = match (a) {
+  /* comment */
+
+  // comment
+};
+
+================================================================================
+`;
+
+exports[`parentheses.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+(match (x) {});
+(match (x) {}) || fallback;
+(match (x) {}).message;
+(match (x) {})();
+(match (x) {}) + 1;
+((match (x) {}), _);
+(_, (match (x) {}));
+_ = match (x) {};
+
+=====================================output=====================================
+(match (x) {
+});
+(match (x) {
+}) || fallback;
+(match (x) {
+}).message;
+(match (x) {
+})();
+(match (x) {
+}) + 1;
+((match (x) {
+}),
+  _);
+(_,
+  match (x) {
+  });
+_ = match (x) {
+};
+
+================================================================================
+`;
+
 exports[`pattern-instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

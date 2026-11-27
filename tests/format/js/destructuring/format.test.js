@@ -1,5 +1,1 @@
-runFormatTest(import.meta, ["babel", "flow", "typescript"], {
-  errors: {
-    hermes: ["destructuring.js"],
-  },
-});
+runFormatTest(import.meta, ["babel", "flow", "typescript"]);

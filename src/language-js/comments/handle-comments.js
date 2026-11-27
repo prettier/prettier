@@ -30,6 +30,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isModuleDeclaration,
+  isParameterProperty,
   isTypeAlias,
   isTypeAnnotation,
   isUnionType,
@@ -305,9 +306,11 @@ function handleConditionalExpressionComments({
 const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
+  "StructDeclaration",
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
+  "RecordDeclaration",
   "TSInterfaceDeclaration",
 ]);
 function handleClassComments({
@@ -343,6 +346,7 @@ function handleClassComments({
         superClass &&
         followingNode === superClass &&
         (precedingNode === enclosingNode.id ||
+          // @ts-expect-error -- Missing in `StructDeclaration`
           precedingNode === enclosingNode.typeParameters)
       ) {
         return addTrailingComment(precedingNode, comment);
@@ -353,6 +357,7 @@ function handleClassComments({
         if (followingNode === firstHeritageClause) {
           if (
             precedingNode === enclosingNode.id ||
+            // @ts-expect-error -- Missing in `StructDeclaration`
             precedingNode === enclosingNode.typeParameters ||
             precedingNode === superClass
           ) {
@@ -387,6 +392,7 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "AccessorProperty",
   "TSAbstractAccessorProperty",
   "TSParameterProperty",
+  "ParameterProperty",
 ]);
 function handleMethodNameComments({
   placement,
@@ -455,6 +461,8 @@ const isFunctionLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "MethodDefinition",
   "ObjectMethod",
+  "ComponentDeclaration",
+  "HookDeclaration",
 ]);
 
 function handleFunctionTypeParametersComments({
@@ -578,7 +586,8 @@ function handleLastFunctionParameterComments({
   if (
     precedingNode?.type === "FunctionTypeParam" &&
     (enclosingNode?.type === "FunctionTypeAnnotation" ||
-      enclosingNode?.type === "ConstructorTypeAnnotation") &&
+      enclosingNode?.type === "ConstructorTypeAnnotation" ||
+      enclosingNode?.type === "HookTypeAnnotation") &&
     followingNode?.type !== "FunctionTypeParam"
   ) {
     return addTrailingComment(precedingNode, comment);
@@ -601,7 +610,7 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "ObjectPattern" ||
       precedingNode?.type === "ArrayPattern" ||
       precedingNode?.type === "RestElement" ||
-      precedingNode?.type === "TSParameterProperty") &&
+      isParameterProperty(precedingNode)) &&
     (isRealFunctionLikeNode(enclosingNode) ||
       // `TSEmptyBodyFunctionExpression` opts out of comment attachment, so
       // the comment walker bubbles up to its wrapper. Three wrappers occur:

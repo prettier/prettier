@@ -51,7 +51,7 @@ exports[`avoid-conflicts-to-pipeline.js format[oxc] 1`] = `
 `;
 
 exports[`avoid-conflicts-to-pipeline.js format[yuku] 1`] = `
-"Unexpected token '%' (2:16)
+"Expected an expression, but found '%' (2:16)
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
     |                ^
@@ -147,7 +147,7 @@ exports[`intrinsic-call.js format[oxc] 1`] = `
 `;
 
 exports[`intrinsic-call.js format[yuku] 1`] = `
-"Unexpected token '%' (2:13)
+"Expected an expression, but found '%' (2:13)
   1 | function doSmth()     {
 > 2 |             %DebugPrint
     |             ^

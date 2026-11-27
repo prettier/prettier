@@ -1,5 +1,5 @@
 function isGap(text, { parser }) {
-  if (parser === "flow" || parser === "hermes" || parser === "babel-flow") {
+  if (parser === "flow" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
     text = text.replaceAll(/[\s(]/g, "");

@@ -46,7 +46,7 @@ Example `package.json`:
     "prettier": ">=3.0.0"
   },
   "devDependencies": {
-    "prettier": "3.9.10"
+    "prettier": "3.10.1"
   }
 }
 ```
@@ -114,6 +114,13 @@ bun add --dev @username/prettier-config
 
 ```bash
 deno install --dev @username/prettier-config
+```
+
+</TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev @username/prettier-config
 ```
 
 </TabItem>
@@ -193,7 +200,7 @@ export default config;
     "prettier": ">=3.0.0"
   },
   "devDependencies": {
-    "prettier": "3.9.10"
+    "prettier": "3.10.1"
   }
 }
 ```

@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`6031.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+title: 'Testing 123'
+author: jimbo
+tags:
+  - some
+  - tag
+teaser1: |-
+  Starting a blog is great
+teaser2: >-
+  Starting a blog is great
+tester1:
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+tester2:
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+=====================================output=====================================
+title: "Testing 123"
+author: jimbo
+tags:
+  - some
+  - tag
+teaser1: |-
+  Starting a blog is great
+teaser2: >-
+  Starting a blog is great
+tester1:
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: |-
+      Lorizzle ipsizzle dolizzle pot amizzle
+tester2:
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+  - test: >-
+      Lorizzle ipsizzle dolizzle pot amizzle
+
+================================================================================
+`;
+
+exports[`10776.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+jobs:
+  lock:
+    steps:
+      - with:
+          issue-lock-comment: >
+            This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.
+
+            Please note this issue tracker is not a help forum. We recommend using [StackOverflow](https://stackoverflow.com/questions/tagged/jestjs) or our [discord channel](https://discord.gg/j6FKKQQrW9) for questions.
+          pr-lock-inactive-days: '30'
+
+=====================================output=====================================
+jobs:
+  lock:
+    steps:
+      - with:
+          issue-lock-comment: >
+            This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.
+
+            Please note this issue tracker is not a help forum. We recommend using [StackOverflow](https://stackoverflow.com/questions/tagged/jestjs) or our [discord channel](https://discord.gg/j6FKKQQrW9) for questions.
+          pr-lock-inactive-days: "30"
+
+================================================================================
+`;
+
+exports[`github-actions.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+jobs:
+  check:
+    name: Format, Schema, and Examples
+    runs-on: ubuntu-latest
+    # Internal branches are handled by the push event; only run for pull requests from forks.
+    if: >-
+      github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - uses: actions/checkout@v7
+
+=====================================output=====================================
+jobs:
+  check:
+    name: Format, Schema, and Examples
+    runs-on: ubuntu-latest
+    # Internal branches are handled by the push event; only run for pull requests from forks.
+    if: >-
+      github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - uses: actions/checkout@v7
+
+================================================================================
+`;
+
+exports[`nested.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+a:
+  b: >-
+    value
+
+  c: next
+
+=====================================output=====================================
+a:
+  b: >-
+    value
+
+  c: next
+
+================================================================================
+`;
+
+exports[`root.yml - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+foo: >-
+  value
+
+bar: baz
+
+=====================================output=====================================
+foo: >-
+  value
+
+bar: baz
+
+================================================================================
+`;

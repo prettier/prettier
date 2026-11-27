@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`no-type-after.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "{" (1:8)
+> 1 | export defer type { x } from "x";
+    |        ^
+  2 |
+Cause: Unexpected token, expected "{" (1:7)"
+`;
+
+exports[`no-type-after.ts format[oxc-ts] 1`] = `
+"Unexpected token (1:8)
+> 1 | export defer type { x } from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-type-after.ts format[typescript] 1`] = `
+"Declaration expected. (1:7)
+> 1 | export defer type { x } from "x";
+    |       ^
+  2 |
+Cause: Declaration expected."
+`;
+
+exports[`no-type-after.ts format[yuku-ts] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (1:8)
+> 1 | export defer type { x } from "x";
+    |        ^^^^^
+  2 |"
+`;
+
+exports[`no-type-before.ts format[babel-ts] 1`] = `
+"Unexpected token, expected "=" (1:19)
+> 1 | export type defer { x } from "x";
+    |                   ^
+  2 |
+Cause: Unexpected token, expected "=" (1:18)"
+`;
+
+exports[`no-type-before.ts format[oxc-ts] 1`] = `
+"Expected \`=\` but found \`{\` (1:19)
+> 1 | export type defer { x } from "x";
+    |                   ^
+  2 |"
+`;
+
+exports[`no-type-before.ts format[typescript] 1`] = `
+"'=' expected. (1:19)
+> 1 | export type defer { x } from "x";
+    |                   ^
+  2 |
+Cause: '=' expected."
+`;
+
+exports[`no-type-before.ts format[yuku-ts] 1`] = `
+"Expected '=' in the type alias declaration, but found '{' (1:19)
+> 1 | export type defer { x } from "x";
+    |                   ^
+  2 |"
+`;

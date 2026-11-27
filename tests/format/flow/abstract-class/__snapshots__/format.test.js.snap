@@ -125,20 +125,6 @@ declare abstract class /* before declared class */ Declared extends Base {
 ================================================================================
 `;
 
-exports[`abstract-class.js - {"semi":false} format[hermes] 1`] = `
-"';' expected (3:10)
-  1 | // @flow
-  2 |
-> 3 | abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-    |          ^
-  4 |
-  5 | abstract class CommentedMembers {
-  6 |   abstract method /* after name */ (/* inside */): void /* method comment */;
-Cause: ';' expected (3:9)
-abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-         ^"
-`;
-
 exports[`abstract-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -202,11 +188,11 @@ declare abstract /* before declared class */ class Declared extends Base {
 
 abstract class Minimal {
   abstract property: number;
-  abstract method(value: string): number
+  abstract method(value: string): number;
 }
 
 abstract class CommentedMembers {
-  abstract method /* after name */(/* inside */): void /* method comment */
+  abstract method /* after name */(/* inside */): void; /* method comment */
   abstract property: number; /* before property semicolon */
 }
 
@@ -231,11 +217,11 @@ export default abstract class /* before class */ Example<T> extends Base<T> {
     | VeryLongTypeNameThatMakesTheAbstractPropertyDeclarationWrap
     | AnotherVeryLongTypeNameThatProvidesABreakOpportunity;
   abstract [Symbol.iterator]: () => Iterator<T>;
-  abstract [computedMethod]<U>(value: U, optional?: T): Promise<U>
+  abstract [computedMethod]<U>(value: U, optional?: T): Promise<U>;
   public abstract accessibleProperty: number;
-  protected abstract accessibleMethod(): void
+  protected abstract accessibleMethod(): void;
   abstract override /* after override */ inheritedProperty: number;
-  abstract override inheritedMethod(value: T): void
+  abstract override inheritedMethod(value: T): void;
 
   override field: number;
   static override computed = 1;
@@ -263,16 +249,163 @@ declare abstract class /* before declared class */ Declared extends Base {
 ================================================================================
 `;
 
-exports[`abstract-class.js format[hermes] 1`] = `
-"';' expected (3:10)
-  1 | // @flow
-  2 |
-> 3 | abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-    |          ^
-  4 |
-  5 | abstract class CommentedMembers {
-  6 |   abstract method /* after name */ (/* inside */): void /* method comment */;
-Cause: ';' expected (3:9)
-abstract class Minimal { abstract property:number; abstract method(value:string):number; }
-         ^"
+exports[`no-semicolon.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class A {
+  abstract withSemi(): void;
+  abstract withoutSemi(): void
+  abstract last(): void
+}
+
+=====================================output=====================================
+abstract class A {
+  abstract withSemi(): void
+  abstract withoutSemi(): void
+  abstract last(): void
+}
+
+================================================================================
+`;
+
+exports[`no-semicolon.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class A {
+  abstract withSemi(): void;
+  abstract withoutSemi(): void
+  abstract last(): void
+}
+
+=====================================output=====================================
+abstract class A {
+  abstract withSemi(): void;
+  abstract withoutSemi(): void;
+  abstract last(): void;
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number   ;
+  [b]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number;
+  [b]: number
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number   ;
+  [b]: number;
+}
+
+=====================================output=====================================
+abstract class NeedsSemicolon {
+  // prettier-ignore
+  abstract   a  :   number;
+  [b]: number;
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore-without-semicolon.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  abstract a: number
+  // prettier-ignore
+  +b: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number;
+}
+
+=====================================output=====================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore-without-semicolon.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  abstract a: number
+  // prettier-ignore
+  +b: number
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number;
+}
+
+=====================================output=====================================
+abstract class WithoutSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number;
+}
+
+abstract class WithSemicolon {
+  // prettier-ignore
+  abstract a: number;
+  // prettier-ignore
+  +b: number;
+}
+
+================================================================================
 `;

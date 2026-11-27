@@ -40,17 +40,3 @@ type Parenthesized = Array<
 
 ================================================================================
 `;
-
-exports[`import-type.js - {"printWidth":50} format[hermes] 1`] = `
-"';' expected (3:19)
-  1 | // @flow
-  2 |
-> 3 | type Bare = import("package-name");
-    |                   ^
-  4 | type Qualified = import("package-name").Exported;
-  5 | type Nested = import("package-name").Namespace.DeeplyNestedExport<string, number>;
-  6 | type TypeofImport = typeof import("package-name").value;
-Cause: ';' expected (3:18)
-type Bare = import("package-name");
-                  ^"
-`;

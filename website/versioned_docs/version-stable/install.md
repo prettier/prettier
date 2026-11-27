@@ -12,35 +12,42 @@ First, install Prettier locally:
 <TabItem value="npm">
 
 ```bash
-npm install --save-dev --save-exact prettier@3.9.10
+npm install --save-dev --save-exact prettier@3.10.1
 ```
 
 </TabItem>
 <TabItem value="yarn">
 
 ```bash
-yarn add --dev --exact prettier@3.9.10
+yarn add --dev --exact prettier@3.10.1
 ```
 
 </TabItem>
 <TabItem value="pnpm">
 
 ```bash
-pnpm add --save-dev --save-exact prettier@3.9.10
+pnpm add --save-dev --save-exact prettier@3.10.1
 ```
 
 </TabItem>
 <TabItem value="bun">
 
 ```bash
-bun add --dev --exact prettier@3.9.10
+bun add --dev --exact prettier@3.10.1
 ```
 
 </TabItem>
 <TabItem value="deno">
 
 ```bash
-deno install --dev --save-exact prettier@3.9.10
+deno install --dev --save-exact prettier@3.10.1
+```
+
+</TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev --save-exact prettier@3.10.1
 ```
 
 </TabItem>
@@ -157,6 +164,25 @@ What is `deno x` doing at the start? It runs the locally installed Prettier. We�
 :::
 
 </TabItem>
+<TabItem value="vlt">
+
+```bash
+vlx prettier . -- --write
+```
+
+:::info
+
+What is `vlx` doing at the start? `vlx prettier` runs the locally installed version of Prettier, with Prettier’s options after `--` (e.g. `vlx prettier . -- --check`). We’ll leave off the `vlx` part for brevity throughout the rest of this file!
+
+:::
+
+:::warning
+
+If you forget to install Prettier first, `vlx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+
+:::
+
+</TabItem>
 </Tabs>
 
 `prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain file. Or use a _glob_ like `prettier --write "app/**/*.test.js"` to format all tests in a directory (see [fast-glob](https://github.com/mrmlnc/fast-glob#pattern-syntax) for supported glob syntax).
@@ -246,6 +272,15 @@ bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
 deno install --dev husky lint-staged
 deno x husky init
 deno eval "Deno.writeTextFileSync('.husky/pre-commit','deno x lint-staged\n')"
+```
+
+</TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev husky lint-staged
+vlx husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','vlx lint-staged\n')"
 ```
 
 </TabItem>

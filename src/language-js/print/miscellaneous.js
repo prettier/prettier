@@ -81,7 +81,7 @@ const shouldPrintDeclareToken = (path) => {
   if (isFlowDeclareNode(node)) {
     return (
       path.parent.type !== "DeclareExportDeclaration" &&
-      // @ts-expect-error -- hermes doesn't support yet
+      // @ts-expect-error -- Babel doesn't support
       !node.implicitDeclare
     );
   }

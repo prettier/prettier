@@ -665,11 +665,9 @@ function printJsxOpeningElement(path, options, print) {
       indent(
         path.map(
           ({ isFirst, previous }) => [
-            isFirst
+            isFirst || !isNextLineEmpty(previous, options)
               ? attributeLine
-              : isNextLineEmpty(previous, options)
-                ? [hardline, hardline]
-                : attributeLine,
+              : [hardline, hardline],
             print(),
           ],
           "attributes",

@@ -13,7 +13,6 @@ runFormatTest(
       "async (x = await (2)) => {};",
       "f = async (a) => await a! ** 6;",
       "f = (a) => +a! ** 6;",
-      "async (a) => (await a!) ** 6;",
       "(-+5 ** 6);",
       "f = async () => await 5 ** 6;",
       "f = async () => await -5 ** 6;",
@@ -21,4 +20,17 @@ runFormatTest(
     ],
   },
   ["babel", "acorn", "espree", "meriyah", "flow"],
+);
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      {
+        code: "async (a) => (await a!) ** 6;",
+        filename: "non-null-expression.js",
+      },
+    ],
+  },
+  ["babel", "acorn", "espree", "meriyah"],
 );

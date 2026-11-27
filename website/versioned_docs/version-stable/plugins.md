@@ -401,7 +401,9 @@ function insertPragma(text: string): string;
 
 Comments are often not part of a language's AST and present a challenge for pretty printers. A Prettier plugin can either print comments itself in its `print` function or rely on Prettier's comment algorithm.
 
-By default, if the AST has a top-level `comments` property, Prettier assumes that `comments` stores an array of comment nodes. Prettier will then use the provided `parsers[<plugin>].locStart`/`locEnd` functions to search for the AST node that each comment "belongs" to. Comments are then attached to these nodes **mutating the AST in the process**, and the `comments` property is deleted from the AST root. The `*Comment` functions are used to adjust Prettier's algorithm. Once the comments are attached to the AST, Prettier will automatically call the `printComment(path, options): Doc` function and insert the returned doc into the (hopefully) correct place.
+To use Prettier's comment algorithm, return an array of comment nodes in the AST root's `comments` property and implement both `canAttachComment` and `printComment` on your printer. The parser's `locStart` and `locEnd` functions must work on comment nodes as well as other AST nodes. Give each comment a string `value` so Prettier can identify it in an error message if it goes unprinted.
+
+Prettier removes `comments` from the AST root, then attaches each comment to a node based on its location. This mutates the AST. Prettier calls `printComment` to print leading and trailing comments around the node's output. Your printer is responsible for placing dangling comments.
 
 #### (optional) `getCommentChildNodes`
 
@@ -436,7 +438,7 @@ _First available in v3.7.0_
 
 #### (optional) `printComment`
 
-Called whenever a comment node needs to be printed. It has the signature:
+Returns the Doc for a comment node when using Prettier's comment printing. It has the signature:
 
 ```ts
 function printComment(
@@ -495,38 +497,88 @@ The `handleComments` object contains three optional functions, each with signatu
 ) => boolean;
 ```
 
-These functions are used to override Prettier's default comment attachment algorithm. `ownLine`/`endOfLine`/`remaining` is expected to either manually attach a comment to a node and return `true`, or return `false` and let Prettier attach the comment.
+These functions override Prettier's default comment attachment. Return `true` after manually attaching a comment, or return `false` to let Prettier attach it.
 
-Based on the text surrounding a comment node, Prettier dispatches:
+Prettier checks for line breaks around the comment, ignoring spaces and tabs and accounting for adjacent comments. It calls:
 
-- `ownLine` if a comment has only whitespace preceding it and a newline afterwards,
-- `endOfLine` if a comment has a newline afterwards but some non-whitespace preceding it,
-- `remaining` in all other cases.
+- `ownLine` if it finds a line break before the comment.
+- `endOfLine` if it finds a line break after the comment but not before it.
+- `remaining` otherwise, for example, for a block comment between two tokens on the same line.
 
-At the time of dispatching, Prettier will have annotated each AST comment node (i.e., created new properties) with at least one of `enclosingNode`, `precedingNode`, or `followingNode`. These can be used to aid a plugin's decision process (of course the entire AST and original text is also passed in for making more complicated decisions).
+When calling these functions, Prettier makes the nearby AST nodes available as `enclosingNode`, `precedingNode`, and `followingNode` on the comment. Some or all of these may be absent, for example, when the file contains only comments.
 
 #### Manually attaching a comment
 
-The `prettier.util.addTrailingComment`/`addLeadingComment`/`addDanglingComment` functions can be used to manually attach a comment to an AST node. An example `ownLine` function that ensures a comment does not follow a "punctuation" node (made up for demonstration purposes) might look like:
+The `handleComments` callbacks are selected by the comment's position in the source text. When you attach a comment, choose how to print it relative to the target node:
+
+- `prettier.util.addLeadingComment(node, comment)` attaches a comment to print before the node.
+- `prettier.util.addTrailingComment(node, comment)` attaches a comment to print after the node.
+- `prettier.util.addDanglingComment(node, comment)` attaches a comment whose placement the node's printer must decide, such as a comment inside an empty block.
+
+For example, an `ownLine` callback can attach a comment as a trailing comment of a `punctuation` node (a node type made up for this example):
 
 ```js
 import * as prettier from "prettier";
 
 function ownLine(comment, text, options, ast, isLastComment) {
   const { precedingNode } = comment;
-  if (precedingNode && precedingNode.type === "punctuation") {
-    prettier.util.addTrailingComment(precedingNode, comment);
-    return true;
+  if (precedingNode?.type === "punctuation") {
+    return prettier.util.addTrailingComment(precedingNode, comment);
   }
   return false;
 }
 ```
+
+:::warning
+
+`prettier.util.add{Trailing,Leading,Dangling}Comment()` returns `void` until v3.10; if older versions of Prettier are supported, please `return true` explicitly after the function call.
+
+```diff
+- return prettier.util.addTrailingComment(precedingNode, comment);
++ prettier.util.addTrailingComment(precedingNode, comment);
++ return true;
+```
+
+Or
+
+```diff
+- return prettier.util.addTrailingComment(precedingNode, comment);
++ return prettier.util.addTrailingComment(precedingNode, comment) ?? true;
+```
+
+:::
 
 Nodes with comments are expected to have a `comments` property containing an array of comments. Each comment is expected to have the following properties: `leading`, `trailing`, `printed`.
 
 <!-- TODO: add a note that this might change in the future -->
 
 The example above uses `prettier.util.addTrailingComment`, which automatically sets `comment.leading`/`trailing`/`printed` to appropriate values and adds the comment to the AST node's `comments` array.
+
+#### Printing dangling comments
+
+When printing a node, handle its comments that have neither `leading` nor `trailing` set. Add each dangling comment's Doc where it belongs and set `comment.printed = true`. For example, a printer for an empty block could reuse its `printComment` function like this:
+
+```js
+import { doc } from "prettier";
+
+const { hardline, indent, join } = doc.builders;
+
+function printEmptyBlock(path, options) {
+  const dangling = [];
+  if (path.node.comments) {
+    path.each((commentPath) => {
+      const comment = commentPath.node;
+      if (!comment.leading && !comment.trailing) {
+        comment.printed = true;
+        dangling.push(printComment(commentPath, options));
+      }
+    }, "comments");
+  }
+  return dangling.length === 0
+    ? "{}"
+    : ["{", indent([hardline, join(hardline, dangling)]), hardline, "}"];
+}
+```
 
 The `--debug-print-comments` CLI flag can help with debugging comment attachment issues. It prints a detailed list of comments, which includes information on how every comment was classified (`ownLine`/`endOfLine`/`remaining`, `leading`/`trailing`/`dangling`) and to which node it was attached. For Prettier’s built-in languages, this information is also available on the Playground (the 'show comments' checkbox in the Debug section).
 

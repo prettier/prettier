@@ -1,0 +1,12 @@
+declare class C {
+  readonly x = 42;
+  static readonly y = "value";
+  readonly annotated: 42 = 42;
+  readonly typed: number;
+  readonly leading = /* initializer */ 42;
+  readonly before /* before initializer */ = "value";
+  readonly trailing = 42 /* after initializer */;
+  readonly ownLine =
+    // initializer
+    42;
+}

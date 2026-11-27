@@ -21,7 +21,7 @@ Cause: A class can only implement an identifier/qualified-name with optional typ
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected '{' to start class body, but found '?.' (1:23)
+"Expected '{' to start the class body, but found '?.' (1:23)
 > 1 | class Foo implements A?.B {}
     |                       ^^"
 `;
@@ -47,7 +47,7 @@ Cause: A class can only implement an identifier/qualified-name with optional typ
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected '{' to start class body, but found '?.' (1:24)
+"Expected '{' to start the class body, but found '?.' (1:24)
 > 1 | (class Foo implements A?.B {})
     |                        ^^"
 `;
@@ -73,7 +73,7 @@ Cause: A class can only implement an identifier/qualified-name with optional typ
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected an identifier, but found '"thing"' (1:22)
+"Expected an identifier, but found "thing" (1:22)
 > 1 | class Foo implements "thing" {}
     |                      ^^^^^^^"
 `;
@@ -99,7 +99,7 @@ Cause: A class can only implement an identifier/qualified-name with optional typ
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"Expected an identifier, but found '"thing"' (1:23)
+"Expected an identifier, but found "thing" (1:23)
 > 1 | (class Foo implements "thing" {})
     |                       ^^^^^^^"
 `;

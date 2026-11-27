@@ -1,0 +1,10 @@
+declare class C { #x; }
+
+declare class Fields {
+// First private field
+#first;
+#second /* trailing */;
+value: string;
+/* private */ #third;
+method(): void;
+}

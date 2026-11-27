@@ -25,7 +25,6 @@ function getCodemirrorMode(parser) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
-    case "hermes":
     case "oxc-ts":
     case "yuku-ts":
       return "TSX";

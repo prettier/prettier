@@ -48,13 +48,13 @@ Cause: Dynamic import requires exactly one or two arguments."
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Unexpected token ')' (1:8)
+"Expected an expression, but found ')' (1:8)
 > 1 | import();
     |        ^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Unexpected token ')' (1:8)
+"Expected an expression, but found ')' (1:8)
 > 1 | import();
     |        ^"
 `;
@@ -107,13 +107,13 @@ Cause: Dynamic import requires exactly one or two arguments."
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"Unexpected token ')' (1:21)
+"Expected an expression, but found ')' (1:21)
 > 1 | import(/* comment */);
     |                     ^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Unexpected token ')' (1:21)
+"Expected an expression, but found ')' (1:21)
 > 1 | import(/* comment */);
     |                     ^"
 `;
@@ -166,13 +166,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import('./a.mjs');
     |     ^^^^^^"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import('./a.mjs');
     |     ^^^^^^"
 `;
@@ -225,13 +225,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #3 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import();
     |     ^^^^^^"
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import();
     |     ^^^^^^"
 `;
@@ -284,13 +284,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #4 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo").bar;
     |     ^^^^^^"
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo").bar;
     |     ^^^^^^"
 `;
@@ -343,13 +343,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #5 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")[bar];
     |     ^^^^^^"
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")[bar];
     |     ^^^^^^"
 `;
@@ -402,13 +402,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #6 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")\`bar\`;
     |     ^^^^^^"
 `;
 
 exports[`snippet: #6 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")\`bar\`;
     |     ^^^^^^"
 `;
@@ -461,13 +461,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #7 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo").bar(qux);
     |     ^^^^^^"
 `;
 
 exports[`snippet: #7 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo").bar(qux);
     |     ^^^^^^"
 `;
@@ -520,13 +520,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #8 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")[bar](qux);
     |     ^^^^^^"
 `;
 
 exports[`snippet: #8 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")[bar](qux);
     |     ^^^^^^"
 `;
@@ -579,13 +579,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #9 format[yuku] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")\`bar\`(qux);
     |     ^^^^^^"
 `;
 
 exports[`snippet: #9 format[yuku-ts] 1`] = `
-"'import' is reserved and cannot be used as an identifier (1:5)
+"'import' is a reserved word and cannot be used as an identifier (1:5)
 > 1 | new import("foo")\`bar\`(qux);
     |     ^^^^^^"
 `;
@@ -659,7 +659,7 @@ Cause: Module specifier must be a string literal."
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js format[yuku] 1`] = `
-"Expected module specifier, but found '(' (4:16)
+"Expected a module specifier, but found '(' (4:16)
   2 | // be parenthesized, that accidentally break #8016
   3 |
 > 4 | import {} from (('a'));
@@ -668,7 +668,7 @@ exports[`static-import-source-should-not-has-extra-token.js format[yuku] 1`] = `
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js format[yuku-ts] 1`] = `
-"Expected module specifier, but found '(' (4:16)
+"Expected a module specifier, but found '(' (4:16)
   2 | // be parenthesized, that accidentally break #8016
   3 |
 > 4 | import {} from (('a'));

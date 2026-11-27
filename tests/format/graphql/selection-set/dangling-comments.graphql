@@ -1,0 +1,3 @@
+fragment F on Query {
+  # x
+}

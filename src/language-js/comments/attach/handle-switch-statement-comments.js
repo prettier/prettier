@@ -16,22 +16,25 @@ function handleSwitchStatementComments({
   followingNode,
   text,
 }) {
-  if (!(
-    enclosingNode?.type === "SwitchStatement" &&
-    enclosingNode.cases.length === 0 &&
+  if (
+    enclosingNode &&
+    precedingNode &&
     !followingNode &&
-    precedingNode === enclosingNode.discriminant
-  )) {
-    return false;
-  }
+    ((enclosingNode.type === "SwitchStatement" &&
+      precedingNode === enclosingNode.discriminant) ||
+      ((enclosingNode.type === "MatchExpression" ||
+        enclosingNode.type === "MatchStatement") &&
+        precedingNode === enclosingNode.argument)) &&
+    enclosingNode.cases.length === 0
+  ) {
+    const nextCharacter = getNextNonSpaceNonCommentCharacter(
+      text,
+      locEnd(comment),
+    );
 
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(
-    text,
-    locEnd(comment),
-  );
-
-  if (nextCharacter === "}") {
-    return addDanglingComment(enclosingNode, comment);
+    if (nextCharacter === "}") {
+      return addDanglingComment(enclosingNode, comment);
+    }
   }
 
   return false;

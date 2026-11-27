@@ -63,7 +63,7 @@ exports[`async-do-expressions.js format[oxc] 1`] = `
 `;
 
 exports[`async-do-expressions.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'do' (5:7)
+"Expected ';' after the statement, but found 'do' (5:7)
   3 | */
   4 |
 > 5 | async do { await requestAPI().json() }
@@ -197,6 +197,75 @@ exports[`deferred-import-evaluation.js format[espree] 1`] = `
 Cause: Unexpected token *"
 `;
 
+exports[`deferred-reexports.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`deferredReexports\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+export defer { x } from "dep";
+
+=====================================output=====================================
+/*
+\`deferredReexports\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+export defer { x } from "dep";
+
+================================================================================
+`;
+
+exports[`deferred-reexports.js format[acorn] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^
+  6 |
+Cause: Unexpected token (5:7)"
+`;
+
+exports[`deferred-reexports.js format[espree] 1`] = `
+"Unexpected token defer (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^
+  6 |
+Cause: Unexpected token defer"
+`;
+
+exports[`deferred-reexports.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |
+Cause: [5:7-5:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`deferred-reexports.js format[oxc] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |"
+`;
+
+exports[`deferred-reexports.js format[yuku] 1`] = `
+"Expected a declaration after 'export', but found 'defer' (5:8)
+  3 | */
+  4 |
+> 5 | export defer { x } from "dep";
+    |        ^^^^^
+  6 |"
+`;
+
 exports[`destructuring-private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -263,7 +332,7 @@ exports[`destructuring-private.js format[oxc] 1`] = `
 `;
 
 exports[`destructuring-private.js format[yuku] 1`] = `
-"Unexpected token '#x' as property key (5:44)
+"Expected a property name, but found '#x' (5:44)
   3 | */
   4 |
 > 5 | class Example { #x = 1; method() { const { #x: x } = this; } }
@@ -332,7 +401,7 @@ exports[`discard-binding.js format[oxc] 1`] = `
 `;
 
 exports[`discard-binding.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found 'void' (5:7)
+"Expected ';' after the statement, but found 'void' (5:7)
   3 | */
   4 |
 > 5 | using void = new Lock(mutex)
@@ -405,7 +474,7 @@ exports[`do-expressions.js format[oxc] 1`] = `
 `;
 
 exports[`do-expressions.js format[yuku] 1`] = `
-"'do' is reserved and cannot be used as an identifier (5:9)
+"'do' is a reserved word and cannot be used as an identifier (5:9)
   3 | */
   4 |
 > 5 | var a = do { if (true) { 'hi'; } };
@@ -474,7 +543,7 @@ exports[`export-default-from.js format[oxc] 1`] = `
 `;
 
 exports[`export-default-from.js format[yuku] 1`] = `
-"Expected declaration after 'export', but found 'v' (5:8)
+"Expected a declaration after 'export', but found 'v' (5:8)
   3 | */
   4 |
 > 5 | export v from "mod"
@@ -563,7 +632,7 @@ exports[`flow.js format[oxc] 1`] = `
 `;
 
 exports[`flow.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found ':' (5:6)
+"Expected ';' after the statement, but found ':' (5:6)
   3 | */
   4 |
 > 5 | var a: string = "";
@@ -653,7 +722,7 @@ exports[`function-bind.js format[oxc] 1`] = `
 `;
 
 exports[`function-bind.js format[yuku] 1`] = `
-"Unexpected token ':' (5:3)
+"Expected an expression, but found ':' (5:3)
   3 | */
   4 |
 > 5 | a::b
@@ -722,7 +791,7 @@ exports[`function-bind-2.js format[oxc] 1`] = `
 `;
 
 exports[`function-bind-2.js format[yuku] 1`] = `
-"Unexpected token ':' (5:1)
+"Expected an expression, but found ':' (5:1)
   3 | */
   4 |
 > 5 | ::console.log
@@ -793,11 +862,80 @@ exports[`function-sent.js format[oxc] 1`] = `
 `;
 
 exports[`function-sent.js format[yuku] 1`] = `
-"Function declaration requires a name (5:25)
+"A function declaration without the 'default' modifier must have a name (5:25)
   3 | */
   4 |
 > 5 | function* g() { function.sent }
     |                         ^
+  6 |"
+`;
+
+exports[`import-sync.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`importSync\` ([proposal](https://github.com/tc39/proposal-import-sync))
+*/
+
+const mod = import.sync("./foo.js");
+
+=====================================output=====================================
+/*
+\`importSync\` ([proposal](https://github.com/tc39/proposal-import-sync))
+*/
+
+const mod = import.sync("./foo.js");
+
+================================================================================
+`;
+
+exports[`import-sync.js format[acorn] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^
+  6 |
+Cause: The only valid meta property for import is 'import.meta' (5:19)"
+`;
+
+exports[`import-sync.js format[espree] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^
+  6 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-sync.js format[meriyah] 1`] = `
+"The only valid meta property for import is 'import.meta' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^^^^
+  6 |
+Cause: [5:19-5:23]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-sync.js format[oxc] 1`] = `
+"The only valid property accesses on import are \`import.meta\`, \`import.source()\`, and \`import.defer()\` (5:13)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |             ^^^^^^^^^^^
+  6 |"
+`;
+
+exports[`import-sync.js format[yuku] 1`] = `
+"'sync' is not a valid meta-property for keyword 'import' (5:20)
+  3 | */
+  4 |
+> 5 | const mod = import.sync("./foo.js");
+    |                    ^^^^
   6 |"
 `;
 
@@ -885,11 +1023,80 @@ exports[`module-blocks.js format[oxc] 1`] = `
 `;
 
 exports[`module-blocks.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found '{' (5:16)
+"Expected ';' after the statement, but found '{' (5:16)
   3 | */
   4 |
 > 5 | let m = module { export let y = 1; };
     |                ^
+  6 |"
+`;
+
+exports[`namespace-import-filter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`namespaceImportFilter\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+import { x, y } as ns from "dep";
+
+=====================================output=====================================
+/*
+\`namespaceImportFilter\` ([proposal](https://github.com/tc39/proposal-deferred-reexports))
+*/
+
+import { x, y } as ns from "dep";
+
+================================================================================
+`;
+
+exports[`namespace-import-filter.js format[acorn] 1`] = `
+"Unexpected token (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^
+  6 |
+Cause: Unexpected token (5:16)"
+`;
+
+exports[`namespace-import-filter.js format[espree] 1`] = `
+"Unexpected token as (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^
+  6 |
+Cause: Unexpected token as"
+`;
+
+exports[`namespace-import-filter.js format[meriyah] 1`] = `
+"Expected 'from' (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
+  6 |
+Cause: [5:16-5:18]: Expected 'from'"
+`;
+
+exports[`namespace-import-filter.js format[oxc] 1`] = `
+"Expected \`from\` but found \`as\` (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
+  6 |"
+`;
+
+exports[`namespace-import-filter.js format[yuku] 1`] = `
+"Expected 'from' after the import clause, but found 'as' (5:17)
+  3 | */
+  4 |
+> 5 | import { x, y } as ns from "dep";
+    |                 ^^
   6 |"
 `;
 
@@ -954,7 +1161,7 @@ exports[`optional-chaining-assign.js format[oxc] 1`] = `
 `;
 
 exports[`optional-chaining-assign.js format[yuku] 1`] = `
-"Optional chaining is not allowed in assignment pattern (5:1)
+"The left-hand side of an assignment expression may not be an optional property access (5:1)
   3 | */
   4 |
 > 5 | x?.prop = 2
@@ -1023,7 +1230,7 @@ exports[`partial-application.js format[oxc] 1`] = `
 `;
 
 exports[`partial-application.js format[yuku] 1`] = `
-"Unexpected token '?' (5:3)
+"Expected an expression, but found '?' (5:3)
   3 | */
   4 |
 > 5 | f(?, a)
@@ -1092,7 +1299,7 @@ exports[`pipeline-operator.js format[oxc] 1`] = `
 `;
 
 exports[`pipeline-operator.js format[yuku] 1`] = `
-"Unexpected token '>' (5:4)
+"Expected an expression, but found '>' (5:4)
   3 | */
   4 |
 > 5 | a |> b
@@ -1139,6 +1346,78 @@ exports[`source-phase-imports.js format[espree] 1`] = `
     |               ^
   6 |
 Cause: Unexpected token x"
+`;
+
+exports[`structs.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/*
+\`structs\` ([proposal](https://github.com/tc39/proposal-structs))
+*/
+
+struct Point { x; y; }
+
+=====================================output=====================================
+/*
+\`structs\` ([proposal](https://github.com/tc39/proposal-structs))
+*/
+
+struct Point {
+  x;
+  y;
+}
+
+================================================================================
+`;
+
+exports[`structs.js format[acorn] 1`] = `
+"Unexpected token (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^
+  6 |
+Cause: Unexpected token (5:7)"
+`;
+
+exports[`structs.js format[espree] 1`] = `
+"Unexpected token Point (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^
+  6 |
+Cause: Unexpected token Point"
+`;
+
+exports[`structs.js format[meriyah] 1`] = `
+"Unexpected token: 'identifier' (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^^^^^
+  6 |
+Cause: [5:7-5:12]: Unexpected token: 'identifier'"
+`;
+
+exports[`structs.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (5:7)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |       ^
+  6 |"
+`;
+
+exports[`structs.js format[yuku] 1`] = `
+"Expected ';' after the statement, but found 'Point' (5:8)
+  3 | */
+  4 |
+> 5 | struct Point { x; y; }
+    |        ^^^^^
+  6 |"
 `;
 
 exports[`throw-expressions.js format 1`] = `
@@ -1202,7 +1481,7 @@ exports[`throw-expressions.js format[oxc] 1`] = `
 `;
 
 exports[`throw-expressions.js format[yuku] 1`] = `
-"'throw' is reserved and cannot be used as an identifier (5:7)
+"'throw' is a reserved word and cannot be used as an identifier (5:7)
   3 | */
   4 |
 > 5 | () => throw new Error("")
@@ -1291,7 +1570,7 @@ exports[`typescript.js format[oxc] 1`] = `
 `;
 
 exports[`typescript.js format[yuku] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found ':' (5:6)
+"Expected ';' after the statement, but found ':' (5:6)
   3 | */
   4 |
 > 5 | var a: string = "";
@@ -1360,7 +1639,7 @@ exports[`v8intrinsic.js format[oxc] 1`] = `
 `;
 
 exports[`v8intrinsic.js format[yuku] 1`] = `
-"Unexpected token '%' (5:1)
+"Expected an expression, but found '%' (5:1)
   3 | */
   4 |
 > 5 | %DebugPrint(foo);

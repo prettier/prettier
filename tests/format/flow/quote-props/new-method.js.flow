@@ -1,0 +1,5 @@
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string; 'other-key': number };
+type ConsistentConstructor = { new(): string; 'other-key': number };
+type FunctionProperty = { 'new': () => string; 'other-key': number };

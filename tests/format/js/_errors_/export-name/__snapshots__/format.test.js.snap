@@ -49,15 +49,6 @@ exports[`snippet: #0 format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
-exports[`snippet: #0 format[hermes] 1`] = `
-"'identifier' expected in import specifier (1:10)
-> 1 | import { "\\uD83C" as b } from "./foo";
-    |          ^
-Cause: 'identifier' expected in import specifier (1:9)
-import { "\\uD83C" as b } from "./foo";
-       ~~^"
-`;
-
 exports[`snippet: #0 format[meriyah] 1`] = `
 "An export name cannot include a lone surrogate (1:10)
 > 1 | import { "\\uD83C" as b } from "./foo";
@@ -78,13 +69,13 @@ exports[`snippet: #0 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | import { "\\uD83C" as b } from "./foo";
     |          ^^^^^^^^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | import { "\\uD83C" as b } from "./foo";
     |          ^^^^^^^^"
 `;
@@ -138,15 +129,6 @@ exports[`snippet: #1 format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
-exports[`snippet: #1 format[hermes] 1`] = `
-"'identifier' expected in export clause (1:10)
-> 1 | export { "\\uD83C" } from "./foo";
-    |          ^
-Cause: 'identifier' expected in export clause (1:9)
-export { "\\uD83C" } from "./foo";
-       ~~^"
-`;
-
 exports[`snippet: #1 format[meriyah] 1`] = `
 "An export name cannot include a lone surrogate (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
@@ -167,13 +149,13 @@ exports[`snippet: #1 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
     |          ^^^^^^^^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | export { "\\uD83C" } from "./foo";
     |          ^^^^^^^^"
 `;
@@ -227,15 +209,6 @@ exports[`snippet: #2 format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:9)"
 `;
 
-exports[`snippet: #2 format[hermes] 1`] = `
-"'identifier' expected in export clause (1:10)
-> 1 | export { "\\uD83C" as b } from "./foo";
-    |          ^
-Cause: 'identifier' expected in export clause (1:9)
-export { "\\uD83C" as b } from "./foo";
-       ~~^"
-`;
-
 exports[`snippet: #2 format[meriyah] 1`] = `
 "An export name cannot include a lone surrogate (1:10)
 > 1 | export { "\\uD83C" as b } from "./foo";
@@ -256,13 +229,13 @@ exports[`snippet: #2 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | export { "\\uD83C" as b } from "./foo";
     |          ^^^^^^^^"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:10)
+"An export name cannot contain a lone Unicode surrogate (1:10)
 > 1 | export { "\\uD83C" as b } from "./foo";
     |          ^^^^^^^^"
 `;
@@ -316,15 +289,6 @@ exports[`snippet: #3 format[flow] 1`] = `
 Cause: Unexpected string, expected an identifier (1:14)"
 `;
 
-exports[`snippet: #3 format[hermes] 1`] = `
-"'identifier' expected in export clause (1:15)
-> 1 | export { b as "\\uD83C" } from "./foo";
-    |               ^
-Cause: 'identifier' expected in export clause (1:14)
-export { b as "\\uD83C" } from "./foo";
-       ~~~~~~~^"
-`;
-
 exports[`snippet: #3 format[meriyah] 1`] = `
 "An export name cannot include a lone surrogate (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
@@ -345,13 +309,13 @@ exports[`snippet: #3 format[oxc-ts] 1`] = `
 `;
 
 exports[`snippet: #3 format[yuku] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:15)
+"An export name cannot contain a lone Unicode surrogate (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
     |               ^^^^^^^^"
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"An export name cannot include a unicode lone surrogate (1:15)
+"An export name cannot contain a lone Unicode surrogate (1:15)
 > 1 | export { b as "\\uD83C" } from "./foo";
     |               ^^^^^^^^"
 `;

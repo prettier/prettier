@@ -67,7 +67,7 @@ exports[`block-comments.js format[oxc] 1`] = `
 `;
 
 exports[`block-comments.js format[yuku] 1`] = `
-"Unexpected token '>' (2:2)
+"Expected an expression, but found '>' (2:2)
   1 | bifornCringerMoshedPerplexSawder
 > 2 | |> foo1
     |  ^
@@ -214,7 +214,7 @@ exports[`fsharp-style-pipeline-operator.js format[oxc] 1`] = `
 `;
 
 exports[`fsharp-style-pipeline-operator.js format[yuku] 1`] = `
-"Unexpected token '>' (2:4)
+"Expected an expression, but found '>' (2:4)
   1 | promise
 > 2 |   |> await
     |    ^
@@ -376,7 +376,7 @@ exports[`hack-pipeline-operator.js format[oxc] 1`] = `
 `;
 
 exports[`hack-pipeline-operator.js format[yuku] 1`] = `
-"Unexpected token '>' (1:4)
+"Expected an expression, but found '>' (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
   2 |
@@ -534,7 +534,7 @@ exports[`minimal-pipeline-operator.js format[oxc] 1`] = `
 `;
 
 exports[`minimal-pipeline-operator.js format[yuku] 1`] = `
-"Unexpected token '>' (1:4)
+"Expected an expression, but found '>' (1:4)
 > 1 | a |> b |> c;
     |    ^
   2 |

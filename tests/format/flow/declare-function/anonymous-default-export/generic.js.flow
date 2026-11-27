@@ -1,0 +1,1 @@
+export default function <T>(value: T, ...rest: T[]): T;

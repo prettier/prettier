@@ -1,0 +1,6 @@
+@media screen and (min-width:100px) {
+  @media (max-width:400px) {
+		.test-rule {
+		}
+	}
+}

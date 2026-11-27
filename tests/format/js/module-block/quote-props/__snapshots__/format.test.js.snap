@@ -136,7 +136,7 @@ exports[`worker.js format[oxc] 1`] = `
 `;
 
 exports[`worker.js format[yuku] 1`] = `
-"Expected ')' after constructor arguments, but found '{' (1:28)
+"Expected ')' to close the constructor arguments, but found '{' (1:28)
 > 1 | worker = new Worker(module {
     |                            ^
   2 |   onmessage = function({data}) {

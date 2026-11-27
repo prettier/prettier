@@ -357,6 +357,7 @@ const configs = [
           checkNaN: true,
         },
       ],
+      "unicorn/prefer-options-parameter": "off",
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-short-arrow-method": "off",
       "unicorn/prefer-short-escape-sequences": "off",

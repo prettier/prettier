@@ -1,4 +1,5 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { classPropertyTypes } from "../utilities/node-types.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
@@ -27,6 +28,7 @@ const overrideBreakOrContinueEnd =
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
 
 const nodeTypesWithContentEnd = /** @type {const} */ ([
+  // Statements
   "ExpressionStatement",
   "Directive",
   "ImportDeclaration",
@@ -36,6 +38,9 @@ const nodeTypesWithContentEnd = /** @type {const} */ ([
   "ReturnStatement",
   "ThrowStatement",
   "DoWhileStatement",
+
+  // Properties
+  ...classPropertyTypes,
 ]);
 
 const overrides =
