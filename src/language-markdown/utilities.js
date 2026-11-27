@@ -261,6 +261,25 @@ function isAutolink(node) {
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
+/**
+ * Returns the ES comment when it is the only content of the paragraph,
+ * allowing the empty sentence that trailing whitespace leaves after it.
+ */
+function getParagraphEsComment(node) {
+  if (node.type !== "paragraph" || node.children.length > 2) {
+    return;
+  }
+
+  const [comment, trailing] = node.children;
+  if (
+    comment?.type === "esComment" &&
+    (!trailing ||
+      (trailing.type === "sentence" && trailing.children.length === 0))
+  ) {
+    return comment;
+  }
+}
+
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
   let match;
@@ -268,17 +287,8 @@ function isPrettierIgnore(node) {
   if (node.type === "html") {
     match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
   } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
+    const comment =
+      node.type === "esComment" ? node : getParagraphEsComment(node);
 
     if (comment) {
       match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
@@ -328,6 +338,7 @@ export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   getOrderedListItemInfo,
+  getParagraphEsComment,
   hasGitDiffFriendlyOrderedList,
   hasPrettierIgnore,
   INLINE_NODE_TYPES,
