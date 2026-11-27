@@ -49,8 +49,11 @@ function parseValueNode(valueNode, options) {
         node.group.close.sourceIndex,
       );
       const parsedSelector = parseSelector(selector);
+      // @ts-expect-error -- FIXME
       parsedSelector.sourceIndex = node.group.open.sourceIndex + 1;
+      // @ts-expect-error -- FIXME
       parsedSelector.raws ??= {};
+      // @ts-expect-error -- FIXME
       parsedSelector.raws.selector = selector;
       node.group.groups = [parsedSelector];
     }
