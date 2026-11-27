@@ -797,8 +797,8 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 }
 
 =====================================output=====================================
-.powerPathNavigator .helm button.pressedButton, /* comment 1 */
-.powerPathNavigator .helm button:active:not(.disabledButton),
+.powerPathNavigator .helm button.pressedButton,
+/* comment 1 */ .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
@@ -809,16 +809,13 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 }
 
 .foo,
-/* comment 3 */
-.bar {
+/* comment 3 */ .bar {
   display: block;
 }
 
 /* comment 4 */
 /* comment 5 */
-.field /* comment 6 */
-/* comment 7 */
-/* comment 8 */ {
+.field /* comment 6 */ /* comment 7 */ /* comment 8 */ {
   /* comment 9 */
   /* comment 10 */
   background: green;
@@ -828,73 +825,47 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 /* comment 14 */
 
 /* comment 15 */
-.element /* comment 16 */ , /* comment 17 */ .element /* comment 18 */ {
+.element /* comment 16 */,
+/* comment 17 */ .element /* comment 18 */ {
 }
 /* comment 19 */
-.element
-/* comment 20 */
-,
-/* comment 21 */
-.element
-/* comment 22 */ {
+.element /* comment 20 */,
+/* comment 21 */ .element /* comment 22 */ {
 }
 
 /* comment 23 */
 .element /* comment 24 */ .element /* comment 25 */ {
 }
 /* comment 26 */
-.element
-/* comment 27 */
-.element
-/* comment 28 */ {
+.element /* comment 27 */ .element /* comment 28 */ {
 }
 
 /* comment 29 */
 .element /* comment 30 */ > /* comment 31 */ .element /* comment 32 */ {
 }
 /* comment 33 */
-.element
-/* comment 34 */
->
-/* comment 35 */
-.element
-/* comment 36 */ {
+.element /* comment 34 */ > /* comment 35 */ .element /* comment 36 */ {
 }
 
 /* comment 37 */
 .element /* comment 38 */ + /* comment 39 */ .element /* comment 40 */ {
 }
 /* comment 41 */
-.element
-/* comment 42 */
-+
-/* comment 43 */
-.element
-/* comment 44 */ {
+.element /* comment 42 */ + /* comment 43 */ .element /* comment 44 */ {
 }
 
 /* comment 45 */
 .element /* comment 46 */ ~ /* comment 47 */ .element /* comment 48 */ {
 }
 /* comment 49 */
-.element
-/* comment 50 */
-~
-/* comment 51 */
-.element
-/* comment 52 */ {
+.element /* comment 50 */ ~ /* comment 51 */ .element /* comment 52 */ {
 }
 
 /* comment 53 */
 .element /* comment 54 */ >>> /* comment 55 */ .element /* comment 56 */ {
 }
 /* comment 57 */
-.element
-/* comment 58 */
->>>
-/* comment 59 */
-.element
-/* comment 60 */ {
+.element /* comment 58 */ >>> /* comment 59 */ .element /* comment 60 */ {
 }
 
 a[/* comment 61 */target/* comment 62 */] {
@@ -928,7 +899,9 @@ a/* comment 102 */::/* comment 103 */after {
 p:lang(/* comment 104 */it/* comment 105 */) {
 }
 
-span:nth-child(/* comment 106 */2n/* comment 107 */+/* comment 108 */1/* comment 109 */) {
+span:nth-child(
+  /* comment 106 */2n/* comment 107 */ + /* comment 108 */1/* comment 109 */
+) {
 }
 
 /* comment 110 */
@@ -936,7 +909,12 @@ span:nth-child(/* comment 106 */2n/* comment 107 */+/* comment 108 */1/* comment
 }
 
 /* comment 111 */
-:matches(/* comment 112 */section/* comment 113 */,/* comment 114 */ article/* comment 115 */) /* comment 116 */ h1 {
+:matches(
+    /* comment 112 */section/* comment 113 */,
+    /* comment 114 */ article/* comment 115 */
+  )
+  /* comment 116 */
+  h1 {
 }
 
 /* comment 117 */
@@ -955,11 +933,15 @@ span:nth-child(/* comment 106 */2n/* comment 107 */+/* comment 108 */1/* comment
 a/* comment 124 */ {
 }
 
-input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* comment 128 */) {
+input:not(
+  /* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* comment 128 */
+) {
 }
 
 /* comment 129 */
-h1/* comment 130 */, /* comment 131 */h2/* comment 132 */,/* comment 133 */ h3/* comment 134 */ {
+h1/* comment 130 */,
+/* comment 131 */h2/* comment 132 */,
+/* comment 133 */ h3/* comment 134 */ {
 }
 
 /* comment 135 */
@@ -1001,21 +983,37 @@ h1/* comment 130 */, /* comment 131 */h2/* comment 132 */,/* comment 133 */ h3/*
 } /* comment 166 */
 
 /* comment 167 */
-article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* comment 171 */ {
+article
+  /* comment 168 */
+  :--heading
+  /* comment 169 */
+  + /* comment 170 */
+  p
+  /* comment 171 */ {
 }
 
 /* comment 172 */
 .foo /* comment 173 */ :global /* comment 174 */.bar /* comment 175 */ {
 }
 /* comment 176 */
-.foo /* comment 177 */ :global(/* comment 178 */.bar/* comment 179 */) /* comment 180 */ .baz /* comment 181 */ {
+.foo
+  /* comment 177 */
+  :global(/* comment 178 */.bar/* comment 179 */)
+  /* comment 180 */
+  .baz
+  /* comment 181 */ {
 }
 
 /* comment 182 */
 .foo /* comment 183 */ :local /* comment 184 */ .bar /* comment 185 */ {
 }
 /* comment 186 */
-.foo /* comment 187 */ :local(/* comment 188 */.foo/* comment 189 */) /* comment 190 */ .bar /* comment 191 */ {
+.foo
+  /* comment 187 */
+  :local(/* comment 188 */.foo/* comment 189 */)
+  /* comment 190 */
+  .bar
+  /* comment 191 */ {
 }
 
 /* custom properties set & @apply rule */

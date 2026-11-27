@@ -1,5 +1,5 @@
 import postcssSelectorParser from "postcss-selector-parser";
-import { removeQuotedStrings } from "../print/misc.js";
+import { hasSelectorComment } from "../print/misc.js";
 import { addTypePrefix } from "./utilities.js";
 
 function isInvalidAst(ast, selector) {
@@ -15,11 +15,8 @@ function isInvalidAst(ast, selector) {
 }
 
 function parseSelector(selector) {
-  // If there's a comment inside of a selector, the parser tries to parse
-  // the content of the comment as selectors which turns it into complete
-  // garbage. Better to print the whole selector as-is and not try to parse
-  // and reformat it.
-  if (/\/[/*]/.test(removeQuotedStrings(selector))) {
+  // The selector parser does not support Less and SCSS line comments.
+  if (hasSelectorComment(selector, "//")) {
     return {
       type: "selector-unknown",
       value: selector.trim(),

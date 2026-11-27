@@ -1,0 +1,14 @@
+.a/* compound */.b>   .c,.plain{color:red}
+.a  /* descendant */   .b+.c {}
+.a  /* descendant before newline */
+  .b+.c {}
+.a  /* before combinator */>   .b {}
+.a>/* after combinator */.b {}
+.a:is(/* leading */   .b,.c /* trailing */) {}
+.a[data-name/* attribute */ = "/* string */"]>   .b {}
+.a /* trailing rule */ {}
+.a /* // inside a block comment */>   .b {}
+.a /* column combinator */|| .b {}
+.a /DEEP//* named combinator */.b {}
+.a[data-name="/* string */"]>   .b {}
+@supports selector(.a/* function */>   .b) {}
