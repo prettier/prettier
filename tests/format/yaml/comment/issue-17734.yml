@@ -1,0 +1,40 @@
+a: string
+  # a badly indented comment
+---
+a: string
+# a comment at column 0
+---
+a: "string"
+  # a badly indented comment
+---
+a:
+  b: c
+    # comment
+---
+a:
+  b: c
+    # comment
+  d: e
+---
+- a
+  # comment
+---
+a: foo
+  bar
+---
+a: string
+  # a badly indented comment
+b: other
+---
+a: string # trailing
+  # a badly indented comment
+---
+a: string
+
+  # a badly indented comment
+---
+a: &anchor string
+  # comment
+---
+a: !!str string
+  # comment

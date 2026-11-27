@@ -101,8 +101,11 @@ function printMappingItem(path, options, print) {
   if (
     hasEndComments(value) &&
     value.content &&
-    isNode(value.content, ["flowMapping", "flowSequence"]) &&
-    value.content.children.length === 0
+    ((isNode(value.content, ["flowMapping", "flowSequence"]) &&
+      value.content.children.length === 0) ||
+      (!hasLeadingComments(value.content) &&
+        !hasTrailingComment(key.content) &&
+        isAbsolutelyPrintedAsSingleLineNode(value.content, options)))
   ) {
     implicitMappingValueParts.push(" ");
   } else if (
