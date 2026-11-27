@@ -114,7 +114,12 @@ function calculateNodeLoc(node, text, rootOffset, isRootOfText) {
   for (const key in node) {
     const child = node[key];
 
-    if (key === "source" || !child || typeof child !== "object") {
+    if (
+      key === "source" ||
+      key === "parent" ||
+      !child ||
+      typeof child !== "object"
+    ) {
       continue;
     }
 
