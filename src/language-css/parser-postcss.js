@@ -17,7 +17,7 @@ const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(parse, node, options) {
-  if (!node?.type) {
+  if (!node?.type?.startsWith("css-")) {
     return node;
   }
 
@@ -28,7 +28,7 @@ function parseNestedCSS(parse, node, options) {
       for (const child of value) {
         parseNestedCSS(parse, child, options);
       }
-    } else if (value) {
+    } else {
       parseNestedCSS(parse, value, options);
     }
   }
