@@ -27,6 +27,16 @@ Required options:
 
 See below for examples.
 
+### Other APIs
+
+The standalone version also exposes these APIs:
+
+- [`prettier.check`](api.md#prettierchecksource--options)
+- [`prettier.formatWithCursor`](api.md#prettierformatwithcursorsource--options)
+- [`prettier.getSupportInfo`](api.md#prettiergetsupportinfo)
+
+They work like their Node.js API equivalents, but parser plugins must be passed explicitly with the `plugins` option as described above.
+
 ## Usage
 
 ### Global
