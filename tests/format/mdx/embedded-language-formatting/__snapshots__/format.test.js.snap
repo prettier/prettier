@@ -19,10 +19,8 @@ LF: Line Feed, \\n
 # title
 
 <Parenthesis>
-
-CR: Carriage Return, \\r
-LF: Line Feed, \\n
-
+  CR: Carriage Return, \\r
+  LF: Line Feed, \\n
 </Parenthesis>
 
 ================================================================================
@@ -80,9 +78,8 @@ export const Test = () => {
 
 {/* prettier-ignore-start */}
 export const Test = () => {
-return <p>test</p>;
-};
-
+   return <p>test</p>;
+ };
    <Test />
 {/* prettier-ignore-end */}
 

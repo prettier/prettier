@@ -2,7 +2,7 @@
 
 exports[`indented-code-block.md - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
-parsers: ["markdown", "mdx"]
+parsers: ["markdown"]
 tabWidth: 4
                                                       printWidth: 80 (default) |
 =====================================input======================================

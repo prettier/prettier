@@ -1,0 +1,7 @@
+{/* These are not valid, but the parser won't throw during parse. */}
+
+<a {...b, ...another} />
+<a {   ...   b, ...   another   } />
+
+<a {b=c}={} d />
+<a {    b=c}={  } d />

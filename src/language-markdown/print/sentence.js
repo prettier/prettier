@@ -4,15 +4,17 @@
  */
 
 import { DOC_TYPE_STRING, fill, getDocType } from "../../document/index.js";
+import { isSetextHeading } from "../utilities.js";
 
 /**
  * @param {AstPath} path
+ * @param {*} options
  * @param {*} print
  * @returns {Doc}
  */
-function printSentence(path, print) {
+function printSentence(path, options, print) {
   /** @type {Doc[]} */
-  const parts = [""];
+  const parts = [needsLeadingWhitespace(path, options) ? " " : ""];
 
   path.each(() => {
     const { node } = path;
@@ -30,6 +32,31 @@ function printSentence(path, print) {
   }, "children");
 
   return fill(parts);
+}
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {boolean}
+ */
+function needsLeadingWhitespace(path, options) {
+  if (options.parser !== "mdx") {
+    return false;
+  }
+
+  if (!(
+    path.isFirst &&
+    (path.parent.type === "paragraph" || isSetextHeading(path.parent)) &&
+    path.grandparent.type === "root"
+  )) {
+    return false;
+  }
+
+  const firstChild = path.node.children[0];
+  return (
+    firstChild?.type === "word" &&
+    ["import", "export"].includes(firstChild.value)
+  );
 }
 
 export { printSentence };

@@ -1,0 +1,13 @@
+export const attempt2 = (input) => {
+    return input.split('\n').map((line) => line.split(' ')).map((([them, me]) => {
+       console.log(them, me);
+    })).reduce((sum, [them, me]) => {
+let round = 0;
+
+if(me === "X") {round += 1;}
+
+if(me === "Y"){ round += 2;}
+
+    }, 0)
+
+}

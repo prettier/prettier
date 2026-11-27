@@ -1,4 +1,6 @@
 import { hardline, line, softline } from "../../document/index.js";
+import { CSS_DISPLAY_TAGS } from "../../language-html/constants.evaluate.js";
+import isBlockLikeCssDisplay from "../../utilities/is-block-like-css-display.js";
 import {
   isNewLine,
   isSetextHeading,
@@ -179,14 +181,13 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {boolean} isLink
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, isLink, options) {
+function isBreakable(path, value, proseWrap, isLink) {
   if (
     proseWrap !== "always" ||
     path.hasAncestor(
       (node) =>
         SINGLE_LINE_NODE_TYPES.has(node.type) ||
-        (node.type === "heading" &&
-          (options.parser === "mdx" || !isSetextHeading(node))),
+        (node.type === "heading" && !isSetextHeading(node)),
     )
   ) {
     return false;
@@ -247,10 +248,9 @@ function isBreakable(path, value, proseWrap, isLink, options) {
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
  * @param {boolean} isLink Special mode of (un)wrapping that preserves the
- * @param {any} options Special mode of (un)wrapping that preserves the
  * normalized form of link labels. https://spec.commonmark.org/0.30/#matches
  */
-function printWhitespace(path, value, proseWrap, isLink, options) {
+function printWhitespace(path, value, proseWrap, isLink) {
   if (
     (proseWrap === "preserve" || isLineBreakAmbiguous(path)) &&
     value === "\n"
@@ -262,7 +262,7 @@ function printWhitespace(path, value, proseWrap, isLink, options) {
     value === " " ||
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
-  if (isBreakable(path, value, proseWrap, isLink, options)) {
+  if (isBreakable(path, value, proseWrap, isLink)) {
     return canBeSpace ? line : softline;
   }
 
@@ -270,12 +270,31 @@ function printWhitespace(path, value, proseWrap, isLink, options) {
 }
 
 function printWhitespaceNode(path, options) {
+  // Keep structural newlines around HTML block elements inside MDX prose.
+  // Adding new breaks could turn text elements into flow elements on reparse.
+  if (
+    options.parser === "mdx" &&
+    path.node.value === "\n" &&
+    ((path.isFirst &&
+      path.callParent(({ previous }) => isBlockElement(previous))) ||
+      (path.isLast && path.callParent(({ next }) => isBlockElement(next))))
+  ) {
+    return hardline;
+  }
+
   return printWhitespace(
     path,
     path.node.value,
     shouldPreventBreak(path, options) ? "never" : options.proseWrap,
     false,
-    options,
+  );
+}
+
+function isBlockElement(node) {
+  return (
+    node?.type === "mdxJsxTextElement" &&
+    Object.hasOwn(CSS_DISPLAY_TAGS, node.name) &&
+    isBlockLikeCssDisplay(CSS_DISPLAY_TAGS[node.name])
   );
 }
 

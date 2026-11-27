@@ -1,1 +1,9 @@
-runFormatTest(import.meta, ["markdown", "mdx"], { tabWidth: 4 });
+runFormatTest(
+  import.meta,
+  [
+    "markdown",
+    // `mdx` doesn't support indented code
+    // "mdx",
+  ],
+  { tabWidth: 4 },
+);

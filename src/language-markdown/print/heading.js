@@ -21,7 +21,7 @@ function printSetextHeading(path, options, print) {
 }
 
 function printHeading(path, options, print) {
-  if (options.parser !== "mdx" && isSetextHeading(path.node)) {
+  if (isSetextHeading(path.node)) {
     return printSetextHeading(path, options, print);
   }
 
