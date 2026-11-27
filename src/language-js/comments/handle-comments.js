@@ -727,8 +727,7 @@ function handleOptionalMarkerComments({
     enclosingNode?.type === "Identifier" &&
     enclosingNode.optional
   ) {
-    addTrailingComment(enclosingNode, comment);
-    return true;
+    return addTrailingComment(enclosingNode, comment);
   }
 
   return false;
