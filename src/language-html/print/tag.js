@@ -120,6 +120,21 @@ function shouldNotPrintClosingTag(node, options) {
   );
 }
 
+/**
+ * An ignored node prints its closing tag from the original source, so its
+ * neighbors must not borrow the closing tag end marker. Implicitly closed
+ * elements have no closing tag, while interpolations always end with `}}`.
+ */
+function isIgnoredNodeWithClosingTag(node) {
+  return (
+    hasPrettierIgnore(node) &&
+    !isTextLikeNode(node) &&
+    (node.isSelfClosing ||
+      Boolean(node.endSourceSpan) ||
+      node.kind === "interpolation")
+  );
+}
+
 function needsToBorrowPrevClosingTagEndMarker(node) {
   /**
    *     <p></p
@@ -135,6 +150,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
     node.prev.kind !== "docType" &&
     node.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
+    !isIgnoredNodeWithClosingTag(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
   );
@@ -152,6 +168,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isIgnoredNodeWithClosingTag(node.lastChild) &&
     !isPreLikeNode(node)
   );
 }
@@ -185,6 +202,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
   return (
     node.next &&
     !isTextLikeNode(node.next) &&
+    !hasPrettierIgnore(node.next) &&
     isTextLikeNode(node) &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
@@ -418,6 +436,7 @@ function printOpeningTagEndMarker(node) {
 }
 
 export {
+  isIgnoredNodeWithClosingTag,
   needsToBorrowLastChildClosingTagEndMarker,
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
@@ -432,5 +451,4 @@ export {
   printOpeningTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTagStart,
-  printOpeningTagStartMarker,
 };

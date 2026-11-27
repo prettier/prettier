@@ -1,0 +1,1445 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"css","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span
+  ><!-- prettier-ignore --><img src="x"></span>
+<div>
+  <!-- prettier-ignore --><img   src="x"><b
+    >b</b
+  >
+</div>
+
+<span
+  ><!-- prettier-ignore --><img src="x"/></span>
+<span
+  ><!-- prettier-ignore --><img src="x" /></span>
+<span
+  ><!-- prettier-ignore --><input value="a"
+/></span>
+<div>
+  <!-- prettier-ignore --><img   src="x"/><b
+    >b</b
+  >
+</div>
+
+<span
+  ><!-- prettier-ignore --><img src=x /></span>
+<div>
+  <!-- prettier-ignore --><img src=x /><b
+    >b</b
+  >
+</div>
+<span
+  ><!-- prettier-ignore --><img src=x
+/></span>
+<div>
+  <!-- prettier-ignore --><img src=x
+/><b
+    >b</b
+  >
+</div>
+<span
+  ><!-- prettier-ignore --><img src=x/></span>
+
+<span
+  ><!-- prettier-ignore --><br></span>
+<span
+  ><!-- prettier-ignore --><br/></span>
+<span
+  ><!-- prettier-ignore --><img src="x">text</span
+>
+<span
+  ><!-- prettier-ignore --><img src="x"/><!-- comment --></span
+>
+
+<span
+  ><!-- prettier-ignore --><b   >b</b></span
+>
+<span
+  ><!-- prettier-ignore --><b   ></b></span>
+<div>
+  <!-- prettier-ignore --><b   >b</b><i
+    >i</i
+  >
+</div>
+
+<span
+  ><!-- prettier-ignore --><img src="x"   ></span>
+<span
+  ><!-- prettier-ignore --><img src="x"
+  ></span>
+<div>
+  <!-- prettier-ignore --><b>b</b   ><i
+    >i</i
+  >
+</div>
+
+<span
+  ><!-- prettier-ignore -->
+  <img src="x"></span>
+<span
+  ><!-- prettier-ignore --><img src="x">
+</span>
+<div>
+  <!-- prettier-ignore --><img src="x">
+  <b
+    >b</b
+  >
+</div>
+
+<span
+  ><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div>
+  <!-- prettier-ignore --><img src=x /><!--[if IE
+  ]><!--><b
+    >b</b
+  ><!--<![endif]-->
+</div>
+<div>
+  <!--[if IE
+  ]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]-->
+</div>
+
+<span
+  ><!-- prettier-ignore --><br><b></b
+></span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"css","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span
+  ><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span
+  ><!-- prettier-ignore --><img src=x
+/></span>
+<div>
+  <!-- prettier-ignore --><img src=x
+/><b>b</b>
+</div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span
+  ><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span
+  ><!-- prettier-ignore -->
+  <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span
+  ><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div>
+  <!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]-->
+</div>
+<div>
+  <!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]-->
+</div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img   src="x">
+  <b>
+    b
+  </b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"/>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x" />
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <input value="a"
+/>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img   src="x"/>
+  <b>
+    b
+  </b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src=x />
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x />
+  <b>
+    b
+  </b>
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <img src=x
+/>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x
+/>
+  <b>
+    b
+  </b>
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <img src=x/>
+</span>
+
+<span>
+  <!-- prettier-ignore -->
+  <br>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <br/>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+  text
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"/>
+  <!-- comment -->
+</span>
+
+<span>
+  <!-- prettier-ignore -->
+  <b   >b</b>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <b   ></b>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <b   >b</b>
+  <i>
+    i
+  </i>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"   >
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"
+  >
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <b>b</b   >
+  <i>
+    i
+  </i>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src="x">
+  <b>
+    b
+  </b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <!--[if IE]><img><![endif]-->
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x />
+  <!--[if IE]><!-->
+  <b>
+    b
+  </b>
+  <!--<![endif]-->
+</div>
+<div>
+  <!--[if IE]><!-->
+  <!-- prettier-ignore -->
+  <img src=x />
+  <!--<![endif]-->
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <br>
+  <b></b>
+</span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img   src="x">
+  <b>b</b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"/>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x" />
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <input value="a"
+/>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img   src="x"/>
+  <b>b</b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src=x />
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x />
+  <b>b</b>
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <img src=x
+/>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x
+/>
+  <b>b</b>
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <img src=x/>
+</span>
+
+<span>
+  <!-- prettier-ignore -->
+  <br>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <br/>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+  text
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"/>
+  <!-- comment -->
+</span>
+
+<span>
+  <!-- prettier-ignore -->
+  <b   >b</b>
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <b   ></b>
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <b   >b</b>
+  <i>i</i>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"   >
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x"
+  >
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <b>b</b   >
+  <i>i</i>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<span>
+  <!-- prettier-ignore -->
+  <img src="x">
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src="x">
+  <b>b</b>
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <!--[if IE]><img><![endif]-->
+</span>
+<div>
+  <!-- prettier-ignore -->
+  <img src=x />
+  <!--[if IE]><!-->
+  <b>b</b>
+  <!--<![endif]-->
+</div>
+<div>
+  <!--[if IE]><!-->
+  <!-- prettier-ignore -->
+  <img src=x />
+  <!--<![endif]-->
+</div>
+
+<span>
+  <!-- prettier-ignore -->
+  <br>
+  <b></b>
+</span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"strict","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span
+  ><!-- prettier-ignore --><img src="x"></span>
+<div
+  ><!-- prettier-ignore --><img   src="x"><b
+    >b</b
+  ></div
+>
+
+<span
+  ><!-- prettier-ignore --><img src="x"/></span>
+<span
+  ><!-- prettier-ignore --><img src="x" /></span>
+<span
+  ><!-- prettier-ignore --><input value="a"
+/></span>
+<div
+  ><!-- prettier-ignore --><img   src="x"/><b
+    >b</b
+  ></div
+>
+
+<span
+  ><!-- prettier-ignore --><img src=x /></span>
+<div
+  ><!-- prettier-ignore --><img src=x /><b
+    >b</b
+  ></div
+>
+<span
+  ><!-- prettier-ignore --><img src=x
+/></span>
+<div
+  ><!-- prettier-ignore --><img src=x
+/><b
+    >b</b
+  ></div
+>
+<span
+  ><!-- prettier-ignore --><img src=x/></span>
+
+<span
+  ><!-- prettier-ignore --><br></span>
+<span
+  ><!-- prettier-ignore --><br/></span>
+<span
+  ><!-- prettier-ignore --><img src="x">text</span
+>
+<span
+  ><!-- prettier-ignore --><img src="x"/><!-- comment --></span
+>
+
+<span
+  ><!-- prettier-ignore --><b   >b</b></span
+>
+<span
+  ><!-- prettier-ignore --><b   ></b></span>
+<div
+  ><!-- prettier-ignore --><b   >b</b><i
+    >i</i
+  ></div
+>
+
+<span
+  ><!-- prettier-ignore --><img src="x"   ></span>
+<span
+  ><!-- prettier-ignore --><img src="x"
+  ></span>
+<div
+  ><!-- prettier-ignore --><b>b</b   ><i
+    >i</i
+  ></div
+>
+
+<span
+  ><!-- prettier-ignore -->
+  <img src="x"></span>
+<span
+  ><!-- prettier-ignore --><img src="x">
+</span>
+<div
+  ><!-- prettier-ignore --><img src="x">
+  <b
+    >b</b
+  ></div
+>
+
+<span
+  ><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div
+  ><!-- prettier-ignore --><img src=x /><!--[if IE
+  ]><!--><b
+    >b</b
+  ><!--<!
+[endif]--></div>
+<div
+  ><!--[if IE
+  ]><!--><!-- prettier-ignore --><img src=x /><!--<!
+[endif]--></div>
+
+<span
+  ><!-- prettier-ignore --><br><b></b
+></span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`closing.html - {"htmlWhitespaceSensitivity":"strict","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x
+/></span>
+<div><!-- prettier-ignore --><img src=x
+/><b>b</b></div>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span><!-- prettier-ignore --> <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<![endif]--></div>
+<div><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<![endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<PRE><!-- prettier-ignore --><br></PRE>
+
+=====================================output=====================================
+<span><!-- prettier-ignore --><img src="x"></span>
+<div><!-- prettier-ignore --><img   src="x"><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src="x"/></span>
+<span><!-- prettier-ignore --><img src="x" /></span>
+<span
+  ><!-- prettier-ignore --><input value="a"
+/></span>
+<div><!-- prettier-ignore --><img   src="x"/><b>b</b></div>
+
+<span><!-- prettier-ignore --><img src=x /></span>
+<div><!-- prettier-ignore --><img src=x /><b>b</b></div>
+<span
+  ><!-- prettier-ignore --><img src=x
+/></span>
+<div
+  ><!-- prettier-ignore --><img src=x
+/><b>b</b></div
+>
+<span><!-- prettier-ignore --><img src=x/></span>
+
+<span><!-- prettier-ignore --><br></span>
+<span><!-- prettier-ignore --><br/></span>
+<span><!-- prettier-ignore --><img src="x">text</span>
+<span><!-- prettier-ignore --><img src="x"/><!-- comment --></span>
+
+<span><!-- prettier-ignore --><b   >b</b></span>
+<span><!-- prettier-ignore --><b   ></b></span>
+<div><!-- prettier-ignore --><b   >b</b><i>i</i></div>
+
+<span><!-- prettier-ignore --><img src="x"   ></span>
+<span
+  ><!-- prettier-ignore --><img src="x"
+  ></span>
+<div><!-- prettier-ignore --><b>b</b   ><i>i</i></div>
+
+<span
+  ><!-- prettier-ignore -->
+  <img src="x"></span>
+<span><!-- prettier-ignore --><img src="x"> </span>
+<div><!-- prettier-ignore --><img src="x"> <b>b</b></div>
+
+<span
+  ><!-- prettier-ignore --><!--[if IE]><img><![endif]--></span>
+<div
+  ><!-- prettier-ignore --><img src=x /><!--[if IE]><!--><b>b</b><!--<!
+[endif]--></div>
+<div
+  ><!--[if IE]><!--><!-- prettier-ignore --><img src=x /><!--<!
+[endif]--></div>
+
+<span><!-- prettier-ignore --><br><b></b></span>
+<pre><!-- prettier-ignore --><br></pre>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"css","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore --><SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore --><SpAn   >foo</SpAn>
+</div>
+<div>
+  <!-- prettier-ignore --><IMG   src="x"><b
+    >b</b
+  >
+</div>
+<div>
+  <!-- prettier-ignore --><Custom-Element   >foo</Custom-Element>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <svg:path   />
+</div>
+<span
+  ><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span
+>
+
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"css","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div>
+  <!-- prettier-ignore -->
+  <svg:path   />
+</div>
+<span
+  ><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span
+>
+
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SpAn   >foo</SpAn>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <IMG   src="x">
+  <b>
+    b
+  </b>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <Custom-Element   >foo</Custom-Element>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <svg:path   />
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN>
+</span>
+
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SpAn   >foo</SpAn>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <IMG   src="x">
+  <b>b</b>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <Custom-Element   >foo</Custom-Element>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <svg:path   />
+</div>
+<span>
+  <!-- prettier-ignore -->
+  <!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN>
+</span>
+
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+<div>
+  <!-- prettier-ignore -->
+  <SPAN   >foo</SPAN>
+</div>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"strict","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div
+  ><!-- prettier-ignore --><SPAN   >foo</SPAN></div
+>
+<div
+  ><!-- prettier-ignore --><SpAn   >foo</SpAn></div
+>
+<div
+  ><!-- prettier-ignore --><IMG   src="x"><b
+    >b</b
+  ></div
+>
+<div
+  ><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div
+>
+<div
+  ><!-- prettier-ignore -->
+  <svg:path   /></div>
+<span
+  ><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span
+>
+
+<div
+  ><!-- prettier-ignore -->
+  <SPAN   >foo</SPAN></div
+>
+<div
+  ><!-- prettier-ignore -->
+  <SPAN   >foo</SPAN></div
+>
+
+================================================================================
+`;
+
+exports[`opening.html - {"htmlWhitespaceSensitivity":"strict","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div><!-- prettier-ignore --><svg:path   /></div>
+<span><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span>
+
+<div><!-- prettier-ignore --> <SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore -->
+<SPAN   >foo</SPAN></div>
+
+=====================================output=====================================
+<div><!-- prettier-ignore --><SPAN   >foo</SPAN></div>
+<div><!-- prettier-ignore --><SpAn   >foo</SpAn></div>
+<div><!-- prettier-ignore --><IMG   src="x"><b>b</b></div>
+<div><!-- prettier-ignore --><Custom-Element   >foo</Custom-Element></div>
+<div
+  ><!-- prettier-ignore -->
+  <svg:path   /></div>
+<span
+  ><!-- prettier-ignore --><!--[if IE]><!--><SPAN   ><!--<![endif]-->foo</SPAN></span
+>
+
+<div
+  ><!-- prettier-ignore -->
+  <SPAN   >foo</SPAN></div
+>
+<div
+  ><!-- prettier-ignore -->
+  <SPAN   >foo</SPAN></div
+>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"css","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <p><b></b>
+</div>
+<ruby
+  ><!-- prettier-ignore --><rb>a
+b
+
+  <rt
+    >c</rt
+  ></ruby
+>
+<ruby
+  ><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"css","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <p><b></b>
+</div>
+<ruby
+  ><!-- prettier-ignore --><rb>a
+b
+
+  <rt>c</rt></ruby
+>
+<ruby
+  ><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <p><b></b>
+</div>
+<ruby>
+  <!-- prettier-ignore -->
+  <rb>a
+b
+
+  <rt>
+    c
+  </rt>
+</ruby>
+<ruby>
+  <!-- prettier-ignore -->
+  <rb><b></b>
+</ruby>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"ignore","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div>
+  <!-- prettier-ignore -->
+  <p><b></b>
+</div>
+<ruby>
+  <!-- prettier-ignore -->
+  <rb>a
+b
+
+  <rt>c</rt>
+</ruby>
+<ruby>
+  <!-- prettier-ignore -->
+  <rb><b></b>
+</ruby>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"strict","printWidth":1} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 1
+ | printWidth: 1
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div
+  ><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby
+  ><!-- prettier-ignore --><rb>a
+b
+
+  <rt
+    >c</rt
+  ></ruby
+>
+<ruby
+  ><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+================================================================================
+`;
+
+exports[`unclosed.html - {"htmlWhitespaceSensitivity":"strict","printWidth":80} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                printWidth: 80 |
+=====================================input======================================
+<div><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby><!-- prettier-ignore --><rb>a
+b
+<rt>c</ruby>
+<ruby><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+=====================================output=====================================
+<div
+  ><!-- prettier-ignore --><p><b></b>
+</div>
+<ruby
+  ><!-- prettier-ignore --><rb>a
+b
+
+  <rt>c</rt></ruby
+>
+<ruby
+  ><!-- prettier-ignore --><rb><b></b>
+</ruby>
+
+================================================================================
+`;
