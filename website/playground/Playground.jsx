@@ -61,7 +61,7 @@ function setup(props) {
 
   const defaultOptions = getDefaults(props.availableOptions, ENABLED_OPTIONS);
 
-  const options = Object.assign(defaultOptions, original.options);
+  const options = { ...defaultOptions, ...original.options };
 
   // 0.0.0 ~ 0.0.10
   if (options.parser === "babylon") {
