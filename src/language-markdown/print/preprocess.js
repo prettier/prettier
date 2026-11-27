@@ -218,7 +218,7 @@ function splitTextIntoSentences(ast) {
       return {
         type: "text",
         position: node.position,
-        value: text,
+        value: text.replaceAll(/\n[ \t]+/g, "\n"),
       };
     }
 
