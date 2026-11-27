@@ -138,7 +138,7 @@ function parseTs(text, options) {
   return postprocess(ast, { text, astType: "yuku-ts" });
 }
 
-const yuku = /* @__PURE__ */ createParser(parseJs);
-const yukuTs = /* @__PURE__ */ createParser(parseTs);
+const yuku = /* #__PURE__ */ createParser(parseJs);
+const yukuTs = /* #__PURE__ */ createParser(parseTs);
 
 export { yuku, yukuTs as "yuku-ts" };

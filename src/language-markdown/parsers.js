@@ -13,8 +13,8 @@ function createParser(parse) {
   };
 }
 
-const markdownParser = /* @__PURE__ */ createParser(parseMarkdown);
-const mdxParser = /* @__PURE__ */ createParser(parseMdx);
+const markdownParser = /* #__PURE__ */ createParser(parseMarkdown);
+const mdxParser = /* #__PURE__ */ createParser(parseMdx);
 
 export {
   markdownParser as markdown,

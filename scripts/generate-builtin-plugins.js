@@ -133,7 +133,7 @@ function getExportStatements(plugins, file) {
   });
 
   return outdent`
-    export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
+    export const plugins = /* #__PURE__ */ toLazyLoadPlugins(
       ${codes.join("\n")}
     );
   `;
