@@ -1,23 +1,34 @@
 import postcssMediaQueryParser from "postcss-media-query-parser";
-import { addMissingType, addTypePrefix } from "./utilities.js";
 
 const parse = postcssMediaQueryParser.default;
 
-function parseMediaQuery(params) {
+/**
+@param {string} source
+*/
+function parseMediaQuery(source) {
   let result;
 
   try {
-    result = parse(params);
+    result = parse(source);
   } catch {
     // Ignore bad media queries
     /* c8 ignore next 4 */
     return {
-      type: "selector-unknown",
-      value: params,
+      type: "media-unknown",
+      value: source,
     };
   }
 
-  return addTypePrefix(addMissingType(result), "media-");
+  result.walk((node) => {
+    const { type } = node;
+    if (!type) {
+      node.type = "media-unknown";
+    } else if (!type.startsWith("media-")) {
+      node.type = `media-${type}`;
+    }
+  });
+
+  return result;
 }
 
 export default parseMediaQuery;
