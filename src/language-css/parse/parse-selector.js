@@ -1,6 +1,9 @@
 import postcssSelectorParser from "postcss-selector-parser";
 import { removeQuotedStrings } from "../print/misc.js";
 
+/**
+@param {string} selector
+*/
 function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
