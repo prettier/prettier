@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`xml-space.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <svg xml:space="preserve"><text>  {{message+  suffix}} <tspan>  spaces  </tspan></text></svg>
+  <svg><text xml:space="preserve">  {{message+  suffix}}  <tspan>  spaces  </tspan>  </text></svg>
+  <div xml:space="preserve">  {{message+  suffix}}  </div>
+</template>
+<custom lang="json" xml:space="preserve">{ "value" :  1 }</custom>
+
+=====================================output=====================================
+<template>
+  <svg
+    xml:space="preserve"
+  ><text>  {{message+  suffix}} <tspan>  spaces  </tspan></text></svg>
+  <svg>
+    <text
+      xml:space="preserve"
+    >  {{message+  suffix}}  <tspan>  spaces  </tspan>  </text>
+  </svg>
+  <div xml:space="preserve">{{ message + suffix }}</div>
+</template>
+<custom lang="json" xml:space="preserve">
+{ "value": 1 }
+</custom>
+
+================================================================================
+`;

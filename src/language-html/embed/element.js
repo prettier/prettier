@@ -6,6 +6,7 @@ import {
   htmlTrimPreserveIndentation,
   inferElementParser,
   isScriptLikeTag,
+  isSvgWithPreserveSpace,
   isVueNonHtmlBlock,
 } from "../utilities/index.js";
 
@@ -93,7 +94,7 @@ async function printVueNonHtmlBlock(parser, textToDoc, print, path, options) {
 
 function printElement(path, options) {
   const { node } = path;
-  if (node.isSelfClosing) {
+  if (node.isSelfClosing || isSvgWithPreserveSpace(node)) {
     return;
   }
 
