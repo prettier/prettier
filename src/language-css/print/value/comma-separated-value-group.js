@@ -111,7 +111,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     parts.push([parts.pop(), printed[i]]);
 
-    if (insideURLFunction) {
+    // Quoted URLs can be followed by space-separated URL modifiers.
+    if (insideURLFunction && node.groups[0].type !== "value-string") {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
         parts.push([parts.pop(), " "]);
       }
