@@ -21,7 +21,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'method' (1:28)
+"Expected ';' after the class field, but found 'method' (1:28)
 > 1 | class A {private protected method(){}}
     |                            ^^^^^^"
 `;
@@ -47,7 +47,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'method' (1:27)
+"Expected ';' after the class field, but found 'method' (1:27)
 > 1 | class A {protected public method(){}}
     |                           ^^^^^^"
 `;
@@ -73,7 +73,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'method' (1:26)
+"Expected ';' after the class field, but found 'method' (1:26)
 > 1 | class A {private private method(){}}
     |                          ^^^^^^"
 `;
@@ -99,7 +99,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'property' (1:28)
+"Expected ';' after the class field, but found 'property' (1:28)
 > 1 | class A {private protected property}
     |                            ^^^^^^^^"
 `;
@@ -125,7 +125,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'property' (1:27)
+"Expected ';' after the class field, but found 'property' (1:27)
 > 1 | class A {protected public property}
     |                           ^^^^^^^^"
 `;
@@ -151,7 +151,7 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'property' (1:26)
+"Expected ';' after the class field, but found 'property' (1:26)
 > 1 | class A {private private property}
     |                          ^^^^^^^^"
 `;

@@ -128,6 +128,7 @@ function isJsSourceElement(node, parent) {
   return (
     parent?.type !== "DeclareExportDeclaration" &&
     type !== "TypeParameterDeclaration" &&
+    type !== "TSTypeParameterDeclaration" &&
     !(
       type === "VariableDeclaration" && isForXStatementInitializer(node, parent)
     ) &&
@@ -177,7 +178,6 @@ function isSourceElement(opts, node, parentNode) {
   }
   switch (opts.parser) {
     case "flow":
-    case "hermes":
     case "babel":
     case "babel-flow":
     case "babel-ts":

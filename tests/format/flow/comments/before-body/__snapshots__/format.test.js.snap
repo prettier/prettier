@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`before-body.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum E // c
+{ A }
+
+declare enum E2 // c
+{ A }
+
+namespace N // c
+{ ;a; }
+
+declare module "M" // c
+{ ;a; }
+
+class C // c
+{ A }
+
+=====================================output=====================================
+enum E {
+  // c
+  A,
+}
+
+declare enum E2 {
+  // c
+  A,
+}
+
+namespace N {
+  // c
+  a;
+}
+
+declare module "M" {
+  // c
+  a;
+}
+
+class C {
+  // c
+  A;
+}
+
+================================================================================
+`;

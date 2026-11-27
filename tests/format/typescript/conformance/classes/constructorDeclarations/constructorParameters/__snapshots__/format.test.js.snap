@@ -550,7 +550,7 @@ exports[`readonlyReadonly.ts format[oxc-ts] 1`] = `
 `;
 
 exports[`readonlyReadonly.ts format[yuku-ts] 1`] = `
-"Expected ';' after class field, but found 'x' (2:23)
+"Expected ';' after the class field, but found 'x' (2:23)
   1 | class C {
 > 2 |     readonly readonly x: number;
     |                       ^

@@ -69,13 +69,13 @@ Cause: Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`?"
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Unexpected '}' in JSX text (1:10)
+"Unexpected token '}' in JSX text (1:10)
 > 1 | _ = <div>}</div>
     |          ^"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Unexpected '}' in JSX text (1:10)
+"Unexpected token '}' in JSX text (1:10)
 > 1 | _ = <div>}</div>
     |          ^"
 `;
@@ -149,13 +149,13 @@ Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"Unexpected '>' in JSX text (1:10)
+"Unexpected token '>' in JSX text (1:10)
 > 1 | _ = <div>></div>
     |          ^"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Unexpected '>' in JSX text (1:10)
+"Unexpected token '>' in JSX text (1:10)
 > 1 | _ = <div>></div>
     |          ^"
 `;
@@ -229,13 +229,13 @@ Cause: Identifier expected."
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"Expected '</' to close the JSX element, but found '<<' (1:10)
+"JSX element 'div' has no corresponding closing tag (1:10)
 > 1 | _ = <div><</div>
     |          ^^"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected '</' to close the JSX element, but found '<<' (1:10)
+"JSX element 'div' has no corresponding closing tag (1:10)
 > 1 | _ = <div><</div>
     |          ^^"
 `;
@@ -309,13 +309,13 @@ Cause: ':' expected."
 `;
 
 exports[`snippet: #3 format[yuku] 1`] = `
-"Unexpected '}' in JSX text (1:17)
+"Unexpected token '}' in JSX text (1:17)
 > 1 | _ = <div>{"foo"}}</div>
     |                 ^"
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"Shorthand property must be an identifier (1:11)
+"A shorthand property name must be an identifier (1:11)
 > 1 | _ = <div>{"foo"}}</div>
     |           ^^^^^"
 `;
@@ -389,13 +389,13 @@ Cause: ':' expected."
 `;
 
 exports[`snippet: #4 format[yuku] 1`] = `
-"Unexpected '>' in JSX text (1:17)
+"Unexpected token '>' in JSX text (1:17)
 > 1 | _ = <div>{"foo"}></div>
     |                 ^"
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"Shorthand property must be an identifier (1:11)
+"A shorthand property name must be an identifier (1:11)
 > 1 | _ = <div>{"foo"}></div>
     |           ^^^^^"
 `;
@@ -469,13 +469,13 @@ Cause: ':' expected."
 `;
 
 exports[`snippet: #5 format[yuku] 1`] = `
-"Expected '</' to close the JSX element, but found '<<' (1:17)
+"JSX element 'div' has no corresponding closing tag (1:17)
 > 1 | _ = <div>{"foo"}<</div>
     |                 ^^"
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"Shorthand property must be an identifier (1:11)
+"A shorthand property name must be an identifier (1:11)
 > 1 | _ = <div>{"foo"}<</div>
     |           ^^^^^"
 `;
@@ -549,13 +549,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #6 format[yuku] 1`] = `
-"Unexpected '}' in JSX text (1:10)
+"Unexpected token '}' in JSX text (1:10)
 > 1 | _ = <div>}{"foo"}</div>
     |          ^"
 `;
 
 exports[`snippet: #6 format[yuku-ts] 1`] = `
-"Unexpected token '}' (1:10)
+"Expected an expression, but found '}' (1:10)
 > 1 | _ = <div>}{"foo"}</div>
     |          ^"
 `;
@@ -629,13 +629,13 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #7 format[yuku] 1`] = `
-"Unexpected '>' in JSX text (1:10)
+"Unexpected token '>' in JSX text (1:10)
 > 1 | _ = <div>>{"foo"}</div>
     |          ^"
 `;
 
 exports[`snippet: #7 format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '>>' (1:9)
+"Expected '>' to close the type assertion, but found '>>' (1:9)
 > 1 | _ = <div>>{"foo"}</div>
     |         ^^"
 `;
@@ -709,13 +709,13 @@ Cause: '>' expected."
 `;
 
 exports[`snippet: #8 format[yuku] 1`] = `
-"Expected JSX element name, but found '{' (1:11)
+"Expected a JSX element name, but found '{' (1:11)
 > 1 | _ = <div><{"foo"}</div>
     |           ^"
 `;
 
 exports[`snippet: #8 format[yuku-ts] 1`] = `
-"Expected '>' to close a type assertion, but found '<' (1:18)
+"Expected '>' to close the type assertion, but found '<' (1:18)
 > 1 | _ = <div><{"foo"}</div>
     |                  ^"
 `;

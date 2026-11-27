@@ -24,16 +24,6 @@ exports[`const-without-initializer.js format[flow] 1`] = `
 Cause: Const must be initialized (1:6)"
 `;
 
-exports[`const-without-initializer.js format[hermes] 1`] = `
-"missing initializer in const declaration (1:7)
-> 1 | const foo;
-    |       ^
-  2 |
-Cause: missing initializer in const declaration (1:6)
-const foo;
-      ^~~"
-`;
-
 exports[`const-without-initializer.js format[meriyah] 1`] = `
 "Missing initializer in const declaration (1:10)
 > 1 | const foo;

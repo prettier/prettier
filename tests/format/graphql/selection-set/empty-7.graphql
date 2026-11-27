@@ -1,0 +1,5 @@
+subscription {
+  ...Empty
+}
+fragment Empty on SubscriptionRoot {
+}

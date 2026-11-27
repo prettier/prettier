@@ -1,0 +1,9 @@
+@container (width >= 1536px) {
+  /*
+  https://github.com/twbs/bootstrap/blob/f9a7a8941e7c1c91b0cae8a0c906537c26086ae2/dist/css/bootstrap.css#L7475
+  */
+  .\32 xl\:list-group-horizontal > .list-group-item:first-child:not(:last-child) {
+  }
+  .\32    xl\:list-group-horizontal > .list-group-item:first-child:not(:last-child) {
+  }
+}

@@ -18,7 +18,11 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-import { isObjectType } from "../utilities/node-types.js";
+import {
+  isEnumBody as isEnumBodyNode,
+  isNamespaceSpecifier,
+  isObjectType,
+} from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
@@ -39,15 +43,6 @@ const isPrintingImportAttributes = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-const isPrintingFlowEnumBody = createTypeCheckFunction([
-  "EnumBody",
-  "EnumBooleanBody",
-  "EnumNumberBody",
-  "EnumBigIntBody",
-  "EnumStringBody",
-  "EnumSymbolBody",
-]);
-
 /*
 - `ObjectExpression`
 - `ObjectPattern`
@@ -55,12 +50,9 @@ const isPrintingFlowEnumBody = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
+- `ImportNamespaceSpecifier`
+- `ExportNamespaceSpecifier`
 - `EnumBody` (Flow)
-- `EnumBooleanBody` (Flow, removed)
-- `EnumNumberBody` (Flow, removed)
-- `EnumBigIntBody` (Flow, removed)
-- `EnumStringBody` (Flow, removed)
-- `EnumSymbolBody` (Flow, removed)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
 - `TSEnumDeclaration`(TypeScript)
@@ -68,16 +60,17 @@ const isPrintingFlowEnumBody = createTypeCheckFunction([
 function printObject(path, options, print) {
   const { node, parent } = path;
 
-  const isFlowEnumBody = isPrintingFlowEnumBody(node);
-  const isEnumBody = node.type === "TSEnumBody" || isFlowEnumBody;
+  const isEnumBody = isEnumBodyNode(node);
   const isImportAttributes = isPrintingImportAttributes(node);
-  const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
+  const hasUnknownMembers = node.type === "EnumBody" && node.hasUnknownMembers;
 
   const property = isEnumBody
     ? "members"
     : isImportAttributes
       ? "attributes"
-      : "properties";
+      : isNamespaceSpecifier(node)
+        ? "exportsFilter"
+        : "properties";
   const children = node[property];
 
   const shouldBreak =

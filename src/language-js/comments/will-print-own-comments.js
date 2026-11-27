@@ -10,12 +10,14 @@ import { shouldUnionTypePrintOwnComments } from "../utilities/union-type-print.j
 @import AstPath from "../../common/ast-path.js";
 */
 
-const isClassOrInterface = createTypeCheckFunction([
+const isClassLike = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
+  "StructDeclaration",
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
+  "RecordDeclaration",
   "TSInterfaceDeclaration",
   // Can't have `id` or `typeParameters`
   // "InterfaceTypeAnnotation",
@@ -31,9 +33,9 @@ function willPrintOwnComments(path, options) {
     (key === "types" && isUnionType(parent)) ||
     (key === "argument" && parent.type === "JSXSpreadAttribute") ||
     (key === "expression" && parent.type === "JSXSpreadChild") ||
-    (key === "superClass" && isClass(parent)) ||
-    ((key === "id" || key === "typeParameters") &&
-      isClassOrInterface(parent)) ||
+    (key === "superClass" &&
+      (isClass(parent) || parent.type === "StructDeclaration")) ||
+    ((key === "id" || key === "typeParameters") && isClassLike(parent)) ||
     // Not tested, don't know how to
     (key === "patterns" && parent.type === "MatchOrPattern") ||
     isIifeCalleeOrTaggedTemplateExpressionTag(path)

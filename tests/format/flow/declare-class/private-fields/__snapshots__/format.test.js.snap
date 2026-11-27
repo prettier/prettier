@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`private.js.flow - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare class C { #x; }
+
+declare class Fields {
+// First private field
+#first;
+#second /* trailing */;
+value: string;
+/* private */ #third;
+method(): void;
+}
+
+=====================================output=====================================
+declare class C {
+  #x;
+}
+
+declare class Fields {
+  // First private field
+  #first;
+  #second; /* trailing */
+  value: string;
+  /* private */ #third;
+  method(): void;
+}
+
+================================================================================
+`;
+
+exports[`private.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare class C { #x; }
+
+declare class Fields {
+// First private field
+#first;
+#second /* trailing */;
+value: string;
+/* private */ #third;
+method(): void;
+}
+
+=====================================output=====================================
+declare class C {
+  #x;
+}
+
+declare class Fields {
+  // First private field
+  #first;
+  #second; /* trailing */
+  value: string;
+  /* private */ #third;
+  method(): void;
+}
+
+================================================================================
+`;

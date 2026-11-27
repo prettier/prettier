@@ -2,6 +2,7 @@ import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
+  isNonNullExpression,
 } from "../utilities/node-types.js";
 
 /**
@@ -59,7 +60,7 @@ function cleanEstreeChainExpression(node) {
     node = getChainElement(node);
     node.type === "MemberExpression" ||
     node.type === "CallExpression" ||
-    node.type === "TSNonNullExpression";
+    isNonNullExpression(node);
     node = getChainElement(node)
   ) {
     const property = getChainElementProperty(node);

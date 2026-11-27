@@ -216,7 +216,7 @@ function getBlockValueLineContents(
   /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
-    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
+    const matches = /^(?<leadingSpace> *)[^\n\r ]/m.exec(content);
     leadingSpaceCount = matches
       ? matches.groups.leadingSpace.length
       : Number.POSITIVE_INFINITY;
@@ -269,7 +269,9 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    lines = lines.map((words) => [words.join(" ")]);
+    lines = lines.map((words) =>
+      words.length === 0 ? words : [words.join(" ")],
+    );
   }
 
   return removeUnnecessaryTrailingNewlines(lines);
@@ -306,6 +308,14 @@ function hasTrailingContentWhitespace(node) {
   return /[ \t]+\n*$/.test(node.value);
 }
 
+function endsWithBlockWithTrailingWhitespace(node) {
+  const lastDescendantNode = getLastDescendantNode(node);
+  return (
+    isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
+    hasTrailingContentWhitespace(lastDescendantNode)
+  );
+}
+
 function isInlineNode(node) {
   /* c8 ignore next 3 */
   if (!node) {
@@ -327,6 +337,7 @@ function isInlineNode(node) {
 
 export {
   defineShortcut,
+  endsWithBlockWithTrailingWhitespace,
   getBlockValueLineContents,
   getFlowScalarLineContents,
   getLastDescendantNode,

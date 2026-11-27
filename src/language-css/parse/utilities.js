@@ -18,17 +18,4 @@ function addTypePrefix(node, prefix, skipPrefix) {
   return node;
 }
 
-function addMissingType(node) {
-  if (isObject(node)) {
-    delete node.parent;
-    for (const key in node) {
-      addMissingType(node[key]);
-    }
-    if (!Array.isArray(node) && node.value && !node.type) {
-      node.type = "unknown";
-    }
-  }
-  return node;
-}
-
-export { addMissingType, addTypePrefix };
+export { addTypePrefix };

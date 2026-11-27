@@ -74,6 +74,15 @@ deno x simple-git-hooks
 ```
 
 </TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev simple-git-hooks pretty-quick
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'vlx pretty-quick -- --staged'},undefined,2)+'\n')"
+vlx simple-git-hooks
+```
+
+</TabItem>
 </Tabs>
 
 Read more at the [pretty-quick](https://github.com/prettier/pretty-quick) repo.
@@ -158,6 +167,15 @@ deno eval "Deno.writeTextFileSync('.husky/pre-commit', 'git-format-staged -f \'p
 ```
 
 </TabItem>
+<TabItem value="vlt">
+
+```bash
+vlx husky init
+vlt install --save-dev git-format-staged
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
 </Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
@@ -223,6 +241,14 @@ deno x lefthook install
 ```
 
 </TabItem>
+<TabItem value="vlt">
+
+```bash
+vlt install --save-dev lefthook
+vlx lefthook install
+```
+
+</TabItem>
 </Tabs>
 
 Re-run `lefthook install` whenever you change `lefthook.yml`. Read more at the [Lefthook](https://lefthook.dev/) website.
@@ -241,6 +267,12 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
+
+# Abort if formatting removed all staged changes.
+if git diff --cached --quiet; then
+  echo "Prettier formatting removed all staged changes. Commit aborted."
+  exit 1
+fi
 
 exit 0
 ```

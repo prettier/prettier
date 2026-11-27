@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`anonymous.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function (): void;
+
+=====================================output=====================================
+export default function (): void;
+
+================================================================================
+`;
+
+exports[`comments.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function /* before parameters */ (/* parameter */ value: number): /* return */ void;
+
+=====================================output=====================================
+export default function /* before parameters */ (
+  /* parameter */ value: number,
+): void /* return */;
+
+================================================================================
+`;
+
+exports[`function-return.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function (): (value: number) => string;
+
+=====================================output=====================================
+export default function (): (value: number) => string;
+
+================================================================================
+`;
+
+exports[`generic.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function <T>(value: T, ...rest: T[]): T;
+
+=====================================output=====================================
+export default function <T>(value: T, ...rest: T[]): T;
+
+================================================================================
+`;
+
+exports[`generic-function-return.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export default function (): <T>(value: T) => T;
+
+=====================================output=====================================
+export default function (): <T>(value: T) => T;
+
+================================================================================
+`;

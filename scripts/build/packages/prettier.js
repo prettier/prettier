@@ -307,6 +307,23 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js",
+        ),
+        process(text) {
+          text = text.replace(
+            "function useSingleRunProgramForProjectService(",
+            outdent`
+              const useSingleRunProgramForProjectService = (() => undefined)
+                || function useSingleRunProgramForProjectService(
+            `,
+          );
+
+          return text;
+        },
+      },
+
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
@@ -685,19 +702,33 @@ const pluginFiles = [
   {
     input: "src/plugins/postcss.js",
     replaceModule: [
-      // The following two replacements prevent load `source-map` module
       {
         module: getPackageFile("postcss/lib/previous-map.js"),
-        text: "module.exports = class {};",
+        text: "",
       },
       {
         module: getPackageFile("postcss/lib/map-generator.js"),
-        text: "module.exports = class { generate() {} };",
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/fromJSON.js"),
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/stringify.js"),
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/stringifier.js"),
+        text: "",
       },
       {
         module: getPackageFile("postcss/lib/input.js"),
-        process: (text) =>
-          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+        process(text) {
+          text = text.replace("require('url')", "{}");
+          text = text.replace("require('path')", "{}");
+          return text;
+        },
       },
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
@@ -731,7 +762,7 @@ const pluginFiles = [
         process(text) {
           text = text.replace(
             "new Set(Object.keys(QueryDocumentKeys))",
-            "/* @__PURE__ */ new Set(/* @__PURE__ */ Object.keys(QueryDocumentKeys))",
+            "/* #__PURE__ */ new Set(/* #__PURE__ */ Object.keys(QueryDocumentKeys))",
           );
           return text;
         },
@@ -754,46 +785,31 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
-        (packageName) => ({
-          module: getPackageFile(`${packageName}/dist/prod/index.js`),
-          path: getPackageFile(`${packageName}/dist/dev/index.js`),
-        }),
-      ),
       {
-        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        module: getPackageFile("@glimmer/syntax"),
         process(text) {
-          text = text.replace(
-            'import { DEBUG } from "@glimmer/env";',
-            "const DEBUG = false;",
-          );
-
-          // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/s, "{}");
+          // `syntax` passed to plugins, our plugin don't need access to the options
+          text = text.replace("\nconst syntax = ", "\nconst syntax = {} || ");
 
           text = text.replaceAll(
-            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gs,
-            "\n",
-          );
-
-          text = text.replaceAll(
-            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gs,
+            /(?<=\s)class \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}(?=\n)/gs,
             "",
           );
+          text = text.replaceAll("\nvar api = ", "\nvar api = {} || ");
 
-          text = text.replace(
-            "const ARGUMENT_RESOLUTION = ",
-            "const ARGUMENT_RESOLUTION = undefined &&",
+          text = text.replaceAll(
+            "\nvar publicBuilder = ",
+            "\nvar publicBuilder = {} || ",
           );
 
           text = text.replace(
-            "const HTML_RESOLUTION = ",
-            "const HTML_RESOLUTION = undefined &&",
+            "\nconst HTML_RESOLUTION = ",
+            "\nconst HTML_RESOLUTION = {} || ",
           );
 
           text = text.replace(
-            "const LOCAL_DEBUG = ",
-            "const LOCAL_DEBUG = false &&",
+            "\nvar html5_named_char_refs_default = ",
+            "\nvar html5_named_char_refs_default = {} || ",
           );
 
           text = text.replace(

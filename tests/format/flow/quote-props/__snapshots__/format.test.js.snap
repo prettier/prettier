@@ -258,6 +258,95 @@ enum E1 {
 ================================================================================
 `;
 
+exports[`new-method.js.flow - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "as-needed"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string; 'other-key': number };
+type ConsistentConstructor = { new(): string; 'other-key': number };
+type FunctionProperty = { 'new': () => string; 'other-key': number };
+
+=====================================output=====================================
+type Method = { "new"(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { "new"(): string, "other-key": number };
+type ConsistentConstructor = { new(): string, "other-key": number };
+type FunctionProperty = { new: () => string, "other-key": number };
+
+================================================================================
+`;
+
+exports[`new-method.js.flow - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+singleQuote: true
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string; 'other-key': number };
+type ConsistentConstructor = { new(): string; 'other-key': number };
+type FunctionProperty = { 'new': () => string; 'other-key': number };
+
+=====================================output=====================================
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string, 'other-key': number };
+type ConsistentConstructor = { new(): string, 'other-key': number };
+type FunctionProperty = { 'new': () => string, 'other-key': number };
+
+================================================================================
+`;
+
+exports[`new-method.js.flow - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "consistent"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string; 'other-key': number };
+type ConsistentConstructor = { new(): string; 'other-key': number };
+type FunctionProperty = { 'new': () => string; 'other-key': number };
+
+=====================================output=====================================
+type Method = { "new"(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { "new"(): string, "other-key": number };
+type ConsistentConstructor = { new(): string, "other-key": number };
+type FunctionProperty = { "new": () => string, "other-key": number };
+
+================================================================================
+`;
+
+exports[`new-method.js.flow - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+quoteProps: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type Method = { 'new'(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { 'new'(): string; 'other-key': number };
+type ConsistentConstructor = { new(): string; 'other-key': number };
+type FunctionProperty = { 'new': () => string; 'other-key': number };
+
+=====================================output=====================================
+type Method = { "new"(): string };
+type Constructor = { new(): string };
+type ConsistentMethod = { "new"(): string, "other-key": number };
+type ConsistentConstructor = { new(): string, "other-key": number };
+type FunctionProperty = { "new": () => string, "other-key": number };
+
+================================================================================
+`;
+
 exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

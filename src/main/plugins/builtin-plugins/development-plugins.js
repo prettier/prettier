@@ -19,7 +19,7 @@ import yamlLanguages from "../../../language-yaml/languages.evaluate.js";
 import yamlOptions from "../../../language-yaml/options.js";
 import { toLazyLoadPlugins } from "./utilities.js";
 
-export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
+export const plugins = /* #__PURE__ */ toLazyLoadPlugins(
   {
     name: "css",
     load: () => import("../../../language-css/index.js"),
@@ -74,7 +74,6 @@ export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
       "babel-ts",
       "espree",
       "flow",
-      "hermes",
       "meriyah",
       "oxc",
       "oxc-ts",

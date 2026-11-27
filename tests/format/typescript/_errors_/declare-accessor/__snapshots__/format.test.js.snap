@@ -30,7 +30,7 @@ Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
 exports[`declare-getter.ts format[yuku-ts] 1`] = `
-"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+"'declare' modifier can only appear on a property declaration (2:15)
   1 | class Foo {
 > 2 |   declare get foo()
     |               ^^^
@@ -68,7 +68,7 @@ Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
 exports[`declare-setter.ts format[yuku-ts] 1`] = `
-"A 'declare' modifier cannot appear on a class element of this kind (2:15)
+"'declare' modifier can only appear on a property declaration (2:15)
   1 | class Foo {
 > 2 |   declare set foo(v)
     |               ^^^

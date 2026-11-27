@@ -34,7 +34,7 @@ Cause: ',' expected."
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected ']' to close a tuple type, but found ':' (1:14)
+"Expected ']' to close the tuple type, but found ':' (1:14)
 > 1 | type T = [x.y: A];
     |              ^"
 `;
@@ -79,7 +79,7 @@ Cause: ',' expected."
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected ']' to close a tuple type, but found ':' (1:15)
+"Expected ']' to close the tuple type, but found ':' (1:15)
 > 1 | type T = [x<y>: A];
     |               ^"
 `;

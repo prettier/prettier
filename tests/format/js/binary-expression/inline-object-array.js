@@ -53,7 +53,7 @@ this.steps = steps && checkStep || [
   },
 ];
 
-const create = () => {
+async function* create () {
   const result = doSomething();
   return (
     shouldReturn &&
@@ -63,11 +63,56 @@ const create = () => {
       updatedAt: result.updatedAt
     }
   );
+  yield (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  throw (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  await (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
 }
 
-const create2 = () => {
+function* create2 () {
   const result = doSomething();
   return (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  yield (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  throw (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+  await (
     shouldReturn && result.ok && result || {
       status: "ok",
       createdAt: result.createdAt,

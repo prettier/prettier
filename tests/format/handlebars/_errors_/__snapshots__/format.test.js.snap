@@ -13,13 +13,13 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 `;
 
 exports[`invalid-2.hbs format 1`] = `
-"Unclosed element \`@name\` (3:1)
+"Unclosed element \`{@name\` (3:1)
   1 | <a>
   2 |
 > 3 | <{@name>
     | ^^^^^^^^
   4 |
-Cause: Unclosed element \`@name\`: 
+Cause: Unclosed element \`{@name\`: 
 
 |
 |  <{@name>

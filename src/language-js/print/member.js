@@ -10,6 +10,7 @@ import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
@@ -23,7 +24,7 @@ function shouldInlineNewExpressionCallee(path) {
   for (const ancestor of ancestors) {
     if (!(
       (isMemberExpression(ancestor) && ancestor.object === child) ||
-      (ancestor.type === "TSNonNullExpression" && ancestor.expression === child)
+      (isNonNullExpression(ancestor) && ancestor.expression === child)
     )) {
       return ancestor.type === "NewExpression" && ancestor.callee === child;
     }
@@ -39,8 +40,7 @@ function printMemberExpression(path, options, print) {
   const lookupDoc = printMemberLookup(path, options, print);
   const { node } = path;
   const firstNonMemberParent = path.findAncestor(
-    (node) =>
-      !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
+    (node) => !(isMemberExpression(node) || isNonNullExpression(node)),
   );
   const firstNonChainElementWrapperParent = path.findAncestor(
     (node) => !isChainElementWrapper(node),

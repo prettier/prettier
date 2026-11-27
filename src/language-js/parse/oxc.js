@@ -157,7 +157,7 @@ function parseTs(text, options) {
   return postprocess(ast, { text, astType: "oxc-ts" });
 }
 
-const oxc = /* @__PURE__ */ createParser(parseJs);
-const oxcTs = /* @__PURE__ */ createParser(parseTs);
+const oxc = /* #__PURE__ */ createParser(parseJs);
+const oxcTs = /* #__PURE__ */ createParser(parseTs);
 
 export { oxc, oxcTs as "oxc-ts" };

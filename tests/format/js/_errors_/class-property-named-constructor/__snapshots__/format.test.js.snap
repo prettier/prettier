@@ -45,17 +45,6 @@ exports[`snippet: #0 format[flow] 1`] = `
 Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
-exports[`snippet: #0 format[hermes] 1`] = `
-"invalid class property name (2:3)
-  1 | class Foo {
-> 2 |   constructor
-    |   ^
-  3 | }
-Cause: invalid class property name (2:2)
-  constructor
-  ^~~~~~~~~~~"
-`;
-
 exports[`snippet: #0 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -91,19 +80,19 @@ Cause: '(' expected."
 `;
 
 exports[`snippet: #0 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   constructor
-> 3 | }
-    | ^"
+> 2 |   constructor
+    |   ^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #0 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   constructor
-> 3 | }
-    | ^"
+> 2 |   constructor
+    |   ^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #1 format[acorn] 1`] = `
@@ -151,17 +140,6 @@ exports[`snippet: #1 format[flow] 1`] = `
 Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
-exports[`snippet: #1 format[hermes] 1`] = `
-"invalid class property name (2:3)
-  1 | class Foo {
-> 2 |   'constructor'
-    |   ^
-  3 | }
-Cause: invalid class property name (2:2)
-  'constructor'
-  ^~~~~~~~~~~~~"
-`;
-
 exports[`snippet: #1 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -197,19 +175,19 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #1 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   'constructor'
-> 3 | }
-    | ^"
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #1 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   'constructor'
-> 3 | }
-    | ^"
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #2 format[acorn] 1`] = `
@@ -257,17 +235,6 @@ exports[`snippet: #2 format[flow] 1`] = `
 Cause: Classes may not have fields named \`constructor\`. (2:2)"
 `;
 
-exports[`snippet: #2 format[hermes] 1`] = `
-"invalid class property name (2:3)
-  1 | class Foo {
-> 2 |   'constructor'
-    |   ^
-  3 | }
-Cause: invalid class property name (2:2)
-  'constructor'
-  ^~~~~~~~~~~~~"
-`;
-
 exports[`snippet: #2 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -303,19 +270,19 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #2 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   'constructor'
-> 3 | }
-    | ^"
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #2 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:3)
   1 | class Foo {
-  2 |   'constructor'
-> 3 | }
-    | ^"
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #3 format[acorn] 1`] = `
@@ -363,17 +330,6 @@ exports[`snippet: #3 format[flow] 1`] = `
 Cause: Unexpected string, expected the token \`(\` (2:11)"
 `;
 
-exports[`snippet: #3 format[hermes] 1`] = `
-"';' expected after class property (2:12)
-  1 | class Foo {
-> 2 |   accessor 'constructor'
-    |            ^
-  3 | }
-Cause: ';' expected after class property (2:11)
-  accessor 'constructor'
-  ~~~~~~~~~^"
-`;
-
 exports[`snippet: #3 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -409,19 +365,19 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #3 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor 'constructor'
-> 3 | }
-    | ^"
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #3 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor 'constructor'
-> 3 | }
-    | ^"
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #4 format[acorn] 1`] = `
@@ -469,17 +425,6 @@ exports[`snippet: #4 format[flow] 1`] = `
 Cause: Unexpected string, expected the token \`(\` (2:11)"
 `;
 
-exports[`snippet: #4 format[hermes] 1`] = `
-"';' expected after class property (2:12)
-  1 | class Foo {
-> 2 |   accessor 'constructor'
-    |            ^
-  3 | }
-Cause: ';' expected after class property (2:11)
-  accessor 'constructor'
-  ~~~~~~~~~^"
-`;
-
 exports[`snippet: #4 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -515,19 +460,19 @@ Cause: Classes may not have a field named 'constructor'."
 `;
 
 exports[`snippet: #4 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor 'constructor'
-> 3 | }
-    | ^"
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #4 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor 'constructor'
-> 3 | }
-    | ^"
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #5 format[acorn] 1`] = `
@@ -575,17 +520,6 @@ exports[`snippet: #5 format[flow] 1`] = `
 Cause: Unexpected identifier, expected the token \`(\` (2:11)"
 `;
 
-exports[`snippet: #5 format[hermes] 1`] = `
-"';' expected after class property (2:12)
-  1 | class Foo {
-> 2 |   accessor constructor
-    |            ^
-  3 | }
-Cause: ';' expected after class property (2:11)
-  accessor constructor
-  ~~~~~~~~~^"
-`;
-
 exports[`snippet: #5 format[meriyah] 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -621,17 +555,17 @@ Cause: '(' expected."
 `;
 
 exports[`snippet: #5 format[yuku] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor constructor
-> 3 | }
-    | ^"
+> 2 |   accessor constructor
+    |            ^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #5 format[yuku-ts] 1`] = `
-"Expected '(' for getter/setter definition, but found '}' (3:1)
+"Classes may not have a field named 'constructor' (2:12)
   1 | class Foo {
-  2 |   accessor constructor
-> 3 | }
-    | ^"
+> 2 |   accessor constructor
+    |            ^^^^^^^^^^^
+  3 | }"
 `;

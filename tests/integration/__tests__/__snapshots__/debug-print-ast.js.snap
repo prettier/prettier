@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`prints BigInt literals with --debug-print-ast 1`] = `
+{
+  "code": "1n",
+  "result": {
+    "extra": {
+      "raw": "1n",
+      "rawValue": "(bigint) 1n",
+    },
+    "type": "BigIntLiteral",
+    "value": "(bigint) 1n",
+  },
+}
+`;
+
+exports[`prints RegExp literals with --debug-print-ast 1`] = `
+{
+  "code": "/a/ig",
+  "result": {
+    "raw": "/a/ig",
+    "regex": {
+      "flags": "ig",
+      "pattern": "a",
+    },
+    "type": "Literal",
+    "value": "(regexp) /a/gi",
+  },
+}
+`;
