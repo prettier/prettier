@@ -6,6 +6,7 @@ import {
   indent,
   join,
   label,
+  markIgnorePreservedBreakGroup,
   willBreak,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
@@ -407,12 +408,16 @@ function printMemberChain(path, options, print) {
   ) {
     result = group(expanded);
   } else {
+    const chainGroup = conditionalGroup([oneLine, expanded]);
+    if (options.objectWrap === "preserve" && willBreak(oneLine)) {
+      markIgnorePreservedBreakGroup(chainGroup);
+    }
     result = [
       // We only need to check `oneLine` because if `expanded` is chosen
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup([oneLine, expanded]),
+      chainGroup,
     ];
   }
 

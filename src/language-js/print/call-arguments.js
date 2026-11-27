@@ -6,8 +6,10 @@ import {
   hardline,
   indent,
   line,
+  markPreservedBreakGroup,
   softline,
   willBreak,
+  willBreakIgnoringPreservedBreaks,
 } from "../../document/index.js";
 import {
   getCallArguments,
@@ -108,10 +110,18 @@ function printCallArguments(path, options, print) {
       ? printTrailingComma(options, "all")
       : "";
 
-  function allArgsBrokenOut() {
-    return group(
+  function createMaybePreservedGroup(contents, shouldBreak, deps) {
+    const result = group(contents, { shouldBreak });
+    return shouldBreak && deps && !deps.some(willBreakIgnoringPreservedBreaks)
+      ? markPreservedBreakGroup(result)
+      : result;
+  }
+
+  function allArgsBrokenOut(deps) {
+    return createMaybePreservedGroup(
       ["(", indent([line, ...printedArguments]), trailingComma, line, ")"],
-      { shouldBreak: true },
+      true,
+      deps,
     );
   }
 
@@ -125,7 +135,7 @@ function printCallArguments(path, options, print) {
   if (shouldExpandFirstArg(args)) {
     const tailArgs = printedArguments.slice(1);
     if (tailArgs.some(willBreak)) {
-      return allArgsBrokenOut();
+      return allArgsBrokenOut(tailArgs);
     }
     let firstArg;
     try {
@@ -144,7 +154,13 @@ function printCallArguments(path, options, print) {
       return [
         breakParent,
         conditionalGroup([
-          ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
+          [
+            "(",
+            createMaybePreservedGroup(firstArg, true, [firstArg]),
+            ", ",
+            ...tailArgs,
+            ")",
+          ],
           allArgsBrokenOut(),
         ]),
       ];
@@ -160,7 +176,7 @@ function printCallArguments(path, options, print) {
   if (shouldExpandLastArg(args, printedArguments, options)) {
     const headArgs = printedArguments.slice(0, -1);
     if (headArgs.some(willBreak)) {
-      return allArgsBrokenOut();
+      return allArgsBrokenOut(headArgs);
     }
     let lastArg;
     try {
@@ -179,7 +195,12 @@ function printCallArguments(path, options, print) {
       return [
         breakParent,
         conditionalGroup([
-          ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
+          [
+            "(",
+            ...headArgs,
+            createMaybePreservedGroup(lastArg, true, [lastArg]),
+            ")",
+          ],
           allArgsBrokenOut(),
         ]),
       ];
@@ -205,9 +226,15 @@ function printCallArguments(path, options, print) {
     return contents;
   }
 
-  return group(contents, {
-    shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine,
-  });
+  if (anyArgEmptyLine) {
+    return group(contents, { shouldBreak: true });
+  }
+
+  return createMaybePreservedGroup(
+    contents,
+    printedArguments.some(willBreak),
+    printedArguments,
+  );
 }
 
 function couldExpandArg(arg, arrowChainRecursion = false) {

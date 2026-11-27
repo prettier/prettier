@@ -1281,6 +1281,124 @@ s.get(u)?.trigger({
 ================================================================================
 `;
 
+exports[`issue-18080.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for ([] of []) {
+  a, f3.get(t).set(l, { scope: t, methodName: l, endpointDefaults: d, decorations: a });
+}
+
+a,
+f3.get(t).set(l, { scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a });
+
+fooBar.get(t).set(l, { scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a });
+
+fooBar.get(t).set({ scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a }, l);
+
+fooBar.get(t).set(l, () => ({ scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a }));
+
+fooBar.get(t).set({ scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a }, { a: 1 });
+
+fooBar.get(t).set((a) => ({ scope: t, methodName: l, endpointDefaults: d, decorations: a, decorations: a }), 100);
+
+fooBar.get(t).set(l, {
+  a: 1,
+  b: 2,
+});
+
+=====================================output=====================================
+for ([] of []) {
+  (a,
+    f3
+      .get(t)
+      .set(l, {
+        scope: t,
+        methodName: l,
+        endpointDefaults: d,
+        decorations: a,
+      }));
+}
+
+(a,
+  f3
+    .get(t)
+    .set(l, {
+      scope: t,
+      methodName: l,
+      endpointDefaults: d,
+      decorations: a,
+      decorations: a,
+    }));
+
+fooBar
+  .get(t)
+  .set(l, {
+    scope: t,
+    methodName: l,
+    endpointDefaults: d,
+    decorations: a,
+    decorations: a,
+  });
+
+fooBar
+  .get(t)
+  .set(
+    {
+      scope: t,
+      methodName: l,
+      endpointDefaults: d,
+      decorations: a,
+      decorations: a,
+    },
+    l,
+  );
+
+fooBar
+  .get(t)
+  .set(l, () => ({
+    scope: t,
+    methodName: l,
+    endpointDefaults: d,
+    decorations: a,
+    decorations: a,
+  }));
+
+fooBar
+  .get(t)
+  .set(
+    {
+      scope: t,
+      methodName: l,
+      endpointDefaults: d,
+      decorations: a,
+      decorations: a,
+    },
+    { a: 1 },
+  );
+
+fooBar
+  .get(t)
+  .set(
+    (a) => ({
+      scope: t,
+      methodName: l,
+      endpointDefaults: d,
+      decorations: a,
+      decorations: a,
+    }),
+    100,
+  );
+
+fooBar.get(t).set(l, {
+  a: 1,
+  b: 2,
+});
+
+================================================================================
+`;
+
 exports[`issue-18523.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1404,14 +1522,16 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function () {
     it("saves pet", function () {
       function assert(pet) {
-        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
-          AddressLine1: "Alexanderstrasse",
-          AddressLine2: "",
-          PostalCode: "10999",
-          Region: "Berlin",
-          City: "Berlin",
-          Country: "DE",
-        });
+        expect(pet)
+          .to.have.property("OwnerAddress")
+          .that.deep.equals({
+            AddressLine1: "Alexanderstrasse",
+            AddressLine2: "",
+            PostalCode: "10999",
+            Region: "Berlin",
+            City: "Berlin",
+            Country: "DE",
+          });
       }
     });
   });
