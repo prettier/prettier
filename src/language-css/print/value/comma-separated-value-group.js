@@ -10,6 +10,7 @@ import {
   lineSuffix,
   softline,
 } from "../../../document/index.js";
+import hasNewline from "../../../utilities/has-newline.js";
 import { locEnd, locStart } from "../../loc.js";
 import {
   getPropOfDeclNode,
@@ -145,6 +146,25 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // Ignore after latest node (i.e. before semicolon)
     if (!iNextNode) {
+      continue;
+    }
+
+    // Keep a leading block comment in a comma-separated declaration value on
+    // its own line before spacing operators.
+    if (
+      declAncestorProp &&
+      parentNode.type === "value-paren_group" &&
+      !parentNode.open &&
+      parentNode.groups.length > 1 &&
+      iNode.type === "value-comment" &&
+      !iNode.inline &&
+      node.groups
+        .slice(0, i)
+        .every((group) => group.type === "value-comment") &&
+      hasNewline(options.originalText, locStart(iNode), { backwards: true }) &&
+      hasNewline(options.originalText, locEnd(iNode))
+    ) {
+      parts.push(dedent(hardline), "");
       continue;
     }
 
