@@ -16,6 +16,7 @@ import {
 import { printComments } from "../../main/comments/print.js";
 import { getOrInsertComputed } from "../../utilities/get-or-insert.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { hasNode } from "../utilities/has-node.js";
 import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js";
@@ -23,12 +24,9 @@ import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isAbstractPropertyDefinition,
-  isArrayExpression,
-  isBinaryish,
   isCallOrNewExpression,
   isJsxElement,
   isMemberExpression,
-  isObjectExpression,
   isReturnOrThrowStatement,
   isUnaryLikeNode,
 } from "../utilities/node-types.js";
@@ -38,24 +36,10 @@ import { shouldFlatten } from "../utilities/should-flatten.js";
 
 let uid = 0;
 
-function isInlineLogicalExpression(node) {
-  if (node.type !== "LogicalExpression") {
-    return false;
-  }
-
-  if (!shouldInlineLogicalExpression(node)) {
-    return false;
-  }
-
-  if (
-    isBinaryish(node.left) &&
-    shouldFlatten(node.operator, node.left.operator)
-  ) {
-    return isInlineLogicalExpression(node.left);
-  }
-
-  return true;
-}
+const isBinaryOrNgPipeExpression = createTypeCheckFunction([
+  "BinaryExpression",
+  "NGPipeExpression",
+]);
 
 const topicReferenceCheckResult = new WeakMap();
 const isHackStylePipeline = (path) =>
@@ -67,7 +51,6 @@ const isHackStylePipeline = (path) =>
 
 /*
 - `BinaryExpression`
-- `LogicalExpression`
 - `NGPipeExpression`(Angular)
 */
 function printBinaryishExpression(path, options, print) {
@@ -153,11 +136,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "ClassPrivateProperty" ||
     isObjectProperty(parent);
 
-  if (
-    shouldNotIndent ||
-    isInlineLogicalExpression(node) ||
-    (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
-  ) {
+  if (shouldNotIndent || shouldIndentIfInlining) {
     return group(parts);
   }
 
@@ -222,14 +201,14 @@ function printBinaryishExpressions(
 ) {
   const { node } = path;
 
-  if (!isBinaryish(node)) {
+  if (!isBinaryOrNgPipeExpression(node)) {
     return [group(print())];
   }
 
   // Flatten left-associative chains without recursing into every left node.
   const flattenedLeft = [];
   let currentNode = node;
-  while (isBinaryish(currentNode.left)) {
+  while (isBinaryOrNgPipeExpression(currentNode.left)) {
     const leftNode = currentNode.left;
     const operator =
       "operator" in currentNode ? currentNode.operator : undefined;
@@ -278,7 +257,6 @@ function printBinaryishExpressionPart(
     parts.push(group(print("left")));
   }
 
-  const shouldInline = shouldInlineLogicalExpression(node);
   const rightNodeToCheckComments =
     node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
@@ -310,53 +288,44 @@ function printBinaryishExpressionPart(
         )
       : "";
 
+  const rightContent = isHackStylePipeline(path)
+    ? path.call(
+        () =>
+          printBinaryishExpressions(
+            path,
+            options,
+            print,
+            /* isNested */ true,
+            isInsideParenthesis,
+          ),
+        "right",
+      )
+    : print("right");
   /** @type {Doc} */
   let right;
-  if (shouldInline) {
-    right = [
-      operator,
-      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
-        ? indent([line, print("right"), rightSuffix])
-        : [" ", print("right"), rightSuffix],
-    ];
-  } else {
-    const rightContent = isHackStylePipeline(path)
-      ? path.call(
-          () =>
-            printBinaryishExpressions(
-              path,
-              options,
-              print,
-              /* isNested */ true,
-              isInsideParenthesis,
-            ),
-          "right",
-        )
-      : print("right");
-    if (options.experimentalOperatorPosition === "start") {
-      let comment = "";
-      if (commentBeforeOperator) {
-        switch (getDocType(rightContent)) {
-          case DOC_TYPE_ARRAY:
-            comment = rightContent[0];
-            rightContent.shift();
-            break;
-          case DOC_TYPE_LABEL:
-            comment = rightContent.contents[0];
-            rightContent.contents.shift();
-            break;
-        }
+  if (options.experimentalOperatorPosition === "start") {
+    let comment = "";
+    if (commentBeforeOperator) {
+      switch (getDocType(rightContent)) {
+        case DOC_TYPE_ARRAY:
+          comment = rightContent[0];
+          rightContent.shift();
+          break;
+        case DOC_TYPE_LABEL:
+          comment = rightContent.contents[0];
+          rightContent.contents.shift();
+          break;
       }
-      right = [line, comment, operator, " ", rightContent, rightSuffix];
-    } else {
-      right = [
-        lineBeforeOperator ? line : "",
-        operator,
-        lineBeforeOperator ? " " : line,
-        rightContent,
-        rightSuffix,
-      ];
     }
+    right = [line, comment, operator, " ", rightContent, rightSuffix];
+  } else {
+    right = [
+      lineBeforeOperator ? line : "",
+      operator,
+      lineBeforeOperator ? " " : line,
+      rightContent,
+      rightSuffix,
+    ];
   }
 
   // If there's only a single binary expression, we want to create a group
@@ -368,8 +337,7 @@ function printBinaryishExpressionPart(
   );
   const shouldGroup =
     shouldBreak ||
-    (!(isInsideParenthesis && node.type === "LogicalExpression") &&
-      parent.type !== node.type &&
+    (parent.type !== node.type &&
       node.left.type !== node.type &&
       node.right.type !== node.type);
   if (shouldGroup) {
@@ -377,7 +345,7 @@ function printBinaryishExpressionPart(
   }
 
   if (options.experimentalOperatorPosition === "start") {
-    parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
+    parts.push(commentBeforeOperator ? " " : "", right);
   } else {
     parts.push(lineBeforeOperator ? "" : " ", right);
   }
@@ -398,26 +366,6 @@ function printBinaryishExpressionPart(
   return parts;
 }
 
-function shouldInlineLogicalExpression(node) {
-  if (node.type !== "LogicalExpression") {
-    return false;
-  }
-
-  if (isObjectExpression(node.right) && node.right.properties.length > 0) {
-    return true;
-  }
-
-  if (isArrayExpression(node.right) && node.right.elements.length > 0) {
-    return true;
-  }
-
-  if (isJsxElement(node.right)) {
-    return true;
-  }
-
-  return false;
-}
-
 const isBitwiseOrExpression = (node) =>
   node.type === "BinaryExpression" && node.operator === "|";
 
@@ -433,4 +381,4 @@ function isVueFilterSequenceExpression(path, options) {
   );
 }
 
-export { printBinaryishExpression, shouldInlineLogicalExpression };
+export { printBinaryishExpression };
