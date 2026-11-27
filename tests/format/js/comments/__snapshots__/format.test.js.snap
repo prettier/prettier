@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`10851.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const conditional = (
+  // comment
+  a || b
+) ? c : d;
+
+(
+  // comment
+  a || b
+).c();
+
+=====================================output=====================================
+const conditional =
+  // comment
+  a || b ? c : d
+
+// comment
+;(a || b).c()
+
+================================================================================
+`;
+
+exports[`10851.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const conditional = (
+  // comment
+  a || b
+) ? c : d;
+
+(
+  // comment
+  a || b
+).c();
+
+=====================================output=====================================
+const conditional =
+  // comment
+  a || b ? c : d;
+
+// comment
+(a || b).c();
+
+================================================================================
+`;
+
 exports[`11273.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -5809,35 +5862,28 @@ function binary() {
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
-    42 *
-      84 +
-    2
+    42 * 84 + 2
   )
 }
 
 function binaryInBinaryRight() {
   return (
     // Reason for 42
-    42 +
-    84 * 2
+    42 + 84 * 2
   )
 }
 
 function conditional() {
   return (
     // Reason for 42
-    42
-      ? 1
-      : 2
+    42 ? 1 : 2
   )
 }
 
 function binaryInConditional() {
   return (
     // Reason for 42
-    42 * 3
-      ? 1
-      : 2
+    42 * 3 ? 1 : 2
   )
 }
 
@@ -5864,10 +5910,8 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    aFunction
-      .b// Reason for a
-      ()
-      .c.d()
+    // Reason for a
+    aFunction.b().c.d()
   )
 }
 
@@ -6176,35 +6220,28 @@ function binary() {
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
-    42 *
-      84 +
-    2
+    42 * 84 + 2
   );
 }
 
 function binaryInBinaryRight() {
   return (
     // Reason for 42
-    42 +
-    84 * 2
+    42 + 84 * 2
   );
 }
 
 function conditional() {
   return (
     // Reason for 42
-    42
-      ? 1
-      : 2
+    42 ? 1 : 2
   );
 }
 
 function binaryInConditional() {
   return (
     // Reason for 42
-    42 * 3
-      ? 1
-      : 2
+    42 * 3 ? 1 : 2
   );
 }
 
@@ -6231,10 +6268,8 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    aFunction
-      .b// Reason for a
-      ()
-      .c.d()
+    // Reason for a
+    aFunction.b().c.d()
   );
 }
 
