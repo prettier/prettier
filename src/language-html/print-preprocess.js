@@ -364,9 +364,12 @@ function extractWhitespaces(ast, options) {
       return;
     }
 
+    const isIndentationSensitive = isIndentationSensitiveNode(node);
+
     if (
       children.length === 0 ||
-      (children.length === 1 &&
+      (!isIndentationSensitive &&
+        children.length === 1 &&
         children[0].kind === "text" &&
         htmlWhitespace.trim(children[0].value).length === 0)
     ) {
@@ -376,7 +379,6 @@ function extractWhitespaces(ast, options) {
     }
 
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
-    const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
