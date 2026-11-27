@@ -112,7 +112,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
     parts.push([parts.pop(), printed[i]]);
 
     if (insideURLFunction) {
-      if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
+      if (
+        (iNextNode && isAdditionNode(iNextNode)) ||
+        isAdditionNode(iNode) ||
+        (iNextNode && !hasEmptyRawBefore(iNextNode))
+      ) {
         parts.push([parts.pop(), " "]);
       }
       continue;
