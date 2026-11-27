@@ -387,8 +387,8 @@ function printMemberChain(path, options, print) {
     return (
       isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
-      ((lastGroupNode.arguments.length === 1 &&
-        (isObjectExpression(expandedArg) || isArrayExpression(expandedArg))) ||
+      (isObjectExpression(expandedArg) ||
+        isArrayExpression(expandedArg) ||
         callExpressions
           .slice(0, -1)
           .some((node) => node.arguments.some(isFunctionOrArrowExpression)))
