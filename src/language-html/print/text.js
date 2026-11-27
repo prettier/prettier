@@ -23,7 +23,7 @@ import {
 @import {Doc} from "../../document/index.js"
 */
 
-function printTextValue(node, options) {
+function printTextValue(node) {
   const { value } = node;
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
@@ -32,10 +32,8 @@ function printTextValue(node, options) {
           htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
-    : // Angular does not follow newline conversion rules aligned with the current CSS specifications.
-      options.parser === "angular"
-      ? join(line, htmlWhitespace.split(value))
-      : joinCjkSensitiveParts(htmlWhitespace.split(value, true));
+    : // Angular does not follow newline conversion rules aligned with the current CSS specifications, but CSS-compliant newline preservation does not change the output of Angular templates.
+      joinCjkSensitiveParts(htmlWhitespace.split(value, true));
 }
 
 /**
@@ -174,7 +172,7 @@ function printText(path, options /* , print*/) {
     return parts;
   }
 
-  const printed = printTextValue(node, options);
+  const printed = printTextValue(node);
   const prefix = printOpeningTagPrefix(node, options);
   const suffix = printClosingTagSuffix(node, options);
 
