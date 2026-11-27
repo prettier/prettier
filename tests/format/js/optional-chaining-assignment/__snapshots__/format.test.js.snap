@@ -203,9 +203,9 @@ Cause: [1:7-1:9]: The left-hand side of the arrow can only be destructed through
 `;
 
 exports[`invalid-fn-param-arrow.js format[oxc] 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+"Invalid arrow function parameter (1:2)
 > 1 | (a?.b) => {}
-    |       ^
+    |  ^^^^
   2 |"
 `;
 

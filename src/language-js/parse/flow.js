@@ -62,4 +62,4 @@ function parse(text, options) {
   return postprocess(ast, { text, astType: "flow" });
 }
 
-export const flow = /* @__PURE__ */ createParser(parse);
+export const flow = /* #__PURE__ */ createParser(parse);
