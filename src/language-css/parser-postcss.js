@@ -21,8 +21,8 @@ function parseNestedCSS(parse, node, options) {
   if (isObject(node)) {
     delete node.parent;
 
-    for (const key in node) {
-      parseNestedCSS(parse, node[key], options);
+    for (const value of Object.values(node)) {
+      parseNestedCSS(parse, value, options);
     }
 
     if (!node.type) {

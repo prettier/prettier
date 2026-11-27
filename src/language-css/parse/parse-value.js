@@ -159,7 +159,7 @@ function flattenGroups(node) {
 
 function parseNestedValue(node, options) {
   if (isObject(node)) {
-    for (const key in node) {
+    for (const key of Object.keys(node)) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);
         if (key === "nodes") {

@@ -3,7 +3,7 @@ import isObject from "../../utilities/is-object.js";
 function addTypePrefix(node, prefix, skipPrefix) {
   if (isObject(node)) {
     delete node.parent;
-    for (const key in node) {
+    for (const key of Object.keys(node)) {
       addTypePrefix(node[key], prefix, skipPrefix);
       if (
         key === "type" &&
@@ -21,8 +21,8 @@ function addTypePrefix(node, prefix, skipPrefix) {
 function addMissingType(node) {
   if (isObject(node)) {
     delete node.parent;
-    for (const key in node) {
-      addMissingType(node[key]);
+    for (const value of Object.values(node)) {
+      addMissingType(value);
     }
     if (!Array.isArray(node) && node.value && !node.type) {
       node.type = "unknown";
