@@ -1,5 +1,108 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`multiple-statements.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<template>
+  <button @click="firstName = ''; lastName = ''">Clear</button>
+  <button @click="increment(); track('click')">Count</button>
+  <button @click="if (valid) submit();">Submit</button>
+  <button @click="if (valid) { submit(); } else { reset(); }">Submit or reset</button>
+  <button @click="const id = getId(); select(id)">Select</button>
+  <button @click="items.forEach((item) => { item.done = true }); save()">Done</button>
+  <button @click="submit();">Single</button>
+</template>
+
+=====================================output=====================================
+<template>
+  <button
+    @click="
+      firstName = '';
+      lastName = '';
+    "
+  >
+    Clear
+  </button>
+  <button
+    @click="
+      increment();
+      track('click');
+    "
+  >
+    Count
+  </button>
+  <button @click="if (valid) submit();">Submit</button>
+  <button
+    @click="
+      if (valid) {
+        submit();
+      } else {
+        reset();
+      }
+    "
+  >
+    Submit or reset
+  </button>
+  <button
+    @click="
+      const id = getId();
+      select(id);
+    "
+  >
+    Select
+  </button>
+  <button
+    @click="
+      items.forEach((item) => {
+        item.done = true;
+      });
+      save();
+    "
+  >
+    Done
+  </button>
+  <button @click="submit()">Single</button>
+</template>
+
+================================================================================
+`;
+
+exports[`multiple-statements-ts.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<script setup lang="ts">
+let selected: string | undefined;
+</script>
+
+<template>
+  <button @click="selected = item.id as string; emit('select', selected)">Select</button>
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+let selected: string | undefined
+</script>
+
+<template>
+  <button
+    @click="
+      selected = item.id as string;
+      emit('select', selected);
+    "
+  >
+    Select
+  </button>
+</template>
+
+================================================================================
+`;
+
 exports[`single-expression.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
