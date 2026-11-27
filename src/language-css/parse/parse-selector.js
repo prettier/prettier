@@ -27,6 +27,7 @@ function parseSelector(selector) {
     String(result) !== selector;
 
   if (!isInvalid) {
+    // @ts-expect-error -- Expected
     result.type = `selector-${result.type}`;
     result.walk((node) => {
       const { type } = node;
@@ -37,6 +38,7 @@ function parseSelector(selector) {
         return false;
       }
 
+      // @ts-expect-error -- Expected
       node.type = `selector-${type}`;
     });
   }
