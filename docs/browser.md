@@ -163,3 +163,29 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
   // Output: const html = /* HTML */ `<div></div>`;
 </script>
 ```
+
+## Formatting Vue single-file components
+
+The `vue` parser ships in the HTML plugin. A Vue single-file component can also contain JavaScript and CSS, so load the Babel, PostCSS and ESTree plugins alongside it:
+
+```html
+<script type="module">
+  import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
+  import * as prettierPluginHtml from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/html.mjs";
+  import * as prettierPluginBabel from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/babel.mjs";
+  import * as prettierPluginPostcss from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/postcss.mjs";
+  import * as prettierPluginEstree from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/estree.mjs";
+
+  const formatted = await prettier.format(vueSource, {
+    parser: "vue",
+    plugins: [
+      prettierPluginHtml,
+      prettierPluginBabel,
+      prettierPluginPostcss,
+      prettierPluginEstree,
+    ],
+  });
+</script>
+```
+
+Without the Babel and PostCSS plugins, the `<script>` and `<style>` blocks stay unformatted.
