@@ -1,0 +1,25 @@
+.arrowLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-link);
+  font-weight: 600;
+
+  &:hover {
+    text-underline-offset: 0.2em;
+  }
+}
+
+.arrow {
+  flex: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .arrow {
+    transition: translate 0.2s;
+  }
+
+  .arrowLink:hover .arrow {
+    translate: 0.1875rem 0;
+  }
+}

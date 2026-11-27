@@ -1,0 +1,17 @@
+.languages {
+  --section-accent: var(--brand-purple);
+}
+
+/* Multi-column layout balances the cards, which have different heights */
+.grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 15rem;
+  column-gap: 1.25rem;
+
+  & > * {
+    margin-block-end: 1.25rem;
+    break-inside: avoid;
+  }
+}

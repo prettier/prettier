@@ -1,0 +1,26 @@
+.markdown {
+  & p {
+    margin: 0;
+  }
+
+  & a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--color-link);
+      text-decoration-color: currentColor;
+    }
+  }
+
+  & code {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 0.875em;
+    vertical-align: baseline;
+  }
+}
