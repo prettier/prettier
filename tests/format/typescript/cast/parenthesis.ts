@@ -5,6 +5,9 @@
 <x>a && [];
 true || <x>a;
 <x>a + <x>b;
+(<x>a) ** b;
+a ** (<x>b);
+a ** <x>b;
 (<x>a) = 1;
 
 function * g() {
