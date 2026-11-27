@@ -1,0 +1,2 @@
+#!/usr/bin/env --split-string=node --no-warnings
+console.log( 1 )
