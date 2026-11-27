@@ -21,6 +21,7 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+  TSModuleDeclaration: ["attributes"],
 
   // flow-parser@0.337.0
   EnumBigIntBody: ["members"],

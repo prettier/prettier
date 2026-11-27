@@ -254,10 +254,15 @@ function shouldPrintSpecifiers(node, options) {
 }
 
 function getImportAttributesKeyword(node, options) {
+  const source = node.type === "TSModuleDeclaration" ? node.id : node.source;
   const textBetweenSourceAndAttributes = stripComments(options)
     .slice(
-      locEnd(node.source),
-      node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
+      locEnd(source),
+      node.attributes?.[0]
+        ? locStart(node.attributes[0])
+        : node.type === "TSModuleDeclaration" && node.body
+          ? locStart(node.body)
+          : locEnd(node),
     )
     .trimStart();
 
@@ -299,11 +304,13 @@ const isSingleTypeImportAttributes = (node) => {
 - `ExportAllDeclaration`
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
+- `TSModuleDeclaration` (TypeScript)
 */
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
-  if (!node.source) {
+  const source = node.type === "TSModuleDeclaration" ? node.id : node.source;
+  if (!source) {
     return "";
   }
 
@@ -360,6 +367,7 @@ function printModuleSpecifier(path, options, print) {
 
 export {
   printExportDeclaration,
+  printImportAttributes,
   printImportDeclaration,
   printImportKind,
   printModuleSpecifier,

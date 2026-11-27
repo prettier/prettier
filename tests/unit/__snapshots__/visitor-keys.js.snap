@@ -1044,6 +1044,7 @@ exports[`visitor keys estree 1`] = `
     "body",
   ],
   "TSModuleDeclaration": [
+    "attributes",
     "body",
     "id",
   ],
