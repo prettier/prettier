@@ -16,9 +16,6 @@ const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(parse, node, options) {
-  /* c8 ignore next */
-  node.raws ??= {};
-
   // Custom properties looks like declarations
   if (
     node.type === "css-decl" &&
@@ -405,8 +402,10 @@ function createParser(parseSyntax) {
       });
     }
 
+    // @ts-expect-error -- Expected
     result.type = `css-${result.type}`;
     result.walk((node) => {
+      // @ts-expect-error -- Expected
       node.type = `css-${node.type}`;
       parseNestedCSS(parse, node, options);
     });
@@ -416,6 +415,7 @@ function createParser(parseSyntax) {
     calculateLoc(result, text);
 
     if (frontMatter) {
+      // @ts-expect-error -- Expected
       result.frontMatter = {
         ...frontMatter,
         type: "front-matter",
