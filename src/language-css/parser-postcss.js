@@ -9,7 +9,6 @@ import { calculateLoc, locEnd, locStart } from "./loc.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
-import { addTypePrefix } from "./parse/utilities.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
@@ -19,10 +18,10 @@ const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(parse, node, options) {
   if (isObject(node)) {
-    delete node.parent;
-
     for (const key in node) {
-      parseNestedCSS(parse, node[key], options);
+      if (!(key === "source" || key === "parent")) {
+        parseNestedCSS(parse, node[key], options);
+      }
     }
 
     if (!node.type) {
@@ -420,8 +419,13 @@ function createParser(parseSyntax) {
       });
     }
 
+    result.type = `css-${result.type}`;
+    result.walk((node) => {
+      node.type = `css-${node.type}`;
+    });
+
     options.originalText = text;
-    result = parseNestedCSS(parse, addTypePrefix(result, "css-"), options);
+    result = parseNestedCSS(parse, result, options);
 
     calculateLoc(result, text);
 
