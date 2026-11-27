@@ -1,3 +1,4 @@
+import { getClassPropertyTypeComment } from "../utilities/class-property-type-comment.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/is-iife-callee-or-tagged-template-expression-tag.js";
@@ -47,6 +48,10 @@ function willPrintOwnComments(path, options) {
 
   if (hasNodeIgnoreComment(node)) {
     return false;
+  }
+
+  if (getClassPropertyTypeComment(path, options)) {
+    return true;
   }
 
   if (node.type === "ExpressionStatement") {

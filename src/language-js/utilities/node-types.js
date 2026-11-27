@@ -22,6 +22,17 @@ export const isBinaryCastExpression = createTypeCheckFunction([
   "SatisfiesExpression",
 ]);
 
+export const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "AbstractPropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
 export const isSatisfiesExpression = createTypeCheckFunction([
   "SatisfiesExpression",
   "TSSatisfiesExpression",
