@@ -1,0 +1,5 @@
+.test-81-char-declaration {
+  margin: $really-long-variable-name $another-really-long-name $a-third-long-nam;
+  margin: $really-long-variable-name $another-really-long-name $a-third-long-na !important;
+  margin: $really-long-variable-name $another-really-long-name $a-third-long-name;
+}

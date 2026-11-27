@@ -499,7 +499,8 @@ a {
     /* comment 6 */; /* comment 7 */
   /* comment 8 */
   transform: translate(/* comment 9 */ 10px /* comment 10 */);
-  color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
+  color: /* comment 11 */ red
+    /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
   /* comment 15 */
 }
 
@@ -521,7 +522,8 @@ a {
 }
 .foo {
   /* comment 34 */
-  color/* comment 35 */ : /* comment 36 */ blue /* comment 37 */; /* comment 38 */
+  color/* comment 35 */ : /* comment 36 */ blue
+    /* comment 37 */; /* comment 38 */
   transform/* comment 39 */ : /* comment 40 */ translate(
       /* comment 41 */ 10px /* comment 42 */
     )
