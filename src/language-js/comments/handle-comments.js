@@ -80,6 +80,7 @@ function handleOwnLineComment(context) {
     handleClosureTypeCastComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
+    handleFunctionTypeParametersComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileLikeComments,
@@ -112,6 +113,7 @@ function handleEndOfLineComment(context) {
     handleCommentInEmptyParens,
     handleClosureTypeCastComments,
     handleLastFunctionParameterComments,
+    handleFunctionTypeParametersComments,
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
     handleIfStatementComments,
@@ -157,6 +159,7 @@ function handleRemainingComment(context) {
     handleAssignmentLikeComments,
     handleTSMappedTypeComments,
     handleCommentAfterArrowParams,
+    handleFunctionTypeParametersComments,
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
     handleParenthesizedExpressionTrailingComment,
@@ -445,6 +448,13 @@ function handleMethodNameComments({
   return false;
 }
 
+const canHaveFunctionName = createTypeCheckFunction([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "TSDeclareFunction",
+  "HookDeclaration",
+]);
+
 const isFunctionLikeNode = createTypeCheckFunction([
   "FunctionDeclaration",
   "FunctionExpression",
@@ -454,6 +464,25 @@ const isFunctionLikeNode = createTypeCheckFunction([
   "ComponentDeclaration",
   "HookDeclaration",
 ]);
+
+function handleFunctionTypeParametersComments({
+  comment,
+  precedingNode,
+  followingNode,
+  enclosingNode,
+}) {
+  if (
+    precedingNode &&
+    followingNode &&
+    canHaveFunctionName(enclosingNode) &&
+    precedingNode === enclosingNode.id &&
+    followingNode === enclosingNode.typeParameters
+  ) {
+    return addLeadingComment(followingNode, comment);
+  }
+  return false;
+}
+
 function handleFunctionNameComments({
   comment,
   precedingNode,

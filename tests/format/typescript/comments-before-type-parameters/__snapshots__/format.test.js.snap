@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`function.ts - {"printWidth":80,"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                printWidth: 80 |
+=====================================input======================================
+declare function a
+    /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+    <T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T { return value; };
+
+declare function nonGeneric /* comment */ (value: string): string;
+
+function d
+/* comment */
+<T>(value: T): T { return value; }
+
+const e = function named
+/* comment */
+<T>(value: T): T { return value; };
+
+declare function f
+// comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h
+/* first */
+/* second */
+<T>(value: T): T;
+
+=====================================output=====================================
+declare function a /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+<T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void
+
+declare function b /* comment */ <T>(value: T): T
+
+declare function c /* comment */
+<T>(value: T): T
+
+const anonymous = function /* comment */ <T>(value: T): T {
+  return value
+}
+
+declare function nonGeneric(/* comment */ value: string): string
+
+function d /* comment */
+<T>(value: T): T {
+  return value
+}
+
+const e = function named /* comment */
+<T>(value: T): T {
+  return value
+}
+
+declare function f // comment
+<T>(value: T): T
+
+declare function g // comment
+<T>(value: T): T
+
+declare function h /* first */
+/* second */
+<T>(value: T): T
+
+================================================================================
+`;
+
+exports[`function.ts - {"printWidth":80,"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: true
+                                                                printWidth: 80 |
+=====================================input======================================
+declare function a
+    /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+    <T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T { return value; };
+
+declare function nonGeneric /* comment */ (value: string): string;
+
+function d
+/* comment */
+<T>(value: T): T { return value; }
+
+const e = function named
+/* comment */
+<T>(value: T): T { return value; };
+
+declare function f
+// comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h
+/* first */
+/* second */
+<T>(value: T): T;
+
+=====================================output=====================================
+declare function a /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+<T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T {
+  return value;
+};
+
+declare function nonGeneric(/* comment */ value: string): string;
+
+function d /* comment */
+<T>(value: T): T {
+  return value;
+}
+
+const e = function named /* comment */
+<T>(value: T): T {
+  return value;
+};
+
+declare function f // comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h /* first */
+/* second */
+<T>(value: T): T;
+
+================================================================================
+`;
+
+exports[`function.ts - {"printWidth":120,"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+semi: false
+                                                                                                       printWidth: 120 |
+=====================================input======================================
+declare function a
+    /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+    <T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T { return value; };
+
+declare function nonGeneric /* comment */ (value: string): string;
+
+function d
+/* comment */
+<T>(value: T): T { return value; }
+
+const e = function named
+/* comment */
+<T>(value: T): T { return value; };
+
+declare function f
+// comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h
+/* first */
+/* second */
+<T>(value: T): T;
+
+=====================================output=====================================
+declare function a /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+<T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void
+
+declare function b /* comment */ <T>(value: T): T
+
+declare function c /* comment */
+<T>(value: T): T
+
+const anonymous = function /* comment */ <T>(value: T): T {
+  return value
+}
+
+declare function nonGeneric(/* comment */ value: string): string
+
+function d /* comment */
+<T>(value: T): T {
+  return value
+}
+
+const e = function named /* comment */
+<T>(value: T): T {
+  return value
+}
+
+declare function f // comment
+<T>(value: T): T
+
+declare function g // comment
+<T>(value: T): T
+
+declare function h /* first */
+/* second */
+<T>(value: T): T
+
+================================================================================
+`;
+
+exports[`function.ts - {"printWidth":120,"semi":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+semi: true
+                                                                                                       printWidth: 120 |
+=====================================input======================================
+declare function a
+    /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+    <T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T { return value; };
+
+declare function nonGeneric /* comment */ (value: string): string;
+
+function d
+/* comment */
+<T>(value: T): T { return value; }
+
+const e = function named
+/* comment */
+<T>(value: T): T { return value; };
+
+declare function f
+// comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h
+/* first */
+/* second */
+<T>(value: T): T;
+
+=====================================output=====================================
+declare function a /*[FLOW2DTS - Warning] Covariance and contravariance are ignored.*/
+<T, U, V extends Number, W = String>(t: T, u: U, v: V, w: W): void;
+
+declare function b /* comment */ <T>(value: T): T;
+
+declare function c /* comment */
+<T>(value: T): T;
+
+const anonymous = function /* comment */ <T>(value: T): T {
+  return value;
+};
+
+declare function nonGeneric(/* comment */ value: string): string;
+
+function d /* comment */
+<T>(value: T): T {
+  return value;
+}
+
+const e = function named /* comment */
+<T>(value: T): T {
+  return value;
+};
+
+declare function f // comment
+<T>(value: T): T;
+
+declare function g // comment
+<T>(value: T): T;
+
+declare function h /* first */
+/* second */
+<T>(value: T): T;
+
+================================================================================
+`;
