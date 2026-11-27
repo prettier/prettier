@@ -1,3 +1,4 @@
+import getAlignmentSize from "../../utilities/get-alignment-size.js";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 import { getBlockquoteRawText } from "../utilities/get-blockquote-raw-text.js";
@@ -29,7 +30,7 @@ function preprocess(ast, options) {
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
   } else {
-    ast = splitTextIntoSentences(ast);
+    ast = splitTextIntoSentences(ast, options);
   }
   return ast;
 }
@@ -146,7 +147,7 @@ function splitTextIntoSentencesLegacy(ast) {
   });
 }
 
-function splitTextIntoSentences(ast) {
+function splitTextIntoSentences(ast, options) {
   const canOpenAccidentalWikiLink = new Set();
   const riskyParagraphPositions = new Set(); // we can't use nodes themselves because they will be cloned.
 
@@ -180,7 +181,8 @@ function splitTextIntoSentences(ast) {
 
     // NOTE: there's trade-off between using `node.value` or `node.raw` here.
     // Using `node.raw`, we can better preserve the original text, especially escaped characters.
-    // Using `node.value`, we don't need to care about markers like `\n > ` in `blockquote`s.
+    // Using `node.value`, we don't need to care about markers like `\n > ` in `blockquote`s
+    // or the indentation of continuation lines in `listItem`s.
     let text = node.raw;
 
     // A setext heading's text can span multiple raw source lines too, e.g.
@@ -194,12 +196,11 @@ function splitTextIntoSentences(ast) {
       paragraphIndex === -1 ? undefined : parentStack[paragraphIndex];
 
     if (paragraphNode) {
-      if (
-        parentStack
-          .slice(paragraphIndex + 1)
-          .some((ancestor) => ancestor?.type === "blockquote")
-      ) {
+      const containers = parentStack.slice(paragraphIndex + 1);
+      if (containers.some((ancestor) => ancestor?.type === "blockquote")) {
         text = getBlockquoteRawText(text, node);
+      } else if (containers.some((ancestor) => ancestor?.type === "listItem")) {
+        text = removeListItemIndent(text, paragraphNode, options);
       }
 
       const parentNode = parentStack[0];
@@ -250,6 +251,16 @@ function splitTextIntoSentences(ast) {
       }
     }
   }
+}
+
+function removeListItemIndent(text, paragraph, { originalText }) {
+  const start = paragraph.position.start.offset;
+  const lineStart = originalText.lastIndexOf("\n", start - 1) + 1;
+  const width = getAlignmentSize(originalText.slice(lineStart, start), 4);
+  // keep indentation deeper than the paragraph, or `    - foo` would become a list item
+  return text.replaceAll(/(?<=\n)[\t ]+/g, (indent) =>
+    " ".repeat(Math.max(getAlignmentSize(indent, 4) - width, 0)),
+  );
 }
 
 function transformIndentedCodeblock(ast, options) {

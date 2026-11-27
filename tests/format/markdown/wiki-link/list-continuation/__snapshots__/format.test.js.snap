@@ -1,0 +1,481 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-20590.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+	bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] *bar
+  baz*
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+  bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+	- bar
+	  baz [[ ]] qux
+
+=====================================output=====================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+    bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] _bar
+  baz_
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+      bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+================================================================================
+`;
+
+exports[`issue-20590.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "never"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+	bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] *bar
+  baz*
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+  bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+	- bar
+	  baz [[ ]] qux
+
+=====================================output=====================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+    bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] _bar
+  baz_
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+      bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+================================================================================
+`;
+
+exports[`issue-20590.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "preserve"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+	bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] *bar
+  baz*
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+  bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+	- bar
+	  baz [[ ]] qux
+
+=====================================output=====================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+    bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] _bar
+  baz_
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+      bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+================================================================================
+`;
+
+exports[`issue-20590.md - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+  - bar
+    baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+	bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] *bar
+  baz*
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+  bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+   bar
+   baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+	- bar
+	  baz [[ ]] qux
+
+=====================================output=====================================
+- foo
+  bar [[ ]] baz
+
+1. foo
+   bar [[ ]] baz
+
+- foo
+    - bar
+      baz [[ ]] qux
+
+- see [[wiki link]]
+  and [[ ]] here
+
+> - foo
+>   bar [[ ]] baz
+
+- > foo
+  > bar [[ ]] baz
+
+- foo
+    bar [[ ]] baz
+
+- foo
+      bar [[ ]] baz
+
+- foo [[ ]] _bar
+  baz_
+
+- foo [[ ]]
+      - bar
+
+- foo [[ ]]
+      # bar
+
+- [ ] foo [[ ]]
+      bar
+
+- [ ] foo [[ ]]
+      - bar
+
+- [[foo
+  bar]]
+
+1. foo
+
+    bar
+    baz [[ ]] qux
+
+- returns a matrix such as
+  [[1, 2], [3, 4]] for the input
+
+- foo
+    - bar
+      baz [[ ]] qux
+
+================================================================================
+`;
