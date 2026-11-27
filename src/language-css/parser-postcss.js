@@ -4,7 +4,6 @@ import scssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
-import getVisitorKeys from "./get-visitor-keys.js";
 import { calculateLoc, locEnd, locStart } from "./loc.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
@@ -17,22 +16,6 @@ const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(parse, node, options) {
-  if (!node?.type?.startsWith("css-")) {
-    return node;
-  }
-
-  const keys = getVisitorKeys(node);
-  for (const key of keys) {
-    const value = node[key];
-    if (Array.isArray(value)) {
-      for (const child of value) {
-        parseNestedCSS(parse, child, options);
-      }
-    } else {
-      parseNestedCSS(parse, value, options);
-    }
-  }
-
   /* c8 ignore next */
   node.raws ??= {};
 
@@ -425,10 +408,10 @@ function createParser(parseSyntax) {
     result.type = `css-${result.type}`;
     result.walk((node) => {
       node.type = `css-${node.type}`;
+      parseNestedCSS(parse, node, options);
     });
 
     options.originalText = text;
-    result = parseNestedCSS(parse, result, options);
 
     calculateLoc(result, text);
 
