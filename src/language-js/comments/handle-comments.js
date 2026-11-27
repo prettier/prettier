@@ -94,6 +94,7 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
+    handleCallExpressionComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
@@ -152,6 +153,7 @@ function handleRemainingComment(context) {
     handleWhileLikeComments,
     handleSwitchStatementComments,
     handleForXStatementComments,
+    handleCallExpressionComments,
     handleMethodNameComments,
     handleOnlyComments,
     handleAssignmentLikeComments,
@@ -642,16 +644,40 @@ function handleCallExpressionComments({
   comment,
   precedingNode,
   enclosingNode,
+  followingNode,
   options,
+  placement,
 }) {
+  if (!isCallOrNewExpression(enclosingNode)) {
+    return false;
+  }
+
+  const callee =
+    enclosingNode.callee.type === "ChainExpression"
+      ? enclosingNode.callee.expression
+      : enclosingNode.callee;
+
+  if (precedingNode !== callee) {
+    return false;
+  }
+
+  if (followingNode && followingNode === enclosingNode.typeArguments) {
+    if (placement !== "endOfLine" && isPrettierIgnoreComment(comment)) {
+      followingNode.prettierIgnore = true;
+      comment.unignore = true;
+    }
+
+    return addTrailingComment(precedingNode, comment);
+  }
+
   if (
-    isCallOrNewExpression(enclosingNode) &&
-    enclosingNode.callee === precedingNode &&
+    placement === "endOfLine" &&
     enclosingNode.arguments.length > 0 &&
     isInsideCallOrNewExpressionParentheses(enclosingNode, comment, options)
   ) {
     return addLeadingComment(enclosingNode.arguments[0], comment);
   }
+
   return false;
 }
 

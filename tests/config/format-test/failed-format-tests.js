@@ -19,7 +19,6 @@ const unstableTests = new Map(
       "typescript/method-chain/object/issue-17239.ts",
       (options) => options.objectWrap !== "collapse",
     ],
-    "typescript/call/callee-comments.ts",
     "typescript/as/comments/18160.ts",
     "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
