@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: call followed by another call - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+function f() {
+  return anObject.aFunction<AnInterface[]>(
+    \`qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\`,
+    11111111111111111111,
+  ).doSomething();
+}
+
+=====================================output=====================================
+function f() {
+    return anObject
+        .aFunction<AnInterface[]>(
+            \`qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\`,
+            11111111111111111111,
+        )
+        .doSomething();
+}
+
+================================================================================
+`;
+
+exports[`snippet: nested type arguments - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+tabWidth: 4
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+
+function f() {
+  return axios
+    .post<ApiWrapper<ApiPaginatedResults<Facility>>>(
+      "/api/url",
+      { terms: searchTerm },
+      { cancelToken, params: paginationQueryParams },
+    )
+    .then((response) => response.data.data);
+}
+
+=====================================output=====================================
+function f() {
+    return axios
+        .post<ApiWrapper<ApiPaginatedResults<Facility>>>(
+            "/api/url",
+            { terms: searchTerm },
+            { cancelToken, params: paginationQueryParams },
+        )
+        .then((response) => response.data.data);
+}
+
+================================================================================
+`;
+
+exports[`snippet: original report - {"printWidth":120,"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+singleQuote: true
+                                                                                                       printWidth: 120 |
+=====================================input======================================
+
+export class Test {
+  public test() {
+    return this.http
+      .get<SettlementStatus[]>(
+        'url so very long that will break line on 120       (we use 120 so here also)',
+        { params },
+      )
+
+      .pipe(map((statuses) => statuses.map((status) => ({ value: status }))));
+
+    return this.http
+      .get<SettlementStatus[]>(
+        'url so very long that will break line on 120       (we use 120 so here also)',
+        { params },
+      )
+      .pipe(map((statuses) => statuses.map((status) => ({ value: status }))));
+
+    return this.http
+      .get<SettlementStatus[]>(
+        'url so very long that will break line on 120       (we use 120 so here also)',
+        { params },
+      );
+  }
+}
+
+=====================================output=====================================
+export class Test {
+  public test() {
+    return this.http
+      .get<SettlementStatus[]>('url so very long that will break line on 120       (we use 120 so here also)', {
+        params,
+      })
+
+      .pipe(map((statuses) => statuses.map((status) => ({ value: status }))));
+
+    return this.http
+      .get<SettlementStatus[]>('url so very long that will break line on 120       (we use 120 so here also)', {
+        params,
+      })
+      .pipe(map((statuses) => statuses.map((status) => ({ value: status }))));
+
+    return this.http.get<SettlementStatus[]>(
+      'url so very long that will break line on 120       (we use 120 so here also)',
+      { params },
+    );
+  }
+}
+
+================================================================================
+`;
