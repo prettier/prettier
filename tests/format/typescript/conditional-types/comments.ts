@@ -115,3 +115,12 @@ T = any instanceof B
   ?/* Comment */
      B | C
     : D;
+
+type T = any extends B
+  /* Comment */
+    ? C
+    : D;
+T = any instanceof B
+  /* Comment */
+    ? C
+    : D;
