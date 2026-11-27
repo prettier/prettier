@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`not-setext-header.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+> Foo\\
+===
+
+> Foo\\
+=== bar
+
+=====================================output=====================================
+> Foo\\
+> \\===
+
+> Foo\\
+> === bar
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
