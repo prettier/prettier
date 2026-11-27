@@ -16,7 +16,7 @@ const stringIsWellFormed =
     return !loneSurrogate.test(this);
   };
 
-const isWellFormed = /* @__PURE__ */ createMethodShim(
+const isWellFormed = /* #__PURE__ */ createMethodShim(
   "isWellFormed",
   function () {
     if (typeof this === "string") {

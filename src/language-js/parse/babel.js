@@ -246,29 +246,29 @@ const allowedReasonCodesArray = [
 const allowedReasonCodes = new Set(allowedReasonCodesArray);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
-const babel = /* @__PURE__ */ createBabelParser({
+const babel = /* #__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations,
 });
-const babelTs = /* @__PURE__ */ createBabelParser({
+const babelTs = /* #__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", "typescript"]),
     appendPlugins(["typescript"]),
   ],
 });
-const babelExpression = /* @__PURE__ */ createBabelParser({
+const babelExpression = /* #__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["jsx"])],
 });
-const babelTSExpression = /* @__PURE__ */ createBabelParser({
+const babelTSExpression = /* #__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-const babelFlow = /* @__PURE__ */ createBabelParser({
+const babelFlow = /* #__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", ["flow", { all: true }], "flowComments"]),
   ],
 });
-const babelEstree = /* @__PURE__ */ createBabelParser({
+const babelEstree = /* #__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
     appendPlugins(["estree"], options),
   ),

@@ -18,7 +18,12 @@ const languages = [
       "home-assistant",
     ],
     filenames: [
-      ...data.filenames.filter((filename) => !ignoredFilenames.has(filename)),
+      ...data.filenames.filter(
+        (filename) =>
+          !ignoredFilenames.has(filename) &&
+          // `.eslintrc` can be JSONC or YAML
+          filename !== ".eslintrc",
+      ),
       ".prettierrc",
       ".stylelintrc",
       ".lintstagedrc",

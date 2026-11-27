@@ -96,4 +96,4 @@ function parse(text, options) {
   return postprocess(ast, { text });
 }
 
-export const acorn = /* @__PURE__ */ createParser(parse);
+export const acorn = /* #__PURE__ */ createParser(parse);

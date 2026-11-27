@@ -1,16 +1,11 @@
-import postcssParse from "postcss/lib/parse";
-import { parse as postcssLessParse } from "postcss-less";
-import postcssScssParse from "postcss-scss/lib/scss-parse";
+import cssParse from "postcss/lib/parse";
+import lessParse from "postcss-less/lib/less-parse";
+import scssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
 import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
-import {
-  calculateLoc,
-  locEnd,
-  locStart,
-  replaceQuotesInInlineComments,
-} from "./loc.js";
+import { calculateLoc, locEnd, locStart } from "./loc.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
@@ -22,12 +17,12 @@ import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
-function parseNestedCSS(node, options) {
+function parseNestedCSS(parse, node, options) {
   if (isObject(node)) {
     delete node.parent;
 
     for (const key in node) {
-      parseNestedCSS(node[key], options);
+      parseNestedCSS(parse, node[key], options);
     }
 
     if (!node.type) {
@@ -59,14 +54,6 @@ function parseNestedCSS(node, options) {
           );
         const fakeContent =
           replaceNonLineBreaksWithSpace(textBefore) + nodeText;
-        let parse;
-        if (options.parser === "scss") {
-          parse = parseScss;
-        } else if (options.parser === "less") {
-          parse = parseLess;
-        } else {
-          parse = parseCss;
-        }
         let ast;
         try {
           ast = parse(fakeContent, { ...options });
@@ -106,7 +93,6 @@ function parseNestedCSS(node, options) {
     }
 
     let value = "";
-
     if (typeof node.value === "string") {
       value = node.raws.value
         ? (node.raws.value.scss ?? node.raws.value.raw)
@@ -280,10 +266,15 @@ function parseNestedCSS(node, options) {
           node.params?.[0] === ":"
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
-          if (text) {
-            node.value = parseValue(text, options);
+
+          let text = node.raws.params;
+          if (text.startsWith(":")) {
+            text = text.slice(1);
+            if (text) {
+              node.value = parseValue(text, options);
+            }
           }
+
           node.raws.afterName += ":";
         }
 
@@ -399,74 +390,67 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parse, text, options) {
-  const { frontMatter, content: textToParse } = parseFrontMatter(text);
+/**
+@param {typeof cssParse} parseSyntax
+*/
+function createParser(parseSyntax) {
+  /**
+  @param {string} text
+  */
+  const parse = (text, options = {}) => {
+    const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
-  let result;
+    let result;
 
-  try {
-    result = parse(textToParse, {
-      // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
-      map: false,
-    });
-  } catch (/** @type {any} */ error) {
-    const { name, reason, line, column } = error;
-    /* c8 ignore 3 */
-    if (typeof line !== "number") {
-      throw error;
+    try {
+      result = parseSyntax(textToParse, {
+        // Prevent file access https://github.com/postcss/postcss/blob/5a8174feb01de7a1fac6ccbb4ecd3376ebb3834a/lib/previous-map.js#L28
+        map: false,
+      });
+    } catch (/** @type {any} */ error) {
+      const { name, reason, line, column } = error;
+      /* c8 ignore 3 */
+      if (typeof line !== "number") {
+        throw error;
+      }
+
+      throw createError(`${name}: ${reason}`, {
+        loc: { start: { line, column } },
+        cause: error,
+      });
     }
 
-    throw createError(`${name}: ${reason}`, {
-      loc: { start: { line, column } },
-      cause: error,
-    });
-  }
+    options.originalText = text;
+    result = parseNestedCSS(parse, addTypePrefix(result, "css-"), options);
 
-  options.originalText = text;
-  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
+    calculateLoc(result, text);
 
-  calculateLoc(result, text);
+    if (frontMatter) {
+      result.frontMatter = {
+        ...frontMatter,
+        type: "front-matter",
+        source: {
+          startOffset: frontMatter.start.index,
+          endOffset: frontMatter.end.index,
+        },
+      };
+    }
 
-  if (frontMatter) {
-    result.frontMatter = {
-      ...frontMatter,
-      type: "front-matter",
-      source: {
-        startOffset: frontMatter.start.index,
-        endOffset: frontMatter.end.index,
-      },
-    };
-  }
+    return result;
+  };
 
-  return result;
+  const parser = {
+    astFormat: "postcss",
+    hasPragma,
+    hasIgnorePragma,
+    locStart,
+    locEnd,
+    parse,
+  };
+
+  return parser;
 }
 
-function parseCss(text, options = {}) {
-  return parseWithParser(postcssParse.default, text, options);
-}
-
-function parseLess(text, options = {}) {
-  return parseWithParser(
-    // Workaround for https://github.com/shellscape/postcss-less/issues/145
-    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLessParse(replaceQuotesInInlineComments(text)),
-    text,
-    options,
-  );
-}
-
-function parseScss(text, options = {}) {
-  return parseWithParser(postcssScssParse, text, options);
-}
-
-const postCssParser = {
-  astFormat: "postcss",
-  hasPragma,
-  hasIgnorePragma,
-  locStart,
-  locEnd,
-};
-
-export const css = { ...postCssParser, parse: parseCss };
-export const less = { ...postCssParser, parse: parseLess };
-export const scss = { ...postCssParser, parse: parseScss };
+export const css = /* #__PURE__ */ createParser(cssParse);
+export const less = /* #__PURE__ */ createParser(lessParse);
+export const scss = /* #__PURE__ */ createParser(scssParse);

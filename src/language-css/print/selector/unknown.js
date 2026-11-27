@@ -17,15 +17,11 @@ function printUnknownSelector(path, options /* , print */) {
     return adjustNumbers(adjustStrings(maybeToLowerCase(node.value), options));
   }
 
-  // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
   const parentNode = path.parent;
   if (parentNode.raws?.selector) {
-    const start = locStart(parentNode);
-    const end = start + parentNode.raws.selector.length;
-    return options.originalText.slice(start, end).trim();
+    return parentNode.raws.selector.trimEnd();
   }
 
-  // Same reason above
   const grandParent = path.grandparent;
   if (
     parentNode.type === "value-paren_group" &&

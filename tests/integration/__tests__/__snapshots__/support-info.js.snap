@@ -772,7 +772,6 @@ exports[`CLI --support-info  1`] = `
         ".clang-format",
         ".clang-tidy",
         ".clangd",
-        ".eslintrc",
         ".gemrc",
         ".releaserc",
         "CITATION.cff",

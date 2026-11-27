@@ -702,19 +702,33 @@ const pluginFiles = [
   {
     input: "src/plugins/postcss.js",
     replaceModule: [
-      // The following two replacements prevent load `source-map` module
       {
         module: getPackageFile("postcss/lib/previous-map.js"),
-        text: "module.exports = class {};",
+        text: "",
       },
       {
         module: getPackageFile("postcss/lib/map-generator.js"),
-        text: "module.exports = class { generate() {} };",
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/fromJSON.js"),
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/stringify.js"),
+        text: "",
+      },
+      {
+        module: getPackageFile("postcss/lib/stringifier.js"),
+        text: "",
       },
       {
         module: getPackageFile("postcss/lib/input.js"),
-        process: (text) =>
-          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+        process(text) {
+          text = text.replace("require('url')", "{}");
+          text = text.replace("require('path')", "{}");
+          return text;
+        },
       },
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
@@ -748,7 +762,7 @@ const pluginFiles = [
         process(text) {
           text = text.replace(
             "new Set(Object.keys(QueryDocumentKeys))",
-            "/* @__PURE__ */ new Set(/* @__PURE__ */ Object.keys(QueryDocumentKeys))",
+            "/* #__PURE__ */ new Set(/* #__PURE__ */ Object.keys(QueryDocumentKeys))",
           );
           return text;
         },
