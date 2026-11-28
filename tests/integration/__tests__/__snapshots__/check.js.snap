@@ -1,9 +1,36 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`--check prints a unified diff of unformatted files  1`] = `
+{
+  "write": [],
+}
+`;
+
+exports[`--check with --log-level silent prints nothing  1`] = `
+{
+  "write": [],
+}
+`;
+
 exports[`--checks should print the number of files that need formatting  1`] = `
 {
   "stderr": "[warn] unformatted.js
+Index: unformatted.js
+===================================================================
+--- unformatted.js
++++ unformatted.js
+@@ -1,1 +1,1 @@
+-var x      =      1;
+\\ No newline at end of file
++var x = 1;
 [warn] unformatted2.js
+Index: unformatted2.js
+===================================================================
+--- unformatted2.js
++++ unformatted2.js
+@@ -1,1 +1,1 @@
+-var x      =      1;
++var x = 1;
 [warn] Code style issues found in 2 files. Run Prettier with --write to fix.",
   "stdout": "Checking formatting...",
   "write": [],
@@ -13,6 +40,14 @@ exports[`--checks should print the number of files that need formatting  1`] = `
 exports[`--checks works in CI just as in a non-TTY mode  1`] = `
 {
   "stderr": "[warn] unformatted.js
+Index: unformatted.js
+===================================================================
+--- unformatted.js
++++ unformatted.js
+@@ -1,1 +1,1 @@
+-var x      =      1;
+\\ No newline at end of file
++var x = 1;
 [warn] Code style issues found in the above file. Run Prettier with --write to fix.",
   "stdout": "Checking formatting...",
   "write": [],
@@ -22,6 +57,14 @@ exports[`--checks works in CI just as in a non-TTY mode  1`] = `
 exports[`--checks works in CI just as in a non-TTY mode  2`] = `
 {
   "stderr": "[warn] unformatted.js
+Index: unformatted.js
+===================================================================
+--- unformatted.js
++++ unformatted.js
+@@ -1,1 +1,1 @@
+-var x      =      1;
+\\ No newline at end of file
++var x = 1;
 [warn] Code style issues found in the above file. Run Prettier with --write to fix.",
   "stdout": "Checking formatting...",
   "write": [],

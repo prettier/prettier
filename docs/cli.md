@@ -82,9 +82,19 @@ Console output if some of the files require re-formatting:
 ```console
 Checking formatting...
 [warn] src/fileA.js
-[warn] src/fileB.js
-[warn] Code style issues found in 2 files. Run Prettier with --write to fix.
+Index: src/fileA.js
+===================================================================
+--- src/fileA.js
++++ src/fileA.js
+@@ -1,3 +1,3 @@
+ // TODO: rename
+-const foo = "bar"
++const foo = "bar";
+ // end
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.
 ```
+
+For each unformatted file, `--check` prints a unified diff of the changes Prettier would make, right below the `[warn]` line for that file. The diff uses the standard unified format (the same one `diff -u` produces), so it can be saved and applied with `patch` or `git apply`. Added and removed lines are colored green and red when the output stream supports colors, and the diff respects [`--log-level`](cli.md#--log-level) and `NO_COLOR`.
 
 The command will return exit code `1` in the second case, which is helpful inside the CI pipelines.
 Human-friendly status messages help project contributors react on possible problems.

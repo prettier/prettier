@@ -5,6 +5,7 @@ import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
+import { picocolorsStderr } from "./logger.js";
 import mockable from "./mockable.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import {
@@ -15,8 +16,32 @@ import {
 } from "./prettier-internal.js";
 import { normalizeToPosix, statSafe } from "./utilities.js";
 
-function diff(a, b) {
-  return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
+function diff(a, b, filename = "") {
+  return createTwoFilesPatch(filename, filename, a, b, "", "", { context: 2 });
+}
+
+// Color the diff the way `git diff` does. The `colors` instance must match
+// the stream the diff is written to (`picocolors` for stdout,
+// `picocolorsStderr` for stderr), so color support is detected per stream.
+function colorizeDiff(text, colors = picocolors) {
+  return text
+    .split("\n")
+    .map((line) => {
+      if (line.startsWith("+++") || line.startsWith("---")) {
+        return line;
+      }
+
+      if (line.startsWith("+")) {
+        return colors.green(line);
+      }
+
+      if (line.startsWith("-")) {
+        return colors.red(line);
+      }
+
+      return line;
+    })
+    .join("\n");
 }
 
 class DebugError extends Error {
@@ -105,8 +130,14 @@ async function listDifferent(context, input, options, filename) {
   }
 
   try {
-    if (!(await prettier.check(input, options)) && !context.argv.write) {
+    const formatted = await prettier.format(input, options);
+    if (formatted !== input && !context.argv.write) {
       context.logger.log(filename);
+      if (context.argv.check) {
+        context.logger.log(colorizeDiff(diff(input, formatted, filename)), {
+          newline: false,
+        });
+      }
       process.exitCode = 1;
     }
   } catch (error) {
@@ -477,6 +508,15 @@ async function formatFiles(context) {
     if (isDifferent) {
       if (context.argv.check) {
         context.logger.warn(fileNameToDisplay);
+        if (!context.argv.write) {
+          context.logger.warn(
+            colorizeDiff(
+              diff(input, output, fileNameToDisplay),
+              picocolorsStderr,
+            ),
+            { newline: false, prefix: false },
+          );
+        }
       } else if (context.argv.listDifferent) {
         context.logger.log(fileNameToDisplay);
       }
@@ -522,4 +562,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatFiles, formatStdin };
+export { colorizeDiff, formatFiles, formatStdin };

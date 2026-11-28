@@ -3,7 +3,14 @@
 exports[`--check with unknown path and no parser multiple files  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
-[warn] foo.js",
+[warn] foo.js
+Index: foo.js
+===================================================================
+--- foo.js
++++ foo.js
+@@ -1,1 +1,1 @@
+-foo  (    )
++foo();",
   "stdout": "Checking formatting...
 Error occurred when checking code style in the above file.",
 }

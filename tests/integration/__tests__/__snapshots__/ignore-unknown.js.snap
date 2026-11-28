@@ -34,7 +34,21 @@ override.as-js-file",
 exports[`ignore-unknown check  1`] = `
 {
   "stderr": "[warn] javascript.js
+Index: javascript.js
+===================================================================
+--- javascript.js
++++ javascript.js
+@@ -1,1 +1,1 @@
+-const foo=        "bar";
++const foo = "bar";
 [warn] override.as-js-file
+Index: override.as-js-file
+===================================================================
+--- override.as-js-file
++++ override.as-js-file
+@@ -1,1 +1,1 @@
+-const foo=        "bar";
++const foo = "bar";
 [warn] Code style issues found in 2 files. Run Prettier with --write to fix.",
   "stdout": "Checking formatting...",
   "write": [],
