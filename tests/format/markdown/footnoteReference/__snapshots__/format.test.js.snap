@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`raw-label.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+proseWrap: "always"
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+Entity[^a&amp;b], escape[^a\\_b], plain[^plain].
+
+[^a&amp;b]: First.
+
+[^a\\_b]: Second.
+
+[^plain]: Third.
+
+=====================================output=====================================
+Entity[^a&amp;b], escape[^a\\_b], plain[^plain].
+
+[^a&amp;b]: First.
+
+[^a\\_b]: Second.
+
+[^plain]: Third.
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
