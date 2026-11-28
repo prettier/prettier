@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-6144.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span class="mr-1">{{ 'should_outdate_translation' | i18n: 'Should outdate translations on save' | async }}:</span>
+<div><span class="label">{{ label | i18n: "A long fallback label for the translation" | async }}:</span></div>
+
+=====================================output=====================================
+<span class="mr-1">{{
+  "should_outdate_translation"
+    | i18n: "Should outdate translations on save"
+    | async
+}}:</span>
+<div
+  ><span class="label">{{
+    label | i18n: "A long fallback label for the translation" | async
+  }}:</span></div
+>
+
+================================================================================
+`;
+
+exports[`issue-6144.html - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 40
+                        printWidth: 40 |
+=====================================input======================================
+<span class="mr-1">{{ 'should_outdate_translation' | i18n: 'Should outdate translations on save' | async }}:</span>
+<div><span class="label">{{ label | i18n: "A long fallback label for the translation" | async }}:</span></div>
+
+=====================================output=====================================
+<span class="mr-1">{{
+  "should_outdate_translation"
+    | i18n
+      : "Should outdate translations on save"
+    | async
+}}:</span>
+<div>
+  <span class="label">{{
+    label
+      | i18n
+        : "A long fallback label for the translation"
+      | async
+  }}:</span>
+</div>
+
+================================================================================
+`;
+
+exports[`issue-6144.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<span class="mr-1">{{ 'should_outdate_translation' | i18n: 'Should outdate translations on save' | async }}:</span>
+<div><span class="label">{{ label | i18n: "A long fallback label for the translation" | async }}:</span></div>
+
+=====================================output=====================================
+<span class="mr-1">{{
+  "should_outdate_translation"
+    | i18n: "Should outdate translations on save"
+    | async
+}}:</span>
+<div>
+  <span class="label">{{
+    label | i18n: "A long fallback label for the translation" | async
+  }}:</span>
+</div>
+
+================================================================================
+`;
+
+exports[`spacing.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div><span>{{ label | i18n: "A long fallback label for the translation" | async }} :</span></div>
+<div><span class="label" [class.active]="active">{{ label | i18n: "A long fallback label for the translation" | async }}suffix</span></div>
+
+=====================================output=====================================
+<div
+  ><span
+    >{{
+      label | i18n: "A long fallback label for the translation" | async
+    }}
+    :</span
+  ></div
+>
+<div
+  ><span class="label" [class.active]="active">{{
+    label | i18n: "A long fallback label for the translation" | async
+  }}suffix</span></div
+>
+
+================================================================================
+`;
+
+exports[`spacing.html - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 40
+                        printWidth: 40 |
+=====================================input======================================
+<div><span>{{ label | i18n: "A long fallback label for the translation" | async }} :</span></div>
+<div><span class="label" [class.active]="active">{{ label | i18n: "A long fallback label for the translation" | async }}suffix</span></div>
+
+=====================================output=====================================
+<div>
+  <span
+    >{{
+      label
+        | i18n
+          : "A long fallback label for the translation"
+        | async
+    }}
+    :</span
+  >
+</div>
+<div>
+  <span
+    class="label"
+    [class.active]="active"
+    >{{
+      label
+        | i18n
+          : "A long fallback label for the translation"
+        | async
+    }}suffix</span
+  >
+</div>
+
+================================================================================
+`;
+
+exports[`spacing.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+<div><span>{{ label | i18n: "A long fallback label for the translation" | async }} :</span></div>
+<div><span class="label" [class.active]="active">{{ label | i18n: "A long fallback label for the translation" | async }}suffix</span></div>
+
+=====================================output=====================================
+<div>
+  <span
+    >{{
+      label | i18n: "A long fallback label for the translation" | async
+    }}
+    :</span
+  >
+</div>
+<div>
+  <span class="label" [class.active]="active">{{
+    label | i18n: "A long fallback label for the translation" | async
+  }}suffix</span>
+</div>
+
+================================================================================
+`;
