@@ -37,6 +37,10 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
 };
 
 function shouldPreserveContent(node, options) {
+  if (isScriptDataBlock(node)) {
+    return true;
+  }
+
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -138,7 +142,31 @@ function isWhitespaceSensitiveNode(node, options) {
 }
 
 function isIndentationSensitiveNode(node) {
-  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+  return isScriptDataBlock(node) || isPreLikeNode(node);
+}
+
+const indentationInsensitiveScriptTypes = new Set([
+  "module",
+  "importmap",
+  "speculationrules",
+  // ["Legacy JavaScript MIME types"](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types#textjavascript)
+  // and MIME types with charset were intentionally left off the list
+  // since there is no reason to use them, and they still work without extra indentation.
+  "text/javascript",
+]);
+
+function getScriptType(node) {
+  return node.attrs.findLast((attr) => attr.fullName.toLowerCase() === "type")
+    ?.value;
+}
+
+function isScriptDataBlock(node) {
+  if (!(node.kind === "element" && node.fullName === "script")) {
+    return false;
+  }
+
+  const type = getScriptType(node);
+  return type !== undefined && !indentationInsensitiveScriptTypes.has(type);
 }
 
 function isLeadingSpaceSensitiveNode(node, options) {
@@ -386,9 +414,10 @@ function inferScriptParser(node, options) {
     return;
   }
 
-  const { type, lang } = node.attrMap;
+  const { lang } = attrMap;
+  const type = getScriptType(node);
 
-  if (!lang && !type) {
+  if (!lang && type === undefined) {
     return "babel";
   }
 

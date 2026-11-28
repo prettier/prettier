@@ -63,16 +63,16 @@ prettier.is
     </script>
 
     <script type="unknown">
-      prettier.is
-                        .awesome(
-      )
-    </script>
+prettier.is
+                  .awesome(
+)
+</script>
 
     <script type="unknown" lang="unknown">
-      prettier.is
-                        .awesome(
-      )
-    </script>
+prettier.is
+                  .awesome(
+)
+</script>
   </body>
 </html>
 
