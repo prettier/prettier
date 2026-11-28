@@ -299,6 +299,64 @@ interface I12
 ================================================================================
 `;
 
+exports[`issue-20176.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+class OwnLine extends Base
+// own line
+<Type> {}
+
+class EndOfLine extends Base // end of line
+<Type> {}
+
+const Expression = class extends ns.Base
+// expression
+<Type> {};
+
+class Multiple extends Base
+// first
+// second
+<Type> {}
+
+class Qualified extends ns.Base // qualified
+<Type> implements Interface {}
+
+class Block extends Base /* block */ <Type> {}
+
+class BeforeBody extends Base<Type>
+// body
+{}
+
+class After extends Base<Type> {} // after
+
+=====================================output=====================================
+class OwnLine extends Base<Type> {}
+// own line
+
+class EndOfLine extends Base<Type> {} // end of line
+
+const Expression = class extends ns.Base<Type> {};
+// expression
+
+class Multiple extends Base<Type> {}
+// first
+// second
+
+class Qualified extends ns.Base<Type> implements Interface {} // qualified
+
+class Block extends Base/* block */ <Type> {}
+
+class BeforeBody extends Base<Type> {
+  // body
+}
+
+class After extends Base<Type> {} // after
+
+================================================================================
+`;
+
 exports[`misc.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
