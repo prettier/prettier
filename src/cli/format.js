@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import getStdin from "get-stdin";
@@ -149,22 +150,21 @@ async function format(context, input, opt) {
       );
     }
 
-    const ast = stringifyAst(
-      (await prettier.__debug.parse(input, opt, { massage: true })).ast,
-      2,
-    );
-    const past = stringifyAst(
-      (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
-      2,
-    );
+    const { ast } = await prettier.__debug.parse(input, opt, { massage: true });
+    const { ast: past } = await prettier.__debug.parse(pp, opt, {
+      massage: true,
+    });
 
-    /* c8 ignore start */
-    if (ast !== past) {
+    try {
+      assert.deepEqual(ast, past);
+    } catch {
+      const astString = stringifyAst(ast, 2);
+      const pastString = stringifyAst(past, 2);
       const MAX_AST_SIZE = 2097152; // 2MB
       const astDiff =
-        ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+        astString.length > MAX_AST_SIZE || pastString.length > MAX_AST_SIZE
           ? "AST diff too large to render"
-          : diff(ast, past);
+          : diff(astString, pastString);
       throw new DebugError(
         "ast(input) !== ast(prettier(input))\n" +
           astDiff +
@@ -172,7 +172,6 @@ async function format(context, input, opt) {
           diff(input, pp),
       );
     }
-    /* c8 ignore end */
 
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }

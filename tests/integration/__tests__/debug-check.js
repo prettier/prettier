@@ -63,3 +63,39 @@ describe("should not exit non-zero for jsx style element with spread attribute",
     status: 0,
   });
 });
+
+describe("compares AST values independently of property insertion order", () => {
+  runCli(
+    "cli/debug-check",
+    [
+      "--debug-check",
+      "--parser",
+      "property-order",
+      "--plugin",
+      "./plugin-property-order.cjs",
+    ],
+    { input: "formatted" },
+  ).test({
+    stdout: "(stdin)",
+    stderr: "",
+    status: 0,
+  });
+});
+
+test("still reports AST value changes", async () => {
+  const result = await runCli(
+    "cli/debug-check",
+    [
+      "--debug-check",
+      "--parser",
+      "different-value",
+      "--plugin",
+      "./plugin-property-order.cjs",
+    ],
+    { input: "formatted" },
+  );
+  expect(result.status).toBe(2);
+  expect(result.stderr).toContain("ast(input) !== ast(prettier(input))");
+  expect(result.stderr).toContain('-  "value": 1');
+  expect(result.stderr).toContain('+  "value": 2');
+});
