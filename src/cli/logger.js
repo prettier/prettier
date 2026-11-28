@@ -16,6 +16,7 @@ const isStderrColorSupported =
 // open error.log check if `[warn]` or `[debug]` is colored
 // https://github.com/prettier/prettier/issues/13097
 const picocolorsStderr = picocolors.createColors(isStderrColorSupported);
+export { picocolorsStderr };
 
 const emptyLogResult = { clear() {} };
 function createLogger(logLevel = "log") {

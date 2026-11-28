@@ -5,6 +5,7 @@ import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
+import { picocolorsStderr } from "./logger.js";
 import mockable from "./mockable.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import {
@@ -19,8 +20,10 @@ function diff(a, b, filename = "") {
   return createTwoFilesPatch(filename, filename, a, b, "", "", { context: 2 });
 }
 
-// Color the diff the way `git diff` does, when the stream supports colors
-function colorizeDiff(text) {
+// Color the diff the way `git diff` does. The `colors` instance must match
+// the stream the diff is written to (`picocolors` for stdout,
+// `picocolorsStderr` for stderr), so color support is detected per stream.
+function colorizeDiff(text, colors = picocolors) {
   return text
     .split("\n")
     .map((line) => {
@@ -29,11 +32,11 @@ function colorizeDiff(text) {
       }
 
       if (line.startsWith("+")) {
-        return picocolors.green(line);
+        return colors.green(line);
       }
 
       if (line.startsWith("-")) {
-        return picocolors.red(line);
+        return colors.red(line);
       }
 
       return line;
@@ -507,7 +510,10 @@ async function formatFiles(context) {
         context.logger.warn(fileNameToDisplay);
         if (!context.argv.write) {
           context.logger.warn(
-            colorizeDiff(diff(input, output, fileNameToDisplay)),
+            colorizeDiff(
+              diff(input, output, fileNameToDisplay),
+              picocolorsStderr,
+            ),
             { newline: false, prefix: false },
           );
         }
@@ -556,4 +562,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatFiles, formatStdin };
+export { colorizeDiff, formatFiles, formatStdin };
