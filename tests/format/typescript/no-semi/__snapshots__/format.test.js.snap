@@ -1,5 +1,166 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`issue-14149.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+export declare function b();
+
+{
+  alert()
+}
+
+for (;;) function c();
+{}
+
+if (x) function d();
+{}
+
+if (x) function e();
+else {}
+
+declare function f();
+const y = 1;
+
+declare module "bar";
+;
+{}
+
+=====================================output=====================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+export declare function b();
+
+{
+  alert()
+}
+
+for (;;) function c();
+{
+}
+
+if (x) function d();
+{
+}
+
+if (x) function e()
+else {
+}
+
+declare function f()
+const y = 1
+
+declare module "bar";
+{
+}
+
+================================================================================
+`;
+
+exports[`issue-14149.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "autoprefixer";
+
+{
+  alert()
+}
+
+declare function a();
+
+{
+  alert()
+}
+
+export declare function b();
+
+{
+  alert()
+}
+
+for (;;) function c();
+{}
+
+if (x) function d();
+{}
+
+if (x) function e();
+else {}
+
+declare function f();
+const y = 1;
+
+declare module "bar";
+;
+{}
+
+=====================================output=====================================
+declare module "autoprefixer";
+
+{
+  alert();
+}
+
+declare function a();
+
+{
+  alert();
+}
+
+export declare function b();
+
+{
+  alert();
+}
+
+for (;;) function c();
+{
+}
+
+if (x) function d();
+{
+}
+
+if (x) function e();
+else {
+}
+
+declare function f();
+const y = 1;
+
+declare module "bar";
+{
+}
+
+================================================================================
+`;
+
 exports[`no-semi.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

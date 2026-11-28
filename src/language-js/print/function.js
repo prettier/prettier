@@ -1,5 +1,6 @@
 import * as assert from "#universal/assert";
 import { group } from "../../document/index.js";
+import { isFollowedByBlockStatement } from "../semicolon/semicolon.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
@@ -86,7 +87,10 @@ function printFunction(path, options, print, args) {
     ]),
     node.body ? " " : "",
     print("body"),
-    node.declare || !node.body ? printSemicolon(options) : "",
+    (node.declare || !node.body) &&
+    (options.semi || isFollowedByBlockStatement(path))
+      ? ";"
+      : "",
   ];
 }
 

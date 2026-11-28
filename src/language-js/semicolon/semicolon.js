@@ -151,7 +151,60 @@ function isSingleVueEventBindingExpressionStatement(path, options) {
   );
 }
 
+function isFollowedByBlockStatement(path) {
+  const { stack } = path;
+  for (let i = stack.length - 1; i >= 2; i -= 2) {
+    const parentOrArray = stack[i - 2];
+    const key = stack[i - 1];
+
+    if (Array.isArray(parentOrArray)) {
+      const parent = stack[i - 4];
+      const prop = stack[i - 3];
+      if (
+        (prop === "body" &&
+          (parent.type === "Program" ||
+            parent.type === "BlockStatement" ||
+            parent.type === "StaticBlock" ||
+            parent.type === "TSModuleBlock")) ||
+        (prop === "consequent" && parent.type === "SwitchCase")
+      ) {
+        for (let j = key + 1; j < parentOrArray.length; j++) {
+          const next = parentOrArray[j];
+          if (next.type !== "EmptyStatement") {
+            return next.type === "BlockStatement";
+          }
+        }
+      }
+      return false;
+    }
+
+    if (
+      (key === "body" &&
+        (parentOrArray.type === "ForStatement" ||
+          parentOrArray.type === "ForInStatement" ||
+          parentOrArray.type === "ForOfStatement" ||
+          parentOrArray.type === "WhileStatement" ||
+          parentOrArray.type === "WithStatement" ||
+          parentOrArray.type === "LabeledStatement")) ||
+      (key === "consequent" &&
+        parentOrArray.type === "IfStatement" &&
+        !parentOrArray.alternate) ||
+      (key === "alternate" && parentOrArray.type === "IfStatement") ||
+      (key === "declaration" &&
+        (parentOrArray.type === "ExportNamedDeclaration" ||
+          parentOrArray.type === "ExportDefaultDeclaration"))
+    ) {
+      continue;
+    }
+
+    return false;
+  }
+
+  return false;
+}
+
 export {
+  isFollowedByBlockStatement,
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
