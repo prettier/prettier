@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`media-query.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "less", "scss"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+@media screen and (min-width:100px) {
+  @media (max-width:400px) {
+		.test-rule {
+		}
+	}
+}
+
+=====================================output=====================================
+@media screen and (min-width: 100px) {
+  @media (max-width: 400px) {
+    .test-rule {
+    }
+  }
+}
+
+================================================================================
+`;
