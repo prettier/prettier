@@ -5,6 +5,7 @@ import {
   indent,
   line,
   lineSuffixBoundary,
+  removeLines,
   softline,
 } from "../../../document/index.js";
 import { locEnd } from "../../loc.js";
@@ -59,6 +60,7 @@ function printCssAtrule(path, options, print) {
               ]),
             ]
           : "",
+        node.selector ? removeLines(print("selector")) : "",
         between ? between + (node.nodes ? " " : "") : "",
         node.nodes
           ? [

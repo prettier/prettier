@@ -15,6 +15,16 @@ import isScssNestedPropertyNode from "./utilities/is-scss-nested-property-node.j
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
+function parseLessVariableValue(node, value, options) {
+  const text = value.trim();
+  if (text.startsWith("&")) {
+    node.selector = parseSelector(text);
+    delete node.value;
+  } else {
+    node.value = parseValue(value, options);
+  }
+}
+
 function parseNestedCSS(parse, node, options) {
   // Custom properties looks like declarations
   if (
@@ -161,7 +171,11 @@ function parseNestedCSS(parse, node, options) {
       };
     }
 
-    node.value = parseValue(value, options);
+    if (options.parser === "less" && node.variable) {
+      parseLessVariableValue(node, value, options);
+    } else {
+      node.value = parseValue(value, options);
+    }
   }
 
   // Clean spaces in between `+` and `:`
@@ -240,7 +254,7 @@ function parseNestedCSS(parse, node, options) {
           value += node.params;
         }
 
-        node.value = parseValue(value, options);
+        parseLessVariableValue(node, value, options);
       }
 
       // `@color :blue;`
@@ -254,7 +268,7 @@ function parseNestedCSS(parse, node, options) {
         if (text.startsWith(":")) {
           text = text.slice(1);
           if (text) {
-            node.value = parseValue(text, options);
+            parseLessVariableValue(node, text, options);
           }
         }
 

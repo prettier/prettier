@@ -2,8 +2,10 @@ import { group, hardline, join, line } from "../../../document/index.js";
 import { insideAtRuleNode } from "../../utilities/index.js";
 
 function printSelectorRoot(path, options, print) {
+  const isLessVariable =
+    path.parent.type === "css-atrule" && path.parent.variable;
   return group([
-    insideAtRuleNode(path, "custom-selector")
+    !isLessVariable && insideAtRuleNode(path, "custom-selector")
       ? [
           path.findAncestor((node) => node.type === "css-atrule")
             .customSelector,
@@ -13,6 +15,7 @@ function printSelectorRoot(path, options, print) {
     join(
       [
         ",",
+        isLessVariable ||
         insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
           ? line
           : hardline,
