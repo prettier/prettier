@@ -187,7 +187,7 @@ function printMdast(path, options, print) {
             "](",
             options.parser !== "mdx" && node.url === ""
               ? "<>"
-              : printUrl(node.url, false),
+              : printUrl(node.url),
             printTitle(node.title, options),
             ")",
           ];
@@ -202,9 +202,7 @@ function printMdast(path, options, print) {
         "![",
         printImageAlt(node, options),
         "](",
-        options.parser !== "mdx" && node.url === ""
-          ? "<>"
-          : printUrl(node.url, false),
+        options.parser !== "mdx" && node.url === "" ? "<>" : printUrl(node.url),
         printTitle(node.title, options),
         ")",
       ];
@@ -282,7 +280,7 @@ function printMdast(path, options, print) {
           lineOrSpace,
           options.parser !== "mdx" && node.url === ""
             ? "<>"
-            : printUrl(node.url, true),
+            : printUrl(node.url),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
@@ -458,10 +456,9 @@ const escapeCharacterReferences = (value) =>
 
 /**
  * @param {string} url
- * @param {boolean} unwrapBalancedParens
  * @returns {string}
  */
-function printUrl(url, unwrapBalancedParens) {
+function printUrl(url) {
   // Backslash followed by ASCII punctuation would be misinterpreted as an
   // escape sequence, so must itself be escaped.
   url = url.replaceAll(/\\(?![^!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "\\\\");
@@ -475,9 +472,7 @@ function printUrl(url, unwrapBalancedParens) {
   if (
     // eslint-disable-next-line no-control-regex
     /[\x00-\x1f\x7f ]|^</.test(url) ||
-    (unwrapBalancedParens
-      ? !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
-      : /[()]/.test(url))
+    !/^(?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*$/.test(url)
   ) {
     url = `<${url.replaceAll(/([<>])/g, String.raw`\$1`)}>`;
   }
