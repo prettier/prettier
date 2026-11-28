@@ -26,7 +26,11 @@ const CURSOR = Symbol("cursor");
 
 async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
-    return { formatted: "", cursorOffset: -1, comments: [] };
+    return {
+      formatted: "",
+      cursorOffset: opts.cursorOffset >= 0 ? 0 : -1,
+      comments: [],
+    };
   }
 
   const { ast, text } = await parseText(originalText, opts);
@@ -355,7 +359,10 @@ async function formatWithCursor(originalText, originalOptions) {
   if (hasBom) {
     result.formatted = addBom(result.formatted);
 
-    if (result.cursorOffset >= 0) {
+    if (originalOptions.cursorOffset === 0) {
+      // Removing the BOM temporarily disables tracking for a cursor before it.
+      result.cursorOffset = 0;
+    } else if (result.cursorOffset >= 0) {
       result.cursorOffset++;
     }
   }
