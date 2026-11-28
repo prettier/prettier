@@ -44,3 +44,11 @@ describe("--list-different works in CI just as in a non-TTY mode", () => {
     expect(await result0.stdout).toBe(await result1.stdout);
   });
 });
+
+describe("--list-different only prints file names, no diff", () => {
+  runCli("cli/write", ["--list-different", "unformatted.js"]).test({
+    status: 1,
+    stdout: "unformatted.js",
+    stderr: "",
+  });
+});

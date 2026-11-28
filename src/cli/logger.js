@@ -40,10 +40,12 @@ function createLogger(logLevel = "log") {
       options = {
         newline: true,
         clearable: false,
+        prefix: true,
         ...options,
       };
       message =
-        message.replaceAll(/^/gm, prefix) + (options.newline ? "\n" : "");
+        (options.prefix ? message.replaceAll(/^/gm, prefix) : message) +
+        (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {
